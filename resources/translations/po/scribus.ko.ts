@@ -46,6 +46,7 @@ May raise ValueError if an invalid color name is specified.
 Changes the color &quot;name&quot; to the specified CMYK value. The color value is
 defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
 Color components should be in the range from 0 to 255.
+Note : deprecated, use changeColorCMYK() instead.
 
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
@@ -53,8 +54,47 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="70"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="71"/>
+        <source>changeColorCMYK(&quot;name&quot;, c, m, y, k)
+
+Changes the color &quot;name&quot; to the specified CMYK value. The color value is
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="85"/>
+        <source>changeColorRGB(&quot;name&quot;, r, g, b)
+
+Changes the color &quot;name&quot; to the specified RGB value. The color value is
+defined via three components r = red, g = green, b = blue.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="99"/>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+Note : deprecated, use defineColorCMYK() instead.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="113"/>
+        <source>defineColorCMYK(&quot;name&quot;, c, m, y, k)
 
 Defines a new color &quot;name&quot;. The color Value is defined via four components:
 c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
@@ -65,7 +105,19 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="83"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="126"/>
+        <source>defineColorRGB(&quot;name&quot;, r, g, b)
+
+Defines a new color &quot;name&quot;. The color Value is defined via three components:
+r = red, g = green, b = blue. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="139"/>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
 Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
@@ -81,7 +133,7 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="100"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="156"/>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
 Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
@@ -92,7 +144,7 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="113"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="169"/>
         <source>isSpotColor(&quot;name&quot;) -&gt; bool
 
 Returns True if the color &quot;name&quot; is a spot color.
@@ -104,7 +156,7 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="128"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.h" line="184"/>
         <source>setSpotColor(&quot;name&quot;, spot)
 
 Set the color &quot;name&quot; as a spot color if spot parameter is True.
@@ -463,6 +515,14 @@ Delete the named master page.
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="17"/>
+        <source>getObjectType([&quot;name&quot;]) -&gt; string
+
+Get type of object &quot;name&quot; as a string.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="26"/>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
 
 Returns the name of the fill color of the object &quot;name&quot;.
@@ -471,7 +531,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="27"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="36"/>
         <source>getFillTransparency([&quot;name&quot;]) -&gt; float
 
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
@@ -480,7 +540,7 @@ is not given the currently selected Item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="37"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="46"/>
         <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
 
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
@@ -489,7 +549,7 @@ is not given the currently selected Item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="47"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="56"/>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
 
 Returns the name of the line color of the object &quot;name&quot;.
@@ -498,7 +558,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="57"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="66"/>
         <source>getLineTransparency([&quot;name&quot;]) -&gt; float
 
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
@@ -507,7 +567,7 @@ is not given the currently selected Item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="67"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="76"/>
         <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
 
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
@@ -516,7 +576,7 @@ is not given the currently selected Item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="77"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="86"/>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
 
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
@@ -525,7 +585,7 @@ is not given the currently selected Item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="87"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="96"/>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
 
 Returns the shading value of the line color of the object &quot;name&quot;.
@@ -534,7 +594,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="97"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="106"/>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
 
 Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
@@ -544,7 +604,7 @@ JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="108"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="117"/>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
 
 Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
@@ -554,7 +614,7 @@ CAP_FLAT, CAP_ROUND, CAP_SQUARE
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="119"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="128"/>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
 
 Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
@@ -564,7 +624,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="130"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="139"/>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
 
 Returns the shading value of the fill color of the object &quot;name&quot;.
@@ -573,7 +633,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="140"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="149"/>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
 
 Returns the corner radius of the object &quot;name&quot;. The radius is
@@ -583,7 +643,7 @@ selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="151"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="160"/>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
 
 Returns a (x, y) tuple containing the scaling values of the image frame
@@ -592,7 +652,7 @@ Returns a (x, y) tuple containing the scaling values of the image frame
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="161"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="170"/>
         <source>getImageName([&quot;name&quot;]) -&gt; string
 
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
@@ -601,7 +661,7 @@ given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="171"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="180"/>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
 
 Returns a (x, y) tuple with the position of the object &quot;name&quot;.
@@ -612,7 +672,7 @@ The position is expressed in the actual measurement unit of the document
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="183"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="192"/>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
 
 Returns a (width, height) tuple with the size of the object &quot;name&quot;.
@@ -623,7 +683,7 @@ for reference.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="195"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="204"/>
         <source>getRotation([&quot;name&quot;]) -&gt; integer
 
 Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
@@ -633,7 +693,7 @@ is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="206"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="215"/>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
@@ -834,6 +894,19 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="173"/>
+        <source>setImageOffset(x, y [, &quot;name&quot;])
+
+Sets the position of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The specified offset values are equal to the values shown on 
+properties palette when point unit is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="187"/>
         <source>setImageScale(x, y [, &quot;name&quot;])
 
 Sets the scaling factors of the picture in the image frame &quot;name&quot;.
@@ -845,7 +918,30 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="186"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="200"/>
+        <source>setImageBrightness(n [, &quot;name&quot;])
+
+Set image brightness effect of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %. Brightness factor is equal to the value shown on properties palette.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="213"/>
+        <source>setImageGrayscale([&quot;name&quot;])
+
+Set image grayscale effect of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="225"/>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
 
 Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
@@ -855,7 +951,7 @@ if locked.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="197"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="236"/>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
 
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
@@ -864,7 +960,7 @@ currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="206"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.h" line="245"/>
         <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
 
 Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
@@ -1148,6 +1244,14 @@ May raise ValueError if the layer name isn&apos;t acceptable.
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="317"/>
+        <source>fileQuit()
+
+Quit Scribus.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="326"/>
         <source>getGuiLanguage() -&gt; string
 
 Returns a string with the -lang value.
@@ -1155,7 +1259,7 @@ Returns a string with the -lang value.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="326"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="335"/>
         <source>moveSelectionToFront()
 
 Moves current selection to front.
@@ -1163,7 +1267,7 @@ Moves current selection to front.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="335"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="344"/>
         <source>moveSelectionToFront()
 
 Moves current selection to back.
@@ -2278,6 +2382,17 @@ Scroll the document in main GUI window by x and y.
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="15"/>
+        <source>placeVectorFile(&quot;filename&quot;, x, y)
+
+Places the Vectorgrapics &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the graphic placed on the page
+
+If loading was successful, the selection contains the imported grapic
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="27"/>
         <source>placeSVG(&quot;filename&quot;, x, y)
 
 Places the SVG &quot;filename&quot; onto the current page,
@@ -2288,7 +2403,7 @@ If loading was successful, the selection contains the imported SVG
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="27"/>
+        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="39"/>
         <source>placeEPS(&quot;filename&quot;, x, y)
 
 Places the EPS &quot;filename&quot; onto the current page,
@@ -2299,7 +2414,7 @@ If loading was successful, the selection contains the imported EPS
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="39"/>
+        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="51"/>
         <source>placeSXD(&quot;filename&quot;, x, y)
 
 Places the SXD &quot;filename&quot; onto the current page,
@@ -2310,7 +2425,7 @@ If loading was successful, the selection contains the imported SXD
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="51"/>
+        <location filename="../../../scribus/plugins/scriptplugin/svgimport.h" line="63"/>
         <source>placeODG(&quot;filename&quot;, x, y)
 
 Places the ODG &quot;filename&quot; onto the current page,
@@ -2324,23 +2439,23 @@ If loading was successful, the selection contains the imported ODG
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="310"/>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="403"/>
         <source>Importing: %1</source>
         <translation>읽어오는 중: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="313"/>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="406"/>
         <source>Analyzing File:</source>
         <translation>파일 분석 중:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="219"/>
-        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="477"/>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="223"/>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="574"/>
         <source>Group%1</source>
         <translation>그룹 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="2779"/>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="3206"/>
         <source>Generating Items</source>
         <translation>항목 생성 중</translation>
     </message>
@@ -2383,37 +2498,37 @@ If loading was successful, the selection contains the imported ODG
         <translation>소개(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="297"/>
+        <location filename="../../../scribus/ui/about.cpp" line="298"/>
         <source>Development Team:</source>
         <translation>개발팀:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="305"/>
+        <location filename="../../../scribus/ui/about.cpp" line="306"/>
         <source>Contributions from:</source>
         <translation>기여:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="299"/>
+        <location filename="../../../scribus/ui/about.cpp" line="300"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Mac OS&amp;#174; X Aqua 포트:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="303"/>
+        <location filename="../../../scribus/ui/about.cpp" line="304"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>윈도우&amp;#174; 포트:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="307"/>
+        <location filename="../../../scribus/ui/about.cpp" line="308"/>
         <source>Official Documentation:</source>
         <translation>공식 문서:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="311"/>
+        <location filename="../../../scribus/ui/about.cpp" line="312"/>
         <source>Other Documentation:</source>
         <translation>기타 문서:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="317"/>
+        <location filename="../../../scribus/ui/about.cpp" line="318"/>
         <source>Tango Project Icons:</source>
         <translation>탕고 프로젝트 아이콘:</translation>
     </message>
@@ -2423,12 +2538,12 @@ If loading was successful, the selection contains the imported ODG
         <translation>저작자(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="329"/>
+        <location filename="../../../scribus/ui/about.cpp" line="330"/>
         <source>Official Translations and Translators:</source>
         <translation>공식 번역 및 번역자:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="331"/>
+        <location filename="../../../scribus/ui/about.cpp" line="332"/>
         <source>Previous Translation Contributors:</source>
         <translation>이전 번역 기여자:</translation>
     </message>
@@ -2438,27 +2553,27 @@ If loading was successful, the selection contains the imported ODG
         <translation>번역(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="345"/>
+        <location filename="../../../scribus/ui/about.cpp" line="346"/>
         <source>Homepage</source>
         <translation>홈페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="347"/>
+        <location filename="../../../scribus/ui/about.cpp" line="348"/>
         <source>Online Reference</source>
         <translation>온라인 참고자료</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="349"/>
+        <location filename="../../../scribus/ui/about.cpp" line="350"/>
         <source>Wiki</source>
         <translation>위키</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="351"/>
+        <location filename="../../../scribus/ui/about.cpp" line="352"/>
         <source>Bugs and Feature Requests</source>
         <translation>버그 및 특성 요청</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="355"/>
+        <location filename="../../../scribus/ui/about.cpp" line="356"/>
         <source>Mailing List</source>
         <translation>메일링 목록</translation>
     </message>
@@ -2483,12 +2598,12 @@ If loading was successful, the selection contains the imported ODG
         <translation>Scribus 업데이트 체크. 여러분의 컴퓨터 정보를 전송하지 않습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="301"/>
+        <location filename="../../../scribus/ui/about.cpp" line="302"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>OS/2&amp;#174;/eComStation&amp;#8482; 포트:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="315"/>
+        <location filename="../../../scribus/ui/about.cpp" line="316"/>
         <source>Splash Screen:</source>
         <translation>시동 화면:</translation>
     </message>
@@ -2524,17 +2639,17 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <location filename="../../../scribus/ui/about.cpp" line="233"/>
-        <location filename="../../../scribus/ui/about.cpp" line="649"/>
+        <location filename="../../../scribus/ui/about.cpp" line="650"/>
         <source>Check for Updates</source>
         <translation>업데이트 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="647"/>
+        <location filename="../../../scribus/ui/about.cpp" line="648"/>
         <source>Abort Update Check</source>
         <translation>업데이트 체크 취소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="353"/>
+        <location filename="../../../scribus/ui/about.cpp" line="354"/>
         <source>Developer Blog</source>
         <translation>개발자 블로그</translation>
     </message>
@@ -2549,19 +2664,19 @@ If loading was successful, the selection contains the imported ODG
         <translation>라이센스 파일을 열 수 없습니다. 라이센스 정보는 설치 폴더 또는 Scribus 웹사이트를 체크하세요.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="309"/>
+        <location filename="../../../scribus/ui/about.cpp" line="310"/>
         <source>Doc Translators:</source>
         <translation>문서 번역자:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="313"/>
+        <location filename="../../../scribus/ui/about.cpp" line="314"/>
         <source>Webmasters:</source>
         <translation>웹 마스터:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="447"/>
-        <location filename="../../../scribus/ui/about.cpp" line="559"/>
-        <location filename="../../../scribus/ui/about.cpp" line="625"/>
+        <location filename="../../../scribus/ui/about.cpp" line="448"/>
+        <location filename="../../../scribus/ui/about.cpp" line="560"/>
+        <location filename="../../../scribus/ui/about.cpp" line="626"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>파일 %1을 열 수 없습니다. %1 정보를 위하여 설치 폴더 또는 Scribus 웹사이트를 체크하세요.</translation>
     </message>
@@ -2617,1385 +2732,1404 @@ If loading was successful, the selection contains the imported ODG
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1263"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1274"/>
         <source>&amp;New</source>
         <translation>새로(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1265"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1276"/>
         <source>&amp;Open...</source>
         <translation>열기(&amp;O)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1266"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1277"/>
         <source>&amp;Close</source>
         <translation>닫기(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1267"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1278"/>
         <source>&amp;Save</source>
         <translation>저장(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1268"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1279"/>
         <source>Save &amp;As...</source>
         <translation>다른 이름으로 저장(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1269"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1280"/>
         <source>Re&amp;vert to Saved</source>
         <translation>이전 파일로 복원(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1270"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1281"/>
         <source>Collect for O&amp;utput...</source>
         <translation>작업 폴더 지정(&amp;U)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1271"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1282"/>
         <source>Get Text...</source>
         <translation>문자열 파일 읽어오기...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1272"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1283"/>
         <source>Append &amp;Text...</source>
         <translation>문자열 첨부하기(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1273"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1284"/>
         <source>Get Image...</source>
         <translation>이미지 파일 얻기...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1276"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1287"/>
         <source>Save &amp;Text...</source>
         <translation>문자열 저장(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1277"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1288"/>
         <source>Save as &amp;EPS...</source>
         <translation>EPS로 저장(&amp;E)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1278"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1289"/>
         <source>Save as P&amp;DF...</source>
         <translation>PDF로 저장(&amp;D)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1279"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1290"/>
         <source>Document &amp;Setup...</source>
         <translation>문서 설정(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1280"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1291"/>
+        <source>Document &amp;Setup 150...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/actionmanager.cpp" line="1292"/>
         <source>P&amp;references...</source>
         <translation>기본 설정(&amp;R)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1281"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
         <source>P&amp;references 150...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1282"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1294"/>
         <source>&amp;Print...</source>
         <translation>인쇄(&amp;P)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1283"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
         <source>Print Previe&amp;w</source>
         <translation>인쇄 미리보기(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1284"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1296"/>
         <source>&amp;Quit</source>
         <translation>종료(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1286"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1298"/>
         <source>&amp;Undo</source>
         <translation>이전으로(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1287"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1299"/>
         <source>&amp;Redo</source>
         <translation>재실행(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1288"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1300"/>
         <source>&amp;Item Action Mode</source>
         <translation>객체 작업 모드(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1289"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1301"/>
         <source>Cu&amp;t</source>
         <translation>잘라내기(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1290"/>
-        <location filename="../../../scribus/actionmanager.cpp" line="1292"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1302"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1304"/>
         <source>&amp;Copy</source>
         <translation>복사(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1291"/>
-        <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1303"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1305"/>
         <source>&amp;Paste</source>
         <translation>붙여넣기(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1294"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1306"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>붙여넣기(절대)(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1307"/>
         <source>C&amp;lear</source>
         <translation>지우기(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1296"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1308"/>
         <source>Select &amp;All</source>
         <translation>전체 선택(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1298"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1310"/>
         <source>&amp;Deselect All</source>
         <translation>전체 선택 해제(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1299"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1311"/>
         <source>&amp;Search/Replace...</source>
         <translation>찾기/치환(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1300"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1312"/>
         <source>Edit Image...</source>
         <translation>이미지 편집...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1302"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1314"/>
         <source>C&amp;olors...</source>
         <translation>색상(&amp;O)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1304"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1316"/>
         <source>Patterns...</source>
         <translation>패턴...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1305"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1317"/>
         <source>Gradients...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1306"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1318"/>
         <source>S&amp;tyles...</source>
         <translation>스타일(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1307"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1319"/>
         <source>&amp;Master Pages...</source>
         <translation>마스터 페이지(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1308"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1320"/>
         <source>&amp;JavaScripts...</source>
         <translation>자바스크립트(&amp;J)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1315"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1327"/>
         <source>%1 pt</source>
         <translation>%1 포인트</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1317"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1329"/>
         <source>&amp;Other...</source>
         <translation>기타(&amp;O)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1318"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1330"/>
         <source>&amp;Left</source>
         <translation>왼쪽(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1319"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1331"/>
         <source>&amp;Center</source>
         <translation>중앙(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1320"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1332"/>
         <source>&amp;Right</source>
         <translation>오른쪽(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1321"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1333"/>
         <source>&amp;Block</source>
         <translation>블록(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1322"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1334"/>
         <source>&amp;Forced</source>
         <translation>강제(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1333"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1345"/>
         <source>&amp;Normal</source>
         <translation>일반(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1334"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1346"/>
         <source>&amp;Underline</source>
         <translation>밑줄(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1335"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1347"/>
         <source>Underline &amp;Words</source>
         <translation>단어 밑줄(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1336"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1348"/>
         <source>&amp;Strike Through</source>
         <translation>취소선(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1337"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1349"/>
         <source>&amp;All Caps</source>
         <translation>대문자(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1338"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1350"/>
         <source>Small &amp;Caps</source>
         <translation>소문자(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1339"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1351"/>
         <source>Su&amp;perscript</source>
         <translation>윗첨자(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1340"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1352"/>
         <source>Su&amp;bscript</source>
         <translation>아래첨자(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1341"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1353"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>윤곽선(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1342"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1354"/>
         <source>S&amp;hadow</source>
         <translation>음영(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1344"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1356"/>
         <source>&amp;Image Effects</source>
         <translation>이미지 효과(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1345"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1357"/>
         <source>&amp;Tabulators...</source>
         <translation>탭키 설정(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1348"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1360"/>
         <source>D&amp;uplicate</source>
         <translation>복제(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1349"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1361"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>다수 객체 복제(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1350"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1362"/>
         <source>&amp;Delete</source>
         <translation>삭제(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1351"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1363"/>
         <source>&amp;Group</source>
         <translation>그룹(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1352"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1364"/>
         <source>&amp;Ungroup</source>
         <translation>그룹 해제(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1353"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1365"/>
         <source>Is &amp;Locked</source>
         <translation>잠김(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1354"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1366"/>
         <source>Si&amp;ze is Locked</source>
         <translation>크기 잠금(&amp;Z)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1355"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1367"/>
         <source>&amp;Printing Enabled</source>
         <translation>인쇄 가능(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1356"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
         <source>&amp;Flip Horizontally</source>
         <translation>수평 뒤집기(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1357"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
         <source>&amp;Flip Vertically</source>
         <translation>수직 뒤집기(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1358"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1370"/>
         <source>Lower to &amp;Bottom</source>
         <translation>끝으로 이동(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1359"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1371"/>
         <source>Raise to &amp;Top</source>
         <translation>처음으로 이동(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1360"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1372"/>
         <source>&amp;Lower</source>
         <translation>아래로 이동(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1361"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1373"/>
         <source>&amp;Raise</source>
         <translation>위로 이동(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1362"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1374"/>
         <source>Send to S&amp;crapbook</source>
         <translation>스크랩북으로 보내기(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1363"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1375"/>
         <source>Send to Patterns</source>
         <translation>패턴으로 보내기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1364"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1376"/>
         <source>&amp;Attributes...</source>
         <translation>속성(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1365"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1377"/>
         <source>More Info...</source>
         <translation>더 많은 정보...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1366"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1378"/>
         <source>I&amp;mage Visible</source>
         <translation>이미지 보이기(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1367"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1379"/>
         <source>&amp;Update Image</source>
         <translation>이미지 업데이트(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1380"/>
         <source>Adjust Frame to Image</source>
         <translation>프레임을 이미지에 맞추기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1370"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1382"/>
+        <source>Embed Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/actionmanager.cpp" line="1383"/>
         <source>Extended Image Properties</source>
         <translation>확장 이미지 속성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1371"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1384"/>
         <source>&amp;Low Resolution</source>
         <translation>저 해상도(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1372"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
         <source>&amp;Normal Resolution</source>
         <translation>일반 해상도(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1373"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1386"/>
         <source>&amp;Full Resolution</source>
         <translation>최대 해상도(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1374"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1387"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>PDF 책갈피(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1375"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1388"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>PDF 주석(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1376"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1389"/>
         <source>Annotation P&amp;roperties</source>
         <translation>주석 속성(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1377"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1390"/>
         <source>Field P&amp;roperties</source>
         <translation>필드 속성(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1378"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1391"/>
         <source>&amp;Edit Shape...</source>
         <translation>모양 편집(&amp;E)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1379"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1392"/>
         <source>&amp;Attach Text to Path</source>
         <translation>문자열을 경로로 붙이기(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1380"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1393"/>
         <source>&amp;Detach Text from Path</source>
         <translation>경로에서 문자열 분리하기(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1381"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1394"/>
         <source>&amp;Combine Polygons</source>
         <translation>다각형 결합(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1382"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1395"/>
         <source>Split &amp;Polygons</source>
         <translation>다각형 분리(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1383"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1396"/>
         <source>&amp;Bezier Curve</source>
         <translation>베지어선(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1384"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1397"/>
         <source>&amp;Image Frame</source>
         <translation>이미지 프레임(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1398"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>윤곽선(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1386"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1399"/>
         <source>&amp;Polygon</source>
         <translation>다각형(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1387"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1400"/>
         <source>&amp;Text Frame</source>
         <translation>문자열 프레임(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1390"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1403"/>
         <source>&amp;Frame...</source>
         <translation>프레임(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1391"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1404"/>
         <source>&amp;Glyph...</source>
         <translation>사용자 문자표(&amp;G)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1392"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1405"/>
         <source>Sample Text</source>
         <translation>샘플 문자열</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1396"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1409"/>
         <source>&amp;Insert...</source>
         <translation>삽입(&amp;I)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1397"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1410"/>
         <source>Im&amp;port...</source>
         <translation>읽어오기(&amp;P)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1398"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1411"/>
         <source>&amp;Delete...</source>
         <translation>삭제(&amp;D)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1399"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1412"/>
         <source>&amp;Copy...</source>
         <translation>복사(&amp;C)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1400"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1413"/>
         <source>&amp;Move...</source>
         <translation>이동(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1401"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1414"/>
         <source>&amp;Apply Master Page...</source>
         <translation>마스터 페이지 적용(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1402"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1415"/>
         <source>Convert to Master Page...</source>
         <translation>마스터 페이지로 변환...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1403"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1416"/>
         <source>Manage &amp;Guides...</source>
         <translation>안내선 설정(&amp;G)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1404"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
         <source>Manage Page Properties...</source>
         <translation>페이지 속성 설정...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1409"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1422"/>
         <source>&amp;50%</source>
         <translation>50%(&amp;5)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1410"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1423"/>
         <source>&amp;75%</source>
         <translation>75%(&amp;7)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1411"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1424"/>
         <source>&amp;100%</source>
         <translation>100%(&amp;1)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1412"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1425"/>
         <source>&amp;200%</source>
         <translation>200%(&amp;2)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1414"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1427"/>
         <source>Preview Mode</source>
         <translation>이전 모드</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1415"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1428"/>
         <source>Show &amp;Margins</source>
         <translation>여백 보이기(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1430"/>
         <source>Show &amp;Frames</source>
         <translation>프레임 보이기(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1418"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1431"/>
         <source>Show Layer Indicators</source>
         <translation>레이어 지시자 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1419"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1432"/>
         <source>Show &amp;Images</source>
         <translation>이미지 보이기(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1420"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1433"/>
         <source>Show &amp;Grid</source>
         <translation>격자 보이기(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1421"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1434"/>
         <source>Show G&amp;uides</source>
         <translation>안내선 보이기(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1422"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1435"/>
         <source>Show Text Frame Columns</source>
         <translation>문자열 프레임 열 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1423"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1436"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>기준선 격자 보이기(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1424"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1437"/>
         <source>Show &amp;Text Chain</source>
         <translation>문자열 링크 체인 보이기(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1425"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1438"/>
         <source>Show Control Characters</source>
         <translation>제어문자 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1426"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1439"/>
         <source>Show Rulers</source>
         <translation>눈금자 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1428"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1441"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>격자에 붙이기(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1429"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1442"/>
         <source>Sna&amp;p to Guides</source>
         <translation>안내선에 붙이기(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1434"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1447"/>
         <source>&amp;Properties</source>
         <translation>속성(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1435"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1448"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>윤곽선(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1436"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1449"/>
         <source>&amp;Scrapbook</source>
         <translation>스크랩북(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1437"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1450"/>
         <source>&amp;Layers</source>
         <translation>레이어(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1438"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1451"/>
         <source>&amp;Arrange Pages</source>
         <translation>페이지 배열(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1439"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1452"/>
         <source>&amp;Bookmarks</source>
         <translation>책갈피(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1440"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1453"/>
         <source>&amp;Measurements</source>
         <translation>측정(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1441"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1454"/>
         <source>Action &amp;History</source>
         <translation>작업 내역(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1442"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1455"/>
         <source>Preflight &amp;Verifier</source>
         <translation>문서 검증(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1443"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1456"/>
         <source>&amp;Align and Distribute</source>
         <translation>정렬 및 배치(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1444"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1457"/>
+        <source>Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/actionmanager.cpp" line="1458"/>
         <source>&amp;Tools</source>
         <translation>도구(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1445"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1459"/>
         <source>P&amp;DF Tools</source>
         <translation>PDF 도구(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1448"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1462"/>
         <source>Select Item</source>
         <translation>항목 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1449"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1463"/>
         <source>Rotate Item</source>
         <translation>항목 회전</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1450"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
         <source>Zoom in or out</source>
         <translation>배율</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1451"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1465"/>
         <source>Zoom in</source>
         <translation>확대</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1452"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1466"/>
         <source>Zoom out</source>
         <translation>축소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1453"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1467"/>
         <source>Edit Contents of Frame</source>
         <translation>프레임 내용 편집</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1454"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1468"/>
         <source>Edit Text...</source>
         <translation>문자열 편집...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1455"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1469"/>
         <source>Link Text Frames</source>
         <translation>문자열 프레임 링크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1456"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1470"/>
         <source>Unlink Text Frames</source>
         <translation>문자열 프레임 링크해제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1457"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1471"/>
         <source>&amp;Eye Dropper</source>
         <translation>색상 추출기(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1458"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1472"/>
         <source>Copy Item Properties</source>
         <translation>항목 속성 복사</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1470"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1484"/>
         <source>Insert PDF Push Button</source>
         <translation>PDF 푸시 단추 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1471"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1485"/>
         <source>Insert PDF Text Field</source>
         <translation>PDF 문자열 필드 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1472"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1486"/>
         <source>Insert PDF Check Box</source>
         <translation>PDF 체크상자 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1473"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1487"/>
         <source>Insert PDF Combo Box</source>
         <translation>PDF 콤보상자 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1474"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1488"/>
         <source>Insert PDF List Box</source>
         <translation>PDF 목록 상자 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1475"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1489"/>
         <source>Insert Text Annotation</source>
         <translation>문자열 주석 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1476"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1490"/>
         <source>Insert Link Annotation</source>
         <translation>링크 주석 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1478"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1492"/>
         <source>Insert 3D Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1484"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1498"/>
         <source>&amp;Hyphenate Text</source>
         <translation>문자열 연결(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1485"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1499"/>
         <source>Dehyphenate Text</source>
         <translation>문자열 연결 해제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1486"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1500"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>내용 표 생성(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1489"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1503"/>
         <source>&amp;Cascade</source>
         <translation>계단식(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1490"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1504"/>
         <source>&amp;Tile</source>
         <translation>타일식(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1493"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1507"/>
         <source>&amp;About Scribus</source>
         <translation>Scribus 소개(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1495"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1509"/>
         <source>About &amp;Qt</source>
         <translation>Qt 소개(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1496"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1510"/>
         <source>Toolti&amp;ps</source>
         <translation>도구 도움말(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1498"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1512"/>
         <source>Scribus &amp;Manual...</source>
         <translation>Scribus 매뉴얼(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1506"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1520"/>
         <source>Toggle Palettes</source>
         <translation>팔레트 토글</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1507"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1521"/>
         <source>Toggle Guides</source>
         <translation>안내선 토글</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1516"/>
         <source>Smart &amp;Hyphen</source>
-        <translation>스마트 하이픈(&amp;H)</translation>
+        <translation type="obsolete">스마트 하이픈(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1517"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1531"/>
         <source>Non Breaking Dash</source>
         <translation>보호된 하이픈</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1518"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1532"/>
         <source>Non Breaking &amp;Space</source>
         <translation>보호된 공백(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1519"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1533"/>
         <source>Page &amp;Number</source>
         <translation>페이지 번호(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1521"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1535"/>
         <source>New Line</source>
         <translation>새 줄</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1522"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1536"/>
         <source>Frame Break</source>
         <translation>프레임 분리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1523"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1537"/>
         <source>Column Break</source>
         <translation>열 분리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1526"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1540"/>
         <source>Copyright</source>
         <translation>저작권</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1527"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1541"/>
         <source>Registered Trademark</source>
         <translation>등록상표(R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1528"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1542"/>
         <source>Trademark</source>
         <translation>등록상표(T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1529"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1543"/>
         <source>Solidus</source>
         <translation>역슬래시</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1530"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1544"/>
         <source>Bullet</source>
         <translation>점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1531"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1545"/>
         <source>Middle Dot</source>
         <translation>작은 사각형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1532"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1546"/>
         <source>Em Dash</source>
         <translation>중간 긴 실선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1533"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1547"/>
         <source>En Dash</source>
         <translation>중간 짧은 실선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1534"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1548"/>
         <source>Figure Dash</source>
         <translation>그림 실선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1535"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1549"/>
         <source>Quotation Dash</source>
         <translation>인용 실선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1556"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1570"/>
         <source>En Space</source>
         <translation>공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1557"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1571"/>
         <source>Em Space</source>
         <translation>중간 긴 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1558"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1572"/>
         <source>Thin Space</source>
         <translation>얇은 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1559"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1573"/>
         <source>Thick Space</source>
         <translation>두꺼운 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1560"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1574"/>
         <source>Mid Space</source>
         <translation>중간 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1561"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1575"/>
         <source>Hair Space</source>
         <translation>머리 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1563"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1577"/>
         <source>ff</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1564"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1578"/>
         <source>fi</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1565"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1579"/>
         <source>fl</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1566"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1580"/>
         <source>ffi</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1567"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1581"/>
         <source>ffl</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1568"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1582"/>
         <source>ft</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1569"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1583"/>
         <source>st</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1393"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1406"/>
         <source>Sticky Tools</source>
         <translation>스티키 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1407"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1420"/>
         <source>&amp;Fit to Height</source>
         <translation>높이에 맞게(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1408"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1421"/>
         <source>Fit to Width</source>
         <translation>너비에 맞게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1416"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1429"/>
         <source>Show Bleeds</source>
         <translation>물림재단 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1524"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1530"/>
+        <source>Soft &amp;Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/actionmanager.cpp" line="1538"/>
         <source>&amp;Zero Width Space</source>
         <translation>너비없는 공백(&amp;Z)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1525"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1539"/>
         <source>Zero Width NB Space</source>
         <translation>너비없는 보호된 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1537"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1551"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>&apos;     0x0027삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1538"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1552"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>&quot;     0x0022삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1539"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1553"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>‘     0x2018삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1540"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1554"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>’     0x2019삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1541"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1555"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>“     0x201C삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1542"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1556"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>”     0x201D삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1543"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1557"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>‛     0x201B삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1544"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1558"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>``    0x201F삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1545"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1559"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>‹     0x2039삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1546"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1560"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>›     0x203A삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1547"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1561"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>‹‹    0x00AB삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1548"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1562"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>››    0x00BB삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1549"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1563"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>‚     0x201A삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1550"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1564"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>„     0x201E삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1551"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1565"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>왼쪽 따옴표</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1552"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1566"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>오른쪽 따옴표</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1553"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1567"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>왼쪽 이중 따옴표</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1554"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1568"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>오른쪽 이중 따옴표</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1413"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1426"/>
         <source>&amp;400%</source>
         <translation>400%(&amp;4)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1474"/>
         <source>Insert &amp;Text Frame</source>
         <translation>문자열 프레임 삽입(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1461"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1475"/>
         <source>Insert &amp;Image Frame</source>
         <translation>이미지 프레임 삽입(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1463"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1477"/>
         <source>Insert T&amp;able</source>
         <translation>표 삽입(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1478"/>
         <source>Insert &amp;Shape</source>
         <translation>도형 삽입(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1465"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1479"/>
         <source>Insert &amp;Polygon</source>
         <translation>다각형 삽입(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1466"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1480"/>
         <source>Insert &amp;Line</source>
         <translation>선 삽입(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1467"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1481"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation>베지어선 삽입(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1468"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1482"/>
         <source>Insert &amp;Freehand Line</source>
         <translation>자유곡선 삽입(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1499"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1513"/>
         <source>Scribus Homepage</source>
         <translation>Scribus 홈페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1500"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1514"/>
         <source>Scribus Online Documentation</source>
         <translation>Scribus 온라인 문서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1501"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1515"/>
         <source>Scribus Wiki</source>
         <translation>Scribus 위키</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1502"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1516"/>
         <source>Getting Started with Scribus</source>
         <translation>Scribus 위키 온라인 도움말</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1430"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1443"/>
         <source>Show Context Menu</source>
         <translation>문맥 메뉴 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1483"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1497"/>
         <source>&amp;Manage Images</source>
         <translation>이미지 관리(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1494"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1508"/>
         <source>&amp;About Plugins</source>
         <translation>플러그인 소개(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1508"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1522"/>
         <source>Insert Unicode Character Begin Sequence</source>
         <translation>유니코드 문자 시작 순서 입력</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1274"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1285"/>
         <source>Get Vector File...</source>
         <translation>벡터 파일 얻기...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1297"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1309"/>
         <source>Advanced Select All...</source>
         <translation>고급 전체 선택...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1301"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1313"/>
         <source>Edit Source...</source>
         <translation>소스 편집...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1303"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1315"/>
         <source>Replace Colors...</source>
         <translation>색상 치환...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1427"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1440"/>
         <source>Rulers Relative to Page</source>
         <translation>페이지를 기준으로 한 눈금자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1462"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1476"/>
         <source>Insert &amp;Render Frame</source>
         <translation>렌더 프레임 삽입(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1503"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1517"/>
         <source>Check for Updates</source>
         <translation>업데이트 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1520"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1534"/>
         <source>Number of Pages</source>
         <translation>페이지 총수</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1381"/>
         <source>Adjust Image to Frame</source>
         <translation>이미지를 프레임에 맞게 조정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1691"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1705"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1691"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1705"/>
         <source>&amp;File</source>
         <translation>파일(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1693"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1707"/>
         <source>Edit</source>
         <translation>편집</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1693"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1707"/>
         <source>&amp;Edit</source>
         <translation>편집(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1695"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1709"/>
         <source>Style</source>
         <translation>스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1695"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1709"/>
         <source>&amp;Style</source>
         <translation>스타일(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1697"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1711"/>
         <source>Item</source>
         <translation>객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1697"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1711"/>
         <source>&amp;Item</source>
         <translation>객체(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1699"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1713"/>
         <source>Insert</source>
         <translation>입력</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1699"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1713"/>
         <source>I&amp;nsert</source>
         <translation>삽입(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1701"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1715"/>
         <source>Page</source>
         <translation>페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1701"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1715"/>
         <source>&amp;Page</source>
         <translation>페이지(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1703"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1717"/>
         <source>View</source>
         <translation>보기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1703"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1717"/>
         <source>&amp;View</source>
         <translation>보기(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1705"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1719"/>
         <source>Extras</source>
         <translation>기타</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1705"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1719"/>
         <source>E&amp;xtras</source>
         <translation>기타(&amp;X)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1707"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1721"/>
         <source>Windows</source>
         <translation>작업창</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1707"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1721"/>
         <source>&amp;Windows</source>
         <translation>작업창(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1709"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1723"/>
         <source>Help</source>
         <translation>도움말</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1709"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1723"/>
         <source>&amp;Help</source>
         <translation>도움말(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1877"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1891"/>
         <source>Plugin Menu Items</source>
         <translation>플러그인 메뉴 객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1879"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1893"/>
         <source>Others</source>
         <translation>기타</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1881"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1895"/>
         <source>Unicode Characters</source>
         <translation>유니코드 문자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1497"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1511"/>
         <source>Move/Resize Value Indicator</source>
         <translation>이동/크기 조정 값 지시자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1264"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1275"/>
         <source>New &amp;from Template...</source>
         <translation>서식에서 새로(&amp;F)...</translation>
     </message>
@@ -4649,39 +4783,39 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="538"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2073"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2077"/>
         <source>None</source>
         <comment>action</comment>
         <translation>없음</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="538"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2073"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2111"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2077"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2115"/>
         <source>JavaScript</source>
         <translation>자바스크립트</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="538"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2073"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2077"/>
         <source>Go To</source>
         <translation>이동</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="539"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2074"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2078"/>
         <source>Submit Form</source>
         <translation>폼 보내기</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="539"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2074"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2078"/>
         <source>Reset Form</source>
         <translation>폼 초기화</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="539"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2074"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2078"/>
         <source>Import Data</source>
         <translation>자료 읽어오기</translation>
     </message>
@@ -4692,37 +4826,37 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="574"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2053"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2057"/>
         <source>Mouse Up</source>
         <translation>마우스 위로</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="574"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2053"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2057"/>
         <source>Mouse Down</source>
         <translation>마우스 아래로</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="574"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2053"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2057"/>
         <source>Mouse Enter</source>
         <translation>마우스 엔터</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="575"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2054"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2058"/>
         <source>Mouse Exit</source>
         <translation>마우스 종료</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="575"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2054"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2058"/>
         <source>On Focus</source>
         <translation>포커스</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="575"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2054"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2058"/>
         <source>On Blur</source>
         <translation>블러</translation>
     </message>
@@ -4998,27 +5132,27 @@ If loading was successful, the selection contains the imported ODG
         <location filename="../../../scribus/ui/annot.cpp" line="1303"/>
         <location filename="../../../scribus/ui/annot.cpp" line="1335"/>
         <location filename="../../../scribus/ui/annot.cpp" line="1360"/>
-        <location filename="../../../scribus/ui/annot.cpp" line="2268"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2272"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/annot.cpp" line="1475"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="1479"/>
         <source>Example:</source>
         <translation>예제:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/annot.cpp" line="2102"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2106"/>
         <source>Selection Change</source>
         <translation>선택 변경</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/annot.cpp" line="2110"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2114"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/annot.cpp" line="2268"/>
+        <location filename="../../../scribus/ui/annot.cpp" line="2272"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF 파일 (*.pdf);;전체 파일 (*)</translation>
     </message>
@@ -5244,9 +5378,8 @@ If loading was successful, the selection contains the imported ODG
         <translation>철자 검사 지원</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="70"/>
         <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation>Aspell을 통하여 철자 검사 지원 더하기, 언어는 설치된 Aspell 사전에서 선택할 수 있습니다, 그리고 즉시 또는 선택한 문자열에서 철자 검사를 수행할 수 있습니다 .</translation>
+        <translation type="obsolete">Aspell을 통하여 철자 검사 지원 더하기, 언어는 설치된 Aspell 사전에서 선택할 수 있습니다, 그리고 즉시 또는 선택한 문자열에서 철자 검사를 수행할 수 있습니다 .</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="74"/>
@@ -5259,7 +5392,12 @@ If loading was successful, the selection contains the imported ODG
         <translation>철자 검사기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="99"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="70"/>
+        <source>Adds support for spell-checking via Aspell. Languages can be chosen from among the installed Aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="98"/>
         <source>Aspell Plugin Error</source>
         <translation>Aspell 플러그인 오류</translation>
     </message>
@@ -5267,92 +5405,96 @@ If loading was successful, the selection contains the imported ODG
 <context>
     <name>AspellPluginBase</name>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="14"/>
         <source>Spell Check</source>
         <translation>철자 검사</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="118"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="119"/>
         <source>Replacement:</source>
         <translation>치환:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="278"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="195"/>
+        <source>The currently active dictionary. Scribus uses Aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="279"/>
         <source>&amp;Add Word</source>
         <translation>단어 더하기(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="306"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="307"/>
         <source>&amp;Change</source>
         <translation>변경(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="45"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="46"/>
         <source>Not in Dictionary:</source>
         <translation>사전에 없는 단어:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="70"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="71"/>
         <source>Word that was not found in the active dictionary</source>
         <translation>사용되는 사전에서 발견되지 않는 단어</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="125"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="126"/>
         <source>Replacement text for the current word that was not found in the dictionary</source>
         <translation>사전에서 찾을 수 없는 현재 단어의 문자열 치환</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="181"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="182"/>
         <source>Active Dictionary: </source>
         <translation>사용되는 사전:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="194"/>
         <source>The currently active dictionary. Scribus uses aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation>현재 사용되는 사전. Scribus는 사전 지원에 Aspell을 사용합니다.&lt;br /&gt;사전에 대한 업데이트가 필요시, 시스템 설치 시스템 또는 페키지 관리자를 통하여 설치할 수 있습니다.</translation>
+        <translation type="obsolete">현재 사용되는 사전. Scribus는 사전 지원에 Aspell을 사용합니다.&lt;br /&gt;사전에 대한 업데이트가 필요시, 시스템 설치 시스템 또는 페키지 관리자를 통하여 설치할 수 있습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="225"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="226"/>
         <source>Ignore the current text not found in the active dictionary</source>
         <translation>사용되는 사전에서 찾을 수 없는 현재 문자열 무시합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="228"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="229"/>
         <source>&amp;Ignore</source>
         <translation>무시(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="247"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="248"/>
         <source>Ignore all occurrences of the current text not found in the active dictionary</source>
         <translation>사용되는 사전에서 찾을 수 없는 현재 문자열의 전체 발견을 무시합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="250"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="251"/>
         <source>I&amp;gnore All</source>
         <translation>전체 무시(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="275"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="276"/>
         <source>Add the current word to the your personal spelling dictionary for future use</source>
         <translation>앞으로 사용하기 위하여 현재 단어를 개인 철자 사전에 더합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="303"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="304"/>
         <source>Change the current word that was not found to that shown in the replacement entry field</source>
         <translation>발견되지 안흔 현재 단어를 치환 입력 필드에서 나타나는 단어로 변경합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="331"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="332"/>
         <source>Change all occurrences of the current word in the text that was not found to that shown in the replacement entry field</source>
         <translation>찾을 수 없는 문자열에서 현재 단어의 전체 발견을 치환 입력 문항에서 나타나는 단어로 변경합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="334"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="335"/>
         <source>Change A&amp;ll</source>
         <translation>전체 변경(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="372"/>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="373"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
@@ -5370,19 +5512,16 @@ If loading was successful, the selection contains the imported ODG
         <translation>기본값</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="44"/>
         <source> aspell dictionary.</source>
-        <translation>Aspell 사전.</translation>
+        <translation type="obsolete">Aspell 사전.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="89"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
-        <translation>Aspell플러그인 (AspellPluginImpl::AspellPluginImpl): Aspell 철자 설정에서 오류.</translation>
+        <translation type="obsolete">Aspell플러그인 (AspellPluginImpl::AspellPluginImpl): Aspell 철자 설정에서 오류.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="96"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
-        <translation>Aspell플러그인 (AspellPluginImpl::AspellPluginImpl): Aspell 철자 생성 중 오류.</translation>
+        <translation type="obsolete">Aspell플러그인 (AspellPluginImpl::AspellPluginImpl): Aspell 철자 생성 중 오류.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="365"/>
@@ -5403,6 +5542,21 @@ If loading was successful, the selection contains the imported ODG
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="242"/>
         <source>Spelling check complete</source>
         <translation>철자 검사 완료</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="44"/>
+        <source> Aspell dictionary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="89"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="96"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="243"/>
@@ -5539,6 +5693,11 @@ If loading was successful, the selection contains the imported ODG
         <translation>16진수 변수</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="105"/>
+        <source>Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="340"/>
         <source>Error opening file: %1</source>
         <translation>파일 여는 중 오류: %1</translation>
@@ -5554,170 +5713,168 @@ If loading was successful, the selection contains the imported ODG
         <translation>실선 가진 12 또는 13 자리. 레가시 ISBN-10 형식은 실선가진 9,10 자릿수를 허용한다, 그러나 이 표준은 2007년 1월 1일 이후 일반의 사용을 위해서 공표되었습니다.(주의 : 이전 ISBN-10을 새로운 ISBN-13로 접두사 978-를 처음 9자리수를 변환하기 위하여, 예를 들면 1-56592-479-7 -&gt; 978-1-56592-479. 마지막 check digit를 자동으로 계산될 것입니다.)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="105"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="163"/>
         <source>Select Type</source>
         <translation>형태 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="163"/>
         <source>Select Barcode Type</source>
-        <translation>바코드 형태 선택</translation>
+        <translation type="obsolete">바코드 형태 선택</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="140"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="135"/>
         <source>&amp;Type:</source>
         <translation>형태(&amp;T):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="120"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="115"/>
         <source>Co&amp;de:</source>
         <translation>코드(&amp;D):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="133"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="128"/>
         <source>Select one of the available barcode type here</source>
         <translation>이 곳에서 이용가능한 바코드 형태의 하나를 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="113"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
         <source>The numeric representation of the code itself. See the help message below</source>
         <translation>코드 자체의 수치 표현. 도움말 메세지가 아래에 보입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="103"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="98"/>
         <source>Reset the barcode samples</source>
         <translation>바코드 샘플 초기화</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="81"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="76"/>
         <source>Alt+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="75"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="70"/>
         <source>If checked, there will be numbers in the barcode too</source>
         <translation>체크시 바코드에서 수치가 될 것입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="68"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="63"/>
         <source>Alt+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="62"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="57"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>코드 다음 공백을 확인하기 위하여 화살표 그리기 </translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="55"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="50"/>
         <source>Alt+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="49"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="44"/>
         <source>Generate and include a checksum in barcode</source>
         <translation>바코드에서 체크섬 생성 및 포함합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="42"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="37"/>
         <source>Alt+U</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="36"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="31"/>
         <source>Include the checksum digit in the barcode text</source>
         <translation>바코드 문자열에서 체크점 자리를 포함합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="156"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="151"/>
         <source>Colors</source>
         <translation>색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="184"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="173"/>
         <source>&amp;Background</source>
         <translation>배경(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="187"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="176"/>
         <source>Alt+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="181"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="170"/>
         <source>Background color - under the code lines</source>
         <translation>배경 색상 - 코드막대 아래</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="216"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
         <source>&amp;Lines</source>
         <translation>바코드 막대(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="219"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
         <source>Alt+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="213"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="202"/>
         <source>Color of the lines in barcode</source>
         <translation>바코드 막대 색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="248"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
         <source>&amp;Text</source>
         <translation>문자열(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="251"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="240"/>
         <source>Alt+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="245"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="234"/>
         <source>Color of the text and numbers</source>
         <translation>문자열과 수치 색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="280"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="269"/>
         <source>Hints and help is shown here</source>
         <translation>이 곳에 힌트와 도움말이 보입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="290"/>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation>결과 미리보기, 72dpi 샘플.</translation>
+        <translation type="obsolete">결과 미리보기, 72dpi 샘플.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="16"/>
         <source>Insert Barcode</source>
         <translation>바코드 삽입</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="25"/>
         <source>Format</source>
         <translation>형식</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="39"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="34"/>
         <source>Incl&amp;ude Checksum Digit</source>
         <translation>체크섬 자리 포함(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="52"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="47"/>
         <source>I&amp;nclude Checksum</source>
         <translation>체크섬 포함(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="65"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="60"/>
         <source>&amp;Guard Whitespace</source>
         <translation>여백 보호(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="78"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="73"/>
         <source>&amp;Include Text in Barcode</source>
         <translation>바코드에서 문자열 포함(&amp;I)</translation>
     </message>
@@ -5725,65 +5882,70 @@ If loading was successful, the selection contains the imported ODG
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="719"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="716"/>
         <source>Main</source>
         <translation>메인</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="721"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="718"/>
         <source>Copied Items</source>
         <translation>복사된 객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="829"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="861"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="826"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="858"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>스크랩북 사전 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="902"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="899"/>
         <source>Choose a scrapbook file to import</source>
         <translation>스크랩북 파일을 읽어오기 위하여 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="924"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="921"/>
         <source>Choose a Directory</source>
         <translation>사전 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1006"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1003"/>
         <source>Rename</source>
         <translation>다른 이름으로 </translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1008"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1005"/>
         <source>Delete</source>
         <translation>삭제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1013"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1010"/>
         <source>Copy To:</source>
         <translation>복사:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1014"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1011"/>
         <source>Move To:</source>
         <translation>이동:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1083"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1274"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1408"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1511"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1080"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1268"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1402"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1505"/>
         <source>&amp;Name:</source>
         <translation>이름(&amp;N):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1083"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1408"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1511"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1080"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1402"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1505"/>
         <source>New Entry</source>
         <translation>새 엔트리</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1684"/>
+        <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; is not unique.
@@ -5792,74 +5954,73 @@ Please choose another.</source>
 다른 이름을 선택하세요.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1498"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1506"/>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1591"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1492"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1500"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1582"/>
         <source>Object</source>
         <translation>객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1692"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1680"/>
         <source>Scrapbook</source>
         <translation>스크랩북</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1693"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1681"/>
         <source>Create a new scrapbook page</source>
         <translation>새 스크랩북 페이지 생성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1694"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1682"/>
         <source>Load an existing scrapbook</source>
         <translation>기본 스크랩북 읽어오기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1695"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1683"/>
         <source>Save the selected scrapbook</source>
         <translation>선택된 스크랩북 저장</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1696"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation>Scribus 에서 스크랩북 파일 읽어오기 &lt;=1.3.2</translation>
+        <translation type="obsolete">Scribus 에서 스크랩북 파일 읽어오기 &lt;=1.3.2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1697"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1685"/>
         <source>Close the selected scrapbook</source>
         <translation>선택된 스크랩북 닫기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1274"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1268"/>
         <source>New Name</source>
         <translation>새 이름</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="904"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="901"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>스크랩북  (*.scs *.SCS)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1002"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="999"/>
         <source>Paste to Page</source>
         <translation>페이지에 붙여넣기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1058"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1055"/>
         <source>Save as...</source>
         <translation>다른 이름으로 저장...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1061"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1058"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1064"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1061"/>
         <source>Delete Contents</source>
         <translation>내용 삭제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1229"/>
+        <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1223"/>
         <source>Do you really want to delete all entries?</source>
         <translation>정말 전체 엔트리를 삭제하겠습니까?</translation>
     </message>
@@ -6585,39 +6746,39 @@ Please give it a name</source>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2343"/>
-        <location filename="../../../scribus/canvas.cpp" line="2371"/>
+        <location filename="../../../scribus/canvas.cpp" line="2423"/>
+        <location filename="../../../scribus/canvas.cpp" line="2451"/>
         <source>X: %1
 Y: %2</source>
         <translation>X값: %1
 Y값: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2356"/>
+        <location filename="../../../scribus/canvas.cpp" line="2436"/>
         <source>X: %1</source>
         <translation>X값: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2363"/>
+        <location filename="../../../scribus/canvas.cpp" line="2443"/>
         <source>Y: %1</source>
         <translation>Y값: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2379"/>
+        <location filename="../../../scribus/canvas.cpp" line="2459"/>
         <source>Length: %1
 Angle: %2</source>
         <translation>길이: %1
 각도: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2381"/>
+        <location filename="../../../scribus/canvas.cpp" line="2461"/>
         <source>Width: %1
 Height: %2</source>
         <translation>너비: %1
 높이: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2393"/>
+        <location filename="../../../scribus/canvas.cpp" line="2473"/>
         <source>Angle: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6643,12 +6804,12 @@ Height: %2</source>
 <context>
     <name>CanvasMode_Normal</name>
     <message>
-        <location filename="../../../scribus/canvasmode_normal.cpp" line="1293"/>
+        <location filename="../../../scribus/canvasmode_normal.cpp" line="1325"/>
         <source>All Supported Formats</source>
         <translation>전체 지원하는 형식</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvasmode_normal.cpp" line="1324"/>
+        <location filename="../../../scribus/canvasmode_normal.cpp" line="1356"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
@@ -6952,176 +7113,176 @@ Insert키는 사용자 정의문자를 선택으로 삽입합니다. Del키는 �
 <context>
     <name>CheckDocument</name>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="379"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="385"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="381"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="387"/>
         <source>No Problems found</source>
         <translation>프로그램을 찾을 수 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="382"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="388"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="413"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="419"/>
         <source>Transparency used</source>
         <translation>사용된 투명도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="418"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="424"/>
         <source>Blendmode used</source>
         <translation>사용된 혼합모드</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="423"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="429"/>
         <source>Print/Visible Mismatch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="431"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="437"/>
         <source>Layer &quot;%1&quot;</source>
         <translation>레이어 &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="560"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="599"/>
         <source>Page </source>
         <translation>페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="624"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="663"/>
         <source>Free Objects</source>
         <translation>자유 객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="634"/>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="665"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="673"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="704"/>
         <source>&amp;Ignore Errors</source>
         <translation>오류 무시(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="657"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="696"/>
         <source>Preflight Verifier</source>
         <translation>문서 검증</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="659"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="698"/>
         <source>Items</source>
         <translation>객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="659"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="698"/>
         <source>Problems</source>
         <translation>플그램</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="664"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="703"/>
         <source>Current Profile:</source>
         <translation>현재 프로파일:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="666"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="705"/>
         <source>Check again</source>
         <translation>다시 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="672"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="711"/>
         <source>Glyphs missing</source>
         <translation>사용자 문자표 빠짐</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="673"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="712"/>
         <source>Text overflow</source>
         <translation>문자열 오버플로우</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="674"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="713"/>
         <source>Object is not on a Page</source>
         <translation>객체가 페이지상에 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="675"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="714"/>
         <source>Missing Image</source>
         <translation>빠진 이미지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="679"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="718"/>
         <source>Object has transparency</source>
         <translation>객체가 투명도를 가졌습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="680"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="719"/>
         <source>Object is a PDF Annotation or Field</source>
         <translation>객체가 PDF주석 또는 필드입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="681"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="720"/>
         <source>Object is a placed PDF</source>
         <translation>객체는 위치한 PDF입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="682"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="721"/>
         <source>Image is GIF</source>
         <translation>이미지가 GIF입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="683"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="722"/>
         <source>Annotation uses a non TrueType font</source>
         <translation>주석이 비 TTF를 사용하였습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="668"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="707"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
         <translation>보고서 생성 기반 문서 검증 프로파일. 설정을 문서 설정 또는 기본 설정에서 설정할 수 있습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="669"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="708"/>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
         <translation>오류 발견 무시 그리고 내보내기 또는 출력을 계속합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="670"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="709"/>
         <source>Rerun the document scan to check corrections you may have made</source>
         <translation>문서 정정을 체크하기 위하여 문서 스캔을 다시 실행합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="676"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="715"/>
         <source>Empty Image Frame</source>
         <translation>빈 이미지 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="394"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="400"/>
         <source>Layers</source>
         <translation>레이어</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="436"/>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="505"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="442"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="528"/>
         <source>Issue(s): %1</source>
         <translation>발행: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="447"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="453"/>
         <source>Master Pages</source>
         <translation>마스터 페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="660"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="699"/>
         <source>Layer</source>
         <translation>레이어</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="677"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="716"/>
         <source>Image resolution below %1 DPI,
 currently %2 x %3 DPI</source>
         <translation>%1 DPI 아래 이미지 해상도,
 현재 %2 x %3 DPI</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/checkDocument.cpp" line="678"/>
+        <location filename="../../../scribus/ui/checkDocument.cpp" line="717"/>
         <source>Image resolution above %1 DPI,
 currently %2 x %3 DPI</source>
         <translation>%1 DPI 이상 이미지 해상도,
@@ -7131,33 +7292,75 @@ currently %2 x %3 DPI</source>
 <context>
     <name>CollectForOutput</name>
     <message>
-        <location filename="../../../scribus/collect4output.cpp" line="55"/>
+        <location filename="../../../scribus/collect4output.cpp" line="70"/>
         <source>Choose a Directory</source>
         <translation>폴더 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/collect4output.cpp" line="68"/>
+        <location filename="../../../scribus/collect4output.cpp" line="83"/>
         <source>Cannot create directory:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/collect4output.cpp" line="83"/>
+        <location filename="../../../scribus/collect4output.cpp" line="98"/>
         <source>Collecting...</source>
         <translation>모으는 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/collect4output.cpp" line="88"/>
+        <location filename="../../../scribus/collect4output.cpp" line="102"/>
         <source>Cannot collect all files for output for file:
 %1</source>
         <translation>파일 출력을 위한 전체 파일을 모을 수 없습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/collect4output.cpp" line="102"/>
+        <location filename="../../../scribus/collect4output.cpp" line="117"/>
         <source>Cannot collect the file: 
 %1</source>
         <translation>파일을 모을 수 없습니다:
+%1</translation>
+    </message>
+</context>
+<context>
+    <name>CollectForOutput_UI</name>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="37"/>
+        <source>Collecting Items:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="40"/>
+        <source>Collecting Patterns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="46"/>
+        <source>Collecting Fonts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="52"/>
+        <source>Collecting Profiles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="85"/>
+        <source>Collecting...</source>
+        <translation type="unfinished">모으는 중...</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="89"/>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation type="unfinished">파일 출력을 위한 전체 파일을 모을 수 없습니다:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="112"/>
+        <source>Cannot collect the file: 
+%1</source>
+        <translation type="unfinished">파일을 모을 수 없습니다:
 %1</translation>
     </message>
 </context>
@@ -7269,22 +7472,22 @@ currently %2 x %3 DPI</source>
         <translation>이름 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorm.cpp" line="355"/>
+        <location filename="../../../scribus/ui/colorm.cpp" line="356"/>
         <source>Copy of %1</source>
         <translation>%1 복사</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorm.cpp" line="366"/>
+        <location filename="../../../scribus/ui/colorm.cpp" line="367"/>
         <source>New Color</source>
         <translation>새 색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorm.cpp" line="323"/>
+        <location filename="../../../scribus/ui/colorm.cpp" line="324"/>
         <source>Information</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorm.cpp" line="323"/>
+        <location filename="../../../scribus/ui/colorm.cpp" line="324"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -7302,12 +7505,12 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>색상관리가 가능하다면, 삼각형 경고 지시자는 색상이 선택된 현재 프린터 프로파일 생상 법위의 밖일 것입니다. 이 의미는 화면상에 보여질 때 정확하게 출력되지 않을 것입니다. 지정 색상(스폿색상)을 적색 원으로 나타냅니다. 색상 범위 경고에 대한 더 많은 자료는 색상 관리 온라인 도움말에 있습니다. 등록 색상은 색상 다음에 등록 표시를 가질 것입니다. 프린터 표시 또는 자름 표시에 대해서만 등록을 사용합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorm.cpp" line="313"/>
+        <location filename="../../../scribus/ui/colorm.cpp" line="314"/>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
         <translation>전체 지원하는 형식 (%1);;문서 (%2);;다른 파일 (%3);;전체 파일 (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorm.cpp" line="314"/>
+        <location filename="../../../scribus/ui/colorm.cpp" line="315"/>
         <source>Import Colors</source>
         <translation>색상 읽어오기</translation>
     </message>
@@ -7437,502 +7640,507 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CommonStrings</name>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="247"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="248"/>
         <source>&amp;Apply</source>
         <translation>적용(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="250"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="251"/>
         <source>&amp;Cancel</source>
         <translation>취소(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="254"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="255"/>
         <source>None</source>
         <comment>color name</comment>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="257"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="258"/>
         <source>&amp;OK</source>
         <translation>확인(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="260"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="261"/>
         <source>&amp;Save</source>
         <translation>저장(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="263"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="264"/>
         <source>Warning</source>
         <translation>경고</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="265"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="266"/>
         <source>Yes</source>
         <translation>예</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="266"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="267"/>
         <source>No</source>
         <translation>아니오</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="267"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="268"/>
         <source>&amp;Yes</source>
         <translation>예(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="268"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="269"/>
         <source>&amp;No</source>
         <translation>아니오(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="277"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="278"/>
         <source>PDF 3D Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="289"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="279"/>
+        <source>Symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/commonstrings.cpp" line="291"/>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
         <translation>사용자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="295"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="297"/>
         <source>Single Page</source>
         <translation>한 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="296"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="298"/>
         <source>Double Sided</source>
         <translation>두 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="297"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="299"/>
         <source>3-Fold</source>
         <translation>세 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="298"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="300"/>
         <source>4-Fold</source>
         <translation>네 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="334"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="336"/>
         <source>Monday</source>
         <translation>월요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="335"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="337"/>
         <source>Tuesday</source>
         <translation>화요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="336"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="338"/>
         <source>Wednesday</source>
         <translation>수요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="337"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="339"/>
         <source>Thursday</source>
         <translation>목요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="338"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="340"/>
         <source>Friday</source>
         <translation>금요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="339"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="341"/>
         <source>Saturday</source>
         <translation>토요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="340"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="342"/>
         <source>Sunday</source>
         <translation>일요일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="341"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="343"/>
         <source>January</source>
         <translation>1월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="342"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="344"/>
         <source>February</source>
         <translation>2월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="343"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="345"/>
         <source>March</source>
         <translation>3월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="344"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="346"/>
         <source>April</source>
         <translation>4월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="345"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="347"/>
         <source>May</source>
         <translation>5월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="346"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="348"/>
         <source>June</source>
         <translation>6월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="347"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="349"/>
         <source>July</source>
         <translation>7월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="348"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="350"/>
         <source>August</source>
         <translation>8월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="349"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="351"/>
         <source>September</source>
         <translation>9월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="350"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="352"/>
         <source>October</source>
         <translation>10월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="351"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="353"/>
         <source>November</source>
         <translation>11월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="352"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="354"/>
         <source>December</source>
         <translation>12월</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="305"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="307"/>
         <source>Left Page</source>
         <comment>Left page location</comment>
         <translation>왼쪽 페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="306"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="308"/>
         <source>Middle</source>
         <comment>Middle page location</comment>
         <translation>중간</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="307"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="309"/>
         <source>Middle Left</source>
         <comment>Middle Left page location</comment>
         <translation>중간 왼쪽 </translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="308"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="310"/>
         <source>Middle Right</source>
         <comment>Middle Right page location</comment>
         <translation>중간 오른쪽 </translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="309"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="311"/>
         <source>Right Page</source>
         <comment>Right page location</comment>
         <translation>오른쪽 페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="312"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="314"/>
         <source>Normal</source>
         <comment>Default single master page</comment>
         <translation>일반</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="314"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="316"/>
         <source>Normal Left</source>
         <comment>Default left master page</comment>
         <translation>일반 왼쪽</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="316"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="318"/>
         <source>Normal Middle</source>
         <comment>Default middle master page</comment>
         <translation>일반 중간</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="318"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="320"/>
         <source>Normal Right</source>
         <comment>Default right master page</comment>
         <translation>일반 오른쪽</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="360"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="362"/>
         <source>Normal Vision</source>
         <comment>Color Blindness - Normal Vision</comment>
         <translation>일반 시각</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="361"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="363"/>
         <source>Protanopia (Red)</source>
         <comment>Color Blindness - Red Color Blind</comment>
         <translation>색맹(적)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="362"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="364"/>
         <source>Deuteranopia (Green)</source>
         <comment>Color Blindness - Greed Color Blind</comment>
         <translation>색맹(녹)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="363"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="365"/>
         <source>Tritanopia (Blue)</source>
         <comment>Color Blindness - Blue Color Blind</comment>
         <translation>색맹(청)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="364"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="366"/>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
         <translation>완전 색맹</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="366"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="368"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation>사용자:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="253"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="254"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="320"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="322"/>
         <source>Solid Line</source>
         <translation>실선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="321"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="323"/>
         <source>Dashed Line</source>
         <translation>파선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="322"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="324"/>
         <source>Dotted Line</source>
         <translation>점선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="323"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="325"/>
         <source>Dash Dot Line</source>
         <translation>실점선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="324"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="326"/>
         <source>Dash Dot Dot Line</source>
         <translation>실점점선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="368"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="370"/>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="369"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="371"/>
         <source>Left Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation>왼쪽 돌출
 </translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="370"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="372"/>
         <source>Right Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation>오른쪽 돌출</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="371"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="373"/>
         <source>Left Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation>왼쪽 매달린 구둣점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="372"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="374"/>
         <source>Right Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation>오른쪽 매달린 구두점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="373"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="375"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
         <translation>기본값</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="376"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="378"/>
         <source>Min. Word Tracking</source>
         <translation>최소 단어 추적</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="377"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="379"/>
         <source>Max. Word Tracking</source>
         <translation>최대 단어 추적</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="380"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="382"/>
         <source>Min. Glyph Extension</source>
         <translation>최소 사용자 문자표 확장</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="381"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="383"/>
         <source>Max. Glyph Extension</source>
         <translation>최대 사용자 문자표 확장</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="354"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="356"/>
         <source>RGB</source>
         <comment>Colorspace</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="355"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="357"/>
         <source>CMYK</source>
         <comment>Colorspace</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="356"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="358"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
         <translation>회색톤</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="357"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="359"/>
         <source>Duotone</source>
         <comment>Colorspace</comment>
         <translation>듀오톤</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="358"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="360"/>
         <source>Unknown</source>
         <comment>Colorspace (Unknown)</comment>
         <translation>알려지지 않음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="385"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="387"/>
         <source>PostScript</source>
         <translation>포스트스크립트</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="270"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="271"/>
         <source>Text Frame</source>
         <translation>문자열 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="271"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="272"/>
         <source>Image Frame</source>
         <translation>이미지 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="272"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="273"/>
         <source>Line</source>
         <translation>선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="273"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="274"/>
         <source>Polygon</source>
         <translation>다각형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="274"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="275"/>
         <source>Polyline</source>
         <translation>다각형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="275"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="276"/>
         <source>Text on a Path</source>
         <translation>경로상 문자열</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="278"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="280"/>
         <source>Multiple</source>
         <comment>Multiple frame types</comment>
         <translation>복수</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="279"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="281"/>
         <source>PDF Push Button</source>
         <translation>PDF 푸시 단추</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="280"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="282"/>
         <source>PDF Text Field</source>
         <translation>PDF 문자열 필드</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="281"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="283"/>
         <source>PDF Check Box</source>
         <translation>PDF 체크상자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="282"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="284"/>
         <source>PDF Combo Box</source>
         <translation>PDF 콤보상자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="283"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="285"/>
         <source>PDF List Box</source>
         <translation>PDF 목록상자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="284"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="286"/>
         <source>PDF Text Annotation</source>
         <translation>PDF 문자열 주석</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="285"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="287"/>
         <source>PDF Link Annotation</source>
         <translation>PDF 링크 주석</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="394"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="396"/>
         <source>PostScript Level 1</source>
         <translation>포스트스크립트 레벨 1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="396"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="398"/>
         <source>PostScript Level 2</source>
         <translation>포스트스크립트 레벨 2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="398"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="400"/>
         <source>PostScript Level 3</source>
         <translation>포스트스크립트 레벨 3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="400"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="402"/>
         <source>Windows GDI</source>
         <translation>윈도우 GDI</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="276"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="277"/>
         <source>Render Frame</source>
         <translation>렌더 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="329"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="331"/>
         <source>Default Paragraph Style</source>
         <translation>기본 문단 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="330"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="332"/>
         <source>Default Character Style</source>
         <translation>기본 문자 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/commonstrings.cpp" line="331"/>
+        <location filename="../../../scribus/commonstrings.cpp" line="333"/>
         <source>Default Line Style</source>
         <translation>기본 선 스타일</translation>
     </message>
@@ -7940,17 +8148,17 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="214"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="219"/>
         <source>Preview Settings</source>
         <translation>미리보기 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="428"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="433"/>
         <source>Paste File...</source>
         <translation>파일 붙여넣기...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="461"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="466"/>
         <source>Delete Page</source>
         <translation>페이지 삭제</translation>
     </message>
@@ -8165,10 +8373,15 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">문서 색상 목록에서 전체 색상 또는 이미 사용된 색상만 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/cpalette.cpp" line="329"/>
-        <location filename="../../../scribus/ui/cpalette.cpp" line="332"/>
+        <location filename="../../../scribus/ui/cpalette.cpp" line="397"/>
+        <location filename="../../../scribus/ui/cpalette.cpp" line="400"/>
         <source>Custom</source>
         <translation type="unfinished">사용자</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/cpalette.cpp" line="902"/>
+        <source>Create Mesh</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8506,48 +8719,48 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="403"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="433"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="400"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="430"/>
         <source>&amp;Compress File</source>
         <translation>압축 파일(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="412"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="409"/>
         <source>&amp;Include Fonts</source>
         <translation>글꼴 포함(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="461"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="458"/>
         <source>Encoding:</source>
         <translation>엔코딩:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="380"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="377"/>
         <source>Show Preview</source>
         <translation>미리보기 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="414"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="411"/>
         <source>&amp;Include Color Profiles</source>
         <translation>색상 프로파일 포함(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="381"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="378"/>
         <source>Show a preview and information for the selected file</source>
         <translation>선택된 파일의 미리보기와 정보 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="448"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="445"/>
         <source>Compress the Scribus document on save</source>
         <translation>저장시 Scribus 문서 압축</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="450"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="447"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
         <translation>문서를 위한 파일을 모을 때 글꼴 포함, 모으고 재분배 가능한 임의 글꼴에 대한 저작권 정보를 알고 있어야 합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="452"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="449"/>
         <source>Include color profiles when collecting files for the document</source>
         <translation>문서에서 파일을 모을 때 색상 프로파일 포함</translation>
     </message>
@@ -9883,58 +10096,58 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
 <context>
     <name>FDialogPreview</name>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="186"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="212"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="250"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="278"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="309"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="187"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="213"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="251"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="277"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="306"/>
         <source>Size:</source>
         <translation>크기:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="187"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="188"/>
         <source>Resolution:</source>
         <translation>해상도:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="187"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="188"/>
         <source>DPI</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="190"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="330"/>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="335"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="191"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="327"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="332"/>
         <source>Unknown</source>
         <translation>알려지지 않음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="193"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="194"/>
         <source>Colorspace:</source>
         <translation>색상공간:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="322"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="319"/>
         <source>Title:</source>
         <translation>제목:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="325"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="322"/>
         <source>No Title</source>
         <translation>제목없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="327"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="324"/>
         <source>Author:</source>
         <translation>저작자:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="337"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="334"/>
         <source>Scribus Document</source>
         <translation>Scribus 문서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/customfdialog.cpp" line="332"/>
+        <location filename="../../../scribus/ui/customfdialog.cpp" line="329"/>
         <source>File Format:</source>
         <translation>파일 형식:</translation>
     </message>
@@ -10221,13 +10434,13 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation>사랑하는 이여! 항상 옆에서 아이와 함께 해주기를</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fontpreview/fontpreview.cpp" line="111"/>
+        <location filename="../../../scribus/plugins/fontpreview/fontpreview.cpp" line="110"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>글꼴 미리보기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fontpreview/fontpreview.cpp" line="113"/>
+        <location filename="../../../scribus/plugins/fontpreview/fontpreview.cpp" line="112"/>
         <source>Size of the selected font</source>
         <translation>선택 글꼴 크기</translation>
     </message>
@@ -10282,7 +10495,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fontpreview/fontpreview.cpp" line="112"/>
+        <location filename="../../../scribus/plugins/fontpreview/fontpreview.cpp" line="111"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
         <translation>여기에 문자열을 입력하면 글꼴명에서 빠른 찾기를 할 수 있습니다. 찾기는 대소문자가 구별되며, 주어진 문자열을 하위 문자열로 취급합니다.</translation>
     </message>
@@ -10443,11 +10656,128 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
 </context>
 <context>
+    <name>GradientVectorBase</name>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="23"/>
+        <source>Gradient Vector</source>
+        <translation type="unfinished">그라디언트 벡터</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="39"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="131"/>
+        <source>Start:</source>
+        <translation type="unfinished">시작:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="56"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="90"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="148"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="182"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="216"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="291"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="325"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="359"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="393"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="431"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="465"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="499"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="533"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="567"/>
+        <source>/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="73"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="165"/>
+        <source>End:</source>
+        <translation type="unfinished">끝:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="107"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="233"/>
+        <source>Skew:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="199"/>
+        <source>Focal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="250"/>
+        <source>Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="274"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="414"/>
+        <source>1. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="308"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="448"/>
+        <source>2. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="342"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="482"/>
+        <source>3. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="376"/>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="516"/>
+        <source>4. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="550"/>
+        <source>5. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="598"/>
+        <source>Edit Grid Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="620"/>
+        <source>Edit Control Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="645"/>
+        <source>Reset selected Control Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="670"/>
+        <source>Reset all Control Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="707"/>
+        <source>New Mesh...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="714"/>
+        <source>Reset Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/gradientvectorbase.ui" line="721"/>
+        <source>Mesh -&gt; Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GradientVectorDialog</name>
     <message>
-        <location filename="../../../scribus/ui/gradientvectordialog.cpp" line="111"/>
         <source>Gradient Vector</source>
-        <translation>그라디언트 벡터</translation>
+        <translation type="obsolete">그라디언트 벡터</translation>
     </message>
 </context>
 <context>
@@ -11147,7 +11477,7 @@ converting their vector data into Scribus objects.</source>
 벡터 자료를 Scribus 객체로 변환 중.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="164"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="165"/>
         <source>The file could not be imported</source>
         <translation>파일을 읽어올 수 없습니다</translation>
     </message>
@@ -12407,12 +12737,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LegacyMode</name>
     <message>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="4997"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="5001"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="4967"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="4971"/>
         <source>All Supported Formats</source>
         <translation>전체 지원되는 형식</translation>
     </message>
@@ -12543,12 +12873,12 @@ p, li { white-space: pre-wrap; }
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="91"/>
+        <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="92"/>
         <source>Lens Effects</source>
         <translation>렌즈 효과</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="92"/>
+        <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="93"/>
         <source>Apply fancy lens effects</source>
         <translation>사용자 렌즈 효과 적용</translation>
     </message>
@@ -12556,17 +12886,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoadSavePlugin</name>
     <message>
-        <location filename="../../../scribus/loadsaveplugin.cpp" line="155"/>
+        <location filename="../../../scribus/loadsaveplugin.cpp" line="187"/>
         <source>All Files (*)</source>
         <translation>전체 파일 (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/loadsaveplugin.cpp" line="167"/>
+        <location filename="../../../scribus/loadsaveplugin.cpp" line="199"/>
         <source>An error occured while opening file or file is damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/loadsaveplugin.cpp" line="172"/>
+        <location filename="../../../scribus/loadsaveplugin.cpp" line="204"/>
         <source>An error occured while parsing file at line %1, column %2 :
 %3</source>
         <translation type="unfinished"></translation>
@@ -12574,7 +12904,8 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="91"/>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="123"/>
-        <location filename="../../../scribus/loadsaveplugin.cpp" line="154"/>
+        <location filename="../../../scribus/loadsaveplugin.cpp" line="155"/>
+        <location filename="../../../scribus/loadsaveplugin.cpp" line="186"/>
         <source>No File Loader Plugins Found</source>
         <translation>파일 해석기 플러기인을 찾을 수 없습니다</translation>
     </message>
@@ -12696,42 +13027,42 @@ p, li { white-space: pre-wrap; }
         <translation>형태:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="109"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="110"/>
         <source>Margin Guides</source>
         <translation>여백 안내선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="116"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="117"/>
         <source>Other Settings</source>
         <translation>기타 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="121"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="122"/>
         <source>Master Page:</source>
         <translation>마스터 페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="175"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="176"/>
         <source>Size of the inserted pages, either a standard or custom size.</source>
         <translation>표준 또는 사용자 크기 중 삽입된 페이지 크기.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="176"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="177"/>
         <source>Orientation of the page(s) to be inserted</source>
         <translation>삽입할 페이지 방향</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="177"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="178"/>
         <source>Width of the page(s) to be inserted</source>
         <translation>삽입할 페이지 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="178"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="179"/>
         <source>Height of the page(s) to be inserted</source>
         <translation>삽입할 페이지 높이</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/margindialog.cpp" line="179"/>
+        <location filename="../../../scribus/ui/margindialog.cpp" line="180"/>
         <source>When inserting a new page between others, move objects with their current pages. This is the default action.</source>
         <translation>다른 페이지 사이에 새 페이지로 삽입시, 현재 페페이지의 객체를 이동, 이것은 기본적인 작업입니다.</translation>
     </message>
@@ -12949,22 +13280,22 @@ p, li { white-space: pre-wrap; }
         <translation>새 마스터 페이지 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="463"/>
+        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="465"/>
         <source>Unable to Rename Master Page</source>
         <translation>마스터 페이지를 다른 이름으로 할 수 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="463"/>
+        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="465"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>보통 페이지가 다른 이름으로 되는 것을 허용하지 않습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="467"/>
+        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="469"/>
         <source>Rename Master Page</source>
         <translation>마스터 페이지 다른 이름으로</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="467"/>
+        <location filename="../../../scribus/ui/masterpagepalette.cpp" line="469"/>
         <source>New Name:</source>
         <translation>새 이름:</translation>
     </message>
@@ -13199,8 +13530,8 @@ If no handle is selected all handles will be reset.</source>
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="94"/>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="95"/>
+        <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="96"/>
         <source>Mesh Distortion of Polygons</source>
         <translation>다각형의 망사 왜곡</translation>
     </message>
@@ -13696,22 +14027,22 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished">오른쪽 여백 안내선과 페이지 테두리 사이 거리. 문서 윤곽을 &quot;한 면&quot;을 제외한 선택시 제본을 위한 정확한 여백을 얻기 위하여 이 여백을 이용할 수 있습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="311"/>
+        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="312"/>
         <source>&amp;Inside:</source>
         <translation type="unfinished">안쪽(&amp;I):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="311"/>
+        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="312"/>
         <source>&amp;Left:</source>
         <translation type="unfinished">왼쪽(&amp;L):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="312"/>
+        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="313"/>
         <source>O&amp;utside:</source>
         <translation type="unfinished">바깥쪽(&amp;U):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="312"/>
+        <location filename="../../../scribus/ui/newmarginwidget.cpp" line="313"/>
         <source>&amp;Right:</source>
         <translation type="unfinished">오른쪽(&amp;R):</translation>
     </message>
@@ -14312,9 +14643,13 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OneClick</name>
     <message>
-        <location filename="../../../scribus/ui/oneclick.cpp" line="38"/>
         <source>Origin</source>
-        <translation>원본</translation>
+        <translation type="obsolete">원본</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/oneclick.cpp" line="38"/>
+        <source>Basepoint</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/oneclick.cpp" line="55"/>
@@ -14371,52 +14706,52 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OutlinePalette</name>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="169"/>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="933"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="172"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="939"/>
         <source>Element</source>
         <translation>요소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="306"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="309"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>이름 &quot;%1&quot; 이 이미 있습니다. &lt;br/&gt;다른 이름을 선택하세요.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="711"/>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="761"/>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="816"/>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="901"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="717"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="767"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="822"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="907"/>
         <source>Group </source>
         <translation>드우</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="776"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="782"/>
         <source>Page </source>
         <translation>페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="831"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="837"/>
         <source>Free Objects</source>
         <translation>자유 객체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="932"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="938"/>
         <source>Outline</source>
         <translation>윤곽선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="158"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="161"/>
         <source>Enter a keyword or regular expression to filter the outline.</source>
         <translation>윤곽을 필터링하기 위하여 핵심어나 정규식을 입력.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="160"/>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="934"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="163"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="940"/>
         <source>Filter:</source>
         <translation>필터:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/outlinepalette.cpp" line="159"/>
+        <location filename="../../../scribus/ui/outlinepalette.cpp" line="162"/>
         <source>Ctrl+F</source>
         <comment>Filter the Outline using a keyword</comment>
         <translation></translation>
@@ -14528,37 +14863,37 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="2774"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="2843"/>
         <source>Page:</source>
         <translation>페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="2787"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="2856"/>
         <source>Date:</source>
         <translation>날짜:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="9720"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10316"/>
         <source>Failed to load an image : %1</source>
         <translation>이미지 읽어오는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="9725"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10321"/>
         <source>Failed to write an image : %1</source>
         <translation>이미지 쓰는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="9730"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10326"/>
         <source>Failed to load an image mask : %1</source>
         <translation>이미지 마스크 읽어오는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="9735"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10331"/>
         <source>Insufficient memory for processing an image</source>
         <translation>이미지 작업처리에 불충분한 메모리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="9715"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10311"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>쓰기 오류 발생, 사용가능한 디스크 공간을 검사하세요</translation>
     </message>
@@ -14574,228 +14909,228 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="82"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="84"/>
         <source>Print Preview</source>
         <translation>인쇄 미리보기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="123"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="125"/>
         <source>Display Settings</source>
         <translation>설정 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="129"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="131"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>이미지 부드럽게 처리(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="134"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="136"/>
         <source>Display Trans&amp;parency</source>
         <translation>투명도 보이기(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="139"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="141"/>
         <source>&amp;Display CMYK</source>
         <translation>CMYK 보이기(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="236"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="238"/>
         <source>&amp;C</source>
         <translation>C(남색)(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="241"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="243"/>
         <source>&amp;M</source>
         <translation>M(자홍색)(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="246"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="248"/>
         <source>&amp;Y</source>
         <translation>Y(노란색)(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="251"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="253"/>
         <source>&amp;K</source>
         <translation>K(검은색)(&amp;K)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="152"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="154"/>
         <source>Separation Name</source>
         <translation>분리명</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="164"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="166"/>
         <source>Cyan</source>
         <translation>남색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="171"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="173"/>
         <source>Magenta</source>
         <translation>자홍색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="178"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="180"/>
         <source>Yellow</source>
         <translation>노란색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="185"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="187"/>
         <source>Black</source>
         <translation>검은색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="260"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="262"/>
         <source>Print Settings</source>
         <translation>인쇄 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="266"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="268"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>페이지 수평으로 뒤집기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="269"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="271"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>페이지 수직으로 뒤집기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="275"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="277"/>
         <source>Print in Grayscale</source>
         <translation>회색톤으로 인쇄</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="278"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="280"/>
         <source>&amp;Under Color Removal</source>
         <translation>색상 제거하(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="281"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="283"/>
         <source>Convert Spot Colors</source>
         <translation>지정 색상 변환</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="299"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="301"/>
         <source>Scaling:</source>
         <translation>미리보기 배율:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="311"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="313"/>
         <source>Fit to Width</source>
         <translation>너비에 맞게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="312"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="314"/>
         <source>Fit to Height</source>
         <translation>높이에 맞게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="313"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="315"/>
         <source>Fit to Page</source>
         <translation>페이지에 맟춤</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="324"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="326"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="327"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="329"/>
         <source>Print...</source>
         <translation>인쇄...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="355"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="357"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>미리보기할 때 약간 지체현상이 나타나지만  Type 1 글꼴, 트루타입 글꼴, 오픈타입 글꼴, EPS, PDF 그리고 벡터그래픽에서 보기 좋습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="356"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="358"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>문서의 투명도와 투명 객체를 보입니다. 고스트 7.07버전이상을 요구합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="357"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="359"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>RGB색상 대신 CMYK의 가상실험을 이용하여 인쇄 미리보기를 합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="358"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="360"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>검정, 청록, 노랑, 자홍으로 구성된 회색 음영이나 대신 검은색을 이용하는 방법. UCR은 회색에 가까운 중간 또는 어두운 색조의 이미지부분에 영향을 줍니다. 이것은 이미지 출력과 실험방법 및 개별적으로 필요한 테스팅등을 향상시킵니다. UCR은 CMY 잉크의 과도한 채색의 가능성을 감소시켜 줍니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="359"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="361"/>
         <source>Resize the scale of the page.</source>
         <translation>페이지 배율 재조정.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="360"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="362"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>지정 색상을 혼합 색상으로 변환 가능, 프린터로 지정 색상 출력을 하지 않는다면 가능한 한 남겨두는 것이 좋습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="380"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="382"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>남색 잉크 플레이트 가능/불가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="381"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="383"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>자홍색 잉크 플레이트 가능/불가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="382"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="384"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>잉크 플레이트 가능/불가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="383"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="385"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>검은색 잉크 플레이트 가능/불가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="588"/>
-        <location filename="../../../scribus/ui/preview.cpp" line="691"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="590"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="695"/>
         <source>All</source>
         <translation>전체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="1259"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="1270"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="284"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="286"/>
         <source>Apply Color Profiles</source>
         <translation>색상 프로파일 적용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="361"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="363"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation>색상 관리가 가능할 때 인쇄 스트림에서 색상 프로파일 겹침을 허용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="272"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="274"/>
         <source>Clip to Printer Margins</source>
         <translation>프린터 여백까지 자름</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="206"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="208"/>
         <source>Display Ink Coverage</source>
         <translation>잉크 범위 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="214"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="216"/>
         <source>Threshold:</source>
         <translation>허용치:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="217"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="219"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preview.cpp" line="221"/>
+        <location filename="../../../scribus/ui/preview.cpp" line="223"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
@@ -14803,32 +15138,32 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1847"/>
+        <location filename="../../../scribus/pslib.cpp" line="1510"/>
         <source>Processing Master Page:</source>
         <translation>마스터 페이지 진행 중:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1847"/>
+        <location filename="../../../scribus/pslib.cpp" line="1510"/>
         <source>Exporting Page:</source>
         <translation>페이지 내보내는 중:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1781"/>
+        <location filename="../../../scribus/pslib.cpp" line="1444"/>
         <source>Failed to write data for an image</source>
         <translation>이미지 자료 쓰기 실패</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1786"/>
+        <location filename="../../../scribus/pslib.cpp" line="1449"/>
         <source>Failed to load an image : %1</source>
         <translation>이미지 읽어오기 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1791"/>
+        <location filename="../../../scribus/pslib.cpp" line="1454"/>
         <source>Failed to load an image mask : %1</source>
         <translation>이미지 마스크 읽어오기 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1796"/>
+        <location filename="../../../scribus/pslib.cpp" line="1459"/>
         <source>Insufficient memory for processing an image</source>
         <translation>이미지 작업시 불충분한 메모리</translation>
     </message>
@@ -14836,38 +15171,43 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="481"/>
+        <location filename="../../../scribus/pageitem.cpp" line="523"/>
         <source>Image</source>
         <translation>이미지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="485"/>
+        <location filename="../../../scribus/pageitem.cpp" line="527"/>
         <source>Text</source>
         <translation>문자열</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="489"/>
+        <location filename="../../../scribus/pageitem.cpp" line="531"/>
         <source>Line</source>
         <translation>선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="493"/>
+        <location filename="../../../scribus/pageitem.cpp" line="535"/>
         <source>Polygon</source>
         <translation>다각형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="497"/>
+        <location filename="../../../scribus/pageitem.cpp" line="539"/>
         <source>Polyline</source>
         <translation>다각형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="501"/>
+        <location filename="../../../scribus/pageitem.cpp" line="543"/>
         <source>PathText</source>
         <translation>경로 문자열</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="4298"/>
-        <location filename="../../../scribus/pageitem.cpp" line="4299"/>
+        <location filename="../../../scribus/pageitem.cpp" line="547"/>
+        <source>Symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/pageitem.cpp" line="5019"/>
+        <location filename="../../../scribus/pageitem.cpp" line="5020"/>
         <source>Copy of</source>
         <translation>복사</translation>
     </message>
@@ -14984,38 +15324,38 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PageItem_ImageFrame</name>
     <message>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="285"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="464"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="324"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="429"/>
         <source>Image</source>
         <translation>이미지</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="99"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="301"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="470"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="340"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="435"/>
         <source>Embedded Image</source>
         <translation>겹친 이미지</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="101"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="298"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="332"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="472"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="499"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="337"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="371"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="437"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="464"/>
         <source>File:</source>
         <translation>파일:</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="102"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="306"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="473"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="345"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="438"/>
         <source>Original PPI:</source>
         <translation>원래 PPI:</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="103"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="311"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="474"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="350"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="439"/>
         <source>Actual PPI:</source>
         <translation>실제 PPI:</translation>
     </message>
@@ -15026,45 +15366,45 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="105"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="316"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="475"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="355"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="440"/>
         <source>Colorspace:</source>
         <translation>색상공간:</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="109"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="321"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="479"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="360"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="444"/>
         <source>Unknown</source>
         <translation>알려지지 않음</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="116"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="486"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="451"/>
         <source>Page:</source>
         <translation>페이지:</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="118"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="488"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="453"/>
         <source>Pages:</source>
         <translation>페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="336"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="497"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="375"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="462"/>
         <source>Embedded Image missing</source>
         <translation>겹친 이미지 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="338"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="499"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="377"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="464"/>
         <source>missing</source>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="343"/>
-        <location filename="../../../scribus/pageitem_imageframe.cpp" line="502"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="382"/>
+        <location filename="../../../scribus/pageitem_imageframe.cpp" line="467"/>
         <source>No Image Loaded</source>
         <translation>읽어온 이미지 없음</translation>
     </message>
@@ -15235,32 +15575,32 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3687"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3571"/>
         <source>Linked Text</source>
         <translation>링크된 문자열</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3689"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3573"/>
         <source>Text Frame</source>
         <translation>문자열 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3693"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3577"/>
         <source>Paragraphs: </source>
         <translation>문단수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3701"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3585"/>
         <source>Lines: </source>
         <translation>줄수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3707"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3591"/>
         <source>Words: </source>
         <translation>단어수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3715"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3599"/>
         <source>Chars: </source>
         <translation>문자수:</translation>
     </message>
@@ -15293,42 +15633,42 @@ Often used for allowing items to be placed across page spreads</source>
 <context>
     <name>PagePalette</name>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="919"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="931"/>
         <source>Arrange Pages</source>
         <translation>페이지 정렬</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="920"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="932"/>
         <source>Available Master Pages:</source>
         <translation>이용 가능한 마스터 페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="921"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="933"/>
         <source>Document Pages:</source>
         <translation>문서 페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="924"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="936"/>
         <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
         <translation>문서 배열에서 보이는 문서 일반 페이지들의 목록. 이들을 재배열 또는 삭제하기 위하여 페이지를 끌기합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="925"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="937"/>
         <source>Drag pages or master pages onto the trash to delete them</source>
         <translation>삭제하기 위하여 페이지 또는 마스터 페이지를 휴지통에 드래그</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="923"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="935"/>
         <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
         <translation>문서의 마스터 페이지 목록. 마스터 페이지를 적용하기 위하여 마스터 페이지 이름을 페이지 보기 아래로 드래그, 또는 새 페이지를 생성하기 위하여 페이지 사이 빈 공간으로 드래그.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="636"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="638"/>
         <source>This master page is used at least once in the document.</source>
         <translation>마스터 페이지를 최소 한번 문서에서 사용됩니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="640"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="642"/>
         <source>Do you really want to delete this master page?</source>
         <translation>정말 이 마스터 페이지를 삭제하겠습니까?</translation>
     </message>
@@ -15390,12 +15730,12 @@ Often used for allowing items to be placed across page spreads</source>
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="96"/>
+        <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="97"/>
         <source>Bends a Polygon along a Polyline</source>
         <translation>다각형따라 다각형 구부림</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="97"/>
+        <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="98"/>
         <source>This plugin bends a Polygon with the help of a Polyline.</source>
         <translation>이 플러그인은 다각형 도움으로 다각형을 굽힙니다.</translation>
     </message>
@@ -15454,7 +15794,7 @@ Often used for allowing items to be placed across page spreads</source>
     <name>PathConnectPlugin</name>
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="67"/>
-        <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="92"/>
+        <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="93"/>
         <source>Connect Paths</source>
         <translation>경로 연결</translation>
     </message>
@@ -15464,7 +15804,7 @@ Often used for allowing items to be placed across page spreads</source>
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="93"/>
+        <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="94"/>
         <source>Connect 2 Polylines.</source>
         <translation>2 다각형 연결.</translation>
     </message>
@@ -15482,28 +15822,28 @@ Often used for allowing items to be placed across page spreads</source>
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="101"/>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="102"/>
+        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="103"/>
         <source>Cuts a Polygon by a Polyline</source>
         <translation>다각형에 의해 다각형 잘라내기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="121"/>
+        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="122"/>
         <source>Qt Version too old</source>
         <translation>Qt 버전이 너무 오래됨</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="121"/>
+        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="122"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
         <translation>이 플러그인은 Qt 라이브러리의 최소한 4.3.3 버전이 필요합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="152"/>
+        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="153"/>
         <source>Error</source>
         <translation>오류</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="152"/>
+        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="153"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
         <translation>자름 줄은 다각형과 </translation>
@@ -15764,22 +16104,22 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="106"/>
+        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="107"/>
         <source>Path Operations</source>
         <translation>경로 작업</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="107"/>
+        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="108"/>
         <source>Apply fancy boolean operations to paths.</source>
         <translation>사용자 부울 작업을 경로에 적용.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="126"/>
+        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="127"/>
         <source>Qt Version too old</source>
         <translation>Qt 버전이 너무 오래되었습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="126"/>
+        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="127"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
         <translation>이 플러그인은 최소 4.3.3 이상의 Qt 라이브러리를 필요로 합니다</translation>
     </message>
@@ -15788,7 +16128,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <name>PathStrokerPlugin</name>
     <message>
         <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="76"/>
-        <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="101"/>
+        <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="102"/>
         <source>Create Path from Stroke</source>
         <translation>윤곽선에서 경로 생성</translation>
     </message>
@@ -15798,7 +16138,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="102"/>
+        <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="103"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
         <translation>경로 윤곽을 채움 경로로 변환.</translation>
     </message>
@@ -15826,37 +16166,41 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="14"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="15"/>
         <source>Patterns</source>
         <translation>패턴</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="56"/>
         <source>Load</source>
-        <translation>읽어오기</translation>
+        <translation type="obsolete">읽어오기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="63"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="48"/>
+        <source>Load File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="55"/>
         <source>Load Set</source>
         <translation>설정 읽어오기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="77"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="69"/>
         <source>Remove</source>
         <translation>제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="84"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="76"/>
         <source>Remove All</source>
         <translation>전체 제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="107"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="99"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="114"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="106"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
@@ -15876,7 +16220,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>전체 지원되는 형식</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/patterndialog.ui" line="70"/>
+        <location filename="../../../scribus/ui/patterndialog.ui" line="62"/>
         <source>Rename</source>
         <translation>다른 이름으로</translation>
     </message>
@@ -16194,7 +16538,7 @@ Please choose another one.</source>
 <context>
     <name>PicStatus</name>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="684"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="666"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
@@ -16259,102 +16603,107 @@ Please choose another one.</source>
         <translation>해당 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="83"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="76"/>
         <source>Information</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="155"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="148"/>
         <source>Path:</source>
         <translation>경로:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="198"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="191"/>
         <source>Search...</source>
         <translation>찾기...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="105"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="98"/>
         <source>Name:</source>
         <translation>이름:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="215"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="208"/>
         <source>Image</source>
         <translation>이미지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="288"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="281"/>
         <source>DPI:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="221"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="214"/>
         <source>Format:</source>
         <translation>형식:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="256"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="249"/>
         <source>Colorspace:</source>
         <translation>색상공간:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="323"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="316"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="329"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="322"/>
         <source>Pixels:</source>
         <translation>화소:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="358"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="351"/>
         <source>Scale:</source>
         <translation>배율:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="387"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="380"/>
         <source>Printed:</source>
         <translation>인쇄됨:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="425"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="418"/>
         <source>Layout</source>
         <translation>윤곽</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="433"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="426"/>
         <source>On Page:</source>
         <translation>페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="546"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="539"/>
         <source>Select</source>
         <translation>선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="575"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="560"/>
         <source>Image Tools</source>
         <translation>이미지 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="623"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="582"/>
+        <source>Set format specific properties of certain image types, like clipping paths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/picstatus.ui" line="608"/>
         <source>Image Visible</source>
         <translation>이미지 보임 가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="633"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="618"/>
         <source>Image Effects...</source>
         <translation>이미지 효과...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="613"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="598"/>
         <source>Edit Image...</source>
         <translation>이미지 편집...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="600"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="585"/>
         <source>Extended Image Properties...</source>
         <translation>확장 이미지 속성...</translation>
     </message>
@@ -16369,127 +16718,126 @@ Please choose another one.</source>
         <translation>페이지에 의한 정렬</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="16"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="17"/>
         <source>Manage Images</source>
         <translation>이미지 관리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="530"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="523"/>
         <source>Go to</source>
         <translation>이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="127"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="120"/>
         <source>Name of the image file</source>
         <translation>이미지 파일명</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="177"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="170"/>
         <source>Location where the image file is stored</source>
         <translation>이미지 파일 저장된 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="195"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="188"/>
         <source>Search for a missing image</source>
         <translation>빠진 이미지 찾기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="240"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="233"/>
         <source>Type of the image</source>
         <translation>이미지 형태</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="253"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="246"/>
         <source>The colorspace of the image</source>
         <translation>이미지 색상공간</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="275"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="268"/>
         <source>Colorspace used within the image, eg RGB or CMYK</source>
         <translation>이미지에서 사용된 색상 즉 RGB 또는 CMYK</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="307"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="300"/>
         <source>Native resolution of the image, in dots per inch</source>
         <translation>이미지의 원 해상도(DPI)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="345"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="338"/>
         <source>Height and width of the image</source>
         <translation>이미지의 높이와 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="374"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="367"/>
         <source>Horizontal and vertical scaling applied to the image</source>
         <translation>이미지에 적용된 수평과 수직 배율</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="409"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="402"/>
         <source>Size of the image when printed</source>
         <translation>출력시 이미지 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="449"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="442"/>
         <source>Page that the image is displayed on</source>
         <translation>이미지가 나타나는 페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="462"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="455"/>
         <source>Page Item:</source>
         <translation>페이지 객체:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="478"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="471"/>
         <source>Name of the page item that contains the image</source>
         <translation>이미지를 포함하는 페이지 객체명</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="491"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="484"/>
         <source>Effective DPI:</source>
         <translation>유효 DPI:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="510"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="503"/>
         <source>Effective resolution of the image after scaling</source>
         <translation>배율 조정 후 이미지 유효 해상도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="527"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="520"/>
         <source>Move to the page that the image is on</source>
         <translation>이미지 켬 상태의 페이지로 이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="543"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="536"/>
         <source>Move to the page that the item is on and select it</source>
         <translation>객체가 켬 상태의 페이지로 이동하고 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="587"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="572"/>
         <source>Enable or disable exporting of the item</source>
         <translation>객체 내보내기 가능/불가</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="590"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="575"/>
         <source>Export/Print Image</source>
         <translation>이미지 내보내기/인쇄</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="597"/>
         <source>Set format specfic properties of certain image types, like clipping paths</source>
-        <translation>경로 자름처럼 어떤 이미지 형태의 형태 지정 속성 설정</translation>
+        <translation type="obsolete">경로 자름처럼 어떤 이미지 형태의 형태 지정 속성 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="610"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="595"/>
         <source>Edit the image in the default editor</source>
         <translation>기본 편집기에서 이미지 편집</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="620"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="605"/>
         <source>Make the image visible or invisible</source>
         <translation>이미지 보이기 가능 또는 불가</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/picstatus.ui" line="630"/>
+        <location filename="../../../scribus/ui/picstatus.ui" line="615"/>
         <source>Apply non destructive effects to the image in its frame</source>
         <translation>그 프레임에서 비 파괴적인 효과를 이미지에 적용합니다</translation>
     </message>
@@ -17492,7 +17840,7 @@ Please choose another one.</source>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="249"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="325"/>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="14"/>
         <source>Preferences</source>
         <translation type="unfinished">기본 설정</translation>
@@ -17523,112 +17871,123 @@ Please choose another one.</source>
         <translation type="unfinished">취소(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="35"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="68"/>
         <source>User Interface</source>
         <translation type="unfinished">사용자 인터페이스</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="37"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="70"/>
         <source>Paths</source>
         <translation type="unfinished">경로</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="39"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="61"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="73"/>
         <source>Document Setup</source>
         <translation type="unfinished">문서 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="41"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="80"/>
         <source>Guides</source>
         <translation type="unfinished">안내선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="43"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="82"/>
         <source>Typography</source>
         <translation type="unfinished">글자 모양</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="45"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="84"/>
         <source>Item Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="47"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="86"/>
         <source>Operator Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="49"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="88"/>
         <source>Hyphenator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="51"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="90"/>
         <source>Fonts</source>
         <translation type="unfinished">글꼴</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="55"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="94"/>
         <source>Printer</source>
         <translation type="unfinished">프린터</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="53"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="92"/>
         <source>Color Management</source>
         <translation type="unfinished">색상 관리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="57"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="77"/>
+        <source>Document Information</source>
+        <translation type="unfinished">문서 정보</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="96"/>
         <source>PDF Export</source>
         <translation type="unfinished">PDF 내보내기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="59"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="98"/>
         <source>Preflight Verifier</source>
         <translation type="unfinished">문서 검증</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="61"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="100"/>
         <source>Document Item Attributes</source>
         <translation type="unfinished">문서 객체 속성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="63"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="102"/>
         <source>Tables of Contents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="65"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="106"/>
+        <source>Sections</source>
+        <translation type="unfinished">섹션</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="111"/>
         <source>Keyboard Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="67"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="113"/>
         <source>Scrapbook</source>
         <translation type="unfinished">스크랩북</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="69"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="116"/>
         <source>Display</source>
         <translation type="unfinished">보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="71"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="120"/>
         <source>External Tools</source>
         <translation type="unfinished">외부 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="73"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="122"/>
         <source>Miscellaneous</source>
         <translation type="unfinished">기타</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="75"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="124"/>
         <source>Plugins</source>
         <translation type="unfinished">플러그인</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="77"/>
+        <location filename="../../../scribus/ui/preferencesdialog.cpp" line="126"/>
         <source>Image Cache</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17682,13 +18041,13 @@ Please choose another one.</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2145"/>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2154"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2163"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2173"/>
         <source>PostScript</source>
         <translation>포스트스크립트</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="826"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="830"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>이전 Scribus 설정을 바꿀까요?</translation>
     </message>
@@ -17699,60 +18058,60 @@ Do you want to migrate them to the new Scribus version?</source>
 새로운 Scribus의 버젼으로 설정을 바꾸시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="827"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="831"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="1746"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="1758"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>쓸 때 기본 설정 파일 &quot;%1&quot;을 열 수 없습니다: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="1757"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="1769"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>기본 설정파일 &quot;%1&quot;로 쓰기 실패: QIO 디바이스 상태 코드 %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="1772"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="1784"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>기본 설정 파일 &quot;%1&quot; 열기 실패: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="1782"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="1794"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>&quot;%1&quot;로 기본 설정 XML 읽기 실패: %2 , 행 %3 열 %4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2145"/>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2154"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2164"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2173"/>
         <source>Postscript</source>
         <translation>포스트크립트</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2556"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2575"/>
         <source>Error Writing Preferences</source>
         <translation>기본 설정 쓰는 중 오류</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2558"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2577"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus는 기본 설정을 저장할 수 없음:&lt;br&gt;%1&lt;br&gt; 파일과 폴더 속성 및 이용가능한 저장 공간을 체크하시오.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2575"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2594"/>
         <source>Error Loading Preferences</source>
         <translation>기본 설정 읽는 중 오류</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2577"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2596"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus가 기본 설정을 읽을 수 없습니다:&lt;br&gt;%1&lt;br&gt; 기본 설정을 읽어들입니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/prefsmanager.cpp" line="2231"/>
+        <location filename="../../../scribus/prefsmanager.cpp" line="2250"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>적합한 렌더프레임 설정을 찾을 수 없습니다. 기본값 사용 중!</translation>
     </message>
@@ -17855,27 +18214,27 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="24"/>
-        <source>Monitor profiles can only be changed when no documents are currently open.</source>
+        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="28"/>
+        <source>Monitor profiles can only be changed when no documents are open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="40"/>
+        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="52"/>
         <source>Perceptual</source>
         <translation type="unfinished">지각</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="40"/>
+        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="52"/>
         <source>Relative Colorimetric</source>
         <translation type="unfinished">상대 색상계</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="41"/>
+        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="53"/>
         <source>Saturation</source>
         <translation type="unfinished">채도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="41"/>
+        <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="53"/>
         <source>Absolute Colorimetric</source>
         <translation type="unfinished">절대 색상계</translation>
     </message>
@@ -17893,249 +18252,370 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="62"/>
         <source>Page Display</source>
-        <translation type="unfinished">페이지 보이기</translation>
+        <translation type="obsolete">페이지 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="78"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="53"/>
         <source>Show Images</source>
         <translation type="unfinished">이미지 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="85"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="60"/>
         <source>Show Text Control Characters</source>
         <translation type="unfinished">문자열 제어 문자 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="92"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="67"/>
+        <source>Show Rulers</source>
+        <translation type="unfinished">눈금자 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="74"/>
         <source>Show Rulers Relative to Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="99"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="81"/>
         <source>Show Text Chains</source>
         <translation type="unfinished">문자열 링크 체인 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="106"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="88"/>
         <source>Show Frames</source>
         <translation type="unfinished">프레임 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="113"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="95"/>
         <source>Show Layer Indicators</source>
         <translation type="unfinished">레이어 지시자 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="120"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="102"/>
         <source>Show Unprintable Area in Margin Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="127"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="109"/>
         <source>Show Bleed Area</source>
         <translation type="unfinished">물림재단 구간 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="134"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="116"/>
         <source>Show Page Shadow</source>
         <translation type="unfinished">페이지 음영 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="165"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="123"/>
+        <source>Show Preflight Verifier Warnings on the Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="212"/>
         <source>Scratch Space</source>
         <translation type="unfinished">페이지 테두리 밖 임시 공간</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="184"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="223"/>
         <source>Left:</source>
         <translation type="unfinished">왼쪽:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="191"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="230"/>
         <source>Right:</source>
         <translation type="unfinished">오른쪽:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="198"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="237"/>
         <source>Top:</source>
         <translation type="unfinished">상단:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="205"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="244"/>
         <source>Bottom:</source>
         <translation type="unfinished">하단:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="248"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="279"/>
+        <source>Display Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="154"/>
         <source>Gaps Between Pages</source>
         <translation type="unfinished">페이지 사이 공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="270"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="45"/>
+        <source>Pages</source>
+        <translation type="unfinished">페이지</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="176"/>
         <source>Horizontal:</source>
         <translation type="unfinished">수평:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="280"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="186"/>
         <source>Vertical:</source>
         <translation type="unfinished">수직:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="314"/>
         <source>Adjust Display Size</source>
-        <translation type="unfinished">보이기 크기 조정</translation>
+        <translation type="obsolete">보이기 크기 조정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="346"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="303"/>
         <source>Scale%</source>
         <translation type="unfinished">배율 %</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="356"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="313"/>
         <source>Resets the scale to the default dpi of your display</source>
         <translation type="unfinished">배유을 보이기 기본 dpi로 초기화</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="422"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="371"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="444"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="385"/>
         <source>Page Fill:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="451"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="465"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="479"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="493"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="507"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="521"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="535"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="556"/>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="563"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="392"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="406"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="420"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="434"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="448"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="462"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="476"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="497"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="504"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="458"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="399"/>
         <source>Selected Page Border:</source>
         <translation type="unfinished">선택된 페이지 경계:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="472"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="413"/>
         <source>Frames:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="486"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="427"/>
         <source>Locked Frames:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="500"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="441"/>
         <source>Selected Frames:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="514"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="455"/>
         <source>Linked Frames:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="528"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="469"/>
         <source>Grouped Frames:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="542"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="483"/>
         <source>Annotation Frames:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="549"/>
+        <location filename="../../../scribus/ui/prefs_displaybase.ui" line="490"/>
         <source>Text Control Characters:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="48"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="49"/>
         <source>Color for paper (onscreen)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="49"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="50"/>
         <source>Mask the area outside the margins in the margin color</source>
         <translation type="unfinished">여백 색상에서 여백 바깥쪽 구간을 마스크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="50"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="51"/>
         <source>Enable or disable  the display of linked frames.</source>
         <translation type="unfinished">링크된 프레임 보이기 토글.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="51"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="52"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation type="unfinished">문자열 프레임에서 문단 표시와 같은 비출력 문자를 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="52"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="53"/>
         <source>Turns the display of frames on or off</source>
         <translation type="unfinished">프레임 보이기 토글</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="53"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="54"/>
         <source>Turns the display of layer indicators on or off</source>
         <translation type="unfinished">레이어 지시자 보이기 토글</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="54"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="55"/>
         <source>Turns the display of images on or off</source>
         <translation type="unfinished">이미지 보이기 토글</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="55"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="56"/>
         <source>Turns the page shadow on or off</source>
         <translation type="unfinished">페이지 음영 토글</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="56"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="57"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="unfinished">객체의 생성과 수정 또는 객체를 활성 그리고 활성 페이지상에 끌고 오기 위한 작업공간인 문서 캔버스 왼쪽 여백을 정합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="57"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="58"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="unfinished">객체의 생성과 수정 또는 객체를 활성 페이지상에 끌고오기 위한 작업공간인 문서 캔버스 오른쪽 여백을 정합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="58"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="59"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="unfinished">객체의 생성과 수정 또는 객체를 활성 페이지상에 끌고 오기 위한 작업공간인 문서 캔버스 위쪽 여백을 정합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="59"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="60"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="unfinished">객체의 생성과 수정 또는 객체를 활성 페이지상에 끌고 오기 위한 작업공간인 문서 캔버스 아래쪽 여백을 정합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="60"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="61"/>
         <source>Set the default zoom level</source>
         <translation type="unfinished">기본 배율 레벨 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="61"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="62"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
         <translation type="unfinished">화면상에서 눈금자를 위치시키고 돋보기 확대 비율을 설정하기 위하여 슬라이더 끌기를 하면 Scribus는 페이지와 객체를 정확한 크기로 보여집니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="152"/>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="237"/>
-        <location filename="../../../scribus/ui/prefs_display.cpp" line="245"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="154"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="239"/>
+        <location filename="../../../scribus/ui/prefs_display.cpp" line="247"/>
         <source> dpi</source>
         <translation type="unfinished">DPI</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_DocumentInformation</name>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished">폼</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="27"/>
+        <source>Document Information</source>
+        <translation type="unfinished">문서 정보</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="45"/>
+        <source>Document</source>
+        <translation type="unfinished">문서</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="51"/>
+        <source>Title:</source>
+        <translation type="unfinished">제목:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="68"/>
+        <source>Author:</source>
+        <translation type="unfinished">저작자:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="78"/>
+        <source>Subject:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="88"/>
+        <source>Keywords:</source>
+        <translation type="unfinished">핵심어:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="98"/>
+        <source>Description:</source>
+        <translation type="unfinished">요약:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="109"/>
+        <source>Further Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="115"/>
+        <source>Publisher:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="125"/>
+        <source>Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="135"/>
+        <source>Date:</source>
+        <translation type="unfinished">날짜:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="145"/>
+        <source>Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="155"/>
+        <source>Format:</source>
+        <translation type="unfinished">형식:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="165"/>
+        <source>Identifier:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="175"/>
+        <source>Source:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="185"/>
+        <source>Language:</source>
+        <translation type="unfinished">언어:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="195"/>
+        <source>Relation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="205"/>
+        <source>Coverage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="215"/>
+        <source>Rights:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18286,6 +18766,100 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
 </context>
 <context>
+    <name>Prefs_DocumentSections</name>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
+        <source>1, 2, 3, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
+        <source>i, ii, iii, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
+        <source>I, II, III, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
+        <source>a, b, c, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
+        <source>A, B, C, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="161"/>
+        <source>Page Number Out Of Bounds</source>
+        <translation type="unfinished">범위 밖 페이지 번호</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="161"/>
+        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
+        <translation type="unfinished">입력한 값이 문서의 페이지 번호 범위밖입니다 (%1-%2).</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="14"/>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="27"/>
+        <source>Document Sections</source>
+        <translation type="unfinished">문서 섹션</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="48"/>
+        <source>Name</source>
+        <translation type="unfinished">이름</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="53"/>
+        <source>Shown</source>
+        <translation type="unfinished">보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="58"/>
+        <source>From</source>
+        <translation type="unfinished">에서</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="63"/>
+        <source>To</source>
+        <translation type="unfinished">까지</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="68"/>
+        <source>Style</source>
+        <translation type="unfinished">스타일</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="73"/>
+        <source>Start</source>
+        <translation type="unfinished">시작</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="99"/>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="102"/>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="109"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">삭제(&amp;D)</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="112"/>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Prefs_DocumentSetup</name>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="14"/>
@@ -18298,104 +18872,209 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">문서 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="63"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="45"/>
+        <source>Size &amp;&amp; Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="58"/>
         <source>Page Size</source>
         <translation type="unfinished">페이지 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="81"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="74"/>
         <source>Size:</source>
         <translation type="unfinished">크기:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="94"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="87"/>
         <source>Orientation:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="107"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Units:</source>
         <translation type="unfinished">단위:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="120"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="113"/>
         <source>Width:</source>
         <translation type="unfinished">너비:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="133"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="126"/>
         <source>Height:</source>
         <translation type="unfinished">높이:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="163"/>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="351"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="141"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="316"/>
         <source>Apply changes to all pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="170"/>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="358"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="148"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="323"/>
         <source>Apply changes to all master pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="200"/>
-        <source>Page Layouts</source>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="178"/>
+        <source>Page Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="221"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="401"/>
+        <source>Saving &amp;&amp; Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="407"/>
+        <source>Save in Compressed Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="437"/>
+        <source>Autosave</source>
+        <translation type="unfinished">자동저장</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="451"/>
+        <source>Enable Automatic Saving of Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="460"/>
+        <source>Interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="467"/>
+        <source> min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="512"/>
+        <source>Undo / Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="526"/>
+        <source>Enable Undo/Redo System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="535"/>
+        <source>Action History Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="197"/>
         <source>Single Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="227"/>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="237"/>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="247"/>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="257"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="203"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="213"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="223"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="233"/>
         <source>pageLayoutButtonGroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="234"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="210"/>
         <source>Double Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="244"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="220"/>
         <source>3-Fold</source>
         <translation type="unfinished">세 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="254"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="230"/>
         <source>4-Fold</source>
         <translation type="unfinished">네 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="264"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="240"/>
         <source>First Page is:</source>
         <translation type="unfinished">첫 페이지:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="317"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="269"/>
+        <source>Margins &amp;&amp; Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="282"/>
         <source>Margins</source>
         <translation type="unfinished">여백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="388"/>
+        <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="353"/>
         <source>Bleeds</source>
         <translation type="unfinished">물림재단</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="77"/>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="85"/>
         <source>Portrait</source>
         <translation type="unfinished">세로</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="78"/>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="86"/>
         <source>Landscape</source>
         <translation type="unfinished">가로</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="96"/>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished">문서 페이지 너비, 사용자 페이지 크기 설정시 편집 가능</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="97"/>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished">문서 페이지 높이, 사용자 페이지 크기 설정시 편집 가능</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="98"/>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation type="unfinished">기본 페이지 크기, 표준이나 사용자 크기 설정</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="99"/>
+        <source>Default orientation of document pages</source>
+        <translation type="unfinished">문서 페이지 기본 방향</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="100"/>
+        <source>Default unit of measurement for document editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="101"/>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
+        <translation type="unfinished">선택시, Scribus는 매번 지정된 시간 후 .bak 확장자를 가진 백업 파일을 저장합니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="102"/>
+        <source>Time period between saving automatically</source>
+        <translation type="unfinished">문서의 자동 저장 시간 간격</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="103"/>
+        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
+        <translation type="unfinished">문서 내 작업 내역 저장 갯수 설정, 0 이면 작업내역이 무한정 저장됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="104"/>
+        <source>Apply the page size changes to all existing pages in the document</source>
+        <translation type="unfinished">페이지 크기 변경을 문서 전체 기존 페이지로 적용</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="105"/>
+        <source>Apply the page size changes to all existing master pages in the document</source>
+        <translation type="unfinished">페이지 크기 변경을 문서 전체 기존 마스터 페이지로 적용</translation>
     </message>
 </context>
 <context>
@@ -18731,115 +19410,200 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="27"/>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="164"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="153"/>
         <source>Guides</source>
         <translation type="unfinished">안내선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="61"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="45"/>
+        <source>Placement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="56"/>
         <source>Placement:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="78"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="73"/>
         <source>Snap Distance:</source>
         <translation type="unfinished">붙임 거리:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="85"/>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="105"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="80"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="100"/>
         <source> px</source>
         <translation type="unfinished"> 화소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="98"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="93"/>
         <source>Grab Radius:</source>
         <translation type="unfinished">붙임 반경:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="142"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="137"/>
         <source>Visibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="171"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="160"/>
         <source>Margins</source>
         <translation type="unfinished">여백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="167"/>
         <source>Page Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="185"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="174"/>
         <source>Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="216"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="205"/>
         <source>Distances</source>
         <translation type="unfinished">거리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="240"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="227"/>
         <source>Minor Grid Spacing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="250"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="237"/>
         <source>Baseline Grid Spacing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="260"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="247"/>
         <source>Major Grid Spacing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="267"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="254"/>
         <source>Baseline Grid Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="316"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="280"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="337"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="291"/>
         <source>Guides:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="351"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="305"/>
         <source>Margins:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="365"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="319"/>
         <source>Major Grid:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="379"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="333"/>
         <source>Minor Grid:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="393"/>
+        <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="347"/>
         <source>Baseline Grid:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guides.cpp" line="35"/>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="36"/>
         <source>In the Background</source>
         <translation type="unfinished">배경</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_guides.cpp" line="36"/>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="37"/>
         <source>In the Foreground</source>
         <translation type="unfinished">전경</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="40"/>
+        <source>Place guides in front of or behind objects on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="41"/>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished">보조 격자선 사이 거리</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="42"/>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished">주 격자선 사이 거리</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="43"/>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished">객체가 위치한 안내선에 붙이기 위한 거리. 이 설정 후 Scribus를 재실행해야 합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="44"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished">Scribus가 객체 조절점을 붙잡을 수 있는 영향 반경. 이 설정을 한 후 Scribus를 재실행해야 합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="45"/>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished">보조 격자선 색상</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="46"/>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished">주 격자선 색상</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="47"/>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished">삽입할 안내선 색상</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="48"/>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished">여백 선의 색상</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="49"/>
+        <source>Color for the baseline grid</source>
+        <translation type="unfinished">기준선 격자 색상</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="50"/>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished">기준 격자 토글</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="51"/>
+        <source>Distance between the lines of the baseline grid</source>
+        <translation type="unfinished">기준선 격자 선 사이 거리</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="52"/>
+        <source>Distance from the top of the page for the first baseline</source>
+        <translation type="unfinished">페이지 상단에서 첫째 기준선까지 거리</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="53"/>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished">격자선 토글</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="54"/>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished">안내선 토글</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_guides.cpp" line="55"/>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished">여백 토글</translation>
     </message>
 </context>
 <context>
@@ -18928,27 +19692,27 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">편집</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="93"/>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="105"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="94"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="106"/>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="319"/>
         <source>Ignore List</source>
         <translation type="unfinished">목록 무시</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="93"/>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="134"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="94"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="135"/>
         <source>Add a new Entry</source>
         <translation type="unfinished">새 엔트리 입력</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="105"/>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="146"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="106"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="147"/>
         <source>Edit Entry</source>
         <translation type="unfinished">엔트리 입력</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="134"/>
-        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="146"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="135"/>
+        <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="147"/>
         <source>Exception List</source>
         <translation type="unfinished">예외 목록</translation>
     </message>
@@ -18956,22 +19720,22 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_ImageCache</name>
     <message>
-        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="27"/>
+        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="28"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="28"/>
+        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="29"/>
         <source>Limit the total size of all files in the image cache directory to this amount.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="29"/>
+        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="30"/>
         <source>Limit the number of cache entries to this number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="30"/>
+        <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19587,6 +20351,36 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Constrain To:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="36"/>
+        <source>Minimum magnification allowed</source>
+        <translation type="unfinished">허용된 최소 배율</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="37"/>
+        <source>Maximum magnification allowed</source>
+        <translation type="unfinished">허용된 최대 배율</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="38"/>
+        <source>Change in magnification for each zoom operation</source>
+        <translation type="unfinished">확대/축소 누름시 반영될 배율 크기 변경</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="39"/>
+        <source>Horizontal displacement of page items</source>
+        <translation type="unfinished">페이지 객체의 수평 위치</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="40"/>
+        <source>Vertical displacement of page items</source>
+        <translation type="unfinished">페이지 객체의 수직 위치</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="41"/>
+        <source>Constrain value for the rotation tool when the Control key is pressed</source>
+        <translation type="unfinished">제어키를 누를때 회전 도구의 제한 값</translation>
+    </message>
 </context>
 <context>
     <name>Prefs_PDFExport</name>
@@ -19601,436 +20395,1043 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">PDF 내보내기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="50"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1222"/>
         <source>Export Range</source>
         <translation type="unfinished">구간 내보내기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="64"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="71"/>
         <source>All Pages</source>
         <translation type="unfinished">전체 페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="67"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="77"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="74"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="84"/>
         <source>rangeButtonGroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="74"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="81"/>
         <source>Choose Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="89"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="183"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="193"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="96"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="190"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="200"/>
         <source>...</source>
         <translation type="unfinished">...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="133"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="140"/>
         <source>Rotation and Mirroring</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="149"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="156"/>
         <source>Rotation:</source>
         <translation type="unfinished">회전:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="176"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="183"/>
         <source>Page Mirroring:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="256"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="263"/>
         <source>Page Binding:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="270"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="277"/>
         <source>Resolution for EPS Graphics:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="277"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="430"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="284"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="437"/>
         <source> dpi</source>
         <translation type="unfinished">DPI</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="307"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="314"/>
         <source>Clip to Printer Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="423"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="430"/>
         <source>Limit Maximum Image Resolution to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="618"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="625"/>
         <source>Allow Copying Text and Graphics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1033"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1040"/>
         <source>Registration Mark Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="235"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="242"/>
         <source>File Options</source>
         <translation type="unfinished">파일 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="38"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="45"/>
         <source>Pages</source>
         <translation type="unfinished">페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="246"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="253"/>
         <source>Compatibility:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="314"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="321"/>
         <source>Generate Thumbnails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="321"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="328"/>
         <source>Save Linked Text Frames as PDF Articles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="328"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="335"/>
         <source>Include Layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="335"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="342"/>
         <source>Include Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="342"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="349"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="373"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="380"/>
         <source>Compression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="387"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="394"/>
         <source>Compress Text and Vector Graphics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="399"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="406"/>
         <source>Image Compression Method:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="409"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="416"/>
         <source>Image Compression Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="472"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="479"/>
         <source>Security</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="490"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="497"/>
         <source>Use Encryption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="519"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="526"/>
         <source>Passwords</source>
         <translation type="unfinished">암호</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="538"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="545"/>
         <source>Owner:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="552"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="559"/>
         <source>User:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="590"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="597"/>
         <source>Settings</source>
         <translation type="unfinished">설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="604"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="611"/>
         <source>Allow Printing the Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="611"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="618"/>
         <source>Allow Changing the Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="625"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="632"/>
         <source>Allow Adding Annotations and Fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="646"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="653"/>
         <source>Color</source>
         <translation type="unfinished">색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="684"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="691"/>
         <source>Output Intended For:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="696"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="703"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="725"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="732"/>
         <source>Solid Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="746"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="813"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="753"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="820"/>
         <source>Use Color Profile</source>
         <translation type="unfinished">색상 프로파일 사용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="755"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="829"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="762"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="836"/>
         <source>Profile:</source>
         <translation type="unfinished">프로파일:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="765"/>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="839"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="772"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="846"/>
         <source>Rendering Intent:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="799"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="806"/>
         <source>Images</source>
         <translation type="unfinished">이미지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="820"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="827"/>
         <source>Do not use Embedded Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="873"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="880"/>
         <source>Custom Rendering</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="887"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="894"/>
         <source>Use Custom Rendering</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="899"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="906"/>
         <source>Color:</source>
         <translation type="unfinished">색상:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="909"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="916"/>
         <source>Frequency:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="926"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="933"/>
         <source>Angle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="933"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="940"/>
         <source> °</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="946"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="953"/>
         <source>Spot Function:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="976"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="983"/>
         <source>Pre-Press</source>
         <translation type="unfinished">사전-출판</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1000"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1007"/>
         <source>Printer Marks</source>
         <translation type="unfinished">프린터 표시</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1016"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1023"/>
         <source>Page Information</source>
         <translation type="unfinished">페이지 정보</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1023"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1030"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1040"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1047"/>
         <source>Crop Marks</source>
         <translation type="unfinished">자름 마크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1047"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1054"/>
         <source>Bleed Marks</source>
         <translation type="unfinished">물림재단 마크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1054"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1061"/>
         <source>Color Bars</source>
         <translation type="unfinished">색상 막대</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1085"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1092"/>
         <source>Bleed Settings</source>
         <translation type="unfinished">물림재단 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1141"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1126"/>
+        <source>Use Document Bleeds</source>
+        <translation type="unfinished">문서 물림재단 사용</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1155"/>
         <source>PDF/X-3 Output Intent</source>
         <translation type="unfinished">PDF/X-3 출력용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1160"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1174"/>
         <source>Output Profile:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1170"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1184"/>
         <source>Information String:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1210"/>
+        <source>Fonts</source>
+        <translation type="unfinished">글꼴</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1240"/>
+        <source>Available Fonts</source>
+        <translation type="unfinished">이용가능한 글꼴</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1254"/>
+        <source>Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1261"/>
+        <source>Outline All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1299"/>
+        <source>Fonts to Embed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1358"/>
+        <source>Fonts to Outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1373"/>
+        <source>Extras</source>
+        <translation type="unfinished">기타</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1379"/>
+        <source>Enable Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1398"/>
+        <source>Display Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1405"/>
+        <source>Effect Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1412"/>
+        <source>Effect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1422"/>
+        <source>Moving Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1432"/>
+        <source>From the:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1442"/>
+        <source>Direction:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1452"/>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1462"/>
+        <source> s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1477"/>
+        <source>Apply Effect to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1501"/>
+        <source>Show Page Previews</source>
+        <translation type="unfinished">페이지 미리보기 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1509"/>
+        <source>Viewer</source>
+        <translation type="unfinished">뷰어</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1521"/>
+        <source>Document Layout</source>
+        <translation type="unfinished">문서 윤곽</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1535"/>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1542"/>
+        <source>Continuous Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1549"/>
+        <source>Double Page Left</source>
+        <translation type="unfinished">양 페이지 왼쪽</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1556"/>
+        <source>Double Page Right</source>
+        <translation type="unfinished">양 페이지 오른쪽</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1585"/>
+        <source>Visual Appearance</source>
+        <translation type="unfinished">시각적 외양</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1603"/>
+        <source>Use Viewer&apos;s Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1610"/>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished">전체 화면 모드 사용</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1617"/>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished">책갈피 탭 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1624"/>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished">썸네일 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1631"/>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished">레이어 탭 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1642"/>
+        <source>Hide Viewer&apos;s Menu Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1649"/>
+        <source>Hide Viewer&apos;s Tool Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1656"/>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished">뷰어 창에 맞게 페이지 배율 조정</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1702"/>
+        <source>Special Actions</source>
+        <translation type="unfinished">특별 작업</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1718"/>
+        <source>Javascript to be executed when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="46"/>
+        <source>Automatically rotate the exported pages</source>
+        <translation type="unfinished">자동으로 내보내기 페이지 회전</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="47"/>
+        <source>Export all pages to PDF</source>
+        <translation type="unfinished">전체 페이지를 PDF로 내보내기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="48"/>
+        <source>Export a range of pages to PDF</source>
+        <translation type="unfinished">페이지 범위를 PDF로 내보내기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="49"/>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished">전체 페이지를 *로 표시하는 곳에 콤마를 토큰 분리 목록을 삽입. 페이지 구간일 때 1-5 또는 단일 페이지 번호.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="53"/>
+        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="54"/>
+        <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished">PDF에서 페이지 제본을 결정합니다. 특별한 경우가 아니라면 기본 선택인 왼쪽으로 설정합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="55"/>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished">PDF에서 각 페이지의 썸네일을 생성합니다. 몇몇 뷰어는 페이지 이동을 위하여 썸네일을 사용합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="56"/>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation type="unfinished">PDF 문단을 생성합니다. 이것은 PDF에서 링크된 문단을 이동할 때 유용합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="57"/>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished">PDF 1.5를 선택한다면 문서 레이어들을 이용가능한  PDF로 내보냅니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="58"/>
+        <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished">문서에서 생성된 책갈피를 포함시킵니다. 이는 긴 PDF 문서를 이동할 때 유용합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
+        <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished">문자열과 벡터 그래픽의 해상도를 내보냅니다. 사진과 같은 비트맵 이미지에는 영향을 주지 않습니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
+        <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
+        <translation type="unfinished">이미지 프레임의 PDF를 삽입 PDF로 내보내기. 이것은 색상공간을 아직 다루지 않습니다, 따라서 이것을 &apos;참&apos;으로 설정하기 전 여러분이 무엇을 하는지 알아야 합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
+        <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
+        <translation type="unfinished">문자열과 그래픽의 무손실 압축 가능하도록 합니다. 특별한 일이 없는 한 체크된 대로 두어야 하며 이 작업은 PDF 파일 크기를 줄입니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="62"/>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished">이미지 압축 처리 방법. 자동은 압축 최적방법을 사용. ZIP은 단색 이미지에 대하여 무손실이고 좋으며. JPEG는 많은 사진 자료가 있는 PDF를 작은 파일을 생성하는데 좋으나 이미지 품질은 약간 떨어질 수 있습니다. 특별히 이유가 없으면 자동으로 두도록 합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="63"/>
+        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished">손실 압축방법을 위한 압축 품질 레벨 : 최소(25%), 낮음(50%), 중간(75%), 높음(85%),최대(95%).  압축 품질 레벌은 출력 이미지 크기를 직접적으로 결정하는 것은 아닙니다. 이미지 크기와 품질의 손실은 정베지어선 레벌에서 다양하며 최대 JPEG에서 약간 품질의 손실이 있습니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="64"/>
+        <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished">비트 맵 이미지 해상도를 선택된 DPI에 제한합니다. 낮은 해상도에 의한 이미지는 건드리지 않고 그냥 둡니다. 이것을 체크를 하지 않는 것은그들을 원래 해상도로 렌더시킬 것입니다. 이것을 가능하게 하는 것은 메모리 사용량을 증가시키고 내보내기를 느리게 처리합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="65"/>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation type="unfinished">이미지 내보내기 위
+한 DPI.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="66"/>
+        <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished">출력된 PDF로 보안 기능을 가능. PDF 1.3을 선택했을 경우, PDF는 40비트 암호화로 보호. PDF 1.4를 선택했을 경우, PDF는 128비트 암호화로 보호. 설명： PDF 암호화에는 GPG 또는 PGP 암호화(정도)만큼 신뢰할 수 없어 약간 한계가 있습니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="67"/>
+        <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished">내보내는 PDF에서 전체 보안 기능을 가능 또는 불가로 할 수 있는 마스터 암호를 선택합니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="68"/>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation type="unfinished">사용자가 PDF를 읽을 수 있도록 암호를 선택합니다.</translation>
+    </message>
+    <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation type="unfinished">PDF 인쇄를 허용합니다. 체크가 안되었다면 인쇄가 안됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation type="unfinished">PDF수정을 허용합니다. 체크가 되지 않았다면 PDF수정이 안됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
+        <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
+        <translation type="unfinished">PDF에서 문자열이나 이미지 복사를 허용합니다. 체크가 되지 않으면 문자열이나 이미지 복사가 안됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
+        <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished">주석이나 필드를 PDF에 더하기 허용합니다. 미 체크시 주석과 필드 수정이 안됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished">PDF 인쇄를 위한 색상 모델. 화면 보기와 잉크젯 인쇄를 위한 PDF를 위하여 화면/웹을 선택. 트루 4색상 CMYK 프른터로 인쇄할 때 프린터를 선택. 회색톤 PDF 인쇄 할 때 회색톤 선택합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="unfinished">기본값으로 사용되지 않는 고급 설정임. 이것은 프린터에 요청할 때만 사용가능하며 필요한 세부사항을 정확히 맞추어야 합니다. 그렇지 않으면 내보낸 PDF가 적당히 출력되지 않습니다. 그리고 시스템 전체에 호환되지 않습니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="75"/>
+        <source>Embed a color profile for solid colors</source>
+        <translation type="unfinished">단일 색상를 위한 색상 프로파일을 포함시킵니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
+        <source>Color profile for solid colors</source>
+        <translation type="unfinished">단색의 색상 프로파일</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
+        <source>Rendering intent for solid colors</source>
+        <translation type="unfinished">단색의 렌더링용</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="78"/>
+        <source>Embed a color profile for images</source>
+        <translation type="unfinished">이미지 색상 프로파일 삽입</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="79"/>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation type="unfinished">소스 이미지에서 삽입된 색상 프로파일 사용안함</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="80"/>
+        <source>Color profile for images</source>
+        <translation type="unfinished">이미지 색상 프로파일</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
+        <source>Rendering intent for images</source>
+        <translation type="unfinished">이미지 렌더링용</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="82"/>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished">페이지 수평으로 뒤집기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="83"/>
+        <source>Mirror Page(s) vertically</source>
+        <translation type="unfinished">페이지 수직으로 뒤집기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="84"/>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="85"/>
+        <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished">내보내기 파일에 객체 밖의 여백을 보이지 않게 합니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="87"/>
+        <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished">출력 후 종이가 자르거나 인쇄 후 잘린 곳에서 보여지는 PDF에서 잘림 마크를 생성합니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="89"/>
+        <source>Add registration marks to each separation</source>
+        <translation type="unfinished">등록마크를 개별 분리자에 더하기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="90"/>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished">색상 조정 막대 더하기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="91"/>
+        <source>Add document information which includes the document title and page numbers</source>
+        <translation type="unfinished">문서 제목과 페이지 갯수를 포함한 문서 정보 더하기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="92"/>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished">등록 마크의 옵셋 거리를 표시합니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="97"/>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="98"/>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation type="unfinished">인쇄를 위한 출력 프로파일. 가능하다면 프린터 프로파일 선택을 위한 가이드를 얻습니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="99"/>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="129"/>
         <source>Automatic</source>
         <translation type="unfinished">자동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="130"/>
         <source>Lossy - JPEG</source>
         <translation type="unfinished">손실 - JPEG</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="131"/>
         <source>Lossless - Zip</source>
         <translation type="unfinished">손실없음 - Zip</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="132"/>
         <source>None</source>
         <translation type="unfinished">없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="137"/>
         <source>Maximum</source>
         <translation type="unfinished">최대</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="78"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="138"/>
         <source>High</source>
         <translation type="unfinished">높음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="79"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="139"/>
         <source>Medium</source>
         <translation type="unfinished">중간</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="80"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="140"/>
         <source>Low</source>
         <translation type="unfinished">낮음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="141"/>
         <source>Minimum</source>
         <translation type="unfinished">최소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="148"/>
         <source>Left Margin</source>
         <translation type="unfinished">왼쪽 여백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="89"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="149"/>
         <source>Right Margin</source>
         <translation type="unfinished">오른쪽 여백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="94"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="154"/>
         <source>Screen / Web</source>
         <translation type="unfinished">화면 / 웹</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="95"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="155"/>
         <source>Printer</source>
         <translation type="unfinished">프린터</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="96"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="156"/>
         <source>Grayscale</source>
         <translation type="unfinished">회색톤</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="101"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="161"/>
         <source>Simple Dot</source>
         <translation type="unfinished">단순 점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="102"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="162"/>
         <source>Line</source>
         <translation type="unfinished">선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="103"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="163"/>
         <source>Round</source>
         <translation type="unfinished">둥긂</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="104"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="164"/>
         <source>Ellipse</source>
         <translation type="unfinished">타원</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="111"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Perceptual</source>
         <translation type="unfinished">지각</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="111"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Relative Colorimetric</source>
         <translation type="unfinished">상대 색상계</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="111"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Saturation</source>
         <translation type="unfinished">채도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="111"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Absolute Colorimetric</source>
         <translation type="unfinished">절대 색상계</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="323"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="340"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="1294"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="1302"/>
+        <source>Page</source>
+        <translation type="unfinished">페이지</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="366"/>
+        <source>No Script</source>
+        <translation type="unfinished">스크립트 없음</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="511"/>
+        <source>InfoString</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="540"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="964"/>
+        <source>No Effect</source>
+        <translation type="unfinished">효과 없음</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="541"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="965"/>
+        <source>Blinds</source>
+        <translation type="unfinished">블라인드</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="542"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="966"/>
+        <source>Box</source>
+        <translation type="unfinished">박스</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="543"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="967"/>
+        <source>Dissolve</source>
+        <translation type="unfinished">디졸브</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="544"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="968"/>
+        <source>Glitter</source>
+        <translation type="unfinished">반짝임</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="545"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="969"/>
+        <source>Split</source>
+        <translation type="unfinished">분리</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="546"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="970"/>
+        <source>Wipe</source>
+        <translation type="unfinished">지우기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="549"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="973"/>
+        <source>Push</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="550"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="974"/>
+        <source>Cover</source>
+        <translation type="unfinished">덮음</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="551"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="975"/>
+        <source>Uncover</source>
+        <translation type="unfinished">덮음 해제</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="552"/>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="976"/>
+        <source>Fade</source>
+        <translation type="unfinished">소멸</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="600"/>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished">글꼴을 PDF에 삽입. 글꼴 삽입은 문서 윤곽을 보존할 것입니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="601"/>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished">전체 화면 모드로 Adobe &amp;#174; Reader&amp;#174;를 사용했을 때에 프레젠테이션 효과가 가능합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="602"/>
+        <source>Show page previews of each page listed above.</source>
+        <translation type="unfinished">위에 나열된 각페이지 미리보기 보이기.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="603"/>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished">선택된 페이지상에서 젠테이션을 시작하기 전, 페이지가 보여지는 시간 길이. 0값 은 자동으로 페이지 전환을 할 수 없도록 합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="604"/>
+        <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="unfinished">효과가 실행될 때 시간 길이. 짧은 시간은 효과를 빠르게 처리할 수 있고, 긴 시간은 느리게 처리됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="605"/>
+        <source>Type of the display effect.</source>
+        <translation type="unfinished">보이기 효과의 형태.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="606"/>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="unfinished">분해 또는 색맹효과를 위해서 선을 이동시키는 효과의 방향.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="607"/>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="unfinished">상자와 분리 효과를 위한 시작 위치.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="608"/>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="unfinished">Glitter 또는 Wipe 효과 방향.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="609"/>
+        <source>Apply the selected effect to all pages.</source>
+        <translation type="unfinished">선택된 효과를 전체 페이지로 적용.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="610"/>
+        <source>Convert all glyphs in the document to outlines.</source>
+        <translation type="unfinished">문서의 전체 사용자 문자를 아웃라인으로 변환.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="611"/>
+        <source>Show the document in single page mode</source>
+        <translation type="unfinished">한 페이지 모드에서 문서 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="612"/>
+        <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
+        <translation type="unfinished">스크롤동작과 같이 연속적으로  끝과 끝이 이어져 있는 페이지들에서 싱글 페이지 모드에서 문서를 보여주기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="613"/>
+        <source>Show the document with facing pages, starting with the first page displayed on the left</source>
+        <translation type="unfinished">페이지에 면하는 문서 보이기, 왼쪽에 보이는 첫째 페이지에서 시작하기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="614"/>
+        <source>Show the document with facing pages, starting with the first page displayed on the right</source>
+        <translation type="unfinished">페이지에 면하는 문서 보이기, 오른쪽에서 보이는 처음 페이지에서 시작하기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="615"/>
+        <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
+        <translation type="unfinished">뷰어 기본값과 다르게 설정되었을 경우 뷰어의 기본값 또는 사용자 기본 설정을 사용</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="616"/>
+        <source>Enables viewing the document in full screen</source>
+        <translation type="unfinished">전체 화면으로 문서 보기 가능</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="617"/>
+        <source>Display the bookmarks upon opening</source>
+        <translation type="unfinished">열 때 책갈피 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="618"/>
+        <source>Display the page thumbnails upon opening</source>
+        <translation type="unfinished">열 때 페이지 썸네일 보이기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="619"/>
+        <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
+        <translation type="unfinished">레이어 보기를 수행함. 단지 PDF 1.5+에만 유용.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="620"/>
+        <source>Hides the Tool Bar which has selection and other editing capabilities</source>
+        <translation type="unfinished">선택과 편집기능을 가진 툴바 숨기기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="621"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
+        <translation type="unfinished">뷰어를 위한 메뉴바 숨기기, PDF가 플레인 창에서 나타납니다.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="622"/>
+        <source>Fit the document page or pages to the available space in the viewer window.</source>
+        <translation type="unfinished">뷰어 창에서 문서 페이지를 가능한 저장공간에 맞추도록 합니다.</translation>
     </message>
 </context>
 <context>
@@ -20106,30 +21507,30 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="32"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="33"/>
         <source>Default documents directory</source>
         <translation type="unfinished">기본 문서 폴더</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="33"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="34"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation type="unfinished">기본 ICC 프로파일 폴더. 문서가 열릴 경우 이것을 변경할 수 없습니다. Scrbus에서 기본값으로 Mac OSX와 MS 윈도우에서는 시스템 폴더에서 보일 것입니다. Linux나 Unix는 $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc에서 찾을 수 있습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="34"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="35"/>
         <source>Default Scripter scripts directory</source>
         <translation type="unfinished">기본 스크립터 스크립트 폴더</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="35"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="36"/>
         <source>Additional directory for document templates</source>
         <translation type="unfinished">문서 서식을 위한 부가 폴더</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="56"/>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="63"/>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="70"/>
-        <location filename="../../../scribus/ui/prefs_paths.cpp" line="77"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="57"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="64"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="71"/>
+        <location filename="../../../scribus/ui/prefs_paths.cpp" line="78"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20195,103 +21596,118 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">문서 검증</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="67"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="41"/>
+        <source>Show pages without errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="48"/>
+        <source>Show errors for items on layers that will not print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="77"/>
+        <source>Profile Setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="110"/>
         <source>Output Profile:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="85"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="128"/>
         <source>Add New Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="92"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="135"/>
         <source>Remove Profile</source>
         <translation type="unfinished">프로파일 제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="136"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="179"/>
         <source>Profile Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="150"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="193"/>
         <source>Ignore all errors</source>
         <translation type="unfinished">전체 오류 무시</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="157"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="200"/>
         <source>Automatic check before printing or exporting</source>
         <translation type="unfinished">인쇄 또는 내보내기 전 자동 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="164"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="207"/>
         <source>Check for missing glyphs</source>
         <translation type="unfinished">빠진 사용자 문자표 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="171"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="214"/>
         <source>Check for items not on a page</source>
         <translation type="unfinished">페이지상 없는 객체 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="178"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="221"/>
         <source>Check for overflow in text frames</source>
         <translation type="unfinished">문자열 프레임 오버플로우 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="185"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="228"/>
         <source>Check for used transparencies</source>
         <translation type="unfinished">사용된 투명도 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="192"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="235"/>
         <source>Check for missing images</source>
         <translation type="unfinished">빠진 이미지 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="199"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="242"/>
         <source>Check image resolution</source>
         <translation type="unfinished">이미지 해상도 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="211"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
         <source>Minimum Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="218"/>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="231"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="274"/>
         <source> dpi</source>
         <translation type="unfinished">DPI</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="244"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="287"/>
         <source>Maximum Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="253"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="296"/>
         <source>Check for placed PDF files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="260"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="303"/>
         <source>Check for GIF images</source>
         <translation type="unfinished">GIF 이미지 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="267"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation type="unfinished">PDF 주석과 필드 체크</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="274"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="317"/>
         <source>Check for Visible/Printable mismatch in layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="281"/>
+        <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="324"/>
         <source>Ignore non-printable layers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20542,6 +21958,26 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Number of Copied Items to Keep in Scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="25"/>
+        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
+        <translation type="unfinished">이것은 스크랩북이 복사/붙여넣기 버퍼로 확장될 수 있도록 합니다. 단순히 객체 또는 그룹 객체의 복사는 이를 자동으로 스크랩북으로 보내집니다</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
+        <source>This enables copied items to be kept permanently in the scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="27"/>
+        <source>Save generated scrapbook previews in the scrapbook directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="28"/>
+        <source>The minimum number is 1; the maximum us 100</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_Scripter</name>
@@ -20769,22 +22205,22 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">비출력 엔트리 나열</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="82"/>
+        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="81"/>
         <source>Beginning</source>
         <translation type="unfinished">시작</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="84"/>
+        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="83"/>
         <source>End</source>
         <translation type="unfinished">끝</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="86"/>
+        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="85"/>
         <source>Not Shown</source>
         <translation type="unfinished">보이지 않음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="204"/>
+        <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="203"/>
         <source>Table of Contents %1</source>
         <translation type="unfinished">목차 %1</translation>
     </message>
@@ -20852,7 +22288,7 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">선 너비:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="24"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="25"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="267"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="286"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="358"/>
@@ -20881,48 +22317,48 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">줄 간격:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="30"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="31"/>
         <source>Displacement below the baseline of the normal font on a line</source>
         <translation type="unfinished">줄에서 일반 글꼴의 기준선 아래 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="31"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="32"/>
         <source>Relative size of the subscript compared to the normal font</source>
         <translation type="unfinished">보통 글꼴과 비교한 아래 첨자의 상대적 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="32"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="33"/>
         <source>Displacement above the baseline of the font on a line</source>
         <translation type="unfinished">줄에서 글꼴의 기준선 위 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="33"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="34"/>
         <source>Relative size of the superscript compared to the normal font</source>
         <translation type="unfinished">일반 글꼴과 비교한 윗첨자의 상대적 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="34"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="35"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
         <translation type="unfinished">하행글꼴의 백분율로 나타내는 일반 글꼴의 기준선 아래 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="35"/>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="37"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="36"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="38"/>
         <source>Line width expressed as a percentage of the font size</source>
         <translation type="unfinished">글꼴 크기를 백분율로 나타낸 선 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="36"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="37"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
         <translation type="unfinished">상행글꼴의 백분율로 표현되는 일반 글꼴의 기준선 위 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="38"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="39"/>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation type="unfinished">보통 글꼴과 비교한 소문자 글꼴의 상대적 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_typography.cpp" line="39"/>
+        <location filename="../../../scribus/ui/prefs_typography.cpp" line="40"/>
         <source>Percentage increase over the font size for the line spacing</source>
         <translation type="unfinished">줄 간격을 백분율로 지정</translation>
     </message>
@@ -20940,123 +22376,148 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">사용자 인터페이스</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="63"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="45"/>
+        <source>Main Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="58"/>
         <source>Appearance</source>
         <translation type="unfinished">외양</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="74"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="69"/>
         <source>&amp;Language:</source>
         <translation type="unfinished">언어(&amp;L):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="87"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="82"/>
         <source>&amp;Theme:</source>
         <translation type="unfinished">테마(&amp;T):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="119"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="114"/>
         <source>Use Small Widgets on Palettes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="143"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="138"/>
         <source>Use Tabs for Documents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="167"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="162"/>
         <source>&amp;Recent Documents:</source>
         <translation type="unfinished">최근 문서(&amp;R):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="218"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="213"/>
         <source>Font Sizes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="236"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="231"/>
         <source>&amp;Menus:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="246"/>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="263"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="241"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="258"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="253"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="248"/>
         <source>&amp;Palettes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="312"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="296"/>
+        <source>Story Editor</source>
+        <translation type="unfinished">스토리 편집기</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="304"/>
+        <source>Font:</source>
+        <translation type="unfinished">글꼴:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="318"/>
+        <source>Font Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="334"/>
+        <source>Use Smart Text Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="355"/>
         <source>Interactivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="330"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="363"/>
         <source>Time before resize or move starts:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="340"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="373"/>
         <source> ms</source>
         <translation type="unfinished">밀리초</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="367"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="400"/>
         <source>&amp;Wheel Jump:</source>
         <translation type="unfinished">마우스 휠 이동양(&amp;W):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="418"/>
-        <source>Startup</source>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="442"/>
+        <source>Start Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="432"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="448"/>
         <source>Show Splashscreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="439"/>
+        <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="455"/>
         <source>Show Startup Dialog</source>
         <translation type="unfinished">시동시 대화창 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="43"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="48"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished">Scribus 실행시 기본 언어 선택. 환경변수에 기반한 선택을 할 경우 이 곳을 빈 공백으로 둠. Scribus 시작시 명령어 라인 설정을 통하여 이것을 중복할 수 있습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="44"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="49"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation type="unfinished">기본 작업창 외형 선택. KDE 플러그인을 찾기위하여 Qt를 설정하였다면 Scribus는 임의 사용가능한 KDE 또는 Qt 테마를 상속합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="45"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="50"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
         <translation type="unfinished">팔레트 창은 더 작은 위젯을 사용할 것입니다. 재 시작이 필요합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="46"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="51"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation type="unfinished">파일 메뉴에서 보여질 최근 편집된 문서 파일 갯수 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="47"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="52"/>
         <source>Default font size for the menus and windows</source>
         <translation type="unfinished">메뉴와 작업창의 기본 글꼴 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="48"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Default font size for the tool windows</source>
         <translation type="unfinished">도구 작업창의 기본 글꼴 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="50"/>
+        <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="55"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation type="unfinished">마우스 휠의 스크롤 이동량</translation>
     </message>
@@ -21107,8 +22568,8 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../../scribus/ui/printdialog.cpp" line="110"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="273"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="305"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="496"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="578"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="493"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="575"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
@@ -21128,35 +22589,35 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../../scribus/ui/printdialog.cpp" line="295"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="349"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="460"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="522"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="519"/>
         <source>All</source>
         <translation>전체</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialog.cpp" line="93"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="460"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="521"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="518"/>
         <source>Cyan</source>
         <translation>남색</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialog.cpp" line="93"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="460"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="520"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="517"/>
         <source>Magenta</source>
         <translation>자홍색</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialog.cpp" line="93"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="460"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="519"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="516"/>
         <source>Yellow</source>
         <translation>노란색</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialog.cpp" line="94"/>
         <location filename="../../../scribus/ui/printdialog.cpp" line="460"/>
-        <location filename="../../../scribus/ui/printdialog.cpp" line="518"/>
+        <location filename="../../../scribus/ui/printdialog.cpp" line="515"/>
         <source>Black</source>
         <translation>검은색</translation>
     </message>
@@ -21505,627 +22966,619 @@ Note: PDF Forms will not be exported.</source>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="675"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5360"/>
         <source>Transparency Settings</source>
-        <translation>투명도 설정</translation>
+        <translation type="obsolete">투명도 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5476"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4903"/>
         <source>Fixed Linespacing</source>
         <translation>고정 줄 간격</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5477"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4904"/>
         <source>Automatic Linespacing</source>
         <translation>자동 줄 간격</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5478"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4905"/>
         <source>Align to Baseline Grid</source>
         <translation>기준선 격자 정렬</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2412"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4148"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1852"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3593"/>
         <source>&amp;X1:</source>
         <translation>X1(&amp;X):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2413"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4149"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1853"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3594"/>
         <source>X&amp;2:</source>
         <translation>X2(&amp;2):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2414"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4150"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1854"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3595"/>
         <source>Y&amp;1:</source>
         <translation>Y1(&amp;1):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2415"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4151"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1855"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3596"/>
         <source>&amp;Y2:</source>
         <translation>Y2(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2019"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2420"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2561"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2662"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4138"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5347"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5458"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1474"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1860"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2035"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2114"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3583"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4816"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4888"/>
         <source>&amp;X-Pos:</source>
         <translation>X 위치(&amp;X):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2020"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2421"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2562"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2663"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4139"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5349"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1475"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1861"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2036"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2115"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3584"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4818"/>
         <source>&amp;Width:</source>
         <translation>너비(&amp;W):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2021"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2422"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2563"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2664"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4140"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5348"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5459"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1476"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1862"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2037"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2116"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3585"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4817"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4889"/>
         <source>&amp;Y-Pos:</source>
         <translation>Y 위치(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2022"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2423"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2564"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2665"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4141"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5350"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1477"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1863"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2038"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2117"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3586"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4819"/>
         <source>&amp;Height:</source>
         <translation>높이(&amp;H):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3910"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5679"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3345"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5090"/>
         <source>Distance between columns</source>
         <translation>열 사이 거리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3912"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3347"/>
         <source>Column width</source>
         <translation>열 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4856"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5595"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4335"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5018"/>
         <source>No Style</source>
         <translation>스타일 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5210"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4671"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>이름 %1이 이미 있습니다.&lt;br/&gt; 다른 이름을 선택하여 주세요.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5334"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4803"/>
         <source>Properties</source>
         <translation>속성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5336"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4805"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, Z(&amp;Z)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5337"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4806"/>
         <source>&amp;Text</source>
         <translation>문자열(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5338"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4807"/>
         <source>&amp;Image</source>
         <translation>이미지(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5339"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4808"/>
         <source>&amp;Shape</source>
         <translation>모양(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5340"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4809"/>
         <source>&amp;Line</source>
         <translation>선(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5341"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4810"/>
         <source>&amp;Colors</source>
         <translation>색상(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5342"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4811"/>
         <source>&amp;Group</source>
         <translation>그룹(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5345"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4814"/>
         <source>Name</source>
         <translation>이름</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5346"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4815"/>
         <source>Geometry</source>
         <translation>객체 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5351"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4820"/>
         <source>&amp;Rotation:</source>
         <translation>회전(&amp;R):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5352"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4821"/>
         <source>Basepoint:</source>
         <translation>기준점:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5353"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4822"/>
         <source>Level</source>
         <translation>레벨</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5354"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5359"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4823"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4826"/>
         <source>Shape:</source>
         <translation>모양:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5361"/>
         <source>Opacity:</source>
-        <translation>불투명도:</translation>
+        <translation type="obsolete">불투명도:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5362"/>
         <source>Blend Mode:</source>
-        <translation>혼합 모드:</translation>
+        <translation type="obsolete">혼합 모드:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5365"/>
         <source>Normal</source>
-        <translation>보통</translation>
+        <translation type="obsolete">보통</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5366"/>
         <source>Darken</source>
-        <translation>어둡게</translation>
+        <translation type="obsolete">어둡게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5367"/>
         <source>Lighten</source>
-        <translation>밝게</translation>
+        <translation type="obsolete">밝게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5368"/>
         <source>Multiply</source>
-        <translation>곱하기</translation>
+        <translation type="obsolete">곱하기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5369"/>
         <source>Screen</source>
-        <translation>스크린</translation>
+        <translation type="obsolete">스크린</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5370"/>
         <source>Overlay</source>
-        <translation>겹침</translation>
+        <translation type="obsolete">겹침</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5371"/>
         <source>Hard Light</source>
-        <translation>더 밝게</translation>
+        <translation type="obsolete">더 밝게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5372"/>
         <source>Soft Light</source>
-        <translation>부드러운 빛</translation>
+        <translation type="obsolete">부드러운 빛</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5373"/>
         <source>Difference</source>
-        <translation>차이</translation>
+        <translation type="obsolete">차이</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5374"/>
         <source>Exclusion</source>
-        <translation>제외</translation>
+        <translation type="obsolete">제외</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5375"/>
         <source>Color Dodge</source>
-        <translation>색상 피하기</translation>
+        <translation type="obsolete">색상 피하기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5376"/>
         <source>Color Burn</source>
-        <translation>색상 태우기</translation>
+        <translation type="obsolete">색상 태우기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5377"/>
         <source>Hue</source>
-        <translation>색조</translation>
+        <translation type="obsolete">색조</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5378"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5484"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4911"/>
         <source>Saturation</source>
         <translation>채도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5379"/>
         <source>Color</source>
-        <translation>색상</translation>
+        <translation type="obsolete">색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5381"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4827"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>모서리
 반경(&amp;O):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5382"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4828"/>
         <source>Colu&amp;mns:</source>
         <translation>열 갯수(&amp;M):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5385"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4831"/>
         <source>Gap:</source>
         <translation>열 사이 공백:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5386"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4832"/>
         <source>Width:</source>
         <translation>너비:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5389"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4834"/>
         <source>To&amp;p:</source>
         <translation>상단(&amp;P):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5390"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4835"/>
         <source>&amp;Bottom:</source>
         <translation>하단(&amp;B):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5391"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4836"/>
         <source>&amp;Left:</source>
         <translation>왼쪽(&amp;L):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5392"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4837"/>
         <source>&amp;Right:</source>
         <translation>오른쪽(&amp;R):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5393"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4838"/>
         <source>T&amp;abulators...</source>
         <translation>탭 설정(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1060"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5453"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="855"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4883"/>
         <source>Path Text Properties</source>
         <translation>경로 문자열 속성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5343"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4812"/>
         <source>&amp;Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5402"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4846"/>
         <source>Show Curve</source>
         <translation>곡선 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5404"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4848"/>
         <source>Start Offset:</source>
         <translation>시작 옵셋:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5405"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4849"/>
         <source>Distance from Curve:</source>
         <translation>곡선에서 거리:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5406"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4850"/>
         <source>Fill Rule</source>
         <translation>채움 규칙</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5407"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4851"/>
         <source>Even-Odd</source>
         <translation>부분채움</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5408"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4852"/>
         <source>Non Zero</source>
         <translation>전체채움</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5409"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5415"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4853"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4859"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>프레임상 텍스트 흐름(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5410"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5416"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4854"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4860"/>
         <source>Disabled</source>
         <translation>불가</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5411"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5417"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4855"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4861"/>
         <source>Use Frame &amp;Shape</source>
         <translation>프레임 모양 사용(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5412"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5418"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4856"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4862"/>
         <source>Use &amp;Bounding Box</source>
         <translation>경계 상자 사용(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5413"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5419"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4857"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4863"/>
         <source>&amp;Use Contour Line</source>
         <translation>윤곽선 사용(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5455"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4885"/>
         <source>&amp;Free Scaling</source>
         <translation>임의비율(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5456"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4886"/>
         <source>Actual X-DPI:</source>
         <translation>실제 X-DPI:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5457"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4887"/>
         <source>Actual Y-DPI:</source>
         <translation>실제 Y-DPI:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5460"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4890"/>
         <source>X-Sc&amp;ale:</source>
         <translation>X-배율(&amp;A):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5461"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4891"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Y-배율(&amp;E):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5462"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4892"/>
+        <source>Rotation:</source>
+        <translation type="unfinished">회전:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4893"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>프레임 크기로 배율 조정(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5463"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4894"/>
         <source>P&amp;roportional</source>
         <translation>비례(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5464"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4895"/>
         <source>Image Effects</source>
         <translation>이미지 효과</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5465"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4896"/>
         <source>Extended Image Properties</source>
         <translation>확장 이미지 속성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5466"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4897"/>
         <source>Input Profile:</source>
         <translation>입력 프로파일:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5467"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4898"/>
         <source>Rendering Intent:</source>
         <translation>렌더링용:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5468"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4899"/>
         <source>PDF Compression Method:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5469"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4900"/>
         <source>PDF Compression Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5482"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4909"/>
         <source>Perceptual</source>
         <translation>지각</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5483"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4910"/>
         <source>Relative Colorimetric</source>
         <translation>상대 색상계</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5485"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4912"/>
         <source>Absolute Colorimetric</source>
         <translation>절대 색상계</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5489"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5497"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4916"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4924"/>
         <source>Global</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5490"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4917"/>
         <source>Automatic</source>
         <translation type="unfinished">자동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5491"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4918"/>
         <source>Lossy - JPEG</source>
         <translation type="unfinished">손실 - JPEG</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5492"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4919"/>
         <source>Lossless - Zip</source>
         <translation type="unfinished">손실없음 - Zip</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5493"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4920"/>
         <source>None</source>
         <translation type="unfinished">없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5498"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4925"/>
         <source>Maximum</source>
         <translation type="unfinished">최대</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5499"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4926"/>
         <source>High</source>
         <translation type="unfinished">높음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5500"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4927"/>
         <source>Medium</source>
         <translation type="unfinished">중간</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5501"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4928"/>
         <source>Low</source>
         <translation type="unfinished">낮음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5502"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4929"/>
         <source>Minimum</source>
         <translation type="unfinished">최소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5511"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4938"/>
         <source>Left Point</source>
         <translation>시작점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5512"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4939"/>
         <source>End Points</source>
         <translation>끝점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5514"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4941"/>
         <source>&amp;Basepoint:</source>
         <translation>기준점(&amp;B):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5515"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4942"/>
         <source>T&amp;ype of Line:</source>
         <translation>선 종류(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5516"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4943"/>
         <source>Start Arrow:</source>
         <translation>시작 화살표:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5517"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4944"/>
         <source>End Arrow:</source>
         <translation>끝 화살표:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5527"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4954"/>
         <source>Line &amp;Width:</source>
         <translation>선 너비(&amp;W):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5528"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4955"/>
         <source>Ed&amp;ges:</source>
         <translation>선 양면(&amp;G):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5531"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4958"/>
         <source>Miter Join</source>
         <translation>미터 결합</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5532"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4959"/>
         <source>Bevel Join</source>
         <translation>베벨 결합</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5533"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4960"/>
         <source>Round Join</source>
         <translation>라운드 결합</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5538"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4965"/>
         <source>Flat Cap</source>
         <translation>평면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5539"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4966"/>
         <source>Square Cap</source>
         <translation>사각</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5540"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4967"/>
         <source>Round Cap</source>
         <translation>곡선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5542"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4969"/>
         <source>&amp;Endings:</source>
         <translation>선 끝 형태(&amp;E):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5544"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4971"/>
         <source>Cell Lines</source>
         <translation>표 선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5545"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4972"/>
         <source>Line at Top</source>
         <translation>위쪽 선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5546"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4973"/>
         <source>Line at the Left</source>
         <translation>왼쪽 선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5547"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4974"/>
         <source>Line at the Right </source>
         <translation>오른쪽 선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5548"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4975"/>
         <source>Line at Bottom</source>
         <translation>아래쪽 선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5699"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5042"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5047"/>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5110"/>
         <source>Compression method used in PDF export for the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5700"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5111"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22142,115 +23595,115 @@ Corners:</source>
         <translation type="obsolete">중첩인쇄</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5554"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4977"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5568"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4991"/>
         <source> pt</source>
         <translation> 포인트</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5599"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5020"/>
         <source>Name of selected object</source>
         <translation>선택된 객체명</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5600"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5021"/>
         <source>Horizontal position of current basepoint</source>
         <translation>현재 기준점의 수평 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5601"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5022"/>
         <source>Vertical position of current basepoint</source>
         <translation>현재 기준점의 수직 위치</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5602"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5023"/>
         <source>Width</source>
         <translation>너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5603"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5024"/>
         <source>Height</source>
         <translation>높이</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5604"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5025"/>
         <source>Rotation of object at current basepoint</source>
         <translation>현재 기준점에서 객체 회전</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5605"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5026"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>측정 및 회전각을 참조할 수 있는 점</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5611"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5027"/>
         <source>Group the selected objects</source>
         <translation>선택된 객체 그룹화</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5613"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5029"/>
         <source>Flip Horizontal</source>
         <translation>수평 뒤집기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5614"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5030"/>
         <source>Flip Vertical</source>
         <translation>수직 뒤집기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5615"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5031"/>
         <source>Move one level up</source>
         <translation>한 단계 위로 이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5616"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5032"/>
         <source>Move one level down</source>
         <translation>한 단계 아래로 이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5617"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5033"/>
         <source>Move to front</source>
         <translation>맨 앞으로 이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5618"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5034"/>
         <source>Move to back</source>
         <translation>맨 뒤로 이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5619"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5035"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>기입 숫자는 객체 위치를 표시, 0은 객체가 맨 아래 위치함을 의미</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5620"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5036"/>
         <source>Lock or unlock the object</source>
         <translation>객체를 잠금 또는 잠금 해제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5621"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5037"/>
         <source>Lock or unlock the size of the object</source>
         <translation>객체 크기를 잠금 또는 잠금 해제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5624"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5629"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5039"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5044"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>객체 주위 아래쪽 프레임에서 문자열 흐름 불가</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5625"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5630"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5040"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5045"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 사용.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5626"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5631"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5041"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5046"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 대신, 항상 직사각형 경계 박스를 사용.</translation>
     </message>
@@ -22259,474 +23712,472 @@ Corners:</source>
         <translation type="obsolete">선택된 문자열 또는 객체의 글꼴</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5636"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5050"/>
         <source>Font Size</source>
         <translation>글꼴 크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5637"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5051"/>
         <source>Offset to baseline of characters</source>
         <translation>문자 기준선까지 옵셋</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5638"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5052"/>
         <source>Scaling width of characters</source>
         <translation>글자 너비 배율</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5639"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5053"/>
         <source>Scaling height of characters</source>
         <translation>글자 높이 배율</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5640"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5054"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>선택된 것에 근거한 문자열 윤곽선 또는 물방울 음영의 색상. 양 쪽이 선택되면 같은 색상을 공유합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5641"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5055"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>선택된 문자열 색상.  윤곽선 문자열 효과가 가능하다면, 이 색상은 채움 색상이 됩니다. 물방울 음영 문자열이 가능하다면 이것은 상위의 대부분 색상이 될 것입니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5642"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5056"/>
         <source>Saturation of color of text stroke</source>
         <translation>문자열 윤곽선의 색상 채도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5643"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5057"/>
         <source>Saturation of color of text fill</source>
         <translation>문자열 채움 색상의 채도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5644"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5058"/>
         <source>Right to Left Writing</source>
         <translation>오른쪽에서 왼쪽으로 쓰기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5645"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5059"/>
         <source>Manual Tracking</source>
         <translation>글자 사이 간격</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="840"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5646"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="648"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5060"/>
         <source>Line Spacing</source>
         <translation>줄 간격</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5665"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5076"/>
         <source>Change settings for left or end points</source>
         <translation>왼쪽 또는 끝점의 설정 변경</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5666"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5077"/>
         <source>Pattern of line</source>
         <translation>선 패턴</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5667"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5078"/>
         <source>Thickness of line</source>
         <translation>선 두께</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5668"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5079"/>
         <source>Type of line joins</source>
         <translation>선 결협 형태</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5669"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5080"/>
         <source>Type of line end</source>
         <translation>선 끝 형태</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5670"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5081"/>
         <source>Line style of current object</source>
         <translation>현재 객체의 선 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5674"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5085"/>
         <source>Choose the shape of frame...</source>
         <translation>프레임 모양 선택...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5675"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5086"/>
         <source>Edit shape of the frame...</source>
         <translation>프레임 모양 편집...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5676"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5087"/>
         <source>Set radius of corner rounding</source>
         <translation>모서리 반경 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5677"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5088"/>
         <source>Number of columns in text frame</source>
         <translation>문자열 프레임의 열 갯수</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5678"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5089"/>
         <source>Switches between Gap or Column width</source>
         <translation>열 사이 공백과 열 너비 사이 전환</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5680"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5091"/>
         <source>Distance of text from top of frame</source>
         <translation>프레임 상단에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5681"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5092"/>
         <source>Distance of text from bottom of frame</source>
         <translation>프레임 하단에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5682"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5093"/>
         <source>Distance of text from left of frame</source>
         <translation>프레임 왼쪽에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5683"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5094"/>
         <source>Distance of text from right of frame</source>
         <translation>프레임 오른쪽에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5684"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5095"/>
         <source>Edit tab settings of text frame...</source>
         <translation>문자열 프레임의 탭 설정 편집...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5686"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5097"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>프레임에서 이미지가 다른 크기가 되는 것을 허용합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5687"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5098"/>
         <source>Horizontal offset of image within frame</source>
         <translation>프레임 내에서 이미지의 수평 옵셋</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5688"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5099"/>
         <source>Vertical offset of image within frame</source>
         <translation>프레임 내에서 이미지의 수직 옵셋</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5689"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5100"/>
         <source>Resize the image horizontally</source>
         <translation>수평으로 이미지 크기를 재조정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5690"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5101"/>
         <source>Resize the image vertically</source>
         <translation>수직으로 이미지 크기를 재조정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5691"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5102"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>X와 Y의 비율을 동일하게 유지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5692"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5103"/>
         <source>Keep the aspect ratio</source>
         <translation>종횡비 유지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5693"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5104"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>프레임 크기 내에서 이미지를 맞춤</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5696"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5107"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>프레임 비율보다 이미지 비율을 사용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5697"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5108"/>
         <source>Source profile of the image</source>
         <translation>이미지 소스 프로파일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5698"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5109"/>
         <source>Rendering intent for the image</source>
         <translation>이미지를 위한 렌더링용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1271"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3257"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="870"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2709"/>
         <source>Auto</source>
         <translation>자동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5627"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5632"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation>선택시, 윤곽선은 팔레트 윗쪽의 모양 편집 도구로 편집됩니다. 모양 팔레트를 통하여 편집할 때 이것은 객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양에 기초한 원래 2번째 분리선이 됩니다</translation>
+        <translation type="obsolete">선택시, 윤곽선은 팔레트 윗쪽의 모양 편집 도구로 편집됩니다. 모양 팔레트를 통하여 편집할 때 이것은 객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양에 기초한 원래 2번째 분리선이 됩니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5397"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4841"/>
         <source>Default</source>
         <translation>기본값</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5398"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4842"/>
         <source>Stair Step</source>
         <translation>한 단</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5399"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4843"/>
         <source>Skew</source>
         <translation>왜곡</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5401"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4845"/>
         <source>Flip Text</source>
         <translation>문자열 뒤집기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5403"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4847"/>
         <source>Type:</source>
         <translation>형태:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5414"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5420"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4858"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4864"/>
         <source>Use Image Clip Path</source>
         <translation>이미지 자름 경로 사용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5421"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4865"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>문단 스타일(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5422"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4866"/>
         <source>Character St&amp;yle:</source>
         <translation>문자 스타일(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5442"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4872"/>
         <source>Word Tracking</source>
         <translation>단어 탐색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5443"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5446"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4873"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4876"/>
         <source>Min:</source>
         <translation>최소:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5444"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4874"/>
         <source>Norm:</source>
         <translation>일반:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5445"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4875"/>
         <source>Glyph Extension</source>
         <translation>사용자 문자표 확장</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5447"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4877"/>
         <source>Max:</source>
         <translation>최대:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5628"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5633"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5043"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5048"/>
         <source>Use the clipping path of the image</source>
         <translation>이미지 자름 경로 사용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5649"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5062"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>현재 선택된 문자열 또는 문단의 문단 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5650"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5063"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>현재 선택된 문자열 또는 문단의 글자 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5651"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5064"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>직접 문단 형식 제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5652"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5065"/>
         <source>Remove Direct Character Formatting</source>
         <translation>직접 문자 형식 제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5659"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5071"/>
         <source>Minimal width of spaces between words</source>
         <translation>단어사이 공백의 최소 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5660"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5072"/>
         <source>Normal width of spaces between words</source>
         <translation>단어사이 공백의 보통 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5661"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5073"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>자리맞춤을 위한 사용자 문자표의 최소 축소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5662"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5074"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>자리맞춤을 위한 사용자 문자표의 최대 확장</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5622"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5038"/>
         <source>Enable or disable exporting of the object</source>
         <translation>객체 내보내기 가능/불가</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1416"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5507"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1024"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4934"/>
         <source>Custom</source>
         <translation>사용자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5357"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5358"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4824"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4825"/>
         <source>&amp;Edit...</source>
         <translation>편집(&amp;E)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="848"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5451"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="656"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4881"/>
         <source>First Line Offset</source>
         <translation>첫 줄 옵셋</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="838"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="646"/>
         <source>Maximum Ascent</source>
         <translation>최대 크게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="839"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="647"/>
         <source>Font Ascent</source>
         <translation>글꼴 크게</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="800"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5448"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="609"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4878"/>
         <source>Color &amp; Effects</source>
         <translation>색상 &amp; 효과</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="1024"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5449"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="819"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4879"/>
         <source>Advanced Settings</source>
         <translation>고급 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="831"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5450"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="639"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4880"/>
         <source>Style Settings</source>
         <translation>스타일 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="3259"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="2711"/>
         <source>Baseline</source>
         <translation>기준선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5612"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5028"/>
         <source>Ungroup the selected group</source>
         <translation>선택된 그룹 그룹 해제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5648"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5061"/>
         <source>Select the line spacing mode.</source>
         <translation>줄 간격 모드 선택.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5655"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5067"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation>포함된 문자의 가장 큰 높이를 사용하기 위하여 문자열 프레임의 첫째 줄의 높이 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5656"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5068"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation>사용 중인 글꼴의 전체 상승을 사용하기 위하여  문자열 프레임의 첫 째 줄의 높이 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5657"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5069"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
         <translation>문자열 프레임의 첫 줄 높이를 지정된 줄 높이로 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5454"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4884"/>
         <source>&amp;Page Number:</source>
         <translation>페이지 번호(&amp;P):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="904"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5452"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="706"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4882"/>
         <source>Columns &amp; Text Distances</source>
         <translation>열 &amp; 문자열 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="942"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5441"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="738"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4871"/>
         <source>Reset</source>
         <translation>초기화</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="951"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="746"/>
         <source>Optical Margins</source>
         <translation>시각상 여백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5577"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5000"/>
         <source>Hairline</source>
         <translation>가는 선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="938"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5437"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="734"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4867"/>
         <source>None</source>
         <comment>optical margins</comment>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="939"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5438"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="735"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4868"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
         <translation>양 면</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="940"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5439"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="736"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4869"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
         <translation>왼쪽만</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="941"/>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5440"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="737"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="4870"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
         <translation>오른쪽만</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5671"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5082"/>
         <source>Arrow head style for start of line</source>
         <translation>선 시작 화살표 머리 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5672"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5083"/>
         <source>Arrow head style for end of line</source>
         <translation>선 끝 화살표 머리 스타일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5694"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5105"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>크기 변경 후 이미지의 유효 수평 DPI</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5695"/>
+        <location filename="../../../scribus/ui/propertiespalette.cpp" line="5106"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>크기 변경 후 이미지 유효 수직 DPI</translation>
     </message>
@@ -23448,6 +24899,11 @@ Check path and filename.</source>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="60"/>
+        <source>Spell check (Aspell)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/fonts/scface_ps.h" line="53"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation>글꼴 %1이 깨졌습니다, 그것을 무시하는 중</translation>
@@ -24007,40 +25463,40 @@ Check path and filename.</source>
         <translation>요소 &lt;lpiSettingsEntry&gt;는 이름 속성이 부족합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1817"/>
-        <location filename="../../../scribus/pslib.cpp" line="2021"/>
-        <location filename="../../../scribus/pslib.cpp" line="2046"/>
+        <location filename="../../../scribus/pslib.cpp" line="1480"/>
+        <location filename="../../../scribus/pslib.cpp" line="1684"/>
+        <location filename="../../../scribus/pslib.cpp" line="1709"/>
         <location filename="../../../scribus/scprintengine_gdi.cpp" line="486"/>
         <source>All</source>
         <translation>전체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1837"/>
+        <location filename="../../../scribus/pslib.cpp" line="1500"/>
         <source>Exporting PostScript File</source>
         <translation>포스트스크립트 파일 내보내는 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="1839"/>
+        <location filename="../../../scribus/pslib.cpp" line="1502"/>
         <source>Printing File</source>
         <translation>파일 인쇄 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="2013"/>
+        <location filename="../../../scribus/pslib.cpp" line="1676"/>
         <source>Black</source>
         <translation>검은색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="2015"/>
+        <location filename="../../../scribus/pslib.cpp" line="1678"/>
         <source>Cyan</source>
         <translation>남색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="2017"/>
+        <location filename="../../../scribus/pslib.cpp" line="1680"/>
         <source>Magenta</source>
         <translation>자홍색</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pslib.cpp" line="2019"/>
+        <location filename="../../../scribus/pslib.cpp" line="1682"/>
         <source>Yellow</source>
         <translation>노란색</translation>
     </message>
@@ -24124,32 +25580,32 @@ Check path and filename.</source>
         <translation>%1이 충돌할 것입니다 : 해상도 태그 빠짐</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="602"/>
+        <location filename="../../../scribus/scribus.cpp" line="612"/>
         <source>Scribus Development Version</source>
         <translation>Scribus 개발 버전</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="603"/>
+        <location filename="../../../scribus/scribus.cpp" line="613"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Scribus 1.3.x 개발버전을 실행하고 있습니다. 작업 중인 문서는 Scribus 1.2.x에서 생성된 것입니다. 1.3.x버전으로 현재 파일을 저장하는 것은 Scribus 1.2.x 버전으로 편집할 수 없습니다. 1.2.x버전에서 편집할 수 있도록 다른 이름의 파일을 저장하고 , 저장된 새로운 파일로 편집하고, 원본 파일은 건드리지 마십시요. 이 작업을 진행하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3522"/>
+        <location filename="../../../scribus/scribus.cpp" line="3478"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;활성 문서에서 셀 수 있는 현재 문서에서 이용될 수 있는 것보다 많은 페이지를 읽어오려고 합니다.&lt;/p&gt;다음 하나를 선택하시오:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;생성&lt;/b&gt; 빠진 페이지&lt;/li&gt;&lt;li&gt;&lt;b&gt;페이지 들여오기&lt;/b&gt;마지막 페이지까지&lt;/li&gt;&lt;li&gt;&lt;b&gt;취소&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3526"/>
+        <location filename="../../../scribus/scribus.cpp" line="3482"/>
         <source>C&amp;reate</source>
         <translation>생성(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3527"/>
+        <location filename="../../../scribus/scribus.cpp" line="3483"/>
         <source>&amp;Import</source>
         <translation>읽어오기(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4205"/>
+        <location filename="../../../scribus/scribus.cpp" line="4224"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>문서 변경을 저장하지 않으며 문서를 복원하기 위하여 요청합니다. 계속 하겠습니까?</translation>
     </message>
@@ -24257,32 +25713,32 @@ Check path and filename.</source>
     </message>
     <message>
         <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
-        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="582"/>
+        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="585"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>글꼴 %1이 깨졌습니다(스트림 읽기). 겹침 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="460"/>
+        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="463"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>글꼴 %2에서 면 %1 추출 중(옵셋=%3, n테이블=%4)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="473"/>
+        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="476"/>
         <source>memcpy header: %1 %2 %3</source>
         <translation>memcpy 헤더:%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="482"/>
+        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="485"/>
         <source>table &apos;%1&apos;</source>
         <translation>표 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="483"/>
+        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="486"/>
         <source>memcpy table: %1 %2 %3</source>
         <translation>memcpy 표: %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="486"/>
+        <location filename="../../../scribus/fonts/scface_ttf.cpp" line="489"/>
         <source>memcpy offset: %1 %2 %3</source>
         <translation>memcpy 옵셋: %1 %2 %3</translation>
     </message>
@@ -24398,8 +25854,8 @@ Check path and filename.</source>
     </message>
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
-        <location filename="../../../scribus/scribus.cpp" line="1718"/>
-        <location filename="../../../scribus/scribus.cpp" line="2006"/>
+        <location filename="../../../scribus/scribus.cpp" line="1731"/>
+        <location filename="../../../scribus/scribus.cpp" line="2017"/>
         <source>Document Template: </source>
         <translation>문서 서식:</translation>
     </message>
@@ -24566,7 +26022,7 @@ Check path and filename.</source>
         <translation>자신의 서식</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="129"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="130"/>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="128"/>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
@@ -24597,47 +26053,51 @@ Check path and filename.</source>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="48"/>
         <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="73"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="214"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="242"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="269"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="296"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="324"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="351"/>
         <source>Color not found.</source>
         <comment>python error</comment>
         <translation>색상을 찾을 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="88"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="93"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="129"/>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
         <translation>빈 이름으로 색상을 변경할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="96"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="174"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="101"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="137"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="256"/>
         <source>Color not found in document.</source>
         <comment>python error</comment>
         <translation>문서에서 색상을 찾을 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="106"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="185"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="111"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="147"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="267"/>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
         <translation>기본 색상에서 색상을 찾을 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="124"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="170"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="206"/>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
         <translation>빈 이름으로 색상을 생성할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="160"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="242"/>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
         <translation>빈 이름으로 색상을 삭제할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="205"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="287"/>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
         <translation>빈 이름으로 색상을 치환할 수 없습니다.</translation>
@@ -24667,7 +26127,7 @@ Check path and filename.</source>
         <translation>범위 밖의 단위 Scribus.UNIT_*상수 중 하나를 사용.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="66"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="104"/>
         <source>Color not found - python error</source>
         <comment>python error</comment>
         <translation>색상을 찾을 수 없음 - 파이썬 오류</translation>
@@ -24709,33 +26169,36 @@ Check path and filename.</source>
         <translation>형태가 일치합니다만 속성 설정은 실패.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="28"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="29"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>대상은 이미지 프레임이 아닙니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="50"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="73"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="409"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="51"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="93"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="136"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="180"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="210"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="552"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>지정 객체는 이미지 프레임이 아닙니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="255"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="396"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>두 객체보다 적은 그룹을 만들 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="223"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="364"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>그룹화를 위하여 선택 또는 객체의 인수 목록이 필요합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="294"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="437"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>0% 에 의한 비율을 정할 수 없습니다.</translation>
@@ -24795,7 +26258,7 @@ Check path and filename.</source>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="613"/>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="644"/>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="675"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="730"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="722"/>
         <source>Layer not found.</source>
         <comment>python error</comment>
         <translation>레이어를 찾을 수 없습니다.</translation>
@@ -24807,7 +26270,7 @@ Check path and filename.</source>
         <translation>마지막 레이어를 제거할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="747"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="739"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
         <translation>이름없는 레이어를 생성할 수 없습니다.</translation>
@@ -25272,7 +26735,7 @@ Check path and filename.</source>
         <translation>스크립터</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="756"/>
+        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="766"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -25366,17 +26829,17 @@ is not exhaustive due to exceptions from called functions.
         <translation>Scribus 1.2.x 지원</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="733"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="574"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1125"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="581"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="737"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="575"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1130"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="584"/>
         <source>Background</source>
         <translation>배경</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3031"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2734"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3067"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3039"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2744"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3144"/>
         <source>Copy #%1 of </source>
         <translation>#%1 복사</translation>
     </message>
@@ -25757,32 +27220,31 @@ External Links
         <translation>문자열 프레임에서 하이픈 제거만 할 수 있습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="83"/>
+        <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="84"/>
         <source>Lens Effects</source>
         <translation>렌즈 효과</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="93"/>
+        <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="94"/>
         <source>PathCutter</source>
         <translation>경로 자름</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="98"/>
+        <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="99"/>
         <source>PathFinder</source>
         <translation>경로 찾기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
+        <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
         <source>PathStroker</source>
         <translation>경로 윤곽</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="60"/>
         <source>Spell check (aspell)</source>
-        <translation>철자 검사 (aspell)</translation>
+        <translation type="obsolete">철자 검사 (aspell)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="81"/>
+        <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="82"/>
         <source>Subdivide</source>
         <translation>하위분할</translation>
     </message>
@@ -25808,12 +27270,12 @@ External Links
 %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="86"/>
+        <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="87"/>
         <source>MeshDistortion</source>
         <translation>망사 왜곡</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="88"/>
+        <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="89"/>
         <source>PathAlongPath</source>
         <translation>경로 따라 경로</translation>
     </message>
@@ -25863,7 +27325,7 @@ External Links
         <translation>Scribus 1.3.4+ 지원</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="84"/>
+        <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="85"/>
         <source>PathConnect</source>
         <translation>경로 연결</translation>
     </message>
@@ -25889,8 +27351,8 @@ Therefore the image may be not correct</source>
         <translation>인쇄 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="232"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="259"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="314"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="341"/>
         <source>Color name cannot be an empty string.</source>
         <comment>python error</comment>
         <translation>색상명이 빈 문자열이면 안됩니다.</translation>
@@ -26009,6 +27471,11 @@ Therefore the image may be not correct</source>
         <location filename="../../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scpreview.cpp" line="103"/>
+        <source>Group%1</source>
+        <translation type="unfinished">그룹 %1</translation>
     </message>
 </context>
 <context>
@@ -26183,7 +27650,13 @@ Therefore the image may be not correct</source>
 <context>
     <name>Query</name>
     <message>
-        <location filename="../../../scribus/ui/query.cpp" line="67"/>
+        <location filename="../../../scribus/ui/query.cpp" line="72"/>
+        <source>Name &quot;%1&quot; already exists.
+Do you want to replace the current contents?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/query.cpp" line="82"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation type="unfinished">이름 &quot;%1&quot; 이 이미 있습니다.
@@ -26268,7 +27741,7 @@ Please choose another.</source>
         <translation>색상 관리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/reformdoc.cpp" line="461"/>
+        <location filename="../../../scribus/ui/reformdoc.cpp" line="459"/>
         <source>Adjusting Colors</source>
         <translation>색상 조정</translation>
     </message>
@@ -27621,8 +29094,8 @@ converting their vector data into Scribus objects.</source>
         <translation>Scribus 1.2.x 문서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1297"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1794"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1301"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1798"/>
         <source>Copy #%1 of </source>
         <translation>#%1 복사</translation>
     </message>
@@ -27637,7 +29110,7 @@ converting their vector data into Scribus objects.</source>
         <translation>Scribus가 1.2.x 형식 파일을 읽을 수 있도록 허용합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="775"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="779"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>Scribus 1.2.x 버전 파일을 열었습니다. 
@@ -27647,7 +29120,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3455"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3463"/>
         <source>Copy #%1 of </source>
         <translation>#%1 복사</translation>
     </message>
@@ -27670,7 +29143,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus13Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3179"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3189"/>
         <source>Copy #%1 of </source>
         <translation>#%1 복사</translation>
     </message>
@@ -27690,7 +29163,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Scribus 1.3.0-&gt;1.3.3.x 형식 파일 읽어오기 허용.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1170"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1175"/>
         <source>You have opened a file produced by Scribus 1.3.3.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>Scribus 1.3.3.x 버전 파일을 열었습니다. 
@@ -27715,7 +29188,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3475"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3552"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -27778,57 +29251,58 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="159"/>
         <location filename="../../../scribus/scribusdoc.cpp" line="206"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="272"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="276"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="504"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="518"/>
         <source>Background</source>
         <translation>배경</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="861"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="877"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>ICC를 여는 중 오류 발생, 색상 관리를 할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="873"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="889"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="12280"/>
         <source>Adjusting Colors</source>
         <translation>색상 조정 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8070"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8213"/>
         <source>Do you really want to clear all your text?</source>
         <translation>전체 문자열을 정말 지우겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8117"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8260"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>사용 중인 객체를 삭제할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8117"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8260"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>객체 %1을 스토리 편집기에서 편집 중입니다. 삭제 작업을 취소합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8683"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8847"/>
         <source>Some objects are locked.</source>
         <translation>몇몇 객체를 잠금.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8679"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8843"/>
         <source>&amp;Unlock All</source>
         <translation>전체 잠금 해제(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="8680"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="8844"/>
         <source>&amp;Skip locked objects</source>
         <translation>잠긴 객체 건너뛰기(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="10068"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="10234"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -27837,17 +29311,17 @@ Vertical gap: %3</source>
 수직 공백: %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="6707"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="6859"/>
         <source>remove direct paragraph formatting</source>
         <translation>직접 문단 형식 제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="6939"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7091"/>
         <source>remove direct char formatting</source>
         <translation>직접 문자 형태 제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="10039"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="10205"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -27858,8 +29332,8 @@ Rotation: %4</source>
 회전: %4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="3954"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="11120"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="4045"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="11303"/>
         <source>Group%1</source>
         <translation>그룹 %1</translation>
     </message>
@@ -27868,7 +29342,7 @@ Rotation: %4</source>
         <translation type="obsolete">복사</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="1243"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="1268"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>읽어옴</translation>
@@ -27877,87 +29351,87 @@ Rotation: %4</source>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="357"/>
+        <location filename="../../../scribus/scribus.cpp" line="359"/>
         <source>Initializing Story Editor</source>
         <translation>스토리 편집기 초기화 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="363"/>
+        <location filename="../../../scribus/scribus.cpp" line="365"/>
         <source>Initializing Hyphenator</source>
         <translation>하이픈 초기화 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="369"/>
+        <location filename="../../../scribus/scribus.cpp" line="371"/>
         <source>Reading Scrapbook</source>
         <translation>스크랩북 읽는 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="618"/>
+        <location filename="../../../scribus/scribus.cpp" line="628"/>
         <source>Open &amp;Recent</source>
         <translation>최근 파일 열기(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="626"/>
+        <location filename="../../../scribus/scribus.cpp" line="636"/>
         <source>&amp;Import</source>
         <translation>읽어오기(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="633"/>
+        <location filename="../../../scribus/scribus.cpp" line="643"/>
         <source>&amp;Export</source>
         <translation>내보내기(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="674"/>
+        <location filename="../../../scribus/scribus.cpp" line="685"/>
         <source>Paste Recent</source>
         <translation>최근 내용 붙여넣기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="675"/>
+        <location filename="../../../scribus/scribus.cpp" line="686"/>
         <source>Contents</source>
         <translation>내용</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="770"/>
+        <location filename="../../../scribus/scribus.cpp" line="783"/>
         <source>Preview Settings</source>
         <translation>미리보기 설정</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="755"/>
+        <location filename="../../../scribus/scribus.cpp" line="766"/>
         <source>Level</source>
         <translation>레벨</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="761"/>
+        <location filename="../../../scribus/scribus.cpp" line="772"/>
         <source>Send to La&amp;yer</source>
         <translation>레이어로 보내기(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="778"/>
+        <location filename="../../../scribus/scribus.cpp" line="791"/>
         <source>&amp;PDF Options</source>
         <translation>PDF 설정(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="785"/>
+        <location filename="../../../scribus/scribus.cpp" line="798"/>
         <source>C&amp;onvert To</source>
         <translation>변환(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="833"/>
+        <location filename="../../../scribus/scribus.cpp" line="846"/>
         <source>&amp;Character</source>
         <translation>문자(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="851"/>
+        <location filename="../../../scribus/scribus.cpp" line="864"/>
         <source>&amp;Quote</source>
         <translation>인용(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="876"/>
+        <location filename="../../../scribus/scribus.cpp" line="889"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>공백 &amp;&amp; 넘김(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="890"/>
+        <location filename="../../../scribus/scribus.cpp" line="903"/>
         <source>Liga&amp;ture</source>
         <translation>글자 겹침(&amp;T)</translation>
     </message>
@@ -27966,258 +29440,290 @@ Rotation: %4</source>
         <translation type="obsolete">정렬(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="1742"/>
-        <location filename="../../../scribus/scribus.cpp" line="1785"/>
-        <location filename="../../../scribus/scribus.cpp" line="3972"/>
-        <location filename="../../../scribus/scribus.cpp" line="4303"/>
-        <location filename="../../../scribus/scribus.cpp" line="4515"/>
-        <location filename="../../../scribus/scribus.cpp" line="4654"/>
-        <location filename="../../../scribus/scribus.cpp" line="9217"/>
+        <location filename="../../../scribus/scribus.cpp" line="1755"/>
+        <location filename="../../../scribus/scribus.cpp" line="1795"/>
+        <location filename="../../../scribus/scribus.cpp" line="3930"/>
+        <location filename="../../../scribus/scribus.cpp" line="4325"/>
+        <location filename="../../../scribus/scribus.cpp" line="4539"/>
+        <location filename="../../../scribus/scribus.cpp" line="4678"/>
+        <location filename="../../../scribus/scribus.cpp" line="9422"/>
         <source>Ready</source>
         <translation>준비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="1890"/>
-        <location filename="../../../scribus/scribus.cpp" line="4603"/>
-        <location filename="../../../scribus/scribus.cpp" line="7796"/>
+        <location filename="../../../scribus/scribus.cpp" line="1900"/>
+        <location filename="../../../scribus/scribus.cpp" line="4627"/>
+        <location filename="../../../scribus/scribus.cpp" line="7989"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2599"/>
+        <location filename="../../../scribus/scribus.cpp" line="2551"/>
         <source>1 Object selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2601"/>
+        <location filename="../../../scribus/scribus.cpp" line="2553"/>
         <source>%1 Objects selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3369"/>
-        <location filename="../../../scribus/scribus.cpp" line="3476"/>
-        <location filename="../../../scribus/scribus.cpp" line="4063"/>
+        <location filename="../../../scribus/scribus.cpp" line="3325"/>
+        <location filename="../../../scribus/scribus.cpp" line="3433"/>
+        <location filename="../../../scribus/scribus.cpp" line="4021"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3492"/>
+        <location filename="../../../scribus/scribus.cpp" line="3448"/>
         <source>Importing Pages...</source>
         <translation>페이지 읽어오는 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3521"/>
+        <location filename="../../../scribus/scribus.cpp" line="3477"/>
         <source>Import Page(s)</source>
         <translation>페이지 읽어오기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3563"/>
+        <location filename="../../../scribus/scribus.cpp" line="3519"/>
         <source>Import done</source>
         <translation>읽어오기 완료</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3567"/>
+        <location filename="../../../scribus/scribus.cpp" line="3523"/>
         <source>Found nothing to import</source>
         <translation>읽어올 내용이 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3654"/>
+        <location filename="../../../scribus/scribus.cpp" line="3611"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3699"/>
+        <location filename="../../../scribus/scribus.cpp" line="3656"/>
         <source>Fatal Error</source>
         <translation>치명적 오류</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3699"/>
+        <location filename="../../../scribus/scribus.cpp" line="3656"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>파일 %1은 허용된 형식이 아닙니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3720"/>
+        <location filename="../../../scribus/scribus.cpp" line="3677"/>
         <source>Loading...</source>
         <translation>읽어오는 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3867"/>
+        <location filename="../../../scribus/scribus.cpp" line="3825"/>
         <source> was replaced by: </source>
         <translation>치환:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3899"/>
+        <location filename="../../../scribus/scribus.cpp" line="3857"/>
         <source>(converted)</source>
         <translation>(치환됨)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4240"/>
-        <location filename="../../../scribus/scribus.cpp" line="4298"/>
-        <location filename="../../../scribus/scribus.cpp" line="7828"/>
-        <location filename="../../../scribus/scribus.cpp" line="7962"/>
-        <location filename="../../../scribus/scribus.cpp" line="7984"/>
+        <location filename="../../../scribus/scribus.cpp" line="4163"/>
+        <source>Filename and Path for Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="4163"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">전체 파일 (*)</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="4259"/>
+        <location filename="../../../scribus/scribus.cpp" line="4320"/>
+        <location filename="../../../scribus/scribus.cpp" line="8021"/>
+        <location filename="../../../scribus/scribus.cpp" line="8155"/>
+        <location filename="../../../scribus/scribus.cpp" line="8177"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>파일을 쓸 수 없습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4280"/>
+        <location filename="../../../scribus/scribus.cpp" line="4303"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>문서 (*.sla *.sla.gz);;전체 파일 (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4283"/>
-        <location filename="../../../scribus/scribus.cpp" line="5334"/>
-        <location filename="../../../scribus/scribus.cpp" line="7819"/>
+        <location filename="../../../scribus/scribus.cpp" line="4305"/>
+        <location filename="../../../scribus/scribus.cpp" line="5363"/>
+        <location filename="../../../scribus/scribus.cpp" line="8012"/>
         <source>Save As</source>
         <translation>다른 이름으로 저장</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4312"/>
+        <location filename="../../../scribus/scribus.cpp" line="4334"/>
         <source>Saving...</source>
         <translation>저장 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4566"/>
-        <location filename="../../../scribus/scribus.cpp" line="7681"/>
+        <location filename="../../../scribus/scribus.cpp" line="4590"/>
+        <location filename="../../../scribus/scribus.cpp" line="7874"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus에서 오류가 발견되었습니다. 정정하기 위하여 문서 검증 사용을 고려하세요</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4599"/>
+        <location filename="../../../scribus/scribus.cpp" line="4623"/>
         <source>Printing...</source>
         <translation>인쇄 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4640"/>
+        <location filename="../../../scribus/scribus.cpp" line="4664"/>
         <source>Printing failed!</source>
         <translation>인쇄 실패!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4730"/>
+        <location filename="../../../scribus/scribus.cpp" line="4755"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>객체 사용 중 잘라내기 할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4730"/>
+        <location filename="../../../scribus/scribus.cpp" line="4755"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>객체 %1은 현재 스토리 편집기에서 편집 중입니다. 잘라내기 기능을 취소합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5293"/>
+        <location filename="../../../scribus/scribus.cpp" line="5322"/>
         <source>About Qt</source>
         <translation>Qt 소개</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5304"/>
+        <location filename="../../../scribus/scribus.cpp" line="5333"/>
         <source>Scribus Manual</source>
         <translation>Scribus 메뉴얼</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5334"/>
+        <location filename="../../../scribus/scribus.cpp" line="5363"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>문자열 파일 (*.txt);전체 파일(*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6776"/>
+        <location filename="../../../scribus/scribus.cpp" line="6809"/>
         <source>&amp;Size:</source>
         <translation>크기(&amp;AS):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6776"/>
+        <location filename="../../../scribus/scribus.cpp" line="6809"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6806"/>
+        <location filename="../../../scribus/scribus.cpp" line="6839"/>
         <source>&amp;Shade:</source>
         <translation>음영(&amp;S):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6806"/>
+        <location filename="../../../scribus/scribus.cpp" line="6839"/>
         <source>Shade</source>
         <translation>음영</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6910"/>
+        <location filename="../../../scribus/scribus.cpp" line="6943"/>
         <source>No Style</source>
         <translation>스타일 없음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7441"/>
-        <location filename="../../../scribus/scribus.cpp" line="7554"/>
+        <location filename="../../../scribus/scribus.cpp" line="7482"/>
+        <location filename="../../../scribus/scribus.cpp" line="7615"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7576"/>
         <source>The following programs are missing:</source>
-        <translation>다음 프로그램이 빠졌습니다:</translation>
+        <translation type="obsolete">다음 프로그램이 빠졌습니다:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7578"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation>고스트스크립트: EPS 이미지 또는 인쇄 미리보기를 사용할 수 없습니다</translation>
+        <translation type="obsolete">고스트스크립트: EPS 이미지 또는 인쇄 미리보기를 사용할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7580"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation>고스트스크립트: EPS 이미지 또는 포스트스크립트 인쇄 미리보기를 사용할 수 없습니다</translation>
+        <translation type="obsolete">고스트스크립트: EPS 이미지 또는 포스트스크립트 인쇄 미리보기를 사용할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7717"/>
+        <location filename="../../../scribus/scribus.cpp" line="7910"/>
         <source>All</source>
         <translation>전체</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7765"/>
+        <location filename="../../../scribus/scribus.cpp" line="7958"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus에서 몇몇 오류 발견.
 정정하기 위하여 문서 검증 사용을 고려하세요.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7862"/>
+        <location filename="../../../scribus/scribus.cpp" line="8055"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>몇몇 오류 발견.
 정정하기 위하여 문서 검증 사용을 고려하세요</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7958"/>
+        <location filename="../../../scribus/scribus.cpp" line="8151"/>
         <source>-Page%1</source>
         <translation>-페이지 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8348"/>
+        <location filename="../../../scribus/scribus.cpp" line="8543"/>
         <source>Some objects are locked.</source>
         <translation>몇몇 객체가 잠김.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8344"/>
+        <location filename="../../../scribus/scribus.cpp" line="8539"/>
         <source>&amp;Lock All</source>
         <translation>전체 잠김(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8345"/>
+        <location filename="../../../scribus/scribus.cpp" line="7760"/>
+        <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7763"/>
+        <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7765"/>
+        <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7767"/>
+        <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7771"/>
+        <source>Ghostscript is missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="8540"/>
         <source>&amp;Unlock All</source>
         <translation>전체 잠김 해제(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9059"/>
+        <location filename="../../../scribus/scribus.cpp" line="9264"/>
         <source>Information</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9059"/>
+        <location filename="../../../scribus/scribus.cpp" line="9264"/>
         <source>The program %1 is already running!</source>
         <translation>프로그램 %1이 이미 실행 중입니다!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9098"/>
+        <location filename="../../../scribus/scribus.cpp" line="9303"/>
         <source>The program %1 is missing!</source>
         <translation>프로그램 %1이 빠졌습니다!</translation>
     </message>
@@ -28246,98 +29752,99 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="1057"/>
-        <location filename="../../../scribus/scribus.cpp" line="9213"/>
+        <location filename="../../../scribus/scribus.cpp" line="1071"/>
+        <location filename="../../../scribus/scribus.cpp" line="9418"/>
         <source>X-Pos:</source>
         <translation>X 위치:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="1058"/>
-        <location filename="../../../scribus/scribus.cpp" line="9214"/>
+        <location filename="../../../scribus/scribus.cpp" line="1072"/>
+        <location filename="../../../scribus/scribus.cpp" line="9419"/>
         <source>Y-Pos:</source>
         <translation>Y 위치:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4146"/>
-        <location filename="../../../scribus/scribus.cpp" line="9367"/>
+        <location filename="../../../scribus/scribus.cpp" line="4101"/>
+        <location filename="../../../scribus/scribus.cpp" line="9640"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>기존 이미지를 정말 치환할까요?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4094"/>
+        <location filename="../../../scribus/scribus.cpp" line="4049"/>
         <source>Do you really want to clear all your text?</source>
         <translation>전체 문자열을 정말 지우겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="297"/>
+        <location filename="../../../scribus/scribus.cpp" line="299"/>
         <source>Scribus </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="998"/>
+        <location filename="../../../scribus/scribus.cpp" line="1011"/>
         <source>Online &amp;Tutorials</source>
         <translation>온라인 설명서(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3864"/>
+        <location filename="../../../scribus/scribus.cpp" line="3822"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>이 문서에서 사용된 몇몇 색상 프로파일이 설치되지 않았습니다:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7819"/>
+        <location filename="../../../scribus/scribus.cpp" line="8012"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;전체 파일 (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="335"/>
+        <location filename="../../../scribus/scribus.cpp" line="337"/>
         <source>Applying User Shortcuts</source>
         <translation>사용자 단축키 적용 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2231"/>
+        <location filename="../../../scribus/scribus.cpp" line="7639"/>
+        <location filename="../../../scribus/scribus.cpp" line="7716"/>
         <source>Updating Images</source>
         <translation>이미지 업데이트 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4238"/>
-        <location filename="../../../scribus/scribus.cpp" line="4296"/>
+        <location filename="../../../scribus/scribus.cpp" line="4257"/>
+        <location filename="../../../scribus/scribus.cpp" line="4318"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>문서를 임시 파일로 저장하여 이동시킬 수 없습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4695"/>
+        <location filename="../../../scribus/scribus.cpp" line="4719"/>
         <source>Print engine initialization failed</source>
         <translation>인쇄 엔진 초기화 실패</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3340"/>
+        <location filename="../../../scribus/scribus.cpp" line="3296"/>
         <source>All Supported Formats</source>
         <translation>전체 지원하는 형식</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9424"/>
+        <location filename="../../../scribus/scribus.cpp" line="9697"/>
         <source>&amp;Name:</source>
         <translation>이름(&amp;N):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9424"/>
+        <location filename="../../../scribus/scribus.cpp" line="9697"/>
         <source>New Entry</source>
         <translation>새 엔트리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7627"/>
+        <location filename="../../../scribus/scribus.cpp" line="7820"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>고스트스크립트 빠짐 : 포스트스크립트 인쇄 미리보기를 사용할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3682"/>
+        <location filename="../../../scribus/scribus.cpp" line="3639"/>
         <source>Document is already opened</source>
         <translation>문서가 이미 열렸습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3683"/>
+        <location filename="../../../scribus/scribus.cpp" line="3640"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation>이 문서는 이미 사용 중입니다. 지금 해당 문서 작업창으로 이동됩니다.</translation>
     </message>
@@ -28484,49 +29991,49 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="200"/>
+        <location filename="../../../scribus/scribusview.cpp" line="201"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="1115"/>
+        <location filename="../../../scribus/scribusview.cpp" line="1077"/>
         <source>Copy Here</source>
         <translation>이 곳에 복사</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="1116"/>
+        <location filename="../../../scribus/scribusview.cpp" line="1078"/>
         <source>Move Here</source>
         <translation>이 곳에 이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="1117"/>
+        <location filename="../../../scribus/scribusview.cpp" line="1079"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="414"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="419"/>
         <source>&amp;Paste</source>
         <translation>붙여넣기(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="420"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="425"/>
         <source>Paste Recent</source>
         <translation>최근 내용 붙여넣기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="6346"/>
+        <location filename="../../../scribus/pageitem.cpp" line="7181"/>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="126"/>
         <source>Print: </source>
         <translation>인쇄:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="6348"/>
+        <location filename="../../../scribus/pageitem.cpp" line="7183"/>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="129"/>
         <source>Enabled</source>
         <translation>가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="6350"/>
+        <location filename="../../../scribus/pageitem.cpp" line="7185"/>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="131"/>
         <source>Disabled</source>
         <translation>불가능</translation>
@@ -28538,40 +30045,40 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>정보(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="256"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="261"/>
         <source>&amp;PDF Options</source>
         <translation>PDF 설정(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="300"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="305"/>
         <source>Send to La&amp;yer</source>
         <translation>레이어로 보내기(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="340"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="345"/>
         <source>Le&amp;vel</source>
         <translation>레벨(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="362"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="367"/>
         <source>Conve&amp;rt to</source>
         <translation>변환(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/contextmenu.cpp" line="394"/>
+        <location filename="../../../scribus/ui/contextmenu.cpp" line="399"/>
         <source>Contents</source>
         <translation>내용</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="212"/>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="219"/>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1965"/>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1972"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1966"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1973"/>
         <source>Linking Text Frames</source>
         <translation>문자열 프레임에 링크 중</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="2466"/>
+        <location filename="../../../scribus/scribusview.cpp" line="2430"/>
         <source>Page %1 to %2</source>
         <translation>페이지 %1 에서 %2 까지</translation>
     </message>
@@ -28580,111 +30087,111 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">그룹 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3554"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3519"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>사용 중인 객체를 변환시킬 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3554"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3519"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>객체 %1이 스토리 편집기에 의해 편집 중입니다. 이 객체에 대한 윤곽선 기능 변환을 건너뜁니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="416"/>
+        <location filename="../../../scribus/scribusview.cpp" line="418"/>
         <source>Preview Mode</source>
         <translation>미리보기 모드</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="417"/>
+        <location filename="../../../scribus/scribusview.cpp" line="419"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation>CMS가 활성화되었습니다. 그래서 칼라 디스클레이가 색맹에 의해 지각과 일치하지 않을 것입니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvasmode_create.cpp" line="907"/>
+        <location filename="../../../scribus/canvasmode_create.cpp" line="909"/>
         <location filename="../../../scribus/canvasmode_drawfreehand.cpp" line="439"/>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="2823"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="2827"/>
         <source>Enter Object Size</source>
         <translation>객체 크기 입력</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="213"/>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1966"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1967"/>
         <source>You are trying to link a frame to itself.</source>
         <translation>프레임 자체에 링크를 시도하려고 합니다.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="220"/>
-        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1973"/>
+        <location filename="../../../scribus/canvasmode_legacy.cpp" line="1974"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation>이미 링크된 프레임에 링크를 시도하려고 합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="357"/>
+        <location filename="../../../scribus/scribusview.cpp" line="359"/>
         <source>Enable/disable Color Management</source>
         <translation>색상 관리 가능/불가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="359"/>
+        <location filename="../../../scribus/scribusview.cpp" line="361"/>
         <source>Enable/disable the Preview Mode</source>
         <translation>미리보기 모드 가능/불가능</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="360"/>
+        <location filename="../../../scribus/scribusview.cpp" line="362"/>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
         <translation>사물에 반응하는 시력 색상 선택. 정상인과 색맹의 시각 색상 차이 선택합니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="358"/>
+        <location filename="../../../scribus/scribusview.cpp" line="360"/>
         <source>Configure CMS...</source>
         <translation>CMS 설정...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="347"/>
+        <location filename="../../../scribus/scribusview.cpp" line="349"/>
         <source>Zoom to 100%</source>
         <translation>100% 배율로</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="348"/>
+        <location filename="../../../scribus/scribusview.cpp" line="350"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>도구 설정에서 단계 값에 의해 축소</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="349"/>
+        <location filename="../../../scribus/scribusview.cpp" line="351"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>도구 설정에서 단계 값에 의해 확대</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="350"/>
+        <location filename="../../../scribus/scribusview.cpp" line="352"/>
         <source>Current zoom level</source>
         <translation>현재 배율 레벨</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="353"/>
+        <location filename="../../../scribus/scribusview.cpp" line="355"/>
         <source>Select the current layer</source>
         <translation>현재 레이어 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="354"/>
+        <location filename="../../../scribus/scribusview.cpp" line="356"/>
         <source>Select the current unit</source>
         <translation>현재 단위 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="188"/>
+        <location filename="../../../scribus/scribusview.cpp" line="189"/>
         <source>High</source>
         <translation>높음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="189"/>
+        <location filename="../../../scribus/scribusview.cpp" line="190"/>
         <source>Normal</source>
         <translation>보통</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="190"/>
+        <location filename="../../../scribus/scribusview.cpp" line="191"/>
         <source>Low</source>
         <translation>낮음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="355"/>
+        <location filename="../../../scribus/scribusview.cpp" line="357"/>
         <source>Select the image preview quality</source>
         <translation>이미지 미리보기 품질 선택</translation>
     </message>
@@ -28951,12 +30458,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>페이지 미리보기 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="120"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="121"/>
         <source>Delete Master Page?</source>
         <translation>마스터 페이지를 삭제할까요?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="121"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="122"/>
         <source>Are you sure you want to delete this master page?</source>
         <translation>정말 이 마스터 페이지 삭제하시겠습니까?</translation>
     </message>
@@ -28964,12 +30471,12 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>SeView</name>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="393"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="395"/>
         <source>Delete Page?</source>
         <translation>페이지를 삭제할까요?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/pagepalette.cpp" line="394"/>
+        <location filename="../../../scribus/ui/pagepalette.cpp" line="396"/>
         <source>Are you sure you want to delete this page?</source>
         <translation>정말 이 페이지를 삭제할까요?</translation>
     </message>
@@ -29323,232 +30830,236 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1681"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1937"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1677"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1942"/>
         <source>&amp;File</source>
         <translation>파일(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1691"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1946"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1687"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1951"/>
         <source>&amp;Edit</source>
         <translation>편집(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1703"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1958"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1701"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1963"/>
         <source>&amp;Insert</source>
         <translation>삽입(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1706"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1959"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1704"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1964"/>
         <source>Character</source>
         <translation>문자</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1723"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1960"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1721"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1965"/>
         <source>Quote</source>
         <translation>인용부호</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1747"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1745"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>공백 &amp;&amp; 분리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1759"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1757"/>
         <source>Ligature</source>
         <translation>글자 겹침</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1768"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1966"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1766"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1971"/>
         <source>&amp;Settings</source>
         <translation>설정(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1935"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="2062"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1940"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="2067"/>
         <source>Story Editor</source>
         <translation>스토리 편집기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1938"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1943"/>
         <source>Clear All Text</source>
         <translation>전체 문자열 지우기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1939"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1944"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>프레임에서 문자열 다시 읽어오기(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1940"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1945"/>
         <source>&amp;Save to File...</source>
         <translation>파일로 저장(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1941"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1946"/>
         <source>&amp;Load from File...</source>
         <translation>파일에서 읽어오기(&amp;L)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1942"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1947"/>
         <source>Save &amp;Document</source>
         <translation>문서 저장(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1943"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1948"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>문자열 프레임 업데이트 후 종료(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1944"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1949"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>문자열 프레임 업데이트 없이 종료(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1947"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1952"/>
         <source>Select &amp;All</source>
         <translation>전체 설정(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1948"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1953"/>
         <source>Cu&amp;t</source>
         <translation>잘라내기(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1949"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1954"/>
         <source>&amp;Copy</source>
         <translation>복사(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1950"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1955"/>
         <source>&amp;Paste</source>
         <translation>붙여넣기(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1951"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1956"/>
         <source>C&amp;lear</source>
         <translation>지우기(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1952"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1957"/>
         <source>&amp;Search/Replace...</source>
         <translation>찾기/치환(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1953"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1958"/>
         <source>&amp;Edit Styles...</source>
         <translation>스타일 편집(&amp;E)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1954"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1959"/>
         <source>&amp;Fonts Preview...</source>
         <translation>글꼴 미리보기(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1955"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1960"/>
         <source>&amp;Update Text Frame</source>
         <translation>문자열 프레임 업데이트(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1961"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1966"/>
         <source>Space</source>
         <translation>공백</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1962"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1967"/>
         <source>&amp;Insert Glyph...</source>
         <translation>사용자 문자표 삽입(&amp;I)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1963"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1968"/>
         <source>&amp;Sample Text...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1967"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1972"/>
         <source>&amp;Background...</source>
         <translation>배경(&amp;B)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1968"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1973"/>
         <source>&amp;Display Font...</source>
         <translation>글꼴 보이기(&amp;D)...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1969"/>
-        <source>&amp;Smart text selection</source>
-        <translation>스마트 문자열 선택(&amp;S)</translation>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1974"/>
+        <source>&amp;Smart Text Selection</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1974"/>
+        <source>&amp;Smart text selection</source>
+        <translation type="obsolete">스마트 문자열 선택(&amp;S)</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1979"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1976"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1981"/>
         <source>Current Paragraph:</source>
         <translation>현재 문단:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1977"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1981"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1982"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1986"/>
         <source>Words: </source>
         <translation>단어 갯수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1978"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1982"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1983"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1987"/>
         <source>Chars: </source>
         <translation>문자 갯수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1979"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1984"/>
         <source>Totals:</source>
         <translation>총 갯수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="1980"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="1985"/>
         <source>Paragraphs: </source>
         <translation>문단 갯수:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="2043"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="2048"/>
         <source>Story Editor - %1</source>
         <translation>스토리 편집기 - %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="2102"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="2107"/>
         <source>Do you want to save your changes?</source>
         <translation>변경을 저장하겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="2695"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="2701"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>변경된 내용을 정말 저장하지 않겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="2724"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="2730"/>
         <source>Do you really want to clear all your text?</source>
         <translation>전체 문자열을 정말 지우겠습니까?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="3191"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="3197"/>
         <source>Open</source>
         <translation>열기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="3191"/>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="3226"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="3197"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="3232"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>문자열 파일 (*.txt);;전체 파일(*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/storyeditor.cpp" line="3226"/>
+        <location filename="../../../scribus/ui/storyeditor.cpp" line="3232"/>
         <source>Save as</source>
         <translation>다른 이름으로 저장</translation>
     </message>
@@ -29857,12 +31368,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>경로 도구</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="89"/>
+        <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="90"/>
         <source>Subdivide</source>
         <translation>하위분리</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="90"/>
+        <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="91"/>
         <source>Subdivide selected Path</source>
         <translation>선택된 경로로 하위분리</translation>
     </message>
@@ -29923,6 +31434,14 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
         <source>Cancel</source>
         <translation>취소</translation>
+    </message>
+</context>
+<context>
+    <name>SymbolPalette</name>
+    <message>
+        <location filename="../../../scribus/ui/symbolpalette.cpp" line="161"/>
+        <source>Symbols</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30391,9 +31910,9 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>이미지 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabdisplay.cpp" line="138"/>
-        <location filename="../../../scribus/ui/tabdisplay.cpp" line="195"/>
-        <location filename="../../../scribus/ui/tabdisplay.cpp" line="203"/>
+        <location filename="../../../scribus/ui/tabdisplay.cpp" line="139"/>
+        <location filename="../../../scribus/ui/tabdisplay.cpp" line="196"/>
+        <location filename="../../../scribus/ui/tabdisplay.cpp" line="204"/>
         <source> dpi</source>
         <translation></translation>
     </message>
@@ -31688,50 +33207,50 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="513"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1348"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1560"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1359"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1571"/>
         <source>No Effect</source>
         <translation>효과 없음</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="514"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1349"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1561"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1360"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1572"/>
         <source>Blinds</source>
         <translation>블라인드</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="515"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1350"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1562"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1361"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1573"/>
         <source>Box</source>
         <translation>박스</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="516"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1351"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1563"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1362"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1574"/>
         <source>Dissolve</source>
         <translation>디졸브</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="517"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1352"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1564"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1363"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1575"/>
         <source>Glitter</source>
         <translation>반짝임</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="518"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1353"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1565"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1364"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1576"/>
         <source>Split</source>
         <translation>분리</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="519"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1354"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1566"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1365"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1577"/>
         <source>Wipe</source>
         <translation>지우기</translation>
     </message>
@@ -32300,8 +33819,8 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1145"/>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1162"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1945"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1953"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1956"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1964"/>
         <source>Page</source>
         <translation>페이지</translation>
     </message>
@@ -32421,12 +33940,17 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1381"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1329"/>
+        <source>InfoString</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1392"/>
         <source>Inside:</source>
         <translation>안쪽:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1382"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1393"/>
         <source>Outside:</source>
         <translation>바깥:</translation>
     </message>
@@ -32567,26 +34091,26 @@ when PDF document is opened:</source>
         <translation>이미지 프레임의 PDF를 삽입 PDF로 내보내기. 이것은 색상공간을 아직 다루지 않습니다, 따라서 이것을 &apos;참&apos;으로 설정하기 전 여러분이 무엇을 하는지 알아야 합니다.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1357"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1569"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1368"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1580"/>
         <source>Push</source>
         <translation>밀기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1358"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1570"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1369"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1581"/>
         <source>Cover</source>
         <translation>덮음</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1359"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1571"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1370"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1582"/>
         <source>Uncover</source>
         <translation>덮음 해제</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1360"/>
-        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1572"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1371"/>
+        <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1583"/>
         <source>Fade</source>
         <translation>소멸</translation>
     </message>
@@ -33666,7 +35190,7 @@ when PDF document is opened:</source>
 <context>
     <name>Tpalette</name>
     <message>
-        <location filename="../../../scribus/ui/transparencypalette.cpp" line="141"/>
+        <location filename="../../../scribus/ui/transparencypalette.cpp" line="149"/>
         <source>Custom</source>
         <translation type="unfinished">사용자</translation>
     </message>
@@ -33746,82 +35270,86 @@ when PDF document is opened:</source>
 <context>
     <name>TransformDialogBase</name>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="19"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="20"/>
         <source>Transform</source>
         <translation>변형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="40"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="41"/>
         <source>Add</source>
         <translation>더하기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="53"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="54"/>
         <source>Remove</source>
         <translation>제거</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="76"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="77"/>
         <source>u</source>
         <translation>위로</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="92"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="93"/>
         <source>d</source>
         <translation>아래로</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="133"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="134"/>
         <source>Scaling</source>
         <translation>배율</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="143"/>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="263"/>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="355"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="144"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="264"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="356"/>
         <source>Horizontal</source>
         <translation>수평</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="162"/>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="225"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="163"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="226"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="206"/>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="280"/>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="400"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="207"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="281"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="401"/>
         <source>Vertical</source>
         <translation>수직</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="253"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="254"/>
         <source>Translation</source>
         <translation>평행이동</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="306"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="307"/>
         <source>Rotate</source>
         <translation>회전</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="316"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="317"/>
         <source>Angle</source>
         <translation>각도</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="345"/>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="346"/>
         <source>Skew</source>
         <translation>기울이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="426"/>
-        <source>Origin</source>
-        <translation>원본 위치</translation>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="427"/>
+        <source>Basepoint</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="447"/>
+        <source>Origin</source>
+        <translation type="obsolete">원본 위치</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="448"/>
         <source>Copies</source>
         <translation>복사 갯수</translation>
     </message>
@@ -34933,7 +36461,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="293"/>
-        <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="3287"/>
+        <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="3518"/>
         <source>Group%1</source>
         <translation type="unfinished">그룹 %1</translation>
     </message>
@@ -35031,6 +36559,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="109"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="307"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="671"/>
         <source>Shade:</source>
         <translation type="unfinished">음영:</translation>
     </message>
@@ -35043,6 +36572,16 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="119"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="317"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="460"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="479"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="505"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="524"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="550"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="569"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="595"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="614"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="681"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="710"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35054,31 +36593,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="150"/>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="348"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="342"/>
         <source>Linear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="155"/>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="353"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="347"/>
         <source>Radial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="163"/>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="361"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="370"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation type="unfinished">누른는 왼쪽 마우스 버튼으로 그라디언트 시작을 이동하고, 누른 오른쪽의 마우스 버튼으로 그라디언트 벡터의 끝으로 이동합니다</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="166"/>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="364"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="373"/>
         <source>Move Vector</source>
         <translation type="unfinished">이동 벡터</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="204"/>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="402"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="773"/>
         <source>Pattern</source>
         <translation type="unfinished">패턴</translation>
     </message>
@@ -35089,32 +36628,77 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="250"/>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="441"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="812"/>
         <source>Properties...</source>
         <translation type="unfinished">속성...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="471"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="352"/>
+        <source>4 Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="357"/>
+        <source>Diamond</source>
+        <translation type="unfinished">마름모</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="362"/>
+        <source>Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="429"/>
+        <source>Color</source>
+        <translation type="unfinished">색상</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="436"/>
+        <source>Shade</source>
+        <translation type="unfinished">음영</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="443"/>
+        <source>Transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="651"/>
+        <source>Color:</source>
+        <translation type="unfinished">색상:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="700"/>
+        <source>Transparency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="730"/>
+        <source>Edit Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="842"/>
         <source>Display all colors from the document color list, or only the already used colors</source>
         <translation type="unfinished">문서 색상 목록에서 전체 색상 또는 이미 사용된 색상만 보이기</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="474"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="845"/>
         <source>Display only used colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="481"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="852"/>
         <source>Overprinting</source>
         <translation type="unfinished">중첩인쇄</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="492"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="863"/>
         <source>Knockout</source>
         <translation type="unfinished">녹아웃</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/colorpalette.ui" line="497"/>
+        <location filename="../../../scribus/ui/colorpalette.ui" line="868"/>
         <source>Overprint</source>
         <translation type="unfinished">중첩인쇄</translation>
     </message>
@@ -35829,162 +37413,167 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>selectDialog</name>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="117"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="118"/>
         <source>Text Frame</source>
         <translation>문자열 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="122"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="123"/>
         <source>Image Frame</source>
         <translation>이미지 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="127"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="128"/>
         <source>Shape</source>
         <translation>모양</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="132"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="133"/>
         <source>Polyline</source>
         <translation>다각형</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="137"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="138"/>
         <source>Line</source>
         <translation>선</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="142"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="143"/>
         <source>Render Frame</source>
         <translation>렌더 프레임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="153"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="148"/>
+        <source>Symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="159"/>
         <source>Fill Color</source>
         <translation>채움 색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="170"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="176"/>
         <source>Line Color</source>
         <translation>선 색상</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="187"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="193"/>
         <source>Line Width</source>
         <translation>선 너비</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="204"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="210"/>
         <source>Printable</source>
         <translation>인쇄 가능여부</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="215"/>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="245"/>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="272"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="221"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="251"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="278"/>
         <source>Yes</source>
         <translation>예</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="220"/>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="250"/>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="277"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="226"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="256"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="283"/>
         <source>No</source>
         <translation>아니오</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="231"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="237"/>
         <source>Locked</source>
         <translation>잠김</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="261"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="267"/>
         <source>Resizeable</source>
         <translation>크기 재조정 가능여부</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="46"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="47"/>
         <source>Select all items on the current page</source>
         <translation>현재 페이지에서 전체 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="59"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="60"/>
         <source>Select all items on the current layer on all pages</source>
         <translation>전체 페이지에서 현재 레이어의 전체 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="69"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="70"/>
         <source>Select all items not on a page</source>
         <translation>페이지에서 없는 전체 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="82"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="83"/>
         <source>Narrow the selection of items based on various item properties</source>
         <translation>다양한 객체 속성에 기반항 객체 선택을 좁혀서</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="85"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="86"/>
         <source>With the Following Attributes</source>
         <translation>다음 선택 속성</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="103"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="104"/>
         <source>Select based on item type</source>
         <translation>객체 형태에 기반한 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="106"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="107"/>
         <source>Item Type</source>
         <translation>객체 형태</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="150"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="156"/>
         <source>Select based on the color that the item is filled with</source>
         <translation>객체의 채움 색상에 기반한 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="167"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="173"/>
         <source>Select based on the color of the line or outline</source>
         <translation>선이나 윤곽선의 색상에 기반한 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="184"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="190"/>
         <source>Select based on the width of the line of the item</source>
         <translation>객체의 선 너비에 기반한 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="201"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="207"/>
         <source>Select items based on whether they will be printed or not</source>
         <translation>인쇄 가능여부에 기반한 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="228"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="234"/>
         <source>Select items based on their locked status</source>
         <translation>잠김상태에 기반한 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="258"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="264"/>
         <source>Select items based on whether they have their size locked or not</source>
         <translation>크기를 잠금여부에 기반한 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="19"/>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="34"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="20"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="35"/>
         <source>Select All Items</source>
         <translation>전체 객체 선택</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="49"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="50"/>
         <source>on Current Page</source>
         <translation>현재 페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="62"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="63"/>
         <source>on Current Layer</source>
         <translation>현재 레이어</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/selectobjects.ui" line="72"/>
+        <location filename="../../../scribus/ui/selectobjects.ui" line="73"/>
         <source>on the Scratch Space</source>
         <translation>페이지 테두리 밖 임시 공간</translation>
     </message>

@@ -39,7 +39,7 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 ##############################################################################################################
 ########## toplevel compiler flags                                                                  ##########
-
+MESSAGE(STATUS "Shared Library Flags: ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 # CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
 # CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" CXX_HAVE_PIC)
 # IF (CXX_HAVE_PIC AND C_HAVE_PIC)
