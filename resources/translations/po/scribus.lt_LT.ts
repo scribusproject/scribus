@@ -13016,22 +13016,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="462"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="464"/>
         <source>Unable to Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="462"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="464"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="466"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="468"/>
         <source>Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="466"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="468"/>
         <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14378,27 +14378,27 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7722"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7730"/>
         <source>Failed to load an image : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7727"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7735"/>
         <source>Failed to write an image : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7732"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7740"/>
         <source>Failed to load an image mask : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7737"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7745"/>
         <source>Insufficient memory for processing an image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7717"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7725"/>
         <source>A write error occurred, please check available disk space</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23919,19 +23919,19 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="602"/>
-        <location filename="../../../scribus/scribus.cpp" line="9265"/>
+        <location filename="../../../scribus/scribus.cpp" line="9274"/>
         <source>Open &amp;Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="610"/>
-        <location filename="../../../scribus/scribus.cpp" line="9267"/>
+        <location filename="../../../scribus/scribus.cpp" line="9276"/>
         <source>&amp;Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="617"/>
-        <location filename="../../../scribus/scribus.cpp" line="9268"/>
+        <location filename="../../../scribus/scribus.cpp" line="9277"/>
         <source>&amp;Export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23960,33 +23960,58 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="741"/>
-        <location filename="../../../scribus/scribus.cpp" line="9275"/>
+        <location filename="../../../scribus/scribus.cpp" line="9284"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="748"/>
-        <location filename="../../../scribus/scribus.cpp" line="9277"/>
+        <location filename="../../../scribus/scribus.cpp" line="9286"/>
         <source>C&amp;onvert To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9280"/>
+        <location filename="../../../scribus/scribus.cpp" line="7652"/>
+        <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7655"/>
+        <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7657"/>
+        <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7659"/>
+        <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7663"/>
+        <source>Ghostscript is missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="9289"/>
         <source>Character</source>
         <translation type="unfinished">Raidė</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9281"/>
+        <location filename="../../../scribus/scribus.cpp" line="9290"/>
         <source>Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9282"/>
+        <location filename="../../../scribus/scribus.cpp" line="9291"/>
         <source>Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9290"/>
+        <location filename="../../../scribus/scribus.cpp" line="9299"/>
         <source>&amp;Alignment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23997,7 +24022,7 @@ Rotation: %4</source>
         <location filename="../../../scribus/scribus.cpp" line="4464"/>
         <location filename="../../../scribus/scribus.cpp" line="4687"/>
         <location filename="../../../scribus/scribus.cpp" line="4829"/>
-        <location filename="../../../scribus/scribus.cpp" line="9300"/>
+        <location filename="../../../scribus/scribus.cpp" line="9309"/>
         <source>Ready</source>
         <translation type="unfinished">Paruoštas</translation>
     </message>
@@ -24057,9 +24082,9 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4401"/>
         <location filename="../../../scribus/scribus.cpp" line="4459"/>
-        <location filename="../../../scribus/scribus.cpp" line="7903"/>
-        <location filename="../../../scribus/scribus.cpp" line="8037"/>
-        <location filename="../../../scribus/scribus.cpp" line="8059"/>
+        <location filename="../../../scribus/scribus.cpp" line="7912"/>
+        <location filename="../../../scribus/scribus.cpp" line="8046"/>
+        <location filename="../../../scribus/scribus.cpp" line="8068"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished"></translation>
@@ -24067,7 +24092,7 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4444"/>
         <location filename="../../../scribus/scribus.cpp" line="5494"/>
-        <location filename="../../../scribus/scribus.cpp" line="7894"/>
+        <location filename="../../../scribus/scribus.cpp" line="7903"/>
         <source>Save As</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24078,7 +24103,7 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4741"/>
-        <location filename="../../../scribus/scribus.cpp" line="7756"/>
+        <location filename="../../../scribus/scribus.cpp" line="7765"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24090,7 +24115,7 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2215"/>
         <location filename="../../../scribus/scribus.cpp" line="4778"/>
-        <location filename="../../../scribus/scribus.cpp" line="7871"/>
+        <location filename="../../../scribus/scribus.cpp" line="7880"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24162,108 +24187,93 @@ Rotation: %4</source>
         <translation type="unfinished">Be stiliaus</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7651"/>
-        <source>The following programs are missing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/scribus.cpp" line="7653"/>
-        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/scribus.cpp" line="7792"/>
+        <location filename="../../../scribus/scribus.cpp" line="7801"/>
         <source>All</source>
         <translation type="unfinished">Viską</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7840"/>
+        <location filename="../../../scribus/scribus.cpp" line="7849"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7937"/>
+        <location filename="../../../scribus/scribus.cpp" line="7946"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8033"/>
+        <location filename="../../../scribus/scribus.cpp" line="8042"/>
         <source>-Page%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8417"/>
+        <location filename="../../../scribus/scribus.cpp" line="8426"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8413"/>
+        <location filename="../../../scribus/scribus.cpp" line="8422"/>
         <source>&amp;Lock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8414"/>
+        <location filename="../../../scribus/scribus.cpp" line="8423"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9114"/>
+        <location filename="../../../scribus/scribus.cpp" line="9123"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9114"/>
+        <location filename="../../../scribus/scribus.cpp" line="9123"/>
         <source>The program %1 is already running!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9153"/>
+        <location filename="../../../scribus/scribus.cpp" line="9162"/>
         <source>The program %1 is missing!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9272"/>
+        <location filename="../../../scribus/scribus.cpp" line="9281"/>
         <source>&amp;Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9273"/>
+        <location filename="../../../scribus/scribus.cpp" line="9282"/>
         <source>Send to Layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9274"/>
+        <location filename="../../../scribus/scribus.cpp" line="9283"/>
         <source>Previe&amp;w Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1020"/>
-        <location filename="../../../scribus/scribus.cpp" line="9296"/>
+        <location filename="../../../scribus/scribus.cpp" line="9305"/>
         <source>X-Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1021"/>
-        <location filename="../../../scribus/scribus.cpp" line="9297"/>
+        <location filename="../../../scribus/scribus.cpp" line="9306"/>
         <source>Y-Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7655"/>
-        <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/scribus.cpp" line="4307"/>
-        <location filename="../../../scribus/scribus.cpp" line="9450"/>
+        <location filename="../../../scribus/scribus.cpp" line="9459"/>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="659"/>
-        <location filename="../../../scribus/scribus.cpp" line="9270"/>
+        <location filename="../../../scribus/scribus.cpp" line="9279"/>
         <source>Contents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24284,13 +24294,13 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="854"/>
-        <location filename="../../../scribus/scribus.cpp" line="9283"/>
+        <location filename="../../../scribus/scribus.cpp" line="9292"/>
         <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="658"/>
-        <location filename="../../../scribus/scribus.cpp" line="9266"/>
+        <location filename="../../../scribus/scribus.cpp" line="9275"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24311,7 +24321,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="961"/>
-        <location filename="../../../scribus/scribus.cpp" line="9291"/>
+        <location filename="../../../scribus/scribus.cpp" line="9300"/>
         <source>Online &amp;Tutorials</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24321,7 +24331,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7894"/>
+        <location filename="../../../scribus/scribus.cpp" line="7903"/>
         <source>%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24353,17 +24363,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9504"/>
+        <location filename="../../../scribus/scribus.cpp" line="9513"/>
         <source>&amp;Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9504"/>
+        <location filename="../../../scribus/scribus.cpp" line="9513"/>
         <source>New Entry</source>
         <translation type="unfinished">Naujas įrašas</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7702"/>
+        <location filename="../../../scribus/scribus.cpp" line="7711"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24613,12 +24623,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3976"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3980"/>
         <source>Cannot Convert In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3976"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3980"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24642,7 +24652,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3669"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3673"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
