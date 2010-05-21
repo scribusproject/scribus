@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	m_doc(NULL)
+	m_doc(doc)
 {
 	setupUi(this);
 

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	currDoc(NULL)
+	m_Doc(doc)
 {
 	setupUi(this);
 	languageChange();
@@ -56,7 +56,6 @@ void Prefs_TableOfContents::changeEvent(QEvent *e)
 void Prefs_TableOfContents::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	localToCSetupVector=prefsData->tocPrefs.defaultToCSetups;
-	//FIXME for when handling doc prefs:	currDoc=doc;
 	generatePageItemList();
 	bool enabled=(localToCSetupVector.count()>0);
 	if (enabled)
@@ -105,12 +104,12 @@ void Prefs_TableOfContents::generatePageItemList()
 {
 	itemDestFrameComboBox->clear();
 	itemDestFrameComboBox->addItem(CommonStrings::tr_None);
-	if (currDoc!=NULL)
+	if (m_Doc!=NULL)
 	{
-		for (int d = 0; d < currDoc->DocItems.count(); ++d)
+		for (int d = 0; d < m_Doc->DocItems.count(); ++d)
 		{
-			if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
-				itemDestFrameComboBox->addItem(currDoc->DocItems.at(d)->itemName());
+			if (m_Doc->DocItems.at(d)->itemType()==PageItem::TextFrame)
+				itemDestFrameComboBox->addItem(m_Doc->DocItems.at(d)->itemName());
 		}
 	}
 	else
@@ -162,7 +161,7 @@ void Prefs_TableOfContents::selectToC( int numberSelected )
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
-	if (currDoc!=NULL)
+	if (m_Doc!=NULL)
 	{
 		if (localToCSetupVector[numSelected].frameName==CommonStrings::None)
 			setCurrentComboItem(itemDestFrameComboBox, CommonStrings::tr_None);
@@ -235,10 +234,10 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 	paragraphStyleList.clear();
 	paragraphStyleList.append(CommonStrings::tr_None);
 
-	if(currDoc!=NULL) // && currDoc->docParagraphStyles.count()>5)
+	if(m_Doc!=NULL) // && m_Doc->docParagraphStyles.count()>5)
 	{
-		for (int i = 0; i < currDoc->paragraphStyles().count(); ++i)
-			paragraphStyleList.append(currDoc->paragraphStyles()[i].name());
+		for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
+			paragraphStyleList.append(m_Doc->paragraphStyles()[i].name());
 	}
 	itemParagraphStyleComboBox->clear();
 	itemParagraphStyleComboBox->addItems(paragraphStyleList);
@@ -252,7 +251,7 @@ void Prefs_TableOfContents::enableGUIWidgets()
 	tocDeleteButton->setEnabled(enabled);
 	itemAttrComboBox->setEnabled(enabled);
 	itemNumberPlacementComboBox->setEnabled(enabled);
-	bool haveDoc=enabled && currDoc!=NULL;
+	bool haveDoc=enabled && m_Doc!=NULL;
 	itemDestFrameComboBox->setEnabled(haveDoc);
 	itemParagraphStyleComboBox->setEnabled(haveDoc);
 }

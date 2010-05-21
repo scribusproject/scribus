@@ -22,9 +22,10 @@ Prefs_Scrapbook::~Prefs_Scrapbook()
 
 void Prefs_Scrapbook::languageChange()
 {
-	autoSendCopiedToScrapCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
-	keepCopiedAcrossSessionsCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>" );
-	itemCountKeptInScrapbookSpinBox->setToolTip( "<qt>" + tr("") + "</qt>");
+	autoSendCopiedToScrapCheckBox->setToolTip( "<qt>" + tr( "This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically" ) + "</qt>");
+	keepCopiedAcrossSessionsCheckBox->setToolTip( "<qt>" + tr( "This enables copied items to be kept permanently in the scrapbook" ) + "</qt>" );
+	writePreviewsCheckBox->setToolTip( "<qt>" + tr("Save generated scrapbook previews in the scrapbook directory") + "</qt>");
+	itemCountKeptInScrapbookSpinBox->setToolTip( "<qt>" + tr("The minimum number is 1; the maximum us 100") + "</qt>");
 }
 
 void Prefs_Scrapbook::restoreDefaults(struct ApplicationPrefs *prefsData)

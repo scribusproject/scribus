@@ -33,7 +33,12 @@ Prefs_OperatorTools::~Prefs_OperatorTools()
 
 void Prefs_OperatorTools::languageChange()
 {
-
+	zoomMinimumSpinBox->setToolTip( tr( "Minimum magnification allowed" ) );
+	zoomMaximumSpinBox->setToolTip( tr( "Maximum magnification allowed" ) );
+	zoomSteppingSpinBox->setToolTip( tr( "Change in magnification for each zoom operation" ) );
+	itemDuplicateXDispSpinBox->setToolTip( tr( "Horizontal displacement of page items") );
+	itemDuplicateYDispSpinBox->setToolTip( tr( "Vertical displacement of page items" ) );
+	rotationConstraintSpinBox->setToolTip( tr( "Constrain value for the rotation tool when the Control key is pressed" ) );
 }
 
 void Prefs_OperatorTools::restoreDefaults(struct ApplicationPrefs *prefsData)

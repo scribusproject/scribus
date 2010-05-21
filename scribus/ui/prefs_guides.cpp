@@ -36,6 +36,23 @@ void Prefs_Guides::languageChange()
 	guidePlacementComboBox->addItem( tr ("In the Background") );
 	guidePlacementComboBox->addItem( tr ("In the Foreground") );
 	guidePlacementComboBox->setCurrentIndex(i<0?0:i);
+
+	guidePlacementComboBox->setToolTip( tr( "Place guides in front of or behind objects on the page" ) );
+	minorGridSpacingSpinBox->setToolTip( tr( "Distance between the minor grid lines" ) );
+	majorGridSpacingSpinBox->setToolTip( tr( "Distance between the major grid lines" ) );
+	guideSnapDistanceSpinBox->setToolTip(  "<qt>" + tr( "Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting." ) + "</qt>");
+	guideGrabRadiusSpinBox->setToolTip( "<qt>" + tr( "Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting." ) + "</qt>");
+	minorGridColorPushButton->setToolTip( tr( "Color of the minor grid lines" ) );
+	majorGridColorPushButton->setToolTip( tr( "Color of the major grid lines" ) );
+	guideColorPushButton->setToolTip( tr( "Color of the guide lines you insert" ) );
+	marginColorPushButton->setToolTip( tr( "Color for the margin lines" ) );
+	baselineGridColorPushButton->setToolTip( tr( "Color for the baseline grid" ) );
+	visibilityBaselineGridCheckBox->setToolTip( tr("Turns the basegrid on or off"));
+	baselineGridSpacingSpinBox->setToolTip( tr("Distance between the lines of the baseline grid"));
+	baselineGridOffsetSpinBox->setToolTip( tr("Distance from the top of the page for the first baseline"));
+	visibilityGridCheckBox->setToolTip( tr("Turns the gridlines on or off"));
+	visibilityGuidesCheckBox->setToolTip( tr("Turns the guides on or off"));
+	visibilityMarginsCheckBox->setToolTip( tr("Turns the margins on or off"));
 }
 
 void Prefs_Guides::unitChange(int unitIndex)

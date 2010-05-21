@@ -58,7 +58,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		QString trStrPNEnd;
 		QString trStrPNBeginning;
 		ToCSetupVector localToCSetupVector;
-		ScribusDoc* currDoc;
+		ScribusDoc* m_Doc;
 		QString selectedTOCAttrName;
 		QStringList paragraphStyleList;
 
