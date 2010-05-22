@@ -11195,156 +11195,156 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 
 const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selection* customSelection)
 {
-		Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-		if (itemSelection->count() < 1)
-			return NULL;
-		int objectsLayer = itemSelection->objectsLayer();
-		if (objectsLayer == -1)
-			return NULL;
-		PageItem *currItem;
-		PageItem* bb;
-		double x, y, w, h;
-		uint selectedItemCount=itemSelection->count();
-		QString tooltip = Um::ItemsInvolved + "\n";
-		if (selectedItemCount > Um::ItemsInvolvedLimit)
-			tooltip = Um::ItemsInvolved2 + "\n";
-		if (changeLock)
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	if (itemSelection->count() < 1)
+		return NULL;
+	int objectsLayer = itemSelection->objectsLayer();
+	if (objectsLayer == -1)
+		return NULL;
+	PageItem *currItem;
+	PageItem* bb;
+	double x, y, w, h;
+	uint selectedItemCount=itemSelection->count();
+	QString tooltip = Um::ItemsInvolved + "\n";
+	if (selectedItemCount > Um::ItemsInvolvedLimit)
+		tooltip = Um::ItemsInvolved2 + "\n";
+	if (changeLock)
+	{
+		uint lockedCount=0;
+		for (uint a=0; a<selectedItemCount; ++a)
 		{
-			uint lockedCount=0;
+			if (itemSelection->itemAt(a)->locked())
+				++lockedCount;
+		}
+		if (lockedCount!=0 && lockedCount!=selectedItemCount)
+		{
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
-				if (itemSelection->itemAt(a)->locked())
-					++lockedCount;
-			}
-			if (lockedCount!=0 && lockedCount!=selectedItemCount)
-			{
-				for (uint a=0; a<selectedItemCount; ++a)
+				currItem = itemSelection->itemAt(a);
+				if (currItem->locked())
 				{
-					currItem = itemSelection->itemAt(a);
-					if (currItem->locked())
+					for (uint c=0; c < selectedItemCount; ++c)
 					{
-						for (uint c=0; c < selectedItemCount; ++c)
-						{
-							bb = itemSelection->itemAt(c);
-							bb->setLocked(lock);
-							if (m_ScMW && ScCore->usingGUI())
-								m_ScMW->scrActions["itemLock"]->setChecked(lock);
-							if (selectedItemCount <= Um::ItemsInvolvedLimit)
-								tooltip += "\t" + currItem->getUName() + "\n";
-						}
+						bb = itemSelection->itemAt(c);
+						bb->setLocked(lock);
+						if (m_ScMW && ScCore->usingGUI())
+							m_ScMW->scrActions["itemLock"]->setChecked(lock);
+						if (selectedItemCount <= Um::ItemsInvolvedLimit)
+							tooltip += "\t" + currItem->getUName() + "\n";
 					}
 				}
 			}
 		}
-		itemSelection->getVisualGroupRect(&x, &y, &w, &h);
-		uint lowestItem = 999999;
-		uint highestItem = 0;
-		for (uint a=0; a<selectedItemCount; ++a)
-		{
-			currItem = itemSelection->itemAt(a);
-			currItem->gXpos = currItem->xPos() - x;
-			currItem->gYpos = currItem->yPos() - y;
-			currItem->gWidth = w;
-			currItem->gHeight = h;
-			lowestItem = qMin(lowestItem, currItem->ItemNr);
-			highestItem = qMax(highestItem, currItem->ItemNr);
-		}
-		double minx =  std::numeric_limits<double>::max();
-		double miny =  std::numeric_limits<double>::max();
-		double maxx = -std::numeric_limits<double>::max();
-		double maxy = -std::numeric_limits<double>::max();
-		for (uint ep = 0; ep < selectedItemCount; ++ep)
-		{
-			PageItem* currItem = itemSelection->itemAt(ep);
-			double x1, x2, y1, y2;
-			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-			minx = qMin(minx, x1);
-			miny = qMin(miny, y1);
-			maxx = qMax(maxx, x2);
-			maxy = qMax(maxy, y2);
+	}
+	itemSelection->getVisualGroupRect(&x, &y, &w, &h);
+	uint lowestItem = 999999;
+	uint highestItem = 0;
+	for (uint a=0; a<selectedItemCount; ++a)
+	{
+		currItem = itemSelection->itemAt(a);
+		currItem->gXpos = currItem->xPos() - x;
+		currItem->gYpos = currItem->yPos() - y;
+		currItem->gWidth = w;
+		currItem->gHeight = h;
+		lowestItem = qMin(lowestItem, currItem->ItemNr);
+		highestItem = qMax(highestItem, currItem->ItemNr);
+	}
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	for (uint ep = 0; ep < selectedItemCount; ++ep)
+	{
+		PageItem* currItem = itemSelection->itemAt(ep);
+		double x1, x2, y1, y2;
+		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
 /*
-			double lw = 0.0;
-			if (currItem->lineColor() != CommonStrings::None)
-				lw = currItem->lineWidth() / 2.0;
-			if (currItem->rotation() != 0)
+		double lw = 0.0;
+		if (currItem->lineColor() != CommonStrings::None)
+			lw = currItem->lineWidth() / 2.0;
+		if (currItem->rotation() != 0)
+		{
+			FPointArray pb;
+			pb.resize(0);
+			pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+			pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+			pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+			pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+			for (uint pc = 0; pc < 4; ++pc)
 			{
-				FPointArray pb;
-				pb.resize(0);
-				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				for (uint pc = 0; pc < 4; ++pc)
-				{
-					minx = qMin(minx, pb.point(pc).x());
-					miny = qMin(miny, pb.point(pc).y());
-					maxx = qMax(maxx, pb.point(pc).x());
-					maxy = qMax(maxy, pb.point(pc).y());
-				}
+				minx = qMin(minx, pb.point(pc).x());
+				miny = qMin(miny, pb.point(pc).y());
+				maxx = qMax(maxx, pb.point(pc).x());
+				maxy = qMax(maxy, pb.point(pc).y());
 			}
-			else
-			{
-				minx = qMin(minx, currItem->xPos()-lw);
-				miny = qMin(miny, currItem->yPos()-lw);
-				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-			}
+		}
+		else
+		{
+			minx = qMin(minx, currItem->xPos()-lw);
+			miny = qMin(miny, currItem->yPos()-lw);
+			maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+			maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+		}
 */
 		}
-		double gx = minx;
-		double gy = miny;
-		double gw = maxx - minx;
-		double gh = maxy - miny;
-		PageItem *high = Items->at(highestItem);
-		undoManager->setUndoEnabled(false);
-		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, docPrefsData.itemToolPrefs.shapeFillColor, docPrefsData.itemToolPrefs.shapeLineColor, true);
-		PageItem *groupItem = Items->takeAt(z);
-		Items->insert(lowestItem, groupItem);
-		groupItem->setItemName( tr("Group%1").arg(GroupCounter));
-		groupItem->AutoName = false;
-		groupItem->isGroupControl = true;
-		groupItem->groupsLastItem = high;
-		groupItem->LayerID = objectsLayer;
-		undoManager->setUndoEnabled(true);
+	double gx = minx;
+	double gy = miny;
+	double gw = maxx - minx;
+	double gh = maxy - miny;
+	PageItem *high = Items->at(highestItem);
+	undoManager->setUndoEnabled(false);
+	int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, docPrefsData.itemToolPrefs.shapeFillColor, docPrefsData.itemToolPrefs.shapeLineColor, true);
+	PageItem *groupItem = Items->takeAt(z);
+	Items->insert(lowestItem, groupItem);
+	groupItem->setItemName( tr("Group%1").arg(GroupCounter));
+	groupItem->AutoName = false;
+	groupItem->isGroupControl = true;
+	groupItem->groupsLastItem = high;
+	groupItem->LayerID = objectsLayer;
+	undoManager->setUndoEnabled(true);
 
-		QMap<int, uint> ObjOrder;
-		for (uint c = 0; c < selectedItemCount; ++c)
-		{
-			currItem = itemSelection->itemAt(c);
-			ObjOrder.insert(currItem->ItemNr, c);
-			int d = Items->indexOf(currItem);
-			Items->takeAt(d);
-		}
-		QList<uint> Oindex = ObjOrder.values();
-		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
-		{
-			Items->insert(lowestItem+1, itemSelection->itemAt(Oindex[c]));
-		}
+	QMap<int, uint> ObjOrder;
+	for (uint c = 0; c < selectedItemCount; ++c)
+	{
+		currItem = itemSelection->itemAt(c);
+		ObjOrder.insert(currItem->ItemNr, c);
+		int d = Items->indexOf(currItem);
+		Items->takeAt(d);
+	}
+	QList<uint> Oindex = ObjOrder.values();
+	for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+	{
+		Items->insert(lowestItem+1, itemSelection->itemAt(Oindex[c]));
+	}
 
-		renumberItemsInListOrder();
-		itemSelection->prependItem(groupItem);
-		selectedItemCount=itemSelection->count();
-		SimpleState *ss = new SimpleState(Um::Group, tooltip);
-		ss->set("GROUP", "group");
-		ss->set("itemcount", selectedItemCount);
+	renumberItemsInListOrder();
+	itemSelection->prependItem(groupItem);
+	selectedItemCount=itemSelection->count();
+	SimpleState *ss = new SimpleState(Um::Group, tooltip);
+	ss->set("GROUP", "group");
+	ss->set("itemcount", selectedItemCount);
 
-		for (uint a=0; a<selectedItemCount; ++a)
-		{
-			currItem = itemSelection->itemAt(a);
-			currItem->Groups.push(GroupCounter);
-			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
-		}
-		GroupCounter++;
-		regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));
-		emit docChanged();
-		if (m_ScMW && ScCore->usingGUI())
-		{
-			m_ScMW->scrActions["itemAttachTextToPath"]->setEnabled(false);
-			m_ScMW->scrActions["itemGroup"]->setEnabled(false);
-			m_ScMW->scrActions["itemUngroup"]->setEnabled(true);
-		}
-		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
-		return groupItem;
+	for (uint a=0; a<selectedItemCount; ++a)
+	{
+		currItem = itemSelection->itemAt(a);
+		currItem->Groups.push(GroupCounter);
+		ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+	}
+	GroupCounter++;
+	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));
+	emit docChanged();
+	if (m_ScMW && ScCore->usingGUI())
+	{
+		m_ScMW->scrActions["itemAttachTextToPath"]->setEnabled(false);
+		m_ScMW->scrActions["itemGroup"]->setEnabled(false);
+		m_ScMW->scrActions["itemUngroup"]->setEnabled(true);
+	}
+	undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+	return groupItem;
 }
 
 void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)

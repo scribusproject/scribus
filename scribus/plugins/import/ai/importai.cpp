@@ -1583,9 +1583,10 @@ void AIPlug::processData(QString data)
 				symT.translate(x2, y2);
 				QPointF pos1 = importedSymbols[currentSymbolName];
 				pos1 = symT.map(pos1);
-				pos1 += QPointF(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 				double xp = pos1.x();
-				double yp = docHeight - pos1.y();
+				double yp = pos1.y();
+				xp += m_Doc->currentPage()->xOffset();
+				yp += m_Doc->currentPage()->yOffset();
 				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 				PageItem *b = m_Doc->Items->at(z);
 				b->LayerID = m_Doc->activeLayer();
@@ -1598,12 +1599,12 @@ void AIPlug::processData(QString data)
 				double xoffset = 0.0, yoffset = 0.0;
 			//	if (rotation != 0.0)
 			//	{
-					double temp = -b->height();
-					xoffset = sin(rotation) * temp;
-					yoffset = cos(rotation) * temp;
+					double temp = b->height();
+					xoffset = sin(-rotation) * temp;
+					yoffset = cos(-rotation) * temp;
 			//	}
 				b->setXPos(xp + xoffset);
-				b->setYPos(yp + yoffset + b->height());
+				b->setYPos(yp + yoffset);
 				b->setRotation(rotation * 180 / M_PI);
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
 				b->setFillTransparency(1.0 - Opacity);
@@ -2653,34 +2654,44 @@ void AIPlug::processPattern(QDataStream &ts)
 						currItem->AutoName = false;
 						m_Doc->DoDrawing = true;
 						QImage tmpImg = currItem->DrawObj_toImage();
-						QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
-						retImg.fill( qRgba(255, 255, 255, 0) );
-						QPainter p;
-						p.begin(&retImg);
-						if (PatternElements.count() > 1)
-							p.drawImage(qRound(-patternX1), qRound(-patternY1), tmpImg);
-						else
-							p.drawImage(0, 0, tmpImg);
-						p.end();
-						pat.pattern = retImg;
-	//					pat.pattern = currItem->DrawObj_toImage();
-						m_Doc->DoDrawing = false;
-						//			pat.width = currItem->gWidth;
-						//			pat.height = currItem->gHeight;
-						pat.width = patternX2 - patternX1;
-						pat.height = patternY2 - patternY1;
-						pat.xoffset = -patternX1;
-						pat.yoffset = -patternY1;
+						if (!tmpImg.isNull())
+						{
+							QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
+							retImg.fill( qRgba(255, 255, 255, 0) );
+							QPainter p;
+							p.begin(&retImg);
+							if (PatternElements.count() > 1)
+								p.drawImage(qRound(-patternX1), qRound(-patternY1), tmpImg);
+							else
+								p.drawImage(0, 0, tmpImg);
+							p.end();
+							pat.pattern = retImg;
+		//					pat.pattern = currItem->DrawObj_toImage();
+							m_Doc->DoDrawing = false;
+							//			pat.width = currItem->gWidth;
+							//			pat.height = currItem->gHeight;
+							pat.width = patternX2 - patternX1;
+							pat.height = patternY2 - patternY1;
+							pat.xoffset = -patternX1;
+							pat.yoffset = -patternY1;
+							for (int as = 0; as < tmpSel->count(); ++as)
+							{
+								PageItem* Neu = tmpSel->itemAt(as);
+								Neu->moveBy(-patternX1, -patternY1, true);
+								Neu->gXpos -= patternX1;
+								Neu->gYpos -= patternY1;
+								pat.items.append(Neu);
+							}
+							m_Doc->addPattern(currentPatternDefName, pat);
+							importedPatterns.append(currentPatternDefName);
+						}
+					}
+					if (groupStack.count() != 0)
+					{
 						for (int as = 0; as < tmpSel->count(); ++as)
 						{
-							PageItem* Neu = tmpSel->itemAt(as);
-							Neu->moveBy(-patternX1, -patternY1, true);
-							Neu->gXpos -= patternX1;
-							Neu->gYpos -= patternY1;
-							pat.items.append(Neu);
+							groupStack.top().removeAll(tmpSel->itemAt(as));
 						}
-						m_Doc->addPattern(currentPatternDefName, pat);
-						importedPatterns.append(currentPatternDefName);
 					}
 					m_Doc->itemSelection_DeleteItem(tmpSel);
 				}
@@ -2716,6 +2727,20 @@ void AIPlug::processPattern(QDataStream &ts)
 			PatternElements.clear();
 			currentPatternDefName = "";
 			break;
+		}
+		else if (tmp.contains("BeginRaster") && (tmp.startsWith("%")))
+		{
+			while (!ts.atEnd())
+			{
+				tmp = readLinefromDataStream(ts);
+				if (tmp.contains("EndRaster"))
+					break;
+				if(progressDialog)
+				{
+					progressDialog->setProgress("GI", ts.device()->pos());
+					qApp->processEvents();
+				}
+			}
 		}
 		else
 			processData(tmp);
@@ -2765,23 +2790,47 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 					currItem->AutoName = false;
 					m_Doc->DoDrawing = true;
 					pat.pattern = currItem->DrawObj_toImage();
-					pat.width = currItem->gWidth;
-					pat.height = currItem->gHeight;
-					m_Doc->DoDrawing = false;
+					if (!pat.pattern.isNull())
+					{
+						pat.width = currItem->gWidth;
+						pat.height = currItem->gHeight;
+						m_Doc->DoDrawing = false;
+						for (int as = 0; as < tmpSel->count(); ++as)
+						{
+							PageItem* Neu = tmpSel->itemAt(as);
+							pat.items.append(Neu);
+						}
+						importedPatterns.append(currentPatternDefName);
+						importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
+						m_Doc->addPattern(currentPatternDefName, pat);
+					}
+				}
+				if (groupStack.count() != 0)
+				{
 					for (int as = 0; as < tmpSel->count(); ++as)
 					{
-						PageItem* Neu = tmpSel->itemAt(as);
-						pat.items.append(Neu);
+						groupStack.top().removeAll(tmpSel->itemAt(as));
 					}
-					importedPatterns.append(currentPatternDefName);
-					importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
-					m_Doc->addPattern(currentPatternDefName, pat);
 				}
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 			}
 			PatternElements.clear();
 			currentPatternDefName = "";
 			break;
+		}
+		else if (tmp.contains("BeginRaster") && (tmp.startsWith("%")))
+		{
+			while (!ts.atEnd())
+			{
+				tmp = readLinefromDataStream(ts);
+				if (tmp.contains("EndRaster"))
+					break;
+				if(progressDialog)
+				{
+					progressDialog->setProgress("GI", ts.device()->pos());
+					qApp->processEvents();
+				}
+			}
 		}
 		else
 		{
@@ -3103,6 +3152,62 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 		{
 			progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
+		}
+	}
+	else if (tmp.contains("BeginRaster") && (tmp.startsWith("%")))
+	{
+		while (!ts.atEnd())
+		{
+			tmp = readLinefromDataStream(ts);
+			if (tmp.contains("EndRaster"))
+				break;
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
+		}
+	}
+	else if (tmp.startsWith("BeginSVGFilter"))
+	{
+		while (!ts.atEnd())
+		{
+			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			if (tmp.startsWith("EndSVGFilter"))
+				break;
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
+		}
+	}
+	else if (tmp.startsWith("BeginArtStyles"))
+	{
+		while (!ts.atEnd())
+		{
+			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			if (tmp.startsWith("EndArtStyles"))
+				break;
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
+		}
+	}
+	else if (tmp.startsWith("BeginPluginObject"))
+	{
+		while (!ts.atEnd())
+		{
+			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			if (tmp.startsWith("EndPluginObject"))
+				break;
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
 		}
 	}
 	else if (tmp.startsWith("BeginLayer"))
