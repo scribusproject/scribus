@@ -1585,8 +1585,8 @@ void AIPlug::processData(QString data)
 				pos1 = symT.map(pos1);
 				double xp = pos1.x();
 				double yp = pos1.y();
-				xp += m_Doc->currentPage()->xOffset();
-				yp += m_Doc->currentPage()->yOffset();
+			//	xp += m_Doc->currentPage()->xOffset();
+			//	yp += m_Doc->currentPage()->yOffset();
 				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 				PageItem *b = m_Doc->Items->at(z);
 				b->LayerID = m_Doc->activeLayer();
@@ -1599,13 +1599,16 @@ void AIPlug::processData(QString data)
 				double xoffset = 0.0, yoffset = 0.0;
 			//	if (rotation != 0.0)
 			//	{
-					double temp = b->height();
-					xoffset = sin(-rotation) * temp;
-					yoffset = cos(-rotation) * temp;
+			//		double temp = -b->height();
+			//		xoffset = sin(-rotation) * temp;
+			//		yoffset = cos(-rotation) * temp;
 			//	}
 				b->setXPos(xp + xoffset);
 				b->setYPos(yp + yoffset);
-				b->setRotation(rotation * 180 / M_PI);
+				m_Doc->RotMode(3);
+				m_Doc->RotateItem(rotation * 180 / M_PI, b);
+				m_Doc->RotMode(0);
+//				b->setRotation(rotation * 180 / M_PI);
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
 				b->setFillTransparency(1.0 - Opacity);
 				b->setLineTransparency(1.0 - Opacity);
@@ -2632,6 +2635,11 @@ void AIPlug::processPattern(QDataStream &ts)
 	while (!ts.atEnd())
 	{
 		tmp = removeAIPrefix(readLinefromDataStream(ts));
+		if (importerFlags & LoadSavePlugin::lfKeepPatterns)
+		{
+			if (tmp.startsWith("%_"))
+				tmp.remove(0, 2);
+		}
 		if (patternMode)
 		{
 			if (tmp == "EndPattern")
@@ -2715,12 +2723,14 @@ void AIPlug::processPattern(QDataStream &ts)
 				processData(tmpData);
 				tmpData = "";
 			}
-			else
+			else if (tmp.startsWith("("))
 			{
 				if (tmp.startsWith("("))
 					tmp.remove(0, 1);
 				tmpData += " "+tmp;
 			}
+			else
+				processData(tmp);
 		}
 		else if (tmp == "EndPattern")
 		{
@@ -2743,7 +2753,23 @@ void AIPlug::processPattern(QDataStream &ts)
 			}
 		}
 		else
-			processData(tmp);
+		{
+			Coords.resize(0);
+			Coords.svgInit();
+			int an = tmp.indexOf("(");
+			int en = tmp.lastIndexOf(")");
+			if ((an != -1) && (en != -1))
+			{
+				patternMode = true;
+				currentPatternDefName = tmp.mid(an+1, en-an-1);
+				currentPatternDefName.remove("\\");
+				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+				QString tmpS = tmp.mid(en+1, tmp.size() - en);
+				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
+				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
+			}
+		}
+	//		processData(tmp);
 	}
 	patternMode = false;
 }
@@ -2801,7 +2827,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 							pat.items.append(Neu);
 						}
 						importedPatterns.append(currentPatternDefName);
-						importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()+currItem->height()));
+						importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()));
 						m_Doc->addPattern(currentPatternDefName, pat);
 					}
 				}
