@@ -40,13 +40,13 @@ public:
 	void flattenAlpha(void* dataIn, uint numElems);
 
 	// Function to create transform to a specific output color space
-	ScColorTransform createTransform(const ScColorSpaceData& outputSpace, eRenderIntent renderIntent, 
+	ScColorTransform createTransform(const ScColorSpace& outputSpace, eRenderIntent renderIntent, 
 	                                 long transformFlags);
 	ScColorTransform createTransform(const ScColorProfile& outputProfile, eColorFormat outputFormat,
 	                                 eRenderIntent renderIntent, long transformFlags);
 
 	// Function to create proofing transform to a specific output color space and a specific proofing device
-	ScColorTransform createProofingTransform(const ScColorSpaceData& outputSpace, const ScColorProfile& proofing, 
+	ScColorTransform createProofingTransform(const ScColorSpace& outputSpace, const ScColorProfile& proofing, 
 	                                         eRenderIntent renderIntent,  eRenderIntent proofingIntent, 
 											 long transformFlags);
 	ScColorTransform createProofingTransform(const ScColorProfile& outputProfile, eColorFormat outputFormat,
@@ -54,9 +54,9 @@ public:
 	                                         eRenderIntent proofingIntent, long transformFlags);
 
 	// Convert color data to a specific color space
-	bool convert(ScColorSpaceData& data, eRenderIntent renderIntent, long transformFlags, 
+	bool convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags, 
 	             void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans = 0);
-	bool convert(ScColorSpaceData& data, eRenderIntent renderIntent, long transformFlags, 
+	bool convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags, 
 	             void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans = 0);
 
 	const ScColorSpaceData* data() const { return m_data.data(); }
