@@ -189,7 +189,6 @@ public:
 	void appendToArrowStyles(const struct ArrowDesc& as) { docPrefsData.arrowStyles.append(as); }
 	const bool marginColored() const { return docPrefsData.displayPrefs.marginColored; }
 	void setMarginColored(bool b) { docPrefsData.displayPrefs.marginColored=b; }
-	//->Prefs QMap<QString, CheckerPrefs> checkerProfiles;
 	QMap<QString, CheckerPrefs>& checkerProfiles() { return docPrefsData.verifierPrefs.checkerPrefsList; }
 	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { docPrefsData.verifierPrefs.checkerPrefsList=cl; }
 	void set1CheckerProfile(const QString profileName, const struct CheckerPrefs& cs) { docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
@@ -1013,7 +1012,6 @@ protected:
 	bool loading;
 	bool modified;
 	int ActiveLayer;
-	//->Prefs int docUnitIndex;
 	double docUnitRatio;
 	int rotMode;
 	bool automaticTextFrames; // Flag for automatic Textframes
@@ -1033,14 +1031,6 @@ public: // Public attributes
 	int viewID;
 	bool SnapGuides;
 	bool GuideLock;
-	/** \brief Scratch space around Pages */
-	//->Prefs MarginStruct scratch;
-	//->Prefs double GapHorizontal;
-	//->Prefs double GapVertical;
-// 	double ScratchLeft;
-// 	double ScratchRight;
-// 	double ScratchTop;
-// 	double ScratchBottom;
 	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
@@ -1060,38 +1050,18 @@ public: // Public attributes
 	QList<PageItem*> DocItems;
 	QList<PageItem*> FrameItems;
 	Selection* const m_Selection;
-	//->Prefs /** \brief Pagewidth  */
-	//->Prefs double pageWidth;
-	//->Prefs /** \brief Pageheight */
-	//->Prefs double pageHeight;
-	/* Number of Pages */
-	// int pageCount; Disabled CR no longer required
-	//->Prefs /** \brief Margins */
-	//->Prefs MarginStruct pageMargins;
-	//->Prefs int marginPreset;
-	//->Prefs QList<PageSet> pageSets;
-	//->Prefs MarginStruct bleeds;
-// 	double BleedTop;
-// 	double BleedLeft;
-// 	double BleedRight;
-// 	double BleedBottom;
 	/** \brief Number of Columns */
 	double PageSp;
 	/** \brief Distance of Columns */
 	double PageSpa;
 	/** \brief current Pagelayout */
 	int currentPageLayout;
-	///** \brief Flag fuer Hoch- oder Querformat 0 = Hochformat */
-	//->Prefs int PageOri;
-	//->Prefs QString m_pageSize;
 	/** \brief Erste Seitennummer im Dokument */
 	int FirstPnum;
 	/** \brief Flag fuer Rasterbenutzung */
 	bool useRaster;
 	/** \brief Im Dokument benutzte Farben */
 	ColorList PageColors;
-	//->Prefs /** \brief InfoStrings fuer das aktuelle Dokument */
-	//->Prefs DocumentInformation documentInfo;
 	int appMode;
 	int SubMode;
 	double *ShapeValues;
@@ -1100,19 +1070,9 @@ public: // Public attributes
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
 	QList<AlignObjs> AObjects;
-	//->Prefs QColor papColor;
 	int CurrentSel;
 	ParagraphStyle currentStyle;
-
 	NodeEditContext nodeEdit;
-
-	//->Prefs TypoPrefs typographicSettings;
-	//->Prefs GuidesPrefs guidesSettings;
-	//->Prefs ItemToolPrefs itemToolPrefs;
-	//->Prefs OperatorToolPrefs opToolPrefs;
-
-	//->Prefs QMap<QString, CheckerPrefs> checkerProfiles;
-	//->Prefs QString curCheckProfile;
 	/** \brief Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
 	/** \brief Erstes Element fuer AutoTextrahmen */
@@ -1129,7 +1089,6 @@ public:
 	ScLayers Layers;
 	//bool marginColored;
 	int GroupCounter;
-	//->Prefs CMSData CMSSettings;
 
 	ScColorMgmtEngine colorEngine;
 	ScColorProfile DocInputImageRGBProf;
@@ -1157,12 +1116,6 @@ public:
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;
-	//->Prefs int MinWordLen;
-	//->Prefs int HyCount;
-	//->Prefs QString Language;
-	//->Prefs bool Automatic;
-	//->Prefs bool AutoCheck;
-	//->Prefs PDFOptions PDF_Options;
 	PrintOptions Print_Options;
 	bool RePos;
 	struct BookMa {
@@ -1180,11 +1133,8 @@ public:
 	QList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
-	//->Prefs bool AutoSave;
-	//->Prefs int AutoSaveTime;
 	QTimer * const autoSaveTimer;
 	QMap<QString,multiLine> MLineStyles;
-	//->Prefs QList<ArrowDesc> arrowStyles;
 	QMap<QString, ScPattern> docPatterns;
 	QMap<QString, VGradient> docGradients;
 	QWidget* WinHan;
@@ -1200,10 +1150,6 @@ public:
 	QMap<int, errorCodes> docLayerErrors;
 	QMap<int, errorCodes> docItemErrors;
 	QMap<int, errorCodes> masterItemErrors;
-	//Attributes to be applied to frames
-	//->Prefs ObjAttrVector docItemAttributes;
-	//->Prefs ToCSetupVector docToCSetups;
-	//->Prefs DocumentSectionMap sections;
 	FPointArray symReturn;
 	FPointArray symNewLine;
 	FPointArray symTab;
