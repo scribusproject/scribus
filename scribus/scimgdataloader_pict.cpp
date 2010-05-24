@@ -1343,7 +1343,9 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 					QRgb *q = (QRgb*)(image.scanLine(rr));
 					for (uint xx = 0; xx < (uint) pixCols; xx++)
 					{
-						uchar r, g, b;
+						uchar r = 0;
+						uchar g = 0;
+						uchar b = 0;
 						uchar a = 255;
 						if (component_count == 3)
 						{

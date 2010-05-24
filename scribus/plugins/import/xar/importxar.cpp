@@ -2872,7 +2872,7 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 
 void XarPlug::createPolygonItem(int type)
 {
-	int z;
+	int z = -1;
 	XarStyle *gc = m_gc.top();
 	if (type == 0)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol, true);
@@ -2880,12 +2880,14 @@ void XarPlug::createPolygonItem(int type)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None, true);
 	else if (type == 2)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	else
+		return;
 	finishItem(z);
 }
 
 void XarPlug::createPolylineItem(int type)
 {
-	int z;
+	int z = -1;
 	XarStyle *gc = m_gc.top();
 	if (type == 0)
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol, true);
@@ -2893,6 +2895,8 @@ void XarPlug::createPolylineItem(int type)
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None, true);
 	else if (type == 2)
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	else
+		return;
 	finishItem(z);
 //	PageItem *ite = m_Doc->Items->at(z);
 //	qDebug() << "Item" << ite->itemName() << type;
@@ -3031,7 +3035,14 @@ bool XarPlug::handlePathRel(QDataStream &ts, quint32 len)
 	quint32 count = len / 9;
 	qint32 x, y;
 	quint8  verb, val;
-	double co1, co2, cx1, cy1, cx2, cy2, cx3, cy3;
+	double co1 = 0.0;
+	double co2 = 0.0;
+	double cx1 = 0.0;
+	double cy1 = 0.0;
+	double cx2 = 0.0;
+	double cy2 = 0.0;
+	double cx3 = 0.0;
+	double cy3 = 0.0;
 	FPoint currentPoint, startPoint;
 	int bezCount = 0;
 	bool closed = false;

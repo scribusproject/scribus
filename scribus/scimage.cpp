@@ -2528,6 +2528,8 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
 			break;
+		default:	// just to silence compiler
+			break;
 		}
 	}
 //	if (((reqType == CMYKData) || ((reqType == RawData) && isCMYK)) && !bilevel)

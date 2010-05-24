@@ -231,7 +231,8 @@ hnj_hyphen_load (const char *fn)
   char buf[80];
   char word[80];
   char pattern[80];
-  int state_num, last_state;
+  int state_num = 0;
+  int last_state;
   int i, j;
   char ch;
   int found;

@@ -272,7 +272,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					{
 					currGS.dashPattern.first.clear();
 					PdfArray dashArr = args[0].GetArray();
-					for (int i=0; i<dashArr.size(); ++i)
+					for (uint i=0; i<dashArr.size(); ++i)
 						currGS.dashPattern.first.append(dashArr[i].GetNumber());
 					currGS.dashPattern.second = args[0].GetNumber();
 					}
@@ -689,7 +689,7 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 	{
 		PdfArray arr = bmObj->GetArray();
 		currGS.blendModes.clear();
-		for(int i=0; i<arr.GetSize(); ++i)
+		for(uint i=0; i<arr.GetSize(); ++i)
 			currGS.blendModes.append(arr[i].GetName().GetEscapedName().c_str());
 		if (arr[0].IsName() && !(arr[0].GetName() == "Normal" || arr[0].GetName() == "Compatible"))
 			hasTransparency = true;
@@ -745,7 +745,7 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 	{
 		PdfArray dashArr = dObj->GetArray()[0];
 		currGS.dashPattern.first.clear();
-		for (int i=0; i<dashArr.GetSize(); ++i)
+		for (uint i=0; i<dashArr.GetSize(); ++i)
 			currGS.dashPattern.first.append(dashArr[i].GetNumber());
 		currGS.dashPattern.second = dObj->GetArray()[1].GetNumber();
 	}

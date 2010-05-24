@@ -2464,6 +2464,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
+	case PageItem::Symbol:
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;

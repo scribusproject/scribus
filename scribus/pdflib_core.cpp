@@ -6220,13 +6220,15 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 {
 	QStack<PageItem*> groupStack;
 	QString tmp2 = "", tmpOut;
-	ScPattern *pat;
+	ScPattern *pat = NULL;
 	if (kind == 0)
 		pat = &doc.docPatterns[currItem->pattern()];
 	else if (kind == 1)
 		pat = &doc.docPatterns[currItem->strokePattern()];
 	else if (kind == 2)
 		pat = &doc.docPatterns[currItem->patternMask()];
+	else
+		return false;
 	for (int em = 0; em < pat->items.count(); ++em)
 	{
 		PageItem* item = pat->items.at(em);

@@ -233,7 +233,11 @@ void gradientManagerDialog::loadGimpFormat(QString fileName)
 		int numEntrys = 0;
 		int entryCount = 0;
 		int stopCount = 0;
-		double left, middle, right, r0, g0, b0, a0, r1, g1, b1, a1, oldr1, oldg1, oldb1, olda1;
+		double left, middle, right, r0, g0, b0, a0, r1, g1, b1, a1;
+		double oldr1 = 0.0;
+		double oldg1 = 0.0;
+		double oldb1 = 0.0;
+		double olda1 = 0.0;
 		tmp = ts.readLine();
 		if (tmp.startsWith("GIMP Gradient"))
 		{

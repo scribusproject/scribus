@@ -1344,11 +1344,11 @@ void ScPainter::drawVPath( int mode )
 		}
 		else if (fillMode == 2)
 		{
-			cairo_pattern_t *pat;
-			cairo_surface_t *img;
-			cairo_t *cr;
+			cairo_pattern_t *pat = NULL;
+			cairo_surface_t *img = NULL;
+			cairo_t *cr = NULL;
 #ifdef HAVE_PRIVATE_CAIRO
-			cairo_pattern_t *mpat;
+			cairo_pattern_t *mpat = NULL;
 #endif
 			if (fill_gradient.type() == VGradient::fourcolor)
 			{
