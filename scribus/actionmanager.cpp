@@ -143,9 +143,10 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defaultKey(name), mainWindow));
 	name="filePreferences";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	(*scrActions)[name]->setMenuRole(QAction::PreferencesRole);
+	(*scrActions)[name]->setMenuRole(QAction::NoRole);
 	name="filePreferences150";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::PreferencesRole);
 	name="filePrint";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-print.png"), loadIcon("22/document-print.png"), "", defaultKey(name), mainWindow));
 	name="PrintPreview";
@@ -1287,10 +1288,10 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
-	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
-	(*scrActions)["fileDocSetup150"]->setTexts( tr("Document &Setup 150..."));
-	(*scrActions)["filePreferences"]->setTexts( tr("P&references..."));
-	(*scrActions)["filePreferences150"]->setTexts( tr("P&references 150..."));
+	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup (old)..."));
+	(*scrActions)["fileDocSetup150"]->setTexts( tr("Document &Setup..."));
+	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
+	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
