@@ -212,16 +212,23 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7);
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0);
 	PageSize *ps=new PageSize(currentDoc->pageSize());
-	sizeQComboBox = new QComboBox(dsGroupBox7);
-	QStringList pageSizes=ps->activeSizeList();
-	sizeQComboBox->addItems(ps->activeSizeTRList());
-	sizeQComboBox->addItem(CommonStrings::trCustomPageSize);
 	prefsPageSizeName=ps->name();
-	int sizeIndex = pageSizes.indexOf(ps->nameTR());
+	sizeQComboBox = new QComboBox(dsGroupBox7);
+	QStringList insertList(ps->activeSizeTRList());
+	if (insertList.indexOf(prefsPageSizeName)==-1)
+		insertList<<prefsPageSizeName;
+	insertList.sort();
+	insertList<<CommonStrings::trCustomPageSize;
+	sizeQComboBox->addItems(insertList);
+
+	int sizeIndex = insertList.indexOf(ps->nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentIndex(sizeIndex);
 	else
 		sizeQComboBox->setCurrentIndex(sizeQComboBox->count()-1);
+
+
+
 	TextLabel1->setBuddy(sizeQComboBox);
 	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 1, 1, 3);
 	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), dsGroupBox7);

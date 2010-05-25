@@ -221,9 +221,14 @@ void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
 {
 	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
 	PageSize *ps=new PageSize(prefsPageSizeName);
+	QStringList insertList(ps->activeSizeTRList());
+	if (insertList.indexOf(prefsPageSizeName)==-1)
+		insertList<<prefsPageSizeName;
+	insertList.sort();
+	insertList<<CommonStrings::trCustomPageSize;
 	pageSizeComboBox->clear();
-	pageSizeComboBox->addItems(ps->activeSizeTRList());
-	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
+	pageSizeComboBox->addItems(insertList);
+
 	if (prefsData->docSetupPrefs.pageSize == CommonStrings::customPageSize)
 		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
 	else
