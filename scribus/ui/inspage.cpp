@@ -211,6 +211,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	dsGroupBox7Layout->setMargin( 5 );
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7);
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0);
+
 	PageSize *ps=new PageSize(currentDoc->pageSize());
 	prefsPageSizeName=ps->name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
@@ -220,14 +221,11 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	insertList.sort();
 	insertList<<CommonStrings::trCustomPageSize;
 	sizeQComboBox->addItems(insertList);
-
 	int sizeIndex = insertList.indexOf(ps->nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentIndex(sizeIndex);
 	else
 		sizeQComboBox->setCurrentIndex(sizeQComboBox->count()-1);
-
-
 
 	TextLabel1->setBuddy(sizeQComboBox);
 	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 1, 1, 3);

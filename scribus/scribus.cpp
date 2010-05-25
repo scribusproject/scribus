@@ -655,24 +655,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileQuit"], "File", true);
 
-//	scrActions["fileClose"]->setEnabled(false);
-//	scrActions["fileSave"]->setEnabled(false);
-//	scrActions["fileSaveAs"]->setEnabled(false);
-//	scrActions["fileRevert"]->setEnabled(false);
-//	scrActions["fileCollect"]->setEnabled(false);
-//	scrActions["fileImportText"]->setEnabled(false);
-//	scrActions["fileImportText2"]->setEnabled(false);
-//	scrActions["fileImportImage"]->setEnabled(false);
-//	scrActions["fileImportAppendText"]->setEnabled(false);
-//	scrActions["pageImport"]->setEnabled(false);
-//	scrActions["fileExportText"]->setEnabled(false);
-//	scrActions["fileExportAsEPS"]->setEnabled(false);
-//	scrActions["fileExportAsPDF"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("FileImport", false);
 	scrMenuMgr->setMenuEnabled("FileExport", false);
-//	scrActions["fileDocSetup"]->setEnabled(false);
-//	scrActions["filePrint"]->setEnabled(false);
-//	scrActions["PrintPreview"]->setEnabled(false);
 
 	scrMenuMgr->createMenu("Edit", ActionManager::defaultMenuNameEntryTranslated("Edit"));
 	scrMenuMgr->addMenuItem(scrActions["editUndoAction"], "Edit", false);
@@ -705,31 +689,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit", false);
-//	scrActions["editUndoAction"]->setEnabled(false);
-//	scrActions["editRedoAction"]->setEnabled(false);
-//	scrActions["editActionMode"]->setEnabled(true);
-//	scrActions["editCut"]->setEnabled(false);
-//	scrActions["editCopy"]->setEnabled(false);
-//	scrActions["editPaste"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	scrMenuMgr->setMenuEnabled("EditContents", false);
-//	scrActions["editCopyContents"]->setEnabled(false);
-//	scrActions["editPasteContents"]->setEnabled(false);
-//	scrActions["editPasteContentsAbs"]->setEnabled(false);
-//	scrActions["editClearContents"]->setEnabled(false);
-//	scrActions["editSelectAll"]->setEnabled(false);
-//	scrActions["editSelectAllOnLayer"]->setEnabled(false);
-//	scrActions["editDeselectAll"]->setEnabled(false);
-//	scrActions["editSearchReplace"]->setEnabled(false);
-//	scrActions["editReplaceColors"]->setEnabled(false);
-//	scrActions["editPatterns"]->setEnabled(false);
-	scrActions["editGradients"]->setEnabled(true);
-// 	scrActions["editStyles"]->setEnabled(false);
-//	scrActions["editMasterPages"]->setEnabled(false);
-//	scrActions["editJavascripts"]->setEnabled(false);
-//	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
-//	scrActions["editEditWithImageEditor"]->setEnabled(false);
-//	scrActions["editEditRenderSource"]->setEnabled(false);
+
 
 
 	scrActions["itemDuplicate"]->setEnabled(false);
@@ -794,36 +756,25 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions", false);
 	scrMenuMgr->addMenuItem(scrActions["itemPDFAnnotationProps"], "ItemPDFOptions", false);
 	scrMenuMgr->addMenuItem(scrActions["itemPDFFieldProps"], "ItemPDFOptions", false);
-	//scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
 	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToBezierCurve"], "ItemConvertTo", false);
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToImageFrame"], "ItemConvertTo", false);
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "ItemConvertTo", false);
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToPolygon"], "ItemConvertTo", false);
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToTextFrame"], "ItemConvertTo", false);
-
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->addMenuItem(scrActions["toolsLinkTextFrame"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrame"], "Item", false);
+	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item", false);
 //	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item", false);
-	//scrMenuMgr->setMenuEnabled("ItemShapes", false);
-//	scrActions["itemGroup"]->setEnabled(false);
-//	scrActions["itemUngroup"]->setEnabled(false);
-//	scrActions["itemAttachTextToPath"]->setEnabled(false);
-//	scrActions["itemDetachTextFromPath"]->setEnabled(false);
-//	scrActions["itemCombinePolygons"]->setEnabled(false);
-//	scrActions["itemSplitPolygons"]->setEnabled(false);
-//	scrActions["itemLock"]->setEnabled(false);
-//	scrActions["itemLockSize"]->setEnabled(false);
+
 	scrActions["itemPrintingEnabled"]->setEnabled(false);
-//	scrActions["itemImageIsVisible"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
-//	scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-//	scrActions["itemConvertToImageFrame"]->setEnabled(false);
-//	scrActions["itemConvertToOutlines"]->setEnabled(false);
-//	scrActions["itemConvertToPolygon"]->setEnabled(false);
-//	scrActions["itemConvertToTextFrame"]->setEnabled(false);
+
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));

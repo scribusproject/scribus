@@ -128,6 +128,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
 		addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
 	}
+
 	arrangeIcons();
 
 	//**********
@@ -171,84 +172,65 @@ void PreferencesDialog::initPreferenceValues()
 
 void PreferencesDialog::setupGui()
 {
-	if (prefs_UserInterface)
-		prefs_UserInterface->restoreDefaults(&localPrefs);
-	if (prefs_Paths)
-		prefs_Paths->restoreDefaults(&localPrefs);
-	prefs_DocumentSetup->restoreDefaults(&localPrefs);
-	if (prefs_DocumentInformation)
-		prefs_DocumentInformation->restoreDefaults(&localPrefs);
-	prefs_Guides->restoreDefaults(&localPrefs);
-	prefs_Typography->restoreDefaults(&localPrefs);
-	prefs_ItemTools->restoreDefaults(&localPrefs);
-	prefs_OperatorTools->restoreDefaults(&localPrefs);
-	prefs_Hyphenator->restoreDefaults(&localPrefs);
-	prefs_Fonts->restoreDefaults(&localPrefs);
-	prefs_Printer->restoreDefaults(&localPrefs);
-	prefs_PDFExport->restoreDefaults(&localPrefs, ScCore->PDFXProfiles);
-	prefs_PreflightVerifier->restoreDefaults(&localPrefs);
-	prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
-	prefs_TableOfContents->restoreDefaults(&localPrefs);
-	if (prefs_DocumentSections)
-		prefs_DocumentSections->restoreDefaults(&localPrefs);
-	if (prefs_KeyboardShortcuts)
-		prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
-	prefs_ColorManagement->restoreDefaults(&localPrefs);
-	prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
-	if (prefs_Scrapbook)
-		prefs_Scrapbook->restoreDefaults(&localPrefs);
-	prefs_Display->restoreDefaults(&localPrefs);
-	if (prefs_ExternalTools)
-		prefs_ExternalTools->restoreDefaults(&localPrefs);
-	if (prefs_Plugins)
-		prefs_Plugins->restoreDefaults(&localPrefs);
-	if (prefs_Miscellaneous)
-		prefs_Miscellaneous->restoreDefaults(&localPrefs);
-	if (prefs_PageSizes)
-		prefs_PageSizes->restoreDefaults(&localPrefs);
-	if (prefs_ImageCache)
-		prefs_ImageCache->restoreDefaults(&localPrefs);
+	if (prefs_UserInterface) prefs_UserInterface->restoreDefaults(&localPrefs);
+	if (prefs_Paths) prefs_Paths->restoreDefaults(&localPrefs);
+	if (prefs_DocumentSetup) prefs_DocumentSetup->restoreDefaults(&localPrefs);
+	if (prefs_DocumentInformation) prefs_DocumentInformation->restoreDefaults(&localPrefs);
+	if (prefs_Guides) prefs_Guides->restoreDefaults(&localPrefs);
+	if (prefs_Typography) prefs_Typography->restoreDefaults(&localPrefs);
+	if (prefs_ItemTools) prefs_ItemTools->restoreDefaults(&localPrefs);
+	if (prefs_OperatorTools) prefs_OperatorTools->restoreDefaults(&localPrefs);
+	if (prefs_Hyphenator) prefs_Hyphenator->restoreDefaults(&localPrefs);
+	if (prefs_Fonts) prefs_Fonts->restoreDefaults(&localPrefs);
+	if (prefs_Printer) prefs_Printer->restoreDefaults(&localPrefs);
+	if (prefs_PDFExport) prefs_PDFExport->restoreDefaults(&localPrefs, ScCore->PDFXProfiles);
+	if (prefs_PreflightVerifier) prefs_PreflightVerifier->restoreDefaults(&localPrefs);
+	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
+	if (prefs_TableOfContents) prefs_TableOfContents->restoreDefaults(&localPrefs);
+	if (prefs_DocumentSections) prefs_DocumentSections->restoreDefaults(&localPrefs);
+	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
+	if (prefs_ColorManagement)
+	{
+		prefs_ColorManagement->restoreDefaults(&localPrefs);
+		prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+	}
+	if (prefs_Scrapbook) prefs_Scrapbook->restoreDefaults(&localPrefs);
+	if (prefs_Display) prefs_Display->restoreDefaults(&localPrefs);
+	if (prefs_ExternalTools) prefs_ExternalTools->restoreDefaults(&localPrefs);
+	if (prefs_Plugins) prefs_Plugins->restoreDefaults(&localPrefs);
+	if (prefs_Miscellaneous) prefs_Miscellaneous->restoreDefaults(&localPrefs);
+	if (prefs_PageSizes) prefs_PageSizes->restoreDefaults(&localPrefs);
+	if (prefs_ImageCache) prefs_ImageCache->restoreDefaults(&localPrefs);
 }
 
 
 void PreferencesDialog::saveGuiToPrefs()
 {
-	if (prefs_UserInterface)
-		prefs_UserInterface->saveGuiToPrefs(&localPrefs);
-	if (prefs_Paths)
-		prefs_Paths->saveGuiToPrefs(&localPrefs);
-	prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentInformation)
-		prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
-	prefs_Guides->saveGuiToPrefs(&localPrefs);
-	prefs_Typography->saveGuiToPrefs(&localPrefs);
-	prefs_ItemTools->saveGuiToPrefs(&localPrefs);
-	prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
-	prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
-	prefs_Fonts->saveGuiToPrefs(&localPrefs);
-	prefs_Printer->saveGuiToPrefs(&localPrefs);
-	prefs_PDFExport->saveGuiToPrefs(&localPrefs);
-	prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
-	prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
-	prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentSections)
-		prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
-	if (prefs_KeyboardShortcuts)
-		prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
-	prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
-	if (prefs_Scrapbook)
-		prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
-	prefs_Display->saveGuiToPrefs(&localPrefs);
-	if (prefs_ExternalTools)
-		prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_Plugins)
-		prefs_Plugins->saveGuiToPrefs(&localPrefs);
-	if (prefs_Miscellaneous)
-		prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
-	if (prefs_PageSizes)
-		prefs_PageSizes->saveGuiToPrefs(&localPrefs);
-	if (prefs_ImageCache)
-		prefs_ImageCache->saveGuiToPrefs(&localPrefs);
+	if (prefs_UserInterface) prefs_UserInterface->saveGuiToPrefs(&localPrefs);
+	if (prefs_Paths) prefs_Paths->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentSetup) prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentInformation) prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
+	if (prefs_Guides) prefs_Guides->saveGuiToPrefs(&localPrefs);
+	if (prefs_Typography) prefs_Typography->saveGuiToPrefs(&localPrefs);
+	if (prefs_ItemTools) prefs_ItemTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_OperatorTools) prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_Hyphenator) prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
+	if (prefs_Fonts) prefs_Fonts->saveGuiToPrefs(&localPrefs);
+	if (prefs_Printer) prefs_Printer->saveGuiToPrefs(&localPrefs);
+	if (prefs_PDFExport) prefs_PDFExport->saveGuiToPrefs(&localPrefs);
+	if (prefs_PreflightVerifier) prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
+	if (prefs_TableOfContents) prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentSections) prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
+	if (prefs_ColorManagement) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
+	if (prefs_KeyboardShortcuts) prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
+	if (prefs_Scrapbook) prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
+	if (prefs_Display) prefs_Display->saveGuiToPrefs(&localPrefs);
+	if (prefs_ExternalTools) prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_Plugins) prefs_Plugins->saveGuiToPrefs(&localPrefs);
+	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
+	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
+	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::applyButtonClicked()

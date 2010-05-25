@@ -101,7 +101,7 @@ void Prefs_DocumentSetup::languageChange()
 
 	pageWidthSpinBox->setToolTip( "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 	pageHeightSpinBox->setToolTip( "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
-	pageSizeComboBox->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
+	pageSizeComboBox->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences." ) + "</qt>" );
 	pageSizeLinkToolButton->setToolTip( "<qt>" + tr( "Enable or disable more page sizes by jumping to Page Size preferences" ) + "</qt>" );
 	pageOrientationComboBox->setToolTip( "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
 	pageUnitsComboBox->setToolTip( "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
