@@ -751,7 +751,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToPolygon"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToTextFrame"], "ItemConvertTo");
-
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->addMenuItem(scrActions["toolsLinkTextFrame"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrame"], "Item");
+	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
 //	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
