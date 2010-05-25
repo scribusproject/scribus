@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pagesize.h"
- 
+#include "prefsmanager.h"
 
 #include <QStringList>
 
@@ -98,6 +98,56 @@ QStringList PageSize::sizeTRList(void) const
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
 		pageSizes.append(it.value().trSizeName);
 	return QStringList(pageSizes);
+}
+
+QStringList PageSize::activeSizeList(void) const
+{
+	QStringList pageSizes=sizeList();
+	if (PrefsManager::instance()->appPrefs.activePageSizes.count()==0)
+		return QStringList(pageSizes);
+	QStringList activePageSizes(PrefsManager::instance()->appPrefs.activePageSizes);
+	QStringList activeSizes;
+	for (int i = 0; i < activePageSizes.size(); ++i)
+	{
+		if (pageSizes.contains(activePageSizes.at(i)))
+			activeSizes << activePageSizes.at(i);
+	}
+	return QStringList(activeSizes);
+}
+
+QStringList PageSize::activeSizeTRList(void) const
+{
+	QStringList pageTRSizes=sizeTRList();
+	QStringList pageSizes=sizeList();
+	if (PrefsManager::instance()->appPrefs.activePageSizes.count()==0)
+		return QStringList(pageTRSizes);
+	QStringList activePageSizes(PrefsManager::instance()->appPrefs.activePageSizes);
+	QStringList activeTRSizes;
+	for (int i = 0; i < activePageSizes.size(); ++i)
+	{
+		int j=pageSizes.indexOf(activePageSizes.at(i));
+		if (j!=-1)
+		{
+			activeTRSizes << pageTRSizes.at(j);
+		}
+	}
+	return QStringList(activeTRSizes);
+}
+
+QStringList PageSize::untransPageSizeList(const QStringList &transList)
+{
+	QStringList pageTRSizes=sizeTRList();
+	QStringList pageSizes=sizeList();
+	QStringList untranslatedList;
+	for (int i = 0; i < transList.size(); ++i)
+	{
+		int j=pageTRSizes.indexOf(transList.at(i));
+		if (j!=-1)
+		{
+			untranslatedList << pageSizes.at(j);
+		}
+	}
+	return QStringList(untranslatedList);
 }
 
 

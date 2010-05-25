@@ -409,6 +409,7 @@ struct ApplicationPrefs
 	QList<ArrowDesc> arrowStyles;
 	QMap<QString, VGradient> defaultGradients;
 	QList<PageSet> pageSets;
+	QStringList activePageSizes;
 
 
 

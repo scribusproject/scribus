@@ -71,6 +71,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	}
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget, m_Doc);
 	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
+	connect (prefs_DocumentSetup, SIGNAL(changeToOtherSection(const QString&)), this, SLOT(setNewItemSelected(const QString&)));
 	if (doc)
 	{
 		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
@@ -120,6 +121,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
 		prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
 		addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
+		prefs_PageSizes = new Prefs_PageSizes(prefsStackWidget, m_Doc);
+		addItem( tr("Page Sizes"), loadIcon("16/page-simple.png"), prefs_PageSizes);
 		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
 		addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
 		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
@@ -201,6 +204,8 @@ void PreferencesDialog::setupGui()
 		prefs_Plugins->restoreDefaults(&localPrefs);
 	if (prefs_Miscellaneous)
 		prefs_Miscellaneous->restoreDefaults(&localPrefs);
+	if (prefs_PageSizes)
+		prefs_PageSizes->restoreDefaults(&localPrefs);
 	if (prefs_ImageCache)
 		prefs_ImageCache->restoreDefaults(&localPrefs);
 }
@@ -240,6 +245,8 @@ void PreferencesDialog::saveGuiToPrefs()
 		prefs_Plugins->saveGuiToPrefs(&localPrefs);
 	if (prefs_Miscellaneous)
 		prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
+	if (prefs_PageSizes)
+		prefs_PageSizes->saveGuiToPrefs(&localPrefs);
 	if (prefs_ImageCache)
 		prefs_ImageCache->saveGuiToPrefs(&localPrefs);
 }
@@ -301,12 +308,24 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 	{
 		//emit aboutToShow(prefsWidgets->widget(itemMap[ic]));
 		prefsStackWidget->setCurrentIndex(stackWidgetMap[ic]);
+		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_DocumentSetup))
+			prefs_DocumentSetup->setupPageSizes(&localPrefs);
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_ItemTools))
 			prefs_ItemTools->enableFontPreview(true);
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_TableOfContents))
 			prefs_TableOfContents->setupItemAttrs( prefs_DocumentItemAttributes->getDocAttributesNames() );
 		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_PDFExport))
 			prefs_PDFExport->enableCMS(prefs_ColorManagement->cmActive());
+	}
+}
+
+void PreferencesDialog::setNewItemSelected(const QString &s)
+{
+	if (s=="Prefs_PageSizes" && prefs_PageSizes!=NULL)
+	{
+		int i=prefsStackWidget->indexOf(prefs_PageSizes);
+		if (i!=-1)
+			preferencesTypeList->setCurrentRow(i);
 	}
 }
 

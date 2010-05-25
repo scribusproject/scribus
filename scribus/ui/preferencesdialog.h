@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_printer.h"
 #include "ui/prefs_hyphenator.h"
 #include "ui/prefs_miscellaneous.h"
+#include "ui/prefs_pagesizes.h"
 #include "ui/prefs_plugins.h"
 #include "ui/prefs_preflightverifier.h"
 #include "ui/prefs_scrapbook.h"
@@ -68,6 +69,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		void restoreDefaults();
 		void setupGui();
 		void saveGuiToPrefs();
+		void setNewItemSelected(const QString &s);
 
 	protected slots:
 		virtual void languageChange();
@@ -107,6 +109,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_PDFExport *prefs_PDFExport;
 		Prefs_DocumentItemAttributes *prefs_DocumentItemAttributes;
 		Prefs_ImageCache *prefs_ImageCache;
+		Prefs_PageSizes *prefs_PageSizes;
 
 		QMap<QListWidgetItem*, int> stackWidgetMap;
 		int counter;

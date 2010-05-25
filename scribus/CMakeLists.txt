@@ -109,6 +109,7 @@ SET(SCRIBUS_UI_SRC
   ui/prefs_keyboardshortcutsbase.ui
   ui/prefs_miscellaneousbase.ui
   ui/prefs_pathsbase.ui
+  ui/prefs_pagesizesbase.ui
   ui/prefs_pluginsbase.ui
   ui/prefs_preflightverifierbase.ui
   ui/prefs_printerbase.ui
@@ -302,6 +303,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/prefs_imagecache.h
   ui/prefs_keyboardshortcuts.h
   ui/prefs_miscellaneous.h
+  ui/prefs_pagesizes.h
   ui/prefs_paths.h
   ui/prefs_pane.h
   ui/prefs_plugins.h
@@ -625,6 +627,7 @@ SET(SCRIBUS_SOURCES
   ui/prefs_imagecache.cpp
   ui/prefs_keyboardshortcuts.cpp
   ui/prefs_miscellaneous.cpp
+  ui/prefs_pagesizes.cpp
   ui/prefs_paths.cpp
   ui/prefs_plugins.cpp
   ui/prefs_preflightverifier.cpp

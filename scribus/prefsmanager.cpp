@@ -501,6 +501,8 @@ void PrefsManager::initDefaults()
 	appPrefs.imageCachePrefs.maxCacheSizeMiB = 1000;
 	appPrefs.imageCachePrefs.maxCacheEntries = 1000;
 	appPrefs.imageCachePrefs.compressionLevel = 1;
+	appPrefs.activePageSizes.clear();
+	appPrefs.activePageSizes << "A4" << "Letter";
 
 	//Attribute setup
 	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
@@ -1750,6 +1752,11 @@ bool PrefsManager::WritePref(QString ho)
 	icElem.setAttribute("maxCacheEntries", appPrefs.imageCachePrefs.maxCacheEntries);
 	icElem.setAttribute("compressionLevel", appPrefs.imageCachePrefs.compressionLevel);
 	elem.appendChild(icElem);
+	// active page sizes
+	QDomElement apsElem = docu.createElement("ActivePageSizes");
+	apsElem.setAttribute("names", appPrefs.activePageSizes.join(","));
+	elem.appendChild(apsElem);
+
 	// write file
 	bool result = false;
 	QFile f(ho);
@@ -2492,6 +2499,13 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.imageCachePrefs.maxCacheEntries = dc.attribute("maxCacheEntries", "1000").toInt();
 			appPrefs.imageCachePrefs.compressionLevel = dc.attribute("compressionLevel", "1").toInt();
 		}
+		// active page sizes
+		if (dc.tagName() == "ActivePageSizes")
+		{
+			appPrefs.activePageSizes = QString(dc.attribute("names", "")).split(",");
+		}
+
+		//
 		DOC=DOC.nextSibling();
 	}
 	// Some sanity checks

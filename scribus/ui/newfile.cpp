@@ -227,7 +227,7 @@ void NewDoc::createNewDocPage()
 	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
 	PageSize ps(prefsManager->appPrefs.docSetupPrefs.pageSize);
 	pageSizeComboBox = new QComboBox( pageSizeGroupBox );
-	pageSizeComboBox->addItems(ps.sizeTRList());
+	pageSizeComboBox->addItems(ps.activeSizeTRList());
 	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
 	pageSizeComboBox->setEditable(false);
 	TextLabel1->setBuddy(pageSizeComboBox);
@@ -269,7 +269,7 @@ void NewDoc::createNewDocPage()
 	marginGroup->setFacingPages(!(prefsManager->appPrefs.docSetupPrefs.pagePositioning == singlePage));
 	widthSpinBox->setValue(prefsManager->appPrefs.docSetupPrefs.pageWidth * m_unitRatio);
 	heightSpinBox->setValue(prefsManager->appPrefs.docSetupPrefs.pageHeight * m_unitRatio);
-	QStringList pageSizes=ps.sizeList();
+	QStringList pageSizes=ps.activeSizeTRList();
 	int sizeIndex=pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentIndex(sizeIndex);

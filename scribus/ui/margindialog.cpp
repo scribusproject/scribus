@@ -46,8 +46,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	PageSize *ps=new PageSize(doc->currentPage()->m_pageSize);
 	sizeQComboBox = new QComboBox( dsGroupBox7 );
 	sizeQComboBox->setEditable(false);
-	QStringList pageSizes=ps->sizeList();
-	sizeQComboBox->addItems(ps->sizeTRList());
+	QStringList pageSizes=ps->activeSizeList();
+	sizeQComboBox->addItems(ps->activeSizeTRList());
 	sizeQComboBox->addItem( CommonStrings::trCustomPageSize );
 	prefsPageSizeName=ps->name();
 	int sizeIndex = pageSizes.indexOf(ps->nameTR());

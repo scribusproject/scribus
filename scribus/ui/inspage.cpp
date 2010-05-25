@@ -213,8 +213,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0);
 	PageSize *ps=new PageSize(currentDoc->pageSize());
 	sizeQComboBox = new QComboBox(dsGroupBox7);
-	QStringList pageSizes=ps->sizeList();
-	sizeQComboBox->addItems(ps->sizeTRList());
+	QStringList pageSizes=ps->activeSizeList();
+	sizeQComboBox->addItems(ps->activeSizeTRList());
 	sizeQComboBox->addItem(CommonStrings::trCustomPageSize);
 	prefsPageSizeName=ps->name();
 	int sizeIndex = pageSizes.indexOf(ps->nameTR());

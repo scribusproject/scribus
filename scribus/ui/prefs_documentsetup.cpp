@@ -29,6 +29,12 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 		applySizesToAllMasterPagesCheckBox->hide();
 		applyMarginsToAllPagesCheckBox->hide();
 		applyMarginsToAllMasterPagesCheckBox->hide();
+		pageSizeLinkToolButton->hide(); //temp
+//		connect(pageSizeLinkToolButton, SIGNAL(clicked()), this, SLOT(emitSectionChange()));
+	}
+	else
+	{
+		pageSizeLinkToolButton->hide();
 	}
 
 	pageWidthSpinBox->setMaximum(16777215);
@@ -96,6 +102,7 @@ void Prefs_DocumentSetup::languageChange()
 	pageWidthSpinBox->setToolTip( "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 	pageHeightSpinBox->setToolTip( "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 	pageSizeComboBox->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
+	pageSizeLinkToolButton->setToolTip( "<qt>" + tr( "Enable or disable more page sizes by jumping to Page Size preferences" ) + "</qt>" );
 	pageOrientationComboBox->setToolTip( "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
 	pageUnitsComboBox->setToolTip( "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
 	autosaveCheckBox->setToolTip( "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
@@ -113,14 +120,15 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageSizeComboBox->blockSignals(true);
 
 	unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
-	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
-	PageSize *ps=new PageSize(prefsPageSizeName);
-	pageSizeComboBox->addItems(ps->sizeTRList());
-	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
-	if (prefsData->docSetupPrefs.pageSize == CommonStrings::customPageSize)
-		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
-	else
-		setCurrentComboItem(pageSizeComboBox, prefsPageSizeName);
+	setupPageSizes(prefsData);
+//	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
+//	PageSize *ps=new PageSize(prefsPageSizeName);
+//	pageSizeComboBox->addItems(ps->activeSizeTRList());
+//	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
+//	if (prefsData->docSetupPrefs.pageSize == CommonStrings::customPageSize)
+//		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
+//	else
+//		setCurrentComboItem(pageSizeComboBox, prefsPageSizeName);
 
 	pageOrientationComboBox->setCurrentIndex(prefsData->docSetupPrefs.pageOrientation);
 	pageUnitsComboBox->setCurrentIndex(prefsData->docSetupPrefs.docUnitIndex);
@@ -157,12 +165,12 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	marginsWidget->setup(prefsData->docSetupPrefs.margins, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, true, true);
 	marginsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
 	marginsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
-	marginsWidget->setPageSize(prefsPageSizeName);
+//	marginsWidget->setPageSize(prefsPageSizeName);
 	marginsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 	bleedsWidget->setup(prefsData->docSetupPrefs.bleeds, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, false, false);
 	bleedsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
 	bleedsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
-	bleedsWidget->setPageSize(prefsPageSizeName);
+//	bleedsWidget->setPageSize(prefsPageSizeName);
 	bleedsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 	saveCompressedCheckBox->setChecked(prefsData->docSetupPrefs.saveCompressed);
 	autosaveCheckBox->setChecked( prefsData->docSetupPrefs.AutoSave );
@@ -207,6 +215,21 @@ void Prefs_DocumentSetup::setupPageSets()
 		for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
 			layoutFirstPageIsComboBox->addItem(CommonStrings::translatePageSetLocString(*pNames));
 	layoutFirstPageIsComboBox->setCurrentIndex(i<0?0:i);
+}
+
+void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
+{
+	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
+	PageSize *ps=new PageSize(prefsPageSizeName);
+	pageSizeComboBox->clear();
+	pageSizeComboBox->addItems(ps->activeSizeTRList());
+	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
+	if (prefsData->docSetupPrefs.pageSize == CommonStrings::customPageSize)
+		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
+	else
+		setCurrentComboItem(pageSizeComboBox, prefsPageSizeName);
+	marginsWidget->setPageSize(prefsPageSizeName);
+	bleedsWidget->setPageSize(prefsPageSizeName);
 }
 
 void Prefs_DocumentSetup::pageLayoutChanged(int i)
@@ -309,3 +332,7 @@ void Prefs_DocumentSetup::getResizeDocumentPages(bool &resizePages, bool &resize
 	resizeMasterPageMargins=applyMarginsToAllMasterPagesCheckBox->isChecked();
 }
 
+void Prefs_DocumentSetup::emitSectionChange()
+{
+	emit changeToOtherSection("Prefs_PageSizes");
+}

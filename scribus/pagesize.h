@@ -51,8 +51,11 @@ public:
 	double originalHeight() const { return m_height*unitGetRatioFromIndex(m_pageUnitIndex); }
 	QStringList sizeList() const;
 	QStringList sizeTRList() const;
+	QStringList activeSizeList() const;
+	QStringList activeSizeTRList() const;
 	void generateSizeList();
 	void printSizeList();
+	QStringList untransPageSizeList(const QStringList &transList);
 
 private:
 	QMap<QString, PageSizeInfo > pageSizeList;

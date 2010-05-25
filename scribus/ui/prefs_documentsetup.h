@@ -25,13 +25,13 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 		void getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins);
-
+		void setupPageSizes(struct ApplicationPrefs *prefsData);
 
 	public slots:
 		void languageChange();
 		void pageLayoutChanged(int);
 
-	private slots:
+	protected slots:
 		void setPageWidth(double);
 		/*!
 		\author Franz Schmid
@@ -54,6 +54,7 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		void setPageSize();
 		void slotUndo(bool);
 		void unitChange();
+		void emitSectionChange();
 
 	protected:
 		void setupPageSets();
@@ -65,7 +66,10 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		double pageH;
 		QString prefsPageSizeName;
 		QList<PageSet> pageSets;
-};
+
+	signals:
+		void changeToOtherSection(const QString&);
+	};
 
 #endif // PREFS_DOCUMENTSETUP_H
 
