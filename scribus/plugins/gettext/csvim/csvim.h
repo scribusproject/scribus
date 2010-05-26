@@ -51,7 +51,7 @@ private:
 	gtParagraphStyle *pstyleHeader;
 	void loadFile();
 	void parseLine(const QString& line, bool isHeader);
-	QString toUnicode(const QString& text);
+	QString toUnicode(const QByteArray& rawText);
 	void setupPStyles();
 	void setupTabulators();
 };

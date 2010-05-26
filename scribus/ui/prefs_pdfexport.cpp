@@ -516,6 +516,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		useDocumentBleedsCheckBox->setChecked(Opts.useDocBleeds);
 		doDocBleeds();
 	}
+	else
+		useDocumentBleedsCheckBox->hide();
 
 	registrationMarkOffsetSpinBox->setValue(prefsData->pdfPrefs.markOffset*unitRatio);
 	printCropMarksCheckBox->setChecked(prefsData->pdfPrefs.cropMarks);

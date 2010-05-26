@@ -222,8 +222,8 @@ void PreferencesDialog::saveGuiToPrefs()
 	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
 	if (prefs_TableOfContents) prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
 	if (prefs_DocumentSections) prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
-	if (prefs_ColorManagement) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
-	if (prefs_KeyboardShortcuts) prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
+	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
+	if (prefs_ColorManagement) prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	if (prefs_Scrapbook) prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
 	if (prefs_Display) prefs_Display->saveGuiToPrefs(&localPrefs);
 	if (prefs_ExternalTools) prefs_ExternalTools->saveGuiToPrefs(&localPrefs);

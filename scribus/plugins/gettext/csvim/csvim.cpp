@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtparagraphstyle.h"
 #include "gtframestyle.h"
 #include "scribusstructs.h"
+#include "util.h"
 
 QString FileFormatName()
 {
@@ -92,6 +93,7 @@ void CsvIm::write()
 void CsvIm::loadFile()
 {
 	QString text = "";
+	/*
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (!fi.exists())
@@ -105,8 +107,13 @@ void CsvIm::loadFile()
 			text += QChar(bb[posi]);
 	}
 	text = toUnicode(text);
+	*/
+	QByteArray rawText;
+	if (loadRawText(filename, rawText))
+		text = toUnicode(rawText);
+
 	QStringList lines = text.split("\n", QString::SkipEmptyParts);
-	uint i;
+	uint i=0;
 	if (hasHeader)
 	{
 		colIndex = 0;
@@ -116,8 +123,6 @@ void CsvIm::loadFile()
 		i = 1;
 		++rowNumber;
 	}
-	else
-		i = 0;
 	for (int i2 = i; i2 < lines.size(); ++i2)
 	{
 		colIndex = 0;
@@ -217,7 +222,7 @@ void CsvIm::setupTabulators()
 		curValue += addition;
 	}
 }
-
+/*
 QString CsvIm::toUnicode(const QString& text)
 {
 	QTextCodec *codec;
@@ -227,6 +232,17 @@ QString CsvIm::toUnicode(const QString& text)
 		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	QString dec = codec->toUnicode(text.toLocal8Bit());
 	return dec;
+}
+*/
+QString CsvIm::toUnicode(const QByteArray& rawText)
+{
+	QTextCodec *codec;
+	if (encoding.isEmpty())
+		codec = QTextCodec::codecForLocale();
+	else
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	QString unistr = codec->toUnicode(rawText);
+	return unistr;
 }
 
 CsvIm::~CsvIm()

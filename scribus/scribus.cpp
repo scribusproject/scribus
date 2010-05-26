@@ -862,7 +862,6 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert", false);
-//	scrActions["insertFrame"]->setEnabled(false);
 
 	//Page menu
 	scrMenuMgr->createMenu("Page", ActionManager::defaultMenuNameEntryTranslated("Page"));
@@ -879,8 +878,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Page");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "Page", true);
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "Page", true);
-//	scrActions["pageDelete"]->setEnabled(false);
-//	scrActions["pageMove"]->setEnabled(false);
 
 	//View menu
 	scrMenuMgr->createMenu("View", ActionManager::defaultMenuNameEntryTranslated("View"));
@@ -909,8 +906,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewRulerMode"], "View", true);
 	scrMenuMgr->addMenuItem(scrActions["showMouseCoordinates"], "View", true);
 
-//	scrActions["viewShowRulers"]->setEnabled(false);
-
 	//CB If this is viewNewView imeplemented, it should be on the windows menu
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
 
@@ -938,14 +933,11 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras", false);
 	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras", false);
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras", false);
-
 	scrMenuMgr->setMenuEnabled("Extras", false);
-//	scrActions["extrasHyphenateText"]->setEnabled(false);
-//	scrActions["extrasDeHyphenateText"]->setEnabled(false);
 	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 
 	//Window menu
-	 scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
+	scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
 
@@ -971,18 +963,13 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	scrMenuMgr->addMenuToMenuBar("Item");
-//	scrMenuMgr->setMenuEnabled("Item", false);
 	scrMenuMgr->addMenuToMenuBar("Insert");
 	scrMenuMgr->setMenuEnabled("Insert", false);
 	scrMenuMgr->addMenuToMenuBar("Page");
-//	scrMenuMgr->setMenuEnabled("Page", false);
 	scrMenuMgr->addMenuToMenuBar("View");
-//	scrMenuMgr->setMenuEnabled("View", false);
-	//scrMenuMgr->addMenuToMenuBar("Tools");
 	scrMenuMgr->addMenuToMenuBar("Extras");
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrMenuMgr->addMenuToMenuBar("Windows");
-	//scrMenuMgr->setMenuEnabled("Windows", false);
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuToMenuBar("Help");
 }
