@@ -161,4 +161,19 @@ it=p. ,pp. ,pag. ,pagg. ,par. ,v. ,vol. ,voll. , ed.,tab. , Tab. ,
 it=N° ,
 #  Italian short words - THE END
 
+# Hungarian short words START here – magyar rövid szavak
+## Mondatkezdés sorvégi tiltása
+hu=A ,E ,Ő ,
+## Megszólítás
+hu=Dr. ,dr. ,
+## Pénznemek
+hu= Ft, €, $, £,
+## Egyéb
+hu= §,
+## Gyakori mértékegységek
+hu= kg, m, s, K, cd, mol, dkg, mg, km, cm, mm, g, m/s, °C, t, Hz, kHz, MHz, km/h, kW, W, mA, kWh,
+## Bibliai könyvek
+hu=Ter ,1Móz ,Kiv ,2Móz ,Lev ,3Móz ,Szám ,4Móz ,MTörv ,5Móz ,Józs ,Bír ,Rut ,Ruth ,1Sám ,2Sám ,1Kir ,2Kir ,1Krón ,2Krón ,Ezd ,Ezsdr ,Neh ,Tób ,Jud ,Eszt ,1Mak ,2Mak ,Jób ,Zsolt ,Péld ,Préd ,Én ,Bölcs ,Sir ,Iz ,Ézsa ,Jer ,Siral ,Jsir ,Bár ,Ez ,Dán ,Oz ,Hós ,Jo ,Jóel ,Ám ,Abd ,Jón ,Mik ,Náh ,Hab ,Szof ,Zof ,Ag ,Hag ,Zak ,Mal ,Mt ,Mk ,Lk ,Jn ,ApCsel ,Róm ,1Kor ,2Kor ,Gal ,Ef ,Fil ,Kol ,1Tessz ,2Tessz ,1Tim ,2Tim ,Tit ,Filem ,Zsid ,Jak ,1Pét ,2Pét ,1Jn ,2Jn ,3Jn ,Júd ,Jel ,
+# Hungarian short words – THE END
+
 # end of the config file
