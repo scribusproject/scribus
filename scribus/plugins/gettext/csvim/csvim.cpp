@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "csvim.h"
 #include "scribusstructs.h"
+#include "util.h"
 
 QString FileFormatName()
 {
@@ -89,19 +90,9 @@ void CsvIm::write()
 void CsvIm::loadFile()
 {
 	QString text = "";
-	QFile f(filename);
-	QFileInfo fi(f);
-	if (!fi.exists())
-		return;
-	QByteArray bb(f.size(), ' ');
-	if (f.open(QIODevice::ReadOnly))
-	{
-		f.read(bb.data(), f.size());
-		f.close();
-		for (int posi = 0; posi < bb.size(); ++posi)
-			text += QChar(bb[posi]);
-	}
-	text = toUnicode(text);
+	QByteArray rawText;
+	if (loadRawText(filename, rawText))
+		text = toUnicode(rawText);
 	QStringList lines = text.split("\n", QString::SkipEmptyParts);
 	uint i;
 	if (hasHeader)
@@ -215,15 +206,15 @@ void CsvIm::setupTabulators()
 	}
 }
 
-QString CsvIm::toUnicode(const QString& text)
+QString CsvIm::toUnicode(const QByteArray& rawText)
 {
 	QTextCodec *codec;
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
-	QString dec = codec->toUnicode(text.toLocal8Bit());
-	return dec;
+	QString unistr = codec->toUnicode(rawText);
+	return unistr;
 }
 
 CsvIm::~CsvIm()
