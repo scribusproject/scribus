@@ -11,7 +11,7 @@ try:
 except ImportError:
     print >> sys.stderr, "Python cannot find the Qt4 bindings."
     print >> sys.stderr, "Please make sure, that the needed packages are installed."
-    print >> sys.stderr, "On Ubuntu and Debian(-like) distribubutions you have to install python-qt4"
+    print >> sys.stderr, "On Ubuntu and Debian(-like) distributions you have to install python-qt4"
     raise
 try:
     from PyQt4 import QtScript

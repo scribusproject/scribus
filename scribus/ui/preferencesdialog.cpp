@@ -269,7 +269,7 @@ int PreferencesDialog::addItem(QString name, QPixmap icon, QWidget* tab)
 {
 	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
 	QListWidgetItem* newItem = new QListWidgetItem(icon, name, preferencesTypeList);
-	newItem->setTextAlignment(Qt::AlignHCenter);
+	newItem->setTextAlignment(Qt::AlignLeft);
 	prefsStackWidget->addWidget(tab);
 	stackWidgetMap.insert(newItem, counter);
 	counter++;
