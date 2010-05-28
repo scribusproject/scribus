@@ -1830,15 +1830,15 @@ bool PrefsManager::ReadPref(QString ho)
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
-	//Ignore scribus*.rc files prior to 1.3.5 due to changes
-	bool prefs135FileFound=false;
+	//Ignore scribus*.rc files prior to 1.5.0 due to changes
+	bool prefs150FileFound=false;
 	if (elem.hasAttribute("VERSION"))
 	{
-		if (elem.attribute("VERSION") == "1.3.5")
-			prefs135FileFound=true;
+		if (elem.attribute("VERSION") == "1.5.0")
+			prefs150FileFound=true;
 	}
-	firstTimeIgnoreOldPrefs=!prefs135FileFound;
-	if (!prefs135FileFound)
+	firstTimeIgnoreOldPrefs=!prefs150FileFound;
+	if (!prefs150FileFound)
 		return false;
 	appPrefs.colorPrefs.DColors.clear();
 	appPrefs.extToolPrefs.latexCommands.clear();
