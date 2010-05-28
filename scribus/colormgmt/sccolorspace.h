@@ -34,7 +34,9 @@ public:
 
 	uint  numChannels(void)     const;
 	uint  bytesPerChannel(void) const;
+
 	bool  hasAlphaChannel(void) const;
+	uint  alphaIndex(void)      const;
 
 	// Restore full opacity of alpha channel
 	void flattenAlpha(void* dataIn, uint numElems);

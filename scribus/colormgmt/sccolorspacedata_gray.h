@@ -13,6 +13,7 @@ class ScColorSpaceDataTempl_Gray : public ScColorSpaceData
 public:
 	ScColorSpaceDataTempl_Gray(ScColorProfile& profile);
 
+	virtual uint alphaIndex(void) const { return 0; }
 	virtual void flattenAlpha(void* dataIn, uint numElems) const {};
 };
 

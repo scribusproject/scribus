@@ -33,6 +33,9 @@ public:
 	virtual ScColorMgmtEngine& engine() { return m_profile.engine(); }
 	virtual const ScColorMgmtEngine& engine() const { return m_profile.engine(); }
 
+	// Index of alpha data
+	virtual uint  alphaIndex(void) const = 0;
+
 	// Restore full opacity of alpha channel
 	virtual void flattenAlpha(void* dataIn, uint numElems) const = 0;
 

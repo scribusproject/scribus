@@ -2204,31 +2204,22 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	if (cmSettings.useColorManagement() && inputProf && screenProf && printerProf)
 	{
 		ScColorMgmtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
-		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
-		eColorFormat inputProfFormat  = Format_BGRA_8;
+		eColorFormat inputProfFormat  = pDataLoader->pixelFormat();
 		eColorFormat outputProfFormat = Format_YMCK_8;
-		eColorSpaceType inputProfColorSpace = inputProf.colorSpace();
-		if ( inputProfColorSpace == ColorSpace_Rgb )
-			inputProfFormat = isPsdTiff ? Format_RGBA_8 : Format_BGRA_8; // Later make tiff and psd loader use Format_BGRA_8
-		else if (( inputProfColorSpace == ColorSpace_Cmyk ) && (isPsdTiff || pDataLoader->useRawImage()))
-		{
-			if (pDataLoader->r_image.channels() == 5)
-				inputProfFormat = Format_CMYKA_8;
-			else
-				inputProfFormat = Format_CMYK_8;
-		}
-		else if ( inputProfColorSpace == ColorSpace_Cmyk )
-			inputProfFormat = Format_YMCK_8;
-		else if ( inputProfColorSpace == ColorSpace_Gray )
-			inputProfFormat = Format_GRAY_8;
+		eColorSpaceType inputProfColorSpace  = inputProf.colorSpace();
 		eColorSpaceType outputProfColorSpace = printerProf.colorSpace();
+		if ( inputProfColorSpace == ColorSpace_Gray)
+			inputProfFormat  = Format_GRAY_8; // Grayscale is still a bit tricky
 		if ( outputProfColorSpace == ColorSpace_Rgb )
 			outputProfFormat = Format_BGRA_8;
 		else if ( outputProfColorSpace == ColorSpace_Cmyk )
 			outputProfFormat = Format_YMCK_8;
+		ScColorSpace inputCSpace  = engine.createColorSpace(inputProf, inputProfFormat);
+		ScColorSpace screenCSpace = engine.createColorSpace(screenProf, Format_BGRA_8);
+		ScColorSpace outputCSpace;
 		if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
 		{
-			cmsProofFlags |= Ctf_Softproofing;;
+			cmsProofFlags |= Ctf_Softproofing;
 			if (cmSettings.doGamutCheck())
 			{
 				cmsProofFlags |= Ctf_GamutCheck;
@@ -2240,7 +2231,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		{
 		case CMYKData: // CMYK
 //			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
-				xform = engine.createTransform(inputProf, inputProfFormat, printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+				xform = inputCSpace.createTransform(printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
 			if (outputProfColorSpace != ColorSpace_Cmyk )
 				*realCMYK = isCMYK = false;
 			break;
@@ -2250,22 +2241,22 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			{
 				if ((imgInfo.profileName == cmSettings.defaultImageRGBProfile()) || (imgInfo.profileName == cmSettings.defaultImageCMYKProfile()))
 				{
-					if (isCMYK)
+					if (isCMYK && (inputProfFormat == Format_CMYK_8))
 						xform = cmSettings.cmykImageProofingTransform();
-					else
+					else if (inputProfFormat == Format_BGRA_8)
 						xform = cmSettings.rgbImageProofingTransform();
-					xform.changeBufferFormat(inputProfFormat, Format_BGRA_8);
 				}
-				else
-					xform = engine.createProofingTransform(inputProf, inputProfFormat,
-				                     screenProf, Format_BGRA_8, printerProf,
+				if (!xform)
+				{
+					xform = inputCSpace.createProofingTransform(screenCSpace, printerProf,
 				                     cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
+				}
 			}
 			else if (cmSettings.softProofingAllowed() || isCMYK)
-				xform = engine.createTransform(inputProf, inputProfFormat, screenProf, Format_BGRA_8, cmSettings.intent(), cmsFlags);
+				xform = inputCSpace.createTransform(screenCSpace, cmSettings.intent(), cmsFlags);
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
+				if (pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2278,10 +2269,11 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				}
 			}
 			outputProfColorSpace = ColorSpace_Rgb;
+			outputCSpace = screenCSpace;
 			break;
 		case RawData: // no Conversion just raw Data
 			xform = 0;
-			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
+			if (pDataLoader->useRawImage())
 			{
 				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 				profileName = imgInfo.profileName;
@@ -2300,15 +2292,16 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				outputProfFormat = Format_BGRA_8;
 			else if ( outputProfColorSpace == ColorSpace_Cmyk )
 				outputProfFormat = Format_YMCK_8;
-			xform = engine.createTransform(inputProf, inputProfFormat, outputProfile, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+			xform = inputCSpace.createTransform(outputProfile, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
 			isCMYK = (outputProfColorSpace == ColorSpace_Cmyk);
 			if (realCMYK)
 				*realCMYK = isCMYK;
+			outputCSpace = engine.createColorSpace(outputProfile, outputProfFormat);
 			break;
 		}
-		if (xform)
+		if (xform && outputCSpace)
 		{
-			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
+			if (pDataLoader->useRawImage())
 			{
 				QImage::operator=(QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32));
 				profileName = imgInfo.profileName;
@@ -2323,8 +2316,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			for (int i = 0; i < height(); i++)
 			{
 				uchar* ptr = scanLine(i);
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
-					ptr2 = pDataLoader->r_image.scanLine(i);
+				ptr2 = pDataLoader->useRawImage() ? pDataLoader->r_image.scanLine(i) : NULL;
 				if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace != ColorSpace_Cmyk) )
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
@@ -2352,30 +2344,12 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				}
 				else
 				{
-					if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage()) //TODO: Unsure about this one
-					{
-						xform.apply(ptr2, ptr, width());
-					}
-					else
-						xform.apply(ptr, ptr, width());
+					inputCSpace.convert(outputCSpace, (eRenderIntent) 0, 0, ptr2 ? ptr2 : ptr, ptr, width(), &xform);
 				}
-				// if transforming from CMYK to RGB, flatten the alpha channel
-				// which will still contain the black channel
-				if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage()))
-				{
-					QRgb alphaFF = qRgba(0,0,0,255);
-					QRgb *p;
-					if (isCMYK && outputProfColorSpace != ColorSpace_Cmyk && !bilevel)
-					{
-						p = (QRgb *) ptr;
-						for (int j = 0; j < width(); j++, p++)
-							*p |= alphaFF;
-					}
-				}
-				else
+				if (pDataLoader->useRawImage())
 				{
 					// This might fix Bug #6328, please test.
-					if (outputProfColorSpace != ColorSpace_Cmyk && bilevel)
+					/*if (outputProfColorSpace != ColorSpace_Cmyk && bilevel)
 					{
 						QRgb alphaFF;
 						QRgb *p;
@@ -2386,38 +2360,26 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 							*p |= alphaFF;
 							ptr2 += 4;
 						}
-					}
-					if (outputProfColorSpace != ColorSpace_Cmyk && !bilevel)
+					}*/
+					// FIXME not valid if input or output colorspace are not 8bit / channels
+					if (inputCSpace.hasAlphaChannel() && outputCSpace.hasAlphaChannel())
 					{
-						if (pDataLoader->r_image.channels() == 5)
+						uint inputAlphaI  = inputCSpace.alphaIndex();
+						uint outputAlphaI = outputCSpace.alphaIndex();
+						uint inputBytes   = inputCSpace.bytesPerChannel()  * inputCSpace.numChannels();
+						uint outputBytes  = outputCSpace.bytesPerChannel() * outputCSpace.numChannels();
+						uchar* in  = ptr2 + inputAlphaI  * inputCSpace.bytesPerChannel();
+						uchar* out = ptr  + outputAlphaI * outputCSpace.bytesPerChannel();
+						for (int j = 0; j < width(); ++j)
 						{
-							QRgb *p = (QRgb *) ptr;
-							for (int j = 0; j < width(); j++, p++)
-							{
-								*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), ptr2[4]);
-								ptr2 += 5;
-							}
-						}
-						else
-						{
-							QRgb *p = (QRgb *) ptr;
-							for (int j = 0; j < width(); j++, p++)
-							{
-								if (isCMYK)
-									*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), 255);
-								else
-									*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), ptr2[3]);
-								ptr2 += 4;
-							}
+							*out = *in;
+							in  += inputBytes;
+							out += outputBytes;
 						}
 					}
 				}
 			}
 		}
-		if (isCMYK)
-			cmSettings.cmykImageProofingTransform().changeBufferFormat(Format_CMYK_8, Format_RGBA_8);
-		else
-			cmSettings.rgbImageProofingTransform().changeBufferFormat(Format_RGBA_8, Format_RGBA_8);
 	}
 	else
 	{

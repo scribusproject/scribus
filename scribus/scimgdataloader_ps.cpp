@@ -546,6 +546,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 		else
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.actualPageNumber = page;
+		m_pixelFormat = Format_BGRA_8;
 		return true;
 	}
 	if (found)
@@ -625,6 +626,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				m_imageInfoRecord.colorspace = ColorSpaceRGB;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+				m_pixelFormat = Format_BGRA_8;
 			}
 		}
 		else
@@ -694,6 +696,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				m_imageInfoRecord.type = ImageType7;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+				m_pixelFormat = Format_CMYK_8;
 			}
 			else
 			{
@@ -771,6 +774,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 			}
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 			m_imageInfoRecord.type = ImageType7;
+			m_pixelFormat = Format_CMYK_8;
 		}
 		else
 		{
@@ -795,6 +799,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 			}
 			m_imageInfoRecord.type = ImageType7;
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
+			m_pixelFormat = Format_BGRA_8;
 		}
 		
 		QFile::remove(tmpFile);
@@ -944,6 +949,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 					out[i] = qRgb(in[0], in[1], in[2]);
 				}
 			}
+			m_pixelFormat = Format_BGRA_8;
 		}
 		if ( cinfo.output_components == 4 )
 		{
@@ -980,6 +986,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 					}
 				}
 			}
+			m_pixelFormat = Format_CMYK_8;
 		}
 		if ( cinfo.output_components == 1 )
 		{
@@ -998,6 +1005,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 					d++;
 				}
 			}
+			m_pixelFormat = Format_BGRA_8;
 		}
 	}
 	(void) jpeg_finish_decompress(&cinfo);
@@ -1037,6 +1045,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 		tmpImg.setNumColors(256);
 		for (int i=0; i<256; i++)
 			tmpImg.setColor(i, qRgb(i,i,i));
+		m_pixelFormat = Format_GRAY_8;
 	}
 	if (!tmpImg.isNull())
 	{
@@ -1061,6 +1070,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 					out[i] = qRgb(in[0], in[1], in[2]);
 				}
 			}
+			m_pixelFormat = Format_BGRA_8;
 		}
 		if ( cinfo.output_components == 4 )
 		{
@@ -1097,6 +1107,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 					}
 				}
 			}
+			m_pixelFormat = Format_CMYK_8;
 		}
 		if ( cinfo.output_components == 1 )
 		{
@@ -1237,9 +1248,15 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 					}
 				}
 				if (psMode == 4)
+				{
 					m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+					m_pixelFormat = Format_CMYK_8;
+				}
 				else
+				{
 					m_imageInfoRecord.colorspace = ColorSpaceRGB;
+					m_pixelFormat = Format_BGRA_8;
+				}
 				m_imageInfoRecord.type  = ImageType7;
 				m_imageInfoRecord.BBoxX = 0;
 				m_imageInfoRecord.BBoxH = m_image.height();
@@ -1486,6 +1503,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+	m_pixelFormat = Format_CMYK_8;
 }
 
 void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
@@ -1586,6 +1604,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+	m_pixelFormat = Format_CMYK_8;
 }
 
 void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)

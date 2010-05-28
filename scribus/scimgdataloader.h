@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QImage>
 #include <QStringList>
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "scimagestructs.h"
 #include "rawimage.h"
 
@@ -22,10 +23,11 @@ protected:
 
 	QStringList m_supportedFormats;
 
-	QImage m_image;
+	QImage          m_image;
 	ImageInfoRecord m_imageInfoRecord;
-	QByteArray m_embeddedProfile;
-	int m_profileComponents;
+	QByteArray      m_embeddedProfile;
+	int             m_profileComponents;
+	eColorFormat    m_pixelFormat;
 
 	typedef enum {
 		noMsg = 0,
@@ -48,14 +50,16 @@ public:
 	const QStringList& supportedFormats(void) const { return m_supportedFormats; }
 	bool  supportFormat(const QString& fmt);
 
-	QImage& image(void) { return m_image; }
-	RawImage r_image;
-	QByteArray& embeddedProfile(void) { return m_embeddedProfile; }
-	ImageInfoRecord& imageInfoRecord(void) { return m_imageInfoRecord; }
-	void setRequest(bool valid, QMap<int, ImageLoadRequest> req);
+	RawImage    r_image;
 
-	bool  issuedErrorMsg(void) const { return (m_msgType == errorMsg); }
-	bool  issuedWarningMsg(void) const { return (m_msgType == warningMsg); }
+	QImage&          image(void) { return m_image; }
+	QByteArray&      embeddedProfile(void) { return m_embeddedProfile; }
+	ImageInfoRecord& imageInfoRecord(void) { return m_imageInfoRecord; }
+	eColorFormat     pixelFormat(void) { return m_pixelFormat; }
+	void             setRequest(bool valid, QMap<int, ImageLoadRequest> req);
+
+	bool  issuedErrorMsg(void)      const { return (m_msgType == errorMsg); }
+	bool  issuedWarningMsg(void)    const { return (m_msgType == warningMsg); }
 	const QString& getMessage(void) const { return m_message; }
 
 	virtual void initialize(void);

@@ -61,6 +61,13 @@ bool ScColorSpace::hasAlphaChannel(void) const
 	return false;
 }
 
+uint  ScColorSpace::alphaIndex(void) const
+{
+	if (m_data)
+		return m_data->alphaIndex();
+	return 0;
+}
+
 void ScColorSpace::flattenAlpha(void* dataIn, uint numElems)
 {
 	if (m_data)

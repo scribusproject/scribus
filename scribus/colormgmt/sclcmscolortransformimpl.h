@@ -25,8 +25,6 @@ public:
 	virtual bool apply(void* input, void* output, uint numElem);
 	virtual bool apply(QByteArray& input, QByteArray& output, uint numElem);
 
-	virtual void changeBufferFormat(eColorFormat input, eColorFormat output);
-
 protected:
 	cmsHTRANSFORM m_transformHandle;
 

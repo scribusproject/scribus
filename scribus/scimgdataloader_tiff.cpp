@@ -209,6 +209,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			if (bitspersample == 1)
 				bilevel = true;
 			isCMYK = false;
+			m_pixelFormat = Format_RGBA_8;
 		}
 		else
 		{
@@ -285,6 +286,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				}
 			}
 			isCMYK = true;
+			m_pixelFormat = Format_CMYK_8;
 		}
 	}
 	else
@@ -293,6 +295,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			return false;
 		if (bitspersample == 1)
 			bilevel = true;
+		m_pixelFormat = Format_RGBA_8;
 	}
 	return true;
 }
@@ -715,9 +718,15 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					if (!m_imageInfoRecord.exifInfo.thumbnail.isNull())
 					{
 						if (isCMYK)
+						{
 							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
+							m_pixelFormat = Format_CMYKA_8;;
+						}
 						else
+						{
 							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
+							m_pixelFormat = (m_imageInfoRecord.colorspace == ColorSpaceCMYK) ? Format_CMYK_8 : Format_RGBA_8;
+						}
 						r_image.fill(0);
 						QRgb *s;
 						uchar *d;

@@ -44,16 +44,6 @@ bool ScLcmsColorTransformImpl::apply(QByteArray& input, QByteArray& output, uint
 	return false;
 }
 
-void ScLcmsColorTransformImpl::changeBufferFormat(eColorFormat input, eColorFormat output)
-{
-	if (m_transformHandle)
-	{
-		DWORD lcmsInput  = ScLcmsColorMgmtEngineImpl::translateFormatToLcmsFormat(input);
-		DWORD lcmsOutput = ScLcmsColorMgmtEngineImpl::translateFormatToLcmsFormat(output);
-		cmsChangeBuffersFormat(m_transformHandle, lcmsInput, lcmsOutput);
-	}
-}
-
 void ScLcmsColorTransformImpl::deleteTransform(void)
 {
 	if (m_transformHandle)

@@ -341,6 +341,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 				}
 				else
 					m_image = m_imageInfoRecord.exifInfo.thumbnail.copy();
+				m_pixelFormat = Format_BGRA_8;
 			}
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			arrayPhot.clear();
@@ -388,6 +389,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					out[i] = qRgb(in[0], in[1], in[2]);
 				}
 			}
+			m_pixelFormat = Format_BGRA_8;
 		}
 		if ( cinfo.output_components == 4 )
 		{
@@ -447,6 +449,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					}
 				}
 			}
+			m_pixelFormat = Format_YMCK_8;
 			isCMYK = true;
 		}
 		else
@@ -468,6 +471,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					d++;
 				}
 			}
+			m_pixelFormat = Format_GRAY_8;;
 		}
 	}
 	(void) jpeg_finish_decompress(&cinfo);

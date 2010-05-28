@@ -35,6 +35,8 @@ public:
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
 	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 
+	virtual bool useRawImage() { return true; }
+
 protected:
 
 	QList<unsigned int> colorTable;

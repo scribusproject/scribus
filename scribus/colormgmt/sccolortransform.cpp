@@ -29,11 +29,6 @@ bool ScColorTransform::apply(QByteArray& input, QByteArray& output, uint numElem
 	return m_data->apply(input, output, numElem);
 }
 
-void ScColorTransform::changeBufferFormat(eColorFormat input, eColorFormat output)
-{
-	return m_data->changeBufferFormat(input, output);
-}
-
 bool ScColorTransform::operator==(const ScColorTransform& other) const
 {
 	return m_data == other.m_data;

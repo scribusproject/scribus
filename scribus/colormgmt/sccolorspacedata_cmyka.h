@@ -20,6 +20,7 @@ protected:
 public:
 	ScColorSpaceDataTempl_CMYKA(ScColorProfile& profile);
 
+	virtual uint alphaIndex(void) const { return m_aIndex; }
 	virtual void flattenAlpha(void* dataIn, uint numElems) const;
 };
 

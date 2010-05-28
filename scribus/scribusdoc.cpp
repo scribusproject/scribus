@@ -729,14 +729,14 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 										DocDisplayProf, Format_RGB_16,
 										IntentColors, dcmsFlags);
 	// TODO : check input profiles used for images
-	stdProofImg = colorEngine.createProofingTransform(DocInputImageRGBProf, Format_RGBA_8,
-	                  DocDisplayProf, Format_RGBA_8, DocPrinterProf,
+	stdProofImg = colorEngine.createProofingTransform(DocInputImageRGBProf, Format_BGRA_8,
+	                  DocDisplayProf, Format_BGRA_8, DocPrinterProf,
 	                  IntentImages, Intent_Relative_Colorimetric, dcmsFlagsGC);
 	stdProofImgCMYK = colorEngine.createProofingTransform(DocInputImageCMYKProf, Format_CMYK_8,
-	                  DocDisplayProf, Format_RGBA_8, DocPrinterProf,
+	                  DocDisplayProf, Format_BGRA_8, DocPrinterProf,
 	                  IntentImages, Intent_Relative_Colorimetric, dcmsFlagsGC);
-	stdTransImg = colorEngine.createTransform(DocInputRGBProf, Format_RGBA_8,
-	                  DocDisplayProf, Format_RGBA_8, 
+	stdTransImg = colorEngine.createTransform(DocInputRGBProf, Format_BGRA_8,
+	                  DocDisplayProf, Format_BGRA_8, 
 					  IntentImages, dcmsFlags);
 	stdTransRGB = colorEngine.createTransform(DocInputCMYKProf, Format_CMYK_16,
 					  DocInputRGBProf, Format_RGB_16,

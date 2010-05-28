@@ -108,6 +108,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+		m_pixelFormat = Format_BGRA_8;
 		return true;
 	}
 	return false;

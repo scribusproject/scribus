@@ -172,10 +172,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 			m_imageInfoRecord.profileName = prof.productDescription();
 			m_imageInfoRecord.isEmbedded = true;
 		}
-		if (header.color_mode == CM_CMYK)
-			isCMYK = true;
-		else
-			isCMYK = false;
+		isCMYK = (header.color_mode == CM_CMYK);
 		if (header.color_mode == CM_CMYK)
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 		else if (header.color_mode == CM_RGB)
@@ -192,9 +189,15 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 			if (!m_imageInfoRecord.exifInfo.thumbnail.isNull())
 			{
 				if (isCMYK)
+				{
 					r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
+					m_pixelFormat = Format_CMYKA_8;
+				}
 				else
+				{
 					r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
+					m_pixelFormat = Format_RGBA_8;
+				}
 				QRgb *s;
 				unsigned char cc, cm, cy, ck;
 				uchar *d;
@@ -249,11 +252,13 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	{
 		if (!r_image.create(header.width, header.height, 5))
 			return false;
+		m_pixelFormat = Format_CMYKA_8;
 	}
 	else
 	{
 		if (!r_image.create(header.width, header.height, 4))
 			return false;
+		m_pixelFormat = Format_RGBA_8;
 	}
 	r_image.fill(0);
 	maxChannels = header.channel_count;

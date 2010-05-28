@@ -4,6 +4,20 @@ ${CMAKE_SOURCE_DIR}/scribus
 ${LCMS_INCLUDE_DIR}
 )
 
+IF(HAVE_LCMS2)
+	SET(SCRIBUS_LCMS_IMPL_SOURCES
+		sclcms2colormgmtengineimpl.cpp
+		sclcms2colorprofileimpl.cpp
+		sclcms2colortransformimpl.cpp
+	)
+ELSE(HAVE_LCMS2)
+	SET(SCRIBUS_LCMS_IMPL_SOURCES
+		sclcmscolormgmtengineimpl.cpp
+		sclcmscolorprofileimpl.cpp
+		sclcmscolortransformimpl.cpp
+	)
+ENDIF(HAVE_LCMS2)
+
 SET(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sccolormgmtengine.cpp
 	sccolormgmtenginedata.cpp
@@ -20,7 +34,9 @@ SET(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sclcmscolormgmtengineimpl.cpp
 	sclcmscolorprofileimpl.cpp
 	sclcmscolortransformimpl.cpp
+	${SCRIBUS_LCMS_IMPL_SOURCES}
 )
+
 SET(SCRIBUS_COLORMGMT_LIB "scribus_colormgmt_lib")
 ADD_LIBRARY(${SCRIBUS_COLORMGMT_LIB} STATIC ${SCRIBUS_COLORMGMT_LIB_SOURCES})
 # This is a convenience library that for linkage purposes is part of Scribus's

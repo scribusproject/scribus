@@ -343,5 +343,6 @@ bool ScImgDataLoader_WPG::loadPicture(const QString& fn, int /*page*/, int /*res
 	m_imageInfoRecord.BBoxX = 0;
 	m_imageInfoRecord.colorspace = ColorSpaceRGB;
 	m_imageInfoRecord.BBoxH = m_image.height();
+	m_pixelFormat = Format_BGRA_8;
 	return true;
 }

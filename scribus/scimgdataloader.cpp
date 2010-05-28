@@ -19,6 +19,7 @@ void ScImgDataLoader::initialize(void)
 	m_imageInfoRecord.init();
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
+	m_pixelFormat = Format_Undefined;
 }
 
 void ScImgDataLoader::setRequest(bool valid, QMap<int, ImageLoadRequest> req)

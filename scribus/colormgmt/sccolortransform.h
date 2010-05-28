@@ -32,9 +32,6 @@ public:
 	bool apply(void* input, void* output, uint numElem);
 	bool apply(QByteArray& input, QByteArray& output, uint numElem);
 
-	// FIXME get rif of this API as soon as possible (cf scimage)
-	void changeBufferFormat(eColorFormat input, eColorFormat output);
-
 	bool operator==(const ScColorTransform& other) const;
 
 protected:

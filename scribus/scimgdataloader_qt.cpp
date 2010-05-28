@@ -55,6 +55,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*
 		m_imageInfoRecord.lowResType = resInf;
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = m_image.height();
+		m_pixelFormat = Format_BGRA_8;
 		return true;
 	}
 	return false; //TODO: I think this should be false!
