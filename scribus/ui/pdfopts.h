@@ -69,6 +69,7 @@ protected:
 	QHBoxLayout* Layout7;
 	QGroupBox* Name;
 	QCheckBox* multiFile;
+	QCheckBox* openAfterExportCheckBox;
 	QToolButton* FileC;
 	QPushButton* OK;
 	QPushButton* Cancel;

@@ -36,6 +36,7 @@ class SCRIBUS_API Prefs_ExternalTools : public Prefs_Pane, Ui::Prefs_ExternalToo
 		void changePostScriptTool();
 		void changeImageTool();
 		void changeWebBrowser();
+		void changePDFViewer();
 		void changeUniconvertor();
 		void changeLatexEditor();
 		void rescanForTools();

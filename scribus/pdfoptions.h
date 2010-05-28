@@ -125,6 +125,7 @@ public:
 	bool UseLPI;
 	bool UseSpotColors;
 	bool doMultiFile;
+	bool openAfterExport;
 	QMap<QString,LPIData> LPISettings;
 	QString SolidProf;
 	int  SComp;

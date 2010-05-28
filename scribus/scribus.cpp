@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDropEvent>
 #include <QEvent>
 #include <QEventLoop>
+#include <QFileDialog>
 #include <QFrame>
 #include <QIcon>
 #include <QInputDialog>
@@ -8121,6 +8122,24 @@ void ScribusMainWindow::doSaveAsPDF()
 		if (doc->pdfOptions().useDocBleeds)
 			doc->pdfOptions().bleeds = optBleeds;
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (errorMsg.isEmpty() && doc->pdfOptions().openAfterExport && !doc->pdfOptions().doMultiFile)
+		{
+			QString pdfViewer(PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable);
+			QFileInfo fi(pdfViewer);
+			if (pdfViewer.isEmpty())
+			{
+				pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString::null, QString::null);
+				if (!QFileInfo(pdfViewer).exists())
+					pdfViewer="";
+				PrefsManager::instance()->appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
+			}
+			if (!pdfViewer.isEmpty())
+			{
+				QStringList args;
+				args << doc->pdfOptions().fileName;
+				int ret=System(pdfViewer, args);
+			}
+		}
 	}
 }
 

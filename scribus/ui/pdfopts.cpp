@@ -98,7 +98,11 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	multiFile = new QCheckBox( tr( "Output one file for eac&h page" ), Name );
 	multiFile->setChecked(Opts.doMultiFile);
 	NameLayout->addWidget( multiFile, 1, 0 );
+	openAfterExportCheckBox = new QCheckBox( tr( "Open PDF after Export" ), Name );
+	openAfterExportCheckBox->setChecked(Opts.openAfterExport);
+	NameLayout->addWidget( openAfterExportCheckBox, 2, 0 );
 	PDFExportLayout->addWidget( Name );
+
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
 								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight(),
 								currView->Doc->pageWidth(), currView->Doc, true );
@@ -227,6 +231,7 @@ void PDFExportDialog::updateDocOptions()
 {
 	Opts.fileName = QDir::fromNativeSeparators(fileNameLineEdit->text());
 	Opts.doMultiFile = multiFile->isChecked();
+	Opts.openAfterExport = openAfterExportCheckBox->isChecked();
 	Opts.Thumbnails = Options->CheckBox1->isChecked();
 	Opts.Compress = Options->Compression->isChecked();
 	Opts.CompressMethod = (PDFOptions::PDFCompression) Options->CMethod->currentIndex();

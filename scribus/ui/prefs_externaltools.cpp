@@ -26,6 +26,7 @@ Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc)
 	connect(webBrowserChangeButton, SIGNAL(clicked()), this, SLOT(changeWebBrowser()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
 	connect(uniconvertorChangeButton, SIGNAL(clicked()), this, SLOT(changeUniconvertor()));
+	connect(pdfViewerChangeButton, SIGNAL(clicked()), this, SLOT(changePDFViewer()));
 	connect(latexConfigUpButton, SIGNAL(clicked()), this, SLOT(upButtonPressed()));
 	connect(latexConfigDownButton, SIGNAL(clicked()), this, SLOT(downButtonPressed()));
 	connect(latexConfigAddButton, SIGNAL(clicked()), this, SLOT(addConfig()));
@@ -62,6 +63,7 @@ void Prefs_ExternalTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	foreach (QString config, configs)
 		insertConfigItem(config);
 	latexConfigsListWidget->setCurrentRow(0);
+	pdfViewerLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.pdfViewerExecutable));
 }
 
 void Prefs_ExternalTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -84,6 +86,7 @@ void Prefs_ExternalTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->extToolPrefs.latexCommands=commands;
 	prefsData->extToolPrefs.latexEditorExecutable=QDir::fromNativeSeparators(latexEditorLineEdit->text());
 	prefsData->extToolPrefs.uniconvExecutable=QDir::fromNativeSeparators(uniconvertorLineEdit->text());
+	prefsData->extToolPrefs.pdfViewerExecutable=QDir::fromNativeSeparators(pdfViewerLineEdit->text());
 }
 
 void Prefs_ExternalTools::changePostScriptTool()
@@ -108,6 +111,14 @@ void Prefs_ExternalTools::changeWebBrowser()
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your web browser"), fi.path());
 	if (!s.isEmpty())
 		webBrowserLineEdit->setText( QDir::convertSeparators(s) );
+}
+
+void Prefs_ExternalTools::changePDFViewer()
+{
+	QFileInfo fi(pdfViewerLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), fi.path());
+	if (!s.isEmpty())
+		pdfViewerLineEdit->setText( QDir::convertSeparators(s) );
 }
 
 void Prefs_ExternalTools::changeUniconvertor()

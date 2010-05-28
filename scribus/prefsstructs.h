@@ -324,6 +324,7 @@ struct ExternalToolsPrefs
 	int latexResolution; //! LaTeX export resolution
 	bool latexForceDpi;
 	bool latexStartWithEmptyFrames;
+	QString pdfViewerExecutable; //! Viewer for PDF files
 };
 
 struct MiscellaneousPrefs
