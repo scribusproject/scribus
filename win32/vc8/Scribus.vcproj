@@ -2115,10 +2115,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\util_cms.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\util_color.cpp"
 				>
 			</File>
@@ -11697,10 +11693,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\util.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\util_cms.h"
 				>
 			</File>
 			<File
