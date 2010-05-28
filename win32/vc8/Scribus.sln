@@ -224,7 +224,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgmimport", "cgmimport\cgmi
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gettext-xtgim", "gettex-xtgim\gettext-xtgim.vcproj", "{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gettext-xtgim", "gettext-xtgim\gettext-xtgim.vcproj", "{0A127183-FD65-4CFA-AC9F-06C1ED3E82AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
