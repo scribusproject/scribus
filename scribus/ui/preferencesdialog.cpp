@@ -62,70 +62,78 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		exportButton->hide();
 		defaultsButton->hide();
 	}
-	if (!doc)
-	{
-		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
-		addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
-		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
-		addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
-	}
+
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget, m_Doc);
-	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
-	connect (prefs_DocumentSetup, SIGNAL(changeToOtherSection(const QString&)), this, SLOT(setNewItemSelected(const QString&)));
-	if (doc)
-	{
-		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
-		addItem( tr("Document Information"), loadIcon("documentinfo32.png"), prefs_DocumentInformation);
-	}
 	prefs_Guides = new Prefs_Guides(prefsStackWidget, m_Doc);
-	addItem( tr("Guides"), loadIcon("guides.png"), prefs_Guides);
 	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
-	addItem( tr("Typography"), loadIcon("22/draw-text.png"), prefs_Typography);
 	prefs_ItemTools = new Prefs_ItemTools(prefsStackWidget, m_Doc);
-	addItem( tr("Item Tools"), loadIcon("tools.png"), prefs_ItemTools);
 	prefs_OperatorTools = new Prefs_OperatorTools(prefsStackWidget, m_Doc);
-	addItem( tr("Operator Tools"), loadIcon("tools.png"), prefs_OperatorTools);
 	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget, m_Doc);
-	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
 	prefs_Fonts = new Prefs_Fonts(prefsStackWidget, m_Doc);
-	addItem( tr("Fonts"), loadIcon("22/preferences-desktop-font.png"), prefs_Fonts);
 	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget, m_Doc);
-	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
 	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
-	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
 	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget, m_Doc);
-	addItem( tr("PDF Export"), loadIcon("acroread22.png"), prefs_PDFExport);
 	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget, m_Doc);
-	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
 	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(prefsStackWidget, m_Doc);
-	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
 	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget, m_Doc);
-	addItem( tr("Tables of Contents"), loadIcon("tabtocindex.png"), prefs_TableOfContents);
+	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
 	if (doc)
 	{
 		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
+		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
+	}
+	if (!doc)
+	{
+		prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
+		prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
+		prefs_PageSizes = new Prefs_PageSizes(prefsStackWidget, m_Doc);
+		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
+		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
+		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
+		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
+		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
+		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
+	}
+
+	if (!doc)
+	{
+		addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
+		addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
+	}
+	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
+	if (doc)
+	{
+		addItem( tr("Document Information"), loadIcon("documentinfo32.png"), prefs_DocumentInformation);
+	}
+	addItem( tr("Guides"), loadIcon("guides.png"), prefs_Guides);
+	addItem( tr("Typography"), loadIcon("22/draw-text.png"), prefs_Typography);
+	addItem( tr("Item Tools"), loadIcon("tools.png"), prefs_ItemTools);
+	addItem( tr("Operator Tools"), loadIcon("tools.png"), prefs_OperatorTools);
+	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
+	addItem( tr("Fonts"), loadIcon("22/preferences-desktop-font.png"), prefs_Fonts);
+	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
+	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
+	addItem( tr("PDF Export"), loadIcon("acroread22.png"), prefs_PDFExport);
+	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
+	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
+	addItem( tr("Tables of Contents"), loadIcon("tabtocindex.png"), prefs_TableOfContents);
+
+	if (doc)
+	{
 		addItem( tr("Sections"), loadIcon("tabtocindex.png"), prefs_DocumentSections);
 	}
 	if (!doc)
 	{
-		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
 		addItem( tr("Keyboard Shortcuts"), loadIcon("22/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
-		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
 		addItem( tr("Scrapbook"), loadIcon("scrap.png"), prefs_Scrapbook);
 	}
-	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
 	addItem( tr("Display"), loadIcon("22/video-display.png"), prefs_Display);
 	if (!doc)
 	{
-		prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
 		addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
-		prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
 		addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
-		prefs_PageSizes = new Prefs_PageSizes(prefsStackWidget, m_Doc);
 		addItem( tr("Page Sizes"), loadIcon("16/page-simple.png"), prefs_PageSizes);
-		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
 		addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
-		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
 		addItem( tr("Image Cache"), loadIcon("22/image-x-generic.png"), prefs_ImageCache);
 	}
 
@@ -139,6 +147,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		itemSelected(preferencesTypeList->item(0));
 	}
 
+	connect(prefs_DocumentSetup, SIGNAL(changeToOtherSection(const QString&)), this, SLOT(setNewItemSelected(const QString&)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
