@@ -125,6 +125,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 //	setMaximumSize( sizeHint() );
 //tooltips
 	multiFile->setToolTip( "<qt>" + tr( "This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.") + "</qt>" );
+	openAfterExportCheckBox->setToolTip( "<qt>" + tr( "Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.") + "</qt>" );
 	OK->setToolTip( "<qt>" + tr( "The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.") + "</qt>" );
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
