@@ -216,11 +216,13 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 			m_useRawImage = true;
 			if (!read_cmyk(&image, &r_image, width, height)) return false;
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+			m_pixelFormat = (r_image.channels() == 5) ? Format_CMYKA_8 : Format_CMYK_8;
 		} else {
 			m_useRawImage = false;
 			m_image = QImage(width, height, QImage::Format_ARGB32);
 			if (!read_rgb(&image, &m_image, width, height)) return false;
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
+			m_pixelFormat = Format_BGRA_8;
 		}
 		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
