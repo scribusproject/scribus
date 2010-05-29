@@ -51,10 +51,12 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 				descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
 				if (descSize > 0)
 				{
+					uint stringLen = descSize / sizeof(wchar_t);
+					descData[stringLen] = 0;
 					if (sizeof(wchar_t) == sizeof(QChar)) {
-						m_productDescription = QString::fromUtf16((ushort *) descData, descSize / sizeof(wchar_t));
+						m_productDescription = QString::fromUtf16((ushort *) descData);
 					} else {
-						m_productDescription = QString::fromUcs4((uint *) descData, descSize / sizeof(wchar_t));
+						m_productDescription = QString::fromUcs4((uint *) descData);
 					}
 					free(descData);
 				}

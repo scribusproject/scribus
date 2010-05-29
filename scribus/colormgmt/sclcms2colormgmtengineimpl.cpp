@@ -90,10 +90,12 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 				descSize = cmsGetProfileInfo(hIn, cmsInfoDescription, "en", "US", descData, descSize);
 				if (descSize > 0)
 				{
+					uint stringLen = descSize / sizeof(wchar_t);
+					descData[stringLen] = 0;
 					if (sizeof(wchar_t) == sizeof(QChar)) {
-						profileInfo.description = QString::fromUtf16((ushort *) descData, descSize / sizeof(wchar_t));
+						profileInfo.description = QString::fromUtf16((ushort *) descData);
 					} else {
-						profileInfo.description = QString::fromUcs4((uint *) descData, descSize / sizeof(wchar_t));
+						profileInfo.description = QString::fromUcs4((uint *) descData);
 					}
 					free(descData);
 				}
