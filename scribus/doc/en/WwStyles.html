@@ -1,0 +1,62 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Working with Styles</title>
+</head>
+<body>
+<h2>Working with Styles</h2>
+Why would someone want to use styles, or why might they be a good idea? Just what are styles in Scribus?
+<p>There are two main categories of styles in Scribus, which you will see if you bring up the <b>Style Manager</b> dialog with <i>Edit > Styles</i>. The first is <b>Line Styles</b>, which will be discussed elsewhere in <a href="WwLines.html">Working with Lines & Line Styles</a>. The other kind of style applies to text layout, and you will see that this has two subtypes, Paragraph Styles and Character Styles. You will also see that there are defaults for each of these. These default settings come in part from the default font settings in <i>File > Preferences > Tools</i> for text frames, but you can also edit the default styles here in the Style Manager.
+<p><b>Paragraph Styles</b> are applied to an entire paragraph of text, as the name implies, while <b>Character Styles</b> will be applied to a collection of letters, words, or even paragraphs of text irrespective of the paragraph style setting. It gets even a bit more confusing since a paragraph style will always contain a character style within its definition.
+<p>The why of styles is a matter of convenience, but also of easily achieving a consistent look in a document. For a newsletter, one may want to always use a precise collection of font attributes for headings, the body of the text, sidebars, whatever elements your newsletter may contain. Another convenience with styles is that, once you have applied them, if you edit a style later, the changes will automatically be applied wherever that style is used. Furthermore, styles can be imported from other Scribus documents, or you may clone a style to slightly modify it for some other purpose. Lastly, if you use OpenOffice.org and save in ODT format, you can import and automatically create any styles in Scribus that you may have created in Writer.
+<p>With this brief introduction, let's start by making some paragraph styles.
+<h3>Paragraph Styles</h3>
+<table width="80%" cellpadding="5">
+<tr><td rowspan="3"><img src="images/style_manager1.png"></td>
+<td>When you open the styles dialog, it may have the appearance you see here or be expanded. We'll imagine that we want to create two styles for a newsletter, one style for headings/titles, and another for body text. We want headings to stand out from the body text, and the body text should be pleasing to the eye and have easy legibility &ndash; we will not spend time on the pros and cons of font choice in various settings, since many factors may be involved.</td></tr>
+<tr><td><img src="images/style_manager1b.png"></td>
+</tr>
+<tr><td>Click the <b>New</b> button for the drop-down list and select <b>Paragraph Style</b>. The default name will be <i>New Style</i>. Initially, the <i>Properties</i> tab will be active, and as you can see, this has settings for various attributes of our glyphs in relationship to lines, other paragraphs, the margins and tabulators, but nothing about the font itself.</td></tr>
+</table>
+<img src="images/style_manager3b.png">
+<p>We will not cover various items that you will find in <a href="WwText.html">Working with Text</a>, but mainly focus here on settings that are <i>not</i> in the Text tab of the Properties palette.
+<p>Underneath the linespacing settings we see two spinboxes for determining the white space above and below the paragraph this style is used for. Any space setting will add to the space set for the preceding or following paragraphs.
+<p>Down below the tabulator settings we also saw in Properties are spinboxes which control indentation.
+<p>On the left-top, we can set the indentation of the first line of a paragraph <i>relative to the left margin of the paragraph</i>. Assign a negative value for so-called hanging indent.
+<p>On the left-bottom, we set any paragraph-wide indentation from the other settings of the frame &ndash; this include the border of the frame and also any left text distance setting for the frame &ndash; this defines the left margin of the paragraph as just mentioned. You can only set for a hanging indent when this value has some positive number, and the absolute value of the hanging indent can be no larger than this value. <i>Example: if you want a hanging indent of -15 pts, you will need a paragraph margin setting of 15 pts or greater.</i>
+<p>Finally, on the right, we have the right margin of the paragraph, analogous to the paragraph-wide left indentation just mentioned.
+<p>
+<table width="70%">
+<tr><td valign="top">Here we show a hanging indent and extra space above paragraphs &ndash; note that the space above paragraph does not apply to the first paragraph in the frame.</td>
+<td><img src="images/style_manager7.png"></td>
+</tr></table>
+<h4>Drop Caps</h4>
+<table width="70%">
+<tr><td valign="top">Drop caps are enlarged first letters of a paragraph, which overlap two or more lines of text. The value for <b>Lines</b> must be an integer.
+<p>The <b>Distance from Text</b> applies to the space to the right of the enlarged letter. This distance can be a negative number, even though it would seem that might have limited utility.
+<p>Here we see examples of drop caps, the top and middle with a distance from text of 0, and in the bottom paragraph a distance of 10 pts. The middle paragraph has the drop cap set at 3 lines, and also uses a hanging indent for additional effect.
+<p>Drop caps can be a very interesting visual effect, but do not lend to easy legibility, so in general should be used sparingly.</td>
+<td><img src="images/style_manager8.png"></td>
+</tr>
+</table>
+<h3>Character Style</h3>
+<table width="80%">
+<tr><td valign="top">Here we see the Character Style tab in Style Manager &ndash; now we can set the various font attributes and glyph modifications. Almost all of these settings have their counterparts in the Text tab of Properties palette, so check <a href="WwText.html">Working with Text</a> for their explanation.
+<p>The exception is the far-right spinbox in the upper row of spinboxes, next to Tracking. This sets the default width of the space character or glyph (keep in mind that a space is a glyph, but in contrast, a tab is not). It does not affect the space between all glyphs, such as is done with the tracking setting.
+<p>If one is simply trying to create a character style not associated with a paragraph style, then you will only see this tab with its choices. Character styles can only be applied in the main window, i.e., there is no way to apply a character style in Story Editor &ndash; only a paragraph style with its associated character style may be used.
+<p>There is a hierarchy to text formatting styles, in that a character style will override a paragraph style, even if it is applied to an entire frame, such as one might do in <i>Select Item</i> mode. This hierarchy is also something to keep in mind if you are trying to apply a paragraph style in Story Editor and it doesn't seem to be working.
+</td>
+<td><img src="images/style_manager9.png"></td>
+</tr>
+</table>
+<h3>Importing Styles</h3>
+<table width="80%">
+<tr><td valign="top">If you click the <b>Import</b> button on the Style Manager dialog, you will then get a file dialog to select a Scribus file for style importation. While you could select any kind of file, styles will only be found in Scribus files &ndash; there will be no error message.
+<p>As seen here, you can then select which styles you wish to import, and can make sure there are no name conflicts. Renaming is an automatic process with this dialog, but of course you can rename the style once it's imported into your document.
+<p><i>Hint #1: You might consider creating some files which are empty documents, but contain a collection of styles for use in other documents.</i>
+<p><i>Hint #2 for those who like to dissect .sla files: You will also find that, for the purposes of importing a style, you can strip out everything from a file except for the following tags: the &lt;?xml...&gt;, &lt;SCRIBUSUTF8NEW...&gt;,&lt;DOCUMENT....&gt;, &lt;STYLE.....&gt; (however many), &lt;/DOCUMENT&gt;, and &lt;/SCRIBUSUTF8NEW&gt; tags, and still have something that the styles can be imported from. Do not try to load this as a document, however.</i>
+</td>
+<td><img src="images/style_manager10.png"></td>
+</tr></table>
+</body>
+</html>

@@ -39,6 +39,14 @@
 		<submenuitem text="Scribus Basics" file="about2.html" >
 			<submenuitem file="qsg.html" text="Quick Start Guide" />
 			<submenuitem file="docinfo.html" text="Document Information" />
+			<submenuitem file="WwFrames.html" text="Working with Frames" />
+			<submenuitem file="WwText.html" text="Working with Text" />
+			<submenuitem file="WwStyles.html" text="Working with Styles" />
+			<submenuitem file="WwImages.html" text="Working with Images" />
+			<submenuitem file="WwRenderframes.html" text="Working with Render Frames" />
+			<submenuitem file="WwShapes.html" text="Working with Shapes" />
+			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
+			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
 			<submenuitem text="Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
@@ -52,7 +60,6 @@
 			<submenuitem file="importhints4.html" text="HTML Importing" />
 			<submenuitem file="scribus-svg.html" text="Importing SVGs" />
 			<submenuitem file="psd.html" text="Importing PSD" />
-			<submenuitem file="renderframes.html" text="Render Frames" />
 		</submenuitem>
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
