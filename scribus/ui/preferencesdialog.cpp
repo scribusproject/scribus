@@ -34,9 +34,9 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_ExternalTools(0),
 	prefs_Guides(0),
 	prefs_KeyboardShortcuts(0),
+	prefs_Printer(0),
 	prefs_Paths(0),
 	prefs_PageSizes(0),
-	prefs_Printer(0),
 	prefs_Hyphenator(0),
 	prefs_Miscellaneous(0),
 	prefs_Plugins(0),prefs_PreflightVerifier(0),
@@ -63,7 +63,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		exportButton->hide();
 		defaultsButton->hide();
 	}
-
+	// Create Stack Widgets if required
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget, m_Doc);
 	prefs_Guides = new Prefs_Guides(prefsStackWidget, m_Doc);
 	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
@@ -95,11 +95,11 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
 		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
 	}
-
+	// Add Stack Widgets if required
 	if (!doc)
 	{
 		addItem( tr("User Interface"), loadIcon("scribus.png"), prefs_UserInterface);
-		addItem( tr("Paths"), loadIcon("22/system-file-manager.png"), prefs_Paths);
+		addItem( tr("Paths"), loadIcon("22/folder.png"), prefs_Paths);
 	}
 	addItem( tr("Document Setup"), loadIcon("scribusdoc.png"), prefs_DocumentSetup);
 	if (doc)
@@ -112,7 +112,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Operator Tools"), loadIcon("tools.png"), prefs_OperatorTools);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
 	addItem( tr("Fonts"), loadIcon("22/preferences-desktop-font.png"), prefs_Fonts);
-	addItem( tr("Color Management"), loadIcon("blend.png"), prefs_ColorManagement);
+	addItem( tr("Color Management"), loadIcon("blend_22.png"), prefs_ColorManagement);
 	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
 	addItem( tr("PDF Export"), loadIcon("acroread22.png"), prefs_PDFExport);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
