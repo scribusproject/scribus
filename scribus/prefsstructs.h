@@ -293,6 +293,7 @@ struct DisplayPrefs
 	bool marginColored; //! Indicates if the margin to edge of page area will be colored in some other color or not
 	bool showPageShadow; //! Show a shadow around the pages
 	QColor paperColor; //! Color of paper (onscreen only)
+	QColor scratchColor; //! Color of scratch space (onscreen only)
 	QColor frameColor; //! Color of frame border (onscreen only)
 	QColor frameNormColor; //! Color of normal frame border (onscreen only)
 	QColor frameGroupColor; //! Color of border of grouped frames (onscreen only)

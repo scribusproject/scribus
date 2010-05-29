@@ -35,6 +35,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_Guides(0),
 	prefs_KeyboardShortcuts(0),
 	prefs_Paths(0),
+	prefs_PageSizes(0),
 	prefs_Printer(0),
 	prefs_Hyphenator(0),
 	prefs_Miscellaneous(0),

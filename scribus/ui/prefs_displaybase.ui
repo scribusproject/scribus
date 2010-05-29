@@ -389,119 +389,133 @@
          <item row="0" column="1">
           <widget class="QPushButton" name="pageFillColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_13">
            <property name="text">
             <string>Selected Page Border:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <widget class="QPushButton" name="selectedPageBorderButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_14">
            <property name="text">
             <string>Frames:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="1">
           <widget class="QPushButton" name="frameColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="label_16">
            <property name="text">
             <string>Locked Frames:</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="4" column="1">
           <widget class="QPushButton" name="frameLockedColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_17">
            <property name="text">
             <string>Selected Frames:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="5" column="1">
           <widget class="QPushButton" name="frameSelectedColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="5" column="0">
+         <item row="6" column="0">
           <widget class="QLabel" name="label_31">
            <property name="text">
             <string>Linked Frames:</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
+         <item row="6" column="1">
           <widget class="QPushButton" name="frameLinkedColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
+         <item row="7" column="0">
           <widget class="QLabel" name="label_30">
            <property name="text">
             <string>Grouped Frames:</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="1">
+         <item row="7" column="1">
           <widget class="QPushButton" name="frameGroupedColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="7" column="0">
+         <item row="8" column="0">
           <widget class="QLabel" name="label_29">
            <property name="text">
             <string>Annotation Frames:</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="0">
+         <item row="9" column="0">
           <widget class="QLabel" name="label_32">
            <property name="text">
             <string>Text Control Characters:</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
+         <item row="8" column="1">
           <widget class="QPushButton" name="frameAnnotationColorButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
+         <item row="9" column="1">
           <widget class="QPushButton" name="textControlCharsButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Scratch Space:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="scratchSpaceColorButton">
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>

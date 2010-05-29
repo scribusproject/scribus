@@ -265,6 +265,7 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.dispY = 10.0;
 	appPrefs.opToolPrefs.constrain = 15.0;
 	appPrefs.displayPrefs.paperColor = QColor(Qt::white);
+	appPrefs.displayPrefs.scratchColor = qApp->palette().color(QPalette::Active, QPalette::Window);
 	appPrefs.displayPrefs.showPageShadow = true;
 	appPrefs.displayPrefs.showVerifierWarningsOnCanvas = true;
 	appPrefs.displayPrefs.frameColor = QColor(Qt::red);
@@ -1344,6 +1345,7 @@ bool PrefsManager::WritePref(QString ho)
 	deDisplay.setAttribute("PageGapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapVertical));
 	deDisplay.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.displayPrefs.showPageShadow));
 	deDisplay.setAttribute("PageColor",appPrefs.displayPrefs.paperColor.name());
+	deDisplay.setAttribute("ScratchColor",appPrefs.displayPrefs.scratchColor.name());
 	deDisplay.setAttribute("FrameSelectedColor",appPrefs.displayPrefs.frameColor.name());
 	deDisplay.setAttribute("FrameNormColor",appPrefs.displayPrefs.frameNormColor.name());
 	deDisplay.setAttribute("FrameGroupColor",appPrefs.displayPrefs.frameGroupColor.name());
@@ -1913,6 +1915,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.displayPrefs.pageGapVertical    = ScCLocale::toDoubleC(dc.attribute("PageGapVertical"), 40.0);
 			appPrefs.displayPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
 			appPrefs.displayPrefs.paperColor = QColor(dc.attribute("PageColor"));
+			if (dc.hasAttribute("ScratchColor"))
+				appPrefs.displayPrefs.scratchColor = QColor(dc.attribute("ScratchColor"));
+			else
+				appPrefs.displayPrefs.scratchColor = qApp->palette().color(QPalette::Active, QPalette::Window);
 			appPrefs.displayPrefs.frameColor = QColor(dc.attribute("FrameSelectedColor","#ff0000"));
 			appPrefs.displayPrefs.frameNormColor = QColor(dc.attribute("FrameNormColor","#000000"));
 			appPrefs.displayPrefs.frameGroupColor = QColor(dc.attribute("FrameGroupColor","#008080"));

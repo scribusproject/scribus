@@ -26,6 +26,7 @@ Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc)
 	buttonRestoreDPI->setIcon(QIcon(loadIcon("screen.png")));
 
 	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
+	connect(scratchSpaceColorButton, SIGNAL(clicked()), this, SLOT(changeScratchColor()));
 	connect(frameSelectedColorButton, SIGNAL(clicked()), this, SLOT(changeFrameColor()));
 	connect(frameColorButton, SIGNAL(clicked()), this, SLOT(changeNormFrameColor()));
 	connect(frameGroupedColorButton, SIGNAL(clicked()), this, SLOT(changeGroupFrameColor()));
@@ -107,6 +108,10 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageFillColorButton->setText( QString::null );
 	pageFillColorButton->setIcon(pm);
 
+	pm.fill(prefsData->displayPrefs.scratchColor);
+	colorScratch = prefsData->displayPrefs.scratchColor;
+	scratchSpaceColorButton->setText( QString::null );
+	scratchSpaceColorButton->setIcon(pm);
 
 	pm.fill(prefsData->displayPrefs.frameColor);
 	colorFrame = prefsData->displayPrefs.frameColor;
@@ -259,6 +264,18 @@ void Prefs_Display::changePaperColor()
 	}
 }
 
+void Prefs_Display::changeScratchColor()
+{
+	QColor newColor(QColorDialog::getColor(colorScratch, this));
+	if (newColor.isValid())
+	{
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		colorScratch = newColor;
+		scratchSpaceColorButton->setIcon(pm);
+	}
+}
+
 void Prefs_Display::changeFrameColor()
 {
 	QColor newColor(QColorDialog::getColor(colorFrame, this));
@@ -377,6 +394,7 @@ void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value();
 
 	prefsData->displayPrefs.paperColor=colorPaper;
+	prefsData->displayPrefs.scratchColor=colorScratch;
 	prefsData->displayPrefs.frameColor=colorFrame;
 	prefsData->displayPrefs.frameNormColor=colorFrameNorm;
 	prefsData->displayPrefs.frameGroupColor=colorFrameGroup;

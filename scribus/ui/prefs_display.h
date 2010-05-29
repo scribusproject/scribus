@@ -49,6 +49,7 @@ class SCRIBUS_API Prefs_Display : public Prefs_Pane, Ui::Prefs_Display
 		\brief Slots for changing colors
 		*/
 		virtual void changePaperColor();
+		virtual void changeScratchColor();
 		virtual void changeFrameColor();
 		virtual void changeNormFrameColor();
 		virtual void changeGroupFrameColor();
@@ -63,6 +64,7 @@ class SCRIBUS_API Prefs_Display : public Prefs_Pane, Ui::Prefs_Display
 	protected:
 		int docUnitIndex;
 		QColor colorPaper;
+		QColor colorScratch;
 		QColor colorFrame;
 		QColor colorFrameNorm;
 		QColor colorFrameGroup;

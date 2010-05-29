@@ -161,6 +161,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_vhRulerHW(17)
 {
 	setObjectName("s");
+	QPalette p=palette();
+	p.setBrush(QPalette::Window, PrefsManager::instance()->appPrefs.displayPrefs.scratchColor);
+	setPalette(p);
 	setAttribute(Qt::WA_StaticContents);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
