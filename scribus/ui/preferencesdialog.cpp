@@ -106,11 +106,11 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	{
 		addItem( tr("Document Information"), loadIcon("documentinfo32.png"), prefs_DocumentInformation);
 	}
-	addItem( tr("Guides"), loadIcon("guides.png"), prefs_Guides);
+	addItem( tr("Guides"), loadIcon("22/edit-guides.png"), prefs_Guides);
 	addItem( tr("Typography"), loadIcon("22/draw-text.png"), prefs_Typography);
 	addItem( tr("Item Tools"), loadIcon("tools.png"), prefs_ItemTools);
 	addItem( tr("Operator Tools"), loadIcon("tools.png"), prefs_OperatorTools);
-	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), prefs_Hyphenator);
+	addItem( tr("Hyphenator"), loadIcon("signature_22.png"), prefs_Hyphenator);
 	addItem( tr("Fonts"), loadIcon("22/preferences-desktop-font.png"), prefs_Fonts);
 	addItem( tr("Color Management"), loadIcon("blend_22.png"), prefs_ColorManagement);
 	addItem( tr("Printer"), loadIcon("22/printer.png"), prefs_Printer);
@@ -131,7 +131,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Display"), loadIcon("22/video-display.png"), prefs_Display);
 	if (!doc)
 	{
-		addItem( tr("External Tools"), loadIcon("externaltools.png"), prefs_ExternalTools);
+		addItem( tr("External Tools"), loadIcon("gear_22.png"), prefs_ExternalTools);
 		addItem( tr("Miscellaneous"), loadIcon("misc.png"), prefs_Miscellaneous);
 		addItem( tr("Page Sizes"), loadIcon("16/page-simple.png"), prefs_PageSizes);
 		addItem( tr("Plugins"), loadIcon("plugins.png"), prefs_Plugins);
