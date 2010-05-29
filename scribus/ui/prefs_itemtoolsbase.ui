@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>832</height>
+    <width>661</width>
+    <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,14 +88,11 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>620</width>
-            <height>727</height>
+            <width>596</width>
+            <height>720</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
-           <property name="margin">
-            <number>6</number>
-           </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
@@ -106,59 +103,15 @@
                <property name="formAlignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                </property>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_10">
-                 <property name="text">
-                  <string>Columns:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QSpinBox" name="textColumnsSpinBox">
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_17">
-                 <property name="text">
-                  <string>Column Gap:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="ScrSpinBox" name="textColumnGapSpinBox"/>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string>Tab Fill Character:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QComboBox" name="textTabFillCharComboBox"/>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="label_14">
-                 <property name="text">
-                  <string>Tab Width:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="ScrSpinBox" name="textTabWidthSpinBox"/>
-               </item>
-               <item row="0" column="1">
-                <widget class="ColorCombo" name="textFrameFillColorComboBox"/>
-               </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_30">
                  <property name="text">
                   <string>Fill Color:</string>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="ColorCombo" name="textFrameFillColorComboBox"/>
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_31">
@@ -169,6 +122,26 @@
                </item>
                <item row="1" column="1">
                 <widget class="ColorCombo" name="textFrameLineColorComboBox"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Tab Fill Character:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="textTabFillCharComboBox"/>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>Tab Width:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="ScrSpinBox" name="textTabWidthSpinBox"/>
                </item>
               </layout>
              </item>
@@ -190,10 +163,23 @@
              </item>
              <item>
               <layout class="QFormLayout" name="formLayout_10">
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+               </property>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_32">
                  <property name="text">
                   <string>Shading:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="textFrameFillShadingSpinBox">
+                 <property name="suffix">
+                  <string> %</string>
+                 </property>
+                 <property name="maximum">
+                  <number>100</number>
                  </property>
                 </widget>
                </item>
@@ -214,13 +200,17 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QSpinBox" name="textFrameFillShadingSpinBox">
-                 <property name="suffix">
-                  <string> %</string>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_42">
+                 <property name="text">
+                  <string/>
                  </property>
-                 <property name="maximum">
-                  <number>100</number>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_43">
+                 <property name="text">
+                  <string/>
                  </property>
                 </widget>
                </item>
@@ -228,6 +218,147 @@
              </item>
              <item>
               <spacer name="horizontalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_44">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Columns &amp; Text Distances</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <layout class="QFormLayout" name="formLayout_12">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Top:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="ScrSpinBox" name="topTextDistanceSpinBox"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Bottom:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="ScrSpinBox" name="bottomTextDistanceSpinBox"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Columns:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="textColumnsSpinBox">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_13">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QFormLayout" name="formLayout_13">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_39">
+                 <property name="text">
+                  <string>Left:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="ScrSpinBox" name="leftTextDistanceSpinBox"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_41">
+                 <property name="text">
+                  <string>Right:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="ScrSpinBox" name="rightTextDistanceSpinBox"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_17">
+                 <property name="text">
+                  <string>Column Gap:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="ScrSpinBox" name="textColumnGapSpinBox"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_15">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -1192,6 +1323,54 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>textFrameFillColorComboBox</tabstop>
+  <tabstop>textFrameLineColorComboBox</tabstop>
+  <tabstop>textTabFillCharComboBox</tabstop>
+  <tabstop>textTabWidthSpinBox</tabstop>
+  <tabstop>textFrameFillShadingSpinBox</tabstop>
+  <tabstop>textFrameLineShadingSpinBox</tabstop>
+  <tabstop>textColumnsSpinBox</tabstop>
+  <tabstop>textColumnGapSpinBox</tabstop>
+  <tabstop>topTextDistanceSpinBox</tabstop>
+  <tabstop>leftTextDistanceSpinBox</tabstop>
+  <tabstop>bottomTextDistanceSpinBox</tabstop>
+  <tabstop>rightTextDistanceSpinBox</tabstop>
+  <tabstop>textFontComboBox</tabstop>
+  <tabstop>textSizeSpinBox</tabstop>
+  <tabstop>textColorComboBox</tabstop>
+  <tabstop>textColorShadingSpinBox</tabstop>
+  <tabstop>textStrokeColorComboBox</tabstop>
+  <tabstop>textStrokeShadingSpinBox</tabstop>
+  <tabstop>imageFrameFillColorComboBox</tabstop>
+  <tabstop>imageFrameFillShadingSpinBox</tabstop>
+  <tabstop>imageFrameLineColorComboBox</tabstop>
+  <tabstop>imageFrameLineShadingSpinBox</tabstop>
+  <tabstop>imageUseEmbeddedClippingPathCheckBox</tabstop>
+  <tabstop>imageFreeScalingRadioButton</tabstop>
+  <tabstop>imageHorizontalScalingSpinBox</tabstop>
+  <tabstop>imageVerticalScalingSpinBox</tabstop>
+  <tabstop>scalingLockToolButton</tabstop>
+  <tabstop>imageFrameScalingRadioButton</tabstop>
+  <tabstop>imageKeepAspectRatioCheckBox</tabstop>
+  <tabstop>onscreenResolutionFullRadioButton</tabstop>
+  <tabstop>onscreenResolutionNormalRadioButton</tabstop>
+  <tabstop>onscreenResolutionLowRadioButton</tabstop>
+  <tabstop>shapeFrameFillColorComboBox</tabstop>
+  <tabstop>shapeFrameFillShadingSpinBox</tabstop>
+  <tabstop>shapeFrameLineColorComboBox</tabstop>
+  <tabstop>shapeFrameLineShadingSpinBox</tabstop>
+  <tabstop>shapeFrameLineStyleComboBox</tabstop>
+  <tabstop>shapeLineWidthSpinBox</tabstop>
+  <tabstop>lineFillColorComboBox</tabstop>
+  <tabstop>lineFillColorShadingSpinBox</tabstop>
+  <tabstop>lineStyleComboBox</tabstop>
+  <tabstop>lineWidthSpinBox</tabstop>
+  <tabstop>lineStartArrowComboBox</tabstop>
+  <tabstop>lineEndArrowComboBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <buttongroups>

@@ -182,6 +182,7 @@ struct ItemToolPrefs
 	int textColumns; //! Default number of columns in a text frame
 	double textColumnGap; //! Default gap between columns of a text frame
 	QString textTabFillChar; //! Default tab fill character
+	MarginStruct textDistances; //! Default text to frame distances
 	double textTabWidth; //! Default tab width
 	/* ShapeTool */
 	QString shapeLineColor; //! Default shape line color

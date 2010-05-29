@@ -1427,6 +1427,10 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("TextColumnCount",appPrefs.itemToolPrefs.textColumns);
 	dcItemTools.setAttribute("TextColumnGap",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textColumnGap));
 	dcItemTools.setAttribute("TextTabWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textTabWidth));
+	dcItemTools.setAttribute("TextDistanceTop",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Top));
+	dcItemTools.setAttribute("TextDistanceBottom",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Bottom));
+	dcItemTools.setAttribute("TextDistanceLeft",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Left));
+	dcItemTools.setAttribute("TextDistanceRight",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Right));
 	dcItemTools.setAttribute("TabFillCharacter",appPrefs.itemToolPrefs.textTabFillChar);
 	dcItemTools.setAttribute("ShapeLineStyle",appPrefs.itemToolPrefs.shapeLineStyle);
 	dcItemTools.setAttribute("LineStyle",appPrefs.itemToolPrefs.lineStyle);
@@ -2015,6 +2019,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.textColumnGap  = ScCLocale::toDoubleC(dc.attribute("TextColumnGap"), 0.0);
 			appPrefs.itemToolPrefs.textTabFillChar = dc.attribute("TabFillCharacter", "");
 			appPrefs.itemToolPrefs.textTabWidth   = ScCLocale::toDoubleC(dc.attribute("TextTabWidth"), 36.0);
+			appPrefs.itemToolPrefs.textDistances.Top = ScCLocale::toDoubleC(dc.attribute("TextDistanceTop"), 0.0);
+			appPrefs.itemToolPrefs.textDistances.Bottom = ScCLocale::toDoubleC(dc.attribute("TextDistanceBottom"), 0.0);
+			appPrefs.itemToolPrefs.textDistances.Left = ScCLocale::toDoubleC(dc.attribute("TextDistanceLeft"), 0.0);
+			appPrefs.itemToolPrefs.textDistances.Right = ScCLocale::toDoubleC(dc.attribute("TextDistanceRight"), 0.0);
 			appPrefs.itemToolPrefs.shapeLineStyle = dc.attribute("ShapeLineStyle").toInt();
 			appPrefs.itemToolPrefs.lineStyle = dc.attribute("LineStyle").toInt();
 			appPrefs.itemToolPrefs.shapeLineWidth     = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 0.0);

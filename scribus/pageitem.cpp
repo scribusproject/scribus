@@ -458,10 +458,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
-	Extra = 0;
-	TExtra = 0;
-	BExtra = 0;
-	RExtra = 0;
+	Extra = m_Doc->itemToolPrefs().textDistances.Left;
+	TExtra = m_Doc->itemToolPrefs().textDistances.Top;
+	BExtra = m_Doc->itemToolPrefs().textDistances.Bottom;
+	RExtra = m_Doc->itemToolPrefs().textDistances.Right;
 	firstChar = 0;
 	MaxChars = 0;
 	Pfile = "";

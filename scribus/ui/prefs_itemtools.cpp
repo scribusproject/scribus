@@ -111,6 +111,10 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	textTabWidthSpinBox->setValue(prefsData->itemToolPrefs.textTabWidth * unitRatio);
 	textColumnsSpinBox->setValue(prefsData->itemToolPrefs.textColumns);
 	textColumnGapSpinBox->setValue(prefsData->itemToolPrefs.textColumnGap * unitRatio);
+	topTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Top * unitRatio);
+	bottomTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Bottom * unitRatio);
+	leftTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Left * unitRatio);
+	rightTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Right * unitRatio);
 
 	//Image Tool
 //TODO	imageFrameLineColorComboBox
@@ -216,12 +220,16 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 			prefsData->itemToolPrefs.textTabFillChar = textTabFillCharComboBox->currentText().right(1);
 			break;
 	}
+	prefsData->itemToolPrefs.textDistances.Top = topTextDistanceSpinBox->value() / unitRatio;
+	prefsData->itemToolPrefs.textDistances.Bottom = bottomTextDistanceSpinBox->value() / unitRatio;
+	prefsData->itemToolPrefs.textDistances.Left = leftTextDistanceSpinBox->value() / unitRatio;
+	prefsData->itemToolPrefs.textDistances.Right = rightTextDistanceSpinBox->value() / unitRatio;
 
 	//Image Tool
-//
-//	TODO imageFrameLineColorComboBox
-//	TODO imageFrameLineShadingSpinBox
-//	TODO scalingLockToolButton
+	//
+	//	TODO imageFrameLineColorComboBox
+	//	TODO imageFrameLineShadingSpinBox
+	//	TODO scalingLockToolButton
 
 	prefsData->itemToolPrefs.imageFillColor = imageFrameFillColorComboBox->currentText();
 	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
