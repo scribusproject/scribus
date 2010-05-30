@@ -31,9 +31,6 @@ SET(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sccolorspacedata.cpp
 	sccolortransform.cpp
 	sccolortransformpool.cpp
-	sclcmscolormgmtengineimpl.cpp
-	sclcmscolorprofileimpl.cpp
-	sclcmscolortransformimpl.cpp
 	${SCRIBUS_LCMS_IMPL_SOURCES}
 )
 

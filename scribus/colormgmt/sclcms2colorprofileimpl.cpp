@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sclcms2colorprofileimpl.h"
 #include "sclcms2colormgmtengineimpl.h"
+#include <cstdlib>
 
 ScLcms2ColorProfileImpl::ScLcms2ColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile)
                       : ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
@@ -44,6 +45,7 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 	{
 		if (m_profileHandle)
 		{
+#ifdef _WIN32
 			cmsUInt32Number descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", NULL, 0);
 			if (descSize > 0)
 			{
@@ -61,6 +63,19 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 					free(descData);
 				}
 			}
+#else
+			cmsUInt32Number descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", NULL, 0);
+			if (descSize > 0)
+			{
+				char* descData = (char*) malloc(descSize + sizeof(char));
+				descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descSize > 0)
+				{
+					m_productDescription = QString(descData);
+					free(descData);
+				}
+			}
+#endif
 		}
 	}
 	return m_productDescription;

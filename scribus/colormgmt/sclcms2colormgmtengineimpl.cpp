@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include <QDir>
 #include <QFile>
 
@@ -83,6 +84,7 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 			hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 			if (hIn == NULL)
 				continue;
+#ifdef _WIN32
 			cmsUInt32Number descSize = cmsGetProfileInfo(hIn, cmsInfoDescription, "en", "US", NULL, 0);
 			if (descSize > 0)
 			{
@@ -100,6 +102,19 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 					free(descData);
 				}
 			}
+#else
+			cmsUInt32Number descSize = cmsGetProfileInfoASCII(hIn, cmsInfoDescription, "en", "US", NULL, 0);
+			if (descSize > 0)
+			{
+				char* descData = (char*) malloc(descSize + sizeof(char));
+				descSize = cmsGetProfileInfoASCII(hIn, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descSize > 0)
+				{
+					profileInfo.description = QString(descData);
+					free(descData);
+				}
+			}
+#endif
 			if (profileInfo.description.isEmpty())
 			{
 				cmsCloseProfile(hIn);
