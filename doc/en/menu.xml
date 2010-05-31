@@ -99,6 +99,7 @@
 			<submenuitem text="Lprof" file="toolbox14.html"/>
 			<submenuitem text="Krita" file="toolbox15.html"/>
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
+			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
 		</submenuitem>
 		<submenuitem text="Hints &amp; FAQs" file="topten.html">
 			<submenuitem text="Help" file="faq1.html"/>

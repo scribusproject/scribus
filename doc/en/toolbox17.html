@@ -1,0 +1,25 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>SwatchBooker</title>
+</head>
+<body>
+<h2>SwatchBooker</h2>
+<p>Just like old habits die hard, many designers rely on color palettes from vendors like Pantone, HKS, Toyo or others, and especially those that have been shipped with the drawing or design application they are used to for years, if not decades.</p>
+<p>Although the Scribus Team has succeeded in licensing many of those palettes for future stable versions, not all of the efforts resulted in a success, which means you have to get the palettes you need from other resources. The Scribus Team is aware of some external palette collections in Scribus's own palette format that contain these colors, but we cannot endorse their use, since their legality is as questionable as their reliability.</p>
+<p>Until the licensing issues with regard to Scribus are solved and as long as you have a valid license for a program like CorelDraw, PageMaker or InDesign, you should be free to <i>use</i> the included color palettes in Scribus, even though Scribus doesn't support many proprietary color palette formats yet. This is where you should consider <a href="http://www.selapa.net/swatchbooker/">SwatchBooker</a> as the tool of choice. SwatchBooker will not only help you to convert color palettes, whether it be proprietary or Open Source, for use with Scribus; you can also modify existing palette files by changing color values, assigning color profiles or translating color names.</p>
+<p>If you use SwatchBooker for anything but color palette conversion, you do so at your own risk. Changing names of spot colors or their alternative CMYK/RGB values may result in serious color issues, and it defies the purpose of standardized color palettes.</p>
+<p>Once you have converted the color palettes with SwatchBooker (via "File > Save As"), you have to copy them to directory that contains the palette files:
+<ul>
+<li>On Linux and Unix: /usr/lib/scribus/swatches.</li>
+<li>On Mac OSX: Your installation directory, followed by /lib/scribus/swatches, eg: /Applications/Scribus.app/Contents/lib/scribus/swatches/</li></ul></p>
+<li>On Windows: C:\Program Files\Scribus1.3.x\libs\swatches.</li></ul></p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/SwB.png" alt="A proprietary color palette in Adobe's ASE format opened by SwatchBooker" /></td></tr></table>
+<br>
+<p><b><i>Requirements:</i></b> Python, PyQt4, lcms</p>
+<p><b><i>Supported formats:</b></i></p>
+<p><b>Import:</b> Adobe (ACO, ACB, ACT, ASE, ACF, BCF, CLR); AutoCAD (ACB; unencrypted only!); ColorSchemer (CS); Corel (CPL); GIMP (GPL); ICC named colors profiles; OpenOffice.org (SOC); QuarkXPress (QCL+CUI; note that you need both files to be able to convert an XPress color palette); RAL (BCS); RIFF (PAL); Scribus (XML); VivaDesigner (XML)</p>
+<p><b>Export:</b> Adobe (ASE); GIMP (GPL); HTML; OpenOffice.org (SOC); Scribus (XML)</p>
+</body>
+</html>
