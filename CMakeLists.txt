@@ -835,10 +835,10 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-    scribus-1.3.7.tar.gz
-    scribus-1.3.7.tar.Z
-    scribus-1.3.7.svn.gz
-    scribus-1.3.7.svn.bz2
+    scribus-1.3.8.tar.gz
+    scribus-1.3.8.tar.Z
+    scribus-1.3.8.svn.gz
+    scribus-1.3.8.svn.bz2
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"
