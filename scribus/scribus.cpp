@@ -3062,6 +3062,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		else
 		{
 			doc->currentStyle = currItem->itemText.defaultStyle();
+			propertiesPalette->setParStyle(doc->currentStyle.parent());
+			propertiesPalette->setCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
 			emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
@@ -3115,6 +3117,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		else
 		{
 			doc->currentStyle = currItem->itemText.defaultStyle();
+			propertiesPalette->setParStyle(doc->currentStyle.parent());
+			propertiesPalette->setCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
 			emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
