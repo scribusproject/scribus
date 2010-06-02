@@ -2237,9 +2237,8 @@ void ScribusView::PasteToPage()
 		emit ItemGeom(gw, gh);
 		emit HaveSel(newObjects.itemAt(0)->itemType());
 	}
-	else
+	else if (newObjects.count() == 1)
 	{
-		Q_ASSERT(newObjects.count()==1);
 		PageItem *currItem = newObjects.itemAt(0);
 		if (Doc->useRaster)
 		{
@@ -2256,6 +2255,16 @@ void ScribusView::PasteToPage()
 		}
 		currItem->emitAllToGUI();
 	}
+	else // newObjects.count() == 0
+	{
+		if (activeTransaction)
+		{
+			activeTransaction->cancel();
+			delete activeTransaction;
+			activeTransaction = NULL;
+		}
+		return;
+	}
 	newObjects.clear();
 	if (activeTransaction)
 	{
@@ -2263,6 +2272,7 @@ void ScribusView::PasteToPage()
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
+	emit DocChanged();
 }
 
 void ScribusView::resizeEvent ( QResizeEvent * event )
