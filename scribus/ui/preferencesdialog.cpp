@@ -26,29 +26,29 @@ for which a new license (GPL+exception) is in place.
 PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)
 	: QDialog(parent),
 	prefs_ColorManagement(0),
-	prefs_UserInterface(0),
+	prefs_Display(0),
 	prefs_DocumentInformation(0),
+	prefs_DocumentItemAttributes(0),
 	prefs_DocumentSections(0),
 	prefs_DocumentSetup(0),
-	prefs_Display(0),
 	prefs_ExternalTools(0),
-	prefs_Guides(0),
-	prefs_KeyboardShortcuts(0),
-	prefs_Printer(0),
-	prefs_Paths(0),
-	prefs_PageSizes(0),
-	prefs_Hyphenator(0),
-	prefs_Miscellaneous(0),
-	prefs_Plugins(0),prefs_PreflightVerifier(0),
-	prefs_Scrapbook(0),
-	prefs_Typography(0),
-	prefs_ItemTools(0),
-	prefs_OperatorTools(0),
 	prefs_Fonts(0),
-	prefs_TableOfContents(0),
-	prefs_PDFExport(0),
-	prefs_DocumentItemAttributes(0),
+	prefs_Guides(0),
+	prefs_Hyphenator(0),
 	prefs_ImageCache(0),
+	prefs_ItemTools(0),
+	prefs_KeyboardShortcuts(0),
+	prefs_Miscellaneous(0),
+	prefs_OperatorTools(0),
+	prefs_PDFExport(0),
+	prefs_PageSizes(0),
+	prefs_Paths(0),
+	prefs_Plugins(0),prefs_PreflightVerifier(0),
+	prefs_Printer(0),
+	prefs_Scrapbook(0),
+	prefs_TableOfContents(0),
+	prefs_Typography(0),
+	prefs_UserInterface(0),
 	counter(0),
 	m_Doc(doc)
 {
@@ -64,36 +64,36 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		defaultsButton->hide();
 	}
 	// Create Stack Widgets if required
+	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget, m_Doc);
+	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
+	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(prefsStackWidget, m_Doc);
 	prefs_DocumentSetup = new Prefs_DocumentSetup(prefsStackWidget, m_Doc);
+	prefs_Fonts = new Prefs_Fonts(prefsStackWidget, m_Doc);
 	prefs_Guides = new Prefs_Guides(prefsStackWidget, m_Doc);
-	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
+	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget, m_Doc);
 	prefs_ItemTools = new Prefs_ItemTools(prefsStackWidget, m_Doc);
 	prefs_OperatorTools = new Prefs_OperatorTools(prefsStackWidget, m_Doc);
-	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget, m_Doc);
-	prefs_Fonts = new Prefs_Fonts(prefsStackWidget, m_Doc);
-	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget, m_Doc);
-	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
 	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget, m_Doc);
 	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget, m_Doc);
-	prefs_DocumentItemAttributes = new Prefs_DocumentItemAttributes(prefsStackWidget, m_Doc);
+	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
 	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget, m_Doc);
-	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
+	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
 	if (doc)
 	{
-		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
 		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
+		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
 	}
 	if (!doc)
 	{
 		prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
+		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
+		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
 		prefs_Miscellaneous = new Prefs_Miscellaneous(prefsStackWidget, m_Doc);
 		prefs_PageSizes = new Prefs_PageSizes(prefsStackWidget, m_Doc);
-		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
-		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
-		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
 		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
-		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
+		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
 		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
+		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
 	}
 	// Add Stack Widgets if required
 	if (!doc)
