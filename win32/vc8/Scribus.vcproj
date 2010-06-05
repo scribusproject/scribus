@@ -81,7 +81,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcmsd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib scribus-wpg.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcms2_staticd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
@@ -182,7 +182,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms.lib mscms.lib PoDoFoLib.lib WSock32.Lib scribus-wpg.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms2_static.lib mscms.lib PoDoFoLib.lib WSock32.Lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
@@ -283,7 +283,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcmsd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib scribus-wpg.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcms2_staticd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
@@ -384,7 +384,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms.lib mscms.lib PoDoFoLib.lib WSock32.Lib scribus-wpg.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms2_static.lib mscms.lib PoDoFoLib.lib WSock32.Lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
@@ -1396,6 +1396,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_operatortools.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\prefs_pagesizes.cpp"
 				>
 			</File>
 			<File
@@ -7744,6 +7748,38 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\prefs_pagesizes.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\prefs_pane.h"
 				>
 				<FileConfiguration
@@ -12754,6 +12790,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_prefs_pagesizes.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_prefs_pane.cpp"
 				>
 			</File>
@@ -13659,27 +13699,27 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormgmt\sclcmscolormgmtengineimpl.cpp"
+				RelativePath="..\..\scribus\colormgmt\sclcms2colormgmtengineimpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormgmt\sclcmscolormgmtengineimpl.h"
+				RelativePath="..\..\scribus\colormgmt\sclcms2colormgmtengineimpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormgmt\sclcmscolorprofileimpl.cpp"
+				RelativePath="..\..\scribus\colormgmt\sclcms2colorprofileimpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormgmt\sclcmscolorprofileimpl.h"
+				RelativePath="..\..\scribus\colormgmt\sclcms2colorprofileimpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormgmt\sclcmscolortransformimpl.cpp"
+				RelativePath="..\..\scribus\colormgmt\sclcms2colortransformimpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\colormgmt\sclcmscolortransformimpl.h"
+				RelativePath="..\..\scribus\colormgmt\sclcms2colortransformimpl.h"
 				>
 			</File>
 		</Filter>

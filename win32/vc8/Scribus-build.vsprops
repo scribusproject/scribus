@@ -6,7 +6,7 @@
 	>
 	<UserMacro
 		Name="QT4_DIR"
-		Value="E:\Libs-msvc2005\qt-4.5.1"
+		Value="E:\Libs-msvc2005\qt-4.6.1"
 	/>
 	<UserMacro
 		Name="BOOST_DIR"
@@ -18,7 +18,7 @@
 	/>
 	<UserMacro
 		Name="FREETYPE_DIR"
-		Value="E:\Libs-msvc2005\freetype-2.3.7"
+		Value="E:\Libs-msvc2005\freetype-2.3.12"
 	/>
 	<UserMacro
 		Name="ICONV_DIR"
@@ -26,7 +26,7 @@
 	/>
 	<UserMacro
 		Name="LCMS_DIR"
-		Value="E:\Libs-msvc2005\lcms-1.18"
+		Value="E:\Libs-msvc2005\lcms-2.0"
 	/>
 	<UserMacro
 		Name="LIBJPEG_DIR"
@@ -38,7 +38,7 @@
 	/>
 	<UserMacro
 		Name="PODOFO_DIR"
-		Value="E:\Libs-msvc2005\podofo-0.7.0"
+		Value="E:\Libs-msvc2005\podofo-0.8.0"
 	/>
 	<UserMacro
 		Name="LIBXML2_DIR"
@@ -46,6 +46,6 @@
 	/>
 	<UserMacro
 		Name="PYTHON_DIR"
-		Value="E:\Libs-msvc2005\Python-2.5.1"
+		Value="E:\Libs-msvc2005\Python-2.5.4"
 	/>
 </VisualStudioPropertySheet>

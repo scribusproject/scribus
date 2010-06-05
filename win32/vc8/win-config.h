@@ -16,6 +16,9 @@
 /* ColorManagement (LittleCms) */
 #define HAVE_CMS 1
 
+/* ColorManagement (LittleCms2) */
+#define HAVE_LCMS2 1
+
 /* ColorManagement (Windows) */
 #define HAVE_ICM 1
 
