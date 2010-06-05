@@ -2193,15 +2193,15 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		inputProf = cmSettings.doc()->colorEngine.openProfileFromMem(embeddedProfile);
 		inputProfIsEmbedded = true;
 	}
-	else if (cmSettings.useColorManagement() && isCMYK)
+	else if (cmSettings.colorManagementAllowed() && isCMYK)
 		inputProf = ScCore->defaultCMYKProfile;
-	else if (cmSettings.useColorManagement() && bilevel && (reqType == CMYKData))
+	else if (cmSettings.colorManagementAllowed() && bilevel && (reqType == CMYKData))
 		inputProf = NULL; // Workaround to map directly gray to K channel
-	else if (cmSettings.useColorManagement())
+	else if (cmSettings.colorManagementAllowed())
 		inputProf = ScCore->defaultRGBProfile;
 	ScColorProfile screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
 	ScColorProfile printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
-	if (cmSettings.useColorManagement() && inputProf && screenProf && printerProf)
+	if (cmSettings.colorManagementAllowed() && inputProf && screenProf && printerProf)
 	{
 		ScColorMgmtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
 		eColorFormat inputProfFormat  = pDataLoader->pixelFormat();
