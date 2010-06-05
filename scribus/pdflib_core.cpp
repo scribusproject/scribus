@@ -8735,15 +8735,15 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			QTransform pageM;
 			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
 			pageM.rotate(-rotation);
-			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft()));
-			PutDoc(" " + QString::number(pagesize.GetBottom()));
-			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth()));
-			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight()));
+			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft(), 'f'));
+			PutDoc(" " + QString::number(pagesize.GetBottom(), 'f'));
+			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth(), 'f'));
+			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight(), 'f'));
 			PutDoc("]");
-			PutDoc("\n/Matrix [" + QString::number(pageM.m11()) + " "
-								 + QString::number(pageM.m12()) + " "
-								 + QString::number(pageM.m21()) + " "
-								 + QString::number(pageM.m22()) + " ");
+			PutDoc("\n/Matrix [" + QString::number(pageM.m11(), 'f') + " "
+								 + QString::number(pageM.m12(), 'f') + " "
+								 + QString::number(pageM.m21(), 'f') + " "
+								 + QString::number(pageM.m22(), 'f') + " ");
 			if (rotation == 0)
 				PutDoc("0 0");
 			else if (rotation == 90)
@@ -8751,7 +8751,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			else if (rotation == 180)
 				PutDoc("1 1");
 			else if (rotation == 270)
-				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth()) + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth())));
+				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth(), 'f') + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth()), 'f'));
 			else
 				PutDoc("0 0");
 			PutDoc("]");
@@ -8855,12 +8855,30 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			StartObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pagesize = page->GetPageSize();
-			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft()));
-			PutDoc(" " + QString::number(pagesize.GetBottom()));
-			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth()));
-			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight()));
+			int rotation = page->GetRotation();
+			QMatrix pageM;
+			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
+			pageM.rotate(-rotation);
+			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft(), 'f'));
+			PutDoc(" " + QString::number(pagesize.GetBottom(), 'f'));
+			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth(), 'f'));
+			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight(), 'f'));
 			PutDoc("]");
-			PutDoc("\n/Matrix [" + QString::number(1.0/pagesize.GetWidth()) + " 0 0 " + QString::number(1.0/pagesize.GetHeight()) + " 0 0]");
+			PutDoc("\n/Matrix [" + QString::number(pageM.m11(), 'f') + " "
+								 + QString::number(pageM.m12(), 'f') + " "
+								 + QString::number(pageM.m21(), 'f') + " "
+								 + QString::number(pageM.m22(), 'f') + " ");
+			if (rotation == 0)
+				PutDoc("0 0");
+			else if (rotation == 90)
+				PutDoc("0 1");
+			else if (rotation == 180)
+				PutDoc("1 1");
+			else if (rotation == 270)
+				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth(), 'f') + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth()), 'f'));
+			else
+				PutDoc("0 0");
+			PutDoc("]");
 			PutDoc("\n/Resources " + QString::number(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
