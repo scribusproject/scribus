@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_MSC_VER)
 #define _USE_MATH_DEFINES
+#define NOMINMAX
 #endif
 
 #include <limits>

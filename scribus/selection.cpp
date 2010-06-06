@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include "sclimits.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include <QDebug>
@@ -30,6 +31,8 @@ Selection::Selection(QObject* parent)
 	m_sigSelectionChanged(false),
 	m_sigSelectionIsMultiple(false)
 {
+	groupX   = groupY   = groupW   = groupH   = 0;
+	visualGX = visualGY = visualGW = visualGH = 0;
 }
 
 Selection::Selection(QObject* parent, bool guiSelection) 
@@ -40,6 +43,8 @@ Selection::Selection(QObject* parent, bool guiSelection)
 	m_sigSelectionChanged(false),
 	m_sigSelectionIsMultiple(false)
 {
+	groupX   = groupY   = groupW   = groupH   = 0;
+	visualGX = visualGY = visualGW = visualGH = 0;
 }
 
 Selection::Selection(const Selection& other) :
@@ -63,6 +68,14 @@ Selection::Selection(const Selection& other) :
 		m_SelList[0]->setSelected(true);
 		emit selectionIsMultiple(m_hasGroupSelection);
 	}
+	groupX = other.groupX;
+	groupY = other.groupY;
+	groupW = other.groupW;
+	groupH = other.groupH;
+	visualGX = other.visualGX;
+	visualGY = other.visualGY;
+	visualGW = other.visualGW;
+	visualGH = other.visualGH;
 }
 
 Selection& Selection::operator=( const Selection &other )
@@ -353,8 +366,8 @@ double Selection::width() const
 {
 	if (m_SelList.isEmpty())
 		return 0.0;
-	double minX=9999999.9;
-	double maxX=-9999999.9;
+	double minX =  std::numeric_limits<double>::max();
+	double maxX = -std::numeric_limits<double>::max();
 	SelectionList::ConstIterator it=m_SelList.begin();
 	SelectionList::ConstIterator itend=m_SelList.end();
 	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
@@ -373,8 +386,8 @@ double Selection::height() const
 {
 	if (m_SelList.isEmpty())
 		return 0.0;
-	double minY=9999999.9;
-	double maxY=-9999999.9;
+	double minY =  std::numeric_limits<double>::max();
+	double maxY = -std::numeric_limits<double>::max();
 	SelectionList::ConstIterator it=m_SelList.begin();
 	SelectionList::ConstIterator itend=m_SelList.end();
 	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
@@ -392,16 +405,22 @@ double Selection::height() const
 void Selection::setGroupRect()
 {
 	PageItem *currItem;
-	double minx = 9999999.9;
-	double miny = 9999999.9;
-	double maxx = -9999999.9;
-	double maxy = -9999999.9;
-	
-	double vminx = 9999999.9;
-	double vminy = 9999999.9;
-	double vmaxx = -9999999.9;
-	double vmaxy = -9999999.9;
-	uint selectedItemCount=count();
+	uint selectedItemCount = count();
+	if (selectedItemCount == 0)
+	{
+		groupX   = groupY   = groupW   = groupH   = 0;
+		visualGX = visualGY = visualGW = visualGH = 0;
+		return;
+	}
+	double minx  =  std::numeric_limits<double>::max();
+	double miny  =  std::numeric_limits<double>::max();
+	double maxx  = -std::numeric_limits<double>::max();
+	double maxy  = -std::numeric_limits<double>::max();
+	double vminx =  std::numeric_limits<double>::max();
+	double vminy =  std::numeric_limits<double>::max();
+	double vmaxx = -std::numeric_limits<double>::max();
+	double vmaxy = -std::numeric_limits<double>::max();
+
 	for (uint gc = 0; gc < selectedItemCount; ++gc)
 	{
 		currItem = itemAt(gc);
@@ -547,6 +566,7 @@ void Selection::sendSignals(bool guiConnect)
 {
 	if (m_isGUISelection && (m_delaySignals <= 0))
 	{
+		setGroupRect();
 		if (guiConnect)
 			connectItemToGUI();
 		if (m_sigSelectionChanged)
