@@ -258,7 +258,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		return;
 	m_mouseCurrentPoint = mousePointDoc;
 	bool movingOrResizing = (m_canvas->m_viewMode.operItemMoving || m_canvas->m_viewMode.operItemResizing);
-	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (!movingOrResizing) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
+	bool mouseIsOnPage    = (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1);
+	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (!movingOrResizing) && (mouseIsOnPage) )
 	{
 		// #9002: Resize points undraggable when object is aligned to a guide
 		// Allow item resize when guides are aligned to item while preserving
@@ -299,6 +300,14 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			}
 			// Here removed a bunch of comments which made reading code difficult,
 			// there is svn for tracking changes after all. pm
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		}
+	}
+	else if (!mouseIsOnPage)
+	{
+		QCursor* cursor = qApp->overrideCursor();
+		if (cursor && ((cursor->shape() == Qt::SplitHCursor) || (cursor->shape() == Qt::SplitVCursor)))
+		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
