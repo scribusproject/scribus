@@ -23,7 +23,9 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
 #include "scimgdataloader_wpg.h"
+#include "scstreamfilter_jpeg.h"
 #include "sctextstream.h"
+#include <QFile>
 #include <QMessageBox>
 #include <QList>
 #include <QByteArray>
@@ -45,35 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "rawimage.h"
 
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
-#endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
-
 using namespace std;
-
-typedef struct my_error_mgr
-{
-	struct jpeg_error_mgr pub;            /* "public" fields */
-	jmp_buf setjmp_buffer;  /* for return to caller */
-}
-*my_error_ptr;
-
-static void my_error_exit (j_common_ptr cinfo)
-{
-	my_error_ptr myerr = (my_error_ptr) cinfo->err;
-	(*cinfo->err->output_message) (cinfo);
-	longjmp (myerr->setjmp_buffer, 1);
-}
 
 ScImage::ScImage(const QImage & image) : QImage(image)
 {
@@ -1201,96 +1175,32 @@ bool ScImage::createLowRes(double scale)
 
 bool ScImage::convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 {
-	struct jpeg_compress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *outfile;
-	JSAMPROW row_pointer[1];
-	row_pointer[0] = 0;
-	cinfo.err = jpeg_std_error (&jerr.pub);
-	jerr.pub.error_exit = my_error_exit;
-	outfile = NULL;
-	if (setjmp (jerr.setjmp_buffer))
+	bool success = false;
+	QFile file(fn);
+	if (file.open(QIODevice::WriteOnly))
 	{
-		jpeg_destroy_compress (&cinfo);
-		if (outfile)
-			fclose (outfile);
-		return false;
-	}
-	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn.toLocal8Bit(), "wb")) == NULL)
-		return false;
-	jpeg_stdio_dest (&cinfo, outfile);
-	cinfo.image_width  = width();
-	cinfo.image_height = height();
-	if (isCMYK)
-	{
-		cinfo.in_color_space = JCS_CMYK;
-		cinfo.input_components = 4;
-	}
-	else
-	{
-		if (isGray)
-		{
-			cinfo.in_color_space = JCS_GRAYSCALE;
-			cinfo.input_components = 1;
-		}
-		else
-		{
-			cinfo.in_color_space = JCS_RGB;
-			cinfo.input_components = 3;
-		}
-	}
-	jpeg_set_defaults (&cinfo);
-	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
-	jpeg_set_quality (&cinfo, qual[Quality], true);
-	jpeg_start_compress (&cinfo, true);
-	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
-	int w = cinfo.image_width;
-	while (cinfo.next_scanline < cinfo.image_height)
-	{
-		uchar *row = row_pointer[0];
+		ScJpegEncodeFilter::Color imgColor = ScJpegEncodeFilter::GRAY;
 		if (isCMYK)
+			imgColor = ScJpegEncodeFilter::CMYK;
+		else if (!isGray)
+			imgColor = ScJpegEncodeFilter::RGB;
+		int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
+		QDataStream dataStream(&file);
+		ScJpegEncodeFilter jpegFilter(&dataStream, width(), height(), imgColor);
+		jpegFilter.setQuality(qual[Quality]);
+		if (jpegFilter.openFilter())
 		{
-			QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
-			for (int i=0; i<w; ++i)
-			{
-				*row++ = qRed(*rgba);
-				*row++ = qGreen(*rgba);
-				*row++ = qBlue(*rgba);
-				*row++ = qAlpha(*rgba);
-				++rgba;
-			}
-		}
-		else
-		{
-			if (isGray)
-			{
-				QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
-				for (int i=0; i<w; ++i)
-				{
-					*row++ = qRed(*rgba);
-					++rgba;
-				}
-			}
+			if (isCMYK)
+				success = writeCMYKDataToFilter(&jpegFilter);
+			else if (isGray)
+				success = writeGrayDataToFilter(&jpegFilter, true);
 			else
-			{
-				QRgb* rgb = (QRgb*)scanLine(cinfo.next_scanline);
-				for (int i=0; i<w; i++)
-				{
-					*row++ = qRed(*rgb);
-					*row++ = qGreen(*rgb);
-					*row++ = qBlue(*rgb);
-					++rgb;
-				}
-			}
+				success = writeRGBDataToFilter(&jpegFilter);
+			success &= jpegFilter.closeFilter();
 		}
-		jpeg_write_scanlines (&cinfo, row_pointer, 1);
+		file.close();
 	}
-	jpeg_finish_compress (&cinfo);
-	fclose (outfile);
-	jpeg_destroy_compress (&cinfo);
-	delete [] row_pointer[0];
-	return true;
+	return success;
 }
 
 QByteArray ScImage::ImageToArray()
@@ -2234,6 +2144,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				xform = inputCSpace.createTransform(printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
 			if (outputProfColorSpace != ColorSpace_Cmyk )
 				*realCMYK = isCMYK = false;
+			outputCSpace = engine.createColorSpace(printerProf, outputProfFormat);
 			break;
 		case Thumbnail:
 		case RGBData: // RGB

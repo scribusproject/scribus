@@ -1787,6 +1787,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\scstreamfilter_jpeg.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\scstreamfilter_rc4.cpp"
 				>
 			</File>
@@ -9633,6 +9637,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\scstreamfilter_flate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scstreamfilter_jpeg.h"
 				>
 			</File>
 			<File

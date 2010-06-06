@@ -720,6 +720,7 @@ SET(SCRIBUS_SOURCES
   scstreamfilter.cpp
   scstreamfilter_ascii85.cpp
   scstreamfilter_flate.cpp
+  scstreamfilter_jpeg.cpp
   scstreamfilter_rc4.cpp
   ui/sctablewidget.cpp
   ui/sctextbrowser.cpp

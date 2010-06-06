@@ -57,6 +57,7 @@ bool ScRC4EncodeFilter::openFilter (void)
 
 	rc4_init(&m_filterData->rc4_context, (uchar*) m_key.data(),m_key.length());
 	m_filterData->available_in  = 0;
+	m_openedFilter = true;
 	return true;
 }
 
