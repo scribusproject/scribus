@@ -65,9 +65,10 @@ RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool
 void RulerT::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	unitIndex = dEin;
-	iter=unitRulerGetIter1FromIndex(unitIndex);
-	iter2=unitRulerGetIter2FromIndex(unitIndex);
+	iter  = unitRulerGetIter1FromIndex(unitIndex);
+	iter2 = unitRulerGetIter2FromIndex(unitIndex);
 	tabValues = Tabs;
+	actTab    = -1;
 	repaint();
 }
 
@@ -407,18 +408,24 @@ void RulerT::decreaseOffset()
 
 void RulerT::changeTab(int t)
 {
+	if (actTab < 0 || actTab >= tabValues.count())
+		return;
 	tabValues[actTab].tabType = t;
 	repaint();
 }
 
 void RulerT::changeTabChar(QChar t)
 {
+	if (actTab < 0 || actTab >= tabValues.count())
+		return;
 	tabValues[actTab].tabFillChar = t;
 	repaint();
 }
 
 void RulerT::moveTab(double t)
 {
+	if (actTab < 0 || actTab >= tabValues.count())
+		return;
 	tabValues[actTab].tabPosition = t;
 	updateTabList();
 	repaint();
@@ -482,15 +489,15 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	layout1->setMargin(0);
 	layout1->setSpacing(5);
 	layout1->setAlignment( Qt::AlignTop );
-	TypeCombo = new QComboBox(this);
-	TypeCombo->setEditable(false);
-	TypeCombo->clear();
-	TypeCombo->addItem( tr( "Left" ) );
-	TypeCombo->addItem( tr( "Right" ) );
-	TypeCombo->addItem( tr( "Period" ) );
-	TypeCombo->addItem( tr( "Comma" ) );
-	TypeCombo->addItem( tr( "Center" ) );
-	layout1->addWidget( TypeCombo );
+	typeCombo = new QComboBox(this);
+	typeCombo->setEditable(false);
+	typeCombo->clear();
+	typeCombo->addItem( tr( "Left" ) );
+	typeCombo->addItem( tr( "Right" ) );
+	typeCombo->addItem( tr( "Period" ) );
+	typeCombo->addItem( tr( "Comma" ) );
+	typeCombo->addItem( tr( "Center" ) );
+	layout1->addWidget( typeCombo );
 	tabData = new ScrSpinBox( 0, ww / docUnitRatio, this, dEin );
 	tabData->setValue(0);
 	positionLabel = new QLabel( tr("&Position:"), this );
@@ -559,9 +566,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	tabrulerLayout->addLayout( indentLayout );
 	tabrulerLayout->addLayout(layout4);
 
-	TypeCombo->setEnabled(false);
 	tabData->setEnabled(false);
 	tabFillCombo->setEnabled(false);
+	typeCombo->setEnabled(false);
 	if (Tabs.count() == 0)
 		clearButton->setEnabled(false);
 	resize( minimumSizeHint() );
@@ -571,7 +578,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	connect(rulerScrollR, SIGNAL(released()), this, SLOT(resetOFfR()));
 	connect(ruler, SIGNAL(typeChanged(int)) , this, SLOT(setTabType(int)));
 	connect(ruler, SIGNAL(fillCharChanged(QChar)) , this, SLOT(setTabFillChar(QChar)));
-	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
+	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
 	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	connect(ruler, SIGNAL(tabMoved(double)) , this, SLOT(setTabData(double)));
@@ -582,7 +589,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearAll()));
 
 	tabFillCombo->setToolTip( tr( "Fill Character of Tab" ) );
-	TypeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
+	typeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
 	tabData->setToolTip( tr( "Position of Tab" ) );
 
 	if (haveFirst)
@@ -636,12 +643,18 @@ void Tabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 	ruler->setTabs(Tabs, dEin);
 	if (Tabs.count() == 0)
 		clearButton->setEnabled(false);
+	tabData->setEnabled(false);
+	tabFillCombo->setEnabled(false);
+	typeCombo->setEnabled(false);
 }
 
 void Tabruler::resetOFfL()
 {
 	if (!rulerScrollL->isDown())
 		ruler->resetOffsetInc();
+	tabData->setEnabled(false);
+	tabFillCombo->setEnabled(false);
+	typeCombo->setEnabled(false);
 }
 
 void Tabruler::resetOFfR()
@@ -661,7 +674,7 @@ void Tabruler::clearAll()
 
 void Tabruler::tabAdded()
 {
-	TypeCombo->setEnabled(true);
+	typeCombo->setEnabled(true);
 	tabData->setEnabled(true);
 	clearButton->setEnabled(true);
 	tabFillCombo->setEnabled(true);
@@ -671,7 +684,7 @@ void Tabruler::tabAdded()
 
 void Tabruler::lastTabRemoved()
 {
-	TypeCombo->setEnabled(false);
+	typeCombo->setEnabled(false);
 	tabData->setEnabled(false);
 	clearButton->setEnabled(false);
 	tabFillCombo->setEnabled(false);
@@ -759,16 +772,16 @@ void Tabruler::setTabFillChar(QChar t)
 
 void Tabruler::setTabType(int t)
 {
-	TypeCombo->setCurrentIndex(t);
+	typeCombo->setCurrentIndex(t);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
 
 void Tabruler::setType()
 {
-	TypeCombo->blockSignals(true);
-	ruler->changeTab(TypeCombo->currentIndex());
-	TypeCombo->blockSignals(false);
+	typeCombo->blockSignals(true);
+	ruler->changeTab(typeCombo->currentIndex());
+	typeCombo->blockSignals(false);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
