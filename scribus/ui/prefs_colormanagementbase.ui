@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
-    <height>639</height>
+    <width>630</width>
+    <height>574</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,6 +31,13 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -39,8 +46,8 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-45</y>
-        <width>617</width>
+        <y>0</y>
+        <width>587</width>
         <height>631</height>
        </rect>
       </property>

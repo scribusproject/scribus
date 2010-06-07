@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
-    <height>468</height>
+    <width>803</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,103 +60,51 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="languageLabel">
-             <property name="text">
-              <string>&amp;Language:</string>
-             </property>
-             <property name="buddy">
-              <cstring>languageComboBox</cstring>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="languageComboBox"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="themeLabel">
-             <property name="text">
-              <string>&amp;Theme:</string>
-             </property>
-             <property name="buddy">
-              <cstring>themeComboBox</cstring>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="themeComboBox"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="languageLabel">
+           <property name="text">
+            <string>&amp;Language:</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
+           <property name="buddy">
+            <cstring>languageComboBox</cstring>
            </property>
-          </spacer>
+          </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="languageComboBox"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="themeLabel">
+           <property name="text">
+            <string>&amp;Theme:</string>
+           </property>
+           <property name="buddy">
+            <cstring>themeComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="themeComboBox"/>
+         </item>
+         <item row="2" column="1">
           <widget class="QCheckBox" name="useSmallWidgetsCheckBox">
            <property name="text">
             <string>Use Small Widgets on Palettes</string>
            </property>
           </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_10">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
+         <item row="3" column="1">
           <widget class="QCheckBox" name="useTabsForDocumentsCheckBox">
            <property name="text">
             <string>Use Tabs for Documents</string>
            </property>
           </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
-         <item>
+         <item row="4" column="0">
           <widget class="QLabel" name="recentDocumentsLabel">
            <property name="text">
             <string>&amp;Recent Documents:</string>
@@ -166,21 +114,8 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="4" column="1">
           <widget class="QSpinBox" name="recentDocumentsSpinBox"/>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_7">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
@@ -222,57 +157,40 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <layout class="QFormLayout" name="formLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="fontSizeMenusLabel">
-             <property name="text">
-              <string>&amp;Menus:</string>
-             </property>
-             <property name="buddy">
-              <cstring>fontSizeMenuSpinBox</cstring>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSpinBox" name="fontSizeMenuSpinBox">
-             <property name="suffix">
-              <string> pt</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="fontSizePalettesLabel">
-             <property name="text">
-              <string>&amp;Palettes</string>
-             </property>
-             <property name="buddy">
-              <cstring>fontSizePaletteSpinBox</cstring>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="fontSizePaletteSpinBox">
-             <property name="suffix">
-              <string> pt</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="fontSizeMenusLabel">
+           <property name="text">
+            <string>&amp;Menus:</string>
+           </property>
+           <property name="buddy">
+            <cstring>fontSizeMenuSpinBox</cstring>
+           </property>
+          </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="fontSizeMenuSpinBox">
+           <property name="suffix">
+            <string> pt</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>358</width>
-             <height>17</height>
-            </size>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="fontSizePalettesLabel">
+           <property name="text">
+            <string>&amp;Palettes:</string>
            </property>
-          </spacer>
+           <property name="buddy">
+            <cstring>fontSizePaletteSpinBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="fontSizePaletteSpinBox">
+           <property name="suffix">
+            <string> pt</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -298,6 +216,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <layout class="QFormLayout" name="formLayout_3">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+         </property>
          <item row="0" column="0">
           <widget class="QLabel" name="storyEditorFontLabel">
            <property name="text">
@@ -326,14 +247,14 @@
            </property>
           </widget>
          </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="storyEditorUseSmartSelectionCheckBox">
+           <property name="text">
+            <string>Use Smart Text Selection</string>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="storyEditorUseSmartSelectionCheckBox">
-         <property name="text">
-          <string>Use Smart Text Selection</string>
-         </property>
-        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer_5">
@@ -356,8 +277,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
+        <layout class="QFormLayout" name="formLayout_4">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+         </property>
+         <item row="0" column="0">
           <widget class="QLabel" name="resizeMoveDelayLabel">
            <property name="text">
             <string>Time before resize or move starts:</string>
@@ -367,7 +291,7 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QSpinBox" name="resizeMoveDelaySpinBox">
            <property name="suffix">
             <string> ms</string>
@@ -377,24 +301,7 @@
            </property>
           </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
+         <item row="1" column="0">
           <widget class="QLabel" name="wheelJumpLabel">
            <property name="text">
             <string>&amp;Wheel Jump:</string>
@@ -404,21 +311,8 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="1" column="1">
           <widget class="QSpinBox" name="wheelJumpSpinBox"/>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_6">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
@@ -443,18 +337,22 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QCheckBox" name="showSplashCheckBox">
-         <property name="text">
-          <string>Show Splashscreen</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="showStartupDialogCheckBox">
-         <property name="text">
-          <string>Show Startup Dialog</string>
-         </property>
-        </widget>
+        <layout class="QFormLayout" name="formLayout_5">
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="showStartupDialogCheckBox">
+           <property name="text">
+            <string>Show Startup Dialog</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="showSplashCheckBox">
+           <property name="text">
+            <string>Show Splashscreen</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <spacer name="verticalSpacer">

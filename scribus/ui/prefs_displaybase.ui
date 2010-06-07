@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>686</width>
-    <height>504</height>
+    <width>521</width>
+    <height>406</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,20 +48,6 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QCheckBox" name="showImagesCheckBox">
-           <property name="text">
-            <string>Show Images</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showControlCharsCheckBox">
-           <property name="text">
-            <string>Show Text Control Characters</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QCheckBox" name="showRulersCheckBox">
            <property name="text">
             <string>Show Rulers</string>
@@ -76,6 +62,20 @@
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="showFramesCheckBox">
+           <property name="text">
+            <string>Show Frames</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="showImagesCheckBox">
+           <property name="text">
+            <string>Show Images</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QCheckBox" name="showTextChainsCheckBox">
            <property name="text">
             <string>Show Text Chains</string>
@@ -83,9 +83,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="showFramesCheckBox">
+          <widget class="QCheckBox" name="showControlCharsCheckBox">
            <property name="text">
-            <string>Show Frames</string>
+            <string>Show Text Control Characters</string>
            </property>
           </widget>
          </item>
@@ -127,6 +127,70 @@
         </layout>
        </item>
        <item>
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>4</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Scratch Space</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Left:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="ScrSpinBox" name="scratchSpaceLeftSpinBox"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Right:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="ScrSpinBox" name="scratchSpaceRightSpinBox"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Top:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="ScrSpinBox" name="scratchSpaceTopSpinBox"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Bottom:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="ScrSpinBox" name="scratchSpaceBottomSpinBox"/>
+         </item>
+        </layout>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -163,15 +227,9 @@
         </widget>
        </item>
        <item>
-        <layout class="QFormLayout" name="formLayout_2">
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
-         </property>
-         <property name="formAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
+        <layout class="QFormLayout" name="formLayout_4">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="label_11">
            <property name="text">
             <string>Horizontal:</string>
            </property>
@@ -181,7 +239,7 @@
           <widget class="ScrSpinBox" name="pageGapHorizontalSpinBox"/>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_10">
+          <widget class="QLabel" name="label_12">
            <property name="text">
             <string>Vertical:</string>
            </property>
@@ -189,73 +247,6 @@
          </item>
          <item row="1" column="1">
           <widget class="ScrSpinBox" name="pageGapVerticalSpinBox"/>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>4</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_2">
-      <attribute name="title">
-       <string>Scratch Space</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <layout class="QFormLayout" name="formLayout">
-         <property name="formAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Left:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Right:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Top:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Bottom:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="ScrSpinBox" name="scratchSpaceLeftSpinBox"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="ScrSpinBox" name="scratchSpaceRightSpinBox"/>
-         </item>
-         <item row="2" column="1">
-          <widget class="ScrSpinBox" name="scratchSpaceTopSpinBox"/>
-         </item>
-         <item row="3" column="1">
-          <widget class="ScrSpinBox" name="scratchSpaceBottomSpinBox"/>
          </item>
         </layout>
        </item>
@@ -372,167 +363,163 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QFormLayout" name="formLayout_3">
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
          </property>
-         <property name="formAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>Page Fill:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pageFillColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_13">
-           <property name="text">
-            <string>Selected Page Border:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="selectedPageBorderButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_14">
-           <property name="text">
-            <string>Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QPushButton" name="frameColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_16">
-           <property name="text">
-            <string>Locked Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QPushButton" name="frameLockedColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_17">
-           <property name="text">
-            <string>Selected Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QPushButton" name="frameSelectedColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_31">
-           <property name="text">
-            <string>Linked Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QPushButton" name="frameLinkedColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QLabel" name="label_30">
-           <property name="text">
-            <string>Grouped Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <widget class="QPushButton" name="frameGroupedColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="label_29">
-           <property name="text">
-            <string>Annotation Frames:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="0">
-          <widget class="QLabel" name="label_32">
-           <property name="text">
-            <string>Text Control Characters:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="1">
-          <widget class="QPushButton" name="frameAnnotationColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1">
-          <widget class="QPushButton" name="textControlCharsButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Scratch Space:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="scratchSpaceColorButton">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>33</height>
-          </size>
-         </property>
-        </spacer>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>432</width>
+            <height>350</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Page Fill:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pageFillColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Scratch Space:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="scratchSpaceColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Selected Page Border:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="selectedPageBorderButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Frames:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="frameColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Locked Frames:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="frameLockedColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Selected Frames:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="frameSelectedColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="label_31">
+             <property name="text">
+              <string>Linked Frames:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="frameLinkedColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Grouped Frames:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QPushButton" name="frameGroupedColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_29">
+             <property name="text">
+              <string>Annotation Frames:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QPushButton" name="frameAnnotationColorButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Text Control Characters:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <widget class="QPushButton" name="textControlCharsButton">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>

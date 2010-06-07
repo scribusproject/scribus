@@ -118,7 +118,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), prefs_PreflightVerifier);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), prefs_DocumentItemAttributes);
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex.png"), prefs_TableOfContents);
-
 	if (doc)
 	{
 		addItem( tr("Sections"), loadIcon("tabtocindex.png"), prefs_DocumentSections);

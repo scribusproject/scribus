@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>646</height>
+    <width>700</width>
+    <height>872</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -108,116 +108,158 @@
       <attribute name="title">
        <string>Further Information</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Publisher:</string>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="publisherLineEdit"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Contributors:</string>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QTextEdit" name="contributorsTextEdit"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Date:</string>
+         <property name="widgetResizable">
+          <bool>true</bool>
          </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>630</width>
+            <height>747</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Publisher:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="publisherLineEdit"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Contributors:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QTextEdit" name="contributorsTextEdit"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Date:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="dateLineEdit"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Type:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="typeLineEdit"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Format:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="formatLineEdit"/>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Identifier:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="identifierLineEdit"/>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>Source:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLineEdit" name="sourceLineEdit"/>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Language:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="languageLineEdit"/>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label_15">
+               <property name="text">
+                <string>Relation:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QLineEdit" name="relationLineEdit"/>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="label_16">
+               <property name="text">
+                <string>Coverage:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QLineEdit" name="coverageLineEdit"/>
+             </item>
+             <item row="10" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>Rights:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1">
+              <widget class="QLineEdit" name="rightsLineEdit"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>192</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
         </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="dateLineEdit"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="typeLineEdit"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>Format:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="formatLineEdit"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Identifier:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="identifierLineEdit"/>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Source:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLineEdit" name="sourceLineEdit"/>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>Language:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="QLineEdit" name="languageLineEdit"/>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="label_15">
-         <property name="text">
-          <string>Relation:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QLineEdit" name="relationLineEdit"/>
-       </item>
-       <item row="9" column="0">
-        <widget class="QLabel" name="label_16">
-         <property name="text">
-          <string>Coverage:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="1">
-        <widget class="QLineEdit" name="coverageLineEdit"/>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="label_17">
-         <property name="text">
-          <string>Rights:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="QLineEdit" name="rightsLineEdit"/>
        </item>
       </layout>
      </widget>

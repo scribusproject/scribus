@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
-    <height>277</height>
+    <width>538</width>
+    <height>275</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>554</width>
-        <height>206</height>
+        <width>510</width>
+        <height>205</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -69,7 +69,7 @@
           <widget class="QLineEdit" name="docDirLineEdit">
            <property name="minimumSize">
             <size>
-             <width>268</width>
+             <width>200</width>
              <height>0</height>
             </size>
            </property>
@@ -108,7 +108,7 @@
           <widget class="QLineEdit" name="profileDirLineEdit">
            <property name="minimumSize">
             <size>
-             <width>268</width>
+             <width>200</width>
              <height>0</height>
             </size>
            </property>
@@ -141,7 +141,7 @@
           <widget class="QLineEdit" name="scriptDirLineEdit">
            <property name="minimumSize">
             <size>
-             <width>268</width>
+             <width>200</width>
              <height>0</height>
             </size>
            </property>
@@ -174,7 +174,7 @@
           <widget class="QLineEdit" name="templateDirLineEdit">
            <property name="minimumSize">
             <size>
-             <width>268</width>
+             <width>200</width>
              <height>0</height>
             </size>
            </property>
