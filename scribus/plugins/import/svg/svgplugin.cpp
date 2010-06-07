@@ -1158,6 +1158,25 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 	}
 }
 
+QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
+{
+	QList<PageItem*> aElements;
+	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		QDomElement b = n.toElement();
+		if( b.isNull() || isIgnorableNode(b) )
+			continue;
+		SvgStyle svgStyle;
+		parseStyle( &svgStyle, b);
+		if (!svgStyle.Display) 
+			continue;
+		QList<PageItem*> el = parseElement(b);
+		for (int ec = 0; ec < el.count(); ++ec)
+			aElements.append(el.at(ec));
+	}
+	return aElements;
+}
+
 QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 {
 	FPointArray clipPath;
@@ -1285,6 +1304,8 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 	}
 	if( STag == "defs" )
 		parseDefs(e);
+	else if ( STag == "a" )
+		GElements = parseA(e);
 	else if( STag == "switch" )
 		GElements = parseSwitch(e);
 	else if( STag == "symbol" )

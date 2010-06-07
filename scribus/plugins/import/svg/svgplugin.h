@@ -242,6 +242,7 @@ public:
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
+	QList<PageItem*> parseA(const QDomElement &e);
 	QList<PageItem*> parseGroup(const QDomElement &e);
 	QList<PageItem*> parseElement(const QDomElement &e);
 	QList<PageItem*> parseCircle(const QDomElement &e);
