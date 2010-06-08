@@ -168,6 +168,6 @@ bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, 
 	panel = new Prefs_ShortWords(parent);
 	Q_CHECK_PTR(panel);
 	caption = tr("Short Words");
-	icon = loadIcon("shortwords.png");
+	icon = loadIcon("shortwords_16.png");
 	return true;
 }
