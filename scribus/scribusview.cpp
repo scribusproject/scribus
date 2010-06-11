@@ -4307,8 +4307,8 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
-		emit MousePos(m->x() / m_canvas->scale() + Doc->minCanvasCoordinate.x(),
-					  m->y() / m_canvas->scale() + Doc->minCanvasCoordinate.y());
+		FPoint p = m_canvas->localToCanvas(QPoint(m->x(),m->y()));
+		emit MousePos(p.x(),p.y());
 		horizRuler->Draw(m->x() + qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
 		vertRuler->Draw(m->y() + qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 		m_canvasMode->mouseMoveEvent(m);

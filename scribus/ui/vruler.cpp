@@ -247,6 +247,10 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 	}
 }
 
+double Vruler::ruleSpacing() {
+	return iter;
+}
+
 void Vruler::Draw(int where)
 {
 	// erase old marker

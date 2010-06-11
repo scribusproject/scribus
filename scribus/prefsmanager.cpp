@@ -1355,7 +1355,7 @@ bool PrefsManager::WritePref(QString ho)
 	deDisplay.setAttribute("PageBorderColor",appPrefs.displayPrefs.pageBorderColor.name());
 	deDisplay.setAttribute("ControlCharColor",appPrefs.displayPrefs.controlCharColor.name());
 	deDisplay.setAttribute("ShowMarginsFilled", static_cast<int>(appPrefs.displayPrefs.marginColored));
-	deDisplay.setAttribute("DisplayScale", ScCLocale::toQStringC(appPrefs.displayPrefs.displayScale));
+	deDisplay.setAttribute("DisplayScale", ScCLocale::toQStringC(appPrefs.displayPrefs.displayScale, 8));
 	deDisplay.setAttribute("ShowVerifierWarningsOnCanvas",static_cast<int>(appPrefs.displayPrefs.showVerifierWarningsOnCanvas));
 	deDisplay.setAttribute("ToolTips", static_cast<int>(appPrefs.displayPrefs.showToolTips));
 	deDisplay.setAttribute("ShowMouseCoordinates", static_cast<int>(appPrefs.displayPrefs.showMouseCoordinates));
@@ -1928,7 +1928,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.displayPrefs.pageBorderColor = QColor(dc.attribute("PageBorderColor","#ff0000"));
 			appPrefs.displayPrefs.controlCharColor = QColor(dc.attribute("ControlCharColor","#800000"));
 			appPrefs.displayPrefs.marginColored = static_cast<bool>(dc.attribute("ShowMarginsFilled", "0").toInt());
-			appPrefs.displayPrefs.displayScale = ScCLocale::toDoubleC(dc.attribute("DisplayScale"), appPrefs.displayPrefs.displayScale);
+			appPrefs.displayPrefs.displayScale = qRound(ScCLocale::toDoubleC(dc.attribute("DisplayScale"), appPrefs.displayPrefs.displayScale)*72)/72.0;
 			appPrefs.displayPrefs.showVerifierWarningsOnCanvas = static_cast<bool>(dc.attribute("ShowVerifierWarningsOnCanvas", "1").toInt());
 			appPrefs.displayPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
 			appPrefs.displayPrefs.showMouseCoordinates = static_cast<bool>(dc.attribute("ShowMouseCoordinates", "1").toInt());

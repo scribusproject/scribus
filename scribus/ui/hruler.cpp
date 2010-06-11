@@ -803,6 +803,10 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 #endif
 }
 
+double Hruler::ruleSpacing() {
+	return iter;
+}
+
 void Hruler::Draw(int where)
 {
 	// erase old marker

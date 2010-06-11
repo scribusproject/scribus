@@ -23,7 +23,6 @@
 
 #include "canvas.h"
 #include "canvasmode.h"
-#include "ui/hruler.h"
 #include "page.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
@@ -31,6 +30,8 @@
 #include "scpainter.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/hruler.h"
+#include "ui/vruler.h"
 #include "util.h"
 #include "util_math.h"
 #include "units.h"
@@ -119,8 +120,49 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 
 FPoint Canvas::localToCanvas(QPoint p) const
 {
-	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
-				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
+
+/* Allow the user to select the exact coordinate represented by a ruler mark
+   when the mouse is lined up with the ruler, rather than returning the 
+   coordinate represented by the mathematical centre of the pixel which
+   may not be exactly the same as the coordinate represented by the ruler.
+*/
+
+// (xmin, xmax) = canvas top-left
+	double xmin = m_doc->minCanvasCoordinate.x();
+	double ymin = m_doc->minCanvasCoordinate.y();
+
+// (xoff, yoff) = ruler origin relative to canvas top-left
+	double xoff = m_doc->rulerXoffset - xmin;
+	double yoff = m_doc->rulerYoffset - ymin;
+	if (m_doc->guidesPrefs().rulerMode) {
+		xoff += m_doc->currentPage()->xOffset();
+		yoff += m_doc->currentPage()->yOffset();
+	}
+// (xsp, ysp) = spacing of ruler divisions
+	double xsp = m_doc->view()->horizRuler->ruleSpacing();
+	double ysp = m_doc->view()->vertRuler->ruleSpacing();
+
+	double sc = m_viewMode.scale;
+
+// number of ruler divisions from ruler origin to ruler mark closest to the
+// selected mouse coordinate
+	double xn = qRound((p.x()/sc - xoff)/xsp);
+	double yn = qRound((p.y()/sc - yoff)/ysp);
+
+// xn*xsp + xoff, yn*ysp + yoff = distance in canvas coordinates
+// from canvas top-left to ruler mark closest to selected mouse coordinate
+
+// If these round to the selected mouse coordinate, use these to define
+// (x,y), the coordinates of the desired point relative to the canvas top-left.
+// Otherwise, simply scale the mouse coordinates.
+	double x = ( qRound(sc*(xn*xsp + xoff)) == p.x() ? 
+			xn*xsp + xoff : p.x()/sc );
+	double y = ( qRound(sc*(yn*ysp + yoff)) == p.y() ? 
+			yn*ysp + yoff : p.y()/sc );
+		
+// Finally, add xmin,ymin to get the absolute canvas coordinates of the
+// desired point.
+	return FPoint(x + xmin, y + ymin);
 }
 
 
