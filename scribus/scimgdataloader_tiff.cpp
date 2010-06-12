@@ -286,7 +286,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				}
 			}
 			isCMYK = true;
-			m_pixelFormat = Format_CMYK_8;
+			m_pixelFormat = (image->channels() == 5) ? Format_CMYKA_8 : Format_CMYK_8;
 		}
 	}
 	else
@@ -931,13 +931,13 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					{
 						fakeHeader.color_mode = CM_GRAYSCALE;
 						isCMYK = false;
-						chans = 5;
+						chans = 4;
 					}
 					else
 					{
 						fakeHeader.color_mode = CM_RGB;
 						isCMYK = false;
-						chans = 5;
+						chans = 4;
 					}
 					if( !r_image.create( widtht, heightt, chans ))
 						return false;
@@ -1065,11 +1065,20 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 			m_imageInfoRecord.yres = qRound(yres*2.54);
 		}
 		if (isCMYK)
+		{
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+			m_pixelFormat = (r_image.channels() == 5) ? Format_CMYKA_8 : Format_CMYK_8;
+		}
 		else if (samplesperpixel == 1)
+		{
+			// Do not set m_pixelFormat here as the real pixel format is most probably different than gray
 			m_imageInfoRecord.colorspace = ColorSpaceGray;
+		}
 		else
+		{
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
+			m_pixelFormat = Format_RGBA_8;
+		}
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = r_image.height();
 		if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))
