@@ -1293,7 +1293,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc1a.setAttribute("DControlCharColor",appPrefs.DControlCharColor.name());
 	dc1a.setAttribute("MARGC",appPrefs.guidesSettings.margColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
-	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale));
+	dc1a.setAttribute("DScale", ScCLocale::toQStringC(appPrefs.DisScale, 6));
 	elem.appendChild(dc1a);
 	// Font information must be written before FONTS element so that face "usable"
 	// member is set properly before one try to set default font. Allows to check
@@ -1834,7 +1834,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
 			appPrefs.guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-			appPrefs.DisScale = ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.DisScale);
+			appPrefs.DisScale = qRound(ScCLocale::toDoubleC(dc.attribute("DScale"), appPrefs.DisScale)*72)/72.0;
 		}
 		if (dc.tagName()=="TYPO")
 		{

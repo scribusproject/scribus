@@ -232,8 +232,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if (GetItem(&currItem))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+		newX = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x());
+		newY = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y());
 		
 		if (m_doc->DragP)
 			return;
@@ -242,8 +242,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+			newX = mousePointDoc.x();
+			newY = mousePointDoc.y();
 			if (createObjectMode == modeDrawLine)
 			{
 				if (m_doc->useRaster)

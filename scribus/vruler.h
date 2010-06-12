@@ -53,6 +53,7 @@ public:
 	bool repainted;
 	int oldMark;
 	bool Mpressed;
+	double ruleSpacing();
 private: // Private attributes
 	/** Zeichensatz des Lineals */
 	ScribusDoc *currDoc;

@@ -87,9 +87,9 @@ float ScCLocale::toFloatC(const QString& str, float defValue)
 	return ret;
 }
 
-QString ScCLocale::toQStringC(double d)
+QString ScCLocale::toQStringC(double d, int prec)
 {
-	return that()->qLocale.toString(d, 'f', 3);
+	return that()->qLocale.toString(d, 'f', prec);
 }
 
 double ScCLocale::strtod ( const char * str, char ** endptr )
