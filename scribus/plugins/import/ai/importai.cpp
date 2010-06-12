@@ -1613,6 +1613,12 @@ void AIPlug::processData(QString data)
 				b->setFillTransparency(1.0 - Opacity);
 				b->setLineTransparency(1.0 - Opacity);
 				b->updateClip();
+				if (patternMode)
+					PatternElements.append(b);
+				else
+					Elements.append(b);
+				if (groupStack.count() != 0)
+					groupStack.top().append(b);
 				symbolMode = false;
 			}
 		}
@@ -2271,6 +2277,8 @@ void AIPlug::processData(QString data)
 				m_Doc->setLayerLocked(currentLayer, static_cast<bool>(!enabled));
 				m_Doc->setLayerPrintable(currentLayer, static_cast<bool>(printing));
 				m_Doc->setLayerMarker(currentLayer, QColor(rc, gc, bc));
+				QList<PageItem*> gElements;
+				groupStack.push(gElements);
 				firstLayer = false;
 			}
 			Coords.resize(0);
@@ -2278,6 +2286,49 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "LB")
 		{
+			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			{
+				if (groupStack.count() != 0)
+				{
+					QList<PageItem*> gElements = groupStack.pop();
+					tmpSel->clear();
+					if (gElements.count() > 0)
+					{
+						for (int dre = 0; dre < gElements.count(); ++dre)
+						{
+							tmpSel->addItem(gElements.at(dre), true);
+							if (patternMode)
+								PatternElements.removeAll(gElements.at(dre));
+							else
+								Elements.removeAll(gElements.at(dre));
+						}
+						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
+						ite = tmpSel->itemAt(0);
+						if (Coords.size() > 3)
+						{
+							Coords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
+							ite->PoLine = Coords.copy();
+							ite->PoLine.translate(baseX, baseY);
+						}
+						for (int as = 0; as < tmpSel->count(); ++as)
+						{
+							if (patternMode)
+								PatternElements.append(tmpSel->itemAt(as));
+							else
+								Elements.append(tmpSel->itemAt(as));
+						}
+						ite->setItemName( tr("Group%1").arg(m_Doc->layerName(currentLayer)));
+					}
+					if (groupStack.count() != 0)
+					{
+						for (int as = 0; as < tmpSel->count(); ++as)
+						{
+							groupStack.top().append(tmpSel->itemAt(as));
+						}
+					}
+					tmpSel->clear();
+				}
+			}
 			Coords.resize(0);
 			Coords.svgInit();
 		}
