@@ -927,7 +927,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					{
 						fakeHeader.color_mode = CM_RGB;
 						isCMYK = false;
-						chans = 5;
+						chans = 4;
 					}
 					if( !r_image.create( widtht, heightt, chans ))
 						return false;
