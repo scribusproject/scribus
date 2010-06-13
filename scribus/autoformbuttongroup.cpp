@@ -79,6 +79,7 @@ AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QMenu( parent )
 void AutoformButtonGroup::addShape(QMenu* menu, int shapenum)
 {
 	QAction *action = menu->addAction(QIcon(getIconPixmap(shapenum, 16)), "");
+	action->setIconVisibleInMenu(true);
 	connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
 	signalMapper->setMapping(action, shapenum);
 }
