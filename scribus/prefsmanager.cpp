@@ -245,11 +245,11 @@ void PrefsManager::initDefaults()
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
 	appPrefs.itemToolPrefs.shapeLineColor = "Black";
-	appPrefs.itemToolPrefs.shapeFillColor = "Black";
+	appPrefs.itemToolPrefs.shapeFillColor = CommonStrings::None;
 	appPrefs.itemToolPrefs.shapeLineColorShade = 100;
 	appPrefs.itemToolPrefs.shapeFillColorShade = 100;
 	appPrefs.itemToolPrefs.shapeLineStyle = Qt::SolidLine;
-	appPrefs.itemToolPrefs.shapeLineWidth = 0;
+	appPrefs.itemToolPrefs.shapeLineWidth = 1;
 	appPrefs.itemToolPrefs.lineColor = "Black";
 	appPrefs.itemToolPrefs.textColor = "Black";
 	appPrefs.itemToolPrefs.textStrokeColor = "Black";
@@ -2011,7 +2011,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="ItemTools")
 		{
 			appPrefs.itemToolPrefs.shapeLineColor = dc.attribute("ShapeLineColor");
-			appPrefs.itemToolPrefs.shapeFillColor = dc.attribute("ShapeFillColor");
+			appPrefs.itemToolPrefs.shapeFillColor = dc.attribute("ShapeFillColor", CommonStrings::None);
 			appPrefs.itemToolPrefs.lineColor = dc.attribute("LineColor");
 			appPrefs.itemToolPrefs.textColor = dc.attribute("TextColor");
 			appPrefs.itemToolPrefs.textStrokeColor = dc.attribute("TextStrokeColor", appPrefs.itemToolPrefs.textColor);
@@ -2031,7 +2031,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.textDistances.Right = ScCLocale::toDoubleC(dc.attribute("TextDistanceRight"), 0.0);
 			appPrefs.itemToolPrefs.shapeLineStyle = dc.attribute("ShapeLineStyle").toInt();
 			appPrefs.itemToolPrefs.lineStyle = dc.attribute("LineStyle").toInt();
-			appPrefs.itemToolPrefs.shapeLineWidth     = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 0.0);
+			appPrefs.itemToolPrefs.shapeLineWidth     = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 1.0);
 			appPrefs.itemToolPrefs.lineWidth = ScCLocale::toDoubleC(dc.attribute("LineWidth"), 1.0);
 			appPrefs.itemToolPrefs.shapeLineColorShade = dc.attribute("ShapeLineColorShade").toInt();
 			appPrefs.itemToolPrefs.lineColorShade = dc.attribute("LineColorShade").toInt();
