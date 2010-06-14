@@ -238,11 +238,11 @@ void PrefsManager::initDefaults()
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
 	appPrefs.toolSettings.dPen = "Black";
-	appPrefs.toolSettings.dBrush = "Black";
+	appPrefs.toolSettings.dBrush = CommonStrings::None;
 	appPrefs.toolSettings.dShade = 100;
 	appPrefs.toolSettings.dShade2 = 100;
 	appPrefs.toolSettings.dLineArt = Qt::SolidLine;
-	appPrefs.toolSettings.dWidth = 0;
+	appPrefs.toolSettings.dWidth = 1;
 	appPrefs.toolSettings.dPenLine = "Black";
 	appPrefs.toolSettings.dPenText = "Black";
 	appPrefs.toolSettings.dStrokeText = "Black";
@@ -1870,7 +1870,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="TOOLS")
 		{
 			appPrefs.toolSettings.dPen = dc.attribute("PEN");
-			appPrefs.toolSettings.dBrush = dc.attribute("BRUSH");
+			appPrefs.toolSettings.dBrush = dc.attribute("BRUSH", CommonStrings::None);
 			appPrefs.toolSettings.dPenLine = dc.attribute("PENLINE");
 			appPrefs.toolSettings.dPenText = dc.attribute("PENTEXT");
 			appPrefs.toolSettings.dStrokeText = dc.attribute("StrokeText", appPrefs.toolSettings.dPenText);
@@ -1886,7 +1886,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
 			appPrefs.toolSettings.dLineArt = dc.attribute("STIL").toInt();
 			appPrefs.toolSettings.dLstyleLine = dc.attribute("STILLINE").toInt();
-			appPrefs.toolSettings.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 0.0);
+			appPrefs.toolSettings.dWidth     = ScCLocale::toDoubleC(dc.attribute("WIDTH"), 1.0);
 			appPrefs.toolSettings.dWidthLine = ScCLocale::toDoubleC(dc.attribute("WIDTHLINE"), 1.0);
 			appPrefs.toolSettings.dShade2 = dc.attribute("PENSHADE").toInt();
 			appPrefs.toolSettings.dShadeLine = dc.attribute("LINESHADE").toInt();
