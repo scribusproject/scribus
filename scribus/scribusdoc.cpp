@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <memory>
 #include <utility>
 
 #include <QByteArray>
@@ -10639,6 +10640,12 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		newY = qMax(newY, 1);
 	}
 	*/
+	std::auto_ptr<UndoTransaction> activeTransaction;
+	if (UndoManager::undoEnabled())
+	{
+		QString transacDesc = QString(Um::ResizeFromTo).arg(currItem->oldWidth).arg(currItem->oldHeight).arg(newX).arg(newY);
+		activeTransaction.reset( new UndoTransaction(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::Resize, transacDesc, Um::IResize)) );
+	}
 	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 	QTransform ma;
 	ma.rotate(currItem->rotation());
@@ -10686,47 +10693,23 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 //			currItem->paintObj();
 
 		if (currItem->FrameType == 0 || currItem->asLine())
+		{
+			if (activeTransaction.get())
+			{
+				currItem->checkChanges();
+				activeTransaction->commit();
+			}
 			return true;
+		}
 		
-//		QPainter p;
-//		p.begin(m_View->viewport());
-//		QPoint in(qRound((currItem->xPos()-minCanvasCoordinate.x())*viewScale), qRound((currItem->yPos()-minCanvasCoordinate.y())*viewScale));
-//		QPoint out(m_View->contentsToViewport(in));
-//		p.translate(out.x(), out.y());
-//		p.scale(viewScale, viewScale);
-//		p.rotate(currItem->rotation());
-//		p.setCompositionMode(QPainter::CompositionMode_Xor);
-//		p.setBrush(Qt::NoBrush);
-//		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-//		p.save();
-//		if (currItem->OldB2 < 0.0)
-//		{
-//			p.scale(-1, 1);
-//			p.translate(qRound(-currItem->OldB2), 0);
-//		}
-//		if (currItem->OldH2 < 0.0)
-//		{
-//			p.scale(1, -1);
-//			p.translate(0, qRound(-currItem->OldH2));
-//		}
-//		currItem->DrawPolyL(&p, currItem->Clip);
-//		p.restore();
 		currItem->updateClip();
 //		currItem->updateGradientVectors();
-//		p.save();
-//		if (currItem->width() < 0.0)
-//		{
-//			p.scale(-1, 1);
-//			p.translate(qRound(-currItem->width()), 0);
-//		}
-//		if (currItem->height() < 0.0)
-//		{
-//			p.scale(1, -1);
-//			p.translate(0, qRound(-currItem->height()));
-//		}
-//		currItem->DrawPolyL(&p, currItem->Clip);
-//		p.restore();
-//		p.end();
+
+		if (activeTransaction.get())
+		{
+			currItem->checkChanges();
+			activeTransaction->commit();
+		}
 		return true;
 	}
 	if (DoUpdateClip)
@@ -10774,6 +10757,11 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		}
 	}
 	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(),currItem->height())/2));
+	if (activeTransaction.get())
+	{
+		currItem->checkChanges();
+		activeTransaction->commit();
+	}
 	return true;
 }
 
