@@ -64,18 +64,18 @@ ImportIdmlImpl::ImportIdmlImpl() : QObject(0)
 
 bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 {
-	 //Do the bulk of your work here
+	//Do the bulk of your work here
 	m_Doc=doc;
 	QString fnameIn = target;
-//	bool success = false;
+	//	bool success = false;
 	bool showProgress;
 	//cancel = false;
 	double x,y,b,h;
-//	bool ret = false;
+	//	bool ret = false;
 	QFileInfo fi = QFileInfo(fnameIn);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if(!ScCore->usingGUI())
-		showProgress=false;
+	showProgress=false;
 	/* Implement Progress Dialog Later */
 	
 	x = 0.0;
@@ -89,12 +89,12 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 	
 	QMap are maintained with QString, Object for each item which is referred later in the document using the self attribute. This includes all styles, stories etc.
 	*/
-        FileUnzip* idmlFile = new FileUnzip(target);
-        desmapPath = idmlFile->getFile("designmap.xml");
-        fontPath = idmlFile->getFile("Resources/Fonts.xml");
-        stylePath = idmlFile->getFile("Resources/Styles.xml");
-        graphicPath = idmlFile->getFile("Resources/Graphic.xml");
-        preferPath = idmlFile->getFile("Resources/Preferences.xml");
+	FileUnzip* idmlFile = new FileUnzip(target);
+	desmapPath = idmlFile->getFile("designmap.xml");
+	fontPath = idmlFile->getFile("Resources/Fonts.xml");
+	stylePath = idmlFile->getFile("Resources/Styles.xml");
+	graphicPath = idmlFile->getFile("Resources/Graphic.xml");
+	preferPath = idmlFile->getFile("Resources/Preferences.xml");
 	if(!preferPath.isEmpty())
 	{
 		root=loadXmlFile(preferPath);
@@ -119,25 +119,25 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 	layerID = -1;
 
 	if(!desmapPath.isNull())
-        {
+	{
 		bool success = processDesignMap();
 		for( int i=0;i<storyList.count();i++ )
-			storyPath.append(idmlFile->getFile(storyList.at(i)));
+		storyPath.append(idmlFile->getFile(storyList.at(i)));
 		for( int i=0;i<Spreads.count();i++ )
-			spreadPath.append(idmlFile->getFile(Spreads.at(i)));
+		spreadPath.append(idmlFile->getFile(Spreads.at(i)));
 		for( int i=0;i<MasterSpreads.count();i++ )
-			mspreadPath.append(idmlFile->getFile(MasterSpreads.at(i)));
-            if(!success)
-                return false;
-        }
-        if(!fontPath.isNull())
-        {
-            bool success = processFont();
-	    root.clear();
-            if(!success)
-                return false;
-        }
-        if(!stylePath.isEmpty())
+		mspreadPath.append(idmlFile->getFile(MasterSpreads.at(i)));
+		if(!success)
+			return false;
+	}
+	if(!fontPath.isNull())
+	{
+		bool success = processFont();
+		root.clear();
+		if(!success)
+			return false;
+	}
+	if(!stylePath.isEmpty())
 	{
 		bool success = processStyles();
 		root.clear();
@@ -165,54 +165,54 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 
 QDomElement ImportIdmlImpl::loadXmlFile(QString &filename)
 {
-        QFile file(filename);
+	QFile file(filename);
 	qDebug()<<"File Name = "<<filename;
 	QDomDocument docu;
 	QDomElement rootElement;
-        file.open(QIODevice::ReadOnly | QIODevice::Text);
-        docu.setContent(&file);
-        rootElement = docu.documentElement();
+	file.open(QIODevice::ReadOnly | QIODevice::Text);
+	docu.setContent(&file);
+	rootElement = docu.documentElement();
 	qDebug()<<"root tag = "<<rootElement.tagName();
-        file.close();
+	file.close();
 	return rootElement;
 }
 
 bool ImportIdmlImpl::processDesignMap()
 {
 	QDomElement designmapRoot=loadXmlFile(desmapPath);
-        if(designmapRoot.tagName() != "Document")
-              return false;
-        else
-        {
-                /*get the attributes of Document Tag before going into its children */
-                //docAttributes(designmapRoot);
-                node = designmapRoot.firstChild();
-                while(!node.isNull())
-                {
-                        element = node.toElement();
-                        if(!element.isNull())
-                        {
-                                if(element.tagName()=="Layer")
-                                {
-                                        ScLayer newLayer;
-                                        handleLayer(newLayer,element);
-                                        m_Doc->Layers.append(newLayer);
-                                }
+	if(designmapRoot.tagName() != "Document")
+	return false;
+	else
+	{
+		/*get the attributes of Document Tag before going into its children */
+		//docAttributes(designmapRoot);
+		node = designmapRoot.firstChild();
+		while(!node.isNull())
+		{
+			element = node.toElement();
+			if(!element.isNull())
+			{
+				if(element.tagName()=="Layer")
+				{
+					ScLayer newLayer;
+					handleLayer(newLayer,element);
+					m_Doc->Layers.append(newLayer);
+				}
 				if(element.tagName()=="Section")
 				{
 					handleSection(m_Doc,element);
 				}
-                                if(element.tagName()=="idPkg:Spread")
-                                        getSpreadSrc(element);
-                                if(element.tagName()=="idPkg:MasterSpread")
-                                        getMSpreadSrc(element);
-                                if(element.tagName()=="idPkg:Story")
-                                        getStorySrc(element);
-                        }
-                        node = node.nextSibling();
-              }
-              return true;
-        }
+				if(element.tagName()=="idPkg:Spread")
+					getSpreadSrc(element);
+				if(element.tagName()=="idPkg:MasterSpread")
+					getMSpreadSrc(element);
+				if(element.tagName()=="idPkg:Story")
+					getStorySrc(element);
+			}
+			node = node.nextSibling();
+		}
+		return true;
+	}
 }
 
 void docAttributes(QDomElement& element)
@@ -224,18 +224,18 @@ void docAttributes(QDomElement& element)
 void ImportIdmlImpl::handleLayer(ScLayer& layer,QDomElement& element)
 {
 	QString self = element.attribute("Self","");
-        layer.Name=element.attribute("Name","");
-        layer.isEditable=(element.attribute("Locked","")=="true")?true:false;
-        layer.isPrintable=(element.attribute("Printable","")=="true")?true:false;
-        layer.flowControl=(element.attribute("IgnoreWrap","")=="true")?true:false;
-        layer.isViewable=(element.attribute("Visible","")=="true")?true:false;
-        layer.outlineMode=(element.attribute("ShowGuides","")=="true")?true:false;
-        layer.ID = layerID + 1;
-        //descending down to properties of layer
-        QDomNode n = node.firstChild().firstChild();
-        QDomElement lcolor = n.toElement();
-        layer.markerColor=lcolor.text();
-        layerMap.insert(self,layer.ID);
+	layer.Name=element.attribute("Name","");
+	layer.isEditable=(element.attribute("Locked","")=="true")?true:false;
+	layer.isPrintable=(element.attribute("Printable","")=="true")?true:false;
+	layer.flowControl=(element.attribute("IgnoreWrap","")=="true")?true:false;
+	layer.isViewable=(element.attribute("Visible","")=="true")?true:false;
+	layer.outlineMode=(element.attribute("ShowGuides","")=="true")?true:false;
+	layer.ID = layerID + 1;
+	//descending down to properties of layer
+	QDomNode n = node.firstChild().firstChild();
+	QDomElement lcolor = n.toElement();
+	layer.markerColor=lcolor.text();
+	layerMap.insert(self,layer.ID);
 }
 
 void ImportIdmlImpl::handleSection(ScribusDoc* doc, QDomElement& element)
@@ -244,59 +244,59 @@ void ImportIdmlImpl::handleSection(ScribusDoc* doc, QDomElement& element)
 
 void ImportIdmlImpl::getMSpreadSrc(QDomElement& element)
 {
-        MasterSpreads.append(element.attribute("src",""));
+	MasterSpreads.append(element.attribute("src",""));
 }
 
 void ImportIdmlImpl::getSpreadSrc(QDomElement& element)
 {
-        Spreads.append(element.attribute("src",""));
+	Spreads.append(element.attribute("src",""));
 }
 
 void ImportIdmlImpl::getStorySrc(QDomElement& element)
 {
-        storyList.append(element.attribute("src",""));
+	storyList.append(element.attribute("src",""));
 }
 
 bool ImportIdmlImpl::processFont()
 {
-        return true;
+	return true;
 }
 
 bool ImportIdmlImpl::processStyles()
 {
-        QDomElement stylesRoot=loadXmlFile(stylePath);
-        if(stylesRoot.tagName() != "idPkg:Styles")
-              return false;
-        else
-        {
-                node=stylesRoot.firstChild();
-                while(!node.isNull())
-                {
-                        element=node.toElement();
-                        if(!element.isNull())
-                        {
-                                if(element.tagName()=="RootParagraphStyleGroup")
-                                        if(!importPStyles(node))
-                                                return false;
-                                if(element.tagName()=="RootCharacterStyleGroup")
-                                        if(!importCStyles(node))
-                                                return false;
-                        }
-                        node=node.nextSibling();
-                }
-        }
-        return true;
+	QDomElement stylesRoot=loadXmlFile(stylePath);
+	if(stylesRoot.tagName() != "idPkg:Styles")
+	return false;
+	else
+	{
+		node=stylesRoot.firstChild();
+		while(!node.isNull())
+		{
+			element=node.toElement();
+			if(!element.isNull())
+			{
+				if(element.tagName()=="RootParagraphStyleGroup")
+				if(!importPStyles(node))
+					return false;
+				if(element.tagName()=="RootCharacterStyleGroup")
+					if(!importCStyles(node))
+						return false;
+			}
+			node=node.nextSibling();
+		}
+	}
+	return true;
 }
 
 bool ImportIdmlImpl::importPStyles(QDomNode &node)
 {
-        node=node.firstChild();
-        while(!node.isNull())
-        {
-                QDomElement elem = node.toElement();
-                if(!elem.isNull())
-                {
-                        if(elem.tagName()=="ParagraphStyle")
+	node=node.firstChild();
+	while(!node.isNull())
+	{
+		QDomElement elem = node.toElement();
+		if(!elem.isNull())
+		{
+			if(elem.tagName()=="ParagraphStyle")
 			{
 				readParagraphStyle(m_Doc, node, vg, *m_AvailableFonts);
 				StyleSet<ParagraphStyle>tmp;
@@ -324,15 +324,15 @@ bool ImportIdmlImpl::importPStyles(QDomNode &node)
 				temp.create(cs);
 				m_Doc->redefineCharStyles(temp,false);
 			}
-                }
-                node=node.nextSibling();
-        }
+		}
+		node=node.nextSibling();
+	}
 	return true;
 }
 
 void ImportIdmlImpl::readParagraphStyle(ScribusDoc *doc, QDomNode node,  ParagraphStyle &newStyle, SCFonts &fonts)
 {
-    /* Parsing out the attributes of ParagraphStyle those needed to form a paragraph style of Scribus */
+	/* Parsing out the attributes of ParagraphStyle those needed to form a paragraph style of Scribus */
 	QDomElement elem=node.toElement();
 	QStringList features;
 	newStyle.erase();
@@ -354,13 +354,13 @@ void ImportIdmlImpl::readParagraphStyle(ScribusDoc *doc, QDomNode node,  Paragra
 	newStyle.charStyle().setTracking(elem.attribute("Tracking","").toDouble());
 
 	if(elem.attribute("Underline","")=="true")
-		features.append(CharStyle::UNDERLINE);
+	features.append(CharStyle::UNDERLINE);
 	if(elem.attribute("StrikeThru","")=="true")
-		features.append(CharStyle::STRIKETHROUGH);
-    /*if(elem.attribute("Capitalization","")=="")
-        features.append(CharStyle::ALLCAPS);
-    if(elem.attribute("Capitalization","")=="")
-        features.append(CharStyle::SMALLCAPS);*/
+	features.append(CharStyle::STRIKETHROUGH);
+	/*if(elem.attribute("Capitalization","")=="")
+		features.append(CharStyle::ALLCAPS);
+	if(elem.attribute("Capitalization","")=="")
+		features.append(CharStyle::SMALLCAPS);*/
 	newStyle.charStyle().setFeatures(features);
 
 	QString fontStyle = elem.attribute("FontStyle","");
@@ -401,7 +401,7 @@ void ImportIdmlImpl::readParagraphStyle(ScribusDoc *doc, QDomNode node,  Paragra
 					if(!tabElements.isNull())
 					{
 						if(tabElements.tagName()=="Position")
-							tb.tabPosition = tabElements.text().toDouble();
+						tb.tabPosition = tabElements.text().toDouble();
 						if(tabElements.tagName()=="AlignmentCharacter")
 						{
 							QString tbCh   = tabElements.text();
@@ -436,15 +436,15 @@ void ImportIdmlImpl::readCharacterStyle(ScribusDoc *doc, QDomNode node, CharStyl
 	newStyle.setTracking(elem.attribute("Tracking","").toDouble());
 
 	if(elem.attribute("Underline","")=="true")
-		features.append(CharStyle::UNDERLINE);
+	features.append(CharStyle::UNDERLINE);
 	if(elem.attribute("StrikeThru","")=="true")
-		features.append(CharStyle::STRIKETHROUGH);
-    /*if(elem.attribute("Capitalization","")=="")
-        features.append(CharStyle::ALLCAPS);
-    if(elem.attribute("Capitalization","")=="")
-        features.append(CharStyle::SMALLCAPS);*/
+	features.append(CharStyle::STRIKETHROUGH);
+	/*if(elem.attribute("Capitalization","")=="")
+		features.append(CharStyle::ALLCAPS);
+	if(elem.attribute("Capitalization","")=="")
+		features.append(CharStyle::SMALLCAPS);*/
 	newStyle.setFeatures(features);
-    
+	
 	QString fontStyle = elem.attribute("FontStyle","");
 	newStyle.setScaleH(qRound((elem.attribute("HorizontalScale","").toDouble()) * 10));
 	newStyle.setScaleV(qRound((elem.attribute("VerticalScale","").toDouble()) * 10));
@@ -512,8 +512,8 @@ void fixLegacyCStyle(CharStyle& cstyle)
 		cstyle.resetFont();
 	if (cstyle.fontSize() <= -16000 / 10)
 		cstyle.resetFontSize();
-//		if (cstyle.effects() == 65535)
-//			cstyle.resetEffects();
+	//		if (cstyle.effects() == 65535)
+	//			cstyle.resetEffects();
 	if (cstyle.fillColor().isEmpty())
 		cstyle.resetFillColor();
 	if (cstyle.fillShade() <= -16000)
@@ -658,7 +658,7 @@ void ImportIdmlImpl::readSpread(QDomNode node)
 		}
 		node = node.nextSibling();
 	}
-			
+	
 }
 
 void ImportIdmlImpl::addTextFrame(ScribusDoc* doc, QDomNode node)
@@ -734,9 +734,9 @@ void ImportIdmlImpl::addTextFrame(ScribusDoc* doc, QDomNode node)
 		for(int j=0; j<count; j++)
 		{
 			if(!(parentStory.pstyleRange.at(i).cstyleRange.at(j).properties.AppliedCStyle.isEmpty()))
-				writer->setCharStyle(parentStory.pstyleRange.at(i).cstyleRange.at(j).properties.AppliedCStyle);
+			writer->setCharStyle(parentStory.pstyleRange.at(i).cstyleRange.at(j).properties.AppliedCStyle);
 			if(!(parentStory.pstyleRange.at(i).cstyleRange.at(j).properties.AppliedPStyle.isEmpty()))
-				writer->setStyle(parentStory.pstyleRange.at(i).cstyleRange.at(j).properties.AppliedPStyle);
+			writer->setStyle(parentStory.pstyleRange.at(i).cstyleRange.at(j).properties.AppliedPStyle);
 			QStringList list = parentStory.pstyleRange.at(i).cstyleRange.at(j).Content.split(QChar(13),QString::KeepEmptyParts);
 			QStringList::Iterator it;
 			for( it=list.begin();it!=list.end();++it)
@@ -771,16 +771,14 @@ double ImportIdmlImpl::findWidth(double x1, double y1, double x2, double y2)
 {
 	if(x1==x2)
 		return (y1>y2)?(y1-y2):(y2-y1);
-	else
-		return -1;
+	return -1;
 }
 
 double ImportIdmlImpl::findHeight(double x1, double y1, double x2, double y2)
 {
 	if(y1==y2)
 		return (x1>x2)?(x1-x2):(x2-x1);
-	else
-		return -1;
+	return -1;
 }
 
 QTransform itemTransform(QString transform)
@@ -871,7 +869,7 @@ void ImportIdmlImpl::readComTextProps(QDomNode node, CommonTextProps& property)
 	property.AppliedLanguage=element.attribute("AppliedLanguage","");
 	property.AppliedPStyle=element.attribute("AppliedParagraphStyle","");
 	property.BaselineShift=element.attribute("BaselineShift","").toDouble();
-//	property.Capital=element.attribute("Capitalization","");
+	//	property.Capital=element.attribute("Capitalization","");
 	property.DesiredGlyphScale=element.attribute("DesiredGlyphScale","").toDouble();
 	property.DesiredWordSpace=element.attribute("DesiredWordSpacing","").toDouble();
 	property.DropCapChars=element.attribute("DropCapCharacters","").toDouble();
@@ -881,11 +879,11 @@ void ImportIdmlImpl::readComTextProps(QDomNode node, CommonTextProps& property)
 	property.FirstLineIndent=element.attribute("FirstLineIndent","").toDouble();
 	property.FontStyle=element.attribute("FontStyle","");
 	property.GradFillAngle=element.attribute("GradiantFillAngle","").toDouble();
-        property.GradFillLength=element.attribute("GradiantFillLength","").toDouble();
-        property.GradStrokeAngle=element.attribute("GradiantStrokeAngle","").toDouble();
-        property.GradStrokeLength=element.attribute("GradiantStrokeLength","").toDouble();
+	property.GradFillLength=element.attribute("GradiantFillLength","").toDouble();
+	property.GradStrokeAngle=element.attribute("GradiantStrokeAngle","").toDouble();
+	property.GradStrokeLength=element.attribute("GradiantStrokeLength","").toDouble();
 	property.HorizontalScale=element.attribute("HorizontalScale","").toDouble();
-//	property.justify=element.attribute("Justification","");
+	//	property.justify=element.attribute("Justification","");
 	property.StrikeThru=(element.attribute("StrikeThrough","")=="true")?true:false;
 	property.StrikeThruOffset=element.attribute("StrikeThroughOffset","").toDouble();
 	property.StrikeThruWeight=element.attribute("StrikeThroughWeight","").toDouble();
