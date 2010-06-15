@@ -16,9 +16,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "util_icon.h"
 
-
-#include <QTextStream>
+#include <QSharedPointer>
 #include <QColorDialog>
+#include <QTextStream>
 
 BarcodeType::BarcodeType(QString cmd, QString exa,
 						 QString comm, QString regExp,
@@ -235,17 +235,18 @@ void BarcodeGenerator::okButton_pressed()
 	hide();
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
 
-	UndoTransaction * tran = 0;
+	QSharedPointer<UndoTransaction> tran;
 	if (UndoManager::undoEnabled())
 	{
-		tran = new UndoTransaction(
+		tran = QSharedPointer<UndoTransaction>( new UndoTransaction(
 				UndoManager::instance()->beginTransaction(
 							ScCore->primaryMainWindow()->doc->currentPage()->getUName(),
 							Um::IImageFrame,
 							Um::ImportBarcode,
 							ui.bcCombo->currentText() + " (" + ui.codeEdit->text() + ")",
 							Um::IEPS)
-						);
+						)
+				);
 	}
 
 	if (fmt)
