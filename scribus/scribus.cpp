@@ -1595,6 +1595,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
+								int oldRotMode = doc->RotMode;
+								doc->RotMode   = 0; 
 								if (resizingsmaller)
 								{
 									currItem->Sizing = false;
@@ -1607,6 +1609,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									currItem->Sizing = false;
 									doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
+								doc->RotMode = oldRotMode;
  							}
 						}
 						currItem->update();
@@ -1662,6 +1665,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
+								int oldRotMode = doc->RotMode;
+								doc->RotMode   = 0; 
 								if (resizingsmaller)
 								{
 									doc->MoveItem(-resizeBy, 0, currItem, false);
@@ -1674,6 +1679,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									currItem->Sizing = false;
 									doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
+								doc->RotMode = oldRotMode;
 							}
 						}
 						currItem->update();
@@ -1729,6 +1735,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
+								int oldRotMode = doc->RotMode;
+								doc->RotMode   = 0; 
 								if (resizingsmaller)
 								{
 									currItem->Sizing = false;
@@ -1741,6 +1749,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									currItem->Sizing = false;
 									doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
+								doc->RotMode = oldRotMode;
 							}
 						}
 						currItem->update();
@@ -1796,6 +1805,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
+								int oldRotMode = doc->RotMode;
+								doc->RotMode   = 0; 
 								if (resizingsmaller)
 								{
 									doc->MoveItem(0, -resizeBy, currItem, false);
@@ -1808,6 +1819,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									currItem->Sizing = false;
 									doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
+								doc->RotMode = oldRotMode;
 							}
 						}
 						currItem->update();
