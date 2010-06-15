@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QDir>
 #include <QCursor>
+#include <QSharedPointer>
 
 #include "ui/scmessagebox.h"
 #include "scribus.h"
@@ -94,8 +95,8 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isEmpty());
 	Q_ASSERT(!doc->masterPageMode());
-	ExportBitmap *ex = new ExportBitmap();
-	ExportForm *dia = new ExportForm(doc->scMW(), doc, ex->pageDPI, ex->quality, ex->bitmapType);
+	QSharedPointer<ExportBitmap> ex( new ExportBitmap() );
+	QSharedPointer<ExportForm>  dia( new ExportForm(doc->scMW(), doc, ex->pageDPI, ex->quality, ex->bitmapType) );
 
 	// interval widgets handling
 	QString tmp;
@@ -144,9 +145,6 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		if (res)
 			doc->scMW()->setStatusBarInfoText( tr("Export successful"));
 	}
-	// clean the trash
-	delete ex;
-	delete dia;
 	return true;
 }
 
