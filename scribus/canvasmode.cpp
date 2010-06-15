@@ -1000,6 +1000,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
+							int oldRotMode = m_doc->RotMode();
+							m_doc->RotMode(0);
 							if (resizingsmaller)
 							{
 								currItem->Sizing = false;
@@ -1012,6 +1014,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->Sizing = false;
 								m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 							}
+							m_doc->RotMode(oldRotMode);
 						}
 					}
 					currItem->update();
@@ -1067,6 +1070,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
+							int oldRotMode = m_doc->RotMode();
+							m_doc->RotMode(0);
 							if (resizingsmaller)
 							{
 								m_doc->MoveItem(-resizeBy, 0, currItem, false);
@@ -1079,6 +1084,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->Sizing = false;
 								m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 							}
+							m_doc->RotMode(oldRotMode);
 						}
 					}
 					currItem->update();
@@ -1134,6 +1140,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
+							int oldRotMode = m_doc->RotMode();
+							m_doc->RotMode(0);
 							if (resizingsmaller)
 							{
 								currItem->Sizing = false;
@@ -1146,6 +1154,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->Sizing = false;
 								m_doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 							}
+							m_doc->RotMode(oldRotMode);
 						}
 					}
 					currItem->update();
@@ -1201,6 +1210,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
+							int oldRotMode = m_doc->RotMode();
+							m_doc->RotMode(0);
 							if (resizingsmaller)
 							{
 								m_doc->MoveItem(0, -resizeBy, currItem, false);
@@ -1213,6 +1224,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->Sizing = false;
 								m_doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 							}
+							m_doc->RotMode(oldRotMode);
 						}
 					}
 					currItem->update();
