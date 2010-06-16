@@ -2401,7 +2401,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			bool previousWasObject(false);
 			double selX = ls.x;
 			ScText *hls = 0;
-			for (int as = ls.firstItem; as <= qMin(ls.lastItem, itemText.length()); ++as)
+			for (int as = ls.firstItem; as <= qMin(ls.lastItem, itemText.length() - 1); ++as)
 			{
 				bool selecteds = itemText.selected(as);
 				hls = itemText.item(as);
@@ -2462,7 +2462,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 
 			QColor tmp;
 			ScText *hl = 0;
-			for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length()); ++a)
+			for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length() - 1); ++a)
 			{
 				hl = itemText.item(a);
 				const CharStyle& charStyle(itemText.charStyle(a));

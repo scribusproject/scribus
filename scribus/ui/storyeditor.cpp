@@ -2888,6 +2888,8 @@ void StoryEditor::updateTextFrame()
 	}
 #endif
 	Editor->saveItemText(nextItem);
+	nextItem->invalidateLayout();
+	nextItem->layout();
 #if 0
 	QList<PageItem*> FrameItemsDel;
 	FrameItemsDel.setAutoDelete(true);
