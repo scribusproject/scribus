@@ -2868,6 +2868,10 @@ void StoryEditor::updateTextFrame()
 	}
 #endif
 	Editor->saveItemText(nextItem);
+	// #9180 : force relayout here, it appears that relayout is sometime disabled
+	// to speed up selection, but re layout() cannot be avoided here
+	nextItem->invalidateLayout();
+	nextItem->layout();
 #if 0
 	QList<PageItem*> FrameItemsDel;
 	FrameItemsDel.setAutoDelete(true);
