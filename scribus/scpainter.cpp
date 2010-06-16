@@ -953,6 +953,8 @@ void ScPainter::drawVPath( int mode )
 		else if (fillMode == 2)
 		{
 			cairo_pattern_t *pat;
+			bool   isFirst = true;
+			double rampPoint, lastPoint = 0.0;
 			double x1 = fill_gradient.origin().x();
 			double y1 = fill_gradient.origin().y();
 			double x2 = fill_gradient.vector().x();
@@ -966,6 +968,10 @@ void ScPainter::drawVPath( int mode )
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
+				rampPoint  = colorStops[ offset ]->rampPoint;
+				if ((lastPoint == rampPoint) && (!isFirst))
+					continue;
+				isFirst = false;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
 				qStopColor.getHsv(&h, &s, &v);
@@ -975,7 +981,8 @@ void ScPainter::drawVPath( int mode )
 				double a = colorStops[offset]->opacity;
 				double r, g, b;
 				qStopColor.getRgbF(&r, &g, &b);
-				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+				cairo_pattern_add_color_stop_rgba (pat, rampPoint, r, g, b, a);
+				lastPoint = rampPoint;
 			}
 			cairo_set_source (m_cr, pat);
 			cairo_clip_preserve (m_cr);
@@ -1061,6 +1068,8 @@ void ScPainter::drawVPath(int mode)
 		else if (fillMode == 2)
 		{
 			QGradient pat;
+			bool   isFirst = true;
+			double rampPoint, lastPoint = 0.0;
 			double x1 = fill_gradient.origin().x();
 			double y1 = fill_gradient.origin().y();
 			double x2 = fill_gradient.vector().x();
@@ -1074,6 +1083,10 @@ void ScPainter::drawVPath(int mode)
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
+				rampPoint  = colorStops[ offset ]->rampPoint;
+				if ((lastPoint == rampPoint) && (!isFirst))
+					continue;
+				isFirst = false;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
 				qStopColor.getHsv(&h, &s, &v);
@@ -1082,6 +1095,7 @@ void ScPainter::drawVPath(int mode)
 				qStopColor.setHsv(h, sneu, vneu);
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
 				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				lastPoint = rampPoint;
 			}
 			painter.setOpacity(fill_trans);
 			painter.fillPath(m_path, pat);

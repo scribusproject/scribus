@@ -457,12 +457,18 @@ void ScPainterEx_Cairo::drawLinearGradient( VGradientEx& gradient, const QRect& 
 	FPoint p2( gradient.vector().x(), gradient.vector().y() );
 	cairo_pattern_t *pat = cairo_pattern_create_linear (p1.x(), p1.y(), p2.x(), p2.y());	
 
+	bool   isFirst  = true;
+	double lastStop = 0.0;
 	for( uint index = 0 ; index < gradient.Stops(); index++)
 	{
 		stop  = colorStops.at(index);
+		if ((lastStop == stop->rampPoint) && (!isFirst))
+			continue;
+		isFirst = false;
 		color = transformColor( ScColorShade(stop->color, stop->shade), 1.0 );
 		color.getRgbF(&r, &g, &b);
 		cairo_pattern_add_color_stop_rgba (pat, stop->rampPoint, r, g, b, stop->opacity);
+		lastStop = stop->rampPoint;
 	}
 
 	cairo_set_source (m_cr, pat);
@@ -486,12 +492,18 @@ void ScPainterEx_Cairo::drawCircularGradient( VGradientEx& gradient, const QRect
 
 	cairo_pattern_t* pat = cairo_pattern_create_radial (pc.x(), pc.y(), 0.1, pc.x(), pc.y(), rad);	
 
+	bool   isFirst  = true;
+	double lastStop = 0.0;
 	for( uint index = 0 ; index < gradient.Stops() ; index++)
 	{
 		stop  = colorStops.at(index);
+		if ((lastStop == stop->rampPoint) && (!isFirst))
+			continue;
+		isFirst = false;
 		color = transformColor( ScColorShade(stop->color, stop->shade), 1.0 );
 		color.getRgbF(&r, &g, &b);
 		cairo_pattern_add_color_stop_rgba (pat, stop->rampPoint, r, g, b, stop->opacity);
+		lastStop = stop->rampPoint;
 	}
 	
 	cairo_set_source (m_cr, pat);
