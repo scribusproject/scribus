@@ -1450,17 +1450,25 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					grad.setAttribute("x2", FToStr(Item->GrStrokeEndX));
 					grad.setAttribute("y2", FToStr(Item->GrStrokeEndY));
 				}
+				bool   isFirst = true;
+				double actualStop = 0.0, lastStop = 0.0;
 				QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
 				for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
 				{
-					QDomElement itcl = docu.createElement("stop");
-					itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
-					if (cstops.at(cst)->name == CommonStrings::None)
-						itcl.setAttribute("stop-opacity", FToStr(0));
-					else
-						itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-					itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-					grad.appendChild(itcl);
+					actualStop = cstops.at(cst)->rampPoint;
+					if ((actualStop != lastStop) || (isFirst))
+					{
+						QDomElement itcl = docu.createElement("stop");
+						itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+						if (cstops.at(cst)->name == CommonStrings::None)
+							itcl.setAttribute("stop-opacity", FToStr(0));
+						else
+							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+						itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+						grad.appendChild(itcl);
+						lastStop = actualStop;
+						isFirst  = false;
+					}
 				}
 				grad.setAttribute("id", "Grad"+IToStr(GradCount));
 				grad.setAttribute("gradientUnits", "userSpaceOnUse");
@@ -1605,17 +1613,25 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					grad.setAttribute("x2", FToStr(Item->GrStrokeEndX));
 					grad.setAttribute("y2", FToStr(Item->GrStrokeEndY));
 				}
+				bool   isFirst = true;
+				double actualStop = 0.0, lastStop = 0.0;
 				QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
 				for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
 				{
-					QDomElement itcl = docu.createElement("stop");
-					itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
-					if (cstops.at(cst)->name == CommonStrings::None)
-						itcl.setAttribute("stop-opacity", FToStr(0));
-					else
-						itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-					itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-					grad.appendChild(itcl);
+					actualStop = cstops.at(cst)->rampPoint;
+					if ((actualStop != lastStop) || (isFirst))
+					{
+						QDomElement itcl = docu.createElement("stop");
+						itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+						if (cstops.at(cst)->name == CommonStrings::None)
+							itcl.setAttribute("stop-opacity", FToStr(0));
+						else
+							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+						itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+						grad.appendChild(itcl);
+						lastStop = actualStop;
+						isFirst  = false;
+					}
 				}
 				grad.setAttribute("id", "Grad"+IToStr(GradCount));
 				grad.setAttribute("gradientUnits", "userSpaceOnUse");
@@ -1889,17 +1905,25 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 				grad.setAttribute("gradientTransform", MatrixToStr(qmatrix));
 				grad.setAttribute("id", "Grad"+IToStr(GradCount));
 				grad.setAttribute("gradientUnits", "userSpaceOnUse");
+				bool   isFirst = true;
+				double actualStop = 0.0, lastStop = 0.0;
 				QList<VColorStop*> cstops = Item->fill_gradient.colorStops();
 				for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 				{
-					QDomElement itcl = docu.createElement("stop");
-					itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
-					if (cstops.at(cst)->name == CommonStrings::None)
-						itcl.setAttribute("stop-opacity", FToStr(0));
-					else
-						itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-					itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-					grad.appendChild(itcl);
+					actualStop = cstops.at(cst)->rampPoint;
+					if ((actualStop != lastStop) || (isFirst))
+					{
+						QDomElement itcl = docu.createElement("stop");
+						itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+						if (cstops.at(cst)->name == CommonStrings::None)
+							itcl.setAttribute("stop-opacity", FToStr(0));
+						else
+							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+						itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+						grad.appendChild(itcl);
+						lastStop = actualStop;
+						isFirst  = false;
+					}
 				}
 				globalDefs.appendChild(grad);
 				fill = "fill:url(#Grad"+IToStr(GradCount)+");";
@@ -2195,17 +2219,25 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 			grad.setAttribute("x2", FToStr(Item->GrStrokeEndX));
 			grad.setAttribute("y2", FToStr(Item->GrStrokeEndY));
 		}
+		bool   isFirst = true;
+		double actualStop = 0.0, lastStop = 0.0;
 		QList<VColorStop*> cstops = Item->stroke_gradient.colorStops();
 		for (uint cst = 0; cst < Item->stroke_gradient.Stops(); ++cst)
 		{
-			QDomElement itcl = docu.createElement("stop");
-			itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
-			if (cstops.at(cst)->name == CommonStrings::None)
-				itcl.setAttribute("stop-opacity", FToStr(0));
-			else
-				itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-			itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
-			grad.appendChild(itcl);
+			actualStop = cstops.at(cst)->rampPoint;
+			if ((actualStop != lastStop) || (isFirst))
+			{
+				QDomElement itcl = docu.createElement("stop");
+				itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+				if (cstops.at(cst)->name == CommonStrings::None)
+					itcl.setAttribute("stop-opacity", FToStr(0));
+				else
+					itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+				itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+				grad.appendChild(itcl);
+				lastStop = actualStop;
+				isFirst  = false;
+			}
 		}
 		double gradientSkew;
 		if (Item->GrStrokeSkew == 90)

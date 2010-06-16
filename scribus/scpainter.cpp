@@ -1716,6 +1716,8 @@ void ScPainter::drawVPath( int mode )
 			}
 			else
 			{
+				bool   isFirst = true;
+				double rampPoint, lastPoint = 0.0;
 				double x1 = fill_gradient.origin().x();
 				double y1 = fill_gradient.origin().y();
 				double x2 = fill_gradient.vector().x();
@@ -1733,6 +1735,10 @@ void ScPainter::drawVPath( int mode )
 				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 				{
 					qStopColor = colorStops[ offset ]->color;
+					rampPoint  = colorStops[ offset ]->rampPoint;
+					if ((lastPoint == rampPoint) && (!isFirst))
+						continue;
+					isFirst = false;
 					int h, s, v, sneu, vneu;
 					int shad = colorStops[offset]->shade;
 					qStopColor.getHsv(&h, &s, &v);
@@ -1743,6 +1749,7 @@ void ScPainter::drawVPath( int mode )
 					double r, g, b;
 					qStopColor.getRgbF(&r, &g, &b);
 					cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+					lastPoint = rampPoint;
 				}
 				cairo_matrix_t matrix;
 				QTransform qmatrix;
@@ -1909,6 +1916,8 @@ void ScPainter::drawVPath( int mode )
 		{
 			cairo_push_group(m_cr);
 			cairo_pattern_t *pat;
+			bool   isFirst = true;
+			double rampPoint, lastPoint = 0.0;
 			double x1 = stroke_gradient.origin().x();
 			double y1 = stroke_gradient.origin().y();
 			double x2 = stroke_gradient.vector().x();
@@ -1926,6 +1935,10 @@ void ScPainter::drawVPath( int mode )
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
+				rampPoint  = colorStops[ offset ]->rampPoint;
+				if ((lastPoint == rampPoint) && (!isFirst))
+					continue;
+				isFirst = false;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
 				qStopColor.getHsv(&h, &s, &v);
@@ -1935,7 +1948,8 @@ void ScPainter::drawVPath( int mode )
 				double a = colorStops[offset]->opacity;
 				double r, g, b;
 				qStopColor.getRgbF(&r, &g, &b);
-				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+				cairo_pattern_add_color_stop_rgba (pat, rampPoint, r, g, b, a);
+				lastPoint = rampPoint;
 			}
 			cairo_matrix_t matrix;
 			QTransform qmatrix;
@@ -2106,6 +2120,8 @@ void ScPainter::drawVPath(int mode)
 		else if (fillMode == 2)
 		{
 			QGradient pat;
+			bool   isFirst = true;
+			double rampPoint, lastPoint = 0.0;
 			double x1 = fill_gradient.origin().x();
 			double y1 = fill_gradient.origin().y();
 			double x2 = fill_gradient.vector().x();
@@ -2121,6 +2137,10 @@ void ScPainter::drawVPath(int mode)
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
+				rampPoint  = colorStops[ offset ]->rampPoint;
+				if ((lastPoint == rampPoint) && (!isFirst))
+					continue;
+				isFirst = false;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
 				qStopColor.getHsv(&h, &s, &v);
@@ -2128,7 +2148,8 @@ void ScPainter::drawVPath(int mode)
 				vneu = 255 - ((255 - v) * shad / 100);
 				qStopColor.setHsv(h, sneu, vneu);
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
-				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				pat.setColorAt(rampPoint, qStopColor);
+				lastPoint = rampPoint;
 			}
 			QTransform qmatrix;
 			if (fill_gradient.type() == VGradient::radial)
@@ -2438,6 +2459,8 @@ void ScPainter::drawVPath(int mode)
 		else if (strokeMode == 2)
 		{
 			QGradient pat;
+			bool   isFirst = true;
+			double rampPoint, lastPoint = 0.0;
 			double x1 = stroke_gradient.origin().x();
 			double y1 = stroke_gradient.origin().y();
 			double x2 = stroke_gradient.vector().x();
@@ -2453,6 +2476,9 @@ void ScPainter::drawVPath(int mode)
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
+				if ((lastPoint == rampPoint) && (!isFirst))
+					continue;
+				isFirst = false;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
 				qStopColor.getHsv(&h, &s, &v);
@@ -2460,7 +2486,8 @@ void ScPainter::drawVPath(int mode)
 				vneu = 255 - ((255 - v) * shad / 100);
 				qStopColor.setHsv(h, sneu, vneu);
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
-				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				pat.setColorAt(rampPoint, qStopColor);
+				lastPoint == rampPoint;
 			}
 			QTransform qmatrix;
 			if (stroke_gradient.type() == VGradient::radial)
