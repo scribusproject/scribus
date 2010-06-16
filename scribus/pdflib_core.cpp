@@ -7634,11 +7634,15 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		mpa.translate(-StartX, StartY);
 		mpa.scale(1, Gscale);
 	}
-	bool transparencyFound = false;
+	double lastStop = -1.0;
+	double actualStop = 0.0;
+	bool   isFirst = true, transparencyFound = false;
 	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
-		double actualStop = cstops.at(cst)->rampPoint;
-		if ((cst == 0) && (actualStop != 0.0))
+		actualStop = cstops.at(cst)->rampPoint;
+		if ((actualStop == lastStop) && (!isFirst))
+			continue;
+		if ((isFirst) && (actualStop != 0.0))
 		{
 			StopVec.append(0.0);
 			colorNames.append(cstops.at(cst)->name);
@@ -7646,6 +7650,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			TransVec.append(cstops.at(cst)->opacity);
 			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
+		isFirst = false;
 		StopVec.append(actualStop);
 		colorNames.append(cstops.at(cst)->name);
 		colorShades.append(cstops.at(cst)->shade);
@@ -7666,6 +7671,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			TransVec.append(cstops.at(cst)->opacity);
 			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
+		lastStop = actualStop;
 	}
 	QString TRes("");
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
