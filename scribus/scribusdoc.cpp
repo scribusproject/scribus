@@ -10676,8 +10676,12 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	{
 		if (!fromMP)
 		{
-			currItem->setRotation(atan2(currItem->height(),currItem->width())*(180.0/M_PI));
-			currItem->setWidthHeight(sqrt(pow(currItem->width(),2)+pow(currItem->height(),2)), 1.0);
+			FPoint g(currItem->xPos(), currItem->yPos());
+			FPoint t(currItem->width(), 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+			t -= g;
+			currItem->setRotation( atan2(t.y(), t.x()) * (180.0/M_PI));
+			currItem->setWidthHeight( sqrt(pow(t.x(), 2) + pow(t.y(), 2)), 1.0);
+			//currItem->setXYPos(currItem->xPos(), currItem->yPos());
 		}
 		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
 		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
