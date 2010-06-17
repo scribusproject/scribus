@@ -259,7 +259,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	settingsBarLayout->addWidget(devTitle);
 	jobTitle = new QGroupBox( this );
 	jobTitle->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-	jobTitle->setTitle( tr( "Print Settings" ) );
+	jobTitle->setTitle( tr( "Print Preview Settings" ) );
 	Layout1 = new QVBoxLayout( jobTitle );
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 5 );
