@@ -103,7 +103,6 @@ QString CollectForOutput::collect()
 	QDir::setCurrent(outputDirectory);
 	ScCore->primaryMainWindow()->updateActiveWindowCaption(newName);
 	UndoManager::instance()->renameStack(newName);
-	ScCore->primaryMainWindow()->scrActions["fileSave"]->setEnabled(false);
 	ScCore->primaryMainWindow()->scrActions["fileRevert"]->setEnabled(false);
 	ScCore->primaryMainWindow()->updateRecent(newName);
 	ScCore->primaryMainWindow()->setStatusBarInfoText("");
