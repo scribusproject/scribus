@@ -148,47 +148,6 @@ void PrefsManager::initDefaults()
 	csm.initialiseDefaultPrefs(appPrefs);
 	csm.findPaletteLocations();
 	csm.findPalettes();
-	/*
-	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "Scribus_X11.txt";
-	QFile fiC(pfadC2);
-	if (!fiC.exists())
-	{
-		appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
-		appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
-		appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
-		appPrefs.colorPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
-		appPrefs.colorPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
-		appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
-		appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
-		appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		appPrefs.colorPrefs.DColorSet = "Scribus_Small";
-	}
-	else
-	{
-		if (fiC.open(IO_ReadOnly))
-		{
-			QString ColorEn, Cname;
-			int Rval, Gval, Bval;
-			QTextStream tsC(&fiC);
-			ColorEn = tsC.readLine();
-			while (!tsC.atEnd())
-			{
-				ColorEn = tsC.readLine();
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
-				CoE >> Cname;
-				ScColor tmp;
-				tmp.setColorRGB(Rval, Gval, Bval);
-				appPrefs.colorPrefs.DColors.insert(Cname, tmp);
-			}
-			fiC.close();
-		}
-		appPrefs.colorPrefs.DColorSet = "X11 RGB-Set";
-	}
-	*/
 
 	appPrefs.uiPrefs.wheelJump = 40;
 	/** Set Default window position and size to sane default values which should work on every screen */

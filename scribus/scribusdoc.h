@@ -863,6 +863,7 @@ public:
 	void updateAllItemQColors();
 	//! @brief Some internal align tools
 	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
+	typedef enum {alignByMoving, alignByResizing } AlignMethod;
 	void buildAlignItemList(Selection* customSelection=0);
 	bool startAlign();
 	void endAlign();
@@ -1230,16 +1231,21 @@ public slots:
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection=0);
 	void itemSelection_SetImageRotation(double rot, Selection* customSelection=0);
-	void itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignBottomOut(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignCenterHor(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignCenterVer(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosition);
-	void itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignItemLeft(int i, double newX, AlignMethod how);
+	void itemSelection_AlignItemRight(int i, double newX, AlignMethod how);
+	void itemSelection_AlignItemTop(int i, double newY, AlignMethod how);
+	void itemSelection_AlignItemBottom(int i, double newY, AlignMethod how);
+	void itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignRightOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignBottomIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignRightIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignBottomOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignLeftIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+	void itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
+
 	void itemSelection_DistributeDistH(bool usingDistance=false, double distance=0.0);
 	void itemSelection_DistributeAcrossPage(bool useMargins=false);
 	void itemSelection_DistributeRight();

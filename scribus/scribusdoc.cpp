@@ -8819,8 +8819,67 @@ void ScribusDoc::endAlign()
 	regionsChanged()->update(QRectF());
 }
 
+void ScribusDoc::itemSelection_AlignItemRight(int i, double newX, AlignMethod how)
+{
+	double diff=newX-AObjects[i].x2;
+	double width=AObjects[i].x2-AObjects[i].x1;
+	bool resize = (how == alignByResizing && diff > -width);
+	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
+		if (!AObjects[i].Objects.at(j)->locked()) {
+			if (resize) {
+				AObjects[i].Objects.at(j)->resizeBy(diff, 0.0);
+				AObjects[i].Objects.at(j)->updateClip();
+			}
+			else AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+		}
+}
 
-void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignItemLeft(int i, double newX, AlignMethod how)
+{
+	double diff=newX-AObjects[i].x1;
+	double width=AObjects[i].x2-AObjects[i].x1;
+	bool resize = (how == alignByResizing && -diff > -width);
+	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
+		if (!AObjects[i].Objects.at(j)->locked()) {
+			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			if (resize) {
+				AObjects[i].Objects.at(j)->resizeBy(-diff, 0.0);
+				AObjects[i].Objects.at(j)->updateClip();
+			}
+		}
+}
+
+void ScribusDoc::itemSelection_AlignItemBottom(int i, double newY, AlignMethod how)
+{
+	double diff=newY-AObjects[i].y2;
+	double height=AObjects[i].y2-AObjects[i].y1;
+	bool resize = (how == alignByResizing && diff > -height);
+	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
+		if (!AObjects[i].Objects.at(j)->locked()) {
+			if (resize) {
+				AObjects[i].Objects.at(j)->resizeBy(0.0, diff);
+				AObjects[i].Objects.at(j)->updateClip();
+			}
+			else AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+		}
+}
+
+void ScribusDoc::itemSelection_AlignItemTop(int i, double newY, AlignMethod how)
+{
+	double diff=newY-AObjects[i].y1;
+	double height=AObjects[i].y2-AObjects[i].y1;
+	bool resize = (how == alignByResizing && -diff > -height);
+	for (int j = 0; j < AObjects[i].Objects.count(); ++j)
+		if (!AObjects[i].Objects.at(j)->locked()) {
+			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			if (resize) {
+				AObjects[i].Objects.at(j)->resizeBy(0.0, -diff);
+				AObjects[i].Objects.at(j)->updateClip();
+			}
+		}
+}
+
+void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -8853,17 +8912,12 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newX-AObjects[i].x2;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
-	}
+		itemSelection_AlignItemRight(i, newX, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -8896,17 +8950,12 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newX-AObjects[i].x1;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
-	}
+		itemSelection_AlignItemLeft(i, newX, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -8960,7 +9009,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 }
 
 
-void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -8995,17 +9044,12 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newX-AObjects[i].x2;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
-	}
+		itemSelection_AlignItemRight(i, newX, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -9040,17 +9084,12 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newX-AObjects[i].x1;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
-	}
+		itemSelection_AlignItemLeft(i, newX, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -9083,17 +9122,12 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newY-AObjects[i].y2;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
-	}
+		itemSelection_AlignItemBottom(i, newY, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -9126,17 +9160,12 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newY-AObjects[i].y1;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
-	}
+		itemSelection_AlignItemTop(i, newY, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -9190,7 +9219,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 }
 
 
-void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -9225,17 +9254,12 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newY-AObjects[i].y2;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
-	}
+		itemSelection_AlignItemBottom(i, newY, currAlignMethod);
 	endAlign();
 }
 
 
-void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guidePosition)
+void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition)
 {
 	if (!startAlign())
 		return;
@@ -9270,12 +9294,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
-	{
-		double diff=newY-AObjects[i].y1;
-		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
-			if (!AObjects[i].Objects.at(j)->locked())
-				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
-	}
+		itemSelection_AlignItemTop(i, newY, currAlignMethod);
 	endAlign();
 }
 

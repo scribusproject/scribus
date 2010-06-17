@@ -102,6 +102,13 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->setCurrentIndex(alignComboValue);
 	alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
 	alignToChanged(alignComboValue);
+	alignMoveOrResizeLabel->setText( tr( "&Align Sides By:" ) );
+	int alignMethodValue=alignMoveOrResizeCombo->currentIndex();
+	alignMoveOrResizeCombo->clear();
+	alignMoveOrResizeCombo->addItem( tr("Moving (Preserve Size)") );
+	alignMoveOrResizeCombo->addItem( tr("Resizing (Preserve Opposite Side)") );
+	alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item:<ul><li>Always move the other side too (preserve existing width and height), or </li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
+	alignMethodChanged(alignMethodValue);
 	alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
 	alignLeftOutToolButton->setText( QString::null );
 	alignLeftOutToolButton->setToolTip( tr( "Align right sides of items to left side of anchor" ) );
@@ -231,7 +238,9 @@ void AlignDistributePalette::init()
 	
 	alignRelativeToCombo->setCurrentIndex(0);
 	alignToChanged(0);
+	alignMethodChanged(0);
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
+	connect(alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
 	
 	unitRatio=1.0;
 	guideDirection=-1;
@@ -263,63 +272,63 @@ void AlignDistributePalette::setDoc( ScribusDoc* newDoc )
 void AlignDistributePalette::alignLeftOut()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignLeftOut(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignLeftOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignLeftIn()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignLeftIn(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignLeftIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignCenterHor()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignCenterHor(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignCenterHor(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignRightIn()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignRightIn(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignRightIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignRightOut()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignRightOut(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignRightOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignTopOut()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignTopOut(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignTopOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignTopIn()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignTopIn(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignTopIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 
 void AlignDistributePalette::alignCenterVer()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignCenterVer(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignCenterVer(currAlignTo, currAlignMethod, guidePosition);
 }
 
 
 void AlignDistributePalette::alignBottomIn()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignBottomIn(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignBottomIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignBottomOut()
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_AlignBottomOut(currAlignTo, guidePosition);
+		currDoc->itemSelection_AlignBottomOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::distributeLeft()
@@ -424,6 +433,11 @@ void AlignDistributePalette::swapRight()
 void AlignDistributePalette::alignToChanged(int newAlignTo)
 {
 	currAlignTo = ScribusDoc::AlignTo(newAlignTo);
+	enableGuideButtons();
+}
+void AlignDistributePalette::alignMethodChanged(int newAlignMethod)
+{
+	currAlignMethod = ScribusDoc::AlignMethod(newAlignMethod);
 	enableGuideButtons();
 }
 
