@@ -21,14 +21,14 @@
 #include <xlocale.h>
 #endif
 
-#if defined(Q_OS_SOLARIS)
+#if defined(Q_OS_SOLARIS) or defined (Q_OS_OPENBSD)
 #include <locale.h>
 #endif
 
 #if defined(Q_WS_WIN)
 #define XLocaleType _locale_t
 #else
-  #if defined (Q_OS_SOLARIS)
+  #if defined (Q_OS_SOLARIS) or defined (Q_OS_OPENBSD)
   #define XLocaleType char*   //dummy?
   #else
   #define XLocaleType locale_t
