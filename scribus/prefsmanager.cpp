@@ -2321,7 +2321,7 @@ bool PrefsManager::ReadPref(QString ho)
 				lf.setRegistrationColor(static_cast<bool>(dc.attribute("Register").toInt()));
 			else
 				lf.setRegistrationColor(false);
-			appPrefs.colorPrefs.DColors[dc.attribute("NAME")] = lf;
+			appPrefs.colorPrefs.DColors[dc.attribute("Name")] = lf;
 		}
 		if (dc.tagName() == "Gradient")
 		{
