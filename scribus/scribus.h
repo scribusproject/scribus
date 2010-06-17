@@ -260,7 +260,7 @@ public slots:
 	void slotStoryEditor();
 	void slotCharSelect();
 	void ImageEffects();
-	QString Collect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);
+	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);

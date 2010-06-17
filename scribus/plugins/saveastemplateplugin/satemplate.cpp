@@ -134,7 +134,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 		templatesDir = userTemplatesDir;
 	}
 	dirs->set("collect", templatesDir);
-	if (doc->scMW()->Collect().isEmpty())
+	if (doc->scMW()->fileCollect().isEmpty())
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);

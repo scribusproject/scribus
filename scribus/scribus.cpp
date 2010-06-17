@@ -9053,7 +9053,7 @@ void ScribusMainWindow::ImageEffects()
 	}
 }
 
-QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool withProfiles, const QString& )
+QString ScribusMainWindow::fileCollect(bool compress, bool withFonts, const bool withProfiles, const QString& )
 {
 	CollectForOutput_UI c(this, doc, QString::null, withFonts, withProfiles, compress);
 	QString newFileName;

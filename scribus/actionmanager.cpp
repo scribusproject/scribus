@@ -170,7 +170,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["filePreferences"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
 	connect( (*scrActions)["filePreferences150"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefs150Org()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(triggered()), mainWindow, SLOT(slotFileRevert()) );
-	connect( (*scrActions)["fileCollect"], SIGNAL(triggered()), mainWindow, SLOT(Collect()) );
+	connect( (*scrActions)["fileCollect"], SIGNAL(triggered()), mainWindow, SLOT(fileCollect()) );
 	connect( (*scrActions)["fileQuit"], SIGNAL(triggered()), mainWindow, SLOT(slotFileQuit()) );
 	//File Import Menu
 	connect( (*scrActions)["fileImportText"], SIGNAL(triggered()), mainWindow, SLOT(slotGetContent()) );
