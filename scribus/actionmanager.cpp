@@ -1594,8 +1594,8 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("fileClose", QKeySequence::Close);
 	defKeys.insert("fileSave", QKeySequence::Save);
 	defKeys.insert("fileSaveAs", Qt::CTRL+Qt::SHIFT+Qt::Key_S);
-	defKeys.insert("fileImportText", Qt::CTRL+Qt::Key_D);
-	defKeys.insert("fileImportImage", Qt::CTRL+Qt::Key_D);
+	defKeys.insert("fileImportText", Qt::CTRL+Qt::Key_I);
+	defKeys.insert("fileImportImage", Qt::CTRL+Qt::Key_I);
 	defKeys.insert("filePrint", QKeySequence::Print);
 	defKeys.insert("PrintPreview", Qt::CTRL+Qt::ALT+Qt::Key_P);
 	defKeys.insert("fileQuit", Qt::CTRL+Qt::Key_Q);
@@ -1616,7 +1616,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("styleImageEffects", Qt::CTRL+Qt::Key_E);
 
 	//Item Menu
-	defKeys.insert("itemDuplicate", Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_D);
+	defKeys.insert("itemDuplicate", Qt::CTRL+Qt::Key_D);
 	defKeys.insert("itemDelete", Qt::CTRL+Qt::Key_K);
 	defKeys.insert("itemGroup", Qt::CTRL+Qt::Key_G);
 	defKeys.insert("itemUngroup", Qt::CTRL+Qt::SHIFT+Qt::Key_G);
