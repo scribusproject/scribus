@@ -4860,7 +4860,9 @@ void ScribusMainWindow::slotEditPaste()
 			return;
 		if (UndoManager::undoEnabled())
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
-		if (doc->appMode == modeEdit && doc->m_Selection->itemAt(0))
+		PageItem* selItem = doc->m_Selection->itemAt(0);
+		bool isTextFrame  = (dynamic_cast<PageItem_TextFrame*>(selItem) != NULL);
+		if (doc->appMode == modeEdit && isTextFrame)
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
 			assert(currItem != NULL);
@@ -5230,8 +5232,15 @@ void ScribusMainWindow::deselectAll()
 
 void ScribusMainWindow::ClipChange()
 {
-	bool hasScribusData = ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment(); 
-	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || doc->appMode == modeEdit));
+	bool textFrameEditMode = false;
+	bool hasScribusData = ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment();
+	if (HaveDoc && doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = NULL;
+		currItem = doc->m_Selection->itemAt(0);
+		textFrameEditMode  = ((doc->appMode == modeEdit) && (currItem->asTextFrame()));
+	}
+	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode));
 }
 
 void ScribusMainWindow::EnableTxEdit()
@@ -6246,10 +6255,8 @@ void ScribusMainWindow::setAppMode(int mode)
 				enableTextActions(&scrActions, true, currItem->currentCharStyle().font().scName());
 			if (ScMimeData::clipboardHasScribusData())
 			{
-//				if (!hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
-//				{
-					scrActions["editPaste"]->setEnabled(true);
-//				}
+				bool textFrameEditMode = ((currItem != NULL) && (currItem->asTextFrame()));
+				scrActions["editPaste"]->setEnabled( textFrameEditMode || (currItem == NULL) );
 			}
 //			view->slotDoCurs(true);
 			//		scrMenuMgr->setMenuEnabled("Item", false);
