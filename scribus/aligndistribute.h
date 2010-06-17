@@ -99,11 +99,13 @@ protected slots:
 	void distributeTop();
 	
 	void alignToChanged(int);
+	void alignMethodChanged(int);
 
 private:
 	void init();
 	UndoManager *undoManager;
 	ScribusDoc::AlignTo currAlignTo;
+	ScribusDoc::AlignMethod currAlignMethod;
 	QList<AlignObjs> *alignObjects;
 	ScribusDoc *currDoc;
 	qreal unitRatio;
