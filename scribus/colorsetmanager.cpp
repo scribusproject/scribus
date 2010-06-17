@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QTextStream>
 #include <QByteArray>
-//Added by qt3to4:
 
 ColorSetManager::ColorSetManager()
 {
@@ -29,9 +28,8 @@ ColorSetManager::~ColorSetManager()
 
 void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 {
-	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "Scribus_Basic.xml";
-	QFile fiC(pfadC2);
+	QString defaultSwatch = ScPaths::instance().libDir() + "swatches/" + "Scribus_Basic.xml";
+	QFile fiC(defaultSwatch);
 	if (!fiC.exists())
 	{
 		appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
@@ -45,7 +43,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 		appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
 		appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		appPrefs.colorPrefs.DColorSet = "Scribus-Small";
+		appPrefs.colorPrefs.DColorSet = "Scribus_Small";
 	}
 	else
 	{
@@ -58,7 +56,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 			if (ColorEn.startsWith("<?xml version="))
 			{
 				QByteArray docBytes("");
-				loadRawText(pfadC2, docBytes);
+				loadRawText(defaultSwatch, docBytes);
 				QString docText("");
 				docText = QString::fromUtf8(docBytes);
 				QDomDocument docu("scridoc");

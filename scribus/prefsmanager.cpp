@@ -162,7 +162,7 @@ void PrefsManager::initDefaults()
 		appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
 		appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		appPrefs.colorPrefs.DColorSet = "Scribus-Small";
+		appPrefs.colorPrefs.DColorSet = "Scribus_Small";
 	}
 	else
 	{
@@ -1679,7 +1679,7 @@ bool PrefsManager::WritePref(QString ho)
 		elem.appendChild(cos);
 	}
 	QDomElement cosd=docu.createElement("DefaultColorSet");
-	cosd.setAttribute("NAME",appPrefs.colorPrefs.DColorSet);
+	cosd.setAttribute("Name",appPrefs.colorPrefs.DColorSet);
 	elem.appendChild(cosd);
 
 	QDomElement pdf = docu.createElement("PDF");
