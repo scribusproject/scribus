@@ -120,7 +120,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex_16.png"), prefs_TableOfContents);
 	if (doc)
 	{
-		addItem( tr("Sections"), loadIcon("tabtocindex.png_16"), prefs_DocumentSections);
+		addItem( tr("Sections"), loadIcon("tabtocindex_16.png"), prefs_DocumentSections);
 	}
 	if (!doc)
 	{
