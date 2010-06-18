@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QBuffer>
 #include <QList>
 #include <QCheckBox>
+#include <QSharedPointer>
 
 #include "svgexplugin.h"
 
@@ -123,60 +124,56 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox);
+		QSharedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
-		QCheckBox* compress = new QCheckBox(openDia);
+		QCheckBox* compress = new QCheckBox(openDia.data());
 		compress->setText( tr("Compress File"));
 		compress->setChecked(false);
 		openDia->addWidgets(compress);
-		QCheckBox* inlineImages = new QCheckBox(openDia);
+		QCheckBox* inlineImages = new QCheckBox(openDia.data());
 		inlineImages->setText( tr("Save Images inline"));
 		inlineImages->setToolTip( tr("Adds all Images on the Page inline to the SVG.\nCaution: this will increase the file size!"));
 		inlineImages->setChecked(true);
 		openDia->addWidgets(inlineImages);
-		QCheckBox* exportBack = new QCheckBox(openDia);
+		QCheckBox* exportBack = new QCheckBox(openDia.data());
 		exportBack->setText( tr("Export Page background"));
 		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG."));
 		exportBack->setChecked(false);
 		openDia->addWidgets(exportBack);
-		if (openDia->exec())
-		{
-			fileName = openDia->selectedFile();
-			QFileInfo fi(fileName);
-			QString baseDir = fi.absolutePath();
-			if (compress->isChecked())
-				fileName = baseDir + "/" + fi.baseName() + ".svgz";
-			else
-				fileName = baseDir + "/" + fi.baseName() + ".svg";
-		}
-		else
+		
+		if (!openDia->exec())
 			return true;
+		fileName = openDia->selectedFile();
+		QFileInfo fi(fileName);
+		QString baseDir = fi.absolutePath();
+		if (compress->isChecked())
+			fileName = baseDir + "/" + fi.baseName() + ".svgz";
+		else
+			fileName = baseDir + "/" + fi.baseName() + ".svg";
+
 		SVGOptions Options;
 		Options.inlineImages = inlineImages->isChecked();
 		Options.exportPageBackground = exportBack->isChecked();
 		Options.compressFile = compress->isChecked();
-		delete openDia;
+		openDia.clear();
 
-		if (!fileName.isEmpty())
-		{
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-			QFile f(fileName);
-			if (f.exists())
-			{
-				int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
-					QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
-					QMessageBox::Yes | QMessageBox::No);
-				if (exit == QMessageBox::No)
-					return true;
-			}
-			SVGExPlug *dia = new SVGExPlug(doc);
-			dia->doExport(fileName, Options);
-			delete dia;
-		}
-		else
+		if (fileName.isEmpty())
 			return true;
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
+		QFile f(fileName);
+		if (f.exists())
+		{
+			int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
+				QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
+				QMessageBox::Yes | QMessageBox::No);
+			if (exit == QMessageBox::No)
+				return true;
+		}
+		SVGExPlug *dia = new SVGExPlug(doc);
+		dia->doExport(fileName, Options);
+		delete dia;
 	}
 	return true;
 }
