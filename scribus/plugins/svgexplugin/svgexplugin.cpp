@@ -142,42 +142,38 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG."));
 		exportBack->setChecked(false);
 		openDia->addWidgets(exportBack);
-		if (openDia->exec())
-		{
-			fileName = openDia->selectedFile();
-			QFileInfo fi(fileName);
-			QString baseDir = fi.absolutePath();
-			if (compress->isChecked())
-				fileName = baseDir + "/" + fi.baseName() + ".svgz";
-			else
-				fileName = baseDir + "/" + fi.baseName() + ".svg";
-		}
-		else
+		
+		if (!openDia->exec())
 			return true;
+		fileName = openDia->selectedFile();
+		QFileInfo fi(fileName);
+		QString baseDir = fi.absolutePath();
+		if (compress->isChecked())
+			fileName = baseDir + "/" + fi.baseName() + ".svgz";
+		else
+			fileName = baseDir + "/" + fi.baseName() + ".svg";
+
 		SVGOptions Options;
 		Options.inlineImages = inlineImages->isChecked();
 		Options.exportPageBackground = exportBack->isChecked();
 		Options.compressFile = compress->isChecked();
 		openDia.clear();
 
-		if (!fileName.isEmpty())
-		{
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-			QFile f(fileName);
-			if (f.exists())
-			{
-				int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
-					QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
-					QMessageBox::Yes | QMessageBox::No);
-				if (exit == QMessageBox::No)
-					return true;
-			}
-			SVGExPlug *dia = new SVGExPlug(doc);
-			dia->doExport(fileName, Options);
-			delete dia;
-		}
-		else
+		if (fileName.isEmpty())
 			return true;
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
+		QFile f(fileName);
+		if (f.exists())
+		{
+			int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
+				QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
+				QMessageBox::Yes | QMessageBox::No);
+			if (exit == QMessageBox::No)
+				return true;
+		}
+		SVGExPlug *dia = new SVGExPlug(doc);
+		dia->doExport(fileName, Options);
+		delete dia;
 	}
 	return true;
 }
