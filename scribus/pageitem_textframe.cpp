@@ -3208,8 +3208,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			bool x11Hack=false;
 			bool controlCharHack=false;
-			if ((k->text().size()==1) && (k->text().at(0).unicode()<32))
-				controlCharHack=true;
+			if ((k->text().size() == 1))
+			{
+				ushort uni = k->text().at(0).unicode();
+				controlCharHack = ((uni < 32) && (uni != SpecialChars::TAB.unicode()));
+			}
 #if defined (Q_WS_X11)
 			if ((k->text().size()==1) && (k->modifiers() & Qt::ShiftModifier) && (k->modifiers() & Qt::ControlModifier) && (k->nativeVirtualKey() < 1000))
 				x11Hack=true;
