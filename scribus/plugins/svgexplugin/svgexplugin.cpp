@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QBuffer>
 #include <QList>
 #include <QCheckBox>
+#include <QSharedPointer>
 
 #include "svgexplugin.h"
 
@@ -123,20 +124,20 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox);
+		QSharedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
-		QCheckBox* compress = new QCheckBox(openDia);
+		QCheckBox* compress = new QCheckBox(openDia.data());
 		compress->setText( tr("Compress File"));
 		compress->setChecked(false);
 		openDia->addWidgets(compress);
-		QCheckBox* inlineImages = new QCheckBox(openDia);
+		QCheckBox* inlineImages = new QCheckBox(openDia.data());
 		inlineImages->setText( tr("Save Images inline"));
 		inlineImages->setToolTip( tr("Adds all Images on the Page inline to the SVG.\nCaution: this will increase the file size!"));
 		inlineImages->setChecked(true);
 		openDia->addWidgets(inlineImages);
-		QCheckBox* exportBack = new QCheckBox(openDia);
+		QCheckBox* exportBack = new QCheckBox(openDia.data());
 		exportBack->setText( tr("Export Page background"));
 		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG."));
 		exportBack->setChecked(false);
@@ -157,7 +158,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		Options.inlineImages = inlineImages->isChecked();
 		Options.exportPageBackground = exportBack->isChecked();
 		Options.compressFile = compress->isChecked();
-		delete openDia;
+		openDia.clear();
 
 		if (!fileName.isEmpty())
 		{
