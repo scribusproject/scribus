@@ -399,6 +399,7 @@ void LayerPalette::flowToggleLayer()
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerFlow(layerID,((QCheckBox*)(senderBox))->isChecked());
+		emit LayerChanged();
 		setActiveLayer(Table->currentRow(), -1);
 	}
 }

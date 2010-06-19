@@ -142,6 +142,8 @@ public:
 	MassObservable<PageItem*> * itemsChanged() { return &m_itemsChanged; }
 	MassObservable<Page*>     * pagesChanged() { return &m_pagesChanged; }
 	MassObservable<QRectF>    * regionsChanged() { return &m_regionsChanged; }
+	
+	void invalidateLayer(int layerID);
 	void invalidateRegion(QRectF region);
 
 
