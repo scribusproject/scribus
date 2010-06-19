@@ -194,6 +194,12 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_page = page;
 					}
 				}
+				else
+				{
+					QCursor* cursor = qApp->overrideCursor();
+					if (cursor && (cursor->shape() != Qt::SplitVCursor))
+						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+				}
 				m_currentGuide = mousePointDoc.y() - m_doc->Pages->at(page)->yOffset();
 			}
 			else
@@ -238,6 +244,12 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
+				}
+				else
+				{
+					QCursor* cursor = qApp->overrideCursor();
+					if (cursor && (cursor->shape() != Qt::SplitHCursor))
+						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
 				}
 				m_currentGuide = mousePointDoc.x() - m_doc->Pages->at(page)->xOffset();
 			}
