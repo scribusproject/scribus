@@ -165,7 +165,7 @@ void AlignDistributePalette::languageChange()
 
 	distributeDistLabel->setText( tr( "&Distance:" ) );
 	distributeDistSpinBox->setToolTip( tr( "Distribute the items with the distance specified" ) );
-	
+	reverseDistributionCheckBox->setToolTip( tr("When distributing by a set distance, reverse the direction of the distribution of items") );
 	guideInfoTextNone = tr("None Selected");
 }
 
@@ -345,7 +345,7 @@ void AlignDistributePalette::distributeRight()
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistSpinBox->value());
+		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValH()
@@ -401,7 +401,7 @@ void AlignDistributePalette::distributeTop()
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistSpinBox->value());
+		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValV()
