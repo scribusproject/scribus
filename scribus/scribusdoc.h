@@ -1248,12 +1248,12 @@ public slots:
 	void itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
 	void itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
 
-	void itemSelection_DistributeDistH(bool usingDistance=false, double distance=0.0);
+	void itemSelection_DistributeDistH(bool usingDistance=false, double distance=0.0, bool reverseDistribute=false);
 	void itemSelection_DistributeAcrossPage(bool useMargins=false);
 	void itemSelection_DistributeRight();
 	void itemSelection_DistributeBottom();
 	void itemSelection_DistributeCenterH();
-	void itemSelection_DistributeDistV(bool usingDistance=false, double distance=0.0);
+	void itemSelection_DistributeDistV(bool usingDistance=false, double distance=0.0, bool reverseDistribute=false);
 	void itemSelection_DistributeDownPage(bool useMargins=false);
 	void itemSelection_DistributeLeft();
 	void itemSelection_DistributeCenterV();

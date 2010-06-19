@@ -9446,7 +9446,7 @@ void ScribusDoc::itemSelection_DistributeRight()
 }
 
 
-void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distance)
+void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distance, bool reverseDistribute)
 {
 	if (!startAlign())
 		return;
@@ -9464,6 +9464,7 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 	uint left=X1sorted.begin().value();
 	uint right=X2sorted[X2sorted.keys().back()];
 	double minX=AObjects[left].x2;
+	double maxX=AObjects[right].x2;
 	double separation=0.0;
 	if (!usingDistance)
 	{
@@ -9484,20 +9485,47 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 	}
 	else
 		separation=value2pts(distance, unitIndex());
-	double currX=minX;
-	for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
+	if (!reverseDistribute)
 	{
-		if (it.value()==left)
-			continue;
-		if (it.value()==right && !usingDistance)
-			continue;
-		currX+=separation;
+		double currX=minX;
+		for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
+		{
+			if (it.value()==left)
+				continue;
+			if (it.value()==right && !usingDistance)
+				continue;
+			currX+=separation;
 
-		double diff=currX-AObjects[it.value()].x1;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
-		currX+=AObjects[it.value()].width;
+			double diff=currX-AObjects[it.value()].x1;
+			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
+				if (!AObjects[it.value()].Objects.at(j)->locked())
+					AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+			currX+=AObjects[it.value()].width;
+		}
+	}
+	else
+	{
+		QMapIterator<double,uint> it(X1sorted);
+		it.toBack();
+		double currX=maxX;
+		while (it.hasPrevious())
+		{
+			it.previous();
+			if (it.value()==right)
+			{
+				currX-=AObjects[it.value()].width;
+				continue;
+			}
+			if (it.value()==left && !usingDistance)
+				continue;
+			currX-=separation;
+
+			double diff=currX-AObjects[it.value()].x2;
+			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
+				if (!AObjects[it.value()].Objects.at(j)->locked())
+					AObjects[it.value()].Objects.at(j)->moveBy(diff, 0.0);
+			currX-=AObjects[it.value()].width;
+		}
 	}
 	endAlign();
 }
@@ -9623,7 +9651,7 @@ void ScribusDoc::itemSelection_DistributeTop()
 }
 
 
-void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distance)
+void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distance, bool reverseDistribute)
 {
 	if (!startAlign())
 		return;
@@ -9641,6 +9669,7 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 	uint top=Y1sorted.begin().value();
 	uint bottom=Y2sorted[Y2sorted.keys().back()];
 	double minY=AObjects[top].y2;
+	double maxY=AObjects[bottom].y2;
 	double separation=0.0;
 	if (!usingDistance)
 	{
@@ -9661,20 +9690,47 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 	}
 	else
 		separation=value2pts(distance, unitIndex());
-	double currY=minY;
-	for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
+	if (!reverseDistribute)
 	{
-		if (it.value()==top)
-			continue;
-		if (it.value()==bottom && !usingDistance)
-			continue;
-		currY+=separation;
+		double currY=minY;
+		for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
+		{
+			if (it.value()==top)
+				continue;
+			if (it.value()==bottom && !usingDistance)
+				continue;
+			currY+=separation;
 
-		double diff=currY-AObjects[it.value()].y1;
-		for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
-			if (!AObjects[it.value()].Objects.at(j)->locked())
-				AObjects[it.value()].Objects.at(j)->moveBy(0.0,diff);
-		currY+=AObjects[it.value()].height;
+			double diff=currY-AObjects[it.value()].y1;
+			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
+				if (!AObjects[it.value()].Objects.at(j)->locked())
+					AObjects[it.value()].Objects.at(j)->moveBy(0.0,diff);
+			currY+=AObjects[it.value()].height;
+		}
+	}
+	else
+	{
+		QMapIterator<double,uint> it(Y1sorted);
+		it.toBack();
+		double currY=maxY;
+		while (it.hasPrevious())
+		{
+			it.previous();
+			if (it.value()==bottom)
+			{
+				currY-=AObjects[it.value()].height;
+				continue;
+			}
+			if (it.value()==top && !usingDistance)
+				continue;
+			currY-=separation;
+
+			double diff=currY-AObjects[it.value()].y2;
+			for (int j = 0; j < AObjects[it.value()].Objects.count(); ++j)
+				if (!AObjects[it.value()].Objects.at(j)->locked())
+					AObjects[it.value()].Objects.at(j)->moveBy(0.0, diff);
+			currY-=AObjects[it.value()].height;
+		}
 	}
 	endAlign();
 	usingDistance=false;
