@@ -2112,10 +2112,10 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			bool oldPrintable = (*it).isPrintable;
-			(*it).isPrintable = isPrintable;
+			bool oldPrintable = it->isPrintable;
+			it->isPrintable = isPrintable;
 
 			if (oldPrintable!=isPrintable && UndoManager::undoEnabled())
 			{
@@ -2142,8 +2142,8 @@ bool ScribusDoc::layerPrintable(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).isPrintable;
+		if (it->LNr == layerNumber)
+			return it->isPrintable;
 	}
 	return false;
 }
@@ -2156,9 +2156,9 @@ bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).isViewable = isViewable;
+			it->isViewable = isViewable;
 			found=true;
 			break;
 		}
@@ -2175,8 +2175,8 @@ bool ScribusDoc::layerVisible(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).isViewable;
+		if (it->LNr == layerNumber)
+			return it->isViewable;
 	}
 	return false;
 }
@@ -2189,9 +2189,9 @@ bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).isEditable = !isLocked;
+			it->isEditable = !isLocked;
 			found=true;
 			break;
 		}
@@ -2208,8 +2208,8 @@ bool ScribusDoc::layerLocked(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return !(*it).isEditable;
+		if (it->LNr == layerNumber)
+			return !it->isEditable;
 	}
 	return false;
 }
@@ -2222,15 +2222,24 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).flowControl = flow;
+			it->flowControl = flow;
 			found=true;
 			break;
 		}
 	}
 	if (found)
+	{
+		// #9188 : invalidate layout of items below layer
+		for (it = Layers.begin(); it != itend; ++it)
+		{
+			if (it->LNr == layerNumber)
+				break;
+			invalidateLayer(it->LNr);
+		}
 		changed();
+	}
 	return found;
 }
 
@@ -2241,8 +2250,8 @@ bool ScribusDoc::layerFlow(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).flowControl;
+		if (it->LNr == layerNumber)
+			return it->flowControl;
 	}
 	return false;
 }
@@ -2255,9 +2264,9 @@ bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).transparency = trans;
+			it->transparency = trans;
 			found=true;
 			break;
 		}
@@ -2274,8 +2283,8 @@ double ScribusDoc::layerTransparency(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).transparency;
+		if (it->LNr == layerNumber)
+			return it->transparency;
 	}
 	return 1.0;
 }
@@ -2288,9 +2297,9 @@ bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).blendMode = blend;
+			it->blendMode = blend;
 			found=true;
 			break;
 		}
@@ -2307,8 +2316,8 @@ int ScribusDoc::layerBlendMode(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).blendMode;
+		if (it->LNr == layerNumber)
+			return it->blendMode;
 	}
 	return 0;
 }
@@ -2321,9 +2330,9 @@ bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).outlineMode = outline;
+			it->outlineMode = outline;
 			found=true;
 			break;
 		}
@@ -2340,8 +2349,8 @@ bool ScribusDoc::layerOutline(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).outlineMode;
+		if (it->LNr == layerNumber)
+			return it->outlineMode;
 	}
 	return false;
 }
@@ -2354,9 +2363,9 @@ bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
+		if (it->LNr == layerNumber)
 		{
-			(*it).markerColor = color;
+			it->markerColor = color;
 			found=true;
 			break;
 		}
@@ -2373,8 +2382,8 @@ QColor ScribusDoc::layerMarker(const int layerNumber)
 	ScLayers::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).LNr == layerNumber)
-			return (*it).markerColor;
+		if (it->LNr == layerNumber)
+			return it->markerColor;
 	}
 	return QColor(0, 0, 0);
 }
@@ -2432,18 +2441,27 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 	ScLayers::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).Level == layerLevel-1)
+		if (it->Level == layerLevel-1)
 			break;
 	}
 	ScLayers::iterator it2;
 	ScLayers::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
-		if ((*it2).Level == layerLevel)
+		if (it2->Level == layerLevel)
 			break;
 	}
-	(*it2).Level -= 1;
-	(*it).Level += 1;
+	it2->Level -= 1;
+	it->Level  += 1;
+	// #9188 : invalidate layout of items in below layers
+	int maxLevel = qMax(it->Level, it2->Level);
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if (it->flowControl)
+			invalidateLayer(it->LNr);
+		if (it->Level == maxLevel)
+			break;
+	}
 	return true;
 }
 
@@ -2470,18 +2488,27 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 	ScLayers::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).Level == layerLevel+1)
+		if (it->Level == layerLevel+1)
 			break;
 	}
 	ScLayers::iterator it2;
 	ScLayers::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
-		if ((*it2).Level == layerLevel)
+		if (it2->Level == layerLevel)
 			break;
 	}
-	(*it2).Level += 1;
-	(*it).Level -= 1;
+	it2->Level += 1;
+	it->Level  -= 1;
+	// #9188 : invalidate layout of items in below layers
+	int maxLevel = qMax(it->Level, it2->Level);
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if (it->flowControl)
+			invalidateLayer(it->LNr);
+		if (it->Level == maxLevel)
+			break;
+	}
 	return true;
 }
 
@@ -8908,6 +8935,26 @@ void ScribusDoc::changed()
 	{
 		emit docChanged();
 	}
+}
+
+void ScribusDoc::invalidateLayer(int layerID)
+{
+	for (int c = 0; c < DocItems.count(); ++c)
+	{
+		PageItem *ite = DocItems.at(c);
+		if (ite->LayerNr == layerID)
+			ite->invalidateLayout();
+	}
+	if (this->masterPageMode())
+	{
+		for (int c=0; c < MasterItems.count(); ++c)
+		{
+			PageItem *ite = MasterItems.at(c);
+			if (ite->LayerNr == layerID)
+				ite->invalidateLayout();
+		}
+	}
+	// for now hope that frameitems get invalidated by their parents layout() method.
 }
 
 void ScribusDoc::invalidateRegion(QRectF region)
