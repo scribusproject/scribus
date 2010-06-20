@@ -997,6 +997,11 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
   ${GMAGICK_LIBRARIES}
 )
 
+# required to resolve symbols from libdl when ld is called with --no-add-needed
+IF(UNIX)
+  TARGET_LINK_LIBRARIES(${EXE_NAME} dl)
+ENDIF(UNIX)
+
 IF(WIN32)
   TARGET_LINK_LIBRARIES(${EXE_NAME} ${QT_QTMAIN_LIBRARY})
 ENDIF(WIN32)

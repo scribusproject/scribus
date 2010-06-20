@@ -178,7 +178,6 @@ void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
 
-// GUI3-4 compile PV
 	alignLeftOutToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-left-out.png")));
 	alignLeftInToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-left.png")));
 	alignCenterHorToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-center.png")));
