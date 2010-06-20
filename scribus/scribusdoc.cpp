@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <memory>
 #include <utility>
+#include <sstream>
 
 #include <QByteArray>
  #include <QDebug>
@@ -38,6 +39,8 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "cmserrorhandling.h"
 #include "commonstrings.h"
+#include "desaxe/digester.h"
+#include "desaxe/saxXML.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "guidemanager.h"
@@ -4917,7 +4920,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	Page* lastDest = NULL;
 
 	uint oldItems = Items->count();
-	QStringList itemBuffer;
+	QList<QByteArray> itemBuffer;
 	m_Selection->clear();
 	m_Selection->delaySignalsOn();
 	if (oldItems>0)
@@ -4937,14 +4940,16 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				}
 				if (m_Selection->count() != 0)
 				{
-					ScriXmlDoc *ss = new ScriXmlDoc();
-					itemBuffer.append(ss->WriteElem(this, view(), m_Selection));
+					std::ostringstream xmlString;
+					SaxXML xmlStream(xmlString);
+					Serializer::serializeObjects(*m_Selection, xmlStream);
+					std::string xml(xmlString.str());
+					itemBuffer.append( QByteArray(xml.c_str(), xml.size()) );
 					m_Selection->clear();
-					delete ss;
 				}
 				else
 				{
-					itemBuffer.append(QString());
+					itemBuffer.append(QByteArray());
 				}
 			}
 			setActiveLayer(currActiveLayer);
@@ -5008,17 +5013,28 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			ScLayers::iterator it;
 			if (Layers.count()!= 0)
 			{
-				int currActiveLayer = activeLayer();
+				int  currActiveLayer = activeLayer();
+				bool savedAlignGrid   = this->useRaster;
+				bool savedAlignGuides = this->SnapGuides;
+				this->useRaster  = false;
+				this->SnapGuides = false;
 				for (it = Layers.begin(); it != Layers.end(); ++it)
 				{
-					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
+					if ((lcount < itemBuffer.count()) && itemBuffer[lcount].size() > 0)
 					{
-						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElemToLayer(itemBuffer[lcount], prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).LNr);
-						delete ss;
+						QByteArray fragment = itemBuffer[lcount];
+						Selection pastedObjects = Serializer(*this).deserializeObjects(fragment);
+						for (int i=0; i < pastedObjects.count(); ++i)
+							pastedObjects.itemAt(i)->LayerNr = it->LNr;
+						// We do not need moveGroup undo actions
+						UndoManager::instance()->setUndoEnabled(false);
+						moveGroup(destination->xOffset() - from->xOffset(), destination->yOffset() - from->yOffset(), false, &pastedObjects);
+						UndoManager::instance()->setUndoEnabled(true);
 					}
 					lcount++;
 				}
+				this->useRaster  = savedAlignGrid;
+				this->SnapGuides = savedAlignGuides;
 				setActiveLayer(currActiveLayer);
 			}
 		}
