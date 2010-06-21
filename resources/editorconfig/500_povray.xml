@@ -49,6 +49,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			  <cs>Nastavení renderování</cs>
 			  <de>Render Optionen</de>
 			  <ru>Параметры визуализации</ru>
+			  <hu>Renderelési beállítások</hu>
 		  </i18n>
 	  </title>
 	  <list name="quality" default="11">
@@ -58,15 +59,37 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 				  <cs>Kvalita:</cs>
 				  <de>Qualität:</de>
 				  <ru>Качество:</ru>
+				  <hu>Minőség:</hu>
 			</i18n>
 		</title>
-		<option value="1">Just show quick colors</option>
-		<option value="3">Show specified diffuse and ambient light</option>
-		<option value="4">Render shadows, but no extended lights</option>
-		<option value="5">Render shadows, including extended lights</option>
-		<option value="7">Compute texture patterns and photons</option>
-		<option value="8">Compute reflections and refractions</option>
-		<option value="11">Compute media and radiosity</option>
+		<option value="1"><i18n>
+			<en>Just show quick colors</en>
+			<hu>Csak gyors színek megjelenítése</hu>
+		</i18n></option>
+		<option value="3"><i18n>
+			<en>Show specified diffuse and ambient light</en>
+			<hu>A megadott diffúz és szórt fény megjelenítése</hu>
+		</i18n></option>
+		<option value="4"><i18n>
+			<en>Render shadows, but no extended lights</en>
+			<hu>Árnyékok renderelése a kiterjesztett fények elhagyásával</hu>
+		</i18n></option>
+		<option value="5"><i18n>
+			<en>Render shadows, including extended lights</en>
+			<hu>Árnyékok renderelése a kiterjesztett fényekkel</hu>
+		</i18n></option>
+		<option value="7"><i18n>
+			<en>Compute texture patterns and photons</en>
+			<hu>Textúra minták és fotonok kiszámítása</hu>
+		</i18n></option>
+		<option value="8"><i18n>
+			<en>Compute reflections and refractions</en>
+			<hu>Tükröződések és fénytörések kiszámítása </hu>
+		</i18n></option>
+		<option value="11"><i18n>
+			<en>Compute media and radiosity</en>
+			<hu>Média és radiozitás kiszámítása</hu>
+		</i18n></option>
 	</list>
 	<list name="antialias" default="+A">
 		<title>
@@ -75,10 +98,17 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 				<cs>Vyhlazování:</cs>
 				<de>Antialiasing:</de>
 				<ru>Сглаживание:</ru>
+				<hu>Élsimítás:</hu>
 			</i18n>
 		</title>
-		<option value="+A">On</option>
-		<option value="-A">Off</option>
+		<option value="+A"><i18n>
+			<en>On</en>
+			<hu>Bekapcsolva</hu>
+		</i18n></option>
+		<option value="-A"><i18n>
+			<en>Off</en>
+			<hu>Kikapcsolva</hu>
+		</i18n></option>
 	</list>
 	<spinbox name="aathres" type="double" min="0.0" max="3.0" step="0.1" default="0.3">
 		<i18n>
@@ -86,6 +116,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<cs>Prahová hodnota vyhlazování:</cs>
 			<de>Antialiasing Schwellwert:</de>
 			<ru>Порог сглаживания:</ru>
+			<hu>Élsimítási küszöb:</hu>
 		</i18n>
 	</spinbox>
 	<spinbox name="aadepth" type="short" min="1" max="9" step="1" default="3">
@@ -94,6 +125,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<cs>Hloubka vyhlazování:</cs>
 			<de>Antialiasing Rekursion:</de>
 			<ru>Глубина сглаживания:</ru>
+			<hu>Élsimítás mélysége:</hu>
 		</i18n>
 	</spinbox>
 	</tab>
