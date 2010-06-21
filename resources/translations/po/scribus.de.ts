@@ -18348,9 +18348,8 @@ p, li { white-space: pre-wrap; }
         <translation>Ebene sperren</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Text umfließt Objekte in tieferliegenden Ebenen - Falls aktiviert, fließt Text um andere Objekte herum, auch wenn sich diese auf tieferen Ebenen befinden</translation>
+        <translation type="obsolete">Text umfließt Objekte in tieferliegenden Ebenen - Falls aktiviert, fließt Text um andere Objekte herum, auch wenn sich diese auf tieferen Ebenen befinden</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -18394,6 +18393,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
         <translation>Ebene absenken</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -27345,12 +27349,12 @@ Externe Links</translation>
         <translation>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Freetype2-Bibliotheken sind nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Die Schrift %1 ist fehlerhaft und kann nicht eingebettet werden</translation>
@@ -27361,7 +27365,7 @@ Externe Links</translation>
         <translation>Schrift %1 ist fehlerhaft (kein Schnitt) und wird verworfen</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -28043,8 +28047,8 @@ is not exhaustive due to exceptions from called functions.
         <translation>Der Name der Musterseite entspricht keinem bereits existierenden.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation>Die Schriftart %1(%2) ist fehlerhaft</translation>
     </message>
@@ -28277,7 +28281,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>%1 Könnte beschädigt sein: Fehlende Auflösungs-Tags</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation>Schrift %1 enthält das defekte Zeichen %2</translation>
     </message>

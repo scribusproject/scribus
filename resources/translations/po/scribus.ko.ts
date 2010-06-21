@@ -11970,9 +11970,8 @@ p, li { white-space: pre-wrap; }
         <translation>레이어 잠금 또는 잠금 해제 - 체크안함은 잠금 해제임</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>아래 레이어에서 객체 주위의 문자열 흐름 - 비록 레이어들 아래에서 조차 이것은 문자열 프레임이 다른 객체 문자열 흐름을 만들 수 있습니다.</translation>
+        <translation type="obsolete">아래 레이어에서 객체 주위의 문자열 흐름 - 비록 레이어들 아래에서 조차 이것은 문자열 프레임이 다른 객체 문자열 흐름을 만들 수 있습니다.</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -12008,6 +12007,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
         <translation>레이어 한 단계 아래로</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -18871,7 +18875,7 @@ Check path and filename.</source>
         <translation>새 글꼴 발견, 검사 중...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -19046,23 +19050,23 @@ Check path and filename.</source>
         <translation>페이지</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Freetype2 라이브러리 사용할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation>글꼴 %1(%2)이 깨졌습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation>글꼴 %1이 사용자 문자표 %2를 가졌습니다</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>글꼴 %1이 깨졌습니다(스트림 읽기). 겹침 없음</translation>

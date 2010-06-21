@@ -11933,9 +11933,8 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Prennañ pe dibrennañ an dreuzfollenn - Digevasket a dalv dibrennet</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished">An destenn a rikl tro dro d&apos;an ergorennoù e treuzfollennoù a-is - Mar bez gweredekaet e vo bountet war ar sterniadoù testenn da riklañ tro dro d&apos;an ergorennoù all, war an treuzfollennoù a-is zoken</translation>
+        <translation type="obsolete">An destenn a rikl tro dro d&apos;an ergorennoù e treuzfollennoù a-is - Mar bez gweredekaet e vo bountet war ar sterniadoù testenn da riklañ tro dro d&apos;an ergorennoù all, war an treuzfollennoù a-is zoken</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -11970,6 +11969,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18799,7 +18803,7 @@ Check path and filename.</source>
         <translation type="unfinished">Nodrezh nevez bet kavet, o wiriañ...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -18974,23 +18978,23 @@ Check path and filename.</source>
         <translation type="unfinished">pajenn</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation type="unfinished">Al levraoueg Freetype2 n&apos;eo ket hegerz</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation type="unfinished">Siek eo an nodrezh %1(%2)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished">Un arouezenn siek %2 zo gant an nodrezh %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation type="unfinished">Siek eo an nodrezh %1 (lanv lenn), laosket e vo a-gostez</translation>

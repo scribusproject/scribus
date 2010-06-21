@@ -11929,9 +11929,8 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">संस्तरं पिधत्स्व अथवा उद्घाटय - अन्चेक् कृतम् उद्घाटितमस्ति </translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished">न्यूनतरसंस्तरेषु वस्तूनां परितः विषयः वहति - अस्मिन् प्रकारिते सति, अधः संस्तरेष्वपि, अन्यवस्तूनां परितः विषयाबन्धान् वाहयितुम् आग्रहं करोति।</translation>
+        <translation type="obsolete">न्यूनतरसंस्तरेषु वस्तूनां परितः विषयः वहति - अस्मिन् प्रकारिते सति, अधः संस्तरेष्वपि, अन्यवस्तूनां परितः विषयाबन्धान् वाहयितुम् आग्रहं करोति।</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -11966,6 +11965,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18795,7 +18799,7 @@ Check path and filename.</source>
         <translation type="unfinished">नूतनफोण्ट् दृष्टम्, परीक्षते...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -18970,23 +18974,23 @@ Check path and filename.</source>
         <translation type="unfinished">पृष्ठम्</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation type="unfinished">फ्रीटैप्2 लैब्रेरी अनुपलब्धम्</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation type="unfinished">%1(%2) फोण्ट् खण्डितम् अस्ति</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished">%1 फोण्ट् %2 ग्लिफ् खण्डयति</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation type="unfinished">%1 फोण्ट् खण्डितम् (पठनप्रवाहः), अन्तःस्थापनं न</translation>

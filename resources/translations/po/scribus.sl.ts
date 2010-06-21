@@ -17740,9 +17740,8 @@ p, li { white-space: pre-wrap; }
         <translation>Zakleni ali Odkleni plast - Neizbrano je odklenjeno </translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Besedilo poteka okoli predmetov na spodnjih plasteh - Z vključitvijo te nastavitve vsilite besedilnim okvirom, da potekajo okoli drugih predmetov, celo na plasteh pod njimi</translation>
+        <translation type="obsolete">Besedilo poteka okoli predmetov na spodnjih plasteh - Z vključitvijo te nastavitve vsilite besedilnim okvirom, da potekajo okoli drugih predmetov, celo na plasteh pod njimi</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -17771,6 +17770,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="598"/>
         <source>Duplicate the Current Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -30115,7 +30119,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>elementu &lt;lpiSettingsEntry&gt; manjka lastnost &apos;name&apos; (ime)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Knjižnica Freetype2 ni na voljo</translation>
     </message>
@@ -30124,7 +30128,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Pisava %1 je okvarjena, zato ne bo vdelana</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Pisava %1 je okvarjena (branje toka), zato ne bo vdelana</translation>
@@ -30139,7 +30143,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Pisava %1 je okvarjena (brez vrste), zato bo izpuščena</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -30771,13 +30775,13 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>nemški (Švica)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation>Pisava %1(%2) je okvarjena</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation>Pisava %1 ima pokvarjen znak %2</translation>
     </message>

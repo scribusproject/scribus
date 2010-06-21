@@ -11930,11 +11930,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
-        <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation type="unfinished"></translation>
@@ -11967,6 +11962,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18792,7 +18792,7 @@ Check path and filename.</source>
         <translation type="unfinished">ÎÏÎ­Î¸Î·ÎºÎµ Î½Î­Î± Î³ÏÎ±Î¼Î¼Î±ÏÎ¿ÏÎµÎ¹ÏÎ¬, Î³Î¯Î½ÎµÏÎ±Î¹ Î­Î»ÎµÎ³ÏÎ¿Ï...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -18967,23 +18967,23 @@ Check path and filename.</source>
         <translation type="unfinished">ÏÎµÎ»Î¯Î´Î±</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation type="unfinished">Î Î²Î¹Î²Î»Î¹Î¿Î¸Î®ÎºÎ· Freetype2 Î´ÎµÎ½ ÎµÎ¯Î½Î±Î¹ Î´Î¹Î±Î¸Î­ÏÎ¹Î¼Î·</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation type="unfinished">Î Î³ÏÎ±Î¼Î¼Î±ÏÎ¿ÏÎµÎ¹ÏÎ¬ %1 ÎµÎ¯Î½Î±Î¹ ÎºÎ±ÏÎµÏÏÏÎ±Î¼Î¼Î­Î½Î·, Î´Îµ Î³Î¯Î½ÎµÏÎ±Î¹ ÎµÎ½ÏÏÎ¼Î¬ÏÏÏÎ·</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished">Î Î³ÏÎ±Î¼Î¼Î±ÏÎ¿ÏÎµÎ¹ÏÎ¬ %1 ÏÎµÏÎ¹Î­ÏÎµÎ¹ ÎºÎ±ÏÎµÏÏÏÎ±Î¼Î¼Î­Î½Î· Î³Î»ÏÏÎ® %2 (ÎºÏÎ´Î¹ÎºÏÏ ÏÎ±ÏÎ±ÎºÏÎ®ÏÎ± %3)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation type="unfinished">Î Î³ÏÎ±Î¼Î¼Î±ÏÎ¿ÏÎµÎ¹ÏÎ¬ %1 ÎµÎ¯Î½Î±Î¹ ÎºÎ±ÏÎµÏÏÏÎ±Î¼Î¼Î­Î½Î· (Î±Î½Î¬Î³Î½ÏÏÎ· ÏÎ¿Î®Ï), Î´Îµ Î³Î¯Î½ÎµÏÎ±Î¹ ÎµÎ½ÏÏÎ¼Î¬ÏÏÏÎ·</translation>

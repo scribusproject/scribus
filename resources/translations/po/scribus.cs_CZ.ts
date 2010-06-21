@@ -16533,9 +16533,8 @@ p, li { white-space: pre-wrap; }
         <translation>Zamkne nebo odemkne vrstvu - nezaškrtnutá je odemčená</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Text obtéká objekty v nižších vrstvách - Povolením vynutíte, aby text obtékal i objekty v nižších vrstvách</translation>
+        <translation type="obsolete">Text obtéká objekty v nižších vrstvách - Povolením vynutíte, aby text obtékal i objekty v nižších vrstvách</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -16571,6 +16570,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
         <translation>Vrstvu dolů</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -25757,7 +25761,7 @@ Načíst nastavení PDF</translation>
         <translation>element &lt;lpiSettingsEntry&gt; neobsahuje vlastnost `name&apos;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Knihovna Freetype2 není k dispozici</translation>
     </message>
@@ -25766,7 +25770,7 @@ Načíst nastavení PDF</translation>
         <translation type="obsolete">Písmo %1 je poškozené, nebude vloženo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Písmo %1 je poškozené (chyba při čtení), nebude vloženo</translation>
@@ -25781,7 +25785,7 @@ Načíst nastavení PDF</translation>
         <translation>Písmo %1 je poškozené (chybí řez), ignoruje se</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -26537,13 +26541,13 @@ is not exhaustive due to exceptions from called functions.
         <translation>Průhlednost mimo rozsah, musí být mezi 0 a 1.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation>Písmo %1(%2) je poškozené</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished">Písmo %1 má poškozený znak %2</translation>
     </message>

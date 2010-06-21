@@ -14504,6 +14504,11 @@ p, li { white-space: pre-wrap; }
         <translation>Znížiť vrstvu</translation>
     </message>
     <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
         <translation>Názov vrstvy - dvojklikom na názov vrstvy ho môžete upraviť</translation>
@@ -14558,9 +14563,8 @@ p, li { white-space: pre-wrap; }
         <translation>Uzamknúť alebo odomknúť vrstvu - nezaškrtnuté znamená odomknuté</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Text obteká okolo objektov v nižších vrstvách - povolením vnútite textovým rámcom, aby obtekali okolo objektov, aj keď sú v nižších vrstvách</translation>
+        <translation type="obsolete">Text obteká okolo objektov v nižších vrstvách - povolením vnútite textovým rámcom, aby obtekali okolo objektov, aj keď sú v nižších vrstvách</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -23230,7 +23234,7 @@ Overte, cestu a názov súboru.</translation>
         <translation>Žltá</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Knižnica Freetype2 nie je dostupná</translation>
     </message>
@@ -23239,7 +23243,7 @@ Overte, cestu a názov súboru.</translation>
         <translation type="obsolete">Písmo %1 je poškodené, nebude vložené</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Písmo %1 je poškodené (prúd čítania), nebude vložené</translation>
@@ -23254,7 +23258,7 @@ Overte, cestu a názov súboru.</translation>
         <translation>Písmo %1 je poškodené, odkladám ho</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -24796,8 +24800,8 @@ Externé odkazy
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25029,7 +25033,7 @@ Externé odkazy
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished"></translation>
     </message>

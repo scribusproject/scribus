@@ -21536,9 +21536,8 @@ p, li { white-space: pre-wrap; }
         <translation>Bloquear ou desbloquear a capa - Retire a selección para desbloquear </translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>O texto flúe arredor dos obxectos nas Capas Inferiores - Se se activa, as molduras de texto flúen arredor doutros obxectos, mesmo nas capas inferiores</translation>
+        <translation type="obsolete">O texto flúe arredor dos obxectos nas Capas Inferiores - Se se activa, as molduras de texto flúen arredor doutros obxectos, mesmo nas capas inferiores</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
@@ -21572,6 +21571,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/layers.cpp" line="598"/>
         <source>Duplicate the Current Layer</source>
         <translation>Duplicar a capa actual</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -34272,7 +34276,7 @@ Vínculos Externos</translation>
         <translation>Amarelo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Non se dispón da biblioteca Freetype2</translation>
     </message>
@@ -34281,7 +34285,7 @@ Vínculos Externos</translation>
         <translation type="obsolete">A fonte %1 está mal, non se vai embeber</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>A fonte %1 está mal (fluxo de lectura), non se vai embeber</translation>
@@ -34296,7 +34300,7 @@ Vínculos Externos</translation>
         <translation>A fonte %1 está mal (sen Face), desbótase</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -35105,8 +35109,8 @@ erro de python.</translation>
         <translation>Xaponés</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation>A fonte %1(%2) está mal</translation>
     </message>
@@ -35344,7 +35348,7 @@ erro de python.</translation>
         <translation>%1 pode estar corrompido: faltan as etiquetas de resolución</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation>A fonte %1 ten un glifo roto %2</translation>
     </message>
