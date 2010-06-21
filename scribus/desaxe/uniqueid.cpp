@@ -1,7 +1,13 @@
-
+/*
+ *  saxfilter.h
+ *  
+ *
+ *  Created by Andreas Vox on 21.09.06.
+ *  Copyright 2006 under GPL2. All rights reserved.
+ *
+ */
 
 #include "uniqueid.h"
-
 
 void UniqueID::begin(const Xml_string& tag, Xml_attr attr)
 {
