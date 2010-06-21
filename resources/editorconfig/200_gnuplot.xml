@@ -31,6 +31,7 @@
 			<fr>Rangées</fr>
 			<pl>Zakresy</pl>
 			<ru>Диапазоны</ru>
+			<hu>Tartomány</hu>
 		</i18n></title>
 		<comment><i18n>
 			<en>Enter asterisk (*) for autoscale!</en>
@@ -39,6 +40,7 @@
 			<fr>Entrez une astérisque (*) pour ajuster automatiquement !</fr>
 			<pl>Wpisz asterisk (*) dla automatycznego skalowania!</pl>
 			<ru>Enter asterisk (*) for autoscale!</ru>
+			<hu>Automatikus méretezés csillaggal (*)</hu>
 		</i18n></comment>
 		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Min:</en>
@@ -73,6 +75,7 @@
 			<fr>Étiquettes</fr>
 			<pl>Etykiety</pl>
 			<ru>Метки</ru>
+			<hu>Címkék</hu>
 		</i18n></title>
 		<text name="title" type="short" default=""><i18n>
 			<en>Title:</en>
@@ -81,18 +84,21 @@
 			<fr>Titre :</fr>
 			<pl>Tytuł:</pl>
 			<ru>Название:</ru>
+			<hu>Cím</hu>
 		</i18n></text>
 		<text name="xlabel" type="short" default=""><i18n>
 			<en>X-Label:</en>
 			<cs>Název osy X:</cs>
 			<de>X-Beschriftung:</de>
 			<ru>Метка оси X:</ru>
+			<hu>X címke</hu>
 		</i18n></text>
 		<text name="ylabel" type="short" default=""><i18n>
 			<en>Y-Label:</en>
 			<cs>Název osy Y:</cs>
 			<de>Y-Beschriftung:</de>
 			<ru>Метка оси Y:</ru>
+			<hu>Y címke</hu>
 		</i18n></text>
 		<list name="grid" default="#">
 			<title><i18n>
@@ -102,6 +108,7 @@
 				<fr>Grille :</fr>
 				<pl>Siatka:</pl>
 				<ru>Сетка:</ru>
+				<hu>Rács</hu>
 			</i18n></title>
 			<option value="#"><i18n>
 				<en>No Grid</en>
@@ -110,6 +117,7 @@
 				<fr>Pas de Grille</fr>
 				<pl>Bez siatki</pl>
 				<ru>Без сетки</ru>
+				<hu>Rács nélkül</hu>
 			</i18n></option>
 			<option value="set grid xtics ytics"><i18n>
 				<en>Major ticks only</en>
@@ -118,6 +126,7 @@
 				<fr>Seulement les coches majeures</fr>
 				<pl>Tylko główne linie</pl>
 				<ru>Только основные линии</ru>
+				<hu>Csak fővonalak</hu>
 			</i18n></option>
 			<option value="set grid xtics ytics mxtics mytics"><i18n>
 				<en>Major and minor ticks</en>
@@ -126,6 +135,7 @@
 				<fr>Coches majeures et mineures</fr>
 				<pl>Wszystkie linie</pl>
 				<ru>Основные и вторичные линии</ru>
+				<hu>Fő- és alvonalak is</hu>
 			</i18n></option>
 		</list>
 		<list name="gridlayer" default="back">
@@ -136,6 +146,7 @@
 				<fr>Niveau de la grille :</fr>
 				<pl>Warstwa siatki:</pl>
 				<ru>Слой сетки:</ru>
+				<hu>Rács réteg</hu>
 			</i18n></title>
 			<option value="back"><i18n>
 				<en>Back</en>
@@ -144,6 +155,7 @@
 				<fr>Arrière</fr>
 				<pl>Na spodzie</pl>
 				<ru>Позади</ru>
+				<hu>Alul</hu>
 			</i18n></option>
 			<option value="front"><i18n>
 				<en>Front</en>
@@ -152,6 +164,7 @@
 				<fr>A l'avant</fr>
 				<pl>Na wierzchu</pl>
 				<ru>Впереди</ru>
+				<hu>Felül</hu>
 			</i18n></option>
 		</list>
 		<list name="zeroaxis" default="">
@@ -162,6 +175,7 @@
 				<fr>Axe Zero :</fr>
 				<pl>Oś zerowa:</pl>
 				<ru>Начало координат:</ru>
+				<hu>Nulla tengely</hu>
 			</i18n></title>
 			<option value=""><i18n>
 				<en>None</en>
@@ -170,6 +184,7 @@
 				<fr>Aucun</fr>
 				<pl>Brak</pl>
 				<ru>Нет</ru>
+				<hu>Nincs</hu>
 			</i18n></option>
 			<option value="set xzeroaxis"><i18n>
 				<en>X axis</en>
@@ -178,6 +193,7 @@
 				<fr>Axe des X</fr>
 				<pl>Oś X</pl>
 				<ru>Для оси X</ru>
+				<hu>X tengely</hu>
 			</i18n></option>
 			<option value="set yzeroaxis"><i18n>
 				<en>Y axis</en>
@@ -186,6 +202,7 @@
 				<fr>Axe des Y</fr>
 				<pl>Oś Y</pl>
 				<ru>Для оси Y</ru>
+				<hu>Y tengely</hu>
 			</i18n></option>
 			<option value="set zeroaxis"><i18n>
 				<en>Both</en>
@@ -194,6 +211,7 @@
 				<fr>Les deux</fr>
 				<pl>Obie</pl>
 				<ru>Для обеих осей</ru>
+				<hu>Mindkettő</hu>
 			</i18n></option>
 		</list>
 	</tab>

@@ -3389,7 +3389,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1479"/>
         <source>&amp;Tile</source>
-        <translation>&amp;Cím</translation>
+        <translation>&amp;Címsor</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1357"/>
@@ -4023,7 +4023,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="97"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Élek igazítása:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="153"/>
@@ -4053,7 +4053,7 @@ If loading was successful, the selection contains the imported ODG
         <location filename="../../../scribus/aligndistribute.ui" line="396"/>
         <location filename="../../../scribus/aligndistribute.ui" line="403"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="260"/>
@@ -4068,7 +4068,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="511"/>
         <source>Reverse Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Fordított elosztás</translation>
     </message>
 </context>
 <context>
@@ -4086,7 +4086,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="93"/>
         <source>&amp;Relative to:</source>
-        <translation>&amp;Viszonylagos:</translation>
+        <translation>&amp;Viszonyítás:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="96"/>
@@ -4121,22 +4121,22 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Élek igazítása:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mozgatás (Méret megőrzése)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished"></translation>
+        <translation>Átméretezés (Ellentétes oldal megőrzése)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Egy elem egyik oldalának igazításakor:&lt;ul&gt;&lt;li&gt;mindig mozgassa a másik oldalát is (megőrizvén a szélességét és magasságát), vagy &lt;/li&gt;&lt;li&gt;hagyja a másik oldalát mozdulatlanul (méretezze át az elemet az elmozdítása helyett) hacsak lehetséges.&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
@@ -4221,7 +4221,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha egy megadott távolsággal történik az elosztás, fordítsa meg az elemek elosztásának irányát</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
@@ -6185,7 +6185,7 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <location filename="../../../scribus/cmykfw.cpp" line="111"/>
         <source>Color &amp;Model</source>
-        <translation>&amp;Szín modell</translation>
+        <translation>&amp;Színmodell</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmykfw.cpp" line="116"/>
@@ -8426,13 +8426,13 @@ További információkért lásd a dokumentáció Színek szerkesztése fejezet�
         <location filename="../../../scribus/cupsoptions.cpp" line="184"/>
         <location filename="../../../scribus/cupsoptions.cpp" line="197"/>
         <source>N-Up Printing</source>
-        <translation>n-Up nyomtatás</translation>
+        <translation>Több oldal egy lapra</translation>
     </message>
     <message>
         <location filename="../../../scribus/cupsoptions.cpp" line="191"/>
         <location filename="../../../scribus/cupsoptions.cpp" line="201"/>
         <source>Page per Sheet</source>
-        <translation>Oldal ívenként</translation>
+        <translation>oldal ívenként</translation>
     </message>
     <message>
         <location filename="../../../scribus/cupsoptions.cpp" line="192"/>
@@ -8441,7 +8441,8 @@ További információkért lásd a dokumentáció Színek szerkesztése fejezet�
         <location filename="../../../scribus/cupsoptions.cpp" line="195"/>
         <location filename="../../../scribus/cupsoptions.cpp" line="196"/>
         <source>Pages per Sheet</source>
-        <translation>Oldalak ívenként</translation>
+        <translatorcomment>Nem kell többes számba rakni magyarul!</translatorcomment>
+        <translation>oldal ívenként</translation>
     </message>
     <message>
         <location filename="../../../scribus/cupsoptions.cpp" line="63"/>
@@ -9884,7 +9885,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/fileloader.cpp" line="598"/>
         <source> was replaced by: </source>
-        <translation>cserélve: </translation>
+        <translation> cserélve: </translation>
     </message>
 </context>
 <context>
@@ -10108,7 +10109,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/plugins/fontpreview/fontpreview.ui" line="13"/>
         <source>Fonts Preview</source>
-        <translation></translation>
+        <translation>Betűkészlet előnézet</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fontpreview/fontpreview.ui" line="19"/>
@@ -11934,7 +11935,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="605"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation>Réteg láthatósága – A jelölés megszüntetésévek a réteg nem jelenik meg</translation>
+        <translation>Réteg láthatósága – A jelölés megszüntetésével a réteg nem jelenik meg</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="606"/>
@@ -11954,7 +11955,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="609"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation>Körvonal mód – Átváltás „drótvázas” megjelenítésre, ezzel a nagyon összetett objektumok megjelenítését felgyorsul.</translation>
+        <translation>Körvonal mód – Átváltás „drótvázas” megjelenítésre, ezzel a nagyon összetett objektumok megjelenítése felgyorsul.</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="602"/>
@@ -13823,7 +13824,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../../scribus/preview.cpp" line="262"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Előnézet beállítások</translation>
+        <translation>Előnézet beállítások</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="358"/>
@@ -22525,7 +22526,7 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4045"/>
         <source> was replaced by: </source>
-        <translation> lecserélve: </translation>
+        <translation> cserélve: </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4077"/>
@@ -26634,7 +26635,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="371"/>
         <source>Lossless - Zip</source>
-        <translation>Veszteség mentes – Zip</translation>
+        <translation>Veszteségmentes – Zip</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="362"/>
@@ -26650,7 +26651,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="908"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation>Bemutató átmenetek engedélyezése az Adobe&amp;#174; Reader&amp;#174 számára; vagy olyan PDF-nézegetők számára, amely támogatják ezeket teljes képernyős üzemmódban.</translation>
+        <translation>Prezentációs effektusok engedélyezése az Adobe&amp;#174; Reader&amp;#174; számára; vagy olyan PDF-nézegetők számára, amely támogatják ezeket teljes képernyős üzemmódban.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="960"/>
