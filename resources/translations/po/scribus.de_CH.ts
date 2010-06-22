@@ -644,7 +644,9 @@ Delete the named master page.</translation>
 
 Get type of object &quot;name&quot; as a string.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getObjectType([&quot;name&quot;]) -&gt; string
+
+Get type of object &quot;name&quot; as a string.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="26"/>
@@ -1141,7 +1143,15 @@ properties palette when point unit is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setImageOffset(x, y [, &quot;name&quot;])
+
+Sets the position of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The specified offset values are equal to the values shown on 
+properties palette when point unit is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -1599,7 +1609,9 @@ Ist der Name ungültig, tritt der Fehler ValueError auf.</translation>
 
 Quit Scribus.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileQuit()
+
+Quit Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="326"/>
@@ -2109,7 +2121,8 @@ See UNIT_&lt;type&gt; constants and getPageMargins()
         <translation>getPageNSize() -&gt; tuple
 
 Returns a tuple with a particular page&apos;s size measured in the document&apos;s current units.
-See UNIT_&lt;type&gt; constants and getPageMargins()</translation>
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.h" line="174"/>
@@ -2121,7 +2134,8 @@ See UNIT_&lt;type&gt; constants and getPageMargins()
         <translation>getPageNMargins() -&gt; tuple
 
 Returns a tuple with a particular page&apos;s margins measured in the document&apos;s current units.
-See UNIT_&lt;type&gt; constants and getPageMargins()</translation>
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.h" line="187"/>
@@ -8252,7 +8266,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
         <source>Soft &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Bedingtes &amp;Trennzeichen</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1690"/>
@@ -8408,7 +8422,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="97"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seiten ausrichten durch:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="153"/>
@@ -8448,12 +8462,12 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="450"/>
         <source>&amp;Distance:</source>
-        <translation>Ab&amp;stand:</translation>
+        <translation>A&amp;bstand:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="511"/>
         <source>Reverse Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgekehrte Verteilung</translation>
     </message>
 </context>
 <context>
@@ -8537,22 +8551,22 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seiten ausrichten durch:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschieben (gleiche Grösse)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished"></translation>
+        <translation>Grössenanpassung (gegenüberliegende Seite bleibt unverändert)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Wenn eine Seite eines Objekts ausgerichtet wird entweder:&lt;ul&gt;&lt;li&gt;die andere Seite ebenfalls verschoben (die Abmessungen bleiben erhalten) oder&lt;/li&gt;&lt;li&gt;die andere Seite bleibt, soweit möglich, unverändert (das Objekt wird in der Grösse angepasst)&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
@@ -8637,7 +8651,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
-        <translation type="unfinished"></translation>
+        <translation>Beim Verteilen auf Grundlage eines festgelegten Abstandes wird die Verteilungsrichtung umgekehrt</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
@@ -9811,7 +9825,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="194"/>
         <source>The currently active dictionary. Scribus uses aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation>Das gegenwärtig aktive Wörterbuch. Scribus verwendet aspell zur Rechtschreibprüfung&lt;br/&gt;Falls Sie weitere oder neuere Wörterbücher benötigen, sollten Sie diese über Ihr Installationssystem oder den Paketmanager installieren.</translation>
+        <translation>Das gegenwärtig aktive Wörterbuch. Scribus verwendet aspell zur Rechtschreibprüfung&lt;br/&gt;Falls Sie weitere oder neuere Wörterbücher benötigen, sollten Sie diese über Ihr Installationssystem oder den Packetmanager installieren.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="225"/>
@@ -10247,7 +10261,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="39"/>
         <source>Incl&amp;ude Checksum Digit</source>
-        <translation>Prüfs&amp;ummenzahl einfügen</translation>
+        <translation>Prüfs&amp;ummenzeichen einfügen</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="52"/>
@@ -10406,7 +10420,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1448"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Import einer Bibliotheksdatei aus Scribus 1.3.2 oder einer früheren Version</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="833"/>
@@ -11502,7 +11516,8 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
         <location filename="../../../scribus/canvas.cpp" line="2289"/>
         <source>X: %1
 Y: %2</source>
-        <translation>X: %1Y: %2</translation>
+        <translation>X: %1
+Y: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvas.cpp" line="2274"/>
@@ -11948,7 +11963,8 @@ Höhe: %2</translation>
         <location filename="../../../scribus/charselectenhanced.ui" line="77"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button.
 The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation>Sie können eine Vorschau sehen, wenn Sie die rechte Maustaste gedrückt halten.Der &quot;Einfügen&quot;-Button fügt ein Zeichen in die Textauswahl ein. &quot;Entfernen&quot; löscht das zuletzt hinzugefügte Zeichen</translation>
+        <translation>Sie können eine Vorschau sehen, wenn Sie die rechte Maustaste gedrückt halten.
+Der &quot;Einfügen&quot;-Button fügt ein Zeichen in die Textauswahl ein. &quot;Entfernen&quot; löscht das zuletzt hinzugefügte Zeichen</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselectenhanced.ui" line="96"/>
@@ -12191,8 +12207,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <location filename="../../../scribus/checkDocument.cpp" line="678"/>
         <source>Image resolution below %1 DPI,
 currently %2 x %3 DPI</source>
-        <translation>Bildauflösung geringer als %1 DPI
-Zur Zeit sind es %2 x %3 DPI</translation>
+        <translation>Bildauflösung geringer als %1 DPIZur Zeit sind es %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="679"/>
@@ -13869,22 +13884,22 @@ Dieses können Sie in unter Datei - Allgemeine Einstellungen festlegen.</transla
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="79"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importiere: %1</translation>
+        <translation>Importiere: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="82"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analysieren der Datei:</translation>
+        <translation>Analysieren der Datei:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="210"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppe%1</translation>
+        <translation>Gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="337"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Objekte werden erstellt</translation>
+        <translation>Objekte werden erstellt</translation>
     </message>
 </context>
 <context>
@@ -14199,7 +14214,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     <message>
         <location filename="../../../scribus/docsections.cpp" line="74"/>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Stil:&lt;/b&gt; Wählen Sie den Numerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
+        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Stil:&lt;/b&gt; Wählen Sie den Nummerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/docsections.cpp" line="201"/>
@@ -16012,7 +16027,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="40"/>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation>Dieses Dokument enthält einige Schriften, die auf Ihrem System nicht installiert sind. 
+        <translation>Dieses Dokument enthält einige Schriften, welche auf Ihrem System nicht installiert sind. 
 Bitte entscheiden Sie sich für einen passenden Ersatz. &quot;Abbrechen&quot; wird das Laden des Dokuments
 beenden.</translation>
     </message>
@@ -16952,23 +16967,24 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="58"/>
         <source>Import Cvg...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiere CVG...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="79"/>
         <source>Imports Cvg Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert CVG-Dateien</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert die meisten CVG-Dateien in das aktuelle Dokument und
+konvertiert deren Vektordaten in Scribus-Objekte.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
 </context>
 <context>
@@ -17053,23 +17069,24 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="51"/>
         <source>Import Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiere PICT...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="72"/>
         <source>Imports Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert PICT-Dateien</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert die meisten Dateien im Mac-PICT-Format in das aktuelle Dokument.
+Vektordaten werden in Scribus-Objekte konvertiert.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
 </context>
 <context>
@@ -17416,12 +17433,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="122"/>
         <source>&amp;Location</source>
-        <translation>&amp;Plazierung</translation>
+        <translation>&amp;Platzierung</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="137"/>
         <source>Page Placement</source>
-        <translation>Plazierung auf der Seite</translation>
+        <translation>Platzierung auf der Seite</translation>
     </message>
     <message>
         <source>Selecting this will place the frame only on the current page.</source>
@@ -17610,7 +17627,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.cpp" line="137"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, and posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation>&lt;b&gt;Einen Bildrahmen einfügen&lt;/b&gt;&lt;/br&gt;Ein Bildrahmen erlaubt es Ihnen, ein Bild auf einer Seite zu plazieren. Auf ein Bild können verschiedene Effekte angewandt oder kombiniert werden, zum Beispiel Helligkeit oder Transparenz. Bilder werden mit Hilfe der Eigenschaftenpalette skaliert oder verformt.</translation>
+        <translation>&lt;b&gt;Einen Bildrahmen einfügen&lt;/b&gt;&lt;/br&gt;Ein Bildrahmen erlaubt es Ihnen, ein Bild auf einer Seite zu platzieren. Auf ein Bild können verschiedene Effekte angewandt oder kombiniert werden, zum Beispiel Helligkeit oder Transparenz. Bilder werden mit Hilfe der Eigenschaftenpalette skaliert oder verformt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="72"/>
@@ -17650,7 +17667,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="222"/>
         <source>Position the new frame in relation to the page</source>
-        <translation>Plaziert den neuen Rahmen relativ zur Seite</translation>
+        <translation>Platziert den neuen Rahmen relativ zur Seite</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="237"/>
@@ -18394,7 +18411,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Lässt Text in tieferliegenden Ebene um Objekte herumfliessen, wenn diese Option aktiviert wurde</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -19447,7 +19464,8 @@ Seiten importiert werden sollen, zum Beispiel
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
         <source>Resets the selected handles to their initial position.
 If no handle is selected all handles will be reset.</source>
-        <translation>Setzt die ausgewählten Anfasser auf ihre ursprüngliche Position zurück.Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
+        <translation>Setzt die ausgewählten Anfasser auf ihre ursprüngliche Position zurück.
+Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="86"/>
@@ -19638,7 +19656,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/multiprogressdialog.cpp" line="74"/>
         <source>%v of %m</source>
-        <translation>% von %m</translation>
+        <translation>%v von %m</translation>
     </message>
 </context>
 <context>
@@ -20624,7 +20642,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="122"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Jede Seite wird mit automatischer Numerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschiessen.</translation>
+        <translation>Jede Seite wird mit automatischer Nummerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschiessen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="123"/>
@@ -20852,7 +20870,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/preview.cpp" line="262"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Vorschaumodus</translation>
+        <translation>Vorschaueinstellungen</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="301"/>
@@ -21657,7 +21675,8 @@ werden ignoriert</translation>
         <location filename="../../../scribus/pagelayout.cpp" line="268"/>
         <source>Number of pages to show side-by-side on the canvas
 Often used for allowing items to be placed across page spreads</source>
-        <translation>Anzahl der Seiten, die nebeneinander auf der Arbeitsfläche angezeigt werden.Wird oft dazu verwendet, um ein Objekt über mehrere Seiten zu verteilen</translation>
+        <translation>Anzahl der Seiten, die nebeneinander auf der Arbeitsfläche angezeigt werden.
+Wird oft dazu verwendet, um ein Objekt über mehrere Seiten zu verteilen</translation>
     </message>
     <message>
         <location filename="../../../scribus/pagelayout.cpp" line="273"/>
@@ -22089,8 +22108,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="353"/>
         <source>Break apart,
 The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot;</source>
-        <translation>Aufbrechen.
-Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschluss&quot;</translation>
+        <translation>Aufbrechen.Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschluss&quot;</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="450"/>
@@ -22269,7 +22287,7 @@ Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschlus
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="48"/>
         <source>Load File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei laden</translation>
     </message>
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="55"/>
@@ -22322,22 +22340,22 @@ Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschlus
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="82"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importiere: %1</translation>
+        <translation>Importiere: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="85"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analysieren der Datei:</translation>
+        <translation>Analysieren der Datei:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="211"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppe%1</translation>
+        <translation>Gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="370"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Objekte werden erstellt</translation>
+        <translation>Objekte werden erstellt</translation>
     </message>
 </context>
 <context>
@@ -22914,7 +22932,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="449"/>
         <source>Page that the image is displayed on</source>
-        <translation>Die Seite, auf der das Bild plaziert ist</translation>
+        <translation>Die Seite, auf der das Bild platziert ist</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="462"/>
@@ -22924,7 +22942,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="478"/>
         <source>Name of the page item that contains the image</source>
-        <translation>Name der Seite, auf der das Bild plaziert ist</translation>
+        <translation>Name der Seite, auf der das Bild platziert ist</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="491"/>
@@ -24323,7 +24341,8 @@ PostScript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
         <location filename="../../../scribus/printdialogbase.ui" line="323"/>
         <source>Include PDF Annotations and Links into the output.
 Note: PDF Forms will not be exported.</source>
-        <translation>PDF-Anmerkungen und Links exportieren.Beachten Sie: PDF-Formulare werden nicht exportiert.</translation>
+        <translation>PDF-Anmerkungen und Links exportieren.
+Beachten Sie: PDF-Formulare werden nicht exportiert.</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="327"/>
@@ -28599,12 +28618,12 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="50"/>
         <source>Calamus Cvg File</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus CVG-Datei</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Macintosh Pict File</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh PICT-Datei</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/scface_ps.cpp" line="105"/>
@@ -28785,7 +28804,9 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation>Die Schrift(en)ist/sind nicht eingebettet oder stehen Scribus nicht zur Verfügung.Sie könnten durch &quot;Courier&quot; ersetzt werden, je nachdem, wie Ihr Ghostscript konfiguriert ist.Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
+        <translation>Die Schrift(en) %1 ist/sind nicht eingebettet oder stehen Scribus nicht zur Verfügung.
+Sie könnten durch &quot;Courier&quot; ersetzt werden, je nachdem, wie Ihr Ghostscript konfiguriert ist.
+Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
     </message>
     <message>
         <location filename="../../../scribus/scprintengine_gdi.cpp" line="109"/>
@@ -28845,12 +28866,12 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
         <source>Cvg Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>CVG-Importer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="64"/>
         <source>Pict Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>PICT-Importer</translation>
     </message>
 </context>
 <context>
@@ -29921,8 +29942,7 @@ Therefore the image may be not correct</source>
         <location filename="../../../scribus/smpstylewidget.cpp" line="103"/>
         <source>Maximum white space compression allowed.
 Expressed as a percentage of the current white space value.</source>
-        <translation>Maximale Kompression von Leerzeichen.
-Ausgedrückt als Prozentsatz der aktuellen Leerzeichenweite.</translation>
+        <translation>Maximale Kompression von Leerzeichen.Ausgedrückt als Prozentsatz der aktuellen Leerzeichenweite.</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="105"/>
@@ -30323,7 +30343,8 @@ Ausgedrückt als Prozentsatz der aktuellen Leerzeichenweite.</translation>
         <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="137"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
-        <translation>Speichert alle Bilder in der SVG-Datei.Achtung: Die Datei wird dadurch wesentlich grösser!</translation>
+        <translation>Speichert alle Bilder in der SVG-Datei.
+Achtung: Die Datei wird dadurch wesentlich grösser!</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
@@ -30747,8 +30768,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
         <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="772"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.2.x erzeugt wurde.
-Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen sie nicht mehr öffnen.</translation>
+        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.2.x erzeugt wurde.Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen sie nicht mehr öffnen.</translation>
     </message>
 </context>
 <context>
@@ -31382,27 +31402,27 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7666"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript ist nicht auf Ihrem System installert, oder der Pfad zu Ghostscript in der Scribus-Konfigration ist nicht korrekt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7669"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Solange dieses Problem nicht behoben ist, werden der Import von EPS-Dateien und die Druckvorschau nicht funktionieren.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7671"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Solange dieses Problem nicht behoben ist, werden der Import von EPS-Dateien und die PostScript-Druckvorschau nicht funktionieren.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7673"/>
         <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte lesen Sie die Hinweise unter &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;dieser Adresse&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7677"/>
         <source>Ghostscript is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript ist nicht vorhanden</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8437"/>
@@ -33412,7 +33432,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <location filename="../../../scribus/tocindexprefs.cpp" line="101"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="142"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Plazierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
+        <translation>Platzierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="102"/>
@@ -33453,7 +33473,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <location filename="../../../scribus/tocindexprefs.cpp" line="98"/>
         <location filename="../../../scribus/tocindexprefs.ui" line="115"/>
         <source>Page Number Placement:</source>
-        <translation>Plazierung der Seitennummer:</translation>
+        <translation>Platzierung der Seitennummer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tocindexprefs.cpp" line="116"/>
@@ -34613,7 +34633,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="61"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Verzeichnis für ICC-Profile. Kann nur geändert werden, wenn alle Dokumente geschlossen sind. Scribus sucht automatisch in den Systemverzeichnissen von Mac OS X und Windows. Unter Linux und Unix sucht Scribus in $home/.color/icc,/usr/share/color/icc und /usr/local/share/color/icc </translation>
+        <translation>Verzeichnis für ICC-Profile. Kann nur geändert werden, wenn alle Dokumente geschlossen sind. Scribus sucht automatisch in den Systemverzeichnissen von Mac OSX und Windows. Unter Linux und Unix sucht Scribus in $home/.color/icc,/usr/share/color/icc und /usr/local/share/color/icc </translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="62"/>
@@ -34892,7 +34912,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="42"/>
         <source>Placing in Documents</source>
-        <translation>Plazierung im Dokument</translation>
+        <translation>Platzierung im Dokument</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="48"/>
@@ -36478,7 +36498,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1321"/>
         <source>InfoString</source>
-        <translation type="unfinished"></translation>
+        <translation>Infotext</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1380"/>
@@ -39290,7 +39310,7 @@ Fehler:%2 in Zeile: %3, Spalte %4</translation>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
 Would you like to start the system&apos;s default browser instead?</source>
         <translation>Scribus konnte den Internetbrowser %1 nicht starten. Bitte überprüfen Sie die Daten in den Allgemeinen Einstellungen.
-Möchten Sie statt dessen den Standardbrowser Ihres Systems starten?</translation>
+Möchten Sie stattdessen den Standardbrowser Ihres Systems starten?</translation>
     </message>
 </context>
 <context>

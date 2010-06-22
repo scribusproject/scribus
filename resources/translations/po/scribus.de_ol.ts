@@ -644,7 +644,9 @@ Delete the named master page.</translation>
 
 Get type of object &quot;name&quot; as a string.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getObjectType([&quot;name&quot;]) -&gt; string
+
+Get type of object &quot;name&quot; as a string.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="26"/>
@@ -1141,7 +1143,14 @@ properties palette when point unit is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setImageOffset(x, y [, &quot;name&quot;])
+
+Sets the position of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The specified offset values are equal to the values shown on 
+properties palette when point unit is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -1599,7 +1608,9 @@ Ist der Name ungültig, tritt der Fehler ValueError auf.</translation>
 
 Quit Scribus.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileQuit()
+
+Quit Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="326"/>
@@ -8252,7 +8263,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
         <source>Soft &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Bedingtes &amp;Trennzeichen</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1690"/>
@@ -8408,7 +8419,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="97"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seiten ausrichten durch:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="153"/>
@@ -8448,12 +8459,12 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="450"/>
         <source>&amp;Distance:</source>
-        <translation>Ab&amp;stand:</translation>
+        <translation>A&amp;bstand:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="511"/>
         <source>Reverse Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgekehrte Verteilung</translation>
     </message>
 </context>
 <context>
@@ -8537,22 +8548,22 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seiten ausrichten durch:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschieben (gleiche Größe)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished"></translation>
+        <translation>Größenanpassung (gegenüberliegende Seite bleibt unverändert)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Wenn eine Seite eines Objekts ausgerichtet wird entweder:&lt;ul&gt;&lt;li&gt;die andere Seite ebenfalls verschoben (die Abmessungen bleiben erhalten) oder&lt;/li&gt;&lt;li&gt;die andere Seite bleibt, soweit möglich, unverändert (das Objekt wird in der Größe angepaßt)&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
@@ -8637,7 +8648,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
-        <translation type="unfinished"></translation>
+        <translation>Beim Verteilen auf Grundlage eines festgelegten Abstandes wird die Verteilungsrichtung umgekehrt</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
@@ -10406,7 +10417,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1448"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Import einer Bibliotheksdatei aus Scribus 1.3.2 oder einer früheren Version</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="833"/>
@@ -13869,22 +13880,22 @@ Dieses können Sie in unter Datei - Allgemeine Einstellungen festlegen.</transla
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="79"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importiere: %1</translation>
+        <translation>Importiere: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="82"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analysieren der Datei:</translation>
+        <translation>Analysieren der Datei:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="210"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppe%1</translation>
+        <translation>Gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="337"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Objekte werden erstellt</translation>
+        <translation>Objekte werden erstellt</translation>
     </message>
 </context>
 <context>
@@ -16952,23 +16963,24 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="58"/>
         <source>Import Cvg...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiere CVG...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="79"/>
         <source>Imports Cvg Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert CVG-Dateien</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert die meisten CVG-Dateien in das aktuelle Dokument und
+konvertiert deren Vektordaten in Scribus-Objekte.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
 </context>
 <context>
@@ -17053,23 +17065,24 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="51"/>
         <source>Import Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiere PICT...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="72"/>
         <source>Imports Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert PICT-Dateien</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert die meisten Dateien im Mac-PICT-Format in das aktuelle Dokument.
+Vektordaten werden in Scribus-Objekte konvertiert.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
 </context>
 <context>
@@ -18394,7 +18407,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Läßt Text in tieferliegenden Ebene um Objekte herumfließen, wenn diese Option aktiviert wurde</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -20852,7 +20865,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/preview.cpp" line="262"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Vorschaumodus</translation>
+        <translation>Vorschaueinstellungen</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="301"/>
@@ -22269,7 +22282,7 @@ Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschlu�
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="48"/>
         <source>Load File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei laden</translation>
     </message>
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="55"/>
@@ -22322,22 +22335,22 @@ Das Ergebnis ist eine Mischiung aus &quot;Schnittmenge&quot; und &quot;Ausschlu�
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="82"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importiere: %1</translation>
+        <translation>Importiere: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="85"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analysieren der Datei:</translation>
+        <translation>Analysieren der Datei:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="211"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppe%1</translation>
+        <translation>Gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="370"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Objekte werden erstellt</translation>
+        <translation>Objekte werden erstellt</translation>
     </message>
 </context>
 <context>
@@ -28599,12 +28612,12 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="50"/>
         <source>Calamus Cvg File</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus CVG-Datei</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Macintosh Pict File</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh PICT-Datei</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/scface_ps.cpp" line="105"/>
@@ -28785,7 +28798,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation>Die Schrift(en)ist/sind nicht eingebettet oder stehen Scribus nicht zur Verfügung.Sie könnten durch &quot;Courier&quot; ersetzt werden, je nachdem, wie Ihr Ghostscript konfiguriert ist.Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
+        <translation>Die Schrift(en) %1 ist/sind nicht eingebettet oder stehen Scribus nicht zur Verfügung.Sie könnten durch &quot;Courier&quot; ersetzt werden, je nachdem, wie Ihr Ghostscript konfiguriert ist.Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
     </message>
     <message>
         <location filename="../../../scribus/scprintengine_gdi.cpp" line="109"/>
@@ -28845,12 +28858,12 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
         <source>Cvg Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>CVG-Importer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="64"/>
         <source>Pict Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>PICT-Importer</translation>
     </message>
 </context>
 <context>
@@ -31382,27 +31395,27 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7666"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript ist nicht auf Ihrem System installert, oder der Pfad zu Ghostscript in der Scribus-Konfigration ist nicht korrekt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7669"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Solange dieses Problem nicht behoben ist, werden der Import von EPS-Dateien und die Druckvorschau nicht funktionieren.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7671"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Solange dieses Problem nicht behoben ist, werden der Import von EPS-Dateien und die PostScript-Druckvorschau nicht funktionieren.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7673"/>
         <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte lesen Sie die Hinweise unter &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;dieser Adresse&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7677"/>
         <source>Ghostscript is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript ist nicht vorhanden</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8437"/>
@@ -36478,7 +36491,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1321"/>
         <source>InfoString</source>
-        <translation type="unfinished"></translation>
+        <translation>Infotext</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1380"/>
