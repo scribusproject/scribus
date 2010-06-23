@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <QCloseEvent>
 #include <QEvent>
 #include <QMenu>
 #include <QPixmap>
@@ -39,9 +40,9 @@ for which a new license (GPL+exception) is in place.
 
 ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o)
 : QToolBar(name, parent),
-  m_name(QString("ToolBar-%1").arg(prefName)),
-  m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
+  m_name(QString("ToolBar-%1").arg(prefName))
 {
+	m_prefs=PrefsManager::instance()->prefsFile->getContext(m_name);
 	setObjectName(name);
 // 	hide();
 	parentMW=parent;
@@ -105,22 +106,32 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 
 // 	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)), this, SLOT(slotPlaceChanged(Q3DockWindow::Place)));
 }
-/*
+
 void ScToolBar::initVisibility()
 {
 	if (m_prefs->getBool("IsVisible", true))
 	{
 		show();
+		/*
 		if (place() == InDock)
 			setOrientation(area()->orientation());
 		else
-			setOrientation(floatOrientation);
+			setOrientation(floatOrientation);*/
 	}
 	else
 		hide();
-	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
+	connectPrefsSlot(true);
 }
 
+void ScToolBar::connectPrefsSlot(bool b)
+{
+	if (b)
+		connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
+	else
+		disconnect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
+}
+
+/*
 int ScToolBar::position()
 {
 	if (place() == Q3DockWindow::OutsideDock)
@@ -191,12 +202,12 @@ void ScToolBar::slotPlaceChanged(Q3DockWindow::Place p)
 		setOrientation(floatOrientation);
 	}
 }
-
+*/
 void ScToolBar::slotVisibilityChanged(bool visible)
 {
 	m_prefs->set("IsVisible", visible);
 }
-
+/*
 void ScToolBar::slotTop()
 {
 	dockTop = !dockTop;

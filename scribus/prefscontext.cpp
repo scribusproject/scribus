@@ -91,7 +91,7 @@ void PrefsContext::set(const QString& key, const std::string& value)
 
 void PrefsContext::set(const QString& key, const QString& value)
 {
-	values[key] = value;
+	values.insert(key, value);
 }
 
 int PrefsContext::getInt(const QString& key, int defValue)

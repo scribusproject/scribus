@@ -46,11 +46,14 @@ public:
 	// if using name settings depend on the language
 	ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o = Qt::Horizontal);
 	virtual ~ScToolBar();
+	//bit of a hack as saving prefs seems to happen on shutdown and prefs is already in the process of being destroyed
+	void connectPrefsSlot(bool b);
+
 
 // 	int position();
 // 	void storeDockPosition();
 // 	void moveDock();
-// 	void initVisibility();
+	void initVisibility();
 	
 signals:
 	void visibilityChanged(bool);
@@ -60,7 +63,7 @@ public slots:
 
 protected slots:
 // 	void slotPlaceChanged(Q3DockWindow::Place p);
-// 	void slotVisibilityChanged(bool visible);
+	void slotVisibilityChanged(bool visible);
 // 	void slotTop();
 // 	void slotRight();
 // 	void slotBottom();

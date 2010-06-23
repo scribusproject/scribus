@@ -425,11 +425,10 @@ void ScribusMainWindow::initToolBars()
 	modeToolBar = new ModeToolBar(this);
 	pdfToolBar = new PDFToolBar(this);
 
-	addScToolBar(fileToolBar, "ToolBar-File");
-	addScToolBar(editToolBar, "ToolBar-Edit");
-	addScToolBar(modeToolBar, "ToolBar-Tools");
-	addScToolBar(pdfToolBar, "ToolBar-PDF_Tools");
-
+	addScToolBar(fileToolBar, fileToolBar->objectName());
+	addScToolBar(editToolBar, editToolBar->objectName());
+	addScToolBar(modeToolBar, modeToolBar->objectName());
+	addScToolBar(pdfToolBar, pdfToolBar->objectName());
 	connect(modeToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setVisible(bool)));
 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setChecked(bool)));
@@ -1578,6 +1577,10 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 			}
 		}
 	}
+	fileToolBar->connectPrefsSlot(false);
+	editToolBar->connectPrefsSlot(false);
+	modeToolBar->connectPrefsSlot(false);
+	pdfToolBar->connectPrefsSlot(false);
 	propertiesPalette->hide();
 	outlinePalette->hide();
 	scrapbookPalette->hide();
@@ -4669,6 +4672,10 @@ void ScribusMainWindow::slotFileQuit()
 	propertiesPalette->unsetDoc();
 	symbolPalette->unsetDoc();
 	ScCore->pluginManager->savePreferences();
+	fileToolBar->connectPrefsSlot(false);
+	editToolBar->connectPrefsSlot(false);
+	modeToolBar->connectPrefsSlot(false);
+	pdfToolBar->connectPrefsSlot(false);
 	close();
 }
 
@@ -7740,10 +7747,10 @@ void ScribusMainWindow::ShowSubs()
 	symbolPalette->startup();
 
 	// init the toolbars
-// 	fileToolBar->initVisibility();
-// 	editToolBar->initVisibility();
-// 	modeToolBar->initVisibility();
-// 	pdfToolBar->initVisibility();
+	fileToolBar->initVisibility();
+	editToolBar->initVisibility();
+	modeToolBar->initVisibility();
+	pdfToolBar->initVisibility();
 
 	activateWindow();
 	if (!scriptIsRunning())
