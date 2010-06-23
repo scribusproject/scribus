@@ -146,7 +146,7 @@ PyObject *scribus_setVguides(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_pagedimension__doc__,
 QT_TR_NOOP("getPageSize() -> tuple\n\
 \n\
-Returns a tuple with page dimensions measured in the document's current units.\n\
+Returns a tuple with document page dimensions measured in the document's current units.\n\
 See UNIT_<type> constants and getPageMargins()\n\
 "));
 /**
@@ -158,7 +158,7 @@ PyObject *scribus_pagedimension(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_pagensize__doc__,
-QT_TR_NOOP("getPageNSize() -> tuple\n\
+QT_TR_NOOP("getPageNSize(nr) -> tuple\n\
 \n\
 Returns a tuple with a particular page's size measured in the document's current units.\n\
 See UNIT_<type> constants and getPageMargins()\n\
@@ -170,8 +170,21 @@ e.g. when is the doc in picas returns picas ;)
 PyObject *scribus_pagensize(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getpagemargins__doc__,
+QT_TR_NOOP("getPageMargins()\n\
+\n\
+Returns the document page margins as a (top, left, right, bottom) tuple in the document's current\n\
+units. See UNIT_<type> constants and getPageSize().\n\
+"));
+/**
+returns a tuple with page margins
+Craig Ringer, Petr Vanek 09/25/2004
+*/
+PyObject *scribus_getpagemargins(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_pagenmargins__doc__,
-QT_TR_NOOP("getPageNMargins() -> tuple\n\
+QT_TR_NOOP("getPageNMargins(nr) -> tuple\n\
 \n\
 Returns a tuple with a particular page's margins measured in the document's current units.\n\
 See UNIT_<type> constants and getPageMargins()\n\
@@ -197,19 +210,6 @@ TODO: solve utf/iso chars in object names
 (Petr Vanek 03/02/2004)
 */
 PyObject *scribus_getpageitems(PyObject * /*self*/);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_getpagemargins__doc__,
-QT_TR_NOOP("getPageMargins()\n\
-\n\
-Returns the page margins as a (top, left, right, bottom) tuple in the current\n\
-units. See UNIT_<type> constants and getPageSize().\n\
-"));
-/**
-returns a tuple with page margins
-Craig Ringer, Petr Vanek 09/25/2004
-*/
-PyObject *scribus_getpagemargins(PyObject * /*self*/);
 
 /*! importpage */
 PyDoc_STRVAR(scribus_importpage__doc__,

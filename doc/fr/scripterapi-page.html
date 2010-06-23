@@ -35,11 +35,19 @@
 
 <dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
 <dd><code><a href="#-getPageMargins">getPageMargins</a>()</code>
-<p>Retourne les marges de la page comme un vecteur (haut, gauche, droite, bas) dans les unit&eacute;s courantes. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</p></dd>
+<p>Retourne les marges de page du document comme un vecteur (haut, gauche, droite, bas) dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageNMargins"><strong>getPageNMargins</strong></a>(...)</dt>
+<dd><code><a href="#-getPageNMargins">getPageNMargins</a>(nr)</code>
+<p>Retourne les marges d'une page donn&eacute;e comme un vecteur (haut, gauche, droite, bas) dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</p></dd>
 
 <dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
 <dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; vecteur</code>
-<p>Retourne un vecteur avec les dimensions de la page mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+<p>Retourne un vecteur avec les dimensions de page du document mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-getPageNSize"><strong>getPageNSize</strong></a>(...)</dt>
+<dd><code><a href="#-getPageNSize">getPageNSize</a>(nr) -&gt; vecteur</code>
+<p>Retourne un vecteur avec les dimensions d'une page donn&eacute;e mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
 
 <dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
 <dd><code><a href="#-gotoPage">gotoPage</a>(nr)</code>
@@ -57,7 +65,7 @@
 
 <dt><a name="-pageDimension"><strong>pageDimension</strong></a>(...)</dt>
 <dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; vecteur</code>
-<p>Alias. Retourne un vecteur avec les dimensions de la page mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+<p>Alias. Retourne un vecteur avec les dimensions de page du document mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
 	
 <dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
 <dd><code><a href="#-redrawAll">redrawAll</a>()</code>
