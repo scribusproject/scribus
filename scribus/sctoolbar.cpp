@@ -105,22 +105,33 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 
 // 	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)), this, SLOT(slotPlaceChanged(Q3DockWindow::Place)));
 }
-/*
+
 void ScToolBar::initVisibility()
 {
 	if (m_prefs->getBool("IsVisible", true))
 	{
 		show();
+/*
 		if (place() == InDock)
 			setOrientation(area()->orientation());
 		else
 			setOrientation(floatOrientation);
+*/
 	}
 	else
 		hide();
-	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
+	connectPrefsSlot(true);
 }
 
+void ScToolBar::connectPrefsSlot(bool b)
+{
+	if (b)
+		connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
+	else
+		disconnect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
+}
+
+/*
 int ScToolBar::position()
 {
 	if (place() == Q3DockWindow::OutsideDock)
@@ -191,12 +202,12 @@ void ScToolBar::slotPlaceChanged(Q3DockWindow::Place p)
 		setOrientation(floatOrientation);
 	}
 }
-
+*/
 void ScToolBar::slotVisibilityChanged(bool visible)
 {
 	m_prefs->set("IsVisible", visible);
 }
-
+/*
 void ScToolBar::slotTop()
 {
 	dockTop = !dockTop;

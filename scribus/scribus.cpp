@@ -1952,6 +1952,10 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 			}
 		}
 	}
+	fileToolBar->connectPrefsSlot(false);
+	editToolBar->connectPrefsSlot(false);
+	modeToolBar->connectPrefsSlot(false);
+	pdfToolBar->connectPrefsSlot(false);
 	propertiesPalette->hide();
 	outlinePalette->hide();
 	scrapbookPalette->hide();
@@ -4883,6 +4887,10 @@ void ScribusMainWindow::slotFileQuit()
 {
 	propertiesPalette->unsetDoc();
 	ScCore->pluginManager->savePreferences();
+	fileToolBar->connectPrefsSlot(false);
+	editToolBar->connectPrefsSlot(false);
+	modeToolBar->connectPrefsSlot(false);
+	pdfToolBar->connectPrefsSlot(false);
 	close();
 }
 
