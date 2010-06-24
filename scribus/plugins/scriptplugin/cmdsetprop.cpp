@@ -241,9 +241,9 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if ((w < 0.0) || (w > 12.0))
+	if ((w < 0.0) || (w > 300.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 12.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 300.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
