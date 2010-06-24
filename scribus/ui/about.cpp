@@ -378,7 +378,8 @@ QString About::parseAuthorFile(QString fileName)
 	if (authorsFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&authorsFile);
-//		inTS.setCodec("UTF-8");
+		inTS.setCodec("UTF-8");
+		inTS.setAutoDetectUnicode(true);
 		QString lineTS;
 		QStringList fieldTS;
 		QString name;
@@ -466,6 +467,8 @@ QString About::parseTranslationFile(QString fileName)
 	if (translationFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&translationFile);
+		inTS.setCodec("UTF-8");
+		inTS.setAutoDetectUnicode(true);
 		QString lineTS;
 		QStringList fieldTS;
 		QString code;
@@ -579,6 +582,7 @@ QString About::parseLinksFile(QString fileName)
 	{
 		QTextStream inTS(&linksFile);
 		inTS.setCodec("UTF-8");
+		inTS.setAutoDetectUnicode(true);
 		QString lineTS;
 		bool isTitle = true;
 		result = "<table>";
