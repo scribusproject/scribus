@@ -1,26 +1,58 @@
-Scribus Copyright 2001-2008 Franz Schmid and the members of the Scribus
- Team.  The "Scribus Team" is informally defined as the following people:
- Peter Linnell, Paul Johnson, Craig Bradney, Petr Vanek, Riku Leino,
-Craig Ringer, Andreas Vox and Jean Ghali and Hermman Kraus. 
+Scribus Copyright 2001-2010 Franz Schmid and the members of the Scribus Team.
+The "Scribus Team" is informally defined as the following people:
+Craig Bradney, Jean Ghali, Riku Leino, Peter Linnell, Hermann Kraus, 
+Pierre Marchand, Oleksandr Moskalenko, Craig Ringer, Christoph Schäfer,
+ Franz Schmid, Petr Vanek and Andreas Vox.
 
-This program is free software; you can redistribute it and/or modify
- it under the  terms of the GNU General Public License as published
- by the Free Software Foundation; either version 2 of the License,
- or (at your option) any later version.
+Other contributors are listed in the "About" tab of the
+dialog "Help > About Scribus."
 
-This program is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
-GNU General Public License for more details.
+This program is Free Software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License,
+or (at your option) any later version.
 
-In addition, as a special exception, the listed copyright holders
- above give permission to link the code of this program with the Trolltech
- AS Qt4 Commercially Licensed Dynamic Link Libraries  (or with modified 
-versions of Trolltech AS Qt3 Commercially Licensed Dynamic Link Libraries 
-that use the same license as Trolltech AS Qt4 Commercially Licensed Dynamic
-Link Libraries), and distribute linked combinations including the two. You 
-must obey the GNU General Public  License in all respects for all of the code
-used other than Trolltech AS Qt3 Commercially Licensed Dynamic Link Libraries.
+Parts of the code are distributed under one of the following licenses:
+GNU Library/Lesser Public License, version 2 or version 2.1, 
+3-clause BSD license, and MIT license. 
+Please note that some of this code is using a dual licensing scheme.
+See the respective source files for further information.
+Other parts of the code are Public Domain.
+
+Some files in the source code don't include proper copyright notices.
+This doesn't mean that you are allowed to copy or modify the code without
+obligations. It only means that the original authors didn't add those notices.
+Without providing legal advice, we suggest that you contact the authors of the
+code who are mentioned in other files in the same directory and ask for
+permission or to update the files with appropriate licensing information.
+
+Resources, like the documentation, dictionaries, colour profiles, colour
+swatches or templates, may use their own licenses that need not be compatible
+with any of the licenses mentioned above, since they are regarded as content,
+not functional code.
+
+
+------------
+
+
+This program is free software; you can redistribute it and/or modify it under
+the  terms of the GNU General Public License as published by the 
+Free Software Foundation; either version 2 of the License,
+or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+more details.
+
+In addition, as a special exception, the listed copyright holders above give
+permission to link the code of this program with the Trolltech AS Qt4 
+Commercially Licensed Dynamic Link Libraries  (or with modified versions of
+Trolltech AS Qt3 Commercially Licensed Dynamic Link Libraries that use the 
+same license as Trolltech AS Qt4 Commercially Licensed Dynamic Link
+Libraries), and distribute linked combinations including the two. You must 
+obey the GNU General Public  License in all respects for all of the code used
+other than Trolltech AS Qt3 Commercially Licensed Dynamic Link Libraries.
 If you modify this file, you may extend this exception to your version of the 
 file, but you are not obligated to do so. If you do not wish to do so, delete
 this exception statement from your version.
