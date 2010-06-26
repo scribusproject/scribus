@@ -1986,6 +1986,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						if (ite->endArrowIndex() != 0)
 						{
 							QMatrix arrowTrans;
+							arrowTrans.translate(ite->width(), 0);
 							PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
 						}
 						break;
