@@ -257,6 +257,24 @@ QString PageItem_OSGFrame::getPDFMatrix(QString viewName)
 	transx = trackerCenter[0] - roo*viewx;
 	transy = trackerCenter[1] - roo*viewy;
 	transz = trackerCenter[2] - roo*viewz;
+	if (fabs(leftx) < 0.0000001)
+		leftx = 0.0;
+	if (fabs(lefty) < 0.0000001)
+		lefty = 0.0;
+	if (fabs(leftz) < 0.0000001)
+		leftz = 0.0;
+	if (fabs(upx) < 0.0000001)
+		upx = 0.0;
+	if (fabs(upy) < 0.0000001)
+		upy = 0.0;
+	if (fabs(upz) < 0.0000001)
+		upz = 0.0;
+	if (fabs(transx) < 0.0000001)
+		transx = 0.0;
+	if (fabs(transy) < 0.0000001)
+		transy = 0.0;
+	if (fabs(transz) < 0.0000001)
+		transz = 0.0;
 	QString ret = "";
 	QString desc4 = "%1 %2 %3 ";
 	ret += desc4.arg(leftx).arg(lefty).arg(leftz);

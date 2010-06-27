@@ -161,7 +161,10 @@ PDFLibCore::~PDFLibCore()
 
 static inline QString FToStr(double c)
 {
-	return QString::number(c, 'f', 5);
+	double v = c;
+	if (fabs(c) < 0.0000001)
+		v = 0.0;
+	return QString::number(v, 'f', 5);
 };
 
 bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
