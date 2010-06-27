@@ -37,6 +37,17 @@ Zeigt die Liste der während des Programmstarts geladenen Schriften an. Auf dies
 .TP
 .B -pi, --profile-info
 Zeigt eine Liste der Farbprofile, die von Scribus genutzt werden können. Diese Option kann genutzt werden, um fehlende oder fehlerhafte Farbprofile zu untersuchen.
+.B -ns, --no-splash
+Unterdrückt die Anzeige des Scribus-Splash-Screens beim Programmstart.
+.TP
+.B -nns, --never-splash     
+Unterdrückt die Anzeige des Scribus-Splash-Screens beim Programmstart dauerhaft, indem eine leere Datei namens .neversplash im Verzeichnis ~/.scribus gespeichert wird.
+.TP
+.B -sb, --swap-buttons
+Verwendet eine umgekehrte Anordnung von Buttons in einigen Dialogen (z.B Cancel/No/Yes statt Yes/No/Cancel)
+.TP
+.B -u, --upgradecheck
+Lädt eine Datei vom Scribus-Server herunter, die Informationen über die neueste Programmversion enthält.
 .SH UMGEBUNG
 Scribus verwendet die gesetzten Umgebungsvariablen. Die zugrundeliegenden Bibliotheken wie Qt oder Programme, die Scribus verwendet, können andere Einstellungen verwenden.
 .I http://docs.scribus.net/
