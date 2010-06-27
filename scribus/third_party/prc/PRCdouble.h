@@ -1,17 +1,3 @@
-/*
-For general Scribus (>=1.3.2) copyright and licensing information please refer
-to the COPYING file provided with the program. Following this notice may exist
-a copyright and/or license notice that predates the release of Scribus 1.3.2
-for which a new license (GPL+exception) is in place.
-*/
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
 #ifndef __PRC_DOUBLE_H
 #define __PRC_DOUBLE_H
 
@@ -21,6 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_CONFIG_H
 #include "scconfig.h"
 #endif
+
+#ifdef BYTE_ORDER
+# undef WORDS_BIG_ENDIAN
+# undef WORDS_LITTLE_ENDIAN
+# if BYTE_ORDER == BIG_ENDIAN
+#  define WORDS_BIG_ENDIAN 1
+# endif
+# if BYTE_ORDER == LITTLE_ENDIAN
+#  define WORDS_LITTLE_ENDIAN 1
+# endif
+#endif   
+
 // from Adobe's documentation
 
 union ieee754_double
@@ -29,7 +27,7 @@ union ieee754_double
  /* This is the IEEE 754 double-precision format. */
  struct
  {
-#if defined(WORDS_BIGENDIAN)
+#ifdef WORDS_BIGENDIAN
   unsigned int negative:1;
   unsigned int exponent:11;
   /* Together these comprise the mantissa.  */
@@ -45,8 +43,22 @@ union ieee754_double
  } ieee;
 };
 
-
-
+union ieee754_float
+{
+ float f;
+ /* This is the IEEE 754 float-precision format. */
+ struct {
+#ifdef WORDS_BIGENDIAN
+ unsigned int negative:1;
+ unsigned int exponent:8;
+ unsigned int mantissa:23;
+#else
+ unsigned int mantissa:23;
+ unsigned int exponent:8;
+ unsigned int negative:1;
+#endif
+ } ieee;
+};
 
 enum ValueType {VT_double,VT_exponent};
 
@@ -60,7 +72,8 @@ struct sCodageOfFrequentDoubleOrExponent
     double Value;
   } u2uod;
 };
-#if defined(WORDS_BIGENDIAN)
+
+#ifdef WORDS_BIGENDIAN
 #       define DOUBLEWITHTWODWORD(upper,lower)  upper,lower
 #       define UPPERPOWER       (0)
 #       define LOWERPOWER       (!UPPERPOWER)
@@ -103,7 +116,7 @@ extern PRCdword stadwZero[2],stadwNegativeZero[2];
 
 #define NUMBEROFELEMENTINACOFDOE   (2077)
 
-#if defined( WORDS_BIGENDIAN )
+#ifdef WORDS_BIGENDIAN
 #       define DOUBLEWITHTWODWORDINTREE(upper,lower)    {upper,lower} 
 #else
 #       define DOUBLEWITHTWODWORDINTREE(upper,lower)    {lower,upper}
@@ -117,7 +130,7 @@ struct sCodageOfFrequentDoubleOrExponent* getcofdoe(unsigned,short);
 
 int stCOFDOECompare(const void*,const void*);
 
-#if defined(WORDS_BIGENDIAN)
+#ifdef WORDS_BIGENDIAN
 void *memrchr(const void *,int,size_t);
 #endif
 

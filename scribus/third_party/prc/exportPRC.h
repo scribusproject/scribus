@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 #include "oPRCFile.h"
 #include "pageitem_osgframe.h"
-
+/*
 class prcfile : public oPRCFile
 {
 		std::list<PRCentity *> entities;
@@ -45,7 +45,7 @@ class prcfile : public oPRCFile
 			oPRCFile::add ( e );
 		}
 };
-
+*/
 class PRCExporter
 {
 	public:
@@ -53,12 +53,12 @@ class PRCExporter
 		virtual ~PRCExporter() {}
 		void convertFile(QString fileName, PageItem_OSGFrame *frame);
 	private:
-		void analyse ( osg::Node *nd, prcfile *out );
+		void analyse ( osg::Node *nd, oPRCFile *out );
 		void getCurrentMaterial(osg::Geode *geode);
 		void getCurrentMaterial(osg::Drawable *geode);
-		void analyseGeode ( osg::Geode *geode, prcfile *out );
-		void analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::Geometry *geom, const osg::Vec3Array *verts );
-		PRCMaterial currentMaterial;
+		void analyseGeode ( osg::Geode *geode, oPRCFile *out );
+		void analysePrimSet ( osg::PrimitiveSet*prset, oPRCFile *out, osg::Geometry *geom, const osg::Vec3Array *verts );
+		PRCmaterial currentMaterial;
 };
 
 #endif

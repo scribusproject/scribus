@@ -48,7 +48,7 @@ void PRCExporter::getCurrentMaterial ( osg::Geode *geode )
 				RGBAColour dif = RGBAColour ( Diffuse[0], Diffuse[1], Diffuse[2], Diffuse[3] );
 				RGBAColour emi = RGBAColour ( Emissive[0], Emissive[1], Emissive[2], Emissive[3] );
 				RGBAColour spe = RGBAColour ( Specular[0], Specular[1], Specular[2], Specular[3] );
-				currentMaterial = PRCMaterial ( amb, dif, emi, spe, Diffuse[3], material->getShininess ( osg::Material::FRONT_AND_BACK ) );
+				currentMaterial = PRCmaterial ( amb, dif, emi, spe, Diffuse[3], material->getShininess ( osg::Material::FRONT_AND_BACK ) );
 			}
 		}
 	}
@@ -74,31 +74,37 @@ void PRCExporter::getCurrentMaterial ( osg::Drawable *geode )
 				RGBAColour dif = RGBAColour ( Diffuse[0], Diffuse[1], Diffuse[2], Diffuse[3] );
 				RGBAColour emi = RGBAColour ( Emissive[0], Emissive[1], Emissive[2], Emissive[3] );
 				RGBAColour spe = RGBAColour ( Specular[0], Specular[1], Specular[2], Specular[3] );
-				currentMaterial = PRCMaterial ( amb, dif, emi, spe, Diffuse[3], material->getShininess ( osg::Material::FRONT_AND_BACK ) );
+				currentMaterial = PRCmaterial ( amb, dif, emi, spe, Diffuse[3], material->getShininess ( osg::Material::FRONT_AND_BACK ) );
 			}
 		}
 	}
 }
 
-void PRCExporter::analyse ( osg::Node *nd, prcfile *out )
+void PRCExporter::analyse ( osg::Node *nd, oPRCFile *out )
 {
 	/// here you have found a group.
 	osg::Geode *geode = dynamic_cast<osg::Geode *> ( nd );
 	if ( geode )
 	{
 		// analyse the geode. If it isnt a geode the dynamic cast gives NULL.
+		QString nam = QString::fromStdString(geode->getName());
+		out->begingroup(nam.toLatin1());
 		analyseGeode ( geode, out );
+		out->endgroup();
 	}
 	else
 	{
 		osg::Group *gp = dynamic_cast<osg::Group *> ( nd );
 		if ( gp )
 		{
+			QString nam = QString::fromStdString(gp->getName());
+			out->begingroup(nam.toLatin1());
 //			osg::notify ( osg::WARN ) << "Group "<<  gp->getName() <<std::endl;
 			for ( unsigned int ic=0; ic<gp->getNumChildren(); ic++ )
 			{
 				analyse ( gp->getChild ( ic ), out );
 			}
+			out->endgroup();
 		}
 //		else
 //		{
@@ -108,7 +114,7 @@ void PRCExporter::analyse ( osg::Node *nd, prcfile *out )
 }
 // divide the geode into its drawables and primitivesets:
 
-void PRCExporter::analyseGeode ( osg::Geode *geode, prcfile *out )
+void PRCExporter::analyseGeode ( osg::Geode *geode, oPRCFile *out )
 {
 	getCurrentMaterial ( geode );
 	for ( unsigned int i=0; i<geode->getNumDrawables(); i++ )
@@ -116,15 +122,18 @@ void PRCExporter::analyseGeode ( osg::Geode *geode, prcfile *out )
 		osg::Drawable *drawable=geode->getDrawable ( i );
 		osg::Geometry *geom=dynamic_cast<osg::Geometry *> ( drawable );
 		getCurrentMaterial ( drawable );
+		QString nam = QString::fromStdString(drawable->getName());
+		out->begingroup(nam.toLatin1());
 		for ( unsigned int ipr=0; ipr<geom->getNumPrimitiveSets(); ipr++ )
 		{
 			osg::PrimitiveSet* prset=geom->getPrimitiveSet ( ipr );
 			analysePrimSet ( prset, out, geom, dynamic_cast<const osg::Vec3Array*> ( geom->getVertexArray() ) );
 		}
+		out->endgroup();
 	}
 }
 
-void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::Geometry *geom, const osg::Vec3Array *verts )
+void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, oPRCFile *out, osg::Geometry *geom, const osg::Vec3Array *verts )
 {
 	unsigned int ic;
 //	const osg::Vec4Array *Diffuse = dynamic_cast<const osg::Vec4Array*> ( geom->getColorArray() );
@@ -140,16 +149,18 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 			for ( ic=0; ic<prset->getNumIndices()-2; ic+=3 )
 			{
 				double ( *points ) [3] = new double[4][3];
-				double *knotsU = new double[4];
-				double *knotsV = new double[4];
-				knotsU[0] = 1.0;
-				knotsU[1] = 1.0;
-				knotsU[2] = 2.0;
-				knotsU[3] = 2.0;
-				knotsV[0] = 1.0;
-				knotsV[1] = 1.0;
-				knotsV[2] = 2.0;
-				knotsV[3] = 2.0;
+//				double *knotsU = new double[4];
+//				double *knotsV = new double[4];
+				double knotsU[] = {1,1,2,2};
+				double knotsV[] = {1,1,2,2};
+//				knotsU[0] = 1.0;
+//				knotsU[1] = 1.0;
+//				knotsU[2] = 2.0;
+//				knotsU[3] = 2.0;
+//				knotsV[0] = 1.0;
+//				knotsV[1] = 1.0;
+//				knotsV[2] = 2.0;
+//				knotsV[3] = 2.0;
 				points[0][0] = ( * verts ) [prset->index ( ic ) ].x();
 				points[0][1] = ( * verts ) [prset->index ( ic ) ].y();
 				points[0][2] = ( * verts ) [prset->index ( ic ) ].z();
@@ -162,7 +173,8 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 				points[3][0] = ( * verts ) [prset->index ( ic+2 ) ].x();
 				points[3][1] = ( * verts ) [prset->index ( ic+2 ) ].y();
 				points[3][2] = ( * verts ) [prset->index ( ic+2 ) ].z();
-				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, currentMaterial ) );
+//				out->addRectangle(points, currentMaterial);
+				out->addSurface(1, 1, 2, 2, points, knotsU, knotsV, currentMaterial, NULL );
 //				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
 			}
 			break;
@@ -174,16 +186,18 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 			for ( ic=0; ic<prset->getNumIndices()-3; ic+=4 )
 			{
 				double ( *points ) [3] = new double[4][3];
-				double *knotsU = new double[4];
-				double *knotsV = new double[4];
-				knotsU[0] = 1.0;
-				knotsU[1] = 1.0;
-				knotsU[2] = 2.0;
-				knotsU[3] = 2.0;
-				knotsV[0] = 1.0;
-				knotsV[1] = 1.0;
-				knotsV[2] = 2.0;
-				knotsV[3] = 2.0;
+//				double *knotsU = new double[4];
+//				double *knotsV = new double[4];
+				double knotsU[] = {1,1,2,2};
+				double knotsV[] = {1,1,2,2};
+//				knotsU[0] = 1.0;
+//				knotsU[1] = 1.0;
+//				knotsU[2] = 2.0;
+//				knotsU[3] = 2.0;
+//				knotsV[0] = 1.0;
+//				knotsV[1] = 1.0;
+//				knotsV[2] = 2.0;
+//				knotsV[3] = 2.0;
 				points[0][0] = ( * verts ) [prset->index ( ic ) ].x();
 				points[0][1] = ( * verts ) [prset->index ( ic ) ].y();
 				points[0][2] = ( * verts ) [prset->index ( ic ) ].z();
@@ -196,7 +210,8 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, prcfile *out, osg::G
 				points[3][0] = ( * verts ) [prset->index ( ic+2 ) ].x();
 				points[3][1] = ( * verts ) [prset->index ( ic+2 ) ].y();
 				points[3][2] = ( * verts ) [prset->index ( ic+2 ) ].z();
-				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, currentMaterial ) );
+//				out->addRectangle(points, currentMaterial);
+				out->addSurface(1, 1, 2, 2, points, knotsU, knotsV, currentMaterial, NULL );
 //				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
 			}
 			break;
@@ -213,7 +228,7 @@ void PRCExporter::convertFile ( QString fileName, PageItem_OSGFrame *frame )
 	{
 		if ( frame->loadedModel )
 		{
-			prcfile oPRC ( fileName.toStdString() );
+			oPRCFile oPRC ( fileName.toStdString() );
 			analyse ( frame->loadedModel.get(), &oPRC );
 			oPRC.finish();
 		}

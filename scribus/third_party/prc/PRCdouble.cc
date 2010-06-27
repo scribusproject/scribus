@@ -1,17 +1,3 @@
-/*
-For general Scribus (>=1.3.2) copyright and licensing information please refer
-to the COPYING file provided with the program. Following this notice may exist
-a copyright and/or license notice that predates the release of Scribus 1.3.2
-for which a new license (GPL+exception) is in place.
-*/
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
 #include "PRCdouble.h"
 
 // from Adobe's documentation
@@ -36,7 +22,7 @@ int stCOFDOECompare(const void* pcofdoe1,const void* pcofdoe2)
       EXPONENT(((const struct sCodageOfFrequentDoubleOrExponent *)pcofdoe2)->u2uod.Value));
 }
 
-#if defined(WORDS_BIG_ENDIAN)
+#ifdef WORDS_BIGENDIAN
 void *memrchr(const void *buf,int c,size_t count)
 {
   unsigned char
