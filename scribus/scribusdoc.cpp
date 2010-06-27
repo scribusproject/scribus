@@ -4931,11 +4931,11 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			int currActiveLayer = activeLayer();
 			for (it = Layers.begin(); it != Layers.end(); ++it)
 			{
-				setActiveLayer((*it).LNr);
+				setActiveLayer(it->LNr);
 				for (uint ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = Items->at(ite);
-					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && (it->LNr == itemToCopy->LayerNr))
 						m_Selection->addItem(itemToCopy, true);
 				}
 				if (m_Selection->count() != 0)
