@@ -164,7 +164,7 @@ public:
 	void setActionQString(const QString &);
 	
 	/*! \brief Set up text and menuText at the same time */
-	void setTexts(const QString &newText, bool setTextToo = true);
+	void setTexts(const QString &newText);//#9114, qt3-qt4 change of behaviour bug: , bool setTextToo = true);
 	
 public slots:
 	void toggle();

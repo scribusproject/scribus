@@ -256,11 +256,11 @@ const QString ScrAction::actionQString()
 	return _dataQString;
 }
 
-void ScrAction::setTexts(const QString &newText, bool setTextToo)
+void ScrAction::setTexts(const QString &newText)//#9114, qt3-qt4 change of behaviour bug:, bool setTextToo)
 {
 	QAction::setText(newText);
-	if (setTextToo)
-		QAction::setText(cleanMenuText());
+//	if (setTextToo)
+	QAction::setIconText(cleanMenuText());
 }
 
 void ScrAction::toggle()
