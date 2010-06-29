@@ -5300,7 +5300,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
-				Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+				Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
 			if (style.fillColor() != CommonStrings::None)
 				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
@@ -5308,12 +5308,12 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 			{
 				if (style.effects() & ScStyle_Subscript)
 				{
-					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset)     +" "+FToStr(-y+Upos)+" m\n";
 					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
 				}
 				else
 				{
-					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+hl->glyph.yoffset+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset)     +" "+FToStr(-y+hl->glyph.yoffset+Upos)+" m\n";
 					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+hl->glyph.yoffset+Upos)+" l\n";
 				}
 			}
@@ -5321,12 +5321,12 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 			{
 				if (style.effects() & ScStyle_Subscript)
 				{
-					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset)     +" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
 					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
 				}
 				else
 				{
-					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset)     +" "+FToStr(-y+Upos)+" m\n";
 					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
 				}
 			}
@@ -5595,18 +5595,18 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
-				Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+				Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
 			if (style.fillColor() != CommonStrings::None)
 				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
 			if (ite->itemType() == PageItem::PathText)
 			{
-				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+				tmp2 += FToStr(x+hl->glyph.xoffset)     +" "+FToStr(-y+Upos)+" m\n";
 				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
 			}
 			else
 			{
-				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
+				tmp2 += FToStr(x+hl->glyph.xoffset)     +" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
 				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
 			}
 			tmp2 += "S\n";

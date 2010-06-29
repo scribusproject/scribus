@@ -2399,7 +2399,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 								}
 								if (style.baselineOffset() != 0)
-									Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+									Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
 								if (style.fillColor() != CommonStrings::None)
 								{
 									SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
@@ -2408,12 +2408,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PS_setlinewidth(Uwid);
 								if (style.effects() & ScStyle_Subscript)
 								{
-									PS_moveto(hl->glyph.xoffset-kern, Upos);
+									PS_moveto(hl->glyph.xoffset     , Upos);
 									PS_lineto(hl->glyph.xoffset+Ulen, Upos);
 								}
 								else
 								{
-									PS_moveto(hl->glyph.xoffset-kern, hl->glyph.yoffset+Upos);
+									PS_moveto(hl->glyph.xoffset     , hl->glyph.yoffset+Upos);
 									PS_lineto(hl->glyph.xoffset+Ulen, hl->glyph.yoffset+Upos);
 								}
 								putColor(style.fillColor(), style.fillShade(), false);
@@ -2470,14 +2470,14 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 								}
 								if (style.baselineOffset() != 0)
-									Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+									Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
 								if (style.fillColor() != CommonStrings::None)
 								{
 									SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
 									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								PS_setlinewidth(Uwid);
-								PS_moveto(hl->glyph.xoffset-kern, Upos);
+								PS_moveto(hl->glyph.xoffset     , Upos);
 								PS_lineto(hl->glyph.xoffset+Ulen, Upos);
 								putColor(style.fillColor(), style.fillShade(), false);
 								PS_restore();
@@ -2547,7 +2547,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 						}
 						if (style.baselineOffset() != 0)
-							Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+							Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
 						if (style.fillColor() != CommonStrings::None)
 						{
 							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
@@ -2556,12 +2556,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PS_setlinewidth(Uwid);
 						if (style.effects() & ScStyle_Subscript)
 						{
-							PS_moveto(hl->glyph.xoffset-kern, Upos);
+							PS_moveto(hl->glyph.xoffset     , Upos);
 							PS_lineto(hl->glyph.xoffset+Ulen, Upos);
 						}
 						else
 						{
-							PS_moveto(hl->glyph.xoffset-kern, hl->glyph.yoffset+Upos);
+							PS_moveto(hl->glyph.xoffset     , hl->glyph.yoffset+Upos);
 							PS_lineto(hl->glyph.xoffset+Ulen, hl->glyph.yoffset+Upos);
 						}
 						putColor(style.fillColor(), style.fillShade(), false);
@@ -2624,7 +2624,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 						}
 						if (style.baselineOffset() != 0)
-							Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+							Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
 						if (style.fillColor() != CommonStrings::None)
 						if (style.fillColor() != CommonStrings::None)
 						{
@@ -2632,7 +2632,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 						}
 						PS_setlinewidth(Uwid);
-						PS_moveto(hl->glyph.xoffset-kern, Upos);
+						PS_moveto(hl->glyph.xoffset     , Upos);
 						PS_lineto(hl->glyph.xoffset+Ulen, Upos);
 						putColor(style.fillColor(), style.fillShade(), false);
 						PS_restore();
@@ -4528,7 +4528,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
 			}
 			if (cstyle.baselineOffset() != 0)
-				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
+				Upos += (cstyle.fontSize() / 10.0) * glyphs.scaleV * (cstyle.baselineOffset() / 1000.0);
 			if (cstyle.fillColor() != CommonStrings::None)
 			{
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -4539,12 +4539,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			PS_setlinewidth(lw);
 			if (cstyle.effects() & ScStyle_Subscript)
 			{
-				PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
+				PS_moveto(x + glyphs.xoffset     , -y - glyphs.yoffset+Upos);
 				PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
 			}
 			else
 			{
-				PS_moveto(x + glyphs.xoffset-kern, -y + Upos);
+				PS_moveto(x + glyphs.xoffset     , -y + Upos);
 				PS_lineto(x + glyphs.xoffset+Ulen, -y + Upos);
 			}
 			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
@@ -4661,7 +4661,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
 			}
 			if (cstyle.baselineOffset() != 0)
-				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
+				Upos += (cstyle.fontSize() / 10.0) * glyphs.scaleV * (cstyle.baselineOffset() / 1000.0);
 			if (cstyle.fillColor() != CommonStrings::None)
 			{
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -4670,7 +4670,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 			}
 			PS_setlinewidth(lw);
-			PS_moveto(x + glyphs.xoffset-kern, -y-glyphs.yoffset+Upos);
+			PS_moveto(x + glyphs.xoffset     , -y-glyphs.yoffset+Upos);
 			PS_lineto(x + glyphs.xoffset+Ulen, -y-glyphs.yoffset+Upos);
 			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 		}
