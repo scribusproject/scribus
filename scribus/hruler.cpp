@@ -449,6 +449,12 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		{
 			rulerGesture->mouseMoveEvent(m);
 		}
+		else
+		{
+			QCursor* cursor = qApp->overrideCursor();
+			if (cursor && (cursor->shape() != Qt::ArrowCursor))
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		}
 	}
 }
 
