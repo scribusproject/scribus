@@ -454,8 +454,11 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		else
 		{
 			QCursor* cursor = qApp->overrideCursor();
-			if (cursor && (cursor->shape() != Qt::ArrowCursor))
+			Qt::CursorShape shape = cursor ? cursor->shape() : Qt::ArrowCursor;
+			if ((shape == Qt::SplitHCursor) || (shape == Qt::SplitVCursor))
+			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			}
 		}
 	}
 }

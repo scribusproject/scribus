@@ -63,6 +63,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	oldMark = 0;
 	Mpressed = false;
 	drawMark = false;
+	setMouseTracking(true);
 	rulerGesture = new RulerGesture(currView, RulerGesture::VERTICAL);
 	unitChange();
 }
@@ -95,8 +96,11 @@ void Vruler::mouseMoveEvent(QMouseEvent *m)
 	else
 	{
 		QCursor* cursor = qApp->overrideCursor();
-		if (cursor && (cursor->shape() != Qt::ArrowCursor))
+		Qt::CursorShape shape = cursor ? cursor->shape() : Qt::ArrowCursor;
+		if ((shape == Qt::SplitHCursor) || (shape == Qt::SplitVCursor))
+		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		}
 	}
 }
 

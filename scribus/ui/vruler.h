@@ -44,17 +44,21 @@ class SCRIBUS_API Vruler : public QWidget
 public:
 	Vruler(ScribusView *pa, ScribusDoc *doc);
 	~Vruler() {};
-	void paintEvent(QPaintEvent *e);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void mouseMoveEvent(QMouseEvent *m);
-	void drawNumber(QString num, int starty, QPainter *p);
+	
 	double offs;
 	bool repainted;
 	int oldMark;
 	bool Mpressed;
 	double ruleSpacing();
+
 private: // Private attributes
+	virtual void paintEvent(QPaintEvent *e);
+	virtual void mousePressEvent(QMouseEvent *m);
+	virtual void mouseReleaseEvent(QMouseEvent *m);
+	virtual void mouseMoveEvent(QMouseEvent *m);
+
+	void drawNumber(QString num, int starty, QPainter *p);
+
 	/** Zeichensatz des Lineals */
 	ScribusDoc *currDoc;
 	ScribusView *currView;

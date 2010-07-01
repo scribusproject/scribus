@@ -71,11 +71,12 @@ public:
 	void setItem(PageItem * item);
 
 private:
-	void paintEvent(QPaintEvent *e);
+	virtual void paintEvent(QPaintEvent *e);
+	virtual void mousePressEvent(QMouseEvent *m);
+	virtual void mouseReleaseEvent(QMouseEvent *);
+	virtual void mouseMoveEvent(QMouseEvent *m);
+
 	void drawNumber(QString num, int startx, int starty, QPainter & p);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *m);
 	void UpdateTabList();
 
 	int Markp;
