@@ -10470,20 +10470,21 @@ void ScribusDoc::createNewDocPages(int pageCount)
 }
 
 
-void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM)
+void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, Page* refPage)
 {
 	*GxM = -1;
 	*GyM = -1;
+	Page* page = (refPage == NULL) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
-	Guides tmpGuides = currentPage()->guides.horizontals(GuideManagerCore::Standard);
+	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;
 	uint yg = 0;
 	uint xg = 0;
 	double viewScale=m_View->scale();
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (fabs((*it) + currentPage()->yOffset() - yin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs((*it) + currentPage()->yOffset() - yin), yg);
+		if (fabs((*it) + page->yOffset() - yin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + page->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -10491,11 +10492,11 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 		*yout = tmpGuides[*GyM];
 	}
 	tmpGuidesSel.clear();
-	tmpGuides = currentPage()->guides.verticals(GuideManagerCore::Standard);
+	tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (fabs((*it) + currentPage()->xOffset() - xin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs((*it) + currentPage()->xOffset() - xin), xg);
+		if (fabs((*it) + page->xOffset() - xin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + page->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -10505,11 +10506,11 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	yg = 0;
 	xg = 0;
 	tmpGuidesSel.clear();
-	tmpGuides = currentPage()->guides.horizontals(GuideManagerCore::Auto);
+	tmpGuides = page->guides.horizontals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (fabs((*it)+currentPage()->yOffset() - yin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs((*it) + currentPage()->yOffset() - yin), yg);
+		if (fabs((*it) + page->yOffset() - yin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + page->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -10517,11 +10518,11 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 		*yout = tmpGuides[*GyM];
 	}
 	tmpGuidesSel.clear();
-	tmpGuides = currentPage()->guides.verticals(GuideManagerCore::Auto);
+	tmpGuides = page->guides.verticals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (fabs((*it) + currentPage()->xOffset() - xin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs((*it) + currentPage()->xOffset() - xin), xg);
+		if (fabs((*it) + page->xOffset() - xin) < (docPrefsData.guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + page->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -10599,7 +10600,7 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 	if (SnapGuides)
 	{
 //		m_SnapCounter = 0;
-		getClosestGuides(*x, *y, &xout, &yout, &GxM, &GyM);
+		getClosestGuides(*x, *y, &xout, &yout, &GxM, &GyM, page);
 		if (GxM != -1)
 		{
 			*x = xout+page->xOffset();

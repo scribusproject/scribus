@@ -974,7 +974,7 @@ public:
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
 	bool hasTOCSetup() { return !docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 	//! \brief Get the closest guide to the given point
-	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM);
+	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, Page* refPage = NULL);
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y);
