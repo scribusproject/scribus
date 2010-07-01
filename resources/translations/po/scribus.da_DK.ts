@@ -703,7 +703,9 @@ Sletter den navngivne masterside.
 
 Get type of object &quot;name&quot; as a string.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getObjectType([&quot;navn&quot;]) -&gt; streng
+
+Hent type på objektet &quot;navn&quot; som en streng.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetprop.h" line="26"/>
@@ -1253,7 +1255,14 @@ properties palette when point unit is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setImageOffset(x, y [, &quot;navn&quot;])
+
+Sætter positionen af billedet i billedrammen &quot;navn&quot;.
+Hvis &quot;navn&quot; ikke er angivet, vil det markerede element blive brugt.
+Den specificerede forskydning er lig med den værdi, som vises på
+egenskabs-paletten, når måleenheden punkt er brugt.
+
+Kan rejse WrongFrameTypeError hvis målet ikke er en billedramme</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -1746,7 +1755,9 @@ Kan rejse ValueError hvis lagets navn ikke kan accepteres.
 
 Quit Scribus.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileQuit()
+
+Afslut Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmisc.h" line="326"/>
@@ -6624,7 +6635,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="265"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="2483"/>
@@ -7624,7 +7635,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1474"/>
         <source>Dehyphenate Text</source>
-        <translation>Fjern orddeling af tekt</translation>
+        <translation>Fjern orddeling af tekst</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1475"/>
@@ -8263,7 +8274,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
         <source>Soft &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Blød &amp;Bindestreg</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1690"/>
@@ -8419,7 +8430,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="97"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Justér sider ved at:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="153"/>
@@ -8464,7 +8475,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="511"/>
         <source>Reverse Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Omvendt fordeling</translation>
     </message>
 </context>
 <context>
@@ -8543,22 +8554,22 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Justér sider ved at:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytte (bevar størrelse)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ændr størrelse (bevar modsatte side)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Når en side af et element justeres:&lt;ul&gt;&lt;li&gt;Flyt også altid den anden side (bevar eksisterende bredde og højde), eller&lt;/li&gt;&lt;li&gt;Bevar den anden sides placering (ændr størrelse i stedet for at flytte) når det er muligt&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
@@ -8633,12 +8644,12 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="167"/>
         <source>Distribute the items with the distance specified</source>
-        <translation>Fordel elementerne med det med anførte mellemrum</translation>
+        <translation>Fordel elementerne med det anførte mellemrum</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
-        <translation type="unfinished"></translation>
+        <translation>Når der fordeles med en angivet afstand, endevend retningen af fordelingen af elementer</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
@@ -10339,7 +10350,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1448"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Importér en scrapbog-fil fra Scribus &lt;=1.3.2</translation>
     </message>
     <message>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
@@ -13814,22 +13825,22 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="79"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importerer: %1</translation>
+        <translation>Importerer: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="82"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analyserer fil:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="210"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="337"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Genererer elementer</translation>
+        <translation>Genererer elementer</translation>
     </message>
 </context>
 <context>
@@ -16882,23 +16893,24 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="58"/>
         <source>Import Cvg...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importér Cvg...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="79"/>
         <source>Imports Cvg Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importerer Cvg filer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importerer de fleste Cvg filer ind i det aktive dokument,
+og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle understøttede formater</translation>
+        <translation>Alle understøttede formater</translation>
     </message>
 </context>
 <context>
@@ -16983,23 +16995,24 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="51"/>
         <source>Import Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importér Pict...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="72"/>
         <source>Imports Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importerer Pict filer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importerer de fleste Mac Pict filer ind i det aktive dokument,
+og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle understøttede formater</translation>
+        <translation>Alle understøttede formater</translation>
     </message>
 </context>
 <context>
@@ -18319,7 +18332,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Får tekst i underliggende lag til at flyde uden om objekter - Aktivering af dette tvinger tekst i underliggende lag til at flyde rundt om objekter på laget, hvor dette er blevet aktiveret</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -20124,7 +20137,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="471"/>
         <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="621"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -20607,7 +20620,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/preview.cpp" line="262"/>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Indstillinger for vis udskrift</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="301"/>
@@ -21951,7 +21964,7 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="48"/>
         <source>Load File</source>
-        <translation type="unfinished"></translation>
+        <translation>Indlæs fil</translation>
     </message>
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="55"/>
@@ -22004,22 +22017,22 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="82"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importerer: %1</translation>
+        <translation>Importerer: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="85"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analyserer fil:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="211"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="370"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Genererer elementer</translation>
+        <translation>Genererer elementer</translation>
     </message>
 </context>
 <context>
@@ -28142,12 +28155,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="50"/>
         <source>Calamus Cvg File</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus Cvg fil</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Macintosh Pict File</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh Pict fil</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/scface_ps.cpp" line="105"/>
@@ -28393,12 +28406,12 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
         <source>Cvg Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importering af Cvg</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="64"/>
         <source>Pict Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importering af Pict</translation>
     </message>
 </context>
 <context>
@@ -29849,7 +29862,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="410"/>
         <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="1020"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -30439,7 +30452,7 @@ Rotation: %4</translation>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="10241"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="2743"/>
@@ -30854,27 +30867,27 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7666"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript er ikke installeret på dit system, eller Scribus er ikke konfigureret med stien til programmet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7669"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Indtil dette er afhjulpet, kan du ikke importere EPS billeder eller bruge print-forhåndsvisning.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7671"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Indtil dette er afhjulpet, kan du ikke importere EPS billeder eller bruge Postscript print-forhåndsvisning.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7673"/>
         <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Læs venligst vores &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;Hjælp og installations vejledning&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7677"/>
         <source>Ghostscript is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript mangler</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8437"/>
@@ -31424,7 +31437,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="3683"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="419"/>
@@ -36003,7 +36016,7 @@ når PDF dokument åbnes:</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1321"/>
         <source>InfoString</source>
-        <translation type="unfinished"></translation>
+        <translation>InfoStreng</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1356"/>
@@ -38784,7 +38797,7 @@ Kunne du tænke dig at starte systemets standard netlæser i stedet for. </trans
     <message>
         <location filename="../../../scribus/plugins/import/wmf/wmfimport.cpp" line="647"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -38832,7 +38845,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/xfig/importxfig.cpp" line="282"/>
         <source>Group%1</source>
-        <translation>Gruppe%1</translation>
+        <translation>Lav til gruppe%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xfig/importxfig.cpp" line="1551"/>
