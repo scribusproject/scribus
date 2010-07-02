@@ -1149,6 +1149,9 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->shortcut())
 			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
 		else
+		if (currKeySeq == scrActions["specialToggleAllGuides"]->shortcut())
+			scrActions["specialToggleAllGuides"]->activate(QAction::Trigger);
+		else
 // CB These were moved to ActionManager via the setShortcutContext(Qt::ApplicationShortcut) calls, leaving for notes for now
 // 		if (currKeySeq == scrActions["toolsProperties"]->accel())
 // 			scrActions["toolsProperties"]->toggle();
