@@ -1006,9 +1006,11 @@ void ActionManager::initSpecialActions()
 	QString name;
 	//GUI
 	name="specialToggleAllPalettes";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0,0.0,name));
+//	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0,0.0,name));
+	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
 	name="specialToggleAllGuides";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0,0.0,name));
+//	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0,0.0,name));
+	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
 	name="specialUnicodeSequenceBegin";
 	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
 
