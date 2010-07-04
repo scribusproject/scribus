@@ -104,7 +104,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Document Setup"), loadIcon("scribusdoc16.png"), prefs_DocumentSetup);
 	if (doc)
 	{
-		addItem( tr("Document Information"), loadIcon("documentinfo32.png"), prefs_DocumentInformation);
+		addItem( tr("Document Information"), loadIcon("documentinfo.png"), prefs_DocumentInformation);
 	}
 	addItem( tr("Guides"), loadIcon("16/edit-guides.png"), prefs_Guides);
 	addItem( tr("Typography"), loadIcon("16/draw-text.png"), prefs_Typography);
