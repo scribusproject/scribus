@@ -9009,6 +9009,21 @@ void ScribusDoc::changed()
 	}
 }
 
+void ScribusDoc::invalidateAll()
+{
+	for (int c = 0; c < DocItems.count(); ++c)
+	{
+		PageItem *ite = DocItems.at(c);
+		ite->invalidateLayout();
+	}
+	for (int c=0; c < MasterItems.count(); ++c)
+	{
+		PageItem *ite = MasterItems.at(c);
+		ite->invalidateLayout();
+	}
+	// for now hope that frameitems get invalidated by their parents layout() method.
+}
+
 void ScribusDoc::invalidateLayer(int layerID)
 {
 	for (int c = 0; c < DocItems.count(); ++c)

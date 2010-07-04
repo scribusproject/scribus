@@ -222,6 +222,9 @@ void ReformDoc::updateDocumentSettings()
 {
 	MarginStruct updatedMargins(tabPage->marginGroup->margins());
 	int fp = tabPage->choosenLayout;
+	double oldBaseGridValue  = currDoc->typographicSettings.valueBaseGrid;
+	double oldBaseGridOffset = currDoc->typographicSettings.offsetBaseGrid;
+
 	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentIndex();
 //	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
 	currDoc->GapVertical = tabView->gapVertical->value() / currDoc->unitRatio();
@@ -642,6 +645,12 @@ void ReformDoc::updateDocumentSettings()
 	{
 		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
 			currDoc->Items->at(b)->setImageShown(currDoc->guidesSettings.showPic);
+	}
+
+	if (oldBaseGridValue  != currDoc->typographicSettings.valueBaseGrid ||
+		oldBaseGridOffset != currDoc->typographicSettings.offsetBaseGrid )
+	{
+		currDoc->invalidateAll();
 	}
 }
 
