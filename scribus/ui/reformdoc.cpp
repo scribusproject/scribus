@@ -222,6 +222,9 @@ void ReformDoc::updateDocumentSettings()
 {
 	MarginStruct updatedMargins(tabPage->marginGroup->margins());
 	int fp = tabPage->choosenLayout;
+	double oldBaselineGridValue  = currDoc->guidesPrefs().valueBaselineGrid;
+	double oldBaselineGridOffset = currDoc->guidesPrefs().offsetBaselineGrid;
+
 	currDoc->setPageSetFirstPage(fp, tabPage->docLayout->firstPage->currentIndex());
 //	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
 	currDoc->setPageGapHorizontal(tabView->gapHorizontal->value() / currDoc->unitRatio());
@@ -640,6 +643,12 @@ void ReformDoc::updateDocumentSettings()
 	{
 		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
 			currDoc->Items->at(b)->setImageShown(currDoc->guidesPrefs().showPic);
+	}
+
+	if (oldBaselineGridValue  != currDoc->guidesPrefs().valueBaselineGrid ||
+		oldBaselineGridOffset != currDoc->guidesPrefs().offsetBaselineGrid )
+	{
+		currDoc->invalidateAll();
 	}
 }
 

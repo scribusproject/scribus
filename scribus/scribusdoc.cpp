@@ -10108,6 +10108,21 @@ void ScribusDoc::changed()
 	}
 }
 
+void ScribusDoc::invalidateAll()
+{
+	for (int c = 0; c < DocItems.count(); ++c)
+	{
+		PageItem *ite = DocItems.at(c);
+		ite->invalidateLayout();
+	}
+	for (int c=0; c < MasterItems.count(); ++c)
+	{
+		PageItem *ite = MasterItems.at(c);
+		ite->invalidateLayout();
+	}
+	// for now hope that frameitems get invalidated by their parents layout() method.
+}
+
 void ScribusDoc::invalidateLayer(int layerID)
 {
 	for (int c = 0; c < DocItems.count(); ++c)
@@ -12398,11 +12413,8 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
 		AddFont(*it3a);
 
-
-
 //	currDoc->documentInfo = docInfos->getDocInfo();
 //	currDoc->sections = tabDocSections->getNewSections();
-
 
 	uint itemCount=Items->count();
 	for (uint b=0; b<itemCount; ++b)
@@ -12411,6 +12423,13 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			Items->at(b)->setImageShown(docPrefsData.guidesPrefs.showPic);
 	}
 
+	double oldBaseGridValue  = oldPrefsData.guidesPrefs.valueBaselineGrid;
+	double oldBaseGridOffset = oldPrefsData.guidesPrefs.offsetBaselineGrid;
+	if (oldBaseGridValue  != prefsData.guidesPrefs.valueBaselineGrid ||
+		oldBaseGridOffset != prefsData.guidesPrefs.offsetBaselineGrid )
+	{
+		this->invalidateAll();
+	}
 }
 
 void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins)
