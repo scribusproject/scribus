@@ -2628,7 +2628,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1259"/>
         <source>&amp;Open...</source>
-        <translation>Meg&amp;nyitás...</translation>
+        <translation>M&amp;egnyitás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1260"/>
@@ -2688,7 +2688,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1275"/>
         <source>&amp;Print...</source>
-        <translation>Ny&amp;omtatás...</translation>
+        <translation>&amp;Nyomtatás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1277"/>
@@ -2703,7 +2703,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1280"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Újra</translation>
+        <translation>&amp;Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1281"/>
@@ -2730,17 +2730,17 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1289"/>
         <source>Select &amp;All</source>
-        <translation>Minden &amp;kijelölése</translation>
+        <translation>Mi&amp;nden kijelölése</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1291"/>
         <source>&amp;Deselect All</source>
-        <translation>Minden kijelölés &amp;megszüntetése</translation>
+        <translation>Minden kijelölés megs&amp;züntetése</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1292"/>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Keresés és csere...</translation>
+        <translation>Ke&amp;resés és csere...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
@@ -2755,7 +2755,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1299"/>
         <source>&amp;Master Pages...</source>
-        <translation>&amp;Mesteroldalak...</translation>
+        <translation>Mester&amp;oldalak...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1274"/>
@@ -2845,7 +2845,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1336"/>
         <source>&amp;Image Effects</source>
-        <translation>&amp;Kép effektusok</translation>
+        <translation>Kép effekt&amp;usok</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1337"/>
@@ -2875,7 +2875,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1344"/>
         <source>&amp;Ungroup</source>
-        <translation>&amp;Csoportosítás megszüntetése</translation>
+        <translation>Csoportosítás &amp;megszüntetése</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1345"/>
@@ -2885,17 +2885,17 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1346"/>
         <source>Si&amp;ze is Locked</source>
-        <translation>&amp;Méret zárolása</translation>
+        <translation>Méret zá&amp;rolása</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1350"/>
         <source>Lower to &amp;Bottom</source>
-        <translation>&amp;Legalulra</translation>
+        <translation>Leg&amp;alulra</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1351"/>
         <source>Raise to &amp;Top</source>
-        <translation>&amp;Legfelülre</translation>
+        <translation>L&amp;egfelülre</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1352"/>
@@ -2965,12 +2965,12 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
         <source>Annotation P&amp;roperties</source>
-        <translation>&amp;Megjegyzés tulajdonságok</translation>
+        <translation>M&amp;egjegyzés tulajdonságok</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
         <source>Field P&amp;roperties</source>
-        <translation>&amp;Mező tulajdonságok</translation>
+        <translation>Mező t&amp;ulajdonságok</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1370"/>
@@ -2990,12 +2990,12 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1373"/>
         <source>&amp;Combine Polygons</source>
-        <translation>&amp;Sokszögek összekapcsolása</translation>
+        <translation>Sokszögek &amp;összekapcsolása</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1374"/>
         <source>Split &amp;Polygons</source>
-        <translation>So&amp;kszögek felosztása</translation>
+        <translation>Sokszögek fel&amp;osztása</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1375"/>
@@ -3015,7 +3015,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1379"/>
         <source>&amp;Text Frame</source>
-        <translation>&amp;Szövegkeret</translation>
+        <translation>S&amp;zövegkeret</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1383"/>
@@ -3050,17 +3050,17 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1392"/>
         <source>&amp;Move...</source>
-        <translation>&amp;Mozgatás...</translation>
+        <translation>M&amp;ozgatás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1393"/>
         <source>&amp;Apply Master Page...</source>
-        <translation>&amp;Mesteroldal alkalmazása...</translation>
+        <translation>Mester&amp;oldal alkalmazása...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1395"/>
         <source>Manage &amp;Guides...</source>
-        <translation>&amp;Segédvonalak kezelése...</translation>
+        <translation>Segé&amp;dvonalak kezelése...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1396"/>
@@ -3120,7 +3120,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1416"/>
         <source>Show &amp;Text Chain</source>
-        <translation>&amp;Szövegkeret-kapcsolások megjelenítése</translation>
+        <translation>7&amp;Szövegkeret-kapcsolások megjelenítése</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
@@ -3165,7 +3165,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1432"/>
         <source>&amp;Measurements</source>
-        <translation>&amp;Mértékegységek</translation>
+        <translation>M&amp;értékegységek</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1433"/>
@@ -3190,7 +3190,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1437"/>
         <source>P&amp;DF Tools</source>
-        <translation>P&amp;DF eszközök</translation>
+        <translation>&amp;PDF eszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1440"/>
@@ -3369,7 +3369,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1276"/>
         <source>Print Previe&amp;w</source>
-        <translation>Nyomtatási el&amp;őnézet</translation>
+        <translation>Ny&amp;omtatási kép</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1300"/>
@@ -3494,7 +3494,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1298"/>
         <source>S&amp;tyles...</source>
-        <translation>&amp;Stílusok...</translation>
+        <translation>Stíl&amp;usok...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1271"/>
@@ -3521,7 +3521,7 @@ If loading was successful, the selection contains the imported ODG
         <location filename="../../../scribus/actionmanager.cpp" line="1377"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>&amp;Körvonalak</translation>
+        <translation>Kör&amp;vonalak</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1414"/>
@@ -3572,7 +3572,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1382"/>
         <source>&amp;Frame...</source>
-        <translation>&amp;Keret...</translation>
+        <translation>K&amp;eret...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1406"/>
@@ -3767,7 +3767,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1457"/>
         <source>Insert &amp;Polygon</source>
-        <translation>&amp;Sokszög beszúrása</translation>
+        <translation>S&amp;okszög beszúrása</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1458"/>
@@ -3782,7 +3782,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
         <source>Insert &amp;Freehand Line</source>
-        <translation>&amp;Szabadkézi vonal beszúrása</translation>
+        <translation>Szabadkézi vo&amp;nal beszúrása</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1488"/>
@@ -5166,7 +5166,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/applytemplatedialog.cpp" line="268"/>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Mesteroldal:</translation>
+        <translation>Mester&amp;oldal:</translation>
     </message>
     <message>
         <location filename="../../../scribus/applytemplatedialog.cpp" line="271"/>
@@ -5472,7 +5472,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="22"/>
         <source>&amp;Barcode...</source>
-        <translation>&amp;Vonalkód...</translation>
+        <translation>Vonalkó&amp;d...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="39"/>
@@ -7374,7 +7374,7 @@ További információkért lásd a dokumentáció Színek szerkesztése fejezet�
     <message>
         <location filename="../../../scribus/plugins/colorwheel/colorwheel.cpp" line="47"/>
         <source>&amp;Color Wheel...</source>
-        <translation>&amp;Színkerék...</translation>
+        <translation>Szí&amp;nkerék...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/colorwheel.cpp" line="64"/>
@@ -9150,7 +9150,7 @@ failed!</source>
     <message>
         <location filename="../../../scribus/editor.cpp" line="39"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Megnyitás...</translation>
+        <translation>M&amp;egnyitás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="41"/>
@@ -9175,7 +9175,7 @@ failed!</source>
     <message>
         <location filename="../../../scribus/editor.cpp" line="50"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Újra</translation>
+        <translation>&amp;Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="52"/>
@@ -10610,7 +10610,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
         <location filename="../../../scribus/helpbrowser.cpp" line="293"/>
         <location filename="../../../scribus/ui/helpbrowser.ui" line="148"/>
         <source>&amp;Print...</source>
-        <translation>Ny&amp;omtatás...</translation>
+        <translation>&amp;Nyomtatás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/helpbrowser.cpp" line="378"/>
@@ -11227,7 +11227,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/inspage.cpp" line="79"/>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Mesteroldal:</translation>
+        <translation>Mester&amp;oldal:</translation>
     </message>
     <message>
         <location filename="../../../scribus/inspage.cpp" line="207"/>
@@ -11989,7 +11989,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Az alsóbb rétegen lévő szövegek körbefuttatása az objektumok körül - Kikényszeríthető az alsóbb rétegek szöveginek a körbefuttatása azon rétegek objektumai körül, mely rétegre be van állatíva ez a kapcsoló</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -12719,7 +12719,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/mergedoc.cpp" line="59"/>
         <source>&amp;Import Master Page</source>
-        <translation>&amp;Mesteroldal importálása</translation>
+        <translation>Mester&amp;oldal importálása</translation>
     </message>
     <message>
         <location filename="../../../scribus/mergedoc.cpp" line="70"/>
@@ -12942,7 +12942,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../../scribus/multipleduplicate.ui" line="50"/>
         <source>&amp;Number of Copies:</source>
-        <translation>&amp;Másolatok száma:</translation>
+        <translation>Más&amp;olatok száma:</translation>
     </message>
     <message>
         <location filename="../../../scribus/multipleduplicate.ui" line="91"/>
@@ -13078,17 +13078,17 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
         <location filename="../../../scribus/newfile.cpp" line="298"/>
         <source>&amp;Default Unit:</source>
         <translatorcomment>&amp;Alapértelmezett mértékegység: | Rövidítve</translatorcomment>
-        <translation>&amp;Mértékegység:</translation>
+        <translation>Mé&amp;rtékegység:</translation>
     </message>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="308"/>
         <source>&amp;Automatic Text Frames</source>
-        <translation>&amp;Automatikus szövegkeretek</translation>
+        <translation>A&amp;utomatikus szövegkeretek</translation>
     </message>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="318"/>
         <source>&amp;Gap:</source>
-        <translation>&amp;Hézag:</translation>
+        <translation>Hasábkö&amp;z:</translation>
     </message>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="310"/>
@@ -13788,7 +13788,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../../scribus/preview.cpp" line="84"/>
         <source>Print Preview</source>
-        <translation>Nyomtatási előnézet</translation>
+        <translation>Nyomtatási kép</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="136"/>
@@ -15546,7 +15546,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="60"/>
         <source>Save as &amp;Image...</source>
-        <translation>&amp;Mentés képként...</translation>
+        <translation>Mentés &amp;képként...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="71"/>
@@ -16167,7 +16167,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="192"/>
         <source>N&amp;umber of Copies:</source>
-        <translation>&amp;Másolatok száma:</translation>
+        <translation>Más&amp;olatok száma:</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="212"/>
@@ -16461,7 +16461,7 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5118"/>
         <source>&amp;Colors</source>
-        <translation>&amp;Színek</translation>
+        <translation>Szí&amp;nek</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5121"/>
@@ -16608,7 +16608,7 @@ Corners:</source>
         <location filename="../../../scribus/propertiespalette.cpp" line="5189"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5195"/>
         <source>&amp;Use Contour Line</source>
-        <translation>&amp;Kontúrvonal körül</translation>
+        <translation>K&amp;ontúrvonal körül</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5311"/>
@@ -17582,7 +17582,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.ui" line="93"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Megnyitás...</translation>
+        <translation>M&amp;egnyitás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.ui" line="98"/>
@@ -18165,7 +18165,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="82"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Újra</translation>
+        <translation>&amp;Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="83"/>
@@ -20687,7 +20687,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="92"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Újra</translation>
+        <translation>&amp;Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="93"/>
@@ -22399,7 +22399,7 @@ Forgatás: %4</translation>
         <location filename="../../../scribus/scribus.cpp" line="617"/>
         <location filename="../../../scribus/scribus.cpp" line="9291"/>
         <source>&amp;Export</source>
-        <translation>&amp;Exportálás</translation>
+        <translation>E&amp;xportálás</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="733"/>
@@ -22414,7 +22414,7 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="722"/>
         <source>Send to La&amp;yer</source>
-        <translation>&amp;Küldés rétegre</translation>
+        <translation>Küldés rét&amp;egre</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="741"/>
@@ -22436,12 +22436,12 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7669"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation>Amíg ez nem kerül javításra, nem lehetséges EPS képeket importálni vagy a nyomtatási előnézetet használni.</translation>
+        <translation>Amíg ez nem kerül javításra, nem lehetséges EPS képeket importálni vagy a nyomtatási képet használni.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7671"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation>Amíg ez nem kerül javításra, nem lehetséges EPS képeket importálni vagy a PostScript nyomtatási előnézetet használni.</translation>
+        <translation>Amíg ez nem kerül javításra, nem lehetséges EPS képeket importálni vagy a PostScript nyomtatási képet használni.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7673"/>
@@ -22755,7 +22755,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="843"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation>&amp;Szóközök és törések</translation>
+        <translation>S&amp;zóközök és törések</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="857"/>
@@ -22836,7 +22836,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7725"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
-        <translation>A Ghostscript hiányzik: A PostScript nyomtatási előnézet nem elérhető</translation>
+        <translation>A Ghostscript hiányzik: A PostScript nyomtatási kép nem érhető el</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3860"/>
@@ -23047,7 +23047,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="296"/>
         <source>Send to La&amp;yer</source>
-        <translation>&amp;Küldés rétegre</translation>
+        <translation>Küldés rét&amp;egre</translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="330"/>
@@ -23773,7 +23773,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1936"/>
         <source>Select &amp;All</source>
-        <translation>&amp;Minden kijelölése</translation>
+        <translation>Mi&amp;nden kijelölése</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1937"/>
@@ -23798,7 +23798,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1941"/>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Keresés és csere...</translation>
+        <translation>Ke&amp;resés és csere...</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1942"/>
@@ -24887,7 +24887,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="166"/>
         <source>Undo/Redo</source>
-        <translation>Visszavonás/Újra</translation>
+        <translation>Visszavonás/Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="180"/>
@@ -28833,12 +28833,12 @@ X: %4, Y: %5</translation>
         <location filename="../../../scribus/undomanager.cpp" line="948"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
-        <translation>&amp;Újra: %1</translation>
+        <translation>&amp;Ismétlés: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="949"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Újra</translation>
+        <translation>&amp;Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="915"/>
@@ -28976,7 +28976,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="311"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Újra</translation>
+        <translation>&amp;Ismétlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="281"/>
