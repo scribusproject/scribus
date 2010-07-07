@@ -7924,163 +7924,317 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 void ScribusDoc::itemSelection_TogglePrintEnabled( )
 {
 	uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount != 0)
+	if (docSelectionCount == 0)
+		return;
+	UndoTransaction* activeTransaction = NULL;
+	m_updateManager.setUpdatesDisabled();
+	if (docSelectionCount > 1)
 	{
-		UndoTransaction* activeTransaction = NULL;
-		m_updateManager.setUpdatesDisabled();
-		if (docSelectionCount > 1)
-		{
-			if (m_Selection->itemAt(0)->printEnabled())
-				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::DisablePrint, 0, Um::IDisablePrint));
-			else
-				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::EnablePrint, 0, Um::IEnablePrint));
-		}
-		for ( uint a = 0; a < docSelectionCount; ++a)
-		{
-			m_Selection->itemAt(a)->togglePrintEnabled();
-			m_Selection->itemAt(a)->update();
-		}
-		if (activeTransaction)
-		{
-			activeTransaction->commit();
-			delete activeTransaction;
-			activeTransaction = NULL;
-		}
-		m_updateManager.setUpdatesEnabled();
-		changed();
-		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+		if (m_Selection->itemAt(0)->printEnabled())
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::DisablePrint, 0, Um::IDisablePrint));
+		else
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::EnablePrint, 0, Um::IEnablePrint));
 	}
+	for ( uint a = 0; a < docSelectionCount; ++a)
+	{
+		m_Selection->itemAt(a)->togglePrintEnabled();
+		m_Selection->itemAt(a)->update();
+	}
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	m_updateManager.setUpdatesEnabled();
+	changed();
+	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+}
+
+void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int basepoint)
+{
+	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount == 0)
+		return;
+	m_updateManager.setUpdatesDisabled();
+	if (nrOfCopies == 0)
+	{
+		double gx, gy, gh, gw;
+		PageItem *currItem = m_Selection->itemAt(0);
+		if (m_Selection->count() == 1)
+		{
+			gx = currItem->xPos();
+			gy = currItem->yPos();
+			gw = currItem->width();
+			gh = currItem->height();
+		}
+		else
+			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		for (int a = 0; a < m_Selection->count(); ++a)
+		{
+			PageItem *currItem = m_Selection->itemAt(a);
+			double deltaX = currItem->xPos() - gx;
+			double deltaY = currItem->yPos() - gy;
+			QTransform matrixPre = QTransform();
+			QTransform matrixAft = QTransform();
+			switch (basepoint)
+			{
+			case 2:
+				matrixPre.translate(-gw/2.0, -gh/2.0);
+				matrixAft.translate(gw/2.0, gh/2.0);
+				break;
+			case 4:
+				matrixPre.translate(-gw, -gh);
+				matrixAft.translate(gw, gh);
+				break;
+			case 3:
+				matrixPre.translate(0, -gh);
+				matrixAft.translate(0, gh);
+				break;
+			case 1:
+				matrixPre.translate(-gw, 0);
+				matrixAft.translate(gw, 0);
+				break;
+			}
+			currItem->PoLine.translate(deltaX, deltaY);
+			currItem->PoLine.map(matrixPre);
+			currItem->PoLine.map(matrix);
+			currItem->PoLine.map(matrixAft);
+			currItem->PoLine.translate(-deltaX, -deltaY);
+			currItem->ContourLine.translate(deltaX, deltaY);
+			currItem->ContourLine.map(matrixPre);
+			currItem->ContourLine.map(matrix);
+			currItem->ContourLine.map(matrixAft);
+			currItem->ContourLine.translate(-deltaX, -deltaY);
+//			currItem->Frame = false;
+			currItem->ClipEdited = true;
+//			currItem->FrameType = 3;
+			AdjustItemSize(currItem);
+		}
+	}
+	else
+	{
+		QList<PageItem*> Elements;
+		bool savedAlignGrid = useRaster;
+		bool savedAlignGuides = SnapGuides;
+		useRaster = false;
+		SnapGuides = false;
+		DoDrawing = false;
+		view()->updatesOn(false);
+		m_Selection->delaySignalsOn();
+		scMW()->setScriptRunning(true);
+		QTransform comulatedMatrix = matrix;
+		PageItem *currItem = m_Selection->itemAt(0);
+		Elements.append(currItem);
+		int rotBack = RotMode();
+		RotMode ( 0 );
+		scMW()->slotEditCopy();
+		view()->Deselect(true);
+		for (int b = 0; b < nrOfCopies; b++)
+		{
+			scMW()->slotEditPaste();
+			double gx, gy, gh, gw;
+			currItem = m_Selection->itemAt(0);
+			if (m_Selection->count() == 1)
+			{
+				gx = currItem->xPos();
+				gy = currItem->yPos();
+				gw = currItem->width();
+				gh = currItem->height();
+			}
+			else
+				m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			for (int a = 0; a < m_Selection->count(); ++a)
+			{
+				currItem = m_Selection->itemAt(a);
+				double deltaX = currItem->xPos() - gx;
+				double deltaY = currItem->yPos() - gy;
+				QTransform matrixPre = QTransform();
+				QTransform matrixAft = QTransform();
+				switch (basepoint)
+				{
+				case 2:
+					matrixPre.translate(-gw/2.0, -gh/2.0);
+					matrixAft.translate(gw/2.0, gh/2.0);
+					break;
+				case 4:
+					matrixPre.translate(-gw, -gh);
+					matrixAft.translate(gw, gh);
+					break;
+				case 3:
+					matrixPre.translate(0, -gh);
+					matrixAft.translate(0, gh);
+					break;
+				case 1:
+					matrixPre.translate(-gw, 0);
+					matrixAft.translate(gw, 0);
+					break;
+				}
+				currItem->PoLine.translate(deltaX, deltaY);
+				currItem->PoLine.map(matrixPre);
+				currItem->PoLine.map(comulatedMatrix);
+				currItem->PoLine.map(matrixAft);
+				currItem->PoLine.translate(-deltaX, -deltaY);
+				currItem->ContourLine.translate(deltaX, deltaY);
+				currItem->ContourLine.map(matrixPre);
+				currItem->ContourLine.map(comulatedMatrix);
+				currItem->ContourLine.map(matrixAft);
+				currItem->ContourLine.translate(-deltaX, -deltaY);
+//				currItem->Frame = false;
+				currItem->ClipEdited = true;
+//				currItem->FrameType = 3;
+				AdjustItemSize(currItem);
+				Elements.append(currItem);
+			}
+			comulatedMatrix *= matrix;
+		}
+		for (int c = 0; c < Elements.count(); ++c)
+		{
+			m_Selection->addItem(Elements.at(c), true);
+		}
+		m_Selection->setGroupRect();
+		RotMode (rotBack);
+		useRaster = savedAlignGrid;
+		SnapGuides = savedAlignGuides;
+		DoDrawing = true;
+		m_Selection->delaySignalsOff();
+		view()->updatesOn(true);
+		scMW()->setScriptRunning(false);
+		m_Selection->connectItemToGUI();
+	}
+	m_updateManager.setUpdatesEnabled();
+	//view()->DrawNew();
+	regionsChanged()->update(QRectF());
+	changed();
 }
 
 
 void ScribusDoc::itemSelection_FlipH()
 {
 	uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount != 0)
+	if (docSelectionCount == 0)
+		return;
+	if (docSelectionCount > 1)
 	{
-		if (docSelectionCount > 1)
+		UndoTransaction trans(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipH, 0, Um::IFlipH));
+		double gx, gy, gh, gw, ix, iy, iw, ih;
+		m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		for (uint a = 0; a < docSelectionCount; ++a)
 		{
-			UndoTransaction trans(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipH, 0, Um::IFlipH));
-			double gx, gy, gh, gw, ix, iy, iw, ih;
-			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			for (uint a = 0; a < docSelectionCount; ++a)
+			PageItem* currItem=m_Selection->itemAt(a);
+			currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+			double dx =  ((gw / 2.0) -  ((ix - gx) + (iw - ix) / 2.0)) * 2.0;
+			if (currItem->rotation() != 0.0)
 			{
-				PageItem* currItem=m_Selection->itemAt(a);
-				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
-				double dx =  ((gw / 2.0) -  ((ix - gx) + (iw - ix) / 2.0)) * 2.0;
-				if (currItem->rotation() != 0.0)
-				{
-					double ix2, iy2, iw2, ih2;
-					currItem->rotateBy(currItem->rotation() * -2.0);
-					currItem->setRedrawBounding();
-					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
-					currItem->setRedrawBounding();
-				}
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
-					currItem->flipImageH();
-				if (currItem->itemType() != PageItem::Line)
-					MirrorPolyH(currItem);
-				currItem->moveBy(dx, 0, true);
+				double ix2, iy2, iw2, ih2;
+				currItem->rotateBy(currItem->rotation() * -2.0);
 				currItem->setRedrawBounding();
-				currItem->GrStartX = currItem->width() - currItem->GrStartX;
-				currItem->GrEndX = currItem->width() - currItem->GrEndX;
+				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+				currItem->moveBy(ix-ix2, iy-iy2, true);
+				currItem->setRedrawBounding();
 			}
-			trans.commit();
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
+				currItem->flipImageH();
+			if (currItem->itemType() != PageItem::Line)
+				MirrorPolyH(currItem);
+			currItem->moveBy(dx, 0, true);
+			currItem->setRedrawBounding();
+			currItem->GrStartX = currItem->width() - currItem->GrStartX;
+			currItem->GrEndX = currItem->width() - currItem->GrEndX;
 		}
-		else
-		{
-			for (uint a = 0; a < docSelectionCount; ++a)
-			{
-				PageItem* currItem=m_Selection->itemAt(a);
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
-					currItem->flipImageH();
-				if (currItem->itemType() != PageItem::Line)
-					MirrorPolyH(currItem);
-				else
-				{
-					double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
-					currItem->getBoundingRect(&ix, &iy, &iw, &ih);
-					currItem->rotateBy(currItem->rotation() * -2.0);
-					currItem->setRedrawBounding();
-					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
-					currItem->setRedrawBounding();
-				}
-				currItem->GrStartX = currItem->width() - currItem->GrStartX;
-				currItem->GrEndX = currItem->width() - currItem->GrEndX;
-			}
-		}
-		regionsChanged()->update(QRectF());
-		changed();
-		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+		trans.commit();
 	}
+	else
+	{
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			PageItem* currItem=m_Selection->itemAt(a);
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
+				currItem->flipImageH();
+			if (currItem->itemType() != PageItem::Line)
+				MirrorPolyH(currItem);
+			else
+			{
+				double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
+				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+				currItem->rotateBy(currItem->rotation() * -2.0);
+				currItem->setRedrawBounding();
+				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+				currItem->moveBy(ix-ix2, iy-iy2, true);
+				currItem->setRedrawBounding();
+			}
+			currItem->GrStartX = currItem->width() - currItem->GrStartX;
+			currItem->GrEndX = currItem->width() - currItem->GrEndX;
+		}
+	}
+	regionsChanged()->update(QRectF());
+	changed();
+	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 }
 
 
 void ScribusDoc::itemSelection_FlipV()
 {
 	uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount != 0)
+	if (docSelectionCount == 0)
+		return;
+	if (docSelectionCount > 1)
 	{
-		if (docSelectionCount > 1)
+		UndoTransaction trans(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipV, 0, Um::IFlipV));
+		double gx, gy, gh, gw, ix, iy, iw, ih;
+		m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		for (uint a = 0; a < docSelectionCount; ++a)
 		{
-			UndoTransaction trans(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipV, 0, Um::IFlipV));
-			double gx, gy, gh, gw, ix, iy, iw, ih;
-			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			for (uint a = 0; a < docSelectionCount; ++a)
+			PageItem* currItem=m_Selection->itemAt(a);
+			currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+			double dx =  ((gh / 2.0) -  ((iy - gy) + (ih - iy) / 2.0)) * 2.0;
+			if (currItem->rotation() != 0.0)
 			{
-				PageItem* currItem=m_Selection->itemAt(a);
-				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
-				double dx =  ((gh / 2.0) -  ((iy - gy) + (ih - iy) / 2.0)) * 2.0;
-				if (currItem->rotation() != 0.0)
-				{
-					double ix2, iy2, iw2, ih2;
-					currItem->rotateBy(currItem->rotation() * -2.0);
-					currItem->setRedrawBounding();
-					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
-					currItem->setRedrawBounding();
-				}
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
-					currItem->flipImageV();
-				if (currItem->itemType() != PageItem::Line)
-					MirrorPolyV(currItem);
-				currItem->moveBy(0, dx, true);
+				double ix2, iy2, iw2, ih2;
+				currItem->rotateBy(currItem->rotation() * -2.0);
 				currItem->setRedrawBounding();
-				currItem->GrStartY = currItem->height() - currItem->GrStartY;
-				currItem->GrEndY = currItem->height() - currItem->GrEndY;
+				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+				currItem->moveBy(ix-ix2, iy-iy2, true);
+				currItem->setRedrawBounding();
 			}
-			regionsChanged()->update(QRectF());
-			trans.commit();
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
+				currItem->flipImageV();
+			if (currItem->itemType() != PageItem::Line)
+				MirrorPolyV(currItem);
+			currItem->moveBy(0, dx, true);
+			currItem->setRedrawBounding();
+			currItem->GrStartY = currItem->height() - currItem->GrStartY;
+			currItem->GrEndY = currItem->height() - currItem->GrEndY;
 		}
-		else
-		{
-			for (uint a = 0; a < docSelectionCount; ++a)
-			{
-				PageItem* currItem=m_Selection->itemAt(a);
-				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
-					currItem->flipImageV();
-				if (currItem->itemType() != PageItem::Line)
-					MirrorPolyV(currItem);
-				else
-				{
-					double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
-					currItem->getBoundingRect(&ix, &iy, &iw, &ih);
-					currItem->rotateBy(currItem->rotation() * -2.0);
-					currItem->setRedrawBounding();
-					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
-					currItem->setRedrawBounding();
-				}
-				currItem->GrStartY = currItem->height() - currItem->GrStartY;
-				currItem->GrEndY = currItem->height() - currItem->GrEndY;
-			}
-			regionsChanged()->update(QRectF());
-		}
-		changed();
-		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+		regionsChanged()->update(QRectF());
+		trans.commit();
 	}
+	else
+	{
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			PageItem* currItem=m_Selection->itemAt(a);
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::Symbol))
+				currItem->flipImageV();
+			if (currItem->itemType() != PageItem::Line)
+				MirrorPolyV(currItem);
+			else
+			{
+				double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
+				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+				currItem->rotateBy(currItem->rotation() * -2.0);
+				currItem->setRedrawBounding();
+				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+				currItem->moveBy(ix-ix2, iy-iy2, true);
+				currItem->setRedrawBounding();
+			}
+			currItem->GrStartY = currItem->height() - currItem->GrStartY;
+			currItem->GrEndY = currItem->height() - currItem->GrEndY;
+		}
+		regionsChanged()->update(QRectF());
+	}
+	changed();
+	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 }
 
 

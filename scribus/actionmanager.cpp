@@ -385,6 +385,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemMulDuplicate";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="itemTransform";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemDelete";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemGroup";
@@ -481,6 +483,7 @@ void ActionManager::initItemMenuActions()
 
 	connect( (*scrActions)["itemDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(duplicateItem()) );
 	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(duplicateItemMulti()) );
+	connect( (*scrActions)["itemTransform"], SIGNAL(triggered()), mainWindow, SLOT(slotItemTransform()) );
 	connect( (*scrActions)["itemGroup"], SIGNAL(triggered()), mainWindow, SLOT(GroupObj()) );
 	connect( (*scrActions)["itemUngroup"], SIGNAL(triggered()), mainWindow, SLOT(UnGroupObj()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
@@ -1361,6 +1364,7 @@ void ActionManager::languageChange()
 	//Item Menu
 	(*scrActions)["itemDuplicate"]->setTexts( tr("D&uplicate"));
 	(*scrActions)["itemMulDuplicate"]->setTexts( tr("&Multiple Duplicate"));
+	(*scrActions)["itemTransform"]->setTexts( tr("&Transform"));
 	(*scrActions)["itemDelete"]->setTexts( tr("&Delete"));
 	(*scrActions)["itemGroup"]->setTexts( tr("&Group"));
 	(*scrActions)["itemUngroup"]->setTexts( tr("&Ungroup"));
@@ -1774,7 +1778,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
 	//Item
 	++itmenu;
-	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemAdjustImageToFrame" << "itemToggleInlineImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
+	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemTransform" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemAdjustImageToFrame" << "itemToggleInlineImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
 	itmenu->second

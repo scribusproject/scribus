@@ -546,6 +546,8 @@ public slots:
 	void slotDocSetup150();
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();
+	//! \brief Transform an item
+	void slotItemTransform();
 	//! \brief manages the documents patterns
 	void managePatterns();
 	//! \brief manages the documents gradients

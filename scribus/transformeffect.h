@@ -34,26 +34,26 @@ for which a new license (GPL+exception) is in place.
 \author Franz Schmid
 \date May 2008
 */
-class PLUGIN_API TransformEffectPlugin : public ScActionPlugin
+class PLUGIN_API TransformEffect
 {
-	Q_OBJECT
+	//Q_OBJECT
 
 	public:
 		// Standard plugin implementation
-		TransformEffectPlugin();
-		virtual ~TransformEffectPlugin();
+		TransformEffect();
+		virtual ~TransformEffect();
 		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		//virtual const QString fullTrName() const;
+		//virtual const AboutData* getAboutData() const;
+		//virtual void deleteAboutData(const AboutData* about) const;
+		//virtual void languageChange();
+		//virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features (none)
 };
 
-extern "C" PLUGIN_API int transformeffect_getPluginAPIVersion();
-extern "C" PLUGIN_API ScPlugin* transformeffect_getPlugin();
-extern "C" PLUGIN_API void transformeffect_freePlugin(ScPlugin* plugin);
+//extern "C" PLUGIN_API int transformeffect_getPluginAPIVersion();
+//extern "C" PLUGIN_API ScPlugin* transformeffect_getPlugin();
+//extern "C" PLUGIN_API void transformeffect_freePlugin(ScPlugin* plugin);
 
 #endif

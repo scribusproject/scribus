@@ -140,6 +140,7 @@ SET(SCRIBUS_UI_SRC
   ui/tabprinter.ui
   ui/tabscrapbook.ui
   ui/tocindexprefs.ui
+  ui/transformdialogbase.ui
   ui/transparencypalette.ui
   ui/copypagetomasterpage.ui
   ui/createrange.ui
@@ -402,6 +403,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/tabtypography.h
   tocgenerator.h
   ui/tocindexprefs.h
+  ui/transformdialog.h
   ui/transparencypalette.h
   tt/simpletreemodel/treemodel.h
   ui/copypagetomasterpagedialog.h
@@ -782,6 +784,7 @@ SET(SCRIBUS_SOURCES
   tocgenerator.cpp
   ui/tocindexprefs.cpp
   transaction.cpp
+  ui/transformdialog.cpp
   ui/transparencypalette.cpp
   tt/simpletreemodel/treeitem.cpp
   tt/simpletreemodel/treemodel.cpp

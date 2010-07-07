@@ -30,7 +30,7 @@
        <item>
         <layout class="QHBoxLayout">
          <item>
-          <widget class="QToolButton" name="buttonAdd">
+          <widget class="QPushButton" name="buttonAdd">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -39,9 +39,6 @@
            </property>
            <property name="text">
             <string>Add</string>
-           </property>
-           <property name="popupMode">
-            <enum>QToolButton::InstantPopup</enum>
            </property>
           </widget>
          </item>
@@ -74,7 +71,7 @@
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>u</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -90,7 +87,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>d</string>
+            <string/>
            </property>
           </widget>
          </item>

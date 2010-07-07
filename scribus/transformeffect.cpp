@@ -25,10 +25,10 @@ for which a new license (GPL+exception) is in place.
 ****************************************************************************/
 
 #include "transformeffect.h"
-#include "transformdialog.h"
+//#include "transformdialog.h"
 #include "scribuscore.h"
 #include "selection.h"
-
+/*
 int transformeffect_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
@@ -98,15 +98,15 @@ void TransformEffectPlugin::deleteAboutData(const AboutData* about) const
 	Q_ASSERT(about);
 	delete about;
 }
-
-bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
+*/
+bool TransformEffect::run(ScribusDoc* doc, QString)
 {
 	ScribusDoc* currDoc = doc;
 	if (currDoc == 0)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{
-		TransformDialog *dia = new TransformDialog(currDoc->scMW(), currDoc);
+		/*TransformDialog *dia = new TransformDialog(currDoc->scMW(), currDoc);
 		if (dia->exec())
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -263,6 +263,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 			currDoc->changed();
 		}
 		delete dia;
+		*/
 	}
 	return true;
 }

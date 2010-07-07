@@ -211,6 +211,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "tocgenerator.h"
 #include "ui/tocindexprefs.h"
+#include "ui/transformdialog.h"
 #include "ui/copypagetomasterpagedialog.h"
 #include "ui/edittoolbar.h"
 #include "ui/filetoolbar.h"
@@ -694,30 +695,31 @@ void ScribusMainWindow::initMenuBar()
 
 
 
-	scrActions["itemDuplicate"]->setEnabled(false);
-	scrActions["itemMulDuplicate"]->setEnabled(false);
-	scrActions["itemDelete"]->setEnabled(false);
-	scrActions["itemRaise"]->setEnabled(false);
-	scrActions["itemLower"]->setEnabled(false);
-	scrActions["itemRaiseToTop"]->setEnabled(false);
-	scrActions["itemLowerToBottom"]->setEnabled(false);
-	scrActions["itemSendToScrapbook"]->setEnabled(false);
-	scrActions["itemSendToPattern"]->setEnabled(false);
-	scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-	scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-	scrActions["itemExtendedImageProperties"]->setEnabled(false);
-	scrActions["itemUpdateImage"]->setEnabled(false);
-	scrActions["itemPreviewLow"]->setEnabled(false);
-	scrActions["itemPreviewNormal"]->setEnabled(false);
-	scrActions["itemPreviewFull"]->setEnabled(false);
-	scrActions["itemAttributes"]->setEnabled(false);
-	scrActions["itemPreviewLow"]->setEnabled(false);
+//	scrActions["itemDuplicate"]->setEnabled(false);
+//	scrActions["itemMulDuplicate"]->setEnabled(false);
+//	scrActions["itemDelete"]->setEnabled(false);
+//	scrActions["itemRaise"]->setEnabled(false);
+//	scrActions["itemLower"]->setEnabled(false);
+//	scrActions["itemRaiseToTop"]->setEnabled(false);
+//	scrActions["itemLowerToBottom"]->setEnabled(false);
+//	scrActions["itemSendToScrapbook"]->setEnabled(false);
+//	scrActions["itemSendToPattern"]->setEnabled(false);
+//	scrActions["itemAdjustFrameToImage"]->setEnabled(false);
+//	scrActions["itemAdjustImageToFrame"]->setEnabled(false);
+//	scrActions["itemExtendedImageProperties"]->setEnabled(false);
+//	scrActions["itemUpdateImage"]->setEnabled(false);
+//	scrActions["itemPreviewLow"]->setEnabled(false);
+//	scrActions["itemPreviewNormal"]->setEnabled(false);
+//	scrActions["itemPreviewFull"]->setEnabled(false);
+//	scrActions["itemAttributes"]->setEnabled(false);
+//	scrActions["itemPreviewLow"]->setEnabled(false);
 
 
 	//Item Menu
 	scrMenuMgr->createMenu("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
 	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemMulDuplicate"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["itemTransform"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemDelete"], "Item", false);
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemGroup"], "Item", false);
@@ -2544,6 +2546,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["fileExportText"]->setEnabled(false);
 		scrActions["itemDuplicate"]->setEnabled(false);
 		scrActions["itemMulDuplicate"]->setEnabled(false);
+		scrActions["itemTransform"]->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
 		scrActions["itemRaise"]->setEnabled(false);
 		scrActions["itemLower"]->setEnabled(false);
@@ -2605,6 +2608,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 //		scrMenuMgr->setMenuEnabled("Item", true);
 		scrActions["itemDuplicate"]->setEnabled(true);
 		scrActions["itemMulDuplicate"]->setEnabled(true);
+		scrActions["itemTransform"]->setEnabled(true);
 		scrActions["itemDelete"]->setEnabled(true);
 		scrActions["itemRaise"]->setEnabled(true);
 		scrActions["itemLower"]->setEnabled(true);
@@ -2658,6 +2662,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		//		scrMenuMgr->setMenuEnabled("Item", true);
 		scrActions["itemDuplicate"]->setEnabled(true);
 		scrActions["itemMulDuplicate"]->setEnabled(true);
+		scrActions["itemTransform"]->setEnabled(true);
 		scrActions["itemDelete"]->setEnabled(true);
 		scrActions["itemRaise"]->setEnabled(true);
 		scrActions["itemLower"]->setEnabled(true);
@@ -2780,6 +2785,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		//		scrMenuMgr->setMenuEnabled("Item", true);
 		scrActions["itemDuplicate"]->setEnabled(true);
 		scrActions["itemMulDuplicate"]->setEnabled(true);
+		scrActions["itemTransform"]->setEnabled(true);
 		scrActions["itemDelete"]->setEnabled(true);
 		scrActions["itemRaise"]->setEnabled(true);
 		scrActions["itemLower"]->setEnabled(true);
@@ -2849,6 +2855,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		//		scrMenuMgr->setMenuEnabled("Item", true);
 		scrActions["itemDuplicate"]->setEnabled(true);
 		scrActions["itemMulDuplicate"]->setEnabled(true);
+		scrActions["itemTransform"]->setEnabled(true);
 		scrActions["itemDelete"]->setEnabled(true);
 		scrActions["itemRaise"]->setEnabled(true);
 		scrActions["itemLower"]->setEnabled(true);
@@ -3011,6 +3018,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
+			scrActions["itemTransform"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(!currItem->isSingleSel);
 			scrActions["itemLowerToBottom"]->setEnabled(setter);
 			scrActions["itemRaiseToTop"]->setEnabled(setter);
@@ -4437,6 +4445,7 @@ bool ScribusMainWindow::DoFileClose()
 		//		scrMenuMgr->setMenuEnabled("Item", false);
 		scrActions["itemDuplicate"]->setEnabled(false);
 		scrActions["itemMulDuplicate"]->setEnabled(false);
+		scrActions["itemTransform"]->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
 		scrActions["itemRaise"]->setEnabled(false);
 		scrActions["itemLower"]->setEnabled(false);
@@ -6225,6 +6234,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				//		scrMenuMgr->setMenuEnabled("Item", true);
 				scrActions["itemDuplicate"]->setEnabled(true);
 				scrActions["itemMulDuplicate"]->setEnabled(true);
+				scrActions["itemTransform"]->setEnabled(true);
 				scrActions["itemDelete"]->setEnabled(true);
 				scrActions["itemRaise"]->setEnabled(true);
 				scrActions["itemLower"]->setEnabled(true);
@@ -6272,6 +6282,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			//		scrMenuMgr->setMenuEnabled("Item", false);
 			scrActions["itemDuplicate"]->setEnabled(false);
 			scrActions["itemMulDuplicate"]->setEnabled(false);
+			scrActions["itemTransform"]->setEnabled(false);
 			scrActions["itemDelete"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
@@ -9654,14 +9665,32 @@ void ScribusMainWindow::slotInsertFrame()
 	{
 		if (doc->m_Selection->count() != 0)
 			view->Deselect(false);
-		InsertAFrame *dia = new InsertAFrame(this, doc);
-		if (dia->exec())
+		InsertAFrame dia(this, doc);
+		if (dia.exec())
 		{
 			InsertAFrameData iafData;
-			dia->getNewFrameProperties(iafData);
+			dia.getNewFrameProperties(iafData);
 			doc->itemAddUserFrame(iafData);
 		}
-		delete dia;
+	}
+}
+
+void ScribusMainWindow::slotItemTransform()
+{
+	if (HaveDoc)
+	{
+		if (doc->m_Selection->count() == 0)
+			return;
+		TransformDialog td(this, doc);
+		if (td.exec())
+		{
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			int count=td.getCount();
+			QTransform matrix(td.getTransformMatrix());
+			int basepoint=td.getBasepoint();
+			doc->itemSelection_Transform(count, matrix, basepoint);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		}
 	}
 }
 

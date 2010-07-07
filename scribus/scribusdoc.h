@@ -941,6 +941,7 @@ public:
 	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection=0);
 	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection=0);
 	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection=0);
+
 	
 //	void chAbStyle(PageItem *currItem, int s);
 
@@ -1206,6 +1207,7 @@ public slots:
 	void itemSelection_ToggleSizeLock();
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
+	void itemSelection_Transform(int nrOfCopies, QTransform matrix, int basepoint);
 	void itemSelection_ChangePreviewResolution(int id);
 
 	/*! \brief Change display quality of all images in document.
