@@ -2830,6 +2830,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					Neu->OwnPage = m_Doc->currentPageNumber();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
+					Neu->LayerNr = layerTrans.value(Neu->LayerNr, Neu->LayerNr);
 					/*m_Doc->GroupCounter = docGc;*/
 					QDomNode IT=pg.firstChild();
 					LastStyles * last = new LastStyles();

@@ -3021,6 +3021,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->OwnPage = m_Doc->currentPageNumber();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
+					Neu->LayerNr = layerTrans.value(Neu->LayerNr, Neu->LayerNr);
 					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
@@ -3230,6 +3231,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->setRedrawBounding();
 					Neu->OwnPage = pite.attribute("OwnPage").toInt();
 					Neu->OnMasterPage = "";
+					Neu->LayerNr = layerTrans.value(Neu->LayerNr, Neu->LayerNr);
 					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
