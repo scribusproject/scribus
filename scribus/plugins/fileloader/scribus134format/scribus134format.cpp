@@ -3158,6 +3158,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				newItem->OwnPage = m_Doc->currentPageNumber();
 				if (tagName == "PAGEOBJECT")
 					newItem->OnMasterPage = "";
+				newItem->LayerID = layerTrans.value(newItem->LayerID, newItem->LayerID);
 
 				if (newItem->isTableItem)
 				{
