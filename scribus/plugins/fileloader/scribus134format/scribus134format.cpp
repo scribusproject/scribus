@@ -1757,6 +1757,9 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 	if (it->hasAttribute("TXTSTW"))
 		newStyle.setStrikethruWidth(qRound(ScCLocale::toDoubleC(it->attribute("TXTSTW")) * 10));
 
+	if (it->hasAttribute("LANGUAGE"))
+		newStyle.setLanguage(it->attribute("LANGUAGE"));
+
 	if (it->hasAttribute("SHORTCUT"))
 		newStyle.setShortcut(it->attribute("SHORTCUT"));
 
