@@ -553,6 +553,7 @@ void Scribus150Format::putCStylePT(ScXmlStreamWriter & docu, const CharStyle & s
 	docu.writeAttribute("BASEO", style.baselineOffset() / 10.0);
 	docu.writeAttribute("KERN", style.tracking() / 10.0);
 	docu.writeAttribute("wordTrack", style.wordTracking());
+	docu.writeAttribute("LANGUAGE", style.language());
 	docu.writeAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }
 
@@ -598,6 +599,8 @@ void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 		docu.writeAttribute("KERN", style.tracking() / 10.0); 
 	if ( ! style.isInhWordTracking())
 		docu.writeAttribute("wordTrack", style.wordTracking());
+	if ( ! style.isInhLanguage())
+		docu.writeAttribute("LANGUAGE", style.language());
 	if ( ! style.shortcut().isEmpty() )
 		docu.writeAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }

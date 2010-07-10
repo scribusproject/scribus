@@ -1127,6 +1127,10 @@ void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 	if (attrs.hasAttribute(TXTSTW))
 		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW) * 10));
 
+	static const QString LANGUAGE("LANGUAGE");
+	if (attrs.hasAttribute(LANGUAGE))
+		newStyle.setLanguage(attrs.valueAsString(LANGUAGE));
+
 	static const QString SHORTCUT("SHORTCUT");
 	if (attrs.hasAttribute(SHORTCUT))
 		newStyle.setShortcut(attrs.valueAsString(SHORTCUT));
