@@ -567,7 +567,10 @@ void Selection::sendSignals(bool guiConnect)
 	if (m_isGUISelection && (m_delaySignals <= 0))
 	{
 		setGroupRect();
-		if (guiConnect)
+		// JG - We should probably add an m_sigSelectionChanged here
+		// to avoid multiple connectItemToGUI() if sendSignals() is called 
+		// several times successively (but does that happen?)
+		if (guiConnect /*&& m_sigSelectionChanged*/)
 			connectItemToGUI();
 		if (m_sigSelectionChanged)
 			emit selectionChanged();

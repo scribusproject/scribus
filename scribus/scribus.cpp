@@ -1916,12 +1916,11 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (requiresGUI)
 	{
 		w->setSubWin(mdiArea->addSubWindow(w));
-		connect(undoManager, SIGNAL(undoRedoBegin()), tempDoc, SLOT(undoRedoBegin()));
-		connect(undoManager, SIGNAL(undoRedoDone()), tempDoc, SLOT(undoRedoDone()));
-		connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
-		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+		//#9250 : transfered to newActWin()
+		//connect(undoManager, SIGNAL(undoRedoBegin()), tempDoc, SLOT(undoRedoBegin()));
+		//connect(undoManager, SIGNAL(undoRedoDone()), tempDoc, SLOT(undoRedoDone()));
+		//connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
 		connect(tempView, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
-		//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	}
 	//Independent finishing tasks after tempDoc setup
 	if (showView)
@@ -1984,7 +1983,6 @@ void ScribusMainWindow::newView()
 	alignDistributePalette->setDoc(doc);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	view->show();
-	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
 void ScribusMainWindow::windowsMenuAboutToShow()
@@ -2071,8 +2069,22 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	}
 	docCheckerPalette->clearErrorList();
 
+	if (HaveDoc && (doc != NULL) && doc->hasGUI())
+	{
+		disconnect(undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
+		disconnect(undoManager, SIGNAL(undoRedoDone()) , doc, SLOT(undoRedoDone()));
+		disconnect(undoManager, SIGNAL(undoRedoDone()) , doc->view(), SLOT(DrawNew()));
+	}
+
 	doc = ActWin->doc();
 	undoManager->switchStack(doc->DocName);
+
+	if ((doc != NULL) && doc->hasGUI())
+	{
+		connect(undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
+		connect(undoManager, SIGNAL(undoRedoDone()) , doc, SLOT(undoRedoDone()));
+		connect(undoManager, SIGNAL(undoRedoDone()) , doc->view(), SLOT(DrawNew()));
+	}
 
 	if (view!=NULL)
 	{
@@ -3702,7 +3714,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->pdfOptions().LPISettings.insert("Black", lpo);
 		}
 
-		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->cmsSettings().CMSinUse)
 			doc->HasCMS = false;
 		if ((ScCore->haveCMS()) && (doc->cmsSettings().CMSinUse))
@@ -9162,7 +9173,6 @@ void ScribusMainWindow::emergencySave()
 			{
 				std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
 				doc->autoSaveTimer->stop();
-				//disconnect(ActWin, SIGNAL(Schliessen()), ScMW, SLOT(DoFileClose()));
 				FileLoader fl(doc->DocName+".emergency");
 				fl.SaveFile(doc->DocName+".emergency", doc, 0);
 			}
