@@ -3832,7 +3832,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
         <source>Soft &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Poolituskoht</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1513"/>
@@ -4236,7 +4236,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="97"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>Külgede &amp;joondamise meetod:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="153"/>
@@ -4281,7 +4281,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="511"/>
         <source>Reverse Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Jaotus teistpidi</translation>
     </message>
 </context>
 <context>
@@ -4477,7 +4477,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
-        <translation type="unfinished"></translation>
+        <translation>Jaotamisel määratud vahemaa järgi muudetakse elementide jaotamise suund vastupidiseks</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
@@ -4568,22 +4568,22 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>Külgede &amp;joondamise meetod:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Liigutamine (säilitatakse suurus)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished"></translation>
+        <translation>Suuruse muutmine (säilitatakse vastasserv)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Elemendi ühe külje joondamisel:&lt;ul&gt;&lt;li&gt;liigutatakse alati ka teist külge (säilitades senise laiuse ja kõrguse) või &lt;/li&gt;&lt;li&gt;jäetakse teine külg võimaluse korral fikseerituks (liigutamise asemel muudetakse elemendi suurust)&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="160"/>
@@ -6179,7 +6179,7 @@ Palun vali mõni muu nimi.</translation>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1448"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Visandimapifaili import Scribuse versioonist &lt;=1.3.2</translation>
     </message>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="914"/>
@@ -7362,7 +7362,7 @@ Kõrgus: %2</translation>
     <message>
         <location filename="../../../scribus/canvas.cpp" line="2311"/>
         <source>Angle: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurk: %1</translation>
     </message>
 </context>
 <context>
@@ -7898,7 +7898,7 @@ Klahviga Insert saab lisada glüüfi allolevasse valikusse, klahviga Delete eema
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="423"/>
         <source>Print/Visible Mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Trükkimise ja nähtavuse ebakõlad</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="667"/>
@@ -8056,7 +8056,8 @@ praegu %2 x %3 DPI-d</translation>
         <location filename="../../../scribus/collect4output.cpp" line="65"/>
         <source>Cannot create directory:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kataloogi loomine nurjus:
+%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/collect4output.cpp" line="80"/>
@@ -9696,7 +9697,7 @@ Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="415"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõverafailid (*.scu *.SCU);;Kõik failid (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="453"/>
@@ -9706,7 +9707,7 @@ Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="453"/>
         <source>Curve Files (*.scu *.scu);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõverafailid (*.scu *.scu);;Kõik failid (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/curvewidget.cpp" line="487"/>
@@ -9805,22 +9806,22 @@ Selle saab määrata seadistustes.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="79"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Import: %1</translation>
+        <translation>Import: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="82"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Faili analüüs:</translation>
+        <translation>Faili analüüs:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="210"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupp%1</translation>
+        <translation>Grupp%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="337"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Elementide genereerimine</translation>
+        <translation>Elementide genereerimine</translation>
     </message>
 </context>
 <context>
@@ -11505,7 +11506,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;<
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="148"/>
         <source>Family:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pere:</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="149"/>
@@ -11515,12 +11516,12 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;<
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="151"/>
         <source>Font Family of Selected Text or Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitud teksti või tekstikasti fondipere</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontcombo.cpp" line="152"/>
         <source>Font Style of Selected Text or Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitud teksti või tekstikasti fondistiil</translation>
     </message>
 </context>
 <context>
@@ -12982,23 +12983,24 @@ teisendades nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="58"/>
         <source>Import Cvg...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cvg import...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="79"/>
         <source>Imports Cvg Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Cvg-failide import</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enamiku Cvg-failide import aktiivsesse dokumenti
+ja nende vektorandmete teisendamine Scribuse objektideks.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Kõik toetatud vormingud</translation>
+        <translation>Kõik toetatud vormingud</translation>
     </message>
 </context>
 <context>
@@ -13071,23 +13073,24 @@ teisendades nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="51"/>
         <source>Import Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Picti import...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="72"/>
         <source>Imports Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Pict-failide import</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enamiku Maci Pict-failide import aktiivsesse dokumenti
+ja nende vektorandmete teisendamine Scribuse objektideks.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Kõik toetatud vormingud</translation>
+        <translation>Kõik toetatud vormingud</translation>
     </message>
 </context>
 <context>
@@ -14315,7 +14318,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/latexeditor.cpp" line="529"/>
         <source>Insert Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisa sümbol</translation>
     </message>
 </context>
 <context>
@@ -14529,7 +14532,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Alumiste kihtide tekst pannakse kulgema ümber objektide - Selle sisselülitamine sunnib alumiste kihtide teksti kulgema ümber selle kihi objektide, mille puhul säte sisse lülitati</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -14844,13 +14847,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="93"/>
         <source>An error occured while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Faili avamisel tekkis tõrge või on fail vigane</translation>
     </message>
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="98"/>
         <source>An error occured while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Faili parsimisel tekkis tõrge reas %1 veerus %2:
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="80"/>
@@ -16860,7 +16864,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../../scribus/preview.cpp" line="262"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Eelvaatluse seadistused</translation>
+        <translation>Eelvaatluse seadistused</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="301"/>
@@ -17539,12 +17543,12 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="164"/>
         <source>This is usually a problem with your input. Please check the program&apos;s output.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tavaliselt on tegemist sisendi probleemiga. Palun kontrolli programmi väljundit.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="166"/>
         <source>Do you want to open the editor to fix the problem?</source>
-        <translation type="unfinished"></translation>
+        <translation>Kas avada probleemi parandamiseks redaktor?</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="271"/>
@@ -17555,7 +17559,7 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="419"/>
         <source>The application &quot;%1&quot; failed to start! Please check the path: </source>
-        <translation type="unfinished"></translation>
+        <translation>Rakenduse &quot;%1&quot; käivitamine nurjus! Palun kontrolli asukohta: </translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="574"/>
@@ -18339,7 +18343,7 @@ tulemus on lõikumise ja välistamise kombinatsioon</translation>
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="48"/>
         <source>Load File</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi fail</translation>
     </message>
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="55"/>
@@ -18392,22 +18396,22 @@ tulemus on lõikumise ja välistamise kombinatsioon</translation>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="82"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Import: %1</translation>
+        <translation>Import: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="85"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Faili analüüs:</translation>
+        <translation>Faili analüüs:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="211"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupp%1</translation>
+        <translation>Grupp%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="370"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Elementide genereerimine</translation>
+        <translation>Elementide genereerimine</translation>
     </message>
 </context>
 <context>
@@ -22602,7 +22606,7 @@ Palun kontrolli asukohta ja nime.</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="99"/>
         <source>Kurdish</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdi</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="102"/>
@@ -23518,7 +23522,7 @@ Palun kontrolli asukohta ja nime.</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="273"/>
         <source>Invalid property</source>
-        <translation type="unfinished"></translation>
+        <translation>Vigane omadus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="319"/>
@@ -24842,12 +24846,12 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="50"/>
         <source>Calamus Cvg File</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamuse Cvg-fail</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Macintosh Pict File</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintoshi Pict-fail</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/scface_ps.cpp" line="105"/>
@@ -24956,7 +24960,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     <message>
         <location filename="../../../scribus/latexhelpers.cpp" line="66"/>
         <source>Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esiletõstmise viga: QT QString.indexOf() tagastas vigase indeksi. See tähendab QT eri versioonide sobimatust ja seda saab parandada ainult Scribust uuesti kompileerides seslle QT versiooniga, mis on kasutusel süsteemis. Süntaksi esiletõstmine on praegu välja lülitatud, kuid renderduskastid peaksid siiski toimima probleemideta.</translation>
     </message>
     <message>
         <location filename="../../../scribus/latexhelpers.cpp" line="412"/>
@@ -25093,12 +25097,12 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
         <source>Cvg Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Cvg importija</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="64"/>
         <source>Pict Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Picti importija</translation>
     </message>
 </context>
 <context>
@@ -25754,7 +25758,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="84"/>
         <source>Font Family</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondipere</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="85"/>
@@ -27489,7 +27493,8 @@ Pööramine: %4</translation>
         <location filename="../../../scribus/scribus.cpp" line="3832"/>
         <source>File does not exist on the specified path :
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Faili ei leidu määratud asukohas:
+%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3877"/>
@@ -27886,27 +27891,27 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7666"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript ei ole sinu süsteemi paigaldatud või ei ole Scribus seadistatud õiget asukohta kasutama.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7669"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Kuni probleem pole parandatud, ei saa importida EPS-pilte ega kasutada trükkimise eelvaatlust. </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7671"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Kuni probleem pole parandatud, ei saa importida EPS-pilte ega kasutada PostScripti trükkimise eelvaatlust. </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7673"/>
         <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palun loe meie &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;abiteavet ja paigaldamisjuhiseid&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7677"/>
         <source>Ghostscript is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript puudub</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9527"/>
@@ -29949,7 +29954,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="92"/>
         <source>Check for Visible/Printable Mismatch in Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Kihtide nähtavuse ja trükkimise ebakõlade kontroll</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="99"/>
@@ -32834,7 +32839,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1321"/>
         <source>InfoString</source>
-        <translation type="unfinished"></translation>
+        <translation>Infostring</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1380"/>
@@ -35500,12 +35505,12 @@ Viga: %2 real %3, veerus %4</translation>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="86"/>
         <source>No data on your computer will be sent to an external location</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="92"/>
         <source>Attempting to get the Scribus version update file:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
