@@ -34,11 +34,11 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QString>
 #include "ui_transformdialogbase.h"
-#include "pluginapi.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "scribusapi.h"
 
-class PLUGIN_API TransformItem : public QListWidgetItem
+class SCRIBUS_API TransformItem : public QListWidgetItem
 {
 public:
 	TransformItem(QString text, QListWidget* parent, int type, double val1, double val2);
@@ -47,7 +47,7 @@ public:
 	double secondValue;
 };
 
-class PLUGIN_API TransformDialog : public QDialog, Ui::TransformDialogBase
+class SCRIBUS_API TransformDialog : public QDialog, Ui::TransformDialogBase
 {
 	Q_OBJECT
 

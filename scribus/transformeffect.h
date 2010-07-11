@@ -27,21 +27,21 @@ for which a new license (GPL+exception) is in place.
 #ifndef TRANSFORMEFFECT_H
 #define TRANSFORMEFFECT_H
 
-#include "pluginapi.h"
+#include "scribusapi.h"
 #include "scplugin.h"
 
 /** \brief This is a simple "Transform Effect" plugin for Scribus 1.3 and later.
 \author Franz Schmid
 \date May 2008
 */
-class PLUGIN_API TransformEffect
+class SCRIBUS_API TransformEffect
 {
 	//Q_OBJECT
 
 	public:
 		// Standard plugin implementation
 		TransformEffect();
-		virtual ~TransformEffect();
+		virtual ~TransformEffect() {};
 		virtual bool run(ScribusDoc* doc, QString target = QString::null);
 		//virtual const QString fullTrName() const;
 		//virtual const AboutData* getAboutData() const;
