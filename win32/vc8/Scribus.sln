@@ -157,11 +157,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xfigimport", "xfigimport\xf
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "transform", "transform\transform.vcproj", "{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-lib2geom", "scribus-lib2geom\scribus-lib2geom.vcproj", "{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathalongpath", "pathalongpath\pathalongpath.vcproj", "{CAF6D555-0E2E-4ABB-9585-00860B8B183E}"
@@ -503,14 +498,6 @@ Global
 		{B76382D2-D406-498D-AA17-16F6709033A4}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{B76382D2-D406-498D-AA17-16F6709033A4}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{B76382D2-D406-498D-AA17-16F6709033A4}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32

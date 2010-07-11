@@ -2059,6 +2059,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\transformdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\transformeffect.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\transparencypalette.cpp"
 				>
 			</File>
@@ -11404,6 +11412,21 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\transformdialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\transformeffect.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\transparencypalette.h"
 				>
 				<FileConfiguration
@@ -12142,6 +12165,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\ui_tocindexprefs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_transformdialogbase.h"
 				>
 			</File>
 			<File
@@ -13190,6 +13217,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_transformdialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_transparencypalette.cpp"
 				>
 			</File>
@@ -13552,6 +13583,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\tocindexprefs.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\transformdialogbase.ui"
 				>
 			</File>
 			<File
