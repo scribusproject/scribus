@@ -528,6 +528,7 @@ public slots:
 	void insertSampleText();
 	//void sendToLayer(int layerNumber);
 	void updateItemLayerList();
+	void updateColorLists();
 	/*! \brief Apply changes from ReformDoc dialog.
 	It's called from this->slotDocSetup() or from ReformDoc directly.
 	\param dia a reference to the ReformDoc dialog */
