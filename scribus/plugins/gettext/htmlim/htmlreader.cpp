@@ -256,7 +256,7 @@ bool HTMLReader::characters(const QString &ch)
 			if (fcis)
 				tmp = " " + tmp;
 
-		if (lcis)
+		if (lcis && !(fcis && tmp.length() <= 1))
 			tmp = tmp + " ";
 		lastCharWasSpace = lcis;
 		if ((inLI) && (!addedLI))
