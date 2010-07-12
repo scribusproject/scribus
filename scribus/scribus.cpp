@@ -3665,6 +3665,17 @@ void ScribusMainWindow::updateItemLayerList()
 	}
 }
 
+void ScribusMainWindow::updateColorLists()
+{
+	if (HaveDoc)
+	{
+		propertiesPalette->updateColorList();
+		propertiesPalette->SetLineFormats(doc);
+		styleManager->updateColorList();
+	}
+}
+
+
 bool ScribusMainWindow::slotDocOpen()
 {
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
@@ -7385,9 +7396,12 @@ void ScribusMainWindow::slotReplaceColors()
 			doc->replaceLineStyleColors(dia2->replaceMap);
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
+			updateColorLists();
+			/*			
 			propertiesPalette->updateColorList();
 			propertiesPalette->SetLineFormats(doc);
 			styleManager->updateColorList();
+			*/
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();

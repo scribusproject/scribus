@@ -179,7 +179,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 		{
 			ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
 			m_doc->PageColors[colorName]=newColor;
-			m_ScMW->propertiesPalette->updateColorList();
+			m_ScMW->updateColorLists();
 		}
 		else
 			colorName=QString::null;
