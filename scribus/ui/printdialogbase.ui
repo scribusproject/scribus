@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
+    <width>570</width>
     <height>520</height>
    </rect>
   </property>
@@ -384,7 +384,7 @@ Note: PDF Forms will not be exported.</string>
           <item>
            <widget class="QCheckBox" name="GcR">
             <property name="toolTip">
-             <string>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</string>
+             <string>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</string>
             </property>
             <property name="text">
              <string>Apply Under Color Removal</string>
@@ -394,7 +394,7 @@ Note: PDF Forms will not be exported.</string>
           <item>
            <widget class="QCheckBox" name="spotColors">
             <property name="toolTip">
-             <string>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</string>
+             <string>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</string>
             </property>
             <property name="text">
              <string>Convert Spot Colors to Process Colors</string>
@@ -637,8 +637,8 @@ Note: PDF Forms will not be exported.</string>
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
