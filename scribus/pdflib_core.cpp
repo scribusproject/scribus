@@ -9725,12 +9725,14 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	{
 		if (isEmbeddedPDF)
 		{
-			if (Options.isGrayscale)
+			// #9268 : per specs default color space is grayscale
+			/*if (Options.isGrayscale)
 				embedPre = "0 g 0 G";
 			else if (Options.UseRGB)
 				embedPre = "0 0 0 rg 0 0 0 RG";
 			else
-				embedPre = "0 0 0 0 k 0 0 0 0 K";
+				embedPre = "0 0 0 0 k 0 0 0 0 K";*/
+			embedPre  = "0 g 0 G";
 			embedPre += " 1 w 0 J 0 j [] 0 d\n"; // add default graphics stack parameters pdftex relies on them
 		}
 		if (c->asLatexFrame())
