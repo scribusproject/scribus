@@ -3786,16 +3786,24 @@ May raise ValueError if an invalid color name is specified.</translation>
 <context>
     <name>AIPlug</name>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="125"/>
         <source>Importing: %1</source>
-        <translation type="obsolete">Vkládám: %1</translation>
+        <translation type="unfinished">Vkládám: %1</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="128"/>
         <source>Analyzing File:</source>
-        <translation type="obsolete">Zkoumá se soubor:</translation>
+        <translation type="unfinished">Zkoumá se soubor:</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="265"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="2483"/>
         <source>Generating Items</source>
-        <translation type="obsolete">Vytvářím objekty</translation>
+        <translation type="unfinished">Vytvářím objekty</translation>
     </message>
 </context>
 <context>
@@ -3965,7 +3973,7 @@ May raise ValueError if an invalid color name is specified.</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="233"/>
-        <location filename="../../../scribus/about.cpp" line="649"/>
+        <location filename="../../../scribus/about.cpp" line="653"/>
         <source>Check for Updates</source>
         <translation>Zkontrolovat aktualizace</translation>
     </message>
@@ -4005,7 +4013,7 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation>Pokouším se získat aktualizační soubor Scribusu. Z Vašeho počítače nebudou odesílána žádná data.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/about.cpp" line="647"/>
+        <location filename="../../../scribus/about.cpp" line="651"/>
         <source>Abort Update Check</source>
         <translation>Kontrola aktualizace selhala</translation>
     </message>
@@ -4020,9 +4028,9 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation>Správci webových stránek:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/about.cpp" line="447"/>
-        <location filename="../../../scribus/about.cpp" line="559"/>
-        <location filename="../../../scribus/about.cpp" line="625"/>
+        <location filename="../../../scribus/about.cpp" line="448"/>
+        <location filename="../../../scribus/about.cpp" line="562"/>
+        <location filename="../../../scribus/about.cpp" line="629"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>Není možné otevřít soubor %1 . Zkontrolujte si, prosím, umístění nainstalovaného programu nebo navštivte stránky Scribusu, kde je také %1.</translation>
     </message>
@@ -4101,57 +4109,57 @@ May raise ValueError if an invalid color name is specified.</translation>
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1257"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1259"/>
         <source>&amp;New</source>
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1259"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1261"/>
         <source>&amp;Open...</source>
         <translation>&amp;Otevřít...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1260"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1262"/>
         <source>&amp;Close</source>
         <translation>&amp;Zavřít</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1261"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1263"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1262"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1264"/>
         <source>Save &amp;As...</source>
         <translation>Uložit j&amp;ako...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1263"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1265"/>
         <source>Re&amp;vert to Saved</source>
         <translation>Návrat k u&amp;loženému</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1264"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1266"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Ad&amp;resář pro výstup...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1265"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1267"/>
         <source>Get Text...</source>
         <translation>Vložit text...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1266"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1268"/>
         <source>Append &amp;Text...</source>
         <translation>&amp;Připojit text...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1267"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1269"/>
         <source>Get Image...</source>
         <translation>Vložit obrázek...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1270"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1272"/>
         <source>Save &amp;Text...</source>
         <translation>Uložit &amp;text...</translation>
     </message>
@@ -4160,79 +4168,79 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Uložit stránku jako &amp;EPS...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1272"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1274"/>
         <source>Save as P&amp;DF...</source>
         <translation>Uložit jako P&amp;DF...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1273"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1275"/>
         <source>Document &amp;Setup...</source>
         <translation>Na&amp;stavení dokumentu...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1275"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1277"/>
         <source>&amp;Print...</source>
         <translation>&amp;Tisk...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1277"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1279"/>
         <source>&amp;Quit</source>
         <translation>&amp;Konec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1279"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1281"/>
         <source>&amp;Undo</source>
         <translation>&amp;Zpět</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1280"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1282"/>
         <source>&amp;Redo</source>
         <translation>&amp;Vpřed</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1281"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1283"/>
         <source>&amp;Item Action Mode</source>
         <translation>Reži&amp;m hromadných akcí</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1282"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1284"/>
         <source>Cu&amp;t</source>
         <translation>Vyjmou&amp;t</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1283"/>
         <location filename="../../../scribus/actionmanager.cpp" line="1285"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1287"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopírovat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1284"/>
         <location filename="../../../scribus/actionmanager.cpp" line="1286"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1288"/>
         <source>&amp;Paste</source>
         <translation>&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1289"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1291"/>
         <source>Select &amp;All</source>
         <translation>Vybr&amp;at vše</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1291"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
         <source>&amp;Deselect All</source>
         <translation>&amp;Zrušit výběr</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1292"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1294"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Hledat/Nahradit...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
         <source>Edit Image...</source>
         <translation>Upravit obrázek...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1297"/>
         <source>C&amp;olors...</source>
         <translation>&amp;Barvy...</translation>
     </message>
@@ -4245,47 +4253,47 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Styly ča&amp;r...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1299"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1301"/>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Vzorové stránky...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1274"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1276"/>
         <source>P&amp;references...</source>
         <translation>N&amp;astavení...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1307"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1309"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1309"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1311"/>
         <source>&amp;Other...</source>
         <translation>&amp;Jiný...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1310"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1312"/>
         <source>&amp;Left</source>
         <translation>V&amp;levo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1311"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1313"/>
         <source>&amp;Center</source>
         <translation>Na &amp;střed</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1312"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1314"/>
         <source>&amp;Right</source>
         <translation>V&amp;pravo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1313"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1315"/>
         <source>&amp;Block</source>
         <translation>Do &amp;bloku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1314"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1316"/>
         <source>&amp;Forced</source>
         <translation>&amp;Vynucené</translation>
     </message>
@@ -4294,272 +4302,272 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1325"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1327"/>
         <source>&amp;Normal</source>
         <translation>&amp;Normální</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1326"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1328"/>
         <source>&amp;Underline</source>
         <translation>Po&amp;dtržené</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1327"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1329"/>
         <source>Underline &amp;Words</source>
         <translation>Podtržená &amp;slova</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1328"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1330"/>
         <source>&amp;Strike Through</source>
         <translation>Př&amp;eškrtnuté</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1329"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1331"/>
         <source>&amp;All Caps</source>
         <translation>&amp;Verzálky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1330"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1332"/>
         <source>Small &amp;Caps</source>
         <translation>&amp;Kapitálky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1331"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1333"/>
         <source>Su&amp;perscript</source>
         <translation>&amp;Horní index</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1332"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1334"/>
         <source>Su&amp;bscript</source>
         <translation>&amp;Dolní index</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1334"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1336"/>
         <source>S&amp;hadow</source>
         <translation>&amp;Stín</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1336"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1338"/>
         <source>&amp;Image Effects</source>
         <translation>&amp;Efekty obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1337"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1339"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabelátory...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1340"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1342"/>
         <source>D&amp;uplicate</source>
         <translation>&amp;Duplikovat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1341"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1343"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>&amp;Vícenásobné duplikování</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1342"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1344"/>
         <source>&amp;Delete</source>
         <translation>&amp;Smazat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1343"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1345"/>
         <source>&amp;Group</source>
         <translation>&amp;Seskupit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1344"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1346"/>
         <source>&amp;Ungroup</source>
         <translation>&amp;Zrušit seskupení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1345"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1347"/>
         <source>Is &amp;Locked</source>
         <translation>Je &amp;zamčeno</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1346"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1348"/>
         <source>Si&amp;ze is Locked</source>
         <translation>&amp;Velikost je zamčena</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1350"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1352"/>
         <source>Lower to &amp;Bottom</source>
         <translation>Přesunout dos&amp;podu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1351"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1353"/>
         <source>Raise to &amp;Top</source>
         <translation>Přesunout nav&amp;rch</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1352"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1354"/>
         <source>&amp;Lower</source>
         <translation>O hladinu &amp;níž</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1353"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1355"/>
         <source>&amp;Raise</source>
         <translation>O hladinu &amp;výš</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1354"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1356"/>
         <source>Send to S&amp;crapbook</source>
         <translation>&amp;Poslat do zápisníku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1356"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1358"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Atributy...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1358"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1360"/>
         <source>I&amp;mage Visible</source>
         <translation>Obrázek je vi&amp;ditelný</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1359"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1361"/>
         <source>&amp;Update Image</source>
         <translation>&amp;Aktualizovat obrázek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1360"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1362"/>
         <source>Adjust Frame to Image</source>
         <translation>Přizpůsobit rámec obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1362"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1364"/>
         <source>Extended Image Properties</source>
         <translation>Rozšířené vlastnosti obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1363"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1365"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Nízké rozlišení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1364"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1366"/>
         <source>&amp;Normal Resolution</source>
         <translation>N&amp;ormální rozlišení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1365"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1367"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Plné rozlišení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1366"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Je PDF &amp;záložkou</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1367"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>Je PDF &amp;anotací</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1370"/>
         <source>Annotation P&amp;roperties</source>
         <translation>Vlast&amp;nosti anotace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1371"/>
         <source>Field P&amp;roperties</source>
         <translation>Vlastnosti &amp;pole</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1370"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1372"/>
         <source>&amp;Edit Shape...</source>
         <translation>Upravit &amp;tvar...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1371"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1373"/>
         <source>&amp;Attach Text to Path</source>
         <translation>Připojit &amp;text ke křivce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1372"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1374"/>
         <source>&amp;Detach Text from Path</source>
         <translation>&amp;Odpojit text od křivky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1373"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1375"/>
         <source>&amp;Combine Polygons</source>
         <translation>&amp;Kombinovat mnohoúhelníky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1374"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1376"/>
         <source>Split &amp;Polygons</source>
         <translation>&amp;Rozdělit mnohoúhelníky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1375"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1377"/>
         <source>&amp;Bezier Curve</source>
         <translation>&amp;Beziérova křivka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1376"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1378"/>
         <source>&amp;Image Frame</source>
         <translation>&amp;Obrázkový rámec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1378"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1380"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Mnohoúhelník</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1379"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1381"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Textový rámec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1383"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Znak...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1384"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1386"/>
         <source>Sample Text</source>
         <translation>Výplňový text</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1388"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1390"/>
         <source>&amp;Insert...</source>
         <translation>&amp;Vložit...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1389"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1391"/>
         <source>Im&amp;port...</source>
         <translation>Vlož&amp;it odjinud...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1390"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1392"/>
         <source>&amp;Delete...</source>
         <translation>&amp;Smazat...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1391"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1393"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Kopírovat...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1392"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1394"/>
         <source>&amp;Move...</source>
         <translation>&amp;Přesunout...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1393"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1395"/>
         <source>&amp;Apply Master Page...</source>
         <translation>&amp;Použít vzorovou stránku...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1395"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1397"/>
         <source>Manage &amp;Guides...</source>
         <translation>Ov&amp;ládání vodítek...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1396"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1398"/>
         <source>Manage Page Properties...</source>
         <translation>Vlastnosti stránky...</translation>
     </message>
@@ -4568,22 +4576,22 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">&amp;Přizpůsobit oknu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1401"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1403"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1402"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1404"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1403"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1405"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1404"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1406"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -4592,42 +4600,42 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">M&amp;iniatury</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1407"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1409"/>
         <source>Show &amp;Margins</source>
         <translation>Zobrazit o&amp;kraje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1409"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1411"/>
         <source>Show &amp;Frames</source>
         <translation>Zobrazit &amp;rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1411"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1413"/>
         <source>Show &amp;Images</source>
         <translation>Zobrazit &amp;obrázky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1412"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1414"/>
         <source>Show &amp;Grid</source>
         <translation>Zobrazit &amp;mřížku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1413"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1415"/>
         <source>Show G&amp;uides</source>
         <translation>Zobrazit &amp;vodítka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1415"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>&amp;Zobrazit pomocnou mřížku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1416"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1418"/>
         <source>Show &amp;Text Chain</source>
         <translation>Zob&amp;razit řetězení textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1419"/>
         <source>Show Control Characters</source>
         <translation>Zobrazit řídicí znaky</translation>
     </message>
@@ -4636,72 +4644,72 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Pravítka relativně ke stránce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1420"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1422"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>M&amp;agnetická mřížka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1421"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1423"/>
         <source>Sna&amp;p to Guides</source>
         <translation>&amp;Magnetická vodítka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1426"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1428"/>
         <source>&amp;Properties</source>
         <translation>&amp;Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1428"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1430"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Zápisník</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1429"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1431"/>
         <source>&amp;Layers</source>
         <translation>V&amp;rstvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1430"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1432"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Uspořádat stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1431"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1433"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Záložky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1432"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1434"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Vzdálenosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1433"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1435"/>
         <source>Action &amp;History</source>
         <translation>&amp;Historie akcí</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1434"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1436"/>
         <source>Preflight &amp;Verifier</source>
         <translation>&amp;Předtisková kontrola</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1435"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1437"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Zarovnat a rozmístit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1436"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1438"/>
         <source>&amp;Tools</source>
         <translation>&amp;Nástroje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1437"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1439"/>
         <source>P&amp;DF Tools</source>
         <translation>P&amp;DF nástroje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1440"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1442"/>
         <source>Select Item</source>
         <translation>Vybrat objekt</translation>
     </message>
@@ -4722,52 +4730,52 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Čára od r&amp;uky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1441"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1443"/>
         <source>Rotate Item</source>
         <translation>Otočit objekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1442"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1444"/>
         <source>Zoom in or out</source>
         <translation>Přiblížit nebo oddálit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1443"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1445"/>
         <source>Zoom in</source>
         <translation>Přiblížit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1444"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1446"/>
         <source>Zoom out</source>
         <translation>Oddálit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1445"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1447"/>
         <source>Edit Contents of Frame</source>
         <translation>Upravit obsah rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1446"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1448"/>
         <source>Edit Text...</source>
         <translation>Upravit text...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1447"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1449"/>
         <source>Link Text Frames</source>
         <translation>Propojit textové rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1448"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1450"/>
         <source>Unlink Text Frames</source>
         <translation>Zrušit propojení textových rámců</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1449"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1451"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Barevná pipeta</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1450"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1452"/>
         <source>Copy Item Properties</source>
         <translation>Kopírovat vlastnosti objektu</translation>
     </message>
@@ -4812,112 +4820,111 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Správa &amp;obrázků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1473"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1475"/>
         <source>&amp;Hyphenate Text</source>
         <translation>&amp;Dělení slov v textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1474"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1476"/>
         <source>Dehyphenate Text</source>
         <translation>Zrušit dělení slov textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1475"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1477"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>&amp;Vytvořit obsah</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1482"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1484"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;O Scribusu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1484"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1486"/>
         <source>About &amp;Qt</source>
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1485"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1487"/>
         <source>Toolti&amp;ps</source>
         <translation>&amp;Tipy nástrojů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1487"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1489"/>
         <source>Scribus &amp;Manual...</source>
         <translation>Scribus &amp;manuál...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
         <source>Smart &amp;Hyphen</source>
-        <translation>&amp;Chytré dělení textu</translation>
+        <translation type="obsolete">&amp;Chytré dělení textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1506"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1508"/>
         <source>Non Breaking Dash</source>
         <translation>Nedělitelná pomlčka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1507"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1509"/>
         <source>Non Breaking &amp;Space</source>
         <translation>Nedělitelná &amp;mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1508"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1510"/>
         <source>Page &amp;Number</source>
         <translation>Číslo &amp;stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1510"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1512"/>
         <source>New Line</source>
         <translation>Nový řádek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1511"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1513"/>
         <source>Frame Break</source>
         <translation>Zalomení rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1512"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1514"/>
         <source>Column Break</source>
         <translation>Zalomení sloupce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1515"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1517"/>
         <source>Copyright</source>
         <translation>Copyright</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1516"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1518"/>
         <source>Registered Trademark</source>
         <translation>Registrovaná obchodní známka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1517"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1519"/>
         <source>Trademark</source>
         <translation>Obchodní známka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1519"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1521"/>
         <source>Bullet</source>
         <translation>Odrážka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1521"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1523"/>
         <source>Em Dash</source>
         <translation>Em pomlčka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1522"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1524"/>
         <source>En Dash</source>
         <translation>En pomlčka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1523"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1525"/>
         <source>Figure Dash</source>
         <translation>Číslicová pomlčka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1524"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1526"/>
         <source>Quotation Dash</source>
         <translation>Uvozovací pomlčka</translation>
     </message>
@@ -4994,37 +5001,37 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Asijské pravé dvojité</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1495"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1497"/>
         <source>Toggle Palettes</source>
         <translation>Přepnout palety</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1496"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1498"/>
         <source>Toggle Guides</source>
         <translation>Přepnout vodítka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1276"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1278"/>
         <source>Print Previe&amp;w</source>
         <translation>Náhled pře&amp;d tiskem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1300"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1302"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;Javaskripty...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1394"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1396"/>
         <source>Convert to Master Page...</source>
         <translation>Převést na vzorovou stránku...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1478"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1480"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Kaskáda</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1479"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1481"/>
         <source>&amp;Tile</source>
         <translation>&amp;Dlaždice</translation>
     </message>
@@ -5033,73 +5040,73 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">O &amp;modulech</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1357"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1359"/>
         <source>More Info...</source>
         <translation>Více informací...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1347"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1349"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Tisk povolen</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1348"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1350"/>
         <source>&amp;Flip Horizontally</source>
         <translation>Překlopit &amp;vodorovně</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1349"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1351"/>
         <source>&amp;Flip Vertically</source>
         <translation>Překlopit &amp;svisle</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1418"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1420"/>
         <source>Show Rulers</source>
         <translation>Zobrazit pravítka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1427"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1429"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Obrys</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1518"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1520"/>
         <source>Solidus</source>
         <translation>Lomítko</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1520"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1522"/>
         <source>Middle Dot</source>
         <translation>Střední tečka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1545"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1547"/>
         <source>En Space</source>
         <translation>En mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1546"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1548"/>
         <source>Em Space</source>
         <translation>Em mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1547"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1549"/>
         <source>Thin Space</source>
         <translation>Úzká mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1548"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1550"/>
         <source>Thick Space</source>
         <translation>Široká mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1549"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1551"/>
         <source>Mid Space</source>
         <translation>Střední mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1550"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1552"/>
         <source>Hair Space</source>
         <translation>Vlasová mezera</translation>
     </message>
@@ -5120,527 +5127,532 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Vložit číslo stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1562"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1564"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1563"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1565"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1564"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1566"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1565"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1567"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1566"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1568"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1567"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1569"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1568"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1570"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1298"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1300"/>
         <source>S&amp;tyles...</source>
         <translation>S&amp;tyly...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1333"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1335"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>&amp;Obrys</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1377"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1379"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>O&amp;brysy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1287"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1289"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Vložit (&amp;Absolutně)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1288"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1290"/>
         <source>C&amp;lear</source>
         <translation>&amp;Vyčistit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1414"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1416"/>
         <source>Show Text Frame Columns</source>
         <translation>Zobrazit sloupce textového rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1405"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1407"/>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1472"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1474"/>
         <source>&amp;Manage Images</source>
         <translation>&amp;Správa obrázků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1268"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1270"/>
         <source>Get Vector File...</source>
         <translation>Vložit vektorový soubor...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1271"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1273"/>
         <source>Save as &amp;EPS...</source>
         <translation>Uložit jako &amp;EPS...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1290"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1292"/>
         <source>Advanced Select All...</source>
         <translation>Pokročilý hromadný výběr...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1294"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1296"/>
         <source>Edit Source...</source>
         <translation>Změnit zdroj...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1296"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1298"/>
         <source>Replace Colors...</source>
         <translation>Nahradit barvy...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1297"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1299"/>
         <source>Patterns...</source>
         <translation>Obrysy...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1355"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1357"/>
         <source>Send to Patterns</source>
         <translation>Poslat do obrysů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1382"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1384"/>
         <source>&amp;Frame...</source>
         <translation>&amp;Rámec...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1387"/>
         <source>Sticky Tools</source>
         <translation>Lepící nástroje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1399"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1401"/>
         <source>&amp;Fit to Height</source>
         <translation>&amp;Přizpůsobit výšce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1400"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1402"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1406"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1408"/>
         <source>Preview Mode</source>
         <translation>Náhledový režim</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1408"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1410"/>
         <source>Show Bleeds</source>
         <translation>Zobrazit spadávku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1410"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1412"/>
         <source>Show Layer Indicators</source>
         <translation>Zobrazit ukazatele vrstev</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1419"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1421"/>
         <source>Rulers Relative to Page</source>
         <translation>Pravítka relativně ke stránce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1422"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1424"/>
         <source>Show Context Menu</source>
         <translation>Zobrazit související nabídku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1452"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1454"/>
         <source>Insert &amp;Text Frame</source>
         <translation>Vložit &amp;textový rámec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1453"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1455"/>
         <source>Insert &amp;Image Frame</source>
         <translation>Vložit &amp;obrázkový rámec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1454"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1456"/>
         <source>Insert &amp;Render Frame</source>
         <translation>Vložit &amp;generovaný rámec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1455"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1457"/>
         <source>Insert T&amp;able</source>
         <translation>Vložit t&amp;abulku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1456"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1458"/>
         <source>Insert &amp;Shape</source>
         <translation>Vložit t&amp;var</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1457"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1459"/>
         <source>Insert &amp;Polygon</source>
         <translation>Vložit &amp;mnohoúhelník</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1458"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
         <source>Insert &amp;Line</source>
         <translation>Vložit čá&amp;ru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1459"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1461"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation>Vložit Beziérovu &amp;křivku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1462"/>
         <source>Insert &amp;Freehand Line</source>
         <translation>Vložit čáru od ru&amp;ky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1462"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
         <source>Insert PDF Push Button</source>
         <translation>Vložit PDF tlačítko</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1463"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1465"/>
         <source>Insert PDF Text Field</source>
         <translation>Vložit PDF textové pole</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1466"/>
         <source>Insert PDF Check Box</source>
         <translation>Vložit PDF pole k zaškrtnutí</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1465"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1467"/>
         <source>Insert PDF Combo Box</source>
         <translation>Vložit PDF pole k výběru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1466"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1468"/>
         <source>Insert PDF List Box</source>
         <translation>Vložit PDF pole se seznamem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1467"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1469"/>
         <source>Insert Text Annotation</source>
         <translation>Vložit textovou anotaci</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1468"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1470"/>
         <source>Insert Link Annotation</source>
         <translation>Vložit anotaci odkazem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1483"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1485"/>
         <source>&amp;About Plugins</source>
         <translation>O &amp;modulech</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1488"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1490"/>
         <source>Scribus Homepage</source>
         <translation>Webová stránka Scribusu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1489"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1491"/>
         <source>Scribus Online Documentation</source>
         <translation>Online dokumentace Scribusu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1490"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1492"/>
         <source>Scribus Wiki</source>
         <translation>Wiki Scribusu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1491"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1493"/>
         <source>Getting Started with Scribus</source>
         <translation>Začínáme se Scribusem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1492"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1494"/>
         <source>Check for Updates</source>
         <translation>Zkontrolovat aktualizace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1497"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1499"/>
         <source>Insert Unicode Character Begin Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1509"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1507"/>
+        <source>Soft &amp;Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/actionmanager.cpp" line="1511"/>
         <source>Number of Pages</source>
         <translation>Počet stránek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1513"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1515"/>
         <source>&amp;Zero Width Space</source>
         <translation>&amp;Nulová mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1514"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1516"/>
         <source>Zero Width NB Space</source>
         <translation>Nulová nedělitená mezera</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1526"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1528"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>Apostrof</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1527"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1529"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>Přímé dvojité</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1528"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1530"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>Pravé jednoduché</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1529"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1531"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>Pravé jednoduché anglické</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1530"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1532"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>Pravé dvojité</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1531"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1533"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>Pravé dvojité anglické</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1532"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1534"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>Jednoduché obrácené</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1533"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1535"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>Dvojité obrácené</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1534"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1536"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>Jednoduché levé Guillemet (francouzské)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1535"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1537"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>Jednoduché pravé Guillemet (francouzské)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1536"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1538"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>Dvojité levé Guillemet (francouzské)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1537"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1539"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>Dvojité pravé Guillemet (framcouzské)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1538"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1540"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>Levé jednoduché</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1539"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1541"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>Levé dvojité</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1540"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1542"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>Asijské levé jednoduché</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1541"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1543"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>Asijské pravé jednoduché</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1542"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1544"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>Asijské levé dvojité</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1543"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1545"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>Asijské pravé dvojité</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1361"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1363"/>
         <source>Adjust Image to Frame</source>
         <translation>Přizpůsobit obrázek rámci</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1690"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1692"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1690"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1692"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1692"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1694"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1692"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1694"/>
         <source>&amp;Edit</source>
         <translation>Ú&amp;pravy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1694"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1696"/>
         <source>Style</source>
         <translation>Styl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1694"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1696"/>
         <source>&amp;Style</source>
         <translation>St&amp;yl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1696"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1698"/>
         <source>Item</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1696"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1698"/>
         <source>&amp;Item</source>
         <translation>O&amp;bjekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1698"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1700"/>
         <source>Insert</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1698"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1700"/>
         <source>I&amp;nsert</source>
         <translation>&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1700"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1702"/>
         <source>Page</source>
         <translation>Stránka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1700"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;Page</source>
         <translation>&amp;Stránka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1702"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1704"/>
         <source>View</source>
         <translation>Náhled</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1702"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1704"/>
         <source>&amp;View</source>
         <translation>Ná&amp;hled</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1704"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1706"/>
         <source>Extras</source>
         <translation>Extra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1704"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1706"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1706"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1708"/>
         <source>Windows</source>
         <translation>Okna</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1706"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1708"/>
         <source>&amp;Windows</source>
         <translation>&amp;Okna</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1708"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1710"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1708"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1710"/>
         <source>&amp;Help</source>
         <translation>Nápo&amp;věda</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1876"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1878"/>
         <source>Plugin Menu Items</source>
         <translation>Nabídka modulů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1878"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1880"/>
         <source>Others</source>
         <translation>Ostatní</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1880"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1882"/>
         <source>Unicode Characters</source>
         <translation>Znaky unicode</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1486"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1488"/>
         <source>Move/Resize Value Indicator</source>
         <translation>Přesunout/změnit velikost ukazatele hodnoty</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1258"/>
+        <location filename="../../../scribus/actionmanager.cpp" line="1260"/>
         <source>New &amp;from Template...</source>
         <translation>N&amp;ový ze šablony...</translation>
     </message>
@@ -5656,59 +5668,69 @@ May raise ValueError if an invalid color name is specified.</translation>
 <context>
     <name>AlignDistribute</name>
     <message>
-        <location filename="../../../scribus/aligndistribute.ui" line="35"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="36"/>
         <source>Align</source>
         <translation>Zarovnat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.ui" line="79"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="65"/>
         <source>&amp;Selected Guide:</source>
         <translation>Vy&amp;brané vodítko:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.ui" line="92"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="78"/>
         <source>&amp;Relative To:</source>
         <translation>V&amp;zhledem k:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.ui" line="163"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="170"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="177"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="184"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="191"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="198"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="205"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="212"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="219"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="226"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="97"/>
+        <source>&amp;Align Sides By:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.ui" line="153"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="160"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="167"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="174"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="181"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="188"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="195"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="202"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="209"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="216"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="286"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="293"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="300"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="307"/>
         <location filename="../../../scribus/aligndistribute.ui" line="314"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="321"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="328"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="335"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="342"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="352"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="359"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="369"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="376"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="386"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="393"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="400"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="410"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="417"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="424"/>
-        <location filename="../../../scribus/aligndistribute.ui" line="431"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="324"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="331"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="341"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="348"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="358"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="365"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="372"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="382"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="389"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="396"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="403"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.ui" line="270"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="260"/>
         <source>Distribute</source>
         <translation>Rozmístit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.ui" line="490"/>
+        <location filename="../../../scribus/aligndistribute.ui" line="450"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Vzdálenost:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.ui" line="511"/>
+        <source>Reverse Distribution</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5767,12 +5789,12 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Zarovnat levé strany na pravou stranu kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="111"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
         <source>Align bottoms</source>
         <translation>Zarovnat dole</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="113"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="120"/>
         <source>Align right sides</source>
         <translation>Zarovnat pravé strany</translation>
     </message>
@@ -5781,17 +5803,17 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Zarovnat horní části objektů na dolní část kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="117"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="124"/>
         <source>Center on vertical axis</source>
         <translation>Vystředit na svislé osy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="119"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="126"/>
         <source>Align left sides</source>
         <translation>Zarovnat levé strany</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="121"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="128"/>
         <source>Center on horizontal axis</source>
         <translation>Vystředit na vodorovné osy</translation>
     </message>
@@ -5800,12 +5822,12 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Zarovnat dolní části objektů na horní část kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="125"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="132"/>
         <source>Align tops</source>
         <translation>Zarovnat nahoře</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="127"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="134"/>
         <source>&amp;Selected Guide:</source>
         <translation>&amp;Vybrané vodítko:</translation>
     </message>
@@ -5823,17 +5845,17 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Sjednotit vodorovné mezery mezi objekty na zadanou hodnotu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="135"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="142"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Rozmístit pravé strany ve stejné vzdálenosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="137"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="144"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Rozmístit dolní části ve stejné vzdálenosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="139"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="146"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Rozmístit středy ve stejné vzdálenosti vodorovně</translation>
     </message>
@@ -5846,32 +5868,37 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">Sjednotit svislé mezery mezi objekty na zadanou hodnotu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="145"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="152"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Rozmístit levé strany ve stejné vzdálenosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="147"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="154"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Rozmístit středy svisle ve stejné vzdálenosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="149"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="156"/>
         <source>Distribute tops equidistantly</source>
         <translation>Rozmístit horní části ve stejné vzdálenosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="159"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="166"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Vzdálenost:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="160"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="167"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Rozmístit objekty na určenou vzdálenost</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="162"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
+        <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
         <source>None Selected</source>
         <translation>Nic nevybráno</translation>
     </message>
@@ -5884,12 +5911,12 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation type="obsolete">&amp;Odemknout vše</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="440"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="454"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="448"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="462"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
@@ -5900,66 +5927,86 @@ May raise ValueError if an invalid color name is specified.</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
+        <source>&amp;Align Sides By:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
+        <source>Moving (Preserve Size)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
+        <source>Resizing (Preserve Opposite Side)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
+        <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/aligndistribute.cpp" line="112"/>
         <source>The location of the selected guide to align to</source>
         <translation>Umístění vybraného vodítka, ke kterému se bude zarovnávat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="107"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="114"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>Zarovnat pravé strany objektů na levou stranu kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="116"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>Zarovnat levé strany objektů na pravou stranu kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="115"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="122"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>Zarovnat horní části objektů k dolní části kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="123"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="130"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>Zarovnat dolní části objektů k horní části kotvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="130"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="137"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>Sjednotit vodorovné mezery mezi objekty</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="132"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="139"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>Sjednotit vodorovné mezery mezi objekty na zadanou hodnotu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="141"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="148"/>
         <source>Make vertical gaps between items equal</source>
         <translation>Sjednotit svislé mezery mezi objekty</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="143"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="150"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>Sjednotit svislé mezery mezi objekty na zadanou hodnotu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="151"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="158"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>Sjednotit vodorovné mezery mezi objekty a okraji stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="153"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="160"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Sjednotit svislé mezery mezi objekty a horním/dolním okrajem stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="155"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="162"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>Sjednotit vodorovné mezery mezi objekty a okraji</translation>
     </message>
     <message>
-        <location filename="../../../scribus/aligndistribute.cpp" line="157"/>
+        <location filename="../../../scribus/aligndistribute.cpp" line="164"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>Sjednotit svislé mezery mezi objekty a horním/dolním okrajem</translation>
     </message>
@@ -7156,31 +7203,31 @@ May raise ValueError if an invalid color name is specified.</translation>
     <name>AutoformButtonGroup</name>
     <message>
         <location filename="../../../scribus/autoformbuttongroup.cpp" line="21"/>
-        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1279"/>
+        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1280"/>
         <source>Default Shapes</source>
         <translation>Běžné tvary</translation>
     </message>
     <message>
         <location filename="../../../scribus/autoformbuttongroup.cpp" line="36"/>
-        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1280"/>
+        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1281"/>
         <source>Arrows</source>
         <translation>Šipky</translation>
     </message>
     <message>
         <location filename="../../../scribus/autoformbuttongroup.cpp" line="44"/>
-        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1281"/>
+        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1282"/>
         <source>Flow Chart</source>
         <translation>Vývojový diagram</translation>
     </message>
     <message>
         <location filename="../../../scribus/autoformbuttongroup.cpp" line="53"/>
-        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1282"/>
+        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1283"/>
         <source>Jigsaw</source>
         <translation>Skládačka</translation>
     </message>
     <message>
         <location filename="../../../scribus/autoformbuttongroup.cpp" line="66"/>
-        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1283"/>
+        <location filename="../../../scribus/autoformbuttongroup.cpp" line="1284"/>
         <source>Specials</source>
         <translation>Speciální tvary</translation>
     </message>
@@ -7209,7 +7256,7 @@ May raise ValueError if an invalid color name is specified.</translation>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="315"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="316"/>
         <source>Error opening file: %1</source>
         <translation>Chyba při otevírání souboru: %1</translation>
     </message>
@@ -7283,7 +7330,7 @@ May raise ValueError if an invalid color name is specified.</translation>
         <translation>Volitelný počet hexadecimálních číslic</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="349"/>
+        <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="350"/>
         <source>Barcode incomplete</source>
         <translation>Čárový kód není kompletní</translation>
     </message>
@@ -7874,31 +7921,31 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
-        <translation>&amp;Aktivovat správu barev</translation>
+        <translation type="obsolete">&amp;Aktivovat správu barev</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation>&amp;Plné barvy:</translation>
+        <translation type="obsolete">&amp;Plné barvy:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
-        <translation>&amp;Monitor:</translation>
+        <translation type="obsolete">&amp;Monitor:</translation>
     </message>
     <message>
         <source>P&amp;rinter:</source>
-        <translation>&amp;Tiskárna:</translation>
+        <translation type="obsolete">&amp;Tiskárna:</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>Mo&amp;nitor:</translation>
+        <translation type="obsolete">Mo&amp;nitor:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>Tis&amp;kárna:</translation>
+        <translation type="obsolete">Tis&amp;kárna:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation>Sim&amp;ulace tisku na obrazovce</translation>
+        <translation type="obsolete">Sim&amp;ulace tisku na obrazovce</translation>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
@@ -8504,39 +8551,39 @@ prosím, vyberte jiný.</translation>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2218"/>
-        <location filename="../../../scribus/canvas.cpp" line="2246"/>
+        <location filename="../../../scribus/canvas.cpp" line="2261"/>
+        <location filename="../../../scribus/canvas.cpp" line="2289"/>
         <source>X: %1
 Y: %2</source>
         <translation>X: %1
 Y: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2231"/>
+        <location filename="../../../scribus/canvas.cpp" line="2274"/>
         <source>X: %1</source>
         <translation>X: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2238"/>
+        <location filename="../../../scribus/canvas.cpp" line="2281"/>
         <source>Y: %1</source>
         <translation>Y: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2254"/>
+        <location filename="../../../scribus/canvas.cpp" line="2297"/>
         <source>Length: %1
 Angle: %2</source>
         <translation>Délka: %1
 Úhel: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2256"/>
+        <location filename="../../../scribus/canvas.cpp" line="2299"/>
         <source>Width: %1
 Height: %2</source>
         <translation>Šířka: %1
 Výška: %2</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvas.cpp" line="2268"/>
+        <location filename="../../../scribus/canvas.cpp" line="2311"/>
         <source>Angle: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8562,12 +8609,12 @@ Výška: %2</translation>
 <context>
     <name>CanvasMode_Normal</name>
     <message>
-        <location filename="../../../scribus/canvasmode_normal.cpp" line="1334"/>
+        <location filename="../../../scribus/canvasmode_normal.cpp" line="1373"/>
         <source>All Supported Formats</source>
         <translation>Všechny podporované formáty</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvasmode_normal.cpp" line="1365"/>
+        <location filename="../../../scribus/canvasmode_normal.cpp" line="1404"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
@@ -9370,12 +9417,12 @@ nyní %2 x %3 DPI</translation>
         <translation type="obsolete">Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/colorm.cpp" line="353"/>
+        <location filename="../../../scribus/colorm.cpp" line="354"/>
         <source>Copy of %1</source>
         <translation>Kopie %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/colorm.cpp" line="364"/>
+        <location filename="../../../scribus/colorm.cpp" line="365"/>
         <source>New Color</source>
         <translation>Nová barva</translation>
     </message>
@@ -9389,17 +9436,17 @@ nyní %2 x %3 DPI</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/colorm.cpp" line="311"/>
+        <location filename="../../../scribus/colorm.cpp" line="312"/>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
         <translation>Všechny podporované  formáty (%1);;Dokumenty (%2);;Ostatní soubory (%3);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/colorm.cpp" line="321"/>
+        <location filename="../../../scribus/colorm.cpp" line="322"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/colorm.cpp" line="321"/>
+        <location filename="../../../scribus/colorm.cpp" line="322"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -9408,7 +9455,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/colorm.cpp" line="312"/>
+        <location filename="../../../scribus/colorm.cpp" line="313"/>
         <source>Import Colors</source>
         <translation>Vložit barvy</translation>
     </message>
@@ -9427,7 +9474,6 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="141"/>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
         <source>Complementary</source>
         <translation>Komplementární</translation>
     </message>
@@ -9452,69 +9498,56 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Základní barva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>Monochromatic Light</source>
-        <translation>Monochromatické světlé</translation>
+        <translation type="obsolete">Monochromatické světlé</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
         <source>Monochromatic Dark</source>
-        <translation>Monochromatické tmavé</translation>
+        <translation type="obsolete">Monochromatické tmavé</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
         <source>1st. Analogous</source>
-        <translation>První analogická</translation>
+        <translation type="obsolete">První analogická</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
         <source>2nd. Analogous</source>
-        <translation>Druhá analogická</translation>
+        <translation type="obsolete">Druhá analogická</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>1st. Split</source>
-        <translation>První dělená</translation>
+        <translation type="obsolete">První dělená</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
         <source>2nd. Split</source>
-        <translation>Druhá dělená</translation>
+        <translation type="obsolete">Druhá dělená</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
         <source>3rd. Split</source>
-        <translation>Třetí dělená</translation>
+        <translation type="obsolete">Třetí dělená</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
         <source>4th. Split</source>
-        <translation>Čtvrtá dělená</translation>
+        <translation type="obsolete">Čtvrtá dělená</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
         <source>1st. Triadic</source>
-        <translation>První triadická</translation>
+        <translation type="obsolete">První triadická</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
         <source>2nd. Triadic</source>
-        <translation>Druhá triadická</translation>
+        <translation type="obsolete">Druhá triadická</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
         <source>1st. Tetradic (base opposite)</source>
-        <translation>První tetradická (opak základní)</translation>
+        <translation type="obsolete">První tetradická (opak základní)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
         <source>2nd. Tetradic (angle)</source>
-        <translation>Druhá tetradická (úhel)</translation>
+        <translation type="obsolete">Druhá tetradická (úhel)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation>Třetí tetradická (opačný úhel)</translation>
+        <translation type="obsolete">Třetí tetradická (opačný úhel)</translation>
     </message>
 </context>
 <context>
@@ -10942,6 +10975,29 @@ Lze uvést v Nastavení.</translation>
     </message>
 </context>
 <context>
+    <name>CvgPlug</name>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="79"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="82"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Zkoumá se soubor:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="210"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="337"/>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
@@ -11847,40 +11903,54 @@ t.j. interval, nebo jediné číslo stránky.</translation>
 <context>
     <name>EPSPlug</name>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="480"/>
         <source>Importing File:
 %1
 failed!</source>
-        <translation type="obsolete">Vkládání souboru:
+        <translation type="unfinished">Vkládání souboru:
 %1
 se nepodařilo!</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="481"/>
         <source>Fatal Error</source>
-        <translation type="obsolete">Kritická chyba</translation>
+        <translation type="unfinished">Kritická chyba</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="879"/>
         <source>Error</source>
-        <translation type="obsolete">Chyba</translation>
+        <translation type="unfinished">Chyba</translation>
     </message>
     <message>
         <source>Importing PostScript</source>
         <translation type="obsolete">Vkládá se PostScript</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="85"/>
         <source>Analyzing PostScript:</source>
-        <translation type="obsolete">Analyzuje se PostScript:</translation>
+        <translation type="unfinished">Analyzuje se PostScript:</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="282"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="709"/>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="745"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="486"/>
         <source>Generating Items</source>
-        <translation type="obsolete">Vytváří se objekty</translation>
+        <translation type="unfinished">Vytváří se objekty</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="878"/>
         <source>Converting of %1 images failed!</source>
-        <translation type="obsolete">Konverze %1 obrázků selhala!</translation>
+        <translation type="unfinished">Konverze %1 obrázků selhala!</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importps.cpp" line="82"/>
         <source>Importing: %1</source>
-        <translation type="obsolete">Vkládá se: %1</translation>
+        <translation type="unfinished">Vkládá se: %1</translation>
     </message>
 </context>
 <context>
@@ -11923,59 +11993,59 @@ se nepodařilo!</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation>Určuje celkovou výšku iniciál počtem řádků</translation>
+        <translation type="obsolete">Určuje celkovou výšku iniciál počtem řádků</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation>Horní odsazení odstavce</translation>
+        <translation type="obsolete">Horní odsazení odstavce</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation>Dolní odsazení odstavce</translation>
+        <translation type="obsolete">Dolní odsazení odstavce</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
-        <translation>Tabelátory a odsazení</translation>
+        <translation type="obsolete">Tabelátory a odsazení</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Název:</translation>
+        <translation type="obsolete">&amp;Název:</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation>&amp;Řádky:</translation>
+        <translation type="obsolete">&amp;Řádky:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>Distances</source>
-        <translation>Vzdálenosti</translation>
+        <translation type="obsolete">Vzdálenosti</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation>Pevné řádkování</translation>
+        <translation type="obsolete">Pevné řádkování</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Automatické řádkování</translation>
+        <translation type="obsolete">Automatické řádkování</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Zarovnat k pomocné mřížce</translation>
+        <translation type="obsolete">Zarovnat k pomocné mřížce</translation>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation>Iniciály</translation>
+        <translation type="obsolete">Iniciály</translation>
     </message>
     <message>
         <source>Distance from Text:</source>
-        <translation>Vzdálenost od textu:</translation>
+        <translation type="obsolete">Vzdálenost od textu:</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
-        <translation>Náhled stylu odstavce</translation>
+        <translation type="obsolete">Náhled stylu odstavce</translation>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
@@ -11991,7 +12061,7 @@ se nepodařilo!</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Pozadí</translation>
+        <translation type="obsolete">Pozadí</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
@@ -12362,30 +12432,30 @@ se nepodařilo!</translation>
 <context>
     <name>ExportBitmap</name>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="191"/>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="218"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="189"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="216"/>
         <source>Save as Image</source>
         <translation>Uložit jako obrázek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="191"/>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="192"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="189"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="190"/>
         <source>Insufficient memory for this image size.</source>
         <translation>Nedostatek paměti pro tak velký obrázek.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="204"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="202"/>
         <source>File exists. Overwrite?</source>
         <translation>Soubor již existuje. Přepsat?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="205"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="203"/>
         <source>exists already. Overwrite?</source>
         <translation>už existuje. Přepsat?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="218"/>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="219"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="216"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="217"/>
         <source>Error writing the output file(s).</source>
         <translation>Chyba při zápisu souboru.</translation>
     </message>
@@ -14125,22 +14195,50 @@ ve kterém budou zobrazeny všechny možnosti dělení slova.</translation>
 <context>
     <name>ImportAIPlugin</name>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="58"/>
         <source>Import AI...</source>
-        <translation type="obsolete">Vložit AI...</translation>
+        <translation type="unfinished">Vložit AI...</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="79"/>
         <source>Imports Illustrator Files</source>
-        <translation type="obsolete">Vložit soubory Illustratoru</translation>
+        <translation type="unfinished">Vložit soubory Illustratoru</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="80"/>
         <source>Imports most Illustrator files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Vloží do dokumentu většinu souborů Illustratoru,
+        <translation type="unfinished">Vloží do dokumentu většinu souborů Illustratoru,
 přičemž převede vektorová data na objekty Scribusu.</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="162"/>
         <source>The file could not be imported</source>
-        <translation type="obsolete">Soubor nelze vložit</translation>
+        <translation type="unfinished">Soubor nelze vložit</translation>
+    </message>
+</context>
+<context>
+    <name>ImportCvgPlugin</name>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="58"/>
+        <source>Import Cvg...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="79"/>
+        <source>Imports Cvg Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
+        <source>Imports most Cvg files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Všechny podporované formáty</translation>
     </message>
 </context>
 <context>
@@ -14168,39 +14266,70 @@ přičemž převede vektorová data na objekty Scribusu.</translation>
         <translation type="obsolete">PDF</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="57"/>
         <source>Import PostScript...</source>
-        <translation type="obsolete">Vložit PostScript...</translation>
+        <translation type="unfinished">Vložit PostScript...</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="78"/>
         <source>Imports PostScript Files</source>
-        <translation type="obsolete">Vložit PostScript soubory</translation>
+        <translation type="unfinished">Vložit PostScript soubory</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="79"/>
         <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Vloží většinu PostSript souborů do aktuálního dokumentu
+        <translation type="unfinished">Vloží většinu PostSript souborů do aktuálního dokumentu
 přičemž převede vektorová data na objekty Scribusu.</translation>
+    </message>
+</context>
+<context>
+    <name>ImportPctPlugin</name>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="51"/>
+        <source>Import Pict...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="72"/>
+        <source>Imports Pict Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
+        <source>Imports most Mac Pict files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Všechny podporované formáty</translation>
     </message>
 </context>
 <context>
     <name>ImportXfigPlugin</name>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="58"/>
         <source>Import Xfig...</source>
-        <translation type="obsolete">Vložit Xfig...</translation>
+        <translation type="unfinished">Vložit Xfig...</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="79"/>
         <source>Imports Xfig Files</source>
-        <translation type="obsolete">Vložit Xfig soubory</translation>
+        <translation type="unfinished">Vložit Xfig soubory</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="80"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Vloží většinu Xfig souborů do aktuálního dokumentu,
+        <translation type="unfinished">Vloží většinu Xfig souborů do aktuálního dokumentu,
 přičemž převede vektorová data na objekty Scribusu.</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation type="obsolete">Všechny podporované formáty</translation>
+        <translation type="unfinished">Všechny podporované formáty</translation>
     </message>
 </context>
 <context>
@@ -15143,13 +15272,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="567"/>
+        <location filename="../../../scribus/layers.cpp" line="568"/>
         <source>Layers</source>
         <translation>Vrstvy</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="290"/>
-        <location filename="../../../scribus/layers.cpp" line="598"/>
+        <location filename="../../../scribus/layers.cpp" line="599"/>
         <source>Delete Layer</source>
         <translation>Smazat vrstvu</translation>
     </message>
@@ -15160,7 +15289,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="72"/>
-        <location filename="../../../scribus/layers.cpp" line="588"/>
+        <location filename="../../../scribus/layers.cpp" line="589"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
@@ -15182,163 +15311,167 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="54"/>
-        <location filename="../../../scribus/layers.cpp" line="586"/>
+        <location filename="../../../scribus/layers.cpp" line="587"/>
         <source>Opacity:</source>
         <translation>Neprůsvitnost:</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="60"/>
-        <location filename="../../../scribus/layers.cpp" line="587"/>
+        <location filename="../../../scribus/layers.cpp" line="588"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="568"/>
+        <location filename="../../../scribus/layers.cpp" line="569"/>
         <source>Blend Mode:</source>
         <translation>Režim směšování:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="570"/>
+        <location filename="../../../scribus/layers.cpp" line="571"/>
         <source>Normal</source>
         <translation>Normální</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="571"/>
+        <location filename="../../../scribus/layers.cpp" line="572"/>
         <source>Darken</source>
         <translation>Ztmavit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="572"/>
+        <location filename="../../../scribus/layers.cpp" line="573"/>
         <source>Lighten</source>
         <translation>Zesvětlit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="573"/>
+        <location filename="../../../scribus/layers.cpp" line="574"/>
         <source>Multiply</source>
         <translation>Násobit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="574"/>
+        <location filename="../../../scribus/layers.cpp" line="575"/>
         <source>Screen</source>
         <translation>Závoj</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="575"/>
+        <location filename="../../../scribus/layers.cpp" line="576"/>
         <source>Overlay</source>
         <translation>Překrýt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="576"/>
+        <location filename="../../../scribus/layers.cpp" line="577"/>
         <source>Hard Light</source>
         <translation>Tvrdé světlo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="577"/>
+        <location filename="../../../scribus/layers.cpp" line="578"/>
         <source>Soft Light</source>
         <translation>Měkké světlo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="578"/>
+        <location filename="../../../scribus/layers.cpp" line="579"/>
         <source>Difference</source>
         <translation>Rozdíl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="579"/>
+        <location filename="../../../scribus/layers.cpp" line="580"/>
         <source>Exclusion</source>
         <translation>Vyloučit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="580"/>
+        <location filename="../../../scribus/layers.cpp" line="581"/>
         <source>Color Dodge</source>
         <translation>Zesvětlit barvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="581"/>
+        <location filename="../../../scribus/layers.cpp" line="582"/>
         <source>Color Burn</source>
         <translation>Ztmavit barvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="582"/>
+        <location filename="../../../scribus/layers.cpp" line="583"/>
         <source>Hue</source>
         <translation>Odstín</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="583"/>
+        <location filename="../../../scribus/layers.cpp" line="584"/>
         <source>Saturation</source>
         <translation>Sytost</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="584"/>
+        <location filename="../../../scribus/layers.cpp" line="585"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="585"/>
+        <location filename="../../../scribus/layers.cpp" line="586"/>
         <source>Luminosity</source>
         <translation>Světlost</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="603"/>
+        <location filename="../../../scribus/layers.cpp" line="604"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
         <translation>Barva ukazatele vrstvy - každá vrstva má přiřazenu barvu, která se zobrazí na ploše (musí být zapnuty). Barvu můžete upravit dvojklikem.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="604"/>
+        <location filename="../../../scribus/layers.cpp" line="605"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
         <translation>Zviditelnit vrstvu - odškrtnutím skryjete vrstvu z displeje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="605"/>
+        <location filename="../../../scribus/layers.cpp" line="606"/>
         <source>Print Layer - Uncheck to disable printing. </source>
         <translation>Tiskne vrstvu - nezaškrtnutá vypne tisk.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="606"/>
+        <location filename="../../../scribus/layers.cpp" line="607"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
         <translation>Zamkne nebo odemkne vrstvu - nezaškrtnutá je odemčená</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="607"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Text obtéká objekty v nižších vrstvách - Povolením vynutíte, aby text obtékal i objekty v nižších vrstvách</translation>
+        <translation type="obsolete">Text obtéká objekty v nižších vrstvách - Povolením vynutíte, aby text obtékal i objekty v nižších vrstvách</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <location filename="../../../scribus/layers.cpp" line="609"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation>Způsob ohraničení - Přepne na drátěný model, který urychlí zobrazení velmi složitých objektů.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="601"/>
+        <location filename="../../../scribus/layers.cpp" line="602"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
         <translation>Vybrat režim směšování, funguje pouze v PDF 1.4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="602"/>
+        <location filename="../../../scribus/layers.cpp" line="603"/>
         <source>Layer Transparency, works only in PDF 1.4 and SVG</source>
         <translation>Průsvitnost vrstev, funguje pouze v PDF 1.4 a SVG</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="596"/>
+        <location filename="../../../scribus/layers.cpp" line="597"/>
         <source>Add a New Layer</source>
         <translation>Přidat vrstvu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="597"/>
+        <location filename="../../../scribus/layers.cpp" line="598"/>
         <source>Duplicate the Current Layer</source>
         <translation>Duplikovat aktuální vrstvu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="599"/>
+        <location filename="../../../scribus/layers.cpp" line="600"/>
         <source>Raise Layer</source>
         <translation>Vrstvu nahoru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="600"/>
+        <location filename="../../../scribus/layers.cpp" line="601"/>
         <source>Lower Layer</source>
         <translation>Vrstvu dolů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/layers.cpp" line="609"/>
+        <location filename="../../../scribus/layers.cpp" line="608"/>
+        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/layers.cpp" line="610"/>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
         <translation>Název vrstvy - Dvojklikem na název jej změníte</translation>
     </message>
@@ -16051,22 +16184,22 @@ p, li { white-space: pre-wrap; }
         <translation>Nová vzorová stránka %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="462"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="464"/>
         <source>Unable to Rename Master Page</source>
         <translation>Nelze přejmenovat vzorovou stránku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="462"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="464"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Normální stránka nemůže být přejmenována.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="466"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="468"/>
         <source>Rename Master Page</source>
         <translation>Přejmenovat vzorovou stránku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/masterpagepalette.cpp" line="466"/>
+        <location filename="../../../scribus/masterpagepalette.cpp" line="468"/>
         <source>New Name:</source>
         <translation>Nový název:</translation>
     </message>
@@ -16466,111 +16599,111 @@ If no handle is selected all handles will be reset.</source>
     <name>Mpalette</name>
     <message>
         <source>Properties</source>
-        <translation>Vlastnosti</translation>
+        <translation type="obsolete">Vlastnosti</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Název</translation>
+        <translation type="obsolete">Název</translation>
     </message>
     <message>
         <source>Geometry</source>
-        <translation>Geometrie</translation>
+        <translation type="obsolete">Geometrie</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Střed otáčení:</translation>
+        <translation type="obsolete">Střed otáčení:</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Hladina</translation>
+        <translation type="obsolete">Hladina</translation>
     </message>
     <message>
         <source>Shape:</source>
-        <translation>Tvar:</translation>
+        <translation type="obsolete">Tvar:</translation>
     </message>
     <message>
         <source>Distance of Text</source>
-        <translation>Vzdálenost textu</translation>
+        <translation type="obsolete">Vzdálenost textu</translation>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation>Zobrazit křivku</translation>
+        <translation type="obsolete">Zobrazit křivku</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Počáteční posun:</translation>
+        <translation type="obsolete">Počáteční posun:</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>Vzdálenost od křivky:</translation>
+        <translation type="obsolete">Vzdálenost od křivky:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation>Vložit profil:</translation>
+        <translation type="obsolete">Vložit profil:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Účel reprodukce:</translation>
+        <translation type="obsolete">Účel reprodukce:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Perceptuální (fotografická) transformace</translation>
+        <translation type="obsolete">Perceptuální (fotografická) transformace</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativní kolorimetrická transformace</translation>
+        <translation type="obsolete">Relativní kolorimetrická transformace</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Sytost</translation>
+        <translation type="obsolete">Sytost</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutní kolorimetrická transformace</translation>
+        <translation type="obsolete">Absolutní kolorimetrická transformace</translation>
     </message>
     <message>
         <source>Left Point</source>
-        <translation>Levý bod</translation>
+        <translation type="obsolete">Levý bod</translation>
     </message>
     <message>
         <source>End Points</source>
-        <translation>Koncové body</translation>
+        <translation type="obsolete">Koncové body</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Kolmý spoj</translation>
+        <translation type="obsolete">Kolmý spoj</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Zkosený spoj</translation>
+        <translation type="obsolete">Zkosený spoj</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Oblý spoj</translation>
+        <translation type="obsolete">Oblý spoj</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation>Ostrá hlavička</translation>
+        <translation type="obsolete">Ostrá hlavička</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation>Čtvercová hlavička</translation>
+        <translation type="obsolete">Čtvercová hlavička</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation>Oblá hlavička</translation>
+        <translation type="obsolete">Oblá hlavička</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation>Bez stylu</translation>
+        <translation type="obsolete">Bez stylu</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -16578,175 +16711,175 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Řádkování</translation>
+        <translation type="obsolete">Řádkování</translation>
     </message>
     <message>
         <source>Name of selected object</source>
-        <translation>Název vybraného objektu</translation>
+        <translation type="obsolete">Název vybraného objektu</translation>
     </message>
     <message>
         <source>Horizontal position of current basepoint</source>
-        <translation>Vodorovné umístění středu otáčení</translation>
+        <translation type="obsolete">Vodorovné umístění středu otáčení</translation>
     </message>
     <message>
         <source>Vertical position of current basepoint</source>
-        <translation>Svislé umístění středu otáčení</translation>
+        <translation type="obsolete">Svislé umístění středu otáčení</translation>
     </message>
     <message>
         <source>Width</source>
-        <translation>Šířka</translation>
+        <translation type="obsolete">Šířka</translation>
     </message>
     <message>
         <source>Height</source>
-        <translation>Výška</translation>
+        <translation type="obsolete">Výška</translation>
     </message>
     <message>
         <source>Rotation of object at current basepoint</source>
-        <translation>Otočení objektu podle aktuálního středu otáčení</translation>
+        <translation type="obsolete">Otočení objektu podle aktuálního středu otáčení</translation>
     </message>
     <message>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Bod, od kterého jsou odvozeny vzdálenosti nebo úhly otočení</translation>
+        <translation type="obsolete">Bod, od kterého jsou odvozeny vzdálenosti nebo úhly otočení</translation>
     </message>
     <message>
         <source>Select top left for basepoint</source>
-        <translation>Střed otáčení vlevo nahoře</translation>
+        <translation type="obsolete">Střed otáčení vlevo nahoře</translation>
     </message>
     <message>
         <source>Select top right for basepoint</source>
-        <translation>Střed otáčení vpravo nahoře</translation>
+        <translation type="obsolete">Střed otáčení vpravo nahoře</translation>
     </message>
     <message>
         <source>Select bottom left for basepoint</source>
-        <translation>Střed otáčení vlevo dole</translation>
+        <translation type="obsolete">Střed otáčení vlevo dole</translation>
     </message>
     <message>
         <source>Select bottom right for basepoint</source>
-        <translation>Střed otáčení vpravo dole</translation>
+        <translation type="obsolete">Střed otáčení vpravo dole</translation>
     </message>
     <message>
         <source>Select center for basepoint</source>
-        <translation>Střed otáčení uprostřed</translation>
+        <translation type="obsolete">Střed otáčení uprostřed</translation>
     </message>
     <message>
         <source>Flip Horizontal</source>
-        <translation>Překlopit vodorovně</translation>
+        <translation type="obsolete">Překlopit vodorovně</translation>
     </message>
     <message>
         <source>Flip Vertical</source>
-        <translation>Překlopit svisle</translation>
+        <translation type="obsolete">Překlopit svisle</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>O hladinu výš</translation>
+        <translation type="obsolete">O hladinu výš</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>O hladinu níž</translation>
+        <translation type="obsolete">O hladinu níž</translation>
     </message>
     <message>
         <source>Move to front</source>
-        <translation>Přesunout navrch</translation>
+        <translation type="obsolete">Přesunout navrch</translation>
     </message>
     <message>
         <source>Move to back</source>
-        <translation>Přesunout dospodu</translation>
+        <translation type="obsolete">Přesunout dospodu</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
-        <translation>Zamknout nebo odemknout objekt</translation>
+        <translation type="obsolete">Zamknout nebo odemknout objekt</translation>
     </message>
     <message>
         <source>Lock or unlock the size of the object</source>
-        <translation>Zamknout nebo odemknout velikost objektu</translation>
+        <translation type="obsolete">Zamknout nebo odemknout velikost objektu</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Povolit nebo zakázat tisk objektu</translation>
+        <translation type="obsolete">Povolit nebo zakázat tisk objektu</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Písmo vybraného textu nebo objektu</translation>
+        <translation type="obsolete">Písmo vybraného textu nebo objektu</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation>Upravit šířku znaků</translation>
+        <translation type="obsolete">Upravit šířku znaků</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Sytost barvy tahu textu</translation>
+        <translation type="obsolete">Sytost barvy tahu textu</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Sytost barvy výplně textu</translation>
+        <translation type="obsolete">Sytost barvy výplně textu</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Styl aktuálního odstavce</translation>
+        <translation type="obsolete">Styl aktuálního odstavce</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>Změnit nastavení pro levé nebo koncové body</translation>
+        <translation type="obsolete">Změnit nastavení pro levé nebo koncové body</translation>
     </message>
     <message>
         <source>Pattern of line</source>
-        <translation>Styl čáry</translation>
+        <translation type="obsolete">Styl čáry</translation>
     </message>
     <message>
         <source>Thickness of line</source>
-        <translation>Tloušťka čáry</translation>
+        <translation type="obsolete">Tloušťka čáry</translation>
     </message>
     <message>
         <source>Type of line joins</source>
-        <translation>Typ spojení čar</translation>
+        <translation type="obsolete">Typ spojení čar</translation>
     </message>
     <message>
         <source>Type of line end</source>
-        <translation>Typ ukončení čar</translation>
+        <translation type="obsolete">Typ ukončení čar</translation>
     </message>
     <message>
         <source>Line style of current object</source>
-        <translation>Styl čáry aktuálního objektu</translation>
+        <translation type="obsolete">Styl čáry aktuálního objektu</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation>Vybrat tvar rámce...</translation>
+        <translation type="obsolete">Vybrat tvar rámce...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation>Upravit tvar rámce...</translation>
+        <translation type="obsolete">Upravit tvar rámce...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
-        <translation>Nastavení poloměru zakulacení rohů</translation>
+        <translation type="obsolete">Nastavení poloměru zakulacení rohů</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Počet sloupců v textovém rámci</translation>
+        <translation type="obsolete">Počet sloupců v textovém rámci</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation>Vzdálenost mezi sloupci</translation>
+        <translation type="obsolete">Vzdálenost mezi sloupci</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation>Vzdálenost textu od horního okraje rámce</translation>
+        <translation type="obsolete">Vzdálenost textu od horního okraje rámce</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation>Vzdálenost textu od dolního okraje rámce</translation>
+        <translation type="obsolete">Vzdálenost textu od dolního okraje rámce</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation>Vzdálenost textu od levého okraje rámce</translation>
+        <translation type="obsolete">Vzdálenost textu od levého okraje rámce</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation>Vzdálenost textu od pravého okraje rámce</translation>
+        <translation type="obsolete">Vzdálenost textu od pravého okraje rámce</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Nastavit tabelátory v textovém rámci...</translation>
+        <translation type="obsolete">Nastavit tabelátory v textovém rámci...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
@@ -16754,19 +16887,19 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation>Vodorovné posunutí obrázku uvnitř rámce</translation>
+        <translation type="obsolete">Vodorovné posunutí obrázku uvnitř rámce</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation>Svislé posunutí obrázku uvnitř rámce</translation>
+        <translation type="obsolete">Svislé posunutí obrázku uvnitř rámce</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
-        <translation>Změnit šířku obrázku</translation>
+        <translation type="obsolete">Změnit šířku obrázku</translation>
     </message>
     <message>
         <source>Resize the image vertically</source>
-        <translation>Změnit výšku obrázku</translation>
+        <translation type="obsolete">Změnit výšku obrázku</translation>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
@@ -16782,31 +16915,31 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation>Čáry buňky v tabulce</translation>
+        <translation type="obsolete">Čáry buňky v tabulce</translation>
     </message>
     <message>
         <source>Line at Top</source>
-        <translation>Čára nahoře</translation>
+        <translation type="obsolete">Čára nahoře</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation>Čára vlevo</translation>
+        <translation type="obsolete">Čára vlevo</translation>
     </message>
     <message>
         <source>Line at the Right </source>
-        <translation>Čára vpravo</translation>
+        <translation type="obsolete">Čára vpravo</translation>
     </message>
     <message>
         <source>Line at Bottom</source>
-        <translation>Čára dole</translation>
+        <translation type="obsolete">Čára dole</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
-        <translation>Dodržet poměr</translation>
+        <translation type="obsolete">Dodržet poměr</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
-        <translation>Zdrojový profil obrázku</translation>
+        <translation type="obsolete">Zdrojový profil obrázku</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
@@ -16826,165 +16959,165 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Column width</source>
-        <translation>Šířka sloupce</translation>
+        <translation type="obsolete">Šířka sloupce</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
-        <translation>X, Y, &amp;Z</translation>
+        <translation type="obsolete">X, Y, &amp;Z</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;Tvar</translation>
+        <translation type="obsolete">&amp;Tvar</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation>&amp;Text</translation>
+        <translation type="obsolete">&amp;Text</translation>
     </message>
     <message>
         <source>&amp;Image</source>
-        <translation>&amp;Obrázek</translation>
+        <translation type="obsolete">&amp;Obrázek</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation>&amp;Čára</translation>
+        <translation type="obsolete">&amp;Čára</translation>
     </message>
     <message>
         <source>&amp;Colors</source>
-        <translation>&amp;Barvy</translation>
+        <translation type="obsolete">&amp;Barvy</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-Poz:</translation>
+        <translation type="obsolete">&amp;X-Poz:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-Poz:</translation>
+        <translation type="obsolete">&amp;Y-Poz:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>Šíř&amp;ka:</translation>
+        <translation type="obsolete">Šíř&amp;ka:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Výška:</translation>
+        <translation type="obsolete">&amp;Výška:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Otočení:</translation>
+        <translation type="obsolete">&amp;Otočení:</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation>Upravit &amp;tvar...</translation>
+        <translation type="obsolete">Upravit &amp;tvar...</translation>
     </message>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation>Zakulatit
+        <translation type="obsolete">Zakulatit
 &amp;rohy:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Sloupce:</translation>
+        <translation type="obsolete">&amp;Sloupce:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Mezera:</translation>
+        <translation type="obsolete">&amp;Mezera:</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
-        <translation>Na&amp;hoře:</translation>
+        <translation type="obsolete">Na&amp;hoře:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Dole:</translation>
+        <translation type="obsolete">&amp;Dole:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>V&amp;levo:</translation>
+        <translation type="obsolete">V&amp;levo:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>V&amp;pravo:</translation>
+        <translation type="obsolete">V&amp;pravo:</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
-        <translation>&amp;Tabelátory...</translation>
+        <translation type="obsolete">&amp;Tabelátory...</translation>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation>Te&amp;xt obtéká okolo rámce</translation>
+        <translation type="obsolete">Te&amp;xt obtéká okolo rámce</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation>Použít o&amp;hraničení obrázku</translation>
+        <translation type="obsolete">Použít o&amp;hraničení obrázku</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation>Použít &amp;obrysovou čáru</translation>
+        <translation type="obsolete">Použít &amp;obrysovou čáru</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation>St&amp;yl:</translation>
+        <translation type="obsolete">St&amp;yl:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation>&amp;Jazyk:</translation>
+        <translation type="obsolete">&amp;Jazyk:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>Vo&amp;lná změna velikosti</translation>
+        <translation type="obsolete">Vo&amp;lná změna velikosti</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation>X-Měří&amp;tko:</translation>
+        <translation type="obsolete">X-Měří&amp;tko:</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation>Y-Měřít&amp;ko:</translation>
+        <translation type="obsolete">Y-Měřít&amp;ko:</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>Přizpůsobi&amp;t rámci</translation>
+        <translation type="obsolete">Přizpůsobi&amp;t rámci</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
-        <translation>&amp;Proporcionálně</translation>
+        <translation type="obsolete">&amp;Proporcionálně</translation>
     </message>
     <message>
         <source>&amp;Basepoint:</source>
-        <translation>&amp;Střed otáčení:</translation>
+        <translation type="obsolete">&amp;Střed otáčení:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation>&amp;Typ čáry:</translation>
+        <translation type="obsolete">&amp;Typ čáry:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation>Tloušť&amp;ka čáry:</translation>
+        <translation type="obsolete">Tloušť&amp;ka čáry:</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
-        <translation>&amp;Hrany:</translation>
+        <translation type="obsolete">&amp;Hrany:</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
-        <translation>&amp;Ukončení:</translation>
+        <translation type="obsolete">&amp;Ukončení:</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
-        <translation>&amp;X1:</translation>
+        <translation type="obsolete">&amp;X1:</translation>
     </message>
     <message>
         <source>X&amp;2:</source>
-        <translation>X&amp;2:</translation>
+        <translation type="obsolete">X&amp;2:</translation>
     </message>
     <message>
         <source>Y&amp;1:</source>
-        <translation>Y&amp;1:</translation>
+        <translation type="obsolete">Y&amp;1:</translation>
     </message>
     <message>
         <source>&amp;Y2:</source>
-        <translation>&amp;Y2:</translation>
+        <translation type="obsolete">&amp;Y2:</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -16992,146 +17125,146 @@ Corners:</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation>Psaní zprava doleva</translation>
+        <translation type="obsolete">Psaní zprava doleva</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manuální prokládání textu</translation>
+        <translation type="obsolete">Manuální prokládání textu</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation>Pevné řádkování</translation>
+        <translation type="obsolete">Pevné řádkování</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Automatické řádkování</translation>
+        <translation type="obsolete">Automatické řádkování</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Zarovnat k pomocné mřížce</translation>
+        <translation type="obsolete">Zarovnat k pomocné mřížce</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation>Aktuální X-DPI:</translation>
+        <translation type="obsolete">Aktuální X-DPI:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation>Aktuální Y-DPI:</translation>
+        <translation type="obsolete">Aktuální Y-DPI:</translation>
     </message>
     <message>
         <source>Start Arrow:</source>
-        <translation>Počáteční šipka:</translation>
+        <translation type="obsolete">Počáteční šipka:</translation>
     </message>
     <message>
         <source>End Arrow:</source>
-        <translation>Koncová šipka:</translation>
+        <translation type="obsolete">Koncová šipka:</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation>Posunout vzhledem k účaří znaků</translation>
+        <translation type="obsolete">Posunout vzhledem k účaří znaků</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation>Upravit výšku znaků</translation>
+        <translation type="obsolete">Upravit výšku znaků</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Název &quot;%1&quot; není jedinečný.&lt;br/&gt;Zvolte prosím jiný.</translation>
+        <translation type="obsolete">Název &quot;%1&quot; není jedinečný.&lt;br/&gt;Zvolte prosím jiný.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation>Pravidla pro vyplňování</translation>
+        <translation type="obsolete">Pravidla pro vyplňování</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation>Sudý-lichý</translation>
+        <translation type="obsolete">Sudý-lichý</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation>Nenulový</translation>
+        <translation type="obsolete">Nenulový</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Barva tahu textu nebo stínu, podle výběru. Pokud jsou vybrané obě formátování, potom jsou stejnou barvou.</translation>
+        <translation type="obsolete">Barva tahu textu nebo stínu, podle výběru. Pokud jsou vybrané obě formátování, potom jsou stejnou barvou.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Barva vybraného textu. Pokud je povolen obrys textu, tato barva bude výplňová. Pokud je povoleno stínování textu, tato barva bude nejvýše.</translation>
+        <translation type="obsolete">Barva vybraného textu. Pokud je povolen obrys textu, tato barva bude výplňová. Pokud je povoleno stínování textu, tato barva bude nejvýše.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation>Nechat text v rámcích v nižších hladinách obtékat kolem objektu. Možnosti níže chování upřesňují.</translation>
+        <translation type="obsolete">Nechat text v rámcích v nižších hladinách obtékat kolem objektu. Možnosti níže chování upřesňují.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Pro obtékání textových rámců pod objektem použijte místo tvaru rámce raději ohraničení obrázku, který je vždy pravoúhlý. </translation>
+        <translation type="obsolete">Pro obtékání textových rámců pod objektem použijte místo tvaru rámce raději ohraničení obrázku, který je vždy pravoúhlý. </translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Pro obtékání textových rámců pod objektem použijte druhou čáru založenou na tvaru rámce. </translation>
+        <translation type="obsolete">Pro obtékání textových rámců pod objektem použijte druhou čáru založenou na tvaru rámce. </translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation>Auto</translation>
+        <translation type="obsolete">Auto</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation>Pro výběr řádkování stiskněte a držte tlačítko.</translation>
+        <translation type="obsolete">Pro výběr řádkování stiskněte a držte tlačítko.</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation>Povolit nebo zakázat exportování objektu</translation>
+        <translation type="obsolete">Povolit nebo zakázat exportování objektu</translation>
     </message>
 </context>
 <context>
     <name>MultiLine</name>
     <message>
         <source>Edit Style</source>
-        <translation>Upravit styl</translation>
+        <translation type="obsolete">Upravit styl</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation>Ostrá hlavička</translation>
+        <translation type="obsolete">Ostrá hlavička</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation>Čtvercová hlavička</translation>
+        <translation type="obsolete">Čtvercová hlavička</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation>Oblá hlavička</translation>
+        <translation type="obsolete">Oblá hlavička</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Kolmý spoj</translation>
+        <translation type="obsolete">Kolmý spoj</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Zkosený spoj</translation>
+        <translation type="obsolete">Zkosený spoj</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Oblý spoj</translation>
+        <translation type="obsolete">Oblý spoj</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Tloušťka čáry:</translation>
+        <translation type="obsolete">Tloušťka čáry:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Plná čára</translation>
+        <translation type="obsolete">Plná čára</translation>
     </message>
     <message>
         <source>Dashed Line</source>
@@ -17139,23 +17272,23 @@ Corners:</source>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Tečkovaná čára</translation>
+        <translation type="obsolete">Tečkovaná čára</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Čerchovaná čára</translation>
+        <translation type="obsolete">Čerchovaná čára</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Dvojitě čerchovaná čára</translation>
+        <translation type="obsolete">Dvojitě čerchovaná čára</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Název &quot;%1&quot; není jedinečný.&lt;br/&gt;Zvolte prosím jiný.</translation>
+        <translation type="obsolete">Název &quot;%1&quot; není jedinečný.&lt;br/&gt;Zvolte prosím jiný.</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
 </context>
 <context>
@@ -17185,15 +17318,15 @@ Corners:</source>
     <name>MultiProgressDialogBase</name>
     <message>
         <source>Progress</source>
-        <translation>Průběh</translation>
+        <translation type="obsolete">Průběh</translation>
     </message>
     <message>
         <source>Overall Progress:</source>
-        <translation>Celkový průběh:</translation>
+        <translation type="obsolete">Celkový průběh:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="obsolete">&amp;Zrušit</translation>
     </message>
 </context>
 <context>
@@ -17725,41 +17858,55 @@ Corners:</source>
 <context>
     <name>OODPlug</name>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="300"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation type="obsolete">Tento dokument nevypadá jako soubor OpenOffice Draw.</translation>
+        <translation type="unfinished">Tento dokument nevypadá jako soubor OpenOffice Draw.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="471"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="621"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="97"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="obsolete">Vložit OpenOffice.org &amp;Draw...</translation>
+        <translation type="unfinished">Vložit OpenOffice.org &amp;Draw...</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="112"/>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation type="obsolete">Vložit soubory OpenOffice Draw</translation>
+        <translation type="unfinished">Vložit soubory OpenOffice Draw</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="113"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Vloží do aktuálního dokumentu soubory OpenOffice.org Draw a převede vektory na objekty Scribusu.</translation>
+        <translation type="unfinished">Vloží do aktuálního dokumentu soubory OpenOffice.org Draw a převede vektory na objekty Scribusu.</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="127"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="obsolete">OpenDocument 1.0 Draw</translation>
+        <translation type="unfinished">OpenDocument 1.0 Draw</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="139"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="obsolete">OpenOffice.org 1.x Draw</translation>
+        <translation type="unfinished">OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="211"/>
         <source>This file contains some unsupported features</source>
-        <translation type="obsolete">Tento soubor obsahuje nějaké nepodporované vlastnosti</translation>
+        <translation type="unfinished">Tento soubor obsahuje nějaké nepodporované vlastnosti</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="209"/>
         <source>The file could not be imported</source>
-        <translation type="obsolete">Soubor nelze vložit</translation>
+        <translation type="unfinished">Soubor nelze vložit</translation>
     </message>
 </context>
 <context>
@@ -18026,37 +18173,37 @@ Corners:</source>
         <translation>Exportují se objekty na aktuální stránce:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="2444"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="2445"/>
         <source>Page:</source>
         <translation>Stránka:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="2457"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="2458"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7740"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7751"/>
         <source>Failed to load an image : %1</source>
         <translation>Chyba při nahrávání obrázku: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7745"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7756"/>
         <source>Failed to write an image : %1</source>
         <translation>Chyba při ukládání obrázku: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7750"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7761"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Chyba při nahrávání masky obrázku: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7755"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7766"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Nedostatek paměti pro zpracování obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="7735"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="7746"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Při ukládání došlo k chybě. Prosím, zkontrolujte volné místo na disku</translation>
     </message>
@@ -18091,138 +18238,143 @@ Corners:</source>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="82"/>
+        <location filename="../../../scribus/preview.cpp" line="84"/>
         <source>Print Preview</source>
         <translation>Náhled před tiskem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="588"/>
-        <location filename="../../../scribus/preview.cpp" line="691"/>
+        <location filename="../../../scribus/preview.cpp" line="590"/>
+        <location filename="../../../scribus/preview.cpp" line="696"/>
         <source>All</source>
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="356"/>
+        <location filename="../../../scribus/preview.cpp" line="358"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Zobrazí průhlednost a průhledné objekty v dokumentu. Vyžaduje Ghostscript 7.07 nebo novější</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="357"/>
+        <location filename="../../../scribus/preview.cpp" line="359"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Vytvoří náhled tisku simulací CMYK inkoustů místo RGB barev</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="380"/>
+        <location filename="../../../scribus/preview.cpp" line="382"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>Povolí/zakáže C (Cyan) složku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="381"/>
+        <location filename="../../../scribus/preview.cpp" line="383"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>Povolí/zakáže M (Magenta) složku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="382"/>
+        <location filename="../../../scribus/preview.cpp" line="384"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Povolí/zakáže Y (Yellow) složku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="383"/>
+        <location filename="../../../scribus/preview.cpp" line="385"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Povolí/zakáže B (Black) složku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="134"/>
+        <location filename="../../../scribus/preview.cpp" line="136"/>
         <source>Display Trans&amp;parency</source>
         <translation>Zobrazit &amp;průhlednost</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="139"/>
+        <location filename="../../../scribus/preview.cpp" line="141"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Zobrazit CMYK</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="236"/>
+        <location filename="../../../scribus/preview.cpp" line="238"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="241"/>
+        <location filename="../../../scribus/preview.cpp" line="243"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="246"/>
+        <location filename="../../../scribus/preview.cpp" line="248"/>
         <source>&amp;Y</source>
         <translation>&amp;Y</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="251"/>
+        <location filename="../../../scribus/preview.cpp" line="253"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="278"/>
+        <location filename="../../../scribus/preview.cpp" line="280"/>
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Under Color Removal</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="152"/>
+        <location filename="../../../scribus/preview.cpp" line="154"/>
         <source>Separation Name</source>
         <translation>Název separace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="164"/>
+        <location filename="../../../scribus/preview.cpp" line="166"/>
         <source>Cyan</source>
         <translation>Tyrkysová</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="171"/>
+        <location filename="../../../scribus/preview.cpp" line="173"/>
         <source>Magenta</source>
         <translation>Purpurová</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="178"/>
+        <location filename="../../../scribus/preview.cpp" line="180"/>
         <source>Yellow</source>
         <translation>Žlutá (Yellow)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="185"/>
+        <location filename="../../../scribus/preview.cpp" line="187"/>
         <source>Black</source>
         <translation>Černá (Black)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="299"/>
+        <location filename="../../../scribus/preview.cpp" line="262"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Nastavení náhledu</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/preview.cpp" line="301"/>
         <source>Scaling:</source>
         <translation>Zvětšení:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="327"/>
+        <location filename="../../../scribus/preview.cpp" line="329"/>
         <source>Print...</source>
         <translation>Tisk...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="358"/>
+        <location filename="../../../scribus/preview.cpp" line="360"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Způsob, jak odstranit některé odstíny šedé, které jsou tvořeny tyrkysovou, žlutou a purpurovou, a použít místo nich černou. UCR ovlivní části obrázku, které jsou neutrální a/nebo obsahují tmavé tóny blízké šedé. Můžete tak vylepšit tisk některých obrázků, je ale nutné to vyzkoušet v praxi a trochu experimentovat. UCR snižuje riziko přesycení v případě CMY inkoustů.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="359"/>
+        <location filename="../../../scribus/preview.cpp" line="361"/>
         <source>Resize the scale of the page.</source>
         <translation>Změnit měřítko stránky.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="324"/>
+        <location filename="../../../scribus/preview.cpp" line="326"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="1257"/>
+        <location filename="../../../scribus/preview.cpp" line="1269"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="129"/>
+        <location filename="../../../scribus/preview.cpp" line="131"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Povolit &amp;vyhlazování</translation>
     </message>
@@ -18231,22 +18383,21 @@ Corners:</source>
         <translation type="obsolete">Umožňuje hezčí náhled písem Type 1, TrueType, OpenType, EPS, PDF a vektorové grafiky, ovšem za cenu zpomalení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="123"/>
+        <location filename="../../../scribus/preview.cpp" line="125"/>
         <source>Display Settings</source>
         <translation>Nastavení zobrazení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="260"/>
         <source>Print Settings</source>
-        <translation>Nastavení tisku</translation>
+        <translation type="obsolete">Nastavení tisku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="266"/>
+        <location filename="../../../scribus/preview.cpp" line="268"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Zrcadlit stránky vodorovně</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="269"/>
+        <location filename="../../../scribus/preview.cpp" line="271"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Zrcadlit stránky svisle</translation>
     </message>
@@ -18255,72 +18406,72 @@ Corners:</source>
         <translation type="obsolete">Zmenšit na okraje stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="275"/>
+        <location filename="../../../scribus/preview.cpp" line="277"/>
         <source>Print in Grayscale</source>
         <translation>Tisknout v odstínech šedé</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="281"/>
+        <location filename="../../../scribus/preview.cpp" line="283"/>
         <source>Convert Spot Colors</source>
         <translation>Konvertovat přímé barvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="284"/>
+        <location filename="../../../scribus/preview.cpp" line="286"/>
         <source>Apply Color Profiles</source>
         <translation>Použít profily barev</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="311"/>
+        <location filename="../../../scribus/preview.cpp" line="313"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="312"/>
+        <location filename="../../../scribus/preview.cpp" line="314"/>
         <source>Fit to Height</source>
         <translation>Přizpůsobit výšce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="313"/>
+        <location filename="../../../scribus/preview.cpp" line="315"/>
         <source>Fit to Page</source>
         <translation>Přizpůsobit stránce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="355"/>
+        <location filename="../../../scribus/preview.cpp" line="357"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Umožňuje hezčí náhled písem Type 1, TrueType, OpenType, EPS, PDF a vektorové grafiky, ovšem za cenu zpomalení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="360"/>
+        <location filename="../../../scribus/preview.cpp" line="362"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Povolí převod přímých barev na kompozitní. Pokud neplánujete tisk přímých barev na komerční tiskárně, je zřejmě lepší nechat tuto volbu povolenou.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="361"/>
+        <location filename="../../../scribus/preview.cpp" line="363"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation>Umožní vložit do tiskového proudu profily barev, pokud je povolena správa barev</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="272"/>
+        <location filename="../../../scribus/preview.cpp" line="274"/>
         <source>Clip to Printer Margins</source>
         <translation>Zmenšit na okraje stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="206"/>
+        <location filename="../../../scribus/preview.cpp" line="208"/>
         <source>Display Ink Coverage</source>
         <translation>Ukázat pokrytí barvou</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="214"/>
+        <location filename="../../../scribus/preview.cpp" line="216"/>
         <source>Threshold:</source>
         <translation>Práh:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="217"/>
+        <location filename="../../../scribus/preview.cpp" line="219"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../../scribus/preview.cpp" line="221"/>
+        <location filename="../../../scribus/preview.cpp" line="223"/>
         <source>None</source>
         <translation>Žádný</translation>
     </message>
@@ -18369,38 +18520,38 @@ Corners:</source>
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="390"/>
+        <location filename="../../../scribus/pageitem.cpp" line="391"/>
         <source>Image</source>
         <translation>Obrázek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="394"/>
+        <location filename="../../../scribus/pageitem.cpp" line="395"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="398"/>
+        <location filename="../../../scribus/pageitem.cpp" line="399"/>
         <source>Line</source>
         <translation>Čára</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="402"/>
+        <location filename="../../../scribus/pageitem.cpp" line="403"/>
         <source>Polygon</source>
         <translation>Mnohoúhelník</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="406"/>
+        <location filename="../../../scribus/pageitem.cpp" line="407"/>
         <source>Polyline</source>
         <translation>Lomená čára</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="410"/>
+        <location filename="../../../scribus/pageitem.cpp" line="411"/>
         <source>PathText</source>
         <translation>Text na křivky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="3756"/>
         <location filename="../../../scribus/pageitem.cpp" line="3757"/>
+        <location filename="../../../scribus/pageitem.cpp" line="3758"/>
         <source>Copy of</source>
         <translation>Kopie</translation>
     </message>
@@ -18817,32 +18968,32 @@ Corners:</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3578"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3418"/>
         <source>Linked Text</source>
         <translation>Zřeťezený text</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3580"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3420"/>
         <source>Text Frame</source>
         <translation>Textový rámec</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3584"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3424"/>
         <source>Paragraphs: </source>
         <translation>Odstavce:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3592"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3432"/>
         <source>Lines: </source>
         <translation>Řádků:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3598"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3438"/>
         <source>Words: </source>
         <translation>Slov:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem_textframe.cpp" line="3606"/>
+        <location filename="../../../scribus/pageitem_textframe.cpp" line="3446"/>
         <source>Chars: </source>
         <translation>Znaků:</translation>
     </message>
@@ -19590,6 +19741,29 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
 </context>
 <context>
+    <name>PctPlug</name>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="82"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="85"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Zkoumá se soubor:</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="211"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="370"/>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PicSearch</name>
     <message>
         <location filename="../../../scribus/picsearch.ui" line="14"/>
@@ -20105,39 +20279,39 @@ Please choose another one.</source>
 <context>
     <name>PixmapExportPlugin</name>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="59"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="60"/>
         <source>Save as &amp;Image...</source>
         <translation>Uložit jako &amp;obrázek...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="70"/>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="78"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="71"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="79"/>
         <source>Export As Image</source>
         <translation>Exportovat jako obrázek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="79"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="80"/>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Exportuje vybrané stránky jako bitmapové obrázky.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="145"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="146"/>
         <source>Export successful</source>
         <translation>Export byl úspěšný</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="117"/>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="118"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="124"/>
         <source>Save as Image</source>
         <translation>Uložit jako obrázek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="118"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="119"/>
         <source>The target location %1 must be an existing directory</source>
         <translation>Cílové umístění %1 musí existovat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="124"/>
+        <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="125"/>
         <source>The target location %1 must be writable</source>
         <translation>Na cílové umístění %1 musí jít zapisovat</translation>
     </message>
@@ -21321,18 +21495,28 @@ t.j. interval, nebo jediné číslo stránky.</translation>
         <translation>Použít Under Color Removal</translation>
     </message>
     <message>
-        <location filename="../../../scribus/printdialogbase.ui" line="397"/>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/printdialogbase.ui" line="400"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Konvertovat přímé barvy na procesní barvy</translation>
     </message>
     <message>
+        <location filename="../../../scribus/printdialogbase.ui" line="361"/>
+        <source>&lt;qt&gt;This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/printdialogbase.ui" line="387"/>
+        <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/printdialogbase.ui" line="397"/>
+        <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/printdialogbase.ui" line="407"/>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <source>&lt;qt&gt;Allows you to embed color profiles in the print stream when color management is enabled&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21478,26 +21662,20 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
         <translation>Vložit PDF anotace a odkazy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/printdialogbase.ui" line="361"/>
-        <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/printdialogbase.ui" line="371"/>
         <source>Clip to Printer Margins</source>
         <translation>Zmenšit na okraje stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/printdialogbase.ui" line="387"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Způsob, jak odstranit některé odstíny šedé, které jsou tvořeny tyrkysovou, žlutou a purpurovou, a použít místo nich černou. UCR ovlivní části obrázku, které jsou neutrální a/nebo obsahují tmavé tóny blízké šedé. Můžete tak vylepšit tisk některých obrázků, je ale nutné to vyzkoušet v praxi a trochu experimentovat. UCR snižuje riziko přesycení v případě CMY inkoustů.</translation>
+        <translation type="obsolete">Způsob, jak odstranit některé odstíny šedé, které jsou tvořeny tyrkysovou, žlutou a purpurovou, a použít místo nich černou. UCR ovlivní části obrázku, které jsou neutrální a/nebo obsahují tmavé tóny blízké šedé. Můžete tak vylepšit tisk některých obrázků, je ale nutné to vyzkoušet v praxi a trochu experimentovat. UCR snižuje riziko přesycení v případě CMY inkoustů.</translation>
     </message>
 </context>
 <context>
     <name>PropertiesPalette</name>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="842"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5217"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5227"/>
         <source>First Line Offset</source>
         <translation>Posunutí prvního řádku</translation>
     </message>
@@ -21513,28 +21691,28 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="834"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5484"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5494"/>
         <source>Line Spacing</source>
         <translation>řádkování</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="669"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5126"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5136"/>
         <source>Transparency Settings</source>
         <translation>Nastavení průhlednosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5240"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5250"/>
         <source>Fixed Linespacing</source>
         <translation>Pevné řádkování</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5241"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5251"/>
         <source>Automatic Linespacing</source>
         <translation>Automatické řádkování</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5242"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5252"/>
         <source>Align to Baseline Grid</source>
         <translation>Zarovnat k pomocné mřížce</translation>
     </message>
@@ -21546,7 +21724,7 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="1393"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5254"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5264"/>
         <source>Custom</source>
         <translation>Vlastní</translation>
     </message>
@@ -21556,8 +21734,8 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="2421"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="2516"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="4049"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5113"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5224"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5123"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5234"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Poz:</translation>
     </message>
@@ -21567,7 +21745,7 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="2422"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="2517"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="4050"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5115"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5125"/>
         <source>&amp;Width:</source>
         <translation>Šíř&amp;ka:</translation>
     </message>
@@ -21577,8 +21755,8 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="2423"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="2518"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="4051"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5114"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5225"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5124"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5235"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Poz:</translation>
     </message>
@@ -21588,7 +21766,7 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="2424"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="2519"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="4052"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5116"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5126"/>
         <source>&amp;Height:</source>
         <translation>&amp;Výška:</translation>
     </message>
@@ -21618,7 +21796,7 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="3821"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5517"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5527"/>
         <source>Distance between columns</source>
         <translation>Vzdálenost mezi sloupci</translation>
     </message>
@@ -21629,7 +21807,7 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="4644"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5342"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5352"/>
         <source>No Style</source>
         <translation>Bez stylu</translation>
     </message>
@@ -21639,170 +21817,170 @@ Pozn.: PDF forumuláře nebudou exportovány.</translation>
         <translation>Název &quot;%1&quot; není jedinečný.&lt;br/&gt;Zvolte prosím jiný.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5101"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5111"/>
         <source>Properties</source>
         <translation>Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5103"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5113"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5104"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5114"/>
         <source>&amp;Text</source>
         <translation>&amp;Text</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5105"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5115"/>
         <source>&amp;Image</source>
         <translation>&amp;Obrázek</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5106"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5116"/>
         <source>&amp;Shape</source>
         <translation>&amp;Tvar</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5107"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5117"/>
         <source>&amp;Line</source>
         <translation>Čár&amp;a</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5108"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5118"/>
         <source>&amp;Colors</source>
         <translation>&amp;Barvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5109"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5119"/>
         <source>&amp;Group</source>
         <translation>&amp;Seskupit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5111"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5121"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5112"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5122"/>
         <source>Geometry</source>
         <translation>Geometrie</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5117"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5127"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Otočení:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5118"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5128"/>
         <source>Basepoint:</source>
         <translation>Střed otáčení:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5119"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5129"/>
         <source>Level</source>
         <translation>Hladina</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5120"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5125"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5130"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5135"/>
         <source>Shape:</source>
         <translation>Tvar:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5123"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5124"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5133"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5134"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Upravit...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5127"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5137"/>
         <source>Opacity:</source>
         <translation>Neprůsvitnost:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5128"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5138"/>
         <source>Blend Mode:</source>
         <translation>Režim směšování:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5131"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5141"/>
         <source>Normal</source>
         <translation>Normální</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5132"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5142"/>
         <source>Darken</source>
         <translation>Ztmavit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5133"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5143"/>
         <source>Lighten</source>
         <translation>Zesvětlit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5134"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5144"/>
         <source>Multiply</source>
         <translation>Násobit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5135"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5145"/>
         <source>Screen</source>
         <translation>Závoj</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5136"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5146"/>
         <source>Overlay</source>
         <translation>Překrýt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5137"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5147"/>
         <source>Hard Light</source>
         <translation>Tvrdé světlo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5138"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5148"/>
         <source>Soft Light</source>
         <translation>Měkké světlo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5139"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5149"/>
         <source>Difference</source>
         <translation>Rozdíl</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5140"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5150"/>
         <source>Exclusion</source>
         <translation>Vyloučit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5141"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5151"/>
         <source>Color Dodge</source>
         <translation>Zesvětlit barvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5142"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5152"/>
         <source>Color Burn</source>
         <translation>Ztmavit barvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5143"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5153"/>
         <source>Hue</source>
         <translation>Odstín</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5144"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5248"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5154"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5258"/>
         <source>Saturation</source>
         <translation>Sytost</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5145"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5155"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5147"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5157"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>Zakulatit
@@ -21813,490 +21991,490 @@ Corners:</source>
         <translation type="obsolete">Vzdálenost textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5148"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5158"/>
         <source>Colu&amp;mns:</source>
         <translation>S&amp;loupce:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5151"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5161"/>
         <source>Gap:</source>
         <translation>Mezera:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5152"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5162"/>
         <source>Width:</source>
         <translation>Šířka:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5155"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5165"/>
         <source>To&amp;p:</source>
         <translation>&amp;Horní:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5156"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5166"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Dolní:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5157"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5167"/>
         <source>&amp;Left:</source>
         <translation>&amp;Levý:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5158"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5168"/>
         <source>&amp;Right:</source>
         <translation>&amp;Pravý:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5159"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5169"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabelátory...</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="1054"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5219"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5229"/>
         <source>Path Text Properties</source>
         <translation>Vlastnosti textu na křivce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5163"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5173"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5164"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5174"/>
         <source>Stair Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5165"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5175"/>
         <source>Skew</source>
         <translation>Zkosit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5167"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5177"/>
         <source>Flip Text</source>
         <translation type="unfinished">Obrátit text</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5168"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5178"/>
         <source>Show Curve</source>
         <translation>Zobrazit křivku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5169"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5179"/>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5170"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5180"/>
         <source>Start Offset:</source>
         <translation>Počáteční posun:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5171"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5181"/>
         <source>Distance from Curve:</source>
         <translation>Vzdálenost od křivky:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5172"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5182"/>
         <source>Fill Rule</source>
         <translation>Pravidla pro vyplňování</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5173"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5183"/>
         <source>Even-Odd</source>
         <translation>Sudý-lichý</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5174"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5184"/>
         <source>Non Zero</source>
         <translation>Nenulový</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5175"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5181"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5185"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5191"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Text ob&amp;téká okolo rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5176"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5182"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5186"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5192"/>
         <source>Disabled</source>
         <translation>Zakázáno</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5177"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5183"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5187"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5193"/>
         <source>Use Frame &amp;Shape</source>
         <translation>Použít tvar &amp;rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5178"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5184"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5188"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5194"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Použít o&amp;hraničení obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5179"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5185"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5189"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5195"/>
         <source>&amp;Use Contour Line</source>
         <translation>Použít &amp;obrysovou čáru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5180"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5186"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5190"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5196"/>
         <source>Use Image Clip Path</source>
         <translation>Použít ořezovou cestu obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5187"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5197"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>St&amp;yl odstavce:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5188"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5198"/>
         <source>Character St&amp;yle:</source>
         <translation>St&amp;yl znaku:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5208"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5218"/>
         <source>Word Tracking</source>
         <translation>Prokládání textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5209"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5212"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5219"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5222"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5210"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5220"/>
         <source>Norm:</source>
         <translation>Norm:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5211"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5221"/>
         <source>Glyph Extension</source>
         <translation>Šířka znaků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5213"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5223"/>
         <source>Max:</source>
         <translation>Max:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5221"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5231"/>
         <source>&amp;Free Scaling</source>
         <translation>Vo&amp;lná změna velikosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5222"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5232"/>
         <source>Actual X-DPI:</source>
         <translation>Aktuální X-DPI:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5223"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5233"/>
         <source>Actual Y-DPI:</source>
         <translation>Aktuální Y-DPI:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5226"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5236"/>
         <source>X-Sc&amp;ale:</source>
         <translation>X-Měří&amp;tko:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5227"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5237"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Y-Měřít&amp;ko:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5228"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5238"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Přizpůsobi&amp;t obrázek rámci</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5229"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5239"/>
         <source>P&amp;roportional</source>
         <translation>&amp;Proporcionálně</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5230"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5240"/>
         <source>Image Effects</source>
         <translation>Efekty obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5231"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5241"/>
         <source>Extended Image Properties</source>
         <translation>Rozšířené vlastnosti obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5232"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5242"/>
         <source>Input Profile:</source>
         <translation>Vložit profil:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5233"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5243"/>
         <source>Rendering Intent:</source>
         <translation>Účel reprodukce:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5246"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5256"/>
         <source>Perceptual</source>
         <translation>Perceptuální (fotografická) transformace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5247"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5257"/>
         <source>Relative Colorimetric</source>
         <translation>Relativní kolorimetrická transformace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5249"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5259"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolutní kolorimetrická transformace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5258"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5268"/>
         <source>Left Point</source>
         <translation>Levý bod</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5259"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5269"/>
         <source>End Points</source>
         <translation>Koncové body</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5261"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5271"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Střed otáčení:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5262"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5272"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Typ čáry:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5263"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5273"/>
         <source>Start Arrow:</source>
         <translation>Počáteční šipka:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5264"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5274"/>
         <source>End Arrow:</source>
         <translation>Koncová šipka:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5274"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5284"/>
         <source>Line &amp;Width:</source>
         <translation>Tloušť&amp;ka čáry:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5275"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5285"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Hrany:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5278"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5288"/>
         <source>Miter Join</source>
         <translation>Kolmý spoj</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5279"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5289"/>
         <source>Bevel Join</source>
         <translation>Zkosený spoj</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5280"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5290"/>
         <source>Round Join</source>
         <translation>Oblý spoj</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5285"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5295"/>
         <source>Flat Cap</source>
         <translation>Ostrá hlavička</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5286"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5296"/>
         <source>Square Cap</source>
         <translation>Čtvercová hlavička</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5287"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5297"/>
         <source>Round Cap</source>
         <translation>Oblá hlavička</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5289"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5299"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Ukončení:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5291"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5301"/>
         <source>Cell Lines</source>
         <translation>Čáry buňky v tabulce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5292"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5302"/>
         <source>Line at Top</source>
         <translation>Čára nahoře</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5293"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5303"/>
         <source>Line at the Left</source>
         <translation>Čára vlevo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5294"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5304"/>
         <source>Line at the Right </source>
         <translation>Čára vpravo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5295"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5305"/>
         <source>Line at Bottom</source>
         <translation>Čára dole</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5297"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5307"/>
         <source>Overprinting</source>
         <translation>Přetisk</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5298"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5308"/>
         <source>Knockout</source>
         <translation>Vykrojení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5299"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5309"/>
         <source>Overprint</source>
         <translation>Přetisk</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5301"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5311"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5315"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5325"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5437"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5447"/>
         <source>Name of selected object</source>
         <translation>Název vybraného objektu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5438"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5448"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Vodorovné umístění středu otáčení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5439"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5449"/>
         <source>Vertical position of current basepoint</source>
         <translation>Svislé umístění středu otáčení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5440"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5450"/>
         <source>Width</source>
         <translation>Šířka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5441"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5451"/>
         <source>Height</source>
         <translation>Výška</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5442"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5452"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Otočení objektu podle aktuálního středu otáčení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5443"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5453"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Bod, od kterého jsou odvozeny vzdálenosti nebo úhly otočení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5449"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5459"/>
         <source>Group the selected objects</source>
         <translation>Seskupit vybrané objekty</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5451"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5461"/>
         <source>Flip Horizontal</source>
         <translation>Překlopit vodorovně</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5452"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5462"/>
         <source>Flip Vertical</source>
         <translation>Překlopit svisle</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5453"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5463"/>
         <source>Move one level up</source>
         <translation>O hladinu výš</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5454"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5464"/>
         <source>Move one level down</source>
         <translation>O hladinu níž</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5455"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5465"/>
         <source>Move to front</source>
         <translation>Přesunout navrch</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5456"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5466"/>
         <source>Move to back</source>
         <translation>Přesunout dospodu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5457"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5467"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Ukazuje hladinu zvoleného objektu. 0 znamená, že je objekt nejníž</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5458"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5468"/>
         <source>Lock or unlock the object</source>
         <translation>Zamknout nebo odemknout objekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5459"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5469"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Zamknout nebo odemknout rozměry objektu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5460"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5470"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Povolit nebo zakázat exportování objektu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5462"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5467"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5472"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5477"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Zakázat obtékání textu v nižších vrstvách okolo objektu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5463"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5468"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5473"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5478"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Pro obtékání textu pod objektem se použije tvar rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5464"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5469"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5474"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5479"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Pro obtékání textu pod objektem použijte místo tvaru rámce raději bounding box, který je vždy pravoúhlý. </translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5465"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5470"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5475"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5480"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished">Obrysová čára může být upravena pomocí nástroje pro Úpravu tvaru (v paletě nahoře). Jestliže je upravena pomocí palety tvarů, stane se z ní rozdělená čára, která </translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5466"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5471"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5476"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5481"/>
         <source>Use the clipping path of the image</source>
         <translation>Použít ořezovou cestu obrázku</translation>
     </message>
@@ -22305,52 +22483,52 @@ Corners:</source>
         <translation type="obsolete">Písmo vybraného textu nebo objektu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5474"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5484"/>
         <source>Font Size</source>
         <translation>Velikost písma</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5475"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5485"/>
         <source>Offset to baseline of characters</source>
         <translation>Posunout vzhledem k účaří znaků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5476"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5486"/>
         <source>Scaling width of characters</source>
         <translation>Upravit šířku znaků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5477"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5487"/>
         <source>Scaling height of characters</source>
         <translation>Upravit výšku znaků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5478"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5488"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation type="unfinished">Barva tahu textu nebo stínu, podle výběru. Pokud jsou vybrána obě formátování, potom jsou stejnou barvou.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5479"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5489"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished">Barva vybraného textu. Pokud je povolen obrys textu, tato barva bude výplňová. Pokud je povoleno stínování textu, tato barva bude nejvýše.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5480"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5490"/>
         <source>Saturation of color of text stroke</source>
         <translation>Sytost barvy tahu textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5481"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5491"/>
         <source>Saturation of color of text fill</source>
         <translation>Sytost barvy výplně textu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5482"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5492"/>
         <source>Right to Left Writing</source>
         <translation>Psaní zprava doleva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5483"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5493"/>
         <source>Manual Tracking</source>
         <translation>Manuální prokládání textu</translation>
     </message>
@@ -22359,195 +22537,195 @@ Corners:</source>
         <translation type="obsolete">Pro výběr řádkování stiskněte a držte tlačítko.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5487"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5497"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Styl odstavce aktuálně vybraného textu nebo odstavce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5488"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5498"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Styl znaku aktuálně vybraného textu nebo odstavce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5489"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5499"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5490"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5500"/>
         <source>Remove Direct Character Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5497"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5507"/>
         <source>Minimal width of spaces between words</source>
         <translation>Minimální šířka mezislovních mezer</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5498"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5508"/>
         <source>Normal width of spaces between words</source>
         <translation>Normální šířka mezislovních mezer</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5499"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5509"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Minimální šířka znaků pro vyrovnávání</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5500"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5510"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Maximální šířka znaků pro vyrovnávání</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5503"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5513"/>
         <source>Change settings for left or end points</source>
         <translation>Změnit nastavení pro levé nebo koncové body</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5504"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5514"/>
         <source>Pattern of line</source>
         <translation>Styl čáry</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5505"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5515"/>
         <source>Thickness of line</source>
         <translation>Tloušťka čáry</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5506"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5516"/>
         <source>Type of line joins</source>
         <translation>Typy spojení čáry</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5507"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5517"/>
         <source>Type of line end</source>
         <translation>Typy ukončení čáry</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5508"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5518"/>
         <source>Line style of current object</source>
         <translation>Styl čáry aktuálního objektu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5512"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5522"/>
         <source>Choose the shape of frame...</source>
         <translation>Vyberte tvar rámce...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5513"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5523"/>
         <source>Edit shape of the frame...</source>
         <translation>Upravit tvar rámce...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5514"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5524"/>
         <source>Set radius of corner rounding</source>
         <translation>Nastavní poloměru zakulacení rohů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5515"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5525"/>
         <source>Number of columns in text frame</source>
         <translation>Počet sloupců v textovém rámci</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5516"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5526"/>
         <source>Switches between Gap or Column width</source>
         <translation>Přepíná mezi mezisloupcovou mezerou a šířkou sloupce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5518"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5528"/>
         <source>Distance of text from top of frame</source>
         <translation>Vzdálenost textu od horního okraje rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5519"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5529"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Vzdálenost textu od dolního okraje rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5520"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5530"/>
         <source>Distance of text from left of frame</source>
         <translation>Vzdálenost textu od levého okraje rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5521"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5531"/>
         <source>Distance of text from right of frame</source>
         <translation>Vzdálenost textu od pravého okraje rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5522"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5532"/>
         <source>Edit tab settings of text frame...</source>
         <translation type="unfinished">Nastavit tabelátory v textového rámci...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5524"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5534"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Umožní nastavit jiné rozměry obrázku než rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5525"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5535"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Vodorovné posunutí obrázku uvnitř rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5526"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5536"/>
         <source>Vertical offset of image within frame</source>
         <translation>Svislé posunutí obrázku uvnitř rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5527"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5537"/>
         <source>Resize the image horizontally</source>
         <translation>Změnit šířku obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5528"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5538"/>
         <source>Resize the image vertically</source>
         <translation>Změnit výšku obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5529"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5539"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Použít stejnou změnu velikosti pro oba rozměry (X a Y)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5530"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5540"/>
         <source>Keep the aspect ratio</source>
         <translation>Dodržet poměr</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5531"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5541"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Obrázek změní velikost podle rozměru rámce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5534"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5544"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation type="unfinished">Obrázek si zachová své proporce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5535"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5545"/>
         <source>Source profile of the image</source>
         <translation>Zdrojový profil obrázku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5536"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5546"/>
         <source>Rendering intent for the image</source>
         <translation type="unfinished">Účel reprodukce obrázku</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="794"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5214"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5224"/>
         <source>Color &amp; Effects</source>
         <translation>Barva &amp; efekty</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="1018"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5215"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5225"/>
         <source>Advanced Settings</source>
         <translation>Pokročilé nastavení</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="825"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5216"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5226"/>
         <source>Style Settings</source>
         <translation>Nastavení stylu</translation>
     </message>
@@ -22557,44 +22735,44 @@ Corners:</source>
         <translation>Účaří</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5450"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5460"/>
         <source>Ungroup the selected group</source>
         <translation>Zrušit seskupení vybraného seskupení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5486"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5496"/>
         <source>Select the line spacing mode.</source>
         <translation>Vybrat způsob řádkování.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5493"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5503"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation>Nastaví vzdálenost prvního řádku podle nejvyššího použitého písmene</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5494"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5504"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation>Nastaví vzdálenost prvního řádku podle nejvyššího písmene použitého písma</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5495"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5505"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
         <translation>Nastaví vzdálenost prvního řádku podle řádkování</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5220"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5230"/>
         <source>&amp;Page Number:</source>
         <translation>Číslo &amp;stránky:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="898"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5218"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5228"/>
         <source>Columns &amp; Text Distances</source>
         <translation>Sloupce &amp; vzdálenost textu</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="936"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5207"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5217"/>
         <source>Reset</source>
         <translation>Vynulovat</translation>
     </message>
@@ -22604,55 +22782,55 @@ Corners:</source>
         <translation>Optické okraje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5324"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5334"/>
         <source>Hairline</source>
         <translation>Vlasová čára</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="932"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5203"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5213"/>
         <source>None</source>
         <comment>optical margins</comment>
         <translation>Žádné</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="933"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5204"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5214"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
         <translation>Na obou stranách</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="934"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5205"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5215"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
         <translation>Pouze vlevo</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="935"/>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5206"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5216"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
         <translation>Pouze vpravo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5509"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5519"/>
         <source>Arrow head style for start of line</source>
         <translation>Styl šipky na začátku čáry</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5510"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5520"/>
         <source>Arrow head style for end of line</source>
         <translation>Styl šipky na konci čáry</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5532"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5542"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>Efektivní vodorovné DPI obrázku po změně velikosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/propertiespalette.cpp" line="5533"/>
+        <location filename="../../../scribus/propertiespalette.cpp" line="5543"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>Efektivní svislé DPI obrázku po změně velikosti</translation>
     </message>
@@ -23334,11 +23512,19 @@ Zkontrolujte cestu a název souboru.</translation>
         <translation>Pozadí</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="127"/>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="173"/>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
+        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="137"/>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="159"/>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="146"/>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="126"/>
         <source>Open</source>
-        <translation type="obsolete">Otevřít</translation>
+        <translation type="unfinished">Otevřít</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="126"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="127"/>
         <source>Save as</source>
         <translation>Uložit jako</translation>
     </message>
@@ -23600,17 +23786,17 @@ Zkontrolujte cestu a název souboru.</translation>
         <translation>Textové soubory</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/csvim/csvim.cpp" line="12"/>
+        <location filename="../../../scribus/plugins/gettext/csvim/csvim.cpp" line="13"/>
         <source>Comma Separated Value Files</source>
         <translation>Soubory CSV (čárkou oddělené hodnoty)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/csvim/csvim.cpp" line="58"/>
+        <location filename="../../../scribus/plugins/gettext/csvim/csvim.cpp" line="59"/>
         <source>CSV_data</source>
         <translation>CSV_data</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/gettext/csvim/csvim.cpp" line="62"/>
+        <location filename="../../../scribus/plugins/gettext/csvim/csvim.cpp" line="63"/>
         <source>CSV_header</source>
         <translation>CSV_hlavička</translation>
     </message>
@@ -24066,7 +24252,7 @@ Odkazy ven
         <translation>Barva nebyla ve výchozích barvách nalezena.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="291"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="338"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>Nelze změnit velikost o 0%.</translation>
@@ -24074,7 +24260,8 @@ Odkazy ven
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="49"/>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="72"/>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="406"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="97"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="453"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Specifikovaný objekt není obrázkový rámec.</translation>
@@ -24457,7 +24644,7 @@ Načíst nastavení PDF</translation>
         <translation>element &lt;lpiSettingsEntry&gt; neobsahuje vlastnost `name&apos;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="48"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="54"/>
         <source>Freetype2 library not available</source>
         <translation>Knihovna Freetype2 není k dispozici</translation>
     </message>
@@ -24466,7 +24653,7 @@ Načíst nastavení PDF</translation>
         <translation type="obsolete">Písmo %1 je poškozené, nebude vloženo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="313"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="319"/>
         <location filename="../../../scribus/fonts/scface_ttf.cpp" line="186"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Písmo %1 je poškozené (chyba při čtení), nebude vloženo</translation>
@@ -24481,7 +24668,7 @@ Načíst nastavení PDF</translation>
         <translation>Písmo %1 je poškozené (chybí řez), ignoruje se</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="129"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="135"/>
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -24663,14 +24850,14 @@ Načíst nastavení PDF</translation>
         <location filename="../../../scribus/pslib.cpp" line="1829"/>
         <location filename="../../../scribus/pslib.cpp" line="2033"/>
         <location filename="../../../scribus/pslib.cpp" line="2236"/>
-        <location filename="../../../scribus/scprintengine_gdi.cpp" line="486"/>
+        <location filename="../../../scribus/scprintengine_gdi.cpp" line="487"/>
         <source>All</source>
         <translation>Všechny</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
-        <location filename="../../../scribus/scribus.cpp" line="2043"/>
-        <location filename="../../../scribus/scribus.cpp" line="2331"/>
+        <location filename="../../../scribus/scribus.cpp" line="2053"/>
+        <location filename="../../../scribus/scribus.cpp" line="2340"/>
         <source>Document Template: </source>
         <translation>Šablona dokumentu: </translation>
     </message>
@@ -24727,7 +24914,7 @@ Načíst nastavení PDF</translation>
         <translation>Typy odpovídají, ale nastavení vlastnosti selhalo.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="254"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="299"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Nelze seskupit méně než dvě položky</translation>
@@ -24738,7 +24925,7 @@ Načíst nastavení PDF</translation>
         <translation type="obsolete">Nelze seskupit méně než dvě položky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="222"/>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="267"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>K seskupení je nutný výběr nebo seznam argumentů pro položky</translation>
@@ -24841,10 +25028,15 @@ Načíst nastavení PDF</translation>
         <translation>argument obsahuje nečíselné hodnoty: musí být seznam plovoucích hodnot.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="245"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation>Tloušťka čáry mimo rozsah, musí být 0 &lt;= line_width &lt;= 12.</translation>
+        <translation type="obsolete">Tloušťka čáry mimo rozsah, musí být 0 &lt;= line_width &lt;= 12.</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="245"/>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
+        <comment>python error</comment>
+        <translation type="unfinished">Tloušťka čáry mimo rozsah, musí být 0 &lt;= line_width &lt;= 12. {0 ?} {300.?}</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="265"/>
@@ -24883,7 +25075,7 @@ Načíst nastavení PDF</translation>
         <translation>&amp;Skript</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="740"/>
+        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="747"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -24918,7 +25110,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2882"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2885"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2715"/>
         <source>Copy #%1 of </source>
         <translation>Kopie č. %1 z</translation>
@@ -24987,17 +25179,19 @@ is not exhaustive due to exceptions from called functions.
         <translation>Předložky a zkratky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="98"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="99"/>
         <source>SVG Export</source>
         <translation>SVG export</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="102"/>
         <source>SVG Import</source>
-        <translation type="obsolete">SVG Import</translation>
+        <translation type="unfinished">SVG Import</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="105"/>
         <source>OpenOffice.org Draw Importer</source>
-        <translation type="obsolete">Importer OpenOffice.org Draw</translation>
+        <translation type="unfinished">Importer OpenOffice.org Draw</translation>
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
@@ -25038,7 +25232,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="obsolete">Používáte vývojovou verzi Scribusu 1.3.x. Dokument, se kterým pracujete, byl vytvořen ve Scribusu 1.2.3 nebo starším. Pokud jej teď uložíte, v těchto starších verzích jej nebude možné načíst, pokud ovšem nepoužijete Soubor-Uložit jako. Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4366"/>
+        <location filename="../../../scribus/scribus.cpp" line="4400"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Změny ve vašem dokumentu nebyly uloženy, ovšem vy požadujete jejich vrácení. Opravdu chcete pokračovat?</translation>
     </message>
@@ -25074,17 +25268,17 @@ is not exhaustive due to exceptions from called functions.
         <translation>Tisk souboru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3699"/>
+        <location filename="../../../scribus/scribus.cpp" line="3734"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Snažíte se vložit více stránek, než je počet stránek dostupných v aktuálním dokumentu, počítáno od aktivní stránky.&lt;/p&gt;Vyberte některou možnost:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Vytvořit&lt;/b&gt; chybějící stránky&lt;/li&gt;&lt;li&gt;&lt;b&gt;vložit&lt;/b&gt; stránky do poslední stránky&lt;/li&gt;&lt;b&gt;Zrušit&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3703"/>
+        <location filename="../../../scribus/scribus.cpp" line="3738"/>
         <source>C&amp;reate</source>
         <translation>&amp;Vytvořit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3704"/>
+        <location filename="../../../scribus/scribus.cpp" line="3739"/>
         <source>&amp;Import</source>
         <translation>Vlož&amp;it</translation>
     </message>
@@ -25100,8 +25294,9 @@ is not exhaustive due to exceptions from called functions.
         <translation>Generátor čárových kódů</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="173"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice.org Draw (*.sxd *.odg);;Všechny soubory (*)</translation>
+        <translation type="unfinished">OpenOffice.org Draw (*.sxd *.odg);;Všechny soubory (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/docim/docim.cpp" line="52"/>
@@ -25233,13 +25428,13 @@ is not exhaustive due to exceptions from called functions.
         <translation>Průhlednost mimo rozsah, musí být mezi 0 a 1.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="63"/>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="80"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="69"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="86"/>
         <source>Font %1(%2) is broken</source>
         <translation>Písmo %1(%2) je poškozené</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fonts/ftface.cpp" line="177"/>
+        <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished">Písmo %1 má poškozený znak %2</translation>
     </message>
@@ -25429,8 +25624,9 @@ is not exhaustive due to exceptions from called functions.
         <translation>E</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="71"/>
         <source>Adobe Illustrator Importer</source>
-        <translation type="obsolete">Adobe Illustrator Importer</translation>
+        <translation type="unfinished">Adobe Illustrator Importer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="59"/>
@@ -25448,8 +25644,9 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="70"/>
         <source>PostScript Importer</source>
-        <translation type="obsolete">Postscript Importer</translation>
+        <translation type="unfinished">Postscript Importer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.cpp" line="431"/>
@@ -25507,7 +25704,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="126"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="127"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Všechny soubory (*)</translation>
     </message>
@@ -25564,12 +25761,14 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">Efekt transformace</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="89"/>
         <source>WMF Import</source>
-        <translation type="obsolete">Vložit WMF</translation>
+        <translation type="unfinished">Vložit WMF</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="71"/>
         <source>Xfig Importer</source>
-        <translation type="obsolete">Xfig Importer</translation>
+        <translation type="unfinished">Xfig Importer</translation>
     </message>
     <message>
         <location filename="../../../scribus/scdocoutput_ps2.cpp" line="107"/>
@@ -25822,12 +26021,12 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scprintengine_gdi.cpp" line="108"/>
+        <location filename="../../../scribus/scprintengine_gdi.cpp" line="109"/>
         <source>Save As</source>
         <translation>Uložit jako</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scprintengine_gdi.cpp" line="257"/>
+        <location filename="../../../scribus/scprintengine_gdi.cpp" line="258"/>
         <source>Printing...</source>
         <translation>Tiskne se...</translation>
     </message>
@@ -25869,6 +26068,16 @@ Therefore the image may be not correct</source>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="752"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
+        <source>Cvg Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="64"/>
+        <source>Pict Importer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26229,7 +26438,7 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Vyplnit plochu za hranicemi stránky barvou okrajů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/reformdoc.cpp" line="461"/>
+        <location filename="../../../scribus/reformdoc.cpp" line="464"/>
         <source>Adjusting Colors</source>
         <translation>Přizpůsobení barev</translation>
     </message>
@@ -26248,15 +26457,15 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Použít změny velikosti stránky na všechny existující stránky dokumentu</translation>
+        <translation type="obsolete">Použít změny velikosti stránky na všechny existující stránky dokumentu</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Zobrazit obrázky</translation>
+        <translation type="obsolete">Zobrazit obrázky</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation>Přepíná zobrazení obrázků</translation>
+        <translation type="obsolete">Přepíná zobrazení obrázků</translation>
     </message>
 </context>
 <context>
@@ -26596,7 +26805,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Lines</source>
-        <translation>Čáry</translation>
+        <translation type="obsolete">Čáry</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestyle.cpp" line="42"/>
@@ -27256,43 +27465,43 @@ Vyjádřeno v procentech současnéhé hodnoty bílého prostoru.</translation>
         <translation type="obsolete">Uložit stránku jako &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="105"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="106"/>
         <source>Exports SVG Files</source>
         <translation>Export SVG souborů</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="106"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="107"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Export aktuální stránky do SVG souboru.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="89"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="90"/>
         <source>Save as &amp;SVG...</source>
         <translation>Uložit jako &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="131"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="132"/>
         <source>Compress File</source>
         <translation>Komprimovat soubor</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="135"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="136"/>
         <source>Save Images inline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="136"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="137"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="140"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
         <source>Export Page background</source>
         <translation>Exportovat pozadí stránky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <location filename="../../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Adds the Page itself as background to the SVG.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27300,17 +27509,20 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="94"/>
         <source>Import &amp;SVG...</source>
-        <translation type="obsolete">Vložit &amp;SVG...</translation>
+        <translation type="unfinished">Vložit &amp;SVG...</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="109"/>
         <source>Imports SVG Files</source>
-        <translation type="obsolete">Vložit SVG soubory</translation>
+        <translation type="unfinished">Vložit SVG soubory</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="110"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Vloží většinu SVG souborů do aktuálního dokumentu,
+        <translation type="unfinished">Vloží většinu SVG souborů do aktuálního dokumentu,
 přičemž konvertuje vektorová data na objekty Scribusu.</translation>
     </message>
     <message>
@@ -27318,12 +27530,23 @@ přičemž konvertuje vektorová data na objekty Scribusu.</translation>
         <translation type="obsolete">Scalable Vector Graphics</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
         <source>SVG file contains some unsupported features</source>
-        <translation type="obsolete">SVG obsahuje některé nepodporované vlastnosti</translation>
+        <translation type="unfinished">SVG obsahuje některé nepodporované vlastnosti</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="196"/>
         <source>The file could not be imported</source>
-        <translation type="obsolete">Soubor nelze vložit</translation>
+        <translation type="unfinished">Soubor nelze vložit</translation>
+    </message>
+</context>
+<context>
+    <name>SVGPlug</name>
+    <message>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="410"/>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="1020"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27692,7 +27915,7 @@ Jestliže jej uložíte v této verzi, dále nepůjde načíst ve starších ver
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3605"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3610"/>
         <source>Copy #%1 of </source>
         <translation>Kopie č. #%1 z</translation>
     </message>
@@ -27720,7 +27943,7 @@ Jestliže jej uložíte v této verzi, dále nepůjde načíst ve starších ver
         <translation>Dokument Scribusu 1.3.0-&gt;1.3.3.7</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3161"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3162"/>
         <source>Copy #%1 of </source>
         <translation>Kopie č. #%1 z</translation>
     </message>
@@ -27808,74 +28031,74 @@ Jestliže jej uložíte v této verzi, dále nepůjde načíst ve starších ver
         <translation type="obsolete">Normální</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="155"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="200"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="265"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="160"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="205"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="270"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="509"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="514"/>
         <source>Background</source>
         <translation>Pozadí</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7316"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7361"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Opravdu chcete vyčistit celý text?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7363"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7408"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Nelze smazat používaný objekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7363"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7408"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Objekt %1 je momentálně upravován v editoru textů, nelze tedy nic smazat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="754"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="759"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Při otevírání ICC profilů došlo k chybě, správa barev není aktivní.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="886"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="891"/>
         <source>Adjusting Colors</source>
         <translation>Přizpůsobení barev</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="2711"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="2743"/>
         <source>Copy_of_</source>
         <translation>Kopie</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="5961"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="6006"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished">odstranit přímé formátování odstavce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="6193"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="6238"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished">odstranit přímé formátování znaků</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7901"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7946"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odemknout vše</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7902"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7947"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="7905"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="7950"/>
         <source>Some objects are locked.</source>
         <translation>Některé objekty jsou zamčené.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="9033"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="9190"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -27883,19 +28106,19 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="9062"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="9219"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="10108"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="10257"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="1235"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="1240"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation type="unfinished">Vloženo</translation>
@@ -27959,7 +28182,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Ukončuje se.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3870"/>
+        <location filename="../../../scribus/scribus.cpp" line="3905"/>
         <source>Fatal Error</source>
         <translation>Kritická chyba</translation>
     </message>
@@ -27973,19 +28196,19 @@ Vertical gap: %3</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="602"/>
-        <location filename="../../../scribus/scribus.cpp" line="9265"/>
+        <location filename="../../../scribus/scribus.cpp" line="9321"/>
         <source>Open &amp;Recent</source>
         <translation>Otevřít &amp;předchozí</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="610"/>
-        <location filename="../../../scribus/scribus.cpp" line="9267"/>
+        <location filename="../../../scribus/scribus.cpp" line="9323"/>
         <source>&amp;Import</source>
         <translation>Vlož&amp;it</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="617"/>
-        <location filename="../../../scribus/scribus.cpp" line="9268"/>
+        <location filename="../../../scribus/scribus.cpp" line="9324"/>
         <source>&amp;Export</source>
         <translation>&amp;Exportovat</translation>
     </message>
@@ -28038,7 +28261,7 @@ Vertical gap: %3</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="741"/>
-        <location filename="../../../scribus/scribus.cpp" line="9275"/>
+        <location filename="../../../scribus/scribus.cpp" line="9331"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;Volby PDF</translation>
     </message>
@@ -28048,7 +28271,7 @@ Vertical gap: %3</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="748"/>
-        <location filename="../../../scribus/scribus.cpp" line="9277"/>
+        <location filename="../../../scribus/scribus.cpp" line="9333"/>
         <source>C&amp;onvert To</source>
         <translation>&amp;Převést na</translation>
     </message>
@@ -28057,17 +28280,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9280"/>
+        <location filename="../../../scribus/scribus.cpp" line="9336"/>
         <source>Character</source>
         <translation>Znaky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9281"/>
+        <location filename="../../../scribus/scribus.cpp" line="9337"/>
         <source>Quote</source>
         <translation>Uvozovky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9282"/>
+        <location filename="../../../scribus/scribus.cpp" line="9338"/>
         <source>Space</source>
         <translation>Mezery</translation>
     </message>
@@ -28092,55 +28315,55 @@ Vertical gap: %3</source>
         <translation type="obsolete">Nápo&amp;věda</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9290"/>
+        <location filename="../../../scribus/scribus.cpp" line="9346"/>
         <source>&amp;Alignment</source>
         <translation>&amp;Zarovnání</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2067"/>
-        <location filename="../../../scribus/scribus.cpp" line="2110"/>
-        <location filename="../../../scribus/scribus.cpp" line="4143"/>
-        <location filename="../../../scribus/scribus.cpp" line="4464"/>
-        <location filename="../../../scribus/scribus.cpp" line="4687"/>
-        <location filename="../../../scribus/scribus.cpp" line="4829"/>
-        <location filename="../../../scribus/scribus.cpp" line="9300"/>
+        <location filename="../../../scribus/scribus.cpp" line="2077"/>
+        <location filename="../../../scribus/scribus.cpp" line="2120"/>
+        <location filename="../../../scribus/scribus.cpp" line="4177"/>
+        <location filename="../../../scribus/scribus.cpp" line="4498"/>
+        <location filename="../../../scribus/scribus.cpp" line="4721"/>
+        <location filename="../../../scribus/scribus.cpp" line="4863"/>
+        <location filename="../../../scribus/scribus.cpp" line="9356"/>
         <source>Ready</source>
         <translation>Připravený</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3546"/>
-        <location filename="../../../scribus/scribus.cpp" line="3653"/>
-        <location filename="../../../scribus/scribus.cpp" line="4224"/>
+        <location filename="../../../scribus/scribus.cpp" line="3570"/>
+        <location filename="../../../scribus/scribus.cpp" line="3688"/>
+        <location filename="../../../scribus/scribus.cpp" line="4258"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3669"/>
+        <location filename="../../../scribus/scribus.cpp" line="3704"/>
         <source>Importing Pages...</source>
         <translation>Vkládají se stránky...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3698"/>
+        <location filename="../../../scribus/scribus.cpp" line="3733"/>
         <source>Import Page(s)</source>
         <translation>Vložit stránku(y)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3740"/>
+        <location filename="../../../scribus/scribus.cpp" line="3775"/>
         <source>Import done</source>
         <translation>Vkládání dokončeno</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3744"/>
+        <location filename="../../../scribus/scribus.cpp" line="3779"/>
         <source>Found nothing to import</source>
         <translation>Nebylo nalezeno nic k vložení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3870"/>
+        <location filename="../../../scribus/scribus.cpp" line="3905"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Soubor %1 není v přijatelném formátu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3891"/>
+        <location filename="../../../scribus/scribus.cpp" line="3926"/>
         <source>Loading...</source>
         <translation>Načítá se...</translation>
     </message>
@@ -28153,17 +28376,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">Některé ICC profily použité v tomto dokumentu nejsou nainstalované:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4038"/>
+        <location filename="../../../scribus/scribus.cpp" line="4072"/>
         <source> was replaced by: </source>
         <translation type="unfinished"> zaměněn za: </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4070"/>
+        <location filename="../../../scribus/scribus.cpp" line="4104"/>
         <source>(converted)</source>
         <translation>(převedeno)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3517"/>
+        <location filename="../../../scribus/scribus.cpp" line="3541"/>
         <source>All Supported Formats</source>
         <translation>Všechny podporované formáty</translation>
     </message>
@@ -28172,11 +28395,11 @@ Vertical gap: %3</source>
         <translation type="obsolete">Včechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4401"/>
-        <location filename="../../../scribus/scribus.cpp" line="4459"/>
-        <location filename="../../../scribus/scribus.cpp" line="7903"/>
-        <location filename="../../../scribus/scribus.cpp" line="8037"/>
-        <location filename="../../../scribus/scribus.cpp" line="8059"/>
+        <location filename="../../../scribus/scribus.cpp" line="4435"/>
+        <location filename="../../../scribus/scribus.cpp" line="4493"/>
+        <location filename="../../../scribus/scribus.cpp" line="7960"/>
+        <location filename="../../../scribus/scribus.cpp" line="8094"/>
+        <location filename="../../../scribus/scribus.cpp" line="8116"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Nelze uložit soubor: 
@@ -28191,20 +28414,20 @@ Vertical gap: %3</source>
         <translation type="obsolete">Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4444"/>
-        <location filename="../../../scribus/scribus.cpp" line="5494"/>
-        <location filename="../../../scribus/scribus.cpp" line="7894"/>
+        <location filename="../../../scribus/scribus.cpp" line="4478"/>
+        <location filename="../../../scribus/scribus.cpp" line="5541"/>
+        <location filename="../../../scribus/scribus.cpp" line="7951"/>
         <source>Save As</source>
         <translation>Uložit jako</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4473"/>
+        <location filename="../../../scribus/scribus.cpp" line="4507"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4741"/>
-        <location filename="../../../scribus/scribus.cpp" line="7756"/>
+        <location filename="../../../scribus/scribus.cpp" line="4775"/>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus detekoval nějaké chyby. Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
     </message>
@@ -28217,39 +28440,39 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Přerušit</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4774"/>
+        <location filename="../../../scribus/scribus.cpp" line="4808"/>
         <source>Printing...</source>
         <translation>Tiskne se...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2215"/>
-        <location filename="../../../scribus/scribus.cpp" line="4778"/>
-        <location filename="../../../scribus/scribus.cpp" line="7871"/>
+        <location filename="../../../scribus/scribus.cpp" line="2225"/>
+        <location filename="../../../scribus/scribus.cpp" line="4812"/>
+        <location filename="../../../scribus/scribus.cpp" line="7928"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4815"/>
+        <location filename="../../../scribus/scribus.cpp" line="4849"/>
         <source>Printing failed!</source>
         <translation>Tisk se nezdařil!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4905"/>
+        <location filename="../../../scribus/scribus.cpp" line="4943"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Nelze odstranit používaný objekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4905"/>
+        <location filename="../../../scribus/scribus.cpp" line="4943"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Objekt %1 je momentálně upravován v editoru textů. proto nelze nic vyříznout</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5453"/>
+        <location filename="../../../scribus/scribus.cpp" line="5500"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5464"/>
+        <location filename="../../../scribus/scribus.cpp" line="5511"/>
         <source>Scribus Manual</source>
         <translation>Scribus manuál</translation>
     </message>
@@ -28258,7 +28481,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Uložit jako</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5494"/>
+        <location filename="../../../scribus/scribus.cpp" line="5541"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Textové soubory (*.txt);;Všechny soubory (*)</translation>
     </message>
@@ -28275,47 +28498,45 @@ Vertical gap: %3</source>
         <translation type="obsolete">Převést stránku na vzorovou stránku</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6894"/>
+        <location filename="../../../scribus/scribus.cpp" line="6939"/>
         <source>&amp;Size:</source>
         <translation>&amp;Velikost:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6894"/>
+        <location filename="../../../scribus/scribus.cpp" line="6939"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6924"/>
+        <location filename="../../../scribus/scribus.cpp" line="6969"/>
         <source>&amp;Shade:</source>
         <translation>Od&amp;stín:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="6924"/>
+        <location filename="../../../scribus/scribus.cpp" line="6969"/>
         <source>Shade</source>
         <translation>Odstín</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7028"/>
+        <location filename="../../../scribus/scribus.cpp" line="7073"/>
         <source>No Style</source>
         <translation>Bez stylu</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7651"/>
         <source>The following programs are missing:</source>
-        <translation>Chybí následující program(y):</translation>
+        <translation type="obsolete">Chybí následující program(y):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7653"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation>Ghostscript: nelze použít EPS obrázky nebo Náhled před tiskem</translation>
+        <translation type="obsolete">Ghostscript: nelze použít EPS obrázky nebo Náhled před tiskem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7792"/>
+        <location filename="../../../scribus/scribus.cpp" line="7849"/>
         <source>All</source>
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7840"/>
+        <location filename="../../../scribus/scribus.cpp" line="7897"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus detekoval nějaké chyby.
@@ -28326,44 +28547,44 @@ Zvažte použití předtiskové kontrol pro jejich odstranění.</translation>
         <translation type="obsolete">EPS soubory (*.eps);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7937"/>
+        <location filename="../../../scribus/scribus.cpp" line="7994"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Detekovány chyby.
 Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8033"/>
+        <location filename="../../../scribus/scribus.cpp" line="8090"/>
         <source>-Page%1</source>
         <translation>-Stránka%1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8417"/>
+        <location filename="../../../scribus/scribus.cpp" line="8474"/>
         <source>Some objects are locked.</source>
         <translation>Některé objekty jsou zamčeny.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8413"/>
+        <location filename="../../../scribus/scribus.cpp" line="8470"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Zamknout vše</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8414"/>
+        <location filename="../../../scribus/scribus.cpp" line="8471"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odemknout vše</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9114"/>
+        <location filename="../../../scribus/scribus.cpp" line="9170"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9114"/>
+        <location filename="../../../scribus/scribus.cpp" line="9170"/>
         <source>The program %1 is already running!</source>
         <translation>Program %1 už běží!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9153"/>
+        <location filename="../../../scribus/scribus.cpp" line="9209"/>
         <source>The program %1 is missing!</source>
         <translation>Program %1 nenalezen!</translation>
     </message>
@@ -28380,17 +28601,17 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation type="obsolete">Barva, kterou jste vybrali, již existuje. Pojmenujte prosím novou barvu jinak.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9272"/>
+        <location filename="../../../scribus/scribus.cpp" line="9328"/>
         <source>&amp;Level</source>
         <translation>&amp;Hladina</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9273"/>
+        <location filename="../../../scribus/scribus.cpp" line="9329"/>
         <source>Send to Layer</source>
         <translation>Přesunout do vrstvy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9274"/>
+        <location filename="../../../scribus/scribus.cpp" line="9330"/>
         <source>Previe&amp;w Settings</source>
         <translation>Nas&amp;tavení náhledu</translation>
     </message>
@@ -28399,14 +28620,14 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation type="obsolete">&amp;Nástroje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="1020"/>
-        <location filename="../../../scribus/scribus.cpp" line="9296"/>
+        <location filename="../../../scribus/scribus.cpp" line="1023"/>
+        <location filename="../../../scribus/scribus.cpp" line="9352"/>
         <source>X-Pos:</source>
         <translation>X-Poz:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="1021"/>
-        <location filename="../../../scribus/scribus.cpp" line="9297"/>
+        <location filename="../../../scribus/scribus.cpp" line="1024"/>
+        <location filename="../../../scribus/scribus.cpp" line="9353"/>
         <source>Y-Pos:</source>
         <translation>Y-Poz:</translation>
     </message>
@@ -28431,29 +28652,28 @@ Vodorovné posunutí: %2
 Svislé posunutí: %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7655"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation>Ghostscript: nelze použít EPS obrázky nebo PS Náhled před tiskem</translation>
+        <translation type="obsolete">Ghostscript: nelze použít EPS obrázky nebo PS Náhled před tiskem</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation type="obsolete">Ghostscript chybí: PS Náhled před tiskem nelze použít</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4307"/>
-        <location filename="../../../scribus/scribus.cpp" line="9450"/>
+        <location filename="../../../scribus/scribus.cpp" line="4341"/>
+        <location filename="../../../scribus/scribus.cpp" line="9506"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Opravdu chcete nahradit existující obrázek?</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="659"/>
-        <location filename="../../../scribus/scribus.cpp" line="9270"/>
+        <location filename="../../../scribus/scribus.cpp" line="9326"/>
         <source>Contents</source>
         <translation>Obsah</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="854"/>
-        <location filename="../../../scribus/scribus.cpp" line="9283"/>
+        <location filename="../../../scribus/scribus.cpp" line="857"/>
+        <location filename="../../../scribus/scribus.cpp" line="9339"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tura</translation>
     </message>
@@ -28463,8 +28683,8 @@ Svislé posunutí: %3</translation>
         <translation>Scribus </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4399"/>
-        <location filename="../../../scribus/scribus.cpp" line="4457"/>
+        <location filename="../../../scribus/scribus.cpp" line="4433"/>
+        <location filename="../../../scribus/scribus.cpp" line="4491"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Váš dokument byl uložen jako dočasný soubor, ale nelze jej přesunout: 
@@ -28477,89 +28697,114 @@ Svislé posunutí: %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="658"/>
-        <location filename="../../../scribus/scribus.cpp" line="9266"/>
+        <location filename="../../../scribus/scribus.cpp" line="9322"/>
         <source>Paste Recent</source>
         <translation>Vložit nedávný</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="797"/>
+        <location filename="../../../scribus/scribus.cpp" line="800"/>
         <source>&amp;Character</source>
         <translation>&amp;Symbol</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="815"/>
+        <location filename="../../../scribus/scribus.cpp" line="818"/>
         <source>&amp;Quote</source>
         <translation>&amp;Uvozovky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="840"/>
+        <location filename="../../../scribus/scribus.cpp" line="843"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>&amp;Mezery &amp;&amp; Zalomení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="961"/>
-        <location filename="../../../scribus/scribus.cpp" line="9291"/>
+        <location filename="../../../scribus/scribus.cpp" line="964"/>
+        <location filename="../../../scribus/scribus.cpp" line="9347"/>
         <source>Online &amp;Tutorials</source>
         <translation>Online &amp;Tutoriály</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2542"/>
+        <location filename="../../../scribus/scribus.cpp" line="2564"/>
         <source>Updating Images</source>
         <translation>Aktualizují se obrázky</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3825"/>
+        <location filename="../../../scribus/scribus.cpp" line="3860"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3853"/>
+        <location filename="../../../scribus/scribus.cpp" line="3888"/>
         <source>Document is already opened</source>
         <translation>Dokument je již otevřený</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3854"/>
+        <location filename="../../../scribus/scribus.cpp" line="3889"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4035"/>
+        <location filename="../../../scribus/scribus.cpp" line="4069"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Některé profily barev používané v tomto dokumentu nejsou nainstalované:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4255"/>
+        <location filename="../../../scribus/scribus.cpp" line="4289"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Opravdu chcete smazat celý text?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4441"/>
+        <location filename="../../../scribus/scribus.cpp" line="4475"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumenty  (*.sla *.sla.gz);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4870"/>
+        <location filename="../../../scribus/scribus.cpp" line="4904"/>
         <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7894"/>
+        <location filename="../../../scribus/scribus.cpp" line="7700"/>
+        <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7703"/>
+        <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7705"/>
+        <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7707"/>
+        <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7711"/>
+        <source>Ghostscript is missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7951"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9504"/>
+        <location filename="../../../scribus/scribus.cpp" line="9560"/>
         <source>&amp;Name:</source>
         <translation>&amp;Název:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9504"/>
+        <location filename="../../../scribus/scribus.cpp" line="9560"/>
         <source>New Entry</source>
         <translation>Nová položka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7702"/>
+        <location filename="../../../scribus/scribus.cpp" line="7759"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Není nainstalován Ghostscript: Není dostupný PostScriptový náhled před tiskem</translation>
     </message>
@@ -28715,17 +28960,17 @@ Svislé posunutí: %3</translation>
         <translation type="obsolete">Vrstva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="1115"/>
+        <location filename="../../../scribus/scribusview.cpp" line="1116"/>
         <source>Copy Here</source>
         <translation>Kopírovat sem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="1116"/>
+        <location filename="../../../scribus/scribusview.cpp" line="1117"/>
         <source>Move Here</source>
         <translation>Přesunout sem</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="1117"/>
+        <location filename="../../../scribus/scribusview.cpp" line="1118"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
@@ -28776,19 +29021,19 @@ Svislé posunutí: %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="122"/>
-        <location filename="../../../scribus/pageitem.cpp" line="5587"/>
+        <location filename="../../../scribus/pageitem.cpp" line="5591"/>
         <source>Print: </source>
         <translation>Tisk: </translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="125"/>
-        <location filename="../../../scribus/pageitem.cpp" line="5589"/>
+        <location filename="../../../scribus/pageitem.cpp" line="5593"/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="127"/>
-        <location filename="../../../scribus/pageitem.cpp" line="5591"/>
+        <location filename="../../../scribus/pageitem.cpp" line="5595"/>
         <source>Disabled</source>
         <translation>Zakázáno</translation>
     </message>
@@ -28839,17 +29084,17 @@ Svislé posunutí: %3</translation>
         <translation type="obsolete">Pokoušíte se spojit s vyplněným rámcem, nebo s rámcem samotným.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3975"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3990"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Nelze konvertovat používaný objekt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3975"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3990"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Objekt %1 je momentálně upravován v editoru textů, proto bude přeskočeno jeho konvertování na obrysy</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="2465"/>
+        <location filename="../../../scribus/scribusview.cpp" line="2476"/>
         <source>Page %1 to %2</source>
         <translation>Stránka %1 až %2</translation>
     </message>
@@ -28936,7 +29181,7 @@ Svislé posunutí: %3</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusview.cpp" line="3668"/>
+        <location filename="../../../scribus/scribusview.cpp" line="3683"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29682,18 +29927,18 @@ můžete zkopírovat do chybového hlášení.</translation>
         <translation>Odstavců: </translation>
     </message>
     <message>
-        <location filename="../../../scribus/storyeditor.cpp" line="3177"/>
+        <location filename="../../../scribus/storyeditor.cpp" line="3181"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../../../scribus/storyeditor.cpp" line="3177"/>
-        <location filename="../../../scribus/storyeditor.cpp" line="3212"/>
+        <location filename="../../../scribus/storyeditor.cpp" line="3181"/>
+        <location filename="../../../scribus/storyeditor.cpp" line="3216"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Textové soubory (*.txt);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/storyeditor.cpp" line="3212"/>
+        <location filename="../../../scribus/storyeditor.cpp" line="3216"/>
         <source>Save as</source>
         <translation>Uložit jako</translation>
     </message>
@@ -31170,7 +31415,7 @@ můžete zkopírovat do chybového hlášení.</translation>
     <message>
         <location filename="../../../scribus/tabexternaltoolswidget.ui" line="495"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+R</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabexternaltoolswidget.ui" line="300"/>
@@ -31756,7 +32001,7 @@ můžete zkopírovat do chybového hlášení.</translation>
     <message>
         <location filename="../../../scribus/tabkeyboardshortcutswidget.ui" line="170"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+R</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabkeyboardshortcutswidget.ui" line="193"/>
@@ -32300,7 +32545,7 @@ můžete zkopírovat do chybového hlášení.</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
-        <translation>Použít ICC profil</translation>
+        <translation type="obsolete">Použít ICC profil</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="742"/>
@@ -33116,7 +33361,7 @@ při otevření PDF dokumentu:</translation>
     <message>
         <location filename="../../../scribus/tabprinter.cpp" line="37"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umožní vložit do tiskového proudu profily barev, pokud je povolena správa barev</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabprinter.cpp" line="38"/>
@@ -34055,12 +34300,12 @@ při otevření PDF dokumentu:</translation>
 <context>
     <name>Tabruler</name>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="488"/>
+        <location filename="../../../scribus/tabruler.cpp" line="495"/>
         <source>Left</source>
         <translation>Vlevo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="489"/>
+        <location filename="../../../scribus/tabruler.cpp" line="496"/>
         <source>Right</source>
         <translation>Vpravo</translation>
     </message>
@@ -34069,62 +34314,62 @@ při otevření PDF dokumentu:</translation>
         <translation type="obsolete">Tečka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="491"/>
+        <location filename="../../../scribus/tabruler.cpp" line="498"/>
         <source>Comma</source>
         <translation>Čárka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="492"/>
+        <location filename="../../../scribus/tabruler.cpp" line="499"/>
         <source>Center</source>
         <translation>Na střed</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="545"/>
+        <location filename="../../../scribus/tabruler.cpp" line="552"/>
         <source>Delete All</source>
         <translation>Smazat vše</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="597"/>
+        <location filename="../../../scribus/tabruler.cpp" line="604"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Odsazení prvního řádku odstavce</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="598"/>
+        <location filename="../../../scribus/tabruler.cpp" line="605"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Odsazení celého odstavce zleva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="604"/>
+        <location filename="../../../scribus/tabruler.cpp" line="611"/>
         <source>Delete all Tabulators</source>
         <translation>Smazat všechny tabelátory</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="496"/>
+        <location filename="../../../scribus/tabruler.cpp" line="503"/>
         <source>&amp;Position:</source>
         <translation>&amp;Pozice:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="503"/>
+        <location filename="../../../scribus/tabruler.cpp" line="510"/>
         <source>Dot</source>
         <translation>Tečka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="504"/>
+        <location filename="../../../scribus/tabruler.cpp" line="511"/>
         <source>Hyphen</source>
         <translation>Spojovník</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="505"/>
+        <location filename="../../../scribus/tabruler.cpp" line="512"/>
         <source>Underscore</source>
         <translation>Podtržení</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="506"/>
+        <location filename="../../../scribus/tabruler.cpp" line="513"/>
         <source>Custom</source>
         <translation>Vlastní</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="507"/>
+        <location filename="../../../scribus/tabruler.cpp" line="514"/>
         <source>Fill Char:</source>
         <translation>Výplňový znak:</translation>
     </message>
@@ -34137,33 +34382,33 @@ při otevření PDF dokumentu:</translation>
         <translation type="obsolete">Vlastní: </translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="490"/>
+        <location filename="../../../scribus/tabruler.cpp" line="497"/>
         <source>Period</source>
         <translation>Perioda</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="502"/>
+        <location filename="../../../scribus/tabruler.cpp" line="509"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Žádný</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="584"/>
+        <location filename="../../../scribus/tabruler.cpp" line="591"/>
         <source>Fill Character of Tab</source>
         <translation>Vyplnit znakem tabelátoru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="585"/>
+        <location filename="../../../scribus/tabruler.cpp" line="592"/>
         <source>Type/Orientation of Tab</source>
         <translation>Typ/Orientace tabelátoru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="586"/>
+        <location filename="../../../scribus/tabruler.cpp" line="593"/>
         <source>Position of Tab</source>
         <translation>Pozice tabelátoru</translation>
     </message>
     <message>
-        <location filename="../../../scribus/tabruler.cpp" line="599"/>
+        <location filename="../../../scribus/tabruler.cpp" line="606"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Odsazení celého odstavece zprava</translation>
     </message>
@@ -35440,28 +35685,41 @@ Je možné spustit výchozí webový prohlížeč?</translation>
     </message>
 </context>
 <context>
+    <name>WMFImport</name>
+    <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimport.cpp" line="647"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WMFImportPlugin</name>
     <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="81"/>
         <source>Import &amp;WMF...</source>
-        <translation type="obsolete">Vložit &amp;WMF...</translation>
+        <translation type="unfinished">Vložit &amp;WMF...</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="96"/>
         <source>Imports WMF Files</source>
-        <translation type="obsolete">Vložit soubory WMF</translation>
+        <translation type="unfinished">Vložit soubory WMF</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="97"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Importuje většinu WMF souborů do aktuálního dokumentu,
+        <translation type="unfinished">Importuje většinu WMF souborů do aktuálního dokumentu,
 přičemž konvertuje vektorová data na objekty Scribusu.</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="182"/>
         <source>The file could not be imported</source>
-        <translation type="obsolete">Soubor nemohl být importován</translation>
+        <translation type="unfinished">Soubor nemohl být importován</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="184"/>
         <source>WMF file contains some unsupported features</source>
-        <translation type="obsolete">WMF soubor obsahuje některé nepodporované vlastnosti</translation>
+        <translation type="unfinished">WMF soubor obsahuje některé nepodporované vlastnosti</translation>
     </message>
 </context>
 <context>
@@ -35521,16 +35779,24 @@ přičemž konvertuje vektorová data na objekty Scribusu.</translation>
 <context>
     <name>XfigPlug</name>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfig.cpp" line="144"/>
         <source>Importing: %1</source>
-        <translation type="obsolete">Vkládám: %1</translation>
+        <translation type="unfinished">Vkládám: %1</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfig.cpp" line="147"/>
         <source>Analyzing File:</source>
-        <translation type="obsolete">Zkoumá se soubor:</translation>
+        <translation type="unfinished">Zkoumá se soubor:</translation>
     </message>
     <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfig.cpp" line="282"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/plugins/import/xfig/importxfig.cpp" line="1551"/>
         <source>Generating Items</source>
-        <translation type="obsolete">Vytvářím objekty</translation>
+        <translation type="unfinished">Vytvářím objekty</translation>
     </message>
 </context>
 <context>
