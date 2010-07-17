@@ -1,13 +1,13 @@
-#include <region.h>
-#include <utils.h>
+#include "region.h"
+#include "utils.h"
 
-#include <shape.h>
+#include "shape.h"
 
 namespace Geom {
 
-Region Region::operator*(Affine const &m) const {
+Region Region::operator*(Matrix const &m) const {
     Region r((m.flips() ? boundary.reverse() : boundary) * m, fill);
-    if(box && m.isZoom()) r.box = (*box) * m;
+    if(box && m.onlyScaleAndTranslation()) r.box = (*box) * m;
     return r;
 }
 
@@ -32,14 +32,3 @@ unsigned outer_index(Regions const &ps) {
 }
 
 }
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

@@ -1,43 +1,4 @@
-/**
- * \file
- * \brief  Do not include this file \todo brief description
- *
- * We don't actually want anyone to
- * include this, other than D2.h.  If somone else tries, D2
- * won't be defined.  If it is, this will already be included.
- *
- * Authors:
- *      ? <?@?.?>
- * 
- * Copyright ?-?  authors
- *
- * This library is free software; you can redistribute it and/or
- * modify it either under the terms of the GNU Lesser General Public
- * License version 2.1 as published by the Free Software Foundation
- * (the "LGPL") or, at your option, under the terms of the Mozilla
- * Public License Version 1.1 (the "MPL"). If you do not alter this
- * notice, a recipient may use your version of this file under either
- * the MPL or the LGPL.
- *
- * You should have received a copy of the LGPL along with this library
- * in the file COPYING-LGPL-2.1; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- * You should have received a copy of the MPL along with this library
- * in the file COPYING-MPL-1.1
- *
- * The contents of this file are subject to the Mozilla Public License
- * Version 1.1 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY
- * OF ANY KIND, either express or implied. See the LGPL or the MPL for
- * the specific language governing rights and limitations.
- *
- */
-
-#ifdef _2GEOM_D2
-					/*This is intentional: we don't actually want anyone to
+#ifdef _2GEOM_D2  /*This is intentional: we don't actually want anyone to
                     include this, other than D2.h.  If somone else tries, D2
                     won't be defined.  If it is, this will already be included. */
 #ifndef __2GEOM_SBASIS_CURVE_H
@@ -46,7 +7,7 @@
 #include "sbasis.h"
 #include "sbasis-2d.h"
 #include "piecewise.h"
-#include "affine.h"
+#include "matrix.h"
 
 //TODO: implement intersect
 
@@ -71,19 +32,16 @@ double tail_error(D2<SBasis> const & a, unsigned tail);
 //Piecewise<D2<SBasis> > specific decls:
 
 Piecewise<D2<SBasis> > sectionize(D2<Piecewise<SBasis> > const &a);
-D2<Piecewise<SBasis> > make_cuts_independent(Piecewise<D2<SBasis> > const &a);
+D2<Piecewise<SBasis> > make_cuts_independant(Piecewise<D2<SBasis> > const &a);
 Piecewise<D2<SBasis> > rot90(Piecewise<D2<SBasis> > const &a);
 Piecewise<SBasis> dot(Piecewise<D2<SBasis> > const &a, Piecewise<D2<SBasis> > const &b);
-Piecewise<SBasis> dot(Piecewise<D2<SBasis> > const &a, Point const &b);
 Piecewise<SBasis> cross(Piecewise<D2<SBasis> > const &a, Piecewise<D2<SBasis> > const &b);
 
-Piecewise<D2<SBasis> > operator*(Piecewise<D2<SBasis> > const &a, Affine const &m);
+Piecewise<D2<SBasis> > operator*(Piecewise<D2<SBasis> > const &a, Matrix const &m);
 
-Piecewise<D2<SBasis> > force_continuity(Piecewise<D2<SBasis> > const &f, double tol=0, bool closed=false);
-
-std::vector<Piecewise<D2<SBasis> > > fuse_nearby_ends(std::vector<Piecewise<D2<SBasis> > > const &f, double tol=0);
-
-std::vector<Geom::Piecewise<Geom::D2<Geom::SBasis> > > split_at_discontinuities (Geom::Piecewise<Geom::D2<Geom::SBasis> > const & pwsbin, double tol = .0001);
+Piecewise<D2<SBasis> > force_continuity(Piecewise<D2<SBasis> > const &f, 
+                                        double tol=0,
+                                        bool closed=false);
 
 class CoordIterator
 : public std::iterator<std::input_iterator_tag, SBasis const>
@@ -118,45 +76,16 @@ inline CoordIterator iterateCoord(Piecewise<D2<SBasis> > const &a, unsigned d) {
 }
 
 //bounds specializations with order
-inline OptRect bounds_fast(D2<SBasis> const & s, unsigned order=0) {
-    OptRect retval;
-    OptInterval xint = bounds_fast(s[X], order);
-    if (xint) {
-        OptInterval yint = bounds_fast(s[Y], order);
-        if (yint) {
-            retval = Rect(*xint, *yint);
-        }
-    }
-    return retval;
+inline Rect bounds_fast(D2<SBasis> const & s, unsigned order=0) {
+    return Rect(bounds_fast(s[X], order),
+                bounds_fast(s[Y], order));
 }
-inline OptRect bounds_local(D2<SBasis> const & s, OptInterval i, unsigned order=0) {
-    OptRect retval;
-    OptInterval xint = bounds_local(s[X], i, order);
-    OptInterval yint = bounds_local(s[Y], i, order);
-    if (xint && yint) {
-        retval = Rect(*xint, *yint);
-    }
-    return retval;
+inline Rect bounds_local(D2<SBasis> const & s, Interval i, unsigned order=0) {
+    return Rect(bounds_local(s[X], i, order),
+                bounds_local(s[Y], i, order));
 }
-
-std::vector<Interval> level_set( D2<SBasis> const &f, Rect region);
-std::vector<Interval> level_set( D2<SBasis> const &f, Point p, double tol);
-std::vector<std::vector<Interval> > level_sets( D2<SBasis> const &f, std::vector<Rect> regions);
-std::vector<std::vector<Interval> > level_sets( D2<SBasis> const &f, std::vector<Point> pts, double tol);
 
 }
 
 #endif
 #endif
-
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

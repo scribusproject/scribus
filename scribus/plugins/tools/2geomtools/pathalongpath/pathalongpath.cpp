@@ -400,24 +400,24 @@ void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &
 	m_offsetY = offsetY;
 	m_gapval = gap;
 	m_rotate = rotate;
-	uskeleton = Geom::arc_length_parametrization(pwd2_in, 2, .1);
-	uskeleton = Geom::remove_short_cuts(uskeleton,.01);
-	n = Geom::rot90(Geom::derivative(uskeleton));
-	n = Geom::force_continuity(Geom::remove_short_cuts(n,.1));
-	Geom::D2<Geom::Piecewise<Geom::SBasis> > patternd2;
+	uskeleton = arc_length_parametrization(pwd2_in, 2, .1);
+	uskeleton = remove_short_cuts(uskeleton,.01);
+	n = rot90(derivative(uskeleton));
+	n = force_continuity(remove_short_cuts(n,.1));
+	D2<Piecewise<SBasis> > patternd2;
 	if (rotate == 1)
-		patternd2 = make_cuts_independent(Geom::rot90(pattern));
+		patternd2 = make_cuts_independant(rot90(pattern));
 	else if (rotate == 2)
-		patternd2 = make_cuts_independent(Geom::rot90(Geom::rot90(pattern)));
+		patternd2 = make_cuts_independant(rot90(rot90(pattern)));
 	else if (rotate == 3)
-		patternd2 = make_cuts_independent(Geom::rot90(Geom::rot90(Geom::rot90(pattern))));
+		patternd2 = make_cuts_independant(rot90(rot90(rot90(pattern))));
 	else
-		patternd2 = make_cuts_independent(pattern);
-	Geom::Piecewise<Geom::SBasis> x = Geom::Piecewise<Geom::SBasis>(patternd2[0]);
-	Geom::Piecewise<Geom::SBasis> y = Geom::Piecewise<Geom::SBasis>(patternd2[1]);
-	pattBnds = *bounds_exact(x);
+		patternd2 = make_cuts_independant(pattern);
+	Piecewise<SBasis> x = Piecewise<SBasis>(patternd2[0]);
+	Piecewise<SBasis> y = Piecewise<SBasis>(patternd2[1]);
+	pattBnds = bounds_exact(x);
 	x -= pattBnds.min();
-	pattBndsY = *bounds_exact(y);
+	pattBndsY = bounds_exact(y);
 	y -= (pattBndsY.max()+pattBndsY.min()) / 2.0;
 	y -= offsetY;
 	m_scaling = 1.0;
@@ -448,17 +448,17 @@ void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &
 FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern)
 {
 	double offs = m_offsetX;
-	Geom::D2<Geom::Piecewise<Geom::SBasis> > patternd2;
+	D2<Piecewise<SBasis> > patternd2;
 	if (m_rotate == 1)
-		patternd2 = make_cuts_independent(Geom::rot90(pattern));
+		patternd2 = make_cuts_independant(rot90(pattern));
 	else if (m_rotate == 2)
-		patternd2 = make_cuts_independent(Geom::rot90(Geom::rot90(pattern)));
+		patternd2 = make_cuts_independant(rot90(rot90(pattern)));
 	else if (m_rotate == 3)
-		patternd2 = make_cuts_independent(Geom::rot90(Geom::rot90(Geom::rot90(pattern))));
+		patternd2 = make_cuts_independant(rot90(rot90(rot90(pattern))));
 	else
-		patternd2 = make_cuts_independent(pattern);
-	Geom::Piecewise<Geom::SBasis> x = Geom::Piecewise<Geom::SBasis>(patternd2[0]);
-	Geom::Piecewise<Geom::SBasis> y = Geom::Piecewise<Geom::SBasis>(patternd2[1]);
+		patternd2 = make_cuts_independant(pattern);
+	Piecewise<SBasis> x = Piecewise<SBasis>(patternd2[0]);
+	Piecewise<SBasis> y = Piecewise<SBasis>(patternd2[1]);
 	x -= pattBnds.min();
 	y -= (pattBndsY.max()+pattBndsY.min()) / 2.0;
 	y -= m_offsetY;
@@ -467,8 +467,8 @@ FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SB
 	FPointArray pathP;
 	for (int i=0; i<nbCopies; i++)
 	{
-		Geom::Piecewise<Geom::D2<Geom::SBasis> > output;
-		output.concat(Geom::compose(uskeleton,x+offs)+y*Geom::compose(n,x+offs));
+		Piecewise<D2<SBasis> > output;
+		output.concat(compose(uskeleton,x+offs)+y*compose(n,x+offs));
 		offs+=pattWidth+m_gapval;
 		Piecewise2FPointArray(&pathP, output);
 		if (nbCopies > 1)

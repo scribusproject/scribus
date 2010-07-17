@@ -1,5 +1,5 @@
 /**
- *  \file
+ *  \file geom.h
  *  \brief Various geometrical calculations
  *
  *  Authors:
@@ -37,10 +37,7 @@
 //TODO: move somewhere else
 
 #include <vector>
-#include "forward.h"
-#include <boost/optional/optional.hpp>
-#include "bezier-curve.h"
-#include "line.h"
+#include "point.h"
 
 namespace Geom {
 
@@ -57,9 +54,6 @@ intersector_ccw(const Geom::Point& p0, const Geom::Point& p1,
 
 /* intersectors */
 
-#if 0
-// Use the new routines provided in line.h
-
 IntersectorKind
 line_intersection(Geom::Point const &n0, double const d0,
 		  Geom::Point const &n1, double const d1,
@@ -74,35 +68,9 @@ IntersectorKind
 line_twopoint_intersect(Geom::Point const &p00, Geom::Point const &p01,
 			Geom::Point const &p10, Geom::Point const &p11,
 			Geom::Point &result);
-#endif
 
-#if 0
-std::vector<Geom::Point>
-rect_line_intersect(Geom::Point const &E, Geom::Point const &F,
-                    Geom::Point const &p0, Geom::Point const &p1);
-#endif
-
-boost::optional<Geom::LineSegment>
-rect_line_intersect(Geom::Rect &r,
-                    Geom::LineSegment ls);
-
-boost::optional<Geom::LineSegment>
-rect_line_intersect(Geom::Rect &r,
-                    Geom::Line l);
-
-int centroid(std::vector<Geom::Point> const &p, Geom::Point& centroid, double &area);
+int centroid(std::vector<Geom::Point> p, Geom::Point& centroid, double &area);
 
 }
 
 #endif
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

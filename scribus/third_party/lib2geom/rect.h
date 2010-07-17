@@ -1,7 +1,6 @@
-/**
- * \file
- * \brief Axis-aligned rectangle
- *//*
+/*
+ * rect.h - D2<Interval> specialization to Rect
+ *
  * Copyright 2007 Michael Sloan <mgsloan@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -27,47 +26,37 @@
  * OF ANY KIND, either express or implied. See the LGPL or the MPL for
  * the specific language governing rights and limitations.
  *
- * Authors of original rect class:
+ */
+
+/* Authors of original rect class:
  *   Lauris Kaplinski <lauris@kaplinski.com>
  *   Nathan Hurst <njh@mail.csse.monash.edu.au>
  *   bulia byak <buliabyak@users.sf.net>
  *   MenTaLguY <mental@rydia.net>
  */
 
-#include "d2.h"
+#ifdef _2GEOM_D2  /*This is intentional: we don't actually want anyone to
+                    include this, other than D2.h.  If somone else tries, D2
+                    won't be defined.  If it is, this will already be included. */
+#ifndef _2GEOM_RECT
+#define _2GEOM_RECT
 
-#ifndef LIB2GEOM_RECT_H
-#define LIB2GEOM_RECT_H
-
-#include "affine.h"
+#include "matrix.h"
 #include <boost/optional/optional.hpp>
 
 namespace Geom {
 
-/**
- * @brief Axis-aligned rectangle - convenience typedef
- * @ingroup Primitives
- */
 typedef D2<Interval> Rect;
-class OptRect;
 
 Rect unify(const Rect &, const Rect &);
 
-/**
- * @brief Axis aligned rectangle.
- * @ingroup Primitives
- */
 template<>
 class D2<Interval> {
-private:
+  private:
     Interval f[2];
   public:
-    /** Best not to use this constructor, do not rely on what it initializes the object to.
-     *The default constructor creates a rect of default intervals.
-     */
-    D2<Interval>() { f[X] = f[Y] = Interval(); }
+    D2<Interval>() { f[X] = f[Y] = Interval(0, 0); }
     
-    public:
     D2<Interval>(Interval const &a, Interval const &b) {
         f[X] = a;
         f[Y] = b;
@@ -84,7 +73,7 @@ private:
     inline Point min() const { return Point(f[X].min(), f[Y].min()); }
     inline Point max() const { return Point(f[X].max(), f[Y].max()); }
 
-    /** Returns the four corners of the rectangle in positive order
+    /** returns the four corners of the rectangle in positive order
      *  (clockwise if +Y is up, anticlockwise if +Y is down) */
     Point corner(unsigned i) const {
         switch(i % 4) {
@@ -104,55 +93,45 @@ private:
     inline double width() const { return f[X].extent(); }
     inline double height() const { return f[Y].extent(); }
 
-    /** Returns a vector from min to max. */
+    /** returns a vector from min to max. */
     inline Point dimensions() const { return Point(f[X].extent(), f[Y].extent()); }
     inline Point midpoint() const { return Point(f[X].middle(), f[Y].middle()); }
 
-/**
- * \brief Compute the area of this rectangle.
- *
- * Note that a zero area rectangle is not empty - just as the interval [0,0] contains one point, the rectangle [0,0] x [0,0] contains 1 point and no area.
- * \retval For a valid return value, the rect must be tested for emptyness first.
- */
     inline double area() const { return f[X].extent() * f[Y].extent(); }
-    inline bool hasZeroArea(double eps = EPSILON) const { return (area() <= eps); }
-
     inline double maxExtent() const { return std::max(f[X].extent(), f[Y].extent()); }
-    inline double minExtent() const { return std::min(f[X].extent(), f[Y].extent()); }
 
-//    inline bool isEmpty()                 const { 
-//        return f[X].isEmpty()        || f[Y].isEmpty(); 
-//    }
+    inline bool isEmpty()                 const { 
+	return f[X].isEmpty()        && f[Y].isEmpty(); 
+    }
     inline bool intersects(Rect const &r) const { 
-        return f[X].intersects(r[X]) && f[Y].intersects(r[Y]); 
+	return f[X].intersects(r[X]) && f[Y].intersects(r[Y]); 
     }
     inline bool contains(Rect const &r)   const { 
-        return f[X].contains(r[X]) && f[Y].contains(r[Y]); 
-    }
-    inline bool interiorContains(Rect const &r)   const { 
-        return f[X].interiorContains(r[X]) && f[Y].interiorContains(r[Y]); 
+	return f[X].contains(r[X]) && f[Y].contains(r[Y]); 
     }
     inline bool contains(Point const &p)  const {
-        return f[X].contains(p[X]) && f[Y].contains(p[Y]);
-    }
-    inline bool interiorContains(Point const &p)  const {
-        return f[X].interiorContains(p[X]) && f[Y].interiorContains(p[Y]);
+	return f[X].contains(p[X]) && f[Y].contains(p[Y]);
     }
 
     inline void expandTo(Point p)        { 
-        f[X].extendTo(p[X]);  f[Y].extendTo(p[Y]); 
+	f[X].extendTo(p[X]);  f[Y].extendTo(p[Y]); 
     }
     inline void unionWith(Rect const &b) { 
-        f[X].unionWith(b[X]); f[Y].unionWith(b[Y]); 
+	f[X].unionWith(b[X]); f[Y].unionWith(b[Y]); 
     }
-    void unionWith(OptRect const &b);
-    
-    //TODO: figure out how these work with negative values and OptRect
-    inline void expandBy(double amnt)    {
-        f[X].expandBy(amnt);  f[Y].expandBy(amnt); 
+
+    inline void expandBy(double amnt)    { 
+	f[X].expandBy(amnt);  f[Y].expandBy(amnt); 
     }
     inline void expandBy(Point const p)  { 
-        f[X].expandBy(p[X]);  f[Y].expandBy(p[Y]); 
+	f[X].expandBy(p[X]);  f[Y].expandBy(p[Y]); 
+    }
+
+    /** Transforms the rect by m. Note that it gives correct results only for scales and translates,
+        in the case of rotations, the area of the rect will grow as it cannot rotate. */
+    inline Rect operator*(Matrix const m) const { 
+        return unify(Rect(corner(0) * m, corner(2) * m),
+                     Rect(corner(1) * m, corner(3) * m));
     }
 };
 
@@ -168,107 +147,16 @@ inline Rect union_list(std::vector<Rect> const &r) {
     return ret;
 }
 
-inline
-double distanceSq( Point const& p, Rect const& rect )
-{
-    double dx = 0, dy = 0;
-    if ( p[X] < rect.left() )
-    {
-        dx = p[X] - rect.left();
-    }
-    else if ( p[X] > rect.right() )
-    {
-        dx = rect.right() - p[X];
-    }
-    if ( p[Y] < rect.top() )
-    {
-        dy = rect.top() - p[Y];
-    }
-    else if (  p[Y] > rect.bottom() )
-    {
-        dy = p[Y] - rect.bottom();
-    }
-    return dx*dx + dy*dy;
+inline boost::optional<Rect> intersect(Rect const & a, Rect const & b) {
+    boost::optional<Interval> x = intersect(a[X], b[X]);
+    boost::optional<Interval> y = intersect(a[Y], b[Y]);
+    return x && y ? boost::optional<Rect>(Rect(*x, *y)) : boost::optional<Rect>();
 }
 
-/**
- * Returns the smallest distance between p and rect.
- */
-inline 
-double distance( Point const& p, Rect const& rect )
-{
-    return std::sqrt(distanceSq(p, rect));
 }
-
-/**
- * The OptRect class can represent and empty Rect and non-empty Rects.
- * If OptRect is not empty, it means that both X and Y intervals are not empty.
- * 
- */
-class OptRect : public boost::optional<Rect> {
-public:
-    OptRect() : boost::optional<Rect>() {};
-    OptRect(Rect const &a) : boost::optional<Rect>(a) {};
-
-    /**
-     * Creates an empty OptRect when one of the argument intervals is empty.
-     */
-    OptRect(OptInterval const &x_int, OptInterval const &y_int) {
-        if (x_int && y_int) {
-            *this = Rect(*x_int, *y_int);
-        }
-        // else, stay empty.
-    }
-
-    /**
-     * Check whether this OptRect is empty or not.
-     */
-    inline bool isEmpty() const { return (*this == false); };
-
-    /**
-     * If \c this is empty, copy argument \c b. Otherwise, union with it (and do nothing when \c b is empty)
-     */
-    inline void unionWith(OptRect const &b) {
-        if (b) {
-            if (*this) { // check that we are not empty
-                (**this)[X].unionWith((*b)[X]);
-                (**this)[Y].unionWith((*b)[Y]);
-            } else {
-                *this = b;
-            }
-        }
-    }
-};
-
-
-/** 
- * Returns the smallest rectangle that encloses both rectangles.
- * An empty argument is assumed to be an empty rectangle
- */
-inline OptRect unify(OptRect const & a, OptRect const & b) {
-    if (!a) {
-        return b;
-    } else if (!b) {
-        return a;
-    } else {
-        return unify(*a, *b);
-    }
-}
-
-inline OptRect intersect(Rect const & a, Rect const & b) {
-    return OptRect(intersect(a[X], b[X]), intersect(a[Y], b[Y]));
-}
-
-inline void Rect::unionWith(OptRect const &b) { 
-    if (b) {
-        unionWith(*b);
-    }
-}
-
-} // end namespace Geom
 
 #endif //_2GEOM_RECT
-
+#endif //_2GEOM_D2
 /*
   Local Variables:
   mode:c++

@@ -1,5 +1,5 @@
-#include <crossing.h>
-#include <path.h>
+#include "crossing.h"
+#include "path.h"
 
 namespace Geom {
 
@@ -27,7 +27,7 @@ double wrap_dist(double from, double to, double size, bool rev) {
         }
     }
 }
-/*
+
 CrossingGraph create_crossing_graph(std::vector<Path> const &p, Crossings const &crs) {
     std::vector<Point> locs;
     CrossingGraph ret;
@@ -75,7 +75,7 @@ CrossingGraph create_crossing_graph(std::vector<Path> const &p, Crossings const 
     }
     
     return ret;
- */
+ 
  /*  Various incoherent code bits   
     // list of sets of edges, each set corresponding to those emanating from the path
     CrossingGraph ret;
@@ -111,7 +111,7 @@ CrossingGraph create_crossing_graph(std::vector<Path> const &p, Crossings const 
         }
     }
 */
-//}
+}
 
 void merge_crossings(Crossings &a, Crossings &b, unsigned i) {
     Crossings n;
@@ -169,7 +169,7 @@ CrossingSet reverse_tb(CrossingSet const &cr, unsigned split, std::vector<double
     return ret;
 }
 
-void clean(Crossings &/*cr_a*/, Crossings &/*cr_b*/) {
+void clean(Crossings &cr_a, Crossings &cr_b) {
 /*    if(cr_a.empty()) return;
     
     //Remove anything with dupes
@@ -190,14 +190,3 @@ void clean(Crossings &/*cr_a*/, Crossings &/*cr_b*/) {
 }
 
 }
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

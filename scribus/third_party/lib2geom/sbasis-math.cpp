@@ -34,27 +34,19 @@
 //TODO: define a truncated compose(sb,sb, order) and extend it to pw<sb>.
 //TODO: in all these functions, compute 'order' according to 'tol'.
 
-#include <sbasis-math.h>
-
-#include <d2-sbasis.h>
-#include <stdio.h>
-#include <math.h>
+#include "sbasis-math.h"
 //#define ZERO 1e-3
 
+#include <cstdio>
+#include <cmath>
+#include "angle.h"
 
 namespace Geom {
 
-
 //-|x|-----------------------------------------------------------------------
-/** Return the absolute value of a function pointwise.
- \param f function
-*/
 Piecewise<SBasis> abs(SBasis const &f){
     return abs(Piecewise<SBasis>(f));
 }
-/** Return the absolute value of a function pointwise.
- \param f function
-*/
 Piecewise<SBasis> abs(Piecewise<SBasis> const &f){
     Piecewise<SBasis> absf=partition(f,roots(f));
     for (unsigned i=0; i<absf.size(); i++){
@@ -64,27 +56,15 @@ Piecewise<SBasis> abs(Piecewise<SBasis> const &f){
 }
 
 //-max(x,y), min(x,y)--------------------------------------------------------
-/** Return the greater of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> max(          SBasis  const &f,           SBasis  const &g){
     return max(Piecewise<SBasis>(f),Piecewise<SBasis>(g));
 }
-/** Return the greater of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> max(Piecewise<SBasis> const &f,           SBasis  const &g){
     return max(f,Piecewise<SBasis>(g));
 }
-/** Return the greater of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> max(          SBasis  const &f, Piecewise<SBasis> const &g){
     return max(Piecewise<SBasis>(f),g);
 }
-/** Return the greater of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> max(Piecewise<SBasis> const &f, Piecewise<SBasis> const &g){
     Piecewise<SBasis> max=partition(f,roots(f-g));
     Piecewise<SBasis> gg =partition(g,max.cuts);
@@ -95,38 +75,20 @@ Piecewise<SBasis> max(Piecewise<SBasis> const &f, Piecewise<SBasis> const &g){
     return max;
 }
 
-/** Return the more negative of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> 
 min(          SBasis  const &f,           SBasis  const &g){ return -max(-f,-g); }
-/** Return the more negative of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> 
 min(Piecewise<SBasis> const &f,           SBasis  const &g){ return -max(-f,-g); }
-/** Return the more negative of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> 
 min(          SBasis  const &f, Piecewise<SBasis> const &g){ return -max(-f,-g); }
-/** Return the more negative of the two functions pointwise.
- \param f, g two functions
-*/
 Piecewise<SBasis> 
 min(Piecewise<SBasis> const &f, Piecewise<SBasis> const &g){ return -max(-f,-g); }
 
 
 //-sign(x)---------------------------------------------------------------
-/** Return the sign of the two functions pointwise.
- \param f function
-*/
 Piecewise<SBasis> signSb(SBasis const &f){
     return signSb(Piecewise<SBasis>(f));
 }
-/** Return the sign of the two functions pointwise.
- \param f function
-*/
 Piecewise<SBasis> signSb(Piecewise<SBasis> const &f){
     Piecewise<SBasis> sign=partition(f,roots(f));
     for (unsigned i=0; i<sign.size(); i++){
@@ -149,7 +111,7 @@ static Piecewise<SBasis> sqrt_internal(SBasis const &f,
         sqrtf.resize(order+1, Linear(0,0));
         sqrtf[0] = Linear(std::sqrt(f[0][0]), std::sqrt(f[0][1]));
         SBasis r = f - multiply(sqrtf, sqrtf); // remainder    
-        for(unsigned i = 1; int(i) <= order && i<r.size(); i++) {
+        for(unsigned i = 1; int(i) <= order && i<r.size(); ++i) {
             Linear ci(r[i][0]/(2*sqrtf[0][0]), r[i][1]/(2*sqrtf[0][1]));
             SBasis cisi = shift(ci, i);
             r -= multiply(shift((sqrtf*2 + cisi), i), SBasis(ci));
@@ -176,16 +138,10 @@ static Piecewise<SBasis> sqrt_internal(SBasis const &f,
     return sqrtf0;
 }
 
-/** Compute the sqrt of a function.
- \param f function
-*/
 Piecewise<SBasis> sqrt(SBasis const &f, double tol, int order){
     return sqrt(max(f,Linear(tol*tol)),tol,order);
 }
 
-/** Compute the sqrt of a function.
- \param f function
-*/
 Piecewise<SBasis> sqrt(Piecewise<SBasis> const &f, double tol, int order){
     Piecewise<SBasis> result;
     Piecewise<SBasis> zero = Piecewise<SBasis>(Linear(tol*tol));
@@ -202,24 +158,9 @@ Piecewise<SBasis> sqrt(Piecewise<SBasis> const &f, double tol, int order){
 
 //-Yet another sin/cos--------------------------------------------------------------
 
-/** Compute the sine of a function.
- \param f function
- \param tol maximum error
- \param order maximum degree polynomial to use
-*/
-Piecewise<SBasis> sin(          SBasis  const &f, double tol, int order){return(cos(-f+M_PI/2,tol,order));}
-/** Compute the sine of a function.
- \param f function
- \param tol maximum error
- \param order maximum degree polynomial to use
-*/
-Piecewise<SBasis> sin(Piecewise<SBasis> const &f, double tol, int order){return(cos(-f+M_PI/2,tol,order));}
+Piecewise<SBasis> sin(          SBasis  const &f, double tol, int order){return cos(-f+M_PI_2,tol,order);}
+Piecewise<SBasis> sin(Piecewise<SBasis> const &f, double tol, int order){return cos(-f+M_PI_2,tol,order);}
 
-/** Compute the cosine of a function.
- \param f function
- \param tol maximum error
- \param order maximum degree polynomial to use
-*/
 Piecewise<SBasis> cos(Piecewise<SBasis> const &f, double tol, int order){
     Piecewise<SBasis> result;
     for (unsigned i=0; i<f.size(); i++){
@@ -230,11 +171,6 @@ Piecewise<SBasis> cos(Piecewise<SBasis> const &f, double tol, int order){
     return result;
 }
 
-/** Compute the cosine of a function.
- \param f function
- \param tol maximum error
- \param order maximum degree polynomial to use
-*/
 Piecewise<SBasis> cos(          SBasis  const &f, double tol, int order){
     double alpha = (f.at0()+f.at1())/2.;
     SBasis x = f-alpha;
@@ -268,6 +204,7 @@ Piecewise<SBasis> cos(          SBasis  const &f, double tol, int order){
     c0.concat(c1);
     return c0;
 }
+
 
 //--1/x------------------------------------------------------------
 //TODO: this implementation is just wrong. Remove or redo!
@@ -328,42 +265,16 @@ Piecewise<SBasis> reciprocalOnDomain(Interval range, double tol){
 }
 
 Piecewise<SBasis> reciprocal(SBasis const &f, double tol, int order){
-    Piecewise<SBasis> reciprocal_fn=reciprocalOnDomain(*bounds_fast(f), tol);
+    Piecewise<SBasis> reciprocal_fn=reciprocalOnDomain(bounds_fast(f), tol);
     Piecewise<SBasis> result=compose(reciprocal_fn,f);
     truncateResult(result,order);
     return(result);
 }
 Piecewise<SBasis> reciprocal(Piecewise<SBasis> const &f, double tol, int order){
-    Piecewise<SBasis> reciprocal_fn=reciprocalOnDomain(*bounds_fast(f), tol);
+    Piecewise<SBasis> reciprocal_fn=reciprocalOnDomain(bounds_fast(f), tol);
     Piecewise<SBasis> result=compose(reciprocal_fn,f);
     truncateResult(result,order);
     return(result);
-}
-
-/**
- * \brief Retruns a Piecewise SBasis with prescribed values at prescribed times.
- * 
- * \param times: vector of times at which the values are given. Should be sorted in increasing order.
- * \param values: vector of prescribed values. Should have the same size as times and be sorted accordingly.
- * \param smoothness: (defaults to 1) regularity class of the result: 0=piecewise linear, 1=continuous derivative, etc...
- */
-Piecewise<SBasis> interpolate(std::vector<double> times, std::vector<double> values, unsigned smoothness){
-    assert ( values.size() == times.size() );
-    if ( values.size() == 0 ) return Piecewise<SBasis>();
-    if ( values.size() == 1 ) return Piecewise<SBasis>(values[0]);//what about time??
-
-    SBasis sk = shift(Linear(1.),smoothness);
-    SBasis bump_in = integral(sk);
-    bump_in -= bump_in.at0();
-    bump_in /= bump_in.at1();
-    SBasis bump_out = reverse( bump_in );
-    
-    Piecewise<SBasis> result;
-    result.cuts.push_back(times[0]);
-    for (unsigned i = 0; i<values.size()-1; i++){
-        result.push(bump_out*values[i]+bump_in*values[i+1],times[i+1]);
-    }
-    return result;
 }
 
 }
@@ -377,4 +288,4 @@ Piecewise<SBasis> interpolate(std::vector<double> times, std::vector<double> val
   fill-column:99
   End:
 */
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :
+// vim: filetype = cpp:expandtab:shiftwidth = 4:tabstop = 8:softtabstop = 4:encoding = utf-8:textwidth = 99 :

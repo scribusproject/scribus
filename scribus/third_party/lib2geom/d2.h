@@ -1,6 +1,5 @@
-/**
- * \file
- * \brief   Lifts one dimensional objects into 2d 
+/*
+ * d2.h - Lifts one dimensional objects into 2d 
  *
  * Copyright 2007 Michael Sloan <mgsloan@gmail.com>
  *
@@ -34,19 +33,13 @@
 
 #include "point.h"
 #include "interval.h"
-#include "affine.h"
+#include "matrix.h"
 
 #include <boost/concept_check.hpp>
 #include "concepts.h"
 
 namespace Geom{
-/**
- * The D2 class takes two instances of a scalar data type and treats them
- * like a point. All operations which make sense on a point are deﬁned for D2.
- * A D2<double> is a Point. A D2<Interval> is a standard axis aligned rectangle.
- * D2<SBasis> provides a 2d parametric function which maps t to a point
- * x(t), y(t)
- */
+
 template <class T>
 class D2{
     //BOOST_CLASS_REQUIRE(T, boost, AssignableConcept);
@@ -95,12 +88,12 @@ class D2{
         boost::function_requires<FragmentConcept<T> >();
         return (*this)(t);
     }
-    std::vector<Point > valueAndDerivatives(double t, unsigned n) const {
-        std::vector<Coord> x = f[X].valueAndDerivatives(t, n),
-                           y = f[Y].valueAndDerivatives(t, n); // always returns a vector of size n+1
-        std::vector<Point> res(n+1);
-        for(unsigned i = 0; i <= n; i++) {
-            res[i] = Point(x[i], y[i]);
+    std::vector<Point > valueAndDerivatives(double t, unsigned count) const {
+        std::vector<Coord> x = f[X].valueAndDerivatives(t, count),
+                           y = f[Y].valueAndDerivatives(t, count);
+        std::vector<Point> res;
+        for(unsigned i = 0; i < count; i++) {
+            res.push_back(Point(x[i], y[i]));
         }
         return res;
     }
@@ -122,12 +115,6 @@ template <typename T>
 inline D2<T> portion(const D2<T> &a, Coord f, Coord t) {
     boost::function_requires<FragmentConcept<T> >();
     return D2<T>(portion(a[X], f, t), portion(a[Y], f, t));
-}
-
-template <typename T>
-inline D2<T> portion(const D2<T> &a, Interval i) {
-    boost::function_requires<FragmentConcept<T> >();
-    return D2<T>(portion(a[X], i), portion(a[Y], i));
 }
 
 //IMPL: boost::EqualityComparableConcept
@@ -251,7 +238,7 @@ template <typename T>
 inline D2<T> operator/=(D2<T> & a, double b) { a[0] /= b; a[1] /= b; return a; }
 
 template<typename T>
-D2<T> operator*(D2<T> const &v, Affine const &m) {
+D2<T> operator*(D2<T> const &v, Matrix const &m) {
     boost::function_requires<AddableConcept<T> >();
     boost::function_requires<ScalableConcept<T> >();
     D2<T> ret;
@@ -259,19 +246,6 @@ D2<T> operator*(D2<T> const &v, Affine const &m) {
         ret[i] = v[X] * m[i] + v[Y] * m[i + 2] + m[i + 4];
     return ret;
 }
-
-//IMPL: MultiplicableConcept
-template <typename T>
-inline D2<T>
-operator*(D2<T> const & a, T const & b) {
-    boost::function_requires<MultiplicableConcept<T> >();
-    D2<T> ret;
-    for(unsigned i = 0; i < 2; i++)
-        ret[i] = a[i] * b;
-    return ret;
-}
-
-//IMPL: 
 
 //IMPL: OffsetableConcept
 template <typename T>
@@ -321,25 +295,6 @@ dot(D2<T> const & a, D2<T> const & b) {
     return r;
 }
 
-/** @brief Calculates the 'dot product' or 'inner product' of \c a and \c b
- * @return \f$a \bullet b = a_X b_X + a_Y b_Y\f$.
- * @relates D2 */
-template <typename T>
-inline T
-dot(D2<T> const & a, Point const & b) {
-    boost::function_requires<AddableConcept<T> >();
-    boost::function_requires<ScalableConcept<T> >();
-
-    T r;
-    for(unsigned i = 0; i < 2; i++) {
-        r += a[i] * b[i];
-    }
-    return r;
-}
-
-/** @brief Calculates the 'cross product' or 'outer product' of \c a and \c b
- * @return \f$a \times b = a_Y b_X - a_X b_Y\f$.
- * @relates D2 */
 template <typename T>
 inline T
 cross(D2<T> const & a, D2<T> const & b) {
@@ -416,14 +371,6 @@ D2<T> integral(D2<T> const & a) {
     return D2<T>(integral(a[X]), integral(a[Y]));
 }
 
-/** A function to print out the Point.  It just prints out the coords
-    on the given output stream */
-template <typename T>
-inline std::ostream &operator<< (std::ostream &out_file, const Geom::D2<T> &in_d2) {
-    out_file << "X: " << in_d2[X] << "  Y: " << in_d2[Y];
-    return out_file;
-}
-
 } //end namespace Geom
 
 #include "rect.h"
@@ -433,19 +380,19 @@ namespace Geom{
 
 //Some D2 Fragment implementation which requires rect:
 template <typename T>
-OptRect bounds_fast(const D2<T> &a) {
-    boost::function_requires<FragmentConcept<T> >();
-    return OptRect(bounds_fast(a[X]), bounds_fast(a[Y]));
+Rect bounds_fast(const D2<T> &a) {
+    boost::function_requires<FragmentConcept<T> >();        
+    return Rect(bounds_fast(a[X]), bounds_fast(a[Y]));
 }
 template <typename T>
-OptRect bounds_exact(const D2<T> &a) {
-    boost::function_requires<FragmentConcept<T> >();
-    return OptRect(bounds_exact(a[X]), bounds_exact(a[Y]));
+Rect bounds_exact(const D2<T> &a) {
+    boost::function_requires<FragmentConcept<T> >();        
+    return Rect(bounds_exact(a[X]), bounds_exact(a[Y]));
 }
 template <typename T>
-OptRect bounds_local(const D2<T> &a, const OptInterval &t) {
-    boost::function_requires<FragmentConcept<T> >();
-    return OptRect(bounds_local(a[X], t), bounds_local(a[Y], t));
+Rect bounds_local(const D2<T> &a, const Interval &t) {
+    boost::function_requires<FragmentConcept<T> >();        
+    return Rect(bounds_local(a[X], t), bounds_local(a[Y], t));
 }
 };
 

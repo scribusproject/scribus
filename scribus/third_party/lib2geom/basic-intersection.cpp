@@ -1,93 +1,87 @@
-#include <basic-intersection.h>
-#include <sbasis-to-bezier.h>
-#include <exception.h>
+#include "basic-intersection.h"
+#include "exception.h"
+#include "angle.h"
 
-#ifdef HAVE_GSL
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_multiroots.h>
+#ifndef M_SQRT2
+#define M_SQRT2     1.41421356237309504880
 #endif
+
+
+unsigned intersect_steps = 0;
 
 using std::vector;
 namespace Geom {
 
-//#ifdef USE_RECURSIVE_INTERSECTOR
-
-// void find_intersections(std::vector<std::pair<double, double> > &xs,
-//                         D2<SBasis> const & A,
-//                         D2<SBasis> const & B) {
-//     vector<Point> BezA, BezB;
-//     sbasis_to_bezier(BezA, A);
-//     sbasis_to_bezier(BezB, B);
-    
-//     xs.clear();
-    
-//     find_intersections_bezier_recursive(xs, BezA, BezB);
-// }
-// void find_intersections(std::vector< std::pair<double, double> > & xs,
-//                          std::vector<Point> const& A,
-//                          std::vector<Point> const& B,
-//                         double precision){
-//     find_intersections_bezier_recursive(xs, A, B, precision);
-// }
-
-//#else
-
-namespace detail{ namespace bezier_clipping {
-void portion (std::vector<Point> & B, Interval const& I);
-}; };
-
-void find_intersections(std::vector<std::pair<double, double> > &xs,
-                        D2<SBasis> const & A,
-                        D2<SBasis> const & B) {
-    vector<Point> BezA, BezB;
-    sbasis_to_bezier(BezA, A);
-    sbasis_to_bezier(BezB, B);
-
-    xs.clear();
-    
-    find_intersections_bezier_clipping(xs, BezA, BezB);
-}
-void find_intersections(std::vector< std::pair<double, double> > & xs,
-                         std::vector<Point> const& A,
-                         std::vector<Point> const& B,
-                        double precision){
-    find_intersections_bezier_clipping(xs, A, B, precision);
-}
-
-//#endif
-
-/*
- * split the curve at the midpoint, returning an array with the two parts
- * Temporary storage is minimized by using part of the storage for the result
- * to hold an intermediate value until it is no longer needed.
- */
-void split(vector<Point> const &p, double t, 
-           vector<Point> &left, vector<Point> &right) {
-    const unsigned sz = p.size();
-    Geom::Point Vtemp[sz][sz];
-
-    /* Copy control points	*/
-    std::copy(p.begin(), p.end(), Vtemp[0]);
-
-    /* Triangle computation	*/
-    for (unsigned i = 1; i < sz; i++) {
-        for (unsigned j = 0; j < sz - i; j++) {
-            Vtemp[i][j] = lerp(t, Vtemp[i-1][j], Vtemp[i-1][j+1]);
-        }
+class OldBezier {
+public:
+    std::vector<Geom::Point> p;
+    OldBezier() {
     }
+    void split(double t, OldBezier &a, OldBezier &b) const;
+    
+    ~OldBezier() {}
 
-    left.resize(sz);
-    right.resize(sz);
-    for (unsigned j = 0; j < sz; j++)
-        left[j]  = Vtemp[j][0];
-    for (unsigned j = 0; j < sz; j++)
-        right[j] = Vtemp[sz-1-j][j];
+    void bounds(double &minax, double &maxax, 
+                double &minay, double &maxay) {
+        // Compute bounding box for a
+        minax = p[0][X];	 // These are the most likely to be extremal
+        maxax = p.back()[X];
+        if( minax > maxax )
+            std::swap(minax, maxax);
+        for(unsigned i = 1; i < p.size()-1; i++) {
+            if( p[i][X] < minax )
+                minax = p[i][X];
+            else if( p[i][X] > maxax )
+                maxax = p[i][X];
+        }
+
+        minay = p[0][Y];	 // These are the most likely to be extremal
+        maxay = p.back()[Y];
+        if( minay > maxay )
+            std::swap(minay, maxay);
+        for(unsigned i = 1; i < p.size()-1; i++) {
+            if( p[i][Y] < minay )
+                minay = p[i][Y];
+            else if( p[i][Y] > maxay )
+                maxay = p[i][Y];
+        }
+
+    }
+    
+};
+
+static std::vector<std::pair<double, double> >
+find_intersections( OldBezier a, OldBezier b);
+
+static std::vector<std::pair<double, double> > 
+find_self_intersections(OldBezier const &Sb, D2<SBasis> const & A);
+
+std::vector<std::pair<double, double> >
+find_intersections( vector<Geom::Point> const & A, 
+                    vector<Geom::Point> const & B) {
+    OldBezier a, b;
+    a.p = A;
+    b.p = B;
+    return find_intersections(a,b);
+}
+
+std::vector<std::pair<double, double> > 
+find_self_intersections(OldBezier const &Sb) {
+    throwNotImplemented(0);
+}
+
+std::vector<std::pair<double, double> > 
+find_self_intersections(D2<SBasis> const & A) {
+    OldBezier Sb;
+    Sb.p = sbasis_to_bezier(A);
+    return find_self_intersections(Sb, A);
 }
 
 
-void
-find_self_intersections(std::vector<std::pair<double, double> > &xs,
-                        D2<SBasis> const & A) {
+static std::vector<std::pair<double, double> > 
+find_self_intersections(OldBezier const &Sb, D2<SBasis> const & A) {
+
+    
     vector<double> dr = roots(derivative(A[X]));
     {
         vector<double> dyr = roots(derivative(A[Y]));
@@ -97,319 +91,265 @@ find_self_intersections(std::vector<std::pair<double, double> > &xs,
     dr.push_back(1);
     // We want to be sure that we have no empty segments
     sort(dr.begin(), dr.end());
-    vector<double>::iterator new_end = unique(dr.begin(), dr.end());
-    dr.resize( new_end - dr.begin() );
-
-    vector<vector<Point> > pieces;
+    unique(dr.begin(), dr.end());
+    
+    std::vector<std::pair<double, double> > all_si;
+    
+    vector<OldBezier> pieces;
     {
-        vector<Point> in, l, r;
-        sbasis_to_bezier(in, A);
+        OldBezier in = Sb, l, r;
         for(unsigned i = 0; i < dr.size()-1; i++) {
-            split(in, (dr[i+1]-dr[i]) / (1 - dr[i]), l, r);
+            in.split((dr[i+1]-dr[i]) / (1 - dr[i]), l, r);
             pieces.push_back(l);
             in = r;
         }
     }
-
     for(unsigned i = 0; i < dr.size()-1; i++) {
         for(unsigned j = i+1; j < dr.size()-1; j++) {
-            std::vector<std::pair<double, double> > section;
-            
-            find_intersections( section, pieces[i], pieces[j]);
+            std::vector<std::pair<double, double> > section = 
+                find_intersections( pieces[i], pieces[j]);
             for(unsigned k = 0; k < section.size(); k++) {
                 double l = section[k].first;
                 double r = section[k].second;
 // XXX: This condition will prune out false positives, but it might create some false negatives.  Todo: Confirm it is correct.
                 if(j == i+1)
-                    //if((l == 1) && (r == 0))
-                    if( ( l > 1-1e-4 ) && (r < 1e-4) )//FIXME: what precision should be used here???
+                    if((l == 1) && (r == 0))
                         continue;
-                xs.push_back(std::make_pair((1-l)*dr[i] + l*dr[i+1],
+                all_si.push_back(std::make_pair((1-l)*dr[i] + l*dr[i+1],
                                                 (1-r)*dr[j] + r*dr[j+1]));
             }
         }
     }
-
-    // Because i is in order, xs should be roughly already in order?
-    //sort(xs.begin(), xs.end());
-    //unique(xs.begin(), xs.end());
-}
-
-#ifdef HAVE_GSL
-#include <gsl/gsl_multiroots.h>
-
-struct rparams
-{
-    D2<SBasis> const &A;
-    D2<SBasis> const &B;
-};
-
-static int
-intersect_polish_f (const gsl_vector * x, void *params,
-                    gsl_vector * f)
-{
-    const double x0 = gsl_vector_get (x, 0);
-    const double x1 = gsl_vector_get (x, 1);
-
-    Geom::Point dx = ((struct rparams *) params)->A(x0) -
-        ((struct rparams *) params)->B(x1);
-
-    gsl_vector_set (f, 0, dx[0]);
-    gsl_vector_set (f, 1, dx[1]);
-
-    return GSL_SUCCESS;
-}
-#endif
-
-union dbl_64{
-    long long i64;
-    double d64;
-};
-
-static double EpsilonBy(double value, int eps)
-{
-    dbl_64 s;
-    s.d64 = value;
-    s.i64 += eps;
-    return s.d64;
-}
-
-
-static void intersect_polish_root (D2<SBasis> const &A, double &s,
-                                   D2<SBasis> const &B, double &t) {
-#ifdef HAVE_GSL
-    const gsl_multiroot_fsolver_type *T;
-    gsl_multiroot_fsolver *sol;
-
-    int status;
-    size_t iter = 0;
-#endif
-    std::vector<Point> as, bs;
-    as = A.valueAndDerivatives(s, 2);
-    bs = B.valueAndDerivatives(t, 2);
-    Point F = as[0] - bs[0];
-    double best = dot(F, F);
     
-    for(int i = 0; i < 4; i++) {
-        
-        /**
-           we want to solve
-           J*(x1 - x0) = f(x0)
-           
-           |dA(s)[0]  -dB(t)[0]|  (X1 - X0) = A(s) - B(t)
-           |dA(s)[1]  -dB(t)[1]| 
-        **/
+    // Because i is in order, all_si should be roughly already in order?
+    //sort(all_si.begin(), all_si.end());
+    //unique(all_si.begin(), all_si.end());
+    
+    return all_si;
+}
 
-        // We're using the standard transformation matricies, which is numerically rather poor.  Much better to solve the equation using elimination.
+/* The value of 1.0 / (1L<<14) is enough for most applications */
+const double INV_EPS = (1L<<14);
+    
+/*
+ * split the curve at the midpoint, returning an array with the two parts
+ * Temporary storage is minimized by using part of the storage for the result
+ * to hold an intermediate value until it is no longer needed.
+ */
+void OldBezier::split(double t, OldBezier &left, OldBezier &right) const {
+    const unsigned sz = p.size();
+	std::vector<Geom::Point> Vtemp(p);
 
-        Affine jack(as[1][0], as[1][1],
-                    -bs[1][0], -bs[1][1],
-                    0, 0);
-        Point soln = (F)*jack.inverse();
-        double ns = s - soln[0];
-        double nt = t - soln[1];
-        
-        as = A.valueAndDerivatives(ns, 2);
-        bs = B.valueAndDerivatives(nt, 2);
-        F = as[0] - bs[0];
-        double trial = dot(F, F);
-        if (trial > best*0.1) {// we have standards, you know
-            // At this point we could do a line search
-            break;
+	left.p.resize(sz);
+	right.p.resize(sz);
+	left.p[0]     = Vtemp[0];
+    right.p[sz-1] = Vtemp[sz-1];
+    /* Triangle computation	*/
+    for (unsigned i = 1; i < sz; i++) {	
+        for (unsigned j = 0; j < sz - i; j++) {
+            Vtemp[j] = lerp(t, Vtemp[j], Vtemp[j+1]);
         }
-        best = trial;
-        s = ns;
-        t = nt;
+		left.p[i]       = Vtemp[0];
+        right.p[sz-1-i] = Vtemp[sz-1-i];
     }
+}
+
     
-#ifdef HAVE_GSL
-    const size_t n = 2;
-    struct rparams p = {A, B};
-    gsl_multiroot_function f = {&intersect_polish_f, n, &p};
+/*
+ * Test the bounding boxes of two OldBezier curves for interference.
+ * Several observations:
+ *	First, it is cheaper to compute the bounding box of the second curve
+ *	and test its bounding box for interference than to use a more direct
+ *	approach of comparing all control points of the second curve with 
+ *	the various edges of the bounding box of the first curve to test
+ * 	for interference.
+ *	Second, after a few subdivisions it is highly probable that two corners
+ *	of the bounding box of a given Bezier curve are the first and last 
+ *	control point.  Once this happens once, it happens for all subsequent
+ *	subcurves.  It might be worth putting in a test and then short-circuit
+ *	code for further subdivision levels.
+ *	Third, in the final comparison (the interference test) the comparisons
+ *	should both permit equality.  We want to find intersections even if they
+ *	occur at the ends of segments.
+ *	Finally, there are tighter bounding boxes that can be derived. It isn't
+ *	clear whether the higher probability of rejection (and hence fewer
+ *	subdivisions and tests) is worth the extra work.
+ */
 
-    double x_init[2] = {s, t};
-    gsl_vector *x = gsl_vector_alloc (n);
-
-    gsl_vector_set (x, 0, x_init[0]);
-    gsl_vector_set (x, 1, x_init[1]);
-
-    T = gsl_multiroot_fsolver_hybrids;
-    sol = gsl_multiroot_fsolver_alloc (T, 2);
-    gsl_multiroot_fsolver_set (sol, &f, x);
-
-    do
+bool intersect_BB( OldBezier a, OldBezier b ) {
+    double minax, maxax, minay, maxay;
+    a.bounds(minax, maxax, minay, maxay);
+    double minbx, maxbx, minby, maxby;
+    b.bounds(minbx, maxbx, minby, maxby);
+    // Test bounding box of b against bounding box of a
+    // Not >= : need boundary case
+    return !( ( minax > maxbx ) || ( minay > maxby ) ||
+              ( minbx > maxax ) || ( minby > maxay )   );
+}
+	
+/* 
+ * Recursively intersect two curves keeping track of their real parameters 
+ * and depths of intersection.
+ * The results are returned in a 2-D array of doubles indicating the parameters
+ * for which intersections are found.  The parameters are in the order the
+ * intersections were found, which is probably not in sorted order.
+ * When an intersection is found, the parameter value for each of the two 
+ * is stored in the index elements array, and the index is incremented.
+ * 
+ * If either of the curves has subdivisions left before it is straight
+ *	(depth > 0)
+ * that curve (possibly both) is (are) subdivided at its (their) midpoint(s).
+ * the depth(s) is (are) decremented, and the parameter value(s) corresponding
+ * to the midpoints(s) is (are) computed.
+ * Then each of the subcurves of one curve is intersected with each of the 
+ * subcurves of the other curve, first by testing the bounding boxes for
+ * interference.  If there is any bounding box interference, the corresponding
+ * subcurves are recursively intersected.
+ * 
+ * If neither curve has subdivisions left, the line segments from the first
+ * to last control point of each segment are intersected.  (Actually the 
+ * only the parameter value corresponding to the intersection point is found).
+ *
+ * The apriori flatness test is probably more efficient than testing at each
+ * level of recursion, although a test after three or four levels would
+ * probably be worthwhile, since many curves become flat faster than their 
+ * asymptotic rate for the first few levels of recursion.
+ *
+ * The bounding box test fails much more frequently than it succeeds, providing
+ * substantial pruning of the search space.
+ *
+ * Each (sub)curve is subdivided only once, hence it is not possible that for 
+ * one final line intersection test the subdivision was at one level, while
+ * for another final line intersection test the subdivision (of the same curve)
+ * was at another.  Since the line segments share endpoints, the intersection
+ * is robust: a near-tangential intersection will yield zero or two
+ * intersections.
+ */
+void recursively_intersect( OldBezier a, double t0, double t1, int deptha,
+			   OldBezier b, double u0, double u1, int depthb,
+			   std::vector<std::pair<double, double> > &parameters)
+{
+    intersect_steps ++;
+    if( deptha > 0 )
     {
-        iter++;
-        status = gsl_multiroot_fsolver_iterate (sol);
-
-        if (status)   /* check if solver is stuck */
-            break;
-
-        status =
-            gsl_multiroot_test_residual (sol->f, 1e-12);
+        OldBezier A[2];
+        a.split(0.5, A[0], A[1]);
+	double tmid = (t0+t1)*0.5;
+	deptha--;
+	if( depthb > 0 )
+        {
+	    OldBezier B[2];
+            b.split(0.5, B[0], B[1]);
+	    double umid = (u0+u1)*0.5;
+	    depthb--;
+	    if( intersect_BB( A[0], B[0] ) )
+		recursively_intersect( A[0], t0, tmid, deptha,
+				      B[0], u0, umid, depthb,
+				      parameters );
+	    if( intersect_BB( A[1], B[0] ) )
+		recursively_intersect( A[1], tmid, t1, deptha,
+				      B[0], u0, umid, depthb,
+				      parameters );
+	    if( intersect_BB( A[0], B[1] ) )
+		recursively_intersect( A[0], t0, tmid, deptha,
+				      B[1], umid, u1, depthb,
+				      parameters );
+	    if( intersect_BB( A[1], B[1] ) )
+		recursively_intersect( A[1], tmid, t1, deptha,
+				      B[1], umid, u1, depthb,
+				      parameters );
+        }
+	else
+        {
+	    if( intersect_BB( A[0], b ) )
+		recursively_intersect( A[0], t0, tmid, deptha,
+				      b, u0, u1, depthb,
+				      parameters );
+	    if( intersect_BB( A[1], b ) )
+		recursively_intersect( A[1], tmid, t1, deptha,
+				      b, u0, u1, depthb,
+				      parameters );
+        }
     }
-    while (status == GSL_CONTINUE && iter < 1000);
-
-    s = gsl_vector_get (sol->x, 0);
-    t = gsl_vector_get (sol->x, 1);
-
-    gsl_multiroot_fsolver_free (sol);
-    gsl_vector_free (x);
-#endif
-    
-    {
-    // This code does a neighbourhood search for minor improvements.
-    double best_v = L1(A(s) - B(t));
-    //std::cout  << "------\n" <<  best_v << std::endl;
-    Point best(s,t);
-    while (true) {
-        Point trial = best;
-        double trial_v = best_v;
-        for(int nsi = -1; nsi < 2; nsi++) {
-        for(int nti = -1; nti < 2; nti++) {
-            Point n(EpsilonBy(best[0], nsi),
-                    EpsilonBy(best[1], nti));
-            double c = L1(A(n[0]) - B(n[1]));
-            //std::cout << c << "; ";
-            if (c < trial_v) {
-                trial = n;
-                trial_v = c;
+    else
+	if( depthb > 0 )
+        {
+	    OldBezier B[2];
+            b.split(0.5, B[0], B[1]);
+	    double umid = (u0 + u1)*0.5;
+	    depthb--;
+	    if( intersect_BB( a, B[0] ) )
+		recursively_intersect( a, t0, t1, deptha,
+				      B[0], u0, umid, depthb,
+				      parameters );
+	    if( intersect_BB( a, B[1] ) )
+		recursively_intersect( a, t0, t1, deptha,
+				      B[0], umid, u1, depthb,
+				      parameters );
+        }
+	else // Both segments are fully subdivided; now do line segments
+        {
+	    double xlk = a.p.back()[X] - a.p[0][X];
+	    double ylk = a.p.back()[Y] - a.p[0][Y];
+	    double xnm = b.p.back()[X] - b.p[0][X];
+	    double ynm = b.p.back()[Y] - b.p[0][Y];
+	    double xmk = b.p[0][X] - a.p[0][X];
+	    double ymk = b.p[0][Y] - a.p[0][Y];
+	    double det = xnm * ylk - ynm * xlk;
+	    if( 1.0 + det == 1.0 )
+		return;
+	    else
+            {
+		double detinv = 1.0 / det;
+		double s = ( xnm * ymk - ynm *xmk ) * detinv;
+		double t = ( xlk * ymk - ylk * xmk ) * detinv;
+		if( ( s < 0.0 ) || ( s > 1.0 ) || ( t < 0.0 ) || ( t > 1.0 ) )
+		    return;
+		parameters.push_back(std::pair<double, double>(t0 + s * ( t1 - t0 ),
+                                                         u0 + t * ( u1 - u0 )));
             }
         }
-        }
-        if(trial == best) {
-            //std::cout << "\n" << s << " -> " << s - best[0] << std::endl;
-            //std::cout << t << " -> " << t - best[1] << std::endl;
-            //std::cout << best_v << std::endl;
-            s = best[0];
-            t = best[1];
-            return;
-        } else {
-            best = trial;
-            best_v = trial_v;
-        }
-    }
-    }
 }
 
+inline double log4( double x ) { return log(x)/log(4.); }
+    
+/*
+ * Wang's theorem is used to estimate the level of subdivision required,
+ * but only if the bounding boxes interfere at the top level.
+ * Assuming there is a possible intersection, recursively_intersect is
+ * used to find all the parameters corresponding to intersection points.
+ * these are then sorted and returned in an array.
+ */
 
-void polish_intersections(std::vector<std::pair<double, double> > &xs, 
-                        D2<SBasis> const  &A, D2<SBasis> const &B)
+double Lmax(Point p) {
+    return std::max(fabs(p[X]), fabs(p[Y]));
+}
+
+unsigned wangs_theorem(OldBezier a) {
+    return 12; // seems a good approximation!
+    double la1 = Lmax( ( a.p[2] - a.p[1] ) - (a.p[1] - a.p[0]) );
+    double la2 = Lmax( ( a.p[3] - a.p[2] ) - (a.p[2] - a.p[1]) );
+    double l0 = std::max(la1, la2);
+    unsigned ra;
+    if( l0 * 0.75 * M_SQRT2 + 1.0 == 1.0 ) 
+        ra = 0;
+    else
+        ra = (unsigned)ceil( log4( M_SQRT2 * 6.0 / 8.0 * INV_EPS * l0 ) );
+    std::cout << ra << std::endl;
+    return ra;
+}
+
+std::vector<std::pair<double, double> > find_intersections( OldBezier a, OldBezier b)
 {
-    for(unsigned i = 0; i < xs.size(); i++)
-        intersect_polish_root(A, xs[i].first,
-                              B, xs[i].second);
-}
-
-
- /**
-  * Compute the Hausdorf distance from A to B only.
-  */
-
-
-#if 0
-/** Compute the value of a bezier
-    Todo: find a good palce for this.
- */
-// suggested by Sederberg.
-Point OldBezier::operator()(double t) const {
-    int n = p.size()-1;
-    double u, bc, tn, tmp;
-    int i;
-    Point r;
-    for(int dim = 0; dim < 2; dim++) {
-        u = 1.0 - t;
-        bc = 1;
-        tn = 1;
-        tmp = p[0][dim]*u;
-        for(i=1; i<n; i++){
-            tn = tn*t;
-            bc = bc*(n-i+1)/i;
-            tmp = (tmp + tn*bc*p[i][dim])*u;
-        }
-        r[dim] = (tmp + tn*t*p[n][dim]);
-    }
-    return r;
-}
-#endif
-
-/**
- * Compute the Hausdorf distance from A to B only.
- */
-double hausdorfl(D2<SBasis>& A, D2<SBasis> const& B,
-                 double m_precision,
-                 double *a_t, double* b_t) {
-    std::vector< std::pair<double, double> > xs;
-    std::vector<Point> Az, Bz;
-    sbasis_to_bezier (Az, A);
-    sbasis_to_bezier (Bz, B);
-    find_collinear_normal(xs, Az, Bz, m_precision);
-    double h_dist = 0, h_a_t = 0, h_b_t = 0;
-    double dist = 0;
-    Point Ax = A.at0();
-    double t = Geom::nearest_point(Ax, B);
-    dist = Geom::distance(Ax, B(t));
-    if (dist > h_dist) {
-        h_a_t = 0;
-        h_b_t = t;
-        h_dist = dist;
-    }
-    Ax = A.at1();
-    t = Geom::nearest_point(Ax, B);
-    dist = Geom::distance(Ax, B(t));
-    if (dist > h_dist) {
-        h_a_t = 1;
-        h_b_t = t;
-        h_dist = dist;
-    }
-    for (size_t i = 0; i < xs.size(); ++i)
+    std::vector<std::pair<double, double> > parameters;
+    if( intersect_BB( a, b ) )
     {
-        Point At = A(xs[i].first);
-        Point Bu = B(xs[i].second);
-        double distAtBu = Geom::distance(At, Bu);
-        t = Geom::nearest_point(At, B);
-        dist = Geom::distance(At, B(t));
-        //FIXME: we might miss it due to floating point precision...
-        if (dist >= distAtBu-.1 && distAtBu > h_dist) {
-            h_a_t = xs[i].first;
-            h_b_t = xs[i].second;
-            h_dist = distAtBu;
-        }
-            
+	recursively_intersect( a, 0., 1., wangs_theorem(a), 
+                               b, 0., 1., wangs_theorem(b), 
+                               parameters);
     }
-    if(a_t) *a_t = h_a_t;
-    if(b_t) *b_t = h_b_t;
-    
-    return h_dist;
-}
-
-/** 
- * Compute the symmetric Hausdorf distance.
- */
-double hausdorf(D2<SBasis>& A, D2<SBasis> const& B,
-                 double m_precision,
-                 double *a_t, double* b_t) {
-    double h_dist = hausdorfl(A, B, m_precision, a_t, b_t);
-    
-    double dist = 0;
-    Point Bx = B.at0();
-    double t = Geom::nearest_point(Bx, A);
-    dist = Geom::distance(Bx, A(t));
-    if (dist > h_dist) {
-        if(a_t) *a_t = t;
-        if(b_t) *b_t = 0;
-        h_dist = dist;
-    }
-    Bx = B.at1();
-    t = Geom::nearest_point(Bx, A);
-    dist = Geom::distance(Bx, A(t));
-    if (dist > h_dist) {
-        if(a_t) *a_t = t;
-        if(b_t) *b_t = 1;
-        h_dist = dist;
-    }
-    
-    return h_dist;
+    std::sort(parameters.begin(), parameters.end());
+    return parameters;
 }
 };
 

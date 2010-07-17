@@ -35,18 +35,18 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 
-//#include "third_party/lib2geom/d2.h"
-//#include "third_party/lib2geom/piecewise.h"
-//#include "third_party/lib2geom/sbasis.h"
-//#include "third_party/lib2geom/sbasis-geometric.h"
-//#include "third_party/lib2geom/bezier-to-sbasis.h"
-//#include "third_party/lib2geom/sbasis-to-bezier.h"
-//#include "third_party/lib2geom/utils.h"
-//#include "third_party/lib2geom/path.h"
-//#include "third_party/lib2geom/sbasis-2d.h"
+#include "third_party/lib2geom/d2.h"
+#include "third_party/lib2geom/piecewise.h"
+#include "third_party/lib2geom/sbasis.h"
+#include "third_party/lib2geom/sbasis-geometric.h"
+#include "third_party/lib2geom/bezier-to-sbasis.h"
+#include "third_party/lib2geom/sbasis-to-bezier.h"
+#include "third_party/lib2geom/utils.h"
+#include "third_party/lib2geom/path.h"
+#include "third_party/lib2geom/sbasis-2d.h"
 #include "third_party/lib2geom/scribushelper.h"
 #include <vector>
-//using namespace Geom;
+using namespace Geom;
 
 /** \brief This is a simple "PathAlongPath" plugin for Scribus 1.3 and later.
 \author Franz Schmid

@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <valarray>
 #include <cassert>
-#include <conjugate_gradient.h>
+#include "conjugate_gradient.h"
 
 /* lifted wholely from wikipedia. */
 
@@ -46,22 +46,18 @@ matrix_times_vector(valarray<double> const &matrix, /* m * n */
     unsigned n = vec.size();
     unsigned m = result.size();
     assert(m*n == matrix.size());
-    const double* mp = &const_cast<valarray<double>&>(matrix)[0];
     for (unsigned i = 0; i < m; i++) {
         double res = 0;
         for (unsigned j = 0; j < n; j++)
-            res += *mp++ * vec[j];
+            res += matrix[i*m+j] * vec[j];
         result[i] = res;
     }
 }
-
-/**
-// only used in commented code below
+/*
 static double Linfty(valarray<double> const &vec) {
     return std::max(vec.max(), -vec.min());
 }
-**/
-
+*/
 double
 inner(valarray<double> const &x, 
       valarray<double> const &y) {
@@ -99,7 +95,7 @@ conjugate_gradient(valarray<double> const &A,
 		   valarray<double> &x, 
 		   valarray<double> const &b, 
 		   unsigned n, double tol,
-		   unsigned max_iterations, bool /*ortho1*/) {
+		   unsigned max_iterations, bool ortho1) {
     valarray<double> Ap(n), p(n), r(n);
     matrix_times_vector(A,x,Ap);
     r=b-Ap; 
@@ -125,7 +121,6 @@ conjugate_gradient(valarray<double> const &A,
     //std::max(-r.min(), r.max()), sqrt(r_r));
     // x is solution
 }
-
 /*
   Local Variables:
   mode:c++
@@ -135,4 +130,4 @@ conjugate_gradient(valarray<double> const &A,
   fill-column:99
   End:
 */
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=4:softtabstop=4

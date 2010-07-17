@@ -1,10 +1,7 @@
-#ifndef SEEN_GEOM_BEZIER_UTILS_H
-#define SEEN_GEOM_BEZIER_UTILS_H
+#ifndef __SP_BEZIER_UTILS_H__
+#define __SP_BEZIER_UTILS_H__
 
-/**
- * \file
- * \brief  \todo brief description
- *
+/*
  * An Algorithm for Automatically Fitting Digitized Curves
  * by Philip J. Schneider
  * from "Graphics Gems", Academic Press, 1990
@@ -85,7 +82,7 @@ cubic_bezier_poly_coeff(iterator b, Point *pc) {
 }
 
 }
-#endif /* !SEEN_GEOM_BEZIER_UTILS_H */
+#endif /* __SP_BEZIER_UTILS_H__ */
 
 /*
   Local Variables:

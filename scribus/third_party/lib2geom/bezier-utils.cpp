@@ -48,15 +48,17 @@
 #define noBEZIER_DEBUG
 
 #ifdef HAVE_IEEEFP_H
-# include <ieeefp.h>
+# include <ieefp.h>
 #endif
 
-#include <bezier-utils.h>
+#include "bezier-utils.h"
 
-#include <isnan.h>
+#include "isnan.h"
 #include <assert.h>
 
-namespace Geom {
+namespace Geom{
+
+typedef Point BezierCurve[];
 
 /* Forward declarations */
 static void generate_bezier(Point b[], Point const d[], double const u[], unsigned len,
@@ -66,16 +68,16 @@ static void estimate_lengths(Point bezier[],
                              Point const &tHat1, Point const &tHat2);
 static void estimate_bi(Point b[4], unsigned ei,
                         Point const data[], double const u[], unsigned len);
-static void reparameterize(Point const d[], unsigned len, double u[], Point const bezCurve[]);
-static double NewtonRaphsonRootFind(Point const Q[], Point const &P, double u);
+static void reparameterize(Point const d[], unsigned len, double u[], BezierCurve const bezCurve);
+static double NewtonRaphsonRootFind(BezierCurve const Q, Point const &P, double u);
 static Point darray_center_tangent(Point const d[], unsigned center, unsigned length);
 static Point darray_right_tangent(Point const d[], unsigned const len);
 static unsigned copy_without_nans_or_adjacent_duplicates(Point const src[], unsigned src_len, Point dest[]);
 static void chord_length_parameterize(Point const d[], double u[], unsigned len);
 static double compute_max_error_ratio(Point const d[], double const u[], unsigned len,
-                                      Point const bezCurve[], double tolerance,
+                                      BezierCurve const bezCurve, double tolerance,
                                       unsigned *splitPoint);
-static double compute_hook(Point const &a, Point const &b, double const u, Point const bezCurve[],
+static double compute_hook(Point const &a, Point const &b, double const u, BezierCurve const bezCurve,
                            double const tolerance);
 
 
@@ -163,20 +165,19 @@ copy_without_nans_or_adjacent_duplicates(Point const src[], unsigned src_len, Po
         if ( si == src_len ) {
             return 0;
         }
-        if (!IS_NAN(src[si][X]) &&
-            !IS_NAN(src[si][Y])) {
+        if (!is_nan(src[si][X]) &&
+            !is_nan(src[si][Y])) {
             dest[0] = Point(src[si]);
             ++si;
             break;
         }
-        si++;
     }
     unsigned di = 0;
     for (; si < src_len; ++si) {
         Point const src_pt = Point(src[si]);
         if ( src_pt != dest[di]
-             && !IS_NAN(src_pt[X])
-             && !IS_NAN(src_pt[Y])) {
+             && !is_nan(src_pt[X])
+             && !is_nan(src_pt[Y])) {
             dest[++di] = src_pt;
         }
     }
@@ -215,7 +216,7 @@ bezier_fit_cubic_full(Point bezier[], int split_points[],
         bezier[0] = data[0];
         bezier[3] = data[len - 1];
         double const dist = distance(bezier[0], bezier[3]) / 3.0;
-        if (IS_NAN(dist)) {
+        if (is_nan(dist)) {
             /* Numerical problem, fall back to straight line segment. */
             bezier[1] = bezier[0];
             bezier[2] = bezier[3];
@@ -544,7 +545,7 @@ static void
 reparameterize(Point const d[],
                unsigned const len,
                double u[],
-               Point const bezCurve[])
+               BezierCurve const bezCurve)
 {
     assert( 2 <= len );
 
@@ -570,7 +571,7 @@ reparameterize(Point const d[],
  *  \return Improved u
  */
 static double
-NewtonRaphsonRootFind(Point const Q[], Point const &P, double const u)
+NewtonRaphsonRootFind(BezierCurve const Q, Point const &P, double const u)
 {
     assert( 0.0 <= u );
     assert( u <= 1.0 );
@@ -618,7 +619,7 @@ NewtonRaphsonRootFind(Point const Q[], Point const &P, double const u)
         }
     }
 
-    if (!IS_FINITE(improved_u)) {
+    if (!is_finite(improved_u)) {
         improved_u = u;
     } else if ( improved_u < 0.0 ) {
         improved_u = 0.0;
@@ -852,7 +853,7 @@ chord_length_parameterize(Point const d[], double u[], unsigned const len)
     double tot_len = u[len - 1];
     if(!( tot_len != 0 ))
         return;
-    if (IS_FINITE(tot_len)) {
+    if (is_finite(tot_len)) {
         for (unsigned i = 1; i < len; ++i) {
             u[i] /= tot_len;
         }
@@ -902,7 +903,7 @@ chord_length_parameterize(Point const d[], double u[], unsigned const len)
  */
 static double
 compute_max_error_ratio(Point const d[], double const u[], unsigned const len,
-                        Point const bezCurve[], double const tolerance,
+                        BezierCurve const bezCurve, double const tolerance,
                         unsigned *const splitPoint)
 {
     assert( 2 <= len );
@@ -972,7 +973,7 @@ compute_max_error_ratio(Point const d[], double const u[], unsigned const len,
  *  distance.)
  */
 static double
-compute_hook(Point const &a, Point const &b, double const u, Point const bezCurve[],
+compute_hook(Point const &a, Point const &b, double const u, BezierCurve const bezCurve,
              double const tolerance)
 {
     Point const P = bezier_pt(3, bezCurve, u);

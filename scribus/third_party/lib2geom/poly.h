@@ -1,39 +1,5 @@
-/**
- * \file
- * \brief  \todo brief description
- *
- * Authors:
- *      ? <?@?.?>
- * 
- * Copyright ?-?  authors
- *
- * This library is free software; you can redistribute it and/or
- * modify it either under the terms of the GNU Lesser General Public
- * License version 2.1 as published by the Free Software Foundation
- * (the "LGPL") or, at your option, under the terms of the Mozilla
- * Public License Version 1.1 (the "MPL"). If you do not alter this
- * notice, a recipient may use your version of this file under either
- * the MPL or the LGPL.
- *
- * You should have received a copy of the LGPL along with this library
- * in the file COPYING-LGPL-2.1; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- * You should have received a copy of the MPL along with this library
- * in the file COPYING-MPL-1.1
- *
- * The contents of this file are subject to the Mozilla Public License
- * Version 1.1 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY
- * OF ANY KIND, either express or implied. See the LGPL or the MPL for
- * the specific language governing rights and limitations.
- *
- */
-
-#ifndef LIB2GEOM_SEEN_POLY_H
-#define LIB2GEOM_SEEN_POLY_H
+#ifndef SEEN_POLY_H
+#define SEEN_POLY_H
 #include <assert.h>
 #include <vector>
 #include <iostream>
@@ -41,24 +7,22 @@
 #include <complex>
 #include "utils.h"
 
-namespace Geom {
-
 class Poly : public std::vector<double>{
 public:
     // coeff; // sum x^i*coeff[i]
-
+    
     //unsigned size() const { return coeff.size();}
     unsigned degree() const { return size()-1;}
 
     //double operator[](const int i) const { return (*this)[i];}
     //double& operator[](const int i) { return (*this)[i];}
-
+    
     Poly operator+(const Poly& p) const {
         Poly result;
-//        const unsigned out_size = std::max(size(), p.size());
+        const unsigned out_size = std::max(size(), p.size());
         const unsigned min_size = std::min(size(), p.size());
         //result.reserve(out_size);
-
+        
         for(unsigned i = 0; i < min_size; i++) {
             result.push_back((*this)[i] + p[i]);
         }
@@ -66,7 +30,7 @@ public:
             result.push_back((*this)[i]);
         for(unsigned i = min_size; i < p.size(); i++)
             result.push_back(p[i]);
-//        assert(result.size() == out_size);
+        assert(result.size() == out_size);
         return result;
     }
     Poly operator-(const Poly& p) const {
@@ -74,7 +38,7 @@ public:
         const unsigned out_size = std::max(size(), p.size());
         const unsigned min_size = std::min(size(), p.size());
         result.reserve(out_size);
-
+        
         for(unsigned i = 0; i < min_size; i++) {
             result.push_back((*this)[i] - p[i]);
         }
@@ -89,7 +53,7 @@ public:
         const unsigned out_size = std::max(size(), p.size());
         const unsigned min_size = std::min(size(), p.size());
         resize(out_size);
-
+        
         for(unsigned i = 0; i < min_size; i++) {
             (*this)[i] -= p[i];
         }
@@ -101,7 +65,7 @@ public:
         Poly result;
         const unsigned out_size = size();
         result.reserve(out_size);
-
+        
         for(unsigned i = 0; i < out_size; i++) {
             result.push_back((*this)[i]);
         }
@@ -111,7 +75,7 @@ public:
     Poly operator-() const {
         Poly result;
         result.resize(size());
-
+        
         for(unsigned i = 0; i < size(); i++) {
             result[i] = -(*this)[i];
         }
@@ -121,27 +85,40 @@ public:
         Poly result;
         const unsigned out_size = size();
         result.reserve(out_size);
-
+        
         for(unsigned i = 0; i < out_size; i++) {
             result.push_back((*this)[i]*p);
         }
         assert(result.size() == out_size);
         return result;
     }
-    // equivalent to multiply by x^terms, negative terms are disallowed
-    Poly shifted(unsigned const terms) const {
+// equivalent to multiply by x^terms, discard negative terms
+    Poly shifted(unsigned terms) const { 
         Poly result;
-        size_type const out_size = size() + terms;
+        // This was a no-op and breaks the build on x86_64, as it's trying
+        // to take maximum of 32-bit and 64-bit integers
+        //const unsigned out_size = std::max(unsigned(0), size()+terms);
+        const size_type out_size = size() + terms;
         result.reserve(out_size);
-
-        result.resize(terms, 0.0);
-        result.insert(result.end(), this->begin(), this->end());
-
+        
+        if(terms < 0) {
+            for(unsigned i = 0; i < out_size; i++) {
+                result.push_back((*this)[i-terms]);
+            }
+        } else {
+            for(unsigned i = 0; i < terms; i++) {
+                result.push_back(0.0);
+            }
+            for(unsigned i = 0; i < size(); i++) {
+                result.push_back((*this)[i]);
+            }
+        }
+        
         assert(result.size() == out_size);
         return result;
     }
     Poly operator*(const Poly& p) const;
-
+    
     template <typename T>
     T eval(T x) const {
         T r = 0;
@@ -150,17 +127,17 @@ public:
         }
         return r;
     }
-
+    
     template <typename T>
     T operator()(T t) const { return (T)eval(t);}
-
+    
     void normalize();
-
+    
     void monicify();
     Poly() {}
     Poly(const Poly& p) : std::vector<double>(p) {}
     Poly(const double a) {push_back(a);}
-
+    
 public:
     template <class T, class U>
     void val_and_deriv(T x, U &pd) const {
@@ -181,7 +158,7 @@ public:
             pd[i] *= cnst;
         }
     }
-
+    
     static Poly linear(double ax, double b) {
         Poly p;
         p.push_back(b);
@@ -225,15 +202,12 @@ inline std::ostream &operator<< (std::ostream &out_file, const Poly &in_poly) {
                 out_file << " + ";
             } else
                 out_file << in_poly[i];
-
+            
         }
     }
     return out_file;
 }
 
-} // namespace Geom
-
-#endif //LIB2GEOM_SEEN_POLY_H
 
 /*
   Local Variables:
@@ -245,3 +219,4 @@ inline std::ostream &operator<< (std::ostream &out_file, const Poly &in_poly) {
   End:
 */
 // vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :
+#endif

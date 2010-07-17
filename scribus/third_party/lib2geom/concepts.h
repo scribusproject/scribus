@@ -1,6 +1,5 @@
-/**
- * \file
- * \brief Declares various mathematical concepts, for restriction of template parameters
+/*
+ * concepts.h - Declares various mathematical concepts, for restriction of template parameters
  *
  * Copyright 2007 Michael Sloan <mgsloan@gmail.com>
  *
@@ -37,20 +36,21 @@
 #include "point.h"
 #include <vector>
 #include <boost/concept_check.hpp>
-#include "forward.h"
 
 namespace Geom {
 
 //forward decls
+template <typename T> class D2;
+
 template <typename T> struct ResultTraits;
 
 template <> struct ResultTraits<double> {
-  typedef OptInterval bounds_type;
+  typedef Interval bounds_type;
   typedef SBasis sb_type;
 };
 
 template <> struct ResultTraits<Point > {
-  typedef OptRect bounds_type;
+  typedef D2<Interval> bounds_type;
   typedef D2<SBasis> sb_type;
 };
 
@@ -78,7 +78,7 @@ struct FragmentConcept {
         o = t.at1();
         o = t.valueAt(d);
         o = t(d);
-        v = t.valueAndDerivatives(d, u-1);
+        v = t.valueAndDerivatives(d, u);
 		//Is a pure derivative (ignoring others) accessor ever much faster?
 		//u = number of values returned. first val is value.
         sb = t.toSBasis();
@@ -150,14 +150,3 @@ struct MultiplicableConcept {
 };
 
 #endif //SEEN_CONCEPTS_H
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

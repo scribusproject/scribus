@@ -1,6 +1,5 @@
-/**
- * \file
- * \brief Defines S-power basis function class
+/*
+ *  sbasis.h - S-power basis function class
  *
  *  Authors:
  *   Nathan Hurst <njh@mail.csse.monash.edu.au>
@@ -43,79 +42,21 @@
 #include "utils.h"
 #include "exception.h"
 
-//#define USE_SBASISN 1
-
-
-#if defined(USE_SBASIS_OF)
-
-#include "sbasis-of.h"
-
-#elif defined(USE_SBASISN)
-
-#include "sbasisN.h"
-namespace Geom{
+namespace Geom {
 
 /*** An empty SBasis is identically 0. */
-class SBasis : public SBasisN<1>;
-
-};
-#else
-
-namespace Geom{
-
-/**
-* \brief S-power basis function class
-*
-* An empty SBasis is identically 0. */
-class SBasis{
-    std::vector<Linear> d;
-    void push_back(Linear const&l) { d.push_back(l); }
-
+class SBasis : public std::vector<Linear>{
 public:
-    // As part of our migration away from SBasis isa vector we provide this minimal set of vector interface methods.
-    size_t size() const {return d.size();}
-    Linear operator[](unsigned i) const {
-        return d[i];
-    }
-    Linear& operator[](unsigned i) { return d.at(i); }
-    Linear const* begin() const { return (Linear const*)&*d.begin();}
-    Linear const* end() const { return (Linear const*)&*d.end();}
-    Linear* begin() { return (Linear*)&*d.begin();}
-    Linear* end() { return (Linear*)&*d.end();}
-    bool empty() const {return d.empty();}
-    Linear &back() {return d.back();}
-    Linear const &back() const {return d.back();}
-    void pop_back() { d.pop_back();}
-    void resize(unsigned n) { d.resize(n);}
-    void resize(unsigned n, Linear const& l) { d.resize(n, l);}
-    void reserve(unsigned n) { d.reserve(n);}
-    void clear() {d.clear();}
-    void insert(Linear* before, const Linear* src_begin, const Linear* src_end) { d.insert(std::vector<Linear>::iterator(before), src_begin, src_end);}
-    //void insert(Linear* aa, Linear* bb, Linear* cc} { d.insert(aa, bb, cc);}
-    Linear& at(unsigned i) { return d.at(i);}
-    //void insert(Linear* before, int& n, Linear const &l) { d.insert(std::vector<Linear>::iterator(before), n, l);}
-    bool operator==(SBasis const&B) const { return d == B.d;}
-    bool operator!=(SBasis const&B) const { return d != B.d;}
-    operator std::vector<Linear>() { return d;}
-
-    
     SBasis() {}
     explicit SBasis(double a) {
         push_back(Linear(a,a));
     }
-    explicit SBasis(double a, double b) {
-        push_back(Linear(a,b));
-    }
     SBasis(SBasis const & a) :
-        d(a.d)
+        std::vector<Linear>(a)
     {}
     SBasis(Linear const & bo) {
         push_back(bo);
     }
-    SBasis(Linear* bo) {
-        push_back(*bo);
-    }
-    explicit SBasis(size_t n, Linear const&l) : d(n, l) {}
 
     //IMPL: FragmentConcept
     typedef double output_type;
@@ -128,9 +69,8 @@ public:
     }
     inline bool isConstant() const {
         if (empty()) return true;
-        if(!(*this)[0].isConstant()) return false;
-        for (unsigned i = 1; i < size(); i++) {
-            if(!(*this)[i].isZero()) return false;
+        for (unsigned i = 0; i < size(); i++) {
+            if(!(*this)[i].isConstant()) return false;
         }
         return true;
     }
@@ -142,26 +82,41 @@ public:
     inline double at1() const{
         if(empty()) return 0; else return (*this)[0][1];
     }
-    
-    int degreesOfFreedom() const { return size()*2;}
 
     double valueAt(double t) const {
         double s = t*(1-t);
         double p0 = 0, p1 = 0;
-        for(unsigned k = size(); k > 0; k--) {
-            const Linear &lin = (*this)[k-1];
-            p0 = p0*s + lin[0];
-            p1 = p1*s + lin[1];
+        double sk = 1;
+//TODO: rewrite as horner
+        for(unsigned k = 0; k < size(); k++) {
+            p0 += sk*(*this)[k][0];
+            p1 += sk*(*this)[k][1];
+            sk *= s;
         }
         return (1-t)*p0 + t*p1;
     }
-    //double valueAndDerivative(double t, double &der) const {
-    //}
+    double valueAndDerivative(double t, double &der) const {
+        double s = t*(1-t);
+        double p0 = 0, p1 = 0;
+        double sk = 1;
+//TODO: rewrite as horner
+        for(unsigned k = 0; k < size(); k++) {
+            p0 += sk*(*this)[k][0];
+            p1 += sk*(*this)[k][1];
+            sk *= s;
+        }
+        // p0 and p1 at this point form a linear approximation at t
+        der = p1 - p0;
+        return (1-t)*p0 + t*p1;
+    }
     double operator()(double t) const {
         return valueAt(t);
     }
 
-    std::vector<double> valueAndDerivatives(double t, unsigned n) const;
+    std::vector<double> valueAndDerivatives(double /*t*/, unsigned /*n*/) const {
+        //TODO
+        throwNotImplemented(0);
+    }
 
     SBasis toSBasis() const { return SBasis(*this); }
 
@@ -170,47 +125,46 @@ public:
 // compute f(g)
     SBasis operator()(SBasis const & g) const;
 
+    Linear operator[](unsigned i) const {
+        assert(i < size());
+        return std::vector<Linear>::operator[](i);
+    }
+
 //MUTATOR PRISON
+    Linear& operator[](unsigned i) { return this->at(i); }
+
     //remove extra zeros
     void normalize() {
         while(!empty() && 0 == back()[0] && 0 == back()[1])
             pop_back();
     }
-
     void truncate(unsigned k) { if(k < size()) resize(k); }
-private:
-    void derive(); // in place version
 };
 
 //TODO: figure out how to stick this in linear, while not adding an sbasis dep
 inline SBasis Linear::toSBasis() const { return SBasis(*this); }
 
 //implemented in sbasis-roots.cpp
-OptInterval bounds_exact(SBasis const &a);
-OptInterval bounds_fast(SBasis const &a, int order = 0);
-OptInterval bounds_local(SBasis const &a, const OptInterval &t, int order = 0);
+Interval bounds_exact(SBasis const &a);
+Interval bounds_fast(SBasis const &a, int order = 0);
+Interval bounds_local(SBasis const &a, const Interval &t, int order = 0);
 
-/** Returns a function which reverses the domain of a.
- \param a sbasis function
- \relates SBasis
-
-useful for reversing a parameteric curve.
-*/
 inline SBasis reverse(SBasis const &a) {
-    SBasis result(a.size(), Linear());
-    
+    SBasis result;
+    result.reserve(a.size());
     for(unsigned k = 0; k < a.size(); k++)
-        result[k] = reverse(a[k]);
+       result.push_back(reverse(a[k]));
     return result;
 }
 
 //IMPL: ScalableConcept
 inline SBasis operator-(const SBasis& p) {
     if(p.isZero()) return SBasis();
-    SBasis result(p.size(), Linear());
+    SBasis result;
+    result.reserve(p.size());
         
     for(unsigned i = 0; i < p.size(); i++) {
-        result[i] = -p[i];
+        result.push_back(-p[i]);
     }
     return result;
 }
@@ -227,7 +181,7 @@ SBasis& operator+=(SBasis& a, const SBasis& b);
 SBasis& operator-=(SBasis& a, const SBasis& b);
 
 //TODO: remove?
-/*inline SBasis operator+(const SBasis & a, Linear const & b) {
+inline SBasis operator+(const SBasis & a, Linear const & b) {
     if(b.isZero()) return a;
     if(a.isZero()) return b;
     SBasis result(a);
@@ -253,7 +207,7 @@ inline SBasis& operator-=(SBasis& a, const Linear& b) {
     else
         a[0] -= b;
     return a;
-    }*/
+}
 
 //IMPL: OffsetableConcept
 inline SBasis operator+(const SBasis & a, double b) {
@@ -270,14 +224,14 @@ inline SBasis operator-(const SBasis & a, double b) {
 }
 inline SBasis& operator+=(SBasis& a, double b) {
     if(a.isZero())
-        a = SBasis(Linear(b,b));
+        a.push_back(Linear(b,b));
     else
         a[0] += b;
     return a;
 }
 inline SBasis& operator-=(SBasis& a, double b) {
     if(a.isZero())
-        a = SBasis(Linear(-b,-b));
+        a.push_back(Linear(-b,-b));
     else
         a[0] -= b;
     return a;
@@ -293,8 +247,6 @@ inline SBasis truncate(SBasis const &a, unsigned terms) {
 }
 
 SBasis multiply(SBasis const &a, SBasis const &b);
-// This performs a multiply and accumulate operation in about the same time as multiply.  return a*b + c
-SBasis multiply_add(SBasis const &a, SBasis const &b, SBasis c);
 
 SBasis integral(SBasis const &c);
 SBasis derivative(SBasis const &a);
@@ -314,12 +266,7 @@ inline SBasis& operator*=(SBasis& a, SBasis const & b) {
     return a;
 }
 
-/** Returns the degree of the first non zero coefficient.
- \param a sbasis function
- \param tol largest abs val considered 0
- \return first non zero coefficient
- \relates SBasis
-*/
+//valuation: degree of the first non zero coefficient.
 inline unsigned 
 valuation(SBasis const &a, double tol=0){
     unsigned val=0;
@@ -338,14 +285,7 @@ SBasis inverse(SBasis a, int k);
 //TODO: requires g(0)=0 & g(1)=1 atm. generalization should be obvious.
 SBasis compose_inverse(SBasis const &f, SBasis const &g, unsigned order=2, double tol=1e-3);
 
-/** Returns the sbasis on domain [0,1] that was t on [from, to]
- \param t sbasis function
- \param from,to interval
- \return sbasis
- \relates SBasis
-*/
 inline SBasis portion(const SBasis &t, double from, double to) { return compose(t, Linear(from, to)); }
-inline SBasis portion(const SBasis &t, Interval ivl) { return compose(t, Linear(ivl[0], ivl[1])); }
 
 // compute f(g)
 inline SBasis
@@ -365,82 +305,18 @@ inline std::ostream &operator<< (std::ostream &out_file, const SBasis & p) {
     return out_file;
 }
 
-// These are deprecated, use sbasis-math.h versions if possible
 SBasis sin(Linear bo, int k);
 SBasis cos(Linear bo, int k);
 
 std::vector<double> roots(SBasis const & s);
-std::vector<double> roots(SBasis const & s, Interval const inside);
 std::vector<std::vector<double> > multi_roots(SBasis const &f,
                                  std::vector<double> const &levels,
                                  double htol=1e-7,
                                  double vtol=1e-7,
                                  double a=0,
                                  double b=1);
-
-//--------- Levelset like functions -----------------------------------------------------
-
-/** Solve f(t) = v +/- tolerance. The collection of intervals where
- *     v - vtol <= f(t) <= v+vtol
- *   is returned (with a precision tol on the boundaries).
-    \param f sbasis function
-    \param level the value of v.
-    \param vtol: error tolerance on v.
-    \param a, b limit search on domain [a,b]
-    \param tol: tolerance on the result bounds.
-    \returns a vector of intervals.
-*/
-std::vector<Interval> level_set (SBasis const &f,
-		double level,
-		double vtol = 1e-5,
-		double a=0.,
-		double b=1.,
-		double tol = 1e-5);
-
-/** Solve f(t)\in I=[u,v], which defines a collection of intervals (J_k). More precisely,
- *  a collection (J'_k) is returned with J'_k = J_k up to a given tolerance.
-    \param f sbasis function
-    \param level: the given interval of deisred values for f.
-    \param a, b limit search on domain [a,b]
-    \param tol: tolerance on the bounds of the result.
-    \returns a vector of intervals.
-*/
-std::vector<Interval> level_set (SBasis const &f,
-		Interval const &level,
-		double a=0.,
-		double b=1.,
-		double tol = 1e-5);
-
-/** 'Solve' f(t) = v +/- tolerance for several values of v at once.
-    \param f sbasis function
-    \param levels vector of values, that should be sorted.
-    \param vtol: error tolerance on v.
-    \param a, b limit search on domain [a,b]
-    \param tol: the bounds of the returned intervals are exact up to that tolerance.
-    \returns a vector of vectors of intervals.
-*/
-std::vector<std::vector<Interval> > level_sets (SBasis const &f,
-		std::vector<double> const &levels,
-		double a=0.,
-		double b=1.,
-		double vtol = 1e-5,
-		double tol = 1e-5);
-
-/** 'Solve' f(t)\in I=[u,v] for several intervals I at once.
-    \param f sbasis function
-    \param levels vector of 'y' intervals, that should be disjoints and sorted.
-    \param a, b limit search on domain [a,b]
-    \param tol: the bounds of the returned intervals are exact up to that tolerance.
-    \returns a vector of vectors of intervals.
-*/
-std::vector<std::vector<Interval> > level_sets (SBasis const &f,
-		std::vector<Interval> const &levels,
-		double a=0.,
-		double b=1.,
-		double tol = 1e-5);
-
+    
 }
-#endif
 
 /*
   Local Variables:

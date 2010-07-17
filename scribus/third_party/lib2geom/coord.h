@@ -1,6 +1,5 @@
-/**
- *  \file
- *  \brief Defines the Coord "real" type with sufficient precision for coordinates.
+/*
+ * coord.h
  *
  * Copyright 2006 Nathan Hurst <njh@mail.csse.monash.edu.au>
  *
@@ -33,7 +32,6 @@
 #define SEEN_Geom_COORD_H
 
 #include <cmath>
-#include <limits>
 
 namespace Geom {
 
@@ -48,11 +46,8 @@ typedef double Coord;
 
 const Coord EPSILON = 1e-5; //1e-18;
 
-inline Coord infinity() {  return std::numeric_limits<Coord>::infinity();  }
-
 //IMPL: NearConcept
-inline bool are_near(Coord a, Coord b, double eps=EPSILON) { return a-b <= eps && a-b >= -eps; }
-inline bool rel_error_bound(Coord a, Coord b, double eps=EPSILON) { return a <= eps*b && a >= -eps*b; }
+inline bool are_near(Coord a, Coord b, double eps=EPSILON) { return fabs(a-b) <= eps; }
 
 } /* namespace Geom */
 
