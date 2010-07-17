@@ -258,6 +258,8 @@ PageItem::PageItem(const PageItem & other)
 	Reverse(other.Reverse),
 	m_startArrowIndex(other.m_startArrowIndex),
 	m_endArrowIndex(other.m_endArrowIndex),
+	m_startArrowScale(other.m_startArrowScale),
+	m_endArrowScale(other.m_endArrowScale),
 	Extra(other.Extra),
 	TExtra(other.TExtra),
 	BExtra(other.BExtra),
@@ -808,6 +810,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	OnMasterPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageName() : QString();
 	m_startArrowIndex = m_Doc->itemToolPrefs().lineStartArrow;
 	m_endArrowIndex = m_Doc->itemToolPrefs().lineEndArrow;
+	m_startArrowScale = 100;
+	m_endArrowScale = 100;
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
@@ -3907,6 +3911,20 @@ void PageItem::setEndArrowIndex(int newIndex)
 	m_endArrowIndex = newIndex;
 }
 
+void PageItem::setStartArrowScale(int newScale)
+{
+	if (m_startArrowScale == newScale)
+		return; // nothing to do -> return
+	m_startArrowScale = newScale;
+}
+
+void PageItem::setEndArrowScale(int newScale)
+{
+	if (m_endArrowScale == newScale)
+		return; // nothing to do -> return
+	m_endArrowScale = newScale;
+}
+
 void PageItem::setImageFlippedH(bool flipped)
 {
 	if (flipped != m_ImageIsFlippedH)
@@ -5530,6 +5548,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	}
 	Buffer->startArrowIndex = m_startArrowIndex;
 	Buffer->endArrowIndex = m_endArrowIndex;
+	Buffer->startArrowScale = m_startArrowScale;
+	Buffer->endArrowScale = m_endArrowScale;
 }
 
 
@@ -5703,6 +5723,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(0, 0);
+			arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
 			if (NamedLStyle.isEmpty())
 			{
 				if (m_lineWidth != 0.0)
@@ -5727,6 +5748,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 				{
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
 					if (NamedLStyle.isEmpty())
 					{
 						if (m_lineWidth != 0.0)
@@ -5756,6 +5778,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(Width, 0);
+			arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 			if (NamedLStyle.isEmpty())
 			{
 				if (m_lineWidth != 0.0)
@@ -5779,6 +5802,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 				{
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 					if (NamedLStyle.isEmpty())
 					{
 						if (m_lineWidth != 0.0)
@@ -5868,6 +5892,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(0, 0);
+			arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
 			if (NamedLStyle.isEmpty())
 			{
 				if (m_lineWidth != 0.0)
@@ -5892,6 +5917,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 				{
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
 					if (NamedLStyle.isEmpty())
 					{
 						if (m_lineWidth != 0.0)
@@ -5921,6 +5947,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(Width, 0);
+			arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 			if (NamedLStyle.isEmpty())
 			{
 				if (m_lineWidth != 0.0)
@@ -5944,6 +5971,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 				{
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 					if (NamedLStyle.isEmpty())
 					{
 						if (m_lineWidth != 0.0)

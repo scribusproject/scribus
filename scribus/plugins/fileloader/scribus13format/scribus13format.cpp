@@ -2237,6 +2237,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		endArrowIndex = 0;
 	}
 	currItem->setEndArrowIndex(endArrowIndex);
+	currItem->setStartArrowScale(obj->attribute("startArrowScale", "100").toInt());
+	currItem->setEndArrowScale(obj->attribute("endArrowScale", "100").toInt());
 	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
@@ -3858,4 +3860,6 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, const QStrin
 	ob->setAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
 	ob->setAttribute("startArrowIndex", item->startArrowIndex());
 	ob->setAttribute("endArrowIndex", item->endArrowIndex());
+	ob->setAttribute("startArrowScale", item->startArrowScale());
+	ob->setAttribute("endArrowScale", item->endArrowScale());
 }

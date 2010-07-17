@@ -173,6 +173,8 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		currItem->setCustomLineStyle(m_doc->ElemToLink->customLineStyle());
 		currItem->setEndArrowIndex(m_doc->ElemToLink->endArrowIndex());
 		currItem->setStartArrowIndex(m_doc->ElemToLink->startArrowIndex());
+		currItem->setEndArrowScale(m_doc->ElemToLink->endArrowScale());
+		currItem->setStartArrowScale(m_doc->ElemToLink->startArrowScale());
 		// Fill Properties
 		currItem->setFillColor(m_doc->ElemToLink->fillColor());
 		currItem->setFillShade(m_doc->ElemToLink->fillShade());

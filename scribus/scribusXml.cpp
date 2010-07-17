@@ -852,6 +852,8 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("LANGUAGE", charStyle.language());
 	writer.writeAttribute("startArrowIndex", item->startArrowIndex());
 	writer.writeAttribute("endArrowIndex"  , item->endArrowIndex());
+	writer.writeAttribute("startArrowScale", item->startArrowScale());
+	writer.writeAttribute("endArrowScale"  , item->endArrowScale());
 }
 
 //CB: Private only now
@@ -1854,6 +1856,8 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, const QS
 			OB.Ypos = attrAsDbl(attrs1, "YPOS") + doc->currentPage()->yOffset();
 			OB.startArrowIndex = arrowID[ attrAsInt(attrs1, "startArrowIndex", 0) ];
 			OB.endArrowIndex   = arrowID[ attrAsInt(attrs1, "endArrowIndex", 0)];
+			OB.startArrowScale = attrAsInt(attrs1, "startArrowScale", 100);
+			OB.endArrowScale = attrAsInt(attrs1, "endArrowScale", 100);
 			OB.isBookmark      = attrAsInt(attrs1, "BOOKMARK");
 			OB.NamedLStyle     = attrs1.value("NAMEDLST").toString();
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))

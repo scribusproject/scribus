@@ -1538,4 +1538,6 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
 	docu.writeAttribute("startArrowIndex", item->startArrowIndex());
 	docu.writeAttribute("endArrowIndex", item->endArrowIndex());
+	docu.writeAttribute("startArrowScale", item->startArrowScale());
+	docu.writeAttribute("endArrowScale", item->endArrowScale());
 }

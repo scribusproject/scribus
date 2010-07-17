@@ -172,6 +172,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					QTransform arrowTrans;
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
+					arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
 					drawArrow(p, arrowTrans, m_startArrowIndex);
 					break;
 				}
@@ -189,6 +190,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					QTransform arrowTrans;
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
+					arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 					drawArrow(p, arrowTrans, m_endArrowIndex);
 					break;
 				}

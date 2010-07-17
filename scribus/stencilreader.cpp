@@ -1400,6 +1400,8 @@ void StencilReader::writeDefaults(QDomElement &ob)
 	ob.setAttribute("LANGUAGE", prefsManager->appPrefs.hyphPrefs.Language);
 	ob.setAttribute("startArrowIndex", 0);
 	ob.setAttribute("endArrowIndex", 0);
+	ob.setAttribute("startArrowScale", 100);
+	ob.setAttribute("endArrowScale", 100);
 	ob.setAttribute("NUMDASH", 0);
 	ob.setAttribute("DASHS", "");
 	ob.setAttribute("DASHOFF", 0);

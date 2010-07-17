@@ -1045,21 +1045,44 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	endArrowText = new QLabel( "End Arrow:", page_5 );
 	endArrowText->setBuddy(endArrow);
 	Layout12_2->addWidget( endArrowText, 3, 1 );
+
+	Layout12_2a = new QHBoxLayout;
+	Layout12_2a->setSpacing( 3 );
+	Layout12_2a->setMargin( 0 );
+	startArrowSpinText = new QLabel( "Scaling:", page_5 );
+	Layout12_2a->addWidget(startArrowSpinText);
+	startArrowScaleSpin = new QSpinBox(page_5 );
+	startArrowScaleSpin->setMaximum( 300 );
+	startArrowScaleSpin->setMinimum( 1 );
+	Layout12_2a->addWidget(startArrowScaleSpin);
+	Layout12_2->addLayout(Layout12_2a, 5, 0);
+
+	Layout12_2b = new QHBoxLayout;
+	Layout12_2b->setSpacing( 3 );
+	Layout12_2b->setMargin( 0 );
+	endArrowSpinText = new QLabel( "Scaling:", page_5 );
+	Layout12_2b->addWidget(endArrowSpinText);
+	endArrowScaleSpin = new QSpinBox(page_5 );
+	endArrowScaleSpin->setMaximum( 300 );
+	endArrowScaleSpin->setMinimum( 1 );
+	Layout12_2b->addWidget(endArrowScaleSpin);
+	Layout12_2->addLayout( Layout12_2b, 5, 1 );
+
 	LSize = new ScrSpinBox( page_5, 0 );
 	linewidthLabel = new QLabel( "Line &Width:", page_5 );
 	linewidthLabel->setBuddy(LSize);
-	Layout12_2->addWidget( linewidthLabel, 5, 0 );
-	Layout12_2->addWidget( LSize, 5, 1 );
+	Layout12_2->addWidget( linewidthLabel, 6, 0 );
+	Layout12_2->addWidget( LSize, 6, 1 );
 	LJoinStyle = new ScComboBox( page_5 );
 	edgesLabel = new QLabel( "Ed&ges:", page_5 );
 	edgesLabel->setBuddy(LJoinStyle);
-	Layout12_2->addWidget( edgesLabel, 6, 0 );
-	Layout12_2->addWidget( LJoinStyle, 6, 1 );
+	Layout12_2->addWidget( edgesLabel, 7, 0 );
+	Layout12_2->addWidget( LJoinStyle, 7, 1 );
 	LEndStyle = new ScComboBox( page_5 );
 	endingsLabel = new QLabel( "&Endings:", page_5 );
 	endingsLabel->setBuddy(LEndStyle);
-	Layout12_2->addWidget( endingsLabel, 7, 0 );
-	Layout12_2->addWidget( LEndStyle, 7, 1 );
+	Layout12_2->addWidget( endingsLabel, 8, 0 );
+	Layout12_2->addWidget( LEndStyle, 8, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
 
 	TabStack3 = new QStackedWidget( page_5 );
@@ -1221,6 +1244,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect( TpalGroup, SIGNAL(editGradient()), this, SLOT(toggleGradientEditMGroup()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	connect(startArrowScaleSpin, SIGNAL(valueChanged(int)), this, SLOT(setStartArrowScale(int )));
+	connect(endArrowScaleSpin, SIGNAL(valueChanged(int)), this, SLOT(setEndArrowScale(int )));
 	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setLineSpacingMode(int)));
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
@@ -1560,6 +1585,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	disconnect(startArrowScaleSpin, SIGNAL(valueChanged(int)), this, SLOT(setStartArrowScale(int )));
+	disconnect(endArrowScaleSpin, SIGNAL(valueChanged(int)), this, SLOT(setEndArrowScale(int )));
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	disconnect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
 
@@ -1584,11 +1611,17 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		endArrow->setEnabled(true);
 		startArrow->setCurrentIndex(CurItem->startArrowIndex());
 		endArrow->setCurrentIndex(CurItem->endArrowIndex());
+		startArrowScaleSpin->setEnabled(true);
+		endArrowScaleSpin->setEnabled(true);
+		endArrowScaleSpin->setValue(CurItem->endArrowScale());
+		startArrowScaleSpin->setValue(CurItem->startArrowScale());
 	}
 	else
 	{
 		startArrow->setEnabled(false);
 		endArrow->setEnabled(false);
+		startArrowScaleSpin->setEnabled(false);
+		endArrowScaleSpin->setEnabled(false);
 	}
 	NameEdit->setText(CurItem->itemName());
 	RoundRect->setValue(CurItem->cornerRadius()*m_unitRatio);
@@ -1688,6 +1721,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
+	connect(startArrowScaleSpin, SIGNAL(valueChanged(int)), this, SLOT(setStartArrowScale(int )));
+	connect(endArrowScaleSpin, SIGNAL(valueChanged(int)), this, SLOT(setEndArrowScale(int )));
 
 //CB replaces old emits from PageItem::emitAllToGUI()
 	disconnect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
@@ -3521,6 +3556,21 @@ void PropertiesPalette::setEndArrow(int id)
 		doc->itemSelection_ApplyArrowHead(-1, id);
 }
 
+void PropertiesPalette::setStartArrowScale(int sc)
+{
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	doc->itemSelection_ApplyArrowScale(sc, -1, NULL);
+}
+
+void PropertiesPalette::setEndArrowScale(int sc)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	if ((HaveDoc) && (HaveItem))
+		doc->itemSelection_ApplyArrowScale(-1, sc, NULL);
+}
+
 void PropertiesPalette::NewLineStyle()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
@@ -4942,6 +4992,8 @@ void PropertiesPalette::languageChange()
 	linetypeLabel->setText( tr("T&ype of Line:"));
 	startArrowText->setText( tr("Start Arrow:"));
 	endArrowText->setText( tr("End Arrow:"));
+	startArrowSpinText->setText( tr("Scaling:"));
+	endArrowSpinText->setText( tr("Scaling:"));
 	if (HaveDoc)
 	{
 		int arrowItem=startArrow->currentIndex();
@@ -4987,6 +5039,8 @@ void PropertiesPalette::languageChange()
 	normWordTrackingSpinBox->setSuffix(pctSuffix);
 	minGlyphExtSpinBox->setSuffix(pctSuffix);
 	maxGlyphExtSpinBox->setSuffix(pctSuffix);
+	startArrowScaleSpin->setSuffix(pctSuffix);
+	endArrowScaleSpin->setSuffix(pctSuffix);
 	
 	QString ptSuffix = tr(" pt");
 	Dist->setSuffix(ptSuffix);
@@ -5081,6 +5135,8 @@ void PropertiesPalette::languageChange()
 	StyledLine->setToolTip( tr("Line style of current object"));
 	startArrow->setToolTip( tr("Arrow head style for start of line"));
 	endArrow->setToolTip( tr("Arrow head style for end of line"));
+	startArrowScaleSpin->setToolTip( tr("Arrow head scale for start of line"));
+	endArrowScaleSpin->setToolTip( tr("Arrow head scale for end of line"));
 
 	SCustom->setToolTip( tr("Choose the shape of frame..."));
 	EditShape->setToolTip( tr("Edit shape of the frame..."));

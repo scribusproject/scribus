@@ -8188,7 +8188,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			{
 				QStringList args;
 				args << doc->pdfOptions().fileName;
-				int ret=System(pdfViewer, args);
+				System(pdfViewer, args);
 			}
 		}
 	}

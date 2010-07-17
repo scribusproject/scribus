@@ -940,6 +940,26 @@ public:
 	 */
 	void setEndArrowIndex(int newIndex);
 
+	/** @brief Get start arrow scale
+	 * @sa PageItem::endArrowIndex(), PageItem::setStartArrowIndex()
+	 */
+	int startArrowScale() const { return m_startArrowScale; }
+	/**
+	 * @brief Set start arrow scale
+	 * @param newIndex scale for start arrow
+	 */
+	void setStartArrowScale(int newScale);
+
+	/** @brief Get end arrow scale
+	 * @sa PageItem::startArrowIndex(), PageItem::setEndArrowIndex()
+	 */
+	int endArrowScale() const { return m_endArrowScale; }
+	/**
+	 * @brief Set end arrow scale
+	 * @param newIndex scale for end arrow
+	 */
+	void setEndArrowScale(int newScale);
+
 	/** @brief Is the image flipped horizontally? */
 	bool imageFlippedH() const { return m_ImageIsFlippedH; }
 	/** @brief Horizontally flip / unflip the image */
@@ -1388,6 +1408,8 @@ protected:
 
 	int m_startArrowIndex;
 	int m_endArrowIndex;
+	int m_startArrowScale;
+	int m_endArrowScale;
 
 protected:
   	/** Left, Top, Bottom, Right distances of text from the frame */

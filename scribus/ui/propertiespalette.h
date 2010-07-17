@@ -322,6 +322,8 @@ private slots:
 	void HandleTLines();
 	void setStartArrow(int id);
 	void setEndArrow(int id);
+	void setStartArrowScale(int sc);
+	void setEndArrowScale(int sc);
 	void setGroupTransparency(double trans);
 	void setGroupBlending(int blend);
 	void setGroupGradMask(int typ);
@@ -395,6 +397,8 @@ protected:
 	QHBoxLayout* glyphExtensionHLayout;
 	QGridLayout* flopLayout;
 	QVBoxLayout* OptMarginsLayout;
+	QHBoxLayout* Layout12_2a;
+	QHBoxLayout* Layout12_2b;
 	
 	NameWidget* NameEdit;
 	
@@ -469,6 +473,8 @@ protected:
 	QLabel* glyphExtensionLabel;
 	QLabel* minGlyphExtensionLabel;
 	QLabel* maxGlyphExtensionLabel;
+	QLabel* startArrowSpinText;
+	QLabel* endArrowSpinText;
 
 	ScComboBox* colgapLabel;
 	StyleSelect* SeStyle;
@@ -589,6 +595,8 @@ protected:
 	QSpinBox* imagePageNumber;
 	QSpinBox* DCol;
 	QSpinBox* TransSpin;
+	QSpinBox* startArrowScaleSpin;
+	QSpinBox* endArrowScaleSpin;
 
 	QRadioButton* FreeScale;
 	QRadioButton* FrameScale;

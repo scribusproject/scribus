@@ -2016,12 +2016,14 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QTransform arrowTrans;
 				arrowTrans.scale(-1,1);
+				arrowTrans.scale(c->startArrowScale() / 100.0, c->startArrowScale() / 100.0);
 				drawArrow(c, arrowTrans, c->startArrowIndex(), gcr);
 			}
 			if (c->endArrowIndex() != 0)
 			{
 				QTransform arrowTrans;
 				arrowTrans.translate(c->width(), 0);
+				arrowTrans.scale(c->endArrowScale() / 100.0, c->endArrowScale() / 100.0);
 				drawArrow(c, arrowTrans, c->endArrowIndex(), gcr);
 			}
 			break;
@@ -2144,6 +2146,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						QTransform arrowTrans;
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(c->startArrowScale() / 100.0, c->startArrowScale() / 100.0);
 						drawArrow(c, arrowTrans, c->startArrowIndex(), gcr);
 						break;
 					}
@@ -2161,6 +2164,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						QTransform arrowTrans;
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(c->endArrowScale() / 100.0, c->endArrowScale() / 100.0);
 						drawArrow(c, arrowTrans, c->endArrowIndex(), gcr);
 						break;
 					}

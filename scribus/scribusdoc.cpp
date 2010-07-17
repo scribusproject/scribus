@@ -4031,6 +4031,8 @@ void ScribusDoc::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool resiz
 	currItem->setLineBlendmode(Buffer->TransBlendS);
 	currItem->setStartArrowIndex(Buffer->startArrowIndex);
 	currItem->setEndArrowIndex(Buffer->endArrowIndex);
+	currItem->setStartArrowScale(Buffer->startArrowScale);
+	currItem->setEndArrowScale(Buffer->endArrowScale);
 	currItem->setReversed(Buffer->Reverse);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
 	currItem->Cols = Buffer->Cols;
@@ -10566,6 +10568,31 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	changed();
 }
 
+void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		PageItem *currItem = itemSelection->itemAt(a);
+		if (!(currItem->asLine() || currItem->asPolyLine()))
+			continue;
+		if (startArrowSc !=  -1)
+		{
+			currItem->setStartArrowScale(startArrowSc);
+		}
+		if (endArrowSc != -1)
+		{
+			currItem->setEndArrowScale(endArrowSc);
+		}
+		currItem->update();
+	}
+	changed();
+}
+
 
 void ScribusDoc::createDefaultMasterPages()
 {
@@ -12473,7 +12500,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 		item->setRedrawBounding();
 	}
 
-	bool viewToRecalcPictureRes=(docPrefsData.itemToolPrefs.imageLowResType==oldPrefsData.itemToolPrefs.imageLowResType);
+//	bool viewToRecalcPictureRes = (docPrefsData.itemToolPrefs.imageLowResType==oldPrefsData.itemToolPrefs.imageLowResType);
 
 	autoSaveTimer->stop();
 	if (docPrefsData.docSetupPrefs.AutoSave)
@@ -12557,7 +12584,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			m_ScMW->mainWindowProgressBar->reset();
 		}
 	}
-	PrefsManager* prefsManager=PrefsManager::instance();
+//	PrefsManager* prefsManager=PrefsManager::instance();
 
 	QStringList uf(UsedFonts.keys());
 	QMap<QString,int>::Iterator it3;

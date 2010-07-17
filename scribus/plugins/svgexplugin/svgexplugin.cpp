@@ -1353,6 +1353,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(0, 0);
+			arrowTrans.scale(Item->startArrowScale() / 100.0, Item->startArrowScale() / 100.0);
 			if (Item->NamedLStyle.isEmpty())
 			{
 				if (Item->lineWidth() != 0.0)
@@ -1377,6 +1378,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
+					arrowTrans.scale(Item->startArrowScale() / 100.0, Item->startArrowScale() / 100.0);
 					if (Item->NamedLStyle.isEmpty())
 					{
 						if (Item->lineWidth() != 0.0)
@@ -1517,6 +1519,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(Item->width(), 0);
+			arrowTrans.scale(Item->endArrowScale() / 100.0, Item->endArrowScale() / 100.0);
 			if (Item->NamedLStyle.isEmpty())
 			{
 				if (Item->lineWidth() != 0.0)
@@ -1540,6 +1543,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
+					arrowTrans.scale(Item->endArrowScale() / 100.0, Item->endArrowScale() / 100.0);
 					if (Item->NamedLStyle.isEmpty())
 					{
 						if (Item->lineWidth() != 0.0)

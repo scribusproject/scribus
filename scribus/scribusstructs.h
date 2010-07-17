@@ -236,6 +236,8 @@ struct CopyPasteBuffer
 	int BottomLinkID;
 	int startArrowIndex;
 	int endArrowIndex;
+	int startArrowScale;
+	int endArrowScale;
 	ObjAttrVector pageItemAttributes;
 };
 

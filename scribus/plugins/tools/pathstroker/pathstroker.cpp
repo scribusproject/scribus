@@ -156,6 +156,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						FPointArray arrow = currDoc->arrowStyles().at(currItem->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->startArrowScale() / 100.0, currItem->startArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						result.addPath(arrow.toQPainterPath(true));
@@ -176,6 +177,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						FPointArray arrow = currDoc->arrowStyles().at(currItem->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->endArrowScale() / 100.0, currItem->endArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						result.addPath(arrow.toQPainterPath(true));
@@ -274,6 +276,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						FPointArray arrow = currDoc->arrowStyles().at(currItem->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->startArrowScale() / 100.0, currItem->startArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						PageItem* newItem = new PageItem_Polygon(*currItem);
@@ -314,6 +317,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						FPointArray arrow = currDoc->arrowStyles().at(currItem->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->endArrowScale() / 100.0, currItem->endArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						PageItem* newItem = new PageItem_Polygon(*currItem);

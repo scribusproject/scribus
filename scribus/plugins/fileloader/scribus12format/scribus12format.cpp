@@ -504,6 +504,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
+					OB.startArrowScale =  100;
+					OB.endArrowScale =  100;
 					tmpf = obj.attribute("IFONT", m_Doc->itemToolPrefs().textFont);
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
@@ -1376,6 +1378,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						OB.NamedLStyle = "";
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
+					OB.startArrowScale =  100;
+					OB.endArrowScale =  100;
 					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
 					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
 						m_Doc->OldBM = true;

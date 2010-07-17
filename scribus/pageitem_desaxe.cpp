@@ -97,6 +97,8 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("line-customstyle", item->customLineStyle());
 	result.insert("line-start-arrow", toXMLString(item->startArrowIndex()));
 	result.insert("line-end-arrow", toXMLString(item->endArrowIndex()));
+	result.insert("line-start-arrow-scale", toXMLString(item->startArrowScale()));
+	result.insert("line-end-arrow-scale", toXMLString(item->endArrowScale()));
 
 	result.insert("frame-type", toXMLString(item->frameType()));
 	result.insert("frame-shape", toXMLString(item->shape()));
@@ -1077,6 +1079,8 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setCustomLineStyle, "line-customstyle", dummy )); // see comment above for setItemName
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setStartArrowIndex, "line-start-arrow", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setEndArrowIndex, "line-end-arrow", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setStartArrowScale, "line-start-arrow-scale", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setEndArrowScale, "line-end-arrow-scale", &parseInt ));
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFrameType, "frame-type", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem, FPointArray>( & PageItem::setShape, "frame-shape", &parseSVG ));

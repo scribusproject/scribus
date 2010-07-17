@@ -2175,12 +2175,14 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						{
 							QTransform arrowTrans;
 							arrowTrans.scale(-1,1);
+							arrowTrans.scale(ite->startArrowScale() / 100.0, ite->startArrowScale() / 100.0);
 							PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
 						}
 						if (ite->endArrowIndex() != 0)
 						{
 							QTransform arrowTrans;
 							arrowTrans.translate(ite->width(), 0);
+							arrowTrans.scale(ite->endArrowScale() / 100.0, ite->endArrowScale() / 100.0);
 							PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
 						}
 						break;
@@ -2379,6 +2381,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									QTransform arrowTrans;
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
+									arrowTrans.scale(ite->startArrowScale() / 100.0, ite->startArrowScale() / 100.0);
 									PutPage(drawArrow(ite, arrowTrans, ite->startArrowIndex()));
 									break;
 								}
@@ -2396,6 +2399,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									QTransform arrowTrans;
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
+									arrowTrans.scale(ite->endArrowScale() / 100.0, ite->endArrowScale() / 100.0);
 									PutPage(drawArrow(ite, arrowTrans, ite->endArrowIndex()));
 									break;
 								}
@@ -3980,12 +3984,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				QTransform arrowTrans;
 				arrowTrans.scale(-1,1);
+				arrowTrans.scale(ite->startArrowScale() / 100.0, ite->startArrowScale() / 100.0);
 				tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
 			}
 			if (ite->endArrowIndex() != 0)
 			{
 				QTransform arrowTrans;
 				arrowTrans.translate(ite->width(), 0);
+				arrowTrans.scale(ite->endArrowScale() / 100.0, ite->endArrowScale() / 100.0);
 				tmp += drawArrow(ite, arrowTrans, ite->endArrowIndex());
 			}
 			break;
@@ -4185,6 +4191,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						QTransform arrowTrans;
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(ite->startArrowScale() / 100.0, ite->startArrowScale() / 100.0);
 						tmp += drawArrow(ite, arrowTrans, ite->startArrowIndex());
 						break;
 					}
@@ -4202,6 +4209,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						QTransform arrowTrans;
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(ite->endArrowScale() / 100.0, ite->endArrowScale() / 100.0);
 						tmp += drawArrow(ite, arrowTrans, ite->endArrowIndex());
 						break;
 					}
