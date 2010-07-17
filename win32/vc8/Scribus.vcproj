@@ -2063,10 +2063,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\transformeffect.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\transparencypalette.cpp"
 				>
 			</File>
@@ -11421,10 +11417,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\transformeffect.h"
-				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\transparencypalette.h"
