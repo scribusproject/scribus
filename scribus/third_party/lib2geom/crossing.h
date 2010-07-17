@@ -1,9 +1,45 @@
+/**
+ * \file
+ * \brief  \todo brief description
+ *
+ * Authors:
+ *      Michael Sloane <?@?.?>
+ *      Marco <?@?.?>
+ * 
+ * Copyright 2006-2008  authors
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it either under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation
+ * (the "LGPL") or, at your option, under the terms of the Mozilla
+ * Public License Version 1.1 (the "MPL"). If you do not alter this
+ * notice, a recipient may use your version of this file under either
+ * the MPL or the LGPL.
+ *
+ * You should have received a copy of the LGPL along with this library
+ * in the file COPYING-LGPL-2.1; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * You should have received a copy of the MPL along with this library
+ * in the file COPYING-MPL-1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY
+ * OF ANY KIND, either express or implied. See the LGPL or the MPL for
+ * the specific language governing rights and limitations.
+ *
+ */
+
 #ifndef __GEOM_CROSSING_H
 #define __GEOM_CROSSING_H
 
 #include <vector>
 #include "rect.h"
 #include "sweep.h"
+#include <boost/optional/optional.hpp>
 
 namespace Geom {
 
@@ -24,7 +60,10 @@ struct Crossing {
     bool onIx(unsigned ix) const { return a == ix || b == ix; }
 };
 
+typedef boost::optional<Crossing> OptCrossing;
 
+
+/*
 struct Edge {
     unsigned node, path;
     double time;
@@ -49,7 +88,6 @@ struct CrossingNode {
     }
 };
 
-typedef std::vector<Crossing> Crossings;
 
 typedef std::vector<CrossingNode> CrossingGraph;
 
@@ -61,6 +99,7 @@ struct TimeOrder {
 
 class Path;
 CrossingGraph create_crossing_graph(std::vector<Path> const &p, Crossings const &crs);
+*/
 
 /*inline bool are_near(Crossing a, Crossing b) {
     return are_near(a.ta, b.ta) && are_near(a.tb, b.tb);
@@ -71,20 +110,31 @@ struct NearF { bool operator()(Crossing a, Crossing b) { return are_near(a, b); 
 
 struct CrossingOrder {
     unsigned ix;
-    CrossingOrder(unsigned i) : ix(i) {}
+    bool rev;
+    CrossingOrder(unsigned i, bool r = false) : ix(i), rev(r) {}
     bool operator()(Crossing a, Crossing b) {
-        return (ix == a.a ? a.ta : a.tb) <
-               (ix == b.a ? b.ta : b.tb);
+        if(rev) 
+            return (ix == a.a ? a.ta : a.tb) <
+                   (ix == b.a ? b.ta : b.tb);
+        else
+            return (ix == a.a ? a.ta : a.tb) >
+                   (ix == a.a ? a.ta : a.tb);
     }
 };
 
+typedef std::vector<Crossing> Crossings;
 
 typedef std::vector<Crossings> CrossingSet;
 
 template<typename C>
 std::vector<Rect> bounds(C const &a) {
     std::vector<Rect> rs;
-    for(unsigned i = 0; i < a.size(); i++) rs.push_back(a[i].boundsFast());
+    for (unsigned i = 0; i < a.size(); i++) {
+        OptRect bb = a[i].boundsFast();
+        if (bb) {
+            rs.push_back(*bb);
+        }
+    }
     return rs;
 }
 

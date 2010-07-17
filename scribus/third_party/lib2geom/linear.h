@@ -1,5 +1,6 @@
-/*
- *  linear.h - Linear fragment function class
+/**
+ * \file
+ * \brief  Linear fragment function class
  *
  *  Authors:
  *   Nathan Hurst <njh@mail.csse.monash.edu.au>
@@ -33,8 +34,17 @@
 
 #ifndef SEEN_LINEAR_H
 #define SEEN_LINEAR_H
-#include "isnan.h"
 #include "interval.h"
+#include "isnan.h"
+
+
+//#define USE_SBASIS_OF
+
+#ifdef USE_SBASIS_OF
+
+#include "linear-of.h"
+
+#else
 
 namespace Geom{
 
@@ -42,36 +52,12 @@ inline double lerp(double t, double a, double b) { return a*(1-t) + b*t; }
 
 class SBasis;
 
-class Hat{
-public:
-    Hat () {}
-    Hat(double d) :d(d) {}
-    operator double() const { return d; }
-    double d;
-};
-
-class Tri{
-public:
-    Tri () {}
-    Tri(double d) :d(d) {}
-    operator double() const { return d; }
-    double d;
-};
-
 class Linear{
 public:
     double a[2];
     Linear() {}
     Linear(double aa, double b) {a[0] = aa; a[1] = b;}
-    Linear(Hat h, Tri t) {
-        a[0] = double(h) - double(t)/2; 
-        a[1] = double(h) + double(t)/2;
-    }
-
-    Linear(Hat h) {
-        a[0] = double(h); 
-        a[1] = double(h);
-    }
+    Linear(double aa) {a[0] = aa; a[1] = aa;}
 
     double operator[](const int i) const {
         assert(i >= 0);
@@ -88,7 +74,7 @@ public:
     typedef double output_type;
     inline bool isZero() const { return a[0] == 0 && a[1] == 0; }
     inline bool isConstant() const { return a[0] == a[1]; }
-    inline bool isFinite() const { return is_finite(a[0]) && is_finite(a[1]); }
+    inline bool isFinite() const { return IS_FINITE(a[0]) && IS_FINITE(a[1]); }
 
     inline double at0() const { return a[0]; }
     inline double at1() const { return a[1]; }
@@ -99,14 +85,14 @@ public:
     //defined in sbasis.h
     inline SBasis toSBasis() const;
 
-    inline Interval bounds_exact() const { return Interval(a[0], a[1]); }
-    inline Interval bounds_fast() const { return bounds_exact(); }
-    inline Interval bounds_local(double u, double v) const { return Interval(valueAt(u), valueAt(v)); }
+    inline OptInterval bounds_exact() const { return Interval(a[0], a[1]); }
+    inline OptInterval bounds_fast() const { return bounds_exact(); }
+    inline OptInterval bounds_local(double u, double v) const { return Interval(valueAt(u), valueAt(v)); }
 
-    operator Tri() const {
+    double tri() const {
         return a[1] - a[0];
     }
-    operator Hat() const {
+    double hat() const {
         return (a[1] + a[0])/2;
     }
 };
@@ -168,6 +154,19 @@ inline Linear operator/=(Linear & a, double b) {
     a[0] /= b; a[1] /= b;
     return a;
 }
-};
+
+}
+#endif
 
 #endif //SEEN_LINEAR_H
+
+/*
+  Local Variables:
+  mode:c++
+  c-file-style:"stroustrup"
+  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
+  indent-tabs-mode:nil
+  fill-column:99
+  End:
+*/
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

@@ -167,7 +167,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 		mmO.translate(-w4, -w4);
 		pathO = pItem->mapToScene(pathO);
 		pathO = mmO.map(pathO);
-		Geom::Piecewise<D2<Geom::SBasis> >  path_a_pw;
+		Geom::Piecewise<Geom::D2<Geom::SBasis> >  path_a_pw;
 		if (currItem->itemType() == PageItem::PolyLine)
 			path_a_pw = QPainterPath2Piecewise(pathO, false);
 		else
@@ -338,7 +338,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 		sb2[dim].us = 2;
 		sb2[dim].vs = 2;
 		const int depth = sb2[dim].us*sb2[dim].vs;
-		sb2[dim].resize(depth, Linear2d(0));
+		sb2[dim].resize(depth, Geom::Linear2d(0));
 	}
 	handles.resize(sb2[0].vs*sb2[0].us*4);
 	origHandles.resize(sb2[0].vs*sb2[0].us*4);
@@ -504,16 +504,16 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 		for (int a = 0; a < origPathItem.count(); a++)
 		{
 			QGraphicsPathItem* pItem = origPathItem[a];
-			Geom::Piecewise<D2<Geom::SBasis> >  path_a_pw = origPath[a];
-			Piecewise<D2<SBasis> > output;
+			Geom::Piecewise<Geom::D2<Geom::SBasis> >  path_a_pw = origPath[a];
+			Geom::Piecewise<Geom::D2<Geom::SBasis> > output;
 			for(unsigned i = 0; i < path_a_pw.size(); i++)
 			{
-				D2<SBasis> B = path_a_pw[i];
+				Geom::D2<Geom::SBasis> B = path_a_pw[i];
 				B *= (2./ww);
-				D2<SBasis> tB = compose_each(sb2, B);
+				Geom::D2<Geom::SBasis> tB = Geom::compose_each(sb2, B);
 				B = B*(ww/2.0) + Geom::Point(w4, w4);
 				tB = tB*(ww/2.0) + Geom::Point(w4, w4);
-				output.concat(Piecewise<D2<SBasis> >(tB));
+				output.concat(Geom::Piecewise<Geom::D2<Geom::SBasis> >(tB));
 			}
 			QPainterPath pathP;
 			Piecewise2QPainterPath(&pathP, output);
@@ -533,7 +533,7 @@ void MeshDistortionDialog::updateAndExit()
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	for (int a = 0; a < origPathItem.count(); a++)
 	{
-		Geom::Piecewise<D2<Geom::SBasis> >  path_a_pw;
+		Geom::Piecewise<Geom::D2<Geom::SBasis> >  path_a_pw;
 		QGraphicsPathItem* pItem = origPathItem[a];
 		QPainterPath path = pItem->path();
 		FPointArray outputPath;

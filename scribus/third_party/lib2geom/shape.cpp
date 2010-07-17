@@ -1,11 +1,49 @@
-#include "shape.h"
-#include "utils.h"
-#include "sweep.h"
-#include "ord.h"
+/**
+ * \brief  Shapes are special paths on which boolops can be performed
+ *
+ * Authors:
+ *      Michael G. Sloan <mgsloan@gmail.com>
+ *      Nathan Hurst <njh@mail.csse.monash.edu.au>
+ *      MenTaLguY <mental@rydia.net>
+ *
+ * Copyright 2007-2009  Authors
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it either under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation
+ * (the "LGPL") or, at your option, under the terms of the Mozilla
+ * Public License Version 1.1 (the "MPL"). If you do not alter this
+ * notice, a recipient may use your version of this file under either
+ * the MPL or the LGPL.
+ *
+ * You should have received a copy of the LGPL along with this library
+ * in the file COPYING-LGPL-2.1; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * You should have received a copy of the MPL along with this library
+ * in the file COPYING-MPL-1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY
+ * OF ANY KIND, either express or implied. See the LGPL or the MPL for
+ * the specific language governing rights and limitations.
+ *
+ */
+
+#include <shape.h>
+
+#include <utils.h>
+#include <sweep.h>
+#include <ord.h>
 
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
+
+//#define SHAPE_DEBUG  // turns on debug outputting to cout.
 
 namespace Geom {
 
@@ -191,7 +229,7 @@ Shape shape_boolean_rb(bool rev, Shape const &a, Shape const &b, CrossingSet con
  * NOTE: currently doesn't work, as the CrossingSet reversal functions crash
  */
 Shape boolop(Shape const &a, Shape const &b, unsigned flags, CrossingSet const &crs) {
-    throwNotImplemented(0);
+    THROW_NOTIMPLEMENTED();
     flags &= 15;
     if(flags <= BOOLOP_UNION) {
         switch(flags) {
@@ -340,7 +378,9 @@ unsigned crossing_along(double t, unsigned ix, unsigned jx, bool dir, Crossings 
 void crossing_dual(unsigned &i, unsigned &j, CrossingSet const & crs) {
     Crossing cur = crs[i][j];
     i = cur.getOther(i);
-//    std::cout << i << "\n";
+#ifdef SHAPE_DEBUG
+    std::cout << i << "\n";
+#endif
     if(crs[i].empty())
         j = 0;
     else
@@ -349,7 +389,7 @@ void crossing_dual(unsigned &i, unsigned &j, CrossingSet const & crs) {
 
 //locate a crossing on the outside, by casting a ray through the middle of the bbox
 void outer_crossing(unsigned &ix, unsigned &jx, bool & dir, std::vector<Path> const & ps, CrossingSet const & crs) {
-    Rect bounds = ps[ix].boundsFast();
+    Rect bounds = *(ps[ix].boundsFast());
     double ry = bounds[Y].middle();
     double max_val = bounds.left(), max_t = 0;
     ix = ps.size();
@@ -429,18 +469,24 @@ std::vector<Path> inner_sanitize(std::vector<Path> const & ps) {
                      to = crs[ix][jx];
             if(dir) {
                 // backwards
-//                std::cout << "r" << ix << "[" << from.getTime(ix)  << ", " << to.getTime(ix) << "]\n";
+#ifdef SHAPE_DEBUG
+                std::cout << "r" << ix << "[" << from.getTime(ix)  << ", " << to.getTime(ix) << "]\n";
+#endif
                 Path p = ps[ix].portion(from.getTime(ix), to.getTime(ix)).reverse();
                 for(unsigned i = 0; i < p.size(); i++)
-                    res.append(p[i]);
+                    res.append(p[i], Path::STITCH_DISCONTINUOUS);
             } else {
                 // forwards
-//                std::cout << "f" << ix << "[" << from.getTime(ix) << ", " << to.getTime(ix) << "]\n";
+#ifdef SHAPE_DEBUG
+                std::cout << "f" << ix << "[" << from.getTime(ix) << ", " << to.getTime(ix) << "]\n";
+#endif
                 ps[ix].appendPortionTo(res, from.getTime(ix), to.getTime(ix));
             }
             dir = new_dir;
         } while(!visited[ix][jx]);
-//        std::cout << "added " << res.size() << "\n";
+#ifdef SHAPE_DEBUG
+        std::cout << "added " << res.size() << "\n";
+#endif
         result_paths.push_back(res);
     }
     for(unsigned i = 0; i < crs.size(); i++) {
@@ -576,7 +622,7 @@ Shape sanitize(std::vector<Path> const & ps) {
 /* This transforms a shape by a matrix.  In the case that the matrix flips
  * the shape, it reverses the paths in order to preserve the fill.
  */
-Shape Shape::operator*(Matrix const &m) const {
+Shape Shape::operator*(Affine const &m) const {
     Shape ret;
     for(unsigned i = 0; i < size(); i++)
         ret.content.push_back(content[i] * m);
@@ -630,3 +676,14 @@ bool Shape::invariants() const {
 }
 
 }
+
+/*
+  Local Variables:
+  mode:c++
+  c-file-style:"stroustrup"
+  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
+  indent-tabs-mode:nil
+  fill-column:99
+  End:
+*/
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

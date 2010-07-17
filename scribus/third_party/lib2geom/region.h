@@ -1,3 +1,37 @@
+/**
+ * \file
+ * \brief  \todo brief description
+ *
+ * Authors:
+ *      ? <?@?.?>
+ * 
+ * Copyright ?-?  authors
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it either under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation
+ * (the "LGPL") or, at your option, under the terms of the Mozilla
+ * Public License Version 1.1 (the "MPL"). If you do not alter this
+ * notice, a recipient may use your version of this file under either
+ * the MPL or the LGPL.
+ *
+ * You should have received a copy of the LGPL along with this library
+ * in the file COPYING-LGPL-2.1; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * You should have received a copy of the MPL along with this library
+ * in the file COPYING-MPL-1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY
+ * OF ANY KIND, either express or implied. See the LGPL or the MPL for
+ * the specific language governing rights and limitations.
+ *
+ */
+
 #ifndef __2GEOM_REGION_H
 #define __2GEOM_REGION_H
 
@@ -14,14 +48,14 @@ class Region {
     friend Shape shape_boolean(bool rev, Shape const & a, Shape const & b, CrossingSet const & crs);
 
     Path boundary;
-    mutable boost::optional<Rect> box;
+    mutable OptRect box;
     bool fill;
   public:
     Region() : fill(true) {}
     explicit Region(Path const &p) : boundary(p) { fill = path_direction(p); }
     Region(Path const &p, bool dir) : boundary(p), fill(dir) {}
-    Region(Path const &p, boost::optional<Rect> const &b) : boundary(p), box(b) { fill = path_direction(p); }
-    Region(Path const &p, boost::optional<Rect> const &b, bool dir) : boundary(p), box(b), fill(dir) {}
+    Region(Path const &p, OptRect const &b) : boundary(p), box(b) { fill = path_direction(p); }
+    Region(Path const &p, OptRect const &b, bool dir) : boundary(p), box(b), fill(dir) {}
     
     unsigned size() const { return boundary.size(); }
     
@@ -31,7 +65,7 @@ class Region {
     
     operator Path() const { return boundary; }
     Rect boundsFast() const {
-        if(!box) box = boost::optional<Rect>(boundary.boundsFast());
+        if(!box) box = boundary.boundsFast();  /// \todo this doesn't look right at all...
         return *box;
     }
     
@@ -47,7 +81,7 @@ class Region {
     
     Region inverse() const { return Region(boundary.reverse(), box, !fill); }
     
-    Region operator*(Matrix const &m) const;
+    Region operator*(Affine const &m) const;
     
     bool invariants() const;
 };
@@ -83,3 +117,14 @@ inline Regions region_boolean(bool rev, Region const & a, Region const & b) {
 }
 
 #endif
+
+/*
+  Local Variables:
+  mode:c++
+  c-file-style:"stroustrup"
+  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
+  indent-tabs-mode:nil
+  fill-column:99
+  End:
+*/
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

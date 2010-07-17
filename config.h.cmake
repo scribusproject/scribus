@@ -29,6 +29,10 @@
 #cmakedefine HAVE_PODOFO 1
 #cmakedefine HAVE_OSG 1
 #cmakedefine HAVE_BOOST 1
+#cmakedefine HAVE_GSL 1
+#cmakedefine HAVE_SINCOS
+#cmakedefine HAVE_ROUND
+#cmakedefine HAVE_TRUNC
 #cmakedefine HAVE_SYS_TYPES_H 1
 #cmakedefine HAVE_SYS_STAT_H 1
 #cmakedefine FT_FREETYPE_H

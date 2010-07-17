@@ -29,9 +29,12 @@
  *
  */
 
-#include "convex-cover.h"
+#include <convex-cover.h>
+#include <exception.h>
 #include <algorithm>
 #include <map>
+#include <assert.h>
+
 /** Todo:
     + modify graham scan to work top to bottom, rather than around angles
     + intersection
@@ -46,6 +49,7 @@
 using std::vector;
 using std::map;
 using std::pair;
+using std::make_pair;
 
 namespace Geom{
 
@@ -61,12 +65,16 @@ class angle_cmp{
 public:
     Point o;
     angle_cmp(Point o) : o(o) {}
-    
+
+#if 0
     bool
     operator()(Point a, Point b) {
+        // not remove this check or std::sort could crash
+        if (a == b) return false;
         Point da = a - o;
         Point db = b - o;
-        
+        if (da == -db) return false;
+
 #if 1
         double aa = da[0];
         double ab = db[0];
@@ -91,16 +99,33 @@ public:
             return L2sq(da) < L2sq(db);
         return false;
     }
+#else
+    bool operator() (Point const& a, Point const&  b)
+    {
+        // not remove this check or std::sort could generate
+        // a segmentation fault because it needs a strict '<'
+        // but due to round errors a == b doesn't mean dxy == dyx
+        if (a == b) return false;
+        Point da = a - o;
+        Point db = b - o;
+        if (da == -db) return false;
+        double dxy = da[X] * db[Y];
+        double dyx = da[Y] * db[X];
+        if (dxy > dyx) return true;
+        else if (dxy < dyx) return false;
+        return L2sq(da) < L2sq(db);
+    }
+#endif
 };
 
 void
 ConvexHull::find_pivot() {
     // Find pivot P;
     unsigned pivot = 0;
-    for(unsigned i = 1; i < boundary.size(); i++)
+    for (unsigned i = 1; i < boundary.size(); i++)
         if(boundary[i] <= boundary[pivot])
             pivot = i;
-    
+
     std::swap(boundary[0], boundary[pivot]);
 }
 
@@ -111,12 +136,14 @@ ConvexHull::angle_sort() {
     std::sort(boundary.begin()+1, boundary.end(), angle_cmp(boundary[0]));
 }
 
+
 void
 ConvexHull::graham_scan() {
+    if (boundary.size() < 4) return;
     unsigned stac = 2;
-    for(unsigned i = 2; i < boundary.size(); i++) {
-        double o = SignedTriangleArea(boundary[stac-2], 
-                                      boundary[stac-1], 
+    for(unsigned int i = 2; i < boundary.size(); i++) {
+        double o = SignedTriangleArea(boundary[stac-2],
+                                      boundary[stac-1],
                                       boundary[i]);
         if(o == 0) { // colinear - dangerous...
             stac--;
@@ -124,8 +151,8 @@ ConvexHull::graham_scan() {
         } else { // remove concavity
             while(o >= 0 && stac > 2) {
                 stac--;
-                o = SignedTriangleArea(boundary[stac-2], 
-                                       boundary[stac-1], 
+                o = SignedTriangleArea(boundary[stac-2],
+                                       boundary[stac-1],
                                        boundary[i]);
             }
         }
@@ -136,6 +163,8 @@ ConvexHull::graham_scan() {
 
 void
 ConvexHull::graham() {
+    if(is_degenerate()) // nothing to do
+        return;
     find_pivot();
     angle_sort();
     graham_scan();
@@ -143,7 +172,7 @@ ConvexHull::graham() {
 
 //Mathematically incorrect mod, but more useful.
 int mod(int i, int l) {
-    return i >= 0 ? 
+    return i >= 0 ?
            i % l : (i % l) + l;
 }
 //OPT: usages can often be replaced by conditions
@@ -152,6 +181,13 @@ int mod(int i, int l) {
  * Tests if a point is left (outside) of a particular segment, n. */
 bool
 ConvexHull::is_left(Point p, int n) {
+    return SignedTriangleArea((*this)[n], (*this)[n+1], p) >= 0;
+}
+
+/*** ConvexHull::strict_left
+ * Tests if a point is left (outside) of a particular segment, n. */
+bool
+ConvexHull::is_strict_left(Point p, int n) {
     return SignedTriangleArea((*this)[n], (*this)[n+1], p) > 0;
 }
 
@@ -166,7 +202,21 @@ ConvexHull::find_left(Point p) {
     }
     return -1;
 }
-//OPT: do a spread iteration - quasi-random with no repeats and full coverage. 
+
+
+/*** ConvexHull::find_positive
+ * May return any number n where the segment n -> n + 1 (possibly looped around) in the hull such
+ * that the point is on the wrong side to be within the hull.  Returns -1 if it is within the hull.*/
+int
+ConvexHull::find_strict_left(Point p) {
+    int l = boundary.size(); //Who knows if C++ is smart enough to optimize this?
+    for(int i = 0; i < l; i++) {
+        if(is_strict_left(p, i)) return i;
+    }
+    return -1;
+}
+
+//OPT: do a spread iteration - quasi-random with no repeats and full coverage.
 
 /*** ConvexHull::contains_point
  * In order to test whether a point is inside a convex hull we can travel once around the outside making
@@ -174,6 +224,14 @@ ConvexHull::find_left(Point p) {
 bool
 ConvexHull::contains_point(Point p) {
     return find_left(p) == -1;
+}
+
+/*** ConvexHull::strict_contains_point
+ * In order to test whether a point is strictly inside (not on the boundary) a convex hull we can travel once around the outside making
+ * sure that each triangle made from an edge and the point has positive area. */
+bool
+ConvexHull::strict_contains_point(Point p) {
+    return find_strict_left(p) == -1;
 }
 
 /*** ConvexHull::add_point
@@ -192,9 +250,9 @@ ConvexHull::merge(Point p) {
 
     bool pushed = false;
 
-    bool pre = is_left(p, -1);
+    bool pre = is_strict_left(p, -1);
     for(int i = 0; i < l; i++) {
-        bool cur = is_left(p, i);
+        bool cur = is_strict_left(p, i);
         if(pre) {
             if(cur) {
                 if(!pushed) {
@@ -211,7 +269,7 @@ ConvexHull::merge(Point p) {
         out.push_back(boundary[i]);
         pre = cur;
     }
-    
+
     boundary = out;
 }
 //OPT: quickly find an obscured point and find the bounds by extending from there.  then push all points not within the bounds in order.
@@ -245,12 +303,12 @@ ConvexHull::is_clockwise() const {
 bool
 ConvexHull::top_point_first() const {
     std::vector<Point>::const_iterator pivot = boundary.begin();
-    for(std::vector<Point>::const_iterator it(boundary.begin()+1), 
+    for(std::vector<Point>::const_iterator it(boundary.begin()+1),
             e(boundary.end());
         it != e; it++) {
         if((*it)[1] < (*pivot)[1])
             pivot = it;
-        else if(((*it)[1] == (*pivot)[1]) && 
+        else if(((*it)[1] == (*pivot)[1]) &&
                 ((*it)[0] < (*pivot)[0]))
             pivot = it;
     }
@@ -264,7 +322,8 @@ proposed algorithm:  We must be very careful about rounding here.
 */
 bool
 ConvexHull::no_colinear_points() const {
-	return true;
+    // XXX: implement me!
+    THROW_NOTIMPLEMENTED();
 }
 
 bool
@@ -281,47 +340,81 @@ ConvexHull::is_degenerate() const {
 }
 
 
-/* Here we really need a rotating calipers implementation.  This implementation is slow and incorrect.
-   This incorrectness is a problem because it throws off the algorithms.  Perhaps I will come up with
-   something better tomorrow.  The incorrectness is in the order of the bridges - they must be in the
-   order of traversal around.  Since the a->b and b->a bridges are seperated, they don't need to be merge
-   order, just the order of the traversal of the host hull.  Currently some situations make a n->0 bridge
-   first.*/
-pair< map<int, int>, map<int, int> >
-bridges(ConvexHull a, ConvexHull b) {
-    map<int, int> abridges;
-    map<int, int> bbridges;
-
-    for(unsigned ia = 0; ia < a.boundary.size(); ia++) {
-        for(unsigned ib = 0; ib < b.boundary.size(); ib++) {
-            Point d = b[ib] - a[ia];
-            Geom::Coord e = cross(d, a[ia - 1] - a[ia]), f = cross(d, a[ia + 1] - a[ia]);
-            Geom::Coord g = cross(d, b[ib - 1] - a[ia]), h = cross(d, b[ib + 1] - a[ia]);
-            if     (e > 0 && f > 0 && g > 0 && h > 0) abridges[ia] = ib;
-            else if(e < 0 && f < 0 && g < 0 && h < 0) bbridges[ib] = ia;
-        }
-    }
-       
-    return make_pair(abridges, bbridges);
+int sgn(double x) {
+    if(x == 0) return 0;
+    return (x<0)?-1:1;
 }
 
-std::vector<Point> bridge_points(ConvexHull a, ConvexHull b) {
-    vector<Point> ret;
-    pair< map<int, int>, map<int, int> > indices = bridges(a, b);
-    for(map<int, int>::iterator it = indices.first.begin(); it != indices.first.end(); it++) {
-      ret.push_back(a[it->first]);
-      ret.push_back(b[it->second]);
+bool same_side(Point L[2], Point  xs[4]) {
+    int side = 0;
+    for(int i = 0; i < 4; i++) {
+        int sn = sgn(SignedTriangleArea(L[0], L[1], xs[i]));
+        if(sn and not side)
+            side = sn;
+        else if(sn != side) return false;
     }
-    for(map<int, int>::iterator it = indices.second.begin(); it != indices.second.end(); it++) {
-      ret.push_back(b[it->first]);
-      ret.push_back(a[it->second]);
+    return true;
+}
+
+/** find bridging pairs between two convex hulls.
+ *   this code is based on Hormoz Pirzadeh's masters thesis.  There is room for optimisation:
+ * 1. reduce recomputation
+ * 2. use more efficient angle code
+ * 3. write as iterator
+ */
+std::vector<pair<int, int> > bridges(ConvexHull a, ConvexHull b) {
+    vector<pair<int, int> > ret;
+    
+    // 1. find maximal points on a and b
+    int ai = 0, bi = 0;
+    // 2. find first copodal pair
+    double ap_angle = atan2(a[ai+1] - a[ai]);
+    double bp_angle = atan2(b[bi+1] - b[bi]);
+    Point L[2] = {a[ai], b[bi]};
+    while(ai < int(a.size()) or bi < int(b.size())) {
+        if(ap_angle == bp_angle) {
+            // In the case of parallel support lines, we must consider all four pairs of copodal points
+            {
+                assert(0); // untested
+                Point xs[4] = {a[ai-1], a[ai+1], b[bi-1], b[bi+1]};
+                if(same_side(L, xs)) ret.push_back(make_pair(ai, bi));
+                xs[2] = b[bi];
+                xs[3] = b[bi+2];
+                if(same_side(L, xs)) ret.push_back(make_pair(ai, bi));
+                xs[0] = a[ai];
+                xs[1] = a[ai+2];
+                if(same_side(L, xs)) ret.push_back(make_pair(ai, bi));
+                xs[2] = b[bi-1];
+                xs[3] = b[bi+1];
+                if(same_side(L, xs)) ret.push_back(make_pair(ai, bi));
+            }
+            ai++;
+            ap_angle += angle_between(a[ai] - a[ai-1], a[ai+1] - a[ai]);
+            L[0] = a[ai];
+            bi++;
+            bp_angle += angle_between(b[bi] - b[bi-1], b[bi+1] - b[bi]);
+            L[1] = b[bi];
+            std::cout << "parallel\n";
+        } else if(ap_angle < bp_angle) {
+            ai++;
+            ap_angle += angle_between(a[ai] - a[ai-1], a[ai+1] - a[ai]);
+            L[0] = a[ai];
+            Point xs[4] = {a[ai-1], a[ai+1], b[bi-1], b[bi+1]};
+            if(same_side(L, xs)) ret.push_back(make_pair(ai, bi));
+        } else {
+            bi++;
+            bp_angle += angle_between(b[bi] - b[bi-1], b[bi+1] - b[bi]);
+            L[1] = b[bi];
+            Point xs[4] = {a[ai-1], a[ai+1], b[bi-1], b[bi+1]};
+            if(same_side(L, xs)) ret.push_back(make_pair(ai, bi));
+        }
     }
     return ret;
 }
 
 unsigned find_bottom_right(ConvexHull const &a) {
     unsigned it = 1;
-    while(it < a.boundary.size() && 
+    while(it < a.boundary.size() &&
           a.boundary[it][Y] > a.boundary[it-1][Y])
         it++;
     return it-1;
@@ -335,10 +428,10 @@ unsigned find_bottom_right(ConvexHull const &a) {
  */
 ConvexHull sweepline_intersection(ConvexHull const &a, ConvexHull const &b) {
     ConvexHull ret;
-    
+
     unsigned al = 0;
     unsigned bl = 0;
-    
+
     while(al+1 < a.boundary.size() &&
           (a.boundary[al+1][Y] > b.boundary[bl][Y])) {
         al++;
@@ -347,10 +440,10 @@ ConvexHull sweepline_intersection(ConvexHull const &a, ConvexHull const &b) {
           (b.boundary[bl+1][Y] > a.boundary[al][Y])) {
         bl++;
     }
-    return ret;
     // al and bl now point to the top of the first pair of edges that overlap in y value
-//    double sweep_y = std::min(a.boundary[al][Y],
-//                              b.boundary[bl][Y]);
+    //double sweep_y = std::min(a.boundary[al][Y],
+    //                          b.boundary[bl][Y]);
+    return ret;
 }
 
 /*** ConvexHull intersection(ConvexHull a, ConvexHull b);
@@ -358,16 +451,22 @@ ConvexHull sweepline_intersection(ConvexHull const &a, ConvexHull const &b) {
  * (Proof: take any two points both in a and in b.  Any point between them is in a by convexity,
  * and in b by convexity, thus in both.  Need to prove still finite bounds.)
  */
-ConvexHull intersection(ConvexHull a, ConvexHull b) {
+ConvexHull intersection(ConvexHull /*a*/, ConvexHull /*b*/) {
     ConvexHull ret;
-//    int ai = 0, bi = 0;
-//    unsigned aj = a.boundary.size() - 1;
-//    unsigned bj = b.boundary.size() - 1;
-    
+    /*
+    int ai = 0, bi = 0;
+    int aj = a.boundary.size() - 1;
+    int bj = b.boundary.size() - 1;
+    */
     /*while (true) {
         if(a[ai]
     }*/
     return ret;
+}
+
+template <typename T>
+T idx_to_pair(pair<T, T> p, int idx) {
+    return idx?p.second:p.first;
 }
 
 /*** ConvexHull merge(ConvexHull a, ConvexHull b);
@@ -376,52 +475,80 @@ ConvexHull intersection(ConvexHull a, ConvexHull b) {
 ConvexHull merge(ConvexHull a, ConvexHull b) {
     ConvexHull ret;
 
-    pair< map<int, int>, map<int, int> > bpair = bridges(a, b);
-    map<int, int> ab = bpair.first;
-    map<int, int> bb = bpair.second;
+    std::cout << "---\n";
+    std::vector<pair<int, int> > bpair = bridges(a, b);
+    
+    // Given our list of bridges {(pb1, qb1), ..., (pbk, qbk)}
+    // we start with the highest point in p0, q0, say it is p0.
+    // then the merged hull is p0, ..., pb1, qb1, ..., qb2, pb2, ...
+    // In other words, either of the two polygons vertices are added in order until the vertex coincides with a bridge point, at which point we swap.
 
+    unsigned state = (a[0][Y] < b[0][Y])?0:1;
+    ret.boundary.reserve(a.size() + b.size());
+    ConvexHull chs[2] = {a, b};
+    unsigned idx = 0;
+    
+    for(unsigned k = 0; k < bpair.size(); k++) {
+        unsigned limit = idx_to_pair(bpair[k], state);
+        std::cout << bpair[k].first << " , " << bpair[k].second << "; "
+                  << idx << ", " << limit << ", s: "
+                  << state
+                  << " \n";
+        while(idx <= limit) {
+            ret.boundary.push_back(chs[state][idx++]);
+        }
+        state = 1-state;
+        idx = idx_to_pair(bpair[k], state);
+    }
+    while(idx < chs[state].size()) {
+        ret.boundary.push_back(chs[state][idx++]);
+    }
+    return ret;
+
+    /*
     ab[-1] = 0;
     bb[-1] = 0;
 
-    int i = -1;
+    int i = -1; // XXX: i is int but refers to vector indices
 
     if(a.boundary[0][1] > b.boundary[0][1]) goto start_b;
     while(true) {
         for(; ab.count(i) == 0; i++) {
             ret.boundary.push_back(a[i]);
-            if(i >= static_cast<int>(a.boundary.size())) return ret;
+            if(i >= (int)a.boundary.size()) return ret;
         }
         if(ab[i] == 0 && i != -1) break;
         i = ab[i];
         start_b:
-        
+
         for(; bb.count(i) == 0; i++) {
             ret.boundary.push_back(b[i]);
-            if(i >= static_cast<int>(b.boundary.size())) return ret;
+            if(i >= (int)b.boundary.size()) return ret;
         }
         if(bb[i] == 0 && i != -1) break;
         i = bb[i];
     }
+    */
     return ret;
 }
 
 ConvexHull graham_merge(ConvexHull a, ConvexHull b) {
     ConvexHull result;
-    
+
     // we can avoid the find pivot step because of top_point_first
     if(b.boundary[0] <= a.boundary[0])
         std::swap(a, b);
-    
+
     result.boundary = a.boundary;
-    result.boundary.insert(result.boundary.end(), 
+    result.boundary.insert(result.boundary.end(),
                            b.boundary.begin(), b.boundary.end());
-    
+
 /** if we modified graham scan to work top to bottom as proposed in lect754.pdf we could replace the
  angle sort with a simple merge sort type algorithm. furthermore, we could do the graham scan
  online, avoiding a bunch of memory copies.  That would probably be linear. -- njh*/
     result.angle_sort();
     result.graham_scan();
-    
+
     return result;
 }
 //TODO: reinstate
@@ -432,6 +559,66 @@ ConvexHull graham_merge(ConvexHull a, ConvexHull b) {
     }
 }*/
 
+double ConvexHull::centroid_and_area(Geom::Point& centroid) const {
+    const unsigned n = boundary.size();
+    if (n < 2)
+        return 0;
+    if(n < 3) {
+        centroid = (boundary[0] + boundary[1])/2;
+        return 0;
+    }
+    Geom::Point centroid_tmp(0,0);
+    double atmp = 0;
+    for (unsigned i = n-1, j = 0; j < n; i = j, j++) {
+        const double ai = -cross(boundary[j], boundary[i]);
+        atmp += ai;
+        centroid_tmp += (boundary[j] + boundary[i])*ai; // first moment.
+    }
+    if (atmp != 0) {
+        centroid = centroid_tmp / (3 * atmp);
+    }
+    return atmp / 2;
+}
+
+// TODO: This can be made lg(n) using golden section/fibonacci search three starting points, say 0,
+// n/2, n-1 construct a new point, say (n/2 + n)/2 throw away the furthest boundary point iterate
+// until interval is a single value
+Point const * ConvexHull::furthest(Point direction) const {
+    Point const * p = &boundary[0];
+    double d = dot(*p, direction);
+    for(unsigned i = 1; i < boundary.size(); i++) {
+        double dd = dot(boundary[i], direction);
+        if(d < dd) {
+            p = &boundary[i];
+            d = dd;
+        }
+    }
+    return p;
+}
+
+
+// returns (a, (b,c)), three points which define the narrowest diameter of the hull as the pair of
+// lines going through b,c, and through a, parallel to b,c TODO: This can be made linear time by
+// moving point tc incrementally from the previous value (it can only move in one direction).  It
+// is currently n*O(furthest)
+double ConvexHull::narrowest_diameter(Point &a, Point &b, Point &c) {
+    Point tb = boundary.back();
+    double d = INFINITY;
+    for(unsigned i = 0; i < boundary.size(); i++) {
+        Point tc = boundary[i];
+        Point n = -rot90(tb-tc);
+        Point ta = *furthest(n);
+        double td = dot(n, ta-tb)/dot(n,n);
+        if(td < d) {
+            a = ta;
+            b = tb;
+            c = tc;
+            d = td;
+        }
+        tb = tc;
+    }
+    return d;
+}
 
 };
 
@@ -439,12 +626,9 @@ ConvexHull graham_merge(ConvexHull a, ConvexHull b) {
   Local Variables:
   mode:c++
   c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(substatement-open . 0))
+  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
   indent-tabs-mode:nil
-  c-brace-offset:0
   fill-column:99
   End:
-  vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4 :
 */
-
-
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

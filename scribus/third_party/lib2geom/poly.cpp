@@ -1,4 +1,10 @@
-#include "poly.h"
+#include <poly.h>
+
+#ifdef HAVE_GSL
+#include <gsl/gsl_poly.h>
+#endif
+
+namespace Geom {
 
 Poly Poly::operator*(const Poly& p) const {
     Poly result; 
@@ -11,9 +17,6 @@ Poly Poly::operator*(const Poly& p) const {
     }
     return result;
 }
-#ifdef HAVE_GSL
-#include <gsl/gsl_poly.h>
-#endif
 
 /*double Poly::eval(double x) const {
     return gsl_poly_eval(&coeff[0], size(), x);
@@ -44,7 +47,7 @@ std::vector<std::complex<double> > solve(Poly const & pp) {
        
     gsl_complex_packed_ptr z = new double[p.degree()*2];
     double* a = new double[p.size()];
-    for(int i = 0; i < p.size(); i++)
+    for(unsigned int i = 0; i < p.size(); i++)
         a[i] = p[i];
     std::vector<std::complex<double> > roots;
     //roots.resize(p.degree());
@@ -54,7 +57,7 @@ std::vector<std::complex<double> > solve(Poly const & pp) {
      
     gsl_poly_complex_workspace_free (w);
      
-    for (int i = 0; i < p.degree(); i++) {
+    for (unsigned int i = 0; i < p.degree(); i++) {
         roots.push_back(std::complex<double> (z[2*i] ,z[2*i+1]));
         //printf ("z%d = %+.18f %+.18f\n", i, z[2*i], z[2*i+1]);
     }    
@@ -66,7 +69,7 @@ std::vector<double > solve_reals(Poly const & p) {
     std::vector<std::complex<double> > roots = solve(p);
     std::vector<double> real_roots;
     
-    for(int i = 0; i < roots.size(); i++) {
+    for(unsigned int i = 0; i < roots.size(); i++) {
         if(roots[i].imag() == 0) // should be more lenient perhaps
             real_roots.push_back(roots[i].real());
     }
@@ -150,7 +153,7 @@ Poly divide(Poly const &a, Poly const &b, Poly &r) {
     c.resize(k, 0.);
     
     for(unsigned i = k; i >= l; i--) {
-        assert(i >= 0);
+        //assert(i >= 0);
         double ci = r.back()/b.back();
         c[i-l] += ci;
         Poly bb = ci*b;
@@ -166,7 +169,7 @@ Poly divide(Poly const &a, Poly const &b, Poly &r) {
     return c;
 }
 
-Poly gcd(Poly const &a, Poly const &b, const double tol) {
+Poly gcd(Poly const &a, Poly const &b, const double /*tol*/) {
     if(a.size() < b.size())
         return gcd(b, a);
     if(b.size() <= 0)
@@ -184,6 +187,7 @@ Poly gcd(Poly const &a, Poly const &b, const double tol) {
     assert(1);
     }*/
 
+} //namespace Geom
 
 /*
   Local Variables:

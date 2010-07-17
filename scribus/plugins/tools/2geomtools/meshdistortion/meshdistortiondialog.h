@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "third_party/lib2geom/transforms.h"
 #include "third_party/lib2geom/scribushelper.h"
 #include <vector>
-using namespace Geom;
+//using namespace Geom;
 class MeshDistortionDialog;
 
 class PLUGIN_API NodeItem : public QGraphicsEllipseItem
@@ -99,7 +99,7 @@ public:
 	QGraphicsPathItem* pItemG;
 	QList<QGraphicsPathItem*> origPathItem;
 	QList<NodeItem*> nodeItems;
-	QList< Geom::Piecewise<D2<Geom::SBasis> > > origPath;
+	QList< Geom::Piecewise<Geom::D2<Geom::SBasis> > > origPath;
 	std::vector<Geom::Point> handles;
 	std::vector<Geom::Point> origHandles;
 	Geom::D2<Geom::SBasis2d> sb2;

@@ -1,5 +1,6 @@
-/*
- *  sbasis-math.h - some std functions to work with (pw)s-basis
+/**
+ * \file
+ * \brief some std functions to work with (pw)s-basis
  *
  *  Authors:
  *   Jean-Francois Barraud
@@ -41,6 +42,7 @@
 
 #include "sbasis.h"
 #include "piecewise.h"
+#include "d2.h"
 
 namespace Geom{
 //-|x|---------------------------------------------------------------
@@ -80,9 +82,12 @@ Piecewise<SBasis> reciprocalOnDomain(Interval range, double tol=1e-3);
 Piecewise<SBasis> reciprocal(          SBasis const &f, double tol=1e-3, int order=3);
 Piecewise<SBasis> reciprocal(Piecewise<SBasis>const &f, double tol=1e-3, int order=3);
 
+//--interpolate------------------------------------------------------------
+Piecewise<SBasis> interpolate( std::vector<double> times, std::vector<double> values, unsigned smoothness = 1);
 }
 
 #endif //SEEN_GEOM_PW_SB_CALCULUS_H
+
 /*
   Local Variables:
   mode:c++
@@ -92,4 +97,4 @@ Piecewise<SBasis> reciprocal(Piecewise<SBasis>const &f, double tol=1e-3, int ord
   fill-column:99
   End:
 */
-// vim: filetype = cpp:expandtab:shiftwidth = 4:tabstop = 8:softtabstop = 4:encoding = utf-8:textwidth = 99 :
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

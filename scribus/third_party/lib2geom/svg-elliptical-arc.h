@@ -1,7 +1,14 @@
-/*
- * SVG Elliptical Path Support Class
+/**
+ * \file
+ * \brief SVG 1.1-compliant elliptical arc curve
  *
- * Copyright 2008  Marco Cecchetti <mrcekets at gmail.com>
+ *//*
+ * Authors:
+ *    MenTaLguY <mental@rydia.net>
+ *    Marco Cecchetti <mrcekets at gmail.com>
+ *    Krzysztof Kosiński <tweenk.pl@gmail.com>
+ * 
+ * Copyright 2007-2009 Authors
  *
  * This library is free software; you can redistribute it and/or
  * modify it either under the terms of the GNU Lesser General Public
@@ -28,358 +35,235 @@
  */
 
 
-#ifndef _SVG_ELLIPTICAL_ARC_H_
-#define _SVG_ELLIPTICAL_ARC_H_
+#ifndef _2GEOM_SVG_ELLIPTICAL_ARC_H_
+#define _2GEOM_SVG_ELLIPTICAL_ARC_H_
 
-
+#include "curve.h"
 #include "angle.h"
-#include "matrix.h"
-#include "sbasis.h"
-#include "d2.h"
-
+#include "utils.h"
+#include "bezier-curve.h"
+#include "elliptical-arc.h"
+#include "sbasis-curve.h"  // for non-native methods
+#include "numeric/vector.h"
+#include "numeric/fitting-tool.h"
+#include "numeric/fitting-model.h"
+#include <algorithm>
 
 namespace Geom
 {
 
-class EllipticalArc
+class SVGEllipticalArc : public EllipticalArc {
+public:
+    SVGEllipticalArc()
+        : EllipticalArc()
+    {}
+    SVGEllipticalArc( Point _initial_point, double _rx, double _ry,
+                      double _rot_angle, bool _large_arc, bool _sweep,
+                      Point _final_point
+                    )
+        : EllipticalArc(_initial_point, _rx, _ry, _rot_angle, _large_arc, _sweep, _final_point)
+    {}
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+    virtual Curve *duplicate() const {
+        return new SVGEllipticalArc(*this);
+    }
+    virtual Coord valueAt(Coord t, Dim2 d) const {
+        if (isDegenerate()) return chord().valueAt(t, d);
+        return EllipticalArc::valueAt(t, d);
+    }
+    virtual Point pointAt(Coord t) const {
+        if (isDegenerate()) return chord().pointAt(t);
+        return EllipticalArc::pointAt(t);
+    }
+    virtual std::vector<Point> pointAndDerivatives(Coord t, unsigned int n) const {
+        if (isDegenerate()) return chord().pointAndDerivatives(t, n);
+        return EllipticalArc::pointAndDerivatives(t, n);
+    }
+    virtual Rect boundsExact() const {
+        if (isDegenerate()) return chord().boundsExact();
+        return EllipticalArc::boundsExact();
+    }
+    virtual OptRect boundsLocal(OptInterval const &i, unsigned int deg) const {
+        if (isDegenerate()) return chord().boundsLocal(i, deg);
+        return EllipticalArc::boundsLocal(i, deg);
+    }
+
+    virtual Curve *derivative() const {
+        if (isDegenerate()) return chord().derivative();
+        return EllipticalArc::derivative();
+    }
+
+    virtual std::vector<Coord> roots(Coord v, Dim2 d) const {
+        if (isDegenerate()) return chord().roots(v, d);
+        return EllipticalArc::roots(v, d);
+    }
+    virtual std::vector<Coord> allNearestPoints( Point const& p, double from = 0, double to = 1 ) const {
+        if (isDegenerate()) {
+            std::vector<Coord> result;
+            result.push_back(chord().nearestPoint(p, from, to));
+            return result;
+        }
+        return EllipticalArc::allNearestPoints(p, from, to);
+    }
+    virtual D2<SBasis> toSBasis() const {
+        if (isDegenerate()) return chord().toSBasis();
+        return EllipticalArc::toSBasis();
+    }
+    virtual bool isSVGCompliant() const { return true; }
+    // TODO move SVG-specific behavior here.
+//protected:
+    //virtual void _updateCenterAndAngles();
+#endif
+}; // end class SVGEllipticalArc
+
+/*
+ * useful for testing and debugging
+ */
+template< class charT >
+inline
+std::basic_ostream<charT> &
+operator<< (std::basic_ostream<charT> & os, const SVGEllipticalArc & ea)
 {
-  public:
-    EllipticalArc( Point _initial_point, Point _final_point,
-                   double _rx,         double _ry,
-                   bool _large_arc,    bool _sweep,
-                   double _rot_angle = 0.0
-                 )
-        : m_initial_point(_initial_point), m_final_point(_final_point),
-          m_rx(_rx), m_ry(_ry), m_rot_angle(_rot_angle),
-          m_large_arc(_large_arc), m_sweep(_sweep)
-    {
-        assert( (ray(X) >= 0) && (ray(Y) >= 0) );
-        if ( are_near(initialPoint(), finalPoint()) )
-        {
-            m_start_angle = m_end_angle = 0;
-            m_center = initialPoint();
-        }
-        else
-        {
-            calculate_center_and_extreme_angles();
-        }
+    os << "{ cx: " << ea.center(X) << ", cy: " <<  ea.center(Y)
+       << ", rx: " << ea.ray(X) << ", ry: " << ea.ray(Y)
+       << ", rot angle: " << decimal_round(rad_to_deg(ea.rotationAngle()),2)
+       << ", start angle: " << decimal_round(rad_to_deg(ea.initialAngle()),2)
+       << ", end angle: " << decimal_round(rad_to_deg(ea.finalAngle()),2)
+       << " }";
 
-        std::cerr << "start_angle: " << decimal_round(rad_to_deg(m_start_angle),2) << " ( " << m_start_angle << " )" << std::endl
-                  << "end_angle: " << decimal_round(rad_to_deg(m_end_angle),2) << " ( " << m_end_angle << " )" << std::endl 
-                  << "center: " << m_center << std::endl;
-    }
-
-  public:
-    double center(Geom::Dim2 i) const
-    {
-        return m_center[i];
-    }
-
-    Point center() const
-    {
-        return m_center;
-    }
-
-    Point initialPoint() const
-    {
-        return m_initial_point;
-    }
-
-    Point finalPoint() const
-    {
-        return m_final_point;
-    }
-
-    double start_angle() const
-    {
-        return m_start_angle;
-    }
-
-    double end_angle() const
-    {
-        return m_end_angle;
-    }
-
-    double ray(Geom::Dim2 i) const
-    {
-        return (i == 0) ? m_rx : m_ry;
-    }
-
-    bool large_arc_flag() const
-    {
-        return m_large_arc;
-    }
-
-//    void large_arc_flag(bool v)
-//    {
-//        m_large_arc = v;
-//    }
-
-    bool sweep_flag() const
-    {
-        return m_sweep;
-    }
-
-//    void sweep_flag(bool v)
-//    {
-//        m_sweep = v;
-//    }
-
-    double rotation_angle() const
-    {
-        return m_rot_angle;
-    }
-
-    void setInitial( const Point _point)
-    {
-        m_initial_point = _point;
-        calculate_center_and_extreme_angles();
-    }
-
-    void setFinal( const Point _point)
-    {
-        m_final_point = _point;
-        calculate_center_and_extreme_angles();
-    }
-
-    void setExtremes( const Point& _initial_point, const Point& _final_point )
-    {
-        m_initial_point = _initial_point;
-        m_final_point = _final_point;
-        calculate_center_and_extreme_angles();
-    }
-
-    bool isDegenerate() const
-    {
-        return are_near(initialPoint(), finalPoint());
-    }
-
-    double valueAt(Coord t, Dim2 d) const
-    {
-        Coord tt = from_01_to_02PI(t);
-        double sin_rot_angle = std::sin(rotation_angle());
-        double cos_rot_angle = std::cos(rotation_angle());
-        if ( d == X )
-        {
-            return    ray(X) * cos_rot_angle * std::cos(tt) 
-                    - ray(Y) * sin_rot_angle * std::sin(tt) 
-                    + center(X);
-        }
-        else
-        {
-            return    ray(X) * sin_rot_angle * std::cos(tt) 
-                    + ray(Y) * cos_rot_angle * std::sin(tt) 
-                    + center(X);
-        }
-    }
-
-    Point pointAt(Coord t) const
-    {
-        Coord tt = from_01_to_02PI(t);
-        double sin_rot_angle = std::sin(rotation_angle());
-        double cos_rot_angle = std::cos(rotation_angle());
-        Matrix m( ray(X) * cos_rot_angle, ray(X) * sin_rot_angle,
-                 -ray(Y) * sin_rot_angle, ray(Y) * cos_rot_angle,
-                  center(X),              center(Y) );
-        Point p( std::cos(tt), std::sin(tt) );
-        return p * m;
-    }
-
-    D2<SBasis> toSBasis() const
-    {
-        // the interval of parametrization has to be [0,1]
-        Coord et = start_angle() + ( sweep_flag() ? sweep_angle() : -sweep_angle() );
-        Linear param(start_angle(), et);
-        // std::cerr << "param : " << param << std::endl;
-        Coord cos_rot_angle = std::cos(rotation_angle());
-        Coord sin_rot_angle = std::sin(rotation_angle());
-        // order = 4 seems to be enough to get perfect looking elliptical arc
-        // should it be choosen in function of the arc length anyway ?
-        // a user settable parameter: toSBasis(unsigned int order) ?
-        SBasis arc_x = ray(X) * cos(param,4);
-        SBasis arc_y = ray(Y) * sin(param,4);
-        D2<SBasis> arc;
-        arc[0] = arc_x * cos_rot_angle - arc_y * sin_rot_angle + Linear(center(X),center(X));
-        arc[1] = arc_x * sin_rot_angle + arc_y * cos_rot_angle + Linear(center(Y),center(Y));
-        return arc;
-    }
-
-    std::pair<EllipticalArc, EllipticalArc>
-    subdivide(Coord t) const
-    {
-        EllipticalArc* arc1 = portion(0, t);
-        EllipticalArc* arc2 = portion(t, 1);
-        assert( arc1 != NULL && arc2 != NULL);
-        std::pair<EllipticalArc, EllipticalArc> arc_pair(*arc1, *arc2);        
-        delete arc1;
-        delete arc2;
-        return arc_pair;
-    }
-
-    EllipticalArc* portion(double f, double t) const 
-    {
-        static const double M_2PI = 2*M_PI;
-        EllipticalArc* arc = new EllipticalArc( *this );
-        arc->m_initial_point = pointAt(f);
-        arc->m_final_point = pointAt(t);
-        //std::cerr << "initial point: " << arc->m_initial_point << std::endl;
-        //std::cerr << "final point: " << arc->m_final_point << std::endl;
-        double sa = sweep_angle();
-        //std::cerr << "sa: " << sa << std::endl;
-        arc->m_start_angle = m_start_angle + sa * f;
-        if ( arc->m_start_angle > M_2PI || are_near(arc->m_start_angle, M_2PI) )
-            arc->m_start_angle -= M_2PI;
-        arc->m_end_angle = m_start_angle + sa * t;
-        if ( arc->m_end_angle > M_2PI || are_near(arc->m_end_angle, M_2PI) )
-            arc->m_end_angle -= M_2PI;
-        //std::cerr << "start angle: " << arc->m_start_angle << std::endl;
-        //std::cerr << "end angle: " << arc->m_end_angle << std::endl;
-        //std::cerr << "sweep angle: " << arc->sweep_angle() << std::endl;
-        if (f > t) arc->m_sweep = !m_sweep;
-        if ( m_large_arc && (arc->sweep_angle() < M_PI) )
-            arc->m_large_arc = false;
-        return arc;
-    }
-
-    // the arc is the same but traversed in the opposite direction
-    EllipticalArc* reverse() const
-    {
-        EllipticalArc* rarc = new EllipticalArc( *this );
-        rarc->m_sweep = !m_sweep;
-        rarc->m_initial_point = m_final_point;
-        rarc->m_final_point = m_initial_point;
-        rarc->m_start_angle = m_end_angle;
-        rarc->m_end_angle = m_start_angle;
-        return rarc;
-    }
-
-  private:
-
-    double sweep_angle() const
-    {
-        Coord d = end_angle() - start_angle();
-        if ( !sweep_flag() ) d = -d;
-        if ( d < 0 || are_near(d, 0) )
-            d += 2*M_PI;
-        return d;
-    }
-
-    Coord from_01_to_02PI(Coord t) const
-    {
-        if ( sweep_flag() )
-        {
-            Coord angle = start_angle() + sweep_angle() * t;
-            if ( (angle > 2*M_PI) || are_near(angle, 2*M_PI) )
-                angle -= 2*M_PI;
-            return angle;
-        }
-        else
-        {
-            Coord angle = start_angle() - sweep_angle() * t;
-            if ( angle < 0 ) angle += 2*M_PI;
-            return angle;
-        }
-    }
-
-    // NOTE: doesn't work with 360 deg arcs
-    void calculate_center_and_extreme_angles()
-    {
-        const double M_HALF_PI = M_PI/2;
-        const double M_2PI = 2*M_PI;
-
-        double sin_rot_angle = std::sin(rotation_angle());
-        double cos_rot_angle = std::cos(rotation_angle());
-
-        Point sp = sweep_flag() ? initialPoint() : finalPoint();
-        Point ep = sweep_flag() ? finalPoint() : initialPoint();
-
-        Matrix m( ray(X) * cos_rot_angle, ray(X) * sin_rot_angle,
-                 -ray(Y) * sin_rot_angle, ray(Y) * cos_rot_angle,
-                  0,                      0 );
-        Matrix im = m.inverse();
-        Point sol = (ep - sp) * im;
-        std::cerr << "sol : " << sol << std::endl;
-        double half_sum_angle = std::atan2(-sol[X], sol[Y]);
-        double half_diff_angle;
-        if ( are_near(std::fabs(half_sum_angle), M_HALF_PI) )
-        {
-            double anti_sgn_hsa = (half_sum_angle > 0) ? -1 : 1;
-            double arg = anti_sgn_hsa * sol[X] / 2;
-            // if |arg| is a little bit > 1 acos returns nan
-            if ( are_near(arg, 1) )
-                half_diff_angle = 0;
-            else if ( are_near(arg, -1) )
-                half_diff_angle = M_PI;
-            else
-            {
-                assert( -1 < arg && arg < 1 );
-                //  if it fails => there is no ellipse that satisfies the given constraints
-                half_diff_angle = std::acos( arg );
-            }
-
-            half_diff_angle = M_HALF_PI - half_diff_angle;
-        }
-        else
-        {
-            double  arg = sol[Y] / ( 2 * std::cos(half_sum_angle) );
-            // if |arg| is a little bit > 1 asin returns nan
-            if ( are_near(arg, 1) ) 
-                half_diff_angle = M_HALF_PI;
-            else if ( are_near(arg, -1) )
-                half_diff_angle = -M_HALF_PI;
-            else
-            {
-                assert( -1 < arg && arg < 1 );  
-                // if it fails => there is no ellipse that satisfies the given constraints
-                half_diff_angle = std::asin( arg );
-            }
-        }
-        std::cerr << "half_sum_angle : " << decimal_round(rad_to_deg(half_sum_angle),2) << " ( " << half_sum_angle << " )" << std::endl;
-        std::cerr << "half_diff_angle : " << decimal_round(rad_to_deg(half_diff_angle),2) << " ( " << half_diff_angle << " )" << std::endl;
-        //std::cerr << "cos(half_sum_angle) : " << std::cos(half_sum_angle) << std::endl;
-        //std::cerr << "sol[Y] / ( 2 * std::cos(half_sum_angle) ) : " << sol[Y] / ( 2 * std::cos(half_sum_angle) ) << std::endl;        
-
-        if (   ( m_large_arc && half_diff_angle > 0 ) 
-            || (!m_large_arc && half_diff_angle < 0 ) )
-        {
-            half_diff_angle = -half_diff_angle;
-        }
-        if ( half_sum_angle < 0 ) half_sum_angle += M_2PI;
-        if ( half_diff_angle < 0 ) half_diff_angle += M_PI;
-        std::cerr << "half_sum_angle : " << decimal_round(rad_to_deg(half_sum_angle),2) << " ( " << half_sum_angle << " )" << std::endl;
-        std::cerr << "half_diff_angle : " << decimal_round(rad_to_deg(half_diff_angle),2) << " ( " << half_diff_angle << " )" << std::endl;
-        
-        m_start_angle = half_sum_angle - half_diff_angle;
-        m_end_angle =  half_sum_angle + half_diff_angle;
-        // 0 <= m_start_angle, m_end_angle < 2PI
-        if ( m_start_angle < 0 ) m_start_angle += M_2PI;
-        if ( m_end_angle > M_2PI || are_near(m_end_angle, M_2PI) ) m_end_angle -= M_2PI;
-        sol[0] = std::cos(m_start_angle);
-        sol[1] = std::sin(m_start_angle);
-        m_center = sp - sol * m;
-        if ( !sweep_flag() )
-        {
-            double angle = m_start_angle;
-            m_start_angle = m_end_angle;
-            m_end_angle = angle;
-        }
-    }
-
-  private:
-    Point m_initial_point, m_final_point;
-    double m_rx, m_ry, m_rot_angle;
-    bool m_large_arc, m_sweep;
-
-    double m_start_angle, m_end_angle;
-    Point m_center;
-};
-
-
+    return os;
 }
 
 
-#endif /*_SVG_ELLIPTICAL_ARC_H_*/
 
+
+// forward declation
+namespace detail
+{
+    struct ellipse_equation;
+}
+
+// TODO this needs to be rewritten and moved to EllipticalArc header
+/*
+ * make_elliptical_arc
+ *
+ * convert a parametric polynomial curve given in symmetric power basis form
+ * into an SVGEllipticalArc type; in order to be successfull the input curve
+ * has to look like an actual elliptical arc even if a certain tolerance
+ * is allowed through an ad-hoc parameter.
+ * The conversion is performed through an interpolation on a certain amount of
+ * sample points computed on the input curve;
+ * the interpolation computes the coefficients of the general implicit equation
+ * of an ellipse (A*X^2 + B*XY + C*Y^2 + D*X + E*Y + F = 0), then from the
+ * implicit equation we compute the parametric form.
+ *
+ */
+class make_elliptical_arc
+{
+  public:
+    typedef D2<SBasis> curve_type;
+
+    /*
+     * constructor
+     *
+     * it doesn't execute the conversion but set the input and output parameters
+     *
+     * _ea:         the output SVGEllipticalArc that will be generated;
+     * _curve:      the input curve to be converted;
+     * _total_samples: the amount of sample points to be taken
+     *                 on the input curve for performing the conversion
+     * _tolerance:     how much likelihood is required between the input curve
+     *                 and the generated elliptical arc; the smaller it is the
+     *                 the tolerance the higher it is the likelihood.
+     */
+    make_elliptical_arc( EllipticalArc& _ea,
+                         curve_type const& _curve,
+                         unsigned int _total_samples,
+                         double _tolerance );
+
+  private:
+    bool bound_exceeded( unsigned int k, detail::ellipse_equation const & ee,
+                         double e1x, double e1y, double e2 );
+
+    bool check_bound(double A, double B, double C, double D, double E, double F);
+
+    void fit();
+
+    bool make_elliptiarc();
+
+    void print_bound_error(unsigned int k)
+    {
+        std::cerr
+            << "tolerance error" << std::endl
+            << "at point: " << k << std::endl
+            << "error value: "<< dist_err << std::endl
+            << "bound: " << dist_bound << std::endl
+            << "angle error: " << angle_err
+            << " (" << angle_tol << ")" << std::endl;
+    }
+
+  public:
+    /*
+     * perform the actual conversion
+     * return true if the conversion is successfull, false on the contrary
+     */
+    bool operator()()
+    {
+        // initialize the reference
+        const NL::Vector & coeff = fitter.result();
+        fit();
+        if ( !check_bound(1, coeff[0], coeff[1], coeff[2], coeff[3], coeff[4]) )
+            return false;
+        if ( !(make_elliptiarc()) ) return false;
+        return true;
+    }
+
+    /*
+     * you can set a boolean parameter to tell the conversion routine
+     * if the output elliptical arc has to be svg compliant or not;
+     * the default value is true
+     */
+    bool svg_compliant_flag() const
+    {
+        return svg_compliant;
+    }
+
+    void svg_compliant_flag(bool _svg_compliant)
+    {
+        svg_compliant = _svg_compliant;
+    }
+
+  private:
+      EllipticalArc& ea;                 // output elliptical arc
+      const curve_type & curve;             // input curve
+      Piecewise<D2<SBasis> > dcurve;        // derivative of the input curve
+      NL::LFMEllipse model;                 // model used for fitting
+      // perform the actual fitting task
+      NL::least_squeares_fitter<NL::LFMEllipse> fitter;
+      // tolerance: the user-defined tolerance parameter;
+      // tol_at_extr: the tolerance at end-points automatically computed
+      // on the value of "tolerance", and usually more strict;
+      // tol_at_center: tolerance at the center of the ellipse
+      // angle_tol: tolerance for the angle btw the input curve tangent
+      // versor and the ellipse normal versor at the sample points
+      double tolerance, tol_at_extr, tol_at_center, angle_tol;
+      Point initial_point, final_point;     // initial and final end-points
+      unsigned int N;                       // total samples
+      unsigned int last; // N-1
+      double partitions; // N-1
+      std::vector<Point> p;                 // sample points
+      double dist_err, dist_bound, angle_err;
+      bool svg_compliant;
+};
+
+
+} // end namespace Geom
+
+
+
+
+#endif /* _2GEOM_SVG_ELLIPTICAL_ARC_H_ */
 
 /*
   Local Variables:
@@ -391,3 +275,4 @@ class EllipticalArc
   End:
 */
 // vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :
+

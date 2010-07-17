@@ -1,13 +1,19 @@
-#include "path-intersection.h"
+#include <path-intersection.h>
 
-#include "ord.h"
+#include <ord.h>
 
 //for path_direction:
-#include "sbasis-geometric.h"
+#include <sbasis-geometric.h>
+#include <line.h>
+#ifdef HAVE_GSL
+#include <gsl/gsl_vector.h>
+#include <gsl/gsl_multiroots.h>
+#endif
 
 namespace Geom {
 
-/* This function computes the winding of the path, given a reference point.
+/**
+ * This function computes the winding of the path, given a reference point.
  * Positive values correspond to counter-clockwise in the mathematical coordinate system,
  * and clockwise in screen coordinates.  This particular implementation casts a ray in
  * the positive x direction.  It iterates the path, checking for intersection with the
@@ -20,8 +26,8 @@ int winding(Path const &path, Point p) {
   Path::const_iterator start;
   for(Path::const_iterator iter = path.begin(); ; ++iter) {
     if(iter == path.end_closed()) { return 0; }
-    if(iter->initialPoint()[Y]!=p[Y])  { start = iter; break; }
-    if(iter->finalPoint()[Y]!=p[Y])    { start = iter; break; }
+    if(iter->initialPoint()[Y]!=p[Y])   { start = iter; break; }
+    if(iter->finalPoint()[Y]!=p[Y])     { start = iter; break; }
     if(iter->boundsFast().height()!=0.){ start = iter; break; }
   }
   int wind = 0;
@@ -33,7 +39,7 @@ int winding(Path const &path, Point p) {
     cnt++;
     if(cnt > path.size()) return wind;  //some bug makes this required
     starting = false;
-    Rect bounds = iter->boundsFast();
+    Rect bounds = (iter->boundsFast());
     Coord x = p[X], y = p[Y];
     
     if(x > bounds.right() || !bounds[Y].contains(y)) continue; //ray doesn't intersect box
@@ -67,7 +73,7 @@ int winding(Path const &path, Point p) {
         next++;
         for(; ; next++) {
             if(next == path.end_closed()) next = path.begin();
-            Rect bnds = next->boundsFast();
+            Rect bnds = (next->boundsFast());
             //TODO: X considerations
             if(bnds.height() > 0) {
                 //It has diverged
@@ -75,7 +81,7 @@ int winding(Path const &path, Point p) {
                     const double fudge = 0.01;
                     if(cmp(y, next->valueAt(fudge, Y)) == initial_to_ray) {
                         wind += int(c);
-                      //  std::cout << "!!!!!" << int(c) << " ";
+                        //std::cout << "!!!!!" << int(c) << " ";
                     }
                     iter = next; // No increment, as the rest of the thing hasn't been counted.
                 } else {
@@ -83,7 +89,7 @@ int winding(Path const &path, Point p) {
                     if(cmp(y, ny) == initial_to_ray) {
                         //Is a continuation through the ray, so counts windingwise
                         wind += int(c);
-                    //    std::cout << "!!!!!" << int(c) << " ";
+                        //std::cout << "!!!!!" << int(c) << " ";
                     }
                     iter = ++next;
                 }
@@ -100,7 +106,8 @@ int winding(Path const &path, Point p) {
   return wind;
 }
 
-/* This function should only be applied to simple paths (regions), as otherwise
+/**
+ * This function should only be applied to simple paths (regions), as otherwise
  * a boolean winding direction is undefined.  It returns true for fill, false for
  * hole.  Defaults to using the sign of area when it reaches funny cases.
  */
@@ -111,7 +118,7 @@ bool path_direction(Path const &p) {
     double x = p.initialPoint()[X];
     Cmp res = cmp(p[0].finalPoint()[Y], y);
     goto doh;
-    for(unsigned i = 1; i <= p.size(); i++) {
+    for(unsigned i = 1; i < p.size(); i++) {
         Cmp final_to_ray = cmp(p[i].finalPoint()[Y], y);
         Cmp initial_to_ray = cmp(p[i].initialPoint()[Y], y);
         // if y is included, these will have opposite values, giving order.
@@ -141,13 +148,14 @@ bool path_direction(Path const &p) {
 
 //pair intersect code based on njh's pair-intersect
 
-// A little sugar for appending a list to another
+/** A little sugar for appending a list to another */
 template<typename T>
 void append(T &a, T const &b) {
     a.insert(a.end(), b.begin(), b.end());
 }
 
-/* Finds the intersection between the lines defined by A0 & A1, and B0 & B1.
+/**
+ * Finds the intersection between the lines defined by A0 & A1, and B0 & B1.
  * Returns through the last 3 parameters, returning the t-values on the lines
  * and the cross-product of the deltas (a useful byproduct).  The return value
  * indicates if the time values are within their proper range on the line segments.
@@ -171,21 +179,153 @@ linear_intersect(Point A0, Point A1, Point B0, Point B1,
     }
 }
 
-/* This uses the local bounds functions of curves to generically intersect two.
+
+#if 0
+typedef union dbl_64{
+    long long i64;
+    double d64;
+};
+
+static double EpsilonOf(double value)
+{
+    dbl_64 s;
+    s.d64 = value;
+    if(s.i64 == 0)
+    {
+        s.i64++;
+        return s.d64 - value;
+    }
+    else if(s.i64-- < 0)
+        return s.d64 - value;
+    else
+        return value - s.d64;
+}
+#endif
+
+#ifdef HAVE_GSL
+struct rparams {
+    Curve const &A;
+    Curve const &B;
+};
+
+static int
+intersect_polish_f (const gsl_vector * x, void *params,
+                    gsl_vector * f)
+{
+    const double x0 = gsl_vector_get (x, 0);
+    const double x1 = gsl_vector_get (x, 1);
+     
+    Geom::Point dx = ((struct rparams *) params)->A(x0) - 
+        ((struct rparams *) params)->B(x1);
+     
+    gsl_vector_set (f, 0, dx[0]);
+    gsl_vector_set (f, 1, dx[1]);
+     
+    return GSL_SUCCESS;
+}
+#endif
+
+static void 
+intersect_polish_root (Curve const &A, double &s,
+                       Curve const &B, double &t) {
+    int status;
+    size_t iter = 0;
+    std::vector<Point> as, bs;
+    as = A.pointAndDerivatives(s, 2);
+    bs = B.pointAndDerivatives(t, 2);
+    Point F = as[0] - bs[0];
+    double best = dot(F, F);
+    
+    for(int i = 0; i < 4; i++) {
+        
+        /**
+           we want to solve
+           J*(x1 - x0) = f(x0)
+           
+           |dA(s)[0]  -dB(t)[0]|  (X1 - X0) = A(s) - B(t)
+           |dA(s)[1]  -dB(t)[1]| 
+        **/
+
+        // We're using the standard transformation matricies, which is numerically rather poor.  Much better to solve the equation using elimination.
+
+        Affine jack(as[1][0], as[1][1],
+                    -bs[1][0], -bs[1][1],
+                    0, 0);
+        Point soln = (F)*jack.inverse();
+        double ns = s - soln[0];
+        double nt = t - soln[1];
+
+        if (ns<0) ns=0;
+        else if (ns>1) ns=1;
+        if (nt<0) nt=0;
+        else if (nt>1) nt=1;
+        
+        as = A.pointAndDerivatives(ns, 2);
+        bs = B.pointAndDerivatives(nt, 2);
+        F = as[0] - bs[0];
+        double trial = dot(F, F);
+        if (trial > best*0.1) // we have standards, you know
+            // At this point we could do a line search
+            break;
+        best = trial;
+        s = ns;
+        t = nt;
+    }
+
+#ifdef HAVE_GSL
+    if(0) { // the GSL version is more accurate, but taints this with GPL
+        const size_t n = 2;
+        struct rparams p = {A, B};
+        gsl_multiroot_function f = {&intersect_polish_f, n, &p};
+     
+        double x_init[2] = {s, t};
+        gsl_vector *x = gsl_vector_alloc (n);
+     
+        gsl_vector_set (x, 0, x_init[0]);
+        gsl_vector_set (x, 1, x_init[1]);
+     
+        const gsl_multiroot_fsolver_type *T = gsl_multiroot_fsolver_hybrids;
+        gsl_multiroot_fsolver *sol = gsl_multiroot_fsolver_alloc (T, 2);
+        gsl_multiroot_fsolver_set (sol, &f, x);
+     
+        do
+        {
+            iter++;
+            status = gsl_multiroot_fsolver_iterate (sol);
+     
+            if (status)   /* check if solver is stuck */
+                break;
+     
+            status =
+                gsl_multiroot_test_residual (sol->f, 1e-12);
+        }
+        while (status == GSL_CONTINUE && iter < 1000);
+    
+        s = gsl_vector_get (sol->x, 0);
+        t = gsl_vector_get (sol->x, 1);
+    
+        gsl_multiroot_fsolver_free (sol);
+        gsl_vector_free (x);
+    }
+#endif
+}
+
+/**
+ * This uses the local bounds functions of curves to generically intersect two.
  * It passes in the curves, time intervals, and keeps track of depth, while
  * returning the results through the Crossings parameter.
  */
 void pair_intersect(Curve const & A, double Al, double Ah, 
                     Curve const & B, double Bl, double Bh,
-                    Crossings &ret,  unsigned depth=0) {
+                    Crossings &ret,  unsigned depth = 0) {
    // std::cout << depth << "(" << Al << ", " << Ah << ")\n";
-    Rect Ar = A.boundsLocal(Interval(Al, Ah));
-    if(Ar.isEmpty()) return;
+    OptRect Ar = A.boundsLocal(Interval(Al, Ah));
+    if (!Ar) return;
 
-    Rect Br = B.boundsLocal(Interval(Bl, Bh));
-    if(Br.isEmpty()) return;
+    OptRect Br = B.boundsLocal(Interval(Bl, Bh));
+    if (!Br) return;
     
-    if(!Ar.intersects(Br)) return;
+    if(! Ar->intersects(*Br)) return;
     
     //Checks the general linearity of the function
     if((depth > 12)) { // || (A.boundsLocal(Interval(Al, Ah), 1).maxExtent() < 0.1 
@@ -196,6 +336,8 @@ void pair_intersect(Curve const & A, double Al, double Ah,
                             tA, tB, c)) {
             tA = tA * (Ah - Al) + Al;
             tB = tB * (Bh - Bl) + Bl;
+            intersect_polish_root(A, tA,
+                                  B, tB);
             if(depth % 2)
                 ret.push_back(Crossing(tB, tA, c < 0));
             else
@@ -213,32 +355,86 @@ void pair_intersect(Curve const & A, double Al, double Ah,
                     ret, depth+1);
 }
 
-// A simple wrapper around pair_intersect
+Crossings pair_intersect(Curve const & A, Interval const &Ad,
+                         Curve const & B, Interval const &Bd) {
+    Crossings ret;
+    pair_intersect(A, Ad.min(), Ad.max(), B, Bd.min(), Bd.max(), ret);
+    return ret;
+}
+
+/** A simple wrapper around pair_intersect */
 Crossings SimpleCrosser::crossings(Curve const &a, Curve const &b) {
     Crossings ret;
     pair_intersect(a, 0, 1, b, 0, 1, ret);
     return ret;
 }
 
-/* Takes two paths and time ranges on them, with the invariant that the
+
+//same as below but curves not paths
+void mono_intersect(Curve const &A, double Al, double Ah,
+                    Curve const &B, double Bl, double Bh,
+                    Crossings &ret, double tol = 0.1, unsigned depth = 0) {
+    if( Al >= Ah || Bl >= Bh) return;
+    //std::cout << " " << depth << "[" << Al << ", " << Ah << "]" << "[" << Bl << ", " << Bh << "]";
+
+    Point A0 = A.pointAt(Al), A1 = A.pointAt(Ah),
+          B0 = B.pointAt(Bl), B1 = B.pointAt(Bh);
+    //inline code that this implies? (without rect/interval construction)
+    Rect Ar = Rect(A0, A1), Br = Rect(B0, B1);
+    if(!Ar.intersects(Br) || A0 == A1 || B0 == B1) return;
+
+    if(depth > 12 || (Ar.maxExtent() < tol && Ar.maxExtent() < tol)) {
+        double tA, tB, c;
+        if(linear_intersect(A.pointAt(Al), A.pointAt(Ah), 
+                            B.pointAt(Bl), B.pointAt(Bh), 
+                            tA, tB, c)) {
+            tA = tA * (Ah - Al) + Al;
+            tB = tB * (Bh - Bl) + Bl;
+            intersect_polish_root(A, tA,
+                                  B, tB);
+            if(depth % 2)
+                ret.push_back(Crossing(tB, tA, c < 0));
+            else
+                ret.push_back(Crossing(tA, tB, c > 0));
+            return;
+        }
+    }
+    if(depth > 12) return;
+    double mid = (Bl + Bh)/2;
+    mono_intersect(B, Bl, mid,
+              A, Al, Ah,
+              ret, tol, depth+1);
+    mono_intersect(B, mid, Bh,
+              A, Al, Ah,
+              ret, tol, depth+1);
+}
+
+Crossings mono_intersect(Curve const & A, Interval const &Ad,
+                         Curve const & B, Interval const &Bd) {
+    Crossings ret;
+    mono_intersect(A, Ad.min(), Ad.max(), B, Bd.min(), Bd.max(), ret);
+    return ret;
+}
+
+/**
+ * Takes two paths and time ranges on them, with the invariant that the
  * paths are monotonic on the range.  Splits A when the linear intersection
  * doesn't exist or is inaccurate.  Uses the fact that it is monotonic to
  * do very fast local bounds.
  */
 void mono_pair(Path const &A, double Al, double Ah,
                Path const &B, double Bl, double Bh,
-               Crossings &ret, double tol, unsigned depth = 0) {
+               Crossings &ret, double /*tol*/, unsigned depth = 0) {
     if( Al >= Ah || Bl >= Bh) return;
- //   std::cout << " " << depth << "[" << Al << ", " << Ah << "]" << "[" << Bl << ", " << Bh << "]";
+    std::cout << " " << depth << "[" << Al << ", " << Ah << "]" << "[" << Bl << ", " << Bh << "]";
 
     Point A0 = A.pointAt(Al), A1 = A.pointAt(Ah),
           B0 = B.pointAt(Bl), B1 = B.pointAt(Bh);
     //inline code that this implies? (without rect/interval construction)
-    if(!Rect(A0, A1).intersects(Rect(B0, B1)) || A0 == A1 || B0 == B1) return;
-    
-    //Checks the general linearity of the function
-    //if((depth > 12) || (A.boundsLocal(Interval(Al, Ah), 1).maxExtent() < 0.1 
-    //                &&  B.boundsLocal(Interval(Bl, Bh), 1).maxExtent() < 0.1)) {
+    Rect Ar = Rect(A0, A1), Br = Rect(B0, B1);
+    if(!Ar.intersects(Br) || A0 == A1 || B0 == B1) return;
+
+    if(depth > 12 || (Ar.maxExtent() < 0.1 && Ar.maxExtent() < 0.1)) {
         double tA, tB, c;
         if(linear_intersect(A0, A1, B0, B1,
                             tA, tB, c)) {
@@ -250,7 +446,7 @@ void mono_pair(Path const &A, double Al, double Ah,
                 ret.push_back(Crossing(tA, tB, c > 0));
             return;
         }
-    //}
+    }
     if(depth > 12) return;
     double mid = (Bl + Bh)/2;
     mono_pair(B, Bl, mid,
@@ -261,15 +457,17 @@ void mono_pair(Path const &A, double Al, double Ah,
               ret, depth+1);
 }
 
-// This returns the times when the x or y derivative is 0 in the curve.
+/** This returns the times when the x or y derivative is 0 in the curve. */
 std::vector<double> curve_mono_splits(Curve const &d) {
+    Curve* deriv = d.derivative();
     std::vector<double> rs = d.roots(0, X);
     append(rs, d.roots(0, Y));
+    delete deriv;
     std::sort(rs.begin(), rs.end());
     return rs;
 }
 
-// Convenience function to add a value to each entry in a vector of doubles.
+/** Convenience function to add a value to each entry in a vector of doubles. */
 std::vector<double> offset_doubles(std::vector<double> const &x, double offs) {
     std::vector<double> ret;
     for(unsigned i = 0; i < x.size(); i++) {
@@ -278,26 +476,20 @@ std::vector<double> offset_doubles(std::vector<double> const &x, double offs) {
     return ret;
 }
 
-/* Finds all the monotonic splits for a path.  Only includes the split between
+/**
+ * Finds all the monotonic splits for a path.  Only includes the split between
  * curves if they switch derivative directions at that point.
  */
 std::vector<double> path_mono_splits(Path const &p) {
     std::vector<double> ret;
     if(p.empty()) return ret;
-    ret.push_back(0);
     
-    Curve* deriv = p[0].derivative();
-    append(ret, curve_mono_splits(*deriv));
-    delete deriv;
-    
-    int pdx=2, pdy=2;  //Previous derivative direction
-    for(unsigned i = 0; i <= p.size(); i++) {
-        deriv = p[i].derivative();
-        std::vector<double> spl = offset_doubles(curve_mono_splits(*deriv), i);
-        delete deriv;
-        int dx = p[i].initialPoint()[X] > (spl.empty()? p[i].finalPoint()[X] :
+    bool pdx=2, pdy=2;  //Previous derivative direction
+    for(unsigned i = 0; i < p.size(); i++) {
+        std::vector<double> spl = offset_doubles(curve_mono_splits(p[i]), i);
+        bool dx = p[i].initialPoint()[X] > (spl.empty()? p[i].finalPoint()[X] :
                                                          p.valueAt(spl.front(), X));
-        int dy = p[i].initialPoint()[Y] > (spl.empty()? p[i].finalPoint()[Y] :
+        bool dy = p[i].initialPoint()[Y] > (spl.empty()? p[i].finalPoint()[Y] :
                                                          p.valueAt(spl.front(), Y));
         //The direction changed, include the split time
         if(dx != pdx || dy != pdy) {
@@ -309,7 +501,8 @@ std::vector<double> path_mono_splits(Path const &p) {
     return ret;
 }
 
-/* Applies path_mono_splits to multiple paths, and returns the results such that 
+/**
+ * Applies path_mono_splits to multiple paths, and returns the results such that 
  * time-set i corresponds to Path i.
  */
 std::vector<std::vector<double> > paths_mono_splits(std::vector<Path> const &ps) {
@@ -319,7 +512,8 @@ std::vector<std::vector<double> > paths_mono_splits(std::vector<Path> const &ps)
     return ret;
 }
 
-/* Processes the bounds for a list of paths and a list of splits on them, yielding a list of rects for each.
+/**
+ * Processes the bounds for a list of paths and a list of splits on them, yielding a list of rects for each.
  * Each entry i corresponds to path i of the input.  The number of rects in each entry is guaranteed to be the
  * number of splits for that path, subtracted by one.
  */
@@ -334,7 +528,8 @@ std::vector<std::vector<Rect> > split_bounds(std::vector<Path> const &p, std::ve
     return ret;
 }
 
-/* This is the main routine of "MonoCrosser", and implements a monotonic strategy on multiple curves.
+/**
+ * This is the main routine of "MonoCrosser", and implements a monotonic strategy on multiple curves.
  * Finds crossings between two sets of paths, yielding a CrossingSet.  [0, a.size()) of the return correspond
  * to the sorted crossings of a with paths of b.  The rest of the return, [a.size(), a.size() + b.size()],
  * corresponds to the sorted crossings of b with paths of a.
@@ -595,3 +790,14 @@ CrossingSet crossings_among(std::vector<Path> const &p) {
 }
 
 }
+
+/*
+  Local Variables:
+  mode:c++
+  c-file-style:"stroustrup"
+  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
+  indent-tabs-mode:nil
+  fill-column:99
+  End:
+*/
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

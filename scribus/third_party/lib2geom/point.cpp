@@ -1,27 +1,46 @@
-#include "point.h"
 #include <assert.h>
-#include "coord.h"
-#include "isnan.h" //temporary fix for isnan()
-#include "matrix.h"
-#include <limits>
-
+#include <math.h>
+#include <point.h>
+#include <transforms.h>
 
 namespace Geom {
 
-/** Scales this vector to make it a unit vector (within rounding error).
+/**
+ * @class Point
+ * @brief Two-dimensional point that doubles as a vector.
  *
- *  The current version tries to handle infinite coordinates gracefully,
- *  but it's not clear that any callers need that.
+ * Points in 2Geom are represented in Cartesian coordinates, e.g. as a pair of numbers
+ * that store the X and Y coordinates. Each point is also a vector in \f$\mathbb{R}^2\f$
+ * from the origin (point at 0,0) to the stored coordinates,
+ * and has methods implementing several vector operations (like length()).
  *
- *  \pre \f$this \neq (0, 0)\f$
- *  \pre Neither component is NaN.
- *  \post \f$-\epsilon<\left|this\right|-1<\epsilon\f$
- */
+ * \par Operator note
+ * \par
+ * Most operators are provided by Boost operator helpers, so they are not visible in this class.
+ * If @a p, @a q, @a r denote points, @a s a floating-point scalar, and @a m a transformation matrix,
+ * then the following operations are available:
+ * @code
+   p += q; p -= q; r = p + q; r = p - q;
+   p *= s; p /= s; q = p * s; q = s * p; q = p / s;
+   p *= m; p /= m; q = p * m; q = m * p; q = p / m;
+   @endcode
+ * It is possible to left-multiply a point by a matrix, even though mathematically speaking
+ * this is undefined. The result is a point identical to that obtained by right-multiplying.
+ * Division of points by matrices is defined as multiplication by their inverses.
+ *
+ * @ingroup Primitives */
+
+/** @brief Normalize the vector representing the point.
+ * After this method returns, the length of the vector will be 1 (unless both coordinates are
+ * zero - the zero point will be returned then). The function tries to handle infinite
+ * coordinates gracefully. If any of the coordinates are NaN, the function will do nothing.
+ * @post \f$-\epsilon < \left|this\right| - 1 < \epsilon\f$
+ * @see unit_vector(Geom::Point const &) */
 void Point::normalize() {
     double len = hypot(_pt[0], _pt[1]);
     if(len == 0) return;
-    if(is_nan(len)) return;
-	static double const inf = std::numeric_limits<double>::infinity();
+    if(IS_NAN(len)) return;
+    static double const inf = HUGE_VAL;
     if(len != inf) {
         *this /= len;
     } else {
@@ -40,27 +59,30 @@ void Point::normalize() {
             }
         }
         switch (n_inf_coords) {
-        case 0: {
-            /* Can happen if both coords are near +/-DBL_MAX. */
-            *this /= 4.0;
-            len = hypot(_pt[0], _pt[1]);
-            assert(len != inf);
-            *this /= len;
-            break;
+            case 0: {
+                /* Can happen if both coords are near +/-DBL_MAX. */
+                *this /= 4.0;
+                len = hypot(_pt[0], _pt[1]);
+                assert(len != inf);
+                *this /= len;
+                break;
+            }
+            case 1: {
+                *this = tmp;
+                break;
+            }
+            case 2: {
+                *this = tmp * sqrt(0.5);
+                break;
+            }
         }
-        case 1: {
-            *this = tmp;
-            break;
-        }
-        case 2: {
-            *this = tmp * sqrt(0.5);
-            break;
-        }
-	}
     }
 }
 
-/** Compute the L1 norm, or manhattan distance, of \a p. */
+/** @brief Compute the first norm (Manhattan distance) of @a p.
+ * This is equal to the sum of absolutes values of the coordinates.
+ * @return \f$|p_X| + |p_Y|\f$
+ * @relates Point */
 Coord L1(Point const &p) {
     Coord d = 0;
     for ( int i = 0 ; i < 2 ; i++ ) {
@@ -69,90 +91,107 @@ Coord L1(Point const &p) {
     return d;
 }
 
-/** Compute the L infinity, or maximum, norm of \a p. */
+/** @brief Compute the infinity norm (maximum norm) of @a p.
+ * @return \f$\max(p_X, p_Y)\f$
+ * @relates Point */
 Coord LInfty(Point const &p) {
     Coord const a(fabs(p[0]));
     Coord const b(fabs(p[1]));
-    return ( a < b || is_nan(b)
+    return ( a < b || IS_NAN(b)
              ? b
              : a );
 }
 
-/** Returns true iff p is a zero vector, i.e.\ Point(0, 0).
- *
- *  (NaN is considered non-zero.)
- */
-bool
-is_zero(Point const &p)
-{
+/** @brief True if the point has both coordinates zero.
+ * NaNs are treated as not equal to zero.
+ * @relates Point */
+bool is_zero(Point const &p) {
     return ( p[0] == 0 &&
              p[1] == 0   );
 }
 
-bool
-is_unit_vector(Point const &p)
-{
-    return fabs(1.0 - L2(p)) <= 1e-4;
-    /* The tolerance of 1e-4 is somewhat arbitrary.  Point::normalize is believed to return
-       points well within this tolerance.  I'm not aware of any callers that want a small
-       tolerance; most callers would be ok with a tolerance of 0.25. */
+/** @brief True if the point has a length near 1. The are_near() function is used.
+ * @relates Point */
+bool is_unit_vector(Point const &p) {
+    return are_near(L2(p), 1.0);
 }
-
-Coord atan2(Point const p) {
+/** @brief Return the angle between the point and the +X axis.
+ * @return Angle in \f$(-\pi, \pi]\f$.
+ * @relates Point */
+Coord atan2(Point const &p) {
     return std::atan2(p[Y], p[X]);
 }
 
-/** compute the angle turning from a to b.  This should give \f$\pi/2\f$ for angle_between(a, rot90(a));
- * This works by projecting b onto the basis defined by a, rot90(a)
- */
-Coord angle_between(Point const a, Point const b) {
+/** @brief Compute the angle between a and b relative to the origin.
+ * The computation is done by projecting b onto the basis defined by a, rot90(a).
+ * @return Angle in \f$(-\pi, \pi]\f$.
+ * @relates Point */
+Coord angle_between(Point const &a, Point const &b) {
     return std::atan2(cross(b,a), dot(b,a));
 }
 
-
-
-/** Returns a version of \a a scaled to be a unit vector (within rounding error).
- *
- *  The current version tries to handle infinite coordinates gracefully,
- *  but it's not clear that any callers need that.
- *
- *  \pre a != Point(0, 0).
- *  \pre Neither coordinate is NaN.
- *  \post L2(ret) very near 1.0.
- */
+/** @brief Create a normalized version of a point.
+ * This is equivalent to copying the point and calling its normalize() method.
+ * The returned point will be (0,0) if the argument has both coordinates equal to zero.
+ * If any coordinate is NaN, this function will do nothing.
+ * @param a Input point
+ * @return Point on the unit circle in the same direction from origin as a, or the origin
+ *         if a has both coordinates equal to zero
+ * @relates Point */
 Point unit_vector(Point const &a)
 {
     Point ret(a);
     ret.normalize();
     return ret;
 }
-
+/** @brief Return the "absolute value" of the point's vector.
+ * This is defined in terms of the default lexicographical ordering. If the point is "larger"
+ * that the origin (0, 0), its negation is returned. This corresponds to making the Y coordinate
+ * positive. You can check whether the points' vectors have the same direction (e.g. lie
+ * on the same line passing through the origin) using
+ * @code abs(a).normalize() == abs(b).normalize() @endcode.
+ * To check with some margin of error, use
+ * @code are_near(abs(a).normalize(), abs(b).normalize()) @endcode.
+ * Although naively this should take the absolute value of each coordinate, such an operation
+ * is not very useful.
+ * @return \f$p' = (p_X, -p_Y)\f$
+ * @relates Point */
 Point abs(Point const &b)
 {
-    Point ret;
-    for ( int i = 0 ; i < 2 ; i++ ) {
-        ret[i] = fabs(b[i]);
-    }
+    Point ret = b;
+    ret[Y] = fabs(ret[Y]);
     return ret;
 }
 
-Point operator*(Point const &v, Matrix const &m) {
-    Point ret;
+/** @brief Transform the point by the specified matrix. */
+Point &Point::operator*=(Affine const &m) {
+    double x = _pt[X], y = _pt[Y];
     for(int i = 0; i < 2; i++) {
-        ret[i] = v[X] * m[i] + v[Y] * m[i + 2] + m[i + 4];
+        _pt[i] = x * m[i] + y * m[i + 2] + m[i + 4];
     }
-    return ret;
-}
-
-Point operator/(Point const &p, Matrix const &m) { return p * m.inverse(); }
-
-Point &Point::operator*=(Matrix const &m)
-{
-    *this = *this * m;
     return *this;
 }
 
-}  //Namespace Geom
+/** @brief Snap the angle B - A - dir to miltiples of \f$2\pi/n\f$.
+ * The 'dir' argument must be normalized (have an unit length), otherwise the result
+ * is undefined.
+ * @return Point with the same distance from A as B, with a snapped angle.
+ * @post distance(A, B) == distance(A, result)
+ * @post angle_between(result - A, dir) == \f$2k\pi/n, k \in \mathbb{N}\f$
+ * @relates Point */
+Point constrain_angle(Point const &A, Point const &B, unsigned int n, Point const &dir)
+{
+    // for special cases we could perhaps use explicit testing (which might be faster)
+    if (n == 0.0) {
+        return B;
+    }
+    Point diff(B - A);
+    double angle = -angle_between(diff, dir);
+    double k = round(angle * (double)n / (2.0*M_PI));
+    return A + dir * Rotate(k * 2.0 * M_PI / (double)n) * L2(diff);
+}
+
+}  //namespace Geom
 
 /*
   Local Variables:

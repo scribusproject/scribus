@@ -1,5 +1,6 @@
-/*
- * bezier-to-sbasis.h
+/**
+ * \file bezier-to-sbasis.h
+ * \brief  \todo brief description
  *
  * Copyright 2006 Nathan Hurst <njh@mail.csse.monash.edu.au>
  *
@@ -32,12 +33,14 @@
 #define _BEZIER_TO_SBASIS
 
 #include "coord.h"
-
-#include "d2.h"
 #include "point.h"
+#include "d2.h"
+#include "sbasis-to-bezier.h"
 
-namespace Geom{
+namespace Geom
+{
 
+#if 0
 inline SBasis bezier_to_sbasis(Coord const *handles, unsigned order) {
     if(order == 0)
         return Linear(handles[0]);
@@ -50,7 +53,8 @@ inline SBasis bezier_to_sbasis(Coord const *handles, unsigned order) {
 
 
 template <typename T>
-inline D2<SBasis> handles_to_sbasis(T const &handles, unsigned order) {
+inline D2<SBasis> handles_to_sbasis(T const &handles, unsigned order)
+{
     double v[2][order+1];
     for(unsigned i = 0; i <= order; i++)
         for(unsigned j = 0; j < 2; j++)
@@ -58,8 +62,29 @@ inline D2<SBasis> handles_to_sbasis(T const &handles, unsigned order) {
     return D2<SBasis>(bezier_to_sbasis(v[0], order),
                       bezier_to_sbasis(v[1], order));
 }
+#endif
 
-};
+
+template <typename T>
+inline
+D2<SBasis> handles_to_sbasis(T const& handles, unsigned order)
+{
+    D2<SBasis> sbc;
+    size_t sz = order + 1;
+    std::vector<Point> v;
+    v.reserve(sz);
+    for (size_t i = 0; i < sz; ++i)
+        v.push_back(handles[i]);
+    bezier_to_sbasis(sbc, v);
+    return sbc;
+}
+
+
+} // end namespace Geom
+
+
+
+
 #endif
 /*
   Local Variables:
