@@ -124,18 +124,34 @@ class CollectSingleLine_body : public Action_body
 class CollectSingleLine : public MakeAction<CollectSingleLine_body>
 {};
 
+class MergeColors_body : public Action_body
+{
+	void end (const Xml_string& tagname)
+	{
+//		qDebug() << QString("collect %1").arg(tagname);
+		Collection* coll = this->dig->lookup<Collection>("<collection>");
+		ScribusDoc* doc  = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+		doc->PageColors.addColors(coll->colors, false);
+	}
+};
+
+class MergeColors : public MakeAction<MergeColors_body>
+{};
+
 Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
 	// register desaxe rules for styles, colors and elems
 	addRule("/SCRIBUSFRAGMENT", Factory<Collection>());
 	addRule("/SCRIBUSFRAGMENT", Store<Collection>("<collection>"));
+
+	addRule("/SCRIBUSFRAGMENT/colors", MergeColors());
 	
-	addRule("/SCRIBUSFRAGMENT/color", Factory<ScColor>());
-	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "RGB" ));
-	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "CMYK" ));
-	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setSpotColor, "Spot", &parseBool ));
-	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setRegistrationColor, "Register", &parseBool ));
-	addRule("/SCRIBUSFRAGMENT/color", CollectColor());
+	addRule("/SCRIBUSFRAGMENT/colors/color", Factory<ScColor>());
+	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "RGB" ));
+	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "CMYK" ));
+	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setSpotColor, "Spot", &parseBool ));
+	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setRegistrationColor, "Register", &parseBool ));
+	addRule("/SCRIBUSFRAGMENT/colors/color", CollectColor());
 
 	CharStyle::desaxeRules("/SCRIBUSFRAGMENT/", *this);
 	addRule("/SCRIBUSFRAGMENT/charstyle", SetterP<Collection, CharStyle>( & Collection::collectCharStyle ));
