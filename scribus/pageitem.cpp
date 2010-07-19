@@ -6154,7 +6154,9 @@ QString PageItem::getImageEffectsModifier() const
 
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution, bool showMsg)
 {
-	if (! asImageFrame())
+	bool useImage = (asImageFrame() != NULL);
+	useImage |= (isAnnotation() && annotation().UseIcons());
+	if (!useImage)
 		return false;
 	QFileInfo fi(filename);
 	QString clPath(pixm.imgInfo.usedPath);

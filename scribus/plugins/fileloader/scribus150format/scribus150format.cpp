@@ -2428,58 +2428,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
-		UndoManager::instance()->setUndoEnabled(false);
-		if (attrs.valueAsInt("ANNOTATION", 0) && attrs.valueAsBool("ANICON", false))
-		{
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
-			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
-			currItem->Pfile  = Relative2Path(attrs.valueAsString("PFILE" , "") , baseDir);
-			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
-			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
-			currItem->IProfile  = attrs.valueAsString("PRFILE", "");
-			currItem->EmProfile = attrs.valueAsString("EPROF", "");
-			currItem->IRender   = (eRenderIntent) attrs.valueAsInt("IRENDER", 1);
-			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
-			doc->LoadPict(currItem->Pfile, z);
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown(attrs.valueAsInt("PICART"));
-/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
-			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
-			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
-		}
-		//currItem->convertTo(pt);
-		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
-		UndoManager::instance()->setUndoEnabled(false);
-		if ((attrs.valueAsInt("ANNOTATION", 0)) && (attrs.valueAsBool("ANICON", false)))
-		{
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
-			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
-			currItem->Pfile  = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
-			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
-			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
-			currItem->IProfile    = attrs.valueAsString("PRFILE", "");
-			currItem->EmProfile   = attrs.valueAsString("EPROF", "");
-			currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
-			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
-			doc->LoadPict(currItem->Pfile, z);
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown( attrs.valueAsInt("PICART"));
-/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
-			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
-			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
-		}
-		//currItem->convertTo(pt);
-		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
@@ -2640,6 +2594,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->AutoName = false;
 		}
 	}
+
 	currItem->annotation().setAction( attrs.valueAsString("ANACTION","") );
 	currItem->annotation().setE_act ( attrs.valueAsString("ANEACT","") );
 	currItem->annotation().setX_act ( attrs.valueAsString("ANXACT","") );
@@ -2674,6 +2629,33 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setBorderColor( attrs.valueAsString("ANBCOL", CommonStrings::None));
 	currItem->annotation().setIPlace(attrs.valueAsInt("ANPLACE", 1));
 	currItem->annotation().setScaleW(attrs.valueAsInt("ANSCALE", 0));
+
+	if (currItem->asTextFrame() || currItem->asPathText())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
+		{
+			currItem->setImageXYScale(scx, scy);
+			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
+			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
+			currItem->Pfile  = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
+			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
+			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
+			currItem->IProfile    = attrs.valueAsString("PRFILE", "");
+			currItem->EmProfile   = attrs.valueAsString("EPROF", "");
+			currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
+			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
+			doc->LoadPict(currItem->Pfile, z);
+			currItem->setImageXYScale(scx, scy);
+			currItem->setImageShown( attrs.valueAsInt("PICART"));
+/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
+			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
+			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
+			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
+		}
+		UndoManager::instance()->setUndoEnabled(true);
+	}
+
 	currItem->TopLine      = attrs.valueAsBool("TopLine", false);
 	currItem->LeftLine     = attrs.valueAsBool("LeftLine", false);
 	currItem->RightLine    = attrs.valueAsBool("RightLine", false);

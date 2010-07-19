@@ -201,6 +201,45 @@ const ScFace& ScFace::none()
 	return NONE; 
 }
 
+QString ScFace::ascentAsString() const
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->ascentAsString();
+}
+
+QString ScFace::descentAsString() const
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->descentAsString();
+}
+QString ScFace::capHeightAsString() const
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->capHeightAsString();
+}
+
+QString ScFace::fontBBoxAsString() const
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->FontBBoxAsString();
+}
+
+QString ScFace::italicAngleAsString() const
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->ItalicAngleAsString();
+}
+
 qreal ScFace::ascent(qreal sz) const 
 {
 	if (m->status == ScFace::UNKNOWN) {
