@@ -1,7 +1,9 @@
 Scribus - 1.3.8svn
-- 0009285: [Graphics / Image Frames] copying objects between documents looses colours of frames (jghali) - resolved.
+
 - 0009275: [Usability] After running script, setting a text frame as a PDF Bookmark creates duplicates bookmark entries. (jghali) - resolved.
 - 0009247: [General] Incorrect layer handling on page import (jghali) - resolved.
+- 0009288: [PDF] PDF icon button does not appear. (jghali) - closed.
+- 0009285: [Graphics / Image Frames] copying objects between documents looses colours of frames (jghali) - closed.
 - 0009198: [Releases] Final bump of splash (cbradney) - closed.
 - 0009197: [Releases] Final bump of qm files (cbradney) - closed.
 - 0009268: [PDF] "Printer color model" option creates PDF with invisible content when pdf embedding option is enabled (jghali) - closed.
