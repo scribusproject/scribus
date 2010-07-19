@@ -308,11 +308,11 @@ public:
 	QString variant()  const { return m->variant; }
 	
 	// font metrics
-	QString ascentAsString()    const { return m->ascentAsString() ; }
-	QString descentAsString()    const { return m->descentAsString() ; }
-	QString capHeightAsString()    const { return m->capHeightAsString() ; }
-	QString FontBBoxAsString()    const { return m->FontBBoxAsString() ; }
-	QString ItalicAngleAsString()    const { return m->ItalicAngleAsString() ; }
+	QString ascentAsString()      const;
+	QString descentAsString()     const;
+	QString capHeightAsString()   const;
+	QString fontBBoxAsString()    const;
+	QString italicAngleAsString() const;
 	qreal ascent(qreal sz=1.0)          const;
 	qreal descent(qreal sz=1.0)         const;
 	qreal xHeight(qreal sz=1.0)         const;

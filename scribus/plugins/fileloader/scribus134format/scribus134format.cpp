@@ -2247,27 +2247,6 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
-		UndoManager::instance()->setUndoEnabled(false);
-		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
-		{
-			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
-			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageXYOffset(ScCLocale::toDoubleC(obj->attribute("LOCALX")), ScCLocale::toDoubleC(obj->attribute("LOCALY")));
-			currItem->Pfile  = Relative2Path(obj->attribute("PFILE","") , baseDir);
-			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
-			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-			currItem->IProfile = obj->attribute("PRFILE","");
-			currItem->EmProfile = obj->attribute("EPROF","");
-			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
-			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
-			doc->LoadPict(currItem->Pfile, z);
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown(obj->attribute("PICART").toInt());
-/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
-			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-		}
-		UndoManager::instance()->setUndoEnabled(true);
 		//currItem->convertTo(pt);
 		break;
 	case PageItem::TextFrame:
@@ -2275,27 +2254,6 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
-		UndoManager::instance()->setUndoEnabled(false);
-		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
-		{
-			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
-			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageXYOffset(ScCLocale::toDoubleC(obj->attribute("LOCALX")), ScCLocale::toDoubleC(obj->attribute("LOCALY")));
-			currItem->Pfile  = Relative2Path(obj->attribute("PFILE","") , baseDir);
-			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
-			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-			currItem->IProfile = obj->attribute("PRFILE","");
-			currItem->EmProfile = obj->attribute("EPROF","");
-			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
-			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
-			doc->LoadPict(currItem->Pfile, z);
-			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown(obj->attribute("PICART").toInt());
-/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
-			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-		}
-		UndoManager::instance()->setUndoEnabled(true);
 		//currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
@@ -2447,6 +2405,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 			currItem->AutoName = false;
 		}
 	}
+
 	currItem->annotation().setAction(obj->attribute("ANACTION",""));
 	currItem->annotation().setE_act(obj->attribute("ANEACT",""));
 	currItem->annotation().setX_act(obj->attribute("ANXACT",""));
@@ -2481,6 +2440,32 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	currItem->annotation().setBorderColor(obj->attribute("ANBCOL", CommonStrings::None));
 	currItem->annotation().setIPlace(obj->attribute("ANPLACE", "1").toInt());
 	currItem->annotation().setScaleW(obj->attribute("ANSCALE", "0").toInt());
+
+	if (currItem->asTextFrame() || currItem->asPathText())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
+		{
+			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
+			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
+			currItem->setImageXYScale(scx, scy);
+			currItem->setImageXYOffset(ScCLocale::toDoubleC(obj->attribute("LOCALX")), ScCLocale::toDoubleC(obj->attribute("LOCALY")));
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE","") , baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
+			currItem->IProfile = obj->attribute("PRFILE","");
+			currItem->EmProfile = obj->attribute("EPROF","");
+			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
+			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
+			doc->LoadPict(currItem->Pfile, z);
+			currItem->setImageXYScale(scx, scy);
+			currItem->setImageShown(obj->attribute("PICART").toInt());
+/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
+			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
+		}
+		UndoManager::instance()->setUndoEnabled(true);
+	}
+
 	currItem->TopLine = static_cast<bool>(obj->attribute("TopLine", "0").toInt());
 	currItem->LeftLine = static_cast<bool>(obj->attribute("LeftLine", "0").toInt());
 	currItem->RightLine = static_cast<bool>(obj->attribute("RightLine", "0").toInt());
@@ -2526,6 +2511,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	currItem->ColGap = ScCLocale::toDoubleC( obj->attribute("COLGAP"), 0.0);
 	if (obj->attribute("LAYER", "0").toInt() != -1)
 		currItem->LayerNr = obj->attribute("LAYER", "0").toInt();
+
 	tmp = "";
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{
