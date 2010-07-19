@@ -630,26 +630,15 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	if (len == 0)
 		return;
 
-	int lastParStart = pos == 0? 0 : -1;
 	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);
-		// #6165 : applying style on last character applies style on whole text on next open
-		// #9173 et. al.: move charstyle to parstyle if whole paragraph is affected
-		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL && lastParStart >= 0)
-		{
-			eraseCharStyle(lastParStart, i - lastParStart, style);
-			itText->parstyle->charStyle().applyCharStyle(style);
-			lastParStart = i + 1;
-		}
+		// #6165 : applying style on last character applies style on whole text on next open 
+		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+			itText->parstyle->charStyle().applyCharStyle(style);*/
 		itText->applyCharStyle(style);
 	}
-	if (pos + signed(len) == length() && lastParStart >= 0)
-	{
-		eraseCharStyle(lastParStart, length() - lastParStart, style);
-		d->trailingStyle.charStyle().applyCharStyle(style);
-	}
-	
+
 	invalidate(pos, pos + len);
 }
 
@@ -673,10 +662,6 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
 			itText->parstyle->charStyle().eraseCharStyle(style);
 		itText->eraseCharStyle(style);
-	}
-	if (pos + signed(len) == length())
-	{
-		d->trailingStyle.charStyle().eraseCharStyle(style);
 	}
 	
 	invalidate(pos, pos + len);
