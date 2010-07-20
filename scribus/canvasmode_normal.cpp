@@ -616,7 +616,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 {
-// 	qDebug("CanvasMode_Normal::mousePressEvent");
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
 
@@ -967,6 +966,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				double x, y, w, h;
 				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 				m_view->getGroupRectScreen(&x, &y, &w, &h);
+				m_ScMW->propertiesPalette->setXY(x,y);
+				m_ScMW->propertiesPalette->setBH(w,h);
 			}
 		}
 		m_view->HaveSelRect = false;
