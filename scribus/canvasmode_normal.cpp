@@ -996,6 +996,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemMoving = false;
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			m_ScMW->propertiesPalette->setXY(x,y);
+			m_ScMW->propertiesPalette->setBH(w,h);
 		}
 		/*else
 			currItem->emitAllToGUI();*/
