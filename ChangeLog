@@ -1,7 +1,9 @@
 Scribus - 1.3.8svn
 
+
 - 0009275: [Usability] After running script, setting a text frame as a PDF Bookmark creates duplicates bookmark entries. (jghali) - resolved.
 - 0009247: [General] Incorrect layer handling on page import (jghali) - resolved.
+- 0009291: [User Interface] When selecting multiple items, the Properties Palette is not updated with the combined width/heights (cbradney) - closed.
 - 0009288: [PDF] PDF icon button does not appear. (jghali) - closed.
 - 0009285: [Graphics / Image Frames] copying objects between documents looses colours of frames (jghali) - closed.
 - 0009198: [Releases] Final bump of splash (cbradney) - closed.
