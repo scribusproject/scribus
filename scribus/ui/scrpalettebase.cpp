@@ -194,6 +194,8 @@ void ScrPaletteBase::showEvent(QShowEvent *showEvent)
 			vtop    = qMax(-vheight + gStrut.height(), vtop);
 #endif
 			// Check values against current screen size
+			if ( vleft <= scr.left() )
+				vleft = scr.left();
 			if ( vleft >= scr.right() )
 				vleft = scr.left();
 			if ( vtop >= scr.bottom() )
