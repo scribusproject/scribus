@@ -84,11 +84,12 @@ public:
 	bool haveLineItem() const { return m_haveLineItem; }
 	
 private:
-	bool m_haveLineItem;
-	bool m_useOriginAsEndpoint;
-	QRectF m_bounds;
+	bool      m_haveLineItem;
+	bool      m_useOriginAsEndpoint;
+	QRectF    m_bounds;
+	QRectF    m_initialBounds;
 	PageItem* m_line;
-	void adjustBounds(QMouseEvent* m);
+	void adjustBounds(QMouseEvent* m, bool updateCanvas = true);
 	void doResize();
 	void setRotation(double rot);
 	double rotation() const;
