@@ -4466,12 +4466,12 @@ Height: %2</source>
 <context>
     <name>CanvasMode_Normal</name>
     <message>
-        <location filename="../../../scribus/canvasmode_normal.cpp" line="1334"/>
+        <location filename="../../../scribus/canvasmode_normal.cpp" line="1335"/>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
     <message>
-        <location filename="../../../scribus/canvasmode_normal.cpp" line="1365"/>
+        <location filename="../../../scribus/canvasmode_normal.cpp" line="1366"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
@@ -12298,27 +12298,27 @@ If no handle is selected all handles will be reset.</source>
         <translation>Дата:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="10356"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10350"/>
         <source>Failed to load an image : %1</source>
         <translation>Не удалось загрузить изображение: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="10371"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10365"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Недостаточно памяти для обработки изображения</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="10366"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10360"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Не удалось загрузить маску изображения: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="10361"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10355"/>
         <source>Failed to write an image : %1</source>
         <translation>Не удалось записать изображение: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pdflib_core.cpp" line="10351"/>
+        <location filename="../../../scribus/pdflib_core.cpp" line="10345"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Произошла ошибка при записи, проверьте доступное дисковое пространство</translation>
     </message>
@@ -23962,9 +23962,9 @@ is not exhaustive due to exceptions from called functions.
         <translation>Yellow</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3046"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2746"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3150"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3027"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2729"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3132"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -24349,9 +24349,9 @@ is not exhaustive due to exceptions from called functions.
         <translation>Вы работаете с нестабильной версией Scribus 1.3.x. Открытый вами документ был создан в Scribus 1.2.x. Если вы сохраните его в 1.3.x, его будет невозможно открыть в Scribus 1.2.x. Чтобы сохранить возможность открыть этот документ в 1.2.x, сохраните его под другим именем и далее редактируйте только новый файл. Вы действительно хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/serializer.cpp" line="332"/>
-        <location filename="../../../scribus/serializer.cpp" line="360"/>
-        <location filename="../../../scribus/serializer.cpp" line="382"/>
+        <location filename="../../../scribus/serializer.cpp" line="348"/>
+        <location filename="../../../scribus/serializer.cpp" line="376"/>
+        <location filename="../../../scribus/serializer.cpp" line="398"/>
         <source>Copy of %1 (%2)</source>
         <translation>Копия %1 (%2)</translation>
     </message>
@@ -26571,7 +26571,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3471"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3452"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -26599,7 +26599,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Документ Scribus 1.3.0-&gt;1.3.3.7</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3192"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="3175"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -26639,7 +26639,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Документ Scribus 1.5.0+</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3559"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3541"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -27470,19 +27470,19 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Вст&amp;авить</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="7209"/>
+        <location filename="../../../scribus/pageitem.cpp" line="7211"/>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="126"/>
         <source>Print: </source>
         <translation>Печать: </translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="7211"/>
+        <location filename="../../../scribus/pageitem.cpp" line="7213"/>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="129"/>
         <source>Enabled</source>
         <translation>Включено</translation>
     </message>
     <message>
-        <location filename="../../../scribus/pageitem.cpp" line="7213"/>
+        <location filename="../../../scribus/pageitem.cpp" line="7215"/>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="131"/>
         <source>Disabled</source>
         <translation>Выключено</translation>
