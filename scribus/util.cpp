@@ -927,7 +927,6 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 	}
 }
 
-#if !defined(_WIN32) && !defined(Q_OS_MAC)
 /**
  * Print a backtrace
  * Please never commit code that uses it.
@@ -935,6 +934,7 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
  */
 void printBacktrace ( int nFrames )
 {
+#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD)
 	void ** trace = new void*[nFrames + 1];
 	char **messages = ( char ** ) NULL;
 	int i, trace_size = 0;
@@ -969,6 +969,6 @@ void printBacktrace ( int nFrames )
 		free ( messages );
 	}
 	delete[] trace;
-}
 #endif
+}
 
