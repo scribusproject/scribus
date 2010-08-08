@@ -1297,7 +1297,7 @@ int StoryText::screenToPosition(FPoint coord) const
 		if (xpos + 1.0 > coord.x()) // allow 1pt after end of line
 			return ls.lastItem + 1;
 		else if (coord.x() <= ls.x + ls.width) // last line of paragraph?
-			return ls.lastItem;
+			return ((ls.lastItem == lastFrameItem) ? (ls.lastItem + 1) : ls.lastItem);
 		else if (xpos < ls.x + 0.01 && maxx >= coord.x()) // check for empty line
 			return ls.firstItem;
 	}
