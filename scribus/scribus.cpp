@@ -1378,7 +1378,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg--;
 					else
-						pg -= doc->pageSets()[doc->currentPageLayout].Columns;
+						pg -= doc->pageSets()[doc->pagePositioning()].Columns;
 					if (pg > -1)
 						view->GotoPage(pg);
 				}
@@ -1394,7 +1394,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg++;
 					else
-						pg += doc->pageSets()[doc->currentPageLayout].Columns;
+						pg += doc->pageSets()[doc->pagePositioning()].Columns;
 					if (pg < static_cast<int>(doc->Pages->count()))
 						view->GotoPage(pg);
 				}
@@ -5424,7 +5424,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 			ss->set("BASED", basedOn->join("|"));
 		else
 		{
-			int setcol = doc->pageSets()[doc->currentPageLayout].Columns;
+			int setcol = doc->pageSets()[doc->pagePositioning()].Columns;
 			if (setcol == 1)
 				ss->set("BASED", CommonStrings::trMasterPageNormal);
 			else if (setcol == 2)
@@ -5446,7 +5446,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	QStringList base;
 	if (basedOn == NULL)
 	{
-		int setcol = doc->pageSets()[doc->currentPageLayout].Columns;
+		int setcol = doc->pageSets()[doc->pagePositioning()].Columns;
 		if (setcol == 1)
 			base.append( CommonStrings::trMasterPageNormal);
 		else if (setcol == 2)
@@ -5480,7 +5480,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	view->updatesOn(false);
 	for (cc = 0; cc < numPages; ++cc)
 	{
-		slotNewPage(wot, base[(wot+doc->pageSets()[doc->currentPageLayout].FirstPage) % doc->pageSets()[doc->currentPageLayout].Columns], mov); //Avoid the master page application with QString::null
+		slotNewPage(wot, base[(wot+doc->pageSets()[doc->pagePositioning()].FirstPage) % doc->pageSets()[doc->pagePositioning()].Columns], mov); //Avoid the master page application with QString::null
 //		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
 		//CB: #8212: added overrideMasterPageSizing, but keeping default to true for other calls for now, off for calls from InsPage
 		if (overrideMasterPageSizing)
@@ -5539,11 +5539,11 @@ void ScribusMainWindow::duplicateToMasterPage()
 	view->Deselect(true);
 	int pageLocationIndex=-1;
 	int pageLocationCount=0;
-	if (doc->currentPageLayout != singlePage)
+	if (doc->pagePositioning() != singlePage)
 	{
 		QStringList locationEntries;
 		QList<PageSet> pageSet(doc->pageSets());
-		for(QStringList::Iterator pNames = pageSet[doc->currentPageLayout].pageNames.begin(); pNames != pageSet[doc->currentPageLayout].pageNames.end(); ++pNames )
+		for(QStringList::Iterator pNames = pageSet[doc->pagePositioning()].pageNames.begin(); pNames != pageSet[doc->pagePositioning()].pageNames.end(); ++pNames )
 		{
 			locationEntries << CommonStrings::translatePageSetLocString(*pNames);
 		}
@@ -5551,7 +5551,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 		pageLocationCount=locationEntries.count();
 	}
 
-	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets()[doc->currentPageLayout].pageNames, pageLocationIndex, this);
+	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets()[doc->pagePositioning()].pageNames, pageLocationIndex, this);
 	if (copyDialog.exec())
 	{
 		bool copyFromMaster=false;
@@ -6741,7 +6741,7 @@ void ScribusMainWindow::changePageMargins()
 		if (doc->masterPageMode())
 		{
 			int lp=0;
-			if (doc->currentPageLayout != singlePage)
+			if (doc->pagePositioning() != singlePage)
 				lp = dia->pageOrder();
 			doc->changePageMargins(dia->top(), dia->bottom(),
 								   dia->left(), dia->right(),

@@ -88,14 +88,14 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
 	Links=0;
-	if ((doc->currentPageLayout != singlePage) && (doc->masterPageMode()))
+	if ((doc->pagePositioning() != singlePage) && (doc->masterPageMode()))
 	{
 		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7 );
 		dsGroupBox7Layout->addWidget( TextLabel3, 4, 0, 1, 2 );
 		Links = new QComboBox( dsGroupBox7 );
 		QStringList::Iterator pNames;
 		QList<PageSet> pageSet(doc->pageSets());
-		for(pNames = pageSet[doc->currentPageLayout].pageNames.begin(); pNames != pageSet[doc->currentPageLayout].pageNames.end(); ++pNames )
+		for(pNames = pageSet[doc->pagePositioning()].pageNames.begin(); pNames != pageSet[doc->pagePositioning()].pageNames.end(); ++pNames )
 		{
 			//Links->insertItem((*pNames));
 			Links->addItem(CommonStrings::translatePageSetLocString((*pNames)));
@@ -113,7 +113,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	
 	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->initialMargins, doc->unitIndex(), false, false);
 	GroupRand->setPageWidthHeight(doc->currentPage()->width(), doc->currentPage()->height());
-	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
+	GroupRand->setFacingPages(!(doc->pagePositioning() == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
 	GroupRand->setMarginPreset(doc->currentPage()->marginPreset);
 	dialogLayout->addWidget( GroupRand );
 

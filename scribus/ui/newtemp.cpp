@@ -42,7 +42,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 	Layout2->addWidget( Frage );
 	Layout2->addWidget( Answer );
 	QueryLayout->addLayout( Layout2 );
-	if (doc->currentPageLayout != singlePage)
+	if (doc->pagePositioning() != singlePage)
 	{
 		Layout3 = new QHBoxLayout;
 		Layout3->setSpacing( 5 );
@@ -50,7 +50,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 		Links = new QComboBox( this );
 		QStringList::Iterator pNames;
 		QList<PageSet> pageSet(doc->pageSets());
-		for(pNames = pageSet[doc->currentPageLayout].pageNames.begin(); pNames != pageSet[doc->currentPageLayout].pageNames.end(); ++pNames )
+		for(pNames = pageSet[doc->pagePositioning()].pageNames.begin(); pNames != pageSet[doc->pagePositioning()].pageNames.end(); ++pNames )
 		{
 			//Links->insertItem((*pNames));
 			Links->addItem(CommonStrings::translatePageSetLocString((*pNames)));

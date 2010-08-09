@@ -116,7 +116,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
-	setDS(doc->currentPageLayout);
+	setDS(doc->pagePositioning());
 
 	// signals and slots connections
 	connect(tabPage->docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
@@ -141,7 +141,7 @@ void ReformDoc::restoreDefaults()
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	tabPage->restoreDefaults(currDoc);
-	tabView->restoreDefaults(prefsData, currDoc->guidesPrefs(), currDoc->currentPageLayout, *currDoc->scratch());
+	tabView->restoreDefaults(prefsData, currDoc->guidesPrefs(), currDoc->pagePositioning(), *currDoc->scratch());
 	tabView->gapHorizontal->setValue(currDoc->pageGapHorizontal()); // * unitRatio);
 	tabView->gapVertical->setValue(currDoc->pageGapVertical()); // * unitRatio);
 	tabView->setPaperColor(currDoc->paperColor());

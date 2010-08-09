@@ -98,7 +98,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 		SepArt->addItem(sep[prop]);
 	SepArt->addItems(spots);
 
-	if (m_doc->currentPageLayout != 0)
+	if (m_doc->pagePositioning() != 0)
 	{
 		BleedTxt3->setText( tr( "Inside:" ) );
 		BleedTxt4->setText( tr( "Outside:" ) );

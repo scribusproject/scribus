@@ -274,7 +274,7 @@ double Margins::bottom() {
 void Margins::set(double lr, double tpr, double btr, double rr)
 {
     MarginStruct margins(tpr, lr, btr, rr);
-	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->currentPageLayout, &margins);
+	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->pagePositioning(), &margins);
     ScCore->primaryMainWindow()->view->reformPages();
     ScCore->primaryMainWindow()->doc->setModified(true);
     ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());

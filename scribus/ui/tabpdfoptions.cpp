@@ -1387,7 +1387,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			EDirection_2_2->setCurrentIndex(EffVal[0].Di);
 			SetEffOpts(EffectType->currentIndex());
 		}
-		if (mdoc->currentPageLayout != 0)
+		if (mdoc->pagePositioning() != 0)
 		{
 			BleedTxt3->setText( tr( "Inside:" ) );
 			BleedTxt4->setText( tr( "Outside:" ) );

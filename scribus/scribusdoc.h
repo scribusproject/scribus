@@ -200,6 +200,8 @@ public:
 	void setCurCheckProfile(const QString& s) { docPrefsData.verifierPrefs.curCheckProfile=s; }
 	int pageOrientation() const { return docPrefsData.docSetupPrefs.pageOrientation; }
 	void setPageOrientation(int o) { docPrefsData.docSetupPrefs.pageOrientation=o; }
+	int pagePositioning() const { return docPrefsData.docSetupPrefs.pagePositioning; }
+	void setPagePositioning(int p) { docPrefsData.docSetupPrefs.pagePositioning=p; }
 	double pageHeight() const { return docPrefsData.docSetupPrefs.pageHeight; }
 	double pageWidth() const { return docPrefsData.docSetupPrefs.pageWidth; }
 	const QString& pageSize() const { return docPrefsData.docSetupPrefs.pageSize; }
@@ -1059,8 +1061,8 @@ public: // Public attributes
 	double PageSp;
 	/** \brief Distance of Columns */
 	double PageSpa;
-	/** \brief current Pagelayout */
-	int currentPageLayout;
+	///** \brief current Pagelayout */
+	//int currentPageLayout;
 	/** \brief Erste Seitennummer im Dokument */
 	int FirstPnum;
 	/** \brief Flag fuer Rasterbenutzung */

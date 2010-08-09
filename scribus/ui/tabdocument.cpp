@@ -258,8 +258,8 @@ void TabDocument::restoreDefaults(ScribusDoc *doc)
 	prefsPageSizeName = doc->pageSize();
 //	setOrien(prefsData->PageOri);
 
-	docLayout->selectItem(doc->currentPageLayout);
-	docLayout->firstPage->setCurrentIndex(doc->pageSets()[doc->currentPageLayout].FirstPage);
+	docLayout->selectItem(doc->pagePositioning());
+	docLayout->firstPage->setCurrentIndex(doc->pageSets()[doc->pagePositioning()].FirstPage);
 	pageOrientationComboBox->setCurrentIndex(doc->pageOrientation());
 	unitCombo->setCurrentIndex(doc->unitIndex());
 	pageWidth->setValue(doc->pageWidth() * unitRatio);

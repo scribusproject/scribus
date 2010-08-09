@@ -187,7 +187,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	PageSp(1), PageSpa(0),
-	currentPageLayout(0),
 	FirstPnum(1),
 	useRaster(false),
 	PageColors(this, true),
@@ -236,6 +235,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docUnitRatio=unitGetRatioFromIndex(docPrefsData.docSetupPrefs.docUnitIndex);
 	docPrefsData.docSetupPrefs.pageHeight=0;
 	docPrefsData.docSetupPrefs.pageWidth=0;
+	docPrefsData.docSetupPrefs.pagePositioning=0;
 	maxCanvasCoordinate=(FPoint(docPrefsData.displayPrefs.scratch.Left + docPrefsData.displayPrefs.scratch.Right, docPrefsData.displayPrefs.scratch.Top + docPrefsData.displayPrefs.scratch.Bottom)),
 	init();
 	docPrefsData.pdfPrefs.bleeds = docPrefsData.docSetupPrefs.bleeds;
@@ -272,7 +272,6 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
-	currentPageLayout(pagesSetup.pageArrangement),
 	FirstPnum(pagesSetup.firstPageNumber),
 	useRaster(false),
 	PageColors(this, true),
@@ -329,6 +328,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docPrefsData.pdfPrefs.bleeds = docPrefsData.docSetupPrefs.bleeds;
 	docPrefsData.pdfPrefs.useDocBleeds = true;
 	docPrefsData.docSetupPrefs.pageOrientation=pagesSetup.orientation;
+	docPrefsData.docSetupPrefs.pagePositioning=pagesSetup.pageArrangement;
 	Print_Options.firstUse = true;
 }
 
@@ -564,7 +564,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	docPrefsData.docSetupPrefs.pageOrientation = orientation;
 	docPrefsData.docSetupPrefs.pageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
-	currentPageLayout = fp;
+	docPrefsData.docSetupPrefs.pagePositioning = fp;
 	setName(documentName);
 	HasCMS = false;
 	if (!pdfOptions().UseLPI)
@@ -1479,7 +1479,7 @@ void ScribusDoc::setPage(double w, double h, double t, double l, double r, doubl
 	docPrefsData.docSetupPrefs.margins.set(t, l, b ,r);
 	PageSp = sp;
 	PageSpa = ab;
-	currentPageLayout = fp;
+	docPrefsData.docSetupPrefs.pagePositioning = fp;
 	automaticTextFrames = atf;
 
 	//CB Moved from scribus.cpp. Overrides the defaults...
@@ -1493,7 +1493,7 @@ void ScribusDoc::resetPage(int fp, MarginStruct* newMargins)
 {
 	if (newMargins!=0)
 		docPrefsData.docSetupPrefs.margins = *newMargins;
-	currentPageLayout = fp;
+	docPrefsData.docSetupPrefs.pagePositioning = fp;
 }
 
 
@@ -3357,7 +3357,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 
 		Ap->initialMargins.Top = Mp->Margins.Top;
 		Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-		if (pageSets()[currentPageLayout].Columns == 1)
+		if (pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns == 1)
 		{
 			Ap->initialMargins.Left = Mp->Margins.Left;
 			Ap->initialMargins.Right = Mp->Margins.Right;
@@ -3619,7 +3619,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	setLoading(true);
 	targetPage->copySizingProperties(sourcePage, sourcePage->Margins);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
-	if (currentPageLayout != singlePage)
+	if (docPrefsData.docSetupPrefs.pagePositioning != singlePage)
 	{
 		int lp = leftPage;
 		if (lp == 0)
@@ -4892,7 +4892,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 {
 	QMap<uint, oldPageVar> pageTable;
 	struct oldPageVar oldPg;
-	int counter = pageSets()[currentPageLayout].FirstPage;
+	int counter = pageSets()[docPrefsData.docSetupPrefs.pagePositioning].FirstPage;
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
 	double currentXPos=docPrefsData.displayPrefs.scratch.Left, currentYPos=docPrefsData.displayPrefs.scratch.Top, lastYPos=Pages->at(0)->initialHeight();
@@ -4919,7 +4919,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 				Seite->Margins.Right = Seite->initialMargins.Right;
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
-			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < pageSets()[currentPageLayout].Columns))
+			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns))
 			{
 				Seite->Margins.Left = Seite->initialMargins.Left;
 				Seite->Margins.Right = Seite->initialMargins.Left;
@@ -4936,7 +4936,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			Seite->setHeight(Seite->initialHeight());
 			Seite->setXOffset(currentXPos);
 			Seite->setYOffset(currentYPos);
-			if (counter < pageSets()[currentPageLayout].Columns-1)
+			if (counter < pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns-1)
 			{
 //				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
 				currentXPos += Seite->width() + docPrefsData.displayPrefs.pageGapHorizontal;
@@ -4955,7 +4955,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			else
 			{
 				currentXPos = docPrefsData.displayPrefs.scratch.Left;
-				if (pageSets()[currentPageLayout].Columns > 1)
+				if (pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns > 1)
 					currentYPos += qMax(lastYPos, Seite->height())+docPrefsData.displayPrefs.pageGapVertical;
 //					currentYPos += qMax(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
@@ -4967,11 +4967,11 @@ void ScribusDoc::reformPages(bool moveObjects)
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
 			counter++;
-			if (counter > pageSets()[currentPageLayout].Columns-1)
+			if (counter > pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns-1)
 			{
 				counter = 0;
 				rowcounter++;
-				if (rowcounter > pageSets()[currentPageLayout].Rows-1)
+				if (rowcounter > pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Rows-1)
 				{
 //					currentYPos += GapVertical;
 //					currentYPos += pageSets[currentPageLayout].GapBelow;
@@ -5067,7 +5067,7 @@ void ScribusDoc::getBleeds(const Page* page, const MarginStruct& baseValues, Mar
 {
 	bleedData.Bottom = baseValues.Bottom;
 	bleedData.Top    = baseValues.Top;
-	if (pageSets()[currentPageLayout].Columns == 1)
+	if (pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns == 1)
 	{
 		bleedData.Right = baseValues.Right;
 		bleedData.Left  = baseValues.Left;
@@ -5613,7 +5613,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		//TODO make a fucntion to do this margin stuff and use elsewhere too
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;
-		if (pageSets()[currentPageLayout].Columns == 1)
+		if (pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns == 1)
 		{
 			destination->initialMargins.Left = from->initialMargins.Left;
 			destination->initialMargins.Right = from->initialMargins.Right;
@@ -5687,7 +5687,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 
 void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 {
-	int setcol=pageSets()[currentPageLayout].Columns;
+	int setcol=pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns;
 	if (setcol==1)
 	{
 		Page* pageToAdjust=DocPages.at(pageIndex);
@@ -5777,7 +5777,7 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 	int myCol=columnOfPage(pageIndex);
 	if (myCol==0) //Left hand page
 		return LeftPage;
-	else if (myCol>= pageSets()[currentPageLayout].Columns-1) // Right hand page
+	else if (myCol>= pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns-1) // Right hand page
 		return RightPage;
 	else //Middle pages
 		return MiddlePage;
@@ -5785,8 +5785,8 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 
 int ScribusDoc::columnOfPage(int pageIndex) const
 {
-	int setcol=pageSets()[currentPageLayout].Columns;
-	return ((pageIndex % setcol) + pageSets()[currentPageLayout].FirstPage) % setcol;
+	int setcol=pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns;
+	return ((pageIndex % setcol) + pageSets()[docPrefsData.docSetupPrefs.pagePositioning].FirstPage) % setcol;
 }
 
 
@@ -10596,7 +10596,7 @@ void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc,
 
 void ScribusDoc::createDefaultMasterPages()
 {
-	int setcol = pageSets()[currentPageLayout].Columns;
+	int setcol = pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns;
 	if (setcol == 1)
 	{
 		addMasterPage(0, CommonStrings::trMasterPageNormal);
@@ -10632,7 +10632,7 @@ void ScribusDoc::createDefaultMasterPages()
 
 void ScribusDoc::createNewDocPages(int pageCount)
 {
-	int setcol = pageSets()[currentPageLayout].Columns;
+	int setcol = pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns;
 	int createCount=qMax(pageCount,1);
 	if (setcol == 1)
 	{

@@ -795,7 +795,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg--;
 					else
-						pg -= m_doc->pageSets()[m_doc->currentPageLayout].Columns;
+						pg -= m_doc->pageSets()[m_doc->pagePositioning()].Columns;
 					if (pg > -1)
 						m_view->GotoPage(pg);
 				}
@@ -811,7 +811,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg++;
 					else
-						pg += m_doc->pageSets()[m_doc->currentPageLayout].Columns;
+						pg += m_doc->pageSets()[m_doc->pagePositioning()].Columns;
 					if (pg < static_cast<int>(m_doc->Pages->count()))
 						m_view->GotoPage(pg);
 				}

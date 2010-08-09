@@ -37,21 +37,25 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 		pageSizeLinkToolButton->hide();
 	}
 
-	pageWidthSpinBox->setMaximum(16777215);
-	pageHeightSpinBox->setMaximum(16777215);
-	languageChange();
-
-
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);
 	pageLayoutButtonGroup->setId(doublePageRadioButton,1);
 	pageLayoutButtonGroup->setId(threeFoldRadioButton,2);
 	pageLayoutButtonGroup->setId(fourFoldRadioButton,3);
+	singlePageRadioButton->setChecked(true);
+	layoutFirstPageIsComboBox->clear();
+	layoutFirstPageIsComboBox->addItem(" ");
+	layoutFirstPageIsComboBox->setCurrentIndex(0);
+	layoutFirstPageIsComboBox->setEnabled(false);
+
+	pageWidthSpinBox->setMaximum(16777215);
+	pageHeightSpinBox->setMaximum(16777215);
+	languageChange();
 
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setPageOrientation(int)));
 	connect(pageWidthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
-	connect(pageLayoutButtonGroup, SIGNAL(buttonReleased(int)), this, SLOT(pageLayoutChanged(int)));
+	connect(pageLayoutButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(pageLayoutChanged(int)));
 	connect(pageUnitsComboBox, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(undoCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotUndo(bool)));
 }
@@ -136,7 +140,6 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageH = prefsData->docSetupPrefs.pageHeight;
 	pageWidthSpinBox->setValue(pageW * unitRatio);
 	pageHeightSpinBox->setValue(pageH * unitRatio);
-
 	pageSets=prefsData->pageSets;
 	switch (prefsData->docSetupPrefs.pagePositioning)
 	{
@@ -188,10 +191,12 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 {
 	prefsData->docSetupPrefs.pageSize=prefsPageSizeName;
 	prefsData->docSetupPrefs.pageOrientation=pageOrientationComboBox->currentIndex();
+	prefsData->docSetupPrefs.docUnitIndex=pageUnitsComboBox->currentIndex();
 	prefsData->docSetupPrefs.pageWidth=pageW;
 	prefsData->docSetupPrefs.pageHeight=pageH;
 	prefsData->docSetupPrefs.pagePositioning=pageLayoutButtonGroup->checkedId();
 	prefsData->pageSets[prefsData->docSetupPrefs.pagePositioning].FirstPage=layoutFirstPageIsComboBox->currentIndex();
+
 	prefsData->docSetupPrefs.margins=marginsWidget->margins();
 	prefsData->docSetupPrefs.bleeds=bleedsWidget->margins();
 	prefsData->docSetupPrefs.saveCompressed=saveCompressedCheckBox->isChecked();
@@ -209,12 +214,21 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 void Prefs_DocumentSetup::setupPageSets()
 {
 	int i=layoutFirstPageIsComboBox->currentIndex();
-	layoutFirstPageIsComboBox->clear();
 	int currIndex=pageLayoutButtonGroup->checkedId()<0?0:pageLayoutButtonGroup->checkedId();
-	if (currIndex>=0 && currIndex<pageSets.count())
+	layoutFirstPageIsComboBox->clear();
+	if (currIndex>0 && currIndex<pageSets.count())
+	{
+		layoutFirstPageIsComboBox->setEnabled(true);
 		for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
 			layoutFirstPageIsComboBox->addItem(CommonStrings::translatePageSetLocString(*pNames));
-	layoutFirstPageIsComboBox->setCurrentIndex(i<0?0:i);
+		layoutFirstPageIsComboBox->setCurrentIndex(i<0?0:i);
+	}
+	else
+	{
+		layoutFirstPageIsComboBox->addItem(" ");
+		layoutFirstPageIsComboBox->setCurrentIndex(0);
+		layoutFirstPageIsComboBox->setEnabled(false);
+	}
 }
 
 void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
@@ -241,7 +255,7 @@ void Prefs_DocumentSetup::pageLayoutChanged(int i)
 {
 	setupPageSets();
 	marginsWidget->setFacingPages(!(i == singlePage));
-	layoutFirstPageIsComboBox->setCurrentIndex(pageSets[pageLayoutButtonGroup->checkedId()].FirstPage);
+	//layoutFirstPageIsComboBox->setCurrentIndex(pageSets[pageLayoutButtonGroup->checkedId()].FirstPage);
 }
 
 void Prefs_DocumentSetup::setPageWidth(double w)

@@ -209,7 +209,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		int nr = currentDoc->Pages->count();
 		Page* from = currentDoc->Pages->at(inde);
 		Page* destination = currentDoc->addMasterPage(nr, MasterPageName);
-		if (currentDoc->currentPageLayout != singlePage)
+		if (currentDoc->pagePositioning() != singlePage)
 		{
 			int lp = dia->Links->currentIndex();
 			if (lp == 0)
@@ -222,7 +222,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;
-		if (currentDoc->pageSets()[currentDoc->currentPageLayout].Columns == 1)
+		if (currentDoc->pageSets()[currentDoc->pagePositioning()].Columns == 1)
 		{
 			destination->initialMargins.Left = from->initialMargins.Left;
 			destination->initialMargins.Right = from->initialMargins.Right;
@@ -331,7 +331,7 @@ void MasterPagesPalette::newMasterPage()
 			MasterPageNameWrong |=  MasterPageName.isEmpty();
 		}
 		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
-		if (currentDoc->currentPageLayout != singlePage)
+		if (currentDoc->pagePositioning() != singlePage)
 		{
 			int lp = dia->Links->currentIndex();
 			if (lp == 0)

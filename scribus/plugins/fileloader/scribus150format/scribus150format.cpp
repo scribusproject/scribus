@@ -268,7 +268,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			readDocAttributes(m_Doc, attrs);
 			layerToSetActive = attrs.valueAsInt("ALAYER", 0);
-			if (m_Doc->currentPageLayout == 0)
+			if (m_Doc->pagePositioning() == 0)
 				firstPage = 0;
 			else
 			{
@@ -570,7 +570,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	//Will of course be replaced by per page settings although we still probably need a document default
 	if (!hasPageSets)
 	{
-		m_Doc->setPageSetFirstPage(m_Doc->currentPageLayout, firstPage);
+		m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), firstPage);
 //->Prefs		m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = firstPage;
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
@@ -736,7 +736,7 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->setPageSize(attrs.valueAsString("PAGESIZE"));
 	m_Doc->setPageOrientation(attrs.valueAsInt("ORIENTATION", 0));
 	m_Doc->FirstPnum  = attrs.valueAsInt("FIRSTNUM", 1);
-	m_Doc->currentPageLayout = attrs.valueAsInt("BOOK", 0);
+	m_Doc->setPagePositioning(attrs.valueAsInt("BOOK", 0));
 
 	m_Doc->setUsesAutomaticTextFrames( attrs.valueAsInt("AUTOTEXT") );
 	m_Doc->PageSp  = attrs.valueAsInt("AUTOSPALTEN");
@@ -982,7 +982,7 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 		{
 //			doc->pageSets.append(pageS);
 			doc->appendToPageSets(pageS);
-			if ((doc->pageSets().count()-1 == doc->currentPageLayout) && ((doc->pageGapHorizontal() < 0) && (doc->pageGapVertical() < 0)))
+			if ((doc->pageSets().count()-1 == doc->pagePositioning()) && ((doc->pageGapHorizontal() < 0) && (doc->pageGapVertical() < 0)))
 			{
 				doc->setPageGapHorizontal(attrs.valueAsDouble("GapHorizontal", 0.0));
 				doc->setPageGapVertical(attrs.valueAsDouble("GapBelow", 0.0));

@@ -281,15 +281,15 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setPageOrientation(dc.attribute("ORIENTATION", "0").toInt());
 		m_Doc->setPageSize(dc.attribute("PAGESIZE"));
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
-		m_Doc->currentPageLayout=dc.attribute("BOOK", "0").toInt();
+		m_Doc->setPagePositioning(dc.attribute("BOOK", "0").toInt());
 		int fp;
 		if (dc.attribute("FIRSTLEFT", "0").toInt() == 1)
 			fp = 0;
 		else
 			fp = 1;
-		if (m_Doc->currentPageLayout == 0)
+		if (m_Doc->pagePositioning() == 0)
 			fp = 0;
-		m_Doc->setPageSetFirstPage(m_Doc->currentPageLayout, fp);
+		m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), fp);
 		m_Doc->setUsesAutomaticTextFrames(dc.attribute("AUTOTEXT").toInt());
 		m_Doc->PageSp=dc.attribute("AUTOSPALTEN").toInt();
 		m_Doc->PageSpa=ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));

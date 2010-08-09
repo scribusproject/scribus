@@ -94,7 +94,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("ORIENTATION" , m_Doc->pageOrientation());
 	docu.writeAttribute("PAGESIZE"    , m_Doc->pageSize());
 	docu.writeAttribute("FIRSTNUM"    , m_Doc->FirstPnum);
-	docu.writeAttribute("BOOK"        , m_Doc->currentPageLayout);
+	docu.writeAttribute("BOOK"        , m_Doc->pagePositioning());
 	if(m_Doc->usesAutomaticTextFrames())
 		docu.writeAttribute("AUTOTEXT", 1);
 	docu.writeAttribute("AUTOSPALTEN" ,m_Doc->PageSp);

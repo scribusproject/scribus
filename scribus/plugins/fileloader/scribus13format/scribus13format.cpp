@@ -248,9 +248,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setPageSize(dc.attribute("PAGESIZE"));
 		m_Doc->setPageOrientation(dc.attribute("ORIENTATION", "0").toInt());
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
-		m_Doc->currentPageLayout=dc.attribute("BOOK", "0").toInt();
+		m_Doc->setPagePositioning(dc.attribute("BOOK", "0").toInt());
 		int fp;
-		if (m_Doc->currentPageLayout == 0)
+		if (m_Doc->pagePositioning() == 0)
 			fp = 0;
 		else
 		{
@@ -261,7 +261,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		}
 		if (DOC.namedItem("PageSets").isNull())
 		{
-			m_Doc->setPageSetFirstPage(m_Doc->currentPageLayout, fp);
+			m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), fp);
 //			m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
 //			m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
 //			m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
@@ -479,7 +479,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						}
 						//->Prefs m_Doc->pageSets.append(pageS);
 						m_Doc->appendToPageSets(pageS);
-						if (m_Doc->pageSets().count()-1 == m_Doc->currentPageLayout)
+						if (m_Doc->pageSets().count()-1 == m_Doc->pagePositioning())
 						{
 							m_Doc->setPageGapHorizontal(ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0));
 							m_Doc->setPageGapVertical(ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 0.0));
@@ -1199,7 +1199,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("ORIENTATION",m_Doc->pageOrientation());
 	dc.setAttribute("PAGESIZE",m_Doc->pageSize());
 	dc.setAttribute("FIRSTNUM",m_Doc->FirstPnum);
-	dc.setAttribute("BOOK", m_Doc->currentPageLayout);
+	dc.setAttribute("BOOK", m_Doc->pagePositioning());
 	if(m_Doc->usesAutomaticTextFrames())
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",m_Doc->PageSp);

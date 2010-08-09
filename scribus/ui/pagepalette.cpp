@@ -713,7 +713,7 @@ void PagePalette::handlePageLayout(int layout)
 void PagePalette::handleFirstPage(int fp)
 {
 //	currView->Doc->pageSets()[currView->Doc->currentPageLayout].FirstPage = fp;
-	currView->Doc->setPageSetFirstPage(currView->Doc->currentPageLayout, fp);
+	currView->Doc->setPageSetFirstPage(currView->Doc->pagePositioning(), fp);
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
@@ -760,13 +760,13 @@ void PagePalette::rebuildPages()
 		return;
 	}
 	pageLayout->updateLayoutSelector(currView->Doc->pageSets());
-	pageLayout->selectItem(currView->Doc->currentPageLayout);
-	pageLayout->firstPage->setCurrentIndex(currView->Doc->pageSets()[currView->Doc->currentPageLayout].FirstPage);
+	pageLayout->selectItem(currView->Doc->pagePositioning());
+	pageLayout->firstPage->setCurrentIndex(currView->Doc->pageSets()[currView->Doc->pagePositioning()].FirstPage);
 	pageView->MaxC = currView->Doc->DocPages.count()-1;
-	int counter = currView->Doc->pageSets()[currView->Doc->currentPageLayout].FirstPage;
-	int cols = currView->Doc->pageSets()[currView->Doc->currentPageLayout].Columns;
-	int rows = (currView->Doc->DocPages.count()+counter) / currView->Doc->pageSets()[currView->Doc->currentPageLayout].Columns;
-	if (((currView->Doc->DocPages.count()+counter) % currView->Doc->pageSets()[currView->Doc->currentPageLayout].Columns) != 0)
+	int counter = currView->Doc->pageSets()[currView->Doc->pagePositioning()].FirstPage;
+	int cols = currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns;
+	int rows = (currView->Doc->DocPages.count()+counter) / currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns;
+	if (((currView->Doc->DocPages.count()+counter) % currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns) != 0)
 		rows++;
 	int rowcounter = 0;
 	int colmult, rowmult, coladd, rowadd;
@@ -802,7 +802,7 @@ void PagePalette::rebuildPages()
 	pageView->rowadd = rowadd;
 	pageView->rowmult = rowmult;
 	pageView->firstP = counter;
-	pageView->cols = currView->Doc->pageSets()[currView->Doc->currentPageLayout].Columns;
+	pageView->cols = currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns;
 	pageList.clear();
 	for (int a = 0; a < currView->Doc->DocPages.count(); ++a)
 	{
@@ -819,7 +819,7 @@ void PagePalette::rebuildPages()
 		else
 			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
 		counter++;
-		if (counter > currView->Doc->pageSets()[currView->Doc->currentPageLayout].Columns-1)
+		if (counter > currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns-1)
 		{
 			counter = 0;
 			rowcounter++;
