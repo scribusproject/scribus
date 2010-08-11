@@ -36,7 +36,7 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	if (currText.length()>0)
 		basicRangeListBox->addItem(currText);
 	// signals and slots connections
-	connect(tabWidget, SIGNAL(currentChanged(QWidget*)), this, SLOT(selectRangeType(QWidget*)));
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(selectRangeType(int)));
 	connect(basicRangeAddButton, SIGNAL(clicked()), this, SLOT(basicAddToRange()));
 	connect(basicRangeDelButton, SIGNAL(clicked()), this, SLOT(basicDelFromRange()));
 	connect(basicConsecutiveRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeConsec()));
@@ -161,7 +161,7 @@ void CreateRange::basicSelectRangeType(int i)
 	basicCommaSepLineEdit->setEnabled(!basicRangeTypeIsConsecutive);
 }
 
-void CreateRange::selectRangeType(QWidget *)
+void CreateRange::selectRangeType(int)
 {
 	m_RangeType=tabWidget->currentIndex();
 }
