@@ -200,7 +200,7 @@ void Prefs_PreflightVerifier::addProf()
 	currentProfileComboBox->clear();
 
 	disconnect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	disconnect(currentProfileComboBox, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	CheckerPrefsList::Iterator it;
 	int j,i=0;
 	for (it = checkerProfile.begin(), j=0; it != checkerProfile.end(); ++it, ++j)
@@ -211,14 +211,14 @@ void Prefs_PreflightVerifier::addProf()
 	}
 	currentProfileComboBox->setCurrentIndex(i);
 	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(currentProfileComboBox, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	tempNewProfileName="";
 }
 
 void Prefs_PreflightVerifier::delProf()
 {
 	disconnect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	disconnect(currentProfileComboBox, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	checkerProfile.remove(currentProfile);
 	updateProfile(checkerProfile.begin().key());
 	currentProfileComboBox->clear();
@@ -228,7 +228,7 @@ void Prefs_PreflightVerifier::delProf()
 		currentProfileComboBox->addItem(it.key());
 	setCurrentComboItem(currentProfileComboBox, currentProfile);
 	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(currentProfileComboBox, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	if (checkerProfile.count() == 1)
 		removeProfilePushButton->setEnabled(false);
 }

@@ -272,7 +272,7 @@ void TabCheckDoc::addProf()
 	curCheckProfile->clear();
 	
 	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	disconnect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));	
+	disconnect(curCheckProfile, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	CheckerPrefsList::Iterator it;
 	int j,i=0;
 	for (it = checkerProfile.begin(), j=0; it != checkerProfile.end(); ++it, ++j)
@@ -283,14 +283,14 @@ void TabCheckDoc::addProf()
 	}
 	curCheckProfile->setCurrentIndex(i);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(curCheckProfile, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	tempNewProfileName="";
 }
 
 void TabCheckDoc::delProf()
 {
 	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	disconnect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	disconnect(curCheckProfile, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	checkerProfile.remove(currentProfile);
 	updateProfile(checkerProfile.begin().key());
 	curCheckProfile->clear();
@@ -300,7 +300,7 @@ void TabCheckDoc::delProf()
 		curCheckProfile->addItem(it.key());
 	setCurrentComboItem(curCheckProfile, currentProfile);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(curCheckProfile, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	if (checkerProfile.count() == 1)
 		removeProfile->setEnabled(false);
 }

@@ -23,7 +23,7 @@ class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 		void getCreateRangeData(CreateRangeData&);
 		
 	protected slots:
-		void selectRangeType(QWidget *);
+		void selectRangeType(int);
 		void basicAddToRange();
 		void basicDelFromRange();
 		void basicMoveUp();
