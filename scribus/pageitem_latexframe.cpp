@@ -55,10 +55,8 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 		setConfigFile(PrefsManager::instance()->latexConfigs()[0]);
 
 	latex = new QProcess();
-	connect(latex, SIGNAL(finished(int, QProcess::ExitStatus)),
-		this, SLOT(updateImage(int, QProcess::ExitStatus)));
-	connect(latex, SIGNAL(error(QProcess::ProcessError)),
-		this, SLOT(latexError(QProcess::ProcessError)));
+	connect(latex, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(updateImage(int, QProcess::ExitStatus)));
+	connect(latex, SIGNAL(error(QProcess::ProcessError)), this, SLOT(latexError(QProcess::ProcessError)));
 	latex->setProcessChannelMode(QProcess::MergedChannels);
 	
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
@@ -261,7 +259,6 @@ void PageItem_LatexFrame::runApplication()
 	}
 	
 	QString full_command = config->executable();
-	
 	if (full_command.isEmpty()) {
 		err = 0xffff;
 		update(); //Show error marker
@@ -458,12 +455,15 @@ void PageItem_LatexFrame::setDpi(int newDpi)
 void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 {
 	// Try to interpret a config file as a relative path even when it is given with a full path
-	if (relative) {
+	if (relative)
+	{
 		QFileInfo fi;
 		QStringList configs = PrefsManager::instance()->latexConfigs();
-		foreach (QString config, configs) {
+		foreach (QString config, configs)
+		{
 			fi.setFile(config);
-			if (newConfig == fi.fileName()) {
+			if (newConfig == fi.fileName())
+			{
 				newConfig = config;
 				break;
 			}
@@ -479,7 +479,6 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 	
 	configFilename = newConfig;
 	config = LatexConfigCache::instance()->parser(configFilename);
-	
 	//Initialize with default values
 	QString key;
 	QMapIterator<QString, QString> i(config->properties);

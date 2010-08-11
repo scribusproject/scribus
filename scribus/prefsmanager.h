@@ -127,7 +127,7 @@ public:
 	void setExtBrowserExecutable(const QString&);
 	void setUniconvExecutable(const QString&);
 	void setLatexConfigs(const QStringList&);
-	void setLatexCommands(const QMap<QString, QString>& commands) { appPrefs.extToolPrefs.latexCommands=commands; }
+	void setLatexCommands(const QMap<QString, QString>& commands);
 	void setLatexEditorExecutable(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.extToolPrefs.gs_exe;};
 	QString imageEditorExecutable() const {return appPrefs.extToolPrefs.imageEditorExecutable;};

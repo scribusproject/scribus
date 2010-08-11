@@ -986,6 +986,12 @@ void PrefsManager::setLatexConfigs(const QStringList& configs)
 	appPrefs.extToolPrefs.latexConfigs=configs;
 }
 
+void PrefsManager::setLatexCommands(const QMap<QString, QString>& commands)
+{
+	appPrefs.extToolPrefs.latexCommands=commands;
+}
+
+
 void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 {
 	appPrefs.extToolPrefs.latexEditorExecutable=executableName;

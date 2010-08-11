@@ -288,7 +288,9 @@ void LatexConfigParser::ignoreList()
 
 QString LatexConfigParser::executable() const
 {
-	QString command = PrefsManager::instance()->latexCommands()[m_filename];
+	QFileInfo f(m_filename);
+	QString fileName=f.fileName();
+	QString command = PrefsManager::instance()->latexCommands()[fileName];
 	if (command.isEmpty()) {
 		return m_executable;
 	} else {
