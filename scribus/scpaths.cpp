@@ -63,35 +63,6 @@ ScPaths::ScPaths() :
 // obtained from the system.
 #ifdef Q_WS_MAC
 	QString pathPtr(bundleDir());
-	/*
-	// Set up the various app paths to look inside the app bundle
-	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef,
-	                                       kCFURLPOSIXPathStyle);
-	const char *pathPtr = CFStringGetCStringPtr(macPath,
-	                                       CFStringGetSystemEncoding());
-
-	// make sure we get the Scribus.app directory, not some subdir
-
-	// strip trailing '/':
-	char *p = const_cast<char*>(pathPtr + strlen(pathPtr) - 1);
-	while (*p == '/')
-		--p;
-	++p;
-	*p = '\0';
-	if (strcmp("/bin", p-4) == 0) {
-		p -= 4;
-		*p = '\0';
-	}
-	if (strcmp("/MacOS", p-6) == 0) {
-		p -= 6;
-		*p = '\0';
-	}
-	if (strcmp("/Contents", p-9) == 0) {
-		p -= 9;
-		*p = '\0';
-	}
-*/
 	qDebug() << QString("scpaths: bundle at %1:").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
 	m_docDir = QString("%1/Contents/share/doc/scribus/").arg(pathPtr);
@@ -102,8 +73,6 @@ ScPaths::ScPaths() :
 	m_libDir = QString("%1/Contents/lib/scribus/").arg(pathPtr);
 	m_pluginDir = QString("%1/Contents/lib/scribus/plugins/").arg(pathPtr);
 	QApplication::setLibraryPaths(QStringList(QString("%1/Contents/lib/qtplugins/").arg(pathPtr)));
-//	CFRelease(pluginRef);
-//	CFRelease(macPath);
 
 	// on OSX this goes to the sys console, so user only sees it when they care -- AV
 	qDebug() << QString("scpaths: doc dir=%1").arg(m_docDir);
@@ -150,34 +119,49 @@ QString ScPaths::bundleDir(void) const
 #ifdef Q_WS_MAC
 	// Set up the various app paths to look inside the app bundle
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef,
-										   kCFURLPOSIXPathStyle);
-	const char *pathPtr = CFStringGetCStringPtr(macPath,
-										   CFStringGetSystemEncoding());
-
-	// make sure we get the Scribus.app directory, not some subdir
-
-	// strip trailing '/':
-	char *p = const_cast<char*>(pathPtr + strlen(pathPtr) - 1);
-	while (*p == '/')
-		--p;
-	++p;
-	*p = '\0';
-	if (strcmp("/bin", p-4) == 0) {
-		p -= 4;
+	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef, kCFURLPOSIXPathStyle);
+	const char *pathPtr = CFStringGetCStringPtr(macPath, CFStringGetSystemEncoding());
+	if (pathPtr!=NULL && strlen(pathPtr)>0)
+	{
+		// make sure we get the Scribus.app directory, not some subdir
+		// strip trailing '/':
+		qDebug("Path = %s", pathPtr);
+		char *p = const_cast<char*>(pathPtr + strlen(pathPtr) - 1);
+		while (*p == '/')
+			--p;
+		++p;
 		*p = '\0';
+		if (strcmp("/bin", p-4) == 0) {
+			p -= 4;
+			*p = '\0';
+		}
+		if (strcmp("/MacOS", p-6) == 0) {
+			p -= 6;
+			*p = '\0';
+		}
+		if (strcmp("/Contents", p-9) == 0) {
+			p -= 9;
+			*p = '\0';
+		}
+		CFRelease(pluginRef);
+		CFRelease(macPath);
+		return QString("%1").arg(pathPtr);
 	}
-	if (strcmp("/MacOS", p-6) == 0) {
-		p -= 6;
-		*p = '\0';
+	else
+	{
+		char buf[2048];
+		CFStringGetCString (macPath, buf, 2048, kCFStringEncodingUTF8);
+		QString q_pathPtr=QString::fromUtf8(buf);
+		if (q_pathPtr.endsWith("/bin"))
+			q_pathPtr.chop(4);
+		if (q_pathPtr.endsWith("/MacOS"))
+			q_pathPtr.chop(6);
+		if (q_pathPtr.endsWith("/Contents"))
+			q_pathPtr.chop(9);
+		CFRelease(pluginRef);
+		CFRelease(macPath);
+		return q_pathPtr;
 	}
-	if (strcmp("/Contents", p-9) == 0) {
-		p -= 9;
-		*p = '\0';
-	}
-	CFRelease(pluginRef);
-	CFRelease(macPath);
-	return QString("%1").arg(pathPtr);
 #endif
 	return QString::null;
 }
