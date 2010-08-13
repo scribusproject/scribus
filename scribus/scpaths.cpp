@@ -63,7 +63,7 @@ ScPaths::ScPaths() :
 // obtained from the system.
 #ifdef Q_WS_MAC
 	QString pathPtr(bundleDir());
-	qDebug() << QString("scpaths: bundle at %1:").arg(pathPtr);
+	qDebug() << QString("scpaths: bundle at %1").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
 	m_docDir = QString("%1/Contents/share/doc/scribus/").arg(pathPtr);
 	m_iconDir = QString("%1/Contents/share/scribus/icons/").arg(pathPtr);

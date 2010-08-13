@@ -1276,11 +1276,11 @@ void Imposition::changeDocFold()
 		}
 		else
 		{
-			lastPage = firstPage + srcDoc->currentPageLayout;
+			lastPage = firstPage + srcDoc->pagePositioning();
 		}
 		
 		//make guides
-		double allWidth = srcDoc->pageWidth * (srcDoc->currentPageLayout+1);
+		double allWidth = srcDoc->pageWidth * (srcDoc->pagePositioning()+1);
 		double allHeight = srcDoc->pageHeight;
 		
 		double guide_x = (p->width() - allWidth)/2; //initial (left) guide
@@ -1341,7 +1341,7 @@ void Imposition::changeDocFold()
 		}
 		else
 		{
-			lastPage = firstPage + srcDoc->currentPageLayout;
+			lastPage = firstPage + srcDoc->pagePositioning();
 		}
 		
 		targetDoc->setCurrentPage(targetDoc->Pages->at(1));
@@ -1474,12 +1474,12 @@ bool Imposition::verifyBooklet()
 
 bool Imposition::verifyFold()
 {
-	if (srcDoc->currentPageLayout == 0) {
+	if (srcDoc->pagePositioning() == 0) {
 		return false;
 		
 	}
 	
-	if (pageWidthBox->value() < (srcDoc->currentPageLayout + 1)*srcDoc->pageWidth ||
+	if (pageWidthBox->value() < (srcDoc->pagePositioning() + 1)*srcDoc->pageWidth ||
 		   pageHeightBox->value() < srcDoc->pageHeight)
 	{
 		return false;

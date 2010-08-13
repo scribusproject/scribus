@@ -117,7 +117,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		return NULL;
 
 	int loc = (e > -1) ? e : ScCore->primaryMainWindow()->doc->Pages->count();
-	if (ScCore->primaryMainWindow()->doc->pageSets()[ScCore->primaryMainWindow()->doc->currentPageLayout].Columns != 1)
+	if (ScCore->primaryMainWindow()->doc->pageSets()[ScCore->primaryMainWindow()->doc->pagePositioning()].Columns != 1)
 	{
 		switch (ScCore->primaryMainWindow()->doc->locationOfPage(loc))
 		{
@@ -386,7 +386,7 @@ void import_addpages(int total, int pos) {
 
 		QString qName(CommonStrings::trMasterPageNormal);
 
-		if (ScCore->primaryMainWindow()->doc->pageSets()[ScCore->primaryMainWindow()->doc->currentPageLayout].Columns != 1) {
+		if (ScCore->primaryMainWindow()->doc->pageSets()[ScCore->primaryMainWindow()->doc->pagePositioning()].Columns != 1) {
 			ScCore->primaryMainWindow()->doc->locationOfPage(loc);
 			switch (ScCore->primaryMainWindow()->doc->locationOfPage(loc))
 			{

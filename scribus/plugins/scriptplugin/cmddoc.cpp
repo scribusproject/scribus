@@ -116,7 +116,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	MarginStruct margins(ValueToPoint(tpr), ValueToPoint(lr), ValueToPoint(btr), ValueToPoint(rr));
-	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->currentPageLayout, &margins);
+	ScCore->primaryMainWindow()->doc->resetPage(ScCore->primaryMainWindow()->doc->pagePositioning(), &margins);
 	ScCore->primaryMainWindow()->view->reformPages();
 	ScCore->primaryMainWindow()->doc->setModified(true);
 	ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber());
@@ -282,8 +282,8 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ScCore->primaryMainWindow()->doc->currentPageLayout == fp)
-		ScCore->primaryMainWindow()->doc->setPageSetFirstPage(ScCore->primaryMainWindow()->doc->currentPageLayout, fsl);
+	if (ScCore->primaryMainWindow()->doc->pagePositioning() == fp)
+		ScCore->primaryMainWindow()->doc->setPageSetFirstPage(ScCore->primaryMainWindow()->doc->pagePositioning(), fsl);
 	ScCore->primaryMainWindow()->view->reformPages();
 	ScCore->primaryMainWindow()->view->GotoPage(ScCore->primaryMainWindow()->doc->currentPageNumber()); // is this needed?
 	ScCore->primaryMainWindow()->view->DrawNew();   // is this needed?
