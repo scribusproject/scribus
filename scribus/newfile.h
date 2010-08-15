@@ -65,7 +65,7 @@ public:
 		OpenRecentTab
 	} ActionSelected;
 
-	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, QString lang = "", QString templateDir = "" );
+	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, QString lang = "");
 	~NewDoc() {};
 	void createNewDocPage();
 	void createNewFromTempPage();

@@ -2002,7 +2002,7 @@ void ScribusMainWindow::startUpDialog()
 {
 	bool docSet = false;
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
-	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	NewDoc* dia = new NewDoc(this, RecentDocs, true, ScCore->getGuiLanguage());
 	if (dia->exec())
 	{
 		if (dia->tabSelected() == NewDoc::NewDocumentTab)
@@ -2326,7 +2326,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 
 void ScribusMainWindow::newFileFromTemplate()
 {
-	nftdialog* nftdia = new nftdialog(this, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	nftdialog* nftdia = new nftdialog(this, ScCore->getGuiLanguage());
 	if (nftdia->exec())
 	{
 		if (nftdia->nftGui->currentDocumentTemplate)

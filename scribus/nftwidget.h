@@ -38,7 +38,7 @@ private:
 public:
 	nfttemplate* currentDocumentTemplate;
 	nftwidget(QWidget* parent);
-	void setupSettings(QString lang, QString templateDir);
+	void setupSettings(QString lang);
 	~nftwidget();
 private slots: 
 	void setTNails();

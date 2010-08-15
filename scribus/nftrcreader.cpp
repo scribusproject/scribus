@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
+
 #include "nftrcreader.h"
 
 using namespace std;
@@ -65,7 +66,8 @@ bool nftrcreader::startElement(const QString&, const QString&, const QString &na
 		inEmail = true;
 
 
-	if (name == "template") { // new template starts here
+	if (name == "template") // new template starts here
+	{
 		inTemplate = true;
 		QString category;
 		QString enCat;
@@ -187,6 +189,8 @@ void nftrcreader::setSourceFile(QString sourceFile)
 QString nftrcreader::getCategory(QString cat) 
 {
 	QMap<QString, QString>::iterator it = cats.find(cat);
+	if (it==cats.end())
+		cats.insert(cat, cat);
 	if (it != cats.end())
 		return it.value();
 	return cat;

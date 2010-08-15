@@ -15,12 +15,12 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent)
+nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
 	setWindowIcon(loadIcon("AppIcon.png"));
-	nftGui->setupSettings(lang, templateDir);
+	nftGui->setupSettings(lang);
 	connect(nftGui, SIGNAL(leaveOK()), this, SLOT(accept()));
 	connect(nftGui, SIGNAL(ButtonBoxEnable(bool)), this, SLOT(enableButtonBox(bool)));
 }

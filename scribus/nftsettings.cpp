@@ -8,16 +8,14 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "nftsettings.h"
+#include "prefsmanager.h"
 #include "scpaths.h"
 
-nftsettings::nftsettings(QString guilang, QString templateDir)
+nftsettings::nftsettings(QString guilang)
 {
 	lang = guilang;
 	scribusShare = ScPaths::instance().templateDir();
 	scribusUserHome = QDir::convertSeparators(ScPaths::getApplicationDataDir());
-	userTemplateDir = templateDir;
-	if (userTemplateDir.right(1) == "/")
-		userTemplateDir = userTemplateDir.left(userTemplateDir.length() - 1);
 	read();
 }
 
@@ -29,9 +27,11 @@ void nftsettings::read()
 
 	addTemplates(scribusShare);
 	addTemplates(scribusUserHome+"/templates");
+	QString userTemplateDir(PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	if (userTemplateDir.right(1) == "/")
+		userTemplateDir.chop(1);
 	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
-		addTemplates(userTemplateDir);
-}
+		addTemplates(userTemplateDir);}
 
 void nftsettings::addTemplates(QString dir) // dir will be searched for a sub folder called templates
 {
@@ -53,23 +53,21 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 	QDir tmpldir(dir);
 	if (tmpldir.exists())
 	{
-		tmpldir.setFilter(QDir::Dirs);
+		tmpldir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 		QStringList dirs = tmpldir.entryList();
 		for (int i = 0; i < dirs.size(); ++i)
 		{
-			if ((dirs[i] != ".") && (dirs[i] != "..")) {
-				tmplFile = findTemplateXml(dir + "/" + dirs[i]);
-				QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
-				handler->setSourceDir(dir+"/"+dirs[i]);
-				handler->setSourceFile(tmplFile);
-				if (tmplxml->exists())
-				{
-					QXmlInputSource* source = new QXmlInputSource(tmplxml);
-					reader->parse(source);
-					delete source;
-				}
-				delete tmplxml;
+			tmplFile = findTemplateXml(dir + "/" + dirs[i]);
+			QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
+			handler->setSourceDir(dir+"/"+dirs[i]);
+			handler->setSourceFile(tmplFile);
+			if (tmplxml->exists())
+			{
+				QXmlInputSource* source = new QXmlInputSource(tmplxml);
+				reader->parse(source);
+				delete source;
 			}
+			delete tmplxml;
 		}
 	}
 }
