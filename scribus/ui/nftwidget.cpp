@@ -7,14 +7,13 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
-#include "nftwidget.h"
-
-#include "scconfig.h"
-#include "scribusapi.h"
 
 #include <QAction>
 #include <QPainter>
 
+#include "nftwidget.h"
+#include "scconfig.h"
+#include "scribusapi.h"
 #include "util_icon.h"
 
 
@@ -24,9 +23,9 @@ nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 	currentDocumentTemplate = NULL;
 }
 
-void nftwidget::setupSettings(QString lang, QString templateDir)
+void nftwidget::setupSettings(QString lang)
 {
-	settings = new nftsettings(lang, templateDir);
+	settings = new nftsettings(lang);
 	// context menu
 	removeAction = new QAction(tr("&Remove"), tnailGrid);
 	openAction = new QAction(tr("&Open"), tnailGrid);
@@ -49,16 +48,16 @@ void nftwidget::setupSettings(QString lang, QString templateDir)
 
 void nftwidget::setupCategories() 
 {
-	QString categories("");
+	QStringList categories;
 	categoryList->clear();
 	categoryList->addItem(tr("All"));
 	for (uint i = 0; i < settings->templates.size(); i++)
 	{
-		if ((categories.indexOf(settings->templates[i]->templateCategory) == -1) &&
+		if ((!categories.contains(settings->templates[i]->templateCategory)) &&
 		    (!settings->templates[i]->isDeleted))
 		{
 			categoryList->addItem(settings->templates[i]->templateCategory);
-			categories += settings->templates[i]->templateCategory;
+			categories << settings->templates[i]->templateCategory;
 		}
 	}
 	categoryList->sortItems();
@@ -109,7 +108,7 @@ void nftwidget::setTNails()
 		tnailGrid->clear();
 		for (uint i = 0; i < iconItems.size(); ++i)
 		{
-			if (curtype.indexOf(iconItems[i]->first->templateCategory) != -1)
+			if (curtype==iconItems[i]->first->templateCategory)
 			{
 				QPixmap pm(iconItems[i]->first->tnail);
 				if (pm.width() > 60)

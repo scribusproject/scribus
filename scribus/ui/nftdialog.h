@@ -21,7 +21,7 @@ class nftdialog: public QDialog, public Ui::nftdialog
 {
 	Q_OBJECT
 public:
-	nftdialog(QWidget* parent, QString lang, QString templateDir);
+	nftdialog(QWidget* parent, QString lang);
 	~nftdialog() {};
 public slots:
 	void enableButtonBox(bool);

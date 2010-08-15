@@ -118,16 +118,13 @@ void satdialog::addCategories(const QString& dir)
 	QDir tmpldir(dir);
 	if (tmpldir.exists())
 	{
-		tmpldir.setFilter(QDir::Dirs);
+		tmpldir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 		QStringList dirs = tmpldir.entryList();
 		for (int i = 0; i < dirs.size(); ++i)
 		{
-			if ((dirs[i] != ".") && (dirs[i] != "..")) 
-			{
-				tmplFile = findTemplateXml(dir + "/" + dirs[i]);
-				if (QFile::exists(tmplFile))
-					readCategories(tmplFile);
-			}
+			tmplFile = findTemplateXml(dir + "/" + dirs[i]);
+			if (QFile::exists(tmplFile))
+				readCategories(tmplFile);
 		}
 	}
 }
@@ -182,7 +179,10 @@ void satdialog::setupCategories()
 	
 	addCategories(scribusHome + "/templates");
 	addCategories(scribusShare); 
-	
+	QString userTemplateDir(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
+	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
+		addCategories(userTemplateDir);
+
 	QStringList list;
 	QMap<QString, QString>::ConstIterator it;
 	for (it = cats.constBegin(); it != cats.constEnd(); ++it)

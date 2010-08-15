@@ -22,7 +22,6 @@ class nftsettings {
 private:
 	QString scribusShare;
 	QString scribusUserHome;
-	QString userTemplateDir;
 	QString nftHomeDir;
 	QString lang;
 	nftrcreader* handler;
@@ -32,7 +31,7 @@ private:
 	QString findTemplateXml(QString dir);
 public:
 	std::vector<nfttemplate*> templates;
-	nftsettings(QString guilang, QString templateDir);
+	nftsettings(QString guilang);
 	~nftsettings();
 };
 

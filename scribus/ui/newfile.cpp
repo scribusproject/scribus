@@ -87,7 +87,7 @@ const QSize PageLayoutsWidget::minimumSizeHint()
 	return QSize(maxX, maxY);
 }
 
-NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QString lang, QString templateDir ) : QDialog( parent )
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QString lang) : QDialog( parent )
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
@@ -110,7 +110,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QS
 	{
 		tabWidget->addTab(newDocFrame, tr("&New Document"));
 		createNewFromTempPage();
-		nftGui->setupSettings(lang, templateDir);
+		nftGui->setupSettings(lang);
 		tabWidget->addTab(newFromTempFrame, tr("New &from Template"));
 		createOpenDocPage();
 		tabWidget->addTab(openDocFrame, tr("Open &Existing Document"));
