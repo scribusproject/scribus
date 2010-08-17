@@ -213,7 +213,7 @@ bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, QStr
 	panel = new Prefs_Scripter(parent);
 	Q_CHECK_PTR(panel);
 	caption = tr("Scripter");
-	icon = loadIcon("python.png");
+	icon = loadIcon("python_16.png");
 	return true;
 }
 
