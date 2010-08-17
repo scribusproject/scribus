@@ -4,7 +4,6 @@
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importai.cpp" line="403"/>
         <source>Importing: %1</source>
         <translation>Importuojama: %1</translation>
     </message>
@@ -136,7 +135,7 @@
     <message>
         <location filename="../../../scribus/ui/about.cpp" line="125"/>
         <source>%1 %2 %3</source>
-        <translation>%3 %2 %1 d.</translation>
+        <translation>%3 %2 %1 d. </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/about.cpp" line="133"/>
@@ -214,7 +213,6 @@
         <translation>Ši „Windows“ laida nenaudoja šriftų konfigūracijos arba CUPS bibliotekų.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/about.cpp" line="186"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</translation>
     </message>
@@ -453,12 +451,10 @@
         <translation>Taisyti paveikslą...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1319"/>
         <source>C&amp;olors...</source>
         <translation>Spalv&amp;os...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1324"/>
         <source>&amp;Master Pages...</source>
         <translation>P&amp;uslapių šablonai...</translation>
     </message>
@@ -467,23 +463,31 @@
         <source>P&amp;references...</source>
         <translation>&amp;Nuostatos...</translation>
     </message>
-    <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
+    <message numerus="yes">
         <source>Document &amp;Setup (old)...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Dokumento nuo&amp;statos (senos)...</numerusform>
+            <numerusform>Keleto dokumentų nuo&amp;statos (senos)...</numerusform>
+            <numerusform>Dokumentų nuo&amp;statos (senos)...</numerusform>
+        </translation>
     </message>
-    <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1297"/>
+    <message numerus="yes">
         <source>P&amp;references (old)...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>&amp;Nuostata (sena)...</numerusform>
+            <numerusform>&amp;Nuostatos (senos)...</numerusform>
+            <numerusform>&amp;Nuostatos (senos)...</numerusform>
+        </translation>
     </message>
-    <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1322"/>
+    <message numerus="yes">
         <source>Gradients...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Gradientas...</numerusform>
+            <numerusform>Gradientai...</numerusform>
+            <numerusform>Gradientai...</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1332"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
@@ -563,7 +567,6 @@
         <translation>Š&amp;ešėlis</translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1361"/>
         <source>&amp;Image Effects</source>
         <translation>&amp;Paveikslo efektai</translation>
     </message>
@@ -577,18 +580,23 @@
         <source>D&amp;uplicate</source>
         <translation>D&amp;ublikatas</translation>
     </message>
-    <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1366"/>
+    <message numerus="yes">
         <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;Daug dublikatų</translation>
+        <translation>
+            <numerusform>&amp;Daug kopijų</numerusform>
+            <numerusform>&amp;Daug kopijų</numerusform>
+            <numerusform>&amp;Daug kopijų</numerusform>
+        </translation>
     </message>
-    <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1367"/>
+    <message numerus="yes">
         <source>&amp;Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>&amp;Transformacija</numerusform>
+            <numerusform>&amp;Transformacijos</numerusform>
+            <numerusform>&amp;Transformacijos</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
         <source>&amp;Delete</source>
         <translation>P&amp;ašalinti</translation>
     </message>
@@ -660,7 +668,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1388"/>
         <source>Embed Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtraukti paveikslą</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1389"/>
@@ -790,7 +798,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1422"/>
         <source>Manage &amp;Guides...</source>
-        <translation>Tvarkyti &amp;orientyrus...</translation>
+        <translation>Tvarkyti &amp;kreiptines...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1423"/>
@@ -840,7 +848,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1440"/>
         <source>Show G&amp;uides</source>
-        <translation>Rodyti &amp;orientyrus</translation>
+        <translation>Rodyti &amp;kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1442"/>
@@ -865,7 +873,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1448"/>
         <source>Sna&amp;p to Guides</source>
-        <translation>&amp;Traukti prie orientyrų</translation>
+        <translation>&amp;Traukti prie kreiptinių</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1453"/>
@@ -915,7 +923,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1463"/>
         <source>Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Simboliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
@@ -985,7 +993,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1498"/>
         <source>Insert 3D Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Įterpti erdvinę (3D) anotaciją</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1504"/>
@@ -1100,7 +1108,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1527"/>
         <source>Toggle Guides</source>
-        <translation>Perjungti orientyrų rodymą</translation>
+        <translation>Perjungti kreiptinių rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1300"/>
@@ -1551,7 +1559,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1514"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Apie priedus</translation>
+        <translation>&amp;Apie papildinius</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1528"/>
@@ -1786,7 +1794,7 @@
     <message>
         <location filename="../../../scribus/ui/aligndistribute.ui" line="65"/>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Parinkti orientyrai:</translation>
+        <translation>&amp;Parinktos kreiptinės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/aligndistribute.ui" line="78"/>
@@ -1848,7 +1856,7 @@
     <message>
         <location filename="../../../scribus/ui/aligndistribute.ui" line="556"/>
         <source>Swap</source>
-        <translation type="unfinished"></translation>
+        <translation>Mainai</translation>
     </message>
 </context>
 <context>
@@ -1898,7 +1906,7 @@
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="100"/>
         <source>Guide</source>
-        <translation>Orientyras</translation>
+        <translation>Kreiptinė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="101"/>
@@ -1959,7 +1967,7 @@
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Parinkti orientyrai:</translation>
+        <translation>&amp;Parinkos kreiptinės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="142"/>
@@ -2014,12 +2022,12 @@
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="173"/>
         <source>Swap items to the left</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukeisti objektus kairėje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="174"/>
         <source>Swap items to the right</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukeisti objektus dešinėje</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -2103,12 +2111,12 @@
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="103"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Lygiuoti pagal:&lt;ul&gt;&lt;li&gt;Pirmą pažymėtą objektą&lt;/li&gt;&lt;li&gt;Antrą pažymėtą objektą&lt;/li&gt;&lt;li&gt;Dabartinį puslapį&lt;/li&gt;&lt;li&gt;Dabartinio puslapio paraštese&lt;/li&gt;&lt;li&gt;Orientyrą&lt;/li&gt;&lt;li&gt;Pažymėtą dalį&lt;/ul&gt;&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Lygiuoti pagal:&lt;ul&gt;&lt;li&gt;Pirmą pažymėtą objektą&lt;/li&gt;&lt;li&gt;Antrą pažymėtą objektą&lt;/li&gt;&lt;li&gt;Dabartinį puslapį&lt;/li&gt;&lt;li&gt;Dabartinio puslapio paraštese&lt;/li&gt;&lt;li&gt;Kreiptinę&lt;/li&gt;&lt;li&gt;Pažymėtą dalį&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/aligndistribute.cpp" line="112"/>
         <source>The location of the selected guide to align to</source>
-        <translation>Orientyro, pagal kurį lygiuoti, padėtis</translation>
+        <translation>Kreiptinės, pagal kurią lygiuoti, padėtis</translation>
     </message>
 </context>
 <context>
@@ -3117,7 +3125,7 @@
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="70"/>
         <source>Adds support for spell-checking via Aspell. Languages can be chosen from among the installed Aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prideda rašybos tikrinimo funkcijas sistemoje esančių „Aspell“ žodynų pagrindu. Kalbą galima nurodyti tikrinimo metu. Rašybos tikrinimas gali būti atliekamas ir visamo dokumentui, ir pažymėtai teksto daliai.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="98"/>
@@ -3140,7 +3148,7 @@
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="195"/>
         <source>The currently active dictionary. Scribus uses Aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šiuo metu aktyvus žodynas. Žodynams „Scribus“ naudoja „Aspell“ priemones. &lt;br /&gt;Jei jums reikia atnaujintų at daugiau žodynų, galite juos įdiegti naudodamiesi sistemos diegimo priemonėmis arba paketų tvarkikliu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="279"/>
@@ -3269,17 +3277,17 @@
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="44"/>
         <source> Aspell dictionary.</source>
-        <translation type="unfinished"></translation>
+        <translation> „Aspell“ žodynas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="89"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>aspellplugin (AspellPluginImpl::AspellPluginImpl): Klaida „Aspell“ rašybos tikrintuvo konfigūracijoje.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="96"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</source>
-        <translation type="unfinished"></translation>
+        <translation>aspellplugin (AspellPluginImpl::AspellPluginImpl): Klaida „Aspell“ rašybos tikrintuvo kūrimo metu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="243"/>
@@ -3423,7 +3431,7 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="105"/>
         <source>Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Brūkšninis kodas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="375"/>
@@ -3495,7 +3503,7 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="170"/>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Fono spalva – po kodo brūkšniais</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="173"/>
@@ -3900,7 +3908,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/cmsprefs.cpp" line="26"/>
         <source>Monitor profiles can only be changed when no documents are currently opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoriaus profilį galima pakeisti tik nesant atvertų dokumentų.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefs.cpp" line="78"/>
@@ -3986,22 +3994,22 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="176"/>
         <source>Document Rendering Intents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento vizualizavimo tikslumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="245"/>
         <source>Document Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="278"/>
         <source>Simulate printer on Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Imituoti spausdintuvą ekrane</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="313"/>
         <source>Monitor Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoriaus profilis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="325"/>
@@ -4024,7 +4032,7 @@ This profile should be specific to your monitor and not a generic profile (i.e. 
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="42"/>
         <source>Document Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento profilis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmsprefsbase.ui" line="162"/>
@@ -4233,7 +4241,7 @@ Rekomenduojama jį įgalinti, jei dokumente yra nuotraukų.</translation>
     <message>
         <location filename="../../../scribus/ui/cmykfw.cpp" line="125"/>
         <source>Is Spot Color</source>
-        <translation>Bus grynoji spalva</translation>
+        <translation>Bus neskaidomoji spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cmykfw.cpp" line="1002"/>
@@ -4599,22 +4607,22 @@ Aukštis: %2</translation>
         <location filename="../../../scribus/plugins/import/cgm/importcgm.cpp" line="140"/>
         <location filename="../../../scribus/plugins/import/cgm/importcgm.cpp" line="335"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupė %1</translation>
+        <translation>Grupė %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgm.cpp" line="207"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importuojama: %1</translation>
+        <translation>Importuojama: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgm.cpp" line="210"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analizuojamas failas:</translation>
+        <translation>Analizuojamas failas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgm.cpp" line="495"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Generuojami objektai</translation>
+        <translation>Generuojami objektai</translation>
     </message>
 </context>
 <context>
@@ -5007,7 +5015,7 @@ Klavišu „Įterpti“ (Insert) įterpiamas rašmuo į žemiau esantį „Atran
     <message>
         <location filename="../../../scribus/ui/checkDocument.cpp" line="424"/>
         <source>Blendmode used</source>
-        <translation>Naudota blukinimo veiksena</translation>
+        <translation>Naudota perėjimo veiksena</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/checkDocument.cpp" line="437"/>
@@ -5128,40 +5136,40 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="37"/>
         <source>Collecting Items:</source>
-        <translation type="unfinished"></translation>
+        <translation>Renkamos objektai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="40"/>
         <source>Collecting Patterns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Renkamos tekstūros:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="46"/>
         <source>Collecting Fonts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Renkami šriftai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="52"/>
         <source>Collecting Profiles:</source>
-        <translation type="unfinished"></translation>
+        <translation>Renkami profiliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="85"/>
         <source>Collecting...</source>
-        <translation type="unfinished">Renkama...</translation>
+        <translation>Renkama...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="89"/>
         <source>Cannot collect all files for output for file:
 %1</source>
-        <translation type="unfinished">Negalima surinkti visų failų perdavimui į spaudą; maketo failas:
+        <translation>Negalima surinkti visų failų perdavimui į spaudą; maketo failas:
 %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/collectforoutput_ui.cpp" line="112"/>
         <source>Cannot collect the file: 
 %1</source>
-        <translation type="unfinished">Negalima surinkti failų perdavimui į spaudą:
+        <translation>Negalima surinkti failų perdavimui į spaudą:
 %1</translation>
     </message>
 </context>
@@ -5307,7 +5315,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <message>
         <location filename="../../../scribus/ui/colorm.cpp" line="173"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation>Jei spalvų valdymas yra leidžiamas, perspėjantysis trikampiukas atsiranda greta spalvos, jei ji neatitinka pasirinkto spausdintuvo naudojamo spalvų profilio. Tai reiškia, kas spausdinta spalva galis skirti nuo ekrane matomos.Neskaidomos spalvos pažymėtos raudonu apskritimu. Greta registracinių spalvų  bus sutapimo su kitomis spalvomis žymos. Daugiau patarimų apie spalvų naudojimą rasite internete, skyrelyje „Color Management“ (Spalvų valdymas“).</translation>
+        <translation>Jei spalvų valdymas yra leidžiamas, perspėjantysis trikampiukas atsiranda greta spalvos, jei ji neatitinka pasirinkto spausdintuvo naudojamo spalvų profilio. Tai reiškia, kas spausdinta spalva gali skirti nuo ekrane matomos. Neskaidomos spalvos pažymėtos raudonu apskritimu. Greta registracinių spalvų bus sutapimo su kitomis spalvomis žymos. Daugiau patarimų apie spalvų naudojimą rasite internete, skyrelyje „Color Management“ (Spalvų valdymas“).</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorm.cpp" line="314"/>
@@ -5817,12 +5825,12 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="278"/>
         <source>PDF 3D Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF dokumento 3D anotacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="279"/>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Simbolis</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="280"/>
@@ -6043,19 +6051,19 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="obsolete">Suliejimo būdas:</translation>
+        <translation type="obsolete">Perėjimo būdas:</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="obsolete">Tamsiau</translation>
+        <translation type="obsolete">Tamsyn</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="obsolete">Šviesiau</translation>
+        <translation type="obsolete">Šviesyn</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="obsolete">Dauginti</translation>
+        <translation type="obsolete">Daugėja</translation>
     </message>
     <message>
         <source>Screen</source>
@@ -6153,12 +6161,12 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
         <location filename="../../../scribus/ui/cpalette.cpp" line="397"/>
         <location filename="../../../scribus/ui/cpalette.cpp" line="400"/>
         <source>Custom</source>
-        <translation type="unfinished">Individualus</translation>
+        <translation>Individualus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/cpalette.cpp" line="902"/>
         <source>Create Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukurti karkaso tinklelį</translation>
     </message>
 </context>
 <context>
@@ -6474,7 +6482,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
         <location filename="../../../scribus/ui/curvewidget.cpp" line="415"/>
         <location filename="../../../scribus/ui/curvewidget.cpp" line="453"/>
         <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreivių failai „*.scu“ (*.scu *.SCU);; Visi failai (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/curvewidget.cpp" line="487"/>
@@ -6671,7 +6679,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <message>
         <location filename="../../../scribus/plugins/scripter/api_dialogs.cpp" line="34"/>
         <source>Alert - Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Įspėjimas - „Scribus“</translation>
     </message>
 </context>
 <context>
@@ -6732,7 +6740,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="53"/>
         <source>&amp;Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tema:</translation>
     </message>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="61"/>
@@ -6822,7 +6830,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="174"/>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
-        <translation>Dokumento turinio žanras, pavyzdžiui, kategorijos, funkcijos ir pan.</translation>
+        <translation>Dokumento turinio žanras, pavyzdžiui, kategorijos, funkcijos ir kita</translation>
     </message>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="176"/>
@@ -7039,7 +7047,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <message>
         <location filename="../../../scribus/ui/docitemattrprefs.cpp" line="21"/>
         <source>Integer</source>
-        <translation>Sveikasis sk.</translation>
+        <translation>Sveikasis skaičius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/docitemattrprefs.cpp" line="21"/>
@@ -7164,22 +7172,22 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
         <location filename="../../../scribus/plugins/import/drw/importdrw.cpp" line="349"/>
         <location filename="../../../scribus/plugins/import/drw/importdrw.cpp" line="1337"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupė %1</translation>
+        <translation>Grupė %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrw.cpp" line="219"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importuojama: %1</translation>
+        <translation>Importuojama: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrw.cpp" line="222"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analizuojamas failas:</translation>
+        <translation>Analizuojamas failas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrw.cpp" line="487"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Generuojami objektai</translation>
+        <translation>Generuojami objektai</translation>
     </message>
 </context>
 <context>
@@ -7621,27 +7629,27 @@ importuoti nepavyko!
     <message>
         <location filename="../../../scribus/plugins/scripter/python/excepthook.ui" line="13"/>
         <source>Script error</source>
-        <translation type="unfinished">Skripto klaida</translation>
+        <translation>Skripto klaida</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/excepthook.ui" line="24"/>
         <source>An exception occured while running the script.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vykdant skriptą įvyko išimties atvejis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/excepthook.ui" line="31"/>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Užverti</translation>
+        <translation>&amp;Užverti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/excepthook.ui" line="44"/>
         <source>Exception</source>
-        <translation type="unfinished"></translation>
+        <translation>Išimtis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/excepthook.ui" line="51"/>
         <source>&amp;Details &gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išsamiau &gt;&gt;</translation>
     </message>
 </context>
 <context>
@@ -7786,7 +7794,7 @@ Naudokite 72 dpi paveikslus vaizdavimui kompiuterio ekrane</translation>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/dialog.cpp" line="123"/>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Jūsų paveikslų glaudinimo lygis: 100% - jokio glaudinimo, 0% - maksimalus glaudinimas, Jei abejojate, rinkitės „Automatiškai“</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/dialog.cpp" line="125"/>
@@ -7797,7 +7805,8 @@ Naudokite 72 dpi paveikslus vaizdavimui kompiuterio ekrane</translation>
         <location filename="../../../scribus/plugins/pixmapexport/dialog.cpp" line="126"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvedimo aplankas - vieta, išsaugoti jūsų paveikslams.
+Eksporto failo pavadinimas bus „dokumentopavadinimas-puslapionumeris.failotipas“</translation>
     </message>
     <message>
         <source>The output directory – the place to store your images.
@@ -7915,7 +7924,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/extimageprops.cpp" line="77"/>
         <location filename="../../../scribus/ui/extimageprops.cpp" line="111"/>
         <source>Dissolve</source>
-        <translation>Išsklaidymas</translation>
+        <translation>Išsisklaidymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/extimageprops.cpp" line="60"/>
@@ -7969,12 +7978,12 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/extimageprops.cpp" line="98"/>
         <source>Blend Mode:</source>
-        <translation>Suliejimo būdas:</translation>
+        <translation>Perėjimo būdas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/extimageprops.cpp" line="121"/>
         <source>Opacity:</source>
-        <translation>Pralaidumas:</translation>
+        <translation>Nepermatomumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/extimageprops.cpp" line="127"/>
@@ -8306,73 +8315,73 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="48"/>
         <source>Available Fonts</source>
-        <translation type="unfinished">Turimi šriftai</translation>
+        <translation>Turimi šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="48"/>
         <source>Font Substitutions</source>
-        <translation type="unfinished">Šriftų keitiniai</translation>
+        <translation>Šriftų keitiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="48"/>
         <source>Additional Paths</source>
-        <translation type="unfinished">Papildomos šriftų laikymo vietos</translation>
+        <translation>Papildomos šriftų laikymo vietos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="58"/>
         <source>&amp;Available Fonts</source>
-        <translation type="unfinished">&amp;Turimi šriftai</translation>
+        <translation>&amp;Turimi šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="66"/>
         <source>Font Name</source>
-        <translation type="unfinished">Šrifto pavadinimas</translation>
+        <translation>Šrifto pavadinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="67"/>
         <source>Replacement</source>
-        <translation type="unfinished">Keitinys</translation>
+        <translation>Keitinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="82"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">P&amp;ašalinti</translation>
+        <translation>P&amp;ašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="88"/>
         <source>Font &amp;Substitutions</source>
-        <translation type="unfinished">Šriftų &amp;keitiniai</translation>
+        <translation>Šriftų &amp;keitiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="107"/>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Keisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="109"/>
         <source>A&amp;dd...</source>
-        <translation type="unfinished">Pri&amp;dėti...</translation>
+        <translation>Pri&amp;dėti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="111"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">Pa&amp;šalinti</translation>
+        <translation>Pa&amp;šalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="128"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished">Šriftų paieškos vietas galima nurodyti tik „Failas &gt; Nuostatos“ ir tik jei nėra atverto jokio dokumento. Užverkite visus dokumentus, pasirinkite komandą „Failas &gt; Nuostatos &gt; Šriftai“ ir galėsite pakeisti šriftų paieškos vietas.</translation>
+        <translation>Šriftų paieškos vietas galima nurodyti tik „Failas &gt; Nuostatos“ ir tik jei nėra atverto jokio dokumento. Užverkite visus dokumentus, pasirinkite komandą „Failas &gt; Nuostatos &gt; Šriftai“ ir galėsite pakeisti šriftų paieškos vietas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="135"/>
         <source>Additional &amp;Paths</source>
-        <translation type="unfinished">Papildomos &amp;laikymo vietos</translation>
+        <translation>Papildomos &amp;laikymo vietos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="222"/>
         <location filename="../../../scribus/ui/fontprefs.cpp" line="247"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Parinkti aplanką</translation>
     </message>
 </context>
 <context>
@@ -8555,12 +8564,12 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/fontselectdialog.cpp" line="35"/>
         <source>Select Alternate Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Parinkti alternatyvų šriftą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/fontselectdialog.cpp" line="44"/>
         <source>Font</source>
-        <translation type="unfinished">Šriftas</translation>
+        <translation>Šriftas</translation>
     </message>
 </context>
 <context>
@@ -8586,34 +8595,34 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Rėmelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
-        <translation type="unfinished">Vieta:</translation>
+        <translation>Vieta:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="70"/>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="97"/>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="120"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="80"/>
         <source>Color:</source>
-        <translation type="unfinished">Spalva:</translation>
+        <translation>Spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="90"/>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepermatomumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="113"/>
         <source>Shade:</source>
-        <translation type="unfinished">Šešėlis:</translation>
+        <translation>Šešėlis:</translation>
     </message>
 </context>
 <context>
@@ -8621,12 +8630,12 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/gradientpreview.cpp" line="230"/>
         <source>Add Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti „Stop“</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientpreview.cpp" line="232"/>
         <source>Remove Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Pašalinti „Stop“</translation>
     </message>
 </context>
 <context>
@@ -8634,13 +8643,13 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="23"/>
         <source>Gradient Vector</source>
-        <translation type="unfinished">Gradiento vektorius</translation>
+        <translation>Gradiento vektorius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="39"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="131"/>
         <source>Start:</source>
-        <translation type="unfinished">Pradžios:</translation>
+        <translation>Pradžios:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="56"/>
@@ -8658,93 +8667,93 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="533"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="567"/>
         <source>/</source>
-        <translation type="unfinished"></translation>
+        <translation>/</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="73"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="165"/>
         <source>End:</source>
-        <translation type="unfinished">Pabaigos:</translation>
+        <translation>Pabaigos:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="107"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="233"/>
         <source>Skew:</source>
-        <translation type="unfinished"></translation>
+        <translation>Posvyris:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="199"/>
         <source>Focal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Židinys:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="250"/>
         <source>Scale:</source>
-        <translation type="unfinished">Mastelis:</translation>
+        <translation>Mastelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="274"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="414"/>
         <source>1. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>1. Taškas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="308"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="448"/>
         <source>2. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>2. Taškas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="342"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="482"/>
         <source>3. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>3. Taškas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="376"/>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="516"/>
         <source>4. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>4. Taškas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="550"/>
         <source>5. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>5. Taškas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="598"/>
         <source>Edit Grid Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Taisyti tinklelio taškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="620"/>
         <source>Edit Control Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Taisyti valdymo taškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="645"/>
         <source>Reset selected Control Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Atstatyti pasirinktus valdymo taškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="670"/>
         <source>Reset all Control Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Atstatyti visus valdymo taškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="707"/>
         <source>New Mesh...</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujas karkaso tinklelis...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="714"/>
         <source>Reset Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Atstatyti karkaso tinklelį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientvectorbase.ui" line="721"/>
         <source>Mesh -&gt; Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Karkaso tinklelis -&gt; Figūra</translation>
     </message>
 </context>
 <context>
@@ -8836,7 +8845,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.ui" line="120"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="235"/>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Fiksuoti orientyrus</translation>
+        <translation>&amp;Fiksuoti kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="130"/>
@@ -8932,55 +8941,55 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="338"/>
         <source>Delete all guides from the current page</source>
-        <translation>Pašalinti visus dabartinio puslapio orientyrus</translation>
+        <translation>Pašalinti visas dabartinio puslapio kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="341"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="252"/>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation>Pašalinti dabartinio puslapio &amp;orientyrus</translation>
+        <translation>Pašalinti dabartinio puslapio &amp;kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="351"/>
         <source>Delete all guides from the current document</source>
-        <translation>Pašalinti dabartinio puslapio orientyrus</translation>
+        <translation>Pašalinti dabartinio puslapio kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="354"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="253"/>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation>Pašalinti orientyrus iš &amp;visų puslapių</translation>
+        <translation>Pašalinti kreiptines iš &amp;visų puslapių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="16"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="225"/>
         <source>Guide Manager</source>
-        <translation>Orientyrų tvarkiklis</translation>
+        <translation>Kreiptinių tvarkiklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="255"/>
         <source>Add a new horizontal guide</source>
-        <translation>Pridėti naują horizontalų orientyrą</translation>
+        <translation>Pridėti naują horizontalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="256"/>
         <source>Delete the selected horizontal guide</source>
-        <translation>Pašalinti pažymėtą horizontalų orientyrą</translation>
+        <translation>Pašalinti pažymėtą horizontalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="257"/>
         <source>Add a new vertical guide</source>
-        <translation>Pridėti naują vertikalų orientyrą</translation>
+        <translation>Pridėti naują vertikalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="258"/>
         <source>Delete the selected vertical guide</source>
-        <translation>Pašalinti pažymėtą vertikalų orientyrą</translation>
+        <translation>Pašalinti pažymėtą vertikalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="259"/>
         <source>Lock the guides</source>
-        <translation>Užfiksuoti orientyrus</translation>
+        <translation>Fiksuoti kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="260"/>
@@ -8990,67 +8999,67 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="261"/>
         <source>Number of horizontal guides to create</source>
-        <translation>Kursimų horizontalių orientyrų skaičius</translation>
+        <translation>Kursimų horizontalių kreiptinių skaičius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="262"/>
         <source>Number of vertical guides to create</source>
-        <translation>Kursimų vertikalių orientyrų skaičius</translation>
+        <translation>Kursimų vertikalių kreiptinių skaičius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="263"/>
         <source>Create rows with guides, with an additional gap between the rows</source>
-        <translation>Sukurti iš orientyrų eilutes naudojant papildomą intervalą tarp eilučių</translation>
+        <translation>Sukurti iš kreiptinių eilutes naudojant papildomą intervalą tarp eilučių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="264"/>
         <source>Create columns with guides, with an additional gap between the columns</source>
-        <translation>Sukurti iš orientyrų stulpelius naudojant papildomą intervalą tarp stulpelių</translation>
+        <translation>Sukurti iš kreiptinių stulpelius naudojant papildomą intervalą tarp stulpelių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="265"/>
         <source>Create the selected number of horizontal guides relative to the current page</source>
-        <translation>Sukurti nurodytą skaičių horizontalių orientyrų dabartinio puslapio krašto atžvilgiu</translation>
+        <translation>Sukurti nurodytą skaičių horizontalių kreiptinių dabartinio puslapio krašto atžvilgiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="266"/>
         <source>Create the selected number of horizontal guides relative to the current page&apos;s margins</source>
-        <translation>Sukurti nurodytą skaičių horizontalių orientyrų dabartinio puslapio paraščių atžvilgiu</translation>
+        <translation>Sukurti nurodytą skaičių horizontalių kreiptinių dabartinio puslapio paraščių atžvilgiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="267"/>
         <source>Create the selected number of horizontal guides relative to the current selection of items</source>
-        <translation>Sukurti nurodytą skaičių horizontalių orientyrų pažymėtų objektų atžvilgiu</translation>
+        <translation>Sukurti nurodytą skaičių horizontalių kreiptinių pažymėtų objektų atžvilgiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="268"/>
         <source>Create the selected number of vertical guides relative to the current page</source>
-        <translation>Sukurti nurodytą skaičių vertikalių orientyrų dabartinio puslapio krašto atžvilgiu</translation>
+        <translation>Sukurti nurodytą skaičių vertikalių kreiptinių dabartinio puslapio krašto atžvilgiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="269"/>
         <source>Create the selected number of vertical guides relative to the current page&apos;s margins</source>
-        <translation>Sukurti nurodytą skaičių vertikalių orientyrų dabartinio puslapio paraščių atžvilgiu</translation>
+        <translation>Sukurti nurodytą skaičių vertikalių kreiptinių dabartinio puslapio paraščių atžvilgiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="270"/>
         <source>Create the selected number of vertical guides relative to the current selection of items</source>
-        <translation>Sukurti nurodytą skaičių vertikalių orientyrų pažymėtų objektų atžvilgiu</translation>
+        <translation>Sukurti nurodytą skaičių vertikalių kreiptinių pažymėtų objektų atžvilgiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="271"/>
         <source>Apply the shown guides to all pages in the document</source>
-        <translation>Rodomus orientyrus pritaikyti visiems dokumento puslapiams</translation>
+        <translation>Rodomas kreiptines pritaikyti visiems dokumento puslapiams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="272"/>
         <source>Delete all guides shown on the current page</source>
-        <translation>Pašalinti visus dabartinio puslapio orientyrus</translation>
+        <translation>Pašalinti visas dabartinio puslapio kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="273"/>
         <source>Delete all guides from all pages</source>
-        <translation>Pašalinti visus visų puslapių orientyrus</translation>
+        <translation>Pašalinti visas visų puslapių kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="189"/>
@@ -9153,12 +9162,12 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/helpbrowser.cpp" line="151"/>
         <source>Navigation</source>
-        <translation type="unfinished"></translation>
+        <translation>Navigacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowser.cpp" line="312"/>
         <source>Loading Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Įkėlimas nepavyko</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowser.cpp" line="338"/>
@@ -9227,53 +9236,53 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="30"/>
         <source>&amp;Contents</source>
-        <translation type="unfinished">&amp;Turinys</translation>
+        <translation>&amp;Turinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="44"/>
         <source>Se&amp;arch</source>
-        <translation type="unfinished">Pa&amp;ieška</translation>
+        <translation>Pa&amp;ieška</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="52"/>
         <source>Searching is case insensitive</source>
-        <translation type="unfinished">Didžiosios ir mažosios raidės laikomos vienodomis</translation>
+        <translation>Didžiosios ir mažosios raidės laikomos vienodomis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="59"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Paieška</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="69"/>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="85"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="78"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished">Nuo&amp;rodos</translation>
+        <translation>Nuo&amp;rodos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="95"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nauja</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="102"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">P&amp;ašalinti</translation>
+        <translation>P&amp;ašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/helpbrowsernavigation.ui" line="109"/>
         <source>D&amp;elete All</source>
-        <translation type="unfinished">Pašalinti &amp;viską</translation>
+        <translation>Pašalinti &amp;viską</translation>
     </message>
 </context>
 <context>
@@ -9481,35 +9490,36 @@ o jų vektorinės grafikos objektus konvertuoti į „Scribus“ objektus.</tran
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="59"/>
         <source>Import Cgm...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti CGM failą...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="61"/>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="96"/>
         <source>CGM File</source>
-        <translation type="unfinished"></translation>
+        <translation>CGM failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="62"/>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="98"/>
         <source>CGM File (*.cgm *.CGM)</source>
-        <translation type="unfinished"></translation>
+        <translation>CGM failas (*.cgm *.CGM)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="80"/>
         <source>Imports CGM Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoja CGM failus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="81"/>
         <source>Imports most binary CGM files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti daugumą dvejetainių CGM failų į aktyvų dokumentą,
+o jų vektorinės grafikos objektus konvertuoti į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Visi palaikomi formatai</translation>
+        <translation>Visi palaikomi formatai</translation>
     </message>
 </context>
 <context>
@@ -9528,7 +9538,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Importuoja daugeli „cvg“ failų į taisomą dokumentą,
+        <translation>Importuoja daugelį „cvg“ failų į taisomą dokumentą,
 o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</translation>
     </message>
     <message>
@@ -9542,35 +9552,36 @@ o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</tran
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="59"/>
         <source>Import DRW...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti DRW failą...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="61"/>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="97"/>
         <source>Micrografx DRW File</source>
-        <translation type="unfinished"></translation>
+        <translation>„Micrografx DRW“ failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="99"/>
         <source>Micrografx DRW File (*.drw *.DRW)</source>
-        <translation type="unfinished"></translation>
+        <translation>„Micrografx DRW“ failas (*.drw *.DRW)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="81"/>
         <source>Imports DRW Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoja DRW failus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="82"/>
         <source>Imports most DRW files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoja daugumą DRW failų į aktyvų dokumentą,
+o jų vektorinės grafikos objektus konvertuoti į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Visi palaikomi formatai</translation>
+        <translation>Visi palaikomi formatai</translation>
     </message>
 </context>
 <context>
@@ -9579,33 +9590,34 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="52"/>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="81"/>
         <source>Adobe Indesign IDML</source>
-        <translation type="unfinished"></translation>
+        <translation>„Adobe Indesign“ IDML failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="53"/>
         <source>Adobe Indesign IDML (*.idml *.IDML)</source>
-        <translation type="unfinished"></translation>
+        <translation>„Adobe Indesign“ IDML  (*.idml *.IDML)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="65"/>
         <source>Imports Adobe Idml Packages</source>
-        <translation type="unfinished"></translation>
+        <translation>„Adobe Indesign“ IDML paketas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="66"/>
         <source>Imports Adobe Indesign&apos;s idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoja „Adobe Indesign“ IDML paketus į „Scribus“
+ konvertuodamas „Indesign“ objektus į „Scribus“ puslapių objektus; ne viską „Scribus“ palaiko, bet visi palaikomi objektai bus importuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="67"/>
         <source>GPL</source>
-        <translation type="unfinished"></translation>
+        <translation>GPL</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="101"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Visi palaikomi formatai</translation>
+        <translation>Visi palaikomi formatai</translation>
     </message>
 </context>
 <context>
@@ -9624,7 +9636,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="79"/>
         <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Importuoja daugeli postskriptinių failų į taisomą dokumentą,
+        <translation>Importuoja daugelį postskriptinių failų į taisomą dokumentą,
 o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</translation>
     </message>
 </context>
@@ -9644,7 +9656,7 @@ o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</tran
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Importuoja daugeli „Mac Pict“ paveikslų į taisomą dokumentą,
+        <translation>Importuoja daugelį „Mac Pict“ paveikslų į taisomą dokumentą,
 o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</translation>
     </message>
     <message>
@@ -9658,23 +9670,24 @@ o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</tran
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="58"/>
         <source>Import WPG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti WPG failus...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="79"/>
         <source>Imports WPG Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti WPG failus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="80"/>
         <source>Imports most WPG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti daugumą „WPG“ failų į aktyvų dokumentą,
+o jų vektorinės grafikos objektus konvertuoti į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="128"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Visi palaikomi formatai</translation>
+        <translation>Visi palaikomi formatai</translation>
     </message>
 </context>
 <context>
@@ -9682,35 +9695,36 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="52"/>
         <source>Import Xara...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti XARA failą...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="54"/>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="89"/>
         <source>XARA &quot;*.xar&quot; File</source>
-        <translation type="unfinished"></translation>
+        <translation>XARA „*.xar“ failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="91"/>
         <source>XARA &quot;*.xar&quot; File (*.xar *.XAR)</source>
-        <translation type="unfinished"></translation>
+        <translation>XARA „*.xar“ failas (*.xar *.XAR)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="73"/>
         <source>Imports Xara Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoja XARA failus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="74"/>
         <source>Imports most Xara files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti daugumą „Xara“ failų į aktyvų dokumentą,
+o jų vektorinės grafikos objektus konvertuoti į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Visi palaikomi formatai</translation>
+        <translation>Visi palaikomi formatai</translation>
     </message>
 </context>
 <context>
@@ -9729,7 +9743,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="80"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Importuoja daugeli „Xfig“ failų į taisomą dokumentą,
+        <translation>Importuoja daugelį „Xfig“ failų į taisomą dokumentą,
 o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</translation>
     </message>
     <message>
@@ -10670,7 +10684,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="569"/>
         <source>Blend Mode:</source>
-        <translation>Suliejimo būdas:</translation>
+        <translation>Perėjimo būdas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="571"/>
@@ -10680,17 +10694,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="572"/>
         <source>Darken</source>
-        <translation>Tamsiau</translation>
+        <translation>Tamsyn</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="573"/>
         <source>Lighten</source>
-        <translation>Šviesiau</translation>
+        <translation>Šviesyn</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="574"/>
         <source>Multiply</source>
-        <translation>Dauginti</translation>
+        <translation>Daugėja</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="575"/>
@@ -10730,22 +10744,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="605"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="unfinished"></translation>
+        <translation>Padaryti sluoksnį matomu - nuimti žymą, kad paslėptas sluoksnis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="606"/>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="unfinished"></translation>
+        <translation>Spausdinti sluoksnį - nuimti žymą, kad draudžiama spausdinti.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="607"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="unfinished"></translation>
+        <translation>Užrakintas ar atrakintas sluoksnis: nepažymėtas yra atrakintas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Leisti žemesnių sluoksnių tekstui apgaubti objektus. Tai leidus, žemesniųjų sluoksnių tekstas apgaubia sluoksnio, kuriam ši parinktis pažymėta, objektus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="580"/>
@@ -10797,7 +10811,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="602"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
-        <translation>Blukinimo veiksena veikia tik PDF 1.4 dokumentuose</translation>
+        <translation>Perėjimo veiksena veikia tik PDF 1.4 dokumentuose</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="603"/>
@@ -11020,7 +11034,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/loadsaveplugin.cpp" line="155"/>
         <location filename="../../../scribus/loadsaveplugin.cpp" line="186"/>
         <source>No File Loader Plugins Found</source>
-        <translation>Failų įkėliklio priedo nerasta</translation>
+        <translation>Failų įkėliklio papildinio nerasta</translation>
     </message>
 </context>
 <context>
@@ -11651,7 +11665,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="13"/>
         <source>Mesh Distortion</source>
-        <translation>Tinklelio iškraipymas</translation>
+        <translation>Karkaso tinklelio iškraipymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="27"/>
@@ -11686,7 +11700,7 @@ Jei nėra pažymėtų rankenėlių, į pradinę padėtį bus grąžinos visos.</
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="69"/>
         <source>Mesh Distortion...</source>
-        <translation>Tinklelio iškraipymas...</translation>
+        <translation>Karkaso tinklelio iškraipymas...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="73"/>
@@ -12094,7 +12108,7 @@ Jei nėra pažymėtų rankenėlių, į pradinę padėtį bus grąžinos visos.</
     </message>
     <message>
         <source>Column Guides</source>
-        <translation type="obsolete">Stulpelių orientyrai</translation>
+        <translation type="obsolete">Stulpelių kreiptinės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newfile.cpp" line="319"/>
@@ -12149,17 +12163,17 @@ Jei nėra pažymėtų rankenėlių, į pradinę padėtį bus grąžinos visos.</
     <message>
         <location filename="../../../scribus/ui/newfile.cpp" line="688"/>
         <source>New from Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujas šablono pagrindu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newfile.cpp" line="690"/>
         <source>Open Existing Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Atverti esamą dokumentą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newfile.cpp" line="692"/>
         <source>Open Recent Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Atverti taisytą dokumentą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newfile.cpp" line="130"/>
@@ -12241,82 +12255,82 @@ Jei nėra pažymėtų rankenėlių, į pradinę padėtį bus grąžinos visos.</
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="20"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="31"/>
         <source>Preset Layouts:</source>
-        <translation type="unfinished">Numatytieji formatai:</translation>
+        <translation>Numatytieji maketai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="48"/>
         <source>Left:</source>
-        <translation type="unfinished">Kairėje:</translation>
+        <translation>Kairėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="68"/>
         <source>Right:</source>
-        <translation type="unfinished">Dešinėje:</translation>
+        <translation>Dešinėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="88"/>
         <source>Top:</source>
-        <translation type="unfinished">Viršuje:</translation>
+        <translation>Viršuje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="108"/>
         <source>Bottom:</source>
-        <translation type="unfinished">Apačioje:</translation>
+        <translation>Apačioje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="128"/>
         <source>Link</source>
-        <translation type="unfinished">Saitas</translation>
+        <translation>Saitas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidgetbase.ui" line="135"/>
         <source>Printer Margins...</source>
-        <translation type="unfinished">Spausdintuvo paraštės...</translation>
+        <translation>Spausdintuvo paraštės...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="75"/>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished">Atstumas tarp viršutinės paraštės ir lapo krašto</translation>
+        <translation>Atstumas tarp viršutinės paraštės ir lapo krašto</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="76"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished">Atstumas tarp apatinės paraštės ir lapo krašto</translation>
+        <translation>Atstumas tarp apatinės paraštės ir lapo krašto</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="77"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Atstumas tarp kairiosios paraštės ir lapo krašto. Jei pasirinktas dvipusis, 2 arba 3 lenkimų maketo šablonas, ši paraštės erdvė gali būti panaudojama tinkamoms įrišimo paraštėms parinkti</translation>
+        <translation>Atstumas tarp kairiosios paraštės ir lapo krašto. Jei pasirinktas dvipusis, 2 arba 3 lenkimų maketo šablonas, ši paraštės erdvė gali būti panaudojama tinkamoms įrišimo paraštėms parinkti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="78"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Atstumas tarp dešiniosios paraštės ir lapo krašto. Jei pasirinktas dvipusis, 2 arba 3 lenkimų maketo šablonas, ši paraštės erdvė gali būti panaudojama tinkamoms įrišimo paraštėms parinkti</translation>
+        <translation>Atstumas tarp dešiniosios paraštės ir lapo krašto. Jei pasirinktas dvipusis, 2 arba 3 lenkimų maketo šablonas, ši paraštės erdvė gali būti panaudojama tinkamoms įrišimo paraštėms parinkti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="312"/>
         <source>&amp;Inside:</source>
-        <translation type="unfinished">&amp;Vidinės:</translation>
+        <translation>&amp;Vidinės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="312"/>
         <source>&amp;Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kairėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="313"/>
         <source>O&amp;utside:</source>
-        <translation type="unfinished">&amp;Išorinės:</translation>
+        <translation>&amp;Išorinės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/newmarginwidget.cpp" line="313"/>
         <source>&amp;Right:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dešinėje:</translation>
     </message>
 </context>
 <context>
@@ -12606,217 +12620,217 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="14"/>
         <source>3D Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Trimačių objektų ypatybės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="118"/>
         <source>Load Model ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Įkelti modelį...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="128"/>
         <source>Clear Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvalyti modelį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="140"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="151"/>
         <source>Name:</source>
-        <translation type="unfinished">Pavadinimas:</translation>
+        <translation>Pavadinimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="170"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>PArinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="182"/>
         <source>Render Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vizualizavimo stilius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="190"/>
         <source>Solid</source>
-        <translation type="unfinished">Ryškus</translation>
+        <translation>Ryškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="195"/>
         <source>Solid Wireframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryškus karkasas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="200"/>
         <source>Transparent</source>
-        <translation type="unfinished"></translation>
+        <translation>Permatomas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="205"/>
         <source>Transparent Wireframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Permatomas karkasas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="210"/>
         <source>Bounding Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Aprėpos stačiakampis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="215"/>
         <source>Transparent Bounding Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Permatomas aprėpos stačiakampis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="220"/>
         <source>Transparent Bounding Box Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Permatomo aprėpos stačiakampio kontūras</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="225"/>
         <source>Wireframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Karkasas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="230"/>
         <source>Shaded Wireframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Karkasas su šešėliu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="235"/>
         <source>Hidden Wireframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Paslėptas karkasas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="240"/>
         <source>Vertices</source>
-        <translation type="unfinished"></translation>
+        <translation>Viršūnės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="245"/>
         <source>Shaded Vertices</source>
-        <translation type="unfinished"></translation>
+        <translation>Viršūnės su šešėliais</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="250"/>
         <source>Illustration</source>
-        <translation type="unfinished"></translation>
+        <translation>Iliustracija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="255"/>
         <source>Solid Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryškus kontūras</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="260"/>
         <source>Shaded Illustration</source>
-        <translation type="unfinished"></translation>
+        <translation>Iliustracija su šešėliu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="273"/>
         <source>Line Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linijos spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="308"/>
         <source>Face Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Priekinė spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="343"/>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepermatomumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="353"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="374"/>
         <source>Lighting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Šviesumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="385"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieko</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="390"/>
         <source>Headlamp</source>
-        <translation type="unfinished"></translation>
+        <translation>Apšvietimo lempa</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="395"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Balta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="400"/>
         <source>Day</source>
-        <translation type="unfinished"></translation>
+        <translation>Dienos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="405"/>
         <source>Night</source>
-        <translation type="unfinished"></translation>
+        <translation>Nakties</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="410"/>
         <source>Hard</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryški</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="415"/>
         <source>Primary</source>
-        <translation type="unfinished"></translation>
+        <translation>Įprasta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="420"/>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Mėlyna</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="425"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Raudona</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="430"/>
         <source>Cube</source>
-        <translation type="unfinished"></translation>
+        <translation>Kubas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="435"/>
         <source>CAD</source>
-        <translation type="unfinished"></translation>
+        <translation>CAD</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="440"/>
         <source>Artwork</source>
-        <translation type="unfinished"></translation>
+        <translation>Meno kūrinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="451"/>
         <source>Field of Vision</source>
-        <translation type="unfinished"></translation>
+        <translation>Akiratis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="463"/>
         <source>Angle:</source>
-        <translation type="unfinished">Kampas:</translation>
+        <translation>Kampas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="491"/>
         <source>Add View...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti vaizdą...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.ui" line="501"/>
         <source>Remove View</source>
-        <translation type="unfinished"></translation>
+        <translation>Pašalinti vaizdą</translation>
     </message>
 </context>
 <context>
@@ -12825,32 +12839,32 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="168"/>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="169"/>
         <source>Default</source>
-        <translation type="unfinished">Numatytasis</translation>
+        <translation>Numatytasis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="233"/>
         <source>Add a new View</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti naują peržiūros vaizdą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="233"/>
         <source>Name:</source>
-        <translation type="unfinished">Pavadinimas:</translation>
+        <translation>Pavadinimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="233"/>
         <source>New View</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujas peržiūros vaizdas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="573"/>
         <source>All Supported Formats (%1);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Visi leidžiami formatai (%1);; Visi failai (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/osgeditor.cpp" line="574"/>
         <source>Import 3-D Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti trimatį (3D) modelį</translation>
     </message>
 </context>
 <context>
@@ -12933,7 +12947,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/oneclick.cpp" line="38"/>
         <source>Basepoint</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazinis taškas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/oneclick.cpp" line="55"/>
@@ -12971,7 +12985,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/openpalette.cpp" line="46"/>
         <source>empty palette</source>
-        <translation type="unfinished"></translation>
+        <translation>tuščia paletė</translation>
     </message>
 </context>
 <context>
@@ -12979,12 +12993,12 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/openpalettemodel.cpp" line="109"/>
         <source>Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Elementai</translation>
     </message>
     <message>
         <location filename="../../../scribus/openpalettemodel.cpp" line="111"/>
         <source>Visible</source>
-        <translation type="unfinished">Matomas</translation>
+        <translation>Matomi</translation>
     </message>
 </context>
 <context>
@@ -13080,7 +13094,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/pdfopts.cpp" line="101"/>
         <source>Open PDF after Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Baigus eksportavimą atverti PDF</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pdfopts.cpp" line="115"/>
@@ -13090,12 +13104,12 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/pdfopts.cpp" line="128"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atverti eksportuotą PDF dokumentą PDF žiūrykle, numatyta išorinių įrankių nuostatose (jei neeksportuojama į kelis failus vienu metu).</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pdfopts.cpp" line="129"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mygtukas „Įrašyti“ bus uždraustas jei bandoma eksportuoti PDF/X ir nerasta PDF/X kortelės informacinė eilutė.</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -13158,7 +13172,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/pdflib_core.cpp" line="187"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
-        <translation type="unfinished"></translation>
+        <translation>Ši „Qt“ laida nepalaiko „UTF-16“ ir „ISO-10646-UCS-2“ teksto koduočių, „pdf“ eksportas negalimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdflib_core.cpp" line="2851"/>
@@ -13268,15 +13282,15 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="obsolete">Blizgesys</translation>
+        <translation type="obsolete">Mirgesys</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="obsolete">Atskirti</translation>
+        <translation type="obsolete">Atskirimas</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="obsolete">Pravalyti</translation>
+        <translation type="obsolete">Nuvalymas</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -13324,7 +13338,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation type="obsolete">Ištisinės spalvos:</translation>
+        <translation type="obsolete">Grynosios spalvos:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -13693,7 +13707,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/pageitem.cpp" line="549"/>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Simbolis</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem.cpp" line="5037"/>
@@ -14029,7 +14043,7 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="48"/>
         <source>OSG</source>
-        <translation type="unfinished"></translation>
+        <translation>OSG</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="63"/>
@@ -14037,17 +14051,17 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="137"/>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="138"/>
         <source>Default</source>
-        <translation type="unfinished">Numatytasis</translation>
+        <translation>Numatytasis</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="158"/>
         <source>3D Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Trimatis (3D) modelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="160"/>
         <source>File:</source>
-        <translation type="unfinished">Failas:</translation>
+        <translation>Failas:</translation>
     </message>
 </context>
 <context>
@@ -14347,7 +14361,7 @@ Dažnai naudojamas atvarto objektams išdėstyti</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="122"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Šiam priedui reikia bent 4.3.3 „Qt“ bibliotekos versijos</translation>
+        <translation>Šiam papildiniui reikia bent 4.3.3 „Qt“ bibliotekos versijos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="153"/>
@@ -14638,7 +14652,7 @@ Rezultatas yra sankirtos ir išskirimo kombinacija</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="127"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Šiam priedui reikia bent 4.3.3 „Qt“ bibliotekos versijos</translation>
+        <translation>Šiam papildiniui reikia bent 4.3.3 „Qt“ bibliotekos versijos</translation>
     </message>
 </context>
 <context>
@@ -14743,92 +14757,92 @@ Rezultatas yra sankirtos ir išskirimo kombinacija</translation>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="173"/>
         <source>Pattern Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstūros ypatybės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="174"/>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="175"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="176"/>
         <source>Offsets</source>
-        <translation type="unfinished">Poslinkiai</translation>
+        <translation>Poslinkiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="177"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="179"/>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="181"/>
         <source>Scaling</source>
-        <translation type="unfinished">Mastelis</translation>
+        <translation>Mastelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="182"/>
         <source>X-Scale:</source>
-        <translation type="unfinished">X mastelis:</translation>
+        <translation>X mastelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="184"/>
         <source>Y-Scale:</source>
-        <translation type="unfinished">Y mastelis:</translation>
+        <translation>Y mastelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="186"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Posūkis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="187"/>
         <source>Skewing</source>
-        <translation type="unfinished">Pakreipimas</translation>
+        <translation>Posvyris</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="190"/>
         <source>Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="192"/>
         <source>Value:</source>
-        <translation type="unfinished">Reikšmė:</translation>
+        <translation>Reikšmė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="194"/>
         <source>X-Skew:</source>
-        <translation type="unfinished"></translation>
+        <translation>X posvyris:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="195"/>
         <source>Y-Skew:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y posvyris:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="196"/>
         <source>Angle:</source>
-        <translation type="unfinished">Kampas:</translation>
+        <translation>Kampas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="197"/>
         <source>Flip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Atspindys:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/patternpropsdialog.cpp" line="198"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Užverti</translation>
     </message>
 </context>
 <context>
@@ -14860,12 +14874,12 @@ Rezultatas yra sankirtos ir išskirimo kombinacija</translation>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="13"/>
         <source>Confirm to run unsafe script</source>
-        <translation type="unfinished"></translation>
+        <translation>Patvirtinti nesaugaus skripto paleidimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="29"/>
         <source>scriptname.py</source>
-        <translation type="unfinished"></translation>
+        <translation>skriptovardas.py</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="42"/>
@@ -14876,12 +14890,18 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Dėmesio:&lt;/span&gt; Šiame skripte yra programos fragmentas, &lt;span style=&quot; font-style:italic;&quot;&gt;galintis pakenkti &lt;/span&gt;jūsų sistemai.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Leiskite vykdyti šį skriptą tik jei esate įsitikinęs, kad skriptas gautas iš patikimo šaltinio. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="60"/>
         <source>De&amp;tails &gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išsamiau &gt;&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="72"/>
@@ -14890,22 +14910,26 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="83"/>
         <source>&amp;Remember preference for this file</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Įsiminti šio failo ypatybę</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="105"/>
         <source>&amp;Allow</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Leisti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="112"/>
         <source>&amp;Deny</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drausti</translation>
     </message>
 </context>
 <context>
@@ -15006,7 +15030,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/ui/picsearchoptions.cpp" line="103"/>
         <location filename="../../../scribus/ui/picsearchoptions.cpp" line="140"/>
         <source>Scribus - Image Search</source>
-        <translation type="unfinished">„Scribus“ – paveikslo paieška</translation>
+        <translation>„Scribus“ – paveikslo paieška</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/picsearchoptions.ui" line="124"/>
@@ -15265,7 +15289,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/picstatus.ui" line="582"/>
         <source>Set format specific properties of certain image types, like clipping paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Nustatyti kai kurių tipų paveikslų specialių ypatybių (payzdžiui, apybrėžų) formatą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/picstatus.ui" line="608"/>
@@ -15434,490 +15458,491 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="13"/>
         <source>Scribus Picture Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>„Scribus“ paveikslų žvalgyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="55"/>
         <source>Folder Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplankų žvalgyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="60"/>
         <source>Collection Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Rinkinių žvalgyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="65"/>
         <source>Document Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentų žvalgyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="86"/>
         <source>Include Subdirectories</source>
-        <translation type="unfinished"></translation>
+        <translation>Įskaitant poaplankius</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="143"/>
         <source>Create new category</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukurti naują kategoriją</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="165"/>
         <source>New collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Nauja kolekcija</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="187"/>
         <source>Delete selected collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Pašalinti pažymėtą kolekciją</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="209"/>
         <source>Edit selected collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Taisyti pažymėtą kolekciją</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="244"/>
         <source>Add selected images to collection(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti pasirinktus paveikslus prie kolekcijos (-ų)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="266"/>
         <source>Remove selected images from current collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Pašalinti pasirinktus paveikslus iš dabartinės kolekcijos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="288"/>
         <source>Tag selected images</source>
-        <translation type="unfinished"></translation>
+        <translation>Pažymėti pasirinktus paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="323"/>
         <source>Import collection/collectionset</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti kolekciją / kolekcijų aibę</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="345"/>
         <source>Export collection/collectionset</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportuoti kolekciją / kolekcijų aibę</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="365"/>
         <source>add selected images to collections</source>
-        <translation type="unfinished"></translation>
+        <translation>pridėti pažymėtus paveikslus prie kolekcijas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="451"/>
         <source>go to page</source>
-        <translation type="unfinished"></translation>
+        <translation>eiti į puslapį</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="489"/>
         <source>More</source>
-        <translation type="unfinished"></translation>
+        <translation>Daugiau</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="515"/>
         <source>Always on Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Visuomet viršuje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="549"/>
         <source>Sort by Name</source>
-        <translation type="unfinished">Rikiuoti pagal vardus</translation>
+        <translation>Rikiuoti pagal vardus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="554"/>
         <source>Sort by Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Rikiuoti pagal datą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="559"/>
         <source>Sort by Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Rikiuoti pagal dydį</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="564"/>
         <source>Sort by Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Rikiuoti pagal tipą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="584"/>
         <source>Change sortorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Keisti rikiavimo tvarką</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="625"/>
         <source>Zoom in</source>
-        <translation type="unfinished">Didinti mastelį</translation>
+        <translation>Didinti mastelį</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="653"/>
         <source>Zoom out</source>
-        <translation type="unfinished">Mažinti mastelį</translation>
+        <translation>Mažinti mastelį</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="683"/>
         <source>Preview Images only</source>
-        <translation type="unfinished"></translation>
+        <translation>Peržiūrėti tik paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="688"/>
         <source>Preview with Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Peržiūrėti kartu su informacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="710"/>
         <source>Quick Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Spartusis įterpimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="715"/>
         <source>Custom Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Individualus įterpimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="720"/>
         <source>Add to Collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti prie kolekcijos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="740"/>
         <source>Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Eiti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="776"/>
         <source>0 Image(s) Displayed, 0 Image(s) Filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>0 paveikslų parodyta, 0 paveikslų filtruota</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="796"/>
         <source>Autosave Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatinio įrašymo nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="809"/>
         <source>Reset Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Atstatyti nuostatas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="816"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Užverti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="846"/>
         <source>Information</source>
-        <translation type="unfinished">Informacija</translation>
+        <translation>Informacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="858"/>
         <source>File</source>
-        <translation type="unfinished">Failas</translation>
+        <translation>Failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="864"/>
         <source>Name:</source>
-        <translation type="unfinished">Pavadinimas:</translation>
+        <translation>Pavadinimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="878"/>
         <source>Path:</source>
-        <translation type="unfinished">Kelias:</translation>
+        <translation>Kelias:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="892"/>
         <source>Size:</source>
-        <translation type="unfinished">Dydis:</translation>
+        <translation>Dydis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="906"/>
         <source>Date:</source>
-        <translation type="unfinished">Data:</translation>
+        <translation>Data:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="929"/>
         <source>Image</source>
-        <translation type="unfinished">Paveikslas</translation>
+        <translation>Paveikslas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="935"/>
         <source>Format:</source>
-        <translation type="unfinished">Formatas:</translation>
+        <translation>Formatas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="949"/>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1546"/>
         <source>Width:</source>
-        <translation type="unfinished">Plotis:</translation>
+        <translation>Plotis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="963"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Spalvų modelis:</translation>
+        <translation>Spalvų modelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="977"/>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1566"/>
         <source>Height:</source>
-        <translation type="unfinished">Aukštis:</translation>
+        <translation>Aukštis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="991"/>
         <source>DPI:</source>
-        <translation type="unfinished">tšk. col.</translation>
+        <translation>Tšk. col.:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1005"/>
         <source>Layers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluoksniai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1019"/>
         <source>Embedded Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtrauktieji profiliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1033"/>
         <source>Profile Name:</source>
-        <translation type="unfinished">Profilio pavadinimas:</translation>
+        <translation>Profilio pavadinimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1051"/>
         <source>Filter / Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtruoti / ieškoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1065"/>
         <source>Filters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1084"/>
         <source>Filter Displayed Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtruoti rodomus paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1089"/>
         <source>Search Images</source>
-        <translation type="unfinished">Ieškoti paveikslų</translation>
+        <translation>Ieškoti paveikslų</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1094"/>
         <source>Filter Collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtruoti kolekcijas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1135"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1166"/>
         <source>Criteria</source>
-        <translation type="unfinished"></translation>
+        <translation>Kriterijai</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1178"/>
         <source>&lt;&lt; Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt; Pridėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1186"/>
         <source>Name (Wildcards Allowed)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pavadinimas (pakaitos simboliai leidžiami)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1191"/>
         <source>Date</source>
-        <translation type="unfinished">Data</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1196"/>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1513"/>
         <source>Size</source>
-        <translation type="unfinished">Dydis</translation>
+        <translation>Dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1201"/>
         <source>Type</source>
-        <translation type="unfinished">Tipas</translation>
+        <translation>Tipas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1206"/>
         <source>Tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1231"/>
         <source>Contains</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Sudėtyje yra</translatorcomment>
+        <translation>Apima</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1236"/>
         <source>Doesn&apos;t Contain</source>
-        <translation type="unfinished"></translation>
+        <translation>Sudėtyje nėra</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1255"/>
         <source>Newer than</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujesni kaip</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1260"/>
         <source>Older than</source>
-        <translation type="unfinished"></translation>
+        <translation>Senesni kaip</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1279"/>
         <source>Smaller than</source>
-        <translation type="unfinished"></translation>
+        <translation>Mažesni kaip</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1284"/>
         <source>Bigger than</source>
-        <translation type="unfinished"></translation>
+        <translation>Didesni kaip</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1292"/>
         <source> KB</source>
-        <translation type="unfinished"></translation>
+        <translation> KB</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1328"/>
         <source>add</source>
-        <translation type="unfinished"></translation>
+        <translation>pridėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1348"/>
         <source>Apply Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Taikyti filtrus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1361"/>
         <source>Clear Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvalyti filtrus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1369"/>
         <source>Insert Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Įterpti paveikslą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1381"/>
         <source>Image Placement</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslo vieta</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1393"/>
         <source>Page(s)</source>
-        <translation type="unfinished">Puslapis(-iai)</translation>
+        <translation>Puslapis(-iai)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1412"/>
         <source>Image Frame(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslo(-ų) rėmelis (-iai)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1434"/>
         <source>Position of New Frame(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujo (-ų) rėmelio (-ų) padėtis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1441"/>
         <source>Top Left of Margins</source>
-        <translation type="unfinished">Viršutinis kairysis paraščių kampas</translation>
+        <translation>Viršutinis kairysis paraščių kampas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1446"/>
         <source>Top Left of Page</source>
-        <translation type="unfinished">Viršutinis kairysis puslapio kampas</translation>
+        <translation>Viršutinis kairysis puslapio kampas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1451"/>
         <source>Top Left of Bleed</source>
-        <translation type="unfinished">Viršutinis kairysis užlaidos kampas</translation>
+        <translation>Viršutinis kairysis užlaidos kampas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1456"/>
         <source>Custom Position</source>
-        <translation type="unfinished">Laisvai pasirinkta vieta</translation>
+        <translation>Laisvai pasirinkta vieta</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1467"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1487"/>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1520"/>
         <source>Same as Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Tokios pat, kaip puslapio paraštės</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1525"/>
         <source>Same as Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Toks pat, kaip puslapis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1530"/>
         <source>Same as Bleed</source>
-        <translation type="unfinished"></translation>
+        <translation>Toks pat, kaip užlaidos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1535"/>
         <source>Custom Size</source>
-        <translation type="unfinished">Pasirinktas dydis</translation>
+        <translation>Pasirinktas dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1594"/>
         <source>Insert Image into</source>
-        <translation type="unfinished"></translation>
+        <translation>Įterpti paveikslą į</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1610"/>
         <source>0 Page(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>0 puslapių</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1623"/>
         <source>0 Frame(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>0 rėmelių</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1636"/>
         <source>Insert</source>
-        <translation type="unfinished">Įterpimas</translation>
+        <translation>Įterpimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1646"/>
         <source>Tag Image(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslo (-ų) žymelės</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1652"/>
         <source>Selected Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pažymėti paveikslai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1681"/>
         <source>Tag Selected Image(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pažymėti pasirinktus paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1693"/>
         <source>Add New Tag</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti naują žymelę</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1700"/>
         <source>Set Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Nustatyti žymeles</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="405"/>
@@ -15930,114 +15955,114 @@ Prašome parinkti kitą.</translation>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1318"/>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1427"/>
         <source>Picture Browser Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslų žvalgyklės klaida</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="405"/>
         <source>No Image(s) Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepasirinkta paveikslų</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="738"/>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1248"/>
         <source>You have to create a category first</source>
-        <translation type="unfinished"></translation>
+        <translation>Pirmiausia sukurkite kategoriją</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="902"/>
         <source>No image(s) selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepasirinkta paveikslų</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="947"/>
         <source>No page/image frame selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepasirinkta puslapių/paveikslų rėmelių</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1053"/>
         <source>Directory does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplankas neegzistuoja</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1211"/>
         <source>Select Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasirinkti aplanką</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1290"/>
         <source>Import Image Collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuoti paveikslų kolekciją</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1290"/>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1312"/>
         <source>Scribus ImageCollection (*.sic)</source>
-        <translation type="unfinished"></translation>
+        <translation>„Scribus“ paveikslų kolekcija (*.sic)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1312"/>
         <source>Export Image Collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportuoti paveikslų kolekciją</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1318"/>
         <source>You have to select something you want to export</source>
-        <translation type="unfinished"></translation>
+        <translation>Turite pažymėti tai, ką norite eksportuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1427"/>
         <source>No tag entered</source>
-        <translation type="unfinished"></translation>
+        <translation>Nėra įvestų žymelių</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1723"/>
         <source>Image still loading</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslas tebeįkeliamas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1731"/>
         <source>JPG</source>
-        <translation type="unfinished">JPG</translation>
+        <translation>JPG</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1735"/>
         <source>TIFF</source>
-        <translation type="unfinished">TIFF</translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1739"/>
         <source>PSD</source>
-        <translation type="unfinished">PSD</translation>
+        <translation>PSD</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1743"/>
         <source>EPS/PS</source>
-        <translation type="unfinished">EPS/PS</translation>
+        <translation>EPS/PS</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1747"/>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1751"/>
         <source>JPG2000</source>
-        <translation type="unfinished">JPG2000</translation>
+        <translation>JPG2000</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1759"/>
         <source>emb. PSD</source>
-        <translation type="unfinished">įdėtasis PSD</translation>
+        <translation>įdėtasis PSD</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1763"/>
         <source>not available</source>
-        <translation type="unfinished"></translation>
+        <translation>neprieinamas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1788"/>
         <source>No image selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nėra pažymėtų paveikslų</translation>
     </message>
 </context>
 <context>
@@ -16045,7 +16070,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="34"/>
         <source>&amp;Picture Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Paveikslų žvalgyklė</translation>
     </message>
 </context>
 <context>
@@ -16095,7 +16120,7 @@ Prašome parinkti kitą.</translation>
         <location filename="../../../scribus/pluginmanager.cpp" line="72"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation>Nepavyksta rasti priedo</translation>
+        <translation>Nepavyksta rasti papildinio</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="61"/>
@@ -16115,7 +16140,7 @@ Prašome parinkti kitą.</translation>
         <location filename="../../../scribus/pluginmanager.cpp" line="157"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation>Priedas: įkeliama %1</translation>
+        <translation>Papildinys: įkeliama %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="264"/>
@@ -16127,36 +16152,36 @@ Prašome parinkti kitą.</translation>
         <location filename="../../../scribus/pluginmanager.cpp" line="270"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation>nežinomas priedo tipas</translation>
+        <translation>nežinomas papildinio tipas</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="273"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation>Priedas: %1 įkeltas</translation>
+        <translation>Papildinys: %1 įkeltas</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="277"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Priedas: %1 nepavyko įkelti: %2</translation>
+        <translation>Papildinys: %1 nepavyko įkelti: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="344"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation>Priedas: %1 inicializuotas sėkmingai </translation>
+        <translation>Papildinys: %1 inicializuotas sėkmingai </translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="346"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation>Priedas: %1 poinicializaciniai veiksmai nepavyko</translation>
+        <translation>Papildinys: %1 poinicializaciniai veiksmai nepavyko</translation>
     </message>
     <message>
         <location filename="../../../scribus/pluginmanager.cpp" line="230"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Iškilo problemų įkeliamt %1 iš %2 priedų. %3 Tikėtina, kad tai susiję su priklausomumo problema arba sen priedai yra įdiegti diegimo aplanke. Jei išvalius aplanką ir pakartojus diegimą klaida kartojasi, prašome informuoti apie tai internete: bugs.scribus.net.</translation>
+        <translation>Iškilo problemų įkeliamt %1 iš %2 papildinių. %3 Tikėtina, kad tai susiję su priklausomumo problema arba seni papildiniai yra įdiegti diegimo aplanke. Jei išvalius aplanką ir pakartojus diegimą klaida kartojasi, prašome informuoti apie tai internete: bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -16164,12 +16189,12 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/pluginmanagerprefsgui.ui" line="20"/>
         <source>Plugin Manager</source>
-        <translation>Priedų tvarkiklis</translation>
+        <translation>Papildinių tvarkiklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pluginmanagerprefsgui.ui" line="36"/>
         <source>Plugin</source>
-        <translation>Tvarkiklis</translation>
+        <translation>Papildinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pluginmanagerprefsgui.ui" line="41"/>
@@ -16189,7 +16214,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/pluginmanagerprefsgui.ui" line="56"/>
         <source>Plugin ID</source>
-        <translation>Priedo ID</translation>
+        <translation>Papildinio ID</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pluginmanagerprefsgui.ui" line="61"/>
@@ -16294,32 +16319,32 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/positionsetter.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/positionsetter.ui" line="24"/>
         <source>X-pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>X koord.:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/positionsetter.ui" line="41"/>
         <source>Y-pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y koord.:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/positionsetter.ui" line="67"/>
         <source>Width:</source>
-        <translation type="unfinished">Plotis:</translation>
+        <translation>Plotis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/positionsetter.ui" line="80"/>
         <source>Height:</source>
-        <translation type="unfinished">Aukštis:</translation>
+        <translation>Aukštis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/positionsetter.ui" line="101"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
@@ -16342,7 +16367,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs.cpp" line="82"/>
         <source>Guides</source>
-        <translation>Orientyrai</translation>
+        <translation>Kreiptinės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs.cpp" line="85"/>
@@ -16468,7 +16493,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs.cpp" line="149"/>
         <source>Plugins</source>
-        <translation>Priedai</translation>
+        <translation>Papildiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs.cpp" line="100"/>
@@ -16515,158 +16540,158 @@ Prašome parinkti kitą.</translation>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="14"/>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="335"/>
         <source>Preferences</source>
-        <translation type="unfinished">Ypatybės</translation>
+        <translation>Ypatybės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="53"/>
         <source>Export...</source>
-        <translation type="unfinished">Eksportuoti...</translation>
+        <translation>Eksportuoti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="63"/>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Numatytosios</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="86"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Pritaikyti</translation>
+        <translation>&amp;Taikyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="96"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Gerai</translation>
+        <translation>&amp;Gerai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialogbase.ui" line="106"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Atsisakyti</translation>
+        <translation>&amp;Atsisakyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="62"/>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="104"/>
         <source>Document Setup</source>
-        <translation type="unfinished">Dokumento nuostatos</translation>
+        <translation>Dokumento nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="101"/>
         <source>User Interface</source>
-        <translation type="unfinished">Vartotojo sąsaja</translation>
+        <translation>Vartotojo sąsaja</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="102"/>
         <source>Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Kelias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="107"/>
         <source>Document Information</source>
-        <translation type="unfinished">Dokumento informacija</translation>
+        <translation>Dokumento informacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="109"/>
         <source>Guides</source>
-        <translation type="unfinished">Orientyrai</translation>
+        <translation>Kreiptinės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="110"/>
         <source>Typography</source>
-        <translation type="unfinished">Tipografika</translation>
+        <translation>Tipografika</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="111"/>
         <source>Item Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekto įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="112"/>
         <source>Operator Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Operatoriaus įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="113"/>
         <source>Hyphenator</source>
-        <translation type="unfinished">Skiemenuoklis</translation>
+        <translation>Skiemenuoklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="114"/>
         <source>Fonts</source>
-        <translation type="unfinished">Šriftai</translation>
+        <translation>Šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="115"/>
         <source>Color Management</source>
-        <translation type="unfinished">Spalvų valdymas</translation>
+        <translation>Spalvų valdymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="116"/>
         <source>Printer</source>
-        <translation type="unfinished"></translation>
+        <translation>Spausdintuvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="117"/>
         <source>PDF Export</source>
-        <translation type="unfinished">PDF eksportas</translation>
+        <translation>PDF eksportas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="118"/>
         <source>Preflight Verifier</source>
-        <translation type="unfinished">Priešspauspaustuvinis tikrintuvas</translation>
+        <translation>Priešspauspaustuvinis tikrintuvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="119"/>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento objekto atributai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="120"/>
         <source>Tables of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Turiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="123"/>
         <source>Sections</source>
-        <translation type="unfinished">Skyriai</translation>
+        <translation>Skyriai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="127"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Klaviatūros šaukiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="128"/>
         <source>Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Koliažinė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="130"/>
         <source>Display</source>
-        <translation type="unfinished">Rodyti</translation>
+        <translation>Rodyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="133"/>
         <source>External Tools</source>
-        <translation type="unfinished">Išoriniai įrankiai</translation>
+        <translation>Išoriniai įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="134"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished">Įvairūs</translation>
+        <translation>Įvairūs</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="135"/>
         <source>Page Sizes</source>
-        <translation type="unfinished"></translation>
+        <translation>Puslapio dydžiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="136"/>
         <source>Plugins</source>
-        <translation type="unfinished">Priedai</translation>
+        <translation>Papildiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="137"/>
         <source>Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslų podėlis</translation>
     </message>
 </context>
 <context>
@@ -16749,8 +16774,8 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją?</translation>
         <location filename="../../../scribus/prefsmanager.cpp" line="793"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished">„Scribus“ aptiko „Scribus 1.2“ versijos nuostatų failus.
-Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</translation>
+        <translation>„Scribus“ aptiko „Scribus 1.3.5“ versijos nuostatų failus.
+Ar perkelti šias nuostatas į naują „Scribus“ versiją?</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefsmanager.cpp" line="1765"/>
@@ -16799,122 +16824,122 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="16"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="29"/>
         <source>Color Management</source>
-        <translation type="unfinished">Spalvų valdymas</translation>
+        <translation>Spalvų valdymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="64"/>
         <source>Document Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="78"/>
         <source>Activate Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Įjungti spalvų valdymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="85"/>
         <source>Simulate Printer on the Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Imituoti spausdintuvą ekrane</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="92"/>
         <source>Convert all colors to printer space</source>
-        <translation type="unfinished">Konvertuoti visas spalvas į spausdintuvo spalvas</translation>
+        <translation>Konvertuoti visas spalvas į spausdintuvo spalvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="99"/>
         <source>Mark Colors out of Gamut</source>
-        <translation type="unfinished"></translation>
+        <translation>Pažymėti ne paletės spalvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="106"/>
         <source>Use Blackpoint Compensation</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti juodojo taško kompensavimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="135"/>
         <source>Document Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento profiliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="157"/>
         <source>RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>RŽM (RGB) paveikslai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="177"/>
         <source>CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>ŽPGJ (CMYK) paveikslai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="197"/>
         <source>RGB Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>RŽM (RGB) grynosios spalvos:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="210"/>
         <source>CMYK Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>ŽPGJ (CMYK) grynosios spalvos:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="223"/>
         <source>Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spausdintuvas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="257"/>
         <source>Document Rendering Intents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento vizualizavimo tikslumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="276"/>
         <source>Images:</source>
-        <translation type="unfinished">Paveikslai:</translation>
+        <translation>Paveikslai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="286"/>
         <source>Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grynosios spalvos:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="320"/>
         <source>Monitor Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoriaus profilis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagementbase.ui" line="342"/>
         <source>Monitor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitorius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="28"/>
         <source>Monitor profiles can only be changed when no documents are open</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoriaus profilį galima pakeisti tik jei nėra atvertų dokumentų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="52"/>
         <source>Perceptual</source>
-        <translation type="unfinished"></translation>
+        <translation>Suvokiamas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="52"/>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished">Santykinis kolorimetrinis</translation>
+        <translation>Santykinis kolorimetrinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="53"/>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Prisotintas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_colormanagement.cpp" line="53"/>
         <source>Absolute Colorimetric</source>
-        <translation type="unfinished">Absoliutusis kolorimetrinis</translation>
+        <translation>Absoliutusis kolorimetrinis</translation>
     </message>
 </context>
 <context>
@@ -16922,259 +16947,259 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="27"/>
         <source>Display</source>
-        <translation type="unfinished">Rodyti</translation>
+        <translation>Rodyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="45"/>
         <source>Pages</source>
-        <translation type="unfinished">Puslapiai</translation>
+        <translation>Puslapiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="53"/>
         <source>Show Rulers</source>
-        <translation type="unfinished">Rodyti liniuotes</translation>
+        <translation>Rodyti liniuotes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers Relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti liniuotes, susietas su puslapiu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="67"/>
         <source>Show Frames</source>
-        <translation type="unfinished">Rodyti rėmelius</translation>
+        <translation>Rodyti rėmelius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="74"/>
         <source>Show Images</source>
-        <translation type="unfinished">Rodyti paveikslus</translation>
+        <translation>Rodyti paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="81"/>
         <source>Show Text Chains</source>
-        <translation type="unfinished">Rodyti teksto rėmelių grandis</translation>
+        <translation>Rodyti teksto rėmelių grandis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="88"/>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished">Rodyti teksto valdančiuosius simbolius</translation>
+        <translation>Rodyti teksto valdančiuosius simbolius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="95"/>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished">Rodyti sluoksnių rodmenis</translation>
+        <translation>Rodyti sluoksnių rodmenis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="102"/>
         <source>Show Unprintable Area in Margin Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Nespausdinamas sritis rodyti paraščių spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="109"/>
         <source>Show Bleed Area</source>
-        <translation type="unfinished">Rodytį užlaidų sritį</translation>
+        <translation>Rodytį užlaidų sritį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="116"/>
         <source>Show Page Shadow</source>
-        <translation type="unfinished">Rodyti puslapio šešėlį</translation>
+        <translation>Rodyti puslapio šešėlį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="123"/>
         <source>Show Preflight Verifier Warnings on the Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti priešspaustuvinio tikrintuvo perspėjimus puspalyje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="146"/>
         <source>Scratch Space</source>
-        <translation type="unfinished">Koliažinės sritis</translation>
+        <translation>Koliažinės sritis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="154"/>
         <source>Left:</source>
-        <translation type="unfinished">Kairėje:</translation>
+        <translation>Kairėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="164"/>
         <source>Right:</source>
-        <translation type="unfinished">Dešinėje:</translation>
+        <translation>Dešinėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="174"/>
         <source>Top:</source>
-        <translation type="unfinished">Viršuje:</translation>
+        <translation>Viršuje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="184"/>
         <source>Bottom:</source>
-        <translation type="unfinished">Apačioje:</translation>
+        <translation>Apačioje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="218"/>
         <source>Gaps Between Pages</source>
-        <translation type="unfinished">Intervalas tarp puslapių vaizdų</translation>
+        <translation>Intervalas tarp puslapių vaizdų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="234"/>
         <source>Horizontal:</source>
-        <translation type="unfinished">Horizontalus:</translation>
+        <translation>Horizontalus:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="244"/>
         <source>Vertical:</source>
-        <translation type="unfinished">Vertikalus:</translation>
+        <translation>Vertikalus:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="270"/>
         <source>Display Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti mastelį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="294"/>
         <source>Scale%</source>
-        <translation type="unfinished">Mastelis %</translation>
+        <translation>Mastelis %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="304"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation type="unfinished">Sumažinti mastelį iki monitoriaus numatytosios raiškos (taškais colyje)</translation>
+        <translation>Sumažinti mastelį iki monitoriaus numatytosios raiškos (taškais colyje)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="362"/>
         <source>Colors</source>
-        <translation type="unfinished">Spalvos</translation>
+        <translation>Spalvos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="383"/>
         <source>Page Fill:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puslapio užpildas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="397"/>
         <source>Scratch Space:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koliažinės sritis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="411"/>
         <source>Selected Page Border:</source>
-        <translation type="unfinished">Pasirinktos puslapio kraštinės:</translation>
+        <translation>Pasirinktos puslapio kraštinės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="425"/>
         <source>Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rėmeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="439"/>
         <source>Locked Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prirakinti rėmeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="453"/>
         <source>Selected Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pažymėti rėmeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="467"/>
         <source>Linked Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Susieti rėmeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="481"/>
         <source>Grouped Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sugrupuoti rėmeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="495"/>
         <source>Annotation Frames:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anotacijos rėmeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_displaybase.ui" line="509"/>
         <source>Text Control Characters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksto valdantieji simboliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="50"/>
         <source>Color for paper (onscreen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Popieriaus spalva (rodoma ekrane)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="51"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Pažymėti paraščių spalva sritį už paraščių</translation>
+        <translation>Maskuoti paraščių spalva sritį už paraščių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="52"/>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished">Leisti arba drausti rodyti susietus rėmelius.</translation>
+        <translation>Leisti arba drausti rodyti susietus rėmelius.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="53"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished">Rodyti nespausdinamus simbolius, tokius kaip pastraipos pabaigos ženlas teksto rėmelyje</translation>
+        <translation>Rodyti nespausdinamus simbolius, tokius kaip pastraipos pabaigos ženklas, teksto rėmelyje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="54"/>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia rėmelių rodymą</translation>
+        <translation>Įjungia arba išjungia rėmelių rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="55"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia sluoksnių rodmenų rodymą</translation>
+        <translation>Įjungia arba išjungia sluoksnių rodmenų rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="56"/>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia paveikslų rodymą</translation>
+        <translation>Įjungia arba išjungia paveikslų rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="57"/>
         <source>Turns the page shadow on or off</source>
-        <translation type="unfinished">Įjungti arba išjungti puslapio šešėlius</translation>
+        <translation>Įjungti arba išjungti puslapio šešėlius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="58"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Nurodo, kiek erdvės dokumento lapo kairėje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
+        <translation>Nurodo, kiek erdvės dokumento lapo kairėje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="59"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Nurodo, kiek erdvės dokumento lapo dešinėje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
+        <translation>Nurodo, kiek erdvės dokumento lapo dešinėje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="60"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Nurodo, kiek erdvės dokumento lapo viršuje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
+        <translation>Nurodo, kiek erdvės dokumento lapo viršuje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="61"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Nurodo, kiek erdvės dokumento lapo apačioje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
+        <translation>Nurodo, kiek erdvės dokumento lapo apačioje skirti darbo laukui, kuriame kuriami bei modifikuojami elementai, kurie vėliau perkeliami į aktyvųjį puslapį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="62"/>
         <source>Set the default zoom level</source>
-        <translation type="unfinished">Nustatyti numatytąjį didinimo lygį</translation>
+        <translation>Nurodyti numatytąjį didinimo lygį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="63"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="unfinished">Pridėkite liniuotę prie ekrano ir perkelkite šliaužiklį į tokią vietą, kur „Scribus“ liniuotės ir pridėtos prie ekrano liniuotės padalos visiškai sutampa. Atlikus šiuos veiksmus 100 proc. mastelis ekrane atitiks realų dydį</translation>
+        <translation>Pridėkite liniuotę prie ekrano ir perkelkite šliaužiklį į tokią vietą, kur „Scribus“ liniuotės ir pridėtos prie ekrano liniuotės padalos visiškai sutampa. Atlikus šiuos veiksmus 100 proc. mastelis ekrane atitiks realų dydį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="159"/>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="244"/>
         <location filename="../../../scribus/ui/prefs_display.cpp" line="252"/>
         <source> dpi</source>
-        <translation type="unfinished"> tšk. col.</translation>
+        <translation> tšk. col.</translation>
     </message>
 </context>
 <context>
@@ -17182,102 +17207,102 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="27"/>
         <source>Document Information</source>
-        <translation type="unfinished">Dokumento informacija</translation>
+        <translation>Dokumento informacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="45"/>
         <source>Document</source>
-        <translation type="unfinished">Dokumentas</translation>
+        <translation>Dokumentas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="51"/>
         <source>Title:</source>
-        <translation type="unfinished">Antraštė:</translation>
+        <translation>Antraštė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="68"/>
         <source>Author:</source>
-        <translation type="unfinished">Autorius:</translation>
+        <translation>Autorius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="78"/>
         <source>Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="88"/>
         <source>Keywords:</source>
-        <translation type="unfinished">Raktiniai žodžiai:</translation>
+        <translation>Raktiniai žodžiai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="98"/>
         <source>Description:</source>
-        <translation type="unfinished">Aprašas:</translation>
+        <translation>Aprašas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="109"/>
         <source>Further Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Papildoma informacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="138"/>
         <source>Publisher:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidėjas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="148"/>
         <source>Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bendraautoriai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="158"/>
         <source>Date:</source>
-        <translation type="unfinished">Data:</translation>
+        <translation>Data:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="168"/>
         <source>Type:</source>
-        <translation type="unfinished">Tipas:</translation>
+        <translation>Tipas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="178"/>
         <source>Format:</source>
-        <translation type="unfinished">Formatas:</translation>
+        <translation>Formatas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="188"/>
         <source>Identifier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifikatorius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="198"/>
         <source>Source:</source>
-        <translation type="unfinished"></translation>
+        <translation>Šaltinis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="208"/>
         <source>Language:</source>
-        <translation type="unfinished">Kalba:</translation>
+        <translation>Kalba:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="218"/>
         <source>Relation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryšys:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="228"/>
         <source>Coverage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Apimtis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentinformationbase.ui" line="238"/>
         <source>Rights:</source>
-        <translation type="unfinished"></translation>
+        <translation>Teisės:</translation>
     </message>
 </context>
 <context>
@@ -17286,145 +17311,145 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="14"/>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="27"/>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento objekto atributai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="48"/>
         <source>Name</source>
-        <translation type="unfinished">Pavadinimas</translation>
+        <translation>Pavadinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="53"/>
         <source>Type</source>
-        <translation type="unfinished">Tipas</translation>
+        <translation>Tipas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="58"/>
         <source>Value</source>
-        <translation type="unfinished">Reikšmė</translation>
+        <translation>Reikšmė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="63"/>
         <source>Parameter</source>
-        <translation type="unfinished">Parametras</translation>
+        <translation>Parametras</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="68"/>
         <source>Relationship</source>
-        <translation type="unfinished">Ryšys</translation>
+        <translation>Ryšys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="73"/>
         <source>Relationship To</source>
-        <translation type="unfinished">Ryšys su</translation>
+        <translation>Ryšys su</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="78"/>
         <source>Auto Add To</source>
-        <translation type="unfinished">Autom. įtraukti į</translation>
+        <translation>Autom. įtraukti į</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="104"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Pridėti</translation>
+        <translation>&amp;Pridėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="107"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="114"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopijuoti</translation>
+        <translation>&amp;Kopijuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="117"/>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="124"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">P&amp;ašalinti</translation>
+        <translation>Pa&amp;šalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="127"/>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Š</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="134"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>Va&amp;lyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributesbase.ui" line="137"/>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>Jokio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
         <source>Relates To</source>
-        <translation type="unfinished">Susijęs su</translation>
+        <translation>Susijęs su</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
         <source>Is Parent Of</source>
-        <translation type="unfinished">Jo sukurtas</translation>
+        <translation>Jo sukurtas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="19"/>
         <source>Is Child Of</source>
-        <translation type="unfinished">Jį sukūrė</translation>
+        <translation>Jį sukūrė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="21"/>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nieko</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="21"/>
         <source>Text Frames</source>
-        <translation type="unfinished">Teksto rėmelis</translation>
+        <translation>Teksto rėmeliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="21"/>
         <source>Image Frames</source>
-        <translation type="unfinished">Paveikslo rėmelis</translation>
+        <translation>Paveikslo rėmeliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Jokio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
         <source>Boolean</source>
-        <translation type="unfinished">Loginis</translation>
+        <translation>Loginis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
         <source>Integer</source>
-        <translation type="unfinished">Sveikasis sk.</translation>
+        <translation>Sveikųjų sk.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
         <source>Real Number</source>
-        <translation type="unfinished">Realusis sk.</translation>
+        <translation>Realiųjų sk.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentitemattributes.cpp" line="23"/>
         <source>String</source>
-        <translation type="unfinished">Eilutė</translation>
+        <translation>Eilutės</translation>
     </message>
 </context>
 <context>
@@ -17433,92 +17458,92 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="14"/>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="27"/>
         <source>Document Sections</source>
-        <translation type="unfinished">Dokumento skyriai</translation>
+        <translation>Dokumento skyriai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="48"/>
         <source>Name</source>
-        <translation type="unfinished">Pavadinimas</translation>
+        <translation>Pavadinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="53"/>
         <source>Shown</source>
-        <translation type="unfinished">Rodomas</translation>
+        <translation>Rodomas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="58"/>
         <source>From</source>
-        <translation type="unfinished">Nuo</translation>
+        <translation>Nuo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="63"/>
         <source>To</source>
-        <translation type="unfinished">iki</translation>
+        <translation>iki</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="68"/>
         <source>Style</source>
-        <translation type="unfinished">Stilius</translation>
+        <translation>Stilius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="73"/>
         <source>Start</source>
-        <translation type="unfinished">Pradėti</translation>
+        <translation>Pradėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="99"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Pridėti</translation>
+        <translation>&amp;Pridėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="102"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="109"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">P&amp;ašalinti</translation>
+        <translation>P&amp;ašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsectionsbase.ui" line="112"/>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
         <source>1, 2, 3, ...</source>
-        <translation type="unfinished">1, 2, 3, ...</translation>
+        <translation>1, 2, 3, ...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
         <source>i, ii, iii, ...</source>
-        <translation type="unfinished">i, ii, iii, ...</translation>
+        <translation>i, ii, iii, ...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
         <source>I, II, III, ...</source>
-        <translation type="unfinished">I, II, III, ...</translation>
+        <translation>I, II, III, ...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
         <source>a, b, c, ...</source>
-        <translation type="unfinished">a, b, c, ...</translation>
+        <translation>a, b, c, ...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="41"/>
         <source>A, B, C, ...</source>
-        <translation type="unfinished">A, B, C, ...</translation>
+        <translation>A, B, C, ...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="161"/>
         <source>Page Number Out Of Bounds</source>
-        <translation type="unfinished">Puslapio numeris už ribų</translation>
+        <translation>Puslapio numeris už ribų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsections.cpp" line="161"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished">Įvesta reikšmė šio dokumento puslapių numerių rėžius (%1-%2).</translation>
+        <translation>Įvesta reikšmė yra už šio dokumento puslapių numerių rėžių (%1-%2).</translation>
     </message>
 </context>
 <context>
@@ -17526,84 +17551,84 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="27"/>
         <source>Document Setup</source>
-        <translation type="unfinished">Dokumento nuostatos</translation>
+        <translation>Dokumento nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="45"/>
         <source>Size</source>
-        <translation type="unfinished">Dydis</translation>
+        <translation>Dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="58"/>
         <source>Page Size</source>
-        <translation type="unfinished">Lapo dydis</translation>
+        <translation>Lapo dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="74"/>
         <source>Size:</source>
-        <translation type="unfinished">Dydis:</translation>
+        <translation>Dydis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="89"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="101"/>
         <source>Orientation:</source>
-        <translation type="unfinished">Kryptis:</translation>
+        <translation>Kryptis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="114"/>
         <source>Units:</source>
-        <translation type="unfinished">Vienetai:</translation>
+        <translation>Vienetai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="127"/>
         <source>Width:</source>
-        <translation type="unfinished">Plotis:</translation>
+        <translation>Plotis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="140"/>
         <source>Height:</source>
-        <translation type="unfinished">Aukštis:</translation>
+        <translation>Aukštis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="155"/>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="361"/>
         <source>Apply changes to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Keitimus pritaikyti visiems puslapiams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="162"/>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="368"/>
         <source>Apply changes to all master pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Keitimus pritaikyti visiems puslapių šablonams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="183"/>
         <source>Layout</source>
-        <translation type="unfinished">Maketas</translation>
+        <translation>Maketas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="196"/>
         <source>Page Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Puslapio maketas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="212"/>
         <source>First Page is:</source>
-        <translation type="unfinished">Pirmasis puslapis:</translation>
+        <translation>Pirmasis puslapis yra:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="225"/>
         <source>4-Fold</source>
-        <translation type="unfinished">Keturių dalių</translation>
+        <translation>Keturių dalių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="228"/>
@@ -17611,147 +17636,147 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="248"/>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="261"/>
         <source>pageLayoutButtonGroup</source>
-        <translation type="unfinished"></translation>
+        <translation>pageLayoutButtonGroup</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="235"/>
         <source>3-Fold</source>
-        <translation type="unfinished">Trijų dalių</translation>
+        <translation>Trijų dalių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="245"/>
         <source>Double Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvigubas puslapis (atvartas)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="255"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Atskiras puslapis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="284"/>
         <source>Margins &amp;&amp; Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Paraštės ir užlaidos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="324"/>
         <source>Margins</source>
-        <translation type="unfinished">Paraštės</translation>
+        <translation>Paraštės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="398"/>
         <source>Bleeds</source>
-        <translation type="unfinished">Užlaidos</translation>
+        <translation>Užlaidos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="453"/>
         <source>Saving &amp;&amp; Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašymas ir atšaukimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="459"/>
         <source>Save in Compressed Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašyti suglaudintuoju formatu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="489"/>
         <source>Autosave</source>
-        <translation type="unfinished">Automatinis įrašymas</translation>
+        <translation>Automatinis įrašymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="503"/>
         <source>Enable Automatic Saving of Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidžiamas automatinis dokumento įrašymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="512"/>
         <source>Interval:</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="519"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation> min</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="564"/>
         <source>Undo / Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Atšaukti / Atstatyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="578"/>
         <source>Enable Undo/Redo System</source>
-        <translation type="unfinished"></translation>
+        <translation>Įgalint Atšaukti / Atstatyti sistemą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="587"/>
         <source>Action History Length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Veiksmų žurnalo ilgis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="91"/>
         <source>Portrait</source>
-        <translation type="unfinished">Stačias</translation>
+        <translation>Stačias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="92"/>
         <source>Landscape</source>
-        <translation type="unfinished">Gulsčias</translation>
+        <translation>Gulsčias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="102"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Dokumento puslapio plotis, jei pasirinktas individualus lapo dydis</translation>
+        <translation>Dokumento puslapio plotis, jei pasirinktas individualus lapo dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="103"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Dokumento puslapio aukštis, jei pasirinktas individualus lapo dydis</translation>
+        <translation>Dokumento puslapio aukštis, jei pasirinktas individualus jo dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="104"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
-        <translation type="unfinished"></translation>
+        <translation>Numatytasis puslapio dydis arba standartinis, arba individualus. Daugiau matomų puslapių dydžių galima padaryti suaktyvinus juos Nuostatose.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="105"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidžiama arba draudžiama daugiau puslapio dydžių persijungus į puslapio dydžio nuostatas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="106"/>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished">Numatytoji dokumento puslapių kryptis</translation>
+        <translation>Numatytoji dokumento puslapių kryptis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="107"/>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished">Numatytieji taisomo dokumento matavimo vienetai</translation>
+        <translation>Numatytieji taisomo dokumento matavimo vienetai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="108"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished">Jei leidžiama, „Scribus“ periodiškai įrašo atsargines jūsų dokumento kopijas su failo prievardžiu „.bak“</translation>
+        <translation>Jei leidžiama, „Scribus“ periodiškai įrašo atsargines jūsų dokumento kopijas su failo prievardžiu „.bak“</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="109"/>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished">Automatinio įrašymo peridiškumas</translation>
+        <translation>Automatinio įrašymo peridiškumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="110"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished">Pažingsninio veiksmų žurnalo ilgio nustatymas. Jei nurodyta 0, tai įsimintų žingsnių skaičius neapibrėžtas.</translation>
+        <translation>Pažingsninio veiksmų žurnalo ilgio nustatymas. Jei nurodyta 0, tai įsimintų žingsnių skaičius neapibrėžtas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="111"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="unfinished">Pritaikyti puslapio matmenų pakeitimus visiems dokumento puslapiams</translation>
+        <translation>Pritaikyti puslapio matmenų pakeitimus visiems dokumento puslapiams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetup.cpp" line="112"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="unfinished">Pritaikyti puslapio matmenų pakeitimus visiems dokumento puslapių šablonams</translation>
+        <translation>Pritaikyti puslapio matmenų pakeitimus visiems dokumento puslapių šablonams</translation>
     </message>
 </context>
 <context>
@@ -17759,27 +17784,27 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="14"/>
         <source>External Tools</source>
-        <translation type="unfinished">Išoriniai įrankiai</translation>
+        <translation>Išoriniai įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="27"/>
         <source>External Tools and Applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Išoriniai įrankiai ir programos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="62"/>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished">Postsktiptų interpretatorius</translation>
+        <translation>Postsktiptų interpretatorius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="78"/>
         <source>&amp;Name of Executable:</source>
-        <translation type="unfinished">&amp;Programa:</translation>
+        <translation>&amp;Programa:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="91"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Nurodyti „Ghostscript“ interpretatoriaus laikymo vietą. „Windows“ sistemoje svarbu nurodyti, kad bus naudojama programa, pavadinta „gswin32c.exe“ (NE „gswin32.exe“).Priešingu atveju gali nepasileisti „Scribus“.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="98"/>
@@ -17789,7 +17814,7 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="463"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="589"/>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;Keisti...</translation>
+        <translation>&amp;Keisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="101"/>
@@ -17798,54 +17823,54 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="466"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="592"/>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="112"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Tolygios teksto linijos vizualizuojant EPS ir PDF dokumentus ekrane</translation>
+        <translation>Teksto linijos glotnios vizualizuojant ekrane EPS ir PDF dokumentus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="115"/>
         <source>Antialias &amp;Text</source>
-        <translation type="unfinished">Teksto linijo &amp;tolygios</translation>
+        <translation>Teksto linijos &amp;glotnios</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="118"/>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="141"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Tolygus EPS ir PDF dokumentų grafikos vizualizavimas ekrane</translation>
+        <translation>Glotnus EPS ir PDF dokumentų grafikos vizualizavimas ekrane</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="144"/>
         <source>Antialias &amp;Graphics</source>
-        <translation type="unfinished">&amp;Grafika tolygi</translation>
+        <translation>&amp;Grafika glotni</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="147"/>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="170"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="679"/>
         <source>Resolution:</source>
-        <translation type="unfinished">Raiška:</translation>
+        <translation>Raiška:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="183"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="692"/>
         <source> dpi</source>
-        <translation type="unfinished"> tšk. col.</translation>
+        <translation> tšk. col.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="234"/>
         <source>Image Processing Tool</source>
-        <translation type="unfinished">Paveikslų apdorojimo priemonė</translation>
+        <translation>Paveikslų apdorojimo priemonė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="250"/>
@@ -17853,169 +17878,169 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="390"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="443"/>
         <source>Name of &amp;Executable:</source>
-        <translation type="unfinished">&gt;&amp;Programa:</translation>
+        <translation>&gt;&amp;Programa:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="263"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="333"/>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="456"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;Išdėstymas jūsų naudojamoje grafikos rengyklėje. Jei naudojate „Gimp“, patariame nurodyti „gimp-remote“, kad paveikslai būtų atveriami jau paleistos programos languose.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Šail. išdėstymas jūsų naudojamoje grafikos rengyklėje. Jei naudojate „Gimp“, patariame nurodyti „gimp-remote“, kad paveikslai būtų atveriami jau paleistos programos languose.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="304"/>
         <source>Web Browser</source>
-        <translation type="unfinished">Saityno naršyklė</translation>
+        <translation>Saityno naršyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="374"/>
         <source>PDF Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF žiūryklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="434"/>
         <source>Uniconvertor</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="497"/>
         <source>Render Frames</source>
-        <translation type="unfinished">Vizualizuoti rėmelius</translation>
+        <translation>Vizualizuoti rėmelius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="511"/>
         <source>Configurations:</source>
-        <translation type="unfinished">Konfigūracijos failai:</translation>
+        <translation>Konfigūracijos failai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="528"/>
         <source>Up</source>
-        <translation type="unfinished">Pakelti</translation>
+        <translation>Pakelti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="535"/>
         <source>Down</source>
-        <translation type="unfinished">Nuleisti</translation>
+        <translation>Nuleisti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="542"/>
         <source>Add</source>
-        <translation type="unfinished">Pridėti</translation>
+        <translation>Pridėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="549"/>
         <source>Delete</source>
-        <translation type="unfinished">Pašalinti</translation>
+        <translation>Pašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="556"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation>Keisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="569"/>
         <source>External Editor:</source>
-        <translation type="unfinished">Išorinė redagavimo programa:</translation>
+        <translation>Išorinė rengyklė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="582"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;Programos failui redaguoti laikymo vieta.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Rengyklės laikymo vieta.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="603"/>
         <source>Start with empty frame</source>
-        <translation type="unfinished">Pradėti tuščiu rėmeliu</translation>
+        <translation>Pradėti tuščiu rėmeliu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="629"/>
         <source>Use Embedded Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti įdėtąją rengyklę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="653"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation type="unfinished">Visuomet  dydžiui apskaičiuoti naudoti konfigūracijoje nurodytą raišką (taškais colyje), jei iš paveikslo failo gauta prištaringa informacija.</translation>
+        <translation>Dydžiui apskaičiuoti visuomet naudoti konfigūracijoje nurodytą raišką (taškais colyje), jei iš paveikslo failo gauta prištaringa informacija.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="656"/>
         <source>Force DPI</source>
-        <translation type="unfinished">Privalomoji raiška (taškais colyje)</translation>
+        <translation>Privalomoji raiška (tšk./col.)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="758"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="unfinished">Pakartotinai patikrinti, ar yra išoriniai įrankiai nurodytose sistemos vietose</translation>
+        <translation>Pakartotinai patikrinti, ar nurodytose sistemos vietose yra išoriniai įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="761"/>
         <source>&amp;Rescan</source>
-        <translation type="unfinished">Pa&amp;kartotinai peržvelgti</translation>
+        <translation>Pa&amp;kartotinai peržvelgti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltoolsbase.ui" line="764"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="95"/>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished">Nurodyti „Ghostscript“ vietą</translation>
+        <translation>Nurodyti „Ghostscript“ vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="103"/>
         <source>Locate your image editor</source>
-        <translation type="unfinished">Nurodyti paveikslų rengyklės vietą</translation>
+        <translation>Nurodyti paveikslų rengyklės vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="111"/>
         <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodyti saityno naršyklės vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="119"/>
         <source>Locate your PDF viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodyti PDF peržiūros programos vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="127"/>
         <source>Locate the uniconvertor executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodyti „UniConvertor“ programos vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="135"/>
         <source>Locate your editor</source>
-        <translation type="unfinished">Nurodyti naudojamos regagavimo programos vietą</translation>
+        <translation>Nurodyti naudojamos regagavimo programos vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="166"/>
         <source>Uniconvertor executable not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nerasta „Uniconvertor“ programa!</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="209"/>
         <source>Locate a Configuration file</source>
-        <translation type="unfinished">Nurodyti konfigūracijos failo vietą</translation>
+        <translation>Nurodyti konfigūracijos failo vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="211"/>
         <source>Configuration files</source>
-        <translation type="unfinished">Konfiguracijos failai</translation>
+        <translation>Konfiguracijos failai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="234"/>
         <source>Change Command</source>
-        <translation type="unfinished">Pakeisti komandą</translation>
+        <translation>Pakeisti komandą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="235"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="unfinished">Įveskite naują komandą: (palikite tuščia, jei norite iš pateikti numatytąją komandą; argumentus atskirtus vieną nuo kito tarpais, rašykite kabutėse)</translation>
+        <translation>Įveskite naują komandą: (palikite tuščia, jei norite iš pateikti numatytąją komandą; argumentus, kuriuose yra tarpo simbolių, rašykite kabutėse)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_externaltools.cpp" line="301"/>
         <source>Command: </source>
-        <translation type="unfinished">Komanda: </translation>
+        <translation>Komanda: </translation>
     </message>
 </context>
 <context>
@@ -18023,71 +18048,71 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="27"/>
         <source>Fonts</source>
-        <translation type="unfinished">Šriftai</translation>
+        <translation>Šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="45"/>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="48"/>
         <source>Available Fonts</source>
-        <translation type="unfinished">Turimi šriftai</translation>
+        <translation>Turimi šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="67"/>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="48"/>
         <source>Font Substitutions</source>
-        <translation type="unfinished">Šriftų keitiniai</translation>
+        <translation>Šriftų keitiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="103"/>
         <source>Delete</source>
-        <translation type="unfinished">Pašalinti</translation>
+        <translation>Pašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="113"/>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="48"/>
         <source>Additional Paths</source>
-        <translation type="unfinished">Papildomos šriftų laikymo vietos</translation>
+        <translation>Papildomos šriftų laikymo vietos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="126"/>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Keisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="133"/>
         <source>A&amp;dd...</source>
-        <translation type="unfinished">Pri&amp;dėti...</translation>
+        <translation>Pri&amp;dėti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="140"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">Pa&amp;šalinti</translation>
+        <translation>Pa&amp;šalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="52"/>
         <source>Font Name</source>
-        <translation type="unfinished">Šrifto pavadinimas</translation>
+        <translation>Šrifto pavadinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="53"/>
         <source>Replacement</source>
-        <translation type="unfinished">Keitinys</translation>
+        <translation>Keitinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="94"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished">Šriftų paieškos vietas galima nurodyti tik „Failas &gt; Nuostatos“ ir tik jei nėra atverto jokio dokumento. Užverkite visus dokumentus, pasirinkite komandą „Failas &gt; Nuostatos &gt; Šriftai“ ir galėsite pakeisti šriftų paieškos vietas.</translation>
+        <translation>Šriftų paieškos vietas galima nurodyti tik „Failas &gt; Nuostatos“ ir tik jei nėra atverto jokio dokumento. Užverkite visus dokumentus, pasirinkite komandą „Failas &gt; Nuostatos &gt; Šriftai“ ir galėsite pakeisti šriftų paieškos vietas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="290"/>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="315"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Parinkti aplanką</translation>
     </message>
 </context>
 <context>
@@ -18095,204 +18120,204 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="27"/>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="211"/>
         <source>Guides</source>
-        <translation type="unfinished">Orientyrai</translation>
+        <translation>Kreiptinės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="38"/>
         <source>Placement</source>
-        <translation type="unfinished"></translation>
+        <translation>Vieta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="49"/>
         <source>Placement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vieta:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="66"/>
         <source>Snap Distance:</source>
-        <translation type="unfinished">Pritraukimo atstumas:</translation>
+        <translation>Pritraukimo atstumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="73"/>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="93"/>
         <source> px</source>
-        <translation type="unfinished"> px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="86"/>
         <source>Grab Radius:</source>
-        <translation type="unfinished">Pagriebimo spindulys:</translation>
+        <translation>Pagriebimo spindulys:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="130"/>
         <source>Distances</source>
-        <translation type="unfinished"></translation>
+        <translation>Atstumai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="152"/>
         <source>Minor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mažiausi tinklelio intervalai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="162"/>
         <source>Baseline Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazinių linijų tinklelio intervalai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="172"/>
         <source>Major Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Didžiausi tinklelio intervalai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="179"/>
         <source>Baseline Grid Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazinių linijų tinklelio poslinkis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="205"/>
         <source>Visibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Matomumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="218"/>
         <source>Margins</source>
-        <translation type="unfinished">Paraštės</translation>
+        <translation>Paraštės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="225"/>
         <source>Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Lapo tinklelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="232"/>
         <source>Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazinių linijų tinklelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="253"/>
         <source>Colors</source>
-        <translation type="unfinished">Spalvos</translation>
+        <translation>Spalvos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="264"/>
         <source>Guides:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreipiamosios:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="278"/>
         <source>Margins:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paraštės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="292"/>
         <source>Major Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stambusis tinklelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="306"/>
         <source>Minor Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Smulkusis tinklelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="320"/>
         <source>Baseline Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazinių linijų tinklelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="36"/>
         <source>In the Background</source>
-        <translation type="unfinished">Fone</translation>
+        <translation>Fone</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="37"/>
         <source>In the Foreground</source>
-        <translation type="unfinished">Pirmame plane</translation>
+        <translation>Pirmame plane</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="40"/>
         <source>Place guides in front of or behind objects on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Dėti kreipiamąsias virš puslapio objektų arba po jais</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="41"/>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Atstumas tarp smulkiojo tinklelio linijų</translation>
+        <translation>Atstumas tarp smulkiojo tinklelio linijų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="42"/>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Atstumas tarp stambiojo tinklelio linijų</translation>
+        <translation>Atstumas tarp stambiojo tinklelio linijų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="43"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished">Atstumas, kuriuo pradedant objektai traukiami prie orientyrų. Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
+        <translation>Atstumas, kuriuo pradedant objektai traukiami prie kreiptinių. Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="44"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished">Srities, kurioje galima paimti „Scribus“ objektus, spindulys.  Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
+        <translation>Srities, kurioje galima paimti „Scribus“ objektus, spindulys.  Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="45"/>
         <source>Color of the minor grid lines</source>
-        <translation type="unfinished">Smulkiojo tinklelio linijų spalva</translation>
+        <translation>Smulkiojo tinklelio linijų spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="46"/>
         <source>Color of the major grid lines</source>
-        <translation type="unfinished">Stambiojo tinklelio linijų spalva</translation>
+        <translation>Stambiojo tinklelio linijų spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="47"/>
         <source>Color of the guide lines you insert</source>
-        <translation type="unfinished">Naudotojo pridėtų orientyrų spalva</translation>
+        <translation>Naudotojo pridėtų kreiptinių spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="48"/>
         <source>Color for the margin lines</source>
-        <translation type="unfinished">Paraščių linijų spalva</translation>
+        <translation>Paraščių linijų spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="49"/>
         <source>Color for the baseline grid</source>
-        <translation type="unfinished">Bazinių linijų tinklelio spalva</translation>
+        <translation>Bazinių linijų tinklelio spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="50"/>
         <source>Turns the basegrid on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia bazinių linijų tinklelį</translation>
+        <translation>Įjungia arba išjungia bazinių linijų tinklelį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="51"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="unfinished">Atstumas tarp bazinių linijų tinklelio linijų</translation>
+        <translation>Atstumas tarp bazinių linijų tinklelio linijų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="52"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="unfinished">Atstumas nuo puslapio viršaus iki pirmosios bazinės linijos</translation>
+        <translation>Atstumas nuo puslapio viršaus iki pirmosios bazinės linijos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="53"/>
         <source>Turns the gridlines on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia tinklelio rodymą</translation>
+        <translation>Įjungia arba išjungia tinklelio rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="54"/>
         <source>Turns the guides on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia orientyrų rodymą</translation>
+        <translation>Įjungia arba išjungia kreiptinių rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="55"/>
         <source>Turns the margins on or off</source>
-        <translation type="unfinished">Įjungia arba išjungia paraščų rodymą</translation>
+        <translation>Įjungia arba išjungia paraščų rodymą</translation>
     </message>
 </context>
 <context>
@@ -18300,110 +18325,110 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją? {1.3.5 ?}</transla
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="27"/>
         <source>Hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Skiemenavimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Papildomos parinktys</translation>
+        <translation>Papildomos parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="51"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="unfinished">Iškvietus skiemenavimo funkciją (Priemonės -&gt; Skiemenuoti tekstą) bus atveriami langai su žodžių kėlimo pasiūlymais.</translation>
+        <translation>Iškvietus skiemenuoklį (Priemonės -&gt; Skiemenuoti tekstą) bus atveriami langai su žodžių kėlimo pasiūlymais.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="54"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished">&amp;Skiemenavimo pasiūlymai</translation>
+        <translation>&amp;Skiemenavimo pasiūlymai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="61"/>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished">Leisti automatiškai skiemenuoti tekstą rinkimo metu.</translation>
+        <translation>Leisti automatiškai skiemenuoti tekstą rinkimo metu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="64"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished">Skiemenuoti tekstą automatiškai &amp;rinkimo metu</translation>
+        <translation>Skiemenuoti tekstą automatiškai &amp;rinkimo metu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="73"/>
         <source>Language:</source>
-        <translation type="unfinished">Kalba:</translation>
+        <translation>Kalba:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="110"/>
         <source>Smallest Word:</source>
-        <translation type="unfinished"></translation>
+        <translation>Trumpiausias žodis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="120"/>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation type="unfinished">Trumpiausio neskiemenuojamo žodžio ilgis.</translation>
+        <translation>Trumpiausio neskiemenuojamo žodžio ilgis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="133"/>
         <source>Characters</source>
-        <translation type="unfinished">Rašmenys</translation>
+        <translation>Rašmenys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="157"/>
         <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidžiama paeiliui einančių kėlimų:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="170"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation type="unfinished">Maksimalus paeiliui einančių kėlimų skaičius.
+        <translation>Maksimalus paeiliui einančių kėlimų skaičius.
 Nulis reiškia, kad neribojama.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="210"/>
         <source>Word Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>Žodžių sąrašas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="218"/>
         <source>Exceptions</source>
-        <translation type="unfinished">Išimtys</translation>
+        <translation>Išimtys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="240"/>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="299"/>
         <source>Edit</source>
-        <translation type="unfinished">Taisyti</translation>
+        <translation>Taisyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenatorbase.ui" line="270"/>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="94"/>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="106"/>
         <source>Ignore List</source>
-        <translation type="unfinished">Ignoruojamų žodžių sąrašas</translation>
+        <translation>Ignoruojamų žodžių sąrašas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="94"/>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="135"/>
         <source>Add a new Entry</source>
-        <translation type="unfinished">Pridėti naują įrašą</translation>
+        <translation>Pridėti naują įrašą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="106"/>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="147"/>
         <source>Edit Entry</source>
-        <translation type="unfinished">Taisyti įrašą</translation>
+        <translation>Taisyti įrašą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="135"/>
         <location filename="../../../scribus/ui/prefs_hyphenator.cpp" line="147"/>
         <source>Exception List</source>
-        <translation type="unfinished">Išimčių sąrašas</translation>
+        <translation>Išimčių sąrašas</translation>
     </message>
 </context>
 <context>
@@ -18411,57 +18436,57 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
         <source>Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslų podėlis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="56"/>
         <source>Enable Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidžiamas paveikslų podėlis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="68"/>
         <source>Cache Size Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Podėlio talpos riba:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="99"/>
         <source> Mb</source>
-        <translation type="unfinished"></translation>
+        <translation> Mb</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="118"/>
         <source>Cache Entry Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Podėlio elementų riba:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="162"/>
         <source>Compression Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glaudinimo lygis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="28"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidus naudoti paveikslų podėlų pagreitės paveikslų įkėlimas. Įgalinkite podėlį, jei dirbate su dideliais dokumentais, kuriuose gausu paveikslų ir jei turite pakankamos talpos standųjį diską programų duomenims laikyti.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="29"/>
         <source>Limit the total size of all files in the image cache directory to this amount.</source>
-        <translation type="unfinished"></translation>
+        <translation>Riboti bendrą visų podėlio aplanko failų dydį šia reikšme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="30"/>
         <source>Limit the number of cache entries to this number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Riboti podėlio elementų skaičių šia reikšme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nustatyti podėlyje laikomų paveikslų glaudinimo lygį. Parinkus aukštesnį glaudinimo lygį mažesnio podėlio reikės, bet rašymas į podėlį bus lėtesnis.</translation>
     </message>
 </context>
 <context>
@@ -18469,25 +18494,25 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="27"/>
         <source>Item Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekto įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="57"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="391"/>
         <source>Text</source>
-        <translation type="unfinished">Tekstas</translation>
+        <translation>Tekstas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="100"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="672"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="995"/>
         <source>Fill Color:</source>
-        <translation type="unfinished">Užpildo spalva:</translation>
+        <translation>Užpildo spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="110"/>
@@ -18495,17 +18520,17 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1005"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1183"/>
         <source>Line Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linijos spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="120"/>
         <source>Tab Fill Character:</source>
-        <translation type="unfinished">Tabuliacijos užpildo rašmenys:</translation>
+        <translation>Tabuliacijos užpildo simbolis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="130"/>
         <source>Tab Width:</source>
-        <translation type="unfinished">Tabuliatoriaus plotis:</translation>
+        <translation>Tabuliatoriaus plotis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="163"/>
@@ -18518,7 +18543,7 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1062"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1256"/>
         <source>Shading:</source>
-        <translation type="unfinished">Šešėliai:</translation>
+        <translation>Šešėliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="170"/>
@@ -18533,220 +18558,220 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1079"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1263"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="250"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="unfinished">Stulpeliai ir atstumai iki tekto</translation>
+        <translation>Stulpeliai ir atstumai iki tekto</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="268"/>
         <source>Top:</source>
-        <translation type="unfinished">Viršuje:</translation>
+        <translation>Viršuje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="278"/>
         <source>Bottom:</source>
-        <translation type="unfinished">Apačioje:</translation>
+        <translation>Apačioje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="288"/>
         <source>Columns:</source>
-        <translation type="unfinished">Stulpeliai:</translation>
+        <translation>Stulpeliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="322"/>
         <source>Left:</source>
-        <translation type="unfinished">Kairėje:</translation>
+        <translation>Kairėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="332"/>
         <source>Right:</source>
-        <translation type="unfinished">Dešinėje:</translation>
+        <translation>Dešinėje:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="342"/>
         <source>Column Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Atstumas tarp skilčių:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="412"/>
         <source>Font:</source>
-        <translation type="unfinished">Šriftas:</translation>
+        <translation>Šriftas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="422"/>
         <source>Size:</source>
-        <translation type="unfinished">Dydis:</translation>
+        <translation>Dydis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="453"/>
         <source>Color:</source>
-        <translation type="unfinished">Spalva:</translation>
+        <translation>Spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="463"/>
         <source>Stroke:</source>
-        <translation type="unfinished">Apvadas:</translation>
+        <translation>Apvadas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="575"/>
         <source>Preview</source>
-        <translation type="unfinished">Peržiūra</translation>
+        <translation>Peržiūra</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="629"/>
         <source>Images</source>
-        <translation type="unfinished">Paveikslai</translation>
+        <translation>Paveikslai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="763"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti įdėtąją apybrėžą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="792"/>
         <source>Scaling</source>
-        <translation type="unfinished">Mastelis</translation>
+        <translation>Mastelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="806"/>
         <source>Free Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Laisvas mastelio keitimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="809"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="881"/>
         <source>scalingButtonGroup</source>
-        <translation type="unfinished"></translation>
+        <translation>scalingButtonGroup</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="820"/>
         <source>Horizontal Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontalus mstelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="837"/>
         <source>Vertical Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikalus mastelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="856"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="878"/>
         <source>Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Padaryti paveikslą rėmelio dydžio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="888"/>
         <source>Keep Aspect Ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Išlaikyti proporcijas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="917"/>
         <source>On Screen Preview</source>
-        <translation type="unfinished">Ekraninė peržiūra</translation>
+        <translation>Ekraninė peržiūra</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="931"/>
         <source>Full Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimali raiška</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="934"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="944"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="954"/>
         <source>previewButtonGroup</source>
-        <translation type="unfinished"></translation>
+        <translation>previewButtonGroup</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="941"/>
         <source>Normal Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Normali raiška</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="951"/>
         <source>Low Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Žema raiška</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="979"/>
         <source>Shapes</source>
-        <translation type="unfinished">Figūros</translation>
+        <translation>Figūros</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1015"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1193"/>
         <source>Line Style:</source>
-        <translation type="unfinished">Linijos stilius:</translation>
+        <translation>Linijos stilius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1022"/>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1203"/>
         <source>Line Width:</source>
-        <translation type="unfinished">Linijos storis:</translation>
+        <translation>Linijos storis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1120"/>
         <source>Regular Polygons</source>
-        <translation type="unfinished">Taisyklingi daugiakampiai</translation>
+        <translation>Taisyklingi daugiakampiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1167"/>
         <source>Lines</source>
-        <translation type="unfinished">Linijos</translation>
+        <translation>Linijos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1213"/>
         <source>Start Arrow:</source>
-        <translation type="unfinished">Pradžios rodyklė:</translation>
+        <translation>Pradžios rodyklė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtoolsbase.ui" line="1220"/>
         <source>End Arrow:</source>
-        <translation type="unfinished">Pabaigos rodyklė:</translation>
+        <translation>Pabaigos rodyklė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="31"/>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="32"/>
         <source>Hairline</source>
-        <translation type="unfinished">Ploniausia linija</translation>
+        <translation>Ploniausia linija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="46"/>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="327"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Šešios žąsys su šešiais žąsyčiais</translation>
+        <translation>Šešios žąsys su šešiais žąsyčiais</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="84"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nieko</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="85"/>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Taškas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="86"/>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Brūkšnelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="87"/>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation>Pabraukimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_itemtools.cpp" line="88"/>
         <source>Custom</source>
-        <translation type="unfinished">Individualus</translation>
+        <translation>Individualus</translation>
     </message>
 </context>
 <context>
@@ -18755,207 +18780,207 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="14"/>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="27"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Klaviatūros šaukiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="65"/>
         <source>Search:</source>
-        <translation type="unfinished">Ieškoti:</translation>
+        <translation>Ieškoti:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="81"/>
         <source>Action</source>
-        <translation type="unfinished">Veiksmas</translation>
+        <translation>Veiksmas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="86"/>
         <source>Shortcut</source>
-        <translation type="unfinished">Šaukinys</translation>
+        <translation>Šaukinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="116"/>
         <source>Shortcut for Selected Action</source>
-        <translation type="unfinished">Pasirinktos komandos šaukinys</translation>
+        <translation>Pasirinktos komandos šaukinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="132"/>
         <source>&amp;No Key</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nėra komandos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="135"/>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="142"/>
         <source>&amp;User Defined Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Na&amp;udotojo apibrėžta komanda</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="145"/>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="168"/>
         <source>Set &amp;Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodyti &amp;komandą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="171"/>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="187"/>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="224"/>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished">Tinkami įkelti šaukinių rinkiniai</translation>
+        <translation>Tinkami įkelti šaukinių rinkiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="240"/>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished">Klaviatūros komandų (šaukinių) rinkinį galima įkelti</translation>
+        <translation>Klaviatūros komandų (šaukinių) rinkinį galima įkelti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="247"/>
         <source>Load the selected shortcut set</source>
-        <translation type="unfinished">Pkelti pasirinktą šaukinių aibę</translation>
+        <translation>Įkelti pasirinktą šaukinių aibę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="250"/>
         <source>&amp;Load</source>
-        <translation type="unfinished">&amp;Įkelti</translation>
+        <translation>&amp;Įkelti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="253"/>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Į</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="276"/>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="unfinished">Importuoti šaukinius į dabartinę konfigūraciją</translation>
+        <translation>Importuoti šaukinius į dabartinę konfigūraciją</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="279"/>
         <source>&amp;Import...</source>
-        <translation type="unfinished">&amp;Importuoti...</translation>
+        <translation>&amp;Importuoti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="282"/>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="289"/>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="unfinished">Eksportuoti klaviatūros komandas (šaukinius) į failą</translation>
+        <translation>Eksportuoti klaviatūros komandas (šaukinius) į failą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="292"/>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eksportuoti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="295"/>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="318"/>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="unfinished">Įkelti iš naujo „Scribus“ šaukinius</translation>
+        <translation>Įkelti iš naujo numatytuosius „Scribus“ šaukinius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="321"/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Atstatyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="324"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="132"/>
         <source>Select a Key set file to read</source>
-        <translation type="unfinished">Pažymėkite skaitysimą šaukinių failą</translation>
+        <translation>Pažymėkite skaitysimą šaukinių failą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="132"/>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation type="unfinished">Klaviatūros komandų (šaukinių) rinkinio XML failas (*.xml)</translation>
+        <translation>Klaviatūros komandų (šaukinių) rinkinio XML failas (*.xml)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Select a Key set file to save to</source>
-        <translation type="unfinished">Pasirinkite šaukinių rinkinio failą įrašymui</translation>
+        <translation>Pasirinkite šaukinių rinkinio failą įrašymui</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="211"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation type="unfinished">Eksportuoti klaviatūros komandas (šaukinius) į failą</translation>
+        <translation>Eksportuoti klaviatūros komandas (šaukinius) į failą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="211"/>
         <source>Enter the name of the shortcut set:</source>
-        <translation type="unfinished">Įveskite klaviatūros komandų rinkinio pavadinimą:</translation>
+        <translation>Įveskite klaviatūros komandų rinkinio pavadinimą:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="475"/>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="535"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="475"/>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="535"/>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="475"/>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="535"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="475"/>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="535"/>
         <source>Meta</source>
-        <translation type="unfinished">Meta</translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="482"/>
         <source>Meta+</source>
-        <translation type="unfinished">Meta+</translation>
+        <translation>Meta+</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="486"/>
         <source>Shift+</source>
-        <translation type="unfinished">Shift+</translation>
+        <translation>Shift+</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="490"/>
         <source>Alt+</source>
-        <translation type="unfinished">Alt+</translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="494"/>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl+</translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_keyboardshortcuts.cpp" line="504"/>
         <source>This key sequence is already in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Tokia komanda jau naudojama</translation>
     </message>
 </context>
 <context>
@@ -18963,37 +18988,37 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="27"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished">Įvairūs</translation>
+        <translation>Įvairūs</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="56"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="unfinished">Visuomet klausti prieš keičiant šriftus dokumento atvėrimo metu</translation>
+        <translation>Dokumento atvėrimo metu visuomet klausti prieš keičiant šriftus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="63"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Dabartinio pastraipos stiliaus peržiūra yra matoma taisant stilių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="93"/>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished">Šabloninis tekstas „Lorem Ipsum“</translation>
+        <translation>Šabloninis tekstas „Lorem Ipsum“</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="107"/>
         <source>Always use standard Lorem Ipsum text</source>
-        <translation type="unfinished"></translation>
+        <translation>Visuomet naudoti standartinį „Lorem Ipsum“ tekstą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_miscellaneousbase.ui" line="116"/>
         <source>Paragraph Count:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pastraipų skaitiklis:</translation>
     </message>
 </context>
 <context>
@@ -19001,99 +19026,99 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="27"/>
         <source>Operator Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Operatoriaus įrankiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="57"/>
         <source>Zoom</source>
-        <translation type="unfinished">Didinti/mažinti</translation>
+        <translation>Mastelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="68"/>
         <source>Minimum:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mažiausiai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="75"/>
         <source>Maximum:</source>
-        <translation type="unfinished"></translation>
+        <translation>Daugiausiai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="82"/>
         <source>Stepping:</source>
-        <translation type="unfinished"></translation>
+        <translation>Žingsnis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="89"/>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="102"/>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="115"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="144"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished">Įvairūs</translation>
+        <translation>Įvairūs</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="156"/>
         <source>Item Duplicate</source>
-        <translation type="unfinished">Dublikato vieta originalo atžvilgiu</translation>
+        <translation>Elemento dublikatas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="175"/>
         <source>X Displacement:</source>
-        <translation type="unfinished"></translation>
+        <translation>X padėtis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="182"/>
         <source>Y Displacement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y padėtis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="219"/>
         <source>Rotation Tool</source>
-        <translation type="unfinished">Sukimo priemonė</translation>
+        <translation>Sukimo priemonė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortoolsbase.ui" line="238"/>
         <source>Constrain To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Riboti iki:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="36"/>
         <source>Minimum magnification allowed</source>
-        <translation type="unfinished">Leidžiamas minimalus pritraukimas</translation>
+        <translation>Leidžiamas minimalus pritraukimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="37"/>
         <source>Maximum magnification allowed</source>
-        <translation type="unfinished">Leidžiamas maksimalus pritraukimas</translation>
+        <translation>Leidžiamas maksimalus pritraukimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="38"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="unfinished">Keisti pritraukimo ypatybes kiekvienai didinimo operacijai</translation>
+        <translation>Keisti pritraukimo ypatybes kiekvienai didinimo operacijai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="39"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="unfinished">Horiz. puslapio objektų išdėstymas</translation>
+        <translation>Horiz. puslapio objektų išdėstymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="40"/>
         <source>Vertical displacement of page items</source>
-        <translation type="unfinished">Vertik. puslapio objektų išdėstymas</translation>
+        <translation>Vertik. puslapio objektų išdėstymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_operatortools.cpp" line="41"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="unfinished">Objektų sukimo žingsnis, jei nuspaustas „Ctrl“ klavišas</translation>
+        <translation>Objektų sukimo žingsnis, jei nuspaustas „Ctrl“ klavišas</translation>
     </message>
 </context>
 <context>
@@ -19101,851 +19126,851 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="27"/>
         <source>PDF Export</source>
-        <translation type="unfinished">PDF eksportas</translation>
+        <translation>PDF eksportas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="45"/>
         <source>Pages</source>
-        <translation type="unfinished">Puslapiai</translation>
+        <translation>Puslapiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1248"/>
         <source>Export Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportuojam puslapiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="71"/>
         <source>All Pages</source>
-        <translation type="unfinished">Visi puslapiai</translation>
+        <translation>Visi puslapiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="74"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="84"/>
         <source>rangeButtonGroup</source>
-        <translation type="unfinished"></translation>
+        <translation>rangeButtonGroup</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="81"/>
         <source>Choose Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Parinkite puslapius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="96"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="190"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="200"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="140"/>
         <source>Rotation and Mirroring</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasukimas ir atspindėjimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="156"/>
         <source>Rotation:</source>
-        <translation type="unfinished">Posūkis:</translation>
+        <translation>Pasukta:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="183"/>
         <source>Page Mirroring:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puslapio atspindėjimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="242"/>
         <source>File Options</source>
-        <translation type="unfinished">Failo parinktys</translation>
+        <translation>Failo parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="277"/>
         <source>Compatibility:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suderinamumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="287"/>
         <source>Page Binding:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puslapio susegimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="301"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Apkirpti ties spausdintuvo paraštėmis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="308"/>
         <source>Generate Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukurti miniatiūras</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="315"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašyti susietuosius teksto rėmelius kaip PDF dokumentus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="322"/>
         <source>Include Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtraukti sluoksnius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="329"/>
         <source>Include Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtraukti nuorodas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="336"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtraukti PDF ir EPS failus (eksperimentiškai)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="367"/>
         <source>Compression</source>
-        <translation type="unfinished"></translation>
+        <translation>Glaudinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="381"/>
         <source>Compress Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Suglaudinti tekstą ir vektorinę grafiką</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="393"/>
         <source>Image Compression Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslų glaudinimo metodas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="403"/>
         <source>Image Compression Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslų glaudinimo kokybė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="417"/>
         <source>Limit Maximum Image Resolution to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Riboti maksimalią paveikslų raišką iki:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="424"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="461"/>
         <source> dpi</source>
-        <translation type="unfinished"> tšk. col.</translation>
+        <translation> tšk. col.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="454"/>
         <source>Resolution for EPS Graphics:</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS paveikslų raiška:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="507"/>
         <source>Security</source>
-        <translation type="unfinished"></translation>
+        <translation>Saugumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="513"/>
         <source>Use Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti kodavimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="542"/>
         <source>Passwords</source>
-        <translation type="unfinished">Slaptažodžiai</translation>
+        <translation>Slaptažodžiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="561"/>
         <source>Owner:</source>
-        <translation type="unfinished"></translation>
+        <translation>Savininkas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="575"/>
         <source>User:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudotojas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="613"/>
         <source>Settings</source>
-        <translation type="unfinished">Nuostatos</translation>
+        <translation>Nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="627"/>
         <source>Allow Printing the Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Leisti spausdinti dokumentą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="634"/>
         <source>Allow Changing the Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Leisti keisti dokumentą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="641"/>
         <source>Allow Copying Text and Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Leisti kopijuoti tekstą ir paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="648"/>
         <source>Allow Adding Annotations and Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Leisti pridėti anotacijas ir laukus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="669"/>
         <source>Color</source>
-        <translation type="unfinished">Spalva</translation>
+        <translation>Spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="701"/>
         <source>Output Intended For:</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvedimui bus naudojama:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="713"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Konvertuoti neskaidomąsias spalvas į skaidomąsias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="742"/>
         <source>Solid Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Grynosios spalvos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="763"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="830"/>
         <source>Use Color Profile</source>
-        <translation type="unfinished">Naudoti spalvų profilį</translation>
+        <translation>Naudoti spalvų profilį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="772"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="846"/>
         <source>Profile:</source>
-        <translation type="unfinished">Profilis:</translation>
+        <translation>Profilis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="782"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="856"/>
         <source>Rendering Intent:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vizualizavimo tikslumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="816"/>
         <source>Images</source>
-        <translation type="unfinished">Paveikslai</translation>
+        <translation>Paveikslai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="837"/>
         <source>Do not use Embedded Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenaudoti įdėtųjų spalvų profilių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="890"/>
         <source>Custom Rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Individualus vizualizavimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="904"/>
         <source>Use Custom Rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti individualų vizualizavimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="916"/>
         <source>Color:</source>
-        <translation type="unfinished">Spalva:</translation>
+        <translation>Spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="926"/>
         <source>Frequency:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dažnis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="943"/>
         <source>Angle:</source>
-        <translation type="unfinished">Kampas:</translation>
+        <translation>Kampas:</translation>
     </message>
     <message utf8="true">
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="950"/>
         <source> °</source>
-        <translation type="unfinished"> °</translation>
+        <translation> °</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="963"/>
         <source>Spot Function:</source>
-        <translation type="unfinished"></translation>
+        <translation>Neskaidomų spalvų („spot“) funkcija:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="993"/>
         <source>Pre-Press</source>
-        <translation type="unfinished">Priešspaustuvinis</translation>
+        <translation>Priešspaustuvinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1029"/>
         <source>Printer Marks</source>
-        <translation type="unfinished">Spausdinimo žymos</translation>
+        <translation>Spausdinimo žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1045"/>
         <source>Page Information</source>
-        <translation type="unfinished">Puslapio informacija</translation>
+        <translation>Puslapio informacija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1052"/>
         <source>Registration Marks</source>
-        <translation type="unfinished">Sutapimo žymos</translation>
+        <translation>Sutapimo žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1062"/>
         <source>Registration Mark Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sutapimo žymų poslinkis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1069"/>
         <source>Crop Marks</source>
-        <translation type="unfinished">Apipjovimo žymos</translation>
+        <translation>Apipjovimo žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1076"/>
         <source>Bleed Marks</source>
-        <translation type="unfinished">Užlaidų žymos</translation>
+        <translation>Užlaidų žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1083"/>
         <source>Color Bars</source>
-        <translation type="unfinished">Spalvų juostos</translation>
+        <translation>Spalvų juostos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1114"/>
         <source>Bleed Settings</source>
-        <translation type="unfinished">Užlaidų nuostatos</translation>
+        <translation>Užlaidų nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1148"/>
         <source>Use Document Bleeds</source>
-        <translation type="unfinished">Naudoti dokumento užlaidas</translation>
+        <translation>Naudoti dokumento užlaidas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1177"/>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 išvedimas</translation>
+        <translation>PDF/X-3 skirtas išvedimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1196"/>
         <source>Output Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvedimo profilis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1206"/>
         <source>Information String:</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacinė eilutė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1236"/>
         <source>Fonts</source>
-        <translation type="unfinished">Šriftai</translation>
+        <translation>Šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1266"/>
         <source>Available Fonts</source>
-        <translation type="unfinished">Turimi šriftai</translation>
+        <translation>Turimi šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1280"/>
         <source>Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtraukti visus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1287"/>
         <source>Outline All</source>
-        <translation type="unfinished"></translation>
+        <translation>Visus versti kontūriniais</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1325"/>
         <source>Fonts to Embed</source>
-        <translation type="unfinished"></translation>
+        <translation>Įtrauksimi šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1384"/>
         <source>Fonts to Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Versimi į kontūrinius šriftai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1399"/>
         <source>Extras</source>
-        <translation type="unfinished">Priemonės</translation>
+        <translation>Priemonės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1405"/>
         <source>Enable Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Leidžiami pateikčių efektai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1424"/>
         <source>Display Duration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodymo trukmė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1431"/>
         <source>Effect Duration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Efekto trukmė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1438"/>
         <source>Effect Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Efekto tipas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1448"/>
         <source>Moving Lines:</source>
-        <translation type="unfinished"></translation>
+        <translation>Judančios eilutės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1458"/>
         <source>From the:</source>
-        <translation type="unfinished"></translation>
+        <translation>Iš:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1468"/>
         <source>Direction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kryptis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1478"/>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1488"/>
         <source> s</source>
-        <translation type="unfinished"></translation>
+        <translation> s</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1503"/>
         <source>Apply Effect to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Taukyti efektą visiems puslapiams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1527"/>
         <source>Show Page Previews</source>
-        <translation type="unfinished">Rodyti puslapių peržiūrą</translation>
+        <translation>Rodyti puslapių peržiūrą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1535"/>
         <source>Viewer</source>
-        <translation type="unfinished">Žiūryklė</translation>
+        <translation>Žiūryklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1547"/>
         <source>Document Layout</source>
-        <translation type="unfinished">Dokumento maketas</translation>
+        <translation>Dokumento maketas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1561"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Atskiras puslais</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1568"/>
         <source>Continuous Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepertraukiami puslapiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1575"/>
         <source>Double Page Left</source>
-        <translation type="unfinished">Dvigubas puslapis kairėje</translation>
+        <translation>Dvigubas puslapis kairėje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1582"/>
         <source>Double Page Right</source>
-        <translation type="unfinished">Dvigubas puslapis dešinėje</translation>
+        <translation>Dvigubas puslapis dešinėje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1611"/>
         <source>Visual Appearance</source>
-        <translation type="unfinished">Išvaizda</translation>
+        <translation>Išvaizda</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1629"/>
         <source>Use Viewer&apos;s Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti numatytąsias žiūryklės nuostatas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1636"/>
         <source>Use Full Screen Mode</source>
-        <translation type="unfinished">Visaekranė veiksena</translation>
+        <translation>Naudoti visaekranę veikseną</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1643"/>
         <source>Display Bookmarks Tab</source>
-        <translation type="unfinished">Rodyti nuorodų kortelę</translation>
+        <translation>Rodyti nuorodų kortelę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1650"/>
         <source>Display Thumbnails</source>
-        <translation type="unfinished">Rodyti miniatiūras</translation>
+        <translation>Rodyti miniatiūras</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1657"/>
         <source>Display Layers Tab</source>
-        <translation type="unfinished">Rodyti sluoksnių kortelę</translation>
+        <translation>Rodyti sluoksnių kortelę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1668"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Paslėpti žiūryklės meniu juostą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1675"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Paslėpti žiūryklės priemonių juostą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1682"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="unfinished">Keisti puslapių mastelį, kad tilptų Žiūryklės lange</translation>
+        <translation>Keisti puslapių mastelį, kad tilptų Žiūryklės lange</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1728"/>
         <source>Special Actions</source>
-        <translation type="unfinished">Specialūs veiksmai</translation>
+        <translation>Specialūs veiksmai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1744"/>
         <source>Javascript to be executed when PDF document is opened:</source>
-        <translation type="unfinished"></translation>
+        <translation>„Javascript“ programa, krią įvykdyti atvėrus PDF dokumentą:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="46"/>
         <source>Automatically rotate the exported pages</source>
-        <translation type="unfinished">Automatiškai pasukti eksportuotus puslapius</translation>
+        <translation>Automatiškai pasukti eksportuotus puslapius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="47"/>
         <source>Export all pages to PDF</source>
-        <translation type="unfinished">Eksportuoti visus puslapius į PDF</translation>
+        <translation>Eksportuoti visus puslapius į PDF</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="48"/>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished">Eksportuoti nurodyto intervalo puslapius į PDF</translation>
+        <translation>Eksportuoti nurodytus puslapius į PDF</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="49"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished">Įterpti kableliais atskirtų šablonų sąrašą; šablonuoe * reiškia visus puslapius, 1-5 nurodo iš eilės einančius puslapius, vienas skaičius – konkretų puslapį.</translation>
+        <translation>Įterpti kableliais atskirtų šablonų sąrašą; šablonuoe * reiškia visus puslapius, 1-5 nurodo iš eilės einančius puslapius, atskiras skaičius – konkretų puslapį.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="53"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodo PDF suderinamumą.&lt;br/&gt;Nenurodžius, laikoma, kad tai &lt;b&gt;PDF 1.3&lt;/b&gt;, kuris suteikia geriausią suderinamumą.&lt;br/&gt;Rinkis &lt;b&gt;PDF 1.4&lt;/b&gt;, jei failuose naudojamas permatomumas ar jei reikalingas 128 bitų šifravimas.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; yra būtinas, jei norite įrašyti objektus skirtinguose PDF dokumento sluoksniuose.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; rinktis PDF dokumentams, kuriuose reikalngos valdomos RŽM (RGB) spalvos, naudojamos komerciniam spausdinimui ir pasirenkamos, kai suaktyvinamas spalvų valdymas. Naudokite tik jei turite tokį spausdintuvą arba kai kuriais atvejais spausdinant 4 spalvų skaitmeniniu spalviniu lazeriniu spausdintuvu. &lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; skirtas „aklam“ pakeitimui tik ŽPGJ (CMYK) modelio arba neskaidomosiomis spalvomis.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; yra praplėsta „PDF/X-3“ atmaina, papildyta permatomumo ir sluoksnių palaikymu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="54"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodo puslapių įrišimo paraštes PDF dokumente. Jei nežinote, ką keisti, palikite numatytąją (kairiąją).</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="55"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished">Sukuria PDF kiekvieno kiekvieno puslapio miniatiūras. Kai kurios PDF dokumentų žiūryklės naudoja miniatiūras navigacijai.</translation>
+        <translation>Sukuria PDFdokumento kiekvieno puslapio miniatiūras. Kai kurios PDF dokumentų žiūryklės naudoja miniatiūras navigacijai.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="56"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="unfinished">Kurti PDF dokumentus, kuriuose yra patogūs kitų PDF dokumentų saitai.</translation>
+        <translation>Kurti PDF dokumentus, kuriuose yra patogūs kitų PDF dokumentų saitai.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="57"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished">Sluoksniai, esantys PDF dokumente, bus prieinami tik nurodžius PDF 1.5.</translation>
+        <translation>Sluoksniai, esantys PDF dokumente, bus prieinami tik nurodžius PDF 1.5.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="58"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished">Įtraukti nuorodas į sukurtą dokumentą. Tai labai praverčia naršant didelės apimties PDF dokumentą.</translation>
+        <translation>Įtraukti nuorodas į sukurtą dokumentą. Tai labai praverčia naršant didelės apimties PDF dokumentą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished">Vektorinės grafikos ir tekstų eksportavimo raiška. Tai netaikoma taškinės grafikos piešiniams, pavyzdžiui, nuotraukoms.</translation>
+        <translation>Vektorinės grafikos ir tekstų eksportavimo raiška. Tai netaikoma taškinės grafikos piešiniams, pavyzdžiui, nuotraukoms.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
-        <translation type="unfinished">Eksportuoti paveikslų rėmeliuose esančius PDF failu kaip įdėtuosius PDF dokumentus. Į spalvų modelius dar neatsižvelgiama, todėl prieš nurodydami naudoti šią funkciją turite tiksliai žinoti, ką darote.</translation>
+        <translation>Eksportuoti paveikslų rėmeliuose esančius PDF failus kaip įdėtuosius PDF dokumentus. Į spalvų modelius dar neatsižvelgiama, todėl prieš nurodydami naudoti šią funkciją turite tiksliai žinoti, ką darote.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="unfinished">Leidžiamas nenuostolingasis tekstų ir grafikos glaudinimas. Jei neturie konkrečios priežasties, palikite langelį pažymėtą. Tai leisžia sumažinti PDF failo dydį.</translation>
+        <translation>Leidžiamas nenuostolingasis tekstų ir grafikos glaudinimas. Jei neturie konkrečios priežasties, palikite langelį pažymėtą. Tai leis sumažinti PDF failo dydį.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="62"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished">Glaudinimo metodas paveikslams. Leidžiama „Scribus“ automatiškai parinkti tinkamiausią metodą. ZIP glaudinimas yra nenuostolingas ir tinkamas grynųjų spalvų paveikslams. JPEG tinkamesnis maženio dydžio PDF failams kurti, ypač nuotraukoms (žinoma, galimas nežymus paveikslų kokybės pablogėjimas). Palikite parinkti „Automatiškai“ jei nėra būtinybės naudoti specialias glaudinimo parinktis.</translation>
+        <translation>Glaudinimo metodas paveikslams. Leidžiama „Scribus“ automatiškai parinkti tinkamiausią metodą. ZIP glaudinimas yra nenuostolingas ir tinkamas grynųjų spalvų paveikslams. JPEG tinkamesnis mažesnio dydžio PDF failams kurti, ypač nuotraukoms (žinoma, galimas nežymus paveikslų kokybės pablogėjimas). Palikite parinkti „Automatiškai“ jei nėra būtinybės naudoti specialias glaudinimo parinktis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="63"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished">Glaudinimo kokybės parinktys nuostolingojo glaudinimo atveju: Minimali (25%), Žema (50%), Vidutinė (75%), Aukšta (85%), Maksimali (95%). Atminkite, kad kokybės lygmuo tiesiogiai nenusako gausimo paveikslo failo dydžio – failo dydis ir paveikslo kokybė priklauso nuo konkretaus paveikslo. Netgi pasirinkus parinkti „Maksimali“, „jpeg“ formato atveju galimas kokybės pablogėjimas.</translation>
+        <translation>Glaudinimo kokybės parinktys nuostolingojo glaudinimo atveju: Minimali (25%), Žema (50%), Vidutinė (75%), Aukšta (85%), Maksimali (95%). Atminkite, kad kokybės lygmuo tiesiogiai nenusako gausimo paveikslo failo dydžio – failo dydis ir paveikslo kokybė priklauso nuo konkretaus paveikslo. Netgi pasirinkus parinktį „Maksimali“, „jpeg“ formato atveju galimas kokybės pablogėjimas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="64"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished">Taškinio vaizdo kokybę riboja pasirinkta raiška (taškais colyje). Mažesnės raiškos paveikslai gali likti nepakitę. Palikus nepažymėtą šią parinktį bus naudojama paveikslų pradinė raiška. Pažymėjus šį langelį reikės daugiau atminties ir sulėtės eksportavimas.</translation>
+        <translation>Taškinio vaizdo kokybę riboja pasirinkta raiška (taškais colyje). Mažesnės raiškos paveikslai gali likti nepakitę. Palikus nepažymėtą šią parinktį, bus naudojama paveikslų pradinė raiška. Pažymėjus šį langelį, reikės daugiau atminties ir sulėtės eksportavimas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="65"/>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished">taškai colyje (dpi): eksportuojamų paveikslų raiška.</translation>
+        <translation>taškai colyje (dpi): eksportuojamų paveikslų raiška.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="66"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished">Leidžiamos apsaugos priemonės eksportuojamame PDF dokumente. Pasirinkus „PDF 1.3“ PDF dokumento apsaugai bus naudojamas 40 bitų šifravimas, o pasirinkus „PDF 1.4“ – 128 bitų šifravimas. Pastaba: PDF šifraviasm nėra toks patikimas, kaip GPG (GNU Privacy Guard) arba PGP (Pretty Good Privacy) šifravimas ir turi kai kurių ribojimų.</translation>
+        <translation>Leidžiamos apsaugos priemonės eksportuojamame PDF dokumente. Pasirinkus „PDF 1.3“ PDF dokumento apsaugai bus naudojamas 40 bitų šifravimas, o pasirinkus „PDF 1.4“ – 128 bitų šifravimas. Pastaba: PDF šifravimas nėra toks patikimas, kaip GPG (GNU Privacy Guard) arba PGP (Pretty Good Privacy) šifravimas ir turi kai kurių ribojimų.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="67"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished">Pasirinkite pagrindinį slaptažodį, kuris bus vartojamas leisti arba drausti eksportuojamų PDF dokumentų apsaugos ypatybes</translation>
+        <translation>Pasirinkite pagrindinį slaptažodį, kuris bus vartojamas leisti arba drausti eksportuojamų PDF dokumentų apsaugos ypatybes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="68"/>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">Parinkite slaptažodį, naudosimą PDF dokumentui skaityti.</translation>
+        <translation>Parinkite slaptažodį, naudosimą PDF dokumentui skaityti.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">Leisti spausdinti PDF dokumentą. Jei nepažymėta – spausdinti neleidžiama. </translation>
+        <translation>Leisti spausdinti PDF dokumentą. Jei nepažymėta – spausdinti neleidžiama. </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished">Leisti keisti PDF dokumentą. Jei nepažymėta – spausdinti neleidžiama. </translation>
+        <translation>Leisti keisti PDF dokumentą. Jei nepažymėta – spausdinti neleidžiama. </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="unfinished">Leisti kopijuoti tekstą ir paveikslus iš PDF dokumento. Jei nepažymėta – teksto ir paveikslų kopijuoti į iškarpinę neleidžiama. </translation>
+        <translation>Leisti kopijuoti tekstą ir paveikslus iš PDF dokumento. Jei nepažymėta – teksto ir paveikslų kopijuoti neleidžiama. </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished">Leisti įterpti į PDF dokumentą pastabas ir papildomus laukus. Jei nepažymėta – pastabų ir laukų keisti neleidžiama. </translation>
+        <translation>Leisti įterpti į PDF dokumentą pastabas ir papildomus laukus. Jei nepažymėta – pastabų ir laukų keisti neleidžiama. </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished">Kursimo PDF dokumento spalvų modelis. Pasirink „Ekranas/Saitynas“ PDF dokumentams, kurie bus peržiūrimi kompiuterio ekrane ir spasdinami įprastais rašaliniais spausdintuvais. Rinkis „Spausdintuvas“, jei ketini spausdinti kokybišku 4 spalvų ŽPGJ (CMYK) spausdintuvu. Rinkis „Nespalvotai“, jei nori sukurti nespalvotą PDF dokumentą.</translation>
+        <translation>Kursimo PDF dokumento spalvų modelis. Pasirink „Ekranas/Saitynas“ PDF dokumentams, kurie bus peržiūrimi kompiuterio ekrane ir spasdinami įprastais rašaliniais spausdintuvais. Rinkis „Spausdintuvas“, jei ketini spausdinti kokybišku 4 spalvų ŽPGJ (CMYK) spausdintuvu. Rinkis „Nespalvotai“, jei nori sukurti nespalvotą PDF dokumentą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Tai papildomos nuostatos, neleidžiamos numatytuoju atveju. Jas verta leisti tik jei tai yra būtina spausdintuvui ir turite aiškius ir konkrečius nurodymus. Priešingu atveju gali būti keblumų norint spausdinti ar panaudoti kitose programose sukurtą PDF dokumentą.</translation>
+        <translation>Tai papildomos nuostatos, neleidžiamos numatytuoju atveju. Jas verta leisti tik jei tai yra būtina spausdintuvui ir turite aiškius ir konkrečius nurodymus. Priešingu atveju gali būti keblumų norint spausdinti ar panaudoti kitose programose sukurtą PDF dokumentą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="75"/>
         <source>Embed a color profile for solid colors</source>
-        <translation type="unfinished">Įdėti spalvų profilį grynosioms spalvoms </translation>
+        <translation>Įdėti spalvų profilį grynosioms spalvoms </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished">Spalvų profilis grynosioms spalvoms</translation>
+        <translation>Spalvų profilis grynosioms spalvoms</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
         <source>Rendering intent for solid colors</source>
-        <translation type="unfinished">Grynųjų spalvų vizualizavimo tikslumas</translation>
+        <translation>Grynųjų spalvų vizualizavimo tikslumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="78"/>
         <source>Embed a color profile for images</source>
-        <translation type="unfinished">Įdėti spalvų profilį paveikslams</translation>
+        <translation>Įdėti spalvų profilį paveikslams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="79"/>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished">Nenaudoti spalvų profilių, kurie įdėti į duotus paveikslus</translation>
+        <translation>Nenaudoti spalvų profilių, kurie įdėti į duotus paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="80"/>
         <source>Color profile for images</source>
-        <translation type="unfinished">Spalvų profilis paveikslams</translation>
+        <translation>Spalvų profilis paveikslams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
         <source>Rendering intent for images</source>
-        <translation type="unfinished">Paveikslų vizualizavimo tikslumas</translation>
+        <translation>Paveikslų vizualizavimo tikslumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="82"/>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished">Atspindėti puslapį(-ius) horizontaliai</translation>
+        <translation>Atspindėti puslapį(-ius) horizontaliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="83"/>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished">Atspindėti puslapį(-ius) vertikaliai</translation>
+        <translation>Atspindėti puslapį(-ius) vertikaliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="84"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished">Leisti konvertuoti neskaidomąsias spalvas į skaidomąsias. Jei ketinate spausdinti neskaidomąsias spalvas profesionaliu spausdintuvu, tai greičiausiai verta palikti įgalintą šią ypatybę.</translation>
+        <translation>Leisti konvertuoti neskaidomąsias spalvas į skaidomąsias. Jei ketinate spausdinti neskaidomąsias spalvas profesionaliu spausdintuvu, tai greičiausiai verta palikti įgalintą šią ypatybę.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="85"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished">Eksportuotame faile nerodyti objektų, esannčių už paraščių</translation>
+        <translation>Eksportuotame faile nerodyti objektų, esančių už paraščių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="87"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished">Uždeda apipjovimo žymas PDF dokumente. Šios žymos parodo, kur reikia nukirpti (pjauti) atspausdintą lapą</translation>
+        <translation>Uždeda apipjovimo žymas PDF dokumente. Šios žymos parodo, kur reikia nukirpti (pjauti) atspausdintą lapą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished">Uždedamos užlaidų žymos, kurios rodomos „_ . _“ ir žymi užlaidų ribas</translation>
+        <translation>Uždedamos užlaidų žymos, kurios rodomos „_ . _“ ir žymi užlaidų ribas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="89"/>
         <source>Add registration marks to each separation</source>
-        <translation type="unfinished">Pridėti sutapimo žymas kiekvienai skaidinio spalvai</translation>
+        <translation>Pridėti sutapimo žymas kiekvienai spalvų skaidinio spalvai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="90"/>
         <source>Add color calibration bars</source>
-        <translation type="unfinished">Pridėti spalvų kalibravimo juostą</translation>
+        <translation>Pridėti spalvų kalibravimo juostą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="91"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation type="unfinished">Pridėti dokumento informaciją, į kurią įeina pavadinimas ir puspalių numeriai</translation>
+        <translation>Pridėti dokumento informaciją, į kurią įeina pavadinimas ir puslapių numeriai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="92"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished">Parodyti sutapimo žymų poslinkio atstumą</translation>
+        <translation>Parodyti sutapimo žymų poslinkio atstumą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="97"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti dokumento nuostatose nurodytas užlaidų nuostatas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="98"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished">Išvesties profilis spausdinimui. Jei įmanoma, pasikonsultuok su spaustuve, kurį profilį pasirinkti.</translation>
+        <translation>Išvesties profilis spausdinimui. Jei įmanoma, pasikonsultuok su spaustuve, kurį profilį pasirinkti.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="99"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privaloma PDF/X arba PDF eilutė iššauks PDF/X atikties praradimą. Rekomenduojame jums naudoti dokumento antraštę.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="129"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiškai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="130"/>
         <source>Lossy - JPEG</source>
-        <translation type="unfinished">Nuostolingas – JPEG</translation>
+        <translation>Nuostolingas – JPEG</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="131"/>
         <source>Lossless - Zip</source>
-        <translation type="unfinished">Nenuostolingas – Zip</translation>
+        <translation>Nenuostolingas – Zip</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="132"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Jokio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="137"/>
         <source>Maximum</source>
-        <translation type="unfinished">Maksimali</translation>
+        <translation>Maksimali</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="138"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukšta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="139"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Vidutinė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="140"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Žema</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="141"/>
         <source>Minimum</source>
-        <translation type="unfinished">Minimali</translation>
+        <translation>Minimali</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="148"/>
         <source>Left Margin</source>
-        <translation type="unfinished">Kairioji paraštė</translation>
+        <translation>Kairioji paraštė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="149"/>
         <source>Right Margin</source>
-        <translation type="unfinished">Dešinioji paraštė</translation>
+        <translation>Dešinioji paraštė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="154"/>
         <source>Screen / Web</source>
-        <translation type="unfinished">Ekraną / saitynui</translation>
+        <translation>Ekranui / saitynui</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="155"/>
         <source>Printer</source>
-        <translation type="unfinished"></translation>
+        <translation>Spausdintuvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="156"/>
         <source>Grayscale</source>
-        <translation type="unfinished">Nespalvotai</translation>
+        <translation>Nespalvotai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="161"/>
         <source>Simple Dot</source>
-        <translation type="unfinished">Paprastas taškas</translation>
+        <translation>Paprastas taškas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="162"/>
         <source>Line</source>
-        <translation type="unfinished">Linija</translation>
+        <translation>Linija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="163"/>
         <source>Round</source>
-        <translation type="unfinished">Apskritimas</translation>
+        <translation>Apskritimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="164"/>
         <source>Ellipse</source>
-        <translation type="unfinished">Elipsė</translation>
+        <translation>Elipsė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Perceptual</source>
-        <translation type="unfinished"></translation>
+        <translation>Suvokiamasis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished">Santykinis kolorimetrinis</translation>
+        <translation>Santykinis kolorimetrinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Prisotintas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="172"/>
         <source>Absolute Colorimetric</source>
-        <translation type="unfinished">Absoliutusis kolorimetrinis</translation>
+        <translation>Absoliutusis kolorimetrinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="323"/>
@@ -19953,198 +19978,198 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="1296"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="1304"/>
         <source>Page</source>
-        <translation type="unfinished">Puslapis</translation>
+        <translation>Puslapis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="366"/>
         <source>No Script</source>
-        <translation type="unfinished">Be skriptų</translation>
+        <translation>Be skriptų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="511"/>
         <source>InfoString</source>
-        <translation type="unfinished">InfoString</translation>
+        <translation>InfoString</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="542"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="966"/>
         <source>No Effect</source>
-        <translation type="unfinished">Be efektų</translation>
+        <translation>Be efektų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="543"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="967"/>
         <source>Blinds</source>
-        <translation type="unfinished">Uždangos</translation>
+        <translation>Uždangos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="544"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="968"/>
         <source>Box</source>
-        <translation type="unfinished">Dėžutė</translation>
+        <translation>Dėžutė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="545"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="969"/>
         <source>Dissolve</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsisklaidymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="546"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="970"/>
         <source>Glitter</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirgesys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="547"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="971"/>
         <source>Split</source>
-        <translation type="unfinished"></translation>
+        <translation>Perskirti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="548"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="972"/>
         <source>Wipe</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuvalymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="551"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="975"/>
         <source>Push</source>
-        <translation type="unfinished">Spausti</translation>
+        <translation>Spausti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="552"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="976"/>
         <source>Cover</source>
-        <translation type="unfinished">Viršelis</translation>
+        <translation>Uždengti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="553"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="977"/>
         <source>Uncover</source>
-        <translation type="unfinished">Nuimti</translation>
+        <translation>Atidengti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="554"/>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="978"/>
         <source>Fade</source>
-        <translation type="unfinished">Prigesinimas</translation>
+        <translation>Prigesinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="602"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished">Įtraukti šriftus į PDF. Šriftų įtraukimas leidžia išlaikyti nepakeistą dokumento maketą ir išvaizdą.</translation>
+        <translation>Įtraukti šriftus į PDF. Šriftų įtraukimas leidžia išlaikyti nepakeistą dokumento maketą ir išvaizdą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="603"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished">Leidžiami pateikčių efektai, jei naudojama Adobe&amp;#174; Reader&amp;#174; ir kitos PDF žiūryklės, palaikančios jų rodymą viso ekrano veiksena.</translation>
+        <translation>Leidžiami pateikčių efektai, jei naudojama Adobe&amp;#174; Reader&amp;#174; ir kitos PDF žiūryklės, palaikančios jų rodymą visaekrane veiksena.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="604"/>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished">Rodyti, kaip bus atspausdintas kiekvienas aukščiau nurodytas puslapis.</translation>
+        <translation>Rodyti, kaip bus atspausdintas kiekvienas aukščiau nurodytas puslapis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="605"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="unfinished">Laikas, kiek puslapis bus rodomas prieš paleidžiant parinkto puslapio pateiktį. Reikšmė 0 nurodo drausti automatinį puslapių keitimą.</translation>
+        <translation>Laikas, kiek puslapis bus rodomas prieš paleidžiant parinkto puslapio pateiktį. Reikšmė 0 nurodo drausti automatinį puslapių keitimą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="606"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished">Laikas, kurį bus vykdomas efektas. Trumpesnis laikas pagreitins efekto vykdymo spartą, ilgesnis – sulėtins.</translation>
+        <translation>Laikas, kurį bus vykdomas efektas. Trumpesnis laikas pagreitins efekto vykdymo spartą, ilgesnis – sulėtins.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="607"/>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Rodymo efekto tipas.</translation>
+        <translation>Rodymo efekto tipas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="608"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Slenkančiųjų linijų efektų kryptis perskyrimo ir mirgėjimo efektams.</translation>
+        <translation>Slenkančiųjų linijų efektų kryptis perskyrimo ir mirgėjimo efektams.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="609"/>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Pradžios pozicija stačiakampių ir perskyrimo efektams.</translation>
+        <translation>Pradžios pozicija stačiakampių ir perskyrimo efektams.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="610"/>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Apšvietimo arba išblukinimo efektų kryptis.</translation>
+        <translation>Mirgesio arba nuvalymo efektų kryptis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="611"/>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Taikyti parinktus efektus visuose puslapiuose.</translation>
+        <translation>Taikyti parinktus efektus visuose puslapiuose.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="612"/>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="unfinished">Konvertuoti visus rašmenis į kreivinį pavidalą.</translation>
+        <translation>Konvertuoti visus rašmenis į kreivinį pavidalą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="613"/>
         <source>Show the document in single page mode</source>
-        <translation type="unfinished">Rodyti dokumentą po vieną puslapį</translation>
+        <translation>Rodyti dokumentą po vieną puslapį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="614"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="unfinished">Rodyti dokumentą po vieną puslapį ištisai, po vieno puslapio pabaigos iš karto slinkti kito pradžią</translation>
+        <translation>Rodyti dokumentą po vieną puslapį ištisai, po vieno puslapio pabaigos iš karto slinkti kito pradžią</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="615"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="unfinished">Rodyti dokumentą po du puslapius greta, tik pirmajį – vieną ir kairėje pusėje</translation>
+        <translation>Rodyti dokumentą po du puslapius greta, tik pirmajį – vieną ir kairėje pusėje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="616"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="unfinished">Rodyti dokumentą po du puslapius greta, tik pirmajį – vieną ir dešinėje pusėje</translation>
+        <translation>Rodyti dokumentą po du puslapius greta, tik pirmajį – vieną ir dešinėje pusėje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="617"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="unfinished">Naudoti žiūryklės numatytąsias nuostatas arba naudotojo parinktas, jei jos skiriasi nuo numatytųjų</translation>
+        <translation>Naudoti žiūryklės numatytąsias nuostatas arba naudotojo parinktas, jei jos skiriasi nuo numatytųjų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="618"/>
         <source>Enables viewing the document in full screen</source>
-        <translation type="unfinished">Leidžiama visaekranė domumentų peržiūra</translation>
+        <translation>Leidžiama visaekranė dokumentų peržiūra</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="619"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="unfinished">Atvėrus rodyti nuorodas</translation>
+        <translation>Atvėrus rodyti nuorodas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="620"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="unfinished">Atvėrus rodyti puslapių miniatiūras</translation>
+        <translation>Atvėrus rodyti puslapių miniatiūras</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="621"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="unfinished">Iššaukia sluoksnių rodymą. Aktualu tik PDF 1.5+.</translation>
+        <translation>Iššaukia sluoksnių rodymą. Aktualu tik PDF 1.5+.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="622"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="unfinished">Paslepia priemonių juostą, kurioje yra redagavimo priemonės</translation>
+        <translation>Paslepia priemonių juostą, kurioje yra redagavimo priemonės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="623"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">Paslepia žiūryklės meniu juostą, kad būtų galima rodyti visame ekrane.</translation>
+        <translation>Paslepia žiūryklės meniu juostą, kad būtų galima rodyti visame ekrane.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="624"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">Pritaikyti dokumento puslapio ar puslapių mastelį prie žiūryklės lango erdvės.</translation>
+        <translation>Pritaikyti dokumento puslapio ar puslapių mastelį prie žiūryklės lango erdvės.</translation>
     </message>
 </context>
 <context>
@@ -20152,22 +20177,22 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pagesizesbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pagesizesbase.ui" line="27"/>
         <source>Page Sizes</source>
-        <translation type="unfinished"></translation>
+        <translation>Puslapio dydžiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pagesizesbase.ui" line="45"/>
         <source>Available Sizes</source>
-        <translation type="unfinished"></translation>
+        <translation>Galimi dydžiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pagesizesbase.ui" line="113"/>
         <source>Active Sizes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dabartiniai dydžiai</translation>
     </message>
 </context>
 <context>
@@ -20175,92 +20200,92 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="27"/>
         <source>Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="58"/>
         <source>Documents:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="87"/>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;Keisti...</translation>
+        <translation>&amp;Keisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="90"/>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="97"/>
         <source>Color Profiles:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalvų profiliai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="120"/>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ke&amp;isti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="123"/>
         <source>Alt+H</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="130"/>
         <source>Scripts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriptai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="153"/>
         <source>Ch&amp;ange...</source>
-        <translation type="unfinished">K&amp;eisti...</translation>
+        <translation>K&amp;eisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="156"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="163"/>
         <source>Document Templates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentų šablonai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="186"/>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">&amp;Keisti...</translation>
+        <translation>Keis&amp;ti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pathsbase.ui" line="189"/>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="33"/>
         <source>Default documents directory</source>
-        <translation type="unfinished">Numatytasis dokumentų aplankas</translation>
+        <translation>Numatytasis dokumentų aplankas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="34"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished">Numatytasis ICC profilių aplankas. Jis negali būti pakeistas kol atvertas dokumentas. Numatytuoju atveju „Scribus“ ieškos Sistemos aplanko „Mac OS“ ir „Windows“ atveju. „Linux“ ir „Unix“ atveju „Scribus“ ieškos $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
+        <translation>Numatytasis ICC profilių aplankas. Jis negali būti pakeistas kol atvertas dokumentas. Numatytuoju atveju „Scribus“ ieškos sistemos aplanke („Mac OS“ ir „Windows“). „Linux“ ir „Unix“ atveju „Scribus“ bus ieškoma $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="35"/>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished">Numatytasis skriptų rengyklės aplankas</translation>
+        <translation>Numatytasis skriptų rengyklės aplankas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="36"/>
         <source>Additional directory for document templates</source>
-        <translation type="unfinished">Papildomas aplankas dokumentų šablonams</translation>
+        <translation>Papildomas aplankas dokumentų šablonams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="57"/>
@@ -20268,7 +20293,7 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="71"/>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="78"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Parinkti aplanką</translation>
     </message>
 </context>
 <context>
@@ -20276,47 +20301,47 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
-        <translation type="unfinished">Priedai</translation>
+        <translation>Papildiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="51"/>
         <source>Plugin</source>
-        <translation type="unfinished">Tvarkiklis</translation>
+        <translation>Papildinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="56"/>
         <source>How to run</source>
-        <translation type="unfinished">Kaip paleisti</translation>
+        <translation>Kaip paleisti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="61"/>
         <source>Type</source>
-        <translation type="unfinished">Tipas</translation>
+        <translation>Tipas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="66"/>
         <source>Load it?</source>
-        <translation type="unfinished">Įkelti jį?</translation>
+        <translation>Įkelti jį?</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="71"/>
         <source>Plugin ID</source>
-        <translation type="unfinished">Priedo ID</translation>
+        <translation>Papildinio ID</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="76"/>
         <source>File</source>
-        <translation type="unfinished">Failas</translation>
+        <translation>Failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pluginsbase.ui" line="84"/>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="unfinished">Norint pritaikyti pakeitimus, būtina paleisti programą iš naujo.</translation>
+        <translation>Norint pritaikyti pakeitimus, būtina paleisti programą iš naujo.</translation>
     </message>
 </context>
 <context>
@@ -20324,128 +20349,128 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="27"/>
         <source>Preflight Verifier</source>
-        <translation type="unfinished">Priešspauspaustuvinis tikrintuvas</translation>
+        <translation>Priešspauspaustuvinis tikrintuvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="41"/>
         <source>Show pages without errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti puslapius be klaidų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="48"/>
         <source>Show errors for items on layers that will not print</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti nespausdinsimų sluoksnių objektų klaidas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="77"/>
         <source>Profile Setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Profilio nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="110"/>
         <source>Output Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvesties profilis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="128"/>
         <source>Add New Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridėti naują profilį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="135"/>
         <source>Remove Profile</source>
-        <translation type="unfinished">Pašalinti profilį</translation>
+        <translation>Pašalinti profilį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="179"/>
         <source>Profile Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Profilio parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="193"/>
         <source>Ignore all errors</source>
-        <translation type="unfinished">Ignoruoti visas klaidas</translation>
+        <translation>Ignoruoti visas klaidas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="200"/>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished">Tikrinti automatiškai prieš prieš spausdinimą ar eksportavimą</translation>
+        <translation>Tikrinti automatiškai prieš prieš spausdinimą ar eksportavimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="207"/>
         <source>Check for missing glyphs</source>
-        <translation type="unfinished">Tikrinti, ar nėra rašmenų su defektais</translation>
+        <translation>Tikrinti, ar nėra rašmenų su defektais</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="214"/>
         <source>Check for items not on a page</source>
-        <translation type="unfinished">Tikrinti, ar nėra objektų už puslapio ribų</translation>
+        <translation>Tikrinti, ar nėra objektų už puslapio ribų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="221"/>
         <source>Check for overflow in text frames</source>
-        <translation type="unfinished">Tikrinti, ar visas teksto rėmelių tekstas matomas</translation>
+        <translation>Tikrinti, ar visas teksto rėmelių tekstas matomas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="228"/>
         <source>Check for used transparencies</source>
-        <translation type="unfinished">Tikrinti naudotus permatomumo efektus</translation>
+        <translation>Tikrinti naudotus permatomumo efektus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="235"/>
         <source>Check for missing images</source>
-        <translation type="unfinished">Tikrinti, ar prieinami visi paveikslai</translation>
+        <translation>Tikrinti, ar visi paveikslai prieinami</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="242"/>
         <source>Check image resolution</source>
-        <translation type="unfinished">Tikrinti paveikslų raišką</translation>
+        <translation>Tikrinti paveikslų raišką</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
         <source>Minimum Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mažiausia raiška:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="274"/>
         <source> dpi</source>
-        <translation type="unfinished"> tšk. col.</translation>
+        <translation> tšk. col.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="287"/>
         <source>Maximum Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimali raiška:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="296"/>
         <source>Check for placed PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>Patikrinti padėtuosius PDF failus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="303"/>
         <source>Check for GIF images</source>
-        <translation type="unfinished">Tikrinti GIF paveikslus</translation>
+        <translation>Tikrinti GIF paveikslus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="unfinished">Tikrinti PDF anotacijas ir laukus</translation>
+        <translation>Tikrinti PDF anotacijas ir laukus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="317"/>
         <source>Check for Visible/Printable mismatch in layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Tikrinti matomų/spausdinamų objektų nesutpimus sluoksniuose</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="324"/>
         <source>Ignore non-printable layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignoruoti nespausdinamus sluoksnius</translation>
     </message>
 </context>
 <context>
@@ -20453,213 +20478,214 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="16"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="29"/>
         <source>Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Spausdinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="64"/>
         <source>Destination</source>
-        <translation type="unfinished"></translation>
+        <translation>Paskirtis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="81"/>
         <source>Alternative Printer Command</source>
-        <translation type="unfinished">Alternatyvi spausdinimo komanda</translation>
+        <translation>Alternatyvi spausdinimo komanda</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="90"/>
         <source>Command:</source>
-        <translation type="unfinished">Komanda:</translation>
+        <translation>Komanda:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="124"/>
         <source>General Options</source>
-        <translation type="unfinished">Pagrindinės parinktys</translation>
+        <translation>Pagrindinės parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="140"/>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Išvestis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="148"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Įprasta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="153"/>
         <source>Separations</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalvų skaidymo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="176"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="unfinished">Įtraukti PDF anotacijas ir saitus</translation>
+        <translation>Įtrauktos PDF anotacijos ir saitai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="205"/>
         <source>Page</source>
-        <translation type="unfinished">Puslapis</translation>
+        <translation>Puslapis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="219"/>
         <source>Mirror Page(s) Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontalusis puslapių atspindys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="226"/>
         <source>Mirror Page(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikalusis puslapių atspindys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="233"/>
         <source>Set Media Size</source>
-        <translation type="unfinished">Nurodyti popieriaus formatą</translation>
+        <translation>Nurodyti popieriaus formatą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="240"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Apkirpti pagal spausdintuvo paraštes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="269"/>
         <source>Color</source>
-        <translation type="unfinished">Spalva</translation>
+        <translation>Spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="283"/>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished">Taikyti juodos spalvos išskyrimą (UCR)</translation>
+        <translation>Taikyti juodos spalvos išskyrimą (UCR)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="290"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Konvertuoti neskaidomąsias spalvas į skaidomąsias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="297"/>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished">Taikyti ICC profilius</translation>
+        <translation>Taikyti ICC profilius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="326"/>
         <source>PostScript</source>
-        <translation type="unfinished">Postskriptas</translation>
+        <translation>Postskriptas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="349"/>
         <source>Level 1</source>
-        <translation type="unfinished">1 lygis</translation>
+        <translation>1 lygis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="354"/>
         <source>Level 2</source>
-        <translation type="unfinished">2 lygis</translation>
+        <translation>2 lygis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="359"/>
         <source>Level 3</source>
-        <translation type="unfinished">3 lygis</translation>
+        <translation>3 lygis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="384"/>
         <source>Print In:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spaisdinti:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="392"/>
         <source>Color (If Available)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalvotai (jei įmanoma)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="397"/>
         <source>Grayscale</source>
-        <translation type="unfinished">Nespalvotai</translation>
+        <translation>Nespalvotai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="442"/>
         <source>Marks and Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Sutapimo ir užlaidų žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="456"/>
         <source>Crop Marks</source>
-        <translation type="unfinished">Apipjovimo žymos</translation>
+        <translation>Apipjovimo žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="463"/>
         <source>Bleed Marks</source>
-        <translation type="unfinished">Užlaidų žymos</translation>
+        <translation>Užlaidų žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="470"/>
         <source>Registration Marks</source>
-        <translation type="unfinished">Sutapimo žymos</translation>
+        <translation>Sutapimo žymos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="477"/>
         <source>Color Bars</source>
-        <translation type="unfinished">Spalvų juostos</translation>
+        <translation>Spalvų juostos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="486"/>
         <source>Offset:</source>
-        <translation type="unfinished">Poslinkis:</translation>
+        <translation>Poslinkis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="533"/>
         <source>Bleed Settings</source>
-        <translation type="unfinished">Užlaidų nuostatos</translation>
+        <translation>Užlaidų nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="31"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished">Nerodyti objektų, esančių už spausdinamo puslapio paraščių</translation>
+        <translation>Nerodyti objektų, esančių už spausdinamo puslapio paraščių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="32"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished">Norėdamas panaudoti papildomas spausdinimo parinktis naudokis kita spausdinimo priežiūros programa, pavyzdžiui, „kprinter“ arba „gtklp“</translation>
+        <translation>Norėdamas panaudoti papildomas spausdinimo parinktis naudokis kita spausdinimo priežiūros programa, pavyzdžiui, „kprinter“ arba „gtklp“</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodo „PostScript“ lygį.
+Nurodžius „Level 1“ (1 lygis) arba „Level 2“ (2 lygis) gali būti sukuriami dideli failai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="34"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Kai kurių pilkų (achromatinių) tonų, sudarytų iš žydros (C), purpurinės (M) ir geltonos (Y) spalvų, pašalinimo būdas, pakeičiant juos juodais. Juodos spalvos išskyrimu (UCR) paprastai keičiamos neutralios spalvų atžvilgiu paveikslo dalys. Šio metodo taikymas leidžia pagerinti kai kurių paveikslų spaudos kokybę. Tačiau būtina kiekvieną atvejį nagrinėti ypač atidžiai. Vartojant UCR metodą sumažinama CMY dažų per didelio grynio tikimybė.</translation>
+        <translation>Kai kurių pilkų (achromatinių) tonų, sudarytų iš žydros (C), purpurinės (M) ir geltonos (Y) spalvų, pašalinimo būdas, pakeičiant juos juodais. Juodos spalvos išskyrimu (UCR) paprastai keičiamos neutralios spalvų atžvilgiu paveikslo dalys. Šio metodo taikymas leidžia pagerinti kai kurių paveikslų spaudos kokybę. Tačiau būtina kiekvieną atvejį nagrinėti ypač atidžiai. Vartojant UCR metodą sumažinama CMY dažų per didelio sodrumo tikimybė.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="35"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished">Leisti konvertuoti neskaidomąsias spalvas į skaidomąsias. Jei ketinate spausdinti neskaidomąsias spalvas profesionaliu spausdintuvu, tai greičiausiai verta palikti įgalintą šią ypatybę.</translation>
+        <translation>Leisti konvertuoti neskaidomąsias spalvas į skaidomąsias. Jei ketinate spausdinti neskaidomąsias spalvas profesionaliu spausdintuvu, tai greičiausiai verta palikti įgalintą šią ypatybę.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="36"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">Leidžia įdėti spalvų profilius (ICC) į spausdinimo srautą, kuriame leidžiamas spalvų valdymas</translation>
+        <translation>Leidžia įdėti spalvų profilius (ICC) į spausdinimo srautą, kuriame leidžiamas spalvų valdymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="37"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished">Tai leidžia tiesiogiai nurodyti popieriaus (ar kitos medžiagos), ant kurios bus spausdinama, formatą pačiame postskriptiniame faile. Nerekomenduojama šios funkcijos naudoti tol, kol nepareikalaus spausdintuvas.</translation>
+        <translation>Tai leidžia tiesiogiai nurodyti popieriaus (ar kitos medžiagos), ant kurios bus spausdinama, formatą pačiame postskriptiniame faile. Nerekomenduojama šios funkcijos naudoti tol, kol nepareikalaus spausdintuvas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="63"/>
         <source>File</source>
-        <translation type="unfinished">Failas</translation>
+        <translation>Failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printer.cpp" line="114"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Visks</translation>
     </message>
 </context>
 <context>
@@ -20667,52 +20693,52 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbookbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbookbase.ui" line="27"/>
         <source>Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Koliažinė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbookbase.ui" line="56"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Nukopijuotus elementus automatiškai siųsti į koliažinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbookbase.ui" line="63"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="unfinished">Išsaugoti tarp seansų kopijuotus objektus</translation>
+        <translation>Išsaugoti tarp seansų kopijuotus objektus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbookbase.ui" line="70"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Elementų peržiūros vaizdus rašyti į koliažinės aplanką</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbookbase.ui" line="82"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Koliažinėje laikomų elementų skaičius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="25"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation type="unfinished">Koliažinė paverčiama iškarpinės papildiniu: galima naudoti Kopijuoti/padėti komandas. Tai leidžia paprastai kopijuoti objektus (ar sugrupuotus objektus) ir automatiškai padėti juos į koliažinę</translation>
+        <translation>Koliažinė paverčiama iškarpinės papildiniu: galima naudoti Kopijuoti/padėti komandas. Tai leidžia paprastai kopijuoti objektus (ar sugrupuotus objektus) ir automatiškai padėti juos į koliažinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Tai leidžia nukopijuotus elementus nuolat laikyti koliažinėje</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="27"/>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašyti sukurtus koliažinės peržiūros vaizdus koliažinės aplanke</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_scrapbook.cpp" line="28"/>
         <source>The minimum number is 1; the maximum is 100</source>
-        <translation type="unfinished"></translation>
+        <translation>Mažiausiais skaičius yra 1, didžiausias - 100</translation>
     </message>
 </context>
 <context>
@@ -20720,77 +20746,77 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="27"/>
         <source>Scripter</source>
-        <translation type="unfinished">Skriptų rašiklis</translation>
+        <translation>Skriptų rašyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="63"/>
         <source>Extensions</source>
-        <translation type="unfinished">Plėtiniai</translation>
+        <translation>Plėtiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="77"/>
         <source>Enable Extension Scripts</source>
-        <translation type="unfinished">Leisti plėtinių skriptus</translation>
+        <translation>Leisti plėtinių skriptus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="86"/>
         <source>Startup Script:</source>
-        <translation type="unfinished">Paleisties skriptas:</translation>
+        <translation>Paleisties skriptas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="96"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation>Keisti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="128"/>
         <source>Console</source>
-        <translation type="unfinished">Pultas</translation>
+        <translation>Pultas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="149"/>
         <source>Base Texts:</source>
-        <translation type="unfinished">Pagrindinis tekstas:</translation>
+        <translation>Pagrindinis tekstas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="163"/>
         <source>Comments:</source>
-        <translation type="unfinished">Komentaras:</translation>
+        <translation>Komentaras:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="177"/>
         <source>Keywords:</source>
-        <translation type="unfinished">Raktiniai žodžiai:</translation>
+        <translation>Raktiniai žodžiai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="191"/>
         <source>Signs:</source>
-        <translation type="unfinished">Ženklai:</translation>
+        <translation>Ženklai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="205"/>
         <source>Errors:</source>
-        <translation type="unfinished">Klaidos:</translation>
+        <translation>Klaidos:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="219"/>
         <source>Strings:</source>
-        <translation type="unfinished">Eilutės:</translation>
+        <translation>Eilutės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="233"/>
         <source>Numbers:</source>
-        <translation type="unfinished">Skaičiai:</translation>
+        <translation>Skaičiai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="120"/>
         <source>Locate Startup Script</source>
-        <translation type="unfinished">Nurodyti paleisties skripto vietą</translation>
+        <translation>Nurodyti paleisties skripto vietą</translation>
     </message>
 </context>
 <context>
@@ -20798,59 +20824,59 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="27"/>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="69"/>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="81"/>
         <source>Short Words</source>
-        <translation type="unfinished">Trumpieji žodžiai</translation>
+        <translation>Trumpieji žodžiai</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="66"/>
         <source>Save</source>
-        <translation type="unfinished">Įrašyti</translation>
+        <translation>Įrašyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="73"/>
         <source>Reset</source>
-        <translation type="unfinished">Atstatyti</translation>
+        <translation>Atstatyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="25"/>
         <source>User settings</source>
-        <translation type="unfinished">Naudotojo nustatyti</translation>
+        <translation>Naudotojo nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="30"/>
         <source>System wide configuration</source>
-        <translation type="unfinished">Bendroji sistemos konfigūracija</translation>
+        <translation>Bendroji sistemos konfigūracija</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="70"/>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
-        <translation type="unfinished">Naudotojo konfigūracija jau yra. Ar tikrai rašyti ant viršaus?</translation>
+        <translation>Naudotojo konfigūracija jau yra. Ar tikrai rašyti ant viršaus?</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="82"/>
         <source>Cannot write file %1.</source>
-        <translation type="unfinished">Negalima įrašyti failo „%1“.</translation>
+        <translation>Negalima įrašyti failo „%1“.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="89"/>
         <source>User settings saved</source>
-        <translation type="unfinished">Naudotojo nuostatos įrašytos</translation>
+        <translation>Naudotojo nuostatos įrašytos</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="100"/>
         <source>System wide configuration reloaded</source>
-        <translation type="unfinished">Sistemos bendrieji parametrai įkelti iš naujo</translation>
+        <translation>Sistemos bendrieji parametrai įkelti iš naujo</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/prefs_shortwords.cpp" line="114"/>
         <source>Cannot open file %1</source>
-        <translation type="unfinished">Negalima atverti failo „%1“</translation>
+        <translation>Negalima atverti failo „%1“</translation>
     </message>
 </context>
 <context>
@@ -20858,107 +20884,107 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="27"/>
         <source>Table of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Turinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="64"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Pridėti</translation>
+        <translation>&amp;Pridėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="67"/>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="74"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">P&amp;ašalinti</translation>
+        <translation>P&amp;ašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="77"/>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="108"/>
         <source>Properties</source>
-        <translation type="unfinished">Ypatybės</translation>
+        <translation>Ypatybės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="127"/>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished">Elemento atributo pavadinimas:</translation>
+        <translation>Elemento atributo pavadinimas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="137"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished">Objekto atributas, kuris bus naudojamas rėmeliams kaip pagrindas įrašams kurti</translation>
+        <translation>Objekto atributas, kuris bus naudojamas rėmeliams kaip pagrindas įrašams kurti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="144"/>
         <source>Destination Frame:</source>
-        <translation type="unfinished">Paskirties rėmelis:</translation>
+        <translation>Paskirties rėmelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="154"/>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished">Rėmelis, kuriame bus įdėtas automatiškai surinktas turinys</translation>
+        <translation>Rėmelis, kuriame bus įdėtas automatiškai surinktas turinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="161"/>
         <source>Page Number Placement:</source>
-        <translation type="unfinished">Puslapio numerio vieta:</translation>
+        <translation>Puslapio numerio vieta:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="171"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished">Padėti puslapio numerį eilutės arba pradžioje, arba pabaigoje, arba iš viso nedėti</translation>
+        <translation>Padėti puslapio numerį eilutės arba pradžioje, arba pabaigoje, arba iš viso nedėti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="178"/>
         <source>Paragraph Style:</source>
-        <translation type="unfinished">Pastraipos stilius:</translation>
+        <translation>Pastraipos stilius:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="188"/>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished">Pastraipos stilius naudojamas eilutėms įvesti</translation>
+        <translation>Pastraipos stilius naudojamas eilutėms įvesti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="195"/>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished">Įtraukti ir rėmelius, kurie nurodyti kaip nespausdinami</translation>
+        <translation>Įtraukti ir rėmelius, kurie nurodyti kaip nespausdinami</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontentsbase.ui" line="198"/>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished">Nespausdinamų įrašų sąrašas</translation>
+        <translation>Nespausdinamų įrašų sąrašas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="81"/>
         <source>Beginning</source>
-        <translation type="unfinished">Pradedama</translation>
+        <translation>Pradedama</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="83"/>
         <source>End</source>
-        <translation type="unfinished">Pabaiga</translation>
+        <translation>Pabaiga</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="85"/>
         <source>Not Shown</source>
-        <translation type="unfinished">Nerodomas</translation>
+        <translation>Nerodomas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_tableofcontents.cpp" line="203"/>
         <source>Table of Contents %1</source>
-        <translation type="unfinished">Turinys %1</translation>
+        <translation>Turinys %1</translation>
     </message>
 </context>
 <context>
@@ -20966,17 +20992,17 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="27"/>
         <source>Typography</source>
-        <translation type="unfinished">Tipografika</translation>
+        <translation>Tipografika</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="62"/>
         <source>Subscript</source>
-        <translation type="unfinished">Apatinis indeksas</translation>
+        <translation>Apatinis indeksas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="84"/>
@@ -20984,7 +21010,7 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="250"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="348"/>
         <source>Displacement:</source>
-        <translation type="unfinished">Padėtis:</translation>
+        <translation>Padėtis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="91"/>
@@ -20998,30 +21024,30 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="453"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="516"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="114"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="184"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="446"/>
         <source>Scaling:</source>
-        <translation type="unfinished">Mastelis:</translation>
+        <translation>Mastelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="145"/>
         <source>Superscript</source>
-        <translation type="unfinished">Viršutinis indeksas</translation>
+        <translation>Viršutinis indeksas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="228"/>
         <source>Underline</source>
-        <translation type="unfinished">Pabrauktas</translation>
+        <translation>Pabrauktas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="257"/>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="374"/>
         <source>Line Width:</source>
-        <translation type="unfinished">Linijos storis:</translation>
+        <translation>Linijos storis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="267"/>
@@ -21030,73 +21056,73 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="384"/>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="25"/>
         <source>Auto</source>
-        <translation type="unfinished">Automatiškai</translation>
+        <translation>Automatiškai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="326"/>
         <source>Strikeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Perbrauktas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="424"/>
         <source>Small Caps</source>
-        <translation type="unfinished">Mažos didžiosios</translation>
+        <translation>Mažos didžiosios</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="487"/>
         <source>Automatic Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiniai intervalai tarp eilučių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typographybase.ui" line="509"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished">Intervalai tarp eilučių:</translation>
+        <translation>Intervalai tarp eilučių:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="31"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="unfinished">Išdėstymas po šrifto bazine linija</translation>
+        <translation>Išdėstymas po šrifto bazine linija</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="32"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="unfinished">Santykinis apatinio indekso dydis prilygintas įprastam šriftui</translation>
+        <translation>Santykinis apatinio indekso dydis prilygintas įprastam šriftui</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="33"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="unfinished">Išdėstymas virš šrifto bazinės linijos</translation>
+        <translation>Išdėstymas virš šrifto bazinės linijos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="34"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="unfinished">Santykinis viršutinio indekso dydis prilygintas įprastam šriftui</translation>
+        <translation>Santykinis viršutinio indekso dydis prilygintas įprastam šriftui</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="35"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="unfinished">Šrifto išdėstymas po bazine linija, nurodytas procentais nuo šrifto nuleidimo</translation>
+        <translation>Šrifto išdėstymas po bazine linija, nurodytas procentais nuo šrifto nuleidimo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="36"/>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="38"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="unfinished">Linijos storis nurodytas procentais nuo šrifto dydžio</translation>
+        <translation>Linijos storis nurodytas procentais nuo šrifto dydžio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="37"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="unfinished">Šrifto išdėstymas virš bazinės linijos, nurodytas procentais nuo šrifto pakėlimo</translation>
+        <translation>Šrifto išdėstymas virš bazinės linijos, nurodytas procentais nuo šrifto pakėlimo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="39"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="unfinished">Santykinis mažų didžiųjų raidžių dydis prilygintas įprastam šriftui</translation>
+        <translation>Santykinis mažų didžiųjų raidžių dydis prilygintas įprastam šriftui</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_typography.cpp" line="40"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished">Intervalo tarp eilučių padidinimas procentais nuo šrifto dydžio</translation>
+        <translation>Intervalo tarp eilučių padidinimas procentais nuo šrifto dydžio</translation>
     </message>
 </context>
 <context>
@@ -21104,158 +21130,158 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="27"/>
         <source>User Interface</source>
-        <translation type="unfinished">Vartotojo sąsaja</translation>
+        <translation>Vartotojo sąsaja</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="45"/>
         <source>Main Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagrindinis langas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="58"/>
         <source>Appearance</source>
-        <translation type="unfinished">Išvaizda</translation>
+        <translation>Išvaizda</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="70"/>
         <source>&amp;Language:</source>
-        <translation type="unfinished">Ka&amp;lba:</translation>
+        <translation>Ka&amp;lba:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="83"/>
         <source>&amp;Theme:</source>
-        <translation type="unfinished">&amp;Išvaizda:</translation>
+        <translation>&amp;Išvaizda:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="96"/>
         <source>Use Small Widgets on Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti mažus palečių valdiklius</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="103"/>
         <source>Use Tabs for Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentams naudoti korteles</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="110"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="unfinished">&amp;Taisyti dokumentai:</translation>
+        <translation>&amp;Taisyti dokumentai:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="148"/>
         <source>Font Sizes</source>
-        <translation type="unfinished"></translation>
+        <translation>Šrifto dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="164"/>
         <source>&amp;Menus:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Meniu:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="174"/>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="191"/>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="181"/>
         <source>&amp;Palettes:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Paletės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="214"/>
         <source>Story Editor</source>
-        <translation type="unfinished">Teksto tvarkytuvė</translation>
+        <translation>Teksto tvarkytuvė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="225"/>
         <source>Font:</source>
-        <translation type="unfinished">Šriftas:</translation>
+        <translation>Šriftas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="239"/>
         <source>Font Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Šrifto spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="253"/>
         <source>Use Smart Text Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti spartųjį teksto žymėjimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="276"/>
         <source>Interactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Interaktyvumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="287"/>
         <source>Time before resize or move starts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Laikas iki mastelio keitimo ar perkėlimo pradžios:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="297"/>
         <source> ms</source>
-        <translation type="unfinished"> ms</translation>
+        <translation> ms</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="307"/>
         <source>&amp;Wheel Jump:</source>
-        <translation type="unfinished">&amp;Pelės ratuko žingsnis:</translation>
+        <translation>&amp;Pelės ratuko žingsnis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="336"/>
         <source>Start Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleistis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="344"/>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">Rodyti paleisties langą</translation>
+        <translation>Rodyti paleisties langą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterfacebase.ui" line="351"/>
         <source>Show Splashscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti demonstracinius langus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="48"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Parinkite numatytąją „Scribus“ programos kalbą, kuri bus naudojama paleidus programą. Palikite tuščią lauką, jei norite, kad būtų parenkama OS terpės kintamojo reikšmė. Šią parinktį galima pakeisti pateikus komandą komandų eilutėje „Scribus“ paleidimo metu</translation>
+        <translation>Parinkite numatytąją „Scribus“ programos kalbą, kuri bus naudojama paleidus programą. Palikite tuščią lauką, jei norite, kad būtų parenkama OS terpės kintamojo reikšmė. Šią parinktį galima pakeisti pateikus komandą komandų eilutėje „Scribus“ paleidimo metu</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="49"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished">Parinkite numatytąją lango apdailą ir išvaizdą. „Scribus“ perima išvaizdos elementus iš KDE aar „Qt“ temų, jei „Qt“ konfigūracijoje numatyta KDE priedų paieška.</translation>
+        <translation>Parinkite numatytąją lango apdailą ir išvaizdą. „Scribus“ perima išvaizdos elementus iš KDE aar „Qt“ temų, jei „Qt“ konfigūracijoje numatyta KDE papildinių paieška.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="50"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished">Siekiant taupyti erdvę, palečių langams naudojamos mažesnės ąselės. Reikės iš naujo paleisti programą</translation>
+        <translation>Siekiant taupyti erdvę, palečių langams naudojami mažesni valdikliai. Reikės iš naujo paleisti programą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="51"/>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished">Paskiausiai redaguotų dokumentų skaičius, rodomas meniu „Failas“ sąraše</translation>
+        <translation>Paskiausiai redaguotų dokumentų skaičius, rodomas meniu „Failas“ sąraše</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="52"/>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished">Meniu ir langų šriftų numatytasis dydis</translation>
+        <translation>Meniu ir langų šriftų numatytasis dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished">Priemonių langų šriftų numatytasis dydis</translation>
+        <translation>Priemonių langų šriftų numatytasis dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_userinterface.cpp" line="55"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished">Eilučių, kurias „Scribus“ paslenka per vieną pelės ratuko apsisukimą, skaičius </translation>
+        <translation>Eilučių, kurias „Scribus“ paslenka pelės ratukui apsisukus vieną kartą, skaičius </translation>
     </message>
 </context>
 <context>
@@ -21571,12 +21597,12 @@ Nurodžius „Level 1“ (1 lygmuo) arba „Level 2“ (2 lygmuo) gali būti suk
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="400"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertuoti neskaidomąsias (grynąsias) spalvas į skaidomąsias</translation>
+        <translation>Konvertuoti neskaidomąsias spalvas į skaidomąsias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="407"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">Leidžia įdėti spalvų profilius (ICC) į spausdinimo srautą, kuriame leidžiamas spalvų valdymas</translation>
+        <translation>Leidžia įtraukti spalvų profilius (ICC) į spausdinimo srautą, kuriame įgalintas spalvų valdymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="410"/>
@@ -21723,7 +21749,7 @@ Pastaba: PDF formos nebus eksportuotos.</translation>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="361"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tai leidžia tiesiogiai nurodyti popieriaus (ar kitos medžiagos), ant kurios bus spausdinama, formatą pačiame postskriptiniame faile. Nerekomenduojama šios funkcijos naudoti tol, kol nepareikalaus spausdintuvas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="371"/>
@@ -21908,7 +21934,7 @@ kampus:</translation>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4906"/>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4912"/>
         <source>Use &amp;Bounding Box</source>
-        <translation>Naudoti &amp;aprėpos langelį</translation>
+        <translation>Naudoti &amp;aprėpos stačiakampį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4907"/>
@@ -22054,74 +22080,74 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4862"/>
         <source>&amp;Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Permatomumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4942"/>
         <source>Rotation:</source>
-        <translation type="unfinished">Posūkis:</translation>
+        <translation>Posūkis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4949"/>
         <source>PDF Compression Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF glaudinimo metodas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4950"/>
         <source>PDF Compression Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF glaudinimo kokybė:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4966"/>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4974"/>
         <source>Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Globaliai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4967"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiškai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4968"/>
         <source>Lossy - JPEG</source>
-        <translation type="unfinished">Nuostolingas – JPEG</translation>
+        <translation>Nuostolingas – JPEG</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4969"/>
         <source>Lossless - Zip</source>
-        <translation type="unfinished">Nenuostolingas – Zip</translation>
+        <translation>Nenuostolingas – Zip</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4975"/>
         <source>Maximum</source>
-        <translation type="unfinished">Maksimali</translation>
+        <translation>Maksimali</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4976"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukšta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4977"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Vidutinė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4978"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Žema</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4979"/>
         <source>Minimum</source>
-        <translation type="unfinished">Minimali</translation>
+        <translation>Minimali</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4995"/>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4996"/>
         <source>Scaling:</source>
-        <translation type="unfinished">Mastelis:</translation>
+        <translation>Mastelis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5023"/>
@@ -22232,7 +22258,8 @@ kampus:</translation>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5096"/>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5101"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Pažymėjus kontūro linija gali būti keičiama figūrų redagavimo priemone (mygtukas „Taisyti figūrą...“ aukščiau esančioje paletėje). Taisant figūrų paletės priemonėmis sukuriama antra papildoma kontūro linija figūros pagrindu tekstui, skirtam blokui po objektu esančiuose teksiniuose rėmeliuose, apgaubti.</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5104"/>
@@ -22257,12 +22284,12 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5166"/>
         <source>Compression method used in PDF export for the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Glaudinimo metodas, kurį paveikslams naudoja PDF eksportas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5167"/>
         <source>Compression quality used in PDF export for the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Glaudinimo kokybė, kurią paveikslams naudoja PDF eksportas</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
@@ -22338,12 +22365,12 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5138"/>
         <source>Arrow head scale for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Linijos pradžios rodyklės mastelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5139"/>
         <source>Arrow head scale for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Linijos pabaigos rodyklės mastelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5147"/>
@@ -22457,7 +22484,7 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4970"/>
         <source>None</source>
-        <translation type="unfinished">Nieko</translation>
+        <translation>Nieko</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -22548,7 +22575,7 @@ kampus:</translation>
     </message>
     <message>
         <source>Knockout</source>
-        <translation type="obsolete">Eliminacinis (Knockout)</translation>
+        <translation type="obsolete">Išgaubtas</translation>
     </message>
     <message>
         <source>Overprint</source>
@@ -22618,7 +22645,7 @@ kampus:</translation>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5095"/>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="5100"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Naudoti stačiakampį langelį tekstui apgaubti (vietoje objektų rėmelių formos).</translation>
+        <translation>Naudoti aprėpos stačiakampį tekstui apgaubti (vietoje objektų rėmelių formos).</translation>
     </message>
     <message>
         <source>Transparency Settings</source>
@@ -22635,7 +22662,7 @@ kampus:</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="obsolete">Suliejimo būdas:</translation>
+        <translation type="obsolete">Perėjimo būdas:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -22643,15 +22670,15 @@ kampus:</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="obsolete">Patamsintas</translation>
+        <translation type="obsolete">Tamsėja</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="obsolete">Pašviesintas</translation>
+        <translation type="obsolete">Šviesėja</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="obsolete">Padaugintas</translation>
+        <translation type="obsolete">Daugėja</translation>
     </message>
     <message>
         <source>Screen</source>
@@ -22721,7 +22748,7 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4893"/>
         <source>Skew</source>
-        <translation>Pokrypis</translation>
+        <translation>Posvyris</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette.cpp" line="4895"/>
@@ -23609,67 +23636,67 @@ Patikrinkite, ar teisingai nurodyta jo laikymo vieta ir pavadinimas.</translatio
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="114"/>
         <source>&amp;Restore</source>
-        <translation type="unfinished">&amp;Atstatyti</translation>
+        <translation>&amp;Atstatyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="115"/>
         <source>&amp;Move</source>
-        <translation type="unfinished">&amp;Perkelti</translation>
+        <translation>&amp;Perkelti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="116"/>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Dydis</translation>
+        <translation>&amp;Dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="117"/>
         <source>Mi&amp;nimize</source>
-        <translation type="unfinished">Mi&amp;nimizuoti</translation>
+        <translation>Mi&amp;nimizuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="118"/>
         <source>Ma&amp;ximize</source>
-        <translation type="unfinished">Ma&amp;ksimizuoti</translation>
+        <translation>Ma&amp;ksimizuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="119"/>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Užverti</translation>
+        <translation>&amp;Užverti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="120"/>
         <source>Stay on &amp;Top</source>
-        <translation type="unfinished">Palikti &amp;viršuje</translation>
+        <translation>Palikti &amp;viršuje</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="121"/>
         <source>Minimize</source>
-        <translation type="unfinished">Minimizuoti</translation>
+        <translation>Minimizuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="122"/>
         <source>Restore Down</source>
-        <translation type="unfinished">Atstatyti žemyn</translation>
+        <translation>Atstatyti žemyn</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="123"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Užverti</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="124"/>
         <source>Sh&amp;ade</source>
-        <translation type="unfinished">&amp;Šešėlis</translation>
+        <translation>&amp;Šešėlis</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="125"/>
         <source>%1 - [%2]</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - [%2]</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="126"/>
         <source>&amp;Unshade</source>
-        <translation type="unfinished">&amp;Nuimti šešėlius</translation>
+        <translation>&amp;Nuimti šešėlius</translation>
     </message>
 </context>
 <context>
@@ -23677,7 +23704,7 @@ Patikrinkite, ar teisingai nurodyta jo laikymo vieta ir pavadinimas.</translatio
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="9"/>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Apie „Qt“&lt;/h3&gt;&lt;p&gt;Naudojama „Qt“ programos %1 versija.&lt;/p&gt;&lt;p&gt;„Qt“ yra „C++“ įrankių rinkinys daugiaplatformėms grafinės vartotojo sąsajos taikomosioms programoms kurti. &lt;/p&gt;&lt;p&gt;„Qt“ garantuoja priedų suderinamumą ir pernešamumą tarp skirtingų operacinių sistemų („MS&amp;nbsp;Windows“, „Mac&amp;nbsp;OS&amp;nbsp;X“, „Linux“ ir daugelio komercinių „Unix“ atmainų.&lt;br&gt;„Qt“ taip pat yra pritaikyta įmontuotiesiems įrenginiams.&lt;/p&gt;&lt;p&gt;„Qt“ sukūrė „Trolltech“. Daugiau informacijos žr. &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Apie „Qt“&lt;/h3&gt;&lt;p&gt;Naudojama „Qt“ programos %1 versija.&lt;/p&gt;&lt;p&gt;„Qt“ yra „C++“ įrankių rinkinys daugiaplatformėms grafinės vartotojo sąsajos taikomosioms programoms kurti. &lt;/p&gt;&lt;p&gt;„Qt“ garantuoja išteklių suderinamumą ir pernešamumą tarp skirtingų operacinių sistemų („MS&amp;nbsp;Windows“, „Mac&amp;nbsp;OS&amp;nbsp;X“, „Linux“ ir daugelio komercinių „Unix“ atmainų.&lt;br&gt;„Qt“ taip pat yra pritaikyta įmontuotiesiems įrenginiams.&lt;/p&gt;&lt;p&gt;„Qt“ sukūrė „Trolltech“. Daugiau informacijos žr. &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -24476,25 +24503,25 @@ External Links
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="474"/>
         <source>Line space mode invalid, must be 0, 1 or 2</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo tarp eilučių klaida: turi būti 0, 1 arba 2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="482"/>
         <source>Cannot set line spacing mode on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Negalima nustatyti intervalų tarp eilučių netekstiniam rėmeliui.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="534"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation>Atstumas tarp skilčiu privalo būti teigiamas skaičius.</translation>
+        <translation>Atstumas tarp skilčių privalo būti teigiamas skaičius.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="542"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Netekstiniam objektui negalima nurodyti atstumo tarp stulpelių.</translation>
+        <translation>Netekstiniam objektui negalima nurodyti atstumo tarp skilčių.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="561"/>
@@ -25278,7 +25305,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="133"/>
         <source>Scripter</source>
-        <translation>Skriptų rašiklis</translation>
+        <translation>Skriptų rašyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/shortwords.cpp" line="84"/>
@@ -25667,7 +25694,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
     <message>
         <location filename="../../../scribus/scimgdataloader_tiff.cpp" line="967"/>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation>„%1“ gali būti pažeistas: klaidinga raiškos informacija</translation>
+        <translation>„%1“ gali būti pažeistas: klaidinga raiškos žymelė</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
@@ -25686,7 +25713,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="226"/>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation>Nušviesinimas nepatenka į leidžiamus rėžius: turi būti nuo 0 iki 15.</translation>
+        <translation>Perėjimas nepatenka į leidžiamus rėžius: turi būti nuo 0 iki 15.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="60"/>
@@ -25735,7 +25762,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
         <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="264"/>
         <location filename="../../../scribus/scimgdataloader_jpeg.cpp" line="313"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation>%1 gali būti pažeistas: sugadintos arba neteisingos raiškos gairės</translation>
+        <translation>%1 gali būti pažeistas: sugadintos arba neteisingos raiškos žymelės</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="76"/>
@@ -25866,7 +25893,7 @@ nauju?</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="41"/>
         <source>Encapsulated PostScript &quot;*.eps&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Encapsulated PostScript „*.eps“</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="42"/>
@@ -25896,27 +25923,27 @@ nauju?</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="47"/>
         <source>PostScript &quot;*.ps&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript „*.ps“</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="48"/>
         <source>Adobe Photoshop &quot;*.psd&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Photoshop „*.psd“</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Windows Meta File &quot;*.wmf&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>„Windows“ meta failas „*.wmf“</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="52"/>
         <source>Scalable Vector Graphics &quot;*.svg&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Keičiamo mastelio vektorinė grafika, „*.svg“</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="53"/>
         <source>Adobe Illustrator &quot;*.ai&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Illustrator „*.ai“</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -25956,17 +25983,17 @@ nauju?</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="56"/>
         <source>Word Perfect Wpg File</source>
-        <translation type="unfinished"></translation>
+        <translation>„Word Perfect“ failas, „Wpg“</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="58"/>
         <source>GraphicsMagick File</source>
-        <translation type="unfinished"></translation>
+        <translation>„GraphicsMagick“ failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="60"/>
         <source>UniConvertor File</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“ failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="61"/>
@@ -26094,7 +26121,7 @@ nauju?</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="87"/>
         <source>MeshDistortion</source>
-        <translation>Tinklelio deformacija</translation>
+        <translation>MeshDistortion</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="89"/>
@@ -26230,79 +26257,79 @@ Todėl vaizdas gali būti nekorektiškas</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="46"/>
         <source>Quark XPress Tags Document</source>
-        <translation type="unfinished"></translation>
+        <translation>„Quark XPress Tags“ dokumentas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="72"/>
         <source>Cgm Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>„CGM“ importuoklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="73"/>
         <source>DRW Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>DRW importuoklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="58"/>
         <source>Adobe IDML Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>„Adobe IDML“ importuoklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="75"/>
         <source>Uniconvertor Import</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“ importas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="71"/>
         <source>WPG Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>WPG importuoklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="65"/>
         <source>Xara Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>„Xara“ importuoklis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="48"/>
         <source>Picture Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslų žvalgyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Srkiptų rašyklės papildinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="60"/>
         <source>Spell check (Aspell)</source>
-        <translation type="unfinished"></translation>
+        <translation>Rašybos tikrinimas (Aspell)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scimgdataloader_gmagick.cpp" line="41"/>
         <location filename="../../../scribus/scimgdataloader_gmagick.cpp" line="84"/>
         <source>Could not get pixel data!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyksta gauti pikselio duomenų!</translation>
     </message>
     <message>
         <location filename="../../../scribus/scimgdataloader_gmagick.cpp" line="49"/>
         <source>Could not get alpha channel data!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyksta gauti alfa kanalo duomenų!</translation>
     </message>
     <message>
         <location filename="../../../scribus/scimgdataloader_gmagick.cpp" line="55"/>
         <location filename="../../../scribus/scimgdataloader_gmagick.cpp" line="89"/>
         <source>Could not allocate output buffer!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyksta išdėstyti išvesties buferio!</translation>
     </message>
     <message>
         <location filename="../../../scribus/scpreview.cpp" line="103"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupė %1</translation>
+        <translation>Grupė %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_layer.cpp" line="70"/>
         <source> (mp items)</source>
-        <translation type="unfinished"></translation>
+        <translation>(mp objektai)</translation>
     </message>
 </context>
 <context>
@@ -26442,27 +26469,27 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="129"/>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="595"/>
         <source>Internal zlib error when compressing: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vidinė „zlib“ glaudinimo klaida:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="161"/>
         <source>Error writing to underlying device: </source>
-        <translation type="unfinished"></translation>
+        <translation>Rašymo į pagrindinį įrenginį klaida:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="362"/>
         <source>Error opening underlying device: </source>
-        <translation type="unfinished"></translation>
+        <translation>Pagrindinio įrenginio atvėrimo klaida:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="532"/>
         <source>Error reading data from underlying device: </source>
-        <translation type="unfinished"></translation>
+        <translation>Skaitymo iš pagrindinio įrenginio klaida:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="552"/>
         <source>Internal zlib error when decompressing: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vidinė „zlib“ išskleidimo klaida:</translation>
     </message>
 </context>
 <context>
@@ -26470,12 +26497,12 @@ Todėl vaizdas gali būti nekorektiškas</translation>
     <message>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="396"/>
         <source>The gzip format not supported in this version of zlib.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ši „zlib“ versija nepalaiko „gzip“ formato.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/qtiocompressor.cpp" line="412"/>
         <source>Internal zlib error: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vidinė „zlib“ klaida:</translation>
     </message>
 </context>
 <context>
@@ -26484,13 +26511,14 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <location filename="../../../scribus/ui/query.cpp" line="72"/>
         <source>Name &quot;%1&quot; already exists.
 Do you want to replace the current contents?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pavadinimas „%1“ jau yra.
+Ar esamą pakeisti šiuo turiniu?</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/query.cpp" line="82"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished">Pavadinimas „%1“ jau yra.
+        <translation>Pavadinimas „%1“ jau yra.
 Prašome parinkti kitą.</translation>
     </message>
 </context>
@@ -26545,7 +26573,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/reformdoc.cpp" line="72"/>
         <source>Guides</source>
-        <translation>Orientyrai</translation>
+        <translation>Kreiptinės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/reformdoc.cpp" line="76"/>
@@ -26622,17 +26650,17 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/rotationsetter.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/rotationsetter.ui" line="24"/>
         <source>Rotation:</source>
-        <translation type="unfinished">Posūkis:</translation>
+        <translation>Posūkis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/rotationsetter.ui" line="42"/>
         <source>+90</source>
-        <translation type="unfinished"></translation>
+        <translation>+90</translation>
     </message>
 </context>
 <context>
@@ -27870,82 +27898,82 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="33"/>
         <source>Open &amp;Recent</source>
-        <translation type="unfinished">Atverti &amp;paskiausiai naudotą</translation>
+        <translation>Atverti &amp;paskiausiai naudotą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="34"/>
         <source>Paste Recent</source>
-        <translation type="unfinished">Padėti paskiausiai naudotą</translation>
+        <translation>Padėti paskiausiai naudotą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="35"/>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importuoti</translation>
+        <translation>&amp;Importuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="36"/>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;Eksportuoti</translation>
+        <translation>&amp;Eksportuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="38"/>
         <source>Contents</source>
-        <translation type="unfinished">Turinys</translation>
+        <translation>Turinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="40"/>
         <source>&amp;Level</source>
-        <translation type="unfinished">&amp;Lygis</translation>
+        <translation>&amp;Lygis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="41"/>
         <source>Send to Layer</source>
-        <translation type="unfinished">Perkelti į sluoksnį</translation>
+        <translation>Perkelti į sluoksnį</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="42"/>
         <source>Previe&amp;w Settings</source>
-        <translation type="unfinished">Per&amp;žiūros nuostatos</translation>
+        <translation>Per&amp;žiūros nuostatos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="43"/>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;PDF parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="44"/>
         <source>C&amp;onvert To</source>
-        <translation type="unfinished">K&amp;onvertuoti į</translation>
+        <translation>K&amp;onvertuoti į</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="47"/>
         <source>Character</source>
-        <translation type="unfinished">Rašmuo</translation>
+        <translation>Rašmuo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="48"/>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabutės</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="49"/>
         <source>Space</source>
-        <translation type="unfinished">Tarpas</translation>
+        <translation>Tarpas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="50"/>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished">Liga&amp;tūros</translation>
+        <translation>Liga&amp;tūra</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="56"/>
         <source>&amp;Alignment</source>
-        <translation type="unfinished">&amp;Lygiuotė</translation>
+        <translation>&amp;Lygiuotė</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="57"/>
         <source>Online &amp;Tutorials</source>
-        <translation type="unfinished">&amp;Mokymosi priemonės internete</translation>
+        <translation>&amp;Mokymosi priemonės internete</translation>
     </message>
 </context>
 <context>
@@ -28106,22 +28134,22 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="79"/>
         <source>Scribus 1.3.4+ File Format Support</source>
-        <translation type="unfinished">„Scribus 1.3.4“ (ir naujesnių) formato failų palaikymas</translation>
+        <translation>„Scribus 1.3.4“ (ir naujesnių) formato failų palaikymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="80"/>
         <source>Allows Scribus to read Scribus 1.3.4 and higher formatted files.</source>
-        <translation type="unfinished">Leisti „Scribus“ skaityti „Scribus 1.3.4“ ir vėlesnių versijų dokumentus.</translation>
+        <translation>Leisti „Scribus“ skaityti „Scribus 1.3.4“ ir vėlesnių versijų dokumentus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="97"/>
         <source>Scribus 1.5.0+ Document</source>
-        <translation type="unfinished">„Scribus 1.3.4“ (ir naujesnių) dokumentas {1.5.0+?}</translation>
+        <translation>„Scribus 1.3.5“ (ir naujesnių) dokumentas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="3541"/>
         <source>Copy #%1 of </source>
-        <translation type="unfinished">%1-oji kopija iš </translation>
+        <translation>%1-oji kopija iš </translation>
     </message>
 </context>
 <context>
@@ -28499,7 +28527,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
     <message>
         <location filename="../../../scribus/scribuscore.cpp" line="167"/>
         <source>Initializing Plugins</source>
-        <translation>Inicializuojami priedai</translation>
+        <translation>Inicializuojami papildiniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribuscore.cpp" line="179"/>
@@ -28514,7 +28542,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
     <message>
         <location filename="../../../scribus/scribuscore.cpp" line="199"/>
         <source>Initializing Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializuojamas paveikslų podėlis</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribuscore.cpp" line="338"/>
@@ -28790,12 +28818,12 @@ Posūkis: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2508"/>
         <source>1 Object selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Pažymėtas 1 objektas</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2510"/>
         <source>%1 Objects selected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 objektas pažymėtas</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3292"/>
@@ -28854,12 +28882,12 @@ Posūkis: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4139"/>
         <source>Filename and Path for Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Paveikslo failo vardas ir kelias</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4139"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Visi failai (*)</translation>
+        <translation>Visi failai (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4235"/>
@@ -28974,7 +29002,8 @@ Posūkis: %4</translation>
         <location filename="../../../scribus/scribus.cpp" line="7605"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoriaus profilio atvėrimo klaida.
+Bus naudojamas senas profilis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7900"/>
@@ -29003,7 +29032,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8182"/>
         <source>Locate your PDF viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodyti PDF žiūryklės vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8551"/>
@@ -29569,68 +29598,68 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="13"/>
         <source>Script Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriptų rengyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="36"/>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Failas</translation>
+        <translation>&amp;Failas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="40"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Naujas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="52"/>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="85"/>
         <source>&amp;Run</source>
-        <translation type="unfinished">&amp;Vykdyti</translation>
+        <translation>&amp;Vykdyti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="72"/>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Užverti</translation>
+        <translation>&amp;Užverti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="75"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="80"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished">&amp;Išeiti</translation>
+        <translation>&amp;Išeiti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="88"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="93"/>
         <source>Run script in &amp;console</source>
-        <translation type="unfinished"></translation>
+        <translation>Vykdyti skriptą &amp;pulte</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="96"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished">Ctrl+C</translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="101"/>
         <source>Python</source>
-        <translation type="unfinished"></translation>
+        <translation>„Python“</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="104"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished">Ctrl+N</translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="109"/>
         <source>QtScript</source>
-        <translation type="unfinished"></translation>
+        <translation>„Qt“ skriptas</translation>
     </message>
 </context>
 <context>
@@ -29644,7 +29673,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="205"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="215"/>
         <source>Scripter</source>
-        <translation>Skriptų rašiklis</translation>
+        <translation>Skriptų rašyklė</translation>
     </message>
 </context>
 <context>
@@ -29679,7 +29708,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>Pythono priedo diegimas nepavyko. Išsamesnė informacija priskirta standartinės klaidos kintamąjam.</translation>
+        <translation>Pythono papildinio diegimas nepavyko. Išsamesnė informacija priskirta standartinės klaidos kintamąjam.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="529"/>
@@ -29707,22 +29736,22 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     <message>
         <location filename="../../../scribus/plugins/scripter/scripterimpl.cpp" line="236"/>
         <source>Scripter</source>
-        <translation type="unfinished">Skriptų rašiklis</translation>
+        <translation>Skriptų rašyklė</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/scripterimpl.cpp" line="236"/>
         <source>Please enter a Python command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prašom įrašyti Pythono komandą:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/scripterimpl.cpp" line="259"/>
         <source>Scribus - Scripter Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>„Scribus“ - skriptų rašyklės papildinys</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/scripterimpl.cpp" line="260"/>
         <source>If you see this box, Scripter probably works :)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jei matote šį langelį, tai tikėtina, kad skriptų rašyklė veikia :)</translation>
     </message>
 </context>
 <context>
@@ -30345,7 +30374,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="1968"/>
         <source>&amp;Sample Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pavyzdžio tekstas...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="1972"/>
@@ -30378,7 +30407,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="1974"/>
         <source>&amp;Smart Text Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spartusis teksto žymėjimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="1979"/>
@@ -30890,7 +30919,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/symbolpalette.cpp" line="161"/>
         <source>Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Simboliai</translation>
     </message>
 </context>
 <context>
@@ -31554,12 +31583,13 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.cpp" line="147"/>
         <source>Locate the uniconvertor executable</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Nurodyti „UniConvertor“ laikymo vietą</translatorcomment>
+        <translation>Nurodyti „UniConvertor“ laikymo vietą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.cpp" line="269"/>
         <source>Uniconvertor executable not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Vykdomasis „UniConvertor“ failas nerastas!</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="13"/>
@@ -31570,7 +31600,7 @@ pertempk šabloną į langą žemiau.</translation>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="207"/>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="255"/>
         <source>Web Browser to launch with links from the Help system</source>
-        <translation>Paleisti saityno naršyklę spragtelėjus Žinyno saitus</translation>
+        <translation>Paleisti saityno naršyklę spragtelėjus „Žinyno“ saitus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="210"/>
@@ -31599,7 +31629,7 @@ pertempk šabloną į langą žemiau.</translation>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="232"/>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="280"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
-        <translation>qt&gt;Išdėstymas jūsų naudojamoje naršyklėje. Jo reikia norint atverti išorinius saitus iš sistemos žinyno.&lt;/qt&gt;</translation>
+        <translation>qt&gt;Išdėstymas jūsų naudojamoje saityno naršyklėje. Jo reikia norint atverti išorinius saitus iš sistemos žinyno.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="191"/>
@@ -31626,17 +31656,17 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="46"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Nurodyti „Ghostscript“ interpretatoriaus laikymo vietą. „Windows“ sistemoje svarbu nurodyti, kad bus naudojama programa, pavadinta „gswin32c.exe“ (NE „gswin32.exe“).Priešingu atveju gali nepasileisti „Scribus“.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="73"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Tolygios teksto linijos vizualizuojant EPS ir PDF dokumentus ekrane</translation>
+        <translation>Glotnios teksto linijos vizualizuojant EPS ir PDF dokumentus ekrane</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="76"/>
         <source>Antialias &amp;Text</source>
-        <translation>Teksto linijo &amp;tolygios</translation>
+        <translation>Teksto linijo &amp;glotnios</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="79"/>
@@ -31646,12 +31676,12 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="102"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Tolygus EPS ir PDF dokumentų grafikos vizualizavimas ekrane</translation>
+        <translation>Glotnus EPS ir PDF dokumentų grafikos vizualizavimas ekrane</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="105"/>
         <source>Antialias &amp;Graphics</source>
-        <translation>&amp;Grafika tolygi</translation>
+        <translation>&amp;Grafika glotni</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="108"/>
@@ -31702,7 +31732,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="258"/>
         <source>Uniconvertor</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabexternaltoolswidget.ui" line="443"/>
@@ -31810,7 +31840,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabgeneral.cpp" line="56"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Parinkite numatytąją lango apdailą ir išvaizdą. „Scribus“ perima išvaizdos elementus iš KDE aar „Qt“ temų, jei „Qt“ konfigūracijoje numatyta KDE priedų paieška.</translation>
+        <translation>Parinkite numatytąją lango apdailą ir išvaizdą. „Scribus“ perima išvaizdos elementus iš KDE aar „Qt“ temų, jei „Qt“ konfigūracijoje numatyta KDE papildinių paieška.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabgeneral.cpp" line="57"/>
@@ -31919,7 +31949,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabgeneral.ui" line="220"/>
         <source>Use Tabs for Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti korteles dokumentams</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabgeneral.ui" line="246"/>
@@ -31989,12 +32019,12 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabgeneral.cpp" line="60"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Siekiant taupyti erdvę, palečių langams naudojamos mažesnės ąselės. Reikės iš naujo paleisti programą</translation>
+        <translation>Siekiant taupyti erdvę, palečių langams naudojami mažesni valdikliai. Reikės iš naujo paleisti programą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabgeneral.ui" line="197"/>
         <source>Use Small Widgets in Palettes</source>
-        <translation>Palečių languose naudoti mažesnės ąselės</translation>
+        <translation>Palečių languose naudoti mažesnius valdiklius</translation>
     </message>
 </context>
 <context>
@@ -32049,7 +32079,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="82"/>
         <source>Show Guides</source>
-        <translation>Rodyti orientyrus</translation>
+        <translation>Rodyti kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="100"/>
@@ -32124,7 +32154,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="227"/>
         <source>Color of the guide lines you insert</source>
-        <translation>Naudotojo pridėtų orientyrų spalva</translation>
+        <translation>Naudotojo pridėtų kreiptinių spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="228"/>
@@ -32144,7 +32174,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="234"/>
         <source>Turns the guides on or off</source>
-        <translation>Įjungia arba išjungia orientyrų rodymą</translation>
+        <translation>Įjungia arba išjungia kreiptinių rodymą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="235"/>
@@ -32159,12 +32189,12 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="219"/>
         <source>Guides are not visible through objects on the page</source>
-        <translation>Orientyrus uždengia puslapio objektai</translation>
+        <translation>Kreiptines uždengia puslapio objektai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="220"/>
         <source>Guides are visible above all objects on the page</source>
-        <translation>Orientyrai yra virš visų puslapio objektų</translation>
+        <translation>Kreiptinės yra virš visų puslapio objektų</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="229"/>
@@ -32189,7 +32219,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="223"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Atstumas, kuriuo pradedant objektai traukiami prie orientyrų. Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
+        <translation>Atstumas, kuriuo pradedant objektai traukiami prie kreiptinių. Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabguides.cpp" line="224"/>
@@ -32609,22 +32639,22 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="854"/>
         <source>PDF/X Output Intent</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X skirtas išvedimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="960"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodo PDF suderinamumą.&lt;br/&gt;Nenurodžius, laikoma, kad tai &lt;b&gt;PDF 1.3&lt;/b&gt;, kuris suteikia geriausią suderinamumą.&lt;br/&gt;Rinkis &lt;b&gt;PDF 1.4&lt;/b&gt;, jei failuose naudojamas permatomumas ar jei reikalingas 128 bitų šifravimas.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; yra būtinas, jei norite įrašyti objektus skirtinguose PDF dokumento sluoksniuose.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; rinktis PDF dokumentams, kuriuose reikalngos valdomos RŽM (RGB) spalvos, naudojamos komerciniam spausdinimui ir pasirenkamos, kai suaktyvinamas spalvų valdymas. Naudokite tik jei turite tokį spausdintuvą arba kai kuriais atvejais spausdinant 4 spalvų skaitmeniniu spalviniu lazeriniu spausdintuvu. &lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; skirtas „aklam“ pakeitimui tik ŽPGJ (CMYK) modelio arba neskaidomosiomis spalvomis.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; yra praplėsta „PDF/X-3“ atmaina, papildyta permatomumo ir sluoksnių palaikymu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="961"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurodo puslapių įrišimo paraštes PDF dokumente. Jei nežinote, ką keisti, palikite numatytąją (kairiąją).</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1006"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privaloma PDF/X arba PDF eilutė iššauks PDF/X atikties praradimą. Rekomenduojame jums naudoti dokumento antraštę.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1145"/>
@@ -32706,14 +32736,14 @@ pertempk šabloną į langą žemiau.</translation>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1362"/>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1574"/>
         <source>Dissolve</source>
-        <translation>Išsklaidymas</translation>
+        <translation>Išsisklaidymas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="517"/>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1363"/>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1575"/>
         <source>Glitter</source>
-        <translation>Blizgumas</translation>
+        <translation>Mirgesys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="518"/>
@@ -32877,7 +32907,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="718"/>
         <source>S&amp;pot Function:</source>
-        <translation>Da&amp;žymo („spot“) funkcija:</translation>
+        <translation>Neskaidomų spalvų („spot“) funkcija:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="722"/>
@@ -32942,7 +32972,7 @@ pertempk šabloną į langą žemiau.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 išvedimas</translation>
+        <translation type="obsolete">PDF/X-3 skirtas išvedimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="864"/>
@@ -32977,7 +33007,7 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="919"/>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation>Apšvietimo arba išblukinimo efektų kryptis.</translation>
+        <translation>Mirgesio arba nuvalymo efektų kryptis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="920"/>
@@ -33166,12 +33196,12 @@ pertempk šabloną į langą žemiau.</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="968"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation>Leidžiamas nenuostolingasis tekstų ir grafikos glaudinimas. Jei neturie konkrečios priežasties, palikite langelį pažymėtą. Tai leisžia sumažinti PDF failo dydį.</translation>
+        <translation>Leidžiamas nenuostolingasis tekstų ir grafikos glaudinimas. Jei neturie konkrečios priežasties, palikite langelį pažymėtą. Tai leis sumažinti PDF failo dydį.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="973"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Leidžiamos apsaugos priemonės eksportuojamame PDF dokumente. Pasirinkus „PDF 1.3“ PDF dokumento apsaugai bus naudojamas 40 bitų šifravimas, o pasirinkus „PDF 1.4“ – 128 bitų šifravimas. Pastaba: PDF šifraviasm nėra toks patikimas, kaip GPG (GNU Privacy Guard) arba PGP (Pretty Good Privacy) šifravimas ir turi kai kurių ribojimų.</translation>
+        <translation>Leidžiamos apsaugos priemonės eksportuojamame PDF dokumente. Pasirinkus „PDF 1.3“ PDF dokumento apsaugai bus naudojamas 40 bitų šifravimas, o pasirinkus „PDF 1.4“ – 128 bitų šifravimas. Pastaba: PDF šifravimas nėra toks patikimas, kaip GPG (GNU Privacy Guard) arba PGP (Pretty Good Privacy) šifravimas ir turi kai kurių ribojimų.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="974"/>
@@ -33313,7 +33343,7 @@ atvėrus PDF dokumentą:</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="992"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation>Eksportuotame faile nerodyti objektų, esannčių už paraščių</translation>
+        <translation>Eksportuotame faile nerodyti objektų, esančių už paraščių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="914"/>
@@ -33417,12 +33447,12 @@ atvėrus PDF dokumentą:</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="969"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>Glaudinimo metodas paveikslams. Leidžiama „Scribus“ automatiškai parinkti tinkamiausią metodą. ZIP glaudinimas yra nenuostolingas ir tinkamas grynųjų spalvų paveikslams. JPEG tinkamesnis maženio dydžio PDF failams kurti, ypač nuotraukoms (žinoma, galimas nežymus paveikslų kokybės pablogėjimas). Palikite parinkti „Automatiškai“ jei nėra būtinybės naudoti specialias glaudinimo parinktis.</translation>
+        <translation>Glaudinimo metodas paveikslams. Leidžiama „Scribus“ automatiškai parinkti tinkamiausią metodą. ZIP glaudinimas yra nenuostolingas ir tinkamas grynųjų spalvų paveikslams. JPEG tinkamesnis mažesnio dydžio PDF failams kurti, ypač nuotraukoms (žinoma, galimas nežymus paveikslų kokybės pablogėjimas). Palikite parinkti „Automatiškai“ jei nėra būtinybės naudoti specialias glaudinimo parinktis.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="970"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Glaudinimo kokybės parinktys nuostolingojo glaudinimo atveju: Minimali (25%), Žema (50%), Vidutinė (75%), Aukšta (85%), Maksimali (95%). Atminkite, kad kokybės lygmuo tiesiogiai nenusako gausimo paveikslo failo dydžio – failo dydis ir paveikslo kokybė priklauso nuo konkretaus paveikslo. Netgi pasirinkus parinkti „Maksimali“, „jpeg“ formato atveju galimas kokybės pablogėjimas.</translation>
+        <translation>Glaudinimo kokybės parinktys nuostolingojo glaudinimo atveju: Minimali (25%), Žema (50%), Vidutinė (75%), Aukšta (85%), Maksimali (95%). Atminkite, kad kokybės lygmuo tiesiogiai nenusako gausimo paveikslo failo dydžio – failo dydis ir paveikslo kokybė priklauso nuo konkretaus paveikslo. Netgi pasirinkus parinktį „Maksimali“, „jpeg“ formato atveju galimas kokybės pablogėjimas.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1329"/>
@@ -33537,7 +33567,7 @@ atvėrus PDF dokumentą:</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="998"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation>Pridėti dokumento informaciją, į kurią įeina pavadinimas ir puspalių numeriai</translation>
+        <translation>Pridėti dokumento informaciją, į kurią įeina pavadinimas ir puslapių numeriai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="999"/>
@@ -33609,7 +33639,7 @@ atvėrus PDF dokumentą:</translation>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="749"/>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="776"/>
         <source>Rendering Intent:</source>
-        <translation>Spalvų vizualizavimo tipas:</translation>
+        <translation>Vizualizavimo tikslumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="305"/>
@@ -33759,7 +33789,7 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/ui/tabprinter.ui" line="203"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertuoti neskaidomąsias (grynąsias) spalvas į skaidomąsias</translation>
+        <translation>Konvertuoti neskaidomąsias spalvas į skaidomąsias</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabprinter.ui" line="210"/>
@@ -33927,12 +33957,12 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/ui/tabscrapbook.ui" line="39"/>
         <source>Write Item Previews into the Scrapbook Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Elemento peržiūros vaizdą įrašyti į koliažinės aplanką</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabscrapbook.ui" line="48"/>
         <source>The minimum number is 1; the maximum is 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mažiausias skaičius yra 1, didžiausias – 100.</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
@@ -34701,7 +34731,7 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/ui/transparencypalette.cpp" line="149"/>
         <source>Custom</source>
-        <translation type="unfinished">Individualus</translation>
+        <translation>Individualus</translation>
     </message>
 </context>
 <context>
@@ -34724,7 +34754,7 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/ui/transformdialog.cpp" line="55"/>
         <source>Skewing</source>
-        <translation>Pakreipimas</translation>
+        <translation>Pasvyrimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transformdialog.cpp" line="93"/>
@@ -34765,7 +34795,7 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/ui/transformdialog.cpp" line="120"/>
         <source>Skew</source>
-        <translation>Pokrypis</translation>
+        <translation>Posvyris</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transformdialog.cpp" line="123"/>
@@ -34849,7 +34879,7 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/ui/transformdialogbase.ui" line="424"/>
         <source>Basepoint</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazinis taškas</translation>
     </message>
     <message>
         <source>Origin</source>
@@ -34949,42 +34979,42 @@ Nurodžius „1 lygis“ arba „2 lygis“ gali būti sukuriami dideli failai</
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="817"/>
         <source>Add vertical guide</source>
-        <translation>Pridėti vertikalų orientyrą</translation>
+        <translation>Pridėti vertikalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="818"/>
         <source>Add horizontal guide</source>
-        <translation>Pridėti horizontalų orientyrą</translation>
+        <translation>Pridėti horizontalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="819"/>
         <source>Remove vertical guide</source>
-        <translation>Pašalinti vertikalų orientyrą</translation>
+        <translation>Pašalinti vertikalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="820"/>
         <source>Remove horizontal guide</source>
-        <translation>Pašalinti horizontalų orientyrą</translation>
+        <translation>Pašalinti horizontalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="823"/>
         <source>Move vertical guide</source>
-        <translation>Perkelti vertikalų orientyrą</translation>
+        <translation>Perkelti vertikalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="824"/>
         <source>Move horizontal guide</source>
-        <translation>Perkelti horizontalų orientyrą</translation>
+        <translation>Perkelti horizontalią kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="825"/>
         <source>Lock guides</source>
-        <translation>Fiksuoti orientyrus</translation>
+        <translation>Fiksuoti kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="826"/>
         <source>Unlock guides</source>
-        <translation>Leisti kilnoti orientyrus</translation>
+        <translation>Leisti kilnoti kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="827"/>
@@ -35312,7 +35342,7 @@ iki %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="902"/>
         <source>Import Uniconvertor image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuojamas „UniConvertor“ paveikslas</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="903"/>
@@ -35332,7 +35362,7 @@ iki %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="912"/>
         <source>Text flows around bounding box</source>
-        <translation>Tekstas apgaubs aprėpos langelį</translation>
+        <translation>Tekstas apgaubs aprėpos stačiakampį</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="913"/>
@@ -35347,7 +35377,7 @@ iki %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="917"/>
         <source>No bounding box</source>
-        <translation>Nėra aprėpos langelio</translation>
+        <translation>Nėra aprėpos stačiakampio</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="918"/>
@@ -35594,12 +35624,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="821"/>
         <source>Remove vertical auto guide</source>
-        <translation>Pašalinti vertikalų automatinį orientyrą</translation>
+        <translation>Pašalinti vertikalią automatinę kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="822"/>
         <source>Remove horizontal auto guide</source>
-        <translation>Pašalinti horizontalų automatinį orientyrą</translation>
+        <translation>Pašalinti horizontalią automatinę kreiptinę</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="914"/>
@@ -35609,12 +35639,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="957"/>
         <source>Remove all guides</source>
-        <translation>Pašalinti visus orientyrus</translation>
+        <translation>Pašalinti visas kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="958"/>
         <source>Remove page guides</source>
-        <translation>Pašalinti puslapio orientyrus</translation>
+        <translation>Pašalinti puslapio kreiptines</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="959"/>
@@ -35753,37 +35783,37 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="82"/>
         <source>Imports Vector Files with UniConvertor</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“ importuoja vektorinius failus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="83"/>
         <source>Converts many vector formats to SVG and then loads the resulting SVG.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konvertuoja įvairių vektorinių formatų paveikslus į SVG ir paskui įkelia juos į SVG.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="98"/>
         <source>Uniconvertor Import</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“ importas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="161"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko paleisti „UniConvertor“. Vykdomojo failo pavadinimas nuostatose „Failas -&gt; Nuostatos -&gt; Išoriniai įrankiai“ gali būti neteisingas arba programa pašalinta iš kompiuterio jau po to, kai buvo nurodyta nuostatose (%1)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="170"/>
         <source>Uniconvertor did not exit correctly: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“ baigė darbą nekorektiškai: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="177"/>
         <source>Uniconvertor failed to convert the file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>„UniConvertor“ nepavyko konvertuoti failo: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="185"/>
         <source>The SVG Import plugin could not be found</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG importavimo papildinys nerastas</translation>
     </message>
 </context>
 <context>
@@ -36052,17 +36082,17 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../../scribus/plugins/import/wpg/importwpg.cpp" line="548"/>
         <location filename="../../../scribus/plugins/import/wpg/importwpg.cpp" line="743"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupė %1</translation>
+        <translation>Grupė %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpg.cpp" line="613"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importuojama: %1</translation>
+        <translation>Importuojama: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/wpg/importwpg.cpp" line="616"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analizuojamas failas:</translation>
+        <translation>Analizuojamas failas:</translation>
     </message>
 </context>
 <context>
@@ -36070,23 +36100,23 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="164"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importuojama: %1</translation>
+        <translation>Importuojama: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="167"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analizuojamas failas:</translation>
+        <translation>Analizuojamas failas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="293"/>
         <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="3529"/>
         <source>Group%1</source>
-        <translation type="unfinished">Grupė %1</translation>
+        <translation>Grupė %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/xar/importxar.cpp" line="507"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Generuojami objektai</translation>
+        <translation>Generuojami objektai</translation>
     </message>
 </context>
 <context>
@@ -36118,37 +36148,37 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="45"/>
         <source>Quark XPress Tags Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>„Quark XPress Tags“ importuoklio parinktys</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="54"/>
         <source>Use document name as a prefix for Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti dokumento pavadinimą kaip stiliaus prefiksą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="56"/>
         <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuojamo dokumento pavadinimą įterpti kiekvieno importuojamo į „Scribus“ stiliaus pradžioje.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="63"/>
         <source>Do not ask again</source>
-        <translation type="unfinished">Daugiau nebeklausti</translation>
+        <translation>Daugiau nebeklausti</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="65"/>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Padaryti šias nuostatas numatytosiomis ir importuojant „Quark XPress Tags“ dokumentus nebeklausti.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="74"/>
         <source>OK</source>
-        <translation type="unfinished">Gerai</translation>
+        <translation>Gerai</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="76"/>
         <source>Cancel</source>
-        <translation type="unfinished">Atsisakyti</translation>
+        <translation>Atsisakyti</translation>
     </message>
 </context>
 <context>
@@ -36156,36 +36186,36 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="28"/>
         <source>Edit Line Color Properties</source>
-        <translation type="unfinished">Keisti linijos spalvos ypatybes</translation>
+        <translation>Keisti linijos spalvos ypatybes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="44"/>
         <source>Edit Fill Color Properties</source>
-        <translation type="unfinished">Keisti užpildo spalvos ypatybes</translation>
+        <translation>Keisti užpildo spalvos ypatybes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="92"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="290"/>
         <source>Solid</source>
-        <translation type="unfinished">Ryškus</translation>
+        <translation>Ryškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="109"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="307"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="671"/>
         <source>Shade:</source>
-        <translation type="unfinished">Šešėlis:</translation>
+        <translation>Šešėlis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="116"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="314"/>
         <source>Saturation of color</source>
-        <translation type="unfinished">Spalvos grynis</translation>
+        <translation>Spalvos grynis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="119"/>
@@ -36201,124 +36231,124 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../../scribus/ui/colorpalette.ui" line="681"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="710"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="135"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="333"/>
         <source>Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Gradientinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="150"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="342"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiesinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="155"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="347"/>
         <source>Radial</source>
-        <translation type="unfinished"></translation>
+        <translation>Spindulinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="163"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="370"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="unfinished">Kairiojo pelės klavišo paspaudimu nurodykite gradiento vektoriaus pradžią, o dešiniojo pelės klavišo paspaudimu – pabaigą</translation>
+        <translation>Kairiojo pelės klavišo paspaudimu nurodykite gradiento vektoriaus pradžią, o dešiniojo pelės klavišo paspaudimu – pabaigą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="166"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="373"/>
         <source>Move Vector</source>
-        <translation type="unfinished">Perkelti vektorių</translation>
+        <translation>Perkelti vektorių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="204"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="773"/>
         <source>Pattern</source>
-        <translation type="unfinished">Tekstūra</translation>
+        <translation>Tekstūra</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="238"/>
         <source>Pattern follows Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstūra palei kreivę</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="250"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="812"/>
         <source>Properties...</source>
-        <translation type="unfinished">Ypatybės...</translation>
+        <translation>Ypatybės...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="352"/>
         <source>4 Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>4 spalvos</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="357"/>
         <source>Diamond</source>
-        <translation type="unfinished">Rombas</translation>
+        <translation>Rombas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="362"/>
         <source>Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Karkaso tinklelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="429"/>
         <source>Color</source>
-        <translation type="unfinished">Spalva</translation>
+        <translation>Spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="436"/>
         <source>Shade</source>
-        <translation type="unfinished">Šešėlis</translation>
+        <translation>Šešėlis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="443"/>
         <source>Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Permatomumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="651"/>
         <source>Color:</source>
-        <translation type="unfinished">Spalva:</translation>
+        <translation>Spalva:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="700"/>
         <source>Transparency:</source>
-        <translation type="unfinished"></translation>
+        <translation>Permatomumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="730"/>
         <source>Edit Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Taisyti spalvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="842"/>
         <source>Display all colors from the document color list, or only the already used colors</source>
-        <translation type="unfinished">Rodyti visas dokumento spalvų sąrašo spalvas arba tik panaudotas spalvas</translation>
+        <translation>Rodyti visas dokumento spalvų sąrašo spalvas arba tik panaudotas spalvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="845"/>
         <source>Display only used colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti tik naudojamas spalvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="852"/>
         <source>Overprinting</source>
-        <translation type="unfinished">Užspausdinimas</translation>
+        <translation>Užspausdinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="863"/>
         <source>Knockout</source>
-        <translation type="unfinished">Eliminacinis (Knockout)</translation>
+        <translation>Išgaubtas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="868"/>
         <source>Overprint</source>
-        <translation type="unfinished">Užspausdinamasis</translation>
+        <translation>Užspausdinamas</translation>
     </message>
 </context>
 <context>
@@ -36326,12 +36356,12 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/gradientaddedit.ui" line="20"/>
         <source>Edit Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Taisyti gradientą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientaddedit.ui" line="34"/>
         <source>Name:</source>
-        <translation type="unfinished">Pavadinimas:</translation>
+        <translation>Pavadinimas:</translation>
     </message>
 </context>
 <context>
@@ -36340,13 +36370,15 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../../scribus/ui/gradientaddedit.cpp" line="58"/>
         <source>You cannot create a gradient without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Negalima sukurti dradiento be pavadinimo.
+Prašom suteikti jam pavadinimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientaddedit.cpp" line="67"/>
         <source>The name of the gradient already exists,
 please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tokiu pavadinimu jau yra gradientas. 
+Prašom parinkti kitą.</translation>
     </message>
 </context>
 <context>
@@ -36354,47 +36386,47 @@ please choose another one.</source>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="17"/>
         <source>Manage Gradients</source>
-        <translation type="unfinished"></translation>
+        <translation>Tvarkyti gradientus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="38"/>
         <source>Load ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Įkelti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="45"/>
         <source>Save ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Įrašyti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="52"/>
         <source>Add ...</source>
-        <translation type="unfinished">Pridėti...</translation>
+        <translation>Pridėti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="62"/>
         <source>Edit ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Taisyti...</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="72"/>
         <source>Remove</source>
-        <translation type="unfinished">Pašalinti</translation>
+        <translation>Pašalinti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="82"/>
         <source>Remove All</source>
-        <translation type="unfinished">Pašalinti visus</translation>
+        <translation>Pašalinti visus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="102"/>
         <source>OK</source>
-        <translation type="unfinished">Gerai</translation>
+        <translation>Gerai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.ui" line="112"/>
         <source>Cancel</source>
-        <translation type="unfinished">Atsisakyti</translation>
+        <translation>Atsisakyti</translation>
     </message>
 </context>
 <context>
@@ -36402,50 +36434,50 @@ please choose another one.</source>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="136"/>
         <source>New Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujas gradientas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="197"/>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="458"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Visi palaikomi formatai</translation>
+        <translation>Visi palaikomi formatai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="201"/>
         <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
-        <translation type="unfinished"></translation>
+        <translation>„Scribus“ gradientų failai „*.sgr“ (*.sgr *.SGR);;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="202"/>
         <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
-        <translation type="unfinished"></translation>
+        <translation>„Gimp“ gradientų failai „*.sgr“ (*.sgr *.SGR);;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="203"/>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="462"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Visi failai (*)</translation>
+        <translation>Visi failai (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="207"/>
         <source>Open</source>
-        <translation type="unfinished">Atverti</translation>
+        <translation>Atverti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="461"/>
         <source>Scribus Gradient Files (*.sgr *.SGR);;</source>
-        <translation type="unfinished"></translation>
+        <translation>„Scribus“ gradientų failai (*.sgr *.SGR);;</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="465"/>
         <source>Save as</source>
-        <translation type="unfinished">Įrašyti kitaip</translation>
+        <translation>Įrašyti kitaip</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientmanager.cpp" line="532"/>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished">Negalima įrašyti failo:
+        <translation>Negalima įrašyti failo:
 %1</translation>
     </message>
 </context>
@@ -36504,7 +36536,7 @@ please choose another one.</source>
     <message>
         <location filename="../../../scribus/ui/gtdialogs.cpp" line="81"/>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Įsiminti failo prievardį – asociaciją importavimui ir nebeklausinėti, kurią importavimo priemonę naudoti šio tipo failams.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -36606,32 +36638,32 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/imagedialog.ui" line="13"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/imagedialog.ui" line="24"/>
         <source>Fit to Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Sutalpinti lange</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/imagedialog.ui" line="47"/>
         <source>Custom Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Individualus mastelis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/imagedialog.ui" line="57"/>
         <source>%</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/imagedialog.ui" line="86"/>
         <source>Original Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Originalus dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/imagedialog.ui" line="111"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Užverti</translation>
     </message>
 </context>
 <context>
@@ -36979,12 +37011,12 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="27"/>
         <source>Name of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento šablono pavadinimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="34"/>
         <source>Show more details to describe the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti išsamesnį dokumento šablono aprašą</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="44"/>
@@ -36994,7 +37026,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="51"/>
         <source>Category of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento šablono kategorija</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="58"/>
@@ -37004,7 +37036,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="65"/>
         <source>Page size of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento šablono puslapio dydis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="72"/>
@@ -37014,7 +37046,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="79"/>
         <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento spalvų formato aprašas arba užuominos apie naudojamas spalvas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="86"/>
@@ -37024,7 +37056,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="99"/>
         <source>Description of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento šablono aprašas</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="106"/>
@@ -37034,7 +37066,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="119"/>
         <source>Planned usage of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Numatytoji dokumento šablono paskirtis</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="126"/>
@@ -37044,7 +37076,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="133"/>
         <source>Author of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento šablono autorius</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="140"/>
@@ -37054,7 +37086,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="147"/>
         <source>Email address of the author of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumento šablono autoriaus el. pašto adresas</translation>
     </message>
     <message>
         <source>OK</source>
@@ -37131,7 +37163,7 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/selectobjects.ui" line="148"/>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Simbolis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/selectobjects.ui" line="159"/>
@@ -37403,183 +37435,183 @@ Nulis reiškia, kad neribojama.</translation>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="28"/>
         <source>Edit Line Color Properties</source>
-        <translation type="unfinished">Keisti linijos spalvos ypatybes</translation>
+        <translation>Keisti linijos spalvos ypatybes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="44"/>
         <source>Edit Fill Color Properties</source>
-        <translation type="unfinished">Keisti užpildo spalvos ypatybes</translation>
+        <translation>Keisti užpildo spalvos ypatybes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="90"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="244"/>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepermatomumas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="97"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="251"/>
         <source>Set the transparency for the color selected</source>
-        <translation type="unfinished">Nurodyti pasirinktos spalvos permatomumą</translation>
+        <translation>Nurodyti pasirinktos spalvos permatomumą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="100"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="254"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="116"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="436"/>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Suliejimo būdas:</translation>
+        <translation>Perėjimo būdas:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="124"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="444"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Įprastas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="129"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="449"/>
         <source>Darken</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamsėjantis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="134"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="454"/>
         <source>Lighten</source>
-        <translation type="unfinished"></translation>
+        <translation>Šviesėjantis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="139"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="459"/>
         <source>Multiply</source>
-        <translation type="unfinished"></translation>
+        <translation>Daugėjantis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="144"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="464"/>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekraninis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="149"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="469"/>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Perdanginis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="154"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="474"/>
         <source>Hard Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryškiai apšviestas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="159"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="479"/>
         <source>Soft Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Švelniai apšviestas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="164"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="484"/>
         <source>Difference</source>
-        <translation type="unfinished"></translation>
+        <translation>Skirtuminis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="169"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="489"/>
         <source>Exclusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Išskiriantis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="174"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="494"/>
         <source>Color Dodge</source>
-        <translation type="unfinished"></translation>
+        <translation>Apšviestas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="179"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="499"/>
         <source>Color Burn</source>
-        <translation type="unfinished"></translation>
+        <translation>Patamsintas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="184"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="504"/>
         <source>Hue</source>
-        <translation type="unfinished">Atspalvis</translation>
+        <translation>Atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="189"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="509"/>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Grynis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="194"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="514"/>
         <source>Color</source>
-        <translation type="unfinished">Spalva</translation>
+        <translation>Spalva</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="199"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="519"/>
         <source>Luminosity</source>
-        <translation type="unfinished">Ryškumas</translation>
+        <translation>Ryškumas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="230"/>
         <source>Solid</source>
-        <translation type="unfinished">Ryškus</translation>
+        <translation>Ryškus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="286"/>
         <source>Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Gradientas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="301"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiesinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="306"/>
         <source>Radial</source>
-        <translation type="unfinished"></translation>
+        <translation>Spindulinis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="314"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="unfinished">Kairiojo pelės klavišo paspaudimu nurodykite gradiento vektoriaus pradžią, o dešiniojo pelės klavišo paspaudimu – pabaigą</translation>
+        <translation>Kairiojo pelės klavišo paspaudimu nurodykite gradiento vektoriaus pradžią, o dešiniojo pelės klavišo paspaudimu – pabaigą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="317"/>
         <source>Move Vector</source>
-        <translation type="unfinished">Perkelti vektorių</translation>
+        <translation>Perkelti vektorių</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="354"/>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="423"/>
         <source>Use Luminosity as Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Naudoti alfa apšvietimą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="362"/>
         <source>Pattern</source>
-        <translation type="unfinished">Tekstūra</translation>
+        <translation>Tekstūra</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/transparencypalette.ui" line="401"/>
         <source>Properties...</source>
-        <translation type="unfinished">Ypatybės...</translation>
+        <translation>Ypatybės...</translation>
     </message>
 </context>
 </TS>
