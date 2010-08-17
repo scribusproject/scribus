@@ -16,6 +16,19 @@ ScFileWidget::ScFileWidget(QWidget * parent)
 	setModal(false);
 	setViewMode(QFileDialog::List);
 	setWindowFlags(Qt::Widget);
+
+
+#ifdef Q_OS_MAC
+	QList<QUrl> urls;
+	QUrl computer(QUrl::fromLocalFile(QLatin1String("")));
+	if (!urls.contains(computer))
+		urls << computer;
+	QUrl volumes(QUrl::fromLocalFile("/Volumes"));
+	if (!urls.contains(volumes))
+		urls << volumes;
+	//desktop too?	QUrl computer(QUrl::fromLocalFile(QDesktopServices::storageLocation(QDesktopServices::DesktopLocation)));
+	setSidebarUrls(urls);
+#endif
 	QList<QPushButton *> b = findChildren<QPushButton *>();
 	QListIterator<QPushButton *> i(b);
 	while (i.hasNext())
