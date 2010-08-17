@@ -937,7 +937,7 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
  */
 void printBacktrace ( int nFrames )
 {
-#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD)
+#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD) && !defined(Q_OS_FREEBSD)
 	void ** trace = new void*[nFrames + 1];
 	char **messages = ( char ** ) NULL;
 	int i, trace_size = 0;

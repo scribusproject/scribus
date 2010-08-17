@@ -21,7 +21,7 @@
 #include <xlocale.h>
 #endif
 
-#if defined(Q_OS_SOLARIS) || defined (Q_OS_OPENBSD)
+#if defined(Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined(Q_OS_FREEBSD)
 #include <locale.h>
 #endif
 
