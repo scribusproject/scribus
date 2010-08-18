@@ -133,7 +133,8 @@ void Prefs_ExternalTools::changeLatexEditor()
 {
 	QFileInfo fi(latexEditorLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your editor"), fi.path());
-	if (!s.isEmpty()) {
+	if (!s.isEmpty())
+	{
 		s = QDir::convertSeparators(s);
 		if (s.contains(' ') && !s.contains('"'))
 			s = QString("\"%1\"").arg(s);
@@ -152,15 +153,12 @@ void Prefs_ExternalTools::rescanForTools()
 	if (!fileInPath(imageToolLineEdit->text()))
 		imageToolLineEdit->setText("gimp");
 
-	if (!fileInPath(uniconvertorLineEdit->text())) {
+	if (!fileInPath(uniconvertorLineEdit->text()))
+	{
 		if (fileInPath("uniconvertor"))
-		{
 			uniconvertorLineEdit->setText("uniconvertor");
-		}
 		else if (fileInPath("uniconv"))
-		{
 			uniconvertorLineEdit->setText("uniconv");
-		}
 		else
 		{
 			QMessageBox::warning(0, CommonStrings::trWarning, tr("Uniconvertor executable not found!"), 1, 0, 0);
@@ -177,9 +175,48 @@ void Prefs_ExternalTools::rescanForTools()
 				/*Mac OS*/ "open";
 		foreach (QString editor, editors)
 		{
-			if (fileInPath(editor)) {
+			if (fileInPath(editor))
+			{
 				latexEditorLineEdit->setText(editor);
 				break;
+			}
+		}
+	}
+
+	//Scan for render frame render applications
+	for (int i=0; i < latexConfigsListWidget->count(); i++)
+	{
+		QString config(latexConfigsListWidget->item(i)->data(Qt::UserRole).toString());
+		QString oldCommand = commands[config];
+		if (config=="100_latex.xml")
+		{
+			if (!fileInPath(oldCommand))
+			{
+				QStringList pdflatexPaths;
+#ifdef Q_OS_MAC
+				pdflatexPaths	<<"/opt/local/bin/pdflatex"
+								<<"/usr/local/bin/pdflatex"
+								<<"/usr/local/texlive/2009/bin/universal-darwin/pdflatex"
+								<<"/usr/local/texlive/2008/bin/universal-darwin/pdflatex";
+#endif
+				QString parms(" --interaction nonstopmode");
+				for (int i = 0; i < pdflatexPaths.size(); ++i) //do nothing when we have no paths.. need some more from other OSes
+				{
+					QString cmd(pdflatexPaths.at(i));
+					QFileInfo fInfo(cmd);
+					if (fInfo.exists())
+					{
+						cmd.append(parms);
+						int ret = QMessageBox::question(this, tr("LaTeX Command"),
+								tr("Scribus has found the following pdflatex command:\n%1\nDo you want to use this?").arg(cmd),
+								QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+						if (ret==QMessageBox::Yes)
+						{
+							commands[config]=cmd;
+							setConfigItemText(latexConfigsListWidget->item(i));
+						}
+					}
+				}
 			}
 		}
 	}
@@ -187,7 +224,8 @@ void Prefs_ExternalTools::rescanForTools()
 
 void Prefs_ExternalTools::upButtonPressed()
 {
-	if (latexConfigsListWidget->currentRow() < 1) return;
+	if (latexConfigsListWidget->currentRow() < 1)
+		return;
 	QListWidgetItem *old = latexConfigsListWidget->currentItem();
 	QString config = old->data(Qt::UserRole).toString();
 	insertConfigItem(config, latexConfigsListWidget->currentRow()-1);
@@ -196,7 +234,8 @@ void Prefs_ExternalTools::upButtonPressed()
 
 void Prefs_ExternalTools::downButtonPressed()
 {
-	if (latexConfigsListWidget->currentRow() >= latexConfigsListWidget->count()-1) return;
+	if (latexConfigsListWidget->currentRow() >= latexConfigsListWidget->count()-1)
+		return;
 	QListWidgetItem *old = latexConfigsListWidget->currentItem();
 	QString config = old->data(Qt::UserRole).toString();
 	insertConfigItem(config, latexConfigsListWidget->currentRow()+2);
@@ -209,31 +248,29 @@ void Prefs_ExternalTools::addConfig()
 		tr("Locate a Configuration file"),
 		LatexConfigParser::configBase(),
 		tr("Configuration files")+" (*.xml)");
-	if (!s.isEmpty()) {
+	if (!s.isEmpty())
 		insertConfigItem(s);
-	}
 }
 
 void Prefs_ExternalTools::deleteConfig()
 {
-	if (latexConfigsListWidget->currentItem()) {
+	if (latexConfigsListWidget->currentItem())
 		delete latexConfigsListWidget->currentItem();
-	}
 }
 
 void Prefs_ExternalTools::changeLatexPath()
 {
 	QListWidgetItem *item = latexConfigsListWidget->currentItem();
 	QString config = item->data(Qt::UserRole).toString();
-	bool ok;
 	//TODO: Better dialog
 	QString oldCommand = commands[config];
-	if (oldCommand.isEmpty()) {
+	if (oldCommand.isEmpty())
 		oldCommand = LatexConfigCache::instance()->parser(config)->executable();
-	}
+	bool ok=false;
 	QString newCommand = QInputDialog::getText(this, tr("Change Command"),
 		tr("Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)"), QLineEdit::Normal, oldCommand, &ok);
-	if (ok) {
+	if (ok)
+	{
 		commands[config] = newCommand;
 		setConfigItemText(item);
 	}
@@ -244,11 +281,10 @@ void Prefs_ExternalTools::insertConfigItem(QString config, int row)
 	QListWidgetItem *item = new QListWidgetItem();
 	item->setData(Qt::UserRole, config);
 	setConfigItemText(item);
-	if (row == -1) {
+	if (row == -1)
 		latexConfigsListWidget->addItem(item);
-	} else {
+	else
 		latexConfigsListWidget->insertItem(row, item);
-	}
 	latexConfigsListWidget->setCurrentItem(item);
 }
 
@@ -259,7 +295,8 @@ bool Prefs_ExternalTools::fileInPath(QString file)
 	file = file.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
 
 	file = QDir::fromNativeSeparators(file);
-	if (file.indexOf('/') >= 0) {
+	if (file.indexOf('/') >= 0)
+	{
 		//Looks like an absolute path
 		QFileInfo info(file);
 		return info.exists();
@@ -268,8 +305,10 @@ bool Prefs_ExternalTools::fileInPath(QString file)
 	//Get $PATH
 	QStringList env = QProcess::systemEnvironment();
 	QString path;
-	foreach (QString line, env) {
-		if (line.indexOf("PATH") == 0) {
+	foreach (QString line, env)
+	{
+		if (line.indexOf("PATH") == 0)
+		{
 			path = line.mid(5); //Strip "PATH="
 			break;
 		}
@@ -281,11 +320,11 @@ bool Prefs_ExternalTools::fileInPath(QString file)
 	#else
 		splitpath = path.split(':', QString::SkipEmptyParts);
 	#endif
-	foreach (QString dir, splitpath) {
+	foreach (QString dir, splitpath)
+	{
 		QFileInfo info(dir, file);
-		if (info.exists()) {
+		if (info.exists())
 			return true;
-		}
 	}
 	return false;
 }
@@ -295,9 +334,10 @@ void Prefs_ExternalTools::setConfigItemText(QListWidgetItem *item)
 	QString config = item->data(Qt::UserRole).toString();
 	QString description = LatexConfigCache::instance()->parser(config)->description();
 	QString command = commands[config];
-	if (command.isEmpty()) {
+	if (command.isEmpty())
 		item->setText(description);
-	} else {
+	else
+	{
 		item->setText(QString("%1 (" + tr("Command: ") + "%2)" ).
 			arg(description).
 			arg(QDir::toNativeSeparators(QDir::cleanPath(command))));
