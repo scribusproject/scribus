@@ -195,7 +195,7 @@ void Prefs_ExternalTools::rescanForTools()
 				QStringList pdflatexPaths;
 #ifdef Q_OS_MAC
 				pdflatexPaths	<<"/opt/local/bin/pdflatex"
-								<<"/usr/local/bin/pdflatex"
+								<<"/sw/bin/pdflatex"
 								<<"/usr/local/texlive/2009/bin/universal-darwin/pdflatex"
 								<<"/usr/local/texlive/2008/bin/universal-darwin/pdflatex";
 #endif
