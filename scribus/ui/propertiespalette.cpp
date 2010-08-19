@@ -264,7 +264,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	ZBottom->setMaximumSize( QSize( 22, 22 ) );
 	ZBottom->setIcon(QIcon(loadIcon("16/go-bottom.png")));
 	LayerGroupLayout->addWidget( ZBottom, 1, 1 );
-	LevelTxt = new QLabel( "  1", LayerGroup );
+	LevelTxt = new QLabel( "  ", LayerGroup );
 	LevelTxt->setAlignment( Qt::AlignCenter );
 	LayerGroupLayout->addWidget( LevelTxt, 0, 2, 2, 1 );
 
@@ -2163,6 +2163,7 @@ void PropertiesPalette::NewSel(int nr)
 			TabStack->widget(0)->setEnabled(false);
 			TabStack->setItemEnabled(idXYZItem, false);
 			Cpal->ChooseGrad(0);
+			LevelTxt->setText("  ");
 			break;
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
