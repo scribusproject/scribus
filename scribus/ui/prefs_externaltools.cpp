@@ -9,11 +9,13 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QProcess>
 #include <QMessageBox>
-#include "util_ghostscript.h"
 #include "scpaths.h"
 #include "prefsstructs.h"
 #include "latexhelpers.h"
 #include "commonstrings.h"
+#include "util_file.h"
+#include "util_ghostscript.h"
+
 
 #include "prefs_externaltools.h"
 
@@ -286,47 +288,6 @@ void Prefs_ExternalTools::insertConfigItem(QString config, int row)
 	else
 		latexConfigsListWidget->insertItem(row, item);
 	latexConfigsListWidget->setCurrentItem(item);
-}
-
-bool Prefs_ExternalTools::fileInPath(QString file)
-{
-	if (file.isEmpty())
-		return false;
-	file = file.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
-
-	file = QDir::fromNativeSeparators(file);
-	if (file.indexOf('/') >= 0)
-	{
-		//Looks like an absolute path
-		QFileInfo info(file);
-		return info.exists();
-	}
-
-	//Get $PATH
-	QStringList env = QProcess::systemEnvironment();
-	QString path;
-	foreach (QString line, env)
-	{
-		if (line.indexOf("PATH") == 0)
-		{
-			path = line.mid(5); //Strip "PATH="
-			break;
-		}
-	}
-	QStringList splitpath;
-	//TODO: Check this again! OS2? MacOS?
-	#ifdef _WIN32
-		splitpath = path.split(';', QString::SkipEmptyParts);
-	#else
-		splitpath = path.split(':', QString::SkipEmptyParts);
-	#endif
-	foreach (QString dir, splitpath)
-	{
-		QFileInfo info(dir, file);
-		if (info.exists())
-			return true;
-	}
-	return false;
 }
 
 void Prefs_ExternalTools::setConfigItemText(QListWidgetItem *item)

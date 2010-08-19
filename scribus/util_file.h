@@ -73,5 +73,14 @@ bool SCRIBUS_API moveFile(const QString& source, const QString& target);
    * @return true on success, false on failure.
 **/
 bool SCRIBUS_API touchFile(const QString& file);
+/**
+* @brief Check if an executable exists in the path given
+   *
+   * This function checks if an executable exists in the path given
+   *
+   * @param  file name of the file to check, possibly including parameters that will be igored
+   * @return true on success, false on failure.
+**/
+bool SCRIBUS_API fileInPath(const QString& filename);
 
 #endif

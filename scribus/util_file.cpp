@@ -14,8 +14,11 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <QDataStream>
+#include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QString>
+#include <QProcess>
 #include <QTemporaryFile>
 
 #include "scstreamfilter.h"
@@ -184,4 +187,46 @@ bool touchFile(const QString& file)
 	QByteArray fname = file.toLocal8Bit();
 	return utime(fname.data(), NULL) == 0;
 #endif
+}
+
+
+bool fileInPath(const QString& filename)
+{
+	if (filename.isEmpty())
+		return false;
+	QString file = filename.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
+
+	file = QDir::fromNativeSeparators(file);
+	if (file.indexOf('/') >= 0)
+	{
+		//Looks like an absolute path
+		QFileInfo info(file);
+		return info.exists();
+	}
+
+	//Get $PATH
+	QStringList env = QProcess::systemEnvironment();
+	QString path;
+	foreach (QString line, env)
+	{
+		if (line.indexOf("PATH") == 0)
+		{
+			path = line.mid(5); //Strip "PATH="
+			break;
+		}
+	}
+	QStringList splitpath;
+	//TODO: Check this again! OS2? MacOS?
+	#ifdef _WIN32
+		splitpath = path.split(';', QString::SkipEmptyParts);
+	#else
+		splitpath = path.split(':', QString::SkipEmptyParts);
+	#endif
+	foreach (QString dir, splitpath)
+	{
+		QFileInfo info(dir, file);
+		if (info.exists())
+			return true;
+	}
+	return false;
 }

@@ -991,6 +991,19 @@ void PrefsManager::setLatexCommands(const QMap<QString, QString>& commands)
 	appPrefs.extToolPrefs.latexCommands=commands;
 }
 
+bool PrefsManager::renderFrameConfigured()
+{
+	if (appPrefs.extToolPrefs.latexConfigs.isEmpty())
+		return false;
+	if (appPrefs.extToolPrefs.latexCommands.isEmpty())
+		return false;
+	bool foundAny=false;
+	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
+		if (fileInPath(cmd))
+			foundAny=true;
+	return foundAny;
+}
+
 
 void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 {

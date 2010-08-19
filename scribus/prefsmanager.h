@@ -135,6 +135,7 @@ public:
 	QString uniconvExecutable() const {return appPrefs.extToolPrefs.uniconvExecutable;}
 	QStringList latexConfigs() const {return appPrefs.extToolPrefs.latexConfigs;}
 	QMap<QString, QString> latexCommands() const {return appPrefs.extToolPrefs.latexCommands;}
+	bool renderFrameConfigured();
 	QString latexEditorExecutable() const {return appPrefs.extToolPrefs.latexEditorExecutable;}
 	bool latexStartWithEmptyFrames() const {return appPrefs.extToolPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution

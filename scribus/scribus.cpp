@@ -6172,6 +6172,11 @@ void ScribusMainWindow::slotSelect()
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 {
 	keyrep=false;
+	if (newMode==modeDrawLatex && !prefsManager->renderFrameConfigured())
+	{
+		QMessageBox::critical(this, "Render Frames Not Configured", "Scribus Preferences do not contain valid Render Frame configuration, please check these settings");
+		return;
+	}
 	if (doc && isOn)
 		view->requestMode(newMode);
 	else
