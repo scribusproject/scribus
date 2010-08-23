@@ -201,6 +201,10 @@ void Prefs_ExternalTools::rescanForTools()
 								<<"/usr/local/texlive/2009/bin/universal-darwin/pdflatex"
 								<<"/usr/local/texlive/2008/bin/universal-darwin/pdflatex";
 #endif
+#ifdef Q_OS_LINUX
+				pdflatexPaths	<<"/usr/local/bin/pdflatex"
+								<<"/usr/bin/pdflatex";
+#endif
 				QString parms(" --interaction nonstopmode");
 				for (int i = 0; i < pdflatexPaths.size(); ++i) //do nothing when we have no paths.. need some more from other OSes
 				{
