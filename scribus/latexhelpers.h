@@ -96,6 +96,7 @@ class LatexConfigCache {
 	public:
 		static LatexConfigCache* instance();
 		static QStringList defaultConfigs();
+		static QMap<QString, QString> defaultCommands();
 		LatexConfigCache() {}
 		LatexConfigParser* parser(QString filename, bool warnOnError = false);
 		bool hasError(QString filename);

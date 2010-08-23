@@ -320,7 +320,7 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
 	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
 	appPrefs.extToolPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
-	appPrefs.extToolPrefs.latexCommands.clear();
+	appPrefs.extToolPrefs.latexCommands = LatexConfigCache::defaultCommands();
 	appPrefs.extToolPrefs.latexEditorExecutable = "";
 	appPrefs.extToolPrefs.latexResolution = 72;
 	appPrefs.extToolPrefs.latexForceDpi = true;
@@ -999,8 +999,10 @@ bool PrefsManager::renderFrameConfigured()
 		return false;
 	bool foundAny=false;
 	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
+	{
 		if (fileInPath(cmd))
 			foundAny=true;
+	}
 	return foundAny;
 }
 
