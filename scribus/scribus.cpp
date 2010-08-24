@@ -6175,7 +6175,7 @@ void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 
 	if (newMode==modeDrawLatex && !prefsManager->renderFrameConfigured())
 	{
-		QMessageBox::critical(this, "Render Frames Not Configured", "Scribus Preferences do not contain valid Render Frame configuration, please check these settings");
+		QMessageBox::critical(this, "Render Frames Not Configured", "The External Tools preferences does not contain valid a Render Frame configuration or the applications specified are not able to be found, please check the settings.");
 		return;
 	}
 
