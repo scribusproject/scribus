@@ -224,7 +224,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			PDF_End_Page();
+			PDF_End_Page(a);
 			pc_exportpages++;
 			if (usingGUI)
 			{
@@ -2275,7 +2275,7 @@ void PDFLibCore::PDF_Begin_Page(const Page* pag, QPixmap pm)
 	}
 }
 
-void PDFLibCore::PDF_End_Page()
+void PDFLibCore::PDF_End_Page(int physPage)
 {
 	uint PgNr =  ActPageP->pageNr();
 	double markOffs = 0.0;
@@ -2661,7 +2661,7 @@ void PDFLibCore::PDF_End_Page()
 	}
 	PutDoc(">>\nendobj\n");
 	PageTree.Count++;
-	PageTree.Kids[PgNr] = pageObject;
+	PageTree.Kids[physPage] = pageObject;
 }
 
 
