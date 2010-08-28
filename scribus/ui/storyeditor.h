@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef STORYEDITOR_H
 #define STORYEDITOR_H
 
-// #include <Q3PopupMenu>
 #include <QTextEdit>
 #include <QAction>
 #include <QCheckBox>
@@ -197,7 +196,7 @@ protected:
 signals:
 	void ChangeStyle(int, const QString&);
 	//! signal raised when user ask for style manager
-	void sigEditStyles();
+	//void sigEditStyles();
 
 public slots:
 	void setPStyle(const QString&);
@@ -205,7 +204,7 @@ public slots:
 	void doRepaint();
 	void setRepaint(bool r);
 	//! slot raising style manager
-	void editStyles();
+	//void editStyles();
 };
 
 class SCRIBUS_API SToolBColorF : public QToolBar
