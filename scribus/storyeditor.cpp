@@ -76,7 +76,7 @@ for which a new license (GPL+exception) is in place.
 #include "spalette.h"
 #include "storyeditor.h"
 #include "styleitem.h"
-#include "stylemanager.h"
+//#include "stylemanager.h"
 #include "styleselect.h"
 #include "text/nlsconfig.h"
 #include "units.h"
@@ -143,14 +143,14 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	paraStyleAct = new QWidgetAction(this);
 	paraStyleAct->setDefaultWidget(paraStyleCombo);
 	pmen->addAction(paraStyleAct);
-	pmen->addAction( tr("Edit Styles..."), this, SLOT(editStyles()));
+	//pmen->addAction( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 }
 
-void SideBar::editStyles()
-{
-	emit sigEditStyles();
-}
+//void SideBar::editStyles()
+//{
+//	emit sigEditStyles();
+//}
 
 void SideBar::setPStyle(const QString& name)
 {
@@ -1636,7 +1636,7 @@ void StoryEditor::initActions()
 	connect( seActions["editPaste"], SIGNAL(triggered()), this, SLOT(Do_paste()) );
 	connect( seActions["editClear"], SIGNAL(triggered()), this, SLOT(Do_del()) );
 	connect( seActions["editSearchReplace"], SIGNAL(triggered()), this, SLOT(SearchText()) );
-	connect( seActions["editEditStyle"], SIGNAL(triggered()), this, SLOT(slotEditStyles()) );
+//	connect( seActions["editEditStyle"], SIGNAL(triggered()), this, SLOT(slotEditStyles()) );
 	connect( seActions["editFontPreview"], SIGNAL(triggered()), this, SLOT(Do_fontPrev()) );
 	connect( seActions["editUpdateFrame"], SIGNAL(triggered()), this, SLOT(updateTextFrame()) );
 
@@ -1999,7 +1999,7 @@ void StoryEditor::connectSignals()
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 //	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
 	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));
-	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
+//	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
 	connect(AlignTools, SIGNAL(newParaStyle(const QString&)), this, SLOT(newStyle(const QString&)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
@@ -2919,10 +2919,10 @@ void StoryEditor::SearchText()
 	EditorBar->doRepaint();
 }
 
-void StoryEditor::slotEditStyles()
-{
-	ScCore->primaryMainWindow()->styleMgr()->exec(this);
-}
+//void StoryEditor::slotEditStyles()
+//{
+//	ScCore->primaryMainWindow()->styleMgr()->exec(this);
+//}
 
 void StoryEditor::newAlign(int st)
 {
