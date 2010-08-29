@@ -180,7 +180,8 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 			// Happens often when typing directly into frame.
 			// And the cursor curses nothing, vertigo.
 			textCursorPos = textframe->lastInFrame();
-			if(textframe->itemText.text(textCursorPos) == SpecialChars::PARSEP)
+			QChar textCursorChar = textframe->itemText.text(textCursorPos);
+			if (textCursorChar == SpecialChars::PARSEP || textCursorChar == SpecialChars::LINEBREAK)
 			{
 				// The cursor must be moved to the beginning of the next line
 				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
@@ -211,7 +212,7 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 				dy  += lineSpacing;
 				dy1 += lineSpacing;
 			}
-			else if((textframe->itemText.text(textCursorPos) == SpecialChars::COLBREAK))
+			else if (textCursorChar == SpecialChars::COLBREAK)
 			{
 				// A bit tricky :)
 				// We want to position the cursor at the beginning of the next column, if any.
