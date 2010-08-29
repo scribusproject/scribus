@@ -1626,7 +1626,7 @@ void StoryEditor::initActions()
 	seActions.insert("editPaste", new ScrAction(loadIcon("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this));
 	seActions.insert("editClear", new ScrAction(loadIcon("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this));
 	seActions.insert("editSearchReplace", new ScrAction(loadIcon("16/edit-find-replace.png"), QPixmap(), "", QKeySequence(), this));
-	seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
+	//seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editUpdateFrame", new ScrAction(loadIcon("compfile16.png"),loadIcon("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
 
@@ -1687,7 +1687,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuSeparator("Edit");
 	seMenuMgr->addMenuItem(seActions["editSearchReplace"], "Edit");
 	seMenuMgr->addMenuSeparator("Edit");
-	seMenuMgr->addMenuItem(seActions["editEditStyle"], "Edit");
+	//seMenuMgr->addMenuItem(seActions["editEditStyle"], "Edit");
 	seMenuMgr->addMenuItem(seActions["editFontPreview"], "Edit");
 	seMenuMgr->addMenuItem(seActions["editUpdateFrame"], "Edit");
 	seMenuMgr->createMenu("Insert", tr("&Insert"));
@@ -1939,7 +1939,7 @@ void StoryEditor::languageChange()
 	seActions["editPaste"]->setTexts( tr("&Paste"));
 	seActions["editClear"]->setTexts( tr("C&lear"));
 	seActions["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
-	seActions["editEditStyle"]->setTexts( tr("&Edit Styles..."));
+	//seActions["editEditStyle"]->setTexts( tr("&Edit Styles..."));
 	seActions["editFontPreview"]->setTexts( tr("&Fonts Preview..."));
 	seActions["editUpdateFrame"]->setTexts( tr("&Update Text Frame"));
 
