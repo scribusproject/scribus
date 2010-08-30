@@ -386,245 +386,261 @@ void ScImage::solarize(double factor, bool cmyk)
 // Stack Blur Algorithm by Mario Klingemann <mario@quasimondo.com>
 void ScImage::blur(int radius)
 {
-    if (radius < 1) {
-        return;
-    }
+	if (radius < 1) {
+		return;
+	}
 
-    QRgb *pix = (QRgb*)bits();
-    int w   = width();
-    int h   = height();
-    int wm  = w-1;
-    int hm  = h-1;
-    int wh  = w*h;
-    int div = radius+radius+1;
+	QRgb *pix = (QRgb*)bits();
+	int w   = width();
+	int h   = height();
+	int wm  = w-1;
+	int hm  = h-1;
+	int wh  = w*h;
+	int div = radius+radius+1;
 
-    int *r = new int[wh];
-    int *g = new int[wh];
-    int *b = new int[wh];
-    int *a = new int[wh];
-    int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
-    QRgb p;
-    int *vmin = new int[qMax(w,h)];
+	int *r = new int[wh];
+	int *g = new int[wh];
+	int *b = new int[wh];
+	int *a = new int[wh];
+	int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
+	QRgb p;
+	int *vmin = new int[qMax(w,h)];
 
-    int divsum = (div+1)>>1;
-    divsum *= divsum;
-    int *dv = new int[256*divsum];
-    for (i=0; i < 256*divsum; ++i) {
-        dv[i] = (i/divsum);
-    }
+	int divsum = (div+1)>>1;
+	divsum *= divsum;
+	int *dv = new int[256*divsum];
+	for (i=0; i < 256*divsum; ++i) {
+		dv[i] = (i/divsum);
+	}
 
-    yw = yi = 0;
+	yw = yi = 0;
 
-    int **stack = new int*[div];
-    for(int i = 0; i < div; ++i) {
-        stack[i] = new int[4];
-    }
+	int **stack = new int*[div];
+	for(int i = 0; i < div; ++i) {
+		stack[i] = new int[4];
+	}
 
 
-    int stackpointer;
-    int stackstart;
-    int *sir;
-    int rbs;
-    int r1 = radius+1;
-    int routsum, goutsum, boutsum, aoutsum;
-    int rinsum, ginsum, binsum, ainsum;
+	int stackpointer;
+	int stackstart;
+	int *sir;
+	int rbs;
+	int r1 = radius+1;
+	int routsum, goutsum, boutsum, aoutsum;
+	int rinsum, ginsum, binsum, ainsum;
 
-    for (y = 0; y < h; ++y){
-        rinsum = ginsum = binsum = ainsum
-               = routsum = goutsum = boutsum = aoutsum
-               = rsum = gsum = bsum = asum = 0;
-        for(i =- radius; i <= radius; ++i) {
-            p = pix[yi+qMin(wm,qMax(i,0))];
-            sir = stack[i+radius];
-            sir[0] = qRed(p);
-            sir[1] = qGreen(p);
-            sir[2] = qBlue(p);
-            sir[3] = qAlpha(p);
-            
-            rbs = r1-abs(i);
-            rsum += sir[0]*rbs;
-            gsum += sir[1]*rbs;
-            bsum += sir[2]*rbs;
-            asum += sir[3]*rbs;
-            
-            if (i > 0){
-                rinsum += sir[0];
-                ginsum += sir[1];
-                binsum += sir[2];
-                ainsum += sir[3];
-            } else {
-                routsum += sir[0];
-                goutsum += sir[1];
-                boutsum += sir[2];
-                aoutsum += sir[3];
-            }
-        }
-        stackpointer = radius;
+	for (y = 0; y < h; ++y)
+	{
+		rinsum = ginsum = binsum = ainsum
+			= routsum = goutsum = boutsum = aoutsum
+			= rsum = gsum = bsum = asum = 0;
+		for(i =- radius; i <= radius; ++i)
+		{
+			p = pix[yi+qMin(wm,qMax(i,0))];
+			sir = stack[i+radius];
+			sir[0] = qRed(p);
+			sir[1] = qGreen(p);
+			sir[2] = qBlue(p);
+			sir[3] = qAlpha(p);
 
-        for (x=0; x < w; ++x) {
+			rbs = r1-abs(i);
+			rsum += sir[0]*rbs;
+			gsum += sir[1]*rbs;
+			bsum += sir[2]*rbs;
+			asum += sir[3]*rbs;
 
-            r[yi] = dv[rsum];
-            g[yi] = dv[gsum];
-            b[yi] = dv[bsum];
-            a[yi] = dv[asum];
+			if (i > 0)
+			{
+				rinsum += sir[0];
+				ginsum += sir[1];
+				binsum += sir[2];
+				ainsum += sir[3];
+			}
+			else
+			{
+				routsum += sir[0];
+				goutsum += sir[1];
+				boutsum += sir[2];
+				aoutsum += sir[3];
+			}
+		}
+		stackpointer = radius;
 
-            rsum -= routsum;
-            gsum -= goutsum;
-            bsum -= boutsum;
-            asum -= aoutsum;
+		for (x=0; x < w; ++x)
+		{
 
-            stackstart = stackpointer-radius+div;
-            sir = stack[stackstart%div];
+			r[yi] = dv[rsum];
+			g[yi] = dv[gsum];
+			b[yi] = dv[bsum];
+			a[yi] = dv[asum];
 
-            routsum -= sir[0];
-            goutsum -= sir[1];
-            boutsum -= sir[2];
-            aoutsum -= sir[3];
+			rsum -= routsum;
+			gsum -= goutsum;
+			bsum -= boutsum;
+			asum -= aoutsum;
 
-            if (y == 0) {
-                vmin[x] = qMin(x+radius+1,wm);
-            }
-            p = pix[yw+vmin[x]];
+			stackstart = stackpointer-radius+div;
+			sir = stack[stackstart%div];
 
-            sir[0] = qRed(p);
-            sir[1] = qGreen(p);
-            sir[2] = qBlue(p);
-            sir[3] = qAlpha(p);
+			routsum -= sir[0];
+			goutsum -= sir[1];
+			boutsum -= sir[2];
+			aoutsum -= sir[3];
 
-            rinsum += sir[0];
-            ginsum += sir[1];
-            binsum += sir[2];
-            ainsum += sir[3];
+			if (y == 0)
+			{
+				vmin[x] = qMin(x+radius+1,wm);
+			}
+			p = pix[yw+vmin[x]];
 
-            rsum += rinsum;
-            gsum += ginsum;
-            bsum += binsum;
-            asum += ainsum;
+			sir[0] = qRed(p);
+			sir[1] = qGreen(p);
+			sir[2] = qBlue(p);
+			sir[3] = qAlpha(p);
 
-            stackpointer = (stackpointer+1)%div;
-            sir = stack[(stackpointer)%div];
+			rinsum += sir[0];
+			ginsum += sir[1];
+			binsum += sir[2];
+			ainsum += sir[3];
 
-            routsum += sir[0];
-            goutsum += sir[1];
-            boutsum += sir[2];
-            aoutsum += sir[3];
+			rsum += rinsum;
+			gsum += ginsum;
+			bsum += binsum;
+			asum += ainsum;
 
-            rinsum -= sir[0];
-            ginsum -= sir[1];
-            binsum -= sir[2];
-            ainsum -= sir[3];
+			stackpointer = (stackpointer+1)%div;
+			sir = stack[(stackpointer)%div];
 
-            ++yi;
-        }
-        yw += w;
-    }
-    for (x=0; x < w; ++x){
-        rinsum = ginsum = binsum = ainsum 
-               = routsum = goutsum = boutsum = aoutsum 
-               = rsum = gsum = bsum = asum = 0;
-        
-        yp =- radius * w;
-        
-        for(i=-radius; i <= radius; ++i) {
-            yi=qMax(0,yp)+x;
+			routsum += sir[0];
+			goutsum += sir[1];
+			boutsum += sir[2];
+			aoutsum += sir[3];
 
-            sir = stack[i+radius];
+			rinsum -= sir[0];
+			ginsum -= sir[1];
+			binsum -= sir[2];
+			ainsum -= sir[3];
 
-            sir[0] = r[yi];
-            sir[1] = g[yi];
-            sir[2] = b[yi];
-            sir[3] = a[yi];
+			++yi;
+		}
+		yw += w;
+	}
+	for (x=0; x < w; ++x)
+	{
+		rinsum = ginsum = binsum = ainsum
+			= routsum = goutsum = boutsum = aoutsum
+			= rsum = gsum = bsum = asum = 0;
 
-            rbs = r1-abs(i);
+		yp =- radius * w;
 
-            rsum += r[yi]*rbs;
-            gsum += g[yi]*rbs;
-            bsum += b[yi]*rbs;
-            asum += a[yi]*rbs;
+		for(i=-radius; i <= radius; ++i)
+		{
+			yi=qMax(0,yp)+x;
 
-            if (i > 0) {
-                rinsum += sir[0];
-                ginsum += sir[1];
-                binsum += sir[2];
-                ainsum += sir[3];
-            } else {
-                routsum += sir[0];
-                goutsum += sir[1];
-                boutsum += sir[2];
-                aoutsum += sir[3];
-            }
+			sir = stack[i+radius];
 
-            if (i < hm){
-                yp += w;
-            }
-        }
+			sir[0] = r[yi];
+			sir[1] = g[yi];
+			sir[2] = b[yi];
+			sir[3] = a[yi];
 
-        yi = x;
-        stackpointer = radius;
+			rbs = r1-abs(i);
 
-        for (y=0; y < h; ++y){
-            pix[yi] = qRgba(dv[rsum], dv[gsum], dv[bsum], dv[asum]);
+			rsum += r[yi]*rbs;
+			gsum += g[yi]*rbs;
+			bsum += b[yi]*rbs;
+			asum += a[yi]*rbs;
 
-            rsum -= routsum;
-            gsum -= goutsum;
-            bsum -= boutsum;
-            asum -= aoutsum;
+			if (i > 0)
+			{
+				rinsum += sir[0];
+				ginsum += sir[1];
+				binsum += sir[2];
+				ainsum += sir[3];
+			}
+			else
+			{
+				routsum += sir[0];
+				goutsum += sir[1];
+				boutsum += sir[2];
+				aoutsum += sir[3];
+			}
 
-            stackstart = stackpointer-radius+div;
-            sir = stack[stackstart%div];
+			if (i < hm)
+			{
+				yp += w;
+			}
+		}
 
-            routsum -= sir[0];
-            goutsum -= sir[1];
-            boutsum -= sir[2];
-            aoutsum -= sir[3];
+		yi = x;
+		stackpointer = radius;
 
-            if (x==0){
-                vmin[y] = qMin(y+r1,hm)*w;
-            }
-            p = x+vmin[y];
+		for (y=0; y < h; ++y)
+		{
+			pix[yi] = qRgba(dv[rsum], dv[gsum], dv[bsum], dv[asum]);
 
-            sir[0] = r[p];
-            sir[1] = g[p];
-            sir[2] = b[p];
-            sir[3] = a[p];
+			rsum -= routsum;
+			gsum -= goutsum;
+			bsum -= boutsum;
+			asum -= aoutsum;
 
-            rinsum += sir[0];
-            ginsum += sir[1];
-            binsum += sir[2];
-            ainsum += sir[3];
+			stackstart = stackpointer-radius+div;
+			sir = stack[stackstart%div];
 
-            rsum += rinsum;
-            gsum += ginsum;
-            bsum += binsum;
-            asum += ainsum;
+			routsum -= sir[0];
+			goutsum -= sir[1];
+			boutsum -= sir[2];
+			aoutsum -= sir[3];
 
-            stackpointer = (stackpointer+1)%div;
-            sir = stack[stackpointer];
+			if (x==0)
+			{
+				vmin[y] = qMin(y+r1,hm)*w;
+			}
+			p = x+vmin[y];
 
-            routsum += sir[0];
-            goutsum += sir[1];
-            boutsum += sir[2];
-            aoutsum += sir[3];
+			sir[0] = r[p];
+			sir[1] = g[p];
+			sir[2] = b[p];
+			sir[3] = a[p];
 
-            rinsum -= sir[0];
-            ginsum -= sir[1];
-            binsum -= sir[2];
-            ainsum -= sir[3];
+			rinsum += sir[0];
+			ginsum += sir[1];
+			binsum += sir[2];
+			ainsum += sir[3];
 
-            yi += w;
-        }
-    }
-    delete [] r;
-    delete [] g;
-    delete [] b;
-    delete [] a;
-    delete [] vmin;
-    delete [] dv;
+			rsum += rinsum;
+			gsum += ginsum;
+			bsum += binsum;
+			asum += ainsum;
 
-    for(int i = 0; i < div; ++i) {
-        delete [] stack[i];
-    }
-    delete [] stack;
+			stackpointer = (stackpointer+1)%div;
+			sir = stack[stackpointer];
+
+			routsum += sir[0];
+			goutsum += sir[1];
+			boutsum += sir[2];
+			aoutsum += sir[3];
+
+			rinsum -= sir[0];
+			ginsum -= sir[1];
+			binsum -= sir[2];
+			ainsum -= sir[3];
+
+			yi += w;
+		}
+	}
+	delete [] r;
+	delete [] g;
+	delete [] b;
+	delete [] a;
+	delete [] vmin;
+	delete [] dv;
+
+	for(int i = 0; i < div; ++i)
+	{
+		delete [] stack[i];
+	}
+	delete [] stack;
 }
 
 bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double *kernel)
