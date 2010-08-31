@@ -1244,6 +1244,7 @@ bool PrefsManager::WritePref(QString ho)
 	dcUI.setAttribute("ApplicationFontSize", appPrefs.uiPrefs.applicationFontSize);
 	dcUI.setAttribute("PaletteFontSize", appPrefs.uiPrefs.paletteFontSize);
 	dcUI.setAttribute("RecentDocumentCount", appPrefs.uiPrefs.recentDocCount);
+	dcUI.setAttribute("UseGrayscaleIcons", appPrefs.uiPrefs.grayscaleIcons);
 	elem.appendChild(dcUI);
 
 	QDomElement deDocumentSetup=docu.createElement("DocumentSetup");
@@ -1852,6 +1853,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.SepalT = static_cast<bool>(dc.attribute("PagePaletteShowThumbs").toInt());
 			appPrefs.uiPrefs.SepalN = static_cast<bool>(dc.attribute("PagePaletteShowNames").toInt());
+			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",0).toInt());
 		}
 
 		if (dc.tagName()=="DocumentSetup")

@@ -462,7 +462,7 @@ protected slots:
 	void PasteAvail();
 	void updateTextFrame();
 	void SearchText();
-	void slotEditStyles();
+	//void slotEditStyles();
 	void modifiedText();
 	void LoadTextFile();
 	void SaveTextFile();

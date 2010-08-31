@@ -49,23 +49,28 @@ QPixmap loadIcon(const QString nam, bool forceUseColor)
 		if (pm->isNull())
 			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.toAscii().constData());
 		if (PrefsManager::instance()->appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
-		{
-			QImage qi(pm->toImage());
-			int h=qi.height();
-			int w=qi.width();
-			QRgb c_rgb;
-			for (int i=0;i<w;++i)
-			{
-				for (int j=0;j<h;++j)
-				{
-					c_rgb=qi.pixel(i,j);
-					int k = qMin(qRound(0.3 * qRed(c_rgb) + 0.59 * qGreen(c_rgb) + 0.11 * qBlue(c_rgb)), 255);
-					qi.setPixel(i, j, qRgba(k, k, k, qAlpha(c_rgb)));
-				}
-			}
-			*pm=QPixmap::fromImage(qi);
-		}
+			iconToGrayscale(pm);
 	}
 	pxCache.insert(nam, pm);
 	return *pm;
 }
+
+void SCRIBUS_API iconToGrayscale(QPixmap* pm)
+{
+	QImage qi(pm->toImage());
+	int h=qi.height();
+	int w=qi.width();
+	QRgb c_rgb;
+	for (int i=0;i<w;++i)
+	{
+		for (int j=0;j<h;++j)
+		{
+			c_rgb=qi.pixel(i,j);
+			int k = qMin(qRound(0.3 * qRed(c_rgb) + 0.59 * qGreen(c_rgb) + 0.11 * qBlue(c_rgb)), 255);
+			qi.setPixel(i, j, qRgba(k, k, k, qAlpha(c_rgb)));
+		}
+	}
+	*pm=QPixmap::fromImage(qi);
+}
+
+

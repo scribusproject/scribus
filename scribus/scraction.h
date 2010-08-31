@@ -193,6 +193,7 @@ protected:
 	QKeySequence savedKeySequence;
 	bool shortcutSaved;
 	bool fakeToggle;
+	QIcon m_icon;
 	
 	/*!
 		\author Craig Bradney
@@ -217,6 +218,8 @@ private slots:
 		\param ison true if toggled = on
 	 */
 	void toggledToToggledData(bool ison);
+
+	void hoverIcon();
 };
 
 #endif
