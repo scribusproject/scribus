@@ -37,7 +37,7 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(), menuText, parent )
+ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, parent )
 {
 	setShortcut(accel);
 	initScrAction();
