@@ -41,15 +41,15 @@ ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & 
 {
 	setShortcut(accel);
 	initScrAction();
-	//icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
+	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 
-	QPixmap gray_icon16(icon16);
-	iconToGrayscale(&gray_icon16);
-	m_icon.addPixmap(icon16, QIcon::Active, QIcon::On);
-	m_icon.addPixmap(icon16, QIcon::Active, QIcon::Off);
-	m_icon.addPixmap(gray_icon16, QIcon::Normal, QIcon::On);
-	m_icon.addPixmap(gray_icon16, QIcon::Normal, QIcon::Off);
-	setIcon(m_icon.pixmap(QSize(16,16), QIcon::Normal, QIcon::Off));
+//	QPixmap gray_icon16(icon16);
+//	iconToGrayscale(&gray_icon16);
+//	m_icon.addPixmap(icon16, QIcon::Active, QIcon::On);
+//	m_icon.addPixmap(icon16, QIcon::Active, QIcon::Off);
+//	m_icon.addPixmap(gray_icon16, QIcon::Normal, QIcon::On);
+//	m_icon.addPixmap(gray_icon16, QIcon::Normal, QIcon::Off);
+//	setIcon(m_icon.pixmap(QSize(16,16), QIcon::Normal, QIcon::Off));
 	//connect (this, SIGNAL(hovered()), this, SLOT(hoverIcon()));
 	_actionType=aType;
 	if (_actionType!=Normal)
