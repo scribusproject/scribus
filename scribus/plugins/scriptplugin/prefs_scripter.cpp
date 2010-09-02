@@ -14,7 +14,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_scripter.h"
 #include "scriptercore.h"
-#include "pconsole.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefsmanager.h"
 #include "prefsstructs.h"
 
 Prefs_Scripter::Prefs_Scripter(QWidget* parent)
@@ -66,47 +68,72 @@ void Prefs_Scripter::apply()
 	scripterCore->setExtensionsEnabled(extensionScriptsChk->isChecked());
 	scripterCore->setStartupScript(startupScriptEdit->text());
 	// colors
-	SyntaxColors *syntax = new SyntaxColors();
-	syntax->textColor = textButton->palette().color(QPalette::Window);
-	syntax->commentColor = commentButton->palette().color(QPalette::Window);
-	syntax->keywordColor = keywordButton->palette().color(QPalette::Window);
-	syntax->errorColor = errorButton->palette().color(QPalette::Window);
-	syntax->signColor = signButton->palette().color(QPalette::Window);
-	syntax->stringColor = stringButton->palette().color(QPalette::Window);
-	syntax->numberColor = numberButton->palette().color(QPalette::Window);
-	delete(syntax);
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	if (prefs)
+	{
+		prefs->set("syntaxerror", errorColor.name());
+		prefs->set("syntaxcomment", commentColor.name());
+		prefs->set("syntaxkeyword", keywordColor.name());
+		prefs->set("syntaxsign", signColor.name());
+		prefs->set("syntaxnumber", numberColor.name());
+		prefs->set("syntaxstring", stringColor.name());
+		prefs->set("syntaxtext", textColor.name());
+	}
 }
 
 void Prefs_Scripter::setColor()
 {
-	QPalette palette;
 	QPushButton* button = (QPushButton*)sender();
 	QColor color = QColorDialog::getColor(button->palette().color(QPalette::Window), this);
-	if (color.isValid())
+	if (color.isValid() && button)
 	{
-		palette.setColor(button->backgroundRole(), color);
- 		button->setPalette(palette);
+		QPixmap pm(54, 14);
+		pm.fill(color);
+		button->setIcon(pm);
+		if (button==textButton)
+			textColor=color;
+		if (button==commentButton)
+			commentColor=color;
+		if (button==keywordButton)
+			keywordColor=color;
+		if (button==errorButton)
+			errorColor=color;
+		if (button==signButton)
+			signColor=color;
+		if (button==stringButton)
+			stringColor=color;
+		if (button==numberButton)
+			numberColor=color;
 	}
 }
 
 void Prefs_Scripter::setupSyntaxColors()
 {
-	QPalette palette;
 	SyntaxColors *syntax = new SyntaxColors();
-	palette.setColor(textButton->backgroundRole(), syntax->textColor);
- 	textButton->setPalette(palette);
-	palette.setColor(commentButton->backgroundRole(), syntax->commentColor);
- 	commentButton->setPalette(palette);
-	palette.setColor(keywordButton->backgroundRole(), syntax->keywordColor);
- 	keywordButton->setPalette(palette);
-	palette.setColor(errorButton->backgroundRole(), syntax->errorColor);
- 	errorButton->setPalette(palette);
-	palette.setColor(signButton->backgroundRole(), syntax->signColor);
- 	signButton->setPalette(palette);
-	palette.setColor(stringButton->backgroundRole(), syntax->stringColor);
- 	stringButton->setPalette(palette);
-	palette.setColor(numberButton->backgroundRole(), syntax->numberColor);
- 	numberButton->setPalette(palette);
+	textColor=syntax->textColor;
+	commentColor=syntax->commentColor;
+	keywordColor=syntax->keywordColor;
+	errorColor=syntax->errorColor;
+	signColor=syntax->signColor;
+	stringColor=syntax->stringColor;
+	numberColor=syntax->numberColor;
+
+	QPixmap pm(54, 14);
+	pm.fill(textColor);
+	textButton->setIcon(pm);
+	pm.fill(commentColor);
+	commentButton->setIcon(pm);
+	pm.fill(keywordColor);
+	keywordButton->setIcon(pm);
+	pm.fill(errorColor);
+	errorButton->setIcon(pm);
+	pm.fill(signColor);
+	signButton->setIcon(pm);
+	pm.fill(stringColor);
+	stringButton->setIcon(pm);
+	pm.fill(numberColor);
+	numberButton->setIcon(pm);
+
 	delete(syntax);
 }
 

@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_prefs_scripterbase.h"
 #include "ui/prefs_pane.h"
+#include "pconsole.h"
 
 class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 {
@@ -29,6 +30,13 @@ class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 
 	protected:
 		void setupSyntaxColors();
+		QColor textColor;
+		QColor commentColor;
+		QColor keywordColor;
+		QColor errorColor;
+		QColor signColor;
+		QColor stringColor;
+		QColor numberColor;
 
 	protected slots:
 		/*! \brief All requests for color change are handled here.
