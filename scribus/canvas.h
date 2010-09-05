@@ -104,9 +104,9 @@ public:
 	friend class FreehandMode;
 	
 	/* Dont rely on these codes!
-	 * 283
-	 * 7 6
-	 * 451
+	 * 2 8 3
+	 * 7   6
+	 * 4 5 1
 	 * But always OUTSIDE < 0, INSIDE >= 0 and any specific handle > 0.
 	 */
 	enum FrameHandle { 

@@ -49,8 +49,8 @@ class SCRIBUS_API Hruler : public QWidget
 public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {};
-
-	bool ItemPosValid;
+private:
+	bool textEditMode;
 	double ColGap;
 	double lineCorr;
 	int Cols;
@@ -62,20 +62,36 @@ public:
 	bool Revers;
 	QList<ParagraphStyle::TabRecord> TabValues;
 	PageItem * currItem;
-	// following is used in view (only read access, see DrawPageItems(), line 822)
+
 	double ItemPos;
 	double ItemEndPos;
 	double offs;
-	
+public:
 	double ruleSpacing();
 	void setItem(PageItem * item);
-
+	void textMode(bool state) { textEditMode = state; }
+	double textBase() const; // left text edge in canvas coord
+	double textWidth() const;
+	double textPosToCanvas(double x) const;
+	int textPosToLocal(double x) const;
+	double localToTextPos(int x) const;
+	void shift(double pos); // using canvas coord
+	void shiftRel(double dist); // using canvas coord
+	double offset() const { return offs; }
+	
 private:
+	int findRulerHandle(QPoint mp, double grabRadius);
+	
 	virtual void paintEvent(QPaintEvent *e);
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void mouseReleaseEvent(QMouseEvent *);
 	virtual void mouseMoveEvent(QMouseEvent *m);
+	virtual void enterEvent(QEvent *m);
+	virtual void leaveEvent(QEvent *m);
 
+	void drawMarks(QPainter& p);
+	void drawTextMarks(double pos, double endPos, QPainter& p);
+	void drawMarker(QPainter& p);
 	void drawNumber(QString num, int startx, int starty, QPainter & p);
 	void UpdateTabList();
 
@@ -99,7 +115,7 @@ public slots: // Public slots
 
 signals:
 	void DocChanged(bool);
-	void MarkerMoved(double, double);
+	void MarkerMoved(double base, double xp);
 
 private:
 	double iter, iter2;
@@ -108,8 +124,6 @@ private:
 	bool drawMark;
 	PrefsManager *prefsManager;
 	RulerGesture* rulerGesture;
-
-	//void drawGuides();
 };
 
 #endif

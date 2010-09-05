@@ -58,6 +58,10 @@ for which a new license (GPL+exception) is in place.
 #else
     #define topline 3
 #endif
+#define bottomline 15
+#define rulerheight (bottomline - topline)
+#define midline (topline + rulerheight/2)
+#define tabline 7
 
 enum ruler_code 
 { 
@@ -82,11 +86,10 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	currDoc = doc;
 	currView = pa;
 	offs = 0;
-	Markp = 0;
 	oldMark = 0;
 	ActCol = 1;
 	Mpressed = false;
-	ItemPosValid = false;
+	textEditMode = false;
 	drawMark = false;
 	RulerCode = rc_none;
 	setMouseTracking(true);
@@ -94,83 +97,128 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	unitChange();
 }
 
+
+double Hruler::textBase() const
+{
+	return ItemPos + lineCorr + Extra;
+}
+
+double Hruler::textWidth() const
+{
+	return ItemEndPos - ItemPos - 2*lineCorr - Extra - RExtra;
+}
+
+
+double Hruler::textPosToCanvas(double x) const
+{
+	return x + textBase();
+}
+
+int Hruler::textPosToLocal(double x) const
+{
+	return qRound(textPosToCanvas(x) * Scaling);
+}
+
+double Hruler::localToTextPos(int x) const
+{
+	return x/Scaling - textBase();
+}
+
+void Hruler::shift(double pos)
+{
+	offs = pos;
+}
+
+void Hruler::shiftRel(double dist)
+{
+	offs += dist;
+}
+
+
+int Hruler::findRulerHandle(QPoint mp, double grabRadius)
+{
+	int mx = mp.x();
+	QRect fpo;
+	
+	int result = rc_none;
+	
+	int Pos = textPosToLocal(0);
+	if (Pos-1 < (mx + grabRadius) && Pos-1 > (mx - grabRadius))
+		result = rc_leftFrameDist;
+	
+	Pos = textPosToLocal(textWidth());
+	if (Pos+1 < (mx + grabRadius) && Pos+1 > (mx - grabRadius))
+		result = rc_rightFrameDist;
+	
+	double ColWidth = (textWidth() - ColGap * (Cols - 1)) / Cols;
+	
+	ActCol = 0;
+	for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
+	{
+		Pos = textPosToLocal((ColWidth+ColGap)*CurrCol);
+		fpo = QRect(Pos, topline, static_cast<int>(ColWidth*Scaling), rulerheight);
+		if (fpo.contains(mp))
+		{
+			ActCol = CurrCol+1;
+			break;
+		}
+	}
+	if (ActCol == 0)
+	{
+		ActCol = 1;
+		return result;
+	}
+	
+	Pos = textPosToLocal(First+Indent+(ColWidth+ColGap)*(ActCol-1));
+	fpo = QRect(Pos-1, topline, grabRadius+1, rulerheight/2);
+	if (fpo.contains(mp))
+	{
+		return rc_indentFirst;
+	}
+	Pos = textPosToLocal(Indent+(ColWidth+ColGap)*(ActCol-1));
+	fpo = QRect(Pos-1, midline, grabRadius+1, rulerheight/2);
+	if (fpo.contains(mp))
+	{
+		return rc_leftMargin;
+	}
+	Pos = textPosToLocal(RMargin+(ColWidth+ColGap)*(ActCol-1));
+	fpo = QRect(Pos-grabRadius, midline, grabRadius, rulerheight/2);
+	if (fpo.contains(mp))
+	{
+		return rc_rightMargin;
+	}
+	if (TabValues.count() != 0)
+	{
+		for (int yg = 0; yg < signed(TabValues.count()); yg++)
+		{
+			Pos = textPosToLocal(TabValues[yg].tabPosition+(ColWidth+ColGap)*(ActCol-1));
+			fpo = QRect(Pos-grabRadius, tabline, 2*grabRadius, rulerheight/2 + 2);
+			if (fpo.contains(mp))
+			{
+				result = rc_tab;
+				ActTab = yg;
+				break;
+			}
+		}
+	}
+	return result;
+}
+
+
 void Hruler::mousePressEvent(QMouseEvent *m)
 {
 	if (currDoc->isLoading())
 		return;
 	Mpressed = true;
 	MouseX = m->x();
-	if (ItemPosValid)
+	if (textEditMode)
 	{
-		RulerCode = rc_none;
-		Markp = -1;
-		double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-		if ((static_cast<int>(Pos-1) < (m->x()+currDoc->guidesPrefs().grabRadius))
-				   && (static_cast<int>(Pos-1) > (m->x()-currDoc->guidesPrefs().grabRadius)))
-			RulerCode = rc_leftFrameDist;
-		Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
-		if ((static_cast<int>(Pos+1) < (m->x()+currDoc->guidesPrefs().grabRadius))
-				   && (static_cast<int>(Pos+1) > (m->x()-currDoc->guidesPrefs().grabRadius)))
-			RulerCode = rc_rightFrameDist;
-		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-		QRect fpo;
-		ActCol = 0;
-		for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
-		{
-			Pos = (ItemPos-offs+(ColWidth+ColGap)*CurrCol+Extra+lineCorr)*Scaling;
-			fpo = QRect(static_cast<int>(Pos), topline, static_cast<int>(ColWidth*Scaling), 12);
-			if (fpo.contains(m->pos()))
-			{
-				ActCol = CurrCol+1;
-				break;
-			}
-		}
-		if (ActCol == 0)
-		{
-			ActCol = 1;
-			return;
-		}
-		Pos = (ItemPos-offs+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-		fpo = QRect(static_cast<int>(Pos)-3, topline, 6, 6);
-		if (fpo.contains(m->pos()))
-		{
-			RulerCode = rc_indentFirst;
-			return;
-		}
-		Pos = (ItemPos-offs+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-		fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
-		if (fpo.contains(m->pos()))
-		{
-			RulerCode = rc_leftMargin;
-			return;
-		}
-		Pos = (ItemPos-offs+RMargin+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-		fpo = QRect(static_cast<int>(Pos)-5, 9, 8, 6);
-		if (fpo.contains(m->pos()))
-		{
-			RulerCode = rc_rightMargin;
-			return;
-		}
-		if (TabValues.count() != 0)
-		{
-			for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
-			{
-				Pos = (ItemPos-offs+TabValues[yg].tabPosition+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-				fpo = QRect(static_cast<int>(Pos)-3, 7, 8, 8);
-				if (fpo.contains(m->pos()))
-				{
-					RulerCode = rc_tab;
-					ActTab = yg;
-					break;
-				}
-			}
-		}
+		RulerCode = findRulerHandle(m->pos(), currDoc->guidesPrefs().grabRadius);
+		
 		if ((RulerCode == rc_none) && (ActCol != 0) && (m->button() == Qt::LeftButton))
 		{
-			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-			int newY = m->x() - static_cast<int>(Pos);
 			ParagraphStyle::TabRecord tb;
-			tb.tabPosition = newY / Scaling;
+			tb.tabPosition = localToTextPos(m->x());
 			tb.tabType = 0;
 			tb.tabFillChar = currDoc->itemToolPrefs().textTabFillChar[0];
 			TabValues.prepend(tb);
@@ -198,13 +246,13 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		Mpressed = false;
 		return;
 	}
-	if (ItemPosValid && currItem)
+	if (textEditMode && currItem)
 	{
 		if ((m->y() < height()) && (m->y() > 0))
 		{
 			bool mustApplyStyle = false;
 			ParagraphStyle paraStyle;
-			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+			double ColWidth = (textWidth() - ColGap * (Cols - 1)) / Cols;
 			switch (RulerCode)
 			{
 				case rc_leftFrameDist:
@@ -286,30 +334,36 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	Mpressed = false;
 }
 
+void Hruler::enterEvent(QEvent *e)
+{
+	qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
+}
+
+
 void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
 	if (currDoc->isLoading())
 		return;
-	if (ItemPosValid)
+	if (textEditMode)
 	{
-		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+		double ColWidth = (textWidth() - ColGap * (Cols - 1)) / Cols;
 		int ColEnd, ColStart;
 		double oldInd;
 		if (RulerCode == rc_leftFrameDist || RulerCode == rc_rightFrameDist)
 		{
-			ColStart =static_cast<int>((ItemPos-offs+lineCorr)*Scaling);
-			ColEnd = static_cast<int>((ItemEndPos-offs-lineCorr)*Scaling);
+			ColStart = 0; //textPosToLocal(0);
+			ColEnd   = width(); //textPosToLocal(textWidth());
 		}
 		else
 		{
-			ColStart  = static_cast<int>((ItemPos-offs+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling);
-			ColEnd = static_cast<int>((ItemPos-offs+(ColWidth+ColGap)*(ActCol-1)+ColWidth+Extra+lineCorr)*Scaling);
+			ColStart = textPosToLocal((ColWidth+ColGap)*(ActCol-1));
+			ColEnd   = textPosToLocal((ColWidth+ColGap)*(ActCol-1) + ColWidth);
 		}
-		if ((Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
+		if ((Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - currDoc->guidesPrefs().grabRadius) && (m->x() < ColEnd + currDoc->guidesPrefs().grabRadius))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
-			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
+			double toplimit = textWidth() + RExtra - (ColGap * (Cols - 1))-1;
+			double toplimit2 = textWidth() + Extra - (ColGap * (Cols - 1))-1;
 			switch (RulerCode)
 			{
 				case rc_leftFrameDist:
@@ -318,7 +372,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						Extra = 0;
 					if (Extra > toplimit2)
 						Extra = toplimit2;
-					emit MarkerMoved(Extra, 0);
+					emit MarkerMoved(currItem->xPos(), textBase()-currItem->xPos());
 					repaint();
 					break;
 				case rc_rightFrameDist:
@@ -327,16 +381,16 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						RExtra = 0;
 					if (RExtra > toplimit)
 						RExtra = toplimit;
-					emit MarkerMoved(RExtra, 0);
+					emit MarkerMoved(textBase(), toplimit -RExtra);
 					repaint();
 					break;
 				case rc_indentFirst:
 					First -= (MouseX - m->x()) / Scaling;
-					if ((ItemPos-offs+(ColWidth+ColGap)*ActCol+First+Indent)*Scaling < (ItemPos-offs+(ColWidth+ColGap)*ActCol)*Scaling)
-						First += (MouseX - m->x()) / Scaling;
+					if (First+Indent < 0)
+						First = -Indent;
 					if (First+Indent > ColWidth)
 						First  = ColWidth-Indent;
-					emit MarkerMoved(First, 0);
+					emit MarkerMoved(textBase(), First+Indent);
 					repaint();
 					break;
 				case rc_leftMargin:
@@ -347,7 +401,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					if (Indent > ColWidth-1)
 						Indent  = ColWidth-1;
 					First = oldInd - Indent;
-					emit MarkerMoved(Indent, 0);
+					emit MarkerMoved(textBase(), Indent);
 					repaint();
 					break;
 				case rc_rightMargin:
@@ -356,7 +410,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						RMargin = 0;
 					if (RMargin > ColWidth-1)
 						RMargin  = ColWidth-1;
-					emit MarkerMoved(RMargin, 0);
+					emit MarkerMoved(textBase(), RMargin);
 					repaint();
 					break;
 				case rc_tab:
@@ -365,7 +419,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						TabValues[ActTab].tabPosition = 0;
 					if (TabValues[ActTab].tabPosition > ColWidth-1)
 						TabValues[ActTab].tabPosition  = ColWidth-1;
-					emit MarkerMoved(TabValues[ActTab].tabPosition, 0);
+					emit MarkerMoved(textBase(), TabValues[ActTab].tabPosition);
 					UpdateTabList();
 					repaint();
 					break;
@@ -373,69 +427,48 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					break;
 			}
 			MouseX = m->x();
-			if (RulerCode != rc_none)
+/*			if (RulerCode != rc_none)
 			{
 				QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
-/*				QPainter p;
+				QPainter p;
 				p.begin(currView->viewport());
 				p.setCompositionMode(QPainter::CompositionMode_Xor);
 				p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage()->yOffset() * Scaling)));
 				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage()->height() * Scaling));
 				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(currDoc->currentPage()->height() * Scaling));
-				p.end(); */
+				p.end(); 
 				Markp = py.x();
-			}
+			}*/
 			return;
 		}
-		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
+		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*currDoc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*currDoc->guidesPrefs().grabRadius))
 		{
 			qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
-			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesPrefs().grabRadius)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesPrefs().grabRadius)))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
-			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesPrefs().grabRadius)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesPrefs().grabRadius)))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			QRect fpo;
-			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-//			if (currDoc->currentParaStyle > 4)
+			switch(findRulerHandle(m->pos(), currDoc->guidesPrefs().grabRadius))
 			{
-				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
-				{
-					Pos = (ItemPos-offs+First+Indent+(ColWidth+ColGap)*CurrCol+Extra+lineCorr)*Scaling;
-					fpo = QRect(static_cast<int>(Pos)-3, topline, 6, 6);
-					if (fpo.contains(m->pos()))
-					{
-						qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-						break;
-					}
-					Pos = (ItemPos-offs+Indent+(ColWidth+ColGap)*CurrCol+Extra+lineCorr)*Scaling;
-					fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
-					if (fpo.contains(m->pos()))
-					{
-						qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-						break;
-					}
-				}
+				case rc_leftFrameDist: 
+					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					break;
+				case rc_rightFrameDist:
+					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					break;
+				case rc_indentFirst:
+					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					break;
+				case rc_leftMargin:
+					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					break;
+				case rc_rightMargin:
+					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					break;
+				case rc_tab:
+					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					break;
 			}
-			if (TabValues.count() != 0)
-			{
-				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
-				{
-					for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
-					{
-						Pos = (ItemPos-offs+TabValues[yg].tabPosition+(ColWidth+ColGap)*CurrCol+Extra+lineCorr)*Scaling;
-						fpo = QRect(static_cast<int>(Pos)-3, 7, 8, 8);
-						if (fpo.contains(m->pos()))
-						{
-							qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-							break;
-						}
-					}
-				}
-			}
-			emit MarkerMoved((m->x() - static_cast<int>((ItemPos-offs+Extra+lineCorr)*Scaling)) / Scaling, 0);
+			Draw(m->x());
+			double marker = localToTextPos(m->x());
+			emit MarkerMoved(textBase(), marker);
 			return;
 		}
 		if ((Mpressed) && (RulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
@@ -463,12 +496,17 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 	}
 }
 
+void Hruler::leaveEvent(QEvent *m)
+{
+	emit MarkerMoved(0, -1);
+}
+
+
 void Hruler::paintEvent(QPaintEvent *e)
 {
 	if (currDoc->isLoading())
 		return;
 	QString tx = "";
-	double xl, frac;
 	double sc = currView->scale();
 	Scaling = sc;
 	QFont ff = font();
@@ -477,10 +515,190 @@ void Hruler::paintEvent(QPaintEvent *e)
 	QPainter p;
 	p.begin(this);
 	p.setClipRect(e->rect());
-	p.drawLine(0, 16, width(), 16);
+	p.setFont(font());
+	
+	drawMarks(p);
+
+	if (textEditMode)
+	{
+		p.eraseRect(QRect(QPoint(qRound((ItemPos+Extra)*sc), 1), QPoint(qRound((ItemEndPos-RExtra)*sc), 15)));
+		p.drawLine(qRound((ItemPos+Extra)*sc), 16, qRound((ItemEndPos-RExtra)*sc), 16);
+		p.save();
+		p.setRenderHints(QPainter::Antialiasing, true);
+		if (Revers)
+		{
+			p.translate(qRound((ItemPos)*sc), 0);
+			p.scale(-1, 1);
+			p.translate(qRound((ItemPos+Extra)*sc-(ItemEndPos-RExtra)*sc), 0);
+			p.translate(-qRound(ItemPos*sc), 0);
+		}
+		for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
+		{
+			double ColWidth = (textWidth() - ColGap * (Cols - 1)) / Cols;
+			double Pos = (ColWidth + ColGap) * CurrCol;
+			double EndPos = Pos + ColWidth;
+			drawTextMarks(Pos, EndPos, p);
+			
+			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			int xPos = textPosToLocal(Pos);
+			p.drawLine(xPos, topline, xPos, bottomline);
+			if (CurrCol == 0)
+			{
+				p.drawLine(xPos, 15, (xPos+4), 15);
+				p.drawLine(xPos, topline, (xPos+4), topline);
+			}
+			
+			p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			
+			xPos = textPosToLocal(Pos+First+Indent);
+			QPolygon cr;
+			cr.setPoints(3, xPos, midline, xPos+3, topline, xPos-3, topline);
+			p.drawPolygon(cr);
+
+			xPos = textPosToLocal(Pos+Indent);
+			QPolygon cr2;
+			cr2.setPoints(3, xPos, midline, xPos+3, bottomline, xPos-3, bottomline);
+			p.drawPolygon(cr2);
+			
+			xPos = textPosToLocal(Pos+RMargin);
+			QPolygon cr3;
+			cr3.setPoints(3, xPos, topline, xPos, bottomline, xPos-3, midline);
+			p.drawPolygon(cr3);
+
+			if (TabValues.count() != 0)
+			{
+				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				for (int yg = 0; yg < signed(TabValues.count()); yg++)
+				{
+					xPos = textPosToLocal(Pos+TabValues[yg].tabPosition);
+					if (Pos+TabValues[yg].tabPosition < EndPos)
+					{
+						switch (static_cast<int>(TabValues[yg].tabType))
+						{
+							case 0:
+								if (Revers)
+								{
+									p.save();
+									p.translate(Pos + TabValues[yg].tabPosition,0);
+									p.scale(-1,1);
+									p.drawLine(0, tabline, 0, bottomline);
+									p.drawLine(0, bottomline, 8, bottomline);
+									p.restore();
+								}
+								else
+								{
+									p.drawLine(xPos, tabline, xPos, bottomline);
+									p.drawLine(xPos, bottomline, xPos+8, bottomline);
+								}
+								break;
+							case 1:
+								if (Revers)
+								{
+									p.save();
+									p.translate(Pos+TabValues[yg].tabPosition,0);
+									p.scale(-1,1);
+									p.drawLine(0, tabline, 0, bottomline);
+									p.drawLine(0, bottomline, -8, bottomline);
+									p.restore();
+								}
+								else
+								{
+									p.drawLine(xPos, tabline, xPos, bottomline);
+									p.drawLine(xPos, bottomline, xPos-8, bottomline);
+								}
+								break;
+							case 2:
+							case 3:
+								p.drawLine(xPos, tabline, xPos, bottomline);
+								p.drawLine(xPos-4, bottomline, xPos+4, bottomline);
+								p.drawLine(xPos+3, bottomline-3, xPos+2, bottomline-3);
+								break;
+							case 4:
+								p.drawLine(xPos, tabline, xPos, bottomline);
+								p.drawLine(xPos-4, bottomline, xPos+4, bottomline);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			}
+			
+			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			xPos = textPosToLocal(EndPos);
+			p.drawLine(xPos, topline, xPos, bottomline);
+			if (CurrCol == Cols-1)
+			{
+				p.drawLine(xPos, bottomline, xPos-4 , bottomline);
+				p.drawLine(xPos, topline, xPos-4, topline);
+			}
+		}
+		p.restore();
+	}
+	if (drawMark && !Mpressed)
+	{
+		drawMarker(p);
+	}
+	p.end();
+}
+
+
+void Hruler::drawMarker(QPainter& p)
+{
+	QPolygon cr;
+#ifdef OPTION_SMOOTH_MARKERS
+	// draw new marker to pixmap
+	static const int SCALE = 16;
+	static const QColor BACKGROUND(255, 255, 255);
+	static QPixmap pix( 4*SCALE, 16*SCALE );
+	static bool initpix = true;
+	if (initpix) {
+		initpix = false;
+		QPainter pp( &pix );
+		pp.setBrush( BACKGROUND );
+		pp.drawRect( 0, 0, 4*SCALE, 16*SCALE );
+		
+		pp.setPen(Qt::red);
+		pp.setBrush(Qt::red);
+		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
+		pp.drawPolygon(cr);
+	}
+	// draw pixmap
+	p.save();
+	p.translate(-currView->contentsX(), 0);
+	p.scale(1.0/SCALE, 1.0/(SCALE+1));
+	p.drawPixmap((where-2)*SCALE, 1, pix);
+	p.restore();
+	// restore marks
 	p.setBrush(Qt::black);
 	p.setPen(Qt::black);
 	p.setFont(font());
+	double sc = currView->getScale();
+	double cc = width() / sc;
+	double firstMark = ceil(offs / iter) * iter - offs;
+	while (firstMark < cc)
+	{
+		p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
+		firstMark += iter;
+	}
+#else
+	// draw slim marker
+	p.resetTransform();
+	p.translate(-currView->contentsX(), 0);
+	p.setPen(Qt::red);
+	p.setBrush(Qt::red);
+	cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
+	p.drawPolygon(cr);
+#endif
+}
+
+
+void Hruler::drawMarks(QPainter& p)
+{
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
+	p.drawLine(0, 16, width(), 16);
+	double sc = Scaling;
 	double cc = width() / sc;
 	double firstMark = ceil(offs / iter) * iter - offs;
 	while (firstMark < cc)
@@ -490,6 +708,9 @@ void Hruler::paintEvent(QPaintEvent *e)
 	}
 	firstMark = ceil(offs / iter2) * iter2 - offs;
 	int markC = static_cast<int>(ceil(offs / iter2));
+
+	QString tx;
+	double xl, frac;
 	while (firstMark < cc)
 	{
 		p.drawLine(qRound(firstMark * sc), topline, qRound(firstMark * sc), 16);
@@ -528,258 +749,111 @@ void Hruler::paintEvent(QPaintEvent *e)
 		firstMark += iter2;
 		markC++;
 	}
-	if (ItemPosValid)
-	{
-		double Pos = ItemPos-offs;
-		double EndPos = ItemEndPos-offs;
-		p.eraseRect(QRect(QPoint(qRound((Pos+Extra)*sc), 1), QPoint(qRound((EndPos-RExtra)*sc), 15)));
-		p.drawLine(qRound((Pos+Extra)*sc), 16, qRound((EndPos-RExtra)*sc), 16);
-		p.save();
-		p.setRenderHints(QPainter::Antialiasing,true);
-		if (Revers)
-		{
-			p.translate(qRound((Pos)*sc), 0);
-			p.scale(-1, 1);
-			p.translate(qRound((Pos+Extra)*sc-(EndPos-RExtra)*sc), 0);
-			p.translate(-qRound(Pos*sc), 0);
-		}
-		for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
-		{
-			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-			Pos = ItemPos-offs + (ColWidth + ColGap) * CurrCol+Extra + lineCorr;
-			EndPos = Pos+ColWidth;
-			p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			for (xl = Pos; xl < EndPos; xl += iter)
-				p.drawLine(qRound(xl*sc), 10, qRound(xl*sc), 16);
-			for (xl = Pos; xl < EndPos; xl += iter2)
-			{
-				p.drawLine(qRound(xl*sc), topline, qRound(xl*sc), 16);
-				switch (currDoc->unitIndex())
-				{
-					case SC_IN:
-					{
-						QString tx = "";
-						int num1 = static_cast<int>((xl-Pos) / iter2 / cor);
-						if (num1 != 0)
-							tx = QString::number(num1);
-						double frac = (xl / iter2 / cor) - num1;
-						if ((frac > 0.24) && (frac < 0.26))
-							tx += QChar(0xBC);
-						if ((frac > 0.49) && (frac < 0.51))
-							tx += QChar(0xBD);
-						if ((frac > 0.74) && (frac < 0.76))
-							tx += QChar(0xBE);
-						if (Revers)
-						{
-							p.save();
-							p.translate(qRound((xl-2/sc) * sc),0);
-							p.scale(-1,1);
-							drawNumber(tx, 0, 17, p);
-							//p.drawText(0, 17, tx);
-							p.restore();
-						}
-						else
-							drawNumber(tx, qRound((xl+2/sc) * sc), 9, p);
-							//p.drawText(qRound((xl+2/sc) * sc), 9, tx);
-						break;
-					}
-					case SC_P:
-						if (Revers)
-						{
-							p.save();
-							p.translate(qRound((xl-2/sc) * sc),0);
-							p.scale(-1,1);
-							drawNumber(QString::number((xl-Pos) / iter / cor), 0, 17, p);
-							//p.drawText(0, 17, QString::number((xl-Pos) / iter / cor));
-							p.restore();
-						}
-						else
-							drawNumber(QString::number((xl-Pos) / iter / cor), qRound((xl+2/sc) * sc), 9, p);
-							//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter / cor));
-						break;
-					case SC_CM:
-						if (Revers)
-						{
-							p.save();
-							p.translate(qRound((xl-2/sc) * sc),0);
-							p.scale(-1,1);
-							drawNumber(QString::number((xl-Pos) / iter / 10 / cor), 0, 9, p);
-							//p.drawText(0, 9, QString::number((xl-Pos) / iter / 10 / cor));
-							p.restore();
-						}
-						else
-							drawNumber(QString::number((xl-Pos) / iter / 10 / cor), qRound((xl+2/sc) * sc), 9, p);
-							//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter / 10 / cor));
-						break;
-					case SC_C:
-						if (Revers)
-						{
-							p.save();
-							p.translate(qRound((xl-2/sc) * sc),0);
-							p.scale(-1,1);
-							drawNumber(QString::number((xl-Pos) / iter  / cor), 0, 9, p);
-							//p.drawText(0, 9, QString::number((xl-Pos) / iter  / cor));
-							p.restore();
-						}
-						else
-							drawNumber(QString::number((xl-Pos) / iter  / cor), qRound((xl+2/sc) * sc), 9, p);
-							//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter  / cor));
-						break;
-					default:
-						if (Revers)
-						{
-							p.save();
-							p.translate(qRound((xl-2/sc) * sc),0);
-							p.scale(-1,1);
-							drawNumber(QString::number((xl-Pos) / iter * 10 / cor), 0, 9, p);
-							//p.drawText(0, 9, QString::number((xl-Pos) / iter * 10 / cor));
-							p.restore();
-						}
-						else
-							drawNumber(QString::number((xl-Pos) / iter * 10 / cor), qRound((xl+2/sc) * sc), 9, p);
-							//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter * 10 / cor));
-						break;
-				}
-			}
-			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			p.drawLine(qRound(Pos*sc), topline, qRound(Pos*sc), 15);
-			if (CurrCol == 0)
-			{
-				p.drawLine(qRound(Pos*sc), 15, qRound((Pos+4/sc)*sc), 15);
-				p.drawLine(qRound(Pos*sc), topline, qRound((Pos+4/sc)*sc), topline);
-			}
-//			if (currDoc->currentParaStyle > 4)
-			{
-				p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				double fpos = Pos+First+Indent;
-				QPolygon cr;
-				cr.setPoints(3, qRound(fpos*sc), 9, qRound((fpos+3/sc)*sc), topline, qRound((fpos-3/sc)*sc), topline);
-				p.drawPolygon(cr);
-				QPolygon cr2;
-				cr2.setPoints(3, qRound((Pos+Indent)*sc), 9, qRound((Pos+Indent+3/sc)*sc), 15, qRound((Pos+Indent-3/sc)*sc), 15);
-				p.drawPolygon(cr2);
-				QPolygon cr3;
-				cr3.setPoints(3, qRound((Pos+RMargin)*sc), topline, qRound((Pos+RMargin)*sc), 15, qRound((Pos+RMargin-3/sc)*sc), 9);
-				p.drawPolygon(cr3);
-			}
-			if (TabValues.count() != 0)
-			{
-				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
-				{
-					if (Pos+TabValues[yg].tabPosition < EndPos)
-					{
-						switch (static_cast<int>(TabValues[yg].tabType))
-						{
-							case 0:
-								if (Revers)
-								{
-									p.save();
-									p.translate(qRound((Pos+TabValues[yg].tabPosition)*sc),0);
-									p.scale(-1,1);
-									p.drawLine(0, 7, 0, 15);
-									p.drawLine(0, 15, 8, 15);
-									p.restore();
-								}
-								else
-								{
-									p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 7, qRound((Pos+TabValues[yg].tabPosition)*sc), 15);
-									p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 15, qRound((Pos+TabValues[yg].tabPosition+8/sc)*sc), 15);
-								}
-								break;
-							case 1:
-								if (Revers)
-								{
-									p.save();
-									p.translate(qRound((Pos+TabValues[yg].tabPosition)*sc),0);
-									p.scale(-1,1);
-									p.drawLine(0, 7, 0, 15);
-									p.drawLine(0, 15, -8, 15);
-									p.restore();
-								}
-								else
-								{
-									p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 7, qRound((Pos+TabValues[yg].tabPosition)*sc), 15);
-									p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 15, qRound((Pos+TabValues[yg].tabPosition-8/sc)*sc), 15);
-								}
-								break;
-							case 2:
-							case 3:
-								p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 7, qRound((Pos+TabValues[yg].tabPosition)*sc), 15);
-								p.drawLine(qRound((Pos+TabValues[yg].tabPosition-4/sc)*sc), 15, qRound((Pos+TabValues[yg].tabPosition+4/sc)*sc), 15);
-								p.drawLine(qRound((Pos+TabValues[yg].tabPosition+3/sc)*sc), 12, qRound((Pos+TabValues[yg].tabPosition+2/sc)*sc), 12);
-								break;
-							case 4:
-								p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 7, qRound((Pos+TabValues[yg].tabPosition)*sc), 15);
-								p.drawLine(qRound((Pos+TabValues[yg].tabPosition-4/sc)*sc), 15, qRound((Pos+TabValues[yg].tabPosition+4/sc)*sc), 15);
-								break;
-							default:
-								break;
-						}
-					}
-				}
-			}
-			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			p.drawLine(qRound(EndPos*sc), topline, qRound(EndPos*sc), 15);
-			if (CurrCol == Cols-1)
-			{
-				p.drawLine(qRound(EndPos*sc), 15, qRound((EndPos-4/sc)*sc), 15);
-				p.drawLine(qRound(EndPos*sc), topline, qRound((EndPos-4/sc)*sc), topline);
-			}
-		}
-		p.restore();
-	}
-	if (drawMark)
-	{
-		QPolygon cr;
-#ifdef OPTION_SMOOTH_MARKERS
-		// draw new marker to pixmap
-		static const int SCALE = 16;
-		static const QColor BACKGROUND(255, 255, 255);
-		static QPixmap pix( 4*SCALE, 16*SCALE );
-		static bool initpix = true;
-		if (initpix) {
-			initpix = false;
-			QPainter pp( &pix );
-			pp.setBrush( BACKGROUND );
-			pp.drawRect( 0, 0, 4*SCALE, 16*SCALE );
-	
-			pp.setPen(Qt::red);
-			pp.setBrush(Qt::red);
-			cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
-			pp.drawPolygon(cr);
-		}
-		// draw pixmap
-		p.save();
-		p.translate(-currView->contentsX(), 0);
-		p.scale(1.0/SCALE, 1.0/(SCALE+1));
-		p.drawPixmap((where-2)*SCALE, 1, pix);
-		p.restore();
-		// restore marks
-		p.setBrush(Qt::black);
-		p.setPen(Qt::black);
-		p.setFont(font());
-		double sc = currView->getScale();
-		double cc = width() / sc;
-		double firstMark = ceil(offs / iter) * iter - offs;
-		while (firstMark < cc)
-		{
-			p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
-			firstMark += iter;
-		}
-#else
-		// draw slim marker
-		p.resetTransform();
-		p.translate(-currView->contentsX(), 0);
-		p.setPen(Qt::red);
-		p.setBrush(Qt::red);
-		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
-		p.drawPolygon(cr);
-#endif
-	}
-	p.end();
-}
+}	
 
+void Hruler::drawTextMarks(double Pos, double EndPos, QPainter& p)
+{
+	double xl;
+	
+	p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p.setBrush(Qt::blue);
+	for (xl = Pos; xl < EndPos; xl += iter)
+	{
+		int xli = textPosToLocal(xl);
+		p.drawLine(xli, 10, xli, 16);
+	}
+	for (xl = Pos; xl < EndPos; xl += iter2)
+	{
+		int xli = textPosToLocal(xl);
+		p.drawLine(xli, topline, xli, 16);
+		switch (currDoc->unitIndex())
+		{
+			case SC_IN:
+			{
+				QString tx = "";
+				int num1 = static_cast<int>((xl-Pos) / iter2 / cor);
+				if (num1 != 0)
+					tx = QString::number(num1);
+				double frac = (xl / iter2 / cor) - num1;
+				if ((frac > 0.24) && (frac < 0.26))
+					tx += QChar(0xBC);
+				if ((frac > 0.49) && (frac < 0.51))
+					tx += QChar(0xBD);
+				if ((frac > 0.74) && (frac < 0.76))
+					tx += QChar(0xBE);
+				if (Revers)
+				{
+					p.save();
+					p.translate(xli-2, 0);
+					p.scale(-1,1);
+					drawNumber(tx, 0, 17, p);
+					//p.drawText(0, 17, tx);
+					p.restore();
+				}
+				else
+					drawNumber(tx, xli+2, 9, p);
+				//p.drawText(qRound((xl+2/sc) * sc), 9, tx);
+				break;
+			}
+			case SC_P:
+				if (Revers)
+				{
+					p.save();
+					p.translate(xli-2,0);
+					p.scale(-1,1);
+					drawNumber(QString::number((xl-Pos) / iter / cor), 0, 17, p);
+					//p.drawText(0, 17, QString::number((xl-Pos) / iter / cor));
+					p.restore();
+				}
+				else
+					drawNumber(QString::number((xl-Pos) / iter / cor), xli+2, 9, p);
+				//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter / cor));
+				break;
+			case SC_CM:
+				if (Revers)
+				{
+					p.save();
+					p.translate(xli-2,0);
+					p.scale(-1,1);
+					drawNumber(QString::number((xl-Pos) / iter / 10 / cor), 0, 9, p);
+					//p.drawText(0, 9, QString::number((xl-Pos) / iter / 10 / cor));
+					p.restore();
+				}
+				else
+					drawNumber(QString::number((xl-Pos) / iter / 10 / cor), xli+2, 9, p);
+				//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter / 10 / cor));
+				break;
+			case SC_C:
+				if (Revers)
+				{
+					p.save();
+					p.translate(xli-2,0);
+					p.scale(-1,1);
+					drawNumber(QString::number((xl-Pos) / iter  / cor), 0, 9, p);
+					//p.drawText(0, 9, QString::number((xl-Pos) / iter  / cor));
+					p.restore();
+				}
+				else
+					drawNumber(QString::number((xl-Pos) / iter  / cor), xli+2, 9, p);
+				//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter  / cor));
+				break;
+			default:
+				if (Revers)
+				{
+					p.save();
+					p.translate(xli-2,0);
+					p.scale(-1,1);
+					drawNumber(QString::number((xl-Pos) / iter * 10 / cor), 0, 9, p);
+					//p.drawText(0, 9, QString::number((xl-Pos) / iter * 10 / cor));
+					p.restore();
+				}
+				else
+					drawNumber(QString::number((xl-Pos) / iter * 10 / cor), xli+2, 9, p);
+				//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter * 10 / cor));
+				break;
+		}
+	}
+}
 
 void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 {
@@ -804,6 +878,7 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 	else
 		fnt.setPixelSize(SCALE);
 	p2.setFont(fnt);
+	p2.setBrush(p.brush());
 	p2.drawText(-bbox.x()*SCALE, -bbox.y()*SCALE, txt);
 	p2.end();
 	p.scale(1.0/SCALE,1.0/SCALE);
@@ -832,11 +907,11 @@ void Hruler::setItem(PageItem * item)
 	currItem = item;
 	ItemPos = item->xPos();
 	ItemEndPos = ItemPos + item->width();
-	if (currDoc->guidesPrefs().rulerMode)
+	/*if (currDoc->guidesPrefs().rulerMode)
 	{
 		ItemPos -= currDoc->currentPage()->xOffset();
 		ItemEndPos -= currDoc->currentPage()->xOffset();
-	}
+	}*/
 	
 	if ((item->lineColor() != CommonStrings::None) || (!item->strokePattern().isEmpty()))
 		lineCorr = item->lineWidth() / 2.0;
@@ -856,8 +931,8 @@ void Hruler::setItem(PageItem * item)
 		Revers = true;
 	else
 		Revers = false;
-	ItemPosValid = true;
-	TabValues = item->currentStyle().tabValues();
+	textEditMode = true;
+	TabValues = item->currentStyle().tabValues();	
 }
 
 void Hruler::UpdateTabList()

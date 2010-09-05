@@ -69,9 +69,11 @@ private:
 	QTime m_blinkTime;
 	QTimer* m_blinker;
 	bool m_lastPosWasOverGuide;
+	double mRulerGuide;
 
 private slots:
 	void blinkTextCursor();
+	void rulerPreview(double base, double xp);
 };
 
 
