@@ -218,8 +218,6 @@ private slots:
 		\param ison true if toggled = on
 	 */
 	void toggledToToggledData(bool ison);
-
-	void hoverIcon();
 };
 
 #endif
