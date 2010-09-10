@@ -172,7 +172,6 @@ public:
 	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
 	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
 	void RecalcPicturesRes();
-	void rulerMove(QMouseEvent *m);
 	/**
 	 * Called when the ruler origin is dragged
 	 * @param m mouse event

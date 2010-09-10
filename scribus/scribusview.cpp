@@ -2440,18 +2440,18 @@ void ScribusView::setRulerPos(int x, int y)
 		return;
 	if (Doc->guidesSettings.rulerMode)
 	{
-		horizRuler->offs = x / m_canvas->scale() - Doc->currentPage()->xOffset();
-		vertRuler->offs = y / m_canvas->scale() - Doc->currentPage()->yOffset();
+		horizRuler->shift(x / m_canvas->scale() - Doc->currentPage()->xOffset());
+		vertRuler->shift(y / m_canvas->scale() - Doc->currentPage()->yOffset());
 	}
 	else
 	{
-		horizRuler->offs = x / m_canvas->scale();
-		vertRuler->offs = y / m_canvas->scale();
+		horizRuler->shift(x / m_canvas->scale());
+		vertRuler->shift(y / m_canvas->scale());
 	}
 //	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
 //	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
-	horizRuler->offs += 0*Doc->minCanvasCoordinate.x()  - Doc->rulerXoffset;
-	vertRuler->offs += 0*Doc->minCanvasCoordinate.y()  - Doc->rulerYoffset;
+	horizRuler->shiftRel(0*Doc->minCanvasCoordinate.x()  - Doc->rulerXoffset);
+	vertRuler->shiftRel(0*Doc->minCanvasCoordinate.y()  - Doc->rulerYoffset);
 	horizRuler->update();
 	vertRuler->update();
 //	evSpon = true;
@@ -3125,7 +3125,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 	}
 	return im;
 }
-
+#if 0
 void ScribusView::rulerMove(QMouseEvent *m)
 {
 	QPoint py(viewport()->mapFromGlobal(m->globalPos()));
@@ -3140,6 +3140,7 @@ void ScribusView::rulerMove(QMouseEvent *m)
 	DrHY = newY;
 	DrVX = newX;
 }
+#endif
 
 void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 {

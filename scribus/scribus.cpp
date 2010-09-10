@@ -1049,6 +1049,11 @@ void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 	mainWindowYPosDataLabel->setText(value2String(yn, doc->unitIndex(), true, true));
 }
 
+void ScribusMainWindow::setStatusBarTextPosition(double base, double xp)
+{
+	mainWindowXPosDataLabel->setText(base + xp >= 0? value2String(xp, doc->unitIndex(), true, true): QString("-"));
+	mainWindowYPosDataLabel->setText("-");
+}
 
 void ScribusMainWindow::setStatusBarInfoText(QString newText)
 {
@@ -2802,7 +2807,7 @@ void ScribusMainWindow::HaveNewDoc()
 	// Use Qt::UniqueConnection here to avoid multiple identical signal connections
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
-	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(setStatusBarMousePosition(double, double)), Qt::UniqueConnection);
+	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(setStatusBarTextPosition(double, double)), Qt::UniqueConnection);
 	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ClipPo(double, double)), nodePalette, SLOT(SetXY(double, double)), Qt::UniqueConnection);
 	connect(view, SIGNAL(PolyOpen()), nodePalette, SLOT(IsOpen()), Qt::UniqueConnection);
@@ -2923,7 +2928,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		enableTextActions(&scrActions, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
-	view->horizRuler->ItemPosValid = false;
+	view->horizRuler->textMode(false);
 	view->horizRuler->update();
 	switch (SelectedType)
 	{
@@ -3054,26 +3059,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			if (currItem->asTextFrame())
 				enableTextActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
-			if (currItem->lineColor() != CommonStrings::None)
-				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
-			else
-				view->horizRuler->lineCorr = 0;
-			view->horizRuler->ColGap = currItem->ColGap;
-			view->horizRuler->Cols = currItem->Cols;
-			view->horizRuler->Extra = currItem->textToFrameDistLeft();
-			view->horizRuler->RExtra = currItem->textToFrameDistRight();
-			view->horizRuler->First = currItem->currentStyle().firstIndent();
-			view->horizRuler->Indent = currItem->currentStyle().leftMargin();
-			double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1))
-				- currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft()
-				- 2*view->horizRuler->lineCorr) / currItem->columns();
-			view->horizRuler->RMargin = columnWidth - currItem->currentStyle().rightMargin();
-			if (currItem->imageFlippedH() || (currItem->reversed()))
-				view->horizRuler->Revers = true;
-			else
-				view->horizRuler->Revers = false;
-			view->horizRuler->ItemPosValid = true;
-			view->horizRuler->TabValues = currItem->currentStyle().tabValues();
 			view->horizRuler->update();
 		}
 		else
@@ -6430,7 +6415,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				currItem->update();
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
-			view->horizRuler->ItemPosValid = false;
+			view->horizRuler->textMode(false);
 			view->horizRuler->update();
 		}
 		if (mode == modeEdit)

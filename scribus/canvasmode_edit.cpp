@@ -34,6 +34,7 @@
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "contextmenu.h"
+#include "hruler.h"
 #include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -67,6 +68,8 @@ CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(v
 	frameResizeHandle = -1;
 	m_blinker = new QTimer(view);	
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
+	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(rulerPreview(double, double)));
+	m_RulerGuide = -1;
 }
 
 inline bool CanvasMode_Edit::GetItem(PageItem** pi)
@@ -87,6 +90,18 @@ void CanvasMode_Edit::blinkTextCursor()
 	}
 }
 
+void CanvasMode_Edit::rulerPreview(double base, double xp)
+{
+	PageItem* currItem;
+	if (m_doc->appMode == modeEdit && GetItem(&currItem))
+	{
+		QPoint oldP = m_canvas->canvasToLocal(QPointF(m_RulerGuide, currItem->yPos()));
+		m_RulerGuide = base + xp;
+		QPoint p = m_canvas->canvasToLocal(QPointF(m_RulerGuide, currItem->yPos() + currItem->height()));
+		m_canvas->update(QRect(oldP.x()-2, oldP.y(), p.x()+2, p.y()));
+	}
+}
+
 void CanvasMode_Edit::drawControls(QPainter* p)
 {
 	commonDrawControls(p, false);
@@ -95,7 +110,31 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 	{
 		PageItem_TextFrame* textframe = currItem->asTextFrame();
 		if (textframe)
+		{
+			if (m_RulerGuide >= 0)
+			{
+				p->save();
+				p->translate(currItem->xPos(), currItem->yPos());
+				p->rotate(currItem->rotation());
+				p->setPen(QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setClipRect(QRectF(0.0, 0.0, currItem->width(), currItem->height()));
+				p->setBrush(Qt::NoBrush);
+				p->setRenderHint(QPainter::Antialiasing);
+				if (currItem->imageFlippedH())
+				{
+					p->translate(currItem->width(), 0);
+					p->scale(-1, 1);
+				}
+				if (currItem->imageFlippedV())
+				{
+					p->translate(0, currItem->height());
+					p->scale(1, -1);
+				}
+				p->drawLine(m_RulerGuide - currItem->xPos(), 0, m_RulerGuide - currItem->xPos(), currItem->height());
+				p->restore();
+			}
 			drawTextCursor(p, textframe);
+		}
 	}
 }
 
@@ -307,6 +346,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	{
 		m_view->update();
 	}
+	m_RulerGuide = -1;
 	PageItem * it(0);
 	if (GetItem(&it))
 	{
@@ -320,7 +360,10 @@ void CanvasMode_Edit::deactivate(bool forGesture)
 //	qDebug() << "CanvasMode_Edit::deactivate" << forGesture;
 	m_view->redrawMarker->hide();
 	if (!forGesture)
+	{
+		m_RulerGuide = -1;
 		m_blinker->stop();
+	}
 }
 
 void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)

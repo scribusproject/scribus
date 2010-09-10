@@ -264,6 +264,7 @@ public slots:
 	//void setItemFillTransparency(double t);
 	//void setItemLineTransparency(double t);
 	void setStatusBarMousePosition(double xp, double yp);
+	void setStatusBarTextPosition(double base, double yp);
 	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
 	//bool DoSaveClose();

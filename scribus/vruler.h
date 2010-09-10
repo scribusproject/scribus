@@ -59,7 +59,6 @@ private: // Private attributes
 
 	void drawNumber(QString num, int starty, QPainter *p);
 
-	/** Zeichensatz des Lineals */
 	ScribusDoc *currDoc;
 	ScribusView *currView;
 
@@ -68,6 +67,8 @@ public slots: // Public slots
 	\param where where to draw */
 	void Draw(int where);
 	void unitChange();
+	void shift(double pos) { offs = pos; }
+	void shiftRel(double dist) { offs += dist; }
 
 private:
 	double iter, iter2;
