@@ -21343,6 +21343,16 @@ Do you want to migrate them to the new Scribus version?</translation>
         <source>Command: </source>
         <translation>Command: </translation>
     </message>
+    <message>
+        <source>LaTeX Command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus has found the following pdflatex command:
+%1
+Do you want to use this?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_Fonts</name>
@@ -27958,7 +27968,7 @@ Therefore the image may be not correct</translation>
     </message>
     <message>
         <source>Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation>Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</translation>
+        <translation type="obsolete">Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</translation>
     </message>
     <message>
         <source>Error</source>
@@ -28199,6 +28209,10 @@ Therefore the image may be not correct</source>
     <message>
         <source>Group%1</source>
         <translation>Group%1</translation>
+    </message>
+    <message>
+        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31186,7 +31200,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation>Edit Styles...</translation>
+        <translation type="obsolete">Edit Styles...</translation>
     </message>
 </context>
 <context>
@@ -31297,7 +31311,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
-        <translation>&amp;Edit Styles...</translation>
+        <translation type="obsolete">&amp;Edit Styles...</translation>
     </message>
     <message>
         <source>File</source>
