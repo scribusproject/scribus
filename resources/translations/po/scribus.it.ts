@@ -7607,7 +7607,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1507"/>
         <source>Soft &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Sillabazione &amp;manuale</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1515"/>
@@ -8026,7 +8026,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="97"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Allinea lati da:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="153"/>
@@ -8071,7 +8071,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/aligndistribute.ui" line="511"/>
         <source>Reverse Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation>Ribalta distribuzione</translation>
     </message>
 </context>
 <context>
@@ -8114,22 +8114,22 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="105"/>
         <source>&amp;Align Sides By:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Allinea lati da:</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="108"/>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spostamento (conserva dimensione)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="109"/>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifica dimensione (conserva lato opposto)</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Durante l&apos;allineamento di un lato di un elemento:&lt;ul&gt;&lt;li&gt;Sposta sempre anche l&apos;altro lato (conserva la larghezza e l&apos;altezza esistente), o &lt;/li&gt;&lt;li&gt;mantieni l&apos;altro lato fisso (modifica la dimensione dell&apos;elemento invece di spostarlo) quando possibile&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
@@ -8214,7 +8214,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="168"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
-        <translation type="unfinished"></translation>
+        <translation>In caso di distribuzione con distanza predefinita, inverti la direzione della distribuzione degli elementi</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="169"/>
@@ -9944,7 +9944,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../../scribus/scrapbookpalette.cpp" line="1448"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa un file biblioteca da Scribus &lt;=1.3.2</translation>
     </message>
 </context>
 <context>
@@ -10530,7 +10530,8 @@ Inserire un nome diverso.</translation>
         <location filename="../../../scribus/cmykfw.cpp" line="995"/>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation>Non è possibile creare un colore senza nome. Si prega di dare un nome</translation>
+        <translation>Non è possibile creare un colore senza nome.
+Si prega di dare un nome</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmykfw.cpp" line="196"/>
@@ -11460,7 +11461,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="423"/>
         <source>Print/Visible Mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Stampabile/visibile non corrispondente</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="437"/>
@@ -12997,22 +12998,22 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="79"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importazione: %1</translation>
+        <translation>Importazione: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="82"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analisi file:</translation>
+        <translation>Analisi file:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="210"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppo%1</translation>
+        <translation>Gruppo%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvg.cpp" line="337"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Generazione elementi</translation>
+        <translation>Generazione elementi</translation>
     </message>
 </context>
 <context>
@@ -13341,7 +13342,7 @@ trattino e un codice ISO-3166 di Stato, es.: en-GB, fr-CH</translation>
     <message>
         <location filename="../../../scribus/docsections.ui" line="37"/>
         <source>Shown</source>
-        <translation type="unfinished">Visibile</translation>
+        <translation>Visibile</translation>
     </message>
     <message>
         <location filename="../../../scribus/docsections.ui" line="42"/>
@@ -14461,7 +14462,7 @@ Usa 72 dpi per immagini da visualizzare nello schermo</translation>
     <message>
         <location filename="../../../scribus/fontprefs.cpp" line="48"/>
         <source>Available Fonts</source>
-        <translation type="unfinished">Caratteri disponibili</translation>
+        <translation>Caratteri disponibili</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontprefs.cpp" line="48"/>
@@ -14492,7 +14493,7 @@ Usa 72 dpi per immagini da visualizzare nello schermo</translation>
     <message>
         <location filename="../../../scribus/fontprefs.cpp" line="58"/>
         <source>&amp;Available Fonts</source>
-        <translation type="unfinished">C&amp;aratteri disponibili</translation>
+        <translation>C&amp;aratteri disponibili</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontprefs.cpp" line="88"/>
@@ -15464,23 +15465,24 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="58"/>
         <source>Import Cvg...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa CVG...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="79"/>
         <source>Imports Cvg Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Cvg</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="80"/>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Cvg nel documento corrente.
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Tutti i formati supportati</translation>
+        <translation>Tutti i formati supportati</translation>
     </message>
 </context>
 <context>
@@ -15508,23 +15510,24 @@ convertendo i loro dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="51"/>
         <source>Import Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Pict...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="72"/>
         <source>Imports Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Pict</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="73"/>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Mac Pict nel documento corrente.
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="119"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Tutti i formati supportati</translation>
+        <translation>Tutti i formati supportati</translation>
     </message>
 </context>
 <context>
@@ -16615,7 +16618,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/layers.cpp" line="608"/>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Fa fluire il testo nei livelli inferiori intorno agli oggetti - Se abilitato si forza il testo nei livelli inferiori a scorrere intorno agli oggett del livello in cui questa ozione è stata abilitata</translation>
     </message>
     <message>
         <location filename="../../../scribus/layers.cpp" line="610"/>
@@ -18618,7 +18621,7 @@ del documento. La numerazione delle pagine vien aggiunta automaticamente. Questa
     <message>
         <location filename="../../../scribus/preview.cpp" line="262"/>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurazione anteprima</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="301"/>
@@ -18729,7 +18732,7 @@ del documento. La numerazione delle pagine vien aggiunta automaticamente. Questa
     <message>
         <location filename="../../../scribus/preview.cpp" line="363"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Permette di incorporare profili ICC nel processo di stampa quando la gestione colori è abilitata</translation>
+        <translation>Permette di incorporare profili colore nel processo di stampa quando la gestione colori è abilitata</translation>
     </message>
     <message>
         <location filename="../../../scribus/preview.cpp" line="274"/>
@@ -19914,7 +19917,7 @@ Il risultato è una combinazione di &quot;Intersezione&quot; ed &quot;Esclusione
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="48"/>
         <source>Load File</source>
-        <translation type="unfinished"></translation>
+        <translation>Carica file</translation>
     </message>
     <message>
         <location filename="../../../scribus/patterndialog.ui" line="55"/>
@@ -19967,22 +19970,22 @@ Il risultato è una combinazione di &quot;Intersezione&quot; ed &quot;Esclusione
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="82"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importazione: %1</translation>
+        <translation>Importazione: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="85"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analisi file:</translation>
+        <translation>Analisi file:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="211"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppo%1</translation>
+        <translation>Gruppo%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpct.cpp" line="370"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Generazione elementi</translation>
+        <translation>Generazione elementi</translation>
     </message>
 </context>
 <context>
@@ -21525,22 +21528,22 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="361"/>
         <source>&lt;qt&gt;This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Abilita la configurazione della dimensione del file PostScript. È sconsigliato se non richiesto dalla stampante.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="387"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Una maniera di spegnere alcune tonalità di grigio che sono composte da ciano, giallo e magenta e usando il nero al loro posto. L&apos;UCR interessa maggiormente le parti delle immagini che sono neutre e/o di toni scuri vicini al grigio. L&apos;uso di questa opzione può migliorare con la stampa di alcune immagini, con un po&apos; di sperimentazione e testando caso per caso. L&apos;UCR riduce la possibilità di sovrassaturazione con inchiostri CMY..&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="397"/>
         <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Abilita la conversione dei colori a tinta piatta in colori composti.. È consigliabile lasciare invariata l&apos;opzione se non si deve stampare colori a tinta piatta con una stampante commerciale.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="407"/>
         <source>&lt;qt&gt;Allows you to embed color profiles in the print stream when color management is enabled&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Permette di incorporare profili colore nel processo di stampa quando la gestione colori è abilitata&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="410"/>
@@ -24804,7 +24807,7 @@ Collegamenti esterni
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="245"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Spessore linea fuori limite, deve essere 0&lt;= spessore_linea &lt;= 12. {0 ?} {300.?}</translation>
+        <translation>Spessore linea fuori limite, deve essere 0&lt;= spessore_linea &lt;= 300.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="265"/>
@@ -25848,12 +25851,12 @@ Therefore the image may be not correct</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="50"/>
         <source>Calamus Cvg File</source>
-        <translation type="unfinished"></translation>
+        <translation>File Calamus Cvg</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Macintosh Pict File</source>
-        <translation type="unfinished"></translation>
+        <translation>File Macintosh Pict</translation>
     </message>
     <message>
         <source>Norwegian (Bokm?l)</source>
@@ -25967,7 +25970,7 @@ Therefore the image may be not correct</translation>
         <location filename="../../../scribus/langmgr.cpp" line="106"/>
         <location filename="../../../scribus/langmgr.cpp" line="107"/>
         <source>Norwegian (Bokmål)</source>
-        <translation type="unfinished">Norvegese (Bokmål)</translation>
+        <translation>Norvegese (Bokmål)</translation>
     </message>
     <message>
         <location filename="../../../scribus/latexhelpers.cpp" line="66"/>
@@ -26102,12 +26105,12 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
         <source>Cvg Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importatore Cvg</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="64"/>
         <source>Pict Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importatore Pict</translation>
     </message>
 </context>
 <context>
@@ -28344,27 +28347,27 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7685"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript non è installato, o non è stato configurato il percorso dell&apos;eseguibile in Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7688"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile importare immagini EPS o usare l&apos;Anteprima di Stampa se non si risolve il problema.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7690"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile importare immagini EPS o usare l&apos;Anteprima di Stampa PostScript se non si risolve il problema.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7692"/>
         <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si prega di leggere l&apos;&lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;aiuto e le istruzioni per l&apos;installazione&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7696"/>
         <source>Ghostscript is missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript mancante</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8456"/>
@@ -30298,7 +30301,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="92"/>
         <source>Check for Visible/Printable Mismatch in Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlla livelli con impostazioni visibile/stampabile non corrispondenti</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="99"/>
@@ -30767,7 +30770,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabexternaltoolswidget.cpp" line="130"/>
         <source>Locate your web browser</source>
-        <translation>Localizza il tuo navigatore</translation>
+        <translation>Localizza il tuo navigatore web</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabexternaltoolswidget.ui" line="13"/>
@@ -31834,7 +31837,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="413"/>
         <source>Available Fonts:</source>
-        <translation type="unfinished">Caratteri disponibili:</translation>
+        <translation>Caratteri disponibili:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="436"/>
@@ -32651,7 +32654,7 @@ quando il documento è aperto:</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1321"/>
         <source>InfoString</source>
-        <translation type="unfinished"></translation>
+        <translation>Stringa informativa</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1380"/>
@@ -33035,7 +33038,7 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="221"/>
         <source>Marks &amp;&amp; Bleeds</source>
-        <translation type="unfinished">Segni &amp;&amp; Pagina al vivo</translation>
+        <translation>Segni &amp;&amp; Pagina al vivo</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="233"/>
@@ -33130,7 +33133,7 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../../scribus/tabprinter.cpp" line="37"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Permette di incorporare profili ICC nel processo di stampa quando la gestione colori è abilitata</translation>
+        <translation>Permette di incorporare profili colore nel processo di stampa quando la gestione colori è abilitata</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="100"/>
@@ -35810,47 +35813,47 @@ rimozione, sarà visualizzato un menù a comparsa solo se si hanno i permessi di
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="26"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>Email:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="65"/>
         <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrizione del colore del documento, o informazioni sui colori usati</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="88"/>
         <source>Name:</source>
-        <translation type="unfinished">Nome:</translation>
+        <translation>Nome:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="95"/>
         <source>Category:</source>
-        <translation type="unfinished"></translation>
+        <translation>Categoria:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="102"/>
         <source>Page Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione pagina:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="109"/>
         <source>Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Colori:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="116"/>
         <source>Description:</source>
-        <translation type="unfinished">Descrizione:</translation>
+        <translation>Descrizione:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="123"/>
         <source>Usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uso:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="140"/>
         <source>Author:</source>
-        <translation type="unfinished">Autore:</translation>
+        <translation>Autore:</translation>
     </message>
     <message>
         <source>Name</source>
