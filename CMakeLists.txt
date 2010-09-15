@@ -819,7 +819,8 @@ ADD_SUBDIRECTORY(resources/loremipsum)
 ADD_SUBDIRECTORY(resources/profiles)
 ADD_SUBDIRECTORY(resources/swatches)
 ADD_SUBDIRECTORY(resources/templates)
-ADD_SUBDIRECTORY(resources/translations/qm)
+#ADD_SUBDIRECTORY(resources/translations/qm)
+ADD_SUBDIRECTORY(resources/translations/po)
 
 #Install our READMEs etc.
 INSTALL(FILES
