@@ -150,7 +150,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		if (!ScGzFile::readFromFile(fileName, docBytes))
 		{
 			// FIXME: Needs better error return
-			return false;
+			return QString::null;
 		}
 	}
 	else
@@ -175,7 +175,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 	}
 	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
 		docText.truncate(docText.length()-1);
-	return docText;	return docText;
+	return docText;
 }
 
 
