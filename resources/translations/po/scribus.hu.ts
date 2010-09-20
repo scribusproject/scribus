@@ -154,7 +154,7 @@
     <message>
         <location filename="../../../scribus/about.cpp" line="229"/>
         <source>&amp;Updates</source>
-        <translation>&amp;Frissítések</translation>
+        <translation>F&amp;rissítések</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="277"/>
@@ -695,7 +695,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
         <source>&amp;Glyph...</source>
-        <translation>&amp;Glif...</translation>
+        <translation>&amp;Betűkészletjel...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1386"/>
@@ -795,7 +795,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1418"/>
         <source>Show &amp;Text Chain</source>
-        <translation>7&amp;Szövegkeret-kapcsolások megjelenítése</translation>
+        <translation>&amp;Szövegkeret-kapcsolások megjelenítése</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1419"/>
@@ -4524,7 +4524,7 @@ Height: %2</source>
         <source>You can see a thumbnail if you press and hold down the right mouse button.
 The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation>A másodlagos egérgomb lenyomva tartásával előnézet jelenik meg.
-A Beszúrás gomb hozzáad egy glifet a kiválasztáshoz, a Törlés gomb pedig letörli az utoljára hozzáadottat</translation>
+A Beszúrás gomb hozzáad egy betűkészletjelet a kiválasztáshoz, a Törlés gomb pedig letörli az utoljára hozzáadottat</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselectenhanced.ui" line="96"/>
@@ -4534,7 +4534,7 @@ A Beszúrás gomb hozzáad egy glifet a kiválasztáshoz, a Törlés gomb pedig 
     <message>
         <location filename="../../../scribus/charselectenhanced.ui" line="131"/>
         <source>Glyphs to Insert</source>
-        <translation>Beszúrandó glifek</translation>
+        <translation>Beszúrandó betűkészletjelek</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselectenhanced.ui" line="171"/>
@@ -4605,7 +4605,7 @@ A Beszúrás gomb hozzáad egy glifet a kiválasztáshoz, a Törlés gomb pedig 
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="673"/>
         <source>Glyphs missing</source>
-        <translation>Hiányzó glif</translation>
+        <translation>Hiányzó jelek</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="674"/>
@@ -5395,12 +5395,12 @@ További információkért lásd a dokumentáció Színek szerkesztése fejezet�
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="376"/>
         <source>Min. Glyph Extension</source>
-        <translation>Min. glif sűrítés</translation>
+        <translation>Min. jel sűrítés</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="377"/>
         <source>Max. Glyph Extension</source>
-        <translation>Max. glif ritkítás</translation>
+        <translation>Max. jel ritkítás</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="350"/>
@@ -7286,7 +7286,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/exportform.ui" line="84"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Méret:</translation>
+        <translation>Mér&amp;et:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/dialog.cpp" line="122"/>
@@ -10698,7 +10698,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../../scribus/newfile.cpp" line="225"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Méret:</translation>
+        <translation>Mér&amp;et:</translation>
     </message>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="234"/>
@@ -10826,7 +10826,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
         <location filename="../../../scribus/newfile.cpp" line="116"/>
         <source>Open &amp;Existing Document</source>
         <translatorcomment>&amp;Létező dokumentum megnyitása | rövídítve lett</translatorcomment>
-        <translation>&amp;Létező megnyitása</translation>
+        <translation>L&amp;étező megnyitása</translation>
     </message>
     <message>
         <location filename="../../../scribus/newfile.cpp" line="119"/>
@@ -13902,7 +13902,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="361"/>
         <source>&lt;qt&gt;This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lehetővé teszi a PostScript fájl médiaméretének explicit megadását. Nem javasolt, hacsak nem a nyomtató kéri.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="364"/>
@@ -13917,7 +13917,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="387"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Egy lehetőség néhány sötét árnyalat feketével történő kiváltására, melyek eredetileg ciánkék, sárga és bíborvörös színekből álltak volna össze. A színvisszavétel (UCR) leginkább a képek semleges és/vagy sötét tónusait érinti, amelyek közel állnak a szürkéhez. Ezáltal néhány kép nyomtatása javítható, de némi kísérletezés és vizsgálat szükséges az esetek többségében. A színvisszavétel a CMY festékek túltelítettségének esélyét csökkenti.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="390"/>
@@ -13927,12 +13927,12 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="397"/>
         <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Direkt színek összetett színekké való konvertálásának engedélyezése. Hacsak nem nyomdai gépen lesznek kinyomva a direkt színek, valószínűleg a legjobb ezt engedélyezni.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="407"/>
         <source>&lt;qt&gt;Allows you to embed color profiles in the print stream when color management is enabled&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Engedélyezett színkezelés esetén lehetővé teszi a színprofilok beágyazását&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -15044,7 +15044,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5222"/>
         <source>Glyph Extension</source>
-        <translation>Glif sűrítés és ritkítás</translation>
+        <translation>Betűkészletjel sűrítés és ritkítás</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5224"/>
@@ -15090,12 +15090,12 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5510"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>A glifek minimális sűrítése sorkizáráshoz</translation>
+        <translation>A betűkészletjelek minimális sűrítése sorkizáráskor</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5511"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>A glifek maximális ritkítása sorkizáráshoz</translation>
+        <translation>A betűkészletjelek maximális ritkítása sorkizáráskor</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5471"/>
@@ -16272,7 +16272,7 @@ External Links
         <location filename="../../../scribus/langmgr.cpp" line="106"/>
         <location filename="../../../scribus/langmgr.cpp" line="107"/>
         <source>Norwegian (Bokmål)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norvég (Bokmål)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="108"/>
@@ -16956,7 +16956,7 @@ External Links
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="245"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Vonalszélesség megengedett értéken kívül van, 0 és 12 közé kell esnie. {0 ?} {300.?}</translation>
+        <translation>Vonalszélesség megengedett értéken kívül van, 0 és 300 közé kell esnie.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="265"/>
@@ -17190,7 +17190,7 @@ External Links
         <location filename="../../../scribus/scfonts.cpp" line="360"/>
         <location filename="../../../scribus/scfonts.cpp" line="397"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation>%1 betűkészletnek törött a %2 glifje (%3 karakterkód)</translation>
+        <translation>%1 betűkészletnek törött a %2 betűkészletjele (%3 karakterkód)</translation>
     </message>
     <message>
         <location filename="../../../scribus/fonts/scface_ps.h" line="186"/>
@@ -17859,7 +17859,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../../scribus/fonts/ftface.cpp" line="183"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation>%1 betűkészlet %2 glifje törött</translation>
+        <translation>%1 betűkészlet %2 betűkészletjele törött</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="150"/>
@@ -19146,12 +19146,12 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="105"/>
         <source>Maximum compression of glyphs</source>
-        <translation>Glifek maximális sűrítése</translation>
+        <translation>Betűkészletjelek maximális sűrítése</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="107"/>
         <source>Maximum extension of glyphs</source>
-        <translation>Glifek maximális ritkítása</translation>
+        <translation>Betűkészletjelek maximális ritkítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="367"/>
@@ -19187,7 +19187,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="140"/>
         <source>Glyph Extension</source>
-        <translation>Glif sűrítés és ritkítás</translation>
+        <translation>Betűkészletjel sűrítés és ritkítás</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="141"/>
@@ -21580,7 +21580,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1951"/>
         <source>&amp;Insert Glyph...</source>
-        <translation>&amp;Glif beszúrása...</translation>
+        <translation>&amp;Betűkészletjel beszúrása...</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1927"/>
@@ -22147,7 +22147,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="41"/>
         <source>Check for missing glyphs</source>
-        <translation>Hiányzó glifek ellenőrzése</translation>
+        <translation>Hiányzó betűkészletjelek ellenőrzése</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="47"/>
@@ -24441,7 +24441,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="917"/>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation>A dokumentumban található összes glif átalakítása körvonallá.</translation>
+        <translation>A dokumentumban található összes betűkészletjel átalakítása körvonallá.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="965"/>
@@ -27392,47 +27392,47 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="26"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>E-mail:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="65"/>
         <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished"></translation>
+        <translation>A dokumentumban alkalmazott színek formátuma, ill. utalás az alkalmazott színekre</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="88"/>
         <source>Name:</source>
-        <translation type="unfinished">Név:</translation>
+        <translation>Név:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="95"/>
         <source>Category:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kategória:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="102"/>
         <source>Page Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldalméret:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="109"/>
         <source>Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Színek:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="116"/>
         <source>Description:</source>
-        <translation type="unfinished">Leírás:</translation>
+        <translation>Leírás:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="123"/>
         <source>Usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Felhasználás:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="140"/>
         <source>Author:</source>
-        <translation type="unfinished">Szerző:</translation>
+        <translation>Szerző:</translation>
     </message>
     <message>
         <source>Name</source>
