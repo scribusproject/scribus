@@ -110,7 +110,7 @@ bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileN
 		if (!ScGzFile::readFromFile(fileName, docBytes, 4096))
 		{
 			// FIXME: Needs better error return
-			return false;
+			return QString::null;
 		}
 	}
 	else
