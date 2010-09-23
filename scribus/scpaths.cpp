@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
+#include <QProcess>
 
 #include "scconfig.h"
 
@@ -271,6 +272,52 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	return iccProfDirs;
 }
 
+QStringList ScPaths::getSystemXDGDirs(const QString dirToFind)
+{
+	QChar sep(':');
+#ifdef _WIN32
+	sep=';';
+#endif
+	QStringList xdgDirs;
+#if defined(Q_OS_MAC) or defined(Q_OS_UNIX)
+	//qDebug()<<"Searching for XDG locations...";
+	//Get $XDG_DATA_HOME
+	QStringList env = QProcess::systemEnvironment();
+	QString path_xdg_home,path_xdg_data;
+	foreach (QString line, env)
+	{
+		if (line.indexOf("XDG_DATA_HOME") == 0)
+			path_xdg_home = line.mid(14); //Strip "XDG_DATA_HOME="
+		if (line.indexOf("XDG_DATA_DIRS") == 0)
+			path_xdg_data = line.mid(14); //Strip "XDG_DATA_DIRS="
+	}
+	QStringList splitpath_home,splitpath_data;
+	splitpath_home = path_xdg_home.split(sep, QString::SkipEmptyParts);
+	splitpath_data = path_xdg_data.split(sep, QString::SkipEmptyParts);
+	//qDebug()<<"splitpath_home: "<<splitpath_home;
+	//qDebug()<<"splitpath_data: "<<splitpath_data;
+	QString dirSuffix("scribus/"+dirToFind);
+	foreach (QString dir, splitpath_home)
+	{
+		QFileInfo info(dir+dirSuffix);
+		if (info.exists())
+		{
+			//qDebug()<<"XDG_HOME:"<<dir+dirSuffix;
+			xdgDirs.append(dir+dirSuffix);
+		}
+	}
+	foreach (QString dir, splitpath_data)
+	{
+		QFileInfo info(dir+dirSuffix);
+		if (info.exists())
+		{
+			//qDebug()<<"XDG_DATA:"<<dir+dirSuffix;
+			xdgDirs.append(dir+dirSuffix);
+		}
+	}
+#endif
+	return xdgDirs;
+}
 QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 {
 	QStringList createDirs;

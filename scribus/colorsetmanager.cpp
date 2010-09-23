@@ -111,6 +111,7 @@ void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
 	QStringList locations=ScPaths::instance().getSystemCreateSwatchesDirs();
+	locations << ScPaths::instance().getSystemXDGDirs("swatches");
 	locations << ScPaths::instance().libDir()+"swatches/";
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
 	{
