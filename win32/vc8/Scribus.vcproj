@@ -30,13 +30,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="moc.exe"
-			/>
-			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
+				Name="lrelease.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -132,13 +135,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="moc.exe"
-			/>
-			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
+				Name="lrelease.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -232,13 +238,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="moc.exe"
-			/>
-			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
+				Name="lrelease.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -334,13 +343,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="moc.exe"
-			/>
-			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
+				Name="lrelease.exe"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -11417,6 +11429,27 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\transparencypalette.h"
@@ -13755,6 +13788,187 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\colormgmt\sclcms2colortransformimpl.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Translation Files"
+			Filter="ts"
+			>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.af.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.ar.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.bg.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.br.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.ca.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.cs_CZ.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.cy.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.da_DK.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.de.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.de_CH.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.de_ol.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.el.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.en_AU.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.en_GB.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.en_US.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.es_ES.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.et.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.eu.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.fi.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.fr.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.gl.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.hu.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.id.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.it.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.ja.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.ko.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.lt_LT.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.nb_NO.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.nl.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.pl_PL.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.pt.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.pt_BR.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.ru.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.sa.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.sk_SK.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.sl.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.sq.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.sr.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.sv.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.th_TH.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.tr.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.uk.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.zh_CN.ts"
+				>
+			</File>
+			<File
+				RelativePath="..\..\resources\translations\po\scribus.zh_TW.ts"
 				>
 			</File>
 		</Filter>
