@@ -328,6 +328,12 @@ void Hruler::enterEvent(QEvent *e)
 	qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
 }
 
+void Hruler::leaveEvent(QEvent *e)
+{
+	emit MarkerMoved(0, -1);
+	currView->m_canvasMode->setModeCursor();
+}
+
 void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
 	if (currDoc->isLoading())
@@ -482,11 +488,6 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-}
-
-void Hruler::leaveEvent(QEvent *m)
-{
-	emit MarkerMoved(0, -1);
 }
 
 void Hruler::paintEvent(QPaintEvent *e)
