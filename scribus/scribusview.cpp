@@ -4152,7 +4152,7 @@ void ScribusView::TextToPath()
 						undoManager->setUndoEnabled(true);
 						newGroupedItems.append(Doc->Items->takeAt(z));
 					}
-					if (chstr != QChar(32))
+					if ((chstr.length() > 0) && (!chstr.at(0).isSpace()))
 					{
 						pts = hl->font().glyphOutline(gl);
 						if (pts.size() < 4)
@@ -4395,7 +4395,7 @@ void ScribusView::TextToPath()
 							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
 						}
-						if (chstr != QChar(32))
+						if ((chstr.length() > 0) && (!chstr.at(0).isSpace()))
 						{
 							pts = hl->font().glyphOutline(gl);
 							if (pts.size() < 4)
