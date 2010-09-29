@@ -49,7 +49,6 @@ void nftwidget::setupCategories()
 {
 	QStringList categories;
 	categoryList->clear();
-	categoryList->addItem(tr("All"));
 	for (uint i = 0; i < settings->templates.size(); i++)
 	{
 		if ((!categories.contains(settings->templates[i]->templateCategory)) &&
@@ -60,6 +59,7 @@ void nftwidget::setupCategories()
 		}
 	}
 	categoryList->sortItems();
+	categoryList->insertItem(0, tr("All"));
 	categoryList->setCurrentRow(0);
 }
 
