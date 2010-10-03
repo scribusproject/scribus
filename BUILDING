@@ -27,11 +27,11 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 4.5.0 (Scribus has specific code requiring Qt 4.5, not Qt 4.4.x or before)
+	Qt >= 4.6.0 (Scribus has specific code requiring Qt 4.6, not Qt 4.5.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.4.x 
 	libtiff >= 3.6.0
-	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
+	LittleCMS (liblcms) = 1.12 (1.18+ recommended)
 	libjpeg (depending on how Qt is packaged)
 	libpng
 	Qtwebkit
@@ -48,7 +48,7 @@ Recommended:
 	apspell for the spell checker
 	podofo - 0.5.0+ for enhanced Illustrator AI/EPS import, svn versions
         boost and boost-devel
-	
+	GraphicksMagick++
 
 
 If any recommended libraries (and their dev/devel packages or headers) are not
@@ -97,7 +97,7 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-Qt 4.4 is now the *minimum*. Older versions of Qt are *not* supported. 
+Qt 4.6 is now the *minimum*. Older versions of Qt are *not* supported. 
 If you build Qt from sources, the recommended ./configure/cmake switches are the
  same as used by KDE. Use of other switches aside from those used by distro
 packages can make trouble shooting
@@ -258,9 +258,11 @@ Recommended packages for compiling from source on SuSE 11.x:
 	python-imaging
 	aspell-devel
         boost-devel
+        libGraphicsMagick++-devel
+        libOpenSceneGraph-devel  *Optional- but available from the Packman repo
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.3.5+ on anything older than Suse 10.3. 
+Scribus 1.3.5+ on anything older than Suse 11.1. 
 
 Please note we do provide frequently updated packages including debuginfo rpms
 on the Suse Build Server. at http//software.opensuse.org .
