@@ -157,7 +157,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	ts = ts.trimmed();
 
 	if (ts.endsWith(su))
-		ts = ts.left(ts.length()-su.length());
+		ts.chop(su.length());
 	int pos = ts.length();
 	while (pos > 0)
 	{

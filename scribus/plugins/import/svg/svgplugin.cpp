@@ -1981,10 +1981,10 @@ double SVGPlug::fromPercentage( const QString &s )
 {
 	QString s1 = s;
 	if (s1.endsWith( ";" ))
-		s1 = s1.left(s1.length() - 1);
+		s1.chop(1);
 	if (s1.endsWith( "%" ))
 	{
-		s1 = s1.left(s1.length() - 1);
+		s1.chop(1);
 		return ScCLocale::toDoubleC(s1) / 100.0;
 	}
 	else
@@ -2205,17 +2205,17 @@ QString SVGPlug::parseColor( const QString &s )
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
 		if (r.contains( "%" ))
 		{
-			r = r.left( r.length() - 1 );
+			r.chop(1);
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
 		if (g.contains( "%" ))
 		{
-			g = g.left( g.length() - 1 );
+			g.chop(1);
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
 		if (b.contains( "%" ))
 		{
-			b = b.left( b.length() - 1 );
+			b.chop(1);
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
@@ -2283,22 +2283,22 @@ QString SVGPlug::parseIccColor( const QString &s )
 			QString cs = colors[1], ms = colors[2], ys = colors[3], ks = colors[4];
 			if (cs.contains( "%" ))
 			{
-				cs = cs.left( cs.length() - 1 );
+				cs.chop(1);
 				cs = QString::number(ScCLocale::toDoubleC(cs) / 100);
 			}
 			if (ms.contains( "%" ))
 			{
-				ms = ms.left( ms.length() - 1 );
+				ms.chop(1);
 				ms = QString::number(ScCLocale::toDoubleC(ms) / 100);
 			}
 			if (ys.contains( "%" ))
 			{
-				ys = ys.left( ys.length() - 1 );
+				ys.chop(1);
 				ys = QString::number(ScCLocale::toDoubleC(ys) / 100);
 			}
 			if (ks.contains( "%" ))
 			{
-				ks = ks.left( ks.length() - 1 );
+				ks.chop(1);
 				ks = QString::number(ScCLocale::toDoubleC(ks) / 100);
 			}
 			double cv = ScCLocale::toDoubleC(cs);
@@ -2733,7 +2733,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			QString temp = stop.attribute( "offset" );
 			if( temp.contains( '%' ) )
 			{
-				temp = temp.left( temp.length() - 1 );
+				temp.chop(1);
 				offset = ScCLocale::toDoubleC(temp) / 100.0;
 			}
 			else

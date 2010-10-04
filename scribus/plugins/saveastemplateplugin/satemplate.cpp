@@ -130,7 +130,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	else
 	{
 		if (userTemplatesDir.right(1) == "/")
-			userTemplatesDir = userTemplatesDir.left(userTemplatesDir.length() - 1);
+			userTemplatesDir.chop(1);
 		templatesDir = userTemplatesDir;
 	}
 	dirs->set("collect", templatesDir);

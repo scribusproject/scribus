@@ -129,7 +129,7 @@ QString PluginManager::getPluginName(QString fileName)
 	if (baseName.startsWith("lib"))
 		baseName = baseName.remove(0,3);
 	if (baseName.endsWith(platformDllExtension()))
-		baseName = baseName.left(baseName.length() - 1 - platformDllExtension().length());
+		baseName.chop(1 + platformDllExtension().length());
 	// check name
 	for (int i = 0; i < (int)baseName.length(); i++)
 		if (! baseName[i].isLetterOrNumber() && baseName[i] != '_' )

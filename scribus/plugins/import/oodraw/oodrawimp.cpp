@@ -1589,17 +1589,17 @@ QString OODPlug::parseColor( const QString &s )
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
 		if( r.contains( "%" ) )
 		{
-			r = r.left( r.length() - 1 );
+			r.chop(1);
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 		}
 		if( g.contains( "%" ) )
 		{
-			g = g.left( g.length() - 1 );
+			g.chop(1);
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 		}
 		if( b.contains( "%" ) )
 		{
-			b = b.left( b.length() - 1 );
+			b.chop(1);
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
