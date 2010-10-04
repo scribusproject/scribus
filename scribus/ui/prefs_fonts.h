@@ -31,7 +31,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 	public slots:
 		void languageChange();
 		void ReplaceSel(int r, int c);
-		void updateFontList(struct ApplicationPrefs *prefsData);
+		void updateFontList();
 		void DelEntry();
 		void SelectPath(QListWidgetItem *c);
 		void AddPath();
@@ -40,7 +40,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 
 	protected:
 		void readPaths();
-		void writePaths();
+		void writePaths() const;
 
 		QMap<QString,QString> RList;
 		QList<ScComboBox*> FlagsRepl;
@@ -48,6 +48,11 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 		QStringList UsedFonts;
 		QString CurrentPath;
 		ScribusDoc* m_doc;
+
+
+		SCFonts m_availFonts; //! Fonts that Scribus has available to it, or the current document has available to use
+		bool m_askBeforeSubstitute; //! Request that the user confirms a font substitution or not
+		QMap<QString,QString> m_GFontSub;
 };
 
 #endif // PREFS_FONTS_H

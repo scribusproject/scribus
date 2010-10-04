@@ -60,8 +60,8 @@ public:
 	static QStringList getSystemProfilesDirs(void);
 	/** @brief Return paths to system create project directories*/
 	static QStringList getSystemCreateSwatchesDirs(void);
-	/** @brief Return paths to system XDG directories*/
-	static QStringList getSystemXDGDirs(const QString dirToFind);
+	/** @brief Return paths to directories held in an environment variable*/
+	static QStringList getDirsFromEnvVar(const QString envVar, const QString dirToFind);
 	/** @brief Return path to application data dir*/
 	static QString getApplicationDataDir(void);
 	/** @brief Return path to image cache dir*/

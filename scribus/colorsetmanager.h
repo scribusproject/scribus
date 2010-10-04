@@ -30,9 +30,11 @@ class SCRIBUS_API ColorSetManager
 		void findPalettes();
 		QStringList paletteNames();
 		QString paletteFileFromName(const QString& paletteName);
+		bool paletteLocationLocked(const QString& palettePath);
 		
 	protected:
 		QStringList paletteLocations;
 		QMap<QString, QString> palettes;
+		QMap<QString, bool> paletteLocationLocks;
 };
 #endif

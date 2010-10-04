@@ -79,6 +79,7 @@ private:
 	QColor tmpColor;
 	QStringList DontChange;
 	ScribusDoc* m_Doc;
+	bool paletteLocked;
 
 private slots:
 	void saveDefaults();

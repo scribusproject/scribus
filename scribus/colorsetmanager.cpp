@@ -111,14 +111,27 @@ void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
 	QStringList locations=ScPaths::instance().getSystemCreateSwatchesDirs();
-	locations << ScPaths::instance().getSystemXDGDirs("swatches");
-	locations << ScPaths::instance().libDir()+"swatches/";
+	locations << ScPaths::instance().shareDir()+"swatches/";
+	locations << ScPaths::instance().getDirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
 	{
-		QFile createDir(*it);
-		if (createDir.exists())
+		QFile paletteDir(*it);
+		if (paletteDir.exists())
+		{
 			paletteLocations << (*it);
-    }
+			paletteLocationLocks.insert((*it), false);
+		}
+	}
+	QStringList xdgSysLocations=ScPaths::instance().getDirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");
+	for ( QStringList::Iterator it = xdgSysLocations.begin(); it != xdgSysLocations.end(); ++it )
+	{
+		QFile paletteDir(*it);
+		if (paletteDir.exists())
+		{
+			paletteLocations << (*it);
+			paletteLocationLocks.insert((*it), true);
+		}
+	}
 }
 
 void ColorSetManager::findPalettes()
@@ -130,6 +143,7 @@ void ColorSetManager::findPalettes()
 		path=(*it);
 		QDir dir(path , "*.xml *.gpl *.eps *.ai *.sla *.soc", QDir::Name, QDir::Files | QDir::NoSymLinks);
 		if (dir.exists() && (dir.count() != 0))
+		{
 			for (uint i = 0; i < dir.count(); ++i) 
 			{
 				QFileInfo file(path + dir[i]);
@@ -137,6 +151,7 @@ void ColorSetManager::findPalettes()
 				setName.replace("_", " ");
 				palettes.insert(setName, file.absoluteFilePath());
 			}
+		}
 	}
 }
 
@@ -154,3 +169,9 @@ QString ColorSetManager::paletteFileFromName(const QString& paletteName)
 		return palettes[paletteName];
 	return QString();
 }
+
+bool ColorSetManager::paletteLocationLocked(const QString& palettePath)
+{
+	return (paletteLocationLocks.contains(palettePath) && paletteLocationLocks.value(palettePath)==true);
+}
+

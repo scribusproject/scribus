@@ -224,7 +224,7 @@ void FontPrefsTab::AddPath()
 	{
 		dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
 		if( s.endsWith("/") )
-			s = s.left(s.length()-1);
+			s.chop(1);
 		QString s2 = QDir::convertSeparators(s);
 		if (PathList->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
@@ -248,8 +248,8 @@ void FontPrefsTab::ChangePath()
 	if (!s.isEmpty())
 	{
 		if( s.endsWith("/") )
-			s = s.left(s.length()-1);
-		QString s2 = QDir::convertSeparators(s2);
+			s.chop(1);
+		QString s2 = QDir::convertSeparators(s);
 		if (PathList->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		QString path = PathList->currentItem()->text();

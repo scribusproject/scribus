@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QLabel>
+#include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFile>
@@ -121,7 +122,8 @@ void Prefs_Fonts::languageChange()
 void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	// 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-		fontListTableView->setFonts(prefsData->fontPrefs.AvailFonts);
+	m_availFonts=prefsData->fontPrefs.AvailFonts;
+		fontListTableView->setFonts(m_availFonts);
 		/*
 		DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
 		It's just a performance vs. functionality test.
@@ -184,7 +186,8 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 	// 	UsedFonts.sort();
 		FlagsRepl.clear();
 		fontSubstitutionsTableWidget->clearContents();
-		fontSubstitutionsTableWidget->setRowCount(prefsData->fontPrefs.GFontSub.count());
+		m_GFontSub=prefsData->fontPrefs.GFontSub;
+		fontSubstitutionsTableWidget->setRowCount(m_GFontSub.count());
 		int a = 0;
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
@@ -200,11 +203,12 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 			FlagsRepl.append(item);
 			a++;
 		}
-		updateFontList(prefsData);
+		updateFontList();
 }
 
 void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
+	writePaths();
 	prefsData->fontPrefs.GFontSub.clear();
 	uint a = 0;
 	for (QMap<QString,QString>::ConstIterator itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
@@ -217,19 +221,17 @@ void Prefs_Fonts::ReplaceSel(int, int)
 	deleteSubstitutionButton->setEnabled(true);
 }
 
-void Prefs_Fonts::updateFontList(struct ApplicationPrefs *prefsData)
+void Prefs_Fonts::updateFontList()
 {
-	QString tmp;
 	UsedFonts.clear();
-	SCFonts fonts = prefsData->fontPrefs.AvailFonts;
-	SCFontsIterator it(fonts);
+	SCFontsIterator it(m_availFonts);
 	for ( ; it.hasNext() ; it.next())
 	{
-		if (fonts[it.currentKey()].usable())
+		if (m_availFonts[it.currentKey()].usable())
 			UsedFonts.append(it.currentKey());
 	}
 	UsedFonts.sort();
-
+	QString tmp;
 	for (int b = 0; b < FlagsRepl.count(); ++b)
 	{
 		tmp = FlagsRepl.at(b)->currentText();
@@ -262,7 +264,7 @@ void Prefs_Fonts::readPaths()
 		pathListWidget->addItem( QDir::convertSeparators(fontPathTable->get(i,0)) );
 }
 
-void Prefs_Fonts::writePaths()
+void Prefs_Fonts::writePaths() const
 {
 	Q_ASSERT(m_doc==0); // should never be called in doc-specific prefs
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
@@ -292,20 +294,19 @@ void Prefs_Fonts::AddPath()
 	{
 		dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
 		if( s.endsWith("/") )
-			s = s.left(s.length()-1);
+			s.chop(1);
 		QString s2 = QDir::convertSeparators(s);
 		if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		pathListWidget->addItem(s2);
-		writePaths();
+		//writePaths();
 		changeButton->setEnabled(false);
 		removeButton->setEnabled(false);
 		CurrentPath = s;
-		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
-		QString dir = QDir::fromNativeSeparators(s2);
-		availFonts->AddScalableFonts(dir +"/");
-		availFonts->updateFontMap();
-		restoreDefaults(NULL);
+		QString dir(QDir::fromNativeSeparators(s2));
+		m_availFonts.AddScalableFonts(dir +"/");
+		m_availFonts.updateFontMap();
+		updateFontList();
 	}
 }
 
@@ -316,28 +317,27 @@ void Prefs_Fonts::ChangePath()
 	if (!s.isEmpty())
 	{
 		if( s.endsWith("/") )
-			s = s.left(s.length()-1);
-		QString s2 = QDir::convertSeparators(s2);
+			s.chop(1);
+		QString s2 = QDir::convertSeparators(s);
 		if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		QString path = pathListWidget->currentItem()->text();
-		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
-		SCFontsIterator it(*availFonts);
+		SCFontsIterator it(m_availFonts);
 		for ( ; it.hasNext(); it.next())
 		{
 			if (it.current().isNone())
 				continue;
 			QFileInfo fi(it.current().fontFilePath());
 			if (fi.absolutePath() == path)
-				availFonts->remove(it.currentKey());
+				m_availFonts.remove(it.currentKey());
 		}
 		pathListWidget->currentItem()->setText(s2);
-		writePaths();
+		//writePaths();
 		CurrentPath = s;
 		QString dir = QDir::fromNativeSeparators(s2);
-		availFonts->AddScalableFonts(dir +"/");
-		availFonts->updateFontMap();
-		restoreDefaults(NULL);
+		m_availFonts.AddScalableFonts(dir +"/");
+		m_availFonts.updateFontMap();
+		updateFontList();
 		changeButton->setEnabled(false);
 		removeButton->setEnabled(false);
 	}
@@ -354,23 +354,22 @@ void Prefs_Fonts::DelPath()
 			pathListWidget->clear();
 		else
 			delete pathListWidget->takeItem(pathListWidget->currentRow());
-		writePaths();
+		//writePaths();
 	}
 	else
 		return;
-	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
-	SCFontsIterator it(*availFonts);
+	SCFontsIterator it(m_availFonts);
 	for ( ; it.hasNext(); it.next())
 	{
 		if (it.current().isNone())
 			continue;
 		QFileInfo fi(it.current().fontFilePath());
 		if (fi.absolutePath() == path)
-			availFonts->remove(it.currentKey());
+			m_availFonts.remove(it.currentKey());
 	}
-	availFonts->updateFontMap();
+	m_availFonts.updateFontMap();
 	CurrentPath = "";
-	restoreDefaults(NULL);
+	updateFontList();
 	changeButton->setEnabled(false);
 	removeButton->setEnabled(false);
 }

@@ -48,7 +48,10 @@ for which a new license (GPL+exception) is in place.
 
 
 ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet)
-		: QDialog( parent ), EditColors(doc, true), UsedC(doc, true)
+		: QDialog( parent ),
+		EditColors(doc, true),
+		UsedC(doc, true),
+		paletteLocked(false)
 {
 	setModal(true);
 	setWindowTitle( tr( "Colors" ) );
@@ -262,6 +265,7 @@ void ColorManager::loadDefaults(const QString &txt)
 		EditColors.insert("Red", ScColor(0, 255, 255, 0));
 		EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
+		paletteLocked=false;
 	}
 	else
 	{
@@ -274,6 +278,9 @@ void ColorManager::loadDefaults(const QString &txt)
 			Fname += ".xml";
 			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
 		}
+
+		QFileInfo fi(pfadC2);
+		paletteLocked=csm.paletteLocationLocked(fi.absolutePath()+"/");
 	}
 	if (txt != "Scribus Small")
 	{
@@ -455,46 +462,62 @@ void ColorManager::deleteColor()
 
 void ColorManager::selColor(QListWidgetItem *c)
 {
-	sColor = c->text();
-	ScColor tmpColor = EditColors[sColor];
-	bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
-	bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
-	editColorButton->setEnabled(enableEdit);
-	duplicateColorButton->setEnabled(sColor != "Registration");
-	deleteColorButton->setEnabled(enableDel);
+	if (!paletteLocked)
+	{
+		sColor = c->text();
+		ScColor tmpColor = EditColors[sColor];
+		bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
+		bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
+		editColorButton->setEnabled(enableEdit);
+		duplicateColorButton->setEnabled(sColor != "Registration");
+		deleteColorButton->setEnabled(enableDel);
+	}
 }
 
 void ColorManager::selEditColor(QListWidgetItem *c)
 {
-	sColor = c->text();
-	ScColor tmpColor = EditColors[sColor];
-	bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
-	bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
-	editColorButton->setEnabled(enableEdit);
-	duplicateColorButton->setEnabled(!tmpColor.isRegistrationColor());
-	deleteColorButton->setEnabled(enableDel);
-	if(enableEdit)
-		editColor();
+	if (!paletteLocked)
+	{
+		sColor = c->text();
+		ScColor tmpColor = EditColors[sColor];
+		bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
+		bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
+		editColorButton->setEnabled(enableEdit);
+		duplicateColorButton->setEnabled(!tmpColor.isRegistrationColor());
+		deleteColorButton->setEnabled(enableDel);
+		if(enableEdit)
+			editColor();
+	}
 }
 
 void ColorManager::updateButtons()
 {
-	ColorPixmapItem* currItem = dynamic_cast<ColorPixmapItem*>(colorListBox->currentItem());
-	if (currItem)
+	deleteColorButton->setEnabled(!paletteLocked);
+	newColorButton->setEnabled(!paletteLocked);
+	editColorButton->setEnabled(!paletteLocked);
+	duplicateColorButton->setEnabled(!paletteLocked);
+	saveButton->setEnabled(!paletteLocked);
+	importColorsButton->setEnabled(!paletteLocked);
+
+	if (!paletteLocked)
 	{
-		QString curCol = currItem->text();
-		ScColor tmpColor = EditColors[curCol];
-		bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
-		bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
-		duplicateColorButton->setEnabled(sColor != "Registration");
-		deleteColorButton->setEnabled(enableDel);
-		editColorButton->setEnabled(enableEdit);
-	}
-	else
-	{
-		duplicateColorButton->setEnabled(false);
-		editColorButton->setEnabled(false);
-		deleteColorButton->setEnabled(false);
+		ColorPixmapItem* currItem = dynamic_cast<ColorPixmapItem*>(colorListBox->currentItem());
+		if (currItem)
+		{
+			QString curCol = currItem->text();
+			ScColor tmpColor = EditColors[curCol];
+			bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
+			bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
+			duplicateColorButton->setEnabled(sColor != "Registration");
+			deleteColorButton->setEnabled(enableDel);
+			editColorButton->setEnabled(enableEdit);
+		}
+		else
+		{
+			duplicateColorButton->setEnabled(false);
+			editColorButton->setEnabled(false);
+			deleteColorButton->setEnabled(false);
+		}
 	}
 }
 

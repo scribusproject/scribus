@@ -1062,21 +1062,27 @@ IF (HAVE_BOOST)
 ENDIF(HAVE_BOOST)
 
 # Now build plugins
-SET(PLUGIN_LIBRARIES)
+SET(PLUGIN_LIBRARIES
+  ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTXML_LIBRARY}
+  ${LIBXML2_LIBRARIES}
+  ${ZLIB_LIBRARIES}
+)
 IF(WIN32)
   # IF your plugin needs more than this, please link them privately
   # in the CMakeLists.txt for your plugin.
   SET(PLUGIN_LIBRARIES
 #    ${QT_LIBRARIES} part of #7210
-    ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTXML_LIBRARY}
-    ${LIBXML2_LIBRARIES}
-    ${ZLIB_LIBRARIES}
+	${PLUGIN_LIBRARIES}
     ${EXE_NAME}
     )
 ENDIF(WIN32)
 IF(APPLE)
-  SET(PLUGIN_LIBRARIES "-undefined dynamic_lookup")
+  SET(PLUGIN_LIBRARIES
+	${PLUGIN_LIBRARIES}
+	"-undefined dynamic_lookup"
+  )
 ENDIF(APPLE)
+MESSAGE(STATUS ${PLUGIN_LIBRARIES})
 
 ADD_SUBDIRECTORY(plugins)
 
