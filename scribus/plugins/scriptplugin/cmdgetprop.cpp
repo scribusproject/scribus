@@ -173,7 +173,7 @@ PyObject *scribus_getlinejoin(PyObject* /* self */, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineJoin)) : NULL;
 }
 
-PyObject *scribus_getlineend(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getlinecap(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -338,7 +338,7 @@ void cmdgetpropdocwarnings()
 	  << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ 
 	  << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ 
 	  << scribus_getlineshade__doc__ << scribus_getlinejoin__doc__ 
-	  << scribus_getlineend__doc__ << scribus_getlinestyle__doc__ 
+	  << scribus_getlinecap__doc__ << scribus_getlinestyle__doc__ 
 	  << scribus_getfillshade__doc__ << scribus_getcornerrad__doc__ 
 	  << scribus_getimgscale__doc__ << scribus_getimgname__doc__ 
 	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
