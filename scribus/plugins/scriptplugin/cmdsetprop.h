@@ -134,15 +134,15 @@ predefined constants for join - JOIN_<type>.\n\
 PyObject *scribus_setlinejoin(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setlineend__doc__,
-QT_TR_NOOP("setLineEnd(endtype, [\"name\"])\n\
+PyDoc_STRVAR(scribus_setlinecap__doc__,
+QT_TR_NOOP("setLineCap(endtype, [\"name\"])\n\
 \n\
 Sets the line cap style of the object \"name\" to the style \"cap\".\n\
 If \"name\" is not given the currently selected item is used. There are\n\
 predefined constants for \"cap\" - CAP_<type>.\n\
 "));
 /*! Set line end */
-PyObject *scribus_setlineend(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlinecap(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinestyle__doc__,

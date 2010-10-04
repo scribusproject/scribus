@@ -113,15 +113,15 @@ JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND\n\
 PyObject *scribus_getlinejoin(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getlineend__doc__,
-QT_TR_NOOP("getLineEnd([\"name\"]) -> integer (see constants)\n\
+PyDoc_STRVAR(scribus_getlinecap__doc__,
+QT_TR_NOOP("getLineCap([\"name\"]) -> integer (see constants)\n\
 \n\
 Returns the line cap style of the object \"name\". If \"name\" is not given the\n\
 currently selected item is used. The cap types are:\n\
 CAP_FLAT, CAP_ROUND, CAP_SQUARE\n\
 "));
 /*! Returns cap type of the line */
-PyObject *scribus_getlineend(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlinecap(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinestyle__doc__,
