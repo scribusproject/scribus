@@ -7,7 +7,6 @@ ADD_SUBDIRECTORY(gettext)
 # ADD_SUBDIRECTORY(newfromtemplateplugin)
 ADD_SUBDIRECTORY(pixmapexport)
 ADD_SUBDIRECTORY(saveastemplateplugin)
-
 IF(NOT WANT_SCRIPTER2)
   #scripter1
   IF(NOT WIN32)
