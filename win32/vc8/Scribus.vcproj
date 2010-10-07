@@ -13495,6 +13495,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\prefs_pagesizesbase.ui"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\prefs_pathsbase.ui"
 				>
 			</File>
