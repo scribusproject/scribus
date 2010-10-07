@@ -84,8 +84,6 @@ void LanguageManager::generateLangList()
 	langList.insert("fi",       langPair("Finnish",             QObject::tr( "Finnish" )) );
 	langList.insert("fr",       langPair("French",              QObject::tr( "French" )) );
 	langList.insert("fr_FR",    langPair("French",              QObject::tr( "French" )) );
-	langList.insert("ga",       langPair("Galician",            QObject::tr( "Galician" )) );
-	langList.insert("galician", langPair("Galician",            QObject::tr( "Galician" )) );
 	langList.insert("gl",       langPair("Galician",            QObject::tr( "Galician" )) );
 	langList.insert("el",       langPair("Greek",               QObject::tr( "Greek" )) );
 	langList.insert("he",       langPair("Hebrew",              QObject::tr( "Hebrew" )) );
