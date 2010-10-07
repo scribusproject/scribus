@@ -28,9 +28,7 @@ public:
 	void show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
 
 	void clearAll();
-
 	void languageChange();
-
 	void unitChange(double oldRatio, double newRatio, int unitIndex);
 
 private:

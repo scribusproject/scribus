@@ -29,6 +29,7 @@ public:
 	
 	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
 	void languageChange();
+	void unitChange(double oldRatio, double newRatio, int unitIndex);
 
 private:
 	LineCombo *dashCombo;
