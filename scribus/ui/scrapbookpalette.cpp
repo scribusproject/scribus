@@ -839,11 +839,19 @@ void Biblio::NewLib()
 		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		QDir d(fileName);
 		activeBView = new BibView(this);
-		Frame3->addItem(activeBView, d.dirName());
+		QFileInfo fd(fileName);
+		activeBView->canWrite = fd.isWritable();
+		activeBView->setAcceptDrops(activeBView->canWrite);
+		if (activeBView->canWrite)
+			Frame3->addItem(activeBView, d.dirName());
+		else
+			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
+		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
 		Frame3->setCurrentWidget(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
+		activeBView->scrollToTop();
 		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
