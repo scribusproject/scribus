@@ -58,6 +58,7 @@ private:
 	QTabWidget               *twidget_;
 	QMap<QString, multiLine>  tmpLines;
 	bool                      selectionIsDirty_;
+	double unitRatio_;
 	QMap<QString, multiLine*> selection_;
 	QList<RemoveItem>         deleted_;
 	int                       currentLine_;

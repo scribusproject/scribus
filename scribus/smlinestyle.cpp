@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-SMLineStyle::SMLineStyle() : StyleItem(), doc_(0), widget_(0), twidget_(0), selectionIsDirty_(false)
+SMLineStyle::SMLineStyle() : StyleItem(), doc_(0), widget_(0), twidget_(0), selectionIsDirty_(false), unitRatio_(1.0)
 {
 	
 }
@@ -54,6 +54,11 @@ void SMLineStyle::setCurrentDoc(ScribusDoc *doc)
 	{
 		tmpLines = doc_->MLineStyles;
 		selection_.clear();
+		if (widget_)
+		{
+			if (unitRatio_ != doc_->unitRatio())
+				unitChange();
+		}
 	}
 	else
 	{
@@ -368,7 +373,10 @@ void SMLineStyle::languageChange()
 
 void SMLineStyle::unitChange()
 {
-
+	double oldRatio = unitRatio_;
+	unitRatio_ = doc_->unitRatio();
+	if (widget_)
+		widget_->unitChange(oldRatio, unitRatio_, doc_->unitIndex());
 }
 
 void SMLineStyle::setupConnections()

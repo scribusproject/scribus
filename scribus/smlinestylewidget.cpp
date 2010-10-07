@@ -71,8 +71,12 @@ void SMLineStyleWidget::languageChange()
 /***********************************/
 /*      End Tooltips               */
 /***********************************/
+}
 
 
+void SMLineStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
+{
+	lineWidth->setNewUnit(unitIndex);
 }
 
 void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine)
@@ -145,7 +149,7 @@ void SMLineStyleWidget::updateLineList()
 	for (multiLine::iterator it = currentStyle.begin(); it != currentStyle.end(); ++it)
 	{
 		pm2 = getWidePixmap(getColor((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
+		tmp2 = " "+tmp.setNum((*it).Width)+ lineWidth->suffix()+" ";
 		if ((*it).Dash < 6)
 			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
 		tmp2 += " ";
