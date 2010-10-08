@@ -810,7 +810,6 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		spc++;
 		if (sp > 6)
 		{
-		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
 			QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
