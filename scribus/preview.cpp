@@ -759,7 +759,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	QStringList spots = usedSpots.keys();
 	args3.append( "-sDEVICE=tiffsep" );
 
-	args3.append( "-c" );
+//	args3.append( "-c" );
 	cmd = "<< /SeparationColorNames ";
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
 	for (int sp = 0; sp < spots.count(); ++sp)
@@ -768,9 +768,18 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	}
 	allSeps += "]";
 	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
-	args3.append(cmd);
-
+	QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+	if (fx.open(QIODevice::WriteOnly))
+	{
+		QTextStream tsx(&fx);
+		tsx << cmd;
+		fx.close();
+	}
 	args3.append("-f");
+	args3.append(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+//	args3.append(cmd);
+
+//	args3.append("-f");
 	QString gsExe(getShortPathName(prefsManager->ghostscriptExecutable()));
 	ret = System(gsExe, args1 + args3 + args2, ScPaths::getTempFileDir()+"/sc.tif.txt" );
 
@@ -801,11 +810,18 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		spc++;
 		if (sp > 6)
 		{
+		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
-			args3.append("-c");
-			args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+			QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+			if (fx.open(QIODevice::WriteOnly))
+			{
+				QTextStream tsx(&fx);
+				tsx << QString("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+				fx.close();
+			}
 			args3.append("-f");
+			args3.append(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 			ret = System(gsExe, args1 + args3 + args2);
 			currSeps = "";
 			spc = 0;
@@ -815,9 +831,15 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	{
 		args3.clear();
 		args3.append("-sDEVICE=tiffsep");
-		args3.append("-c");
-		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+		QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+		if (fx.open(QIODevice::WriteOnly))
+		{
+			QTextStream tsx(&fx);
+			tsx << QString("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+			fx.close();
+		}
 		args3.append("-f");
+		args3.append(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 		ret = System(gsExe, args1 + args3 + args2);
 	}
 	return ret;
@@ -945,7 +967,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			CMSettings cms(doc, "", 0);
 			if (flagsVisible["Cyan"]->isChecked())
 			{
-				if (GsMinor < 54)
+				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
@@ -961,7 +983,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
-				if (GsMinor < 54)
+				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
@@ -977,7 +999,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
-				if (GsMinor < 54)
+				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
@@ -1000,7 +1022,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					if (checkBox && checkBox->isChecked())
 					{
 						QString fnam;
-						if (GsMinor < 54)
+						if ((GsMinor < 54) && (GsMajor < 9))
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
 						else
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
@@ -1019,7 +1041,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Black"]->isChecked())
 			{
 				CMSettings cms(doc, "", 0);
-				if (GsMinor < 54)
+				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
