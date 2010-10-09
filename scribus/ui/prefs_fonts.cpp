@@ -208,7 +208,8 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	writePaths();
+	if (m_doc==0)
+		writePaths();
 	prefsData->fontPrefs.GFontSub.clear();
 	uint a = 0;
 	for (QMap<QString,QString>::ConstIterator itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
