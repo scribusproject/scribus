@@ -416,8 +416,6 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction(loadIcon("16/go-down.png"), loadIcon("22/go-down.png"), "", defaultKey(name), mainWindow));
 	name="itemRaise";
 	scrActions->insert(name, new ScrAction(loadIcon("16/go-up.png"), loadIcon("22/go-up.png"), "", defaultKey(name), mainWindow));
-//	name="itemSendToScrapbook";
-//	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemSendToPattern";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemImageInfo";
@@ -488,7 +486,6 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemUngroup"], SIGNAL(triggered()), mainWindow, SLOT(UnGroupObj()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
-//	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(triggered()), mainWindow, SLOT(PutScrap()) );
 	connect( (*scrActions)["itemSendToPattern"], SIGNAL(triggered()), mainWindow, SLOT(PutToPatterns()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(triggered()), mainWindow, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(triggered()), mainWindow, SLOT(toggleNodeEdit()) );
@@ -1377,7 +1374,6 @@ void ActionManager::languageChange()
 	(*scrActions)["itemRaiseToTop"]->setTexts( tr("Raise to &Top"));
 	(*scrActions)["itemLower"]->setTexts( tr("&Lower"));
 	(*scrActions)["itemRaise"]->setTexts( tr("&Raise"));
-//	(*scrActions)["itemSendToScrapbook"]->setTexts( tr("Send to S&crapbook"));
 	(*scrActions)["itemSendToPattern"]->setTexts( tr("Send to Patterns"));
 	(*scrActions)["itemAttributes"]->setTexts( tr("&Attributes..."));
 	(*scrActions)["itemImageInfo"]->setTexts( tr("More Info..."));
@@ -1800,7 +1796,6 @@ void ActionManager::createDefaultMenus()
 		<< "itemLower" 
 		<< "itemRaiseToTop" 
 		<< "itemLowerToBottom" 
-//		<< "itemSendToScrapbook" 
 		<< "itemSendToPattern" 
 		<< "itemAttributes" 
 		<< "itemPDFIsAnnotation" 

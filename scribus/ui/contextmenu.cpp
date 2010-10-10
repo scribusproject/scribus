@@ -92,7 +92,6 @@ void ContextMenu::createMenuItems_Selection()
 	QMenu *menuInfo = new QMenu(this);
 	QMenu *menuLayer = new QMenu(this);
 	QMenu *menuLevel = new QMenu(this);
-	QMenu *menuScrap = new QMenu(this);
 	QMenu *menuPDF = new QMenu(this);
 	QMenu *menuResolution = new QMenu(this);
 	
