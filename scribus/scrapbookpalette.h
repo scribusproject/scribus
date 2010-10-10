@@ -44,6 +44,7 @@ public:
 	};
 	QMap<QString,Elem> objectMap;
 	QString ScFilename;
+	QString visibleName;
 	bool canWrite;
 
 signals:
@@ -82,6 +83,7 @@ public:
 	void installEventFilter(QObject *);
 	void setOpenScrapbooks(QStringList &fileNames);
 	QStringList getOpenScrapbooks();
+	QStringList getOpenScrapbooksNames();
 	QString getObjectName(QString &text);
 	BibView* tempBView;
 	BibView* activeBView;
@@ -90,6 +92,7 @@ public:
 public slots:
 	void languageChange();
 	void ObjFromMenu(QString text);
+	void ObjFromMainMenu(QString text, int scrapID);
 
 private slots:
 	void handleDoubleClick(QListWidgetItem *ite);

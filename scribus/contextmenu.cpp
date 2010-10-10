@@ -22,8 +22,10 @@
 #include <QWidgetAction>
 
 #include "contextmenu.h"
+#include "menumanager.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
+#include "scrapbookpalette.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -272,7 +274,9 @@ void ContextMenu::createMenuItems_Selection()
 	
 	if (selectedItemCount>0)
 	{
-		addAction(m_AP->scrActions["itemSendToScrapbook"]);
+//		addAction(m_AP->scrActions["itemSendToScrapbook"]);
+		QAction *actSc = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("itemSendToScrapbook"));
+		actSc->setText( ScribusView::tr("Send to Scrapbook"));
 		addAction(m_AP->scrActions["itemSendToPattern"]);
 		//<-- Add Layer Items
 		if (m_doc->layerCount() > 1)

@@ -238,6 +238,7 @@ public:
 	QMap<QString, QPointer<ScrAction> > scrActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
 	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
+	QMap<QString, QPointer<ScrAction> > scrScrapActions;
 	QMap<QString, QPointer<ScrAction> > scrLayersActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
 	QMap<QString, QPointer<ScToolBar> > scrToolBars;
@@ -281,7 +282,7 @@ public slots:
 	//void doDeHyphenate();
 	void slotTest();
 	void slotTest2();
-	void PutScrap();
+	void PutScrap(int scID);
 	void PutToPatterns();
 	void changeLayer(int);
 	void showLayer();
