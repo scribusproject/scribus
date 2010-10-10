@@ -418,7 +418,8 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 		else
 		{	//Double click in a frame to select a word
 			oldCp = currItem->CPos;
-			currItem->CPos = currItem->itemText.selectWord(currItem->CPos);
+			currItem->CPos   = currItem->itemText.selectWord(currItem->CPos);
+			currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
 		}
 	}
 	else
