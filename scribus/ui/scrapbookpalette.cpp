@@ -302,6 +302,12 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 
 void BibView::SaveContents(QString name, QString oldName)
 {
+	QDir thumbs(name);
+	if (thumbs.exists())
+	{
+		if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			thumbs.mkdir(".ScribusThumbs");
+	}
 	QDir d(oldName, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -313,9 +319,9 @@ void BibView::SaveContents(QString name, QString oldName)
 			QString ff = QString::fromUtf8(cf.data());
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 			if (fi2.exists())
-				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 			else
 			{
 				QString f;
@@ -329,7 +335,7 @@ void BibView::SaveContents(QString name, QString oldName)
 			}
 			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])));
 			if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-				pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/"+fi3.baseName()+".png")), "PNG");
+				pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/.ScribusThumbs/"+fi3.baseName()+".png")), "PNG");
 			checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), QDir::cleanPath(QDir::convertSeparators(name)));
 		}
 	}
@@ -418,9 +424,9 @@ void BibView::SaveContents(QString name, QString oldName)
 				fil.close();
 				QPixmap pm;
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 				if (fi2.exists())
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 				else
 				{
 					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
@@ -439,7 +445,7 @@ void BibView::SaveContents(QString name, QString oldName)
 				}
 				QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
 				if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-					pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/"+fi3.baseName()+".png")), "PNG");
+					pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/.ScribusThumbs/"+fi3.baseName()+".png")), "PNG");
 			}
 		}
 	}
@@ -493,12 +499,19 @@ void BibView::ReadContents(QString name)
 		nd = name.left(name.length()-1);
 	int fileCount = 0;
 	int readCount = 0;
+	QDir thumbs(name);
+	if (thumbs.exists())
+	{
+		if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			thumbs.mkdir(".ScribusThumbs");
+		thumbs.cd(".ScribusThumbs");
+	}
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		fileCount += d.count();
+	fileCount += d.count();
 	QDir d2(name, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		fileCount += d2.count();
+	fileCount += d2.count();
 	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		fileCount += d3.count();
+	fileCount += d3.count();
 	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	for (int v = 0; v < vectorFiles.count(); v++)
 	{
@@ -526,9 +539,9 @@ void BibView::ReadContents(QString name)
 			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 			if (fi2.exists())
-				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 			else
 			{
 				QString f;
@@ -539,7 +552,7 @@ void BibView::ReadContents(QString name)
 				ScPreview *pre = new ScPreview();
 				pm = QPixmap::fromImage(pre->createPreview(f));
 				if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-					pm.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")), "PNG");
+					pm.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 			}
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), pm);
@@ -627,9 +640,9 @@ void BibView::ReadContents(QString name)
 				}
 				QPixmap pm;
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 				if (fi2.exists())
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
+					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
 				else
 				{
 					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
@@ -643,7 +656,7 @@ void BibView::ReadContents(QString name)
 							QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
 							im = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 							if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-								im.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")), "PNG");
+								im.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")), "PNG");
 							pm = QPixmap::fromImage(im);
 						}
 					}
@@ -1122,6 +1135,12 @@ bool Biblio::copyObj(int id)
 		return false;
 	pm = activeBView->objectMap[ite->text()].Preview;
 	QString dt = activeBView->objectMap[ite->text()].Data;
+	QDir thumbs(bv->ScFilename);
+	if (thumbs.exists())
+	{
+		if ((bv->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+			thumbs.mkdir(".ScribusThumbs");
+	}
 	QFileInfo fi(dt);
 	QFile f(QDir::cleanPath(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.completeSuffix().toLower())));
 	if(!f.open(QIODevice::WriteOnly))
@@ -1131,7 +1150,7 @@ bool Biblio::copyObj(int id)
 	s.writeRawData(cf.data(), cf.length());
 	f.close();
 	bv->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.completeSuffix().toLower())), pm);
-	pm.save(QDir::cleanPath(QDir::convertSeparators(bv->ScFilename + "/" + nam +".png")), "PNG");
+	pm.save(QDir::cleanPath(QDir::convertSeparators(bv->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
 	QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + fi.baseName()));
 	if ((fiD.exists()) && (fiD.isDir()))
 	{
@@ -1167,10 +1186,10 @@ bool Biblio::copyObj(int id)
 			it = tempBView->objectMap.begin();
 			QFile f(it.value().Data);
 			f.remove();
-			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 			if (fi.exists())
 			{
-				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 				f2.remove();
 			}
 			QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
@@ -1217,9 +1236,9 @@ void Biblio::deleteObj()
 	QListWidgetItem *ite = actItem;
 	QString name = ite->text();
 	QFile::remove(activeBView->objectMap[name].Data);
-	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
+	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + name + ".png"));
 	if (fi.exists())
-		QFile::remove(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
+		QFile::remove(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + name + ".png"));
 	QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + name));
 	if ((fiD.exists()) && (fiD.isDir()))
 	{
@@ -1254,10 +1273,10 @@ void Biblio::deleteAllObj()
 	{
 		QFile f(it.value().Data);
 		f.remove();
-		QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key() + ".png"));
+		QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 		if (fi.exists())
 		{
-			QFile f2(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key() + ".png"));
+			QFile f2(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 			f2.remove();
 		}
 		QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key()));
@@ -1309,9 +1328,9 @@ void Biblio::renameObj()
 	ObjPreview = activeBView->objectMap[OldName].Preview;
 	QDir d = QDir();
 	d.rename(ObjData, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
-	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"));
+	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + OldName + ".png"));
 	if (fi.exists())
-		d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"), QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
+		d.rename(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + OldName + ".png"), QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
 	QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName));
 	if ((fiD.exists()) && (fiD.isDir()))
 	{
@@ -1452,7 +1471,15 @@ void Biblio::ObjFromFile(QString path, int testResult)
 			s.writeRawData(cf.data(), cf.length());
 			f.close();
 			if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-				im.save(QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
+			{
+				QDir thumbs(activeBView->ScFilename);
+				if (thumbs.exists())
+				{
+					if ((activeBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+						thumbs.mkdir(".ScribusThumbs");
+				}
+				im.save(QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
+			}
 			activeBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + "." + fi.completeSuffix())), pm);
 			QPixmap pm2(60, 60);
 			pm2.fill(palette().color(QPalette::Base));
@@ -1469,10 +1496,10 @@ void Biblio::ObjFromFile(QString path, int testResult)
 					it = tempBView->objectMap.begin();
 					QFile f(it.value().Data);
 					f.remove();
-					QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+					QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 					if (fi.exists())
 					{
-						QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+						QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 						f2.remove();
 					}
 					QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
@@ -1547,7 +1574,15 @@ void Biblio::ObjFromMenu(QString text)
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	activeBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-		pm.save(QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
+	{
+		QDir thumbs(activeBView->ScFilename);
+		if (thumbs.exists())
+		{
+			if ((activeBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+				thumbs.mkdir(".ScribusThumbs");
+		}
+		pm.save(QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
+	}
 	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
 	pm2.fill(palette().color(QPalette::Base));
@@ -1565,10 +1600,10 @@ void Biblio::ObjFromMenu(QString text)
 			it = tempBView->objectMap.begin();
 			QFile f(it.value().Data);
 			f.remove();
-			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 			if (fi.exists())
 			{
-				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 				f2.remove();
 			}
 			QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
@@ -1615,7 +1650,15 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	tempBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-		pm.save(QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
+	{
+		QDir thumbs(tempBView->ScFilename);
+		if (thumbs.exists())
+		{
+			if ((tempBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+				thumbs.mkdir(".ScribusThumbs");
+		}
+		pm.save(QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
+	}
 	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
 	pm2.fill(palette().color(QPalette::Base));
@@ -1631,10 +1674,10 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 		it = tempBView->objectMap.begin();
 		QFile f(it.value().Data);
 		f.remove();
-		QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+		QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 		if (fi.exists())
 		{
-			QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 			f2.remove();
 		}
 		QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
@@ -1698,7 +1741,15 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
 	actBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-		pm.save(QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename + "/" + nam +".png")), "PNG");
+	{
+		QDir thumbs(actBView->ScFilename);
+		if (thumbs.exists())
+		{
+			if ((actBView->canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+				thumbs.mkdir(".ScribusThumbs");
+		}
+		pm.save(QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
+	}
 	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
 	pm2.fill(palette().color(QPalette::Base));
