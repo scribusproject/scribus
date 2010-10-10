@@ -25,8 +25,10 @@
 #include "prefsmanager.h"
 #include "scmimedata.h"
 #include "scraction.h"
+#include "scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
 #include "canvasmode_legacy.h"
 
@@ -90,6 +92,7 @@ void ContextMenu::createMenuItems_Selection()
 	QMenu *menuInfo = new QMenu(this);
 	QMenu *menuLayer = new QMenu(this);
 	QMenu *menuLevel = new QMenu(this);
+	QMenu *menuScrap = new QMenu(this);
 	QMenu *menuPDF = new QMenu(this);
 	QMenu *menuResolution = new QMenu(this);
 	
@@ -281,7 +284,16 @@ void ContextMenu::createMenuItems_Selection()
 	
 	if (selectedItemCount>0)
 	{
-		addAction(m_AP->scrActions["itemSendToScrapbook"]);
+//		QStringList scrapNames = m_AP->scrapbookPalette->getOpenScrapbooksNames();
+//		scrapNames.removeAt(1);
+//		for (int i = 0; i < scrapNames.count(); i++)
+//		{
+//			menuScrap->addAction(scrapNames[i], m_AP, SLOT(PutScrap(int)));
+//		}
+		QAction *actSc = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("itemSendToScrapbook"));
+		actSc->setText( ScribusView::tr("Send to Scrapbook"));
+
+//		addAction(m_AP->scrActions["itemSendToScrapbook"]);
 		addAction(m_AP->scrActions["itemSendToPattern"]);
 		//<-- Add Layer Items
 		if (m_doc->layerCount() > 1)

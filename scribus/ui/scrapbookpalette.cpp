@@ -66,6 +66,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	setIconSize(QSize(60, 60));
 	objectMap.clear();
 	ScFilename = "";
+	visibleName = "";
 	canWrite = true;
 }
 
@@ -714,8 +715,10 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	Frame3 = new QToolBox( this );
 	activeBView = new BibView(this);
 	Frame3->addItem(activeBView, tr("Main"));
+	activeBView->visibleName = tr("Main");
 	tempBView = new BibView(this);
 	Frame3->addItem(tempBView, tr("Copied Items"));
+	tempBView->visibleName = tr("Copied Items");
 	tempCount = 0;
 	actItem = 0;
 	BiblioLayout->addWidget( Frame3 );
@@ -753,6 +756,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 				Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 			activeBView->ReadContents(fileName);
 			activeBView->ScFilename = fileName;
+			activeBView->visibleName = d.dirName();
 			activeBView->scrollToTop();
 		}
 	}
@@ -776,6 +780,18 @@ QStringList Biblio::getOpenScrapbooks()
 			BibView* bv = (BibView*)Frame3->widget(a);
 			ret.append(bv->ScFilename);
 		}
+	}
+	return ret;
+}
+
+QStringList Biblio::getOpenScrapbooksNames()
+{
+	QStringList ret;
+	ret.clear();
+	for (int a = 0; a < Frame3->count(); a++)
+	{
+		BibView* bv = (BibView*)Frame3->widget(a);
+		ret.append(bv->visibleName);
 	}
 	return ret;
 }
@@ -848,6 +864,7 @@ void Biblio::NewLib()
 			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
+		activeBView->visibleName = d.dirName();
 		Frame3->setCurrentWidget(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
@@ -888,6 +905,7 @@ void Biblio::Load()
 			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
+		activeBView->visibleName = d.dirName();
 		Frame3->setCurrentWidget(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
@@ -1643,6 +1661,53 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 		}
 		tempBView->sortItems();
 	}
+}
+
+void Biblio::ObjFromMainMenu(QString text, int scrapID)
+{
+	QString nam = "";
+	QString tmp;
+	int scID = scrapID;
+	if (scID > 0)
+		scID++;
+	BibView* actBView = (BibView*)Frame3->widget(scID);
+	if (!actBView->canWrite)
+		return;
+	nam = getObjectName(text);
+	if (nam.isEmpty())
+		nam = tr("Object") + tmp.setNum(actBView->objectMap.count());
+	if (actBView->objectMap.contains(nam))
+		nam += "("+ tmp.setNum(tempCount) + ")";
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia->setEditText(nam, true);
+	dia->setTestList(actBView->objectMap.keys());
+	if (dia->exec())
+	{
+		nam = dia->getEditText();
+	}
+	else
+	{
+		delete dia;
+		return;
+	}
+	delete dia;
+	QString ff = text;
+	actBView->checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename)));
+	ScPreview *pre = new ScPreview();
+	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
+	actBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename + "/" + nam + ".sce")), pm);
+	if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
+		pm.save(QDir::cleanPath(QDir::convertSeparators(actBView->ScFilename + "/" + nam +".png")), "PNG");
+	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QPixmap pm2(60, 60);
+	pm2.fill(palette().color(QPalette::Base));
+	QPainter p;
+	p.begin(&pm2);
+	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+	p.end();
+	new QListWidgetItem(QIcon(pm2), nam, actBView);
+	delete pre;
 }
 
 void Biblio::CleanUpTemp()

@@ -307,6 +307,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrRecentPasteActions.clear();
 	scrWindowsActions.clear();
 	scrLayersActions.clear();
+	scrScrapActions.clear();
 	scrMenuMgr = new ScMWMenuManager(menuBar());
 	prefsManager = PrefsManager::instance();
 	formatsManager = FormatsManager::instance();
@@ -735,7 +736,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemLowerToBottom"], "ItemLevel", false);
 	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"));
 	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item", false);
+	scrMenuMgr->createMenu("itemSendToScrapbook", tr("Send to Scrapbook"));
+	scrMenuMgr->addMenuToMenu("itemSendToScrapbook", "Item");
+//	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemSendToPattern"], "Item", false);
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item", false);
@@ -2569,7 +2572,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(false);
 		scrActions["itemRaiseToTop"]->setEnabled(false);
 		scrActions["itemLowerToBottom"]->setEnabled(false);
-		scrActions["itemSendToScrapbook"]->setEnabled(false);
+//		scrActions["itemSendToScrapbook"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
 		scrActions["itemSendToPattern"]->setEnabled(false);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
@@ -2631,7 +2635,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(true);
 		scrActions["itemRaiseToTop"]->setEnabled(true);
 		scrActions["itemLowerToBottom"]->setEnabled(true);
-		scrActions["itemSendToScrapbook"]->setEnabled(true);
+//		scrActions["itemSendToScrapbook"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
@@ -2685,7 +2690,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(true);
 		scrActions["itemRaiseToTop"]->setEnabled(true);
 		scrActions["itemLowerToBottom"]->setEnabled(true);
-		scrActions["itemSendToScrapbook"]->setEnabled(true);
+//		scrActions["itemSendToScrapbook"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
@@ -2788,7 +2794,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(true);
 		scrActions["itemRaiseToTop"]->setEnabled(true);
 		scrActions["itemLowerToBottom"]->setEnabled(true);
-		scrActions["itemSendToScrapbook"]->setEnabled(true);
+//		scrActions["itemSendToScrapbook"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
@@ -2858,7 +2865,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(true);
 		scrActions["itemRaiseToTop"]->setEnabled(true);
 		scrActions["itemLowerToBottom"]->setEnabled(true);
-		scrActions["itemSendToScrapbook"]->setEnabled(true);
+//		scrActions["itemSendToScrapbook"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
@@ -2972,6 +2980,18 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		actionManager->setPDFActions(view);
 		updateItemLayerList();
+		QStringList scrapNames = scrapbookPalette->getOpenScrapbooksNames();
+		scrapNames.removeAt(1);
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it0s = scrScrapActions.begin(); it0s != scrScrapActions.end(); ++it0s )
+			scrMenuMgr->removeMenuItem((*it0s), "itemSendToScrapbook");
+		scrScrapActions.clear();
+		for (int i = 0; i < scrapNames.count(); i++)
+		{
+			ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
+			scrScrapActions.insert(scrapNames[i], act);
+			scrMenuMgr->addMenuItem(act, "itemSendToScrapbook", true);
+			connect(act, SIGNAL(triggeredData(int)), this, SLOT(PutScrap(int)));
+		}
 		//propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 		scrActions["itemLock"]->setEnabled(true);
@@ -3003,7 +3023,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
-			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
+//			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
+			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", !(currItem->isTableItem && currItem->isSingleSel));
 			scrActions["itemSendToPattern"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
@@ -3021,7 +3042,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemRaiseToTop"]->setEnabled(setter);
 			scrActions["itemRaise"]->setEnabled(setter);
 			scrActions["itemLower"]->setEnabled(setter);
-			scrActions["itemSendToScrapbook"]->setEnabled(setter);
+//			scrActions["itemSendToScrapbook"]->setEnabled(setter);
+			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", setter);
 			scrActions["itemSendToPattern"]->setEnabled(setter);
 		}
 		scrActions["itemLock"]->setChecked(currItem->locked());
@@ -4457,7 +4479,8 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["itemLower"]->setEnabled(false);
 		scrActions["itemRaiseToTop"]->setEnabled(false);
 		scrActions["itemLowerToBottom"]->setEnabled(false);
-		scrActions["itemSendToScrapbook"]->setEnabled(false);
+//		scrActions["itemSendToScrapbook"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
 		scrActions["itemSendToPattern"]->setEnabled(false);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
@@ -6253,7 +6276,8 @@ void ScribusMainWindow::setAppMode(int mode)
 				scrActions["itemLower"]->setEnabled(true);
 				scrActions["itemRaiseToTop"]->setEnabled(true);
 				scrActions["itemLowerToBottom"]->setEnabled(true);
-				scrActions["itemSendToScrapbook"]->setEnabled(true);
+//				scrActions["itemSendToScrapbook"]->setEnabled(true);
+				scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 				scrActions["itemSendToPattern"]->setEnabled(true);
 				scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 				scrActions["itemAdjustImageToFrame"]->setEnabled(true);
@@ -6301,7 +6325,8 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["itemLower"]->setEnabled(false);
 			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemLowerToBottom"]->setEnabled(false);
-			scrActions["itemSendToScrapbook"]->setEnabled(false);
+//			scrActions["itemSendToScrapbook"]->setEnabled(false);
+			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
 			scrActions["itemSendToPattern"]->setEnabled(false);
 			scrActions["itemAdjustFrameToImage"]->setEnabled(false);
 			scrActions["itemAdjustImageToFrame"]->setEnabled(false);
@@ -8895,7 +8920,7 @@ void ScribusMainWindow::SetShortCut()
 	}
 }
 
-void ScribusMainWindow::PutScrap()
+void ScribusMainWindow::PutScrap(int scID)
 {
 	ScriXmlDoc ss;
 	QString objectString = ss.WriteElem(doc, doc->m_Selection);
@@ -8917,7 +8942,7 @@ void ScribusMainWindow::PutScrap()
 		DOC = DOC.nextSibling();
 	}
 	objectString = docu.toString();
-	scrapbookPalette->ObjFromMenu(objectString);
+	scrapbookPalette->ObjFromMainMenu(objectString, scID);
 }
 
 void ScribusMainWindow::changeLayer(int )
