@@ -95,6 +95,7 @@ public slots:
 	void ObjFromFile(QString path, int testResult);
 	void ObjFromMenu(QString text);
 	void ObjFromMainMenu(QString text, int scrapID);
+	void reloadLib(QString fileName);
 
 private slots:
 	void handleDoubleClick(QListWidgetItem *ite);
@@ -106,7 +107,7 @@ private slots:
 	void deleteAllObj();
 	void renameObj();
 	void NewLib();
-	void Load();
+//	void Load();
 	void SaveAs();
 	void closeLib();
 	void libChanged(int index);
@@ -123,7 +124,7 @@ protected:
 	QString OldName;
 	QHBoxLayout* buttonLayout;
 	QToolButton* newButton;
-	QToolButton* loadButton;
+//	QToolButton* loadButton;
 	QToolButton* saveAsButton;
 	QToolButton* importButton;
 	QToolButton* closeButton;

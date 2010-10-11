@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "cmsettings.h"
+#include "filewatcher.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "query.h"
@@ -796,10 +797,10 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	newButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	newButton->setIcon(loadIcon("16/document-new.png"));
 	newButton->setIconSize(QSize(16, 16));
-	loadButton = new QToolButton(this);
-	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	loadButton->setIcon(loadIcon("16/document-open.png"));
-	loadButton->setIconSize(QSize(16, 16));
+//	loadButton = new QToolButton(this);
+//	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+//	loadButton->setIcon(loadIcon("16/document-open.png"));
+//	loadButton->setIconSize(QSize(16, 16));
 	saveAsButton = new QToolButton(this);
 	saveAsButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	saveAsButton->setIcon(loadIcon("16/document-save-as.png"));
@@ -813,7 +814,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	closeButton->setIcon(loadIcon("16/close.png"));
 	closeButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( newButton );
-	buttonLayout->addWidget( loadButton );
+//	buttonLayout->addWidget( loadButton );
 	buttonLayout->addWidget( saveAsButton );
 	buttonLayout->addWidget( importButton );
 	buttonLayout->addWidget( closeButton );
@@ -835,7 +836,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	languageChange();
 
 	connect(newButton, SIGNAL(clicked()), this, SLOT(NewLib()));
-	connect(loadButton, SIGNAL(clicked()), this, SLOT(Load()));
+//	connect(loadButton, SIGNAL(clicked()), this, SLOT(Load()));
 	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
@@ -866,6 +867,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 			activeBView->ReadContents(fileName);
 			activeBView->ScFilename = fileName;
 			activeBView->visibleName = d.dirName();
+			ScCore->fileWatcher->addDir(d.absolutePath());
 			activeBView->scrollToTop();
 		}
 	}
@@ -975,6 +977,7 @@ void Biblio::NewLib()
 		activeBView->ScFilename = fileName;
 		activeBView->visibleName = d.dirName();
 		Frame3->setCurrentWidget(activeBView);
+		ScCore->fileWatcher->addDir(d.absolutePath());
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
 		activeBView->scrollToTop();
@@ -985,7 +988,7 @@ void Biblio::NewLib()
 		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	}
 }
-
+/*
 void Biblio::Load()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -1016,6 +1019,7 @@ void Biblio::Load()
 		activeBView->ScFilename = fileName;
 		activeBView->visibleName = d.dirName();
 		Frame3->setCurrentWidget(activeBView);
+		ScCore->fileWatcher->addDir(d.absolutePath());
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
 		activeBView->scrollToTop();
@@ -1026,7 +1030,7 @@ void Biblio::Load()
 		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	}
 }
-
+*/
 void Biblio::Import()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -1083,6 +1087,8 @@ void Biblio::closeLib()
 		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+		QFileInfo fi(activeBView->ScFilename);
+		ScCore->fileWatcher->removeDir(fi.absolutePath());
 		Frame3->removeItem(Frame3->indexOf(activeBView));
 		delete activeBView;  // currently disabled as the whole TabWidget vanishes when executing that delete????? -> seems to be fixed in Qt-4.3.3
 		activeBView = (BibView*)Frame3->widget(0);
@@ -1106,6 +1112,22 @@ void Biblio::libChanged(int index)
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+}
+
+void Biblio::reloadLib(QString fileName)
+{
+	for (int a = 0; a < Frame3->count(); a++)
+	{
+		BibView* bv = (BibView*)Frame3->widget(a);
+		if (bv->ScFilename == fileName)
+		{
+			bv->ReadContents(fileName);
+			bv->ScFilename = fileName;
+			QDir d(fileName);
+			bv->visibleName = d.dirName();
+			bv->scrollToTop();
+		}
+	}
 }
 
 void Biblio::handleDoubleClick(QListWidgetItem *ite)
@@ -1912,7 +1934,7 @@ void Biblio::languageChange()
 {
 	setWindowTitle( tr( "Scrapbook" ) );
  	newButton->setToolTip( tr( "Create a new scrapbook page" ) );
- 	loadButton->setToolTip( tr( "Load an existing scrapbook" ) );
+ //	loadButton->setToolTip( tr( "Load an existing scrapbook" ) );
  	saveAsButton->setToolTip( tr( "Save the selected scrapbook" ) );
  	importButton->setToolTip( tr( "Import a scrapbook file from Scribus <=1.3.2" ) );
  	closeButton->setToolTip( tr( "Close the selected scrapbook" ) );
