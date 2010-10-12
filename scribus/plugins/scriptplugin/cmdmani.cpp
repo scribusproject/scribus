@@ -571,6 +571,45 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 //	return Py_None;
 	Py_RETURN_NONE;
 }
+PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double h, v;
+	if (!PyArg_ParseTuple(args, "dd|es", &h, &v, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	
+	// Grab the old selection - but use it only where is there any
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
+
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	// Clear the selection
+	ScCore->primaryMainWindow()->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+
+	// flip
+	if (h == 1) {
+		ScCore->primaryMainWindow()->doc->itemSelection_FlipH();
+		}
+	if (v == 1) {
+		ScCore->primaryMainWindow()->doc->itemSelection_FlipV();
+		}
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
@@ -586,5 +625,6 @@ void cmdmanidocwarnings()
 	  << scribus_ungroupobj__doc__ << scribus_scalegroup__doc__
 	  << scribus_loadimage__doc__ << scribus_scaleimage__doc__
 	  << scribus_setimagescale__doc__ << scribus_lockobject__doc__
-	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__;
+	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__
+	  << scribus_flipobject__doc__;
 }

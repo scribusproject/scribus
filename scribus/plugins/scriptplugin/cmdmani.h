@@ -252,4 +252,14 @@ May raise WrongFrameTypeError.\n\
 "));
 PyObject *scribus_setscaleimagetoframe(PyObject * /*self*/, PyObject* args, PyObject* kwargs);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_flipobject__doc__,
+QT_TR_NOOP("flipObject(H,V,[\"name\"])\n\
+\n\
+Toggle the object \"name\" horizontal and/or vertical flip.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Flip the object 2010/5/18.*/
+PyObject *scribus_flipobject(PyObject * /*self*/, PyObject* args);
+
 #endif
