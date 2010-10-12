@@ -53,7 +53,7 @@ int FileWatcher::timeOut() const
 	return m_timeOut;
 }
 
-void FileWatcher::addFile(QString fileName)
+void FileWatcher::addFile(QString fileName, bool fast)
 {
 	watchTimer->stop();
 	if (!watchedFiles.contains(fileName))
@@ -64,6 +64,8 @@ void FileWatcher::addFile(QString fileName)
 		fi.pendingCount = 0;
 		fi.pending = false;
 		fi.refCount = 1;
+		fi.isDir = fi.info.isDir();
+		fi.fast = fast;
 		watchedFiles.insert(fileName, fi);
 	}
 	else
@@ -85,9 +87,9 @@ void FileWatcher::removeFile(QString fileName)
 		watchTimer->start(m_timeOut);
 }
 
-void FileWatcher::addDir(QString fileName)
+void FileWatcher::addDir(QString fileName, bool fast)
 {
-	addFile(fileName);
+	addFile(fileName, fast);
 }
 
 void FileWatcher::removeDir(QString fileName)
@@ -146,10 +148,26 @@ void FileWatcher::checkFiles()
 				break;
 			if (!it.value().pending)
 			{
-				it.value().pendingCount = 5;
-				it.value().pending = true;
-				emit statePending(it.key());
-				continue;
+				if (it.value().fast)
+				{
+					if (it.value().isDir)
+						emit dirDeleted(it.key());
+					else
+						emit fileDeleted(it.key());
+					if (m_stateFlags & FileCheckMustStop)
+						break;
+					it.value().refCount--;
+					if (it.value().refCount == 0)
+						toRemove.append(it.key());
+					continue;
+				}
+				else
+				{
+					it.value().pendingCount = 5;
+					it.value().pending = true;
+					emit statePending(it.key());
+					continue;
+				}
 			}
 			else
 			{
@@ -161,7 +179,7 @@ void FileWatcher::checkFiles()
 				else
 				{
 					it.value().pending = false;
-					if (it.value().info.isDir())
+					if (it.value().isDir)
 						emit dirDeleted(it.key());
 					else
 						emit fileDeleted(it.key());
@@ -180,7 +198,7 @@ void FileWatcher::checkFiles()
 			time = it.value().info.lastModified();
 			if (time != it.value().timeInfo)
 			{
-				if (it.value().info.isDir())
+				if (it.value().isDir)
 				{
 					it.value().timeInfo = time;
 					if (!(m_stateFlags & FileCheckMustStop))

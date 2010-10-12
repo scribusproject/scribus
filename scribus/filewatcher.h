@@ -34,11 +34,11 @@ public:
 	
 public slots:
 	//Add a file to the watch list for monitoring
-	void addFile(QString fileName);
+	void addFile(QString fileName, bool fast = false);
 	//Remove a file from the watch list
 	void removeFile(QString fileName);
 	//Add a directory to the watch list for monitoring
-	void addDir(QString fileName);
+	void addDir(QString fileName, bool fast = false);
 	//Remove a directory from the watch list
 	void removeDir(QString fileName);
 	//Start the watcher's timer for file monitoring
@@ -56,6 +56,8 @@ private:
 		int pendingCount;
 		bool pending;
 		int refCount;
+		bool isDir;
+		bool fast;
 	};
 
 	typedef enum

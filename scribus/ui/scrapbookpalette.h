@@ -32,13 +32,15 @@ class SCRIBUS_API BibView : public QListWidget
 public:
 	BibView( QWidget* parent);
 	~BibView() {};
-	void AddObj(QString name, QString daten, QPixmap Bild);
+	void AddObj(QString name, QString daten, QPixmap Bild, bool isDir = false, bool isRaster = false);
 	void checkAndChange(QString &text, QString nam, QString dir);
 	void SaveContents(QString name, QString oldName);
 	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
 	struct Elem
 	{
+		bool isDir;
+		bool isRaster;
 		QString Data;
 		QPixmap Preview;
 	};
@@ -95,6 +97,7 @@ public slots:
 	void ObjFromFile(QString path, int testResult);
 	void ObjFromMenu(QString text);
 	void ObjFromMainMenu(QString text, int scrapID);
+	void closeOnDel(QString libName);
 	void reloadLib(QString fileName);
 
 private slots:
