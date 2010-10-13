@@ -60,7 +60,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	setDragEnabled(true);
 	setViewMode(QListView::IconMode);
 	setFlow(QListView::LeftToRight);
-	setSortingEnabled(true);
+//	setSortingEnabled(true);
 	setWrapping(true);
 	setAcceptDrops(true);
 	setDropIndicatorShown(true);
@@ -188,8 +188,8 @@ void BibView::dropEvent(QDropEvent *e)
 void BibView::AddObj(QString name, QString daten, QPixmap Bild, bool isDir, bool isRaster)
 {
 	struct Elem DrElem;
-	DrElem.isDir = false;
-	DrElem.isRaster = false;
+	DrElem.isDir = isDir;
+	DrElem.isRaster = isRaster;
 	DrElem.Data = daten;
 	DrElem.Preview = Bild;
 	objectMap.insert(name, DrElem);
@@ -312,7 +312,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 	s.writeRawData(cs.data(), cs.length());
 	f.close();
 }
-
+/*
 void BibView::SaveContents(QString name, QString oldName)
 {
 	QDir thumbs(name);
@@ -504,7 +504,7 @@ void BibView::SaveContents(QString name, QString oldName)
 		}
 	}
 }
-
+*/
 void BibView::ReadOldContents(QString name, QString newName)
 {
 	bool isUtf8 = false;
@@ -560,6 +560,8 @@ void BibView::ReadContents(QString name)
 			thumbs.mkdir(".ScribusThumbs");
 		thumbs.cd(".ScribusThumbs");
 	}
+	QDir dd(name, "*", QDir::Name, QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable | QDir::NoSymLinks);
+	fileCount += dd.count();
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	fileCount += d.count();
 	QDir d2(name, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
@@ -588,6 +590,19 @@ void BibView::ReadContents(QString name)
 	{
 		pgDia = new QProgressDialog("Reading Files...", QString(), 0, fileCount, this);
 		pgDia->setWindowModality(Qt::WindowModal);
+	}
+	if ((dd.exists()) && (dd.count() != 0))
+	{
+		for (uint dc = 0; dc < dd.count(); ++dc)
+		{
+			if (pgDia)
+			{
+				pgDia->setValue(readCount);
+				readCount++;
+			}
+			QPixmap pm = loadIcon("folder.png");
+			AddObj(dd[dc], "", pm, true);
+		}
 	}
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -801,16 +816,33 @@ void BibView::ReadContents(QString name)
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
-		itf.value().Preview = itf.value().Preview.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-		QPixmap pm(60, 60);
-		pm.fill(palette().color(QPalette::Base));
-		QPainter p;
-		p.begin(&pm);
-		p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
-		p.end();
-		new QListWidgetItem(QIcon(pm), itf.key(), this);
+		if (itf.value().isDir)
+		{
+			itf.value().Preview = itf.value().Preview.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			QPixmap pm(60, 60);
+			pm.fill(palette().color(QPalette::Base));
+			QPainter p;
+			p.begin(&pm);
+			p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
+			p.end();
+			QListWidgetItem *item = new QListWidgetItem(QIcon(pm), itf.key(), this);
+			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		}
 	}
-	sortItems();
+	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
+	{
+		if (!itf.value().isDir)
+		{
+			itf.value().Preview = itf.value().Preview.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			QPixmap pm(60, 60);
+			pm.fill(palette().color(QPalette::Base));
+			QPainter p;
+			p.begin(&pm);
+			p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
+			p.end();
+			new QListWidgetItem(QIcon(pm), itf.key(), this);
+		}
+	}
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
@@ -828,14 +860,10 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	newButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	newButton->setIcon(loadIcon("16/document-new.png"));
 	newButton->setIconSize(QSize(16, 16));
-//	loadButton = new QToolButton(this);
-//	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-//	loadButton->setIcon(loadIcon("16/document-open.png"));
-//	loadButton->setIconSize(QSize(16, 16));
-	saveAsButton = new QToolButton(this);
-	saveAsButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	saveAsButton->setIcon(loadIcon("16/document-save-as.png"));
-	saveAsButton->setIconSize(QSize(16, 16));
+	upButton = new QToolButton(this);
+	upButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	upButton->setIcon(loadIcon("16/go-up.png"));
+	upButton->setIconSize(QSize(16, 16));
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	importButton->setIcon(loadIcon("compfile16.png"));
@@ -845,8 +873,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	closeButton->setIcon(loadIcon("16/close.png"));
 	closeButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( newButton );
-//	buttonLayout->addWidget( loadButton );
-	buttonLayout->addWidget( saveAsButton );
+	buttonLayout->addWidget( upButton );
 	buttonLayout->addWidget( importButton );
 	buttonLayout->addWidget( closeButton );
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -867,8 +894,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	languageChange();
 
 	connect(newButton, SIGNAL(clicked()), this, SLOT(NewLib()));
-//	connect(loadButton, SIGNAL(clicked()), this, SLOT(Load()));
-	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
+	connect(upButton, SIGNAL(clicked()), this, SLOT(goOneDirUp()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
@@ -904,6 +930,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 	}
 	activeBView = (BibView*)Frame3->widget(0);
 	Frame3->setCurrentIndex(0);
+	upButton->setEnabled(false);
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
@@ -1012,6 +1039,7 @@ void Biblio::NewLib()
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
 		activeBView->scrollToTop();
+		upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
 		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
@@ -1019,49 +1047,7 @@ void Biblio::NewLib()
 		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	}
 }
-/*
-void Biblio::Load()
-{
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Scrapbook Directory"), dirs->get("scrap_load", "."));
-	if (!fileName.isEmpty())
-	{
-		for (int a = 0; a < Frame3->count(); a++)
-		{
-			BibView* bv = (BibView*)Frame3->widget(a);
-			if (fileName == bv->ScFilename)
-				return;
-		}
-		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
-		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
-		disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
-		QDir d(fileName);
-		activeBView = new BibView(this);
-		QFileInfo fd(fileName);
-		activeBView->canWrite = fd.isWritable();
-		activeBView->setAcceptDrops(activeBView->canWrite);
-		if (activeBView->canWrite)
-			Frame3->addItem(activeBView, d.dirName());
-		else
-			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
-		activeBView->ReadContents(fileName);
-		activeBView->ScFilename = fileName;
-		activeBView->visibleName = d.dirName();
-		Frame3->setCurrentWidget(activeBView);
-		ScCore->fileWatcher->addDir(d.absolutePath());
-		d.cdUp();
-		dirs->set("scrap_load", d.absolutePath());
-		activeBView->scrollToTop();
-		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
-		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
-		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
-		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-	}
-}
-*/
+
 void Biblio::Import()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -1085,26 +1071,6 @@ void Biblio::Import()
 	}
 }
 
-void Biblio::SaveAs()
-{
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fn = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), dirs->get("scrap_saveas", "."));
-	if (!fn.isEmpty())
-	{
-		for (int a = 0; a < Frame3->count(); a++)
-		{
-			BibView* bv = (BibView*)Frame3->widget(a);
-			if (fn == bv->ScFilename)
-				return;
-		}
-		QDir d(fn);
-		dirs->set("scrap_saveas", fn);
-		activeBView->SaveContents(fn, activeBView->ScFilename);
-		d.cdUp();
-		dirs->set("scrap_saveas", d.absolutePath());
-	}
-}
-
 void Biblio::closeLib()
 {
 	if (Frame3->count() == 2)
@@ -1124,6 +1090,7 @@ void Biblio::closeLib()
 		delete activeBView;  // currently disabled as the whole TabWidget vanishes when executing that delete????? -> seems to be fixed in Qt-4.3.3
 		activeBView = (BibView*)Frame3->widget(0);
 		Frame3->setCurrentIndex(0);
+		upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
 		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
@@ -1139,6 +1106,7 @@ void Biblio::libChanged(int index)
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	activeBView = (BibView*)Frame3->widget(index);
+	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
@@ -1191,9 +1159,56 @@ void Biblio::reloadLib(QString fileName)
 
 void Biblio::handleDoubleClick(QListWidgetItem *ite)
 {
-	emit pasteToActualPage(ite->text());
-	activeBView->clearSelection();
-	actItem = 0;
+	if (activeBView->objectMap[ite->text()].isDir)
+	{
+		QFileInfo fi(activeBView->ScFilename);
+		ScCore->fileWatcher->removeDir(fi.absolutePath());
+		QString fileName = activeBView->ScFilename + "/" + ite->text();
+		QDir d(fileName);
+		QFileInfo fd(fileName);
+		activeBView->canWrite = fd.isWritable();
+		activeBView->setAcceptDrops(activeBView->canWrite);
+		activeBView->ReadContents(fileName);
+		activeBView->ScFilename = fileName;
+		activeBView->visibleName = d.dirName();
+		Frame3->setItemText(Frame3->indexOf(activeBView), d.dirName());
+		if (!activeBView->canWrite)
+			Frame3->setItemIcon(Frame3->indexOf(activeBView), QIcon(loadIcon("16/lock.png")));
+		ScCore->fileWatcher->addDir(d.absolutePath(), true);
+		d.cdUp();
+		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+		dirs->set("scrap_load", d.absolutePath());
+		activeBView->scrollToTop();
+	}
+	else
+	{
+		emit pasteToActualPage(ite->text());
+		activeBView->clearSelection();
+		actItem = 0;
+	}
+}
+
+void Biblio::goOneDirUp()
+{
+	QFileInfo fi(activeBView->ScFilename);
+	ScCore->fileWatcher->removeDir(fi.absolutePath());
+	QDir d(activeBView->ScFilename);
+	d.cdUp();
+	QString fileName = d.absolutePath();
+	QFileInfo fd(fileName);
+	activeBView->canWrite = fd.isWritable();
+	activeBView->setAcceptDrops(activeBView->canWrite);
+	activeBView->ReadContents(fileName);
+	activeBView->ScFilename = fileName;
+	activeBView->visibleName = d.dirName();
+	Frame3->setItemText(Frame3->indexOf(activeBView), d.dirName());
+	if (!activeBView->canWrite)
+		Frame3->setItemIcon(Frame3->indexOf(activeBView), QIcon(loadIcon("16/lock.png")));
+	ScCore->fileWatcher->addDir(d.absolutePath(), true);
+	d.cdUp();
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	dirs->set("scrap_load", d.absolutePath());
+	activeBView->scrollToTop();
 }
 
 void Biblio::handlePasteToPage()
@@ -1391,7 +1406,6 @@ bool Biblio::copyObj(int id)
 				ite = itL.at(0);
 				delete tempBView->takeItem(tempBView->row(ite));
 			}
-			tempBView->sortItems();
 		}
 		emit updateRecentMenue();
 	}
@@ -1432,7 +1446,6 @@ void Biblio::deleteObj()
 	}
 	activeBView->objectMap.remove(name);
 	delete activeBView->takeItem(activeBView->row(ite));
-	activeBView->sortItems();
 	if (activeBView == tempBView)
 		emit updateRecentMenue();
 	actItem = 0;
@@ -1517,7 +1530,6 @@ void Biblio::renameObj()
 	}
 	activeBView->objectMap.remove(OldName);
 	activeBView->AddObj(ite->text(), QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")), ObjPreview);
-	activeBView->sortItems();
 	if (activeBView == tempBView)
 		emit updateRecentMenue();
 }
@@ -1715,7 +1727,6 @@ void Biblio::ObjFromFile(QString path, int testResult)
 					QListWidgetItem *ite = itL.at(0);
 					delete tempBView->takeItem(tempBView->row(ite));
 				}
-				tempBView->sortItems();
 			}
 			emit updateRecentMenue();
 		}
@@ -1818,7 +1829,6 @@ void Biblio::ObjFromMenu(QString text)
 				QListWidgetItem *ite = itL.at(0);
 				delete tempBView->takeItem(tempBView->row(ite));
 			}
-			tempBView->sortItems();
 		}
 		emit updateRecentMenue();
 	}
@@ -1892,7 +1902,6 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 			QListWidgetItem *ite = itL.at(0);
 			delete tempBView->takeItem(tempBView->row(ite));
 		}
-		tempBView->sortItems();
 	}
 }
 
@@ -1993,8 +2002,7 @@ void Biblio::languageChange()
 {
 	setWindowTitle( tr( "Scrapbook" ) );
  	newButton->setToolTip( tr( "Create a new scrapbook page" ) );
- //	loadButton->setToolTip( tr( "Load an existing scrapbook" ) );
- 	saveAsButton->setToolTip( tr( "Save the selected scrapbook" ) );
+ 	upButton->setToolTip( tr( "Go up one Directory" ) );
  	importButton->setToolTip( tr( "Import a scrapbook file from Scribus <=1.3.2" ) );
  	closeButton->setToolTip( tr( "Close the selected scrapbook" ) );
 }

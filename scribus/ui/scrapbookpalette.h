@@ -34,7 +34,6 @@ public:
 	~BibView() {};
 	void AddObj(QString name, QString daten, QPixmap Bild, bool isDir = false, bool isRaster = false);
 	void checkAndChange(QString &text, QString nam, QString dir);
-	void SaveContents(QString name, QString oldName);
 	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
 	struct Elem
@@ -110,8 +109,7 @@ private slots:
 	void deleteAllObj();
 	void renameObj();
 	void NewLib();
-//	void Load();
-	void SaveAs();
+	void goOneDirUp();
 	void closeLib();
 	void libChanged(int index);
 	void Import();
@@ -127,8 +125,7 @@ protected:
 	QString OldName;
 	QHBoxLayout* buttonLayout;
 	QToolButton* newButton;
-//	QToolButton* loadButton;
-	QToolButton* saveAsButton;
+	QToolButton* upButton;
 	QToolButton* importButton;
 	QToolButton* closeButton;
 };

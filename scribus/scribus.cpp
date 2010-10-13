@@ -3221,48 +3221,88 @@ void ScribusMainWindow::doPasteRecent(QString data)
 {
 	if (HaveDoc)
 	{
-		UndoTransaction pasteAction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
 		QFileInfo fi(data);
-		if (fi.suffix().toLower() == "sml")
+		QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
+		QStringList rasterFiles = formatD.split("|");
+		QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+		if (vectorFiles.contains(fi.suffix().toLower()))
 		{
-			QString f = "";
-			loadText(data, &f);
-			StencilReader *pre = new StencilReader();
-			data = pre->createObjects(f);
-			delete pre;
+			FileLoader *fileLoader = new FileLoader(data);
+			int testResult = fileLoader->TestFile();
+			delete fileLoader;
+			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+			{
+				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+				if( fmt )
+					fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+			}
+			if (doc->m_Selection->count() > 0)
+			{
+				double x2, y2, w, h;
+				doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+				doc->moveGroup(doc->currentPage()->xOffset() - x2, doc->currentPage()->yOffset() - y2);
+				propertiesPalette->updateColorList();
+				propertiesPalette->paraStyleCombo->updateFormatList();
+				propertiesPalette->charStyleCombo->updateFormatList();
+				propertiesPalette->SetLineFormats(doc);
+			}
 		}
-		else if (fi.suffix().toLower() == "shape")
+		else if (rasterFiles.contains(fi.suffix().toLower()))
 		{
-			QString f = "";
-			loadText(data, &f);
-			StencilReader *pre = new StencilReader();
-			data = pre->createShape(f);
-			delete pre;
+			int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			PageItem *b = doc->Items->at(z);
+			b->LayerID = doc->activeLayer();
+			doc->LoadPict(data, b->ItemNr);
+			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
+			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
+			b->OldB2 = b->width();
+			b->OldH2 = b->height();
+			b->updateClip();
 		}
-		view->Deselect(true);
-		uint ac = doc->Items->count();
-		bool savedAlignGrid = doc->useRaster;
-		bool savedAlignGuides = doc->SnapGuides;
-		doc->useRaster = false;
-		doc->SnapGuides = false;
-		if (fi.suffix().toLower() == "sce")
-			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
 		else
-			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-		doc->useRaster = savedAlignGrid;
-		doc->SnapGuides = savedAlignGuides;
-		Selection tmpSelection(this, false);
-		tmpSelection.copy(*doc->m_Selection, true);
-		for (int as = ac; as < doc->Items->count(); ++as)
 		{
-			PageItem* currItem = doc->Items->at(as);
-			doc->setRedrawBounding(currItem);
-			tmpSelection.addItem(currItem, true);
-			if (currItem->isBookmark)
-				AddBookMark(currItem);
+			UndoTransaction pasteAction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
+			if (fi.suffix().toLower() == "sml")
+			{
+				QString f = "";
+				loadText(data, &f);
+				StencilReader *pre = new StencilReader();
+				data = pre->createObjects(f);
+				delete pre;
+			}
+			else if (fi.suffix().toLower() == "shape")
+			{
+				QString f = "";
+				loadText(data, &f);
+				StencilReader *pre = new StencilReader();
+				data = pre->createShape(f);
+				delete pre;
+			}
+			view->Deselect(true);
+			uint ac = doc->Items->count();
+			bool savedAlignGrid = doc->useRaster;
+			bool savedAlignGuides = doc->SnapGuides;
+			doc->useRaster = false;
+			doc->SnapGuides = false;
+			if (fi.suffix().toLower() == "sce")
+				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
+			else
+				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+			doc->useRaster = savedAlignGrid;
+			doc->SnapGuides = savedAlignGuides;
+			Selection tmpSelection(this, false);
+			tmpSelection.copy(*doc->m_Selection, true);
+			for (int as = ac; as < doc->Items->count(); ++as)
+			{
+				PageItem* currItem = doc->Items->at(as);
+				doc->setRedrawBounding(currItem);
+				tmpSelection.addItem(currItem, true);
+				if (currItem->isBookmark)
+					AddBookMark(currItem);
+			}
+			doc->m_Selection->copy(tmpSelection, false);
+			pasteAction.commit();
 		}
-		doc->m_Selection->copy(tmpSelection, false);
-		pasteAction.commit();
 		slotDocCh(false);
 		doc->regionsChanged()->update(QRectF());
 	}
