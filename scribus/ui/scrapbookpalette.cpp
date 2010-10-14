@@ -818,7 +818,7 @@ void BibView::ReadContents(QString name)
 	{
 		if (itf.value().isDir)
 		{
-			itf.value().Preview = itf.value().Preview.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+//			itf.value().Preview = itf.value().Preview.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			QPixmap pm(60, 60);
 			pm.fill(palette().color(QPalette::Base));
 			QPainter p;
