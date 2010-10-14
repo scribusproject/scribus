@@ -1607,7 +1607,15 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 				newSection.type=Type_None;
 			newSection.sectionstartindex = attrs.valueAsInt("Start");
 			newSection.reversed = attrs.valueAsBool("Reversed");
-			newSection.active   = attrs.valueAsBool("Active");
+			newSection.active = attrs.valueAsBool("Active");
+			if (attrs.hasAttribute("FillChar"))
+				newSection.pageNumberFillChar = attrs.valueAsString("FillChar").at(0);
+			else
+				newSection.pageNumberFillChar = QChar();
+			if (attrs.hasAttribute("FieldWidth"))
+				newSection.pageNumberWidth = attrs.valueAsInt("FieldWidth");
+			else
+				newSection.pageNumberWidth = 0;
 			doc->sections().insert(newSection.number, newSection);
 		}
 	}

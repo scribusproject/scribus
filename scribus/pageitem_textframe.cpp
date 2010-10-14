@@ -1083,7 +1083,6 @@ void PageItem_TextFrame::layout()
 //				   .arg(a);
 
 			chstr = ExpandToken(a);
-//			qDebug() << QString("expanded token: '%1'").arg(chstr);
 			if (chstr.isEmpty())
 				chstr = SpecialChars::ZWNBSPACE;
 			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)

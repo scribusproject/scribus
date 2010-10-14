@@ -73,6 +73,16 @@
        <string>Start</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Field Width</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Fill Character</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item>

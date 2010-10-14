@@ -57,35 +57,42 @@ void Prefs_DocumentSections::updateTable()
 	{
 		uint i=0;
 		//Name
-		QTableWidgetItem *item1 = new QTableWidgetItem((*it).name);
-		sectionsTable->setItem(row, i++, item1);
+		QTableWidgetItem *item0 = new QTableWidgetItem((*it).name);
+		sectionsTable->setItem(row, i++, item0);
 		//Active
-		QCheckBox *item2 = new QCheckBox();
-		item2->setChecked((*it).active);
-		sectionsTable->setCellWidget(row, i++, item2);
+		QCheckBox *item1 = new QCheckBox();
+		item1->setChecked((*it).active);
+		sectionsTable->setCellWidget(row, i++, item1);
 		//FromIndex
-		QTableWidgetItem *item3 = new QTableWidgetItem(QString::number((*it).fromindex+1));
-		sectionsTable->setItem(row, i++, item3);
+		QTableWidgetItem *item2 = new QTableWidgetItem(QString::number((*it).fromindex+1));
+		sectionsTable->setItem(row, i++, item2);
 		//ToIndex
-		QTableWidgetItem *item4 = new QTableWidgetItem(QString::number((*it).toindex+1));
-		sectionsTable->setItem(row, i++, item4);
+		QTableWidgetItem *item3 = new QTableWidgetItem(QString::number((*it).toindex+1));
+		sectionsTable->setItem(row, i++, item3);
 		//Style
-		QComboBox *item5 = new QComboBox();
-		item5->addItems(styles);
-		sectionsTable->setCellWidget(row, i++, item5);
+		QComboBox *item4 = new QComboBox();
+		item4->addItems(styles);
+		sectionsTable->setCellWidget(row, i++, item4);
 		if ((*it).type==Type_None)
-			item5->setCurrentIndex(styles.count()-1);
+			item4->setCurrentIndex(styles.count()-1);
 		else
-			item5->setCurrentIndex((*it).type);
+			item4->setCurrentIndex((*it).type);
 		//Start Page Number
-		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number((*it).sectionstartindex));
-		sectionsTable->setItem(row, i++, item6);
+		QTableWidgetItem *item5 = new QTableWidgetItem(QString::number((*it).sectionstartindex));
+		sectionsTable->setItem(row, i++, item5);
 		//End Page Number
 		/*
 		QTableItem *item7 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex + (*it).toindex - (*it).fromindex));
 		item7->setEnabled(false);
 		sectionsTable->setItem(row, i++, item7);
 		*/
+		//Field Width
+		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number((*it).pageNumberWidth));
+		sectionsTable->setItem(row, i++, item6);
+		//Fill Char
+		QTableWidgetItem *item7 = new QTableWidgetItem(QString((*it).pageNumberFillChar));
+		sectionsTable->setItem(row, i++, item7);
+		//
 		QTableWidgetItem *t=sectionsTable->verticalHeaderItem(row);
 		if (t!=NULL)
 			t->setText(QString("%1").arg(row));
@@ -150,6 +157,18 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 		break;
 	case 5:
 		localSections[row].sectionstartindex=sectionsTable->item(row, col)->text().toUInt();
+		break;
+	case 6:
+		localSections[row].pageNumberWidth=sectionsTable->item(row, col)->text().toInt();
+		break;
+	case 7:
+		{
+			QString ch=sectionsTable->item(row, col)->text();
+			if (ch.length()>0)
+				localSections[row].pageNumberFillChar=sectionsTable->item(row, col)->text().at(0);
+			else
+				localSections[row].pageNumberFillChar=QChar();
+		}
 		break;
 	default:
 		break;

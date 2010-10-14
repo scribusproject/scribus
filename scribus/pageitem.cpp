@@ -2394,7 +2394,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 
 QString PageItem::ExpandToken(uint base)
 {
-	uint zae = 0;
+	//uint zae = 0;
 	QChar ch = itemText.text(base);
 	QString chstr = ch;
 	if (ch == SpecialChars::PAGENUMBER)
@@ -2404,9 +2404,11 @@ QString PageItem::ExpandToken(uint base)
 			return "";
 		if ((!m_Doc->masterPageMode()) && (OwnPage != -1))
 		{
-			QString out("%1");
 			//CB Section numbering
-			chstr = out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -(int)zae);
+			//chstr = out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -(int)zae);
+			chstr = QString("%1").arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage),
+							m_Doc->getSectionPageNumberWidthForPageIndex(OwnPage),
+							m_Doc->getSectionPageNumberFillCharForPageIndex(OwnPage));
 		}
 		else
 			return "#";
@@ -2415,11 +2417,10 @@ QString PageItem::ExpandToken(uint base)
 	{
 		if (!m_Doc->masterPageMode())
 		{
-			QString out("%1");
 			int key = m_Doc->getSectionKeyForPageIndex(OwnPage);
 			if (key == -1)
 				return "%";
-			chstr = out.arg(getStringFromSequence(m_Doc->sections()[key].type, m_Doc->sections()[key].toindex - m_Doc->sections()[key].fromindex + 1));
+			chstr = QString("%1").arg(getStringFromSequence(m_Doc->sections()[key].type, m_Doc->sections()[key].toindex - m_Doc->sections()[key].fromindex + 1));
 		}
 		else
 			return "%";
@@ -2470,7 +2471,6 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	{
 		layout.glyph = style.font().char2CMap(chars[0].unicode());
 	}
-	
 	double tracking = 0.0;
 	if ( (style.effects() & ScStyle_StartOfLine) == 0)
 		tracking = style.fontSize() * style.tracking() / 10000.0;

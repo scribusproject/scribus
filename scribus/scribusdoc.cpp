@@ -3134,10 +3134,15 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				//Our page number collection string
 				QString pageNumberText(QString::null);
 				if (chr == 30)
-				{
+				{//ch == SpecialChars::PAGENUMBER
 					//If not on a master page just get the page number for the page and the text
 					if (lc!=0)
-						pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
+					{
+//						pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
+						pageNumberText = QString("%1").arg(getSectionPageNumberForPageIndex(it->OwnPage),
+										getSectionPageNumberWidthForPageIndex(it->OwnPage),
+										getSectionPageNumberFillCharForPageIndex(it->OwnPage));
+					}
 					else
 					{
 						//Else, for a page number in a text frame on a master page we must scan
@@ -3150,7 +3155,10 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 						{
 							if (DocPages.at(a)->MPageNam == it->OnMasterPage)
 							{
-								newText=getSectionPageNumberForPageIndex(a);
+//								newText=getSectionPageNumberForPageIndex(a);
+								newText = QString("%1").arg(getSectionPageNumberForPageIndex(a),
+												getSectionPageNumberWidthForPageIndex(a),
+												getSectionPageNumberFillCharForPageIndex(a));
 								for (int nti=0;nti<newText.length();++nti)
 									if (pageNumberText.indexOf(newText[nti])==-1)
 										pageNumberText+=newText[nti];
@@ -3159,15 +3167,14 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					}
 				}
 				else
-				{
+				{//ch == SpecialChars::PAGECOUNT
 					if (lc!=0)
 					{
-						QString out("%1");
 						int key = getSectionKeyForPageIndex(it->OwnPage);
 						if (key == -1)
 							pageNumberText = "";
 						else
-							pageNumberText = out.arg(getStringFromSequence(docPrefsData.docSectionMap[key].type, docPrefsData.docSectionMap[key].toindex - docPrefsData.docSectionMap[key].fromindex + 1));
+							pageNumberText = QString("%1").arg(getStringFromSequence(docPrefsData.docSectionMap[key].type, docPrefsData.docSectionMap[key].toindex - docPrefsData.docSectionMap[key].fromindex + 1));
 					}
 					else
 					{
@@ -3177,12 +3184,11 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 						{
 							if (DocPages.at(a)->MPageNam == it->OnMasterPage)
 							{
-								QString out("%1");
 								int key = getSectionKeyForPageIndex(a);
 								if (key == -1)
 									newText = "";
 								else
-									newText = out.arg(getStringFromSequence(docPrefsData.docSectionMap[key].type, docPrefsData.docSectionMap[key].toindex - docPrefsData.docSectionMap[key].fromindex + 1));
+									newText = QString("%1").arg(getStringFromSequence(docPrefsData.docSectionMap[key].type, docPrefsData.docSectionMap[key].toindex - docPrefsData.docSectionMap[key].fromindex + 1));
 								for (int nti=0;nti<newText.length();++nti)
 									if (pageNumberText.indexOf(newText[nti])==-1)
 										pageNumberText+=newText[nti];
@@ -5365,7 +5371,7 @@ void ScribusDoc::setMasterPageMode(bool changeToMasterPageMode)
 }
 
 
-void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active)
+void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active, const QChar fillChar, int fieldWidth)
 {
 	struct DocumentSection newSection;
 	uint docPageCount=DocPages.count();
@@ -5380,6 +5386,8 @@ void ScribusDoc::addSection(const int number, const QString& name, const uint fr
 		newSection.sectionstartindex=1;
 		newSection.reversed=false;
 		newSection.active=true;
+		newSection.pageNumberFillChar=QChar();
+		newSection.pageNumberWidth=0;
 		docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
 	else if (number!=-1)
@@ -5394,6 +5402,8 @@ void ScribusDoc::addSection(const int number, const QString& name, const uint fr
 		newSection.sectionstartindex=sectionstartindex;
 		newSection.reversed=reversed;
 		newSection.active=active;
+		newSection.pageNumberFillChar=fillChar;
+		newSection.pageNumberWidth=fieldWidth;
 		docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
 }
@@ -5457,15 +5467,41 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	int key=getSectionKeyForPageIndex(pageIndex);
 	if (key==-1)
 		return retVal;
-
-	uint sectionIndexOffset=pageIndex-docPrefsData.docSectionMap[key].fromindex+docPrefsData.docSectionMap[key].sectionstartindex;
 	//If a section is inactive, theres no page numbers printed
 	if (docPrefsData.docSectionMap[key].active==false)
 		return "";
+	uint sectionIndexOffset=pageIndex-docPrefsData.docSectionMap[key].fromindex+docPrefsData.docSectionMap[key].sectionstartindex;
 	retVal=getStringFromSequence(docPrefsData.docSectionMap[key].type, sectionIndexOffset);
 	return retVal;
 }
 
+const QChar ScribusDoc::getSectionPageNumberFillCharForPageIndex(const uint pageIndex) const
+{
+	QChar retVal;
+	int key=getSectionKeyForPageIndex(pageIndex);
+	if (key==-1)
+		return retVal;
+
+	//If a section is inactive, theres no page numbers printed
+	if (docPrefsData.docSectionMap[key].active==false)
+		return retVal;
+	retVal=docPrefsData.docSectionMap[key].pageNumberFillChar;
+	return retVal;
+}
+
+int ScribusDoc::getSectionPageNumberWidthForPageIndex(const uint pageIndex) const
+{
+	int retVal=0;
+	int key=getSectionKeyForPageIndex(pageIndex);
+	if (key==-1)
+		return retVal;
+
+	//If a section is inactive, theres no page numbers printed
+	if (docPrefsData.docSectionMap[key].active==false)
+		return retVal;
+	retVal=docPrefsData.docSectionMap[key].pageNumberWidth;
+	return retVal;
+}
 
 void ScribusDoc::updateSectionPageNumbersToPages()
 {
