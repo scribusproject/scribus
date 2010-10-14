@@ -140,6 +140,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	hasThumbnail = false;
 	inTrailer = false;
 	BBoxInTrailer = false;
+	isRotated = false;
 	int plateCount = 0;
 	uint startPos = 0;
 	FontListe.clear();
@@ -585,7 +586,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					int eh = qRound(h - y * gsRes / 72.0);
 					m_image = m_image.copy(ex, ey, ew, eh);
 				}
-				if (!ScCore->havePNGAlpha())
+				if ((!ScCore->havePNGAlpha()) || (isRotated))
 				{
 					int wi = m_image.width();
 					int hi = m_image.height();
