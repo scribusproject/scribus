@@ -429,17 +429,17 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream("%%Title: " + Titel + "\n");
 	PutStream("%%Creator: " + Creator + "\n");
 	PutStream("%%Pages: " + IToStr(numpage) + "\n");
-	if(breite<hoehe)
-	{
+//	if(breite<hoehe)
+//	{
 		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(breite)) + " " + IToStr(qRound(hoehe)) + "\n";
 		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(breite) + " " + ToStr(hoehe) + "\n";
-	}
+/*	}
 	else
 	{
 		
 		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(hoehe)) + " " + IToStr(qRound(breite)) + "\n";
 		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(hoehe) + " " + ToStr(breite) + "\n";
-	}
+	} */
  // 	if (!Art)
 //	{
 		PutStream(BBox);
