@@ -30,16 +30,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -126,16 +123,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -226,16 +220,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -322,16 +313,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -434,6 +422,34 @@
 			<File
 				RelativePath="..\..\..\scribus\plugins\tools\pathcut\pathcut.h"
 				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
