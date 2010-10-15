@@ -3258,6 +3258,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			b->OldB2 = b->width();
 			b->OldH2 = b->height();
 			b->updateClip();
+			b->AdjustPictScale();
 		}
 		else
 		{
