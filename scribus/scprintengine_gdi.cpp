@@ -561,7 +561,7 @@ bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWid
 
 	// In case of landscape printing, pslib will rotate the page
 	// we must take that into account
-	if (landscape)
+	/*if (landscape)
 	{
 		sprintf( (char*) sps.data, "-90 rotate %0.3f %0.3f translate\n", (double) -pageHeight, 0.0);
 		sps.numBytes = strlen( (char*) sps.data );
@@ -570,7 +570,7 @@ bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWid
 		transx = ( physicalHeight - pageHeight ) / -2.0;
 		transy = ( physicalWidth  - pageWidth ) / 2.0;
 	}
-	else
+	else*/
 	{
 		transx = ( physicalWidth  - pageWidth ) / 2.0;
 		transy = ( physicalHeight - pageHeight ) / 2.0;
