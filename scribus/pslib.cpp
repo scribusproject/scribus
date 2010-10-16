@@ -79,7 +79,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	Header = psart ? "%!PS-Adobe-3.0\n" : "%!PS-Adobe-3.0 EPSF-3.0\n";
 	BBox = "";
 	BBoxH = "";
-	Art = psart;
+	psExport = psart;
 	isPDF = pdf;
 	UsedFonts.clear();
 	Fonts = "";
@@ -430,16 +430,17 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream("%%Creator: " + Creator + "\n");
 	PutStream("%%Pages: " + IToStr(numpage) + "\n");
 //	if(breite<hoehe)
-//	{
+	if(breite < hoehe || !psExport)
+	{
 		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(breite)) + " " + IToStr(qRound(hoehe)) + "\n";
 		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(breite) + " " + ToStr(hoehe) + "\n";
-/*	}
+	}
 	else
 	{
 		
 		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(hoehe)) + " " + IToStr(qRound(breite)) + "\n";
 		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(hoehe) + " " + ToStr(breite) + "\n";
-	} */
+	}
  // 	if (!Art)
 //	{
 		PutStream(BBox);
@@ -626,7 +627,7 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 	PutStream("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
 	PutStream("%%PageOrientation: ");
 // when creating EPS files determine the orientation from the bounding box
-  	if (!Art)
+  	if (!psExport)
 	{
 		if ((pg->width() - Ma->Left - Ma->Right) <= (pg->height() - Ma->Bottom - Ma->Top))
 			PutStream("Portrait\n");
@@ -649,13 +650,13 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 		}
 	}
 	PutStream("Scribusdict begin\n");
-	if ((Art) && (Options.setDevParam))
+	if ((psExport) && (Options.setDevParam))
   	{
 		PutStream("<< /PageSize [ "+ToStr(maxBoxX)+" "+ToStr(maxBoxY)+" ]\n");
 		PutStream(">> setpagedevice\n");
 	}
 	PutStream("save\n");
-	if(pg->PageOri == 1)
+	if(pg->PageOri == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
   	PutStream("/DeviceCMYK setcolorspace\n");
 	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" tr\n");
@@ -1848,7 +1849,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	if (usingGUI)
 	{
 		QString title=QObject::tr("Exporting PostScript File");
-		if (Art)
+		if (psExport)
 			title=QObject::tr("Printing File");
 		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW());
 		if (progressDialog==0)
@@ -1874,7 +1875,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	}
 	//if ((!Art) && (view->SelItem.count() != 0))
 	uint docSelectionCount=Doc->m_Selection->count();
-	if ((!Art) && (docSelectionCount != 0))
+	if ((!psExport) && (docSelectionCount != 0))
 	{
 		double minx = 99999.9;
 		double miny = 99999.9;
@@ -1999,7 +2000,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			ScQApp->processEvents();
 		a = pageNs[aa]-1;
 		//if ((!Art) && (view->SelItem.count() != 0))
-		if ((!Art) && (Doc->m_Selection->count() != 0))
+		if ((!psExport) && (Doc->m_Selection->count() != 0))
 		{
 			MarginStruct Ma;
 			Ma.Left = gx;
@@ -3129,7 +3130,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				if ((!a->pageName().isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 					continue;
 				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
-				if ((!Art) && (!c->isSelected()) && (Doc->m_Selection->count() != 0))
+				if ((!psExport) && (!c->isSelected()) && (Doc->m_Selection->count() != 0))
 					continue;
 				double bLeft, bRight, bBottom, bTop;
 				GetBleeds(a, bLeft, bRight, bBottom, bTop);
