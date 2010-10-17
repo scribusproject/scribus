@@ -171,6 +171,8 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->fill_gradient.clearStops();
 	if (OB->PType == PageItem::Symbol)
 		OB->pattern = attrAsString(attrs, "pattern", "");
+	OB->mGArrayRows = 1;
+	OB->mGArrayCols = 1;
 	if (OB->GrType != 0)
 	{
 		if (OB->GrType == 8)
@@ -1103,7 +1105,6 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	{
 		ff = fileName;
 	}
-
 	// In case ff contains some old broken scribus xml
 	ff.replace(QChar(5), SpecialChars::PARSEP);
 	ff.replace(QChar(4), SpecialChars::TAB);

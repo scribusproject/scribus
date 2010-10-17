@@ -864,8 +864,15 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
 		updateContents();
 		//>>
-		QFileInfo fi(url.toLocalFile());
-		QString ext = fi.suffix().toUpper();
+		QFileInfo fi;
+		QString ext = "";
+		if (!e->mimeData()->formats().contains("application/x-scribus-elem"))
+		{
+			fi.setFile(url.toLocalFile());
+			ext = fi.suffix().toUpper();
+		}
+//		QFileInfo fi(url.toLocalFile());
+//		QString ext = fi.suffix().toUpper();
 		QStringList imfo;
 		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
 		for (int i = 0; i < imgs.count(); ++i )
