@@ -32,7 +32,7 @@ class SCRIBUS_API BibView : public QListWidget
 public:
 	BibView( QWidget* parent);
 	~BibView() {};
-	void AddObj(QString name, QString daten, QPixmap Bild, bool isDir = false, bool isRaster = false);
+	void AddObj(QString name, QString daten, QPixmap Bild, bool isDir = false, bool isRaster = false, bool isVector = false);
 	void checkAndChange(QString &text, QString nam, QString dir);
 	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
@@ -40,8 +40,10 @@ public:
 	{
 		bool isDir;
 		bool isRaster;
+		bool isVector;
 		QString Data;
 		QPixmap Preview;
+		QListWidgetItem* widgetItem;
 	};
 	QMap<QString,Elem> objectMap;
 	QString ScFilename;
@@ -109,6 +111,7 @@ private slots:
 	void deleteAllObj();
 	void renameObj();
 	void NewLib();
+	void updateView();
 	void goOneDirUp();
 	void closeLib();
 	void libChanged(int index);
@@ -128,6 +131,13 @@ protected:
 	QToolButton* upButton;
 	QToolButton* importButton;
 	QToolButton* closeButton;
+	QToolButton* configButton;
+	QMenu* configMenue;
+	QAction* conf_HideDirs;
+	QAction* conf_HideImages;
+	QAction* conf_HideVectors;
+	QAction* conf_OpenMode;
+	PrefsContext* prefs;
 };
 
 #endif // BIBLIO_H
