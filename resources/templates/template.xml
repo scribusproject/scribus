@@ -84,4 +84,18 @@
 		<author>Fedora Project</author>
 		<email></email>
 	</template>
+	<template category="Cards">
+		<name>menu_template1</name>
+		<file>mc/menu_template1.sla.gz</file>
+		<tnail>mc/menu_template1tn.png</tnail>
+		<img>mc/menu_template1.png</img>
+		<psize>custom, 1224x792</psize>
+		<color>color</color>
+		<descr>Simple menu card template</descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
 </templates>

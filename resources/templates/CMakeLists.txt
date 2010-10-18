@@ -53,3 +53,9 @@ cc/Cheat_Cubetn.png
 cc/Cheat_Cube.sla.gz
   DESTINATION ${TEMPLATEDIR}cc
 )
+INSTALL(FILES
+mc/menu_template1.png
+mc/menu_template1tn.png
+mc/menu_template1.sla.gz
+  DESTINATION ${TEMPLATEDIR}cc
+)
