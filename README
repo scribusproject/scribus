@@ -1,9 +1,9 @@
-This is Scribus Version 1.3.5.
+This is Scribus Version 1.5.0.svn
 
 CHANGES 1.3.3.x to 1.3.5
 ========================
 
-1) Because of the new file format features, Scribus documents saved in 1.3.5
+1) Because of the new file format features, Scribus documents saved in 1.3.5+
    are *not* backward compatible with 1.3.3.x or 1.2.x .
 
 2) You *can* install both versions in parallel and run them at the same time.
