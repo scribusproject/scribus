@@ -98,4 +98,74 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
+	<template category="Brochures">
+		<name>cover1</name>
+		<file>cover1/cover1.sla.gz</file>
+		<tnail>cover1/cover1tn.png</tnail>
+		<img>cover1/cover1.png</img>
+		<psize>A4, Hochformat</psize>
+		<color>Color</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>cover2</name>
+		<file>cover2/cover2.sla.gz</file>
+		<tnail>cover2/cover2tn.png</tnail>
+		<img>cover2/cover2.png</img>
+		<psize>A4, Hochformat</psize>
+		<color>Color</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>cover3</name>
+		<file>cover3/cover3.sla.gz</file>
+		<tnail>cover3/cover3tn.png</tnail>
+		<img>cover3/cover3.png</img>
+		<psize>A4, Hochformat</psize>
+		<color>Color</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>cover4</name>
+		<file>cover4/cover4.sla.gz</file>
+		<tnail>cover4/cover4tn.png</tnail>
+		<img>cover4/cover4.png</img>
+		<psize>A4, Hochformat</psize>
+		<color>Color</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>cover5</name>
+		<file>cover5/cover5.sla.gz</file>
+		<tnail>cover5/cover5tn.png</tnail>
+		<img>cover5/cover5.png</img>
+		<psize>A4, Hochformat</psize>
+		<color>Color</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
 </templates>

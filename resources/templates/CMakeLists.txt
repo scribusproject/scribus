@@ -53,9 +53,45 @@ cc/Cheat_Cubetn.png
 cc/Cheat_Cube.sla.gz
   DESTINATION ${TEMPLATEDIR}cc
 )
+
 INSTALL(FILES
 mc/menu_template1.png
 mc/menu_template1tn.png
 mc/menu_template1.sla.gz
-  DESTINATION ${TEMPLATEDIR}cc
+  DESTINATION ${TEMPLATEDIR}mc
+)
+
+INSTALL(FILES
+cover1/cover1.png
+cover1/cover1tn.png
+cover1/cover1.sla.gz
+  DESTINATION ${TEMPLATEDIR}cover1
+)
+
+INSTALL(FILES
+cover2/cover2.png
+cover2/cover2tn.png
+cover2/cover2.sla.gz
+  DESTINATION ${TEMPLATEDIR}cover2
+)
+
+INSTALL(FILES
+cover3/cover3.png
+cover3/cover3tn.png
+cover3/cover3.sla.gz
+  DESTINATION ${TEMPLATEDIR}cover3
+)
+
+INSTALL(FILES
+cover4/cover4.png
+cover4/cover4tn.png
+cover4/cover4.sla.gz
+  DESTINATION ${TEMPLATEDIR}cover4
+)
+
+INSTALL(FILES
+cover5/cover5.png
+cover5/cover5tn.png
+cover5/cover5.sla.gz
+  DESTINATION ${TEMPLATEDIR}cover5
 )
