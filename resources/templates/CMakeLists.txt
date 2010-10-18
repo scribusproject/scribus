@@ -46,3 +46,10 @@ sc_presentation/presentation.sla.gz
 sc_presentation/presentationtn.png
   DESTINATION ${TEMPLATEDIR}sc_presentation
 )
+
+INSTALL(FILES
+cc/Cheat_Cube.png
+cc/Cheat_Cubetn.png
+cc/Cheat_Cube.sla.gz
+  DESTINATION ${TEMPLATEDIR}cc
+)

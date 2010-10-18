@@ -70,4 +70,18 @@
 		<author>Petr Vaněk</author>
 		<email>petr@yarpen.cz</email>
 	</template>
+	<template category="Packaging">
+		<name>Cheat_Cube</name>
+		<file>cc/Cheat_Cube.sla.gz</file>
+		<tnail>cc/Cheat_Cubetn.png</tnail>
+		<img>cc/Cheat_Cube.png</img>
+		<psize>custom, 1052x744</psize>
+		<color>color</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-18</date>
+		<author>Fedora Project</author>
+		<email></email>
+	</template>
 </templates>
