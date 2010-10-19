@@ -38,6 +38,7 @@ private:
 	QGridLayout* delColorLayout;
 	QHBoxLayout* okCancelLayout;
 	QString replacementColor;
+	ColorList cList;
 
 private slots:
     virtual void ReplaceColor(int);
