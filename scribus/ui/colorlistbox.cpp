@@ -299,10 +299,10 @@ bool ColorListBox::event(QEvent *event)
 			QListWidgetItem* it = itemAt(helpEvent->pos());
 			if (it != 0)
 			{
+				event->accept();
+				QString tipText = "";
 				if (cList->contains(it->text()))
 				{
-					event->accept();
-					QString tipText = "";
 					ScColor col = (*cList)[it->text()];
 					if (col.getColorModel() == colorModelCMYK)
 					{
@@ -316,9 +316,9 @@ bool ColorListBox::event(QEvent *event)
 						col.getRawRGBColor(&r, &g, &b);
 						tipText = QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
 					}
-					QToolTip::showText(helpEvent->globalPos(), tipText, this);
-					return true;
 				}
+				QToolTip::showText(helpEvent->globalPos(), tipText, this);
+				return true;
 			}
 		}
 	}

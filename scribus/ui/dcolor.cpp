@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc) : QDialog( parent )
 {
 	setModal(true);
+	cList = colorList;
 	setWindowTitle( tr( "Delete Color" ) );
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	dialogLayout = new QVBoxLayout( this );
@@ -45,10 +46,10 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 		replaceLabel = new QLabel( tr( "Replace With:" ), this );
 		delColorLayout->addWidget( replaceLabel, 1, 0 );
 		replacementColData = new ColorCombo(false, this);
-		colorList.remove(colorName);
+		cList.remove(colorName);
 		// 10/26/2004 pv - user can replace deleted color with "None"
 		replacementColData->addItem(CommonStrings::tr_NoneColor);
-		replacementColData->insertItems(colorList, ColorCombo::fancyPixmaps);
+		replacementColData->insertItems(cList, ColorCombo::fancyPixmaps);
 		delColorLayout->addWidget( replacementColData, 1, 1 );
 		replacementColor = replacementColData->itemText(0);
 	}
