@@ -678,6 +678,9 @@ void PSLib::PS_end_page()
 	GetBleeds(ActPage, bleedLeft, bleedRight);
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPage->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
+	PutStream("gs\n");
+	if(ActPage->PageOri == 1 && psExport)
+		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 	{
 		PutStream("gs\n");
@@ -845,6 +848,7 @@ void PSLib::PS_end_page()
 		}
 		PutStream("gr\n");
 	}
+	PutStream("gr\n");
 	PutStream("sp\n");
 	PutStream("end\n");
 }
