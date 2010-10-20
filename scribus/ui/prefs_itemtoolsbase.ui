@@ -851,9 +851,15 @@
               </layout>
              </item>
              <item>
-              <widget class="QToolButton" name="scalingLockToolButton">
+              <widget class="LinkButton" name="scalingLockToolButton">
                <property name="text">
                 <string>...</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoRaise">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -1334,6 +1340,11 @@
    <extends>QWidget</extends>
    <header>ui/polygonwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LinkButton</class>
+   <extends>QToolButton</extends>
+   <header>ui/linkbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

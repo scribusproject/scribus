@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui/prefs_itemtools.h"
 #include "ui/arrowchooser.h"
+#include "ui/linkbutton.h"
 #include "prefsstructs.h"
 #include "scrspinbox.h"
 #include "scribusdoc.h"
@@ -14,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include "sampleitem.h"
+
 
 Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
@@ -44,6 +46,7 @@ Prefs_ItemTools::~Prefs_ItemTools()
 void Prefs_ItemTools::languageChange()
 {
 	textPreviewWidget->setText( tr( "Woven silk pyjamas exchanged for blue quartz" ));
+	scalingLockToolButton->setToolTip( tr( "Keep horizontal and vertical scaling the same" ) );
 }
 
 void Prefs_ItemTools::unitChange(int newIndex)
@@ -290,9 +293,9 @@ void Prefs_ItemTools::enableSignals(bool on)
 		connect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 //		connect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
 //		connect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
-//		connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
-//		connect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
-//		connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
+		connect(scalingLockToolButton, SIGNAL(clicked()), this, SLOT(toggleImagesScalingChain()));
+		connect(imageHorizontalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageHorizontalScalingChange()));
+		connect(imageVerticalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageVerticalScalingChange()));
 //		connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	}
 	else
@@ -305,9 +308,9 @@ void Prefs_ItemTools::enableSignals(bool on)
 		disconnect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 //		disconnect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
 //		disconnect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
-//		disconnect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
-//		disconnect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
-//		disconnect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
+		disconnect(scalingLockToolButton, SIGNAL(clicked()), this, SLOT(toggleImagesScalingChain()));
+		disconnect(imageHorizontalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageHorizontalScalingChange()));
+		disconnect(imageVerticalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageVerticalScalingChange()));
 //		disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	}
 }
@@ -362,4 +365,22 @@ void Prefs_ItemTools::updateFontPreview()
 	si.setFontSize(textSizeSpinBox->value() * 10, true);
 	textPreviewWidget->setPixmap(si.getSample(textPreviewWidget->width(), textPreviewWidget->height()));
 }
+
+void Prefs_ItemTools::toggleImagesScalingChain()
+{
+	imageHorizontalScalingChange();
+}
+
+void Prefs_ItemTools::imageHorizontalScalingChange()
+{
+	if (scalingLockToolButton->isChecked())
+		imageVerticalScalingSpinBox->setValue(imageHorizontalScalingSpinBox->value());
+}
+
+void Prefs_ItemTools::imageVerticalScalingChange()
+{
+	if (scalingLockToolButton->isChecked())
+		imageHorizontalScalingSpinBox->setValue(imageVerticalScalingSpinBox->value());
+}
+
 

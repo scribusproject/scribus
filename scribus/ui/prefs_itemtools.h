@@ -32,6 +32,9 @@ class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 	protected slots:
 		void enableSignals(bool on);
 		void updateFontPreview();
+		void toggleImagesScalingChain();
+		void imageHorizontalScalingChange();
+		void imageVerticalScalingChange();
 
 	protected:
 		ScribusDoc* m_doc;
