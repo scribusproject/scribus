@@ -1,31 +1,33 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Hyphenation - Type Hints</title>
+	<title>Hyphenation</title>
 </head>
 <body>
-<h2>Hyphenation - Type Hints</h2>
+<h2>Hyphenation</h2>
 <h3>Introduction</h3>
-<p>This feature adds sophisticated hyphenation control for text formatting within Scribus. Based on code from both Tex and OpenOffice.org, it has a time tested algorithm for selecting syllables within words.</p>
+<p>One of the reasons for ugly text layout is &ldquo;white holes&rdquo; between words, which in turn are the result of unhyphenated text. A general rule is that the shorter the a line of text, the more likely those gaps are. Hence the strong recommendation to use the hyphenator for continuous text.</p>
 
-<h3>Usage</h3>
-<p>Hyphenation. Select a text frame, Adjust the text alignment you wish and then select Hyphenation &#062; Hyphenate Text from the menu. Automatic, means just that - select a text frame and Hyphenate &#062; Hyphenate Text sets this very similarly to applying a Style. Changing the font, kerning or font size will automatically redraw the text and reapply the hyphenation automatically.</p>
+<h3>Configuration</h3>
+<p>To get the best hyphenation results, you are advised to configure the hyphenator properly. This can be done via <i>File > Document Setup > Hyphenator</i> for the current document and <i>File > Preferences > Hyphenator</i> for new documents.</p>
 
 <table width="100%"><tr><td align="center"><img src="images/hyphen1.png" align="center" alt="Hyphenator Settings Dialog" /></td></tr></table>
-
-<p>For most purposes, the settings can be left at the default - Automatic - and then you can simply apply hyphenation by selecting the text box and then Hyphenation &#062; Hyphenate Text from the menu. You can also allow Scribus to automatically hyphenate as you type.</p>
-
-<table width="100%"><tr><td align="center"><img src="images/hyphen2.png" align="center" alt="Possible Hyphenation Dialog" title="Possible Hyphenation Dialog" /></td></tr></table>
-
-<p>When set to manual, you also have the option to over ride possible hyphenation word by word, as shown in figure below.</p>
-
-<table width="100%"><tr><td align="center"><img src="images/hyphen3.png" align="center" alt="Possible Hyphenation Dialog" title="Possible Hyphenation Dialog" /></td></tr></table>
-
-<p>There is a sample document included with the documentation <code>hyphen.scd.gz</code> which gives a short demo of the differences when you layout a columns of text.</p>
-
-<p>You will probably have the best appearance from formatting your text as <strong>Block(justified)</strong>.</p>
-
-<p>Currently, there are hyphenation dictionaries in Catalan, Czech, Danish, English, Finnish
-French, German, Greek, Irish (Gaelic), Italian, Hungarian, Lithuanian, Polish, Portuguese, Russian, Slovak, Slovenian, Spanish, Swedish and Ukrainian.</p>
+<p>The dialog consists of four parts. In the upper left section (<i>General Options</i>) you can determine the general behavior of the hyphenator:</p>
+<ul>
+<li><b>Hyphenation Suggestions:</b> If you check this option, Scribus will suggest the hyphenation for <i>every word</i> in a text frame. If applied to a long text, this can be time-consuming, and you may want to correct hyphenations on a case-by-case instead.</li>
+<li><b>Hyphenate Text Automatically During Typing:</b> If checked, Scribus will automatically hyphenate text in every text frame that&rsquo;s being added to your document. This includes imported text.</li>
+</ul>
+<p>In the upper right corner you can see the most important typographical options, namely:</p>
+<ul>
+<li><b>Language:</b> There are huge differences between the hyphenation rules in different languages, so you have to make sure to select the correct one. If you use more than one language in a document, you can set up separate <a href="WwStyles.html">character styles</a> for every language.</li>
+<li><b>Smallest word</b> determines the length required to trigger a hyphen. The default is 3, which means that a word needs to consist at least of four characters to be hyphenated.</li>
+<li><b>Consecutive Hyphenations Allowed:</b> determines in how many consecutive lines hyphenation is permitted. It is recommended to limit the number of lines, because otherwise the right border of a text looks like a &ldquo;ladder&rdquo;. The default is 2, which is common in typography.</li>
+</ul>
+<p>In the lower part of the dialog there are two fields that allow you to specify words that you want to be treated differently. The left field is called <i>Exceptions</i>. Here you can add words that aren&rsquo;t hyphenated correctly by the hyphenator. In the example above, the word &ldquo;manuscript&rdquo; has been inserted, including the desired positions for line breaks, which are specified by inserting &ldquo;-&rdquo; via the keyboard.</p>
+<p>To the right there is a second field called <i>Ignore List</i>. Any word that has been added to this list won&rsquo;t be hyphenated.</p>
+<h3>Usage</h3>
+<p>Select a text frame, adjust the text alignment to your liking and then select <i>Extras > Hyphenate Text</i> from the menu. Note that this will only hyphenate text in a selected frame.</p>
+<p>In the <i>Extras</i> menu there is also the opposite feature, called <i>Dehyphenate Text</i>. It is used to dehyphenate text in a selected frame, but it can also be used to dehyphenate a single word. To do the latter, you have to select a hyphenated word in a text frame and then use the menu command.</p>
+<p>Not every possible or reasonable hyphenation can be detected by the hyphenation algorithm. In such a case you can insert a so-called &ldquo;soft hyphen&rdquo; into a word. &ldquo;Soft hyphen&rdquo; essentially tells the hyphenator: &ldquo;Hyphenate here, if possible&rdquo;, whre &ldquo;possible&rdquo; means that hyphenation is not prevented by other settings, like <i>Consecutive Hyphenations Allowed</i>. To insert a soft hyphen, you need to place the cursor in a word at the desired break position and then use <i>Insert > Character > Soft Hyphen</i>.</p>
 </body>
 </html>
