@@ -679,7 +679,7 @@ void PSLib::PS_end_page()
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPage->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
 	PutStream("gs\n");
-	if(ActPage->PageOri == 1 && psExport)
+	if(ActPage->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 	{
