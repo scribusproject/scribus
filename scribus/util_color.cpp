@@ -184,8 +184,19 @@ QPixmap * getWidePixmap(QColor rgb)
 static quint64 code64(const ScColor & col) {
 	int C, M, Y, K, R, G, B;
 	quint64 result=0;
-	col.getRGB( &R, &G, &B );
-	col.getCMYK( &C, &M, &Y, &K );
+	if (col.getColorModel() == colorModelRGB)
+	{
+		col.getRGB( &R, &G, &B );
+		QColor color = QColor(R, G, B);
+		color.getCmyk(&C, &M, &Y, &K);
+	}
+	else
+	{
+		col.getCMYK( &C, &M, &Y, &K );
+		R = 255-qMin(255, C + K);
+		G = 255-qMin(255, M + K);
+		B = 255-qMin(255, Y + K);
+	}
 	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
 	result |= col.isSpotColor() ? 64 : 0;
 	result |= col.isRegistrationColor() ? 32 : 0;
@@ -230,7 +241,8 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc) {
 		return pxCache[res];
 
 	QPixmap *pa=new QPixmap(60, 15);
-	QPixmap *pm=getSmallPixmap(col.getRawRGBColor());
+	QPixmap *pm=getSmallPixmap(ScColorEngine::getDisplayColor(col, doc));
+//	QPixmap *pm=getSmallPixmap(col.getRawRGBColor());
 	pa->fill(Qt::white);
 	paintAlert(*pm, *pa, 0, 0);
 	if (ScColorEngine::isOutOfGamut(col, doc))
@@ -583,7 +595,7 @@ QString colorSpaceText(int cs)
 	return CommonStrings::trUnknownCS;
 }
 
-bool importColorsFromFile(QString fileName, ColorList &EditColors)
+bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,VGradient> *dialogGradients)
 {
 	int oldCount = EditColors.count();
 	if (!fileName.isEmpty())
@@ -767,6 +779,42 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 									lf.setRegistrationColor(false);
 								if (!EditColors.contains(pg.attribute("NAME")))
 									EditColors.insert(pg.attribute("NAME"), lf);
+							}
+							else if (pg.tagName() == "Gradient")
+							{
+								if (dialogGradients != NULL)
+								{
+									VGradient gra = VGradient(VGradient::linear);
+									gra.clearStops();
+									QDomNode grad = pg.firstChild();
+									while(!grad.isNull())
+									{
+										QDomElement stop = grad.toElement();
+										QString name = stop.attribute("NAME");
+										double ramp  = ScCLocale::toDoubleC(stop.attribute("RAMP"), 0.0);
+										int shade    = stop.attribute("SHADE", "100").toInt();
+										double opa   = ScCLocale::toDoubleC(stop.attribute("TRANS"), 1.0);
+										QColor color;
+										if (name == CommonStrings::None)
+											color = QColor(255, 255, 255, 0);
+										else
+										{
+											const ScColor& col = EditColors[name];
+											color = ScColorEngine::getShadeColorProof(col, NULL, shade);
+										}
+										gra.addStop(color, ramp, 0.5, opa, name, shade);
+										grad = grad.nextSibling();
+									}
+									if (!dialogGradients->contains(pg.attribute("Name")))
+										dialogGradients->insert(pg.attribute("Name"), gra);
+									else
+									{
+										QString tmp;
+										QString name = pg.attribute("Name");
+										name += "("+tmp.setNum(dialogGradients->count())+")";
+										dialogGradients->insert(name, gra);
+									}
+								}
 							}
 							else if (pg.tagName()=="draw:color" && pg.attribute("draw:name")!=CommonStrings::None)
 							{

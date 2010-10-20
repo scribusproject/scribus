@@ -152,6 +152,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pagepalette.h"
 #include "ui/pageselector.h"
 #include "pagesize.h"
+#include "ui/paintmanager.h"
 #include "ui/patterndialog.h"
 #include "pdflib.h"
 #include "pdfoptions.h"
@@ -690,6 +691,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit", true);
 	scrMenuMgr->addMenuItem(scrActions["editReplaceColors"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editGradients"], "Edit", false);
+	scrMenuMgr->addMenuItem(scrActions["editPaints"], "Edit", true);
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit", false);
@@ -2341,7 +2343,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editReplaceColors"]->setEnabled(true);
 	scrActions["editPatterns"]->setEnabled(true);
-//	scrActions["editGradients"]->setEnabled(true);
+	scrActions["editGradients"]->setEnabled(true);
  	scrActions["editStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
@@ -4487,7 +4489,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editReplaceColors"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
-//		scrActions["editGradients"]->setEnabled(false);
+		scrActions["editGradients"]->setEnabled(false);
  		scrActions["editStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
@@ -9918,6 +9920,76 @@ void ScribusMainWindow::managePatterns()
 		delete dia;
 		undoManager->setUndoEnabled(true);
 	}
+}
+
+void ScribusMainWindow::managePaints()
+{
+	ColorList edc;
+	QMap<QString, VGradient> *Gradients;
+	if (HaveDoc)
+	{
+		Gradients = &doc->docGradients;
+		edc = doc->PageColors;
+	}
+	else
+	{
+		Gradients = &prefsManager->appPrefs.defaultGradients;
+		edc = prefsManager->colorSet();
+	}
+	undoManager->setUndoEnabled(false);
+	paintManagerDialog *dia = new paintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), prefsManager->appPrefs.colorPrefs.CustomColorSets, doc, this);
+	if (dia->exec())
+	{
+		if (HaveDoc)
+		{
+			QColor tmpc;
+			slotDocCh();
+			doc->PageColors = dia->m_colorList;
+			if (dia->replaceColorMap.isEmpty())
+			{
+				// invalidate all charstyles, as replaceNamedResources() wont do it if all maps are empty
+				const StyleSet<CharStyle> dummy;
+				doc->redefineCharStyles(dummy, false);
+			}
+			else
+			{
+				ResourceCollection colorrsc;
+				colorrsc.mapColors(dia->replaceColorMap);
+				// Update tools colors
+				PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
+				// Update objects and styles colors
+				doc->replaceNamedResources(colorrsc);
+				// Temporary code until LineStyle is effectively used
+				doc->replaceLineStyleColors(dia->replaceColorMap);
+			}
+			doc->recalculateColors();
+			doc->recalcPicturesRes();
+			doc->setGradients(dia->dialogGradients);
+			if (!dia->replaceMap.isEmpty())
+			{
+				ResourceCollection gradrsc;
+				gradrsc.mapPatterns(dia->replaceMap);
+				doc->replaceNamedResources(gradrsc);
+			}
+			updateColorLists();
+			if (doc->m_Selection->count() != 0)
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
+			view->DrawNew();
+		}
+		else
+		{
+			// Update tools colors if needed
+			prefsManager->replaceToolColors(dia->replaceColorMap);
+			prefsManager->setColorSet(dia->m_colorList);
+			prefsManager->setColorSetName(dia->getColorSetName());
+			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
+			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
+		}
+	}
+	if (!HaveDoc)
+		prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
+	delete dia;
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::manageGradients()

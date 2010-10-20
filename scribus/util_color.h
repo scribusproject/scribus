@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "fpointarray.h"
+#include "vgradient.h"
 #include "sccolor.h"
 #include "scribusapi.h"
 
@@ -110,6 +111,6 @@ QString SCRIBUS_API colorSpaceText(int cs);
  * \param EditColors Color list to store the imported colors
  * \return true if any colors have been found
 */
-bool SCRIBUS_API importColorsFromFile(QString fileName, ColorList &EditColors);
+bool SCRIBUS_API importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,VGradient> *dialogGradients = NULL);
 
 #endif
