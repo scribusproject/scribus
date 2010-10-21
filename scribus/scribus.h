@@ -447,7 +447,7 @@ public slots:
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
 	/** Farbeditor */
-	void slotEditColors();
+//	void slotEditColors();
 	/** Color Replacement */
 	void slotReplaceColors();
 	/** Style Manager */
@@ -554,7 +554,7 @@ public slots:
 	//! \brief manages the documents patterns
 	void managePatterns();
 	//! \brief manages the documents gradients
-	void manageGradients();
+//	void manageGradients();
 	//! \brief manages paints
 	void managePaints();
 	//! \brief enable or disable the unicode actions and their menus

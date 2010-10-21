@@ -335,7 +335,7 @@ void CWDialog::addButton_clicked()
 	if (err)
 	{
 		QMessageBox::information(this, tr("Color Merging"), status);
-		m_Doc->scMW()->slotEditColors();
+		m_Doc->scMW()->managePaints();
 		return;
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
-#include "ui/colorm.h"
+#include "ui/paintmanager.h"
 
 #include <QSharedPointer>
 #include <QTextStream>
@@ -218,8 +218,7 @@ void BarcodeGenerator::paintColorSample(QLabel *l, const ScColor & c)
 
 void BarcodeGenerator::bgColorButton_pressed()
 {
-	ColorManager d(this, ScCore->primaryMainWindow()->doc->PageColors, ScCore->primaryMainWindow()->doc, "", QStringList());
-
+	paintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	bgColor = d.selectedColor();
@@ -230,8 +229,7 @@ void BarcodeGenerator::bgColorButton_pressed()
 
 void BarcodeGenerator::lnColorButton_pressed()
 {
-	ColorManager d(this, ScCore->primaryMainWindow()->doc->PageColors, ScCore->primaryMainWindow()->doc, "", QStringList());
-
+	paintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	lnColor = d.selectedColor();
@@ -242,7 +240,7 @@ void BarcodeGenerator::lnColorButton_pressed()
 
 void BarcodeGenerator::txtColorButton_pressed()
 {
-	ColorManager d(this, ScCore->primaryMainWindow()->doc->PageColors, ScCore->primaryMainWindow()->doc, "", QStringList());
+	paintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 
 	if (!d.exec())
 		return;

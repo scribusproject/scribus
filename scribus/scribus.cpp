@@ -92,7 +92,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/cmsprefs.h"
 #include "ui/collectforoutput_ui.h"
 #include "ui/colorcombo.h"
-#include "ui/colorm.h"
 #include "commonstrings.h"
 #include "ui/contextmenu.h"
 #include "ui/cpalette.h"
@@ -113,7 +112,6 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "gtgettext.h"
-#include "ui/gradientmanager.h"
 #include "ui/guidemanager.h"
 #include "ui/helpbrowser.h"
 #include "ui/hruler.h"
@@ -690,8 +688,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit", true);
 	scrMenuMgr->addMenuItem(scrActions["editReplaceColors"], "Edit", false);
-	scrMenuMgr->addMenuItem(scrActions["editGradients"], "Edit", false);
-	scrMenuMgr->addMenuItem(scrActions["editPaints"], "Edit", true);
+//	scrMenuMgr->addMenuItem(scrActions["editGradients"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit", false);
@@ -2343,7 +2340,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editReplaceColors"]->setEnabled(true);
 	scrActions["editPatterns"]->setEnabled(true);
-	scrActions["editGradients"]->setEnabled(true);
+//	scrActions["editGradients"]->setEnabled(true);
  	scrActions["editStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
@@ -4489,8 +4486,8 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editReplaceColors"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
-		scrActions["editGradients"]->setEnabled(false);
- 		scrActions["editStyles"]->setEnabled(false);
+//		scrActions["editGradients"]->setEnabled(false);
+		scrActions["editStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
@@ -9981,17 +9978,44 @@ void ScribusMainWindow::managePaints()
 			// Update tools colors if needed
 			prefsManager->replaceToolColors(dia->replaceColorMap);
 			prefsManager->setColorSet(dia->m_colorList);
-			prefsManager->setColorSetName(dia->getColorSetName());
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
 		}
 	}
-	if (!HaveDoc)
-		prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
+	prefsManager->setColorSetName(dia->getColorSetName());
+//	if (!HaveDoc)
+	prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
 	undoManager->setUndoEnabled(true);
 }
 
+void ScribusMainWindow::slotReplaceColors()
+{
+	if (HaveDoc)
+	{
+		ColorList UsedC;
+		doc->getUsedColors(UsedC);
+		replaceColorsDialog *dia2 = new replaceColorsDialog(this, doc->PageColors, UsedC);
+		if (dia2->exec())
+		{
+			ResourceCollection colorrsc;
+			colorrsc.mapColors(dia2->replaceMap);
+			PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
+			doc->replaceNamedResources(colorrsc);
+			doc->replaceLineStyleColors(dia2->replaceMap);
+			doc->recalculateColors();
+			doc->recalcPicturesRes();
+			propertiesPalette->updateColorList();
+			propertiesPalette->SetLineFormats(doc);
+			styleManager->updateColorList();
+			if (doc->m_Selection->count() != 0)
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
+			view->DrawNew();
+		}
+		delete dia2;
+	}
+}
+/*
 void ScribusMainWindow::manageGradients()
 {
 	if (HaveDoc)
@@ -10037,33 +10061,6 @@ void ScribusMainWindow::manageGradients()
 	}
 }
 
-void ScribusMainWindow::slotReplaceColors()
-{
-	if (HaveDoc)
-	{
-		ColorList UsedC;
-		doc->getUsedColors(UsedC);
-		replaceColorsDialog *dia2 = new replaceColorsDialog(this, doc->PageColors, UsedC);
-		if (dia2->exec())
-		{
-			ResourceCollection colorrsc;
-			colorrsc.mapColors(dia2->replaceMap);
-			PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
-			doc->replaceNamedResources(colorrsc);
-			doc->replaceLineStyleColors(dia2->replaceMap);
-			doc->recalculateColors();
-			doc->recalcPicturesRes();
-			propertiesPalette->updateColorList();
-			propertiesPalette->SetLineFormats(doc);
-			styleManager->updateColorList();
-			if (doc->m_Selection->count() != 0)
-				doc->m_Selection->itemAt(0)->emitAllToGUI();
-			view->DrawNew();
-		}
-		delete dia2;
-	}
-}
-
 void ScribusMainWindow::slotEditColors()
 {
 	ColorList edc;
@@ -10099,12 +10096,6 @@ void ScribusMainWindow::slotEditColors()
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
 			updateColorLists();
-			/*
-			propertiesPalette->updateColorList();
-			//3102: update the line styles in PP too
-			propertiesPalette->SetLineFormats(doc);
-			styleManager->updateColorList();
-			*/
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
@@ -10122,6 +10113,7 @@ void ScribusMainWindow::slotEditColors()
 		prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
 }
+*/
 
 void ScribusMainWindow::enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName)
 {

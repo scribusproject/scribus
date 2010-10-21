@@ -87,7 +87,7 @@ paintManagerDialog::paintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 		realEx.clear();
 		for (int m = 0; m < custColSet.count(); ++m)
 		{
-			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + custColSet[m]);
+			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + custColSet[m] + ".xml");
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
@@ -826,7 +826,11 @@ void paintManagerDialog::loadDefaults(const QString &txt)
 {
 	int c = LoadColSet->currentIndex();
 	setCurrentComboItem(LoadColSet, txt);
-	m_colorList.clear();
+	if (m_doc == NULL)
+	{
+		m_colorList.clear();
+		dialogGradients.clear();
+	}
 	QString pfadC2 = "";
 	if (txt == "Scribus Small")
 	{
@@ -861,7 +865,7 @@ void paintManagerDialog::loadDefaults(const QString &txt)
 	}
 	if (txt != "Scribus Small")
 	{
-		if (importColorsFromFile(pfadC2, m_colorList, &dialogGradients))
+		if (importColorsFromFile(pfadC2, m_colorList, &dialogGradients, (m_doc!=0)))
 		{
 			m_colorList.insert("White", ScColor(0, 0, 0, 0));
 			m_colorList.insert("Black", ScColor(0, 0, 0, 255));
@@ -964,4 +968,26 @@ void paintManagerDialog::saveDefaults()
 QString paintManagerDialog::getColorSetName()
 {
 	return LoadColSet->currentText();
+}
+
+ScColor paintManagerDialog::selectedColor()
+{
+	QTreeWidgetItem* it = dataTree->currentItem();
+	if (it)
+	{
+		if (it->parent() == colorItems)
+			return m_colorList[it->text(0)];
+	}
+	return ScColor();
+}
+
+QString paintManagerDialog::selectedColorName()
+{
+	QTreeWidgetItem* it = dataTree->currentItem();
+	if (it)
+	{
+		if (it->parent() == colorItems)
+			return it->text(0);
+	}
+	return CommonStrings::None;
 }

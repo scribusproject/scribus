@@ -75,7 +75,6 @@ SET(SCRIBUS_UI_SRC
   ui/docsections.ui
   ui/gradientaddedit.ui
   ui/gradienteditor.ui
-  ui/gradientmanager.ui
   ui/gradientvectorbase.ui
   ui/gtfiledialog.ui
   ui/guidemanager.ui
@@ -191,7 +190,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/colorchart.h
   ui/colorcombo.h
   ui/colorlistbox.h
-  ui/colorm.h
   commonstrings.h
   ui/contextmenu.h
   ui/cpalette.h
@@ -218,7 +216,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/fontreplacedialog.h
   ui/gradientaddedit.h
   ui/gradienteditor.h
-  ui/gradientmanager.h
   ui/gradientvectordialog.h
   ui/gradientpreview.h
   ui/gtdialogs.h
@@ -483,7 +480,6 @@ SET(SCRIBUS_SOURCES
   ui/colorchart.cpp
   ui/colorcombo.cpp
   ui/colorlistbox.cpp
-  ui/colorm.cpp
   colorsetmanager.cpp
   commonstrings.cpp
   ui/contextmenu.cpp
@@ -519,7 +515,6 @@ SET(SCRIBUS_SOURCES
   fpoptimizer.cpp
   ui/gradientaddedit.cpp
   ui/gradienteditor.cpp
-  ui/gradientmanager.cpp
   ui/gradientvectordialog.cpp
   ui/gradientpreview.cpp
   gtaction.cpp

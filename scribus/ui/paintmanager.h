@@ -43,6 +43,14 @@ class SCRIBUS_API paintManagerDialog : public QDialog, Ui::paintManager
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */
 		QString getColorSetName();
+		/*! \brief Returns currently selected ScColor.
+		It's used e.g. in BarcodeGenerator plugin.
+		*/
+		ScColor selectedColor();
+		/*! \brief Returns name of the currently selected color.
+		It's used e.g. in BarcodeGenerator plugin.
+		*/
+		QString selectedColorName();
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
 		QMap<QString, VGradient> dialogGradients;

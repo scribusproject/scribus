@@ -1656,7 +1656,7 @@ bool PrefsManager::WritePref(QString ho)
 	for (int ccs=0; ccs<appPrefs.colorPrefs.CustomColorSets.count(); ++ccs)
 	{
 		QDomElement cos=docu.createElement("ColorSet");
-		cos.setAttribute("NAME",appPrefs.colorPrefs.CustomColorSets[ccs]);
+		cos.setAttribute("Name",appPrefs.colorPrefs.CustomColorSets[ccs]);
 		elem.appendChild(cos);
 	}
 	QDomElement cosd=docu.createElement("DefaultColorSet");

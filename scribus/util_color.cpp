@@ -595,7 +595,7 @@ QString colorSpaceText(int cs)
 	return CommonStrings::trUnknownCS;
 }
 
-bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,VGradient> *dialogGradients)
+bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,VGradient> *dialogGradients, bool merge)
 {
 	int oldCount = EditColors.count();
 	if (!fileName.isEmpty())
@@ -805,7 +805,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 										gra.addStop(color, ramp, 0.5, opa, name, shade);
 										grad = grad.nextSibling();
 									}
-									if (!dialogGradients->contains(pg.attribute("Name")))
+									if ((!dialogGradients->contains(pg.attribute("Name"))) || (merge))
 										dialogGradients->insert(pg.attribute("Name"), gra);
 									else
 									{
