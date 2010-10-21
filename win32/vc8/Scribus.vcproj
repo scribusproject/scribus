@@ -755,10 +755,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\colorm.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\colorsetmanager.cpp"
 				>
 			</File>
@@ -924,10 +920,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gradienteditor.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\gradientmanager.cpp"
 				>
 			</File>
 			<File
@@ -3504,38 +3496,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\colorm.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\colorsetmanager.h"
 				>
 			</File>
@@ -4581,38 +4541,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gradienteditor.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\gradientmanager.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -12402,10 +12330,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_colorm.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\moc_commonstrings.cpp"
 				>
 			</File>
@@ -12523,10 +12447,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_gradienteditor.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_gradientmanager.cpp"
 				>
 			</File>
 			<File
@@ -13376,10 +13296,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gradienteditor.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\gradientmanager.ui"
 				>
 			</File>
 			<File
