@@ -1275,6 +1275,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\paintmanager.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\styles\paragraphstyle.cpp"
 				>
 			</File>
@@ -6764,6 +6768,38 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\paintmanager.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\styles\paragraphstyle.h"
 				>
 			</File>
@@ -11989,6 +12025,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_paintmanager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_patterndialog.h"
 				>
 			</File>
@@ -12726,6 +12766,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_paintmanager.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_patterndialog.cpp"
 				>
 			</File>
@@ -13400,6 +13444,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\pageitemattributes.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\paintmanager.ui"
 				>
 			</File>
 			<File
