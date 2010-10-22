@@ -63,6 +63,7 @@ class SCRIBUS_API paintManagerDialog : public QDialog, Ui::paintManager
 		QStringList customColSet;
 		bool hasImportedColors;
 	private slots:
+		void selEditColor(QTreeWidgetItem *it);
 		void itemSelected(QTreeWidgetItem* it);
 		void createNew();
 		void editColorItem();

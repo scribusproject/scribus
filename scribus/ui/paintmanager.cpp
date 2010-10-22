@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "dcolor.h"
 #include "fileloader.h"
 #include "gradientaddedit.h"
+#include "loadsaveplugin.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "query.h"
@@ -106,11 +107,13 @@ paintManagerDialog::paintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	editButton->setEnabled(false);
 	duplicateButton->setEnabled(false);
 	deleteButton->setEnabled(false);
-	buttonRemoveAll->setEnabled(false);
 	deleteUnusedButton->setEnabled(false);
 	updateGradientList();
 	updateColorList();
+	dataTree->expandItem(colorItems);
+	dataTree->expandItem(gradientItems);
 	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
+	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(createNew()));
 	connect(editButton, SIGNAL(clicked()), this, SLOT(editColorItem()));
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateColorItem()));
@@ -182,6 +185,25 @@ QTreeWidgetItem* paintManagerDialog::updateColorList(QString addedName)
 	return ret;
 }
 
+void paintManagerDialog::selEditColor(QTreeWidgetItem *it)
+{
+	if ((it) && (!paletteLocked))
+	{
+		if ((it->parent() == colorItems) || (it->parent() == gradientItems))
+		{
+			QString curCol = it->text(0);
+			ScColor tmpColor = m_colorList[curCol];
+			bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (m_colorList.count() > 1);
+			bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
+			duplicateButton->setEnabled(curCol != "Registration");
+			deleteButton->setEnabled(enableDel);
+			editButton->setEnabled(enableEdit);
+			if(enableEdit)
+				editColorItem();
+		}
+	}
+}
+
 void paintManagerDialog::itemSelected(QTreeWidgetItem* it)
 {
 	if ((it) && (!paletteLocked))
@@ -190,11 +212,23 @@ void paintManagerDialog::itemSelected(QTreeWidgetItem* it)
 		{
 			importButton->setEnabled(false);
 			newButton->setEnabled(true);
-			editButton->setEnabled(true);
-			duplicateButton->setEnabled(true);
-			deleteButton->setEnabled(true);
-			buttonRemoveAll->setEnabled(true);
 			deleteUnusedButton->setEnabled(it->parent() == colorItems);
+			if (it->parent() == colorItems)
+			{
+				QString curCol = it->text(0);
+				ScColor tmpColor = m_colorList[curCol];
+				bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (m_colorList.count() > 1);
+				bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
+				duplicateButton->setEnabled(curCol != "Registration");
+				deleteButton->setEnabled(enableDel);
+				editButton->setEnabled(enableEdit);
+			}
+			else
+			{
+				editButton->setEnabled(true);
+				duplicateButton->setEnabled(true);
+				deleteButton->setEnabled(true);
+			}
 		}
 		else
 		{
@@ -202,8 +236,7 @@ void paintManagerDialog::itemSelected(QTreeWidgetItem* it)
 			newButton->setEnabled(true);
 			editButton->setEnabled(false);
 			duplicateButton->setEnabled(false);
-			deleteButton->setEnabled(false);
-			buttonRemoveAll->setEnabled(it->childCount() > 0);
+			deleteButton->setEnabled(it->childCount() > 0);
 			deleteUnusedButton->setEnabled((it == colorItems) && (it->childCount() > 0));
 		}
 	}
@@ -214,7 +247,6 @@ void paintManagerDialog::itemSelected(QTreeWidgetItem* it)
 		editButton->setEnabled(false);
 		duplicateButton->setEnabled(false);
 		deleteButton->setEnabled(false);
-		buttonRemoveAll->setEnabled(false);
 		deleteUnusedButton->setEnabled(false);
 		dataTree->clearSelection();
 	}
@@ -411,37 +443,74 @@ void paintManagerDialog::removeColorItem()
 	{
 		if ((it->parent() == gradientItems) || (it == gradientItems))
 		{
-			dialogGradients.remove(it->text(0));
-			replaceMap.insert(it->text(0), "");
+			if (it == gradientItems)
+			{
+				int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your gradients?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+				if (t == QMessageBox::No)
+					return;
+				replaceMap.clear();
+				for (QMap<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
+				{
+					replaceMap.insert(it.key(), "");
+				}
+				dialogGradients.clear();
+			}
+			else
+			{
+				dialogGradients.remove(it->text(0));
+				replaceMap.insert(it->text(0), "");
+			}
 			updateGradientList();
 			itemSelected(0);
 		}
 		else if ((it->parent() == colorItems) || (it == colorItems))
 		{
-			QString dColor = it->text(0);
-			DelColor *dia = new DelColor(this, m_colorList, dColor, (m_doc!=0));
-			if (dia->exec())
+			if (it == colorItems)
 			{
-				QString replacementColor(dia->getReplacementColor());
-				if (replacementColor == CommonStrings::tr_NoneColor)
-					replacementColor = CommonStrings::None;
-				if (replaceColorMap.values().contains(dColor))
+				int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your colors and gradients?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+				if (t == QMessageBox::No)
+					return;
+				replaceMap.clear();
+				for (QMap<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
 				{
-					QMap<QString,QString>::Iterator itt;
-					for (itt = replaceColorMap.begin(); itt != replaceColorMap.end(); ++itt)
-					{
-						if (itt.value() == dColor)
-							itt.value() = replacementColor;
-					}
+					replaceMap.insert(it.key(), "");
 				}
-				replaceColorMap.insert(dColor, replacementColor);
-				m_colorList.remove(dColor);
-				updateGradientColors(replacementColor, dColor);
-				updateGradientList();
-				updateColorList();
-				itemSelected(0);
+				replaceColorMap.clear();
+				for (ColorList::Iterator it = m_colorList.begin(); it != m_colorList.end(); ++it)
+				{
+					replaceColorMap.insert(it.key(), "Black");
+				}
+				dialogGradients.clear();
+				m_colorList.clear();
+				m_colorList.ensureBlackAndWhite();
 			}
-			delete dia;
+			else
+			{
+				QString dColor = it->text(0);
+				DelColor *dia = new DelColor(this, m_colorList, dColor, (m_doc!=0));
+				if (dia->exec())
+				{
+					QString replacementColor(dia->getReplacementColor());
+					if (replacementColor == CommonStrings::tr_NoneColor)
+						replacementColor = CommonStrings::None;
+					if (replaceColorMap.values().contains(dColor))
+					{
+						QMap<QString,QString>::Iterator itt;
+						for (itt = replaceColorMap.begin(); itt != replaceColorMap.end(); ++itt)
+						{
+							if (itt.value() == dColor)
+								itt.value() = replacementColor;
+						}
+					}
+					replaceColorMap.insert(dColor, replacementColor);
+					m_colorList.remove(dColor);
+					updateGradientColors(replacementColor, dColor);
+				}
+				delete dia;
+			}
+			updateGradientList();
+			updateColorList();
+			itemSelected(0);
 		}
 	}
 }

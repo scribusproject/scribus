@@ -107,13 +107,6 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonRemoveAll">
-       <property name="text">
-        <string>Remove All</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="deleteUnusedButton">
        <property name="toolTip">
         <string>Remove unused colors from current document's color set</string>
