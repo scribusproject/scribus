@@ -845,7 +845,7 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 		docu.writeAttribute("Start", (*it).sectionstartindex);
 		docu.writeAttribute("Reversed", (*it).reversed);
 		docu.writeAttribute("Active", (*it).active);
-		docu.writeAttribute("FillChar", (*it).pageNumberFillChar);
+		docu.writeAttribute("FillChar", (*it).pageNumberFillChar.unicode());
 		docu.writeAttribute("FieldWidth", (*it).pageNumberWidth);
 	}
 	docu.writeEndElement();

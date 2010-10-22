@@ -1609,7 +1609,7 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 			newSection.reversed = attrs.valueAsBool("Reversed");
 			newSection.active = attrs.valueAsBool("Active");
 			if (attrs.hasAttribute("FillChar"))
-				newSection.pageNumberFillChar = attrs.valueAsString("FillChar").at(0);
+				newSection.pageNumberFillChar = QChar(attrs.valueAsInt("FillChar"));
 			else
 				newSection.pageNumberFillChar = QChar();
 			if (attrs.hasAttribute("FieldWidth"))
