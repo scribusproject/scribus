@@ -218,7 +218,7 @@ void BarcodeGenerator::paintColorSample(QLabel *l, const ScColor & c)
 
 void BarcodeGenerator::bgColorButton_pressed()
 {
-	paintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
+	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	bgColor = d.selectedColor();
@@ -229,7 +229,7 @@ void BarcodeGenerator::bgColorButton_pressed()
 
 void BarcodeGenerator::lnColorButton_pressed()
 {
-	paintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
+	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
 	lnColor = d.selectedColor();
@@ -240,7 +240,7 @@ void BarcodeGenerator::lnColorButton_pressed()
 
 void BarcodeGenerator::txtColorButton_pressed()
 {
-	paintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
+	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", QStringList(), ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 
 	if (!d.exec())
 		return;

@@ -9934,7 +9934,7 @@ void ScribusMainWindow::managePaints()
 		edc = prefsManager->colorSet();
 	}
 	undoManager->setUndoEnabled(false);
-	paintManagerDialog *dia = new paintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), prefsManager->appPrefs.colorPrefs.CustomColorSets, doc, this);
+	PaintManagerDialog *dia = new PaintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), prefsManager->appPrefs.colorPrefs.CustomColorSets, doc, this);
 	if (dia->exec())
 	{
 		if (HaveDoc)

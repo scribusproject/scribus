@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 #ifndef PAINTMANAGER_H
 #define PAINTMANAGER_H
-#include "ui_paintmanager.h"
+#include "ui_paintmanagerbase.h"
 #include "colorsetmanager.h"
 #include "sccolor.h"
 #include "scribusapi.h"
@@ -33,13 +33,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "vgradient.h"
 
-class SCRIBUS_API paintManagerDialog : public QDialog, Ui::paintManager
+class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 {
 	Q_OBJECT
 
 	public:
-		paintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow* scMW);
-		~paintManagerDialog() {};
+		PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow* scMW);
+		~PaintManagerDialog() {};
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */
 		QString getColorSetName();

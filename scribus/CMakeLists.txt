@@ -88,7 +88,7 @@ SET(SCRIBUS_UI_SRC
   ui/nftdialog.ui
   ui/nftwidget.ui
   ui/pageitemattributes.ui
-  ui/paintmanager.ui
+  ui/paintmanagerbase.ui
   ui/patterndialog.ui
   ui/picsearch.ui
   ui/picsearchoptions.ui
