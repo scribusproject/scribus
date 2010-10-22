@@ -103,7 +103,6 @@
 		</submenuitem>
 		<submenuitem text="Hints &amp; FAQs" file="topten.html">
 			<submenuitem text="Help" file="faq1.html"/>
-			<submenuitem text="Miscellaneous" file="faq2.html"/>
 			<submenuitem text="Development" file="faq3.html"/>
 		</submenuitem>
 	</area>
