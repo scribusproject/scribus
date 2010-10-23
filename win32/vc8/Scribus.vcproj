@@ -11953,7 +11953,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\ui_paintmanager.h"
+				RelativePath="..\..\scribus\ui\ui_paintmanagerbase.h"
 				>
 			</File>
 			<File
@@ -13363,7 +13363,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\paintmanager.ui"
+				RelativePath="..\..\scribus\ui\paintmanagerbase.ui"
 				>
 			</File>
 			<File
