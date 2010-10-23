@@ -9,6 +9,11 @@ template.xml
 )
 
 INSTALL(FILES
+template.de.xml
+  DESTINATION ${TEMPLATEDIR}
+)
+
+INSTALL(FILES
 br1/br1.png
 br1/br1tn.png
 br1/map.jpg
