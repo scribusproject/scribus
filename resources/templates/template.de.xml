@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf8"?>
 <templates>
-	<template category="Newsletters">
+	<template category="Newsletter">
 		<name>Newsletter_1</name>
     	<file>nl1/nl1.sla.gz</file>
     	<tnail>nl1/nl1tn.png</tnail>
@@ -14,7 +14,7 @@
 		<author>RL</author>
     	<email>tsoots@gmail.com</email>
 	</template>
-	<template category="Newsletters">
+	<template category="Newsletter">
   		<name>Newsletter_2</name>
     	<file>nl2/nl2.sla.gz</file>
     	<tnail>nl2/nl2tn.png</tnail>
@@ -28,8 +28,8 @@
     	<author>RL</author>
     	<email>tsoots@gmail.com</email>
   	</template>
-	<template category="Brochures">
-  		<name>Brochure_1</name>
+	<template category="Broschüren">
+  		<name>Broschüre_1</name>
     	<file>br1/br1.sla.gz</file>
     	<tnail>br1/br1tn.png</tnail>
     	<img>br1/br1.png</img>
@@ -42,8 +42,8 @@
 		<author>RL</author>
     	<email>tsoots@gmail.com</email>
 	</template>
-	<template category="Newsletters">
-		<name>TextBased</name>
+	<template category="Newsletter">
+		<name>Textorientiert</name>
 		<file>textbased/textbased.sla.gz</file>
 		<tnail>textbased/textbasedtn.png</tnail>
 		<img>textbased/textbased.png</img>
@@ -56,8 +56,8 @@
 		<author>Petr Vaněk</author>
 		<email>petr@yarpen.cz</email>
 	</template>
-	<template category="PDF Presentations">
-		<name>ScPresentation</name>
+	<template category="PDF Präsentationen">
+		<name>Scribus-Präsentation</name>
 		<file>sc_presentation/presentation.sla.gz</file>
 		<tnail>sc_presentation/presentationtn.png</tnail>
 		<img>sc_presentation/presentation.png</img>
@@ -70,7 +70,7 @@
 		<author>Petr Vaněk</author>
 		<email>petr@yarpen.cz</email>
 	</template>
-	<template category="Packaging">
+	<template category="Verpackung">
 		<name>Cheat_Cube</name>
 		<file>cc/Cheat_Cube.sla.gz</file>
 		<tnail>cc/Cheat_Cubetn.png</tnail>
@@ -84,8 +84,8 @@
 		<author>Fedora Project</author>
 		<email></email>
 	</template>
-	<template category="Cards">
-		<name>menu_template1</name>
+	<template category="Karten">
+		<name>Menükarte_1</name>
 		<file>mc/menu_template1.sla.gz</file>
 		<tnail>mc/menu_template1tn.png</tnail>
 		<img>mc/menu_template1.png</img>
@@ -98,8 +98,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Brochures">
-		<name>cover1</name>
+	<template category="Broschüren">
+		<name>Titelblatt1</name>
 		<file>cover1/cover1.sla.gz</file>
 		<tnail>cover1/cover1tn.png</tnail>
 		<img>cover1/cover1.png</img>
@@ -112,8 +112,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Brochures">
-		<name>cover2</name>
+	<template category="Broschüren">
+		<name>Titelblatt2</name>
 		<file>cover2/cover2.sla.gz</file>
 		<tnail>cover2/cover2tn.png</tnail>
 		<img>cover2/cover2.png</img>
@@ -126,8 +126,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Brochures">
-		<name>cover3</name>
+	<template category="Broschüren">
+		<name>Titelblatt3</name>
 		<file>cover3/cover3.sla.gz</file>
 		<tnail>cover3/cover3tn.png</tnail>
 		<img>cover3/cover3.png</img>
@@ -140,8 +140,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Brochures">
-		<name>cover4</name>
+	<template category="Broschüren">
+		<name>Titelblatt4</name>
 		<file>cover4/cover4.sla.gz</file>
 		<tnail>cover4/cover4tn.png</tnail>
 		<img>cover4/cover4.png</img>
@@ -154,8 +154,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Brochures">
-		<name>cover5</name>
+	<template category="Broschüren">
+		<name>Titelblatt5</name>
 		<file>cover5/cover5.sla.gz</file>
 		<tnail>cover5/cover5tn.png</tnail>
 		<img>cover5/cover5.png</img>
@@ -168,8 +168,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_1</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_1</name>
 		<file>buscard1/buscard1.sla.gz</file>
 		<tnail>buscard1/Business_Card_1tn.png</tnail>
 		<img>buscard1/Business_Card_1.png</img>
@@ -182,8 +182,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_2</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_2</name>
 		<file>buscard2/buscard2.sla.gz</file>
 		<tnail>buscard2/Business_Card_2tn.png</tnail>
 		<img>buscard2/Business_Card_2.png</img>
@@ -196,8 +196,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_3</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_3</name>
 		<file>buscard3/buscard3.sla.gz</file>
 		<tnail>buscard3/Business_Card_3tn.png</tnail>
 		<img>buscard3/Business_Card_3.png</img>
@@ -210,8 +210,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_4</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_4</name>
 		<file>buscard4/buscard4.sla.gz</file>
 		<tnail>buscard4/Business_Card_4tn.png</tnail>
 		<img>buscard4/Business_Card_4.png</img>
@@ -224,8 +224,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_5</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_5</name>
 		<file>buscard5/buscard5.sla.gz</file>
 		<tnail>buscard5/Business_Card_5tn.png</tnail>
 		<img>buscard5/Business_Card_5.png</img>
@@ -238,8 +238,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_6</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_6</name>
 		<file>buscard6/buscard6.sla.gz</file>
 		<tnail>buscard6/Business_Card_6tn.png</tnail>
 		<img>buscard6/Business_Card_6.png</img>
@@ -253,7 +253,7 @@
 		<email></email>
 	</template>
 	<template category="Business Cards">
-		<name>Business_Card_7</name>
+		<name>Visitenkarte_7</name>
 		<file>buscard7/buscard7.sla.gz</file>
 		<tnail>buscard7/Business_Card_7tn.png</tnail>
 		<img>buscard7/Business_Card_7.png</img>
@@ -266,8 +266,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_8</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_8</name>
 		<file>buscard8/buscard8.sla.gz</file>
 		<tnail>buscard8/Business_Card_8tn.png</tnail>
 		<img>buscard8/Business_Card_8.png</img>
@@ -280,8 +280,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_9</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_9</name>
 		<file>buscard9/buscard9.sla.gz</file>
 		<tnail>buscard9/Business_Card_9tn.png</tnail>
 		<img>buscard9/Business_Card_9.png</img>
@@ -294,8 +294,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_10</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_10</name>
 		<file>buscard10/buscard10.sla.gz</file>
 		<tnail>buscard10/Business_Card_10tn.png</tnail>
 		<img>buscard10/Business_Card_10.png</img>
@@ -308,8 +308,8 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
-		<name>Business_Card_11</name>
+	<template category="Visitenkarten">
+		<name>Visitenkarte_11</name>
 		<file>buscard11/buscard11.sla.gz</file>
 		<tnail>buscard11/Business_Card_11tn.png</tnail>
 		<img>buscard11/Business_Card_11.png</img>
