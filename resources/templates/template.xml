@@ -168,4 +168,158 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
+	<template category="Business Cards">
+		<name>Business_Card_1</name>
+		<file>buscard1/buscard1.sla.gz</file>
+		<tnail>buscard1/Business_Card_1tn.png</tnail>
+		<img>buscard1/Business_Card_1.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_2</name>
+		<file>buscard2/buscard2.sla.gz</file>
+		<tnail>buscard2/Business_Card_2tn.png</tnail>
+		<img>buscard2/Business_Card_2.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_3</name>
+		<file>buscard3/buscard3.sla.gz</file>
+		<tnail>buscard3/Business_Card_3tn.png</tnail>
+		<img>buscard3/Business_Card_3.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_4</name>
+		<file>buscard4/buscard4.sla.gz</file>
+		<tnail>buscard4/Business_Card_4tn.png</tnail>
+		<img>buscard4/Business_Card_4.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_5</name>
+		<file>buscard5/buscard5.sla.gz</file>
+		<tnail>buscard5/Business_Card_5tn.png</tnail>
+		<img>buscard5/Business_Card_5.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_6</name>
+		<file>buscard6/buscard6.sla.gz</file>
+		<tnail>buscard6/Business_Card_6tn.png</tnail>
+		<img>buscard6/Business_Card_6.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_7</name>
+		<file>buscard7/buscard7.sla.gz</file>
+		<tnail>buscard7/Business_Card_7tn.png</tnail>
+		<img>buscard7/Business_Card_7.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_8</name>
+		<file>buscard8/buscard8.sla.gz</file>
+		<tnail>buscard8/Business_Card_8tn.png</tnail>
+		<img>buscard8/Business_Card_8.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_9</name>
+		<file>buscard9/buscard9.sla.gz</file>
+		<tnail>buscard9/Business_Card_9tn.png</tnail>
+		<img>buscard9/Business_Card_9.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_10</name>
+		<file>buscard10/buscard10.sla.gz</file>
+		<tnail>buscard10/Business_Card_0tn1.png</tnail>
+		<img>buscard10/Business_Card_10.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_11</name>
+		<file>buscard11/buscard11.sla.gz</file>
+		<tnail>buscard11/Business_Card_11tn.png</tnail>
+		<img>buscard11/Business_Card_11.png</img>
+		<psize>custom, 252x144</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-22</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
 </templates>
