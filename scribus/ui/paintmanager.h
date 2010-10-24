@@ -82,10 +82,11 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		void addGimpColor(QString &colorName, double r, double g, double b);
 		void loadScribusFormat(QString fileName);
 		ColorSetManager csm;
-		int customSetStartIndex;
 		bool paletteLocked;
 		QTreeWidgetItem *colorItems;
 		QTreeWidgetItem *gradientItems;
+		QTreeWidgetItem *systemSwatches;
+		QTreeWidgetItem *userSwatches;
 };
 
 #endif

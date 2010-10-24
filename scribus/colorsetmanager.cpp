@@ -134,22 +134,63 @@ void ColorSetManager::findPaletteLocations()
 	}
 }
 
-void ColorSetManager::findPalettes()
+void ColorSetManager::searchDir(QString path, QTreeWidgetItem* parent)
+{
+	QStringList exts;
+	exts << "xml" << "gpl" << "eps" << "ai" << "sla" << "soc";
+	QDir dirs(path, "*", QDir::Name,  QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
+	dirs.setSorting(QDir::Name | QDir::DirsFirst);
+	if ((dirs.exists()) && (dirs.count() != 0))
+	{
+		for (uint dc = 0; dc < dirs.count(); ++dc)
+		{
+			QFileInfo fi(path + dirs[dc]);
+			if (fi.isDir())
+			{
+				QString setName = fi.baseName();
+				setName.replace("_", " ");
+				QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+				item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+				item->setText(0, setName);
+				searchDir(path + dirs[dc] + "/", item);
+			}
+			else
+			{
+				if (exts.contains(fi.suffix().toLower()))
+				{
+					QString setName = fi.baseName();
+					setName.replace("_", " ");
+					palettes.insert(setName, fi.absoluteFilePath());
+					QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+					item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+					item->setText(0, setName);
+				}
+			}
+		}
+	}
+}
+
+void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 {
 	palettes.clear();
 	QString path;
 	for ( QStringList::Iterator it = paletteLocations.begin(); it != paletteLocations.end(); ++it )
 	{
-		path=(*it);
-		QDir dir(path , "*.xml *.gpl *.eps *.ai *.sla *.soc", QDir::Name, QDir::Files | QDir::NoSymLinks);
-		if (dir.exists() && (dir.count() != 0))
+		path = (*it);
+		if (parent != NULL)
+			searchDir(path, parent);
+		else
 		{
-			for (uint i = 0; i < dir.count(); ++i) 
+			QDir dir(path , "*.xml *.gpl *.eps *.ai *.sla *.soc", QDir::Name, QDir::Files | QDir::NoSymLinks);
+			if (dir.exists() && (dir.count() != 0))
 			{
-				QFileInfo file(path + dir[i]);
-				QString setName=file.baseName();
-				setName.replace("_", " ");
-				palettes.insert(setName, file.absoluteFilePath());
+				for (uint i = 0; i < dir.count(); ++i) 
+				{
+					QFileInfo file(path + dir[i]);
+					QString setName=file.baseName();
+					setName.replace("_", " ");
+					palettes.insert(setName, file.absoluteFilePath());
+				}
 			}
 		}
 	}

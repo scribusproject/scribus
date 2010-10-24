@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QString>
 #include <QStringList>
+#include <QTreeWidget>
 
 struct ApplicationPrefs;
 
@@ -27,7 +28,8 @@ class SCRIBUS_API ColorSetManager
 		
 		void initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs);
 		void findPaletteLocations();
-		void findPalettes();
+		void searchDir(QString path, QTreeWidgetItem* parent = NULL);
+		void findPalettes(QTreeWidgetItem* parent = NULL);
 		QStringList paletteNames();
 		QString paletteFileFromName(const QString& paletteName);
 		bool paletteLocationLocked(const QString& palettePath);

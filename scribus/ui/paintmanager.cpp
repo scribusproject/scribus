@@ -52,8 +52,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 
-#include <QDebug>
-
 PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
@@ -75,13 +73,13 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	}
 	origGradients = docGradients->keys();
 	customColSet = custColSet;
-	
-	int setCount = 1;
+
 	csm.findPaletteLocations();
-	csm.findPalettes();
-	QStringList allSets(csm.paletteNames());
-	LoadColSet->addItems(allSets);
-	customSetStartIndex = setCount+allSets.count();
+	systemSwatches = LoadColSet->addTopLevelItem( tr("Scribus Swatches"));
+	csm.findPalettes(systemSwatches);
+	LoadColSet->addSubItem("Scribus Small", systemSwatches);
+	systemSwatches->setExpanded(true);
+	userSwatches = LoadColSet->addTopLevelItem( tr("User Swatches"));
 	if (custColSet.count() != 0)
 	{
 		QStringList realEx;
@@ -94,13 +92,14 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 			{
 				QString setName = cfi.baseName();
 				setName.replace("_", " ");
-				LoadColSet->addItem(setName);
+				LoadColSet->addSubItem(setName, userSwatches);
 				realEx.append(custColSet[m]);
 			}
 		}
 		customColSet = realEx;
 	}
-	setCurrentComboItem(LoadColSet, docColSet);
+	userSwatches->setExpanded(true);
+	LoadColSet->setCurrentComboItem(docColSet);
 
 	importButton->setEnabled(false);
 	newButton->setEnabled(false);
@@ -893,8 +892,7 @@ void PaintManagerDialog::loadScribusFormat(QString fileName)
 
 void PaintManagerDialog::loadDefaults(const QString &txt)
 {
-	int c = LoadColSet->currentIndex();
-	setCurrentComboItem(LoadColSet, txt);
+	QTreeWidgetItem *c = LoadColSet->currentItem();
 	if (m_doc == NULL)
 	{
 		m_colorList.clear();
@@ -903,7 +901,6 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 	QString pfadC2 = "";
 	if (txt == "Scribus Small")
 	{
-		setCurrentComboItem(LoadColSet, "Scribus Small");
 		m_colorList.insert("White", ScColor(0, 0, 0, 0));
 		m_colorList.insert("Black", ScColor(0, 0, 0, 255));
 		ScColor cc = ScColor(255, 255, 255, 255);
@@ -919,7 +916,7 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 	}
 	else
 	{
-		if ( c < customSetStartIndex)
+		if ( c->parent() != userSwatches)
 			pfadC2 = csm.paletteFileFromName(txt);
 		else
 		{
@@ -941,7 +938,6 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 		}
 		else
 		{
-			setCurrentComboItem(LoadColSet, "Scribus Small");
 			m_colorList.insert("White", ScColor(0, 0, 0, 0));
 			m_colorList.insert("Black", ScColor(0, 0, 0, 255));
 			ScColor cc = ScColor(255, 255, 255, 255);
@@ -963,7 +959,7 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 void PaintManagerDialog::saveDefaults()
 {
 	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
-	QString Name = LoadColSet->currentText();
+	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
 	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
@@ -1027,8 +1023,10 @@ void PaintManagerDialog::saveDefaults()
 				nameC.replace(" ", "_");
 				nameC += ".xml";
 				customColSet.append(nameC);
-				LoadColSet->addItem(dia->getEditText());
-				setCurrentComboItem(LoadColSet, dia->getEditText());
+				LoadColSet->addSubItem(dia->getEditText(), userSwatches);
+				disconnect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+				LoadColSet->setCurrentComboItem(dia->getEditText());
+				connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
 			}
 		}
 	}
@@ -1036,7 +1034,7 @@ void PaintManagerDialog::saveDefaults()
 
 QString PaintManagerDialog::getColorSetName()
 {
-	return LoadColSet->currentText();
+	return LoadColSet->text();
 }
 
 ScColor PaintManagerDialog::selectedColor()

@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QPixmap>
 #include <QAction>
+#include <QTreeWidget>
 #include <cstdlib>
 
 #include "colorchart.h"
@@ -41,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
+#include "swatchcombo.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
@@ -125,12 +127,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Separations->setText( tr( "Is Spot Color" ) );
 	Separations->setChecked(orig.isSpotColor());
 	Layout23->addWidget( Separations );
-/*
-	Regist = new QCheckBox( this );
-	Regist->setText( tr( "Is Registration Color" ) );
-	Regist->setChecked(orig.isRegistrationColor());
-	Layout23->addWidget( Regist );
-*/
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
 
@@ -192,42 +188,35 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame4Layout->setSpacing( 5 );
 	Frame4Layout->setMargin( 0 );
 
-	Swatches = new ScComboBox( Frame4 );
-	Swatches->addItem( tr( "HSV Color Map" ) );
-/*
-	Swatches->insertItem("X11 RGB-Set");
-	Swatches->insertItem("X11 Grey-Set");
-	Swatches->insertItem("Gnome-Set");
-	Swatches->insertItem("SVG-Set");
-	Swatches->insertItem("OpenOffice.org-Set");
-*/
+	Swatches = new SwatchCombo( Frame4 );
+	hsvSelector = Swatches->addTopLevelItem( tr( "HSV Color Map" ) );
+	hsvSelector->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 	csm.findPaletteLocations();
-	csm.findPalettes();
-	QStringList allSets(csm.paletteNames());
-	for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
-	{
-		Swatches->addItem((*it));
-	}
-	customSetStartIndex=Swatches->count();
-
+	systemSwatches = Swatches->addTopLevelItem( tr("Scribus Swatches"));
+	csm.findPalettes(systemSwatches);
+	Swatches->addSubItem("Scribus Small", systemSwatches);
+	systemSwatches->setExpanded(true);
+	userSwatches = Swatches->addTopLevelItem( tr("User Swatches"));
 	if (Cust.count() != 0)
 	{
 		QStringList realEx;
 		realEx.clear();
 		for (int m = 0; m < Cust.count(); ++m)
 		{
-			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() + Cust[m]);
+			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Cust[m] + ".xml");
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
 				QString setName = cfi.baseName();
 				setName.replace("_", " ");
-				Swatches->addItem(setName);
+				Swatches->addSubItem(setName, userSwatches);
 				realEx.append(Cust[m]);
 			}
 		}
 		CColSet = realEx;
 	}
+	userSwatches->setExpanded(true);
+	Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
 	Frame4Layout->addWidget( Swatches );
 
 	TabStack = new QStackedWidget( Frame4 );
@@ -404,7 +393,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
-	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
+//	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
+	connect(Swatches, SIGNAL(activated(const QString &)), this, SLOT(SelSwatch()));
 	connect(ColorSwatch, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( SelFromSwatch(QListWidgetItem*) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
@@ -594,44 +584,42 @@ QPixmap CMYKChoose::SliderBlack()
 	return image0;
 }
 
-void CMYKChoose::SelSwatch(int n)
+void CMYKChoose::SelSwatch()
 {
-	if (n == 0)
+	QTreeWidgetItem *c = Swatches->currentItem();
+	if (c == hsvSelector)
 		TabStack->setCurrentIndex(0);
 	else
 	{
 		CurrSwatch.clear();
 		QString pfadC2 = "";
-		if (n < customSetStartIndex)
-			pfadC2 = csm.paletteFileFromName(Swatches->itemText(n));
+		if ( c->parent() != userSwatches)
+			pfadC2 = csm.paletteFileFromName(c->text(0));
 		else
 		{
-			QString listText = Swatches->itemText(n);
+			QString listText = c->text(0);
 			listText.replace(" ", "_");
 			listText += ".xml";
 			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir() + listText);
 		}
-		if (n != 0)
+		if (importColorsFromFile(pfadC2, CurrSwatch))
 		{
-			if (importColorsFromFile(pfadC2, CurrSwatch))
-			{
-				CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
-				CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
-			}
-			else
-			{
-				CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
-				CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
-				ScColor cc = ScColor(255, 255, 255, 255);
-				cc.setRegistrationColor(true);
-				CurrSwatch.insert("Registration", cc);
-				CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
-				CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
-				CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
-				CurrSwatch.insert("Red", ScColor(0, 255, 255, 0));
-				CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
-				CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
-			}
+			CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
+			CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+		}
+		else
+		{
+			CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
+			CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+			ScColor cc = ScColor(255, 255, 255, 255);
+			cc.setRegistrationColor(true);
+			CurrSwatch.insert("Registration", cc);
+			CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
+			CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
+			CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
+			CurrSwatch.insert("Red", ScColor(0, 255, 255, 0));
+			CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
+			CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
 		}
 		ColorSwatch->clear();
 		ColorSwatch->insertFancyPixmapItems(CurrSwatch);
@@ -639,19 +627,7 @@ void CMYKChoose::SelSwatch(int n)
 		TabStack->setCurrentIndex(1);
 	}
 }
-/*
-void CMYKChoose::setRegist()
-{
-	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
-	if (Regist->isChecked())
-	{
-		ComboBox1->setCurrentIndex( 0 );
-		Separations->setChecked(false);
-		SelModel( tr("CMYK"));
-	}
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
-}
-*/
+
 void CMYKChoose::setSpot()
 {
 	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
@@ -709,10 +685,6 @@ void CMYKChoose::SelModel(const QString& mod)
 		MagentaP->setPixmap(SliderPix(300));
 		YellowP->setPixmap(SliderPix(60));
 		BlackP->setPixmap(SliderBlack());
-/*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-		BlackT->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum)); */
 		BlackP->show();
 		BlackSL->show();
 		BlackSp->show();
@@ -721,7 +693,6 @@ void CMYKChoose::SelModel(const QString& mod)
 		setValues();
 	}
 	else
-		//	if (mod == tr("RGB"))
 	{
 		CMYKmode = false;
 		Wsave = false;
@@ -753,10 +724,6 @@ void CMYKChoose::SelModel(const QString& mod)
 		MagentaP->setPixmap(SliderPix(120));
 		YellowP->setPixmap(SliderPix(240));
 		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
-/*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		BlackT->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored)); */
 		BlackP->hide();
 		BlackSL->hide();
 		BlackSp->hide();

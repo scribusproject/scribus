@@ -384,6 +384,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/stylemanager.h
   ui/styleselect.h
   ui/styleview.h
+  ui/swatchcombo.h
   ui/symbolpalette.h
   ui/tabcheckdoc.h
   ui/tabdisplay.h
@@ -762,6 +763,7 @@ SET(SCRIBUS_SOURCES
   ui/stylemanager.cpp
   ui/styleselect.cpp
   ui/styleview.cpp
+  ui/swatchcombo.cpp
   ui/symbolpalette.cpp
   ui/tabcheckdoc.cpp
   ui/tabdisplay.cpp

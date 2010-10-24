@@ -146,8 +146,6 @@ void PrefsManager::initDefaults()
 
 	ColorSetManager csm;
 	csm.initialiseDefaultPrefs(appPrefs);
-	csm.findPaletteLocations();
-	csm.findPalettes();
 
 	appPrefs.uiPrefs.wheelJump = 40;
 	/** Set Default window position and size to sane default values which should work on every screen */

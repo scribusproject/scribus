@@ -9981,10 +9981,9 @@ void ScribusMainWindow::managePaints()
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
 		}
+		prefsManager->setColorSetName(dia->getColorSetName());
+		prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
 	}
-	prefsManager->setColorSetName(dia->getColorSetName());
-//	if (!HaveDoc)
-	prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
 	undoManager->setUndoEnabled(true);
 }

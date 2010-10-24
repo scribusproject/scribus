@@ -20,6 +20,7 @@ class QStackedWidget;
 class QSlider;
 class QPixmap;
 class QListWidgetItem;
+class QTreeWidget;
 
 #include "colorsetmanager.h"
 #include "sccolor.h"
@@ -29,6 +30,7 @@ class ScColor;
 class ScribusDoc;
 class ScrSpinBox;
 class ScComboBox;
+class SwatchCombo;
 class ColorListBox;
 class ColorChart;
 
@@ -44,8 +46,7 @@ public:
 	QLabel* TextLabel3;
 	ScComboBox* ComboBox1;
 	QCheckBox* Separations;
-//	QCheckBox* Regist;
-	ScComboBox* Swatches;
+	SwatchCombo* Swatches;
 	QLabel* TextLabel5_2;
 	QLabel* OldC;
 	QLabel* TextLabel5;
@@ -96,9 +97,8 @@ public slots:
 	void ToggleSL();
 	QPixmap SliderPix(int farbe);
 	QPixmap SliderBlack();
-	void SelSwatch(int n);
+	void SelSwatch();
 	void setSpot();
-//	void setRegist();
 	void SelModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);
@@ -121,8 +121,10 @@ protected:
 	QVBoxLayout* Layout1_2_4;
 	
 	ColorSetManager csm;
-	int customSetStartIndex;
 	ScribusDoc* m_doc;
+	QTreeWidgetItem *systemSwatches;
+	QTreeWidgetItem *userSwatches;
+	QTreeWidgetItem *hsvSelector;
 };
 
 #endif // CMYKFARBEN_H
