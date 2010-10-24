@@ -178,3 +178,150 @@ buscard11/Business_Card_11tn.png
 buscard11/buscard11.sla.gz
   DESTINATION ${TEMPLATEDIR}buscard11
 )
+
+INSTALL(FILES
+grid_br_a4_l/Brochure_Grid_A4_L.sla.gz
+grid_br_a4_l/Brochure_Grid_A4_Ltn.png
+grid_br_a4_l/Brochure_Grid_A4_L.png
+  DESTINATION ${TEMPLATEDIR}grid_br_a4_l
+)
+
+INSTALL(FILES
+grid_br_a4_p/Brochure_Grid_A4_P.sla.gz
+grid_br_a4_p/Brochure_Grid_A4_Ptn.png
+grid_br_a4_p/Brochure_Grid_A4_P.png
+  DESTINATION ${TEMPLATEDIR}grid_br_a4_p
+)
+
+INSTALL(FILES
+grid_br_975x85in_l/Brochure_Grid_975x85in_L.sla.gz
+grid_br_975x85in_l/Brochure_Grid_975x85_in_Ltn.png
+grid_br_975x85in_l/Brochure_Grid_975x85_in_L.png
+  DESTINATION ${TEMPLATEDIR}grid_br_975x85in_l
+)
+
+INSTALL(FILES
+grid_br_975x85_p/Brochure_Grid_975x85in_P.sla.gz
+grid_br_975x85_p/Brochure_Grid_975x85_in_Ptn.png
+grid_br_975x85_p/Brochure_Grid_975x85_in_P.png
+  DESTINATION ${TEMPLATEDIR}grid_br_975x85_p
+)
+
+INSTALL(FILES
+grid_br_375x85_p/Brochure_Grid_375x85in_P.sla.gz
+grid_br_375x85_p/Brochure_Grid_375x85_in_Ptn.png
+grid_br_375x85_p/Brochure_Grid_375x85_in_P.png
+  DESTINATION ${TEMPLATEDIR}grid_br_375x85_p
+)
+
+INSTALL(FILES
+grid_br_375x85_l/Brochure_Grid_375x85in_L.sla.gz
+grid_br_375x85_l/Brochure_Grid_375x85_in_Landscapetn.png
+grid_br_375x85_l/Brochure_Grid_375x85_in_Landscape.png
+  DESTINATION ${TEMPLATEDIR}grid_br_375x85_l
+)
+
+INSTALL(FILES
+grid_br_100x210_p/Brochure_Grid_100x210_P.sla.gz
+grid_br_100x210_p/Brochure_Grid_100x210_Ptn.png
+grid_br_100x210_p/Brochure_Grid_100x210_P.png
+  DESTINATION ${TEMPLATEDIR}grid_br_100x210_p
+)
+
+INSTALL(FILES
+grid_br_100x210_l/Brochure_Grid_100x210_L.sla.gz
+grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscapetn.png
+grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscape.png
+  DESTINATION ${TEMPLATEDIR}grid_br_100x210_l
+)
+
+INSTALL(FILES
+grid_br_55x86in_p/Brochure_Grid_55x85in_P.sla.gz
+grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoittn.png
+grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoit.png
+  DESTINATION ${TEMPLATEDIR}grid_br_55x86in_p
+)
+
+INSTALL(FILES
+grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz
+grid_br_55x85in_l/Brochure_Grid_55x85_in_Ltn.png
+grid_br_55x85in_l/Brochure_Grid_55x85_in_L.png
+  DESTINATION ${TEMPLATEDIR}grid_br_55x85in_l
+)
+
+INSTALL(FILES
+grid_poster_a3/Poster_Grid_A3.sla.gz
+grid_poster_a3/Poster_Grid_A3tn.png
+grid_poster_a3/Poster_Grid_A3.png
+  DESTINATION ${TEMPLATEDIR}grid_poster_a3
+)
+
+INSTALL(FILES
+grid_poster_a2/Poster_Grid_A2.sla.gz
+grid_poster_a2/Poster_Grid_A2tn.png
+grid_poster_a2/Poster_Grid_A2.png
+  DESTINATION ${TEMPLATEDIR}grid_poster_a2
+)
+
+INSTALL(FILES
+grid_poster_a1/Poster_Grid_A1.sla.gz
+grid_poster_a1/Poster_Grid_A1tn.png
+grid_poster_a1/Poster_Grid_A1.png
+  DESTINATION ${TEMPLATEDIR}grid_poster_a1
+)
+
+INSTALL(FILES
+grid_poster_a0/Poster_Grid_A0.sla.gz
+grid_poster_a0/Poster_Grid_A0tn.png
+grid_poster_a0/Poster_Grid_A0.png
+  DESTINATION ${TEMPLATEDIR}grid_poster_a0
+)
+
+INSTALL(FILES
+grid_br_usl_p/Brochure_Grid_USL_P.sla.gz
+grid_br_usl_p/Brochure_Grid_USL_Ptn.png
+grid_br_usl_p/Brochure_Grid_USL_P.png
+  DESTINATION ${TEMPLATEDIR}grid_poster_a0
+)
+
+INSTALL(FILES
+grid_br_usl_l/Brochure_Grid_USL_L.sla.gz
+grid_br_usl_l/Brochure_Grid_USL_Ltn.png
+grid_br_usl_l/Brochure_Grid_USL_L.png
+  DESTINATION ${TEMPLATEDIR}grid_br_usl_l
+)
+
+INSTALL(FILES
+grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.sla.gz
+grid_br_dinl_p/Brochure_Grid_DIN_LANG_Ptn.png
+grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.png
+  DESTINATION ${TEMPLATEDIR}grid_br_dinl_p
+)
+
+INSTALL(FILES
+grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.sla.gz
+grid_br_dinl_l/Brochure_Grid_DIN_LANG_Ltn.png
+grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.png
+  DESTINATION ${TEMPLATEDIR}grid_br_dinl_l
+)
+
+INSTALL(FILES
+grid_br_a5_p/Brochure_Grid_A5_P.sla.gz
+grid_br_a5_p/Brochure_Grid_A5_Portraittn.png
+grid_br_a5_p/Brochure_Grid_A5_Portrait.png
+  DESTINATION ${TEMPLATEDIR}grid_br_a5_p
+)
+
+INSTALL(FILES
+grid_br_a5_l/Brochure_Grid_A5_L.sla.gz
+grid_br_a5_l/Brochure_Grid_A5_Ltn.png
+grid_br_a5_l/Brochure_Grid_A5_L.png
+  DESTINATION ${TEMPLATEDIR}grid_br_a5_l
+)
+
+INSTALL(FILES
+buscard_coll/business_card_collection.sla.gz
+buscard_coll/Business_Card_Collectiontn.png
+buscard_coll/Business_Card_Collection.png
+  DESTINATION ${TEMPLATEDIR}buscard_coll
+)
