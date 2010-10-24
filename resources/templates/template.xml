@@ -168,6 +168,300 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_A4_L</name>
+		<file>grid_br_a4_l/Brochure_Grid_A4_L.sla.gz</file>
+		<tnail>grid_br_a4_l/Brochure_Grid_A4_Ltn.png</tnail>
+		<img>grid_br_a4_l/Brochure_Grid_A4_L.png</img>
+		<psize>custom, 1684x596</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A4 brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_A4_P</name>
+		<file>grid_br_a4_p/Brochure_Grid_A4_P.sla.gz</file>
+		<tnail>grid_br_a4_p/Brochure_Grid_A4_Ptn.png</tnail>
+		<img>grid_br_a4_p/Brochure_Grid_A4_P.png</img>
+		<psize>custom, 1191x842</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A4 brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_975x85_in_L</name>
+		<file>grid_br_975x85in_l/Brochure_Grid_975x85in_L.sla.gz</file>
+		<tnail>grid_br_975x85in_l/Brochure_Grid_975x85_in_Ltn.png</tnail>
+		<img>grid_br_975x85in_l/Brochure_Grid_975x85_in_L.png</img>
+		<psize>custom, 1404x612</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 9.75x8.5 in brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_975x85_in_P</name>
+		<file>grid_br_975x85_p/Brochure_Grid_975x85in_P.sla.gz</file>
+		<tnail>grid_br_975x85_p/Brochure_Grid_975x85_in_Ptn.png</tnail>
+		<img>grid_br_975x85_p/Brochure_Grid_975x85_in_P.png</img>
+		<psize>custom, 1224x702</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 9.75x8.5 in brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_375x85_in_P</name>
+		<file>grid_br_375x85_p/Brochure_Grid_375x85in_P.sla.gz</file>
+		<tnail>grid_br_375x85_p/Brochure_Grid_375x85_in_Ptn.png</tnail>
+		<img>grid_br_375x85_p/Brochure_Grid_375x85_in_P.png</img>
+		<psize>custom, 540x613</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 3.75x8.5 in brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_375x85_in_L</name>
+		<file>grid_br_375x85_l/Brochure_Grid_375x85in_L.sla.gz</file>
+		<tnail>grid_br_375x85_l/Brochure_Grid_375x85_in_Landscapetn.png</tnail>
+		<img>grid_br_375x85_l/Brochure_Grid_375x85_in_Landscape.png</img>
+		<psize>custom, 1224x270</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 3.75x8.5 in brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_100x210_P</name>
+		<file>grid_br_100x210_p/Brochure_Grid_100x210_P.sla.gz</file>
+		<tnail>grid_br_100x210_p/Brochure_Grid_100x210_Ptn.png</tnail>
+		<img>grid_br_100x210_p/Brochure_Grid_100x210_P.png</img>
+		<psize>custom, 567x596</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 100x210 mm portrait brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_100x210_L</name>
+		<file>grid_br_100x210_l/Brochure_Grid_100x210_L.sla.gz</file>
+		<tnail>grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscapetn.png</tnail>
+		<img>grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscape.png</img>
+		<psize>custom, 1191x284</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 100x210 mm landcsape brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_55x85in_P</name>
+		<file>grid_br_55x86in_p/Brochure_Grid_55x85in_P.sla.gz</file>
+		<tnail>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoittn.png</tnail>
+		<img>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoit.png</img>
+		<psize>custom, 792x613</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 5.5x8.5 in brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_5.5x8.5in_L</name>
+		<file>grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz</file>
+		<tnail>grid_br_55x85in_l/Brochure Grid_55x85_in_Ltn.png</tnail>
+		<img>grid_br_55x85in_l/Brochure Grid_55x85_in_L.png</img>
+		<psize>custom, 1224x396</psize>
+		<color>RGB</color>
+		<descr>A design grid for a 5.5x8.5 in brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Posters">
+		<name>Poster_Grid_A3</name>
+		<file>grid_poster_a3/Poster_Grid_A3.sla.gz</file>
+		<tnail>grid_poster_a3/Poster_Grid_A3tn.png</tnail>
+		<img>grid_poster_a3/Poster_Grid_A3.png</img>
+		<psize>custom, 842x1191</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A3 poster</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Posters">
+		<name>Poster_Grid_A2</name>
+		<file>grid_poster_a2/Poster_Grid_A2.sla.gz</file>
+		<tnail>grid_poster_a2/Poster_Grid_A2tn.png</tnail>
+		<img>grid_poster_a2/Poster_Grid_A2.png</img>
+		<psize>custom, 1191x1684</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A2 poster</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Posters">
+		<name>Poster_Grid_A1</name>
+		<file>grid_poster_a1/Poster_Grid_A1.sla.gz</file>
+		<tnail>grid_poster_a1/Poster_Grid_A1tn.png</tnail>
+		<img>grid_poster_a1/Poster_Grid_A1.png</img>
+		<psize>custom, 1684x2384</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A1 poster</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Posters">
+		<name>Poster_Grid_A0</name>
+		<file>grid_poster_a0/Poster_Grid_A0.sla.gz</file>
+		<tnail>grid_poster_a0/Poster_Grid_A0tn.png</tnail>
+		<img>grid_poster_a0/Poster_Grid_A0.png</img>
+		<psize>custom, 2384x3371</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A0 poster</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-24</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_USL_P</name>
+		<file>grid_br_usl_p/Brochure_Grid_USL_P.sla.gz</file>
+		<tnail>grid_br_usl_p/Brochure_Grid_USL_Ptn.png</tnail>
+		<img>grid_br_usl_p/Brochure_Grid_USL_P.png</img>
+		<psize>custom, 1224x792</psize>
+		<color>RGB</color>
+		<descr>A design grid for a US Letter brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_USL_L</name>
+		<file>grid_br_usl_l/Brochure_Grid_USL_L.sla.gz</file>
+		<tnail>grid_br_usl_l/Brochure_Grid_USL_Ltn.png</tnail>
+		<img>grid_br_usl_l/Brochure Grid_USL_L.png</img>
+		<psize>custom, 1584x612</psize>
+		<color>RGB</color>
+		<descr>A design grid for a US Letter brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_DIN_LANG P</name>
+		<file>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.sla.gz</file>
+		<tnail>grid_br_dinl_p/Brochure_Grid_DIN_LANG_Ptn.png</tnail>
+		<img>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.png</img>
+		<psize>custom, 596x596</psize>
+		<color>RGB</color>
+		<descr>A design grid for a DIN LANG brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_DIN_LANG_L</name>
+		<file>grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.sla.gz</file>
+		<tnail>grid_br_dinl_l/Brochure_Grid_DIN_LANG_Ltn.png</tnail>
+		<img>grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.png</img>
+		<psize>custom, 1191x298</psize>
+		<color>RGB</color>
+		<descr>A design grid for a DIN LANG brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_A5_P</name>
+		<file>grid_br_a5_p/Brochure_Grid_A5_P.sla.gz</file>
+		<tnail>grid_br_a5_p/Brochure_Grid_A5_Portraittn.png</tnail>
+		<img>grid_br_a5_p/Brochure_Grid_A5_Portrait.png</img>
+		<psize>custom, 840x596</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A5 brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Brochures">
+		<name>Brochure_Grid_A5_L</name>
+		<file>grid_br_a5_l/Brochure_Grid_A5_L.sla.gz</file>
+		<tnail>grid_br_a5_l/Brochure_Grid_A5_Ltn.png</tnail>
+		<img>grid_br_a5_l/Brochure_Grid_A5_L.png</img>
+		<psize>custom, 1191x420</psize>
+		<color>RGB</color>
+		<descr>A design grid for an A5 brochure</descr>
+		<usage>Create your content on the &quot;Content&quot; layer and disable printing of the &quot;Background&quot; layer before printing or exporting to PDF.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>Christoph Schäfer</author>
+		<email></email>
+	</template>
+	<template category="Business Cards">
+		<name>Business_Card_Collection</name>
+		<file>buscard_coll/business_card_collection.sla.gz</file>
+		<tnail>buscard_coll/Business_Card_Collectiontn.png</tnail>
+		<img>buscard_coll/Business_Card_Collection.png</img>
+		<psize>custom, 1436x1709</psize>
+		<color>RGB</color>
+		<descr>A collection of business cards.</descr>
+		<usage>Copy a business card into a document or the Scrapbook to reuse and edit it.</usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-23</date>
+		<author>vectorportal.com</author>
+		<email></email>
+	</template>
 	<template category="Business Cards">
 		<name>Business_Card_1</name>
 		<file>buscard1/buscard1.sla.gz</file>
