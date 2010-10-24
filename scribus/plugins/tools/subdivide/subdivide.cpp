@@ -66,6 +66,7 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.name = "Subdivide";
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Subdivide Path");
+	m_actionInfo.helpText = tr("Subdivide a path by inserting new Nodes.");
 	// Menu
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";

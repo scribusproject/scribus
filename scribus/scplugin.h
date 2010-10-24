@@ -262,15 +262,16 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 
 		// Information about actions, to be returned by actionInfo()
 		struct ActionInfo {
-			QString name;  // name of action
-			QString text;  // text to display to user
+			QString name;					// name of action
+			QString text;					// text to display to user
+			QString helpText;				// help text for ToolTips and StatusTips
 			QString keySequence;
 			QString menu;
 			QString menuAfterName;
 			QString parentMenu;
 			QString subMenuName;
-			QString toolbar;			// Name of the ToolBar the action is to be inserted, if that toolbar doesn't exits it will be created
-			QString toolBarName;		// translateable ToolBar title
+			QString toolbar;				// Name of the ToolBar the action is to be inserted, if that toolbar doesn't exits it will be created
+			QString toolBarName;			// translateable ToolBar title
 			QPixmap icon1;
 			QPixmap icon2;
 			QList<int> notSuitableFor;		// a list of PageItem type values which the plugin can *not* handle

@@ -295,6 +295,8 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.icon1, ai.icon2, ai.text, ai.keySequence, mw);
 			Q_CHECK_PTR(action);
+			action->setStatusTip(ai.helpText);
+			action->setToolTip(ai.helpText);
 			mw->scrActions.insert(ai.name, action);
 
 			// then enable and connect up the action

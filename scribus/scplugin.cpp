@@ -94,6 +94,7 @@ ScActionPlugin::ScActionPlugin() : ScPlugin()
 {
 	m_actionInfo.name = "";
 	m_actionInfo.text = "";
+	m_actionInfo.helpText = "";
 	m_actionInfo.keySequence = "";
 	m_actionInfo.menu = "";
 	m_actionInfo.menuAfterName = "";
