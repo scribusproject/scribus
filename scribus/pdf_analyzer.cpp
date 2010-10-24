@@ -743,11 +743,13 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 	PdfObject* dObj = extGStateObj->GetIndirectKey("D");
 	if (dObj)
 	{
-		PdfArray dashArr = dObj->GetArray()[0];
+		PdfObject dObjA = dObj->GetArray()[0];
+		PdfArray dashArr = dObjA.GetArray();
 		currGS.dashPattern.first.clear();
 		for (uint i=0; i<dashArr.GetSize(); ++i)
 			currGS.dashPattern.first.append(dashArr[i].GetNumber());
-		currGS.dashPattern.second = dObj->GetArray()[1].GetNumber();
+		PdfObject dObjB = dObj->GetArray()[1];
+		currGS.dashPattern.second = dObjB.GetNumber();
 	}
 }
 PDFFont PDFAnalyzer::getFontInfo(PdfObject* fontObj)
