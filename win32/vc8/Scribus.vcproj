@@ -1987,6 +1987,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\swatchcombo.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\symbolpalette.cpp"
 				>
 			</File>
@@ -10800,6 +10804,38 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\swatchcombo.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\symbolpalette.h"
 				>
 				<FileConfiguration
@@ -13131,6 +13167,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_styleview.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_swatchcombo.cpp"
 				>
 			</File>
 			<File
