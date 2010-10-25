@@ -64,6 +64,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		bool hasImportedColors;
 	private slots:
 		void selEditColor(QTreeWidgetItem *it);
+		void itemSelectionChanged();
 		void itemSelected(QTreeWidgetItem* it);
 		void createNew();
 		void editColorItem();
@@ -87,6 +88,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		QTreeWidgetItem *gradientItems;
 		QTreeWidgetItem *systemSwatches;
 		QTreeWidgetItem *userSwatches;
+		ColorList inDocUsedColors;
 };
 
 #endif
