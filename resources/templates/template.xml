@@ -295,10 +295,10 @@
 		<email></email>
 	</template>
 	<template category="Brochures">
-		<name>Brochure_Grid_5.5x8.5in_L</name>
+		<name>Brochure_Grid_55x85in_L</name>
 		<file>grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz</file>
-		<tnail>grid_br_55x85in_l/Brochure Grid_55x85_in_Ltn.png</tnail>
-		<img>grid_br_55x85in_l/Brochure Grid_55x85_in_L.png</img>
+		<tnail>grid_br_55x85in_l/Brochure_Grid_55x85_in_Ltn.png</tnail>
+		<img>grid_br_55x85in_l/Brochure_Grid_55x85_in_L.png</img>
 		<psize>custom, 1224x396</psize>
 		<color>RGB</color>
 		<descr>A design grid for a 5.5x8.5 in brochure</descr>
