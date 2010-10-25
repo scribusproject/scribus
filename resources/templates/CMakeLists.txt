@@ -319,9 +319,9 @@ grid_br_a5_l/Brochure_Grid_A5_L.png
   DESTINATION ${TEMPLATEDIR}grid_br_a5_l
 )
 
-# INSTALL(FILES
-# buscard_coll/business_card_collection.sla.gz
-# buscard_coll/Business_Card_Collectiontn.png
-# buscard_coll/Business_Card_Collection.png
-#   DESTINATION ${TEMPLATEDIR}buscard_coll
-# )
+INSTALL(FILES
+buscard_coll/business_card_collection.sla.gz
+buscard_coll/Business_Card_Collectiontn.png
+buscard_coll/Business_Card_Collection.png
+  DESTINATION ${TEMPLATEDIR}buscard_coll
+)

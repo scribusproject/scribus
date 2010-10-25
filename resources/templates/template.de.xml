@@ -168,7 +168,6 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	</template>
 	<template category="Broschüren">
 		<name>Brochure_Grid_A4_L</name>
 		<file>grid_br_a4_l/Brochure_Grid_A4_L.sla.gz</file>
@@ -295,7 +294,7 @@
 		<email></email>
 	</template>
 	<template category="Broschüren">
-		<name>Brochure_Grid_5.5x8.5in_L</name>
+		<name>Brochure_Grid_55x85in_L</name>
 		<file>grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz</file>
 		<tnail>grid_br_55x85in_l/Brochure_Grid_55x85_in_Ltn.png</tnail>
 		<img>grid_br_55x85in_l/Brochure_Grid_55x85_in_L.png</img>
@@ -393,7 +392,7 @@
 		<email></email>
 	</template>
 	<template category="Broschüren">
-		<name>Brochure_Grid_DIN_LANG P</name>
+		<name>Brochure_Grid_DIN_LANG_P</name>
 		<file>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.sla.gz</file>
 		<tnail>grid_br_dinl_p/Brochure_Grid_DIN_LANG_Ptn.png</tnail>
 		<img>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.png</img>
@@ -448,7 +447,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
+	<template category="Visitenkarten">
 		<name>Business_Card_Collection</name>
 		<file>business_card_collection.sla.gz</file>
 		<tnail>Business_Card_Collectiontn.png</tnail>
@@ -546,7 +545,7 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Business Cards">
+	<template category="Visitenkarten">
 		<name>Visitenkarte_7</name>
 		<file>buscard7/buscard7.sla.gz</file>
 		<tnail>buscard7/Business_Card_7tn.png</tnail>
