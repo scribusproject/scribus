@@ -287,7 +287,8 @@
 		<img>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoit.png</img>
 		<psize>custom, 792x613</psize>
 		<color>RGB</color>
-		<descr>Erzeugen Sie den Dokumentinhalt auf der Ebene &quot;Content&quot; und setzen Sie für das Drucken oder den PDF-Export die Ebene &quot;Background&quot; auf nicht-druckbar.</usage>
+		<descr>Ein Gestaltungsraster für 5,5x8,5-Zoll-Broschüren</descr>
+		<usage>Erzeugen Sie den Dokumentinhalt auf der Ebene &quot;Content&quot; und setzen Sie für das Drucken oder den PDF-Export die Ebene &quot;Background&quot; auf nicht-druckbar.</usage>
 		<scribus_version>1.3.9.svn</scribus_version>
 		<date>2010-10-24</date>
 		<author>Christoph Schäfer</author>
