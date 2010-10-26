@@ -450,9 +450,9 @@
 	</template>
 	<template category="Visitenkarten">
 		<name>Business_Card_Collection</name>
-		<file>business_card_collection.sla.gz</file>
-		<tnail>Business_Card_Collectiontn.png</tnail>
-		<img>Business_Card_Collection.png</img>
+		<file>buscard_coll/business_card_collection.sla.gz</file>
+		<tnail>buscard_coll/Business_Card_Collectiontn.png</tnail>
+		<img>buscard_coll/Business_Card_Collection.png</img>
 		<psize>custom, 1436x1709</psize>
 		<color>RGB</color>
 		<descr>Ein Sammlung Visitenkarten</descr>
