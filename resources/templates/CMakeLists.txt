@@ -47,10 +47,31 @@ textbased/textbasedtn.png
 )
 
 INSTALL(FILES
-sc_presentation/presentation.png
-sc_presentation/presentation.sla.gz
-sc_presentation/presentationtn.png
-  DESTINATION ${TEMPLATEDIR}sc_presentation
+pres_backgr_1/blue_orange_vector.sla.gz
+pres_backgr_1/blue_orange_vectortn.png
+pres_backgr_1/blue_orange_vector.png
+  DESTINATION ${TEMPLATEDIR}pres_backgr_1
+)
+
+INSTALL(FILES
+pres_backgr_2/flood_light.sla.gz
+pres_backgr_2/flood_lighttn.png
+pres_backgr_2/flood_light.png
+  DESTINATION ${TEMPLATEDIR}pres_backgr_2
+)
+
+INSTALL(FILES
+pres_backgr_3/glass_ripples.sla.gz
+pres_backgr_3/glass_ripplestn.png
+pres_backgr_3/glass_ripples.png
+  DESTINATION ${TEMPLATEDIR}pres_backgr_3
+)
+
+INSTALL(FILES
+pres_backgr_4/bokeh.sla.gz
+pres_backgr_4/Bokehtn.png
+pres_backgr_4/Bokeh.png
+  DESTINATION ${TEMPLATEDIR}pres_backgr_4
 )
 
 INSTALL(FILES
