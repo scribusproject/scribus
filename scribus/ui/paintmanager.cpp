@@ -106,8 +106,10 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	userSwatches->setExpanded(true);
 	LoadColSet->setCurrentComboItem(docColSet);
 	if (m_doc != 0)
+	{
+		label->setText( tr("Merge Color Set"));
 		m_doc->getUsedColors(inDocUsedColors);
-
+	}
 	importButton->setEnabled(false);
 	newButton->setEnabled(false);
 	editButton->setEnabled(false);
