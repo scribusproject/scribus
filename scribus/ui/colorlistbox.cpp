@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QEvent>
 #include <QHelpEvent>
+#include <QMenu>
+#include <QCursor>
 
 #include "commonstrings.h"
 #include "sccolorengine.h"
@@ -190,7 +192,9 @@ ColorListBox::ColorListBox(QWidget * parent)
 	: QListWidget(parent)
 {
 	cList = NULL;
+	sortRule = 0;
 	setItemDelegate(new ColorWideItemDelegate());
+	connect(this, SIGNAL(showContextMenue()), this, SLOT(slotRightClick()));
 }
 
 
@@ -202,17 +206,58 @@ QString ColorListBox::currentColor() const
 		return CommonStrings::tr_NoneColor;
 }
 
+void ColorListBox::slotRightClick()
+{
+	blockSignals(true);
+	QString currentSel = QString();
+	QListWidgetItem* itc = currentItem();
+	if (itc)
+		currentSel = itc->text();
+	QListWidgetItem* it = item(0);
+	if (it)
+	{
+		QString first = QString();
+		QMenu *pmen = new QMenu();
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		pmen->addAction( tr("Sort by Name"));
+		pmen->addAction( tr("Sort by Color"));
+		pmen->addAction( tr("Sort by Type"));
+		sortRule = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+		delete pmen;
+		if (it->text() == CommonStrings::None || it->text() == CommonStrings::tr_NoneColor)
+			first = it->text();
+		clear();
+		reset();
+		if (!first.isEmpty())
+			addItem(first);
+		if (m_type == ColorListBox::fancyPixmap)
+			insertFancyPixmapItems( *cList );
+		else if (m_type == ColorListBox::widePixmap)
+			insertWidePixmapItems( *cList );
+		else if (m_type == ColorListBox::smallPixmap)
+			insertSmallPixmapItems( *cList );
+		if (!currentSel.isEmpty())
+		{
+			QList<QListWidgetItem *> items = findItems(currentSel, Qt::MatchExactly);
+			if (items.count() > 0)
+				setCurrentItem(items[0]);
+		}
+	}
+	blockSignals(false);
+}
 
 void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type)
 {
 	clear();
 	reset();
+	m_type = type;
 	insertItems(list, type);
 }
 
 void ColorListBox::insertItems(ColorList& list, ColorListBox::PixmapType type)
 {
 	cList = &list;
+	m_type = type;
 	if (type == ColorListBox::fancyPixmap)
 		insertFancyPixmapItems( list );
 	else if (type == ColorListBox::widePixmap)
@@ -248,11 +293,46 @@ void ColorListBox::insertSmallPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
 	ScribusDoc* doc = list.document();
-	for (it = list.begin(); it != list.end(); ++it)
+	if (sortRule > 0)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
-			continue;
-		addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
+		QMap<QString, QString> sortMap;
+		for (it = list.begin(); it != list.end(); ++it)
+		{
+			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+				continue;
+			if (sortRule == 1)
+			{
+				QColor c = it.value().getRawRGBColor();
+				QString sortString = QString("%1-%2-%3-%4").arg(c.hue(), 3, 10, QChar('0')).arg(c.saturation(), 3, 10, QChar('0')).arg(c.value(), 3, 10, QChar('0')).arg(it.key());
+				sortMap.insert(sortString, it.key());
+			}
+			else if (sortRule == 2)
+			{
+				QString sortString = QString("%1-%2");
+				if (it.value().isRegistrationColor())
+					sortMap.insert(sortString.arg("A").arg(it.key()), it.key());
+				else if (it.value().isSpotColor())
+					sortMap.insert(sortString.arg("B").arg(it.key()), it.key());
+				else if (it.value().getColorModel() == colorModelCMYK)
+					sortMap.insert(sortString.arg("C").arg(it.key()), it.key());
+				else
+					sortMap.insert(sortString.arg("D").arg(it.key()), it.key());
+			}
+		}
+		QMap<QString, QString>::Iterator itc;
+		for (itc = sortMap.begin(); itc != sortMap.end(); ++itc)
+		{
+			addItem( new ColorPixmapItem(list[itc.value()], doc, itc.value()) );
+		}
+	}
+	else
+	{
+		for (it = list.begin(); it != list.end(); ++it)
+		{
+			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+				continue;
+			addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
+		}
 	}
 	if (itemDelegate())
 		delete itemDelegate();
@@ -263,11 +343,46 @@ void ColorListBox::insertWidePixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
 	ScribusDoc* doc = list.document();
-	for (it = list.begin(); it != list.end(); ++it)
+	if (sortRule > 0)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
-			continue;
-		addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
+		QMap<QString, QString> sortMap;
+		for (it = list.begin(); it != list.end(); ++it)
+		{
+			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+				continue;
+			if (sortRule == 1)
+			{
+				QColor c = it.value().getRawRGBColor();
+				QString sortString = QString("%1-%2-%3-%4").arg(c.hue(), 3, 10, QChar('0')).arg(c.saturation(), 3, 10, QChar('0')).arg(c.value(), 3, 10, QChar('0')).arg(it.key());
+				sortMap.insert(sortString, it.key());
+			}
+			else if (sortRule == 2)
+			{
+				QString sortString = QString("%1-%2");
+				if (it.value().isRegistrationColor())
+					sortMap.insert(sortString.arg("A").arg(it.key()), it.key());
+				else if (it.value().isSpotColor())
+					sortMap.insert(sortString.arg("B").arg(it.key()), it.key());
+				else if (it.value().getColorModel() == colorModelCMYK)
+					sortMap.insert(sortString.arg("C").arg(it.key()), it.key());
+				else
+					sortMap.insert(sortString.arg("D").arg(it.key()), it.key());
+			}
+		}
+		QMap<QString, QString>::Iterator itc;
+		for (itc = sortMap.begin(); itc != sortMap.end(); ++itc)
+		{
+			addItem( new ColorPixmapItem(list[itc.value()], doc, itc.value()) );
+		}
+	}
+	else
+	{
+		for (it = list.begin(); it != list.end(); ++it)
+		{
+			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+				continue;
+			addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
+		}
 	}
 	if (itemDelegate())
 		delete itemDelegate();
@@ -278,18 +393,53 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
 	ScribusDoc* doc = list.document();
-	for (it = list.begin(); it != list.end(); ++it)
+	if (sortRule > 0)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
-			continue;
-		addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
+		QMap<QString, QString> sortMap;
+		for (it = list.begin(); it != list.end(); ++it)
+		{
+			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+				continue;
+			if (sortRule == 1)
+			{
+				QColor c = it.value().getRawRGBColor();
+				QString sortString = QString("%1-%2-%3-%4").arg(c.hue(), 3, 10, QChar('0')).arg(c.saturation(), 3, 10, QChar('0')).arg(c.value(), 3, 10, QChar('0')).arg(it.key());
+				sortMap.insert(sortString, it.key());
+			}
+			else if (sortRule == 2)
+			{
+				QString sortString = QString("%1-%2");
+				if (it.value().isRegistrationColor())
+					sortMap.insert(sortString.arg("A").arg(it.key()), it.key());
+				else if (it.value().isSpotColor())
+					sortMap.insert(sortString.arg("B").arg(it.key()), it.key());
+				else if (it.value().getColorModel() == colorModelCMYK)
+					sortMap.insert(sortString.arg("C").arg(it.key()), it.key());
+				else
+					sortMap.insert(sortString.arg("D").arg(it.key()), it.key());
+			}
+		}
+		QMap<QString, QString>::Iterator itc;
+		for (itc = sortMap.begin(); itc != sortMap.end(); ++itc)
+		{
+			addItem( new ColorPixmapItem(list[itc.value()], doc, itc.value()) );
+		}
+	}
+	else
+	{
+		for (it = list.begin(); it != list.end(); ++it)
+		{
+			if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+				continue;
+			addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
+		}
 	}
 	if (itemDelegate())
 		delete itemDelegate();
 	setItemDelegate(new ColorFancyItemDelegate());
 }
 
-bool ColorListBox::event(QEvent *event)
+bool ColorListBox::viewportEvent(QEvent *event)
 {
 	if (event->type() == QEvent::ToolTip)
 	{
@@ -322,5 +472,20 @@ bool ColorListBox::event(QEvent *event)
 			}
 		}
 	}
-	return QListWidget::event(event);
+	else if (event->type() == QEvent::MouseButtonPress)
+	{
+		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+		if (mouseEvent->button() == Qt::RightButton)
+			return true;
+	}
+	else if (event->type() == QEvent::MouseButtonRelease)
+	{
+		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+		if (mouseEvent->button() == Qt::RightButton)
+		{
+			emit showContextMenue();
+			return true;
+		}
+	}
+	return QListWidget::viewportEvent(event);
 }

@@ -81,12 +81,12 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		Just there are initialized pixmaps for icon drawing. */
 		ColorListBox(QWidget * parent = 0);
 
-		QString currentColor() const; 
+		QString currentColor() const;
 
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with
 		color attributes (RGB/CMYK/Spot etc.).
-		\param list a ColorList to present. 
+		\param list a ColorList to present.
 		\param the pixmap type to use */
 		void updateBox(ColorList& list, ColorListBox::PixmapType type);
 
@@ -114,10 +114,15 @@ class SCRIBUS_API ColorListBox : public QListWidget
 				
 		/*! \brief Pointer to the color list displayed by this box */
 		ColorList *cList;
-protected:
-		bool event(QEvent *event);
-		
+	private slots:
+		void slotRightClick();
+	signals:
+		void showContextMenue();
+	protected:
+		bool viewportEvent(QEvent *event);
+		int sortRule;
 		int m_selectedRow;
+		ColorListBox::PixmapType m_type;
 };
 
 #endif

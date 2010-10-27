@@ -28,6 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QDomDocument>
+#include <QMenu>
+#include <QCursor>
 #include "cmykfw.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
@@ -51,16 +53,19 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"
+#include <QDebug>
 
 PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
 	paletteLocked = false;
+	sortRule = 0;
 	m_doc = doc;
 	m_colorList = doco;
 	mainWin = scMW;
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	dataTree->setContextMenuPolicy(Qt::CustomContextMenu);
 	dataTree->setIconSize(QSize(60, 15));
 	colorItems = new QTreeWidgetItem(dataTree);
 	colorItems->setText(0, tr("Solid Colors"));
@@ -117,6 +122,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
+	connect(dataTree, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(createNew()));
 	connect(editButton, SIGNAL(clicked()), this, SLOT(editColorItem()));
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateColorItem()));
@@ -174,18 +180,77 @@ QTreeWidgetItem* PaintManagerDialog::updateColorList(QString addedName)
 		delete lg[a];
 	}
 	QTreeWidgetItem* ret = 0;
-	ColorList::Iterator it;
-	for (it = m_colorList.begin(); it != m_colorList.end(); ++it)
+	if (sortRule > 0)
 	{
-		QTreeWidgetItem *item = new QTreeWidgetItem(colorItems);
-		item->setText(0, it.key());
-		if (it.key() == addedName)
-			ret = item;
-		QPixmap* pPixmap = getFancyPixmap(it.value(), m_doc);
-		item->setIcon(0, *pPixmap);
-		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		QMap<QString, QString> sortMap;
+		ColorList::Iterator it;
+		for (it = m_colorList.begin(); it != m_colorList.end(); ++it)
+		{
+			if (sortRule == 1)
+			{
+				QColor c = it.value().getRawRGBColor();
+				QString sortString = QString("%1-%2-%3-%4").arg(c.hue(), 3, 10, QChar('0')).arg(c.saturation(), 3, 10, QChar('0')).arg(c.value(), 3, 10, QChar('0')).arg(it.key());
+				sortMap.insert(sortString, it.key());
+			}
+			else if (sortRule == 2)
+			{
+				QString sortString = QString("%1-%2");
+				if (it.value().isRegistrationColor())
+					sortMap.insert(sortString.arg("A").arg(it.key()), it.key());
+				else if (it.value().isSpotColor())
+					sortMap.insert(sortString.arg("B").arg(it.key()), it.key());
+				else if (it.value().getColorModel() == colorModelCMYK)
+					sortMap.insert(sortString.arg("C").arg(it.key()), it.key());
+				else
+					sortMap.insert(sortString.arg("D").arg(it.key()), it.key());
+			}
+		}
+		QMap<QString, QString>::Iterator itc;
+		for (itc = sortMap.begin(); itc != sortMap.end(); ++itc)
+		{
+			QTreeWidgetItem *item = new QTreeWidgetItem(colorItems);
+			item->setText(0, itc.value());
+			if (itc.value() == addedName)
+				ret = item;
+			QPixmap* pPixmap = getFancyPixmap(m_colorList[itc.value()], m_doc);
+			item->setIcon(0, *pPixmap);
+			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		}
+	}
+	else
+	{
+		ColorList::Iterator it;
+		for (it = m_colorList.begin(); it != m_colorList.end(); ++it)
+		{
+			QTreeWidgetItem *item = new QTreeWidgetItem(colorItems);
+			item->setText(0, it.key());
+			if (it.key() == addedName)
+				ret = item;
+			QPixmap* pPixmap = getFancyPixmap(it.value(), m_doc);
+			item->setIcon(0, *pPixmap);
+			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		}
 	}
 	return ret;
+}
+
+void PaintManagerDialog::slotRightClick(QPoint p)
+{
+	QTreeWidgetItem* it = dataTree->itemAt(p);
+	if (it)
+	{
+		if ((it->parent() == colorItems) || (it == colorItems))
+		{
+			QMenu *pmen = new QMenu();
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			pmen->addAction( tr("Sort by Name"));
+			pmen->addAction( tr("Sort by Color"));
+			pmen->addAction( tr("Sort by Type"));
+			sortRule = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+			delete pmen;
+			updateColorList();
+		}
+	}
 }
 
 void PaintManagerDialog::selEditColor(QTreeWidgetItem *it)

@@ -63,6 +63,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		QStringList customColSet;
 		bool hasImportedColors;
 	private slots:
+		void slotRightClick(QPoint p);
 		void selEditColor(QTreeWidgetItem *it);
 		void itemSelectionChanged();
 		void itemSelected(QTreeWidgetItem* it);
@@ -84,6 +85,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		void loadScribusFormat(QString fileName);
 		ColorSetManager csm;
 		bool paletteLocked;
+		int sortRule;
 		QTreeWidgetItem *colorItems;
 		QTreeWidgetItem *gradientItems;
 		QTreeWidgetItem *systemSwatches;
