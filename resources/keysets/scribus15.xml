@@ -35,7 +35,6 @@
     <function shortcut="" name="editEditRenderSource"/>
     <function shortcut="" name="editEditWithImageEditor"/>
     <function shortcut="" name="editExtendedImageProperties"/>
-    <function shortcut="" name="editGradients"/>
     <function shortcut="" name="editJavascripts"/>
     <function shortcut="" name="editMasterPages"/>
     <function shortcut="Ctrl+V" name="editPaste"/>
