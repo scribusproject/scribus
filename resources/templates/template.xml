@@ -57,18 +57,60 @@
 		<email>petr@yarpen.cz</email>
 	</template>
 	<template category="PDF Presentations">
-		<name>ScPresentation</name>
-		<file>sc_presentation/presentation.sla.gz</file>
-		<tnail>sc_presentation/presentationtn.png</tnail>
-		<img>sc_presentation/presentation.png</img>
-		<psize>custom, 760x620</psize>
-		<color>color - Scribus website (or team Rabobank jersey ;))</color>
-		<descr>Based on the Maciej Hanski's presentation layout. I made it more simple because I like simple things. Used often in my office presentations.</descr>
-		<usage>Right click on text replace what's inside with your own. (Beware the management newspeak! ;)</usage>
-		<scribus_version>1.2RC1cvs</scribus_version>
-		<date>2004-07-1</date>
-		<author>Petr Vaněk</author>
-		<email>petr@yarpen.cz</email>
+		<name>Blue_Orange</name>
+		<file>pres_backgr_1/blue_orange_vector.sla.gz</file>
+		<tnail>pres_backgr_1/blue_orange_vectortn.png</tnail>
+		<img>pres_backgr_1/blue_orange_vector.png</img>
+		<psize>custom, 842x632</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-25</date>
+		<author>Dhananjay Garg</author>
+		<email></email>
+	</template>
+	<template category="PDF Presentations">
+		<name>Flood_Light</name>
+		<file>pres_backgr_2/flood_light.sla.gz</file>
+		<tnail>pres_backgr_2/flood_lighttn.png</tnail>
+		<img>pres_backgr_2/flood_light.png</img>
+		<psize>custom, 842x632</psize>
+		<color>RGB</color>
+		<descr>Presentation Background</descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-25</date>
+		<author>Dhananjay Garg</author>
+		<email></email>
+	</template>
+	<template category="PDF Presentations">
+		<name>Glass_Ripples</name>
+		<file>pres_backgr_3/glass_ripples.sla.gz</file>
+		<tnail>pres_backgr_3/glass_ripplestn.png</tnail>
+		<img>pres_backgr_3/glass_ripples.png</img>
+		<psize>custom, 842x632</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-27</date>
+		<author>Dhananjay Garg</author>
+		<email></email>
+	</template>
+	<template category="PDF Presentations">
+		<name>Bokeh</name>
+		<file>pres_backgr_4/bokeh.sla.gz</file>
+		<tnail>pres_backgr_4/Bokehtn.png</tnail>
+		<img>pres_backgr_4/Bokeh.png</img>
+		<psize>custom, 842x632</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.3.9.svn</scribus_version>
+		<date>2010-10-27</date>
+		<author>Dhananjay Garg</author>
+		<email></email>
 	</template>
 	<template category="Packaging">
 		<name>Cheat_Cube</name>
