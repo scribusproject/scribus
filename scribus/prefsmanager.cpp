@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scribuscore.h"
 #include "ui/modetoolbar.h"
+#include "util_color.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
 
@@ -1605,6 +1606,7 @@ bool PrefsManager::WritePref(QString ho)
 		rde.appendChild(hyelm2);
 	}
 	elem.appendChild(rde);
+/*
 	ColorList::Iterator itc;
 	for (itc = appPrefs.colorPrefs.DColors.begin(); itc != appPrefs.colorPrefs.DColors.end(); ++itc)
 	{
@@ -1636,6 +1638,7 @@ bool PrefsManager::WritePref(QString ho)
 		}
 		elem.appendChild(grad);
 	}
+*/
 	for (int rd=0; rd<appPrefs.uiPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("Recent");
@@ -1828,6 +1831,10 @@ bool PrefsManager::ReadPref(QString ho)
 		return false;
 	appPrefs.colorPrefs.DColors.clear();
 	appPrefs.extToolPrefs.latexCommands.clear();
+	ColorSetManager csm;
+	csm.initialiseDefaultPrefs(appPrefs);
+	csm.findPaletteLocations();
+	csm.findPalettes();
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
@@ -2328,6 +2335,7 @@ bool PrefsManager::ReadPref(QString ho)
 				face.subset(static_cast<bool>(dc.attribute("Subset", "0").toInt()));
 			}
 		}
+/*
 		if (dc.tagName()=="Color")
 		{
 			if (dc.hasAttribute("CMYK"))
@@ -2369,12 +2377,41 @@ bool PrefsManager::ReadPref(QString ho)
 			}
 			appPrefs.defaultGradients.insert(dc.attribute("Name"), gra);
 		}
+*/
 		if (dc.tagName()=="Substitute")
 		  appPrefs.fontPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
 		if (dc.tagName()=="ColorSet")
 			appPrefs.colorPrefs.CustomColorSets.append(dc.attribute("Name"));
 		if (dc.tagName()=="DefaultColorSet")
+		{
+			QString pfadC = "";
 			appPrefs.colorPrefs.DColorSet = dc.attribute("Name");
+			if (appPrefs.colorPrefs.CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
+			{
+				QString Fname = appPrefs.colorPrefs.DColorSet;
+				Fname.replace(" ", "_");
+				Fname += ".xml";
+				pfadC = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
+			}
+			else
+				pfadC = csm.paletteFileFromName(appPrefs.colorPrefs.DColorSet);
+			if (appPrefs.colorPrefs.DColorSet != "Scribus Small")
+				importColorsFromFile(pfadC, appPrefs.colorPrefs.DColors, &appPrefs.defaultGradients, false);
+			else
+			{
+				appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
+				appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
+				ScColor cc = ScColor(255, 255, 255, 255);
+				cc.setRegistrationColor(true);
+				appPrefs.colorPrefs.DColors.insert("Registration", cc);
+				appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
+				appPrefs.colorPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
+				appPrefs.colorPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
+				appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
+				appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
+				appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
+			}
+		}
 		if(dc.tagName()=="PDF")
 		{
 			appPrefs.pdfPrefs.Articles = static_cast<bool>(dc.attribute("Articles").toInt());

@@ -149,10 +149,15 @@ void ColorSetManager::searchDir(QString path, QTreeWidgetItem* parent)
 			{
 				QString setName = fi.baseName();
 				setName.replace("_", " ");
-				QTreeWidgetItem* item = new QTreeWidgetItem(parent);
-				item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				item->setText(0, setName);
-				searchDir(path + dirs[dc] + "/", item);
+				if (parent != NULL)
+				{
+					QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+					item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+					item->setText(0, setName);
+					searchDir(path + dirs[dc] + "/", item);
+				}
+				else
+					searchDir(path + dirs[dc] + "/", parent);
 			}
 			else
 			{
@@ -161,9 +166,12 @@ void ColorSetManager::searchDir(QString path, QTreeWidgetItem* parent)
 					QString setName = fi.baseName();
 					setName.replace("_", " ");
 					palettes.insert(setName, fi.absoluteFilePath());
-					QTreeWidgetItem* item = new QTreeWidgetItem(parent);
-					item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					item->setText(0, setName);
+					if (parent != 0)
+					{
+						QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						item->setText(0, setName);
+					}
 				}
 			}
 		}
@@ -177,22 +185,7 @@ void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 	for ( QStringList::Iterator it = paletteLocations.begin(); it != paletteLocations.end(); ++it )
 	{
 		path = (*it);
-		if (parent != NULL)
-			searchDir(path, parent);
-		else
-		{
-			QDir dir(path , "*.xml *.gpl *.eps *.ai *.sla *.soc", QDir::Name, QDir::Files | QDir::NoSymLinks);
-			if (dir.exists() && (dir.count() != 0))
-			{
-				for (uint i = 0; i < dir.count(); ++i) 
-				{
-					QFileInfo file(path + dir[i]);
-					QString setName=file.baseName();
-					setName.replace("_", " ");
-					palettes.insert(setName, file.absoluteFilePath());
-				}
-			}
-		}
+		searchDir(path, parent);
 	}
 }
 
