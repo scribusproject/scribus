@@ -67,6 +67,7 @@ void PathAlongPathPlugin::languageChange()
 	m_actionInfo.name = "PathAlongPath";
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Path Along Path...");
+	m_actionInfo.helpText = tr("Bends a Polygon along a Path.");
 	// Menu
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";

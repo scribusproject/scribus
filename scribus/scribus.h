@@ -270,6 +270,7 @@ public slots:
 	//void setItemLineTransparency(double t);
 	void setStatusBarMousePosition(double xp, double yp);
 	void setStatusBarTextPosition(double base, double xp);
+	void setTempStatusBarText(const QString &text);
 	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
 	//bool DoSaveClose();
@@ -607,6 +608,7 @@ private:
 	int ScriptRunning;
 
 	QLabel* mainWindowStatusLabel;
+	QString statusLabelText;
 	QPixmap noIcon;
 	EditToolBar *editToolBar;
 	FileToolBar *fileToolBar;

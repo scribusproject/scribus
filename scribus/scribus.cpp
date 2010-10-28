@@ -1024,6 +1024,7 @@ void ScribusMainWindow::initStatusBar()
 	statusBar()->addPermanentWidget(mainWindowXPosDataLabel, 1);
 	statusBar()->addPermanentWidget(mainWindowYPosLabel, 0);
 	statusBar()->addPermanentWidget(mainWindowYPosDataLabel, 1);
+	connect(statusBar(), SIGNAL(messageChanged(const QString &)), this, SLOT(setTempStatusBarText(const QString &)));
 }
 
 
@@ -1048,12 +1049,22 @@ void ScribusMainWindow::setStatusBarTextPosition(double base, double xp)
 	mainWindowYPosDataLabel->setText("-");
 }
 
-
+void ScribusMainWindow::setTempStatusBarText(const QString &text)
+{
+	if (mainWindowStatusLabel)
+	{
+		if (text.isEmpty())
+			mainWindowStatusLabel->setText(statusLabelText);
+		else
+			mainWindowStatusLabel->setText(text);
+	}
+}
 
 void ScribusMainWindow::setStatusBarInfoText(QString newText)
 {
 	if (mainWindowStatusLabel)
 		mainWindowStatusLabel->setText(newText);
+	statusLabelText = newText;
 }
 
 

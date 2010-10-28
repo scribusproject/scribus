@@ -70,6 +70,7 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.name = "PathCutter";
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Cut Polygon");
+	m_actionInfo.helpText = tr("Cuts a Polygon with a Path.");
 	// Menu
 	m_actionInfo.icon1 = loadIcon("transform-crop-and-resize.png");
 	m_actionInfo.icon2 = loadIcon("transform-crop-and-resize.png");

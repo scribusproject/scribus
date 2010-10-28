@@ -65,6 +65,7 @@ void PathConnectPlugin::languageChange()
 	m_actionInfo.name = "PathConnect";
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Connect Paths");
+	m_actionInfo.helpText = tr("Connects two Paths.");
 	// Menu
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
