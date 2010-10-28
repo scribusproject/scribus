@@ -32,6 +32,7 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::XFIG, QStringList() << "fig");
 	m_fmts.insert(FormatsManager::CVG,  QStringList() << "cvg");
 	m_fmts.insert(FormatsManager::WPG,  QStringList() << "wpg");
+	m_fmts.insert(FormatsManager::BMP,  QStringList() << "bmp");
 #ifdef GMAGICK_FOUND
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
@@ -52,8 +53,9 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics \"*.svg\"");
 	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator \"*.ai\"");
 	m_fmtNames[FormatsManager::XFIG] = QObject::tr("Xfig File");
-	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus Cvg File");
-	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect Wpg File");
+	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus CVG File");
+	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect WPG File");
+	m_fmtNames[FormatsManager::BMP]  = QObject::tr("BMP");
 #ifdef GMAGICK_FOUND
 	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
 #endif
