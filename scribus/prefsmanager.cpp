@@ -1606,39 +1606,6 @@ bool PrefsManager::WritePref(QString ho)
 		rde.appendChild(hyelm2);
 	}
 	elem.appendChild(rde);
-/*
-	ColorList::Iterator itc;
-	for (itc = appPrefs.colorPrefs.DColors.begin(); itc != appPrefs.colorPrefs.DColors.end(); ++itc)
-	{
-		QDomElement co=docu.createElement("Color");
-		co.setAttribute("Name",itc.key());
-		if (itc.value().getColorModel() == colorModelRGB)
-			co.setAttribute("RGB", itc.value().nameRGB());
-		else
-			co.setAttribute("CMYK", itc.value().nameCMYK());
-		co.setAttribute("Spot", static_cast<int>(itc.value().isSpotColor()));
-		co.setAttribute("Register", static_cast<int>(itc.value().isRegistrationColor()));
-		elem.appendChild(co);
-	}
-	QMap<QString, VGradient>::Iterator itGrad;
-	for (itGrad = appPrefs.defaultGradients.begin(); itGrad != appPrefs.defaultGradients.end(); ++itGrad)
-	{
-		QDomElement grad = docu.createElement("Gradient");
-		grad.setAttribute("Name",itGrad.key());
-		VGradient gra = itGrad.value();
-		QList<VColorStop*> cstops = gra.colorStops();
-		for (uint cst = 0; cst < gra.Stops(); ++cst)
-		{
-			QDomElement stop = docu.createElement("CStop");
-			stop.setAttribute("Name", cstops.at(cst)->name);
-			stop.setAttribute("RampPoint", ScCLocale::toQStringC(cstops.at(cst)->rampPoint));
-			stop.setAttribute("Opacity", ScCLocale::toQStringC(cstops.at(cst)->opacity));
-			stop.setAttribute("Shade", cstops.at(cst)->shade);
-			grad.appendChild(stop);
-		}
-		elem.appendChild(grad);
-	}
-*/
 	for (int rd=0; rd<appPrefs.uiPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("Recent");
@@ -2335,55 +2302,13 @@ bool PrefsManager::ReadPref(QString ho)
 				face.subset(static_cast<bool>(dc.attribute("Subset", "0").toInt()));
 			}
 		}
-/*
-		if (dc.tagName()=="Color")
-		{
-			if (dc.hasAttribute("CMYK"))
-				lf.setNamedColor(dc.attribute("CMYK"));
-			else
-				lf.fromQColor(QColor(dc.attribute("RGB")));
-			if (dc.hasAttribute("Spot"))
-				lf.setSpotColor(static_cast<bool>(dc.attribute("Spot").toInt()));
-			else
-				lf.setSpotColor(false);
-			if (dc.hasAttribute("Register"))
-				lf.setRegistrationColor(static_cast<bool>(dc.attribute("Register").toInt()));
-			else
-				lf.setRegistrationColor(false);
-			appPrefs.colorPrefs.DColors[dc.attribute("Name")] = lf;
-		}
-		if (dc.tagName() == "Gradient")
-		{
-			VGradient gra = VGradient(VGradient::linear);
-			gra.clearStops();
-			QDomNode grad = dc.firstChild();
-			while(!grad.isNull())
-			{
-				QDomElement stop = grad.toElement();
-				QString name = stop.attribute("Name");
-				double ramp  = ScCLocale::toDoubleC(stop.attribute("RampPoint"), 0.0);
-				int shade    = stop.attribute("Shade", "100").toInt();
-				double opa   = ScCLocale::toDoubleC(stop.attribute("Opacity"), 1.0);
-				QColor color;
-				if (name == CommonStrings::None)
-					color = QColor(255, 255, 255, 0);
-				else
-				{
-					const ScColor& col = appPrefs.colorPrefs.DColors[name];
-					color = ScColorEngine::getShadeColorProof(col, NULL, shade);
-				}
-				gra.addStop(color, ramp, 0.5, opa, name, shade);
-				grad = grad.nextSibling();
-			}
-			appPrefs.defaultGradients.insert(dc.attribute("Name"), gra);
-		}
-*/
 		if (dc.tagName()=="Substitute")
 		  appPrefs.fontPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
 		if (dc.tagName()=="ColorSet")
 			appPrefs.colorPrefs.CustomColorSets.append(dc.attribute("Name"));
 		if (dc.tagName()=="DefaultColorSet")
 		{
+			appPrefs.colorPrefs.DColors.clear();
 			QString pfadC = "";
 			appPrefs.colorPrefs.DColorSet = dc.attribute("Name");
 			if (appPrefs.colorPrefs.CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))

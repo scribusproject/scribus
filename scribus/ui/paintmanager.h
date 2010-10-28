@@ -63,6 +63,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		QStringList customColSet;
 		bool hasImportedColors;
 	private slots:
+		void leaveDialog();
 		void slotRightClick(QPoint p);
 		void selEditColor(QTreeWidgetItem *it);
 		void itemSelectionChanged();
@@ -83,8 +84,10 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		void loadGimpFormat(QString fileName);
 		void addGimpColor(QString &colorName, double r, double g, double b);
 		void loadScribusFormat(QString fileName);
+		void doSaveDefaults(QString name, bool changed = false);
 		ColorSetManager csm;
 		bool paletteLocked;
+		bool modified;
 		int sortRule;
 		QTreeWidgetItem *colorItems;
 		QTreeWidgetItem *gradientItems;

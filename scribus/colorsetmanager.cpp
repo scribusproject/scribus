@@ -115,11 +115,11 @@ void ColorSetManager::findPaletteLocations()
 	locations << ScPaths::instance().getDirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
 	{
-		QFile paletteDir(*it);
+		QFileInfo paletteDir(*it);
 		if (paletteDir.exists())
 		{
 			paletteLocations << (*it);
-			paletteLocationLocks.insert((*it), false);
+			paletteLocationLocks.insert((*it), !paletteDir.isWritable());
 		}
 	}
 	QStringList xdgSysLocations=ScPaths::instance().getDirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");

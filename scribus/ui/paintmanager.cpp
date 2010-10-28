@@ -60,6 +60,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	setupUi(this);
 	setModal(true);
 	paletteLocked = false;
+	modified = false;
 	sortRule = 0;
 	m_doc = doc;
 	m_colorList = doco;
@@ -131,10 +132,25 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(removeColorItem()));
 	connect(deleteUnusedButton, SIGNAL(clicked()), this, SLOT(removeUnusedColorItem()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(importColorItems()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(leaveDialog()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(SaveColSet, SIGNAL(clicked()), this, SLOT(saveDefaults()));
 	connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+}
+
+void PaintManagerDialog::leaveDialog()
+{
+	if (!m_doc)
+	{
+		if (modified)
+		{
+			if (paletteLocked)
+				saveDefaults();
+			else
+				doSaveDefaults(LoadColSet->text(), true);
+		}
+	}
+	accept();
 }
 
 QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
@@ -357,6 +373,7 @@ void PaintManagerDialog::createNew()
 					dataTree->setCurrentItem(lg, 0, QItemSelectionModel::ClearAndSelect);
 				}
 				itemSelected(dataTree->currentItem());
+				modified = true;
 			}
 			delete dia;
 		}
@@ -375,6 +392,7 @@ void PaintManagerDialog::createNew()
 					dataTree->setCurrentItem(lg, 0, QItemSelectionModel::ClearAndSelect);
 				}
 				itemSelected(dataTree->currentItem());
+				modified = true;
 			}
 			delete dia;
 		}
@@ -414,6 +432,7 @@ void PaintManagerDialog::editColorItem()
 					dataTree->setCurrentItem(lg, 0, QItemSelectionModel::ClearAndSelect);
 				}
 				itemSelected(dataTree->currentItem());
+				modified = true;
 			}
 			delete dia;
 		}
@@ -440,6 +459,7 @@ void PaintManagerDialog::editColorItem()
 					dataTree->setCurrentItem(lg, 0, QItemSelectionModel::ClearAndSelect);
 				}
 				itemSelected(dataTree->currentItem());
+				modified = true;
 			}
 			delete dia;
 		}
@@ -481,6 +501,7 @@ void PaintManagerDialog::duplicateColorItem()
 					dataTree->setCurrentItem(lg, 0, QItemSelectionModel::ClearAndSelect);
 				}
 				itemSelected(dataTree->currentItem());
+				modified = true;
 			}
 			delete dia;
 		}
@@ -509,6 +530,7 @@ void PaintManagerDialog::duplicateColorItem()
 					dataTree->setCurrentItem(lg, 0, QItemSelectionModel::ClearAndSelect);
 				}
 				itemSelected(dataTree->currentItem());
+				modified = true;
 			}
 			delete dia;
 		}
@@ -589,6 +611,7 @@ void PaintManagerDialog::removeColorItem()
 					m_colorList.remove(dColor);
 					updateGradientColors(replacementColor, dColor);
 				}
+				modified = true;
 			}
 			delete dia;
 		}
@@ -599,6 +622,7 @@ void PaintManagerDialog::removeColorItem()
 				replaceColorMap.insert(colors[a], "Black");
 				m_colorList.remove(colors[a]);
 			}
+			modified = true;
 		}
 		updateGradientList();
 		updateColorList();
@@ -630,6 +654,7 @@ void PaintManagerDialog::removeColorItem()
 				}
 				updateGradientList();
 				itemSelected(0);
+				modified = true;
 			}
 			else if ((it->parent() == colorItems) || (it == colorItems))
 			{
@@ -688,6 +713,7 @@ void PaintManagerDialog::removeColorItem()
 				updateGradientList();
 				updateColorList();
 				itemSelected(0);
+				modified = true;
 			}
 		}
 	}
@@ -735,6 +761,7 @@ void PaintManagerDialog::removeUnusedColorItem()
 			updateGradientList();
 			updateColorList();
 			itemSelected(0);
+			modified = true;
 		}
 	}
 }
@@ -774,6 +801,7 @@ void PaintManagerDialog::importColorItems()
 				updateGradientList();
 				updateColorList();
 				itemSelected(0);
+				modified = true;
 			}
 		}
 		else if ((it->parent() == colorItems) || (it == colorItems))
@@ -798,6 +826,7 @@ void PaintManagerDialog::importColorItems()
 			{
 				updateGradientList();
 				updateColorList();
+				modified = true;
 			}
 			itemSelected(0);
 		}
@@ -1136,7 +1165,6 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 
 void PaintManagerDialog::saveDefaults()
 {
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
@@ -1145,67 +1173,72 @@ void PaintManagerDialog::saveDefaults()
 	else
 		dia->setEditText(Name, false);
 	if (dia->exec())
+		doSaveDefaults(dia->getEditText(), (dia->getEditText() != Name));
+	delete dia;
+}
+
+void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
+{
+	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
+	QString Fname = name;
+	Fname.replace(" ", "_");
+	Fname  = Cpfad + Fname;
+	Fname += ".xml";
+	QFile fx(Fname);
+	if (fx.open(QIODevice::WriteOnly))
 	{
-		QString Fname = dia->getEditText();
-		Fname.replace(" ", "_");
-		Fname  = Cpfad + Fname;
-		Fname += ".xml";
-		QFile fx(Fname);
-		if (fx.open(QIODevice::WriteOnly))
+		QDomDocument docu("scribus");
+		QString st="<SCRIBUSCOLORS></SCRIBUSCOLORS>";
+		docu.setContent(st);
+		QDomElement elem = docu.documentElement();
+		elem.setAttribute("Name", name);
+		ColorList::Iterator itc;
+		for (itc = m_colorList.begin(); itc != m_colorList.end(); ++itc)
 		{
-			QDomDocument docu("scribus");
-			QString st="<SCRIBUSCOLORS></SCRIBUSCOLORS>";
-			docu.setContent(st);
-			QDomElement elem = docu.documentElement();
-			elem.setAttribute("Name", dia->getEditText());
-			ColorList::Iterator itc;
-			for (itc = m_colorList.begin(); itc != m_colorList.end(); ++itc)
+			QDomElement co = docu.createElement("COLOR");
+			co.setAttribute("NAME",itc.key());
+			if (m_colorList[itc.key()].getColorModel() == colorModelRGB)
+				co.setAttribute("RGB",m_colorList[itc.key()].nameRGB());
+			else
+				co.setAttribute("CMYK",m_colorList[itc.key()].nameCMYK());
+			co.setAttribute("Spot",static_cast<int>(m_colorList[itc.key()].isSpotColor()));
+			co.setAttribute("Register",static_cast<int>(m_colorList[itc.key()].isRegistrationColor()));
+			elem.appendChild(co);
+		}
+		QMap<QString, VGradient>::Iterator itGrad;
+		for (itGrad = dialogGradients.begin(); itGrad != dialogGradients.end(); ++itGrad)
+		{
+			QDomElement grad = docu.createElement("Gradient");
+			grad.setAttribute("Name",itGrad.key());
+			VGradient gra = itGrad.value();
+			QList<VColorStop*> cstops = gra.colorStops();
+			for (uint cst = 0; cst < gra.Stops(); ++cst)
 			{
-				QDomElement co = docu.createElement("COLOR");
-				co.setAttribute("NAME",itc.key());
-				if (m_colorList[itc.key()].getColorModel() == colorModelRGB)
-					co.setAttribute("RGB",m_colorList[itc.key()].nameRGB());
-				else
-					co.setAttribute("CMYK",m_colorList[itc.key()].nameCMYK());
-				co.setAttribute("Spot",static_cast<int>(m_colorList[itc.key()].isSpotColor()));
-				co.setAttribute("Register",static_cast<int>(m_colorList[itc.key()].isRegistrationColor()));
-				elem.appendChild(co);
+				QDomElement stop = docu.createElement("CSTOP");
+				stop.setAttribute("NAME", cstops.at(cst)->name);
+				stop.setAttribute("RAMP", ScCLocale::toQStringC(cstops.at(cst)->rampPoint));
+				stop.setAttribute("TRANS", ScCLocale::toQStringC(cstops.at(cst)->opacity));
+				stop.setAttribute("SHADE", cstops.at(cst)->shade);
+				grad.appendChild(stop);
 			}
-			QMap<QString, VGradient>::Iterator itGrad;
-			for (itGrad = dialogGradients.begin(); itGrad != dialogGradients.end(); ++itGrad)
-			{
-				QDomElement grad = docu.createElement("Gradient");
-				grad.setAttribute("Name",itGrad.key());
-				VGradient gra = itGrad.value();
-				QList<VColorStop*> cstops = gra.colorStops();
-				for (uint cst = 0; cst < gra.Stops(); ++cst)
-				{
-					QDomElement stop = docu.createElement("CSTOP");
-					stop.setAttribute("NAME", cstops.at(cst)->name);
-					stop.setAttribute("RAMP", ScCLocale::toQStringC(cstops.at(cst)->rampPoint));
-					stop.setAttribute("TRANS", ScCLocale::toQStringC(cstops.at(cst)->opacity));
-					stop.setAttribute("SHADE", cstops.at(cst)->shade);
-					grad.appendChild(stop);
-				}
-				elem.appendChild(grad);
-			}
-			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			QByteArray cs = docu.toString().toUtf8();
-			QDataStream s(&fx);
-			s.writeRawData(xmlpi, strlen(xmlpi));
-			s.writeRawData(cs, cs.length());
-			fx.close();
-			if (dia->getEditText() != Name)
-			{
-				QString nameC = dia->getEditText();
-				nameC.replace(" ", "_");
-				nameC += ".xml";
-				customColSet.append(nameC);
-				LoadColSet->addSubItem(dia->getEditText(), userSwatches);
-				disconnect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
-				LoadColSet->setCurrentComboItem(dia->getEditText());
-				connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
-			}
+			elem.appendChild(grad);
+		}
+		static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		QByteArray cs = docu.toString().toUtf8();
+		QDataStream s(&fx);
+		s.writeRawData(xmlpi, strlen(xmlpi));
+		s.writeRawData(cs, cs.length());
+		fx.close();
+		if (changed)
+		{
+			QString nameC = name;
+			nameC.replace(" ", "_");
+			nameC += ".xml";
+			customColSet.append(nameC);
+			LoadColSet->addSubItem(name, userSwatches);
+			disconnect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+			LoadColSet->setCurrentComboItem(name);
+			connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
 		}
 	}
 }
