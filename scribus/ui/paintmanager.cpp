@@ -110,6 +110,22 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	{
 		label->setText( tr("Merge Color Set"));
 		m_doc->getUsedColors(inDocUsedColors);
+		paletteLocked = false;
+	}
+	else
+	{
+		QString pfad = "";
+		if (custColSet.contains(docColSet))
+		{
+			QString Fname = docColSet;
+			Fname.replace(" ", "_");
+			Fname += ".xml";
+			pfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
+		}
+		else
+			pfad = csm.paletteFileFromName(docColSet);
+		QFileInfo fi(pfad);
+		paletteLocked = !fi.isWritable();
 	}
 	importButton->setEnabled(false);
 	newButton->setEnabled(false);
@@ -1132,9 +1148,13 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 			Fname += ".xml";
 			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
 		}
-
-		QFileInfo fi(pfadC2);
-		paletteLocked = csm.paletteLocationLocked(fi.absolutePath()+"/");
+		if (m_doc == 0)
+		{
+			QFileInfo fi(pfadC2);
+			paletteLocked = !fi.isWritable();
+		}
+		else
+			paletteLocked = false;
 	}
 	if (txt != "Scribus Small")
 	{
@@ -1168,7 +1188,7 @@ void PaintManagerDialog::saveDefaults()
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
-	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
+	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set") || paletteLocked)
 		dia->setEditText("", false);
 	else
 		dia->setEditText(Name, false);
