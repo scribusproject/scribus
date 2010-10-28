@@ -36,10 +36,10 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192,
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
+			ALLIMAGES 	= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|524288,
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|524288,  // all Types suitable for Image Frames
 			VECTORIMAGES	= 1|64|1024|2048|16384|32768,  // All pure vector image types
-			RASTORIMAGES	= 2|4|8|32|512,  // All pure rastor image types
+			RASTORIMAGES	= 2|4|8|32|512|524288,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
 			GIF				= 2,      // GIF files
 			JPEG			= 4,      // JPEG
@@ -56,6 +56,7 @@ class SCRIBUS_API FormatsManager
 			XFIG			= 8192,   // Xfig files
 			CVG				= 16384,  // Calamus Cvg files
 			PCT				= 32768,  // Mac Pict
+			BMP				= 524288,  // BMP
 		};
 	
 /*

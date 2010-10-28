@@ -32,7 +32,8 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::XFIG, QStringList() << "fig");
 	m_fmts.insert(FormatsManager::CVG,  QStringList() << "cvg");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
-	
+	m_fmts.insert(FormatsManager::BMP,  QStringList() << "bmp");	
+
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
@@ -47,8 +48,9 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics");
 	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator");
 	m_fmtNames[FormatsManager::XFIG] = QObject::tr("Xfig File");
-	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus Cvg File");
+	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus CVG File");
 	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict File");
+	m_fmtNames[FormatsManager::BMP]  = QObject::tr("BMP");
 	
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
