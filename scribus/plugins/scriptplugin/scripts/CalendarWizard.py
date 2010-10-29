@@ -128,6 +128,12 @@ localization = {
       'Mai', 'Juni', 'Juli', 'August', 'September',
       'Oktober', 'November', 'Dezember'],
      ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']],
+# Hungarian by Gergely Szalay szalayg@gmail.com	      
+'Hungarian' :
+    [['Január', 'Február', 'Március', 'Április',
+       'Május', 'Június', 'Július', 'Augusztus', 'Szeptember',
+       'Október', 'November', 'December'],
+    ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap']],
 'Italian' :
     [['Gennaio', 'Febbraio', 'Marzo', 'Aprile',
        'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
@@ -654,3 +660,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
