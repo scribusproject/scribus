@@ -166,9 +166,9 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 		Item2->OldH2 = Item2->height();
 		Item2->updateClip();
 		Item2->ContourLine = Item2->PoLine.copy();
-		currDoc->m_Selection->clear();
-		currDoc->m_Selection->addItem(Item1);
-		currDoc->itemSelection_DeleteItem();
+//		currDoc->m_Selection->clear();
+//		currDoc->m_Selection->addItem(Item1);
+//		currDoc->itemSelection_DeleteItem();
 		currDoc->m_Selection->clear();
 		currDoc->m_Selection->addItem(Item2);
 		currDoc->itemSelection_SplitItems();
