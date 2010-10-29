@@ -53,7 +53,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"
-#include <QDebug>
 
 PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
@@ -86,24 +85,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	LoadColSet->addSubItem("Scribus Small", systemSwatches);
 	systemSwatches->setExpanded(true);
 	userSwatches = LoadColSet->addTopLevelItem( tr("User Swatches"));
-	if (custColSet.count() != 0)
-	{
-		QStringList realEx;
-		realEx.clear();
-		for (int m = 0; m < custColSet.count(); ++m)
-		{
-			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + custColSet[m] + ".xml");
-			QFileInfo cfi(Cpfad);
-			if (cfi.exists())
-			{
-				QString setName = cfi.baseName();
-				setName.replace("_", " ");
-				LoadColSet->addSubItem(setName, userSwatches);
-				realEx.append(custColSet[m]);
-			}
-		}
-		customColSet = realEx;
-	}
+	csm.findUserPalettes(userSwatches);
 	userSwatches->setExpanded(true);
 	LoadColSet->setCurrentComboItem(docColSet);
 	if (m_doc != 0)
@@ -114,18 +96,19 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	}
 	else
 	{
-		QString pfad = "";
-		if (custColSet.contains(docColSet))
+		if (docColSet != "Scribus Small")
 		{
-			QString Fname = docColSet;
-			Fname.replace(" ", "_");
-			Fname += ".xml";
-			pfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
+			QString pfad = "";
+			if (custColSet.contains(docColSet))
+				pfad = csm.userPaletteFileFromName(docColSet);
+			else
+				pfad = csm.paletteFileFromName(docColSet);
+			QFileInfo fi(pfad);
+			if (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked"))
+				paletteLocked = true;
+			else
+				paletteLocked = !fi.isWritable();
 		}
-		else
-			pfad = csm.paletteFileFromName(docColSet);
-		QFileInfo fi(pfad);
-		paletteLocked = !fi.isWritable();
 	}
 	importButton->setEnabled(false);
 	newButton->setEnabled(false);
@@ -1115,7 +1098,6 @@ void PaintManagerDialog::loadScribusFormat(QString fileName)
 
 void PaintManagerDialog::loadDefaults(const QString &txt)
 {
-	QTreeWidgetItem *c = LoadColSet->currentItem();
 	if (m_doc == NULL)
 	{
 		m_colorList.clear();
@@ -1139,19 +1121,17 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 	}
 	else
 	{
-		if ( c->parent() != userSwatches)
+		if (!customColSet.contains(txt))
 			pfadC2 = csm.paletteFileFromName(txt);
 		else
-		{
-			QString Fname = txt;
-			Fname.replace(" ", "_");
-			Fname += ".xml";
-			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
-		}
+			pfadC2 = csm.userPaletteFileFromName(txt);
 		if (m_doc == 0)
 		{
 			QFileInfo fi(pfadC2);
-			paletteLocked = !fi.isWritable();
+			if (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked"))
+				paletteLocked = true;
+			else
+				paletteLocked = !fi.isWritable();
 		}
 		else
 			paletteLocked = false;
@@ -1159,10 +1139,7 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 	if (txt != "Scribus Small")
 	{
 		if (importColorsFromFile(pfadC2, m_colorList, &dialogGradients, (m_doc!=0)))
-		{
-			m_colorList.insert("White", ScColor(0, 0, 0, 0));
-			m_colorList.insert("Black", ScColor(0, 0, 0, 255));
-		}
+			m_colorList.ensureBlackAndWhite();
 		else
 		{
 			m_colorList.insert("White", ScColor(0, 0, 0, 0));
@@ -1187,11 +1164,10 @@ void PaintManagerDialog::saveDefaults()
 {
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
-	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
-	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set") || paletteLocked)
-		dia->setEditText("", false);
-	else
+	if ((customColSet.contains(Name)) && (!paletteLocked))
 		dia->setEditText(Name, false);
+	else
+		dia->setEditText("", false);
 	if (dia->exec())
 		doSaveDefaults(dia->getEditText(), (dia->getEditText() != Name));
 	delete dia;
@@ -1202,7 +1178,7 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QString Fname = name;
 	Fname.replace(" ", "_");
-	Fname  = Cpfad + Fname;
+	Fname  = Cpfad + "swatches/"+ Fname;
 	Fname += ".xml";
 	QFile fx(Fname);
 	if (fx.open(QIODevice::WriteOnly))

@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorsetmanager.h"
 #include "scpaths.h"
 #include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 #include "prefsstructs.h"
 #include <QDomElement>
@@ -134,7 +135,7 @@ void ColorSetManager::findPaletteLocations()
 	}
 }
 
-void ColorSetManager::searchDir(QString path, QTreeWidgetItem* parent)
+void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTreeWidgetItem* parent)
 {
 	QStringList exts;
 	exts << "xml" << "gpl" << "eps" << "ai" << "sla" << "soc";
@@ -147,17 +148,28 @@ void ColorSetManager::searchDir(QString path, QTreeWidgetItem* parent)
 			QFileInfo fi(path + dirs[dc]);
 			if (fi.isDir())
 			{
-				QString setName = fi.baseName();
-				setName.replace("_", " ");
-				if (parent != NULL)
+				QDir sd(path + dirs[dc], "*", QDir::Name, QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
+				if (sd.count() > 0)
 				{
-					QTreeWidgetItem* item = new QTreeWidgetItem(parent);
-					item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					item->setText(0, setName);
-					searchDir(path + dirs[dc] + "/", item);
+					QString setName = fi.baseName();
+					setName.replace("_", " ");
+					if (parent != NULL)
+					{
+						QTreeWidgetItem* item;
+						if (path + dirs[dc] == ScPaths::getApplicationDataDir()+"swatches/locked")
+							item = parent;
+						else
+						{
+							item = new QTreeWidgetItem(parent);
+							item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							item->setIcon(0, QIcon(loadIcon("16/folder.png")));
+							item->setText(0, setName);
+						}
+						searchDir(path + dirs[dc] + "/", pList, item);
+					}
+					else
+						searchDir(path + dirs[dc] + "/", pList, parent);
 				}
-				else
-					searchDir(path + dirs[dc] + "/", parent);
 			}
 			else
 			{
@@ -165,12 +177,14 @@ void ColorSetManager::searchDir(QString path, QTreeWidgetItem* parent)
 				{
 					QString setName = fi.baseName();
 					setName.replace("_", " ");
-					palettes.insert(setName, fi.absoluteFilePath());
+					pList.insert(setName, fi.absoluteFilePath());
 					if (parent != 0)
 					{
 						QTreeWidgetItem* item = new QTreeWidgetItem(parent);
 						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 						item->setText(0, setName);
+						if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked")))
+							item->setIcon(0, QIcon(loadIcon("16/lock.png")));
 					}
 				}
 			}
@@ -185,14 +199,28 @@ void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 	for ( QStringList::Iterator it = paletteLocations.begin(); it != paletteLocations.end(); ++it )
 	{
 		path = (*it);
-		searchDir(path, parent);
+		searchDir(path, palettes, parent);
 	}
 }
 
-QStringList ColorSetManager::paletteNames( )
+void ColorSetManager::findUserPalettes(QTreeWidgetItem* parent)
+{
+	userPalettes.clear();
+	searchDir(ScPaths::getApplicationDataDir() + "swatches/", userPalettes, parent);
+}
+
+QStringList ColorSetManager::paletteNames()
 {
 	QStringList nameList;
 	for ( QMap<QString, QString>::Iterator it = palettes.begin(); it != palettes.end(); ++it )
+		nameList << it.key();
+	return nameList;
+}
+
+QStringList ColorSetManager::userPaletteNames()
+{
+	QStringList nameList;
+	for ( QMap<QString, QString>::Iterator it = userPalettes.begin(); it != userPalettes.end(); ++it )
 		nameList << it.key();
 	return nameList;
 }
@@ -201,6 +229,13 @@ QString ColorSetManager::paletteFileFromName(const QString& paletteName)
 {
 	if (palettes.contains(paletteName))
 		return palettes[paletteName];
+	return QString();
+}
+
+QString ColorSetManager::userPaletteFileFromName(const QString& paletteName)
+{
+	if (userPalettes.contains(paletteName))
+		return userPalettes[paletteName];
 	return QString();
 }
 

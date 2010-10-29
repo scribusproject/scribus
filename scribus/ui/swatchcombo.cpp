@@ -44,7 +44,7 @@ void SwatchCombo::itemActivated(QTreeWidgetItem* item)
 {
 	if (item)
 	{
-		if (item->flags() | Qt::ItemIsSelectable)
+		if (item->flags() & Qt::ItemIsSelectable)
 		{
 			menu()->hide();
 			setText(item->text(0));

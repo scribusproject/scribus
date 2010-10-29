@@ -28,15 +28,20 @@ class SCRIBUS_API ColorSetManager
 		
 		void initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs);
 		void findPaletteLocations();
-		void searchDir(QString path, QTreeWidgetItem* parent = NULL);
+		void searchDir(QString path, QMap<QString, QString> &pList, QTreeWidgetItem* parent = NULL);
 		void findPalettes(QTreeWidgetItem* parent = NULL);
+		void findUserPalettes(QTreeWidgetItem* parent = NULL);
 		QStringList paletteNames();
+		QStringList userPaletteNames();
+		
 		QString paletteFileFromName(const QString& paletteName);
+		QString userPaletteFileFromName(const QString& paletteName);
 		bool paletteLocationLocked(const QString& palettePath);
 		
 	protected:
 		QStringList paletteLocations;
 		QMap<QString, QString> palettes;
+		QMap<QString, QString> userPalettes;
 		QMap<QString, bool> paletteLocationLocks;
 };
 #endif

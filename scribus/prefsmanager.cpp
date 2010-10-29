@@ -741,6 +741,14 @@ QString PrefsManager::setupPreferencesLocation()
 		scrapDirectoryT.mkdir(QDir::convertSeparators(scB+"/tmp"));
 	}
 	prefsLocation=PrefsPfad;
+	QFileInfo scSwatch = QFileInfo(ScPaths::getApplicationDataDir()+"swatches");
+	if (!scSwatch.exists())
+	{
+		QDir swatchDir = QDir();
+		swatchDir.mkpath(ScPaths::getApplicationDataDir()+"swatches");
+		swatchDir.mkpath(ScPaths::getApplicationDataDir()+"swatches/locked");
+		
+	}
 	return PrefsPfad;
 }
 
@@ -1621,12 +1629,6 @@ bool PrefsManager::WritePref(QString ho)
 		kscc.setAttribute("KeySequence",TabKeyboardShortcutsWidget::getKeyText(ksc.value().keySequence));
 		elem.appendChild(kscc);
 	}
-	for (int ccs=0; ccs<appPrefs.colorPrefs.CustomColorSets.count(); ++ccs)
-	{
-		QDomElement cos=docu.createElement("ColorSet");
-		cos.setAttribute("Name",appPrefs.colorPrefs.CustomColorSets[ccs]);
-		elem.appendChild(cos);
-	}
 	QDomElement cosd=docu.createElement("DefaultColorSet");
 	cosd.setAttribute("Name",appPrefs.colorPrefs.DColorSet);
 	elem.appendChild(cosd);
@@ -1802,6 +1804,8 @@ bool PrefsManager::ReadPref(QString ho)
 	csm.initialiseDefaultPrefs(appPrefs);
 	csm.findPaletteLocations();
 	csm.findPalettes();
+	csm.findUserPalettes();
+	appPrefs.colorPrefs.CustomColorSets = csm.userPaletteNames();
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
@@ -2304,24 +2308,37 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="Substitute")
 		  appPrefs.fontPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
-		if (dc.tagName()=="ColorSet")
-			appPrefs.colorPrefs.CustomColorSets.append(dc.attribute("Name"));
 		if (dc.tagName()=="DefaultColorSet")
 		{
 			appPrefs.colorPrefs.DColors.clear();
 			QString pfadC = "";
 			appPrefs.colorPrefs.DColorSet = dc.attribute("Name");
 			if (appPrefs.colorPrefs.CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
-			{
-				QString Fname = appPrefs.colorPrefs.DColorSet;
-				Fname.replace(" ", "_");
-				Fname += ".xml";
-				pfadC = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
-			}
+				pfadC = csm.userPaletteFileFromName(appPrefs.colorPrefs.DColorSet);
 			else
 				pfadC = csm.paletteFileFromName(appPrefs.colorPrefs.DColorSet);
 			if (appPrefs.colorPrefs.DColorSet != "Scribus Small")
-				importColorsFromFile(pfadC, appPrefs.colorPrefs.DColors, &appPrefs.defaultGradients, false);
+			{
+				if (importColorsFromFile(pfadC, appPrefs.colorPrefs.DColors, &appPrefs.defaultGradients, false))
+					appPrefs.colorPrefs.DColors.ensureBlackAndWhite();
+				else
+				{
+					appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
+					appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
+					ScColor cc = ScColor(255, 255, 255, 255);
+					cc.setRegistrationColor(true);
+					appPrefs.colorPrefs.DColors.insert("Registration", cc);
+					appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
+					appPrefs.colorPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
+					appPrefs.colorPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
+					appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
+					appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
+					appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
+					if (appPrefs.colorPrefs.CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
+						appPrefs.colorPrefs.CustomColorSets.removeAll(appPrefs.colorPrefs.DColorSet);
+					appPrefs.colorPrefs.DColorSet = "Scribus Small";
+				}
+			}
 			else
 			{
 				appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));

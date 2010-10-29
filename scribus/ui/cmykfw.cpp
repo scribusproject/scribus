@@ -197,24 +197,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Swatches->addSubItem("Scribus Small", systemSwatches);
 	systemSwatches->setExpanded(true);
 	userSwatches = Swatches->addTopLevelItem( tr("User Swatches"));
-	if (Cust.count() != 0)
-	{
-		QStringList realEx;
-		realEx.clear();
-		for (int m = 0; m < Cust.count(); ++m)
-		{
-			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Cust[m] + ".xml");
-			QFileInfo cfi(Cpfad);
-			if (cfi.exists())
-			{
-				QString setName = cfi.baseName();
-				setName.replace("_", " ");
-				Swatches->addSubItem(setName, userSwatches);
-				realEx.append(Cust[m]);
-			}
-		}
-		CColSet = realEx;
-	}
+	csm.findUserPalettes(userSwatches);
 	userSwatches->setExpanded(true);
 	Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
 	Frame4Layout->addWidget( Swatches );
@@ -596,12 +579,7 @@ void CMYKChoose::SelSwatch()
 		if ( c->parent() != userSwatches)
 			pfadC2 = csm.paletteFileFromName(c->text(0));
 		else
-		{
-			QString listText = c->text(0);
-			listText.replace(" ", "_");
-			listText += ".xml";
-			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir() + listText);
-		}
+			pfadC2 = csm.userPaletteFileFromName(c->text(0));
 		if (importColorsFromFile(pfadC2, CurrSwatch))
 		{
 			CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
