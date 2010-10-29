@@ -304,7 +304,6 @@ void PrefsManager::initDefaults()
 	appPrefs.pathPrefs.colorProfiles = "";
 	appPrefs.pathPrefs.scripts = "";
 	appPrefs.pathPrefs.documentTemplates = "";
-	appPrefs.colorPrefs.CustomColorSets.clear();
 	appPrefs.printPreviewPrefs.PrPr_Mode = false;
 	//appPrefs.Gcr_Mode = true;
 	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = false;
@@ -1805,7 +1804,6 @@ bool PrefsManager::ReadPref(QString ho)
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	csm.findUserPalettes();
-	appPrefs.colorPrefs.CustomColorSets = csm.userPaletteNames();
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
@@ -2313,7 +2311,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.colorPrefs.DColors.clear();
 			QString pfadC = "";
 			appPrefs.colorPrefs.DColorSet = dc.attribute("Name");
-			if (appPrefs.colorPrefs.CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
+			QStringList CustomColorSets = csm.userPaletteNames();
+			if (CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
 				pfadC = csm.userPaletteFileFromName(appPrefs.colorPrefs.DColorSet);
 			else
 				pfadC = csm.paletteFileFromName(appPrefs.colorPrefs.DColorSet);
@@ -2334,8 +2333,6 @@ bool PrefsManager::ReadPref(QString ho)
 					appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
 					appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
 					appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-					if (appPrefs.colorPrefs.CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
-						appPrefs.colorPrefs.CustomColorSets.removeAll(appPrefs.colorPrefs.DColorSet);
 					appPrefs.colorPrefs.DColorSet = "Scribus Small";
 				}
 			}

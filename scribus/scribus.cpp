@@ -9945,7 +9945,7 @@ void ScribusMainWindow::managePaints()
 		edc = prefsManager->colorSet();
 	}
 	undoManager->setUndoEnabled(false);
-	PaintManagerDialog *dia = new PaintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), prefsManager->appPrefs.colorPrefs.CustomColorSets, doc, this);
+	PaintManagerDialog *dia = new PaintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), doc, this);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -9992,7 +9992,6 @@ void ScribusMainWindow::managePaints()
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
 			prefsManager->setColorSetName(dia->getColorSetName());
-			prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
 		}
 	}
 	delete dia;
@@ -10025,105 +10024,6 @@ void ScribusMainWindow::slotReplaceColors()
 		delete dia2;
 	}
 }
-/*
-void ScribusMainWindow::manageGradients()
-{
-	if (HaveDoc)
-	{
-		undoManager->setUndoEnabled(false);
-		gradientManagerDialog *dia = new gradientManagerDialog(this, &doc->docGradients, doc->PageColors, doc, this);
-		if (dia->exec())
-		{
-			doc->setGradients(dia->dialogGradients);
-			if (!dia->replaceMap.isEmpty())
-			{
-				ResourceCollection gradrsc;
-				gradrsc.mapPatterns(dia->replaceMap);
-				doc->replaceNamedResources(gradrsc);
-			}
-			if (dia->hasImportedColors)
-			{
-				doc->PageColors = dia->m_colorList;
-				doc->recalculateColors();
-				doc->recalcPicturesRes();
-				propertiesPalette->SetLineFormats(doc);
-				styleManager->updateColorList();
-			}
-			propertiesPalette->updateColorList();
-			view->DrawNew();
-			if (doc->m_Selection->count() != 0)
-				doc->m_Selection->itemAt(0)->emitAllToGUI();
-			slotDocCh();
-		}
-		delete dia;
-		undoManager->setUndoEnabled(true);
-	}
-	else
-	{
-		gradientManagerDialog *dia = new gradientManagerDialog(this, &prefsManager->appPrefs.defaultGradients, prefsManager->colorSet(), NULL, this);
-		if (dia->exec())
-		{
-			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
-			if (dia->hasImportedColors)
-				prefsManager->setColorSet(dia->m_colorList);
-		}
-		delete dia;
-	}
-}
-
-void ScribusMainWindow::slotEditColors()
-{
-	ColorList edc;
-	if (HaveDoc)
-		edc = doc->PageColors;
-	else
-		edc = prefsManager->colorSet();
-	ColorManager* dia = new ColorManager(this, edc, doc, prefsManager->colorSetName(), prefsManager->appPrefs.colorPrefs.CustomColorSets);
-	if (dia->exec())
-	{
-		if (HaveDoc)
-		{
-			QColor tmpc;
-			slotDocCh();
-			doc->PageColors = dia->EditColors;
-			if (dia->replaceMap.isEmpty())
-			{
-				// invalidate all charstyles, as replaceNamedResources() wont do it if all maps are empty
-				const StyleSet<CharStyle> dummy;
-				doc->redefineCharStyles(dummy, false);
-			}
-			else
-			{
-				ResourceCollection colorrsc;
-				colorrsc.mapColors(dia->replaceMap);
-				// Update tools colors
-				PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
-				// Update objects and styles colors
-				doc->replaceNamedResources(colorrsc);
-				// Temporary code until LineStyle is effectively used
-				doc->replaceLineStyleColors(dia->replaceMap);
-			}
-			doc->recalculateColors();
-			doc->recalcPicturesRes();
-			updateColorLists();
-			if (doc->m_Selection->count() != 0)
-				doc->m_Selection->itemAt(0)->emitAllToGUI();
-			view->DrawNew();
-		}
-		else
-		{
-			// Update tools colors if needed
-			prefsManager->replaceToolColors(dia->replaceMap);
-			prefsManager->setColorSet(dia->EditColors);
-			prefsManager->setColorSetName(dia->getColorSetName());
-			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
-		}
-	}
-	if (!HaveDoc)
-		prefsManager->appPrefs.colorPrefs.CustomColorSets = dia->customColSet;
-	delete dia;
-}
-*/
 
 void ScribusMainWindow::enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName)
 {

@@ -38,7 +38,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 	Q_OBJECT
 
 	public:
-		PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow* scMW);
+		PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~PaintManagerDialog() {};
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */

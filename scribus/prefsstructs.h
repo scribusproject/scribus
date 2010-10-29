@@ -260,7 +260,6 @@ struct ColorPrefs
 {
 	ColorList DColors;
 	QString DColorSet;
-	QStringList CustomColorSets;
 	CMSData DCMSset;
 };
 

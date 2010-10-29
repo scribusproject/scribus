@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 
-PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QStringList custColSet, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
+PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -77,7 +77,6 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 		origNames.insert(it.key(), it.key());
 	}
 	origGradients = docGradients->keys();
-	customColSet = custColSet;
 
 	csm.findPaletteLocations();
 	systemSwatches = LoadColSet->addTopLevelItem( tr("Scribus Swatches"));
@@ -86,6 +85,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	systemSwatches->setExpanded(true);
 	userSwatches = LoadColSet->addTopLevelItem( tr("User Swatches"));
 	csm.findUserPalettes(userSwatches);
+	customColSet = csm.userPaletteNames();
 	userSwatches->setExpanded(true);
 	LoadColSet->setCurrentComboItem(docColSet);
 	if (m_doc != 0)
@@ -99,7 +99,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 		if (docColSet != "Scribus Small")
 		{
 			QString pfad = "";
-			if (custColSet.contains(docColSet))
+			if (customColSet.contains(docColSet))
 				pfad = csm.userPaletteFileFromName(docColSet);
 			else
 				pfad = csm.paletteFileFromName(docColSet);
