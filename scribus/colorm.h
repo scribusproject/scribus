@@ -94,6 +94,7 @@ protected:
 	
 	ColorSetManager csm;	
 	int customSetStartIndex;
+	bool paletteLocked;
 };
 
 #endif // FARBMANAGER_H

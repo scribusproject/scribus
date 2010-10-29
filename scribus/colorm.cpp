@@ -55,6 +55,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	m_Doc=doc;
 	customColSet = custColSet;
+	paletteLocked = false;
 	setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	setSizeGripEnabled(true);
 	Layout2 = new QVBoxLayout( this );
@@ -141,6 +142,26 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 		SaveColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 		ColsSetGroupLayout->addWidget( SaveColSet );
 		layout3->addWidget( ColsSetGroup );
+
+		if (docColSet != "Scribus Small")
+		{
+			QString pfadC2 = "";
+			int c = LoadColSet->currentIndex();
+			if ( c < customSetStartIndex)
+				pfadC2 = csm.paletteFileFromName(docColSet);
+			else
+			{
+				QString Fname = docColSet;
+				Fname.replace(" ", "_");
+				Fname += ".xml";
+				pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
+			}
+			QFileInfo fi(pfadC2);
+			if (fi.absolutePath() == ScPaths::getApplicationDataDir()+"swatches/locked")
+				paletteLocked = true;
+			else
+				paletteLocked = !fi.isWritable();
+		}
 	}
 	saveButton = new QPushButton( CommonStrings::tr_OK, this );
 	layout3->addWidget( saveButton );
@@ -181,6 +202,19 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	connect( colorListBox, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selColor(QListWidgetItem*) ) );
 	connect( colorListBox, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selEditColor(QListWidgetItem*) ) );
 	resize(minimumSizeHint());
+	if (paletteLocked)
+	{
+		duplicateColorButton->setEnabled(false);
+		editColorButton->setEnabled(false);
+		deleteColorButton->setEnabled(false);
+		importColorsButton->setEnabled(false);
+		newColorButton->setEnabled(false);
+	}
+	else
+	{
+		importColorsButton->setEnabled(true);
+		newColorButton->setEnabled(true);
+	}
 }
 
 void ColorManager::saveDefaults()
@@ -273,6 +307,11 @@ void ColorManager::loadDefaults(const QString &txt)
 			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
 		}
 	}
+	QFileInfo fi(pfadC2);
+	if (fi.absolutePath() == ScPaths::getApplicationDataDir()+"swatches/locked")
+		paletteLocked = true;
+	else
+		paletteLocked = !fi.isWritable();
 	if (txt != "Scribus Small")
 	{
 		if (importColorsFromFile(pfadC2, EditColors))
@@ -297,10 +336,25 @@ void ColorManager::loadDefaults(const QString &txt)
 		}
 	}
 	updateCList();
+	if (paletteLocked)
+	{
+		duplicateColorButton->setEnabled(false);
+		editColorButton->setEnabled(false);
+		deleteColorButton->setEnabled(false);
+		importColorsButton->setEnabled(false);
+		newColorButton->setEnabled(false);
+	}
+	else
+	{
+		importColorsButton->setEnabled(true);
+		newColorButton->setEnabled(true);
+	}
 }
 
 void ColorManager::importColors()
 {
+	if (paletteLocked)
+		return;
 	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
@@ -326,6 +380,8 @@ void ColorManager::importColors()
 
 void ColorManager::deleteUnusedColors()
 {
+	if (paletteLocked)
+		return;
 	ColorList::Iterator it;
 	ScColor regColor;
 	QString regName;
@@ -351,6 +407,8 @@ void ColorManager::deleteUnusedColors()
 
 void ColorManager::duplicateColor()
 {
+	if (paletteLocked)
+		return;
 	QString nam = tr("Copy of %1").arg(sColor);
 	EditColors.insert(nam, EditColors[sColor]);
 	sColor = nam;
@@ -361,6 +419,8 @@ void ColorManager::duplicateColor()
 
 void ColorManager::newColor()
 {
+	if (paletteLocked)
+		return;
 	ScColor tmpColor = ScColor(0, 0, 0, 0);
 	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, tr("New Color"), &EditColors, customColSet, true);
 //	int newItemIndex=0;
@@ -396,6 +456,8 @@ void ColorManager::newColor()
 
 void ColorManager::editColor()
 {
+	if (paletteLocked)
+		return;
 	int selectedIndex = colorListBox->row(colorListBox->currentItem());
 	ScColor tmpColor = EditColors[sColor];
 	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, sColor, &EditColors, customColSet, false);
@@ -420,6 +482,8 @@ void ColorManager::editColor()
 
 void ColorManager::deleteColor()
 {
+	if (paletteLocked)
+		return;
 	int selectedIndex = colorListBox->row(colorListBox->currentItem());
 	DelColor *dia = new DelColor(this, EditColors, sColor, (m_Doc!=0));
 	if (dia->exec())
@@ -453,6 +517,13 @@ void ColorManager::deleteColor()
 
 void ColorManager::selColor(QListWidgetItem *c)
 {
+	if (paletteLocked)
+	{
+		editColorButton->setEnabled(false);
+		duplicateColorButton->setEnabled(false);
+		deleteColorButton->setEnabled(false);
+		return;
+	}
 	sColor = c->text();
 	ScColor tmpColor = EditColors[sColor];
 	bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
@@ -464,6 +535,8 @@ void ColorManager::selColor(QListWidgetItem *c)
 
 void ColorManager::selEditColor(QListWidgetItem *c)
 {
+	if (paletteLocked)
+		return;
 	sColor = c->text();
 	ScColor tmpColor = EditColors[sColor];
 	bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
