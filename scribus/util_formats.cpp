@@ -36,7 +36,7 @@ FormatsManager::FormatsManager()
 #ifdef GMAGICK_FOUND
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
-	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "aff" << "sk" << "sk1");
+	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdr" << "cdt" << "ccx" << "cmx" << "aff" << "sk" << "sk1" << "cgm" << "plt" << "dxf" << "dst" << "pes" << "exp" << "pcs");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
 	
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript \"*.eps\"");
