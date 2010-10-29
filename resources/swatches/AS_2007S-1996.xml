@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Australian Standard 2007S-1996">
+ <COLOR Spot="1" RGB="#25396e" NAME="B 11 Rich Blue" />
+ <COLOR Spot="1" RGB="#283867" NAME="B 12 Royal Blue" />
+ <COLOR Spot="1" RGB="#1c2d4b" NAME="B 13 Navy Blue" />
+ <COLOR Spot="1" RGB="#244970" NAME="B 14 Sapphire" />
+ <COLOR Spot="1" RGB="#005470" NAME="B 15 Mid Blue" />
+ <COLOR Spot="1" RGB="#2b5c9c" NAME="B 21 Ultramarine" />
+ <COLOR Spot="1" RGB="#255b9d" NAME="B 22 Homebush Blue" />
+ <COLOR Spot="1" RGB="#005a8d" NAME="B 23 Bright Blue" />
+ <COLOR Spot="1" RGB="#156f98" NAME="B 24 Harbour Blue" />
+ <COLOR Spot="1" RGB="#5ea3b3" NAME="B 25 Aqua" />
+ <COLOR Spot="1" RGB="#bed0e1" NAME="B 32 Powder Blue" />
+ <COLOR Spot="1" RGB="#e8ede8" NAME="B 33 Mist Blue" />
+ <COLOR Spot="1" RGB="#3ea3be" NAME="B 34 Paradise Blue" />
+ <COLOR Spot="1" RGB="#d5eae7" NAME="B 35 Pale Blue" />
+ <COLOR Spot="1" RGB="#6aa2d5" NAME="B 41 Bluebell" />
+ <COLOR Spot="1" RGB="#64819d" NAME="B 42 Purple Grey" />
+ <COLOR Spot="1" RGB="#678391" NAME="B 43 Grey Blue" />
+ <COLOR Spot="1" RGB="#99b2ba" NAME="B 44 Light Grey Blue" />
+ <COLOR Spot="1" RGB="#89bfca" NAME="B 45 Sky Blue" />
+ <COLOR Spot="1" RGB="#407cb3" NAME="B 51 Periwinkle" />
+ <COLOR Spot="1" RGB="#576e78" NAME="B 53 Dark Grey Blue" />
+ <COLOR Spot="1" RGB="#458699" NAME="B 55 Storm Blue" />
+ <COLOR Spot="1" RGB="#2b3d79" NAME="B 61 Coral Sea" />
+ <COLOR Spot="1" RGB="#252532" NAME="B 62 Midnight Blue" />
+ <COLOR Spot="1" RGB="#353e44" NAME="B 64 Charcoal" />
+ <COLOR Spot="1" RGB="#143524" NAME="G 11 Bottle Green" />
+ <COLOR Spot="1" RGB="#184328" NAME="G 12 Holly" />
+ <COLOR Spot="1" RGB="#09662b" NAME="G 13 Emerald" />
+ <COLOR Spot="1" RGB="#315519" NAME="G 14 Moss Green" />
+ <COLOR Spot="1" RGB="#414a2a" NAME="G 15 Rainforest Green" />
+ <COLOR Spot="1" RGB="#275639" NAME="G 16 Traffic Green" />
+ <COLOR Spot="1" RGB="#006f38" NAME="G 17 Mint Green" />
+ <COLOR Spot="1" RGB="#007a4f" NAME="G 21 Jade" />
+ <COLOR Spot="1" RGB="#85ab86" NAME="G 22 Serpentine" />
+ <COLOR Spot="1" RGB="#31662d" NAME="G 23 Shamrock" />
+ <COLOR Spot="1" RGB="#4c732a" NAME="G 24 Fern Green" />
+ <COLOR Spot="1" RGB="#636232" NAME="G 25 Olive" />
+ <COLOR Spot="1" RGB="#5a9a3a" NAME="G 26 Apple Green" />
+ <COLOR Spot="1" RGB="#008445" NAME="G 27 Homebush Green" />
+ <COLOR Spot="1" RGB="#549169" NAME="G 31 Verdigris" />
+ <COLOR Spot="1" RGB="#b5cdbb" NAME="G 32 Opaline" />
+ <COLOR Spot="1" RGB="#849d56" NAME="G 33 Lettuce" />
+ <COLOR Spot="1" RGB="#7c8150" NAME="G 34 Advocado" />
+ <COLOR Spot="1" RGB="#919225" NAME="G 35 Lime Green" />
+ <COLOR Spot="1" RGB="#9ab527" NAME="G 36 Kikuyu" />
+ <COLOR Spot="1" RGB="#50a969" NAME="G 37 Beanstalk" />
+ <COLOR Spot="1" RGB="#008b57" NAME="G 41 Lawn Green" />
+ <COLOR Spot="1" RGB="#dce6d5" NAME="G 42 Glacier" />
+ <COLOR Spot="1" RGB="#cecdad" NAME="G 43 Surf Green" />
+ <COLOR Spot="1" RGB="#a1b47b" NAME="G 44 Palm Green" />
+ <COLOR Spot="1" RGB="#cbcc93" NAME="G 45 Chartreuse" />
+ <COLOR Spot="1" RGB="#c6c933" NAME="G 46 Citronella" />
+ <COLOR Spot="1" RGB="#b7d0ac" NAME="G 47 Grystal Green" />
+ <COLOR Spot="1" RGB="#006b49" NAME="G 51 Spruce" />
+ <COLOR Spot="1" RGB="#6c795f" NAME="G 52 Eucalyptus" />
+ <COLOR Spot="1" RGB="#99997e" NAME="G 53 Banksia" />
+ <COLOR Spot="1" RGB="#828872" NAME="G 54 Mist Green" />
+ <COLOR Spot="1" RGB="#aeae93" NAME="G 55 Lichen" />
+ <COLOR Spot="1" RGB="#6e7544" NAME="G 56 Sage Green" />
+ <COLOR Spot="1" RGB="#20322b" NAME="G 61 Dark Green" />
+ <COLOR Spot="1" RGB="#667462" NAME="G 62 River Gum" />
+ <COLOR Spot="1" RGB="#313626" NAME="G 63 Deep Bronze Green" />
+ <COLOR Spot="1" RGB="#646556" NAME="G 64 Slate" />
+ <COLOR Spot="1" RGB="#61624e" NAME="G 65 Ti-tree" />
+ <COLOR Spot="1" RGB="#4f5141" NAME="G 66 Environment Green" />
+ <COLOR Spot="1" RGB="#274335" NAME="G 67 Zucchini" />
+ <COLOR Spot="1" RGB="#ded9ce" NAME="N 11 Pearl Grey" />
+ <COLOR Spot="1" RGB="#d6d4ce" NAME="N 12 Pastel Grey" />
+ <COLOR Spot="1" RGB="#f4f4eb" NAME="N 14 White" />
+ <COLOR Spot="1" RGB="#a8a298" NAME="N 15 Homebush Grey" />
+ <COLOR Spot="1" RGB="#cac7be" NAME="N 22 Cloud Grey" />
+ <COLOR Spot="1" RGB="#cccdcc" NAME="N 23 Neutral Grey" />
+ <COLOR Spot="1" RGB="#c4cecb" NAME="N 24 Silver Grey" />
+ <COLOR Spot="1" RGB="#b1aa9f" NAME="N 25 Birch Grey" />
+ <COLOR Spot="1" RGB="#979a88" NAME="N 32 Green Grey" />
+ <COLOR Spot="1" RGB="#b3b4b3" NAME="N 33 Lightbox Grey" />
+ <COLOR Spot="1" RGB="#aeaea7" NAME="N 35 Light Grey" />
+ <COLOR Spot="1" RGB="#a29882" NAME="N 41 Oyster" />
+ <COLOR Spot="1" RGB="#8e968e" NAME="N 42 Storm Grey" />
+ <COLOR Spot="1" RGB="#99999a" NAME="N 43 Pipeline Grey" />
+ <COLOR Spot="1" RGB="#7e7f7f" NAME="N 44 Bridge Grey" />
+ <COLOR Spot="1" RGB="#99968f" NAME="N 45 Koala Grey" />
+ <COLOR Spot="1" RGB="#7c827f" NAME="N 52 Mid Grey" />
+ <COLOR Spot="1" RGB="#858c8f" NAME="N 53 Blue Grey" />
+ <COLOR Spot="1" RGB="#5f6368" NAME="N 54 Basalt" />
+ <COLOR Spot="1" RGB="#666460" NAME="N 55 Lead Grey" />
+ <COLOR Spot="1" RGB="#1e1f20" NAME="N 61 Black" />
+ <COLOR Spot="1" RGB="#5f666a" NAME="N 63 Pewter" />
+ <COLOR Spot="1" RGB="#52585e" NAME="N 64 Dark Grey" />
+ <COLOR Spot="1" RGB="#474a4c" NAME="N 65 Graphite Grey" />
+ <COLOR Spot="1" RGB="#77224b" NAME="P 11 Magenta" />
+ <COLOR Spot="1" RGB="#864982" NAME="P 12 Purple" />
+ <COLOR Spot="1" RGB="#613e6b" NAME="P 13 Violet" />
+ <COLOR Spot="1" RGB="#4f467e" NAME="P 14 Blueberry" />
+ <COLOR Spot="1" RGB="#e4c1c4" NAME="P 21 Sunset Pink" />
+ <COLOR Spot="1" RGB="#835f83" NAME="P 22 Cyclamen" />
+ <COLOR Spot="1" RGB="#ab9ab9" NAME="P 23 Lilac" />
+ <COLOR Spot="1" RGB="#7d6799" NAME="P 24 Jacaranda" />
+ <COLOR Spot="1" RGB="#dec5c2" NAME="P 31 Dusty Pink" />
+ <COLOR Spot="1" RGB="#d4c2cd" NAME="P 33 Ribbon Pink" />
+ <COLOR Spot="1" RGB="#c2608c" NAME="P 41 Erica Pink" />
+ <COLOR Spot="1" RGB="#a36d7d" NAME="P 42 Mulberry" />
+ <COLOR Spot="1" RGB="#7b7699" NAME="P 43 Wisteria" />
+ <COLOR Spot="1" RGB="#6d3a4a" NAME="P 52 Plum" />
+ <COLOR Spot="1" RGB="#c34621" NAME="R 11 International Orange" />
+ <COLOR Spot="1" RGB="#c43a19" NAME="R 12 Scarlett" />
+ <COLOR Spot="1" RGB="#b5291c" NAME="R 13 Signal Red" />
+ <COLOR Spot="1" RGB="#a31517" NAME="R 14 Waratah" />
+ <COLOR Spot="1" RGB="#9c171a" NAME="R 15 Crimson" />
+ <COLOR Spot="1" RGB="#e36c5c" NAME="R 21 Tangerine" />
+ <COLOR Spot="1" RGB="#d03b2e" NAME="R 22 Homebush Red" />
+ <COLOR Spot="1" RGB="#c8535c" NAME="R 23 Lollipop" />
+ <COLOR Spot="1" RGB="#a9203a" NAME="R 24 Strawberry" />
+ <COLOR Spot="1" RGB="#e599a5" NAME="R 25 Rose Pink" />
+ <COLOR Spot="1" RGB="#f5e6de" NAME="R 32 Apple Blossom" />
+ <COLOR Spot="1" RGB="#ecdfd9" NAME="R 33 Ghost Gum" />
+ <COLOR Spot="1" RGB="#dbc5bd" NAME="R 34 Mushroom Pink" />
+ <COLOR Spot="1" RGB="#cb7478" NAME="R 35 Deep Rose" />
+ <COLOR Spot="1" RGB="#f8d8bf" NAME="R 41 Shell Pink" />
+ <COLOR Spot="1" RGB="#d89a80" NAME="R 42 Salmon Pink" />
+ <COLOR Spot="1" RGB="#cc6953" NAME="R 43 Red Dust" />
+ <COLOR Spot="1" RGB="#a78f87" NAME="R 44 Possum" />
+ <COLOR Spot="1" RGB="#8c394a" NAME="R 45 Ruby" />
+ <COLOR Spot="1" RGB="#dfa095" NAME="R 51 Burnt Pink" />
+ <COLOR Spot="1" RGB="#a3523c" NAME="R 52 Terra Cotta" />
+ <COLOR Spot="1" RGB="#904739" NAME="R 53 Red Gum" />
+ <COLOR Spot="1" RGB="#822728" NAME="R 54 Raspberry" />
+ <COLOR Spot="1" RGB="#601c20" NAME="R 55 Claret" />
+ <COLOR Spot="1" RGB="#793829" NAME="R 62 Venetian Red" />
+ <COLOR Spot="1" RGB="#663125" NAME="R 63 Red Oxide" />
+ <COLOR Spot="1" RGB="#562f2b" NAME="R 64 Dep Indian Red" />
+ <COLOR Spot="1" RGB="#372122" NAME="R 65 Maroon" />
+ <COLOR Spot="1" RGB="#00729c" NAME="T 11 Tropical Blue" />
+ <COLOR Spot="1" RGB="#007575" NAME="T 12 Diamantina" />
+ <COLOR Spot="1" RGB="#005652" NAME="T 14 Malachite" />
+ <COLOR Spot="1" RGB="#00908a" NAME="T 15 Turquoise" />
+ <COLOR Spot="1" RGB="#3d9296" NAME="T 22 Oriental Blue" />
+ <COLOR Spot="1" RGB="#488782" NAME="T 24 Blue Jade" />
+ <COLOR Spot="1" RGB="#7ebab5" NAME="T 32 Huon Green" />
+ <COLOR Spot="1" RGB="#a7beb8" NAME="T 33 Smoke Blue" />
+ <COLOR Spot="1" RGB="#82b3a6" NAME="T 35 Green Ice" />
+ <COLOR Spot="1" RGB="#71918c" NAME="T 44 Blue Gum" />
+ <COLOR Spot="1" RGB="#7ea494" NAME="T 45 Cootamundra" />
+ <COLOR Spot="1" RGB="#255e6c" NAME="T 51 Mountain Blue" />
+ <COLOR Spot="1" RGB="#1e6069" NAME="T 53 Peacock Blue" />
+ <COLOR Spot="1" RGB="#00424a" NAME="T 63 Teal" />
+ <COLOR Spot="1" RGB="#d29447" NAME="X 11 Butterscotch" />
+ <COLOR Spot="1" RGB="#d67d0d" NAME="X 12 Pumpkin" />
+ <COLOR Spot="1" RGB="#e57f00" NAME="X 13 Marigold" />
+ <COLOR Spot="1" RGB="#dc5214" NAME="X 14 Mandarin" />
+ <COLOR Spot="1" RGB="#dd6f2a" NAME="X 15 Orange" />
+ <COLOR Spot="1" RGB="#dba868" NAME="X 21 Pale Ochre" />
+ <COLOR Spot="1" RGB="#f3ac55" NAME="X 22 Saffron" />
+ <COLOR Spot="1" RGB="#fbb775" NAME="X 23 Apricot" />
+ <COLOR Spot="1" RGB="#f28c4f" NAME="X 24 Rockmelon" />
+ <COLOR Spot="1" RGB="#eecc9d" NAME="X 31 Raffia" />
+ <COLOR Spot="1" RGB="#f3e1c5" NAME="X 32 Magnolia" />
+ <COLOR Spot="1" RGB="#f7ebda" NAME="X 33 Warm White" />
+ <COLOR Spot="1" RGB="#dac9b4" NAME="X 34 Driftwood" />
+ <COLOR Spot="1" RGB="#c58f4b" NAME="X 41 Buff" />
+ <COLOR Spot="1" RGB="#dfbe9a" NAME="X 42 Biscuit" />
+ <COLOR Spot="1" RGB="#ccaf92" NAME="X 43 Beige" />
+ <COLOR Spot="1" RGB="#b08974" NAME="X 45 Cinnamon" />
+ <COLOR Spot="1" RGB="#926230" NAME="X 51 Tan" />
+ <COLOR Spot="1" RGB="#b07c4b" NAME="X 52 Coffee" />
+ <COLOR Spot="1" RGB="#945721" NAME="X 53 Golden Tan" />
+ <COLOR Spot="1" RGB="#66411e" NAME="X 54 Brown" />
+ <COLOR Spot="1" RGB="#7a482e" NAME="X 55 Nut Brown" />
+ <COLOR Spot="1" RGB="#736356" NAME="X 61 Wombat" />
+ <COLOR Spot="1" RGB="#584f45" NAME="X 62 Dark Earth" />
+ <COLOR Spot="1" RGB="#473c36" NAME="X 63 Ironbark" />
+ <COLOR Spot="1" RGB="#4b3b2d" NAME="X 64 Chocolate" />
+ <COLOR Spot="1" RGB="#513529" NAME="X 65 Dark Brown" />
+ <COLOR Spot="1" RGB="#eabe00" NAME="Y 11 Canary" />
+ <COLOR Spot="1" RGB="#e9ac00" NAME="Y 12 Wattle" />
+ <COLOR Spot="1" RGB="#fbab00" NAME="Y 13 Vivid Yellow" />
+ <COLOR Spot="1" RGB="#f2a300" NAME="Y 14 Golden Yellow" />
+ <COLOR Spot="1" RGB="#fea700" NAME="Y 15 Sunflower" />
+ <COLOR Spot="1" RGB="#de8b00" NAME="Y 16 Inca Gold" />
+ <COLOR Spot="1" RGB="#e3d161" NAME="Y 21 Primrose" />
+ <COLOR Spot="1" RGB="#f1ce5f" NAME="Y 22 Custard" />
+ <COLOR Spot="1" RGB="#f5ce3f" NAME="Y 23 Buttercup" />
+ <COLOR Spot="1" RGB="#e6ca89" NAME="Y 24 Straw" />
+ <COLOR Spot="1" RGB="#f3c771" NAME="Y 25 Deep Cream" />
+ <COLOR Spot="1" RGB="#fac300" NAME="Y 26 Homebush Gold" />
+ <COLOR Spot="1" RGB="#e7e7d3" NAME="Y 31 Lily Green" />
+ <COLOR Spot="1" RGB="#eae1a1" NAME="Y 32 Flummery" />
+ <COLOR Spot="1" RGB="#f7f5d3" NAME="Y 33 Pale Primrose" />
+ <COLOR Spot="1" RGB="#f2e4c3" NAME="Y 34 Cream" />
+ <COLOR Spot="1" RGB="#f5ecd9" NAME="Y 35 Off White" />
+ <COLOR Spot="1" RGB="#927521" NAME="Y 41 Olive Yellow" />
+ <COLOR Spot="1" RGB="#c7a21e" NAME="Y 42 Mustard" />
+ <COLOR Spot="1" RGB="#d7cca9" NAME="Y 43 Parchment" />
+ <COLOR Spot="1" RGB="#dfc392" NAME="Y 44 Sand" Spot="1" />
+ <COLOR Spot="1" RGB="#e8d4ad" NAME="Y 45 Manilla" />
+ <COLOR Spot="1" RGB="#6c603e" NAME="Y 51 Bronze Olive" />
+ <COLOR Spot="1" RGB="#c2ad7b" NAME="Y 52 Chamois" />
+ <COLOR Spot="1" RGB="#d7c295" NAME="Y 53 Sandstone" />
+ <COLOR Spot="1" RGB="#cdb187" NAME="Y 54 Oatmeal" />
+ <COLOR Spot="1" RGB="#bf9d6f" NAME="Y 55 Deep Stone" />
+ <COLOR Spot="1" RGB="#ccbba3" NAME="Y 56 Merino" />
+ <COLOR Spot="1" RGB="#4a4a3e" NAME="Y 61 Black Olive" />
+ <COLOR Spot="1" RGB="#c0a75f" NAME="Y 62 Sugar Cane" />
+ <COLOR Spot="1" RGB="#886b42" NAME="Y 63 Khaki" />
+ <COLOR Spot="1" RGB="#a89988" NAME="Y 65 Mushroom" />
+ <COLOR Spot="1" RGB="#5e5549" NAME="Y 66 Mudstone" />
+ <COLOR CMYK="#ffffffff" NAME="Black" />
+ <COLOR CMYK="#00000000" NAME="White" />
+ <COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
+</SCRIBUSCOLORS> 
+<!--Please note that the colours in this palette are no accurate representations of a Standards Australia Standard. If you need an accurate reference, please refer to a printed colour chart or colour chips. These pallettes are understood to be in the Public Domain.-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
