@@ -150,6 +150,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 
 		int itemCount;
 		int itemCountM;
+		bool layerFound;
+		QString clipPath;
 };
 
 extern "C" PLUGIN_API int scribus150format_getPluginAPIVersion();

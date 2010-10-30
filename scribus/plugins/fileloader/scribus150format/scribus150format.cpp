@@ -1727,7 +1727,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[attrs.valueAsString("OnMasterPage")]));
 		pagenr = -2;
 	}
-
+	layerFound = false;
+	clipPath = "";
 	PageItem* newItem = pasteItem(doc, attrs, baseDir, pagenr);
 	newItem->setRedrawBounding();
 	if (tagName == "MASTEROBJECT")
@@ -1773,7 +1774,6 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		info.groupLastItem = groupLastItem;
 	}
 
-	bool layerFound = false;
 	struct ImageLoadRequest loadingInfo;
 #ifdef HAVE_OSG
 	struct PageItem_OSGFrame::viewDefinition currentView;
@@ -2027,6 +2027,15 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		if (!newItem->Pfile.isEmpty())
 		{
 			doc->loadPict(newItem->Pfile, newItem, false);
+			if (newItem->pixm.imgInfo.PDSpathData.contains(clipPath))
+			{
+				newItem->imageClip = newItem->pixm.imgInfo.PDSpathData[clipPath].copy();
+				newItem->pixm.imgInfo.usedPath = clipPath;
+				QTransform cl;
+				cl.translate(newItem->imageXOffset()*newItem->imageXScale(), newItem->imageYOffset()*newItem->imageYScale());
+				cl.scale(newItem->imageXScale(), newItem->imageYScale());
+				newItem->imageClip.map(cl);
+			}
 			if (layerFound)
 			{
 				newItem->pixm.imgInfo.isRequest = true;
@@ -2408,18 +2417,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->setImageXYScale(scx, scy);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 		clPath = attrs.valueAsString("ImageClip", "");
-		if (currItem->pixm.imgInfo.PDSpathData.contains(clPath))
+		if (!clPath.isEmpty())
 		{
-			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[clPath].copy();
-			currItem->pixm.imgInfo.usedPath = clPath;
-			QTransform cl;
-			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
-			cl.scale(currItem->imageXScale(), currItem->imageYScale());
-			currItem->imageClip.map(cl);
+			clipPath = clPath;
+			layerFound = true;
 		}
 		currItem->setImageShown( attrs.valueAsInt("PICART"));
-/*		currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
-		currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
 		currItem->setLineWidth(pw);
 		UndoManager::instance()->setUndoEnabled(true);
 		break;
