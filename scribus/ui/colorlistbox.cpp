@@ -188,11 +188,16 @@ QString ColorFancyItemDelegate::text(const QVariant& data) const
 }
 
 
+int ColorListBox::initialized;
+int ColorListBox::sortRule;
+
 ColorListBox::ColorListBox(QWidget * parent)
 	: QListWidget(parent)
 {
 	cList = NULL;
-	sortRule = 0;
+	if (initialized != 12345)
+		sortRule = 0;
+	initialized = 12345;
 	setItemDelegate(new ColorWideItemDelegate());
 	connect(this, SIGNAL(showContextMenue()), this, SLOT(slotRightClick()));
 }

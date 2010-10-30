@@ -120,7 +120,8 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		void showContextMenue();
 	protected:
 		bool viewportEvent(QEvent *event);
-		int sortRule;
+		static int initialized;
+		static int sortRule;
 		int m_selectedRow;
 		ColorListBox::PixmapType m_type;
 };
