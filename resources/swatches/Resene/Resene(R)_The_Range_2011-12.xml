@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="Resene(R)_The_Range_2011-12" >
-<COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
+<COLOR Spot="0" CMYK="#000000ff" Register="0" NAME="Black" />
 <COLOR Spot="1" RGB="#CB6B67" Register="0" NAME="Resene Adore" />
 <COLOR Spot="1" RGB="#414062" Register="0" NAME="Resene Adventure" />
 <COLOR Spot="1" RGB="#BA8C66" Register="0" NAME="Resene Alamo" />
@@ -48,7 +48,7 @@
 <COLOR Spot="1" RGB="#CB483B" Register="0" NAME="Resene Daredevil" />
 <COLOR Spot="1" RGB="#DEDCC3" Register="0" NAME="Resene Daydream" />
 <COLOR Spot="1" RGB="#313669" Register="0" NAME="Resene Decadence" />
-<COLOR Spot="1" RGB="#004853" Register="0" NAME="Resene Deep South" />
+<COLOR Spot="1" RGB="#4853" Register="0" NAME="Resene Deep South" />
 <COLOR Spot="1" RGB="#EA3C53" Register="0" NAME="Resene Desire" />
 <COLOR Spot="1" RGB="#753929" Register="0" NAME="Resene Desperado" />
 <COLOR Spot="1" RGB="#E8CDD0" Register="0" NAME="Resene Devoted" />
@@ -88,7 +88,7 @@
 <COLOR Spot="1" RGB="#4C567C" Register="0" NAME="Resene Hendrix" />
 <COLOR Spot="1" RGB="#BC7F0C" Register="0" NAME="Resene High Noon" />
 <COLOR Spot="1" RGB="#6B2320" Register="0" NAME="Resene Hot N Spicy" />
-<COLOR Spot="1" RGB="#009E59" Register="0" NAME="Resene Howzat" />
+<COLOR Spot="1" RGB="#'009E59" Register="0" NAME="Resene Howzat" />
 <COLOR Spot="1" RGB="#CCBCC6" Register="0" NAME="Resene I Do" />
 <COLOR Spot="1" RGB="#8B725A" Register="0" NAME="Resene Ignition" />
 <COLOR Spot="1" RGB="#6D7773" Register="0" NAME="Resene Innocence" />
@@ -105,7 +105,7 @@
 <COLOR Spot="1" RGB="#C81641" Register="0" NAME="Resene Knock Out" />
 <COLOR Spot="1" RGB="#838931" Register="0" NAME="Resene Kombi" />
 <COLOR Spot="1" RGB="#818392" Register="0" NAME="Resene Kookaburra" />
-<COLOR Spot="1" RGB="#778E46" Register="0" NAME="Resene Koru" />
+<COLOR Spot="1" RGB="#'778E46" Register="0" NAME="Resene Koru" />
 <COLOR Spot="1" RGB="#78AFB2" Register="0" NAME="Resene Kumutoto" />
 <COLOR Spot="1" RGB="#3E9889" Register="0" NAME="Resene Landmark" />
 <COLOR Spot="1" RGB="#8C563B" Register="0" NAME="Resene Legend" />
