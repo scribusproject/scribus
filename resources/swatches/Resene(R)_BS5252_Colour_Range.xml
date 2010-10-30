@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Resene(R)_BS5252_Colour_Range" >
+<COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
+<COLOR Spot="1" RGB="#905E26" Register="0" NAME="Resene Afghan Tan" />
+<COLOR Spot="1" RGB="#387B54" Register="0" NAME="Resene Amazon" />
+<COLOR Spot="1" RGB="#6C461F" Register="0" NAME="Resene Antique Brass" />
+<COLOR Spot="1" RGB="#92D3CA" Register="0" NAME="Resene Aqua" />
+<COLOR Spot="1" RGB="#214559" Register="0" NAME="Resene Astronaut Blue" />
+<COLOR Spot="1" RGB="#DCDDDD" Register="0" NAME="Resene Athens Grey" />
+<COLOR Spot="1" RGB="#25597F" Register="0" NAME="Resene Bahama Blue" />
+<COLOR Spot="1" RGB="#849CA9" Register="0" NAME="Resene Bali Hai" />
+<COLOR Spot="1" RGB="#3C3D3E" Register="0" NAME="Resene Baltic Sea" />
+<COLOR Spot="1" RGB="#7BB18D" Register="0" NAME="Resene Bay Leaf" />
+<COLOR Spot="1" RGB="#3F3726" Register="0" NAME="Resene Birch" />
+<COLOR Spot="1" RGB="#2F3C53" Register="0" NAME="Resene Biscay" />
+<COLOR Spot="1" RGB="#486C7A" Register="0" NAME="Resene Bismark" />
+<COLOR Spot="1" RGB="#232E26" Register="0" NAME="Resene Black Bean" />
+<COLOR Spot="1" RGB="#43182F" Register="0" NAME="Resene Blackberry" />
+<COLOR Spot="1" RGB="#DFB1B6" Register="0" NAME="Resene Blossom" />
+<COLOR Spot="1" RGB="#1E272C" Register="0" NAME="Resene Blue Bark" />
+<COLOR Spot="1" RGB="#BDBACE" Register="0" NAME="Resene Blue Haze" />
+<COLOR Spot="1" RGB="#1F263B" Register="0" NAME="Resene Blue Night" />
+<COLOR Spot="1" RGB="#166461" Register="0" NAME="Resene Blue Stone" />
+<COLOR Spot="1" RGB="#2A2725" Register="0" NAME="Resene Bokara Grey" />
+<COLOR Spot="1" RGB="#26416B" Register="0" NAME="Resene Bondi Blue" />
+<COLOR Spot="1" RGB="#438EAC" Register="0" NAME="Resene Boston Blue" />
+<COLOR Spot="1" RGB="#7C817C" Register="0" NAME="Resene Boulder" />
+<COLOR Spot="1" RGB="#DCB68A" Register="0" NAME="Resene Brandy" />
+<COLOR Spot="1" RGB="#A79781" Register="0" NAME="Resene Bronco" />
+<COLOR Spot="1" RGB="#53331E" Register="0" NAME="Resene Brown Bramble" />
+<COLOR Spot="1" RGB="#3C241B" Register="0" NAME="Resene Brown Pod" />
+<COLOR Spot="1" RGB="#BC9B1B" Register="0" NAME="Resene Buddha Gold" />
+<COLOR Spot="1" RGB="#292C2F" Register="0" NAME="Resene Bunker" />
+<COLOR Spot="1" RGB="#DECB81" Register="0" NAME="Resene Butter" />
+<COLOR Spot="1" RGB="#DA9429" Register="0" NAME="Resene Buttercup" />
+<COLOR Spot="1" RGB="#D5B185" Register="0" NAME="Resene Calico" />
+<COLOR Spot="1" RGB="#3D7188" Register="0" NAME="Resene Calypso" />
+<COLOR Spot="1" RGB="#D08A9B" Register="0" NAME="Resene Can Can" />
+<COLOR Spot="1" RGB="#8E5164" Register="0" NAME="Resene Cannon Pink" />
+<COLOR Spot="1" RGB="#A39977" Register="0" NAME="Resene Canvas" />
+<COLOR Spot="1" RGB="#4E5552" Register="0" NAME="Resene Cape Cod" />
+<COLOR Spot="1" RGB="#1B3427" Register="0" NAME="Resene Cardin Green" />
+<COLOR Spot="1" RGB="#8A244E" Register="0" NAME="Resene Cardinal" />
+<COLOR Spot="1" RGB="#E68095" Register="0" NAME="Resene Carissma" />
+<COLOR Spot="1" RGB="#8CA8A0" Register="0" NAME="Resene Cascade" />
+<COLOR Spot="1" RGB="#E0E4DC" Register="0" NAME="Resene Catskill White" />
+<COLOR Spot="1" RGB="#EED9B6" Register="0" NAME="Resene Champagne" />
+<COLOR Spot="1" RGB="#394043" Register="0" NAME="Resene Charade" />
+<COLOR Spot="1" RGB="#419F59" Register="0" NAME="Resene Chateau Green" />
+<COLOR Spot="1" RGB="#2C5971" Register="0" NAME="Resene Chathams Blue" />
+<COLOR Spot="1" RGB="#9DD3A8" Register="0" NAME="Resene Chinook" />
+<COLOR Spot="1" RGB="#3D2327" Register="0" NAME="Resene Chocolate" />
+<COLOR Spot="1" RGB="#242A2E" Register="0" NAME="Resene Cinder" />
+<COLOR Spot="1" RGB="#FBD7CC" Register="0" NAME="Resene Cinderella" />
+<COLOR Spot="1" RGB="#C2BCB1" Register="0" NAME="Resene Cloud" />
+<COLOR Spot="1" RGB="#273C5A" Register="0" NAME="Resene Cobalt" />
+<COLOR Spot="1" RGB="#4F3835" Register="0" NAME="Resene Cocoa Bean" />
+<COLOR Spot="1" RGB="#3C2F23" Register="0" NAME="Resene Cola" />
+<COLOR Spot="1" RGB="#E9D7AB" Register="0" NAME="Resene Colonial White" />
+<COLOR Spot="1" RGB="#4C785C" Register="0" NAME="Resene Como" />
+<COLOR Spot="1" RGB="#827F79" Register="0" NAME="Resene Concord" />
+<COLOR Spot="1" RGB="#654D49" Register="0" NAME="Resene Congo Brown" />
+<COLOR Spot="1" RGB="#95524C" Register="0" NAME="Resene Copper Rust" />
+<COLOR Spot="1" RGB="#5A4C42" Register="0" NAME="Resene Cork" />
+<COLOR Spot="1" RGB="#B43864" Register="0" NAME="Resene Cranberry" />
+<COLOR Spot="1" RGB="#362D26" Register="0" NAME="Resene Cuban Tan" />
+<COLOR Spot="1" RGB="#F4645" Register="0" NAME="Resene Cyprus" />
+<COLOR Spot="1" RGB="#EDD2A4" Register="0" NAME="Resene Dairy Cream" />
+<COLOR Spot="1" RGB="#5B89C0" Register="0" NAME="Resene Danube" />
+<COLOR Spot="1" RGB="#E6D6CD" Register="0" NAME="Resene Dawn Pink" />
+<COLOR Spot="1" RGB="#B5998E" Register="0" NAME="Resene Del Rio" />
+<COLOR Spot="1" RGB="#A5A395" Register="0" NAME="Resene Delta Grey" />
+<COLOR Spot="1" RGB="#892D4F" Register="0" NAME="Resene Disco" />
+<COLOR Spot="1" RGB="#6A6873" Register="0" NAME="Resene Dolphin" />
+<COLOR Spot="1" RGB="#514F4A" Register="0" NAME="Resene Dune" />
+<COLOR Spot="1" RGB="#297B76" Register="0" NAME="Resene Elm" />
+<COLOR Spot="1" RGB="#6E3974" Register="0" NAME="Resene Eminence" />
+<COLOR Spot="1" RGB="#8BA58F" Register="0" NAME="Resene Envy" />
+<COLOR Spot="1" RGB="#264334" Register="0" NAME="Resene Everglade" />
+<COLOR Spot="1" RGB="#EACC4A" Register="0" NAME="Resene Festival" />
+<COLOR Spot="1" RGB="#636F22" Register="0" NAME="Resene Fiji Green" />
+<COLOR Spot="1" RGB="#86282E" Register="0" NAME="Resene Flame Red" />
+<COLOR Spot="1" RGB="#828562" Register="0" NAME="Resene Flax" />
+<COLOR Spot="1" RGB="#BFBDC1" Register="0" NAME="Resene French Grey" />
+<COLOR Spot="1" RGB="#DEB7D9" Register="0" NAME="Resene French Lilac" />
+<COLOR Spot="1" RGB="#86837A" Register="0" NAME="Resene Friar Grey" />
+<COLOR Spot="1" RGB="#E1E4C5" Register="0" NAME="Resene Frost" />
+<COLOR Spot="1" RGB="#335083" Register="0" NAME="Resene Fun Blue" />
+<COLOR Spot="1" RGB="#15633D" Register="0" NAME="Resene Fun Green" />
+<COLOR Spot="1" RGB="#564786" Register="0" NAME="Resene Gigas" />
+<COLOR Spot="1" RGB="#78B1BF" Register="0" NAME="Resene Glacier" />
+<COLOR Spot="1" RGB="#EACE6A" Register="0" NAME="Resene Golden Sand" />
+<COLOR Spot="1" RGB="#8B8265" Register="0" NAME="Resene Granite Green" />
+<COLOR Spot="1" RGB="#C5E7CD" Register="0" NAME="Resene Granny Apple" />
+<COLOR Spot="1" RGB="#BFC298" Register="0" NAME="Resene Green Mist" />
+<COLOR Spot="1" RGB="#266242" Register="0" NAME="Resene Green Pea" />
+<COLOR Spot="1" RGB="#9CA664" Register="0" NAME="Resene Green Smoke" />
+<COLOR Spot="1" RGB="#BDBAAE" Register="0" NAME="Resene Grey Nickel" />
+<COLOR Spot="1" RGB="#952E31" Register="0" NAME="Resene Guardsman Red" />
+<COLOR Spot="1" RGB="#74B2A8" Register="0" NAME="Resene Gulf Stream" />
+<COLOR Spot="1" RGB="#ACC9B2" Register="0" NAME="Resene Gum Leaf" />
+<COLOR Spot="1" RGB="#9E8022" Register="0" NAME="Resene Hacienda" />
+<COLOR Spot="1" RGB="#2C2A35" Register="0" NAME="Resene Haiti" />
+<COLOR Spot="1" RGB="#EAB76A" Register="0" NAME="Resene Harvest Gold" />
+<COLOR Spot="1" RGB="#3B2B2C" Register="0" NAME="Resene Havana" />
+<COLOR Spot="1" RGB="#99522B" Register="0" NAME="Resene Hawaiian Tan" />
+<COLOR Spot="1" RGB="#987D73" Register="0" NAME="Resene Hemp" />
+<COLOR Spot="1" RGB="#A1A9A8" Register="0" NAME="Resene Hit Grey" />
+<COLOR Spot="1" RGB="#6B252C" Register="0" NAME="Resene Hot Chile" />
+<COLOR Spot="1" RGB="#815B28" Register="0" NAME="Resene Hot Curry" />
+<COLOR Spot="1" RGB="#4E2E53" Register="0" NAME="Resene Hot Purple" />
+<COLOR Spot="1" RGB="#B2994B" Register="0" NAME="Resene Husk" />
+<COLOR Spot="1" RGB="#CAE1D9" Register="0" NAME="Resene Iceberg" />
+<COLOR Spot="1" RGB="#706E66" Register="0" NAME="Resene Ironside Grey" />
+<COLOR Spot="1" RGB="#3D325D" Register="0" NAME="Resene Jacarta" />
+<COLOR Spot="1" RGB="#40726D" Register="0" NAME="Resene Jade" />
+<COLOR Spot="1" RGB="#878785" Register="0" NAME="Resene Jumbo" />
+<COLOR Spot="1" RGB="#B0C4C4" Register="0" NAME="Resene Jungle Mist" />
+<COLOR Spot="1" RGB="#576D8E" Register="0" NAME="Resene Kashmir Blue" />
+<COLOR Spot="1" RGB="#4D503C" Register="0" NAME="Resene Kelp" />
+<COLOR Spot="1" RGB="#695D87" Register="0" NAME="Resene Kimberly" />
+<COLOR Spot="1" RGB="#D9B220" Register="0" NAME="Resene Lemon" />
+<COLOR Spot="1" RGB="#F7A233" Register="0" NAME="Resene Lightning Yellow" />
+<COLOR Spot="1" RGB="#B7C52C" Register="0" NAME="Resene Lime" />
+<COLOR Spot="1" RGB="#5F9727" Register="0" NAME="Resene Limeade" />
+<COLOR Spot="1" RGB="#89AC27" Register="0" NAME="Resene Limerick" />
+<COLOR Spot="1" RGB="#544F3A" Register="0" NAME="Resene Lisbon Brown" />
+<COLOR Spot="1" RGB="#A2A580" Register="0" NAME="Resene Locust" />
+<COLOR Spot="1" RGB="#9D9CB4" Register="0" NAME="Resene Logan" />
+<COLOR Spot="1" RGB="#AE94AB" Register="0" NAME="Resene London Hue" />
+<COLOR Spot="1" RGB="#473E23" Register="0" NAME="Resene Madras" />
+<COLOR Spot="1" RGB="#2A2922" Register="0" NAME="Resene Maire" />
+<COLOR Spot="1" RGB="#B57B2E" Register="0" NAME="Resene Mandalay" />
+<COLOR Spot="1" RGB="#352235" Register="0" NAME="Resene Mardi Gras" />
+<COLOR Spot="1" RGB="#3C3748" Register="0" NAME="Resene Martinique" />
+<COLOR Spot="1" RGB="#C8B1C0" Register="0" NAME="Resene Maverick" />
+<COLOR Spot="1" RGB="#E27945" Register="0" NAME="Resene Melon Orange" />
+<COLOR Spot="1" RGB="#9B3D3D" Register="0" NAME="Resene Mexican Red" />
+<COLOR Spot="1" RGB="#9E3332" Register="0" NAME="Resene Milano Red" />
+<COLOR Spot="1" RGB="#3E3267" Register="0" NAME="Resene Minsk" />
+<COLOR Spot="1" RGB="#F0C420" Register="0" NAME="Resene Moon Yellow" />
+<COLOR Spot="1" RGB="#565051" Register="0" NAME="Resene Mortar" />
+<COLOR Spot="1" RGB="#05F5B" Register="0" NAME="Resene Mosque" />
+<COLOR Spot="1" RGB="#A09F9C" Register="0" NAME="Resene Mountain Mist" />
+<COLOR Spot="1" RGB="#5E2A40" Register="0" NAME="Resene Mulberry" />
+<COLOR Spot="1" RGB="#524D5B" Register="0" NAME="Resene Mulled Wine" />
+<COLOR Spot="1" RGB="#7C6720" Register="0" NAME="Resene Mustard" />
+<COLOR Spot="1" RGB="#D68B80" Register="0" NAME="Resene My Pink" />
+<COLOR Spot="1" RGB="#E9E6DC" Register="0" NAME="Resene Narvik" />
+<COLOR Spot="1" RGB="#666F6F" Register="0" NAME="Resene Nevada" />
+<COLOR Spot="1" RGB="#DD8374" Register="0" NAME="Resene New York Pink" />
+<COLOR Spot="1" RGB="#6A1F44" Register="0" NAME="Resene Nightclub" />
+<COLOR Spot="1" RGB="#253F4E" Register="0" NAME="Resene Nile Blue" />
+<COLOR Spot="1" RGB="#8A3335" Register="0" NAME="Resene Old Brick" />
+<COLOR Spot="1" RGB="#A8C3BC" Register="0" NAME="Resene Opal" />
+<COLOR Spot="1" RGB="#818988" Register="0" NAME="Resene Oslo Grey" />
+<COLOR Spot="1" RGB="#C3BEBB" Register="0" NAME="Resene Pale Slate" />
+<COLOR Spot="1" RGB="#EAE0C8" Register="0" NAME="Resene Pearl Lusta" />
+<COLOR Spot="1" RGB="#766D52" Register="0" NAME="Resene Peat" />
+<COLOR Spot="1" RGB="#D7E7D0" Register="0" NAME="Resene Peppermint" />
+<COLOR Spot="1" RGB="#4F212A" Register="0" NAME="Resene Persian Red" />
+<COLOR Spot="1" RGB="#733D1F" Register="0" NAME="Resene Peru Tan" />
+<COLOR Spot="1" RGB="#756556" Register="0" NAME="Resene Pine Cone" />
+<COLOR Spot="1" RGB="#BDC07E" Register="0" NAME="Resene Pine Glade" />
+<COLOR Spot="1" RGB="#2A2F23" Register="0" NAME="Resene Pine Tree" />
+<COLOR Spot="1" RGB="#BA782A" Register="0" NAME="Resene Pirate Gold" />
+<COLOR Spot="1" RGB="#381A38" Register="0" NAME="Resene Plum" />
+<COLOR Spot="1" RGB="#8AA7CC" Register="0" NAME="Resene Polo Blue" />
+<COLOR Spot="1" RGB="#DDDCDB" Register="0" NAME="Resene Porcelain" />
+<COLOR Spot="1" RGB="#E4DE8E" Register="0" NAME="Resene Primrose" />
+<COLOR Spot="1" RGB="#F6E3DA" Register="0" NAME="Resene Provincial Pink" />
+<COLOR Spot="1" RGB="#192F41" Register="0" NAME="Resene Prussian Blue" />
+<COLOR Spot="1" RGB="#BAC0B4" Register="0" NAME="Resene Pumice" />
+<COLOR Spot="1" RGB="#CBC9C0" Register="0" NAME="Resene Quill Grey" />
+<COLOR Spot="1" RGB="#667028" Register="0" NAME="Resene Rain Forest" />
+<COLOR Spot="1" RGB="#FCAE60" Register="0" NAME="Resene Rajah" />
+<COLOR Spot="1" RGB="#2B2E25" Register="0" NAME="Resene Rangoon Green" />
+<COLOR Spot="1" RGB="#612D2D" Register="0" NAME="Resene Red Ochre" />
+<COLOR Spot="1" RGB="#A0CDD9" Register="0" NAME="Resene Regent St Blue" />
+<COLOR Spot="1" RGB="#B26E33" Register="0" NAME="Resene Reno Sand" />
+<COLOR Spot="1" RGB="#A15226" Register="0" NAME="Resene Rich Gold" />
+<COLOR Spot="1" RGB="#93A2BA" Register="0" NAME="Resene Rock Blue" />
+<COLOR Spot="1" RGB="#FEAB9A" Register="0" NAME="Resene Rose Bud" />
+<COLOR Spot="1" RGB="#A94064" Register="0" NAME="Resene Rouge" />
+<COLOR Spot="1" RGB="#7D655C" Register="0" NAME="Resene Russett" />
+<COLOR Spot="1" RGB="#50381E" Register="0" NAME="Resene Saddle Brown" />
+<COLOR Spot="1" RGB="#B79826" Register="0" NAME="Resene Sahara" />
+<COLOR Spot="1" RGB="#177B4D" Register="0" NAME="Resene Salem" />
+<COLOR Spot="1" RGB="#4E6C9D" Register="0" NAME="Resene San Marino" />
+<COLOR Spot="1" RGB="#6F63A0" Register="0" NAME="Resene Scampi" />
+<COLOR Spot="1" RGB="#6B6A6C" Register="0" NAME="Resene Scarpa Flow" />
+<COLOR Spot="1" RGB="#3D4031" Register="0" NAME="Resene Scrub" />
+<COLOR Spot="1" RGB="#DFDDD6" Register="0" NAME="Resene Sea Fog" />
+<COLOR Spot="1" RGB="#69326E" Register="0" NAME="Resene Seance" />
+<COLOR Spot="1" RGB="#E6B2A6" Register="0" NAME="Resene Shilo" />
+<COLOR Spot="1" RGB="#4E4E4C" Register="0" NAME="Resene Ship Grey" />
+<COLOR Spot="1" RGB="#686B50" Register="0" NAME="Resene Siam" />
+<COLOR Spot="1" RGB="#BEBDB6" Register="0" NAME="Resene Silver Sand" />
+<COLOR Spot="1" RGB="#CFBEA5" Register="0" NAME="Resene Soft Amber" />
+<COLOR Spot="1" RGB="#EADAC2" Register="0" NAME="Resene Solitaire" />
+<COLOR Spot="1" RGB="#B3C4D8" Register="0" NAME="Resene Spindle" />
+<COLOR Spot="1" RGB="#A2A1AC" Register="0" NAME="Resene Spun Pearl" />
+<COLOR Spot="1" RGB="#8F7D6B" Register="0" NAME="Resene Squirrel" />
+<COLOR Spot="1" RGB="#325482" Register="0" NAME="Resene St Tropaz" />
+<COLOR Spot="1" RGB="#EF8E38" Register="0" NAME="Resene Sun" />
+<COLOR Spot="1" RGB="#DAC01A" Register="0" NAME="Resene Sunflower" />
+<COLOR Spot="1" RGB="#07B77" Register="0" NAME="Resene Surfie Green" />
+<COLOR Spot="1" RGB="#8B8685" Register="0" NAME="Resene Suva Grey" />
+<COLOR Spot="1" RGB="#252F2F" Register="0" NAME="Resene Swamp" />
+<COLOR Spot="1" RGB="#F6AE78" Register="0" NAME="Resene Tacao" />
+<COLOR Spot="1" RGB="#DC722A" Register="0" NAME="Resene Tahiti Gold" />
+<COLOR Spot="1" RGB="#C7BD95" Register="0" NAME="Resene Thistle" />
+<COLOR Spot="1" RGB="#B9C3BE" Register="0" NAME="Resene Tiara" />
+<COLOR Spot="1" RGB="#184343" Register="0" NAME="Resene Tiber" />
+<COLOR Spot="1" RGB="#44362D" Register="0" NAME="Resene Tobago" />
+<COLOR Spot="1" RGB="#8E593C" Register="0" NAME="Resene Toffee" />
+<COLOR Spot="1" RGB="#3E2631" Register="0" NAME="Resene Toledo" />
+<COLOR Spot="1" RGB="#817C87" Register="0" NAME="Resene Topaz" />
+<COLOR Spot="1" RGB="#7E8424" Register="0" NAME="Resene Trendy Green" />
+<COLOR Spot="1" RGB="#805D80" Register="0" NAME="Resene Trendy Pink" />
+<COLOR Spot="1" RGB="#C54F33" Register="0" NAME="Resene Trinidad" />
+<COLOR Spot="1" RGB="#AEC9EB" Register="0" NAME="Resene Tropical Blue" />
+<COLOR Spot="1" RGB="#4C5356" Register="0" NAME="Resene Trout" />
+<COLOR Spot="1" RGB="#585452" Register="0" NAME="Resene Tundora" />
+<COLOR Spot="1" RGB="#363E1D" Register="0" NAME="Resene Turtle Green" />
+<COLOR Spot="1" RGB="#E3E5B1" Register="0" NAME="Resene Tusk" />
+<COLOR Spot="1" RGB="#C19156" Register="0" NAME="Resene Twine" />
+<COLOR Spot="1" RGB="#D4574E" Register="0" NAME="Resene Valencia" />
+<COLOR Spot="1" RGB="#48531A" Register="0" NAME="Resene Verdun Green" />
+<COLOR Spot="1" RGB="#564985" Register="0" NAME="Resene Victoria" />
+<COLOR Spot="1" RGB="#2E2249" Register="0" NAME="Resene Violent Violet" />
+<COLOR Spot="1" RGB="#2F263C" Register="0" NAME="Resene Violet" />
+<COLOR Spot="1" RGB="#D4BBB1" Register="0" NAME="Resene Wafer" />
+<COLOR Spot="1" RGB="#D29062" Register="0" NAME="Resene Whiskey" />
+<COLOR Spot="1" RGB="#BECA60" Register="0" NAME="Resene Wild Willow" />
+<COLOR Spot="1" RGB="#A29ECD" Register="0" NAME="Resene Wistful" />
+<COLOR Spot="1" RGB="#826A21" Register="0" NAME="Resene Yukon Gold" />
+<COLOR Spot="1" RGB="#17462E" Register="0" NAME="Resene Zuccini" />
+<COLOR Spot="0" CMYK="#ffffffff" Register="1" NAME="Registration" />
+<COLOR Spot="0" CMYK="#00000000" Register="0" NAME="White"  />
+</SCRIBUSCOLORS>
