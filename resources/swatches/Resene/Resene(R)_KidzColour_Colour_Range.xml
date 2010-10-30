@@ -13,7 +13,7 @@
 <COLOR Spot="1" RGB="#9F263D" Register="0" NAME="Resene Candy Floss" />
 <COLOR Spot="1" RGB="#922A31" Register="0" NAME="Resene Chaos" />
 <COLOR Spot="1" RGB="#382161" Register="0" NAME="Resene Clowning Around" />
-<COLOR Spot="1" RGB="#05F5B" Register="0" NAME="Resene Cowabunga" />
+<COLOR Spot="1" RGB="#005F5B" Register="0" NAME="Resene Cowabunga" />
 <COLOR Spot="1" RGB="#AF2E40" Register="0" NAME="Resene Crash Hot" />
 <COLOR Spot="1" RGB="#9470C4" Register="0" NAME="Resene Dancing Girl" />
 <COLOR Spot="1" RGB="#81CA2B" Register="0" NAME="Resene Dizzy Lizzy" />
@@ -39,7 +39,7 @@
 <COLOR Spot="1" RGB="#A3D92D" Register="0" NAME="Resene Lickety Split" />
 <COLOR Spot="1" RGB="#D1EF9F" Register="0" NAME="Resene Lucky Dip" />
 <COLOR Spot="1" RGB="#8B98D8" Register="0" NAME="Resene Magic Carpet" />
-<COLOR Spot="1" RGB="#C6D6D" Register="0" NAME="Resene Neva" />
+<COLOR Spot="1" RGB="#0C6D6D" Register="0" NAME="Resene Neva" />
 <COLOR Spot="1" RGB="#B43864" Register="0" NAME="Resene Pink Panther" />
 <COLOR Spot="1" RGB="#EFD6DA" Register="0" NAME="Resene Pretty In Pink" />
 <COLOR Spot="1" RGB="#EDB8C7" Register="0" NAME="Resene Princess" />
@@ -75,8 +75,8 @@
 <COLOR Spot="1" RGB="#254375" Register="0" NAME="Resene Wet N Wild" />
 <COLOR Spot="1" RGB="#5FB33A" Register="0" NAME="Resene Wham" />
 <COLOR Spot="1" RGB="#343467" Register="0" NAME="Resene Wow" />
-<COLOR Spot="1" RGB="#08B97" Register="0" NAME="Resene Yabbadabbadoo" />
-<COLOR Spot="1" RGB="#06C98" Register="0" NAME="Resene Yeehaa" />
+<COLOR Spot="1" RGB="#008B97" Register="0" NAME="Resene Yabbadabbadoo" />
+<COLOR Spot="1" RGB="#006C98" Register="0" NAME="Resene Yeehaa" />
 <COLOR Spot="1" RGB="#C4C0E2" Register="0" NAME="Resene Zappo" />
 <COLOR Spot="0" CMYK="#ffffffff" Register="1" NAME="Registration" />
 <COLOR Spot="0" CMYK="#00000000" Register="0" NAME="White" />

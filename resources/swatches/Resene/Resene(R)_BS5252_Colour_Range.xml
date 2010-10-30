@@ -64,7 +64,7 @@
 <COLOR Spot="1" RGB="#5A4C42" Register="0" NAME="Resene Cork" />
 <COLOR Spot="1" RGB="#B43864" Register="0" NAME="Resene Cranberry" />
 <COLOR Spot="1" RGB="#362D26" Register="0" NAME="Resene Cuban Tan" />
-<COLOR Spot="1" RGB="#F4645" Register="0" NAME="Resene Cyprus" />
+<COLOR Spot="1" RGB="#0F4645" Register="0" NAME="Resene Cyprus" />
 <COLOR Spot="1" RGB="#EDD2A4" Register="0" NAME="Resene Dairy Cream" />
 <COLOR Spot="1" RGB="#5B89C0" Register="0" NAME="Resene Danube" />
 <COLOR Spot="1" RGB="#E6D6CD" Register="0" NAME="Resene Dawn Pink" />
@@ -140,7 +140,7 @@
 <COLOR Spot="1" RGB="#3E3267" Register="0" NAME="Resene Minsk" />
 <COLOR Spot="1" RGB="#F0C420" Register="0" NAME="Resene Moon Yellow" />
 <COLOR Spot="1" RGB="#565051" Register="0" NAME="Resene Mortar" />
-<COLOR Spot="1" RGB="#05F5B" Register="0" NAME="Resene Mosque" />
+<COLOR Spot="1" RGB="#005F5B" Register="0" NAME="Resene Mosque" />
 <COLOR Spot="1" RGB="#A09F9C" Register="0" NAME="Resene Mountain Mist" />
 <COLOR Spot="1" RGB="#5E2A40" Register="0" NAME="Resene Mulberry" />
 <COLOR Spot="1" RGB="#524D5B" Register="0" NAME="Resene Mulled Wine" />
@@ -204,7 +204,7 @@
 <COLOR Spot="1" RGB="#325482" Register="0" NAME="Resene St Tropaz" />
 <COLOR Spot="1" RGB="#EF8E38" Register="0" NAME="Resene Sun" />
 <COLOR Spot="1" RGB="#DAC01A" Register="0" NAME="Resene Sunflower" />
-<COLOR Spot="1" RGB="#07B77" Register="0" NAME="Resene Surfie Green" />
+<COLOR Spot="1" RGB="#007B77" Register="0" NAME="Resene Surfie Green" />
 <COLOR Spot="1" RGB="#8B8685" Register="0" NAME="Resene Suva Grey" />
 <COLOR Spot="1" RGB="#252F2F" Register="0" NAME="Resene Swamp" />
 <COLOR Spot="1" RGB="#F6AE78" Register="0" NAME="Resene Tacao" />

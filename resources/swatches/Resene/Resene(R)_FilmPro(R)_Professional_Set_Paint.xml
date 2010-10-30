@@ -15,7 +15,7 @@
 <COLOR Spot="1" RGB="#AA305D" Register="0" NAME="Resene FilmPro Magenta" />
 <COLOR Spot="1" RGB="#D4503C" Register="0" NAME="Resene FilmPro Orange" />
 <COLOR Spot="1" RGB="#2B3860" Register="0" NAME="Resene FilmPro Pthalo Blue" />
-<COLOR Spot="1" RGB="#05645" Register="0" NAME="Resene FilmPro Pthalo Green" />
+<COLOR Spot="1" RGB="#005645" Register="0" NAME="Resene FilmPro Pthalo Green" />
 <COLOR Spot="1" RGB="#362A4D" Register="0" NAME="Resene FilmPro Purple" />
 <COLOR Spot="1" RGB="#66592E" Register="0" NAME="Resene FilmPro Raw Sienna" />
 <COLOR Spot="1" RGB="#3F3930" Register="0" NAME="Resene FilmPro Raw Umber" />

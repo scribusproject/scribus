@@ -99,7 +99,7 @@
 <COLOR Spot="1" RGB="#408F90" Register="0" NAME="Resene Blue Chill" />
 <COLOR Spot="1" RGB="#4B2D72" Register="0" NAME="Resene Blue Diamond" />
 <COLOR Spot="1" RGB="#4B3C8E" Register="0" NAME="Resene Blue Gem" />
-<COLOR Spot="1" RGB="#0626F" Register="0" NAME="Resene Blue Lagoon" />
+<COLOR Spot="1" RGB="#00626F" Register="0" NAME="Resene Blue Lagoon" />
 <COLOR Spot="1" RGB="#6A5BB1" Register="0" NAME="Resene Blue Marguerite" />
 <COLOR Spot="1" RGB="#1F263B" Register="0" NAME="Resene Blue Night" />
 <COLOR Spot="1" RGB="#78857A" Register="0" NAME="Resene Blue Smoke" />
@@ -209,7 +209,7 @@
 <COLOR Spot="1" RGB="#7B482B" Register="0" NAME="Resene Cinnamon" />
 <COLOR Spot="1" RGB="#5D3B2E" Register="0" NAME="Resene Cioccolato" />
 <COLOR Spot="1" RGB="#8E9A21" Register="0" NAME="Resene Citron" />
-<COLOR Spot="1" RGB="#9FB7A" Register="0" NAME="Resene Citrus" />
+<COLOR Spot="1" RGB="#09FB7A" Register="0" NAME="Resene Citrus" />
 <COLOR Spot="1" RGB="#6E2233" Register="0" NAME="Resene Claret" />
 <COLOR Spot="1" RGB="#F4C8DB" Register="0" NAME="Resene Classic Rose" />
 <COLOR Spot="1" RGB="#897E59" Register="0" NAME="Resene Clay Creek" />
@@ -294,7 +294,7 @@
 <COLOR Spot="1" RGB="#977E66" Register="0" NAME="Resene Dusty Road" />
 <COLOR Spot="1" RGB="#6F282B" Register="0" NAME="Resene Dynamite" />
 <COLOR Spot="1" RGB="#B0AC94" Register="0" NAME="Resene Eagle" />
-<COLOR Spot="1" RGB="#0879F" Register="0" NAME="Resene Eastern Blue" />
+<COLOR Spot="1" RGB="#00879F" Register="0" NAME="Resene Eastern Blue" />
 <COLOR Spot="1" RGB="#E6D8D4" Register="0" NAME="Resene Ebb" />
 <COLOR Spot="1" RGB="#323438" Register="0" NAME="Resene Ebony Clay" />
 <COLOR Spot="1" RGB="#A4AFCD" Register="0" NAME="Resene Echo Blue" />
@@ -444,7 +444,7 @@
 <COLOR Spot="1" RGB="#A7752C" Register="0" NAME="Resene Hot Toddy" />
 <COLOR Spot="1" RGB="#6F2637" Register="0" NAME="Resene Hot Wired" />
 <COLOR Spot="1" RGB="#DFDDD9" Register="0" NAME="Resene House White" />
-<COLOR Spot="1" RGB="#08B97" Register="0" NAME="Resene Hullabaloo" />
+<COLOR Spot="1" RGB="#008B97" Register="0" NAME="Resene Hullabaloo" />
 <COLOR Spot="1" RGB="#8B7E77" Register="0" NAME="Resene Hurricane" />
 <COLOR Spot="1" RGB="#E36C36" Register="0" NAME="Resene Hyperactive" />
 <COLOR Spot="1" RGB="#D1E182" Register="0" NAME="Resene Hypnotic" />
@@ -493,12 +493,12 @@
 <COLOR Spot="1" RGB="#3A3532" Register="0" NAME="Resene Kilamanjaro" />
 <COLOR Spot="1" RGB="#49764F" Register="0" NAME="Resene Killarney" />
 <COLOR Spot="1" RGB="#583580" Register="0" NAME="Resene Kingfisher Daisy" />
-<COLOR Spot="1" RGB="#06C7F" Register="0" NAME="Resene Kitsch" />
+<COLOR Spot="1" RGB="#006C7F" Register="0" NAME="Resene Kitsch" />
 <COLOR Spot="1" RGB="#804E2C" Register="0" NAME="Resene Korma" />
 <COLOR Spot="1" RGB="#FEB552" Register="0" NAME="Resene Koromiko" />
 <COLOR Spot="1" RGB="#F9D054" Register="0" NAME="Resene Kournikova" />
 <COLOR Spot="1" RGB="#A43F48" Register="0" NAME="Resene La Bamba" />
-<COLOR Spot="1" RGB="#BAC0E" Register="0" NAME="Resene La Rioja" />
+<COLOR Spot="1" RGB="#0BAC0E" Register="0" NAME="Resene La Rioja" />
 <COLOR Spot="1" RGB="#C6DA36" Register="0" NAME="Resene Las Palmas" />
 <COLOR Spot="1" RGB="#C6A95E" Register="0" NAME="Resene Laser" />
 <COLOR Spot="1" RGB="#6E8D71" Register="0" NAME="Resene Laurel" />
@@ -610,7 +610,7 @@
 <COLOR Spot="1" RGB="#93AAB9" Register="0" NAME="Resene Nepal" />
 <COLOR Spot="1" RGB="#252525" Register="0" NAME="Resene Nero" />
 <COLOR Spot="1" RGB="#858D99" Register="0" NAME="Resene Neutral Bay" />
-<COLOR Spot="1" RGB="#C6D6D" Register="0" NAME="Resene Neva" />
+<COLOR Spot="1" RGB="#0C6D6D" Register="0" NAME="Resene Neva" />
 <COLOR Spot="1" RGB="#E4C385" Register="0" NAME="Resene New Orleans" />
 <COLOR Spot="1" RGB="#DD8374" Register="0" NAME="Resene New York Pink" />
 <COLOR Spot="1" RGB="#29A98B" Register="0" NAME="Resene Niagara" />
@@ -622,7 +622,7 @@
 <COLOR Spot="1" RGB="#586483" Register="0" NAME="Resene Norwegian Blue" />
 <COLOR Spot="1" RGB="#48798A" Register="0" NAME="Resene Norwester" />
 <COLOR Spot="1" RGB="#FCEDC5" Register="0" NAME="Resene Oasis" />
-<COLOR Spot="1" RGB="#08F70" Register="0" NAME="Resene Observatory" />
+<COLOR Spot="1" RGB="#008F70" Register="0" NAME="Resene Observatory" />
 <COLOR Spot="1" RGB="#BE523F" Register="0" NAME="Resene Oh Behave" />
 <COLOR Spot="1" RGB="#555349" Register="0" NAME="Resene Oilskin" />
 <COLOR Spot="1" RGB="#BCA184" Register="0" NAME="Resene Okey Dokey" />
@@ -855,7 +855,7 @@
 <COLOR Spot="1" RGB="#FA9D49" Register="0" NAME="Resene Sunshade" />
 <COLOR Spot="1" RGB="#FFB437" Register="0" NAME="Resene Supernova" />
 <COLOR Spot="1" RGB="#C3D6BD" Register="0" NAME="Resene Surf Crest" />
-<COLOR Spot="1" RGB="#07B77" Register="0" NAME="Resene Surfie Green" />
+<COLOR Spot="1" RGB="#007B77" Register="0" NAME="Resene Surfie Green" />
 <COLOR Spot="1" RGB="#1F2142" Register="0" NAME="Resene Surfs Up" />
 <COLOR Spot="1" RGB="#B5B7B7" Register="0" NAME="Resene Surrender" />
 <COLOR Spot="1" RGB="#7C9F2F" Register="0" NAME="Resene Sushi" />
@@ -956,7 +956,7 @@
 <COLOR Spot="1" RGB="#45404F" Register="0" NAME="Resene Warlord" />
 <COLOR Spot="1" RGB="#2D3B42" Register="0" NAME="Resene Warrior" />
 <COLOR Spot="1" RGB="#849137" Register="0" NAME="Resene Wasabi" />
-<COLOR Spot="1" RGB="#06E4E" Register="0" NAME="Resene Watercourse" />
+<COLOR Spot="1" RGB="#006E4E" Register="0" NAME="Resene Watercourse" />
 <COLOR Spot="1" RGB="#727282" Register="0" NAME="Resene Waterloo" />
 <COLOR Spot="1" RGB="#413F6E" Register="0" NAME="Resene Wave Rider" />
 <COLOR Spot="1" RGB="#EEB39E" Register="0" NAME="Resene Wax Flower" />
