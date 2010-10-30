@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QTextStream>
 #include <QByteArray>
+#include <QDebug>
 
 ColorSetManager::ColorSetManager()
 {
@@ -177,12 +178,13 @@ void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTr
 				{
 					QString setName = fi.baseName();
 					setName.replace("_", " ");
-					pList.insert(setName, fi.absoluteFilePath());
+					pList.insert(fi.absolutePath() + "/" + setName, fi.absoluteFilePath());
 					if (parent != 0)
 					{
 						QTreeWidgetItem* item = new QTreeWidgetItem(parent);
 						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 						item->setText(0, setName);
+						item->setData(0, Qt::UserRole, fi.absolutePath());
 						if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked")))
 							item->setIcon(0, QIcon(loadIcon("16/lock.png")));
 					}

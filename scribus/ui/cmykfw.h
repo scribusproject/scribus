@@ -39,7 +39,7 @@ class SCRIBUS_API CMYKChoose : public QDialog
 	Q_OBJECT
 
 public:
-	CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol );
+	CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, bool newCol );
 	~CMYKChoose() {};
 	QLabel* TextLabel1;
 	QLineEdit* Farbname;
@@ -87,7 +87,6 @@ public:
 	int BlackComp;
 	ColorList *EColors;
 	ColorList CurrSwatch;
-	QStringList CColSet;
 	QString Fnam;
 
 public slots:
@@ -125,6 +124,7 @@ protected:
 	QTreeWidgetItem *systemSwatches;
 	QTreeWidgetItem *userSwatches;
 	QTreeWidgetItem *hsvSelector;
+	QStringList customColSet;
 };
 
 #endif // CMYKFARBEN_H

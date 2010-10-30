@@ -87,7 +87,8 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	csm.findUserPalettes(userSwatches);
 	customColSet = csm.userPaletteNames();
 	userSwatches->setExpanded(true);
-	LoadColSet->setCurrentComboItem(docColSet);
+	QFileInfo fi(docColSet);
+	LoadColSet->setCurrentComboItem(fi.baseName());
 	if (m_doc != 0)
 	{
 		label->setText( tr("Merge Color Set"));
@@ -134,7 +135,8 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	connect(okButton, SIGNAL(clicked()), this, SLOT(leaveDialog()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(SaveColSet, SIGNAL(clicked()), this, SLOT(saveDefaults()));
-	connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+//	connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+	connect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
 }
 
 void PaintManagerDialog::leaveDialog()
@@ -379,7 +381,7 @@ void PaintManagerDialog::createNew()
 		else if ((it->parent() == colorItems) || (it == colorItems))
 		{
 			ScColor tmpColor = ScColor(0, 0, 0, 0);
-			CMYKChoose* dia = new CMYKChoose(this, m_doc, tmpColor, tr("New Color"), &m_colorList, customColSet, true);
+			CMYKChoose* dia = new CMYKChoose(this, m_doc, tmpColor, tr("New Color"), &m_colorList, true);
 			if (dia->exec())
 			{
 				dia->Farbe.setSpotColor(dia->Separations->isChecked());
@@ -438,7 +440,7 @@ void PaintManagerDialog::editColorItem()
 		else if ((it->parent() == colorItems) || (it == colorItems))
 		{
 			ScColor tmpColor = m_colorList[it->text(0)];
-			CMYKChoose* dia = new CMYKChoose(this, m_doc, tmpColor, it->text(0), &m_colorList, customColSet, false);
+			CMYKChoose* dia = new CMYKChoose(this, m_doc, tmpColor, it->text(0), &m_colorList, false);
 			if (dia->exec())
 			{
 				dia->Farbe.setSpotColor(dia->Separations->isChecked());
@@ -509,7 +511,7 @@ void PaintManagerDialog::duplicateColorItem()
 			QString nam = tr("Copy of %1").arg(it->text(0));
 			m_colorList.insert(nam, m_colorList[it->text(0)]);
 			ScColor tmpColor = m_colorList[nam];
-			CMYKChoose* dia = new CMYKChoose(this, m_doc, tmpColor, nam, &m_colorList, customColSet, false);
+			CMYKChoose* dia = new CMYKChoose(this, m_doc, tmpColor, nam, &m_colorList, false);
 			if (dia->exec())
 			{
 				dia->Farbe.setSpotColor(dia->Separations->isChecked());
@@ -1096,15 +1098,16 @@ void PaintManagerDialog::loadScribusFormat(QString fileName)
 	}
 }
 
-void PaintManagerDialog::loadDefaults(const QString &txt)
+void PaintManagerDialog::loadDefaults(QTreeWidgetItem* item)
 {
+	QString txt = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
 	if (m_doc == NULL)
 	{
 		m_colorList.clear();
 		dialogGradients.clear();
 	}
 	QString pfadC2 = "";
-	if (txt == "Scribus Small")
+	if (item->text(0) == "Scribus Small")
 	{
 		m_colorList.insert("White", ScColor(0, 0, 0, 0));
 		m_colorList.insert("Black", ScColor(0, 0, 0, 255));
@@ -1136,7 +1139,7 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 		else
 			paletteLocked = false;
 	}
-	if (txt != "Scribus Small")
+	if (item->text(0) != "Scribus Small")
 	{
 		if (importColorsFromFile(pfadC2, m_colorList, &dialogGradients, (m_doc!=0)))
 			m_colorList.ensureBlackAndWhite();
@@ -1162,9 +1165,11 @@ void PaintManagerDialog::loadDefaults(const QString &txt)
 
 void PaintManagerDialog::saveDefaults()
 {
+	QTreeWidgetItem* item = LoadColSet->currentItem();
+	QString NameK = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
-	if ((customColSet.contains(Name)) && (!paletteLocked))
+	if ((customColSet.contains(NameK)) && (!paletteLocked))
 		dia->setEditText(Name, false);
 	else
 		dia->setEditText("", false);
@@ -1230,18 +1235,22 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 			QString nameC = name;
 			nameC.replace(" ", "_");
 			nameC += ".xml";
-			customColSet.append(nameC);
-			LoadColSet->addSubItem(name, userSwatches);
-			disconnect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+			QFileInfo fi(Fname);
+			customColSet.append(fi.absolutePath() + "/" + nameC);
+			QTreeWidgetItem *item = LoadColSet->addSubItem(name, userSwatches);
+			item->setData(0, Qt::UserRole, fi.absolutePath());
+			disconnect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
 			LoadColSet->setCurrentComboItem(name);
-			connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
+			connect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
 		}
 	}
 }
 
 QString PaintManagerDialog::getColorSetName()
 {
-	return LoadColSet->text();
+	QTreeWidgetItem* item = LoadColSet->currentItem();
+	QString NameK = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
+	return NameK;
 }
 
 ScColor PaintManagerDialog::selectedColor()

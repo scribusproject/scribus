@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 #include "swatchcombo.h"
+#include <QFontMetrics>
+#include <QFileInfo>
 
 SwatchCombo::SwatchCombo( QWidget* parent ) : QToolButton(parent)
 {
@@ -48,7 +50,12 @@ void SwatchCombo::itemActivated(QTreeWidgetItem* item)
 		{
 			menu()->hide();
 			setText(item->text(0));
+			QFontMetrics fm(font());
+			QString elText = fm.elidedText(item->text(0), Qt::ElideMiddle, width());
+			setText(elText);
+			setToolTip(item->text(0));
 			emit activated(item->text(0));
+			emit activated(item);
 		}
 	}
 }
@@ -74,11 +81,23 @@ QTreeWidgetItem* SwatchCombo::addSubItem(QString name, QTreeWidgetItem* parent, 
 
 void SwatchCombo::setCurrentComboItem(QString text)
 {
-	setText(text);
+	QFontMetrics fm(font());
+	QString elText = fm.elidedText(text, Qt::ElideMiddle, width());
+	setText(elText);
+	setToolTip(text);
 	QList<QTreeWidgetItem*> lg = dataTree->findItems(text, Qt::MatchExactly | Qt::MatchRecursive);
 	if (lg.count() > 0)
 	{
-		dataTree->setCurrentItem(lg[0]);
+		for (int a = 0; a < lg.count(); a++)
+		{
+			QString pText = lg[a]->data(0, Qt::UserRole).toString();
+			QFileInfo fi(pText);
+			if (fi.baseName() == lg[a]->text(0))
+			{
+				dataTree->setCurrentItem(lg[0]);
+				break;
+			}
+		}
 	}
 }
 

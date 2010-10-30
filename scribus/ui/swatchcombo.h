@@ -45,6 +45,7 @@ public:
 	QTreeWidgetItem* currentItem();
 signals:
 	void activated(const QString &);
+	void activated(QTreeWidgetItem*);
 private slots:
 	void itemActivated(QTreeWidgetItem* item);
 private:

@@ -49,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )
+CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, bool newCol  )
 		: QDialog( parent ), CurrSwatch(doc)
 {
 	setModal(true);
@@ -198,6 +198,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	systemSwatches->setExpanded(true);
 	userSwatches = Swatches->addTopLevelItem( tr("User Swatches"));
 	csm.findUserPalettes(userSwatches);
+	customColSet = csm.userPaletteNames();
 	userSwatches->setExpanded(true);
 	Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
 	Frame4Layout->addWidget( Swatches );
@@ -576,10 +577,11 @@ void CMYKChoose::SelSwatch()
 	{
 		CurrSwatch.clear();
 		QString pfadC2 = "";
-		if ( c->parent() != userSwatches)
-			pfadC2 = csm.paletteFileFromName(c->text(0));
+		QString txt = c->data(0, Qt::UserRole).toString() + "/" + c->text(0);
+		if (!customColSet.contains(txt))
+			pfadC2 = csm.paletteFileFromName(txt);
 		else
-			pfadC2 = csm.userPaletteFileFromName(c->text(0));
+			pfadC2 = csm.userPaletteFileFromName(txt);
 		if (importColorsFromFile(pfadC2, CurrSwatch))
 		{
 			CurrSwatch.insert("White", ScColor(0, 0, 0, 0));

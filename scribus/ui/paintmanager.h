@@ -74,7 +74,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		void removeColorItem();
 		void removeUnusedColorItem();
 		void importColorItems();
-		void loadDefaults(const QString &txt);
+		void loadDefaults(QTreeWidgetItem* item);
 		void saveDefaults();
 	protected:
 		QTreeWidgetItem* updateGradientList(QString addedName = "");
