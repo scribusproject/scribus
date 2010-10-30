@@ -3,6 +3,7 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
+Autoquote.py
 CalendarWizard.py
 ColorChart.py
 DirectImageImport.py
