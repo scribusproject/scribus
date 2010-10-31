@@ -1335,15 +1335,6 @@ void ActionManager::languageChange()
 	(*scrActions)["alignBlock"]->setTexts( tr("&Block"));
 	(*scrActions)["alignForced"]->setTexts( tr("&Forced"));
 
-/*
-	for (uint i=0; i<=100 ; i+=10)
-	{
-		QString shadeName=QString("shade%1").arg(i);
-		(*scrActions)[shadeName]->setTexts( tr("&%1 %").arg(i));
-	}
-
-	(*scrActions)["shadeOther"]->setTexts( tr("&Other..."));
-*/
 	(*scrActions)["typeEffectNormal"]->setTexts( tr("&Normal"));
 	(*scrActions)["typeEffectUnderline"]->setTexts( tr("&Underline"));
 	(*scrActions)["typeEffectUnderlineWords"]->setTexts( tr("Underline &Words"));
@@ -1738,40 +1729,86 @@ void ActionManager::createDefaultMenus()
 		if (!defMenuNames.at(i).second.isEmpty())
 			defMenus.append(QPair<QString, QStringList>(defMenuNames.at(i).second.at(0), QStringList()));
 	}
-/*
-	defMenus.append(QPair<QString, QStringList>("File", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Edit", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Style", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Item", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Insert", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Page", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("View", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Extras", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Window", QStringList()));
-	defMenus.append(QPair<QString, QStringList>("Help", QStringList()));
-*/
-// 	defMenus.append(QPair<QString, QStringList>("Other", QStringList()));
-	
 	QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
 	//File
-	itmenu->second << "fileNew" << "fileNewFromTemplate" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
-	itmenu->second << "fileImportText" << "fileImportText2" << "fileImportAppendText" << "fileImportImage" << "fileImportVector" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
-	itmenu->second << "fileDocSetup" << "fileDocSetup150" << "filePreferences" << "filePreferences150" << "filePrint" << "PrintPreview" << "fileQuit";
+	itmenu->second 
+		<< "fileNew"
+		<< "fileNewFromTemplate"
+		<< "fileOpen"
+		<< "fileClose"
+		<< "fileSave"
+		<< "fileSaveAs"
+		<< "fileRevert"
+		<< "fileCollect"
+		<< "fileImportText"
+		<< "fileImportAppendText"
+		<< "fileImportImage"
+		<< "fileImportVector"
+		<< "fileExportText"
+		<< "fileExportAsEPS"
+		<< "fileExportAsPDF"
+		<< "fileDocSetup"
+		<< "fileDocSetup150"
+		<< "filePreferences"
+		<< "filePreferences150"
+		<< "filePrint"
+		<< "PrintPreview"
+		<< "fileQuit";
 	++itmenu;
 	//Edit
-	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editSelectAllOnLayer" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editEditRenderSource" << "editExtendedImageProperties" << "editColors" << "editReplaceColors" << "editPatterns" << "editStyles" << "editMasterPages" << "editJavascripts";
+	itmenu->second 
+		<< "editUndoAction"
+		<< "editRedoAction"
+		<< "editActionMode"
+		<< "editCut" 
+		<< "editCopy"
+		<< "editPaste"
+		<< "editCopyContents"
+		<< "editPasteContents"
+		<< "editPasteContentsAbs"
+		<< "editClearContents"
+		<< "editSelectAll"
+		<< "editSelectAllOnLayer"
+		<< "editDeselectAll"
+		<< "editSearchReplace"
+		<< "toolsEditWithStoryEditor"
+		<< "editEditWithImageEditor"
+		<< "editEditRenderSource"
+		<< "editColors"
+		<< "editReplaceColors"
+		<< "editPatterns"
+		<< "editStyles"
+		<< "editMasterPages"
+		<< "editJavascripts";
 	//Style
 	++itmenu;
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		itmenu->second << QString("fontSize%1").arg(font_sizes[s]);
-	itmenu->second << "fontSizeOther";
-	itmenu->second << "alignLeft" << "alignCenter" << "alignRight" << "alignBlock" << "alignForced";
+	itmenu->second
+		<< "fontSizeOther"
+		<< "alignLeft" 
+		<< "alignCenter"
+		<< "alignRight"
+		<< "alignBlock"
+		<< "alignForced";
 // 	for (uint i=0; i<=100 ; i+=10)
 // 		itmenu->second << QString("shade%1").arg(i);
 // 	itmenu->second << "shadeOther";
-	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
+	itmenu->second
+		<< "typeEffectNormal"
+		<< "typeEffectUnderline"
+		<< "typeEffectUnderlineWords"
+		<< "typeEffectStrikeThrough"
+		<< "typeEffectAllCaps"
+		<< "typeEffectSmallCaps"
+		<< "typeEffectSuperscript"
+		<< "typeEffectSubscript"
+		<< "typeEffectOutline"
+		<< "typeEffectShadow"
+		<< "styleImageEffects"
+		<< "styleTabulators";
 	//Item
 	++itmenu;
 	itmenu->second 
@@ -1900,19 +1937,81 @@ void ActionManager::createDefaultMenus()
 
 	//Page
 	++itmenu;
-	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
+	itmenu->second
+		<< "pageInsert"
+		<< "pageImport"
+		<< "pageDelete"
+		<< "pageCopy"
+		<< "pageMove"
+		<< "pageApplyMasterPage"
+		<< "pageCopyToMasterPage"
+		<< "pageManageGuides"
+		<< "pageManageMargins"
+		<< "viewSnapToGrid"
+		<< "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit400" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode" << "showMouseCoordinates";
+	itmenu->second
+		<< "viewFitWidth"
+		<< "viewFitInWindow"
+		<< "viewFit50"
+		<< "viewFit75"
+		<< "viewFit100"
+		<< "viewFit200"
+		<< "viewFit400"
+		<< "viewFitPreview"
+		<< "viewShowMargins"
+		<< "viewShowBleeds"
+		<< "viewShowFrames"
+		<< "viewShowLayerMarkers"
+		<< "viewShowImages"
+		<< "viewShowGrid"
+		<< "viewShowGuides"
+		<< "viewShowColumnBorders"
+		<< "viewShowBaseline"
+		<< "viewShowTextChain"
+		<< "viewShowTextControls"
+		<< "viewShowRulers"
+		<< "viewRulerMode"
+		<< "showMouseCoordinates";
 	//Extras
 	++itmenu;
-	itmenu->second << "extrasManageImages" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";
+	itmenu->second
+		<< "extrasManageImages"
+		<< "extrasHyphenateText"
+		<< "extrasDeHyphenateText"
+		<< "extrasGenerateTableOfContents";
 	//Windows
 	++itmenu;
-	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsSymbols" << "toolsToolbarTools" << "toolsToolbarPDF";
+	itmenu->second
+		<< "windowsCascade"
+		<< "windowsTile"
+		<< "toolsProperties"
+		<< "toolsOutline"
+		<< "toolsScrapbook"
+		<< "toolsLayers"
+		<< "toolsPages"
+		<< "toolsBookmarks"
+		<< "toolsMeasurements"
+		<< "toolsActionHistory"
+		<< "toolsPreflightVerifier"
+		<< "toolsAlignDistribute"
+		<< "toolsSymbols"
+		<< "toolsToolbarTools"
+		<< "toolsToolbarPDF";
 	//Help
 	++itmenu;
-	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpOnlineWWW" << "helpOnlineDocs" << "helpOnlineWiki" << "helpOnlineTutorial1" << "helpCheckUpdates";
+	itmenu->second
+		<< "helpAboutScribus"
+		<< "helpAboutPlugins"
+		<< "helpAboutQt"
+		<< "helpTooltips"
+		<< "helpManual"
+		<< "helpOnlineWWW"
+		<< "helpOnlineDocs"
+		<< "helpOnlineWiki"
+		<< "helpOnlineTutorial1"
+		<< "helpCheckUpdates";
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";

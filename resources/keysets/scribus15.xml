@@ -62,7 +62,6 @@
     <function shortcut="" name="fileImportAppendText"/>
     <function shortcut="Ctrl+I" name="fileImportImage"/>
     <function shortcut="Ctrl+I" name="fileImportText"/>
-    <function shortcut="" name="fileImportText2"/>
     <function shortcut="" name="fileImportVector"/>
     <function shortcut="Ctrl+N" name="fileNew"/>
     <function shortcut="Ctrl+Alt+N" name="fileNewFromTemplate"/>
