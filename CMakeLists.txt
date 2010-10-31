@@ -719,19 +719,19 @@ IF (WITH_BOOST)
 ENDIF (WITH_BOOST)
 #>>Boost for 2Geom Tools
 
-#<<GraphicksMagick++ for image import
+#<<GraphicksMagick for image import
 IF (WANT_GRAPHICSMAGICK)
   SET(GMAGICK_DIR ${CMAKE_MODULE_PATH})
   FIND_PACKAGE(GMAGICK)
   IF(GMAGICK_FOUND)
-	MESSAGE("GraphicksMagick++ Found OK")
+	MESSAGE("GraphicksMagick Found OK")
   ELSE(GMAGICK_FOUND)
-	MESSAGE("GraphicksMagick++ NOT found! Building without additional image format support!")
+	MESSAGE("GraphicksMagick NOT found! Building without additional image format support!")
   ENDIF(GMAGICK_FOUND)
 ELSE (WANT_GRAPHICSMAGICK)
-  MESSAGE("Building without GraphicksMagick++")
+  MESSAGE("Building without GraphicksMagick (use -DWANT_GRAPHICSMAGICK=1 to enable)")
 ENDIF (WANT_GRAPHICSMAGICK)
-#>>GraphicksMagick++ for image import
+#>>GraphicksMagick for image import
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########

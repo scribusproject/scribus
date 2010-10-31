@@ -163,12 +163,12 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 		return false;
 	}
 
-	qDebug() << "has matte(alpha):" << image->matte;
-	int width = image->columns;// .baseColumns();
-	int height = image->rows;// baseRows();
+//	qDebug() << "has matte(alpha):" << image->matte;
+	int width = image->columns;
+	int height = image->rows;
 
-	double xres = image->x_resolution; //.xResolution();
-	double yres = image->y_resolution; //.yResolution();
+	double xres = image->x_resolution;
+	double yres = image->y_resolution;
 
 	if (image->colorspace == CMYKColorspace) {
 		qDebug() << "CMYK image";
