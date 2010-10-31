@@ -41,7 +41,9 @@ for which a new license (GPL+exception) is in place.
 #include <QValidator>
 #include <QWidget>
 
-
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
 #include <cmath>
 #include "arrowchooser.h"
 #include "autoform.h"

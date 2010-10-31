@@ -27,7 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapi.h"
 
-#include CMS_INC
+#include "colormgmt/sccolorprofile.h"
+#include "colormgmt/sccolortransform.h"
 
 class QWidget;
 class FileWatcher;
@@ -98,8 +99,6 @@ public:
 	void getCMSProfilesDir(QString pfad, bool showInfo, bool recursive);
 	void InitDefaultColorTransforms(void);
 	void TermDefaultColorTransforms(void);
-	bool IsDefaultProfile(cmsHPROFILE prof);
-	bool IsDefaultTransform(cmsHTRANSFORM trans);
 	bool fileWatcherActive() const;
 	void recheckGS();
 	
@@ -115,13 +114,13 @@ public:
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
 
-	cmsHPROFILE   defaultRGBProfile;
-	cmsHPROFILE   defaultCMYKProfile;
-	cmsHTRANSFORM defaultRGBToScreenSolidTrans;
-	cmsHTRANSFORM defaultRGBToScreenImageTrans;
-	cmsHTRANSFORM defaultCMYKToScreenImageTrans;
-	cmsHTRANSFORM defaultRGBToCMYKTrans;
-	cmsHTRANSFORM defaultCMYKToRGBTrans;
+	ScColorProfile   defaultRGBProfile;
+	ScColorProfile   defaultCMYKProfile;
+	ScColorTransform defaultRGBToScreenSolidTrans;
+	ScColorTransform defaultRGBToScreenImageTrans;
+	ScColorTransform defaultCMYKToScreenImageTrans;
+	ScColorTransform defaultRGBToCMYKTrans;
+	ScColorTransform defaultCMYKToRGBTrans;
 	//CB FIXME protect
 // 	QWidget *m_PaletteParent;
 	

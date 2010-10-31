@@ -10,9 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <setjmp.h>
 #include "scconfig.h"
 #include "scimgdataloader_jpeg.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "exif.h"
-
-#include CMS_INC
 
 typedef struct my_error_mgr
 {
@@ -76,18 +75,18 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	unsigned char* EmbedBuffer;
 	if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
 	{
-		cmsHPROFILE prof = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+		QByteArray profArray = QByteArray((const char*) EmbedBuffer, EmbedLen);
+		ScColorProfile prof  = ScColorMgmtEngine::openProfileFromMem(profArray);
 		if (prof)
 		{
-			if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+			if (prof.colorSpace() == ColorSpace_Rgb)
 				m_profileComponents = 3;
-			if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+			if (prof.colorSpace() == ColorSpace_Cmyk)
 				m_profileComponents = 4;
-			if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+			if (prof.colorSpace() == ColorSpace_Gray)
 				m_profileComponents = 1;
-			m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
+			m_embeddedProfile = profArray;
 		}
-		cmsCloseProfile(prof);
 		free(EmbedBuffer);
 	}
 	//(void) jpeg_finish_decompress(&cinfo);
@@ -220,12 +219,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	unsigned char* EmbedBuffer;
 	if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
 	{
-		const char *Descriptor;
-		cmsHPROFILE prof = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-		Descriptor = cmsTakeProductDesc(prof);
-		m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
-		m_imageInfoRecord.profileName = QString(Descriptor);
-		m_imageInfoRecord.isEmbedded = true;
+		QByteArray profArray = QByteArray((const char*) EmbedBuffer, EmbedLen);
+		ScColorProfile prof = ScColorMgmtEngine::openProfileFromMem(profArray);
+		m_embeddedProfile   = profArray;
+		m_imageInfoRecord.profileName = prof.productDescription();
+		m_imageInfoRecord.isEmbedded  = true;
 		free(EmbedBuffer);
 	}
 	else

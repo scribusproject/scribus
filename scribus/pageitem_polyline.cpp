@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <cmath>
 #include <cassert>
 
 #include "page.h"
@@ -39,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "util.h"
+#include "util_math.h"
 
 using namespace std;
 

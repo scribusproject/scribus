@@ -41,12 +41,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scconfig.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 
 #include "scpainterexbase.h"
-#include CMS_INC
 
 class ScribusDoc;
 
@@ -63,11 +63,11 @@ public:
 	bool mirrorH;
 	bool mirrorV;
 	QString outputProfile;
-	cmsHPROFILE   hProfile;
-	cmsHTRANSFORM rgbToOutputColorTransform;
-	cmsHTRANSFORM rgbToOutputImageTransform;
-	cmsHTRANSFORM cmykToOutputColorTransform;
-	cmsHTRANSFORM cmykToOutputImageTransform;
+	ScColorProfile   hProfile;
+	ScColorTransform rgbToOutputColorTransform;
+	ScColorTransform rgbToOutputImageTransform;
+	ScColorTransform cmykToOutputColorTransform;
+	ScColorTransform cmykToOutputImageTransform;
 };
 
 class SCRIBUS_API ScPainterEx_Ps2 : public ScPainterExBase

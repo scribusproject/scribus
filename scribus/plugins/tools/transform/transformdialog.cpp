@@ -29,6 +29,10 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "commonstrings.h"
 #include "units.h"
+
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
 #include <cmath>
 
 TransformItem::TransformItem(QString text, QListWidget* parent, int type, double val1, double val2) : QListWidgetItem(text, parent, type)

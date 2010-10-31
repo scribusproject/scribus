@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 #include <QTemporaryFile>
-#include <cmath>
+
 #include "color.h"
 #include "commonstrings.h"
 #include "customfdialog.h"

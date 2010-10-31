@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "lensdialog.h"
 #include <QRadialGradient>
 #include "util_icon.h"
+#include "util_math.h"
 #include "selection.h"
 #include "sccolorengine.h"
 #include "scpattern.h"

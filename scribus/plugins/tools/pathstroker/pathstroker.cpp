@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "util.h"
+#include "util_math.h"
 #include <QPainterPathStroker>
 
 int pathstroker_getPluginAPIVersion()

@@ -27,8 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <memory>
 #include <setjmp.h>
-#include CMS_INC
-#include "util_cms.h"
+
+#include "colormgmt/sccolormgmtengine.h"
 #include "commonstrings.h"
 #include "exif.h"
 #include "util_ghostscript.h"
@@ -1893,7 +1893,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	Q_ASSERT(profile);
 	Q_ASSERT(components);
 	ScImgDataLoader* pDataLoader = NULL;
-	cmsHPROFILE prof = 0;
+	ScColorProfile prof;
 
 	profile->resize(0);
 	*components = 0;
@@ -1917,18 +1917,17 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
 		if	(embeddedProfile.size())
 		{
-			prof = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+			prof = ScColorMgmtEngine::openProfileFromMem(embeddedProfile);
 			if (prof)
 			{
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+				if (prof.colorSpace() == ColorSpace_Rgb)
 					*components = 3;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+				if (prof.colorSpace() == ColorSpace_Cmyk)
 					*components = 4;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+				if (prof.colorSpace() == ColorSpace_Gray)
 					*components = 1;
 				*profile = embeddedProfile;
 			}
-			cmsCloseProfile(prof);
 		}
 		delete pDataLoader;
 	}
@@ -1949,8 +1948,8 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	bool bilevel = false;
 //	short resolutionunit = 0;
 	RequestType reqType = requestType;
-	cmsHTRANSFORM xform = 0;
-	cmsHPROFILE inputProf = 0;
+	ScColorTransform xform = 0;
+	ScColorProfile   inputProf = 0;
 	int cmsFlags = 0;
 	int cmsProofFlags = 0;
 	auto_ptr<ScImgDataLoader> pDataLoader;
@@ -2037,12 +2036,12 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	{
 		if ((embeddedProfile.size() > 0 ) && (useEmbedded))
 		{
-			inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+			inputProf = ScColorMgmtEngine::openProfileFromMem(embeddedProfile);
 			inputProfisEmbedded = true;
 		}
 		else
 		{
-			QByteArray profilePath;
+			QString profilePath;
 			//CB If this is null, customfiledialog/picsearch/ScPreview might be sending it
 			Q_ASSERT(cmSettings.doc()!=0);
 			if (isCMYK)
@@ -2051,8 +2050,8 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					imgInfo.profileName = cmSettings.profileName();
 					inputProfisEmbedded = true;
-					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].toLocal8Bit();
-					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
+					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName];
+					inputProf = ScColorMgmtEngine::openProfileFromFile(profilePath);
 				}
 				else
 				{
@@ -2068,7 +2067,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 					imgInfo.profileName = cmSettings.profileName();
 					profilePath = ScCore->InputProfiles[imgInfo.profileName].toLocal8Bit();
 					inputProfisEmbedded = true;
-					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
+					inputProf = ScColorMgmtEngine::openProfileFromFile(profilePath);
 				}
 				else
 				{
@@ -2081,7 +2080,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	}
 	else if ((useProf && embeddedProfile.size() > 0) && (useEmbedded))
 	{
-		inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+		inputProf = ScColorMgmtEngine::openProfileFromMem(embeddedProfile);
 		inputProfisEmbedded = true;
 	}
 	else if (useProf && isCMYK)
@@ -2090,55 +2089,54 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		inputProf = NULL; // Workaround to map directly gray to K channel
 	else if (useProf)
 		inputProf = ScCore->defaultRGBProfile;
-	cmsHPROFILE screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
-	cmsHPROFILE printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
+	ScColorProfile screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
+	ScColorProfile printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
 	if (useProf && inputProf && screenProf && printerProf)
 	{
 		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
-		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));
-		DWORD inputProfFormat = TYPE_BGRA_8;
-		DWORD outputProfFormat = SC_TYPE_YMCK_8;
-		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
-		if ( inputProfColorSpace == icSigRgbData )
-			inputProfFormat = isPsdTiff ? TYPE_RGBA_8 : TYPE_BGRA_8; // Later make tiff and psd loader use TYPE_BGRA_8
-		else if (( inputProfColorSpace == icSigCmykData ) && isPsdTiff)
+		eColorFormat inputProfFormat  = Format_BGRA_8;
+		eColorFormat outputProfFormat = Format_YMCK_8;
+		eColorSpaceType inputProfColorSpace = inputProf.colorSpace();
+		if ( inputProfColorSpace == ColorSpace_Rgb )
+			inputProfFormat = isPsdTiff ? Format_RGBA_8 : Format_BGRA_8; // Later make tiff and psd loader use Format_BGRA_8
+		else if (( inputProfColorSpace == ColorSpace_Cmyk ) && isPsdTiff)
 		{
 			if (pDataLoader->r_image.channels() == 5)
-				inputProfFormat = (COLORSPACE_SH(PT_CMYK)|EXTRA_SH(1)|CHANNELS_SH(4)|BYTES_SH(1));
+				inputProfFormat = Format_CMYKA_8;
 			else
-				inputProfFormat = TYPE_CMYK_8;
+				inputProfFormat = Format_CMYK_8;
 		}
-		else if ( inputProfColorSpace == icSigCmykData )
-			inputProfFormat = SC_TYPE_YMCK_8;
-		else if ( inputProfColorSpace == icSigGrayData )
-			inputProfFormat = TYPE_GRAY_8;
-		int outputProfColorSpace = static_cast<int>(cmsGetColorSpace(printerProf));
-		if ( outputProfColorSpace == icSigRgbData )
-			outputProfFormat = TYPE_BGRA_8;
-		else if ( outputProfColorSpace == icSigCmykData )
-			outputProfFormat = SC_TYPE_YMCK_8;
+		else if ( inputProfColorSpace == ColorSpace_Cmyk )
+			inputProfFormat = Format_YMCK_8;
+		else if ( inputProfColorSpace == ColorSpace_Gray )
+			inputProfFormat = Format_GRAY_8;
+		eColorSpaceType outputProfColorSpace = printerProf.colorSpace();
+		if ( outputProfColorSpace == ColorSpace_Rgb )
+			outputProfFormat = Format_BGRA_8;
+		else if ( outputProfColorSpace == ColorSpace_Cmyk )
+			outputProfFormat = Format_YMCK_8;
 		if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
 		{
-			cmsProofFlags |= cmsFLAGS_SOFTPROOFING;
+			cmsProofFlags |= Ctf_Softproofing;
 			if (cmSettings.doGamutCheck())
 			{
-				cmsProofFlags |= cmsFLAGS_GAMUTCHECK;
+				cmsProofFlags |= Ctf_GamutCheck;
 			}
 		}
 		if (!cmSettings.useColorManagement() || cmSettings.useBlackPoint())
-			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+			cmsFlags |= Ctf_BlackPointCompensation;
 		switch (reqType)
 		{
 		case CMYKData: // CMYK
 //			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
-			if (outputProfColorSpace != icSigCmykData )
+			xform = ScColorMgmtEngine::createTransform(inputProf, inputProfFormat, printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+			if (outputProfColorSpace != ColorSpace_Cmyk )
 				*realCMYK = isCMYK = false;
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
+				xform = ScColorMgmtEngine::createTransform(inputProf, inputProfFormat, screenProf, Format_BGRA_8, cmSettings.intent(), cmsFlags);
 			else
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
@@ -2164,17 +2162,17 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 							xform = cmSettings.cmykImageProofingTransform();
 						else
 							xform = cmSettings.rgbImageProofingTransform();
-						cmsChangeBuffersFormat(xform, inputProfFormat, TYPE_BGRA_8);
+						xform.changeBufferFormat(inputProfFormat, Format_BGRA_8);
 						stdProof = true;
 					}
 					else
-						xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
-					                     screenProf, TYPE_BGRA_8, printerProf,
-					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags | cmsProofFlags);
+						xform = ScColorMgmtEngine::createProofingTransform(inputProf, inputProfFormat,
+					                     screenProf, Format_BGRA_8, printerProf,
+					                     cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
 				}
 				else
-					xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, 
-										 TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
+					xform = ScColorMgmtEngine::createTransform(inputProf, inputProfFormat, screenProf, 
+										 Format_BGRA_8, cmSettings.intent(), cmsFlags);
 			}
 			break;
 		case RawData: // no Conversion just raw Data
@@ -2205,13 +2203,13 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
-			LPBYTE ptr2 = NULL;
+			uchar* ptr2 = NULL;
 			for (int i = 0; i < height(); i++)
 			{
-				LPBYTE ptr = scanLine(i);
+				uchar* ptr = scanLine(i);
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 					ptr2 = pDataLoader->r_image.scanLine(i);
-				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
+				if ( inputProfFormat == Format_GRAY_8 && (reqType != CMYKData) )
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
@@ -2220,10 +2218,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 						uc[uci] = *ucs;
 						ucs += 4;
 					}
-					cmsDoTransform(xform, uc, ptr, width());
+					xform.apply(uc, ptr, width());
 					delete[] uc;
 				}
-				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == CMYKData) )
+				else if ( inputProfFormat == Format_GRAY_8 && (reqType == CMYKData) )
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr2 ? ptr2 : ptr;
@@ -2240,10 +2238,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 					{
-						cmsDoTransform(xform, ptr2, ptr, width());
+						xform.apply(ptr2, ptr, width());
 					}
 					else
-						cmsDoTransform(xform, ptr, ptr, width());
+						xform.apply(ptr, ptr, width());
 				}
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
@@ -2299,15 +2297,11 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 					}
 				}
 			}
-			if (!stdProof && !ScCore->IsDefaultTransform(xform))
-				cmsDeleteTransform (xform);
 		}
-		if ((inputProf) && (inputProfisEmbedded) && !ScCore->IsDefaultProfile(inputProf))
-			cmsCloseProfile(inputProf);
 		if (isCMYK)
-			cmsChangeBuffersFormat(cmSettings.cmykImageProofingTransform(), TYPE_CMYK_8, TYPE_RGBA_8);
+			cmSettings.cmykImageProofingTransform().changeBufferFormat(Format_CMYK_8, Format_RGBA_8);
 		else
-			cmsChangeBuffersFormat(cmSettings.rgbImageProofingTransform(), TYPE_RGBA_8, TYPE_RGBA_8);
+			cmSettings.rgbImageProofingTransform().changeBufferFormat(Format_RGBA_8, Format_RGBA_8);
 	}
 	else
 	{

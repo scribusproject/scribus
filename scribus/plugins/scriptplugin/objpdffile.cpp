@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "objpdffile.h"
 #include "cmdutil.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "bookmarkpalette.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
@@ -1106,18 +1107,15 @@ static PyObject *PDFfile_save(PDFfile *self)
 			if (ScCore->primaryMainWindow()->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
 			{
 // Where does compiler find cms function when I have not included header for it
-				const char *Descriptor;
-				cmsHPROFILE hIn;
-				hIn = cmsOpenProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf].toLocal8Bit().constData(), "r");
-				Descriptor = cmsTakeProductDesc(hIn);
-				nam = QString(Descriptor);
-				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+				ScColorProfile hIn;
+				hIn = ScColorMgmtEngine::openProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf]);
+				nam = hIn.productDescription();
+				if (hIn.colorSpace() == ColorSpace_Rgb)
 					Components = 3;
-				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+				if (hIn.colorSpace() == ColorSpace_Cmyk)
 					Components = 4;
-				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
+				if (hIn.colorSpace() == ColorSpace_Gray)
 					Components = 3;
-				cmsCloseProfile(hIn);
 				ScCore->primaryMainWindow()->doc->PDF_Options.Info = PyString_AsString(self->info);
 				self->bleedt = minmaxd(self->bleedt, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
 				ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Top = self->bleedt/ScCore->primaryMainWindow()->view->Doc->unitRatio();

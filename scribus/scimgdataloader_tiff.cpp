@@ -12,7 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scimgdataloader_tiff.h"
 #include "util_color.h"
-#include CMS_INC
+
+#include "colormgmt/sccolormgmtengine.h"
 
 static void TagExtender(TIFF *tiff)
 {
@@ -45,22 +46,22 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if(tif)
 	{
-		DWORD EmbedLen = 0;
-		LPBYTE EmbedBuffer;
+		uint32 EmbedLen = 0;
+		void*  EmbedBuffer;
 		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 		{
-			cmsHPROFILE tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+			QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+			ScColorProfile tiffProf = ScColorMgmtEngine::openProfileFromMem(profArray);
 			if (tiffProf)
 			{
-				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+				if (tiffProf.colorSpace() == ColorSpace_Rgb)
 					m_profileComponents = 3;
-				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+				if (tiffProf.colorSpace() == ColorSpace_Cmyk)
 					m_profileComponents = 4;
-				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigGrayData)
+				if (tiffProf.colorSpace() == ColorSpace_Gray)
 					m_profileComponents = 1;
-				m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
+				m_embeddedProfile = profArray;
 			}
-			cmsCloseProfile(tiffProf);
 		}
 		TIFFClose(tif);
 	}
@@ -661,17 +662,15 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		m_imageInfoRecord.exifInfo.artist = QString(artist);
 		m_imageInfoRecord.exifInfo.thumbnail = QImage();
 		m_imageInfoRecord.exifDataValid = true;
-		DWORD EmbedLen = 0;
-		LPBYTE EmbedBuffer;
+		uint32 EmbedLen = 0;
+		void*  EmbedBuffer;
 		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 		{
-			const char *Descriptor;
-			cmsHPROFILE tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-			Descriptor = cmsTakeProductDesc(tiffProf);
-			m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
-			m_imageInfoRecord.profileName = QString(Descriptor);
-			m_imageInfoRecord.isEmbedded = true;
-			cmsCloseProfile(tiffProf);
+			QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+			ScColorProfile tiffProf = ScColorMgmtEngine::openProfileFromMem(profArray);
+			m_embeddedProfile = profArray;
+			m_imageInfoRecord.profileName = tiffProf.productDescription();
+			m_imageInfoRecord.isEmbedded  = true;
 		}
 		else
 		{

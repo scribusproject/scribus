@@ -6,14 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scconfig.h"
 #include "scimgdataloader_psd.h"
-#include "util_color.h"
 #include "sccolorengine.h"
+#include "util_color.h"
+#include "colormgmt/sccolormgmtengine.h"
 
 #include <QFile>
 #include <QFileInfo>
 #include <QList>
-
-#include CMS_INC
 
 static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 {
@@ -46,7 +45,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
-	cmsHPROFILE prof = 0;
+	ScColorProfile prof;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
@@ -72,17 +71,16 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 				return;
 			if (m_embeddedProfile.size() > 0)
 			{
-				prof = cmsOpenProfileFromMem(m_embeddedProfile.data(), m_embeddedProfile.size());
+				prof = ScColorMgmtEngine::openProfileFromMem(m_embeddedProfile);
 				if (prof)
 				{
-					if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+					if (prof.colorSpace() == ColorSpace_Rgb)
 						m_profileComponents = 3;
-					if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+					if (prof.colorSpace() == ColorSpace_Cmyk)
 						m_profileComponents = 4;
-					if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+					if (prof.colorSpace() == ColorSpace_Gray)
 						m_profileComponents = 1;
 				}
-				cmsCloseProfile(prof);
 			}
 			f.close();
 		}
@@ -167,11 +165,9 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 			return false;
 		if (m_embeddedProfile.size() > 0)
 		{
-			cmsHPROFILE prof = cmsOpenProfileFromMem(m_embeddedProfile.data(), m_embeddedProfile.size());
-			const char *Descriptor;
-			Descriptor = cmsTakeProductDesc(prof);
-			m_imageInfoRecord.profileName = QString(Descriptor);
-			m_imageInfoRecord.isEmbedded = true;
+			ScColorProfile prof = ScColorMgmtEngine::openProfileFromMem(m_embeddedProfile);
+			m_imageInfoRecord.profileName = prof.productDescription();
+			m_imageInfoRecord.isEmbedded  = true;
 		}
 		if (header.color_mode == CM_CMYK)
 			isCMYK = true;
@@ -926,18 +922,14 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	}
 	if (header.color_mode == CM_LABCOLOR)
 	{
-		cmsHPROFILE hsRGB = cmsCreate_sRGBProfile();
-		cmsHPROFILE hLab  = cmsCreateLabProfile(NULL);
-		DWORD inputProfFormat = (COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1));
-		cmsHTRANSFORM xform = cmsCreateTransform(hLab, inputProfFormat, hsRGB, TYPE_RGBA_8, INTENT_PERCEPTUAL, 0);
+		ScColorProfile hsRGB = ScColorMgmtEngine::createProfile_sRGB();
+		ScColorProfile hLab  = ScColorMgmtEngine::createProfile_Lab();
+		ScColorTransform xform = ScColorMgmtEngine::createTransform(hLab, Format_LabA_8, hsRGB, Format_RGBA_8, Intent_Perceptual, 0);
 		for (int i = 0; i < r2_image.height(); i++)
 		{
-			LPBYTE ptr = r2_image.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, r2_image.width());
+			uchar* ptr = r2_image.scanLine(i);
+			xform.apply(ptr, ptr, r2_image.width());
 		}
-		cmsDeleteTransform (xform);
-		cmsCloseProfile(hsRGB);
-		cmsCloseProfile(hLab);
 	}
 	s.device()->seek( base2 );
 	QImage tmpImg2;
@@ -1517,18 +1509,14 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 	}
 	if (header.color_mode == CM_LABCOLOR)
 	{
-		cmsHPROFILE hsRGB = cmsCreate_sRGBProfile();
-		cmsHPROFILE hLab  = cmsCreateLabProfile(NULL);
-		DWORD inputProfFormat = (COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1));
-		cmsHTRANSFORM xform = cmsCreateTransform(hLab, inputProfFormat, hsRGB, TYPE_RGBA_8, INTENT_PERCEPTUAL, 0);
+		ScColorProfile hsRGB   = ScColorMgmtEngine::createProfile_sRGB();
+		ScColorProfile hLab    = ScColorMgmtEngine::createProfile_Lab();
+		ScColorTransform xform = ScColorMgmtEngine::createTransform(hLab, Format_LabA_8, hsRGB, Format_RGBA_8, Intent_Perceptual, 0);
 		for (int i = 0; i < r_image.height(); i++)
 		{
-			LPBYTE ptr = r_image.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, r_image.width());
+			uchar* ptr = r_image.scanLine(i);
+			xform.apply(ptr, ptr, r_image.width());
 		}
-		cmsDeleteTransform (xform);
-		cmsCloseProfile(hsRGB);
-		cmsCloseProfile(hLab);
 	}
 	return true;
 }

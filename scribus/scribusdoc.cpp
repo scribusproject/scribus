@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "cmserrorhandling.h"
 #include "commonstrings.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "desaxe/digester.h"
 #include "desaxe/saxXML.h"
 #include "fileloader.h"
@@ -81,7 +82,6 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "units.h"
 #include "util.h"
-#include "util_cms.h"
 #include "util_icon.h"
 #include "util_math.h"
 
@@ -662,57 +662,6 @@ const ScGuardedPtr<ScribusDoc>& ScribusDoc::guardedPtr() const
 void ScribusDoc::CloseCMSProfiles()
 {
 	HasCMS = false;
-	if (ScCore->haveCMS() /*&& CMSSettings.CMSinUse*/)
-	{
-		if (DocInputImageRGBProf && !ScCore->IsDefaultProfile(DocInputImageRGBProf))
-			cmsCloseProfile(DocInputImageRGBProf);
-		if (DocInputImageCMYKProf && !ScCore->IsDefaultProfile(DocInputImageCMYKProf))
-			cmsCloseProfile(DocInputImageCMYKProf);
-		if (DocInputRGBProf && !ScCore->IsDefaultProfile(DocInputRGBProf))
-			cmsCloseProfile(DocInputRGBProf);
-		if (DocInputCMYKProf && !ScCore->IsDefaultProfile(DocInputCMYKProf))
-			cmsCloseProfile(DocInputCMYKProf);
-		if (DocOutputProf && !ScCore->IsDefaultProfile(DocOutputProf))
-			cmsCloseProfile(DocOutputProf);
-		if (DocPrinterProf && !ScCore->IsDefaultProfile(DocPrinterProf))
-			cmsCloseProfile(DocPrinterProf);
-		if (stdTransRGBMon && !ScCore->IsDefaultTransform(stdTransRGBMon))
-			cmsDeleteTransform(stdTransRGBMon);
-		if (stdTransCMYKMon && !ScCore->IsDefaultTransform(stdTransCMYKMon))
-			cmsDeleteTransform(stdTransCMYKMon);
-		if (stdProof && !ScCore->IsDefaultTransform(stdProof))
-			cmsDeleteTransform(stdProof);
-		if (stdTransImg && !ScCore->IsDefaultTransform(stdTransImg))
-			cmsDeleteTransform(stdTransImg);
-		if (stdProofImg && !ScCore->IsDefaultTransform(stdProofImg))
-			cmsDeleteTransform(stdProofImg);
-		if (stdTransCMYK && !ScCore->IsDefaultTransform(stdTransCMYK))
-			cmsDeleteTransform(stdTransCMYK);
-		if (stdProofCMYK && !ScCore->IsDefaultTransform(stdProofCMYK))
-			cmsDeleteTransform(stdProofCMYK);
-		if (stdTransRGB && !ScCore->IsDefaultTransform(stdTransRGB))
-			cmsDeleteTransform(stdTransRGB);
-		if (stdProofCMYKGC && !ScCore->IsDefaultTransform(stdProofCMYKGC))
-			cmsDeleteTransform(stdProofCMYKGC);
-		if (stdProofGC && !ScCore->IsDefaultTransform(stdProofGC))
-			cmsDeleteTransform(stdProofGC);
-		DocInputRGBProf = NULL;
-		DocInputCMYKProf = NULL;
-		DocInputImageRGBProf = NULL;
-		DocInputImageCMYKProf = NULL;
-		DocOutputProf = NULL;
-		DocPrinterProf = NULL;
-		stdTransRGBMon = NULL;
-		stdTransCMYKMon = NULL;
-		stdProof = NULL;
-		stdTransImg = NULL;
-		stdProofImg = NULL;
-		stdTransCMYK = NULL;
-		stdProofCMYK = NULL;
-		stdTransRGB = NULL;
-		stdProofCMYKGC = NULL;
-		stdProofGC = NULL;
-	}
 	SetDefaultCMSParams();
 }
 
@@ -721,8 +670,8 @@ void ScribusDoc::SetDefaultCMSParams()
 	BlackPoint     = true;
 	SoftProofing   = false;
 	Gamut          = false;
-	IntentColors   = 1; // INTENT_RELATIVE_COLORIMETRIC
-	IntentImages   = 1; // INTENT_RELATIVE_COLORIMETRIC
+	IntentColors   = Intent_Relative_Colorimetric;
+	IntentImages   = Intent_Relative_Colorimetric;
 	DocInputRGBProf       = ScCore->defaultRGBProfile;
 	DocInputCMYKProf      = ScCore->defaultCMYKProfile;
 	DocInputImageRGBProf  = ScCore->defaultRGBProfile;
@@ -745,91 +694,60 @@ void ScribusDoc::SetDefaultCMSParams()
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo)
 {
 	HasCMS = false;
-	cmsHPROFILE inputProf = NULL;
-	cmsErrorAction(LCMS_ERROR_ABORT);
-	if (setjmp(cmsJumpBuffer))
-	{
-		// Reset to the default handler otherwise may enter a loop
-		// if an error occur afterwards
-		cmsSetErrorHandler(NULL);
-		cmsErrorAction(LCMS_ERROR_IGNORE);
-		CloseCMSProfiles();
-		cmsErrorAction(LCMS_ERROR_ABORT);
-		CMSSettings.CMSinUse = false;
-		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
-		if (ScCore->usingGUI())
-			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
-		else
-			qWarning( "%s", message.toLocal8Bit().data() );
-		return false;
-	}
-	cmsSetErrorHandler(&cmsErrorHandler);
-	const QByteArray rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].toLocal8Bit());
-	DocInputRGBProf = cmsOpenProfileFromFile(rgbInputProfilePath.data(), "r");
-	const QByteArray cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].toLocal8Bit());
-	DocInputCMYKProf = cmsOpenProfileFromFile(cmykInputProfilePath.data(), "r");
-	const QByteArray monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].toLocal8Bit());
-	DocOutputProf = cmsOpenProfileFromFile(monitorProfilePath.data(), "r");
-	const QByteArray printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].toLocal8Bit());
-	DocPrinterProf = cmsOpenProfileFromFile(printerProfilePath, "r");
-	const QByteArray rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].toLocal8Bit());
-	DocInputImageRGBProf = cmsOpenProfileFromFile(rgbInputImgProfilePath.data(), "r");
-	const QByteArray cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].toLocal8Bit());
-	DocInputImageCMYKProf = cmsOpenProfileFromFile(cmykInputImgProfilePath.data(), "r");
-	if ((DocInputRGBProf == NULL) || (DocInputCMYKProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL) || (DocInputImageCMYKProf == NULL) || (DocInputImageRGBProf == NULL))
+	ScColorProfile inputProf = NULL;
+
+	DocInputRGBProf  = ScColorMgmtEngine::openProfileFromFile( InPo[CMSSettings.DefaultSolidColorRGBProfile] );
+	DocInputCMYKProf = ScColorMgmtEngine::openProfileFromFile( InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile] );
+	DocOutputProf    =  ScColorMgmtEngine::openProfileFromFile( MoPo[CMSSettings.DefaultMonitorProfile] );
+	DocPrinterProf   =  ScColorMgmtEngine::openProfileFromFile( PrPo[CMSSettings.DefaultPrinterProfile] );
+	DocInputImageRGBProf =  ScColorMgmtEngine::openProfileFromFile( InPo[CMSSettings.DefaultImageRGBProfile] );
+	DocInputImageCMYKProf =  ScColorMgmtEngine::openProfileFromFile( InPoCMYK[CMSSettings.DefaultImageCMYKProfile] );
+
+	if ((!DocInputRGBProf) || (!DocInputCMYKProf) || (!DocOutputProf) || (!DocPrinterProf) || (!DocInputImageCMYKProf) || (!DocInputImageRGBProf))
 	{
 		CMSSettings.CMSinUse = false;
-		cmsSetErrorHandler(NULL);
 		return false;
 	}
-	int dcmsFlags = 0;
+
+	int dcmsFlags   = 0;
 	int dcmsFlagsGC = 0;
-	dcmsFlags |= cmsFLAGS_LOWRESPRECALC;
-	dcmsFlagsGC |= cmsFLAGS_LOWRESPRECALC;
+	dcmsFlags   |= Ctf_LowResPrecalc;
+	dcmsFlagsGC |= Ctf_LowResPrecalc;
 //	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
 	if (CMSSettings.GamutCheck)
-		dcmsFlagsGC |= cmsFLAGS_GAMUTCHECK;
+		dcmsFlagsGC |= Ctf_GamutCheck;
 	if (CMSSettings.BlackPoint)
 	{
-		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-		dcmsFlagsGC |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlags   |= Ctf_BlackPointCompensation;
+		dcmsFlagsGC |= Ctf_BlackPointCompensation;
 	}
-	// set Gamut alarm color to #00ff00
-	cmsSetAlarmCodes(0, 255, 0);
-	stdTransRGBMon  = scCmsCreateTransform(DocInputRGBProf, TYPE_RGB_16,
-										DocOutputProf, TYPE_RGB_16,
-										IntentColors,
-										dcmsFlags);
-	stdTransCMYKMon = scCmsCreateTransform(DocInputCMYKProf, TYPE_CMYK_16,
-										DocOutputProf, TYPE_RGB_16,
-										IntentColors,
-										dcmsFlags);
+
+	stdTransRGBMon  = ScColorMgmtEngine::createTransform(DocInputRGBProf, Format_RGB_16,
+										DocOutputProf, Format_RGB_16,
+										IntentColors, dcmsFlags);
+	stdTransCMYKMon = ScColorMgmtEngine::createTransform(DocInputCMYKProf, Format_CMYK_16,
+										DocOutputProf, Format_RGB_16,
+										IntentColors, dcmsFlags);
 	// TODO : check input profiles used for images
-	stdProofImg = scCmsCreateProofingTransform(DocInputImageRGBProf, TYPE_RGBA_8,
-	              DocOutputProf, TYPE_RGBA_8,
-	              DocPrinterProf,
-	              IntentImages,
-	              INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsGC | cmsFLAGS_SOFTPROOFING);
-	stdProofImgCMYK = scCmsCreateProofingTransform(DocInputImageCMYKProf, TYPE_CMYK_8,
-	              DocOutputProf, TYPE_RGBA_8,
-	              DocPrinterProf,
-	              IntentImages,
-	              INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsGC | cmsFLAGS_SOFTPROOFING);
-	stdTransImg = scCmsCreateTransform(DocInputRGBProf, TYPE_RGBA_8,
-	                                 DocOutputProf, TYPE_RGBA_8,
-	                                 IntentImages,
-	                                 dcmsFlags);
-	stdTransRGB = scCmsCreateTransform(DocInputCMYKProf, TYPE_CMYK_16,
-						DocInputRGBProf, TYPE_RGB_16,
-						IntentColors,
-						dcmsFlags);
-	stdTransCMYK = scCmsCreateTransform(DocInputRGBProf, TYPE_RGB_16,
-						DocInputCMYKProf, TYPE_CMYK_16,
-						IntentColors,
-						dcmsFlags);
-	cmsHPROFILE inputProfRGB = NULL;
-	cmsHPROFILE inputProfCMYK = NULL;
-	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
+	stdProofImg = ScColorMgmtEngine::createProofingTransform(DocInputImageRGBProf, Format_RGBA_8,
+					DocOutputProf, Format_RGBA_8, DocPrinterProf, IntentImages,
+					Intent_Relative_Colorimetric, dcmsFlagsGC);
+	stdProofImgCMYK = ScColorMgmtEngine::createProofingTransform(DocInputImageCMYKProf, Format_CMYK_8,
+					DocOutputProf, Format_RGBA_8, DocPrinterProf, IntentImages, 
+					Intent_Relative_Colorimetric, dcmsFlagsGC);
+	stdTransImg = ScColorMgmtEngine::createTransform(DocInputRGBProf, Format_RGBA_8,
+	                     DocOutputProf, Format_RGBA_8,
+	                     IntentImages, dcmsFlags);
+	stdTransRGB = ScColorMgmtEngine::createTransform(DocInputCMYKProf, Format_CMYK_16,
+						DocInputRGBProf, Format_RGB_16,
+						IntentColors, dcmsFlags);
+	stdTransCMYK = ScColorMgmtEngine::createTransform(DocInputRGBProf, Format_RGB_16,
+						DocInputCMYKProf, Format_CMYK_16,
+						IntentColors, dcmsFlags);
+
+	ScColorProfile inputProfRGB;
+	ScColorProfile inputProfCMYK;
+	if (DocPrinterProf.colorSpace() == ColorSpace_Cmyk)
 	{
 		inputProf = (CMSSettings.SoftProofOn && CMSSettings.SoftProofFullOn) ? DocInputCMYKProf : DocPrinterProf;
 		inputProfRGB  = DocInputRGBProf;
@@ -841,47 +759,63 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		inputProfRGB  = inputProf;
 		inputProfCMYK = DocInputCMYKProf;
 	}
-	stdProof = scCmsCreateProofingTransform(inputProfRGB, TYPE_RGB_16,
-	                    DocOutputProf, TYPE_RGB_16,
+	stdProof = ScColorMgmtEngine::createProofingTransform(inputProfRGB, Format_RGB_16,
+	                    DocOutputProf, Format_RGB_16,
 	                    DocPrinterProf,
 	                    IntentColors,
-	                    INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-	stdProofGC = scCmsCreateProofingTransform(inputProfRGB, TYPE_RGB_16,
-	                    DocOutputProf, TYPE_RGB_16,
+	                    Intent_Relative_Colorimetric, dcmsFlags);
+	stdProofGC = ScColorMgmtEngine::createProofingTransform(inputProfRGB, Format_RGB_16,
+	                    DocOutputProf, Format_RGB_16,
 	                    DocPrinterProf,
 	                    IntentColors,
-	                    INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-	stdProofCMYK = scCmsCreateProofingTransform(inputProfCMYK, TYPE_CMYK_16,
-						DocOutputProf, TYPE_RGB_16,
+	                    Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);
+	stdProofCMYK = ScColorMgmtEngine::createProofingTransform(inputProfCMYK, Format_CMYK_16,
+						DocOutputProf, Format_RGB_16,
 						DocPrinterProf,
 						IntentColors,
-						INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-	stdProofCMYKGC = scCmsCreateProofingTransform(inputProfCMYK, TYPE_CMYK_16,
-						DocOutputProf, TYPE_RGB_16,
+						Intent_Relative_Colorimetric, dcmsFlags);
+	stdProofCMYKGC = ScColorMgmtEngine::createProofingTransform(inputProfCMYK, Format_CMYK_16,
+						DocOutputProf, Format_RGB_16,
 						DocPrinterProf,
 						IntentColors,
-						INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+						Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);
 
-	if (static_cast<int>(cmsGetColorSpace(DocInputRGBProf)) == icSigRgbData)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsInput2 = 3;
-	if (static_cast<int>(cmsGetColorSpace(DocInputRGBProf)) == icSigCmykData)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsInput2 = 4;
-	if (static_cast<int>(cmsGetColorSpace(DocInputRGBProf)) == icSigCmyData)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsInput2 = 3;
-	if (static_cast<int>(cmsGetColorSpace(DocInputCMYKProf)) == icSigRgbData)
+	if (DocInputCMYKProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsInput3 = 3;
-	if (static_cast<int>(cmsGetColorSpace(DocInputCMYKProf)) == icSigCmykData)
+	if (DocInputCMYKProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsInput3 = 4;
-	if (static_cast<int>(cmsGetColorSpace(DocInputCMYKProf)) == icSigCmyData)
+	if (DocInputCMYKProf.colorSpace() == ColorSpace_Cmy)
 			CMSSettings.ComponentsInput3 = 3;
-	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigRgbData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsPrinter = 3;
-	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsPrinter = 4;
-	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmyData)
+	if (DocPrinterProf.colorSpace() == ColorSpace_Cmy)
 			CMSSettings.ComponentsPrinter = 3;
 
-	cmsSetErrorHandler(NULL);
+	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&
+		             stdTransImg    && stdTransRGB     && stdTransCMYK && stdProof       &&
+	                 stdProofGC     && stdProofCMYK    && stdProofCMYKGC);
+	if (!success)
+	{
+		// Reset to the default handler otherwise may enter a loop
+		// if an error occur afterwards
+		CloseCMSProfiles();
+		CMSSettings.CMSinUse = false;
+		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
+		if (ScCore->usingGUI())
+			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+		else
+			qWarning( "%s", message.toLocal8Bit().data() );
+		return false;
+	}
+
 	return true;
 }
 
@@ -11098,7 +11032,7 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
-			currItem->IRender = intentIndex;
+			currItem->IRender = (eRenderIntent) intentIndex;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->update();
 		}

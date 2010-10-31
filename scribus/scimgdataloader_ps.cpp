@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QRegExp>
 
+#include "colormgmt/sccolormgmtengine.h"
 #include "scclocale.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -81,20 +82,17 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 					}
 					if (tmp.startsWith("%%EndICCProfile"))
 					{
-						cmsHPROFILE prof = cmsOpenProfileFromMem(psdata.data(), psdata.size());
+						ScColorProfile prof = ScColorMgmtEngine::openProfileFromMem(psdata);
 						if (prof)
 						{
-							if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+							if (prof.colorSpace() == ColorSpace_Rgb)
 								m_profileComponents = 3;
-							if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+							if (prof.colorSpace() == ColorSpace_Cmyk)
 								m_profileComponents = 4;
-							const char *Descriptor;
-							Descriptor = cmsTakeProductDesc(prof);
-							m_imageInfoRecord.profileName = QString(Descriptor);
+							m_imageInfoRecord.profileName = prof.productDescription();
 							m_imageInfoRecord.isEmbedded = true;
 							m_embeddedProfile = QByteArray((const char*)psdata.data(), psdata.size());
 						}
-						cmsCloseProfile(prof);
 						break;
 					}
 				}
@@ -180,7 +178,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					f2.close();
 					imgc.resize(0);
 					ScImage thum;
-					CMSettings cms(0, "", 0);
+					CMSettings cms(0, "", Intent_Perceptual);
 					bool mode = true;
 					if (thum.LoadPicture(tmpFile, 1, cms, false, false, ScImage::RGBData, 72, &mode))
 					{
@@ -427,20 +425,17 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 							}
 							if (tmp.startsWith("%%EndICCProfile"))
 							{
-								cmsHPROFILE prof = cmsOpenProfileFromMem(psdata.data(), psdata.size());
+								ScColorProfile prof = ScColorMgmtEngine::openProfileFromMem(psdata);
 								if (prof)
 								{
-									if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+									if (prof.colorSpace() == ColorSpace_Rgb)
 										m_profileComponents = 3;
-									if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+									if (prof.colorSpace() == ColorSpace_Cmyk)
 										m_profileComponents = 4;
-									const char *Descriptor;
-									Descriptor = cmsTakeProductDesc(prof);
-									m_imageInfoRecord.profileName = QString(Descriptor);
-									m_imageInfoRecord.isEmbedded = true;
+									m_imageInfoRecord.profileName = prof.productDescription();
+									m_imageInfoRecord.isEmbedded  = true;
 									m_embeddedProfile = QByteArray((const char*)psdata.data(), psdata.size());
 								}
-								cmsCloseProfile(prof);
 								break;
 							}
 						}

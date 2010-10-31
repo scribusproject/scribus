@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QDrag>
 #include <QMimeData>
-#include <cmath>
 
 #include "oodrawimp.h"
 

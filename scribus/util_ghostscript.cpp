@@ -38,6 +38,10 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
+#if defined(_WIN32)
+#include <windows.h>
+#endif
+
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scpaths.h"

@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QRegion>
 #include <cassert>
-#include <cmath>
 
 
 #include "canvas.h"

@@ -38,7 +38,7 @@ class ScribusDoc;
 #include "page.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include CMS_INC
+#include "colormgmt/sccolormgmtengine.h"
 
 #ifdef NLS_PROTO
 class ScText;
@@ -189,7 +189,7 @@ class SCRIBUS_API PSLib : public QObject
 		bool useSpotColors;
 		bool fillRule;
 		bool applyICC;
-		cmsHTRANSFORM solidTransform;
+		ScColorTransform solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;

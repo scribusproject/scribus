@@ -52,7 +52,8 @@ for which a new license (GPL+exception) is in place.
 #include "updatemanager.h"
 #include "sclayer.h"
 
-#include CMS_INC
+#include "colormgmt/sccolorprofile.h"
+#include "colormgmt/sccolortransform.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -1029,28 +1030,28 @@ public:
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
-	cmsHPROFILE DocInputImageRGBProf;
-	cmsHPROFILE DocInputImageCMYKProf;
-	cmsHPROFILE DocInputRGBProf;
-	cmsHPROFILE DocInputCMYKProf;
-	cmsHPROFILE DocOutputProf;
-	cmsHPROFILE DocPrinterProf;
-	cmsHTRANSFORM stdTransRGBMon;
-	cmsHTRANSFORM stdTransCMYKMon;
-	cmsHTRANSFORM stdProof;
-	cmsHTRANSFORM stdTransImg;
-	cmsHTRANSFORM stdProofImg;
-	cmsHTRANSFORM stdProofImgCMYK;
-	cmsHTRANSFORM stdTransCMYK;
-	cmsHTRANSFORM stdProofCMYK;
-	cmsHTRANSFORM stdTransRGB;
-	cmsHTRANSFORM stdProofGC;
-	cmsHTRANSFORM stdProofCMYKGC;
+	ScColorProfile DocInputImageRGBProf;
+	ScColorProfile DocInputImageCMYKProf;
+	ScColorProfile DocInputRGBProf;
+	ScColorProfile DocInputCMYKProf;
+	ScColorProfile DocOutputProf;
+	ScColorProfile DocPrinterProf;
+	ScColorTransform stdTransRGBMon;
+	ScColorTransform stdTransCMYKMon;
+	ScColorTransform stdProof;
+	ScColorTransform stdTransImg;
+	ScColorTransform stdProofImg;
+	ScColorTransform stdProofImgCMYK;
+	ScColorTransform stdTransCMYK;
+	ScColorTransform stdProofCMYK;
+	ScColorTransform stdTransRGB;
+	ScColorTransform stdProofGC;
+	ScColorTransform stdProofCMYKGC;
 	bool BlackPoint;
 	bool SoftProofing;
 	bool Gamut;
-	int  IntentColors;
-	int  IntentImages;
+	eRenderIntent IntentColors;
+	eRenderIntent IntentImages;
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;

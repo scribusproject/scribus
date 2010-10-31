@@ -49,8 +49,8 @@ using namespace std;
 
 #include "scconfig.h"
 
-#include <wincon.h>
 #include <windows.h>
+#include <wincon.h>
 
 int mainApp(ScribusQApp& app);
 

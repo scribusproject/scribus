@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 #include "actionmanager.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
@@ -371,8 +372,8 @@ void PrefsManager::initDefaults()
 	appPrefs.DCMSset.SoftProofFullOn = false;
 	appPrefs.DCMSset.GamutCheck = false;
 	appPrefs.DCMSset.BlackPoint = true;
-	appPrefs.DCMSset.DefaultIntentColors = 1;
-	appPrefs.DCMSset.DefaultIntentImages = 0;
+	appPrefs.DCMSset.DefaultIntentColors = Intent_Relative_Colorimetric;
+	appPrefs.DCMSset.DefaultIntentImages = Intent_Perceptual;
 	appPrefs.GFontSub.clear();
 	appPrefs.scratch.Left = 100;
 	appPrefs.scratch.Right = 100;
@@ -2050,8 +2051,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
 			appPrefs.DCMSset.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
 			appPrefs.DCMSset.DefaultSolidColorCMYKProfile = dc.attribute("DPIn3","");
-			appPrefs.DCMSset.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
-			appPrefs.DCMSset.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
+			appPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
+			appPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
 		}
 		if (!importingFrom12 && dc.tagName()=="SHORTCUT")
 		{

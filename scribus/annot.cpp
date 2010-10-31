@@ -385,7 +385,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	{
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->Doc, "", 0);
+		CMSettings cms(view->Doc, "", Intent_Perceptual);
 		if (!item->Pfile.isEmpty())
 		{
 			im.LoadPicture(item->Pfile, 1, cms, false, false, ScImage::RGBData, 72);
@@ -1309,7 +1309,7 @@ void Annot::GetNIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
-		CMSettings cms(view->Doc, "", 0);
+		CMSettings cms(view->Doc, "", Intent_Perceptual);
 		item->pixm.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
@@ -1341,7 +1341,7 @@ void Annot::GetPIcon()
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->Doc, "",0 );
+		CMSettings cms(view->Doc, "", Intent_Perceptual);
 		im.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(im.qImage());
 		PiconPrev->setPixmap(pmI1);
@@ -1365,7 +1365,7 @@ void Annot::GetRIcon()
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->Doc, "", 0);
+		CMSettings cms(view->Doc, "", Intent_Perceptual);
 		im.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(im.qImage());
 		RiconPrev->setPixmap(pmI1);

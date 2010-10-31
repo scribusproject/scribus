@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 #include <cstdlib>
-#include <cmath>
 #include "missing.h"
 #include "page.h"
 #include "pageitem.h"
@@ -285,7 +284,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->Pfile3     = attrAsString(attrs, "PFILE3","");
 	OB->IProfile   = attrAsString(attrs, "PRFILE","");
 	OB->EmProfile  = attrAsString(attrs, "EPROF","");
-	OB->IRender    = attrAsInt (attrs, "IRENDER", 1);
+	OB->IRender    = (eRenderIntent) attrAsInt (attrs, "IRENDER", (int) Intent_Relative_Colorimetric);
 	OB->UseEmbedded= attrAsInt (attrs, "EMBEDDED", 1);
 	OB->Locked       = attrAsBool(attrs, "LOCK", false);
 	OB->LockRes      = attrAsBool(attrs, "LOCKR", false);

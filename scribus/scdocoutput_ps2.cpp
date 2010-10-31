@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scdocoutput_ps2.h"
 #include "scpageoutput_ps2.h"
 #include "scribuscore.h"
+#include "colormgmt/sccolormgmtengine.h"
 #include "cmserrorhandling.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -34,7 +35,6 @@ ScDocOutput_Ps2::~ScDocOutput_Ps2()
 {
 	if (m_file.isOpen())
 		m_file.close();
-	closeTransforms();
 }
 
 void ScDocOutput_Ps2::begin(void)
@@ -73,77 +73,51 @@ void ScDocOutput_Ps2::end(void)
 	m_file.close();
 }
 
-void ScDocOutput_Ps2::closeTransforms(void)
-{
-	if (m_options.rgbToOutputColorTransform)
-		cmsDeleteTransform(m_options.rgbToOutputColorTransform);
-	if (m_options.rgbToOutputImageTransform)
-		cmsDeleteTransform(m_options.rgbToOutputImageTransform);
-	if (m_options.cmykToOutputColorTransform)
-		cmsDeleteTransform(m_options.cmykToOutputColorTransform);
-	if (m_options.cmykToOutputImageTransform)
-		cmsDeleteTransform(m_options.cmykToOutputImageTransform);
-	if (m_options.hProfile)
-		cmsCloseProfile(m_options.hProfile);
-	m_options.hProfile = NULL;
-	m_options.rgbToOutputColorTransform = NULL;
-	m_options.rgbToOutputImageTransform = NULL;
-	m_options.cmykToOutputColorTransform = NULL;
-	m_options.cmykToOutputImageTransform = NULL;
-}
-
 bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 {
 	bool success = false;
 	if (!m_options.outputProfile.isEmpty() && QFile::exists(m_options.outputProfile))
 	{
-		cmsErrorAction(LCMS_ERROR_ABORT);
-		if (setjmp(cmsJumpBuffer))
-		{
-			cmsSetErrorHandler(NULL);
-			cmsErrorAction(LCMS_ERROR_IGNORE);
-			closeTransforms();
-			cmsErrorAction(LCMS_ERROR_ABORT);
-			m_lastError = QObject::tr("An error occurred while initializing icc transforms");
-			qWarning( "%s", m_lastError.toLocal8Bit().data() );
-			return false;
-		}
-		cmsSetErrorHandler(&cmsErrorHandler);
-
 		int dcmsflags = 0;
-		dcmsflags |= cmsFLAGS_LOWRESPRECALC;
+		dcmsflags |= Ctf_LowResPrecalc;
 		if (m_doc->BlackPoint)
-			dcmsflags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+			dcmsflags |= Ctf_BlackPointCompensation;
 
-		int outputDataTypeColors = 0;
-		int outputDataTypeImages = 0;
-		QByteArray outputProfilePath(m_options.outputProfile.toLocal8Bit());
-		m_options.hProfile = cmsOpenProfileFromFile(outputProfilePath.data(), "r");
-		if (static_cast<int>(cmsGetColorSpace(m_options.hProfile)) == icSigRgbData)
+		eColorFormat outputDataTypeColors = Format_Undefined;
+		eColorFormat outputDataTypeImages = Format_Undefined;
+		m_options.hProfile = ScColorMgmtEngine::openProfileFromFile(m_options.outputProfile);
+		if (m_options.hProfile.colorSpace() == ColorSpace_Rgb)
 		{
-			outputDataTypeColors = TYPE_RGB_16;
-			outputDataTypeImages = TYPE_ARGB_8;
+			outputDataTypeColors = Format_RGB_16;
+			outputDataTypeImages = Format_ARGB_8;
 		}
-		else if (static_cast<int>(cmsGetColorSpace(m_options.hProfile)) == icSigCmykData)
+		else if (m_options.hProfile.colorSpace()  == ColorSpace_Cmyk)
 		{
-			outputDataTypeColors = TYPE_CMYK_16;
-			outputDataTypeImages = TYPE_CMYK_8;
+			outputDataTypeColors = Format_CMYK_16;
+			outputDataTypeImages = Format_CMYK_8;
 		}
 		else
 		{
 			m_lastError = QObject::tr("Output profile is not supported");
 			return false;
 		}
-		m_options.rgbToOutputColorTransform = cmsCreateTransform(m_doc->DocInputRGBProf, TYPE_RGB_16, m_options.hProfile, 
+		m_options.rgbToOutputColorTransform  = ScColorMgmtEngine::createTransform(m_doc->DocInputRGBProf, Format_RGB_16, m_options.hProfile, 
 													outputDataTypeColors, m_doc->IntentColors, dcmsflags); 
-		m_options.rgbToOutputImageTransform = cmsCreateTransform(m_doc->DocInputRGBProf, TYPE_ARGB_8, m_options.hProfile, 
+		m_options.rgbToOutputImageTransform  = ScColorMgmtEngine::createTransform(m_doc->DocInputRGBProf, Format_ARGB_8, m_options.hProfile, 
 													outputDataTypeImages, m_doc->IntentImages, dcmsflags);
-		m_options.cmykToOutputColorTransform = cmsCreateTransform(m_doc->DocInputRGBProf, TYPE_CMYK_16, m_options.hProfile, 
+		m_options.cmykToOutputColorTransform = ScColorMgmtEngine::createTransform(m_doc->DocInputRGBProf, Format_CMYK_16, m_options.hProfile, 
 													outputDataTypeColors, m_doc->IntentColors, dcmsflags);
-		m_options.cmykToOutputImageTransform = cmsCreateTransform(m_doc->DocInputRGBProf, TYPE_CMYK_8 , m_options.hProfile, 
+		m_options.cmykToOutputImageTransform = ScColorMgmtEngine::createTransform(m_doc->DocInputRGBProf, Format_CMYK_8 , m_options.hProfile, 
 													outputDataTypeImages, m_doc->IntentImages, dcmsflags);
-		cmsSetErrorHandler(NULL);
-		success = true;
+		
+		success = (m_options.rgbToOutputColorTransform  && m_options.rgbToOutputImageTransform &&
+			       m_options.cmykToOutputColorTransform && m_options.cmykToOutputImageTransform );
+		if (!success)
+		{
+			m_lastError = QObject::tr("An error occurred while initializing icc transforms");
+			qWarning( "%s", m_lastError.toLocal8Bit().data() );
+			return false;
+		}
 	}
 	return success;
 }

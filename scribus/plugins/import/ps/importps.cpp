@@ -16,9 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QStack>
 
-#include <cmath>
 #include <cstdlib>
-
 
 #include "commonstrings.h"
 #include "customfdialog.h"

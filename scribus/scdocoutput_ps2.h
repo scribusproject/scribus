@@ -45,7 +45,6 @@ protected:
 
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex);
 
-	void closeTransforms(void);
 	bool initializeCmsTransforms(void);
 
 public:

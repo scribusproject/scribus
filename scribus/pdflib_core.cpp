@@ -21,6 +21,10 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
+
 #include "pdflib_core.h"
 
 #include "scconfig.h"
@@ -5862,7 +5866,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (!ite->Pfile2.isEmpty())
 						{
-							CMSettings cms(ite->doc(), "", 0);
+							CMSettings cms(ite->doc(), "", Intent_Perceptual);
 							img.LoadPicture(ite->Pfile2, 1, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
 							img3.getAlpha(ite->Pfile2, 1, im, true, false);
@@ -5873,7 +5877,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (!ite->Pfile3.isEmpty())
 						{
-							CMSettings cms(ite->doc(), "", 0);
+							CMSettings cms(ite->doc(), "", Intent_Perceptual);
 							img2.LoadPicture(ite->Pfile3, 1, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
 							img3.getAlpha(ite->Pfile3, 1, im, true, false);
@@ -6682,7 +6686,7 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 #endif
 
 
-bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, QString* output)
+bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QString* output)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();

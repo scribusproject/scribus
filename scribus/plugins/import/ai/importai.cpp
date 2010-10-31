@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTemporaryFile>
 #include <QDebug>
 
-#include <cmath>
 #include <cstdlib>
 #include <tiffio.h>
 #include <zlib.h>

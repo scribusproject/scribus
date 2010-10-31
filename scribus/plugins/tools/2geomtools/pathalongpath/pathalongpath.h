@@ -31,6 +31,10 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "selection.h"
 
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
+
 #include "../lib2geom/sbasis.h"
 #include "../lib2geom/sbasis-geometric.h"
 #include "../lib2geom/bezier-to-sbasis.h"

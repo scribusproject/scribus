@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVBoxLayout>
 
+#include "colormgmt/sccolormgmtengine.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "pdfoptions.h"
@@ -341,18 +342,14 @@ void PDFExportDialog::updateDocOptions()
 				Opts.PrintProf = Options->PrintProfC->currentText();
 				if (Opts.Version == PDFOptions::PDFVersion_X3)
 				{
-					cmsHPROFILE hIn;
-					QByteArray profilePath( appPrinterProfiles[Opts.PrintProf].toLocal8Bit() );
-					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
-					const char *Descriptor = cmsTakeProductDesc(hIn);
-					cmsDescriptorName = QString(Descriptor);
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+					ScColorProfile hIn = ScColorMgmtEngine::openProfileFromFile(appPrinterProfiles[Opts.PrintProf]);
+					cmsDescriptorName  = hIn.productDescription();
+					if (hIn.colorSpace() == ColorSpace_Rgb)
 						components = 3;
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+					if (hIn.colorSpace() == ColorSpace_Cmyk)
 						components = 4;
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
+					if (hIn.colorSpace() == ColorSpace_Cmy)
 						components = 3;
-					cmsCloseProfile(hIn);
 					Opts.Info = Options->InfoString->text();
 					Opts.Encrypt = false;
 					Opts.MirrorH = false;

@@ -37,8 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 
-#include CMS_INC
-
 using namespace std;
 
 void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
@@ -115,8 +113,8 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 		int outheight=out.height();
 		for (int i=0; i < outheight; ++i)
 		{
-			LPBYTE ptr = out.scanLine(i);
-			cmsDoTransform(doc->stdProofImg, ptr, ptr, out.width());
+			uchar* ptr = out.scanLine(i);
+			doc->stdProofImg.apply(ptr, ptr, out.width());
 		}
 	}
 	else
@@ -126,8 +124,8 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 			int outheight=out.height();
 			for (int i=0; i < outheight; ++i)
 			{
-				LPBYTE ptr = out.scanLine(i);
-				cmsDoTransform(doc->stdTransImg, ptr, ptr, out.width());
+				uchar* ptr = out.scanLine(i);
+				doc->stdTransImg.apply(ptr, ptr, out.width());
 			}
 		}
 	}

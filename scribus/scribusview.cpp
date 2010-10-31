@@ -51,7 +51,6 @@ for which a new license (GPL+exception) is in place.
 #include <QWheelEvent>
 #include <QWidgetAction>
 
-#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 
