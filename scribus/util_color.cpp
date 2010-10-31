@@ -733,7 +733,72 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 					}
 				}
 			}
-			else
+			else if (ext == "skp")			// Sk1 palette
+			{
+				QFile fiC(fileName);
+				if (fiC.open(QIODevice::ReadOnly))
+				{
+					bool isCMYK = false;
+					QByteArray docBytes("");
+					loadRawText(fileName, docBytes);
+					QString docText("");
+					docText = QString::fromUtf8(docBytes);
+					QDomDocument docu("scridoc");
+					docu.setContent(docText);
+					ScColor lf = ScColor();
+					QDomElement elem = docu.documentElement();
+					QDomNode PAGE = elem.firstChild();
+					while(!PAGE.isNull())
+					{
+						QDomElement pg = PAGE.toElement();
+						if(pg.tagName() == "description")
+						{
+							if (pg.attribute("type", "") == "CMYK")
+								isCMYK = true;
+						}
+						if(pg.tagName() == "color")
+						{
+							QString Cname;
+							if (isCMYK)
+							{
+								double c, m, y, k;
+								c = pg.attribute("c", "0").toDouble();
+								m = pg.attribute("m", "0").toDouble();
+								y = pg.attribute("y", "0").toDouble();
+								k = pg.attribute("k", "0").toDouble();
+								Cname = pg.attribute("name", "");
+								if (!Cname.isEmpty())
+								{
+									lf.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+									lf.setSpotColor(false);
+									lf.setRegistrationColor(false);
+									if (!EditColors.contains(Cname))
+										EditColors.insert(Cname, lf);
+								}
+							}
+							else
+							{
+								double r, g, b;
+								r = pg.attribute("r", "0").toDouble();
+								g = pg.attribute("g", "0").toDouble();
+								b = pg.attribute("b", "0").toDouble();
+								Cname = pg.attribute("name", "");
+								if (!Cname.isEmpty())
+								{
+									lf.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
+									lf.setSpotColor(false);
+									lf.setRegistrationColor(false);
+									if (!EditColors.contains(Cname))
+										EditColors.insert(Cname, lf);
+								}
+							}
+						}
+						PAGE=PAGE.nextSibling();
+					}
+				}
+				fiC.close();
+			}
+			else							// try for OpenOffice, Viva and our own format
 			{
 				QFile fiC(fileName);
 				if (fiC.open(QIODevice::ReadOnly))
