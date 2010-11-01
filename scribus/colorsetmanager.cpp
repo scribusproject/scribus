@@ -139,7 +139,7 @@ void ColorSetManager::findPaletteLocations()
 void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTreeWidgetItem* parent)
 {
 	QStringList exts;
-	exts << "xml" << "gpl" << "eps" << "ai" << "skp" << "sla" << "soc";
+	exts << "ai" << "eps" << "gpl" << "skp" << "sla" << "soc" << "xar" << "xml";
 	QDir dirs(path, "*", QDir::Name,  QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
 	dirs.setSorting(QDir::Name | QDir::DirsFirst);
 	if ((dirs.exists()) && (dirs.count() != 0))

@@ -66,6 +66,93 @@ XarPlug::XarPlug(ScribusDoc* doc, int flags)
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
+bool XarPlug::readColors(const QString& fNameIn, ColorList &colors)
+{
+	progressDialog = NULL;
+	QString fName = fNameIn;
+	bool success = false;
+	importedColors.clear();
+	QFile f(fName);
+	if (f.open(QIODevice::ReadOnly))
+	{
+		QDataStream ts(&f);
+		ts.setByteOrder(QDataStream::LittleEndian);
+		quint32 id;
+		ts >> id;
+		if (id != 0x41524158)
+			return false;
+		ts >> id;
+		if (id != 0x0A0DA3A3)
+			return false;
+		m_Doc = new ScribusDoc();
+		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+		m_Doc->setLoading(true);
+		m_Doc->DoDrawing = false;
+		m_Doc->scMW()->setScriptRunning(true);
+		m_Doc->PageColors.clear();
+		while (!ts.atEnd())
+		{
+			quint32 opCode, dataLen;
+			ts >> opCode;
+			ts >> dataLen;
+			if (opCode == 30)
+			{
+				ts.skipRawData(dataLen);
+				quint64 pos = ts.device()->pos();
+				QtIOCompressor compressor(ts.device(), 6, 1);
+				compressor.setStreamFormat(QtIOCompressor::RawZipFormat);
+				compressor.open(QIODevice::ReadOnly);
+				QDataStream tsc(&compressor);
+				tsc.setByteOrder(QDataStream::LittleEndian);
+				tsc.device()->seek(pos);
+				while (!tsc.atEnd())
+				{
+					tsc >> opCode;
+					tsc >> dataLen;
+					recordCounter++;
+					if (opCode == 31)
+					{
+						tsc.skipRawData(dataLen);
+						break;
+					}
+					else if (opCode == 51)
+						handleComplexColor(tsc);
+					else
+						tsc.skipRawData(dataLen);
+				}
+				ts.skipRawData(dataLen+1);
+			}
+			else
+			{
+				if (opCode == 51)
+					handleComplexColor(ts);
+				else
+					ts.skipRawData(dataLen);
+			}
+		}
+		f.close();
+		if (m_Doc->PageColors.count() != 0)
+		{
+			ColorList::Iterator it;
+			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+			{
+				if (!it.key().startsWith("FromXara"))
+				{
+					success = true;
+					colors.insert(it.key(), it.value());
+				}
+			}
+		}
+		m_Doc->scMW()->setScriptRunning(false);
+		m_Doc->setLoading(false);
+		delete m_Doc;
+	}
+	return success;
+}
+
 QImage XarPlug::readThumbnail(QString fName)
 {
 	progressDialog = NULL;

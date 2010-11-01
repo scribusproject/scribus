@@ -94,6 +94,7 @@ void ImportXarPlugin::registerFormats()
 	fmt.load = true;
 	fmt.save = false;
 	fmt.thumb = true;
+	fmt.colorReading = true;
 	fmt.mimeTypes = QStringList(); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
@@ -171,6 +172,26 @@ QImage ImportXarPlugin::readThumbnail(const QString& fileName)
 	XarPlug *dia = new XarPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
+	if (wasUndo)
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
+	return ret;
+}
+
+bool ImportXarPlugin::readColors(const QString& fileName, ColorList &colors)
+{
+	bool wasUndo = false;
+	if( fileName.isEmpty() )
+		return false;
+	if (UndoManager::undoEnabled())
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		wasUndo = true;
+	}
+	m_Doc = NULL;
+	XarPlug *dia = new XarPlug(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(dia);
+	bool ret = dia->readColors(fileName, colors);
 	if (wasUndo)
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;

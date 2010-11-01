@@ -252,6 +252,7 @@ public:
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
+	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
 	void parseHeader(QString fName, double &x, double &y, double &b, double &h);

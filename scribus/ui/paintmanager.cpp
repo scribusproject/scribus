@@ -135,7 +135,6 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	connect(okButton, SIGNAL(clicked()), this, SLOT(leaveDialog()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(SaveColSet, SIGNAL(clicked()), this, SLOT(saveDefaults()));
-//	connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
 	connect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
 }
 
@@ -812,7 +811,7 @@ void PaintManagerDialog::importColorItems()
 			QString wdir = dirs->get("colors", ".");
 			QString docexts("*.sla *.sla.gz *.scd *.scd.gz");
 			QString aiepsext(FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS|FormatsManager::AI, 0));
-			QString ooexts(" *.skp *.soc *.gpl *.xml");
+			QString ooexts(" *.skp *.soc *.gpl *.xar *.xml");
 			QString filter = tr("All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)").arg(docexts+" "+aiepsext+ooexts).arg(docexts).arg(aiepsext+ooexts);
 			CustomFDialog dia(this, wdir, tr("Import Colors"), filter, fdHidePreviewCheckBox);
 			if (dia.exec() == QDialog::Accepted)
