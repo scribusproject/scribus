@@ -614,7 +614,8 @@ void CMYKChoose::setSpot()
 	if (Separations->isChecked())
 	{
 		ComboBox1->setCurrentIndex( 0 );
-		SelModel( tr("CMYK"));
+//		Commented out to allow RGB Spot-Colors
+//		SelModel( tr("CMYK"));
 	}
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 }

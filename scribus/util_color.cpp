@@ -247,7 +247,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc) {
 	paintAlert(*pm, *pa, 0, 0);
 	if (ScColorEngine::isOutOfGamut(col, doc))
 		paintAlert(alertIcon, *pa, 15, 0);
-	if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
+	if (col.getColorModel() == colorModelCMYK)   // || (col.isSpotColor()))
 		paintAlert(cmykIcon, *pa, 30, 0);
 	else
 		paintAlert(rgbIcon, *pa, 30, 0);
