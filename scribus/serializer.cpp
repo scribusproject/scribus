@@ -144,14 +144,12 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 	addRule("/SCRIBUSFRAGMENT", Factory<Collection>());
 	addRule("/SCRIBUSFRAGMENT", Store<Collection>("<collection>"));
 
-	addRule("/SCRIBUSFRAGMENT/colors", MergeColors());
-	
-	addRule("/SCRIBUSFRAGMENT/colors/color", Factory<ScColor>());
-	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "RGB" ));
-	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "CMYK" ));
-	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setSpotColor, "Spot", &parseBool ));
-	addRule("/SCRIBUSFRAGMENT/colors/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setRegistrationColor, "Register", &parseBool ));
-	addRule("/SCRIBUSFRAGMENT/colors/color", CollectColor());
+	addRule("/SCRIBUSFRAGMENT/color", Factory<ScColor>());
+	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "RGB" ));
+	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "CMYK" ));
+	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setSpotColor, "Spot", &parseBool ));
+	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setRegistrationColor, "Register", &parseBool ));
+	addRule("/SCRIBUSFRAGMENT/color", CollectColor());
 
 	CharStyle::desaxeRules("/SCRIBUSFRAGMENT/", *this);
 	addRule("/SCRIBUSFRAGMENT/charstyle", SetterP<Collection, CharStyle>( & Collection::collectCharStyle ));
