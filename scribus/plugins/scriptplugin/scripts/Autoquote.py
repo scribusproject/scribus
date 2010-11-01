@@ -19,7 +19,7 @@ import scribus
 
 if scribus.haveDoc():
     c = 0
-    lang = scribus.valueDialog("Choose language", 'Language: en, de, pl, se, fi, ru, af, nl, sq,\n be, uk, es, lt, mk, is, sk, sl, hu, and et\n are current choices','en')
+    lang = scribus.valueDialog("Choose by language or country", 'Language: af, be, ch, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk\n are current choices','en')
     if (lang == 'en'):
         lead_double = u"\u201c"
         follow_double = u"\u201d"
@@ -55,7 +55,7 @@ if scribus.haveDoc():
         follow_double = u"\u201c"
 	lead_single = u"\u2018"
         follow_single = u"\u2019"
-    elif ((lang == 'be') or (lang == 'uk') or (lang == 'ru')):
+    elif ((lang == 'be') or (lang == 'ch') or (lang == 'uk') or (lang == 'ru')):
         lead_double = u"\u00ab"
         follow_double = u"\u00bb"
         lead_single = u"\u2039"
