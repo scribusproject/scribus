@@ -327,7 +327,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 
 void Hruler::enterEvent(QEvent *e)
 {
-	qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
+	if (textEditMode)
+		qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
 }
 
 void Hruler::leaveEvent(QEvent *e)
