@@ -181,6 +181,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_guide = mousePointDoc.y() - m_doc->Pages->at(page)->yOffset();
 						m_page  = page;
 						m_haveGuide = true;
+						m_doc->changed();
 					}
 				}
 				else if (mouseRelease)
@@ -193,6 +194,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
+					m_doc->changed();
 				}
 				else
 				{
@@ -211,6 +213,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 					{
 						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
 						m_haveGuide = false;
+						m_doc->changed();
 					}
 				}
 			}
@@ -232,6 +235,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_guide = mousePointDoc.x() - m_doc->Pages->at(page)->xOffset();
 						m_page  = page;
 						m_haveGuide = true;
+						m_doc->changed();
 					}
 				}
 				else if (mouseRelease)
@@ -244,6 +248,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
+					m_doc->changed();
 				}
 				else
 				{
@@ -262,6 +267,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 					{
 						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
 						m_haveGuide = false;
+						m_doc->changed();
 					}
 				}
 			}
