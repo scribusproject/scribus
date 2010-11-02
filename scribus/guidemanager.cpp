@@ -310,6 +310,7 @@ void GuideManager::delHorButton_clicked()
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::delVerButton_clicked()
@@ -328,6 +329,7 @@ void GuideManager::delVerButton_clicked()
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
 	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::addHorButton_clicked()
@@ -365,6 +367,7 @@ void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 			storePageValues(tmpPage);
 	}
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::applyToAllStdButton_clicked()
@@ -387,12 +390,14 @@ void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
 		horizontalAutoGapSpin->setEnabled(false);
 	currentPage->guides.setHorizontalAutoCount(val);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::horizontalAutoGapSpin_valueChanged(double)
 {
 	currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::horizontalAutoGapCheck_stateChanged( int )
@@ -403,6 +408,7 @@ void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 	else
 		currentPage->guides.setHorizontalAutoGap(0.0);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::verticalAutoCountSpin_valueChanged(int val)
@@ -415,12 +421,14 @@ void GuideManager::verticalAutoCountSpin_valueChanged(int val)
 		verticalAutoGapSpin->setEnabled(false);
 	currentPage->guides.setVerticalAutoCount(val);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::verticalAutoGapSpin_valueChanged(double)
 {
 	currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::verticalAutoGapCheck_stateChanged( int )
@@ -431,6 +439,7 @@ void GuideManager::verticalAutoGapCheck_stateChanged( int )
 	else
 		currentPage->guides.setVerticalAutoGap(0.0);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::tabWidget_currentChanged(QWidget *)
@@ -488,12 +497,14 @@ void GuideManager::clearRestoreHorizontalList()
 {
 	horizontalModel->setValues(currentPage->guides.horizontals(GuideManagerCore::Standard));
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::clearRestoreVerticalList()
 {
 	verticalModel->setValues(currentPage->guides.verticals(GuideManagerCore::Standard));
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::deletePageButton_clicked()
@@ -520,6 +531,7 @@ void GuideManager::deletePageButton_clicked()
 	trans.commit();
 
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::deleteAllGuides_clicked()
@@ -535,6 +547,7 @@ void GuideManager::deleteAllGuides_clicked()
 	m_drawGuides = true;
 	trans.commit();
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::windowActivationChange(bool oldActive)
@@ -620,6 +633,7 @@ void GuideManager::verticalModel_valueChanged()
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
 	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::horizontalModel_valueChanged()
@@ -627,6 +641,7 @@ void GuideManager::horizontalModel_valueChanged()
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::setHorizontalRefer(int button)
@@ -687,6 +702,7 @@ void GuideManager::horizontalPageAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setHorizontalAutoRefer(0);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::horizontalMarginsAutoButton_toggled(bool state)
@@ -695,6 +711,7 @@ void GuideManager::horizontalMarginsAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setHorizontalAutoRefer(1);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::horizontalSelectionAutoButton_toggled(bool state)
@@ -705,6 +722,7 @@ void GuideManager::horizontalSelectionAutoButton_toggled(bool state)
 	if (horizontalSelectionAutoButton->isEnabled())
 		resetSelectionForPage();
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::verticalPageAutoButton_toggled(bool state)
@@ -713,6 +731,7 @@ void GuideManager::verticalPageAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setVerticalAutoRefer(0);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::verticalMarginsAutoButton_toggled(bool state)
@@ -721,6 +740,7 @@ void GuideManager::verticalMarginsAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setVerticalAutoRefer(1);
 	drawGuides();
+	m_Doc->changed();
 }
 
 void GuideManager::verticalSelectionAutoButton_toggled(bool state)
@@ -731,4 +751,5 @@ void GuideManager::verticalSelectionAutoButton_toggled(bool state)
 	if (verticalSelectionAutoButton->isEnabled())
 		resetSelectionForPage();
 	drawGuides();
+	m_Doc->changed();
 }
