@@ -4,22 +4,29 @@
 	<title>Automatic Page Numbers</title>
 </head>
 <body>
-<h2>Automatic Page Numbering</h2>
+<h2>Automatic page numbering</h2>
 
-<p>Adding automatically incrementing page numbers is a two step process, but, once mastered, quite simple and reliable. There are two different methods which can be used independently or together. The first is to draw a text frame, click to get into edit mode and then go: <strong>Insert > Character > Insert Page Number</strong>. This will only add the page number to the currently selected page. The second uses Master Pages to enable automatic page numbering.</p>
+<p>Adding automatically incrementing page numbers is not as easy as, for example, in a word processor, but, once mastered, it&rsquo;s quite simple and reliable. Moreover, when it comes to mixed numbering schemes, like I, II, III for the preface, 1, 2, 3 for the main text and A, B, C for appendices, it&rsquo;s actually much easier to use than a word processor.</p>
+<p>As you already know, almost everything in Scribus has to happen in a frame, and page numbers are no different. Thus, to insert a page number, we need to create a text frame first. Once we have entered the editing mode of the frame, we can insert a <i>variable</i> for the page number, which will tell Scribus to insert the actual page number. There are two different ways to insert this variable, the first one being the keyboard shortcut Ctrl+Alt+Shift+P. If you&rsquo;re afraid to break your fingers, you can assign a new shortcut in the Preferences dialog or use the menu command <i>Insert > Character > Page Number</i>. You can now see that Scribus shows the number of the current page, but this approach may not be what you want to achieve, as it will only add the page number to the currently selected page. If you want to automate the page numbering (also called &ldquo;pagination&rdquo;), you should insert the variable into a text frame on a <a href="pagetemplate1.html">Master Page</a>. As you will note, Scribus doesn&rsquo;t display a real number on a Master Page, because a Master Page isn&rsquo;t a real document page and thus doesn&rsquo;t have a position in the sequence of pages. Instead, Scribus displays <b>#</b> as a placeholder symbol.</p>
 
-<p>Scribus uses a special place holder within <a href="pagetemplate1.html">Master Pages</a> to indicate page numbers and allows them to be automatically included in your document without concern for moving, importing or deleting pages. </p>
+<h4>Changing the numbering scheme</h4>
 
-<h4>Step One</h4>
+<p>To change the numbering scheme, you have to use <i>File > Document Setup</i>. Under <i>Sections</i> you can now create numbering sections for your document:</p>
 
-<p>With your chosen document open, go <strong>Edit > Master Pages</strong>. If you have not created any other Master Pages, then there will be just one named "Normal." </p>
-<h4>Step Two</h4>
-<p>Next, create a text frame where you want the page numbers to go. Then, enter the edit mode by double clicking on the text frame and insert a page number as described above. In Scribus versions before 1.3.4, you need to create different master pages for one, two or three digit page numbers, whereas from 1.3.4 on, a single placeholder will suffice. Then save the Master Page by closing the Master Pages dialog and return to the main document.</p>
+<table width="100%"><tr><td align="center"><img src="images/numb-sections.png" title="Numbering sections" alt="Numbering sections"  /></td></tr></table>
 
-<table width="100%"><tr><td align="center"><img src="images/pagenumbering.png" title="Inserting Page Number placeholders." alt="Inserting Page Number placeholders"  /></td></tr></table>
+<p>Let&rsquo;s assume you have an introduction that covers the first three pages, and you want it to be numbered with Roman numbers. The main text will start at the physical page 5 with page number 1. For aesthetical reasons, page 4 shouldn&rsquo;t have a number at all. The first section is already there. You can enter a name for it in the &ldquo;Name&rdquo; column. In the &ldquo;From&rdquo; column enter &ldquo;1&rdquo; and in &ldquo;To&rdquo; enter &ldquo;3&rdquo;. Choose &ldquo;I, II, III&rdquo; as a numbering style and set the &ldquo;Start&rdquo; value to &ldquo;1&rdquo;.</p>
+<p>To add a new section, click on the &ldquo;Add&rdquo; button at the bottom of the dialog. For page 4 in our example the values would be: &ldquo;From&rdquo; = 4, &ldquo;To&rdquo; = 4, &ldquo;Style&rdquo; and &ldquo;Start&rdquo; don&rsquo;t matter here, but it&rsquo;s important that you uncheck &ldquo;Shown&rdquo; in the second column, because this means there will be no visible page number on page 4. For the main text, the values are: &ldquo;From&rdquo; = 5, &ldquo;To&rdquo; = [the number of pages you need for the main text], &ldquo;Style&rdquo; = 1, 2, 3, and &ldquo;Start&rdquo; = 1. That&rsquo;s all, your document will be paginated as desired.</p>
 
-<p>If you have more than one Master Page, you will need to add these placeholders to each Master Page that is expected to show a page number.</p>
+<h4>Page numbering tips</h4>
+<p><ul>
+<li>If you have more than one Master Page, you will need to add these placeholders to each Master Page that is expected to show a page number.</li>
+<li>To make sure that every page number is exactly at the same position on each Master Page, you should first create a Master Page that satifies your layout requirements and then duplicate it.</li>
+<li>If you are working with larger documents, make sure that the text frames are wide enough to display all digits. Otherwise, there will be a text overflow, and the page number remains invisible.</li>
+<li>You can apply styles and direct text formatting as you wish, just like with a normal text frame.</li>
+<li>In European language publications page counting always starts on a right page, i.e., page 1 must be a right page.</li>
+<li>It is considered good style and a sign of quality that in books, which are written in a European language, new chapters always start on a right page, i.e., a page with an odd page number.</li>
+</ul></p>
 
-<p>You can also apply styles and direct text formatting as you wish, just like a normal text frame. </p>
 </body>
 </html>
