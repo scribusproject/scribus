@@ -1201,7 +1201,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 // 			scrActions["toolsAlignDistribute"]->toggle();
 // 		else
 		//Edit actions
-		if (currKeySeq == scrActions["editStyles"]->shortcut())
+// commented out to fix Bug #9437
+/*		if (currKeySeq == scrActions["editStyles"]->shortcut())
 			scrActions["editStyles"]->toggle();
 		else
 		if (currKeySeq == scrActions["editUndoAction"]->shortcut() && scrActions["editUndoAction"]->isEnabled())
@@ -1220,7 +1221,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		else
 		if (currKeySeq == scrActions["toolsZoomOut"]->shortcut())
 			scrActions["toolsZoomOut"]->activate(QAction::Trigger);
-		else
+		else */
 			retVal=false;
 	}
 	else

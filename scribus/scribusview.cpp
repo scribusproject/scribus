@@ -258,7 +258,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	//zoomDefaultToolbarButton->setText("1:1");
 	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
 	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
+	zoomOutToolbarButton->addAction(m_ScMW->scrActions["toolsZoomOut"]);
 	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	zoomInToolbarButton->addAction(m_ScMW->scrActions["toolsZoomIn"]);
 	pageSelector = new PageSelector(this, Doc->Pages->count());
 	pageSelector->setFont(fo);
 	pageSelector->setFocusPolicy(Qt::ClickFocus);
