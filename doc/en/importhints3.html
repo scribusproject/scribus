@@ -1,60 +1,87 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Scribus and OpenOffice.org</title>
+	<title>Scribus and OpenOffice.org/OpenDocument</title>
 </head>
 <body>
-<h2>Scribus and OpenOffice.org</h2>
-<h4>Overview</h4>
-<p>The open and XML based file formats (.sxw and .odt etc.) used by OpenOffice.org in all versions, share some common traits with Scribus. The clear documentation and specs have helped the Scribus Team to create very useful import features. Expect more enhancements in the future. One of the pleasant surprises to see in the OpenOffice.org version 2 releases is the improved EPS exporter. The 1.1.x version sometimes had difficulties exporting correctly.  The exporter in V 2.x in testing here seems to create better, more conformant files, which Scribus imports with little difficulties. Except for OpenOffice.org Writer files, the magic trick to get high quality imports into Scribus depends on using OO.org Draw. Almost any type of OpenOffice.org file can be imported into Scribus with high fidelity, provided you export from Draw as EPS. Native Draw files can usually be imported directly into Scribus. </p>
-<h4>Importing from OpenOffice.org Writer</h4>
-<p>The importer for Writer imports <strong>only</strong> the text contained in your document. Images and drawings need to be saved separately outside of the Writer document and then each drawing or image is then imported individually. Thus, a compound Writer document with tables of charts will not import the tables or charts. Tables, charts or other embedded objects, need to be placed into their own Draw file and exported by the methods described below.</p>
-<p>The singular most important issue to take into consideration for hassle free OO.org Writer import is well chosen usage and correctly applying styles in OO.org. Doing so will greatly reduce the amount of time needed within Scribus to format and style text. Any special paragraph styles in your Writer file will automatically be imported into your existing Scribus document.</p>
-<h4>Step by Step:</h4>
-<ul>
-<li>Select the text frame.</li>
-<li>Right Click > Get Text..  </li>
-<li>Select your OO.org document. The importer is smart enough to know recognize the type of OO.org file.</li>
- </ul>
+<h2>Scribus and OpenOffice.org/OpenDocument</h2>
 
-<p>This will import <strong>all</strong> the text in your document, so ensure there is enough space in your frames or link extra text frames on subsequent pages. You can comfortably import 10, 20 or even 50 pages of text in one go. In testing the importer we have imported 600 pages. However, the practical limit is probably not more than a chapter's (15&#8211;30 pages) worth of text for performance reasons.</p>
+<h4>Overview</h4>
+<p>When SUN Microsystems started the OpenOffice.org project, it also introduced a new type of file format. While OpenOffice.org&rsquo;s predecessor StarOffice used a binary format to store its data, OpenOffice.org&rsquo;s file format consisted of several XML files that were combined into a ZIP archive. Later, OpenOffice.org&rsquo;s file formats provided the basis for a new international standard for office documents, such as text documents, spreadsheet or presentations. The standard has been developed by the <a href="http://www.oasis-open.org/home/index.php">Organization for the Advancement of Structured Information Standards (OASIS)</a>, and it&rsquo;s called <a href="http://www.oasis-open.org/specs/index.php#opendocument">OpenDocument</a> (ODT). OpenDocument has become an ISO standard in 2006 (ISO/IEC 26300:2006).
+<br>
+The clear documentation and specs have helped the Scribus Team to create some useful import features, which will be enhanced in the future.</p>
+<h4>Importing OpenOffice.org Writer and OpenDocument files</h4>
+<p>The importer for Writer (SXW) and ODT documents works per text frame and imports <i>only</i> the text contained in your document. Images and drawings need to be saved separately outside of the Writer document and then each drawing or image can be imported individually. Thus, a compound Writer document with tables or charts will not import the latter. Tables, charts or other embedded objects, need to be placed into their own Draw file and exported as described below.</p>
+<p>The single most important issue to take into consideration for hassle-free SXW/ODT import is well chosen usage of styles in Writer or any other ODT-compliant word processor. Doing so will greatly reduce the amount of time needed within Scribus to format and style text. Any special paragraph styles in your Writer or ODT file will automatically be imported into your existing Scribus document.</p>
+
+<h4>SXW/ODT import step by step</h4>
+<ol>
+<li>Select the text frame.</li>
+<li>Right-click > Get Text ...  </li>
+<li>Select your SXW/ODT document.</li>
+</ol>
+
+<p>This will import <i>all</i> the text from the source document, so ensure there is enough space in your frame or link extra text frames to the one you are importing into. You can comfortably import 10, 20 or even 50 pages of text in one go. However, the practical limit is probably not more than a chapter&rsquo;s (15&ndash;30 pages) worth of text for performance reasons.</p>
+<h4>Let Scribus create text frames for you</h4>
+<p>If you have an idea how many text frames you will need for the imported text, you can use an advanced import option. You can find it in the &ldquo;Insert&rdquo; menu, and it&rsquo;s called <i>Frame&nbsp;...</i>.</p>
+<p>The &ldquo;Insert Frame&rdquo; dialog consists of four tabs. In the first one you have to select &ldquo;Text Frame&rdquo; in this context. In the second tab, &ldquo;Location&rdquo;, you can determine the pages, on which the new frames will be placed, as well as their position on a page.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/insert-frame-1.png" alt="The &ldquo;Insert Frame&rdquo; dialog, tab 1" align="middle" title="The &ldquo;Insert Frame&rdquo; dialog, tab 1" /></td></tr></table>
+
+<p>In the third tab, &ldquo;Size&rdquo;, you can set the size of the frames that are being inserted, and in the &ldquo;Options&rdquo; tab you determine what&rsquo;s inside the frame and how it will look:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/insert-frame-2.png" alt="The &ldquo;Insert Frame&rdquo; dialog, tab 4" align="middle" title="The &ldquo;Insert Frame&rdquo; dialog, tab 4" /></td></tr></table>
+<p>
+<ul>
+<li><b>Columns</b>: The number of text columns in the frame.</li>
+<li><b>Gap</b>: The gap between the text columns.</li>
+<li><b>Link inserted frames</b> does exactly what it says.</li>
+<li><b>Links to existing frame</b> lets you link the first of the newly created frames to an already existing frame. You can choose the latter from a drop down list that contains all existing frames, sorted by their name.</li>
+<li><b>Source Document:</b> Here can you choose the text document whose content will fill the new frames.</li>
+</ul>
+</p>
+
+<h4>SXW/ODT import options</h4>
 
 <p> When importing text from OO.org there are three important options which need to be carefully considered:</p>
 
-<table width="100%"><tr><td align="center"><img src="images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for OO.org Writer and OASIS (Open Document) files." /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for SXW and ODT files." /></td></tr></table>
 
 <ul>
-   <li><strong>Update Paragraph Styles</strong> This option will tell Scribus to change the formatting of any created styles in your Scribus document to follow those in the OO.org document. </li>
-   <li><strong>Merge Paragraph Styles</strong> This option looks at the actual attributes (fonts, size) of the OO.org and merges style which have common attributes. This can help to eliminate differently named, but similar styles.</li>
-   <li><strong>Use Document Name as a prefix for paragraph styles </strong> - is self-explanatory, but can be useful for sorting styles when importing from several documents. </li>
-<li><strong>Do Not Ask Again</strong>  - <strong>Caution</strong> This last option will make this permanent until you completely remove your preferences files. This will be fixed in a future release. <!--reset it in File &#062; Preferences &#062; permanent these options.--></li>
+   <li><b>Overwrite Paragraph Styles</b> This option will tell Scribus to change the formatting of any created styles in your Scribus document to follow those in the imported document. </li>
+   <li><b>Merge Paragraph Styles</b> This option looks at the actual attributes (fonts, size) of the imported document and merges styles which have identical attributes. This can help to eliminate differently named, but otherwise identical styles.</li>
+   <li><b>Use Document Name as a prefix for paragraph styles</b> is self-explanatory. This can be useful for sorting styles when importing from several documents. </li>
+<li><b>Do Not Ask Again</b>  Caution! This last option will make your choices above permanent. The only way to undo this is to open the file <code>prefs135.xml</code> in the hidden folder <code>./scribus</code> in your home directory with a text editor, then search for the text string <code>attribute key"=ask-Again" value=0</code> and replace the 0 with 1.</li>
  </ul>
 
 
 
-<h4>Importing Charts and Tables from Calc </h4>
-<p>This is a special case which needs to be done carefully. After you have created your Chart or Table in Calc, then <strong>Copy > Paste Special </strong> and embed the chart <strong>not</strong> as a GDI image, but as a linked object into a Draw Document, like below:</p>
+<h4>Importing Tables from Calc </h4>
+<p>Since Scribus&rsquo;s table implementation is rather simple, it may be more convenient to create a table in a dedicated spreadsheet application like OpenOffice.org Calc. Here&rsquo;s a step-by-step instruction for successful table import from Calc:</p>
 
-<table width="100%"><tr><td align="center"><img src="images/oochart.png" alt="Embedding a Chart in to OO.org Draw" align="middle" title="Embedding a Chart in to OO.org Draw" /></td></tr></table>
+<p>1. Create your table in either OpenOffice.org Calc:</p>
 
-<p>After placing the linked object, import using one of the two methods below.</p>
+<table width="100%"><tr><td align="center"><img src="images/table-import-1.png" align="middle"/></td></tr></table>
 
-<h4>Importing Native OO.org Draw Files</h4>
-<p>There are two methods: First is to use the native importer. For most drawings this works very well and I have tested very complex Draw files which imported flawlessly. In some cases, especially with gradients, it may be preferable to test exporting EPS, with the settings further down. The second method is to export EPS from OO.org. You should test both methods of export for best quality not only on screen, but by exporting a PDF and then zooming with Adobe Acrobat Reader is a recommended quality check.</p>
+<p>2. Copy the table items you need in Scribus (i.e., not the whole spreadheet) to the clipboard, create a new OpenOffice.org Draw document, and use <i>Edit > Paste Special > GDI Metafile</i> to insert the table as a vector file into Draw: </p>
+<table width="100%"><tr><td align="center"><img src="images/table-import-2.png" align="middle"/></td></tr></table>
 
-<ul>
-   <li>  It is important to note Draw 3D objects do not export well, as they are limited to screen resolution. They do not print well in most cases and will appear pixellated at print resolutions.  </li>
-   <li>Not all shapes in OO.org Draw 2.x are supported. Contours and callouts do not currently work natively. The workaround is to go <strong>Edit > Select All</strong> in Draw and then right click the selection, then choose <strong>Convert to Curves or Convert to Polygons</strong> depending on the kind of content.</li>
-   <li>Most curves, polygons and bezier shapes are imported without issues. The same applies for star shapes, ellipses and markers - a type of line with arrows. </li>
-   <li>Text effects should be avoided in preference to doing them natively in Scribus which has very versatile text effects.  </li>
- </ul>
+<p>3. Use <i>File > Export</i> to export the table as an EPS file. Make sure that &ldquo;Selection&rdquo; is checked in the export dialog, because otherwise the whole page will be exported. </p>
+<p>4. Now import the EPS file as a vector drawing into Scribus via <i>File > Import > Get Vector File</i>. The result will be a nicely formatted table in Scribus that can be edited using Scribus&rsquo;s vector tools:</p>
 
-<h4>Importing Formulas</h4>
-<p>The most reliable way I have found is to save your formula as desired and Close Math. Then open OO.org Draw and create a new file. Then, <strong>Insert Object > Formula</strong>. You will have a tiny embedded square on Draw's canvas. Then, right click the embedded object > <strong>Edit Object</strong>. Then, Draw will launch Math. In Math, select <strong>Tools > Import Formula</strong> and browse to your saved formula. Then save to close the file and the embedded formula is now scalable in Draw with the context menus. Save this Draw file, then export as EPS and import into Scribus. The formulas and text will import as a grouped objects as scalable vector items. Any text is imported as outlines as well. This will result in formulas which will print with <strong>very</strong> high quality and little worries when exported as PDF. Saving the Draw file and attempting to import the Draw file with embedded objects will fail, as Scribus cannot access those object directly.</p>
-<h4>Export Settings from OO.org Draw</h4>
-<p>Below are the recommended EPS export settings for all versions of OO.org Draw.</p>
-<table width="100%"><tr><td align="center"><img src="images/ooeps1.png" alt="Recommended EPS Export Settings" align="middle" title="Recommended EPS Export Settings" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/table-import-3.png" align="middle"/></td></tr></table>
 
-<p>Using the settings above and a recent Ghostscript (8.50+), I have encountered only minor difficulties importing files from OpenOffice.org. Even then, ungrouping the import and minor touching up is easily done. The most noticeable issue I have found is some lines on charts or freehand lines are too thin when viewed as imported EPS in Scribus and a quick adjustment of the size of the line with the Properties Palette sets things right.</p>
+<h4>Importing SXD and ODG graphics files</h4>
+<p>There are two methods: The first is to use the native importer. For many drawings this works very well. In some cases, especially with gradients, it may be preferable to test exporting as EPS or SVG.</p>
+
+<p>It is important to note that Draw 3D objects do not export well, as they are limited to screen resolution. They also do not print well in most cases and will appear pixellated at print resolutions. Moreover, not all shapes and certain kinds of lines, like, for instance, connectors, are supported by the Scribus import filter.</p>
+<p>In case you need any of the above, there&rsquo;s a reliable workaround: Like almost any program that allows for printing, OpenOffice.org provides an option to print to a file instead of sending the data to a printer. Simply go to <i>File > Print</i> in OpenOffice.org and check the &ldquo;Print to File&rdquo; option. On Linux/UNIX and Mac OS X this will create a PostScript file.</p>
+
+<p>On Windows and OS/2 you have to install a PostScript printer driver (e.g. Apple Color Laser Writer) first. When you are asked to insert a name for the file you will print to, make sure you select or add "ps" as the file extension.</p>
+
+<p>Next you can open the file or import it as a vector file into Scribus. This time, the content looks almost if not 100&nbsp;% like the original. Even low-resolution 3D graphics have smooth edges now.</p>
+
+<h4>Importing SXM and ODF formulas</h4>
+<p>The most reliable way is to create a formula In OpenOffice.org Math and save it as SXM or ODF. Then open OpenOffice.org Draw and create a new file. Use <i>Insert Object > Formula</i>. You will have a tiny embedded square on Draw&rsquo;s canvas. Next, open <i>Edit Object</i> from the context menu. Draw will now launch Math. In Math, select <i>Tools > Import Formula</i>, browse to your saved formula and save to close the file. The embedded formula is now editable as a vector object. Save this Draw file, then export as EPS and import into Scribus. The formulas and text will import as scalable vector items. This will result in formulas which will print with <b>very</b> high quality and no worries when exported as PDF. Saving the Draw file and attempting to import the Draw file with embedded objects will fail, as Scribus cannot access those objects directly.</p>
 </body>
 </html>
