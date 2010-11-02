@@ -261,7 +261,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	//zoomDefaultToolbarButton->setText("1:1");
 	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
 	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
+	zoomOutToolbarButton->addAction(m_ScMW->scrActions["toolsZoomOut"]);
 	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	zoomInToolbarButton->addAction(m_ScMW->scrActions["toolsZoomIn"]);
 	pageSelector = new PageSelector(this, Doc->Pages->count());
 	pageSelector->setFont(fo);
 	pageSelector->setFocusPolicy(Qt::ClickFocus);
@@ -308,8 +310,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	m_SnapCounter = 0;
 
 	Doc->regionsChanged()->connectObserver(this);
-	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
-	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
+//	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
+//	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
 	connect(zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
