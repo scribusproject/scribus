@@ -4,41 +4,37 @@
 	<title>Scribus on OS/2 &#174; and eComStation&#8482; </title>
 </head>
 <body>
-<h2>Scribus on OS/2- Read Me</h2>
-<p>Scribus v1.3.3.7 beta for OS/2 & eComStation</p>
+<h2>Scribus on OS/2 Warp4&#0174; and eComStation&#0153;</h2>
+
+<p>The Scribus Team is much obliged to Paul Smedley for taking pains over porting Scribus to the OS/2 and eComStation platforms.</p>
+
+<p>The Scribus Team also wants to thank <a href="http://www.serenity-systems.com/">Serenity Systems</a> for supporting development and testing of the OS/2 and eComStation port.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/scribus-os2.png" alt="Scribus on eComStation"  title="Scribus on eComStation" /></td></tr></table>
+
+<h4>Requirements</h4>
+
+<p>In addition to the installer, the following requirements have to be met:
+<ul>
+<li>A copy of libc063.dll, which can currently be downloaded from ftp://ftp.netlabs.org/pub/gcc/libc-0.6.3-csd3.zip, and gcc434.dll, which can be downloaded from http://download.smedley.info/gcc434.zip. Both files need to copied to C:\OS2\DLL (OS/2) or C:\ECS\DLL (eComStation).</li>
+<li>Ghostscript and Python 2.6 (available from http://os2ports.smedley.info) are required to support some functionality. For instance, Python scripts won&rsquo;t work if Python is missing. The print preview and EPS import will not work if Ghostscript isn&rsquo;t available.</li>
+<li>It also requires the Qt4 GA dll&rsquo;s that can be downloaded as a WarpIn package from http://svn.netlabs.org/qt4</li>
+</ul>
+</p>
+
+<h4>Known issues</h4>
 <p>
-Scribus is an open-source program that brings award-winning
-professional page layout to Linux/Unix, MacOS X and Windows
-desktops with a combination of "press-ready" output and 
-new approaches to page layout.</p>
+<ul>
+<li>Printing support is not complete, but PDF export is. You can easily print via Acrobat Reader or another PDF viewer as a temporary workaround.</li>
+<li>As for Acrobat/Adobe Reader on OS/2, please read the detailed hints in the <a href="toolbox1.html">toolbox section</a>.</li>
+</ul>
+</p>
 
-<p>Underneath the modern and user friendly interface, Scribus 
-supports professional publishing features, such as CMYK color,
-separations, ICC color management and versatile PDF creation.</p>
+<h4>A Special Note to OS/2 and eComStation Users</h4>
 
-<p>The Scribus Team is very pleased to welcome a release on the OS/2 & eComStation platform. We would like to thank Paul Smedley who has taken the time to port Scribus itself, and those who have ported the other supporting libraries to OS/2. We will endeavour to find and resolve issues specific to the platform when they are discovered,specifically relating to levels of supporting libraries such as Qt.</p>
+<p>General feedback can be provided to paul@smedley.info and via the normal Scribus communications methods (IRC, mailing list etc). Bug reports should go to http://bugs.scribus.net.</p>
+<p>If you like this software and want to support continued OS/2 ports, please consider donating via PayPal via the link at http://smedley.info/os2ports, or via the Mensys online store at http://www.mensys.net/os2ports.</p>
+<p>You can also sponsor/support the <a href="http://www.mensys.com/NetlabsQT4">Qt4 for OS/2 project</a> &ndash; without the Netlabs Qt4 project, this port could not exist!</p>
 
-<strong>Supports OS/2 Warp4(R) and eComStation(TM)<p></p></strong>
-
-<p>Requires libc061.dll - which is available from ftp://ftp.netlabs.org/pub/gcc/libc-0.6.1-csd1.zip</p>
-
-<p>GhostScript is a recommended installation as per the standard Scribus install instructions. Set the PostScript interpreter in Scribus' preferences to point to your installation. Example: the AFPL GhostScript executable from their gs854os2.zip is gsos2.exe. This package includes install instructions (note the GS_LIB environment variable}.</p>
-
-<p>Known issues:</p>
-<ul><li>The Qt released on OS/2 is quite old and issues may arise due to
-  this fact.</li>
-<li>Printing support is not complete, but PDF export is, you can easily print
-via Acrobat Reader or another PDF viewer as a temporary workaround.</li></ul>
-
-<p>General feedback can be provided to paul@smedley.info and via the normal Scribus communications methods (IRC, mailing list etc), bug reports should go to http://bugs.scribus.net. </p>
-<p>Porter's Note</p>
-<p>If you like this software and want to support continued OS/2 ports,
-please consider donating via PayPal via the link at http://smedley.info/os2ports,
-or via the Mensys online store at http://www.mensys.net/os2ports</p>
-
-<p>Cheers,</p>
-<p>Paul Smedley<br />
-Adelaide, Australia<br />
-January, 2007<br />
 </body>
 </html>
