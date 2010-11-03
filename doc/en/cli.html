@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Scribus Command Line Reference</title>
+</head>
+<body>
+<h4>Scribus Command Line Reference</h4>
+<p>Just like any other program, Scribus can be launched from the command line. Below you find the command line options for Linux/UNIX. On other operating systems the parameters may have to be used differently.</p>
+
+<p>
+<ul>
+<li><code>-l, --lang xx</code><br>
+Overrides the system locale and runs Scribus in language xx. The language is specified with the same POSIX language codes that are used in the LANG and LC_ALL environment variables. For example, English can be selected with 'en' (generic English), 'en_GB' (British English), 'en_US' (American english), etc. Similarly, German can be selected with 'de' or 'de_DE'.</li>
+<li><code>-la, --langs-available</code><br>
+Print a list of languages for which user interface translations are available. To use that language run Scribus as 'scribus -l xx' where xx is the short language code.</li>
+<li><code>-v, --version</code>
+Prints the Scribus version number and exits.</li>
+<li><code>-f, --file</code><br>
+Open the specified file. It's possible to simply pass the file name as an unqualified argument instead of using this, though if the name begins with a - you will need to use --, eg 'scribus -- -myfile.sla'.</li>
+<li><code>-h, --help</code><br>
+Print a brief usage summary.</li>
+<li><code>-fi, --font-info </code><br>
+Shows the font file listing as Scribus starts. This can be used for diagnosing missing glyphs within fonts or possibly broken font files.</li>
+<li><code>-pi, --profile-info</code><br>
+Shows the color profiles listing which Scribus can use. This can be used for diagnosing missing or broken color profiles.</li>
+<li><code>-ns, --no-splash</code><br>
+Suppresses display of the splash screen during Scribus start-up.</li>
+<li><code>-nns, --never-splash</code><br>
+Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</li>
+<li><code>-sb, --swap-buttons</code><br>
+Use right to left dialog button ordering (e.g. Cancel/No/Yes instead of Yes/No/Cancel)</li>
+<li><code>-u, --upgradecheck</code> <br>
+Downloads a file from our scribus server indicating latest available versions.</li>
+</ul>
+</body>
+</html>
