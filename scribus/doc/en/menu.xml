@@ -38,6 +38,7 @@
 		</submenuitem>
 		<submenuitem text="Scribus Basics" file="about2.html" >
 			<submenuitem file="qsg.html" text="Quick Start Guide" />
+			<submenuitem file="cli.html" text="Command Line Reference" />
 			<submenuitem file="docinfo.html" text="Document Information" />
 			<submenuitem file="WwFrames.html" text="Working with Frames" />
 			<submenuitem file="WwText.html" text="Working with Text" />
