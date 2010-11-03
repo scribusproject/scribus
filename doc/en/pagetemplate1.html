@@ -1,46 +1,59 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Master Pages - Using the Page Palette</title>
+	<title>Working with Master Pages</title>
 </head>
 <body>
 	
-<h3>Master Pages - Using the Page Palette</h3>
+<h2>Working with Master Pages</h2>
 
-<p>Master Pages are the means to add content to pages which have repeating content like page numbers, chapter names, section heads and the like. Users of other page layout applications might be familiar with the concept of <em>master pages</em> or static page backgrounds. Fundamental to understanding how they work is they are not editable from the normal page canvas. All items except page numbers are static background items.</p>
+<p>Master Pages are the means to add content to pages which have repeating content like page numbers, chapter names, section heads and the like. Users of other page layout applications might be familiar with this concept of a6 static page backgrounds. Fundamental to understanding how they work is that these pages are not editable from the normal page canvas. All items except page numbers are static background items.</p>
 
-<p>Thoughtful creation of master pages and styles combine can vastly simplify and speed up laying out documents - the more complex, the more they are essential. The first and probably most common use is adding the ability to automatically add page numbers. Let's start there:</p>
+<p>Thoughtful creation of master pages can vastly simplify and speed up the creation of complex documents &ndash; the more complex, the more essential they are. There are several reasons to use Master Pages, among them the ability to automatically add <a href="pagenumber.html">page numbers</a> or avoiding the hassle of inserting objects that are repeatedly used in the same place over and over again.</p>
 
-<h4>Adding Automatic Page Numbers</h4>
-<p>It is actually is quite simple. Go to <strong>Edit > Master Pages</strong>, then create a text frame where you want the page number to appear. Then, in edit mode, enter Alt+#. (US Keyboard users, are recommended to re-map this key to F7 for example.) Save the template and return to the main document.</p>
+<h4>Creating Master Pages</h4>
+<p>There are basically two ways to create a Master Page. The most obvious is to create a new one from scratch, which is actually is quite simple: Go to <i>Edit > Master Pages</i>. This will bring up the Master Page dialog:</p>
 
-<h4>Page Palette</h4>
+<table width="100%"><tr><td align="center"><img src="images/mpage1.png" title="Page Palette" alt="Page Palette" align="center" /></td></tr></table>
+
+<p>As you can see, Master Pages have already been automatically created when you created the new document. How many and what kind of Master Page depends on the document layout you chose: Single-page layouts have one Master Page, double-sided layouts two etc. It is generally a good idea not to touch the &ldquo;Normal&rdquo; Master Pages and create new ones instead.</p>
+<p> The Master Page dialog shown above offers four options, from left to right:
+<ul>
+<li><b>Add new Master Page</b>: If you click on this icon, a new dialog pops up. Here you have to enter a name for the new Master Page. Depending on your document layout, you also have to determine the Master Page category (e.g. left page, right page). Clicking OK will create your new Master Page, and you can edit this page immediately.</li>
+<b>Duplicate Master Page</b>: This will create a copy of the Master Page you have selected in the dialog. Since a new Master Page is created that way, you will also see the prompt to insert a name. Copying a Master Page is helpful if you are working with documents that use a mostly identical design and only vary in details. Thus, you can create a basic design and create duplicates, in which only the changing details are modified.</li>
+<li><b>Import Master Pages</b>: Clicking this button brings up a file dialog, in which you need to select a Scribus file. After selecting a file and clicking &ldquo;OK&rdquo;, Scribus will open a new dialog that allows you to select a Master Page from the document for import into Scribus. This feature is most useful when you have split a large project into several smaller files (which is always recommended), as you don't have to create a new Master Page for each project file.<br>
+<table width="100%"><tr><td align="center"><img src="images/mpage2.png" title="Page Palette" alt="Page Palette" align="center" /></td></tr></table></li>
+<li><b>Delete Master Page</b>: This will delete the Master Page you have selected in the file dialog. If the Master Page is already in use, you will be asked for a replacement.</li>
+</ul>
+</p>Another way to create a new Master Page is to convert an existing page into a Master Page via <i>Page > Convert to Master Page</i>. As with any new Master Page you will be asked to insert a name for the new page, as well as determining the category. If you check the option &ldquo;Copy Applied Master Page Items&rdquo;, the Master Page that is applied to the current page will be merged with the latter into one new Master Page. Otherwise, only the items on the &ldquo;real&rdquo; page become part of the new Master Page.</p>
+<table width="100%"><tr><td align="center"><img src="images/mpage3.png" title="Page Palette" alt="Page Palette" align="center" /></td></tr></table>
+
+<h4>Applying Master Pages</h4>
+<p>As with creating Master Pages, there are also several ways to apply them.</p>
+
+<h5>The Page Menu</h5>
+<p>The most obvious way to apply a Master Page is via <i>Page > Apply Master Page</i>, which will bring up the following dialog:</p>
+<table width="100%"><tr><td align="center"><img src="images/mpage4.png" title="Page Palette" alt="Page Palette" align="center" /></td></tr></table>
+<p>In the dropdown list at the top of the dialog you can choose the Master Page you want to apply.</p>
+<p>The options below let you choose the range of pages to which the selected Master Page will be applied:
+<ul>
+<li>Current page</li>
+<li>Even pages (i.e. in most cases left pages)</li>
+<li>Odd pages (i.e. in most cases right pages)</li>
+<li>All pages</li>
+<li>A range of pages.</li>
+</ul>
+</p>
+<h5>The Page Palette</h5>
+<p>The Page Palette (<i>Windows > Arrange Pages</i>) gives you a fast, drag-and-drop way of applying Master Pages, navigating pages, moving and inserting pages. The top half of the palette shows the available Master Pages in your document. By right-clicking on a listed Master Page item you can activate a thumbnail preview of the available Master Pages. The lower half has the actual pages within your document. Applying a Master Page is done by dragging a Master Page list item onto a page in the lower half.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/mpage5.png" title="Page Palette" alt="Page Palette" align="center" /></td></tr></table>
+
+<br>
+<p><b><i>Important: Please note that Master Page items are always below any item on a regular page. It's impossible to move a Master Page item above a real page item in the stacking order.</i></b></p>
 
 
-<p>The page palette give you a fast, drag and drop way of applying page templates, navigating pages, moving and inserting pages. The top half of the palette has the available templates for your document. The lower half has the actual pages within your document.</p>
 
-<table width="100%"><tr><td align="center"><img src="images/pagetemplate1.png" title="Page Palette" alt="Page Palette" align="center" /></td></tr></table>
-
-
-<p>You can do the following within the Page Palette:</p><ul>
-<li>Insert a page by dragging a master page from the master page area to the page layout area. When the area shows a horizontal bar, release the left mouse button.</li>
-<li>Apply a master page by dragging a template and dropping on the selected page.</li>
-<li>Delete a page or template by dragging them to the trash bin.</li>
-<li>Move pages by dragging and dropping them in between pages. When the horizontal bar appears release the left mouse button.</li>
-<li>Navigate by left clicking on the page will move the canvas to that page.</li>
-<li>You can switch thumbnails in the template area by right clicking in the template area and un-checking Show Thumbnails.</li>
-<li>Double clicking a master page switches you into edit master page mode for the selected master page.</ul></li>
-
-
-
-<!--<p>Above is an example of how to use a template which allows you to have recurring objects on several pages. The template page is has a background of black tinted at 5% to simulate glossy grey paper with a faded logo in the background. The eliminates the time to recreate this on each page.
-</p>-->
-
-
-<h4>Apply Templates</h4>
-<p>Here you can apply a previously created page template size, gutter and other settings. Templates are specific to a document. This useful if you need a series of pages for example with a background on all pages or default text boxes for page numbering, headers or footers.</p>
-<p>When you think you might need to have several templates that might share the same features, a time saving method is to create a single template with all the features and then using the duplicate function to create variations of the original in place of creating each template from scratch..</p>
-<p>Another area where templates are helpful is the ability to import them from other documents. So, for example a book which has separate chapter files can import the same page templates from a common file.</p>
 
 </body>
 </html>
