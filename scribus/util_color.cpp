@@ -733,6 +733,95 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 					}
 				}
 			}
+			else if (ext == "acb")			// Adobe color book format
+			{
+				QFile fiC(fileName);
+				if (fiC.open(QIODevice::ReadOnly))
+				{
+					ScColor lf = ScColor();
+					quint16 vers = 0;
+					quint32 signature;
+					QDataStream ts(&fiC);
+					ts.setByteOrder(QDataStream::BigEndian);
+					ts >> signature;
+					ts >> vers;
+					if ((signature == 0x38424342) && (vers == 1))
+					{
+						quint16 vendor, numcolors, colType;
+						ts >> vendor;
+						QString title		= readAdobeUniCodeString(ts);
+						QString prefix		= readAdobeUniCodeString(ts);
+						QString postfix		= readAdobeUniCodeString(ts);
+						QString description	= readAdobeUniCodeString(ts);
+						ts >> numcolors;
+						ts.skipRawData(4);
+						ts >> colType;
+						for (quint16 cc = 0; cc < numcolors; cc++)
+						{
+							QString name = readAdobeUniCodeString(ts);
+							if (vendor == 3000)
+								name.prepend("ANPA");
+							else if (vendor == 3001)
+								name.prepend("Focoltone");
+							else if (vendor == 3002)
+								name.prepend("PantoneCoated");
+							else if (vendor == 3003)
+								name.prepend("PantoneProcess");
+							else if (vendor == 3004)
+								name.prepend("PantoneProSlim");
+							else if (vendor == 3005)
+								name.prepend("PantoneUncoated");
+							else if (vendor == 3006)
+								name.prepend("Toyo");
+							else if (vendor == 3007)
+								name.prepend("Trumatch");
+							else if (vendor == 3008)
+								name.prepend("HKSE");
+							else if (vendor == 3009)
+								name.prepend("HKSK");
+							else if (vendor == 3010)
+								name.prepend("HKSN");
+							else if (vendor == 3011)
+								name.prepend("HKSZ");
+							else if (vendor == 3012)
+								name.prepend("DIC");
+							else if (vendor == 3020)
+								name.prepend("PantonePastelCoated");
+							else if (vendor == 3021)
+								name.prepend("PantonePastelUncoated");
+							else if (vendor == 3022)
+								name.prepend("PantoneMetallic");
+							ts.skipRawData(6);
+							quint8 componentR, componentG, componentB, componentK;
+							ts >> componentR >> componentG >> componentB;
+							if (colType == 2)
+								ts >> componentK;
+							if (!name.isEmpty())
+							{
+								bool validColor = false;
+								if (colType == 0)			// RBG
+								{
+									lf.setColorRGB(componentR, componentG, componentB);
+									validColor = true;
+								}
+								else if (colType == 2)		// CMYK
+								{
+									lf.setColor(255 - componentR, 255 - componentG, 255 - componentB, 255 - componentK);
+									validColor = true;
+								}
+								if (validColor)
+								{
+									lf.setSpotColor(false);
+									lf.setRegistrationColor(false);
+									if (!EditColors.contains(name))
+										EditColors.insert(name, lf);
+								}
+							}
+						}
+					}
+					fiC.close();
+				}
+			}
 			else if (ext == "aco")			// Adobe color swatch format
 			{
 				QFile fiC(fileName);
@@ -756,17 +845,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 							{
 								quint16 colType;
 								quint16 componentR, componentG, componentB, componentK;
-								quint32 nameLength;
-								QString name = "";
 								ts >> colType >> componentR >> componentG >> componentB >> componentK;
-								ts >> nameLength;
-								for (quint32 a = 0; a < nameLength; a++)
-								{
-									quint16 ch;
-									ts >> ch;
-									if (ch != 0)
-										name.append(QChar(ch));
-								}
+								QString name = readAdobeUniCodeString(ts);
 								if (!name.isEmpty())
 								{
 									bool validColor = false;

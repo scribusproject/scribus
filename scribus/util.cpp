@@ -779,6 +779,21 @@ void setCurrentComboItem(QComboBox *box, QString text)
 	box->blockSignals(false);
 }
 
+QString readAdobeUniCodeString(QDataStream &s)
+{
+	QString ret = "";
+	quint32 len;
+	s >> len;
+	for (quint32 a = 0; a < len; a++)
+	{
+		quint16 ch;
+		s >> ch;
+		if (ch != 0)
+			ret.append(QChar(ch));
+	}
+	return ret;
+}
+
 QString getDashString(int dashtype, double linewidth)
 {
 	QString dashString;
