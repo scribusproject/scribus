@@ -146,6 +146,7 @@
 		<submenuitem text="Printers" file="scprinters.html"/>
 		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
+		<submenuitem text="Release History" file="releases.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
 	</area>
