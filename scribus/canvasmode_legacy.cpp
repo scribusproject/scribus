@@ -282,7 +282,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 	{
 		if (currItem->asLatexFrame()) 
 		{
-			if ((currItem->locked()) || (!currItem->ScaleType))
+			if (currItem->locked())// || (!currItem->ScaleType))
 			{
 				return;
 			}
@@ -291,7 +291,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 		} 
 		else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 		{
-			if ((currItem->locked()) || (!currItem->ScaleType))
+			if (currItem->locked())// || (!currItem->ScaleType))
 			{
 				//				mousePressEvent(m);
 				return;

@@ -6572,9 +6572,9 @@ void PageItem::AdjustPictScale()
 		return;
 	if (OrigW == 0 || OrigH == 0)
 		return;
-	LocalX = 0;
-	LocalY = 0;
-	LocalRot = 0;
+//	LocalX = 0;
+//	LocalY = 0;
+//	LocalRot = 0;
 	double xs = Width / static_cast<double>(OrigW);
 	double ys = Height / static_cast<double>(OrigH);
 	if (AspectRatio)
@@ -6957,7 +6957,7 @@ void PageItem::moveImageInFrame(double newX, double newY)
 {
 	if (m_ItemType!=PageItem::ImageFrame)
 		return;
-	if ((locked()) || (!ScaleType))
+	if (locked())// || (!ScaleType))
 		return;
 	double dX=0.0, dY=0.0;
 	if (imageFlippedH())

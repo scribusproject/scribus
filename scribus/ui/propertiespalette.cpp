@@ -874,9 +874,9 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	imagePageNumberSelector->addWidget( imagePageNumber, 0, 1);
 	pageLayout_4->addLayout( imagePageNumberSelector );
 	
-	FreeScale = new QRadioButton( "&Free Scaling", page_4 );
-	FreeScale->setChecked( true );
-	pageLayout_4->addWidget( FreeScale );
+//	FreeScale = new QRadioButton( "&Free Scaling", page_4 );
+//	FreeScale->setChecked( true );
+//	pageLayout_4->addWidget( FreeScale );
 
 	layout43 = new QGridLayout;
 	layout43->setSpacing( 5 );
@@ -901,41 +901,45 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	imageRotationLabel->setBuddy(imageRotation);
 	layout43->addWidget( imageRotationLabel, 2, 0 );
 	layout43->addWidget( imageRotation, 2, 1 );
+
+	FreeScale = new QRadioButton( "&Free Scaling", page_4 );
+	FreeScale->setChecked( true );
+	layout43->addWidget( FreeScale, 3, 0 );
 	
 	imageXScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageXScaleSpinBox);
 	xscaleLabel = new QLabel( "X-Sc&ale:", page_4 );
 	xscaleLabel->setBuddy(imageXScaleSpinBox);
-	layout43->addWidget( xscaleLabel, 3, 0 );
-	layout43->addWidget( imageXScaleSpinBox, 3, 1 );
+	layout43->addWidget( xscaleLabel, 4, 0 );
+	layout43->addWidget( imageXScaleSpinBox, 4, 1 );
 	imageYScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageYScaleSpinBox);
 	yscaleLabel = new QLabel( "Y-Scal&e:", page_4 );
 	yscaleLabel->setBuddy(imageYScaleSpinBox);
-	layout43->addWidget( yscaleLabel, 4, 0 );
-	layout43->addWidget( imageYScaleSpinBox, 4, 1 );
+	layout43->addWidget( yscaleLabel, 5, 0 );
+	layout43->addWidget( imageYScaleSpinBox, 5, 1 );
 	keepImageWHRatioButton = new LinkButton( page_4 );
 	keepImageWHRatioButton->setCheckable( true );
 	keepImageWHRatioButton->setAutoRaise( true );
 	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
-	layout43->addWidget( keepImageWHRatioButton, 3, 2, 2, 1 );
+	layout43->addWidget( keepImageWHRatioButton, 4, 2, 2, 1 );
 	imgDpiX = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiX);
 	imgDPIXLabel = new QLabel( "Actual X-DPI:", page_4 );
 	imgDPIXLabel->setBuddy(imgDpiX);
-	layout43->addWidget( imgDPIXLabel, 5, 0 );
-	layout43->addWidget( imgDpiX, 5, 1 );
+	layout43->addWidget( imgDPIXLabel, 6, 0 );
+	layout43->addWidget( imgDpiX, 6, 1 );
 	imgDpiY = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiY);
 	imgDPIYLabel = new QLabel( "Actual Y-DPI:", page_4 );
 	imgDPIYLabel->setBuddy(imgDpiY);
-	layout43->addWidget( imgDPIYLabel, 6, 0 );
-	layout43->addWidget( imgDpiY, 6, 1 );
+	layout43->addWidget( imgDPIYLabel, 7, 0 );
+	layout43->addWidget( imgDpiY, 7, 1 );
 	keepImageDPIRatioButton = new LinkButton( page_4 );
 	keepImageDPIRatioButton->setCheckable( true );
 	keepImageDPIRatioButton->setAutoRaise( true );
 	keepImageDPIRatioButton->setMaximumSize( QSize( 15, 32767 ) );
-	layout43->addWidget( keepImageDPIRatioButton, 5, 2, 2, 1 );
+	layout43->addWidget( keepImageDPIRatioButton, 6, 2, 2, 1 );
 	pageLayout_4->addLayout( layout43 );
 
 	Layout24 = new QVBoxLayout;
@@ -1948,9 +1952,9 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 // 				keepImageWHRatioButton->setChecked(setter);
 // 				keepImageDPIRatioButton->setChecked(setter);
 // 			}
-			imageXOffsetSpinBox->setEnabled(setter);
-			imageYOffsetSpinBox->setEnabled(setter);
-			imageRotation->setEnabled(setter);
+			//imageXOffsetSpinBox->setEnabled(setter);
+			//imageYOffsetSpinBox->setEnabled(setter);
+			//imageRotation->setEnabled(setter);
 		}
 	}
 	setXY(CurItem->xPos(), CurItem->yPos());
@@ -2563,32 +2567,38 @@ void PropertiesPalette::ChangeScaling()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+
 	if (FreeScale == sender())
 	{
 		FrameScale->setChecked(false);
 		FreeScale->setChecked(true);
 		Aspect->setEnabled(false);
-		imageXOffsetSpinBox->setEnabled(true);
-		imageYOffsetSpinBox->setEnabled(true);
+//		imageXOffsetSpinBox->setEnabled(true);
+//		imageYOffsetSpinBox->setEnabled(true);
 		imageXScaleSpinBox->setEnabled(true);
 		imageYScaleSpinBox->setEnabled(true);
 		imgDpiX->setEnabled(true);
 		imgDpiY->setEnabled(true);
-		imageRotation->setEnabled(true);
+//		imageRotation->setEnabled(true);
+		keepImageWHRatioButton->setEnabled(true);
+		keepImageDPIRatioButton->setEnabled(true);
 	}
 	if (FrameScale == sender())
 	{
 		FrameScale->setChecked(true);
 		FreeScale->setChecked(false);
 		Aspect->setEnabled(true);
-		imageXOffsetSpinBox->setEnabled(false);
-		imageYOffsetSpinBox->setEnabled(false);
+//		imageXOffsetSpinBox->setEnabled(false);
+//		imageYOffsetSpinBox->setEnabled(false);
 		imageXScaleSpinBox->setEnabled(false);
 		imageYScaleSpinBox->setEnabled(false);
 		imgDpiX->setEnabled(false);
 		imgDpiY->setEnabled(false);
-		imageRotation->setEnabled(false);
+//		imageRotation->setEnabled(false);
+		keepImageWHRatioButton->setEnabled(false);
+		keepImageDPIRatioButton->setEnabled(false);
 	}
+
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setImageScalingMode(FreeScale->isChecked(), Aspect->isChecked());
