@@ -733,6 +733,82 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 					}
 				}
 			}
+			else if (ext == "aco")			// Adobe color swatch format
+			{
+				QFile fiC(fileName);
+				if (fiC.open(QIODevice::ReadOnly))
+				{
+					ScColor lf = ScColor();
+					QDataStream ts(&fiC);
+					ts.setByteOrder(QDataStream::BigEndian);
+					quint16 vers = 0;
+					ts >> vers;
+					if (vers == 1)
+					{
+						quint16 count1 = 0;
+						quint16 count2 = 0;
+						ts >> count1;
+						ts.skipRawData(count1 * 10);
+						ts >> vers >> count2;
+						if ((vers == 2) && (count1 == count2))
+						{
+							for (quint16 cc = 0; cc < count2; cc++)
+							{
+								quint16 colType;
+								quint16 componentR, componentG, componentB, componentK;
+								quint32 nameLength;
+								QString name = "";
+								ts >> colType >> componentR >> componentG >> componentB >> componentK;
+								ts >> nameLength;
+								for (quint32 a = 0; a < nameLength; a++)
+								{
+									quint16 ch;
+									ts >> ch;
+									if (ch != 0)
+										name.append(QChar(ch));
+								}
+								if (!name.isEmpty())
+								{
+									bool validColor = false;
+									if (colType == 0)			// RBG
+									{
+										lf.setColorRGB(componentR >> 8, componentG >> 8, componentB >> 8);
+										validColor = true;
+									}
+									else if (colType == 1)		// HSB
+									{
+										uchar hc, sc, bc;
+										hc = componentR >> 8;
+										sc = componentG >> 8;
+										bc = componentB >> 8;
+										HSVTORGB(hc, sc, bc);
+										lf.setColorRGB(hc, sc, bc);
+										validColor = true;
+									}
+									else if (colType == 2)		// CMYK
+									{
+										lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
+										validColor = true;
+									}
+									else if (colType == 8)		// Grayscale
+									{
+										lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
+										validColor = true;
+									}
+									if (validColor)
+									{
+										lf.setSpotColor(false);
+										lf.setRegistrationColor(false);
+										if (!EditColors.contains(name))
+											EditColors.insert(name, lf);
+									}
+								}
+							}
+						}
+					}
+					fiC.close();
+				}
+			}
 			else if (ext == "skp")			// Sk1 palette
 			{
 				QFile fiC(fileName);
