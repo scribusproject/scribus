@@ -1,58 +1,61 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Layers and Blending Modes</title>
+	<title>Working with Layers</title>
 </head>
 <body>
-<h3>Layers Basics</h3>
-<p>Layers are a very easy to use and can solve some challenges with certain types of documents or working with text, artwork or images without affecting other objects. </p>
-<ul><li>You can use layers for both managing different versions of a document with the same layout, perhaps one with multiple languages. With layers you can put each language on a separate layer and disable viewing and printing sequentially for each language.</li>
-<li>Layers can also help you with importing complex items or grouped items and you wish to not disturb existing content.</li>
-<li>Layers can be used for masking items or purposely stacking objects so that both can be seen.</li>
-<li>Layers are also supported in PDF 1.5+. At the moment, only Adobe Reader 7.0+ supports viewing content in layers within a PDF. Scribus can export PDF 1.5 files with layers and Adobe Reader reads the layer content correctly.</li>
-</ul>
-<table width="100%"><tr><td align="center"><img src="images/layers1.png" title="Basic Layers Dialog" alt="Basic Layers Dialog" /></td></tr></table><br />
-<p></p>
-<h3>Transparent Layer Blending Modes in Scribus</h3>
-<p><strong>Note: This feature is only available when Scribus is compiled with Cairo 1.2+</strong></p>
+<h3>Working with Layers</h3>
+<p>You may know the concept of layers from drawing or image editing software. Layers can be used for many different purposes, for example for separating printable and non-printable items like grids, to create multiple-language versions of a document in a single file or simply to ease editing certain objects without affecting others.</p>
+<p>By default, a new document has only one layer, with the default name &ldquo;Background&rdquo;. Newly added objects will each be at their own Level on this layer, so you may have many <i>levels</i> on one <i>layer</i>. For many documents, only one layer will be necessary, but sometimes it may be desirable to work with more than one layer.</p>
+<p>To add a new layer, open the Layers dialog under <i>Windows > Layers</i> or press F6:</p>
 
-<p>Scribus has a very powerful and versatile way of handling layers in a document via the way that not only layers can be made transparent and their opacity changed, but the so called <strong>blend modes</strong> can be selected to control the way transparency is rendered. Objects can be similarly controled individually. Blend modes are a way for you to control how the pixels of the layers are combined. When a given layer is selected the blend mode chosen affects how that layer's pixels are combined with only those layers <em>below</em> the selected layer. The layers remain separately editable and only are combined in the display and at print/export time. Note also, except when printing to certain printers on Windows, this type of transparency will not be supported well, if it at all. Exporting PDF version 1.4 (Acrobat 5.0) or higher will support these modes properly.</p>
-<p>Similarly, these blend modes can be used with individual objects or groups, separately from the layers options via the properties palette. In addtion, when importing certain PSD (Photoshop native files), there is an addtional blend mode Scribus supports called <strong>Dissolve</strong> which adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</p> 
-
-<table width="100%"><tr><td align="center"><img src="images/layers2.png" title="Transparency Blend Spaces - note the addtional opacity and blend mode options." alt="Transparency Blend Spaces - note the addtional opacity and blend mode options." /></td></tr></table><br />
-<p></p>
-<h4>Available Blend Modes in Scribus:</h4>
+<table width="100%"><tr><td align="center"><img src="images/layers1.png" title="The Layers Dialog" alt="The Layers Dialog" /></td></tr></table><br />
+<p>At first glance, the dialog looks simple, but it&rsquo;s very powerful. At the top you can set a blend mode and layer opacity. These will be discussed elsewhere.</p>
+<p>At the bottom of the dialog we have the basic layer management tools available, from left to right:
 <ul>
-<li><strong>Normal</strong> - Pixels of the selected layer are combined with pixels on the layers below. The single difference is opacity. </li>
-<li><strong>Darken</strong> - Pixels in the chosen layer which are darker than the layer's below are are applied to the image. Lighter pixels are masked or invisible. </li>
-<li><strong>Lighten</strong> - Pixels in the selected layer that are lighter than underlying layer's pixels will be applied to the image. Darker pixels will be invisible.</li>
-<li><strong>Multiply</strong> - combines the colors of the selected layer with the colors of the underlying layers to produce darker colors. Colors which are multiplied with black will be black. Colors multiplied with white results in no color changes.</li>
-<li><strong>Hue</strong> - applies the hue of the selected layer to the layers below. </li>
-
-<li><strong>Saturation</strong> - applies the saturation of the selected layer to the layers below.</li>
-
-<li><strong>Color</strong> - applies both the hue and saturation of the selected layer to the underlying layers, but the luminance is not affected.</li>
-
-<li><strong>Luminosity</strong> - applies the luminance values of the selected layer to the luminance of the underlying layers, but the color is not affected.</li>
-
-<li><strong>Screen</strong> - Multiplies the inverse of the selected layer colors and with the colors of the layers below. This gives a color that is the same or lighter than the layer colors below.</li>
-
-<p>This is for the PSD importer only</p>
-<li><strong>Dissolve</strong> - Adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</li>
-
-
-<li><strong>Overlay</strong> - combines features of the Screen and Multiply modes. Shows patterns or colors of the selected layer while preserving shadows and highlights of the underlying layer.</li>
-
-<li><strong>Hard Light</strong> - also combines features of the Screen and Multiply modes. Used to show highlights and shadows.</li>
-
-<li><strong>Soft Light</strong> - combines features of the Dodge and Burn modes. Produces soft shadows and highlights.</li>
-
-<li><strong>Difference</strong> - subtracts the selected layer color from the underlying layer, depending on which is lighter.</li>
-
-<li><strong>Dodge</strong> - the lightness values of the colors in the selected layer modify the underlying colors, by making them lighter. Black produces no effect.</li>
-<li><strong>Burn</strong> - the lightness values of the colors in the selected layer modify the underlying layers, by making them darker.</li>
-
-<li><strong>Exclusion</strong> - similar to Difference but softer. </li>
+<li>Adding a new layer</li>
+<li>Removing a selected layer</li>
+<li>Duplicating a selected layer, including its content</li>
+<li>Moving a selected layer one level up</li>
+<li>Moving a selected layer one level down</li>
 </ul>
+</p>
+<p>The major part of the dialog is occupied by the layer list, including various layer options. These are, from left to right:
+<ul>
+<li><b>Color of the layer indicator</b>: Each layer has a unique color that helps identifying objects on that layer. You can enable the color indicators for objects via <i>View > Show Layer Indicators</i>. To change this color, simply click on the color for the respective layer in the dialog. This will bring up a color selector, where you can either choose another color or create a new one.</li>
+<li><b>Layer visibility</b>: Here you can set a layer to visible or invisible. Visibility has no impact on printing, so be careful when you use this feature, as it can easily happen that invisible content will appear in your print or an exported PDF, simply because you forgot to disable printing as well.</li>
+<li><b>Layer printability</b>: This option corresponds to the previous, and you&rsquo;re advised to be equally cautious, since a visible layer may be set to not to print or export to PDF.</li>
+<li><b>Layer locking</b>: This option lets you lock all objects on layer, i.e. prevent them from being edited.</li>
+<li><b>Text flow for layer objects</b>: If enabled, this option will force text in frames on lower layers to flow around objects on the selected layer.</li>
+<li><b>Outline mode for layer objects</b>: This option comes in handily if you want to speed up the performance of Scribus, as all objects on a layer are only displayed in a &ldquo;wireframe&rdquo; mode. This is especially useful when a layer contains complex vector graphics.</li>
+<li><b>Layer name</b>: Every layer has a unique name, which is shown here. To change the name of a layer, double-click into the &ldquo;Name&rdquo; field and insert a new one.</li>
+</ul>
+</p>
+<h4>Switching between layers</h4>
+<p>There are two options to switch between layers. The first is to select a layer in the layer dialog, but it is a bit tedious to open a separate dialog each time you want to do nothing more than continue your work on another layer. Fortunately, the Status Bar at the bottom of the Scribus windows has a layer selector. It lists all layers in a document by name and also displays a layer&rsquo;s color.</p>
+<h4>Moving objects between layers</h4>
+<p>If you want to move an object from one layer to another, you can use &ldquo;Send to Layer&rdquo; from the Context Menu or the same command from the <i>Item</i> menu in the menu bar. The command is also available in the Context Menu of objects in the Document Outline.</p>
+<h4>Hints for working with layers</h4>
+<p>
+<ul>
+<li>Layers always exist for the whole document, not per page.</li>
+<li>To select all items on a layer, use <i>Edit > Advanced Select All</i> from the Menu Bar.</li>
+<li>If you’re deleting a layer with objects on it, you will be asked if the objects on it should be removed as well. If you negate, all objects on the deleted layer will be moved to the background layer.</li>
+<li>Scribus document layers must not be confused with layers in PSD files. Both are completely independent.</li>
+<li>Scribus supports layers in Adobe Illustrator (AI) files, but only if an AI file is being <i>opened</i> (<i>File > Open</i>). If you <i>import</i> a layered AI file (<i>File > Import > Get Vector File</i>), all AI layers will be merged into one.</li>
+<li>Layers are also supported in PDF version 1.5 and later, but so far, only Adobe Reader 7 and later versions can display layered PDFs correctly. Scribus can export PDF 1.5 files with layers, but you have to check the option &ldquo;Include Layers&rdquo; in the &ldquo;General&rdquo; tab of the PDF export dialog. Adobe Reader will then read the layer content correctly:</li><br>
+</ul>
+</p>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/layers2.png" title="The Layers Dialog" alt="The Layers Dialog" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Layers and their settings in Adobe Reader (right) and Scribus (left)</i></div></td>
+    </tr>
+  </tbody>
+</table>
+
 </body>
 </html>
