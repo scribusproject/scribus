@@ -31,7 +31,7 @@ void PictureBrowserPlugin::languageChange()
 	// Action name
 	m_actionInfo.name = "Picture Browser";
 	// Action text for menu, including &accel
-	m_actionInfo.text = tr ( "&Picture Browser" );
+	m_actionInfo.text = tr ( "&Picture Browser..." );
 	// Menu
 	m_actionInfo.menu = "Extras";
 	// If needed, what item to add the menu item after
