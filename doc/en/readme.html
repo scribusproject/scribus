@@ -1,60 +1,214 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Scribus Version 1.3.5 Readme</title>
+	<title>What&rsquo;s New in Scribus 1.3.9?</title>
 </head>
 <body>
-<h2>Scribus Version 1.3.5 Readme</h2>
-<h4>What's New ?</h4>
-<p>The Scribus 1.3.5 is the fifth development release of the next generation for Scribus. This release is the first based on Qt4 and on first use some GUI elements have changed along with new features made possible with Qt. </p>
-<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.4+ files in the stable 1.3.3.x versions. Our plans for a new file format should be settled in the 1.3.6 -1.3.7 development period.</h4>
+<h2>What&rsquo;s New in Scribus 1.3.9?</h2>
+<p>This is a cursory overview over the changes in Scribus compared to to the latest stable version 1.3.3.14.</p>
+
+<p><b><i>Note that the file format has changed and is not backwardly compatible. We have specifically disabled the ability to open files created with 1.3.4 or later in the stable 1.3.3.x versions. Also note that 1.3.9 is still a devlopment version and not considered stable yet.</i></b></p>
+<h3>General</h3>
 <ol>
-<li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> <strong>before</strong> installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import and print preview in Scribus.</li>
-<li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard short cuts are not migrated and will be recreated once on the first launch 1.3.x. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
-<li>On initial launch, 1.3.5 will offer to inherit preferences from any existing prior version, but store them separately, so you can run 1.3.3.x in parallel with 1.3.5. </li>
-<li>You <strong>can</strong> install both versions in parallel and run them at the same time. The only caveat is to install them using different prefix/ directories e.g 1.3.3.x in /usr/local and 1.3.5 in /opt or $home/bin. You can use the <code>-DCMAKE_INSTALL_PREFIX:PATH=</code> argument to configure to set where Scribus should be installed.</li>
-<li>Many of the new or revised GUI functions have extensive tool tips. To enable tool tips, make sure <strong>Help &#062; Tooltips </strong>is checked. </li>
+<li>On initial launch, 1.3.9 will offer to inherit the configuration data from any existing prior version, but it will store them separately, so you can run 1.3.3.x in parallel with 1.3.9. </li>
+<li>You <b>can</b> install both versions in parallel and run them at the same time. The only caveat is to install them using different installation directories, e.g 1.3.3.x in /usr/local and 1.3.9 in /opt or $home/bin. If you&rsquo;re building Scribus from source, you can use the <code>-DCMAKE_INSTALL_PREFIX:PATH=</code> argument to configure where Scribus should be installed.</li>
 </ol>
-<h4>New In Scribus 1.3.5</h4>
+<h3>New in Scribus 1.3.9</h3>
+
+<h4>Qt4 Port</h4>
+<p>One of the major endeavours on the way from 1.3.3.x to 1.4 was the porting the Qt4 toolkit. Among others, it enabled a vastly better performance under Mac OS&nbsp;X, as well as the creation of native DMGs for OS&nbsp;X. Scribus 1.3.9 DMGs will run on OS&nbsp;X 10.5+.</p>
+
+<h4>Object Handling</h4>
 <ul>
-<li>Porting to Qt4 should provide vastly better performance under OSX. Scribus 1.3.5 will run on OSX 10.3.9+  </li>
-<li>Much more extensive support for CMYK images, including clipping paths in TIFF and JPEG files, as well as extensive support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance. CMYK-JPEG is also supported. </li>
-<<!--li>There is a new imposition tool which allows you to create booklets. This enables for example printing 2 pages of A5 on A4 paper.</li>-->
-<li>The other new major addtion is the new latex import capabilties. This is explained in detail in the online help.</li>
-
-
+<li>Significant enhancments to Multiple Duplicate.</li>
+<li>Transform tools as known from Illustrator.</li>
+<li>New options to align and disribute objects.</li>
+<li>Advanced multiple object selection.</li>
 </ul>
-<p>For detailed changes please see the ChangeLog and the Roadmap on <a href="http://wiki.scribus.net/">http://wiki.scribus.net/</a>.</p>
-<p>To use Scribus in your native language be sure that the environment variable LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option of -l/--lang &#060;lang&#062; is set correctly. This also can be changed in the preferences and takes effect immediately.</p>
 
-<p>The EPS/PS import features in 1.3.x uses advanced features of Ghostscript. We recommend ALL users update to the newest version of Ghostscript available for your distribution. There are detailed hints on docs.scribus.net for installing GS 8.x in parallel to the GS installed by your distribution.</p>
-	
-<p>Activating Color Management <strong>requires</strong> installation of CMYK and RGB ICC profiles. Grey scale icc profiles in images are not supported in this release. Scribus comes with 2 icc profiles only to ensure color management works immediately. These profiles are not sufficient to provide correctly working color management. Please see the included help files and <a href="http://docs.scribus.net">http://docs.scribus.net</a> for details.</p>
-<!--<p>If you have a 64-bit version of Qt, sometimes ./configure will not detect the 64-bit version headers. Try : <pre>./configure --enable-libsuffix=64</pre> to test for 64-bit versions of libraries.</p>-->
-<h4>Other notes/known issues at the time of release:</h4>
-	
-<p>There is a bug in font outline handling for some fonts in the freetype libraries. It's being worked on upstream. Don't file a bug report. Instead change the font used if you need the outlines. This is not a Scribus bug. Some testing has shown that this bug is not present in freetype 2.1.10+, but we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some distributions can be quite difficult.</p>
-
-
-<h4>Font Issues</h4>
-<p>There are extensive notes and detailed on documentation on fonts and trouble shooting of font issues in the help documentation and online at http://docs.scribus.net.  Please read these carefully before filing bugs.</p>
-<p>There are issues with the PostScript naming conventions with the Computer Modern Type 1 fonts, depending on distribution.  In some cases, not all fonts from the same family are visible in Scribus. We are working on a more complete solution for the next release. 
-</p>
-	
-<h4>For Debian Users:	</h4>
-<p>If Scribus does not start while complaining about the absence of PostScript fonts please install either xfonts-scalable or gsfonts-x11.	They are in the "Recommends" and will be installed by all sensible apt front-ends.
-</p>	
-<h4>For Suse 10.x/11.x Users:</h4>
+<h4>Text and Typography</h4>
+<h5><b>Typography:</b></h5>
 <ul>
-<li>There are both 32 and 64 bit packages in OpenSuse Build server. Within the same repo are several programs which are useful with Scribus including GSview and other graphics utilities.</li>
-<li>Should you compile your own from source, to enable direct CUPS support which we recommend, make sure both cups-devel and openssl-devel are installed. Suse enables ssl support in CUPS. See the BUILDING file.</li></ul>
-<p>There is a separate file, PACKAGING for detailed hints and notes on building packages for Scribus.</p>
-<p> More hints and other information are on the <a href="http://www.scribus.net">http://www.scribus.net</a> and <a href="http://docs.scribus.net">http://docs.scribus.net</a> sites. Full compile, install and FAQs are available there.</p>
-	
-<p>There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net and the mailing list. Mailing list info can be found at: http://lists.scribus.info/mailman/listinfo/scribus</p>
-<p>For the Scribus Team,</p>
-<p>Peter Linnell<br />
-in April 2009 <br />
-</p>
+<li>Optical Margins.</li>
+<li>Glyph Extension</li>
+<li>Variable First Line Offset for text frames.</li>
+<li>Character Styles.</li>
+<li>New Style Manager that allows for style hierarchies, cloned styles and style inheritance.</li>
+<li>A new glyph selector that allows for the creation of glyph sets that can be shared between users.</li>
+<li>Major improvements to the hyphenator.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new1.png" title="Optical Margins" alt="Optical Margins" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Optical Margins</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h5><b>Text</b></h5>
+<ul>
+<li>Basic spellchecking via aspell (not available for Windows).</li>
+<li>New text variable: Number of pages.</li>
+</ul>
+
+<h4>Vector Tools</h4>
+
+<ul>
+<li>New default shapes.</li>
+<li>New Path Tools, like Boolean path operations, lens effects or mesh distortion.</li>
+<li>More options for text on path.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new2.png" title="Boolean path operations" alt="Boolean path operations" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Boolean path operations</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h4>Lines</h4>
+<ul>
+<li>New line styles.</li>
+<li>Line style editor.</li>
+</ul>
+
+
+<h4>Solid Colors, Gradients and Patterns</h4>
+<ul>
+<li>Major improvements to the Color Wheel (support for multiple color models).</li>
+<li>Option to replace solid colors throughout the whole document.</li>
+<li>Support for external color palette formats (EPS, AI, PS, SOC, GPL).</li>
+<li>Locking of standardized color palettes.</li>
+<li>Many new color palettes, among them the national standard color sets of Australia, Japan, the United Kingdom and the United States, as well as Resene&#0174; color collections.</li>
+<li>New gradient types.</li>
+<li>Support for pattern fills: All graphics formats supported by Scribus can be used as patterns.</li>
+<li>Emulation of color blindness for all colors in a document.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new5.png" title="Replacing solid colors" alt="Replacing solid colors" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Replacing solid colors</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h4>Transparency</h4>
+<ul>
+<li>Blending modes as known from Photoshop or GIMP are now available for all objects in a Scribus document and can also be applied to layers.</li>
+</ul>
+
+<h4>Render Frames</h4>
+<ul>
+<li>One of the major new features is the introduction of Render Frames, a special frame type that allows for rendering the output of programs like LaTeX, Lilypond or POV-Ray inside Scribus.</li></ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new3.png" title="Render Frame Editor" alt="Render Frame Editor" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Render Frame Editor</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h4>Import Filters</h4>
+<ul>
+<li>A considerable amount of work has been spent on new import filters for vector formats, most notably Adobe Illustrator (AI). Scribus can now import both EPS and PDF based AI files. Other filters are: Windows Metafile (WMF), Xfig (FIG), Calamus Vector Graphics (CVG), Macintosh PICT (PICT), Kivio Stencils (SML) and Dia Shapes (SHAPE).</li></ul>
+
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new4.png" title="Adobe Illustrator import" alt="Adobe Illustrator import" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Adobe Illustrator import</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h4>Image Handling</h4>
+<ul>
+<li>New non-destructive image effects.</li>
+<li>Better handling of PSD-specific features, like clipping paths and layers.</li>
+<li>Major improvements to the image manager.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new6.png" title="The new image manager" alt="The new image manager" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>The new image manager</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h4>Layers</h4>
+<ul>
+<li>Scribus layers can now be exported as PDF layers (PDF 1.5 only).</li>
+<li>Duplicate Layers feature.</li>
+<li>Wireframe mode for layers to speed up performance.</li>
+<li>Enforceable text flow around objects on a lower layer.</li>
+</ul>
+
+<h4>Pre-press</h4>
+<ul>
+<li>Enhancements to the Print Preview, like indication of ink coverage.</li>
+<li>Improvements to the Preflight Verifier.</li>
+<li>New pre-press features, like bleed and printing marks.</li>
+<li>Optional conversion of spot colors to process colors.</li>
+</ul>
+
+<h4>PDF Export</h4>
+<ul>
+<li>Support for PDF 1.5 features, e.g. slide effects for PDF presentations or layers.</li>
+<li>Optional embedding of EPS and PDF files in PDF documents.</li>
+<li>Better font subsetting.</li>
+</ul>
+
+<h4>Usabilty</h4>
+<p>Much work has been spent on major and minor usability improvements throughout the whole program, e.g.:</p>
+<ul>
+<li>A search feature for the Document Outline.</li>
+<li>Many more viewing options, including a document preview without guides and frame borders.</li>
+<li>One-click activation of color management.</li>
+<li>Context menu for the document canvas with options to insert vector graphics directly or to activate viewing options</li>
+<li>Many more options to automate and speed up the insertion of frames (e.g. Insert Frame dialog, &ldquo;Sticky Tools&rdquo; option).</li>
+<li>Enhacments to the Scrapbook.</li>
+</ul>
+
+<h4>Templates</h4>
+<ul>
+<li>Many templates, donated by artists, have been added.</li>
+<li>We have finally begun to translate the template categories and template descriptions into other languages.</li>
+</ul>
+
+<h4>Help System</h4>
+<ul>
+<li>The content of the Online Help system has almost doubled since the relase of the latest stable version 1.3.3.14. Moreover, major parts of the existing documentation have been updated or completely rewritten to reflect the feature set of Scribus 1.3.9+.</li>
+<li>Many new tooltips have been added, and existing ones have been expanded.</li>
+<li>Online help resources are now accessible from the <i>Help</i> menu.</li>
+</ul>
+
 </body>
 </html>
