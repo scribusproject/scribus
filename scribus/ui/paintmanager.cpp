@@ -87,8 +87,8 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	csm.findUserPalettes(userSwatches);
 	customColSet = csm.userPaletteNames();
 	userSwatches->setExpanded(true);
-	QFileInfo fi(docColSet);
-	LoadColSet->setCurrentComboItem(fi.baseName());
+//	QFileInfo fi(docColSet);
+	LoadColSet->setCurrentComboItem(docColSet);
 	if (m_doc != 0)
 	{
 		label->setText( tr("Merge Color Set"));
@@ -1239,7 +1239,7 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 			QTreeWidgetItem *item = LoadColSet->addSubItem(name, userSwatches);
 			item->setData(0, Qt::UserRole, fi.absolutePath());
 			disconnect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
-			LoadColSet->setCurrentComboItem(name);
+			LoadColSet->setCurrentComboItem(fi.absolutePath() + "/" + name);
 			connect(LoadColSet, SIGNAL(activated(QTreeWidgetItem*)), this, SLOT(loadDefaults(QTreeWidgetItem*)));
 		}
 	}
@@ -1247,8 +1247,12 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 
 QString PaintManagerDialog::getColorSetName()
 {
+	QString NameK;
 	QTreeWidgetItem* item = LoadColSet->currentItem();
-	QString NameK = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
+	if (item->text(0) == "Scribus Small")
+		NameK = "Scribus Small";
+	else
+		NameK = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
 	return NameK;
 }
 
