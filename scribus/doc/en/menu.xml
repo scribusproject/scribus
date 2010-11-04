@@ -45,21 +45,21 @@
 			<submenuitem file="WwImages.html" text="Working with Images" />
 			<submenuitem file="WwRenderframes.html" text="Working with Render Frames" />
 			<submenuitem file="WwShapes.html" text="Working with Shapes" />
-			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
 			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
-			<submenuitem text="Master Pages" file="pagetemplate1.html" />
+			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
+			<submenuitem text="Working with Layers" file="layers.html" />
+			<submenuitem text="Working with Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
 			<submenuitem text="Editing Colors" file="color1.html" />
-			<submenuitem text="Layers" file="layers.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing EPS" file="importhints1.html"/>
-			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
-			<submenuitem file="importhints3.html" text="OpenOffice.org Docs" />
-			<submenuitem file="importhints4.html" text="HTML Importing" />
-			<submenuitem file="scribus-svg.html" text="Importing SVGs" />
+			<submenuitem file="scribus-svg.html" text="Importing SVG" />
+			<submenuitem file="importhints3.html" text="Importing OpenOffice.org and ODF Files" />
+			<submenuitem file="importhints4.html" text="Importing HTML" />
 			<submenuitem file="psd.html" text="Importing PSD" />
+			<submenuitem text="Import Tips" file="importhints2.html"/>
 		</submenuitem>
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
