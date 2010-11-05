@@ -958,8 +958,8 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					FarNam = QString::fromUtf8(farN.constData());
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 					cc.setSpotColor(true);
-					if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
-						CustColors.insert(FarNam, cc);
+					if (!FarNam.isEmpty())
+						CustColors.tryAddColor(FarNam, cc);
 					while (!ts.atEnd())
 					{
 						quint64 oldPos = ts.device()->pos();
@@ -989,8 +989,8 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 						FarNam = QString::fromUtf8(farN.constData());
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 						cc.setSpotColor(true);
-						if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
-							CustColors.insert(FarNam, cc);
+						if (!FarNam.isEmpty())
+							CustColors.tryAddColor(FarNam, cc);
 					}
 				}
 			}
@@ -1022,8 +1022,8 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					}
 					FarNam = QString::fromUtf8(farN.constData());
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
-					if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
-						CustColors.insert(FarNam, cc);
+					if (!FarNam.isEmpty())
+						CustColors.tryAddColor(FarNam, cc);
 					while (!ts.atEnd())
 					{
 						quint64 oldPos = ts.device()->pos();
@@ -1052,8 +1052,8 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 						}
 						FarNam = QString::fromUtf8(farN.constData());
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
-						if ((!CustColors.contains(FarNam)) && (!FarNam.isEmpty()))
-							CustColors.insert(FarNam, cc);
+						if (!FarNam.isEmpty())
+							CustColors.tryAddColor(FarNam, cc);
 					}
 				}
 			}
@@ -1108,8 +1108,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 							}
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 							cc.setSpotColor(true);
-							if (!CustColors.contains(FarNam))
-								CustColors.insert(FarNam, cc);
+							CustColors.tryAddColor(FarNam, cc);
 						}
 					}
 				}
@@ -1153,9 +1152,7 @@ QString AIPlug::parseColor(QString data)
 		return ret;
 	double c, m, y, k;
 	ScColor tmp;
-	ColorList::Iterator it;
 	ScTextStream Code(&data, QIODevice::ReadOnly);
-	bool found = false;
 	Code >> c;
 	Code >> m;
 	Code >> y;
@@ -1164,30 +1161,14 @@ QString AIPlug::parseColor(QString data)
 	int Mc = qRound(m * 255);
 	int Yc = qRound(y * 255);
 	int Kc = qRound(k * 255);
-	int hC, hM, hY, hK;
 	tmp.setColor(Cc, Mc, Yc, Kc);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelCMYK)
-		{
-			it.value().getCMYK(&hC, &hM, &hY, &hK);
-			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
-			{
-				ret = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString namPrefix = "FromAI";
-		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
-		ret = namPrefix+tmp.name();
-	}
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString namPrefix = "FromAI";
+	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	if (fNam == namPrefix+tmp.name())
+		importedColors.append(fNam);
+	ret = fNam;
 	return ret;
 }
 
@@ -1200,33 +1181,16 @@ QString AIPlug::parseColorGray(QString data)
 	ScColor tmp;
 	ColorList::Iterator it;
 	ScTextStream Code(&data, QIODevice::ReadOnly);
-	bool found = false;
 	Code >> k;
 	int Kc = 255 - qRound(k * 255);
-	int hC, hM, hY, hK;
 	tmp.setColor(0, 0, 0, Kc);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelCMYK)
-		{
-			it.value().getCMYK(&hC, &hM, &hY, &hK);
-			if ((hC == 0) && (hM == 0) && (hY == 0) && (Kc == hK))
-			{
-				ret = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString namPrefix = "FromAI";
-		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
-		ret = namPrefix+tmp.name();
-	}
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString namPrefix = "FromAI";
+	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	if (fNam == namPrefix+tmp.name())
+		importedColors.append(fNam);
+	ret = fNam;
 	return ret;
 }
 
@@ -1237,39 +1201,21 @@ QString AIPlug::parseColorRGB(QString data)
 		return ret;
 	double r, g, b;
 	ScColor tmp;
-	ColorList::Iterator it;
 	ScTextStream Code(&data, QIODevice::ReadOnly);
-	bool found = false;
 	Code >> r;
 	Code >> g;
 	Code >> b;
 	int Rc = qRound(r * 255);
 	int Gc = qRound(g * 255);
 	int Bc = qRound(b * 255);
-	int hR, hG, hB;
 	tmp.setColorRGB(Rc, Gc, Bc);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&hR, &hG, &hB);
-			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-			{
-				ret = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString namPrefix = "FromAI";
-		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
-		ret = namPrefix+tmp.name();
-	}
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString namPrefix = "FromAI";
+	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	if (fNam == namPrefix+tmp.name())
+		importedColors.append(fNam);
+	ret = fNam;
 	return ret;
 }
 
@@ -1280,9 +1226,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 		return ret;
 	double c, m, y, k, sh;
 	ScColor tmp;
-	ColorList::Iterator it;
 	ScTextStream Code(&data, QIODevice::ReadOnly);
-	bool found = false;
 	Code >> c;
 	Code >> m;
 	Code >> y;
@@ -1300,29 +1244,13 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	int Mc = qRound(m * 255);
 	int Yc = qRound(y * 255);
 	int Kc = qRound(k * 255);
-	int hC, hM, hY, hK;
 	tmp.setColor(Cc, Mc, Yc, Kc);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelCMYK)
-		{
-			it.value().getCMYK(&hC, &hM, &hY, &hK);
-			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
-			{
-				ret = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setSpotColor(true);
-		tmp.setRegistrationColor(false);
-		m_Doc->PageColors.insert(FarNam, tmp);
+	tmp.setSpotColor(true);
+	tmp.setRegistrationColor(false);
+	QString fNam = m_Doc->PageColors.tryAddColor(FarNam, tmp);
+	if (fNam == FarNam)
 		importedColors.append(FarNam);
-		ret = FarNam;
-	}
+	ret = fNam;
 	return ret;
 }
 
@@ -1333,9 +1261,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		return ret;
 	double c, m, y, k, sh, r, g, b;
 	ScColor tmp;
-	ColorList::Iterator it;
 	ScTextStream Code(&data, QIODevice::ReadOnly);
-	bool found = false;
 	if (type == "1")
 	{
 		Code >> r;
@@ -1344,21 +1270,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		int Rc = qRound(r * 255);
 		int Gc = qRound(g * 255);
 		int Bc = qRound(b * 255);
-		int hR, hG, hB;
 		tmp.setColorRGB(Rc, Gc, Bc);
-		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-		{
-			if (it.value().getColorModel() == colorModelRGB)
-			{
-				it.value().getRGB(&hR, &hG, &hB);
-				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-				{
-					ret = it.key();
-					found = true;
-					break;
-				}
-			}
-		}
 	}
 	else
 	{
@@ -1370,21 +1282,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		int Mc = qRound(m * 255);
 		int Yc = qRound(y * 255);
 		int Kc = qRound(k * 255);
-		int hC, hM, hY, hK;
 		tmp.setColor(Cc, Mc, Yc, Kc);
-		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-		{
-			if (it.value().getColorModel() == colorModelCMYK)
-			{
-				it.value().getCMYK(&hC, &hM, &hY, &hK);
-				if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
-				{
-					ret = it.key();
-					found = true;
-					break;
-				}
-			}
-		}
 	}
 	QString tmpS = data;
 	int an = data.indexOf("(");
@@ -1395,15 +1293,13 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 	ScTextStream Val(&FarSha, QIODevice::ReadOnly);
 	Val >> sh;
 	shade = (1.0 - sh) * 100.0;
-	if (!found)
-	{
-		if (type == "0")
-			tmp.setSpotColor(true);
-		tmp.setRegistrationColor(false);
-		m_Doc->PageColors.insert(FarNam, tmp);
+	if (type == "0")
+		tmp.setSpotColor(true);
+	tmp.setRegistrationColor(false);
+	QString fNam = m_Doc->PageColors.tryAddColor(FarNam, tmp);
+	if (fNam == FarNam)
 		importedColors.append(FarNam);
-		ret = FarNam;
-	}
+	ret = fNam;
 	return ret;
 }
 

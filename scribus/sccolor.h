@@ -166,6 +166,9 @@ public:
 
 	/** \brief Ensure availability of black and white colors. */
 	void ensureBlackAndWhite(void);
+
+	/** \brief Try to add ScColor col to the list, if col already exists either by name or by value the existing color name is returned. */
+	QString tryAddColor(QString name, ScColor col);
 };
 
 #endif

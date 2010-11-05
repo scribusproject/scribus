@@ -1612,33 +1612,14 @@ QString OODPlug::parseColor( const QString &s )
 		else
 			c = parseColorN( rgbColor );
 	}
-	ColorList::Iterator it;
-	bool found = false;
-	int r, g, b;
-	QColor tmpR;
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&r, &g, &b);
-			tmpR.setRgb(r, g, b);
-			if (c == tmpR)
-			{
-				ret = it.key();
-				found = true;
-			}
-		}
-	}
-	if (!found)
-	{
-		ScColor tmp;
-		tmp.fromQColor(c);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		m_Doc->PageColors.insert("FromOODraw"+c.name(), tmp);
-		importedColors.append("FromOODraw"+c.name());
-		ret = "FromOODraw"+c.name();
-	}
+	ScColor tmp;
+	tmp.fromQColor(c);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString fNam = m_Doc->PageColors.tryAddColor("FromOODraw"+c.name(), tmp);
+	if (fNam == "FromOODraw"+c.name())
+		importedColors.append(fNam);
+	ret = fNam;
 	return ret;
 }
 

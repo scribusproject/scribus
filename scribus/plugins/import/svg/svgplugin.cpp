@@ -2231,35 +2231,15 @@ QString SVGPlug::parseColor( const QString &s )
 		else
 			c = parseColorN( rgbColor );
 	}
-	ColorList::Iterator it;
-	bool found = false;
-	int r, g, b;
-	QColor tmpR;
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&r, &g, &b);
-			tmpR.setRgb(r, g, b);
-			if (c == tmpR)
-			{
-				ret = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		ScColor tmp;
-		tmp.fromQColor(c);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString newColorName = "FromSVG"+c.name();
-		m_Doc->PageColors.insert(newColorName, tmp);
+	ScColor tmp;
+	tmp.fromQColor(c);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString newColorName = "FromSVG"+c.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+	if (fNam == newColorName)
 		importedColors.append(newColorName);
-		ret = newColorName;
-	}
+	ret = fNam;
 	return ret;
 }
 
@@ -2267,7 +2247,7 @@ QString SVGPlug::parseIccColor( const QString &s )
 {
 	QColor color, tmpR;
 	QString ret;
-	bool iccColorFound = false, found = false;
+	bool iccColorFound = false;
 	int iccColorIndex  = s.indexOf("icc-color");
 	if (iccColorIndex < 0)
 		return ret;
@@ -2311,34 +2291,15 @@ QString SVGPlug::parseIccColor( const QString &s )
 	}
 	if (iccColorFound == false)
 		return ret;
-	int  c, m, y, k;
-	ColorList::Iterator it;
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		colorModel colorMod = it.value().getColorModel();
-		if (colorMod == colorModelCMYK)
-		{
-			it.value().getCMYK(&c, &m, &y, &k);
-			tmpR.setCmyk(c, m, y, k);
-			if (color == tmpR)
-			{
-				ret = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		ScColor tmp;
-		tmp.fromQColor(color);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString newColorName = "FromSVG"+tmp.name();
-		m_Doc->PageColors.insert(newColorName, tmp);
+	ScColor tmp;
+	tmp.fromQColor(color);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString newColorName = "FromSVG"+tmp.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+	if (fNam == newColorName)
 		importedColors.append(newColorName);
-		ret = newColorName;
-	}
+	ret = fNam;
 	return ret;
 }
 

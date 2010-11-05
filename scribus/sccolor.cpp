@@ -381,3 +381,24 @@ void ColorList::ensureWhite(void)
 	if (addWhite)
 		insert("White", ScColor(0, 0, 0, 0));
 }
+
+QString ColorList::tryAddColor(QString name, ScColor col)
+{
+	if (contains(name))
+		return name;
+	bool found = false;
+	QString ret = name;
+	ColorList::Iterator it;
+	for (it = begin(); it != end(); ++it)
+	{
+		if (it.value() == col)
+		{
+			ret = it.key();
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+		insert(name, col);
+	return ret;
+}

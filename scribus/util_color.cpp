@@ -634,8 +634,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 							FarNam = FarNam.simplified();
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 							cc.setSpotColor(true);
-							if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
-								EditColors.insert(FarNam, cc);
+							if (!FarNam.isEmpty())
+								EditColors.tryAddColor(FarNam, cc);
 							while (!ts.atEnd())
 							{
 								quint64 oldPos = ts.device()->pos();
@@ -655,8 +655,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 								FarNam = FarNam.simplified();
 								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 								cc.setSpotColor(true);
-								if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
-									EditColors.insert(FarNam, cc);
+								if (!FarNam.isEmpty())
+									EditColors.tryAddColor(FarNam, cc);
 							}
 						}
 					}
@@ -678,8 +678,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 							FarNam = FarNam.remove(FarNam.length()-1,1);
 							FarNam = FarNam.simplified();
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
-							if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
-								EditColors.insert(FarNam, cc);
+							if (!FarNam.isEmpty())
+								EditColors.tryAddColor(FarNam, cc);
 							while (!ts.atEnd())
 							{
 								quint64 oldPos = ts.device()->pos();
@@ -698,8 +698,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 								FarNam = FarNam.remove(FarNam.length()-1,1);
 								FarNam = FarNam.simplified();
 								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
-								if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
-									EditColors.insert(FarNam, cc);
+								if (!FarNam.isEmpty())
+									EditColors.tryAddColor(FarNam, cc);
 							}
 						}
 					}
@@ -727,8 +727,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 						ColorList::Iterator it;
 						for (it = LColors.begin(); it != LColors.end(); ++it)
 						{
-							if (!EditColors.contains(it.key()))
-								EditColors.insert(it.key(), it.value());
+							EditColors.tryAddColor(it.key(), it.value());
 						}
 					}
 				}
@@ -813,8 +812,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 								{
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
-									if (!EditColors.contains(name))
-										EditColors.insert(name, lf);
+									EditColors.tryAddColor(name, lf);
 								}
 							}
 						}
@@ -873,8 +871,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 											lf.setColorRGB(r, g, b);
 											lf.setSpotColor(false);
 											lf.setRegistrationColor(false);
-											if (!EditColors.contains(colorName))
-												EditColors.insert(colorName, lf);
+											EditColors.tryAddColor(colorName, lf);
 										}
 									}
 									colNode = colNode.nextSibling();
@@ -942,8 +939,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									{
 										lf.setSpotColor(false);
 										lf.setRegistrationColor(false);
-										if (!EditColors.contains(name))
-											EditColors.insert(name, lf);
+										EditColors.tryAddColor(name, lf);
 									}
 								}
 							}
@@ -991,8 +987,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									lf.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
-									if (!EditColors.contains(Cname))
-										EditColors.insert(Cname, lf);
+									EditColors.tryAddColor(Cname, lf);
 								}
 							}
 							else
@@ -1007,8 +1002,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									lf.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
-									if (!EditColors.contains(Cname))
-										EditColors.insert(Cname, lf);
+									EditColors.tryAddColor(Cname, lf);
 								}
 							}
 						}
@@ -1061,8 +1055,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 								else
 									lf.setRegistrationColor(false);
-								if (!EditColors.contains(pg.attribute("NAME")))
-									EditColors.insert(pg.attribute("NAME"), lf);
+								EditColors.tryAddColor(pg.attribute("NAME"), lf);
 							}
 							else if (pg.tagName() == "Gradient")
 							{
@@ -1107,8 +1100,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 								lf.setSpotColor(false);
 								lf.setRegistrationColor(false);
 								QString nam = pg.attribute("draw:name");
-								if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
-									EditColors.insert(nam, lf);
+								if (!nam.isEmpty())
+									EditColors.tryAddColor(nam, lf);
 							}
 							else if (dTag == "VivaColors")
 							{
@@ -1136,8 +1129,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									lf.setColor(qRound(2.55 * cVal), qRound(2.55 * mVal), qRound(2.55 * yVal), qRound(2.55 * kVal));
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
-									if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
-										EditColors.insert(nam, lf);
+									if (!nam.isEmpty())
+										EditColors.tryAddColor(nam, lf);
 								}
 								else if (pg.attribute("type") == "rgb")
 								{
@@ -1156,8 +1149,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									lf.setColorRGB(cVal, mVal, yVal);
 									lf.setSpotColor(false);
 									lf.setRegistrationColor(false);
-									if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
-										EditColors.insert(nam, lf);
+									if (!nam.isEmpty())
+										EditColors.tryAddColor(nam, lf);
 								}
 							}
 							PAGE=PAGE.nextSibling();
@@ -1204,8 +1197,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 									Cname = paletteName + QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
 								Cname.replace(" ","0");
 							}
-							if (!EditColors.contains(Cname))
-								EditColors.insert(Cname, tmp);
+							EditColors.tryAddColor(Cname, tmp);
 						}
 					}
 					fiC.close();

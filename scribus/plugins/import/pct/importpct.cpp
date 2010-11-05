@@ -1106,7 +1106,6 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	handleLineModeEnd();
 	QString tmpName = CommonStrings::None;
 	ScColor tmp;
-	ColorList::Iterator it;
 	quint16 Rc, Gc, Bc;
 	quint32 colVal;
 	ts >> colVal;
@@ -1163,30 +1162,15 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	redC = qRound((Rc / 65535.0) * 255.0);
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
-	bool found = false;
 	QColor c = QColor(redC, greenC, blueC);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&hR, &hG, &hB);
-			if ((redC == hR) && (greenC == hG) && (blueC == hB))
-			{
-				tmpName = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setColorRGB(redC, greenC, blueC);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		tmpName = "FromPict"+c.name();
-		m_Doc->PageColors.insert(tmpName, tmp);
+	tmp.setColorRGB(redC, greenC, blueC);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	tmpName = "FromPict"+c.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
+	if (fNam == tmpName)
 		importedColors.append(tmpName);
-	}
+	tmpName = fNam;
 	if (back)
 	{
 		CurrColorFill = tmpName;
@@ -1211,30 +1195,15 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 	redC = qRound((Rc / 65535.0) * 255.0);
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
-	bool found = false;
 	QColor c = QColor(redC, greenC, blueC);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&hR, &hG, &hB);
-			if ((redC == hR) && (greenC == hG) && (blueC == hB))
-			{
-				tmpName = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setColorRGB(redC, greenC, blueC);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		tmpName = "FromPict"+c.name();
-		m_Doc->PageColors.insert(tmpName, tmp);
+	tmp.setColorRGB(redC, greenC, blueC);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	tmpName = "FromPict"+c.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
+	if (fNam == tmpName)
 		importedColors.append(tmpName);
-	}
+	tmpName = fNam;
 	if (back)
 	{
 		CurrColorFill = tmpName;

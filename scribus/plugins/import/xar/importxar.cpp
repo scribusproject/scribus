@@ -3280,7 +3280,6 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 	quint16 charC = 0;
 	quint32 EntryIndex, component1, component2, component3, component4;
 	qint32 colorRef;
-	int hR, hG, hB;
 	ts >> Rc >> Gc >> Bc >> colorModel >> colorType;
 	ts >> EntryIndex;
 	ts >> colorRef;
@@ -3333,7 +3332,6 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 	double c4 = decodeColorComponent(component4);
 //	qDebug() << "Record" << recordCounter << "Complex Color" << XarName << colM << colT << colorRef;
 //	qDebug() << "\t\tComponents" << c1 << c2 << c3 << c4;
-	bool found = false;
 	if ((!XarName.isEmpty()) && ((XarName == "White") || (XarName == "Black") || (m_Doc->PageColors.contains(XarName))))
 		tmpName = XarName;
 	else
@@ -3347,81 +3345,22 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 				int Mc = qRound(c2 * 255);
 				int Yc = qRound(c3 * 255);
 				int Kc = qRound(c4 * 255);
-				int hC, hM, hY, hK;
 				tmp.setColor(Cc, Mc, Yc, Kc);
-				for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-				{
-					if (it.value().getColorModel() == colorModelCMYK)
-					{
-						it.value().getCMYK(&hC, &hM, &hY, &hK);
-						if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
-						{
-							tmpName = it.key();
-							found = true;
-							break;
-						}
-					}
-				}
-				if (!found)
-				{
-					if (colorType == 1)
-						tmp.setSpotColor(true);
-					else
-						tmp.setSpotColor(false);
-					tmp.setRegistrationColor(false);
-					if (XarName.isEmpty())
-						tmpName = "FromXara"+c.name();
-					else
-						tmpName = XarName;
-					m_Doc->PageColors.insert(tmpName, tmp);
+				if (colorType == 1)
+					tmp.setSpotColor(true);
+				else
+					tmp.setSpotColor(false);
+				tmp.setRegistrationColor(false);
+				if (XarName.isEmpty())
+					tmpName = "FromXara"+c.name();
+				else
+					tmpName = XarName;
+				QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
+				if (fNam == tmpName)
 					importedColors.append(tmpName);
-				}
+				tmpName = fNam;
 			}
 			else
-			{
-				for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-				{
-					if (it.value().getColorModel() == colorModelRGB)
-					{
-						it.value().getRGB(&hR, &hG, &hB);
-						if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-						{
-							tmpName = it.key();
-							found = true;
-							break;
-						}
-					}
-				}
-				if (!found)
-				{
-					tmp.setColorRGB(Rc, Gc, Bc);
-					tmp.setSpotColor(false);
-					tmp.setRegistrationColor(false);
-					if (XarName.isEmpty())
-						tmpName = "FromXara"+c.name();
-					else
-						tmpName = XarName;
-					m_Doc->PageColors.insert(tmpName, tmp);
-					importedColors.append(tmpName);
-				}
-			}
-		}
-		else
-		{
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-			{
-				if (it.value().getColorModel() == colorModelRGB)
-				{
-					it.value().getRGB(&hR, &hG, &hB);
-					if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-					{
-						tmpName = it.key();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
 			{
 				tmp.setColorRGB(Rc, Gc, Bc);
 				tmp.setSpotColor(false);
@@ -3430,9 +3369,25 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 					tmpName = "FromXara"+c.name();
 				else
 					tmpName = XarName;
-				m_Doc->PageColors.insert(tmpName, tmp);
-				importedColors.append(tmpName);
+				QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
+				if (fNam == tmpName)
+					importedColors.append(tmpName);
+				tmpName = fNam;
 			}
+		}
+		else
+		{
+			tmp.setColorRGB(Rc, Gc, Bc);
+			tmp.setSpotColor(false);
+			tmp.setRegistrationColor(false);
+			if (XarName.isEmpty())
+				tmpName = "FromXara"+c.name();
+			else
+				tmpName = XarName;
+			QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
+			if (fNam == tmpName)
+				importedColors.append(tmpName);
+			tmpName = fNam;
 		}
 	}
 	XarColor color;
@@ -3451,34 +3406,17 @@ void XarPlug::handleColorRGB(QDataStream &ts)
 {
 	QString tmpName = CommonStrings::None;
 	ScColor tmp;
-	ColorList::Iterator it;
 	quint8 Rc, Gc, Bc;
-	int hR, hG, hB;
 	ts >> Rc >> Gc >> Bc;
-	bool found = false;
 	QColor c = QColor(Rc, Gc, Bc);
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&hR, &hG, &hB);
-			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-			{
-				tmpName = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setColorRGB(Rc, Gc, Bc);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		tmpName = "FromXara"+c.name();
-		m_Doc->PageColors.insert(tmpName, tmp);
+	tmp.setColorRGB(Rc, Gc, Bc);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	tmpName = "FromXara"+c.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
+	if (fNam == tmpName)
 		importedColors.append(tmpName);
-	}
+	tmpName = fNam;
 	XarColor color;
 	color.colorType = 0;
 	color.colorModel = 2;

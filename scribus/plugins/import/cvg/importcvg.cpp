@@ -585,76 +585,36 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 void CvgPlug::parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag)
 {
 	ScColor tmp;
-	ColorList::Iterator it;
 	CurrColorFill = CommonStrings::None;
 	CurrFillShade = 100.0;
 	CurrColorStroke = CommonStrings::None;
 	CurrStrokeShade = 100.0;
 	QColor c;
-	int Rc, Gc, Bc, hR, hG, hB;
 	if (color)
 	{
-		bool found = false;
 		if ((flag == 0x0080) || (flag == 0x0200))
 		{
 			c.setRgb(dataF);
-			Rc = c.red();
-			Gc = c.green();
-			Bc = c.blue();
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-			{
-				if (it.value().getColorModel() == colorModelRGB)
-				{
-					it.value().getRGB(&hR, &hG, &hB);
-					if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-					{
-						CurrColorFill = it.key();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
-			{
-				tmp.fromQColor(c);
-				tmp.setSpotColor(false);
-				tmp.setRegistrationColor(false);
-				QString newColorName = "FromCVG"+c.name();
-				m_Doc->PageColors.insert(newColorName, tmp);
-				importedColors.append(newColorName);
-				CurrColorFill = newColorName;
-			}
+			tmp.fromQColor(c);
+			tmp.setSpotColor(false);
+			tmp.setRegistrationColor(false);
+			QString newColorName = "FromCVG"+c.name();
+			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+			if (fNam == newColorName)
+				importedColors.append(fNam);
+			CurrColorFill = fNam;
 		}
 		if ((flag == 0x0080) || (flag == 0x0100))
 		{
-			found = false;
 			c.setRgb(dataS);
-			Rc = c.red();
-			Gc = c.green();
-			Bc = c.blue();
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-			{
-				if (it.value().getColorModel() == colorModelRGB)
-				{
-					it.value().getRGB(&hR, &hG, &hB);
-					if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-					{
-						CurrColorStroke = it.key();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
-			{
-				tmp.fromQColor(c);
-				tmp.setSpotColor(false);
-				tmp.setRegistrationColor(false);
-				QString newColorName = "FromCVG"+c.name();
-				m_Doc->PageColors.insert(newColorName, tmp);
-				importedColors.append(newColorName);
-				CurrColorStroke = newColorName;
-			}
+			tmp.fromQColor(c);
+			tmp.setSpotColor(false);
+			tmp.setRegistrationColor(false);
+			QString newColorName = "FromCVG"+c.name();
+			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+			if (fNam == newColorName)
+				importedColors.append(fNam);
+			CurrColorStroke = fNam;
 		}
 	}
 	else

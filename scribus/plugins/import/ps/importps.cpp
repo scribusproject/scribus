@@ -1024,9 +1024,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		return ret;
 	double c, m, y, k, r, g, b;
 	ScColor tmp;
-	ColorList::Iterator it;
 	ScTextStream Code(&vals, QIODevice::ReadOnly);
-	bool found = false;
 	if (model == colorModelRGB)
 	{
 		Code >> r;
@@ -1040,21 +1038,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		int Rc = qRound(r * 255);
 		int Gc = qRound(g * 255);
 		int Bc = qRound(b * 255);
-		int hR, hG, hB;
 		tmp.setColorRGB(Rc, Gc, Bc);
-		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-		{
-			if (it.value().getColorModel() == colorModelRGB)
-			{
-				it.value().getRGB(&hR, &hG, &hB);
-				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-				{
-					ret = it.key();
-					found = true;
-					break;
-				}
-			}
-		}
 	}
 	else
 	{
@@ -1063,40 +1047,18 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		Code >> y;
 		Code >> k;
 		Code >> Opacity;
-/*		int Cc = static_cast<int>(c * 255 + 0.5);
-		int Mc = static_cast<int>(m * 255 + 0.5);
-		int Yc = static_cast<int>(y * 255 + 0.5);
-		int Kc = static_cast<int>(k * 255 + 0.5); */
 		int Cc = qRound(c * 255);
 		int Mc = qRound(m * 255);
 		int Yc = qRound(y * 255);
 		int Kc = qRound(k * 255);
-		int hC, hM, hY, hK;
 		tmp.setColor(Cc, Mc, Yc, Kc);
-		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-		{
-			if (it.value().getColorModel() == colorModelCMYK)
-			{
-				it.value().getCMYK(&hC, &hM, &hY, &hK);
-				if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
-				{
-					ret = it.key();
-					found = true;
-					break;
-				}
-			}
-		}
 	}
-	if (!found)
-	{
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString namPrefix = "FromEPS";
-		if (!eps)
-			namPrefix = "FromPS";
-		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-//		importedColors.append(namPrefix+tmp.name());
-		ret = namPrefix+tmp.name();
-	}
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString namPrefix = "FromEPS";
+	if (!eps)
+		namPrefix = "FromPS";
+	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	ret = fNam;
 	return ret;
 }

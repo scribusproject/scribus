@@ -2566,61 +2566,9 @@ void CgmPlug::handleMetaFileDescription(QString value)
 
 QString CgmPlug::handleColor(ScColor &color, QString proposedName)
 {
-	QString tmpName = CommonStrings::None;
-	int hR, hG, hB, hK;
-	int pR, pG, pB, pC, pM, pY, pK;
-	bool found = false;
-	ColorList::Iterator it;
-	if (color.getColorModel() == colorModelRGB)
-		color.getRGB(&pR, &pG, &pB);
-	else
-		color.getCMYK(&pC, &pM, &pY, &pK);
-	if ((!proposedName.isEmpty()) && ((proposedName == "White") || (proposedName == "Black") || (m_Doc->PageColors.contains(proposedName))))
-		tmpName = proposedName;
-	else
-	{
-		if (color.getColorModel() == colorModelRGB)
-		{
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-			{
-				if (it.value().getColorModel() == colorModelRGB)
-				{
-					it.value().getRGB(&hR, &hG, &hB);
-					if ((pR == hR) && (pG == hG) && (pB == hB))
-					{
-						tmpName = it.key();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
-			{
-				m_Doc->PageColors.insert(proposedName, color);
-				importedColors.append(proposedName);
-				tmpName = proposedName;
-			}
-		}
-		else
-		{
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-			{
-				it.value().getCMYK(&hR, &hG, &hB, &hK);
-				if ((pC == hR) && (pM == hG) && (pY == hB) && (pK == hK))
-				{
-					tmpName = it.key();
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-			{
-				m_Doc->PageColors.insert(proposedName, color);
-				importedColors.append(proposedName);
-				tmpName = proposedName;
-			}
-		}
-	}
+	QString tmpName = m_Doc->PageColors.tryAddColor(proposedName, color);
+	if (tmpName == proposedName)
+		importedColors.append(tmpName);
 	return tmpName;
 }
 

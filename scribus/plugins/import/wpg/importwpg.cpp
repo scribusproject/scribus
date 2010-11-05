@@ -115,34 +115,18 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 	ColorList::Iterator it;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
-	int Rc, Gc, Bc, hR, hG, hB;
-	bool found = false;
+	int Rc, Gc, Bc;
 	Rc = pen.foreColor.red;
 	Gc = pen.foreColor.green;
 	Bc = pen.foreColor.blue;
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&hR, &hG, &hB);
-			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-			{
-				CurrColorStroke = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		tmp.setColorRGB(Rc, Gc, Bc);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		QString newColorName = "FromWPG"+tmp.name();
-		m_Doc->PageColors.insert(newColorName, tmp);
+	tmp.setColorRGB(Rc, Gc, Bc);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString newColorName = "FromWPG"+tmp.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+	if (fNam == newColorName)
 		importedColors.append(newColorName);
-		CurrColorStroke = newColorName;
-	}
+	CurrColorStroke = fNam;
 	CurrStrokeTrans = pen.foreColor.alpha / 255.0;
 	if(!pen.solid)
 	{
@@ -191,36 +175,20 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 	ColorList::Iterator it;
 	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
-	int Rc, Gc, Bc, hR, hG, hB;
+	int Rc, Gc, Bc;
 	if(brush.style == libwpg::WPGBrush::Solid)
 	{
-		bool found = false;
 		Rc = brush.foreColor.red;
 		Gc = brush.foreColor.green;
 		Bc = brush.foreColor.blue;
-		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-		{
-			if (it.value().getColorModel() == colorModelRGB)
-			{
-				it.value().getRGB(&hR, &hG, &hB);
-				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-				{
-					CurrColorFill = it.key();
-					found = true;
-					break;
-				}
-			}
-		}
-		if (!found)
-		{
-			tmp.setColorRGB(Rc, Gc, Bc);
-			tmp.setSpotColor(false);
-			tmp.setRegistrationColor(false);
-			QString newColorName = "FromWPG"+tmp.name();
-			m_Doc->PageColors.insert(newColorName, tmp);
+		tmp.setColorRGB(Rc, Gc, Bc);
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
+		QString newColorName = "FromWPG"+tmp.name();
+		QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+		if (fNam == newColorName)
 			importedColors.append(newColorName);
-			CurrColorFill = newColorName;
-		}
+		CurrColorFill = fNam;
 		CurrFillTrans = brush.foreColor.alpha / 255.0;
 	}
 	else if (brush.style == libwpg::WPGBrush::Gradient)
@@ -232,33 +200,17 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 		for(unsigned c = 0; c < brush.gradient.count(); c++)
 		{
 			QString currStopColor = CommonStrings::None;
-			bool found = false;
 			Rc = brush.gradient.stopColor(c).red;
 			Gc = brush.gradient.stopColor(c).green;
 			Bc = brush.gradient.stopColor(c).blue;
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-			{
-				if (it.value().getColorModel() == colorModelRGB)
-				{
-					it.value().getRGB(&hR, &hG, &hB);
-					if ((Rc == hR) && (Gc == hG) && (Bc == hB))
-					{
-						currStopColor = it.key();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
-			{
-				tmp.setColorRGB(Rc, Gc, Bc);
-				tmp.setSpotColor(false);
-				tmp.setRegistrationColor(false);
-				QString newColorName = "FromWPG"+tmp.name();
-				m_Doc->PageColors.insert(newColorName, tmp);
+			tmp.setColorRGB(Rc, Gc, Bc);
+			tmp.setSpotColor(false);
+			tmp.setRegistrationColor(false);
+			QString newColorName = "FromWPG"+tmp.name();
+			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+			if (fNam == newColorName)
 				importedColors.append(newColorName);
-				currStopColor = newColorName;
-			}
+			currStopColor = fNam;
 			const ScColor& gradC = m_Doc->PageColors[currStopColor];
 			double pos = qBound(0.0, fabs(brush.gradient.stopOffset(c)), 1.0);
 			currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), pos, 0.5, 1.0, currStopColor, 100 );

@@ -172,36 +172,15 @@ WMFImport::~WMFImport()
 
 QString WMFImport::importColor(const QColor& color)
 {
-	bool found = false;
-	int r, g, b;
-	QColor  tmpColor;
-	QString retColorName;
-	ColorList::Iterator it;
-	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
-	{
-		if (it.value().getColorModel() == colorModelRGB)
-		{
-			it.value().getRGB(&r, &g, &b);
-			tmpColor.setRgb(r, g, b);
-			if (color == tmpColor)
-			{
-				retColorName = it.key();
-				found = true;
-				break;
-			}
-		}
-	}
-	if (!found)
-	{
-		ScColor tmp;
-		tmp.fromQColor(color);
-		tmp.setSpotColor(false);
-		tmp.setRegistrationColor(false);
-		m_Doc->PageColors.insert("FromWMF"+color.name(), tmp);
-		importedColors.append("FromWMF"+color.name());
-		retColorName = "FromWMF"+color.name();
-	}
-	return retColorName;
+	ScColor tmp;
+	tmp.fromQColor(color);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString pNam = "FromWMF"+color.name();
+	QString fNam = m_Doc->PageColors.tryAddColor(pNam, tmp);
+	if (fNam == pNam)
+		importedColors.append(pNam);
+	return fNam;
 }
 
 QColor WMFImport::colorFromParam( short* params )
