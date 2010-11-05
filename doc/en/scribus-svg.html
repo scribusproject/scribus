@@ -1,57 +1,31 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Scribus SVG Import/Export</title>
+	<title>Importing SVG</title>
 </head>
 <body>
-<h2>Scribus SVG Import/Export</h2>
-<p>Scribus includes SVG import/export plug-ins, which enables you to export Scribus pages or objects as SVG. The import plug-in allows you to import SVG drawings and documents from illustration programs like Inkscape, Skencil and Adobe Illustrator.</p>
-<p>These plug-ins have the capability to import and export SVG 1.0/1.1 standards 2D graphics primitives and text, which can then be displayed in web browsers with SVG capability, within SVG viewers or further edited with SVG capable vector editors, like Skencil, Inkscape or Adobe Illustrator.
-</p>
-<h4>Exporting using the Plug-in:</h4>
-<p>Export the whole page is simply have the page you want to be exported open, and use <strong>File > Export > Export Page as SVG..</strong></p>
-<h4>Importing using the Plug-in:</h4>
-<p>Go <strong>File..>Import SVG Image</strong> When you import an SVG image or drawing, it will appear like an object from the Scrapbook. Drag the cursor where you want to place the SVG image. </p>
+<h2>Importing SVG</h2>
+<h3>What is SVG?</h3>
+<p><a href="http://www.w3.org/Graphics/SVG/">SVG (Scalable Vector Graphics)</a> is an open standard, or, since version 1.1, a family of open standars for two-dimensional vector graphics. It is based on XML and maintained by the <a href="www.w3c.org">World Wide Web Consortium (W3C)</a>. Since the orginal (primary) purpose of SVG was usage for static and dynamic vector graphics for the web, only a subset of the specification(s) is relevant for use in Scribus. The huge success of SVG resulted in considerations to expand its scope to a universal 2D vector format, and &ldquo;universal&rdquo; includes support for professional printing, which is all the more interesting for Scribus. The broadened scope of the standard, however, made it necessary to define subsets of SVG, called &ldquo;profiles&rdquo;. As of version 1.1, two profiles have been defined, SVG Tiny for devices like mobile phones and SVG Basic for devices like PDAs. The W3C Working Draft for SVG 1.2 also includes a profile called <a href="http://www.w3.org/TR/SVGPrint/">SVG::Print</a>, which provides the features required by professional printers. The SVG 1.2 draft also included support for other color spaces than sRGB, like CMYK or even spot colors. However, 1.2 will probably be skipped in favor of SVG 2.0, which may take some time to develop.</p>
 
-<h4>SVG Importing Hints:</h4>
-<p>Scribus can handle most of the SVG features which can be created in Inkscape and Sketch, two well known vector drawing programs for Linux. The biggest issue I have observed is sometimes the paths when interpreted do not show up as closed. So parts of the SVG file look empty upon import. The simple fix is to ungroup the elements and then select the empty looking objects, then double click to bring up the editing palette for drawing objects and click on the close path button. Typically, then the invisible object will appear.</p>
-<p>I <strong>strongly recommend against</strong> creating special text effects in SVG, unless a: It cannot be done in Scribus and Scribus has very versatile text effect tools. b: The text effects are converted to outlines before importation. Why ? Scribus uses a PostScript model for handling fonts and text, where SVG uses a model much like html. In the case where you need to create them in another program, converting the text to outlines will be far more satisfactory.</p>
+<h3>Why SVG?</h3>
+<p>The major advantage of SVG is its openness and the availabilty of the full specification with no strings attached. As a result, SVGs have become ubiquitous in many areas like cartography or geo services. Most vector graphics available via Wikimedia are also SVG files.</p>
+<p>Another advantage of SVG is its XML base. In other words, SVG files, like Scribus SLA files, consist of plain text, which can be easily read by other programs or even human beings.</p>
+<p>SVG is also more or less well-supported by many vector drawing programs, including Adobe Illustrator or CorelDraw. The leading Open Source vector drawing program <a href="www.inkscape.org">Inkscape</a> is even primarily designed as an SVG editor.</p>
+<p>Unlike many other graphics formats, SVG supports color management by referencing an ICC profile in its XML code.</p>
 
-<h3>Scribus - SVG Q and A</h3>
-<h4>What is an SVG?</h4>
-<p>SVG (Scalable Vector Graphics) is a W3C recommended standard for vector graphics like line drawings, maps and logos. </p>
-<h4>Why add SVG Export to Scribus?</h4>
-<p>Increasingly, Scribus has more sophisticated drawing tools, which are both familiar and easy to use. End users might like to use Scribus created objects in other applications like web design. Many other applications can import SVG and export an SVG object into other file formats. This also makes it easy for your print and web objects to be created from the same source.</p>
-<h4>What features can I export with the plug-in?</h4>
-<p>Basic 2D graphics and text. Text on a path works sometimes with other applications, sometimes not. Adobe Illustrator and Inkscape (increasingly) both do a good job of importing Scribus SVG. Almost all features in a Scribus doc can be exported as SVG. Images within a page are converted to PNG. The Amaya Web browser will also display Scribus SVG. More and more browsers have native SVG rendering built in.</p>
-<h4>What features are not supported</h4>
-<p>The current version of the SVG-Import Plug-in has the following limitations:</p>
-<ol>
-	<li>Text isn't supported fully yet.</li>
-	<li>Not all gradient styles are fully supported.</li>
-	<li>No support for masking and clipping</li>
-	<li>Embedded SVG-Images aren't supported.</li>
-	<li>The SVG should be well formed, with all tags and structures should be correct. Corrupted SVGs could crash the plug-in.</li>
-	<li>Animations, multi-media and "extensions" or proprietary tags within SVG, which can only be viewed with certain viewers.</li>
-</ol>
-
-<h4>Why SVG?</h4>
-<p>SVG as a file format has many advantages:</p>
+<h3>Importing SVG</h3>
+<p>As with other vector formats, SVG files can either be opened directly via <i>File > Open</i> or imported into an existing Scribus document via <i>File > Import > Get Vector File</i>.</p>
+<p>Scribus will often display a warning, which tells you that not all SVG features in the file are supported by Scribus. In most cases you need not worry about the warning, as many SVG features are irrelevant for import into Scribus. For example, the SVG specification allows for the inclusion of metadata. Since an SVG file will be converted into native Scribus vector curves, this information will be discarded, but it nevertheless triggers the warning. More serious issues may arise if an SVG files uses so-called &ldquo;proprietary&rdquo; tags, i.e., features that are missing in the SVG specification, but were deemed necessary by the creator of the program that writes the SVG. Based on experience, though, almost all SVGs will be imported at a reasonably good quality.</p>
+<h4>Caveats</h4>
+<p>Although Scribus supports most of the relevant features of the SVG 1.0 and 1.1 specifications, there are a few limitations, some of which are the result of SVG itself, while others are based on Scribus internals.</p>
 <ul>
-	<li>Easy to implement. The SVG file format is based on XML and has many similarities to Scribus' native file format.</li>
-	<li>SVG is a scalable vector graphics, so graphics do not become pixellated when zoomed.</li>
-	<li>They are in XML format, text based and quick to load - much smaller than bitmap images. A typical SVG file is under 10k.</li>
-	<li>SVG is an open XML-based standard from the W3 consortium</li>
-	<li>It is platform neutral</li>
-	<li>Can be scripted for user interaction and control. Also has support for ICC color spaces so color display accurately, even within a browser.</li>
-	<li>SVG can also be color managed and supports a well defined way to specify ICC profiles.</li>
+<li><b>Dimensions</b>: As you may have noticed when you tried to import an SVG file, the imported drawing often has huge dimensions. This is a result of SVG&rsquo;s original purpose as a graphics markup language (in contrast to a page description language like PostScript or PDF). Just like the creator of a web page doesn&rsquo;t know anything about the screen size or the browser that renders the page, the authors of the SVG specification considered the dimensions of an SVG drawing as a result of &ldquo;negotiations&rdquo; between a server that provides the graphic and a client (a web browser, a mobile phone), who is supposed to tell the server what the required dimensions are. In plain English: The dimensions of the drawing are whatever a client says they are. For a page layout program like Scribus, this information is useless, and as a result, the SVG importer is trying a &ldquo;best guess&rdquo; when it comes to the dimensions of an SVG drawing. This may or may not work to everyone&rsquo;s satisfaction, but you can easily re-scale an imported SVG by using the the <i>X, Y, Z</i> tab of the Properties Palette.</li>
+<li><b>Layers</b>: The SVG specification doesn&rsquo;t support layers per se. Inkscape and Illustrator use groups with special attributes to function as layers, but these aren&rsquo;t recognized by Scribus yet. Thus, SVG files are always opened/imported as single-layer graphics.</li>
+<li><b>Fonts</b>: In contrast to formats like PostScript, EPS or AI, SVG files cannot embed any font format that&rsquo;s required in commercial printing, i.e., Type 1, TrueType and OpenType. Instead, an SVG file includes references to a used font. SVGs can, however, embed fonts that use the SVG format themselves &ndash; those fonts are most commonly referred to as &ldquo;SVG fonts&rdquo; &ndash;, but the SVG import filter of Scribus doesn&rsquo;t recognize them, and they play no role in professional printing. As a result, text will probably not import or at least not correctly. If you have any control over the creation of the SVG file, you should insist on converting all text to outlines before importing a file into Scribus. In case you need to edit the text, it&rsquo;s easier to add it in Scribus and use the built-in typographic tools.</li>
+<li><b>Filters/Effects</b>: The SVG specification defines a set of so-called &ldquo;Filter Effects&rdquo; for SVG drawings, but they aren&rsquo;t supported by Scribus yet. If you use one ore more of these filters in a drawing, you might consider exporting your SVG as a high-resolution bitmap, which will preserve the effects.</li>
+<li><b>Solid colors</b>: The SVG 1.0 and 1.1 specifications define solid colors exclusively in the RGBA color space (RGB + transparency). Thus, most SVGs &ldquo;in the wild&rdquo; contain only RGB colors. The SVG 1.2 Working Draft also allows CMYK and spot colors, and some applications, like Inkscape or Illustrator, already create files that contain those colors. Scribus uses the SVG <code>icc-color</code> tag to detect CMYK colors, but it imports those colors &ldquo;as is&rdquo;, without taking into account a referenced color profile. Spot colors in SVG files are not supported, as the SVG specification requires the use of named color profiles.</li>
+<li><b>Color management</b>: While the SVG specification supports the use of ICC color profiles, but just like fonts, profiles can&rsquo;t be embedded. The Scribus SVG import filter will ignore referenced color profiles and assume that RGB colors use the sRGB color space instead.</li>
 </ul>
-
-<h4>What about browser support?</h4>
-<p>Firefox 1.5+, Konqueror 3.4.0+, Opera and Safari support SVG natively.</p>
-<h4>Where can I learn more?</h4>
-<p><a href="http://www.svgx.org/">SVG Foundation</a> has a wealth of links and news.</p><p>Other links are listed in the <a href="http://www.scribus.net/index.php?name=Web_Links&req=viewlink&cid=7">Links page</a></p>
-<h4>A Scribus page displayed in a browser:</strong></h4>
-<table width="100%"><tr><td align="center"><img src="images/svg1.png" title="Scribus Page Exported as SVG in Browser" alt="Scribus Page Exported as SVG in Browser" /></td></tr></table>
 </body>
 </html>
