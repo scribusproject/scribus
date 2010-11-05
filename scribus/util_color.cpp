@@ -818,8 +818,71 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 								}
 							}
 						}
+						fiC.close();
 					}
-					fiC.close();
+					else					// try AutoCAD XML format
+					{
+						fiC.close();
+						QByteArray docBytes("");
+						loadRawText(fileName, docBytes);
+						QString docText("");
+						docText = QString::fromUtf8(docBytes);
+						QDomDocument docu("scridoc");
+						if (!docu.setContent(docText))
+							return false;
+						QDomElement elem = docu.documentElement();
+						QDomNode PAGE = elem.firstChild();
+						while(!PAGE.isNull())
+						{
+							QDomElement pg = PAGE.toElement();
+							if (pg.tagName() == "colorPage")
+							{
+								QDomNode colNode = pg.firstChild();
+								while(!colNode.isNull())
+								{
+									QDomElement cg = colNode.toElement();
+									if (cg.tagName() == "colorEntry")
+									{
+										QString colorName = "";
+										int r, g, b;
+										QDomNode colEntry = cg.firstChild();
+										while(!colEntry.isNull())
+										{
+											QDomElement cc = colEntry.toElement();
+											if (cc.tagName() == "colorName")
+												colorName = cc.text();
+											else if (cc.tagName() == "RGB8")
+											{
+												QDomNode colVal = cc.firstChild();
+												while(!colVal.isNull())
+												{
+													QDomElement cv = colVal.toElement();
+													if (cv.tagName() == "red")
+														r = cv.text().toInt();
+													else if (cv.tagName() == "green")
+														g = cv.text().toInt();
+													else if (cv.tagName() == "blue")
+														b = cv.text().toInt();
+													colVal = colVal.nextSibling();
+												}
+											}
+											colEntry = colEntry.nextSibling();
+										}
+										if (!colorName.isEmpty())
+										{
+											lf.setColorRGB(r, g, b);
+											lf.setSpotColor(false);
+											lf.setRegistrationColor(false);
+											if (!EditColors.contains(colorName))
+												EditColors.insert(colorName, lf);
+										}
+									}
+									colNode = colNode.nextSibling();
+								}
+							}
+							PAGE = PAGE.nextSibling();
+						}
+					}
 				}
 			}
 			else if (ext == "aco")			// Adobe color swatch format
