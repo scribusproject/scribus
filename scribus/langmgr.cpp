@@ -314,7 +314,7 @@ const QString LanguageManager::getHyphFilename(const QString & lang, bool langIs
 {
 	if(langIsAbbreviated)
 		return hyphLangList.value(lang);
-	return hyphLangList.value(getAbbrevFromLang(lang, false));
+	return hyphLangList.value(getAbbrevFromLang(lang, false, false));
 }
 
 const QStringList LanguageManager::hyphLangs()
