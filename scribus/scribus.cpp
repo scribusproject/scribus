@@ -9254,8 +9254,11 @@ void ScribusMainWindow::emergencySave()
 			{
 				std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
 				doc->autoSaveTimer->stop();
-				FileLoader fl(doc->DocName+".emergency");
-				fl.SaveFile(doc->DocName+".emergency", doc, 0);
+				QString emName = doc->DocName+".emergency";
+				if (doc->DocName.right(2) == "gz")
+					emName += ".gz";
+				FileLoader fl(emName);
+				fl.SaveFile(emName, doc, 0);
 			}
 			view->close();
 			uint numPages=doc->Pages->count();
