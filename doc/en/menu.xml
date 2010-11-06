@@ -47,6 +47,7 @@
 			<submenuitem file="WwShapes.html" text="Working with Shapes" />
 			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
 			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
+			<submenuitem file="WwFill.html" text="Working with Fill: Colors, Gradients and Patterns" />
 			<submenuitem text="Working with Layers" file="layers.html" />
 			<submenuitem text="Working with Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
