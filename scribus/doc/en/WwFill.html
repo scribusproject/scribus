@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Working with Fill: Colors, Gradients and Patterns</title>
+</head>
+<h2>Working with Fill: Colors, Gradients and Patterns</h2>
+<h3>Fill Colors</h3>
+<p>Let&rsquo;s first talk about the most intuitive part of using a solid color as a fill for a frame by simply choosing a color from your current color set when &ldquo;Normal&rdquo; is chosen from the drop-down list just below the icon buttons for <i>Edit Line Color Properties</i> and <i>Edit Fill Color Properties</i>. <a href="color1.html">Remember</a> that in order to switch to a different color set you must go to <i>Edit > Colors&nbsp;...</i> with no document open.</p>
+
+<p>Choosing colors from the list changes the fill color, which will be obvious for text frames, shapes, or polygons, but may be  less apparent for an image frame where an image fills the entire frame. Beyond this simple choice of color, you can then adjust the <b>Shade</b> (the color saturation) and <b>Opacity</b> (the degree of transparency). For a text frame, the saturation of the text itself is a separate setting in the <i>Text</i> tab of the Properties Palette. In contrast, if you adjust opacity in the <i>Colors</i> tab, you will see that this not only affects the transparency of the fill color, but also the text in a text frame, and the image in an image frame.</p>
+<p>Below the opacity setting you also see an ability to select a Blend Mode, a feature whose intricacies will be explained elsewhere.</p>
+<h3>Gradients</h3>
+<p>Clicking on the abovementioned button which shows &ldquo;Normal&rdquo; by default produces a drop-down list with the following choices:
+<ul>
+<li>Normal</li>
+<li>Horizontal Gradient</li>
+<li>Vertical Gradient</li>
+<li>Diagonal Gradient</li>
+<li>Cross Diagonal Gradient</li>
+<li>Radial Gradient</li>
+<li>Free Linear Gradient</li>
+<li>Free Radial Gradient</li>
+</ul>
+</p>
+<p>Choosing any of these gradients brings up the gradient selector, initially only having 2 color stops, both black, at opposite ends of the selector. The red arrow indicates the currently selected color stop. You can choose another one by clicking on it. The selected stop is the one whose color will be affected by any change you make to color, shade or opacity. Move the position by click-dragging with the mouse or use the &ldquo;Position&rdquo; spinbox. You have at least two stops, but you may add as many additional ones as you like, each of which can have its own properties. When you place your cursor in the space below the gradient adjuster, a <b>+</b> sign appears next to it, and clicking creates a new color stop, which will now be the new active stop. You can remove stops by click-dragging them <i>downward</i> out of their starting location &ndash; sliding them in other directions will be a hopeless endeavour to get rid of them.</p>
+
+<p>You can also adjust <b>Shade</b> and <b>Opacity</b> of gradient colors, and each color can have its own settings. Furthermore, changing the opacity of one or more gradient colors does not affect the opacity of text in a text frame.</p><br>
+<table>
+  <tbody>
+    <tr>
+      <td><img src="images/gradient_adjuster1.png"/></td>
+      <td><img src="images/gradient_adjuster.png"/></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p>Selecting either &ldquo;Free Linear&rdquo; and &ldquo;Free Radial&rdquo; gradients brings up another button: &ldquo;Move Vector&rdquo;. This button enables adjustment of the first and last color stops with the mouse and also brings up this spinbox dialog for numerical adjustments:
+<p><img src="images/gradient_adjuster_vector.png"/>
+<h3>Patterns</h3>
+<p>The first thing to know about using patterns (also known as &ldquo;tiles&rdquo;) is that you can&rsquo;t use them if you have none. What this means is that you have to tell Scribus what it is supposed to use as a pattern. This can be done with the pattern dialog, which you access from <i>Edit > Patterns&nbsp;...</i> in the Menu Bar, where you can load individual files (&ldquo;Load File&rdquo;) or a directory of files by choosing &ldquo;Load Set&rdquo;. Patterns can be either bitmaps or vectors.</p>
+<table width="100%"><tr><td align="center"><img src="images/patterns1.png" title="Importing/creating patterns" alt="Importing/creating patterns" /></td></tr></table><br>
+<p>You can also use any item (frame, group, shape etc.) in your document as a pattern by using the &ldquo;Send to Patterns&rdquo; command from either the Context Menu or the <i>Item</i> menu in the Menu Bar.</p>
+
+<p>Once you have created some patterns, when you go back to the <i>Color</i> tab of the Properties Palette, you will see at the end of the drop-down gradient list a new choice, called &ldquo;Pattern&rdquo;. In addition to bringing up a small window showing your pattern options, you can see spinboxes for X and Y offsets, scaling and rotation:</p>
+<table width="100%"><tr><td align="center"><img src="images/patterns2.png" title="Patterns in the Colors tab of the Properties Palette" alt="Patterns in the Colors tab of the Properties Palette" /></td></tr></table><br>
+<p>Something which you will find out is that, if you wish to use transparency for your pattern, it will also affect the text in a text frame. One workaround for this, so that your text is not affected by transparency, would be to copy the frame, with the copy exactly superimposed over the other, then choose &ldquo;None&rdquo; for fill color and set the top frame&rsquo;s opacity to 100%.
+</body>
+</html>
