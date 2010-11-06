@@ -129,6 +129,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("image-x-position", toXMLString(item->imageXOffset()));
 	result.insert("image-y-position", toXMLString(item->imageYOffset()));
 	result.insert("image-rotation", toXMLString(item->imageRotation()));
+	result.insert("image-clip", toXMLString(item->pixm.imgInfo.usedPath));
 	if (item->OverrideCompressionMethod)
 	{
 		result.insert("COMPRESSIONMETHODOVER", toXMLString(item->OverrideCompressionMethod));
@@ -914,12 +915,28 @@ class ImageEffectsAndLayers : public MakeAction<ImageEffectsAndLayers_body>
 
 class LoadPicture_body : public Action_body
 {
+	void begin (const Xml_string& tagName, Xml_attr attr)
+	{
+		clipPath = attr["image-clip"];
+	}
 	void end (const Xml_string& /*tagname*/)
 	{
 		PageItem* item = this->dig->top<PageItem>();
 		if (item->itemType() == PageItem::ImageFrame)
 			item->loadImage(item->externalFile(), true);
+		if (item->pixm.imgInfo.PDSpathData.contains(clipPath))
+		{
+			item->imageClip = item->pixm.imgInfo.PDSpathData[clipPath].copy();
+			item->pixm.imgInfo.usedPath = clipPath;
+			QTransform cl;
+			cl.translate(item->imageXOffset()*item->imageXScale(), item->imageYOffset()*item->imageYScale());
+			cl.scale(item->imageXScale(), item->imageYScale());
+			item->imageClip.map(cl);
+			item->loadImage(item->externalFile(), true);
+		}
 	}
+private:
+	QString clipPath;
 };
 
 class LoadPicture : public MakeAction<LoadPicture_body>
