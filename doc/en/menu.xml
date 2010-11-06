@@ -55,12 +55,12 @@
 			<submenuitem text="Editing Colors" file="color1.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
+			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
 			<submenuitem text="Importing EPS" file="importhints1.html"/>
 			<submenuitem file="scribus-svg.html" text="Importing SVG" />
 			<submenuitem file="importhints3.html" text="Importing OpenOffice.org and ODF Files" />
 			<submenuitem file="importhints4.html" text="Importing HTML" />
 			<submenuitem file="psd.html" text="Importing PSD" />
-			<submenuitem text="Import Tips" file="importhints2.html"/>
 		</submenuitem>
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
