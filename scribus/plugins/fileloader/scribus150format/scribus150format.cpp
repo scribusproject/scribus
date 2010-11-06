@@ -3005,7 +3005,7 @@ bool Scribus150Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStream
 			break;
 		if (reader.isCharacters())
 			formula += reader.text().toString();
-		if (reader.isStartDocument() && reader.name() == "PROPERTY")
+		if (reader.isStartElement() && reader.name() == "PROPERTY")
 		{
 			ScXmlStreamAttributes tAtt = reader.scAttributes();
 			QString name  = tAtt.valueAsString("name");

@@ -1744,12 +1744,12 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("TransBlend", item->fillBlendmode());
 	docu.writeAttribute("TransBlendS", item->lineBlendmode());
 	docu.writeAttribute("isTableItem", static_cast<int>(item->isTableItem));
-	docu.writeAttribute("TopLine", static_cast<int>(item->TopLine));
-	docu.writeAttribute("LeftLine", static_cast<int>(item->LeftLine));
-	docu.writeAttribute("RightLine", static_cast<int>(item->RightLine));
-	docu.writeAttribute("BottomLine", static_cast<int>(item->BottomLine));
 	if (item->isTableItem)
 	{
+		docu.writeAttribute("TopLine", static_cast<int>(item->TopLine));
+		docu.writeAttribute("LeftLine", static_cast<int>(item->LeftLine));
+		docu.writeAttribute("RightLine", static_cast<int>(item->RightLine));
+		docu.writeAttribute("BottomLine", static_cast<int>(item->BottomLine));
 		if (item->TopLink != 0)
 			docu.writeAttribute("TopLINK", item->TopLink->ItemNr);
 		else
@@ -1805,8 +1805,11 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("GROUPS", glp);
 	if ( ! item->itemText.defaultStyle().charStyle().isInhLanguage())
 		docu.writeAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
-	docu.writeAttribute("startArrowIndex", item->startArrowIndex());
-	docu.writeAttribute("endArrowIndex", item->endArrowIndex());
-	docu.writeAttribute("startArrowScale", item->startArrowScale());
-	docu.writeAttribute("endArrowScale", item->endArrowScale());
+	if (item->asLine() || item->asPolyLine())
+	{
+		docu.writeAttribute("startArrowIndex", item->startArrowIndex());
+		docu.writeAttribute("endArrowIndex", item->endArrowIndex());
+		docu.writeAttribute("startArrowScale", item->startArrowScale());
+		docu.writeAttribute("endArrowScale", item->endArrowScale());
+	}
 }
