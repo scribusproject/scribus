@@ -111,7 +111,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 			{
 				QByteArray data;
 				data.resize(pgfImg.Width(level) * pgfImg.Height(level) * 3);
-				int map[] = {2, 1, 0};
+				int map[] = {0, 1, 2};
 				pgfImg.GetBitmap(pgfImg.Width(level) * 3, (UINT8*)data.data(), 24, map);
 				m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
 				int imgDcount = 0;
@@ -167,7 +167,6 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 			{
 				QByteArray data;
 				data.resize(pgfImg.Width(level) * pgfImg.Height(level) * 3);
-			//	int map[] = {0, 1, 2};
 				int map[] = {2, 1, 0};
 				pgfImg.GetBitmap(pgfImg.Width(level) * 3, (UINT8*)data.data(), 24, map);
 				m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
