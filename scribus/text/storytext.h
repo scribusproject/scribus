@@ -116,6 +116,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
  	int length() const;
  	QChar text(int pos) const;
  	QString text(int pos, uint len) const;
+	QString wordAt(int pos) const;
  	PageItem* object(int pos) const;
 	
 	int nextCharPos(int c);

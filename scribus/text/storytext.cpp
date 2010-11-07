@@ -918,8 +918,8 @@ int StoryText::endOfRun(uint index) const
 // positioning. all positioning methods return char positions
 // FIXME: make that methods use correct semantic boundaries
 
-static QString wordBoundaries(" .,:;\"'!?\n");
-static QString sentenceBoundaries(".:!?\n");
+static QString wordBoundaries(" .,:;\"'!?\n\t");
+static QString sentenceBoundaries(".:!?\n\t");
 
 int StoryText::nextChar(int pos)
 {
@@ -979,6 +979,45 @@ int StoryText::prevParagraph(int pos)
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
 		--pos;
 	return pos;
+}
+
+QString StoryText::wordAt(int pos) const
+{
+	if (pos < 0)
+		pos += length();
+	assert(pos >= 0);
+	assert(pos + signed(len) <= length());
+
+	int len = length();
+	//Find the previous word position
+	int tmpPosStart = qMax(0, pos-1);
+	int startWordPos=0;
+	if (tmpPosStart!=0)
+	{
+		while (tmpPosStart > 0 && wordBoundaries.indexOf(text(tmpPosStart)) < 0)
+			--tmpPosStart;
+		startWordPos= wordBoundaries.indexOf(text(tmpPosStart)) < 0 ? tmpPosStart + 1 : tmpPosStart;
+		++startWordPos;
+	}
+	qDebug ()<<"Start Word Pos:"<<startWordPos;
+	//Find the next word position
+	int tmpPosEnd = qMin(len, pos+1);
+	while (tmpPosEnd < len  && wordBoundaries.indexOf(text(tmpPosEnd)) < 0)
+	{
+		qDebug()<<tmpPosEnd<<text(tmpPosEnd)<<wordBoundaries.indexOf(text(tmpPosEnd));
+		++tmpPosEnd;
+	}
+	int endWordPos=tmpPosEnd < len ? tmpPosEnd + 1 : tmpPosEnd;
+	if (endWordPos>0)
+		--endWordPos;
+	qDebug ()<<"End Word Pos:"<<endWordPos;
+	QString result;
+	StoryText* that(const_cast<StoryText*>(this));
+	for (int i = startWordPos; i < endWordPos; ++i)
+	{
+		result += that->d->at(i)->ch;
+	}
+	return result;
 }
 
 // these need valid layout:
