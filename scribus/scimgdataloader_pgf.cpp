@@ -4,17 +4,23 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include "scconfig.h"
+
+#include <QDebug>
 #include <QFile>
 #include <QByteArray>
 #include <QList>
 #include "scimgdataloader_pgf.h"
 #include "third_party/pgf/PGFimage.h"
 #include "util.h"
-#include "QDebug"
+
 // C Ansi includes
 extern "C"
 {
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -43,11 +49,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 		return false;
 	initialize();
 #ifdef WIN32
-#ifdef UNICODE
-	HANDLE fd = CreateFile((LPCWSTR)(QFile::encodeName(fn).constData()), GENERIC_READ, 0, 0, OPEN_EXISTING, 0, 0);
-#else
-	HANDLE fd = CreateFile(QFile::encodeName(fn), GENERIC_READ, 0, 0, OPEN_EXISTING, 0, 0);
-#endif
+	HANDLE fd = CreateFileW((LPCWSTR) fn.utf16(), GENERIC_READ, 0, 0, OPEN_EXISTING, 0, 0);
 	if (fd == INVALID_HANDLE_VALUE)
 		return false;
 #else

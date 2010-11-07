@@ -2,6 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual C++ Express 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-main", "Scribus.vcproj", "{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
 	ProjectSection(ProjectDependencies) = postProject
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661} = {AAA3586D-6218-4CDB-BDD2-BC0198946661}
 		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
 	EndProjectSection
 EndProject
@@ -161,14 +162,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-lib2geom", "scribus
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathalongpath", "pathalongpath\pathalongpath.vcproj", "{CAF6D555-0E2E-4ABB-9585-00860B8B183E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meshdistortion", "meshdistortion\meshdistortion.vcproj", "{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathconnect", "pathconnect\pathconnect.vcproj", "{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}"
@@ -193,8 +194,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cvgimport", "cvgimport\cvgi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wpgimport", "wpgimport\wpgimport.vcproj", "{A2A76BE2-A592-43A1-B087-068D6E082340}"
 	ProjectSection(ProjectDependencies) = postProject
-		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pctimport", "pctimport\pctimport.vcproj", "{DB5B98E3-34C2-4909-87C6-4950BCFC9CA3}"
@@ -233,6 +234,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drwimport", "drwimport\drwi
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-pgf", "scribus-pgf\scribus-pgf.vcproj", "{AAA3586D-6218-4CDB-BDD2-BC0198946661}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -626,6 +629,14 @@ Global
 		{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
