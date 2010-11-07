@@ -249,7 +249,7 @@ void FontPrefs::ChangePath()
 	{
 		if( s.endsWith("/") )
 			s = s.left(s.length()-1);
-		QString s2 = QDir::convertSeparators(s2);
+		QString s2 = QDir::convertSeparators(s);
 		if (PathList->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		QString path = PathList->currentItem()->text();
