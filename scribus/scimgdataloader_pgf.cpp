@@ -78,7 +78,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 			return false;
 		if (pgfImg.Channels() > 4)
 			return false;
-		if ((pgfImg.Mode() == 0) || (pgfImg.Mode() == 2))
+		if (pgfImg.Mode() == 2)
 			return false;
 		if (QSysInfo::ByteOrder == QSysInfo::BigEndian)
 		{
@@ -89,6 +89,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_Mono);
 					int map[] = {0};
 					pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
+					m_image.invertPixels();
 				}
 				else if (pgfImg.BPP() == 8)
 				{
@@ -145,6 +146,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_Mono);
 					int map[] = {0};
 					pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), 1, map);
+					m_image.invertPixels();
 				}
 				else if (pgfImg.BPP() == 8)
 				{
