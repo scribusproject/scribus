@@ -1158,7 +1158,7 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 			Bc = 0x0000;
 			break;
 	}
-	int redC, greenC, blueC, hR, hG, hB;
+	int redC, greenC, blueC;
 	redC = qRound((Rc / 65535.0) * 255.0);
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
@@ -1190,7 +1190,7 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 	ScColor tmp;
 	ColorList::Iterator it;
 	quint16 Rc, Gc, Bc;
-	int redC, greenC, blueC, hR, hG, hB;
+	int redC, greenC, blueC;
 	ts >> Rc >> Gc >> Bc;
 	redC = qRound((Rc / 65535.0) * 255.0);
 	greenC = qRound((Gc / 65535.0) * 255.0);
