@@ -986,7 +986,7 @@ QString StoryText::wordAt(int pos) const
 	if (pos < 0)
 		pos += length();
 	assert(pos >= 0);
-	assert(pos + signed(len) <= length());
+//	assert(pos + signed(len) <= length());
 
 	int len = length();
 	//Find the previous word position
