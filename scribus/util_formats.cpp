@@ -21,6 +21,7 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::JPEG, QStringList() << "jpg" << "jpeg");
 	m_fmts.insert(FormatsManager::PAT,  QStringList() << "pat");
 	m_fmts.insert(FormatsManager::PDF,  QStringList() << "pdf");
+	m_fmts.insert(FormatsManager::PGF,  QStringList() << "pgf");
 	m_fmts.insert(FormatsManager::PNG,  QStringList() << "png");
 	m_fmts.insert(FormatsManager::PS,   QStringList() << "ps");
 	m_fmts.insert(FormatsManager::PSD,  QStringList() << "psd");
@@ -44,6 +45,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
 	m_fmtNames[FormatsManager::PAT]  = QObject::tr("Pattern Files");
 	m_fmtNames[FormatsManager::PDF]  = QObject::tr("PDF Document");
+	m_fmtNames[FormatsManager::PGF]  = QObject::tr("PGF");
 	m_fmtNames[FormatsManager::PNG]  = QObject::tr("PNG");
 	m_fmtNames[FormatsManager::PS]   = QObject::tr("PostScript \"*.ps\"");
 	m_fmtNames[FormatsManager::PSD]  = QObject::tr("Adobe Photoshop \"*.psd\"");
@@ -67,6 +69,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
 	m_fmtMimeTypes.insert(FormatsManager::PAT,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PDF,  QStringList() << "application/pdf");
+	m_fmtMimeTypes.insert(FormatsManager::PGF,  QStringList() << "image/pgf");
 	m_fmtMimeTypes.insert(FormatsManager::PNG,  QStringList() << "image/png");
 	m_fmtMimeTypes.insert(FormatsManager::PS,   QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::PSD,  QStringList() << "application/photoshop");
@@ -333,6 +336,8 @@ QString getImageType(QString filename)
 				ret = "jpg";
 			else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
 				ret = "pdf";
+			else if ((buf[0] == 'P') && (buf[1] == 'G') && (buf[2] == 'F'))
+				ret = "pgf";
 			else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
 				ret = "png";
 			else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))

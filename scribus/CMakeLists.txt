@@ -682,6 +682,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_gimp.cpp
   scimgdataloader_jpeg.cpp
   scimgdataloader_pdf.cpp
+  scimgdataloader_pgf.cpp
   scimgdataloader_pict.cpp
   scimgdataloader_ps.cpp
   scimgdataloader_psd.cpp
@@ -852,6 +853,7 @@ LINK_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}/styles
   ${CMAKE_CURRENT_BINARY_DIR}/text
   ${CMAKE_CURRENT_BINARY_DIR}/third_party/wpg
+  ${CMAKE_CURRENT_BINARY_DIR}/third_party/pgf
 )
 
 IF(HAVE_OSG)
@@ -874,6 +876,8 @@ IF(HAVE_BOOST)
   SET(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
 ENDIF (HAVE_BOOST)
 SET(SCRIBUS_WPG_LIB "scribus_wpg_lib")
+
+SET(SCRIBUS_PGF_LIB "scribus_pgf_lib")
 
 INCLUDE_DIRECTORIES(
   ${CMAKE_SOURCE_DIR}
@@ -1035,6 +1039,7 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
   ${SCRIBUS_STYLES_LIB}
   ${SCRIBUS_FONTS_LIB}
   ${SCRIBUS_WPG_LIB}
+  ${SCRIBUS_PGF_LIB}
 )
 
 IF(HAVE_PODOFO)

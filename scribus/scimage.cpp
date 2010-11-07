@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_ps.h"
 #include "scimgdataloader_psd.h"
 #include "scimgdataloader_pdf.h"
+#include "scimgdataloader_pgf.h"
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
 #include "scimgdataloader_wpg.h"
@@ -1749,6 +1750,8 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	}
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
+	else if (ext == "pgf")
+		pDataLoader.reset( new ScImgDataLoader_PGF() );
 	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
 		pDataLoader.reset( new ScImgDataLoader_PICT() );
 	else if (ext == "wpg")
@@ -2012,6 +2015,8 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
+	else if (ext == "pgf")
+		pDataLoader.reset( new ScImgDataLoader_PGF() );
 	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
 		pDataLoader.reset( new ScImgDataLoader_PICT() );
 	else if (ext == "wpg")
