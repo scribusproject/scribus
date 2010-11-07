@@ -515,18 +515,15 @@ void SEditor::insertChars(const QString& styledText, const QString& editText)
 	{
 		if (textCursor().hasSelection())
 			textCursor().removeSelectedText();
-		insertChars(styledText);
-#if 0
+
 		++blockContentsChangeHook;
-		QTextCursor c(textCursor());
-		int pos = qMin(c.position(), StyledText.length());
+		QTextCursor cursor(textCursor());
+		int pos = qMin(cursor.position(), StyledText.length());
 		StyledText.insertChars(pos, styledText, true);
-// 		insertPlainText(editText);
-		insertUpdate(pos, editText.length());
-		c.setPosition(pos + editText.length());
-		setTextCursor(c);
+ 		insertPlainText(editText);
+		cursor.setPosition(pos + editText.length());
+		setTextCursor(cursor);
 		--blockContentsChangeHook;
-#endif
 	}
 }
 
