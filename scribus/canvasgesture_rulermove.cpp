@@ -28,6 +28,8 @@
 void RulerGesture::drawControls(QPainter* p)
 {
 	Page* page = m_doc->currentPage();
+	if (m_haveGuide)
+		page = m_doc->Pages->at(m_page);
 	QColor color(m_doc->guidesPrefs().guideColor);
 	p->save();
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
@@ -194,6 +196,8 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
+					if (m_doc->currentPage() != m_doc->Pages->at(m_page))
+						m_doc->setCurrentPage( m_doc->Pages->at(m_page) );
 					m_doc->changed();
 				}
 				else
@@ -248,6 +252,8 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 						m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
+					if (m_doc->currentPage() != m_doc->Pages->at(m_page))
+						m_doc->setCurrentPage( m_doc->Pages->at(m_page) );
 					m_doc->changed();
 				}
 				else
