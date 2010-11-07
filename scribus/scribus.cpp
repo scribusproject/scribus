@@ -8578,7 +8578,10 @@ void ScribusMainWindow::ApplyMasterPage()
 	//CB done by doc::reformpages
 	//slotDocCh();
 	pagePalette->Rebuild();
-	guidePalette->setupPage();
+	// #9476 : call setupPage with false arg to setup only guidePalette GUI
+	// Otherwise setupPage() will apply guides to current page, doesn't need that, 
+	// Apply_MasterPage() has already done it
+	guidePalette->setupPage(false);
 	delete dia;
 }
 

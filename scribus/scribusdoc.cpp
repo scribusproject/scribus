@@ -10369,7 +10369,9 @@ void ScribusDoc::setCurrentPage(Page *newPage)
 		m_ScMW->guidePalette->setDoc(this);
 		if (!isLoading())
 		{
-			m_ScMW->guidePalette->setupPage();
+			// #9476 : call setupPage with false arg to setup only guidePalette GUI
+			// Otherwise expect problems when applying masterpages with guides
+			m_ScMW->guidePalette->setupPage(false);
 			m_ScMW->pagePalette->markPage(newPage->pageNr());
 		}
 	}

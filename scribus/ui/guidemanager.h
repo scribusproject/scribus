@@ -42,7 +42,7 @@ public:
 
 	/*! \brief Set the widgets on the page change.
 	It has to be called on every page to page transition */
-	void setupPage();
+	void setupPage(bool storeValues = true);
 	void setupGui();
 
 	/*! \brief Clear and reset the GUI horizontal list widget. */

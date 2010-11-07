@@ -124,14 +124,14 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	tabWidget->setEnabled(doc ? true : false);
 }
 
-void GuideManager::setupPage()
+void GuideManager::setupPage(bool storeValues)
 {
 	if (!m_Doc)
 		return;
 	m_drawGuides = false;
 	setEnabled(true);
 	// store old values for current page (=page to leave)
-	if (currentPage)
+	if (currentPage && storeValues)
 		storePageValues(currentPage);
 
 	currentPage = m_Doc->currentPage();
