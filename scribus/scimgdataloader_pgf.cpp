@@ -194,6 +194,8 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 				pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
 			}
 		}
+		pgfImg.Close();
+		close(fd);
 		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
 		float xres = m_image.dotsPerMeterX() * 0.0254;
