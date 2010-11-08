@@ -2670,10 +2670,13 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 	{
-		QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
-		QString command(substyle[0].trimmed());
-		QString params(substyle[1].trimmed());
-		parsePA( obj, command, params );
+		QStringList substyle = it->split(':', QString::SkipEmptyParts);
+		if (substyle.count() >= 2)
+		{
+			QString command(substyle.at(0).trimmed());
+			QString params(substyle.at(1).trimmed());
+			parsePA( obj, command, params );
+		}
 	}
 	return;
 }
@@ -2714,13 +2717,16 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 				QStringList substyles = style.split(';', QString::SkipEmptyParts);
 				for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 				{
-					QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
-					QString command(substyle[0].trimmed());
-					QString params(substyle[1].trimmed());
-					if( command == "stop-color" )
-						Col = parseColor(params);
-					if( command == "stop-opacity" )
-						opa = fromPercentage(params);
+					QStringList substyle = it->split(':', QString::SkipEmptyParts);
+					if (substyle.count() >= 2)
+					{
+						QString command(substyle.at(0).trimmed());
+						QString params(substyle.at(1).trimmed());
+						if( command == "stop-color" )
+							Col = parseColor(params);
+						if( command == "stop-opacity" )
+							opa = fromPercentage(params);
+					}
 				}
 			}
 		}
