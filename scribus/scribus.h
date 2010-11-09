@@ -94,11 +94,11 @@ class PDFToolBar;
 class PSLib;
 class PageItem;
 class PagePalette;
-class Preferences;
+//class Preferences;
 class PrefsContext;
 class PrefsManager;
 class PropertiesPalette;
-class ReformDoc;
+//class ReformDoc;
 class ScToolBar;
 class ScrAction;
 class ScribusDoc;
@@ -535,18 +535,18 @@ public slots:
 	/*! \brief Apply changes from ReformDoc dialog.
 	It's called from this->slotDocSetup() or from ReformDoc directly.
 	\param dia a reference to the ReformDoc dialog */
-	void docSetup(ReformDoc* dia);
+//	void docSetup(ReformDoc* dia);
 	/*! \brief Apply changes from Preferences dialog.
 	It's called from this->slotPrefsOrg() or from Preferences directly.
 	\param dia a reference to the Preferences dialog */
-	void prefsOrg(Preferences* dia);
+//	void prefsOrg(Preferences* dia);
 	/*! \brief Change Preferences dialog.
 	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
-	void slotPrefsOrg();
+//	void slotPrefsOrg();
 	void slotPrefs150Org();
 	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
 	See docSetup() for more info. */
-	bool slotDocSetup();
+//	bool slotDocSetup();
 	void slotDocSetup150();
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();

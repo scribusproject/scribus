@@ -38,7 +38,8 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "latexhelpers.h"
 #include "ui/missing.h"
-#include "ui/tabkeyboardshortcutswidget.h"
+//#include "ui/tabkeyboardshortcutswidget.h"
+#include "ui/prefs_keyboardshortcuts.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"
@@ -1625,7 +1626,7 @@ bool PrefsManager::WritePref(QString ho)
 			continue;
 		QDomElement kscc=docu.createElement("Shortcut");
 		kscc.setAttribute("Action",ksc.value().actionName);
-		kscc.setAttribute("KeySequence",TabKeyboardShortcutsWidget::getKeyText(ksc.value().keySequence));
+		kscc.setAttribute("KeySequence",Prefs_KeyboardShortcuts::getKeyText(ksc.value().keySequence));
 		elem.appendChild(kscc);
 	}
 	QDomElement cosd=docu.createElement("DefaultColorSet");

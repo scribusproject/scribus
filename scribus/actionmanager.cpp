@@ -137,13 +137,13 @@ void ActionManager::initFileMenuActions()
 	name="fileExportAsPDF";
 	scrActions->insert(name, new ScrAction(loadIcon("acroread16.png"), loadIcon("acroread22.png"), "", defaultKey(name), mainWindow));
 	//Rest of File Menu
-	name="fileDocSetup";
-	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defaultKey(name), mainWindow));
+//	name="fileDocSetup";
+//	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defaultKey(name), mainWindow));
 	name="fileDocSetup150";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defaultKey(name), mainWindow));
-	name="filePreferences";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	(*scrActions)[name]->setMenuRole(QAction::NoRole);
+//	name="filePreferences";
+//	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+//	(*scrActions)[name]->setMenuRole(QAction::NoRole);
 	name="filePreferences150";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setMenuRole(QAction::PreferencesRole);
@@ -165,9 +165,9 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["PrintPreview"], SIGNAL(triggered()), mainWindow, SLOT(printPreview()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSaveAs()) );
-	connect( (*scrActions)["fileDocSetup"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
+//	connect( (*scrActions)["fileDocSetup"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
 	connect( (*scrActions)["fileDocSetup150"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup150()) );
-	connect( (*scrActions)["filePreferences"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
+//	connect( (*scrActions)["filePreferences"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
 	connect( (*scrActions)["filePreferences150"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefs150Org()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(triggered()), mainWindow, SLOT(slotFileRevert()) );
 	connect( (*scrActions)["fileCollect"], SIGNAL(triggered()), mainWindow, SLOT(fileCollect()) );
@@ -1289,9 +1289,9 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
-	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup (old)..."));
+//	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup (old)..."));
 	(*scrActions)["fileDocSetup150"]->setTexts( tr("Document &Setup..."));
-	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
+//	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
@@ -1747,9 +1747,9 @@ void ActionManager::createDefaultMenus()
 		<< "fileExportText"
 		<< "fileExportAsEPS"
 		<< "fileExportAsPDF"
-		<< "fileDocSetup"
+//		<< "fileDocSetup"
 		<< "fileDocSetup150"
-		<< "filePreferences"
+//		<< "filePreferences"
 		<< "filePreferences150"
 		<< "filePrint"
 		<< "PrintPreview"

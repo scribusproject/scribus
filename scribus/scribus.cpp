@@ -89,7 +89,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvasmode.h"
 #include "ui/charselect.h"
 #include "ui/checkDocument.h"
-#include "ui/cmsprefs.h"
+//#include "ui/cmsprefs.h"
 #include "ui/collectforoutput_ui.h"
 #include "ui/colorcombo.h"
 #include "commonstrings.h"
@@ -101,14 +101,14 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/saxXML.h"
 #include "desaxe/simple_actions.h"
 #include "docinfo.h"
-#include "ui/docitemattrprefs.h"
+//#include "ui/docitemattrprefs.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
 #include "ui/effectsdialog.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "ui/fontcombo.h"
-#include "ui/fontprefs.h"
+//#include "ui/fontprefs.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "gtgettext.h"
@@ -116,7 +116,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/helpbrowser.h"
 #include "ui/hruler.h"
 #include "hyphenator.h"
-#include "ui/hysettings.h"
+//#include "ui/hysettings.h"
 #include "ui/imageinfodialog.h"
 #include "ui/insertaframe.h"
 #include "ui/inspage.h"
@@ -160,7 +160,7 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include "ui/polygonwidget.h"
 #include "ui/preferencesdialog.h"
-#include "ui/prefs.h"
+//#include "ui/prefs.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -170,7 +170,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "pslib.h"
 #include "ui/query.h"
-#include "ui/reformdoc.h"
+//#include "ui/reformdoc.h"
 #include "ui/replacecolors.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
@@ -201,15 +201,15 @@ for which a new license (GPL+exception) is in place.
 #include "ui/storyeditor.h"
 #include "ui/stylemanager.h"
 #include "ui/symbolpalette.h"
-#include "ui/tabcheckdoc.h"
-#include "ui/tabguides.h"
+//#include "ui/tabcheckdoc.h"
+//#include "ui/tabguides.h"
 #include "ui/tabmanager.h"
-#include "ui/tabpdfoptions.h"
-#include "ui/tabtools.h"
-#include "ui/tabtypography.h"
+//#include "ui/tabpdfoptions.h"
+//#include "ui/tabtools.h"
+//#include "ui/tabtypography.h"
 #include "text/nlsconfig.h"
 #include "tocgenerator.h"
-#include "ui/tocindexprefs.h"
+//#include "ui/tocindexprefs.h"
 #include "ui/transformdialog.h"
 #include "ui/copypagetomasterpagedialog.h"
 #include "ui/edittoolbar.h"
@@ -1571,10 +1571,11 @@ void ScribusMainWindow::changeEvent(QEvent *e)
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 {
 	//Do not quit if Preferences or new doc window is open
-	Preferences *prefsWin = findChild<Preferences *>(QString::fromLocal8Bit("PreferencesWindow"));
+//	Preferences *prefsWin = findChild<Preferences *>(QString::fromLocal8Bit("PreferencesWindow"));
 	PreferencesDialog *prefsDialog = findChild<PreferencesDialog *>(QString::fromLocal8Bit("PreferencesDialog"));
 	NewDoc *newDocWin = findChild<NewDoc *>(QString::fromLocal8Bit("NewDocumentWindow"));
-	if (prefsWin!=NULL || prefsDialog!=NULL || newDocWin!=NULL)
+//	if (prefsWin!=NULL || prefsDialog!=NULL || newDocWin!=NULL)
+	if (prefsDialog!=NULL || newDocWin!=NULL)
 	{
 		ce->ignore();
 		return;
@@ -1724,7 +1725,7 @@ void ScribusMainWindow::startUpDialog()
 	delete dia;
 	mainWindowStatusLabel->setText( tr("Ready"));
 	if (docSet)
-		slotDocSetup();
+		slotDocSetup150();
 }
 
 bool ScribusMainWindow::slotFileNew()
@@ -1774,7 +1775,7 @@ bool ScribusMainWindow::slotFileNew()
 	}
 	delete dia;
 	if (docSet)
-		slotDocSetup();
+		slotDocSetup150();
 	return retVal;
 }
 
@@ -2320,7 +2321,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["filePrint"]->setEnabled(true);
  	scrActions["fileSave"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
-	scrActions["fileDocSetup"]->setEnabled(true);
+//	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["fileDocSetup150"]->setEnabled(true);
 	scrActions["fileRevert"]->setEnabled(false);
 	scrActions["fileCollect"]->setEnabled(true);
@@ -4453,7 +4454,7 @@ bool ScribusMainWindow::DoFileClose()
 	{
 		PluginManager& pluginManager(PluginManager::instance());
 		pluginManager.enableOnlyStartupPluginActions(this);
-		scrActions["fileDocSetup"]->setEnabled(false);
+//		scrActions["fileDocSetup"]->setEnabled(false);
 		scrActions["fileDocSetup150"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(false);
@@ -7483,7 +7484,7 @@ void ScribusMainWindow::selectPagesFromOutlines(int Page)
 		return;
 	view->GotoPage(Page);
 }
-
+/*
 void ScribusMainWindow::prefsOrg(Preferences *dia)
 {
 	//reset the appMode so we restore our tools shortcuts
@@ -7592,7 +7593,7 @@ void ScribusMainWindow::slotPrefsOrg()
 	if (dia.exec()==QDialog::Accepted)
 		prefsOrg(&dia);
 }
-
+*/
 void ScribusMainWindow::slotPrefs150Org()
 {
 	QString oldMonitorProfile(ScCore->monitorProfile.productDescription());
@@ -7692,7 +7693,7 @@ void ScribusMainWindow::slotPrefs150Org()
 	}
 }
 
-
+/*
 void ScribusMainWindow::docSetup(ReformDoc* dia)
 {
 	slotChangeUnit(dia->getSelectedUnit(), false);
@@ -7731,11 +7732,11 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	doc->setMasterPageMode(true);
 	view->reformPages();
 	doc->setMasterPageMode(false);
-/*	doc->setLoading(true);
-	uint pageCount=doc->DocPages.count();
-	for (uint c=0; c<pageCount; ++c)
-		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
-	doc->setLoading(false); */
+//	doc->setLoading(true);
+//	uint pageCount=doc->DocPages.count();
+//	for (uint c=0; c<pageCount; ++c)
+//		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
+//	doc->setLoading(false);
 	view->reformPages();
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
@@ -7756,7 +7757,7 @@ bool ScribusMainWindow::slotDocSetup()
 	delete dia;
 	return ret;
 }
-
+*/
 void ScribusMainWindow::slotDocSetup150()
 {
 	if (!doc)
@@ -8462,7 +8463,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["fileClose"]->setEnabled(false);
 			scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 			scrActions["fileRevert"]->setEnabled(false);
-			scrActions["fileDocSetup"]->setEnabled(false);
+//			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["fileDocSetup150"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
 			scrActions["PrintPreview"]->setEnabled(false);
@@ -8495,7 +8496,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["fileSave"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
-	scrActions["fileDocSetup"]->setEnabled(true);
+//	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["fileDocSetup150"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
