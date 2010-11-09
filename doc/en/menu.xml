@@ -3,8 +3,8 @@
 	<area text="Welcome" file="index.html">
 		<submenuitem text="Readme First" file="readme.html"/>
 	</area>
-	<area text="Documentation" file="documentation.html">
-		<submenuitem text="Introduction" file="intro.html">
+	<area text="Introduction" file="intro.html">
+		<submenuitem text="Documentation" file="documentation.html">
 			<submenuitem text="About the team" file="about1.html"/>
 			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
