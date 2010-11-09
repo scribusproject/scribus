@@ -23,9 +23,11 @@
 <p>This is usually the safest way to import an EPS. Provided Ghostscript is installed and properly <a href="gsfont.html">configured</a>, it works just like with any other <a href="WwImages.html">bitmap image</a>. However, since Scribus uses Ghostscript to rasterize the EPS, loading and rendering may take some time.</p>
 
 <h5>Caveats</h5>
+<ul>
 <li>Photoshop can export EPS natively, but these are mostly raster objects within the EPS, with some Photoshop-specific features like layers and blend modes. Photoshop also can export a special type of EPS called DCS (Desktop Color Separations). This flavor of EPS is best imported into an image frame, where Scribus will detect and enable extended image editing/displaying capabilities. See the section about <a href="psd.html">PSD import</a> for more information.</li>
 <li>Image mask doesn&rsquo;t work correctly.</li>
 <li>Clipping paths are ignored.</li>
+</ul>
 
 <h4>Importing as a vector drawing</h4>
 <p>Importing EPS like any other <a href="importhints2.html">vector file</a> via <i>File > Import >Get Vector File</i>, if possible, does have some advantages. Since you are working with vector data, file size and exported PDF size are relatively small. It makes them resolution-independent, so they can be re-scaled without losing crispness in printing.</p>
@@ -51,7 +53,8 @@ If you are working with this kind of &ldquo;mixed&rdquo; EPS, you need to be ver
   </tbody>
 </table>
 <br>
-A second potential issue is bitmap file incompatibility and is most likely to occur with recent versions of Illustrator. Illustrator is often used alongside Photoshop, and the changes made to Photoshop&rsquo;s PSD format since version 6 haven&rsquo;t been published. Thus, Ghostscript&rsquo;s attempts to read or convert those embedded PSDs may fail, which will trigger a warning in Scribus:
+</li>
+<li>A second potential issue is bitmap file incompatibility and is most likely to occur with recent versions of Illustrator. Illustrator is often used alongside Photoshop, and the changes made to Photoshop&rsquo;s PSD format since version 6 haven&rsquo;t been published. Thus, Ghostscript&rsquo;s attempts to read or convert those embedded PSDs may fail, which will trigger a warning in Scribus:
 <br><table width="100%"><tr><td align="center"><img src="images/eps-imp3.png" title="Bitmap conversion failure" alt="Bitmap conversion failure" /></td></tr></table><br></li>
 <li>EPS export quality from other applications can vary widely. Some applications unfortunately like to add their own ingredients to the sauce. The first step for testing a failed import is to open the file in <a href="toolbox6.html">GSview</a>, then press <b>M</b> to watch the messages from Ghostscript while it attempts to open the file. When you have a failure in GSview, the messages can be cryptic sometimes, but they may be a helpful pointer to see what is the problem.</li>
 <li>Users saving from Adobe Illustrator 9.0 or later are urged to either export to EPS versions compatible with Illustrator version 7 or less <b>or</b> use Illustrator&rsquo;s native AI format for import into Scribus. Why? Illustrator 9+ actually uses PDF as a native format and embeds quite a bit of Adobe-specific data in an EPS, which can cause issues when importing. Scribus is not alone with this issue.</li>
