@@ -195,7 +195,11 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 			}
 		}
 		pgfImg.Close();
+#ifdef WIN32
+		CloseHandle(fd);
+#else
 		close(fd);
+#endif
 		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
 		float xres = m_image.dotsPerMeterX() * 0.0254;
