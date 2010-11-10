@@ -811,14 +811,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\docitemattrprefs.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\docsections.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\documentchecker.cpp"
 				>
 			</File>
@@ -876,10 +868,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\fontlistview.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\fontprefs.cpp"
 				>
 			</File>
 			<File
@@ -1016,10 +1004,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\hyphenator.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\hysettings.cpp"
 				>
 			</File>
 			<File
@@ -1343,10 +1327,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\prefs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\prefs_colormanagement.cpp"
 				>
 			</File>
@@ -1451,10 +1431,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\prefsdialogbase.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\prefsfile.cpp"
 				>
 			</File>
@@ -1500,10 +1476,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\rc4.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\reformdoc.cpp"
 				>
 			</File>
 			<File
@@ -1999,39 +1971,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\tabcheckdoc.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabdisplay.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabdocument.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabexternaltoolswidget.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabgeneral.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabguides.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabkeyboardshortcutswidget.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\tabmanager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabmiscellaneous.cpp"
 				>
 			</File>
 			<File
@@ -2039,23 +1979,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\tabprinter.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\tabruler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabscrapbook.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabtools.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabtypography.cpp"
 				>
 			</File>
 			<File
@@ -2064,10 +1988,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\tocgenerator.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tocindexprefs.cpp"
 				>
 			</File>
 			<File
@@ -3960,70 +3880,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\docitemattrprefs.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\docsections.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\documentchecker.h"
 				>
 				<FileConfiguration
@@ -4389,38 +4245,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\fontlistview.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\fontprefs.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5073,38 +4897,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\hyphenator.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\hysettings.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7228,38 +7020,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\prefs.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\prefs_colormanagement.h"
 				>
 				<FileConfiguration
@@ -8096,38 +7856,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\prefsdialogbase.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\prefsfile.h"
 				>
 			</File>
@@ -8374,38 +8102,6 @@
 			<File
 				RelativePath="..\..\scribus\rc4.h"
 				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\reformdoc.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\replacecolors.h"
@@ -10876,263 +10572,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\tabcheckdoc.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabdisplay.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabdocument.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabexternaltoolswidget.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabgeneral.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabguides.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabkeyboardshortcutswidget.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\tabmanager.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabmiscellaneous.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11196,135 +10636,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\tabprinter.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\tabruler.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabscrapbook.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabtools.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabtypography.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11361,38 +10673,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\tocgenerator.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tocindexprefs.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11925,14 +11205,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\ui_docitemattrprefs.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_docsections.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\ui_gradientaddedit.h"
 				>
 			</File>
@@ -12173,38 +11445,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\ui_tabdisplay.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tabexternaltoolswidget.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tabgeneral.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tabkeyboardshortcutswidget.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tabmiscellaneous.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tabprinter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tabscrapbook.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\ui_tocindexprefs.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\ui_transformdialogbase.h"
 				>
 			</File>
@@ -12426,14 +11666,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_docitemattrprefs.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_docsections.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\moc_editor.cpp"
 				>
 			</File>
@@ -12475,10 +11707,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_fontlistview.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_fontprefs.cpp"
 				>
 			</File>
 			<File
@@ -12539,10 +11767,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_hyphenator.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_hysettings.cpp"
 				>
 			</File>
 			<File
@@ -12794,10 +12018,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_prefs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\moc_prefs_colormanagement.cpp"
 				>
 			</File>
@@ -12902,10 +12122,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_prefsdialogbase.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\moc_prefsmanager.cpp"
 				>
 			</File>
@@ -12931,10 +12147,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_query.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_reformdoc.cpp"
 				>
 			</File>
 			<File
@@ -13186,39 +12398,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_tabcheckdoc.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabdisplay.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabdocument.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabexternaltoolswidget.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabgeneral.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabguides.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabkeyboardshortcutswidget.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\moc_tabmanager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabmiscellaneous.cpp"
 				>
 			</File>
 			<File
@@ -13226,31 +12406,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_tabprinter.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\moc_tabruler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_tabscrapbook.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabtools.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tabtypography.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\moc_tocgenerator.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\moc_tocindexprefs.cpp"
 				>
 			</File>
 			<File
@@ -13331,14 +12491,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\docitemattrprefs.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\docsections.ui"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\gradientaddedit.ui"
 				>
 			</File>
@@ -13364,10 +12516,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\helpbrowsernavigation.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\hysettingsBase.ui"
 				>
 			</File>
 			<File
@@ -13588,42 +12736,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smstyleimport.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\stylemanager.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabdisplay.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabexternaltoolswidget.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabgeneral.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabkeyboardshortcutswidget.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabmiscellaneous.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabprinter.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tabscrapbook.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\tocindexprefs.ui"
 				>
 			</File>
 			<File
