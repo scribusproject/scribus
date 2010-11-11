@@ -211,6 +211,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->setDefaultAction(m_ScMW->scrActions["toolsZoomIn"]);
+	zoomOutToolbarButton->setDefaultAction(m_ScMW->scrActions["toolsZoomOut"]);
 	cmsToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	cmsToolbarButton->setCheckable(true);
 	QIcon ic2;
@@ -239,6 +241,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->addAction(m_ScMW->scrActions["toolsZoomIn"]);
+	zoomOutToolbarButton->addAction(m_ScMW->scrActions["toolsZoomOut"]);
 	cmsToolbarButton = new QPushButton(this);
 	cmsToolbarButton->setFocusPolicy(Qt::NoFocus);
 	cmsToolbarButton->setDefault( false );
@@ -261,9 +265,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	//zoomDefaultToolbarButton->setText("1:1");
 	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
 	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
-	zoomOutToolbarButton->addAction(m_ScMW->scrActions["toolsZoomOut"]);
 	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
-	zoomInToolbarButton->addAction(m_ScMW->scrActions["toolsZoomIn"]);
 	pageSelector = new PageSelector(this, Doc->Pages->count());
 	pageSelector->setFont(fo);
 	pageSelector->setFocusPolicy(Qt::ClickFocus);

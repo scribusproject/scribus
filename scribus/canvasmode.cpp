@@ -27,7 +27,6 @@
 #include "canvasmode_editmeshgradient.h"
 #include "canvasmode_eyedropper.h"
 #include "canvasmode_framelinks.h"
-#include "canvasmode_legacy.h"
 #include "canvasmode_magnifier.h"
 #include "canvasmode_measurements.h"
 #include "canvasmode_nodeedit.h"
@@ -166,7 +165,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			// more modes as they are defined...
 			
 		default:
-			result = new LegacyMode(view);
+			result = new CanvasMode_Normal(view);
 			break;
 	}
 	return result;

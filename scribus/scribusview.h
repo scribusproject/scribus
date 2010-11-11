@@ -97,7 +97,6 @@ public:
     ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
     ~ScribusView();
 	
-	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;

@@ -47,6 +47,7 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter* p);
+	void drawControlsGradientVectors(QPainter* psx, PageItem *currItem);
 
 private:
 

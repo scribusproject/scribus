@@ -148,7 +148,7 @@ SET(SCRIBUS_UI_SRC
   ui/helpbrowsernavigation.ui
   ui/unicodesearch.ui
   ui/useprintermarginsdialog.ui
-  ${SCRIBUS_ITEMSETTERS_UI_SRC}
+#  ${SCRIBUS_ITEMSETTERS_UI_SRC}
   ${SCRIBUS_OSG_UI_SRC}
 )
 
@@ -173,7 +173,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasgesture_rulermove.h
   canvasmode.h
   canvasmode_edit.h
-  canvasmode_legacy.h
+#  canvasmode_legacy.h
   canvasmode_measurements.h
   canvasmode_normal.h
   ui/charselect.h
@@ -419,7 +419,7 @@ SET(SCRIBUS_MOC_CLASSES
   urllauncher.h
   ui/useprintermarginsdialog.h
   ui/vruler.h
-  ${SCRIBUS_ITEMSETTERS_CLASS}
+#  ${SCRIBUS_ITEMSETTERS_CLASS}
   ${SCRIBUS_OSG_CLASS}
 )
 
@@ -457,7 +457,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_edit.cpp
   canvasmode_editgradient.cpp
   canvasmode_editmeshgradient.cpp
-  canvasmode_legacy.cpp
+#  canvasmode_legacy.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
@@ -821,7 +821,7 @@ SET(SCRIBUS_SOURCES
   vgradient.cpp
   vgradientex.cpp
   ui/vruler.cpp
-  ${SCRIBUS_ITEMSETTERS_SRC}
+#  ${SCRIBUS_ITEMSETTERS_SRC}
   ${SCRIBUS_OSG_SRC}
   ${SCRIBUS_GMAGICK_SRC}
 )

@@ -88,7 +88,6 @@ public:
 	
 	friend class ScribusView; // for now...
 	friend class CanvasMode;
-	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
@@ -222,8 +221,6 @@ private:
 	void drawFrameLinks(ScPainter* painter);
 	void drawControls(QPainter* p);
 	void drawControlsMovingItemsRect(QPainter* pp);
-//	void drawControlsHighlightRect(QPainter* pp);
-	void drawControlsGradientVectors(QPainter* psx, PageItem *currItem);
 	void drawControlsBezierCurve(QPainter* pp, PageItem* currItem);
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);
