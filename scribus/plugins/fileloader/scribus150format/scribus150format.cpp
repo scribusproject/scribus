@@ -920,6 +920,14 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().shapeLineColorShade     = attrs.valueAsInt("PENSHADE", 100);
 	doc->itemToolPrefs().lineColorShade  = attrs.valueAsInt("LINESHADE", 100);
 	doc->itemToolPrefs().shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
+	doc->itemToolPrefs().calligrapicPenFillColor = attrs.valueAsString("calligrapicPenFillColor", "Black");
+	doc->itemToolPrefs().calligrapicPenLineColor = attrs.valueAsString("calligrapicPenLineColor", "Black");
+	doc->itemToolPrefs().calligrapicPenFillColorShade = attrs.valueAsInt("calligrapicPenFillColorShade", 100);
+	doc->itemToolPrefs().calligrapicPenLineColorShade = attrs.valueAsInt("calligrapicPenLineColorShade", 100);
+	doc->itemToolPrefs().calligrapicPenLineWidth = attrs.valueAsDouble("calligrapicPenLineWidth", 1.0);
+	doc->itemToolPrefs().calligrapicPenAngle = attrs.valueAsDouble("calligrapicPenAngle", 0.0);
+	doc->itemToolPrefs().calligrapicPenWidth = attrs.valueAsDouble("calligrapicPenWidth", 10.0);
+	doc->itemToolPrefs().calligrapicPenStyle = static_cast<Qt::PenStyle>(attrs.valueAsInt("calligrapicPenStyle"));
 	doc->opToolPrefs().magMin      = attrs.valueAsInt("MAGMIN", 1);
 	doc->opToolPrefs().magMax      = attrs.valueAsInt("MAGMAX", 3200);
 	doc->opToolPrefs().magStep     = attrs.valueAsInt("MAGSTEP", 200);

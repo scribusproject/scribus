@@ -381,7 +381,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		return;
 	}
 	
-	
+#if 0
 	assert(false);
 	if (m_doc->appMode != modeDrawBezierLine) //FIXME: that should be dead - av
 	{		
@@ -963,7 +963,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			}*/
 		}
 	}
-	
+#endif
 	
 	m_canvas->setRenderModeUseBuffer(false);
 	

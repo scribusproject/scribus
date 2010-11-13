@@ -22,6 +22,7 @@
 #include "canvasmode_create.h"
 #include "canvasmode_drawbezier.h"
 #include "canvasmode_drawfreehand.h"
+#include "canvasmode_drawcalligraphic.h"
 #include "canvasmode_edit.h"
 #include "canvasmode_editgradient.h"
 #include "canvasmode_editmeshgradient.h"
@@ -122,6 +123,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeDrawFreehandLine:
 			result = new FreehandMode(view);
+			break;
+		case modeDrawCalligraphicLine:
+			result = new CalligraphicMode(view);
 			break;
 		case modeDrawLine:
 		case modeDrawShapes:
@@ -575,6 +579,7 @@ void CanvasMode::setModeCursor()
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 		case modeDrawFreehandLine:
+		case modeDrawCalligraphicLine:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
 			break;
 		case modeImportObject:

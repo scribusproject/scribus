@@ -101,6 +101,7 @@ public:
 	friend class CanvasMode_Normal;
 	friend class CanvasMode_Rotate;
 	friend class FreehandMode;
+	friend class CalligraphicMode;
 	
 	/* Dont rely on these codes!
 	 * 2 8 3

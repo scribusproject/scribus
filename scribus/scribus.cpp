@@ -796,6 +796,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertLine"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertCalligraphicLine"], "Insert", false);
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["stickyTools"], "Insert", true);
 	scrMenuMgr->addMenuSeparator("Insert");
@@ -2385,6 +2386,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsInsertLine"]->setEnabled(true);
 	scrActions["toolsInsertBezier"]->setEnabled(true);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
+	scrActions["toolsInsertCalligraphicLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(true);
 	scrActions["toolsMeasurements"]->setEnabled(true);
@@ -4558,6 +4560,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsInsertLine"]->setEnabled(false);
 		scrActions["toolsInsertBezier"]->setEnabled(false);
 		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
+		scrActions["toolsInsertCalligraphicLine"]->setEnabled(false);
 		scrActions["toolsInsertPolygon"]->setEnabled(false);
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
@@ -6093,6 +6096,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsInsertLine"]->setEnabled(false);
 		scrActions["toolsInsertBezier"]->setEnabled(false);
 		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
+		scrActions["toolsInsertCalligraphicLine"]->setEnabled(false);
 		scrActions["toolsInsertPolygon"]->setEnabled(false);
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
@@ -6173,6 +6177,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsInsertLine"]->setEnabled(true);
 	scrActions["toolsInsertBezier"]->setEnabled(true);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
+	scrActions["toolsInsertCalligraphicLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(true);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
@@ -6266,6 +6271,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsInsertLine"]->setChecked(mode==modeDrawLine);
 	scrActions["toolsInsertBezier"]->setChecked(mode==modeDrawBezierLine);
 	scrActions["toolsInsertFreehandLine"]->setChecked(mode==modeDrawFreehandLine);
+	scrActions["toolsInsertCalligraphicLine"]->setChecked(mode == modeDrawCalligraphicLine);
 	scrActions["toolsInsertRenderFrame"]->setChecked(mode==modeDrawLatex);
 	scrActions["toolsRotate"]->setChecked(mode==modeRotation);
 	scrActions["toolsZoom"]->setChecked(mode==modeMagnifier);
@@ -6467,6 +6473,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeDrawBezierLine:
 				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 				break;
+			case modeDrawCalligraphicLine:
 			case modeDrawFreehandLine:
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
 				break;
@@ -9030,6 +9037,7 @@ void ScribusMainWindow::changeLayer(int )
 	scrActions["toolsInsertLine"]->setEnabled(setter);
 	scrActions["toolsInsertBezier"]->setEnabled(setter);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(setter);
+	scrActions["toolsInsertCalligraphicLine"]->setEnabled(setter);
 	scrActions["toolsInsertPolygon"]->setEnabled(setter);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(setter);
 	if (doc->masterPageMode())

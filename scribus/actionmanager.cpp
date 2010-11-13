@@ -712,6 +712,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-path.png"), loadIcon("22/draw-path.png"), "", defaultKey(name), mainWindow, modeDrawBezierLine));
 	name="toolsInsertFreehandLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-freehand.png"), loadIcon("22/draw-freehand.png"), "", defaultKey(name), mainWindow, modeDrawFreehandLine));
+	name="toolsInsertCalligraphicLine";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-calligraphic.png"), loadIcon("22/draw-calligraphic.png"), "", defaultKey(name), mainWindow, modeDrawCalligraphicLine));
 	name="toolsRotate";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/transform-rotate.png"), loadIcon("22/transform-rotate.png"), "", defaultKey(name), mainWindow, modeRotation));
 	name="toolsZoom";
@@ -780,7 +782,7 @@ void ActionManager::initToolsMenuActions()
 
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
-	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
+	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
@@ -1471,6 +1473,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
 	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
 	(*scrActions)["toolsInsertLine"]->setText( tr("Insert &Line"));
+	(*scrActions)["toolsInsertCalligraphicLine"]->setText( tr("Insert Calligraphic Line"));
 	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert &Bezier Curve"));
 	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert &Freehand Line"));
 
@@ -1641,6 +1644,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsInsertLine", Qt::Key_L);
 	defKeys.insert("toolsInsertBezier", Qt::Key_B);
 	defKeys.insert("toolsInsertFreehandLine", Qt::Key_F);
+	
 	defKeys.insert("toolsInsertRenderFrame", Qt::Key_D); //TODO: First free key. Select a meaningful
 	defKeys.insert("toolsRotate", Qt::Key_R);
 	defKeys.insert("toolsZoom", Qt::Key_Z);
@@ -1861,6 +1865,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsInsertLine"
 		<< "toolsInsertBezier"
 		<< "toolsInsertFreehandLine"
+		<< "toolsInsertCalligraphicLine"
 		<< "toolsInsertRenderFrame"
 		<< "stickyTools"
 		<< "insertGlyph"

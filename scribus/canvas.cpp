@@ -1047,7 +1047,7 @@ void Canvas::drawControls(QPainter *psx)
 		{
 			if (!m_viewMode.redrawPolygon.isEmpty())
 			{
-				if (m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
+				if (m_viewMode.m_MouseButtonPressed && ((m_doc->appMode == modeDrawFreehandLine) || (m_doc->appMode == modeDrawCalligraphicLine)))
 				{
 					drawControlsFreehandLine(psx);
 				}

@@ -451,6 +451,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_copyproperties.cpp
   canvasmode_create.cpp
   canvasmode_drawbezier.cpp
+  canvasmode_drawcalligraphic.cpp
   canvasmode_drawfreehand.cpp
   canvasmode_eyedropper.cpp
   canvasmode_framelinks.cpp

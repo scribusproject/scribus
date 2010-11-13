@@ -25,13 +25,24 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	setupUi(this);
 	lineEndArrowComboBox->setStartDirection(false);
 	shapeLineWidthSpinBox->setNewUnit(0);
-	lineWidthSpinBox->setNewUnit(0);
 	shapeLineWidthSpinBox->setMaximum(36);
-	lineWidthSpinBox->setMaximum(36);
 	shapeLineWidthSpinBox->setDecimals(1);
+	lineWidthSpinBox->setNewUnit(0);
+	lineWidthSpinBox->setMaximum(36);
 	lineWidthSpinBox->setDecimals(1);
+	calPenLineWidthSpinBox->setNewUnit(0);
+	calPenLineWidthSpinBox->setMaximum(36);
+	calPenLineWidthSpinBox->setDecimals(1);
+	calPenWidthSpinBox->setNewUnit(0);
+	calPenWidthSpinBox->setMaximum(100);
+	calPenWidthSpinBox->setDecimals(1);
+	calPenAngleSpinBox->setNewUnit(6);
+	calPenAngleSpinBox->setMaximum(180);
+	calPenAngleSpinBox->setMinimum(-180);
+	calPenAngleSpinBox->setDecimals(0);
 	shapeLineWidthSpinBox->setSpecialValueText( tr("Hairline"));
 	lineWidthSpinBox->setSpecialValueText( tr("Hairline"));
+	calPenLineWidthSpinBox->setSpecialValueText( tr("Hairline"));
 	textSizeSpinBox->setNewUnit(0);
 	textSizeSpinBox->setMinimum(0.5);
 	textSizeSpinBox->setMaximum(2048);
@@ -173,6 +184,15 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	lineEndArrowComboBox->setCurrentIndex(prefsData->itemToolPrefs.lineEndArrow);
 	lineWidthSpinBox->setValue(prefsData->itemToolPrefs.lineWidth);
 	//
+	//Calligraphic Pen Tool
+	calPenFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.calligrapicPenFillColor);
+	calPenFillShadingSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenFillColorShade);
+	calPenColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.calligrapicPenLineColor);
+	calPenLineShadingSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenLineColorShade);
+	calPenStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.calligrapicPenStyle) - 1);
+	calPenLineWidthSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenLineWidth);
+	calPenAngleSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenAngle);
+	calPenWidthSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenWidth);
 
 	enableSignals(true);
 }
@@ -279,6 +299,19 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->itemToolPrefs.lineWidth = lineWidthSpinBox->value();
 	prefsData->itemToolPrefs.lineStartArrow = lineStartArrowComboBox->currentIndex();
 	prefsData->itemToolPrefs.lineEndArrow = lineEndArrowComboBox->currentIndex();
+	//Calligraphic Pen Tool
+	prefsData->itemToolPrefs.calligrapicPenFillColor = calPenFillColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.calligrapicPenFillColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.calligrapicPenFillColor = CommonStrings::None;
+	prefsData->itemToolPrefs.calligrapicPenLineColor = calPenColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.calligrapicPenLineColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.calligrapicPenLineColor = CommonStrings::None;
+	prefsData->itemToolPrefs.calligrapicPenFillColorShade = calPenFillShadingSpinBox->value();
+	prefsData->itemToolPrefs.calligrapicPenLineColorShade = calPenLineShadingSpinBox->value();
+	prefsData->itemToolPrefs.calligrapicPenStyle = static_cast<Qt::PenStyle>(calPenStyleComboBox->currentIndex()) + 1;
+	prefsData->itemToolPrefs.calligrapicPenLineWidth = calPenLineWidthSpinBox->value();
+	prefsData->itemToolPrefs.calligrapicPenAngle = calPenAngleSpinBox->value();
+	prefsData->itemToolPrefs.calligrapicPenWidth = calPenWidthSpinBox->value();
 }
 
 void Prefs_ItemTools::enableSignals(bool on)
