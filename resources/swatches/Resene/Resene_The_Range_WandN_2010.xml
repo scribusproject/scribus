@@ -360,4 +360,7 @@
  <COLOR RGB="#dad6cc" NAME="Resene White Pointer N89-007-087" Spot="1" />
  <COLOR RGB="#d4cfb4" NAME="Resene White Rock G87-023-095" Spot="1" />
  <COLOR RGB="#cecac8" NAME="Resene Whiteout N86-003-062" Spot="1" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
