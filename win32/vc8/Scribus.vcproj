@@ -631,6 +631,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_drawcalligraphic.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_drawfreehand.cpp"
 				>
 			</File>
@@ -652,10 +656,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_framelinks.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\canvasmode_legacy.cpp"
 				>
 			</File>
 			<File
@@ -2760,6 +2760,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_drawcalligraphic.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_drawfreehand.h"
 				>
 			</File>
@@ -2810,38 +2814,6 @@
 			<File
 				RelativePath="..\..\scribus\canvasmode_framelinks.h"
 				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\canvasmode_legacy.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_magnifier.h"
@@ -11546,10 +11518,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_canvasmode_legacy.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\moc_canvasmode_measurements.cpp"
 				>
 			</File>
@@ -12960,11 +12928,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\resources\translations\po\scribus.de_CH.ts"
+				RelativePath="..\..\resources\translations\po\scribus.de_1901.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\resources\translations\po\scribus.de_ol.ts"
+				RelativePath="..\..\resources\translations\po\scribus.de_CH.ts"
 				>
 			</File>
 			<File
