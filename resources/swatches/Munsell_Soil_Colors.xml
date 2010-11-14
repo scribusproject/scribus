@@ -322,6 +322,8 @@
  <COLOR  RGB="#909399" NAME="[GLEY2]  5PB 6/1" Spot="1" />
  <COLOR  RGB="#aaaeb3" NAME="[GLEY2]  5PB 7/1" Spot="1" />
  <COLOR  RGB="#c5c9ce" NAME="[GLEY2]  5PB 8/1" Spot="1" />
- <COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="##ffffffff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
 <!-- Based on the Munsell Color System as adopted by the United States Department of Agriculture. Like other works of the United States Government the data are considered to be in the Public Domain -->
