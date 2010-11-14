@@ -3,8 +3,8 @@
 	<area text="Welcome" file="index.html">
 		<submenuitem text="Readme First" file="readme.html"/>
 	</area>
-	<area text="Introduction" file="intro.html">
-		<submenuitem text="Documentation" file="documentation.html">
+	<area text="Documentation" file="intro.html">
+		<submenuitem text="Introduction" file="documentation.html">
 			<submenuitem text="About the team" file="about1.html"/>
 			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
@@ -53,6 +53,7 @@
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
 			<submenuitem text="Editing Colors" file="color1.html" />
+			<submenuitem text="Open Source Color Sets" file="color3.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
