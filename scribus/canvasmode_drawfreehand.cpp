@@ -16,46 +16,26 @@
 
 #include "canvasmode_drawfreehand.h"
 
-#include <QApplication>
-#include <QButtonGroup>
-#include <QCheckBox>
-#include <QCursor>
 #include <QEvent>
-#include <QMessageBox>
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QPoint>
 #include <QRect>
-#include <QWidgetAction>
 
-#include "ui/basepointwidget.h"
 #include "canvas.h"
-#include "canvasgesture_resize.h"
 #include "fpoint.h"
-#include "fpointarray.h"
-#include "hyphenator.h"
-#include "ui/insertTable.h"
 #include "KarbonCurveFit.h"
-#include "ui/oneclick.h"
-#include "pageitem_textframe.h"
 #include "ui/pageselector.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
-#include "scraction.h"
-#include "ui/scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scribusXml.h"
+#include "ui/scrspinbox.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
-
 
 
 FreehandMode::FreehandMode(ScribusView* view) : CanvasMode(view) 
@@ -65,7 +45,6 @@ FreehandMode::FreehandMode(ScribusView* view) : CanvasMode(view)
 	MoveGX = MoveGY = false;
 	m_MouseButtonPressed = false;
 }
-
 
 void FreehandMode::drawControls(QPainter* p) 
 {
@@ -77,12 +56,6 @@ inline bool FreehandMode::GetItem(PageItem** pi)
 	*pi = m_doc->m_Selection->itemAt(0); 
 	return (*pi) != NULL; 
 }
-
-
-
-
-// the following code was moved from scribusview.cpp:
-
 
 void FreehandMode::enterEvent(QEvent *)
 {
@@ -102,7 +75,6 @@ void FreehandMode::leaveEvent(QEvent *e)
 
 void FreehandMode::activate(bool flag)
 {
-//	qDebug() << "FreehandMode::activate" << flag;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
@@ -112,7 +84,6 @@ void FreehandMode::activate(bool flag)
 
 void FreehandMode::deactivate(bool flag)
 {
-//	qDebug() << "FreehandMode::deactivate" << flag;
 	m_view->redrawMarker->hide();
 }
 
@@ -128,7 +99,6 @@ void FreehandMode::mouseDoubleClickEvent(QMouseEvent *m)
 void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
 	double newX, newY;
 	PageItem *currItem;
 	QPoint np, np2, mop;
@@ -136,31 +106,10 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 	QRect tx;
 	m->accept();
 	m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
-//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
-/*	if (m_doc->guidesPrefs().guidesShown)
-	{
-		if (MoveGY)
-		{
-			m_view->FromHRuler(m);
-			return;
-		}
-		if (MoveGX)
-		{
-			m_view->FromVRuler(m);
-			return;
-		}
-	}
-*/
-
 	if (commonMouseMove(m))
 		return;
-	
 	if (m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
 	{
-		//newX = m->x();
-		//newY = m->y();
 		double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
 		double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 		if (RecordP.size() > 0)
@@ -175,18 +124,11 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			redrawPolygon << RecordP.pointQ(pp);
 		}
-//FIXME		
 		m_canvas->m_viewMode.operItemResizing = true;
 		QRect bRect = m_canvas->redrawPolygon().boundingRect();
-//		QPoint in(qRound(bRect.x()*m_canvas->scale()), qRound(bRect.y()*m_canvas->scale()));
-//		in -= QPoint(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-//		QPoint out = contentsToViewport(in);
-//		m_view->updateContents(QRect(out.x()+0*contentsX(), out.y()+0*contentsY(), qRound(bRect.width()*m_canvas->scale()), qRound(bRect.height()*m_canvas->scale())).adjusted(-10, -10, 20, 20));
-	//	m_canvas->update(bRect);
 		m_view->updateCanvas(bRect);
 		return;
 	}
-	
 	if (GetItem(&currItem))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -219,12 +161,6 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			SeRx = newX;
 			SeRy = newY;
-			/*
-			if (m_doc->appMode == modeDrawTable)
-				m_view->redrawMarker->setGeometry(QRect(Dxp, Dyp, m->globalPos().x() - Dxp, m->globalPos().y() - Dyp).normalized());
-			else
-				m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-			*/
 			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
 			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 			if (!m_view->redrawMarker->isVisible())
@@ -242,7 +178,6 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	double Ryp = 0;
 	double Rxpd = 0;
 	double Rypd = 0;
-//	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
 	QTransform pm;
@@ -251,13 +186,11 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	MoveGX = MoveGY = false;
-//	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Rxpd = Mxp - Rxp;
 	Mxp = qRound(Rxp);
@@ -292,14 +225,10 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
-
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-//	m_view->stopDragTimer();
-	
 	if (m_doc->appMode == modeDrawFreehandLine)
 	{
 		if (RecordP.size() > 1)
@@ -349,17 +278,14 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			QString targetName = Um::ScratchSpace;
 			if (currItem->OwnPage > -1)
 				targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
-			createTransaction.commit(targetName, currItem->getUPixmap(),
-											Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+			createTransaction.commit(targetName, currItem->getUPixmap(), Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 			//FIXME	
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_doc->changed();
-//			m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()).adjusted(-10, -10, 20, 20));
 		}
 		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 		{
 			m_view->requestMode(modeNormal);
-//			m_view->requestMode(submodePaintingDone);
 		}
 		else
 			m_view->requestMode(m_doc->appMode);
@@ -371,9 +297,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 	
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-//	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-//	m_doc->SubMode = -1;
 	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
@@ -397,14 +321,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
-	else
-	{
-		//delete oldClip;
-		//oldClip = 0;
-	}
 }
-
-
 
 void FreehandMode::selectPage(QMouseEvent *m)
 {
@@ -413,7 +330,6 @@ void FreehandMode::selectPage(QMouseEvent *m)
 	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-//	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
@@ -430,29 +346,5 @@ void FreehandMode::selectPage(QMouseEvent *m)
 				m_view->DrawNew();
 			}
 		}
-/*		uint docPagesCount=m_doc->Pages->count();
-		uint docCurrPageNo=m_doc->currentPageNumber();
-		for (uint i = 0; i < docPagesCount; ++i)
-		{
-			int x = static_cast<int>(m_doc->Pages->at(i)->xOffset() * m_canvas->scale());
-			int y = static_cast<int>(m_doc->Pages->at(i)->yOffset() * m_canvas->scale());
-			int w = static_cast<int>(m_doc->Pages->at(i)->width() * m_canvas->scale());
-			int h = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
-			if (QRect(x, y, w, h).intersects(mpo))
-			{
-				if (docCurrPageNo != i)
-				{
-					m_doc->setCurrentPage(m_doc->Pages->at(i));
-					setMenTxt(i);
-					DrawNew();
-				}
-				break;
-			}
-		} */
-
-		//FIXME m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 }
-
-
-

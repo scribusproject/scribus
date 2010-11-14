@@ -16,44 +16,27 @@
 
 #include "canvasmode_drawcalligraphic.h"
 
-#include <QApplication>
-#include <QButtonGroup>
-#include <QCheckBox>
-#include <QCursor>
 #include <QEvent>
-#include <QMessageBox>
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QPoint>
 #include <QRect>
-#include <QWidgetAction>
 
-#include "ui/basepointwidget.h"
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "fpoint.h"
-#include "fpointarray.h"
-#include "hyphenator.h"
-#include "ui/insertTable.h"
 #include "KarbonCurveFit.h"
-#include "ui/oneclick.h"
-#include "pageitem_textframe.h"
 #include "ui/pageselector.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
 #include "scraction.h"
-#include "ui/scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scribusXml.h"
+#include "ui/scrspinbox.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 
@@ -142,12 +125,15 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 		else
 			RecordP.addPoint(FPoint(newXF, newYF));
 		QPolygon& redrawPolygon(m_canvas->newRedrawPolygon());
-		for (uint pp = 0; pp < RecordP.size(); pp++)
+		double mx = sin(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
+		double my = cos(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
+		for (uint px = 0; px < RecordP.size()-1; ++px)
 		{
-			FPoint clp = RecordP.point(pp);
-			redrawPolygon.append(QPoint(clp.x(), clp.y() - m_doc->itemToolPrefs().calligrapicPenWidth / 2.0));
-			redrawPolygon.prepend(QPoint(clp.x(), clp.y() + m_doc->itemToolPrefs().calligrapicPenWidth / 2.0));
+			FPoint clp = RecordP.point(px);
+			redrawPolygon.append(QPoint(qRound(clp.x() - mx), qRound(clp.y() - my)));
+			redrawPolygon.prepend(QPoint(qRound(clp.x() + mx), qRound(clp.y() + my)));
 		}
+		redrawPolygon.append(QPoint(qRound(RecordP.point(RecordP.size()-1).x() + mx), qRound(RecordP.point(RecordP.size()-1).y() + my)));
 //FIXME		
 		m_canvas->m_viewMode.operItemResizing = true;
 		QRect bRect = m_canvas->redrawPolygon().boundingRect();
