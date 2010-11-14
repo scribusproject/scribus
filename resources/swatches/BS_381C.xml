@@ -119,5 +119,8 @@
  <COLOR Spot="1" RGB="#B0C8C0" Register="0" NAME="697 Light Admiralty Grey" />
  <COLOR Spot="1" RGB="#603868" Register="0" NAME="796 Dark Violet" />
  <COLOR Spot="1" RGB="#C0A0C8" Register="0" NAME="797 Light Violet" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="##ffffffff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
 <!--Please note that the colours in this palette are no accurate representations of a British Standards Institution Standard. If you need an accurate reference, please refer to a printed colour chart or colour chips. These pallettes are understood to be in the Public Domain.-->

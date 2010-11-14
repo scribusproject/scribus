@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="US Federal Standard 595" >
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
  <COLOR Spot="1" RGB="#532F15" Register="0" NAME="10140" />
  <COLOR Spot="1" RGB="#9B2F25" Register="0" NAME="11136" />
  <COLOR Spot="1" RGB="#ECB2A6" Register="0" NAME="11630" />

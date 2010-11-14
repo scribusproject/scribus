@@ -48,4 +48,7 @@
  <COLOR RGB="#c7bd95" NAME="Resene Thistle Y79-036-089" Spot="1" />
  <COLOR RGB="#8e593c" NAME="Resene Toffee O53-077-055" Spot="1" />
  <COLOR RGB="#c19156" NAME="Resene Twine Y68-078-073" Spot="1" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="##ffffffff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>

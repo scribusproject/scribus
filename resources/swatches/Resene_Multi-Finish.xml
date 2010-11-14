@@ -1008,4 +1008,7 @@
  <COLOR RGB="#a29589" NAME="Resene Zorba BR68-016-056" Spot="1" />
  <COLOR RGB="#585156" NAME="Resene Zulu N47-007-327" Spot="1" />
  <COLOR RGB="#cdd5d5" NAME="Resene Zumthor N88-007-210" Spot="1" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>

@@ -273,7 +273,10 @@
  <COLOR Spot="0" RGB="#C2A894" Register="0" NAME="Light Gray" />
  <COLOR Spot="0" RGB="#817066" Register="0" NAME="Medium Gray" />
  <COLOR Spot="0" RGB="#49423D" Register="0" NAME="Dark Gray" />
- <COLOR Spot="0" RGB="#131313" Register="0" NAME="Black" />
+ <COLOR Spot="0" RGB="#131313" Register="0" NAME="Black_" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
 
 <!--Retrieved from http://www.anthus.com/Colors/Cent.html. The colour names have been published in Kenneth L. Kelly and Deanne B. Judd, Color: Universal Language and Dictionary of Names, National Bureau of Standards, Spec. Publ. 440, Dec. 1976. The Hex values are the result of the application of the Munsell colour model, which has been published in 1905. A slightly modified version of this colour set is available under a BSD-style license from http://tx4.us/nbs-iscc.htm.-->
