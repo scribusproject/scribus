@@ -16,7 +16,7 @@ StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 0 );
+	group1Layout->setMargin( 2 );
 	group1Layout->setAlignment( Qt::AlignTop );
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
@@ -49,7 +49,7 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout(this);
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 0 );
+	group1Layout->setMargin( 2 );
 	group1Layout->setAlignment( Qt::AlignTop );
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
@@ -82,7 +82,7 @@ OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 0 );
+	group1Layout->setMargin( 2 );
 	group1Layout->setAlignment( Qt::AlignTop );
 	LWidth = new ScrSpinBox( 0, 100, this, 0 );
 	LWidth->setValue( 1 );
@@ -103,7 +103,7 @@ ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 0 );
+	group1Layout->setMargin( 2 );
 	group1Layout->setAlignment( Qt::AlignTop );
 	Xoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Xoffset->setValue( 5 );
