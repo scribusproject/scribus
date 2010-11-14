@@ -2196,6 +2196,8 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	tocGenerator->setDoc(doc);
 	styleManager->setDoc(doc);
 	symbolPalette->setDoc(doc);
+	modeToolBar->Angle->setValue(doc->itemToolPrefs().calligrapicPenAngle);
+	modeToolBar->PWidth->setValue(doc->itemToolPrefs().calligrapicPenWidth);
 	// Give plugins a chance to react on changing the current document
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));

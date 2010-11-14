@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "scrspinbox.h"
 #include "util.h"
 
 ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
@@ -73,7 +74,31 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertFreehandLine"]);
+
+	propWidget = new QWidget();
+	group1Layout = new QGridLayout( propWidget );
+	group1Layout->setSpacing( 3 );
+	group1Layout->setMargin( 0 );
+	group1Layout->setAlignment( Qt::AlignTop );
+	Angle = new ScrSpinBox( -180, 180, propWidget, 6 );
+	Angle->setValue( 0 );
+	AngleTxt = new QLabel( tr("Angle:"), propWidget );
+	group1Layout->addWidget( Angle, 0, 1 );
+	group1Layout->addWidget( AngleTxt, 0 , 0 );
+	PWidth = new ScrSpinBox( 0, 100, propWidget, 0 );
+	PWidth->setValue( 5 );
+	PWidthTxt = new QLabel( tr("Width:"), propWidget );
+	group1Layout->addWidget( PWidth, 1, 1 );
+	group1Layout->addWidget( PWidthTxt, 1 , 0 );
+	calPop = new QMenu();
+	calValAct = new QWidgetAction(this);
+	calValAct->setDefaultWidget(propWidget);
+	calPop->addAction(calValAct);
 	this->addAction(m_ScMW->scrActions["toolsInsertCalligraphicLine"]);
+	m_ScMW->scrActions["toolsInsertCalligraphicLine"]->setMenu(calPop);
+	QToolButton* tb3 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertCalligraphicLine"]));
+	tb3->setPopupMode(QToolButton::MenuButtonPopup);
+
 	this->addAction(m_ScMW->scrActions["toolsRotate"]);
 	this->addAction(m_ScMW->scrActions["toolsZoom"]);
 	this->addAction(m_ScMW->scrActions["toolsEditContents"]);
@@ -86,6 +111,14 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 
 	languageChange();
 	connect(Rechteck, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
+	connect(Angle, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
+	connect(PWidth, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
+}
+
+void ModeToolBar::newCalValues()
+{
+	m_ScMW->doc->itemToolPrefs().calligrapicPenAngle = Angle->value();
+	m_ScMW->doc->itemToolPrefs().calligrapicPenWidth = PWidth->value();
 }
 
 void ModeToolBar::GetPolyProps()
@@ -119,6 +152,8 @@ void ModeToolBar::changeEvent(QEvent *e)
 
 void ModeToolBar::languageChange()
 {
+	AngleTxt->setText(tr("Angle:"));
+	PWidthTxt->setText(tr("Width:"));
 	idInsertPolygonButtonMenu->setText( tr("Properties..."));
 	ScToolBar::languageChange();
 }

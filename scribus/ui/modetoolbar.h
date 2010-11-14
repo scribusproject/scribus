@@ -29,6 +29,9 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QMenu>
 #include <QWidgetAction>
+#include <QGridLayout>
+#include <QLabel>
+#include <QWidget>
 
 class QEvent;
 
@@ -36,6 +39,7 @@ class QToolButton;
 class AutoformButtonGroup;
 class ScribusMainWindow;
 class WidgetPopupMenu2;
+class ScrSpinBox;
 
 /**
   *@author Franz Schmid
@@ -52,10 +56,13 @@ public:
 	int SubMode;
 	int ValCount;
 	double *ShapeVals;
+	ScrSpinBox *Angle;
+	ScrSpinBox *PWidth;
 	
 	virtual void changeEvent(QEvent *e);
 
 public slots:
+	void newCalValues();
 	void GetPolyProps();
 	void SelShape(int s, int c, qreal *vals);
 	void languageChange();
@@ -67,6 +74,12 @@ protected:
 	QMenu* insertPolygonButtonMenu;
 	QAction* idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
+	QWidget *propWidget;
+	QGridLayout* group1Layout;
+	QMenu* calPop;
+	QWidgetAction* calValAct;
+	QLabel *AngleTxt;
+	QLabel *PWidthTxt;
 };
 
 #endif
