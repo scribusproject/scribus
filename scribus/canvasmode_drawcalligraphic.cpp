@@ -60,16 +60,9 @@
 
 CalligraphicMode::CalligraphicMode(ScribusView* view) : CanvasMode(view) 
 {
-	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
-	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
-	RotMode = 0;
-	inItemCreation = false;
-	shiftSelItems = false;
-	FirstPoly = true;
+	m_MouseButtonPressed = false;
 }
 
 
@@ -102,16 +95,9 @@ void CalligraphicMode::leaveEvent(QEvent *e)
 
 void CalligraphicMode::activate(bool flag)
 {
-	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
-	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
-	RotMode = 0;
-	inItemCreation = false;
-	shiftSelItems = false;
-	FirstPoly = true;
+	m_MouseButtonPressed = false;
 	setModeCursor();
 }
 
@@ -169,7 +155,7 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 		return;
 	}
 	
-	if ((GetItem(&currItem)) && (!shiftSelItems))
+	if (GetItem(&currItem))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
@@ -195,7 +181,7 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
@@ -225,8 +211,6 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-	MoveGX = MoveGY = false;
-	inItemCreation = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
@@ -321,7 +305,6 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			createTransaction.commit(targetName, currItem->getUPixmap(), Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 			//FIXME	
 			m_canvas->m_viewMode.operItemResizing = false;
-			inItemCreation = false;
 			m_doc->changed();
 		}
 		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
@@ -338,8 +321,6 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m_view->MidButt = false;
-	shiftSelItems = false;
-	inItemCreation = false;
 	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)

@@ -49,16 +49,9 @@ private:
 	inline bool GetItem(PageItem** pi); 
 	void selectPage(QMouseEvent *m);
 
-	int Cp, oldCp;
-	bool inItemCreation, shiftSelItems, FirstPoly;
-	bool m_MouseButtonPressed;
-	int frameResizeHandle;
-	int RotMode;
-	int dragConstrainInitPtX, dragConstrainInitPtY;
+	bool   m_MouseButtonPressed;
 	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM;
 	double SeRx, SeRy;
-	bool MoveGX, MoveGY;
 	FPointArray RecordP;
 };
 
