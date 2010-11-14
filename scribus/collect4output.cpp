@@ -342,7 +342,9 @@ QStringList CollectForOutput::findFontMetrics(const QString& baseDir, const QStr
 {
 	QStringList metricsFiles;
 	QString     basePath = baseDir + "/" + baseName;
-	QString     afnm = basePath.left(basePath.length()-3);
+	QString     afnm(basePath);
+	afnm.chop(3);
+
 	// Look for afm files
 	QString afmName(afnm+"afm");
 	if(QFile::exists(afmName))
