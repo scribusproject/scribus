@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SCRIBUSCOLORS Name="JIS" >
+<SCRIBUSCOLORS Name="JIS 8721" >
  <COLOR Spot="0" Register="0" NAME="Black" CMYK="#ffffffff" />
  <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
  <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
