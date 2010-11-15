@@ -55,6 +55,7 @@
 			<submenuitem text="Editing Colors" file="color1.html" />
 			<submenuitem text="Open Source Color Sets" file="color3.html" />
 			<submenuitem text="National Color Standards" file="color4.html" />
+			<submenuitem text="Special Purpose Colors" file="color8.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
