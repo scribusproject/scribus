@@ -53,6 +53,7 @@
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
 			<submenuitem text="Editing Colors" file="color1.html" />
+			<submenuitem text="Managing Colors" file="color2.html" />
 			<submenuitem text="Open Source Color Sets" file="color3.html" />
 			<submenuitem text="National Color Standards" file="color4.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
