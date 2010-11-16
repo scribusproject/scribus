@@ -23,7 +23,8 @@
 			<submenuitem text="OS/2 Readme" file="readme-os2.html"/>
 			<submenuitem text="Windows Readme" file="readme-win32.html"/>
 		</submenuitem>
-		<submenuitem text="Setup" file="settings1.html">
+		<submenuitem text="Setup" file="config.html">
+			<submenuitem text="Configuring Scribus" file="settings1.html"/>
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
 			<submenuitem text="Mouse Shortcuts" file="mouse.html"/>
 			<submenuitem text="Hyphenation" file="hyphenator.html"/>
