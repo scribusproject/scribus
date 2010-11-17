@@ -586,11 +586,11 @@ bool Canvas::adjustBuffer()
 	bool ret = false;
 	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
 // 	qDebug()<<"Canvas::adjustBuffer"<<viewport<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
-	FPoint minCanvasCoordinate = m_doc->minCanvasCoordinate;
+	QPoint minCanvasCoordinate = canvasToLocal(QPointF(0.0, 0.0));
 	if (minCanvasCoordinate != m_oldMinCanvasCoordinate)
 	{
-		m_bufferRect.translate(qRound((m_oldMinCanvasCoordinate.x() - minCanvasCoordinate.x())*m_viewMode.scale),
-							   qRound((m_oldMinCanvasCoordinate.y() - minCanvasCoordinate.y())*m_viewMode.scale));
+		m_bufferRect.translate(minCanvasCoordinate.x() - m_oldMinCanvasCoordinate.x(),
+							   minCanvasCoordinate.y() - m_oldMinCanvasCoordinate.y());
 		m_oldMinCanvasCoordinate = minCanvasCoordinate;
 	}
 #if DRAW_DEBUG_LINES

@@ -236,10 +236,10 @@ private:
 	
 	RenderMode m_renderMode;
 	/*QImage*/QPixmap m_buffer;
-	QRect m_bufferRect;
+	QRect   m_bufferRect;
 	QPixmap m_selectionBuffer;
-	QRect m_selectionRect;
-	FPoint m_oldMinCanvasCoordinate;
+	QRect   m_selectionRect;
+	QPoint  m_oldMinCanvasCoordinate;
 };
 
 
