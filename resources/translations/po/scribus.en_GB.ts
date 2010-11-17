@@ -7244,7 +7244,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Gradients...</source>
-        <translation>Gradients...</translation>
+        <translation type="obsolete">Gradients...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
@@ -7364,7 +7364,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>Send to S&amp;crapbook</translation>
+        <translation type="obsolete">Send to S&amp;crapbook</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -7939,11 +7939,11 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Document &amp;Setup (old)...</source>
-        <translation>Document &amp;Setup (old)...</translation>
+        <translation type="obsolete">Document &amp;Setup (old)...</translation>
     </message>
     <message>
         <source>P&amp;references (old)...</source>
-        <translation>P&amp;references (old)...</translation>
+        <translation type="obsolete">P&amp;references (old)...</translation>
     </message>
     <message>
         <source>Send to Patterns</source>
@@ -8290,6 +8290,10 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>&amp;Transform</source>
         <translation>&amp;Transform</translation>
+    </message>
+    <message>
+        <source>Insert Calligraphic Line</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9778,7 +9782,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation>Choose a Directory</translation>
+        <translation type="obsolete">Choose a Directory</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
@@ -9790,11 +9794,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Load an existing scrapbook</source>
-        <translation>Load an existing scrapbook</translation>
+        <translation type="obsolete">Load an existing scrapbook</translation>
     </message>
     <message>
         <source>Save the selected scrapbook</source>
-        <translation>Save the selected scrapbook</translation>
+        <translation type="obsolete">Save the selected scrapbook</translation>
     </message>
     <message>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
@@ -9851,6 +9855,30 @@ Please choose another.</translation>
     <message>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Import a scrapbook file from Scribus &lt;=1.3.2</translation>
+    </message>
+    <message>
+        <source>Hide Directorys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Vector files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Directorys in a new tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go up one Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the scrapbook</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10371,6 +10399,14 @@ Please give it a name</source>
     <message>
         <source>HSV Color Map</source>
         <translation>HSV Colour Map</translation>
+    </message>
+    <message>
+        <source>Scribus Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Swatches</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11253,98 +11289,113 @@ currently %2 x %3 DPI</translation>
     </message>
 </context>
 <context>
+    <name>ColorListBox</name>
+    <message>
+        <source>Sort by Name</source>
+        <translation type="unfinished">Sort by Name</translation>
+    </message>
+    <message>
+        <source>Sort by Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort by Type</source>
+        <translation type="unfinished">Sort by Type</translation>
+    </message>
+</context>
+<context>
     <name>ColorManager</name>
     <message>
         <source>Colors</source>
-        <translation>Colours</translation>
+        <translation type="obsolete">Colours</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Import</translation>
+        <translation type="obsolete">&amp;Import</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;New</translation>
+        <translation type="obsolete">&amp;New</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+        <translation type="obsolete">&amp;Edit</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
+        <translation type="obsolete">D&amp;uplicate</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+        <translation type="obsolete">&amp;Delete</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation>&amp;Remove Unused</translation>
+        <translation type="obsolete">&amp;Remove Unused</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation>Colour Sets</translation>
+        <translation type="obsolete">Colour Sets</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Current Colour Set:</translation>
+        <translation type="obsolete">Current Colour Set:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation>&amp;Save Colour Set</translation>
+        <translation type="obsolete">&amp;Save Colour Set</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation>Choose a colour set to load</translation>
+        <translation type="obsolete">Choose a colour set to load</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation>Save the current colour set</translation>
+        <translation type="obsolete">Save the current colour set</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Remove unused colours from current document&apos;s colour set</translation>
+        <translation type="obsolete">Remove unused colours from current document&apos;s colour set</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation>Import colours to the current set from an existing document</translation>
+        <translation type="obsolete">Import colours to the current set from an existing document</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation>Create a new colour within the current set</translation>
+        <translation type="obsolete">Create a new colour within the current set</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation>Edit the currently selected colour</translation>
+        <translation type="obsolete">Edit the currently selected colour</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation>Make a copy of the currently selected colour</translation>
+        <translation type="obsolete">Make a copy of the currently selected colour</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation>Delete the currently selected colour</translation>
+        <translation type="obsolete">Delete the currently selected colour</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation>Make the current colourset the default colour set</translation>
+        <translation type="obsolete">Make the current colourset the default colour set</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Name:</translation>
+        <translation type="obsolete">&amp;Name:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation>Choose a Name</translation>
+        <translation type="obsolete">Choose a Name</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Copy of %1</translation>
+        <translation type="obsolete">Copy of %1</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>New Colour</translation>
+        <translation type="obsolete">New Colour</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
@@ -11352,7 +11403,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Information</translation>
+        <translation type="obsolete">Information</translation>
     </message>
     <message>
         <source>The file %1 does not contain colors which can be imported.
@@ -11360,7 +11411,7 @@ If the file was a PostScript-based, try to import it with File -&amp;gt; Import.
 Not all files have DSC conformant comments where the color descriptions are located.
  This prevents importing colors from some files.
 See the Edit Colors section of the documentation for more details.</source>
-        <translation>The file %1 does not contain colours which can be imported.
+        <translation type="obsolete">The file %1 does not contain colours which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the colour descriptions are located.
  This prevents importing colours from some files.
@@ -11376,15 +11427,15 @@ See the Edit Colours section of the documentation for more details.</translation
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation>If colour management is enabled, a triangle warning indicator is a warning that the colour maybe outside of the colour gamut of the current printer profile selected. What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. More hints about gamut warnings are in the online help under Colour Management. Registration colours will have a registration mark next to the colour. Use Registration only for printers marks and crop marks.</translation>
+        <translation type="obsolete">If colour management is enabled, a triangle warning indicator is a warning that the colour maybe outside of the colour gamut of the current printer profile selected. What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. More hints about gamut warnings are in the online help under Colour Management. Registration colours will have a registration mark next to the colour. Use Registration only for printers marks and crop marks.</translation>
     </message>
     <message>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
-        <translation>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</translation>
+        <translation type="obsolete">All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</translation>
     </message>
     <message>
         <source>Import Colors</source>
-        <translation>Import Colours</translation>
+        <translation type="obsolete">Import Colours</translation>
     </message>
 </context>
 <context>
@@ -16456,6 +16507,14 @@ If no handle is selected all handles will be reset.</source>
         <source>Properties...</source>
         <translation>Properties...</translation>
     </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Angle:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Width:</translation>
+    </message>
 </context>
 <context>
     <name>MovePages</name>
@@ -18312,6 +18371,219 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
 </context>
 <context>
+    <name>PaintManagerBase</name>
+    <message>
+        <source>Manage Paints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished">Import colours to the current set from an existing document</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Import</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished">Create a new colour within the current set</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished">Add</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished">Edit the currently selected colour</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Edit</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished">Make a copy of the currently selected colour</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">D&amp;uplicate</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished">Delete the currently selected colour</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Delete</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished">Remove unused colours from current document&apos;s colour set</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished">&amp;Remove Unused</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation type="unfinished">Colour Sets</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation type="unfinished">Current Colour Set:</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation type="unfinished">Save the current colour set</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished">&amp;Save Colour Set</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished">Make the current colourset the default colour set</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel</translation>
+    </message>
+</context>
+<context>
+    <name>PaintManagerDialog</name>
+    <message>
+        <source>Solid Colors</source>
+        <translation type="unfinished">Solid Colours</translation>
+    </message>
+    <message>
+        <source>Gradients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Color Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort by Name</source>
+        <translation type="unfinished">Sort by Name</translation>
+    </message>
+    <message>
+        <source>Sort by Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort by Type</source>
+        <translation type="unfinished">Sort by Type</translation>
+    </message>
+    <message>
+        <source>New Gradient</source>
+        <translation type="unfinished">New Gradient</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation type="unfinished">New Colour</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation type="unfinished">Copy of %1</translation>
+    </message>
+    <message>
+        <source>Selected Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your gradients?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your colors and gradients?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+    <message>
+        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
+        <translation type="unfinished">Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
+    </message>
+    <message>
+        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
+        <translation type="unfinished">Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">All Files (*)</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Open</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
+        <translation type="unfinished">All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>Import Colors</source>
+        <translation type="unfinished">Import Colours</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+        <translation type="unfinished">The file %1 does not contain colours which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the colour descriptions are located.
+ This prevents importing colours from some files.
+See the Edit Colours section of the documentation for more details.</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation type="unfinished">Choose a Name</translation>
+    </message>
+</context>
+<context>
     <name>ParaStyleComboBox</name>
     <message>
         <source>No Style</source>
@@ -18335,6 +18607,10 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <source>This plugin bends a Polygon with the help of a Polyline.</source>
         <translation>This plug-in bends a Polygon with the help of a Polyline.</translation>
+    </message>
+    <message>
+        <source>Bends a Polygon along a Path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18402,6 +18678,10 @@ Often used for allowing items to be placed across page spreads</source>
         <source>Connect 2 Polylines.</source>
         <translation>Connect 2 Polylines.</translation>
     </message>
+    <message>
+        <source>Connects two Paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PathCutPlugin</name>
@@ -18433,6 +18713,10 @@ Often used for allowing items to be placed across page spreads</source>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
         <translation>The cutting line must cross the polygon andboth end points must lie outside of the polygon</translation>
+    </message>
+    <message>
+        <source>Cuts a Polygon with a Path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19358,7 +19642,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>go to page</source>
-        <translation>go to page</translation>
+        <translation type="obsolete">go to page</translation>
     </message>
     <message>
         <source>More</source>
@@ -19398,7 +19682,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Preview Images only</source>
-        <translation>Preview Images only</translation>
+        <translation type="obsolete">Preview Images only</translation>
     </message>
     <message>
         <source>Preview with Information</source>
@@ -19598,11 +19882,11 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Page(s)</source>
-        <translation>Page(s)</translation>
+        <translation type="obsolete">Page(s)</translation>
     </message>
     <message>
         <source>Image Frame(s)</source>
-        <translation>Image Frame(s)</translation>
+        <translation type="obsolete">Image Frame(s)</translation>
     </message>
     <message>
         <source>Position of New Frame(s)</source>
@@ -19772,12 +20056,32 @@ Please choose another one.</source>
         <source>No image selected</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview Images Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PictureBrowserPlugin</name>
     <message>
         <source>&amp;Picture Browser</source>
-        <translation>&amp;Picture Browser</translation>
+        <translation type="obsolete">&amp;Picture Browser</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Browser...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20953,6 +21257,14 @@ Do you want to migrate them to the new Scribus version?</translation>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
+    <message>
+        <source>Field Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Character</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
@@ -21906,6 +22218,22 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Custom</source>
         <translation>Custom</translation>
+    </message>
+    <message>
+        <source>Calligraphic Pen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pen Angle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pen Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation type="unfinished">Keep horizontal and vertical scaling the same</translation>
     </message>
 </context>
 <context>
@@ -27892,11 +28220,11 @@ Therefore the image may be not correct</translation>
     </message>
     <message>
         <source>Calamus Cvg File</source>
-        <translation>Calamus Cvg File</translation>
+        <translation type="obsolete">Calamus Cvg File</translation>
     </message>
     <message>
         <source>Word Perfect Wpg File</source>
-        <translation>Word Perfect Wpg File</translation>
+        <translation type="obsolete">Word Perfect Wpg File</translation>
     </message>
     <message>
         <source>GraphicsMagick File</source>
@@ -28212,6 +28540,22 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PGF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calamus CVG File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Perfect WPG File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BMP</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28822,7 +29166,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>%</source>
@@ -30384,6 +30728,10 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation>This document is already in use.You&apos;ll be switched into its window now.</translation>
     </message>
+    <message>
+        <source>Send to Scrapbook</source>
+        <translation type="unfinished">Send to Scrapbook</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -30703,6 +31051,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>Select the image preview quality</source>
         <translation>Select the image preview quality</translation>
+    </message>
+    <message>
+        <source>Send to Scrapbook</source>
+        <translation type="unfinished">Send to Scrapbook</translation>
     </message>
 </context>
 <context>
@@ -31629,6 +31981,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>Subdivide selected Path</source>
         <translation>Subdivide selected Path</translation>
+    </message>
+    <message>
+        <source>Subdivide a path by inserting new Nodes.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -36140,79 +36496,79 @@ please choose another one.</translation>
     <name>gradientManager</name>
     <message>
         <source>Manage Gradients</source>
-        <translation>Manage Gradients</translation>
+        <translation type="obsolete">Manage Gradients</translation>
     </message>
     <message>
         <source>Load ...</source>
-        <translation>Load ...</translation>
+        <translation type="obsolete">Load ...</translation>
     </message>
     <message>
         <source>Save ...</source>
-        <translation>Save ...</translation>
+        <translation type="obsolete">Save ...</translation>
     </message>
     <message>
         <source>Add ...</source>
-        <translation>Add ...</translation>
+        <translation type="obsolete">Add ...</translation>
     </message>
     <message>
         <source>Edit ...</source>
-        <translation>Edit ...</translation>
+        <translation type="obsolete">Edit ...</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Remove</translation>
+        <translation type="obsolete">Remove</translation>
     </message>
     <message>
         <source>Remove All</source>
-        <translation>Remove All</translation>
+        <translation type="obsolete">Remove All</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
 </context>
 <context>
     <name>gradientManagerDialog</name>
     <message>
         <source>New Gradient</source>
-        <translation type="unfinished">New Gradient</translation>
+        <translation type="obsolete">New Gradient</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">All Supported Formats</translation>
+        <translation type="obsolete">All Supported Formats</translation>
     </message>
     <message>
         <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
-        <translation type="unfinished">Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
+        <translation type="obsolete">Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
     </message>
     <message>
         <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
-        <translation type="unfinished">Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
+        <translation type="obsolete">Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">All Files (*)</translation>
+        <translation type="obsolete">All Files (*)</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="obsolete">Open</translation>
     </message>
     <message>
         <source>Scribus Gradient Files (*.sgr *.SGR);;</source>
-        <translation type="unfinished">Scribus Gradient Files (*.sgr *.SGR);;</translation>
+        <translation type="obsolete">Scribus Gradient Files (*.sgr *.SGR);;</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Save as</translation>
+        <translation type="obsolete">Save as</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished">Cannot write the file: 
+        <translation type="obsolete">Cannot write the file: 
 %1</translation>
     </message>
 </context>
