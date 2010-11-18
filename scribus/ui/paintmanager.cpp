@@ -675,7 +675,7 @@ void PaintManagerDialog::removeColorItem()
 					}
 					dialogGradients.clear();
 					m_colorList.clear();
-					m_colorList.ensureBlackAndWhite();
+					m_colorList.ensureDefaultColors();
 				}
 				else
 				{
@@ -730,19 +730,6 @@ void PaintManagerDialog::removeUnusedColorItem()
 		{
 			ColorList UsedC;
 			ColorList::Iterator it;
-			ScColor regColor;
-			QString regName;
-			bool hasReg = false;
-			for (it = m_colorList.begin(); it != m_colorList.end(); ++it)
-			{
-				if (it.value().isRegistrationColor())
-				{
-					regColor = it.value();
-					regName = it.key();
-					hasReg = true;
-					break;
-				}
-			}
 			ColorList UsedCG = getGradientColors();
 			if (m_doc != 0)
 			{
@@ -755,9 +742,7 @@ void PaintManagerDialog::removeUnusedColorItem()
 			}
 			else
 				m_colorList = UsedCG;
-			m_colorList.ensureBlackAndWhite();
-			if (hasReg)
-				m_colorList.insert(regName, regColor);
+			m_colorList.ensureDefaultColors();
 			updateGradientList();
 			updateColorList();
 			itemSelected(0);
@@ -1141,7 +1126,7 @@ void PaintManagerDialog::loadDefaults(QTreeWidgetItem* item)
 	if (item->text(0) != "Scribus Small")
 	{
 		if (importColorsFromFile(pfadC2, m_colorList, &dialogGradients, (m_doc!=0)))
-			m_colorList.ensureBlackAndWhite();
+			m_colorList.ensureDefaultColors();
 		else
 		{
 			m_colorList.insert("White", ScColor(0, 0, 0, 0));

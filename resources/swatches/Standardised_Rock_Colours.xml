@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="Standardised Rock Colours" >
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
  <COLOR Spot="0" RGB="#EBDDDD" Register="0" NAME="Grayish Orange Pink" />
  <COLOR Spot="0" RGB="#9E8B85" Register="0" NAME="Pale Red" />
  <COLOR Spot="0" RGB="#94563D" Register="0" NAME="Moderate Reddish Brown" />
@@ -22,7 +21,5 @@
  <COLOR Spot="0" RGB="#D5CAD0" Register="0" NAME="Pale Pink" />
  <COLOR Spot="0" RGB="#615E69" Register="0" NAME="Grayish Purple" />
  <COLOR Spot="0" RGB="#4B434E" Register="0" NAME="Very Dusky Red Purple" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
 <!--Based on http://www.geocities.com/eocene1/Color.html; Copyright has expired -->

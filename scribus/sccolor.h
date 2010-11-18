@@ -147,6 +147,9 @@ protected:
 	/** \brief Ensure availability of white color. */
 	void ensureWhite(void);
 
+	/** \brief Ensure availability of registration color. */
+	void ensureRegistration(void);
+
 public:
 	ColorList(ScribusDoc* doc = NULL, bool retainDoc = false);
 
@@ -165,7 +168,7 @@ public:
 	void copyColors(const ColorList& colorList, bool overwrite = TRUE);
 
 	/** \brief Ensure availability of black and white colors. */
-	void ensureBlackAndWhite(void);
+	void ensureDefaultColors(void);
 
 	/** \brief Try to add ScColor col to the list, if col already exists either by name or by value the existing color name is returned. */
 	QString tryAddColor(QString name, ScColor col);

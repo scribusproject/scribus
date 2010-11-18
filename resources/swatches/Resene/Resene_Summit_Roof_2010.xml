@@ -64,7 +64,4 @@
  <COLOR RGB="#365c6c" NAME="Resene Undercurrent B49-037-228" Spot="1" />
  <COLOR RGB="#36383c" NAME="Resene Vulcan M32-008-267" Spot="1" />
  <COLOR RGB="#514e4a" NAME="Resene Winchester M50-006-077" Spot="1" />
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>

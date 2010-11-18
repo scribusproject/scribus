@@ -329,7 +329,7 @@ QImage WMFImport::readThumbnail(QString fname)
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
-	m_Doc->PageColors.ensureBlackAndWhite();
+	m_Doc->PageColors.ensureDefaultColors();
 	QList<PageItem*> Elements = parseWmfCommands();
 	m_tmpSel->clear();
 	QImage tmpImage = QImage();
@@ -662,7 +662,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	//gc->Family = m_Doc->toolSettings.textFont;
-	m_Doc->PageColors.ensureBlackAndWhite();
+	m_Doc->PageColors.ensureDefaultColors();
 	//m_gc.push( gc );
 	QList<PageItem*> Elements = parseWmfCommands();
 	if (flags & LoadSavePlugin::lfCreateDoc)

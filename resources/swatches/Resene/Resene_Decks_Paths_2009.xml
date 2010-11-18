@@ -64,7 +64,4 @@
  <COLOR RGB="#ad6242" NAME="Resene Tuscany O58-086-050" Spot="1" />
  <COLOR RGB="#626746" NAME="Resene Woodland G51-034-107" Spot="1" />
  <COLOR RGB="#554545" NAME="Resene Woody Brown BR42-013-021" Spot="1" />
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>

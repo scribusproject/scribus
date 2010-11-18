@@ -42,7 +42,4 @@
  <COLOR RGB="#4a302b" NAME="Resene Warmed Brown BR35-031-042" Spot="1" />
  <COLOR RGB="#909782" NAME="Resene Washed Green G68-019-118" Spot="1" />
  <COLOR RGB="#e0da9f" NAME="Resene Weathered Yellow G88-055-097" Spot="1" />
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>

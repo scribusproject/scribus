@@ -2364,7 +2364,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (appPrefs.colorPrefs.DColorSet != "Scribus Small")
 			{
 				if (importColorsFromFile(pfadC, appPrefs.colorPrefs.DColors, &appPrefs.defaultGradients, false))
-					appPrefs.colorPrefs.DColors.ensureBlackAndWhite();
+					appPrefs.colorPrefs.DColors.ensureDefaultColors();
 				else
 				{
 					appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
@@ -2535,7 +2535,7 @@ bool PrefsManager::ReadPref(QString ho)
 		DOC=DOC.nextSibling();
 	}
 	// Some sanity checks
-	appPrefs.colorPrefs.DColors.ensureBlackAndWhite();
+	appPrefs.colorPrefs.DColors.ensureDefaultColors();
 	if ((appPrefs.docSetupPrefs.pagePositioning  < 0) || (appPrefs.docSetupPrefs.pagePositioning >= appPrefs.pageSets.count()))
 		appPrefs.docSetupPrefs.pagePositioning = 0;
 	if ((appPrefs.docSetupPrefs.docUnitIndex < UNITMIN) || (appPrefs.docSetupPrefs.docUnitIndex > UNITMAX))

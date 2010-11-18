@@ -168,7 +168,4 @@
  <COLOR RGB="#675744" NAME="Resene Wombat BR49-028-072" Spot="1" />
  <COLOR RGB="#681b2b" NAME="Resene X Factor R37-091-022" Spot="1" />
  <COLOR RGB="#91e0b7" NAME="Resene Zeal O86-060-161" Spot="1" />
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>

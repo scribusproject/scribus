@@ -66,9 +66,6 @@
  <COLOR Spot="0" RGB="#edd812" Register="0" NAME=" Yellow 2" />
  <COLOR Spot="0" RGB="#b09a11" Register="0" NAME=" Yellow 3" />
  <COLOR Spot="0" RGB="#4e4917" Register="0" NAME=" Yellow 4" />
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
 
 <!-- Retrieved from http://wiki.creativecommons.org/Colors. License: CC Attribution 3.0: http://creativecommons.org/licenses/by/3.0/ -->

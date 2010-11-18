@@ -373,7 +373,7 @@ void ScribusDoc::init()
 	docPrefsData.opToolPrefs.dispY = appPrefsData.opToolPrefs.dispY;
 	docPrefsData.opToolPrefs.constrain = appPrefsData.opToolPrefs.constrain;
 
-	PageColors.ensureBlackAndWhite();
+	PageColors.ensureDefaultColors();
 	if (appPrefsData.itemToolPrefs.shapeLineColor != CommonStrings::None)
 		PageColors.insert(appPrefsData.itemToolPrefs.shapeLineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.shapeLineColor]);
 	docPrefsData.itemToolPrefs.shapeLineColor = appPrefsData.itemToolPrefs.shapeLineColor;
@@ -594,7 +594,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	docGradients = prefsManager->appPrefs.defaultGradients;
 
 	PageColors = prefsManager->colorSet();
-	PageColors.ensureBlackAndWhite();
+	PageColors.ensureDefaultColors();
 	PageColors.setDocument(this);
 
 	docPrefsData.colorPrefs.DCMSset = prefsManager->appPrefs.colorPrefs.DCMSset;
