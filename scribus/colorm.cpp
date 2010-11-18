@@ -316,8 +316,7 @@ void ColorManager::loadDefaults(const QString &txt)
 	{
 		if (importColorsFromFile(pfadC2, EditColors))
 		{
-			EditColors.insert("White", ScColor(0, 0, 0, 0));
-			EditColors.insert("Black", ScColor(0, 0, 0, 255));
+			EditColors.ensureDefaultColors();
 		}
 		else
 		{
@@ -398,7 +397,7 @@ void ColorManager::deleteUnusedColors()
 	}
 	m_Doc->getUsedColors(UsedC);
 	EditColors = UsedC;
-	EditColors.ensureBlackAndWhite();
+	EditColors.ensureDefaultColors();
 	if (hasReg)
 		EditColors.insert(regName, regColor);
 	updateCList();

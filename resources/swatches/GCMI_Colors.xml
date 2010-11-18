@@ -59,7 +59,6 @@
  <COLOR Spot="1" Register="0" NAME="VIII-9002" CMYK="#000000b2"/>
  <COLOR Spot="1" Register="0" NAME="91" CMYK="#00050d0d"/>
  <COLOR Spot="1" Register="0" NAME="Kraft" CMYK="#33529400"/>
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff"/>
  <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000"/>
 </SCRIBUSCOLORS>
 <!--Created manually from the file http://www.internationalpaper.com/documents/EN/KraftBag/GCMI_COLORS.PDF. Thus, this list is not considered a creative work. If you distribute it, you are nevertheless advised to avoid any suggestion that this is palette has been approved by the Glass Packaging Institute (GPI), which it isn't! If you want to need anaccurate and GPI-approved colour reference, you can acquire one via the GPI: http://www.gpi.org/glassresources/flexo-guide/order-the-flexo-color-guide-ed.html-->

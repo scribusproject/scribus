@@ -615,8 +615,7 @@ void CMYKChoose::SelSwatch(int n)
 		{
 			if (importColorsFromFile(pfadC2, CurrSwatch))
 			{
-				CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
-				CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+				CurrSwatch.ensureDefaultColors();
 			}
 			else
 			{

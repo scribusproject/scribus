@@ -434,7 +434,7 @@ void ScribusDoc::init()
 	toolSettings.dispY = prefsData.toolSettings.dispY;
 	toolSettings.constrain = prefsData.toolSettings.constrain;
 
-	PageColors.ensureBlackAndWhite();
+	PageColors.ensureDefaultColors();
 	if (prefsData.toolSettings.dPen != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dPen, prefsData.DColors[prefsData.toolSettings.dPen]);
 	toolSettings.dPen = prefsData.toolSettings.dPen;
@@ -592,7 +592,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
-	PageColors.ensureBlackAndWhite();
+	PageColors.ensureDefaultColors();
 	PageColors.setDocument(this);
 
 	CMSSettings = prefsManager->appPrefs.DCMSset;

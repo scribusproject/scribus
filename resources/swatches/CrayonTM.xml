@@ -134,9 +134,6 @@
  <COLOR Spot="0" RGB="#FCE883" Register="0" NAME="Yellow" />
  <COLOR Spot="0" RGB="#C5E384" Register="0" NAME="Yellow Green" />
  <COLOR Spot="0" RGB="#FFAE42" Register="0" NAME="Yellow Orange" />
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
 
 <!--Retrieved from http://en.wikipedia.org/wiki/List_of_Crayola_colors. License: CC-Share alike (http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License) -->

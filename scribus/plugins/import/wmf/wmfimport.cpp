@@ -577,7 +577,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	//gc->Family = m_Doc->toolSettings.defFont;
-	m_Doc->PageColors.ensureBlackAndWhite();
+	m_Doc->PageColors.ensureDefaultColors();
 	//m_gc.push( gc );
 	QList<PageItem*> Elements = parseWmfCommands();
 	if (flags & LoadSavePlugin::lfCreateDoc)

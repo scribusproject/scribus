@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="JIS 8721" >
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
- <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
- <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
  <COLOR Spot="1" RGB="#2B4B65" Register="0" NAME="aiiro" />
  <COLOR Spot="1" RGB="#576D79" Register="0" NAME="ainezu" />
  <COLOR Spot="1" RGB="#BE0032" Register="0" NAME="aka" />

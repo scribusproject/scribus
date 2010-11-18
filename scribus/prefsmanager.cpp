@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 #include "actionmanager.h"
-#include "colormgmt/sccolormgmtengine.h"
+#include "colormgmt/sccolormgmtstructs.h"
 #include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
@@ -2366,7 +2366,7 @@ bool PrefsManager::ReadPref(QString ho)
 		DOC=DOC.nextSibling();
 	}
 	// Some sanity checks
-	appPrefs.DColors.ensureBlackAndWhite();
+	appPrefs.DColors.ensureDefaultColors();
 	if ((appPrefs.FacingPages  < 0) || (appPrefs.FacingPages >= appPrefs.pageSets.count()))
 		appPrefs.FacingPages = 0;
 	if ((appPrefs.docUnitIndex < UNITMIN) || (appPrefs.docUnitIndex > UNITMAX))

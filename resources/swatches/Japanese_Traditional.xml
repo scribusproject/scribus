@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="Japanese Traditional">
 	<COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
-	<COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
  	<COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 	<COLOR RGB="#fef4f4" NAME="桜色 さくらいろ #fef4f4" />
 	<COLOR RGB="#fdeff2" NAME="薄桜 うすざくら #fdeff2" />

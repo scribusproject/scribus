@@ -336,10 +336,11 @@ ScribusDoc* ColorList::document(void) const
 	return m_doc;
 }
 
-void ColorList::ensureBlackAndWhite(void)
+void ColorList::ensureDefaultColors(void)
 {
 	ensureBlack();
 	ensureWhite();
+	ensureRegistration();
 }
 
 void ColorList::ensureBlack(void)
@@ -380,4 +381,11 @@ void ColorList::ensureWhite(void)
 	}
 	if (addWhite)
 		insert("White", ScColor(0, 0, 0, 0));
+}
+
+void ColorList::ensureRegistration(void)
+{
+	ScColor cc = ScColor(255, 255, 255, 255);
+	cc.setRegistrationColor(true);
+	insert("Registration", cc);
 }

@@ -466,7 +466,7 @@ void ScribusView::changed(QRectF re)
 				<< "] (" << Doc->minCanvasCoordinate.x() << Doc->minCanvasCoordinate.y() << ") - ("
 				<< Doc->maxCanvasCoordinate.x() << Doc->maxCanvasCoordinate.y() << ") @" << scale << maxViewport;
 		*/
-		widget()->resize(newCanvasWidth, newCanvasHeight);	
+		widget()->resize(newCanvasWidth, newCanvasHeight);
 		m_oldCanvasWidth = newCanvasWidth;
 		m_oldCanvasHeight = newCanvasHeight;
 	}

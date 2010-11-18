@@ -147,7 +147,4 @@
 	<COLOR RGB="#808000" NAME="olive" />
 	<COLOR RGB="#c0c0c0" NAME="silver" />
 	<COLOR RGB="#008080" NAME="teal" />
-	<COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
-	<COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
-	<COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
 </SCRIBUSCOLORS>
