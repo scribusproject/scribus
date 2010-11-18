@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="Scribus Xfig" >
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
  <COLOR Spot="0" RGB="#0000ff" Register="0" NAME="Blue" />
  <COLOR Spot="0" RGB="#0000d0" Register="0" NAME="Blue2" />
  <COLOR Spot="0" RGB="#0000b0" Register="0" NAME="Blue3" />

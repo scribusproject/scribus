@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SCRIBUSCOLORS Name="Standardised Rock Colours" >
- <COLOR Spot="0" Register="0" NAME="Black" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
  <COLOR Spot="0" RGB="#EBDDDD" Register="0" NAME="Grayish Orange Pink" />
  <COLOR Spot="0" RGB="#9E8B85" Register="0" NAME="Pale Red" />
  <COLOR Spot="0" RGB="#94563D" Register="0" NAME="Moderate Reddish Brown" />
