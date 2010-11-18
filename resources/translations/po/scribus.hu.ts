@@ -18079,12 +18079,12 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="51"/>
         <source>Calamus CVG File</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus CVG Fájl</translation>
     </message>
     <message>
         <location filename="../../../scribus/util_formats.cpp" line="53"/>
         <source>BMP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Calamus Cvg File</source>
@@ -20103,7 +20103,7 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="725"/>
         <source>Send to Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés gyűjtőalbumba</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="742"/>
@@ -20736,7 +20736,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="279"/>
         <source>Send to Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Küldés gyűjtőalbumba</translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="300"/>
