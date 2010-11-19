@@ -317,7 +317,7 @@ bool Selection::removeItem(PageItem *item)
 
 		if (m_SelList.isEmpty())
 			m_hasGroupSelection=false;
-		else if (m_isGUISelection)
+		if (m_isGUISelection)
 		{
 			m_sigSelectionChanged = true;
 			sendSignals();
