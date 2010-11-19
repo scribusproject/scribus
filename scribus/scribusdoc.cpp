@@ -1270,6 +1270,10 @@ void ScribusDoc::undoRedoDone()
 {
 	m_Selection->delaySignalsOff();
 	m_docUpdater->endUpdate();
+	// #9500 : Ensure PP is properly disabled when selection is empty
+	// after undoing or redoing an action
+	if (m_Selection->count() == 0)
+		emit firstSelectedItemType(-1);
 }
 
 void ScribusDoc::restore(UndoState* state, bool isUndo)
