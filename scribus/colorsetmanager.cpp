@@ -115,6 +115,7 @@ void ColorSetManager::findPaletteLocations()
 	QStringList locations=ScPaths::instance().getSystemCreateSwatchesDirs();
 	locations << ScPaths::instance().libDir()+"swatches/";
 	locations << ScPaths::getApplicationDataDir() + "swatches/locked/";
+	locations << ScPaths::getApplicationDataDir() + "swatches/";
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
 	{
 		QFile createDir(*it);
