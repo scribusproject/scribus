@@ -204,36 +204,6 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	icm.setCompressionLevel(prefsManager->appPrefs.imageCachePrefs.compressionLevel);
 	icm.initialize();
 
-	/*
-		initPalettes();
-
-		setSplashStatus( tr("Initializing Hyphenator") );
-		QString preLang = prefsManager->appPrefs.Language;
-		initHyphenator();
-		if (Sprachen.contains(preLang))
-			prefsManager->appPrefs.Language = preLang;
-		setSplashStatus( tr("Reading Scrapbook") );
-		initScrapbook();
-		setSplashStatus( tr("Setting up Shortcuts") );
-		SetShortCut();
-		scrActions["helpTooltips"]->setChecked(prefsManager->appPrefs.showToolTips);
-		ToggleTips();
-
-		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-		connect(this, SIGNAL(TextIFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
-		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
-		connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
-		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
-		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
-		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
-		connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
-		connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
-		connect(this, SIGNAL(TextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
-		connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
-		connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
-		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-	}*/
-
 	return retVal;
 }
 

@@ -311,7 +311,8 @@ public slots:
 	*/
 	void slotFileAppend();
 
-	void removeRecent(QString fn);
+	void removeRecent(QString fn, bool fromFileWatcher = false);
+	void removeRecentFromWatcher(QString fn);
 	void loadRecent(QString fn);
 	void rebuildRecentFileMenu();
 	void rebuildRecentPasteMenu();
