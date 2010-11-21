@@ -92,17 +92,17 @@
 			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
 			<submenuitem text="Other PDF Viewers" file="toolbox2.html"/>
 			<submenuitem text="Batik" file="toolbox3.html"/>
-			<submenuitem text="Gimp" file="toolbox4.html"/>
+			<submenuitem text="GIMP" file="toolbox4.html"/>
 			<submenuitem text="Ghostscript" file="toolbox5.html"/>
 			<submenuitem text="GSview" file="toolbox6.html"/>
 			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
-			<submenuitem text="Imagemagick" file="toolbox8.html"/>
+			<submenuitem text="ImageMagick" file="toolbox8.html"/>
 			<submenuitem text="Inkscape" file="toolbox9.html"/>
 			<submenuitem text="KSnapshot" file="toolbox10.html"/>
 			<submenuitem text="Tracing Tools" file="toolbox11.html"/>
 			<submenuitem text="WINE" file="toolbox12.html"/>
-			<submenuitem text="Xnview" file="toolbox13.html"/>
-			<submenuitem text="Lprof" file="toolbox14.html"/>
+			<submenuitem text="XnView" file="toolbox13.html"/>
+			<submenuitem text="LProf" file="toolbox14.html"/>
 			<submenuitem text="Krita" file="toolbox15.html"/>
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
 			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
@@ -112,7 +112,7 @@
 			<submenuitem text="Development" file="faq3.html"/>
 		</submenuitem>
 	</area>
-	<area text="Tutorials" file="tutorials.html" section="tutorials">
+	<area text="My Tutorials" file="tutorials.html" section="tutorials">
 	</area>
 	<area text="For Developers" file="developers.html">
 		<submenuitem text="Scribus Document Format" file="scribusfileformat.html"/>
@@ -142,7 +142,7 @@
 		<submenuitem text="GetText Howto" file="gettexthowto.html"/>
 		<submenuitem text="Coding Standards" file="codingstandards.html"/>
 		<submenuitem text="Translation Howto" file="translation_howto.html"/>
-		<submenuitem text="Lipsum Howto" file="lipsum.html"/>
+		<submenuitem text="Lorem ipsum Howto" file="lipsum.html"/>
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
