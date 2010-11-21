@@ -339,7 +339,7 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	QString lang;
 	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loaded; ++it) 
 	{
-		lang=(*it).left(5);
+		lang=(*it);
 		if (lang == "en")
 		{
 			GUILang=lang;
