@@ -542,6 +542,7 @@ SET(SCRIBUS_SOURCES
   hyphenator.cpp
 #  ui/hysettings.cpp
   ui/imageinfodialog.cpp
+  indexmanager.cpp
   ui/insertTable.cpp
   ui/insertaframe.cpp
   ui/inspage.cpp

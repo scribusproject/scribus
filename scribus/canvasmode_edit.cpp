@@ -416,10 +416,44 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 		}
 		//otherwise, select between the whitespace
 		else
-		{	//Double click in a frame to select a word
-			oldCp = currItem->CPos;
-			currItem->CPos   = currItem->itemText.selectWord(currItem->CPos);
-			currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
+		{
+			if (m->modifiers() & Qt::ControlModifier)
+			{
+				int start=0, stop=0;
+
+				if (m->modifiers() & Qt::ShiftModifier)
+				{//Double click with Ctrl+Shift in a frame to select few paragraphs
+					uint oldPar = currItem->itemText.nrOfParagraph(oldCp);
+					uint newPar = currItem->itemText.nrOfParagraph(currItem->CPos);
+					if (oldPar < newPar)
+					{
+						start = currItem->itemText.startOfParagraph(oldPar);
+						stop = currItem->itemText.endOfParagraph(newPar);
+					}
+					else
+					{
+						start = currItem->itemText.startOfParagraph(newPar);
+						stop = currItem->itemText.endOfParagraph(oldPar);
+					}
+				}
+				else
+				{//Double click with Ctrl in a frame to select a paragraph
+					oldCp = currItem->CPos;
+					uint nrPar = currItem->itemText.nrOfParagraph(oldCp);
+					start = currItem->itemText.startOfParagraph(nrPar);
+					stop = currItem->itemText.endOfParagraph(nrPar);
+				}
+				//qDebug() << "start: " << start << "  stop: " << stop;
+				currItem->itemText.extendSelection(start, stop);
+				currItem->CPos   = stop;
+				currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
+			}
+			else
+			{	//Double click in a frame to select a word
+				oldCp = currItem->CPos;
+				currItem->CPos   = currItem->itemText.selectWord(currItem->CPos);
+				currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
+			}
 		}
 	}
 	else
@@ -677,16 +711,28 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 
 			if (m->button() != Qt::RightButton)
 			{
-				currItem->asTextFrame()->deselectAll();
+				//currItem->asTextFrame()->deselectAll();
 				//<<CB Add in shift select to text frames
-				if (m->modifiers() & Qt::ShiftModifier && currItem->itemText.lengthOfSelection() > 0)
+				if (m->modifiers() & Qt::ShiftModifier)
 				{
-					if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
-						oldP = currItem->itemText.startOfSelection();
-					else 
-						oldP = currItem->itemText.endOfSelection();
-					currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
-					oldCp = currItem->CPos;
+					if (currItem->itemText.lengthOfSelection() > 0)
+					{
+						if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
+							oldP = currItem->itemText.startOfSelection();
+						else
+							oldP = currItem->itemText.endOfSelection();
+						currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
+						oldCp = currItem->CPos;
+					}
+					else
+					{
+						int dir=1;
+						if (oldCp>currItem->CPos)
+							dir=-1;
+						if (currItem->asTextFrame())
+							currItem->asTextFrame()->ExpandSel(dir, oldP);
+						oldCp = oldP;
+					}
 				}
 				else //>>CB
 				{
