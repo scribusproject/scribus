@@ -1807,8 +1807,6 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		LeftLine->setChecked(CurItem->LeftLine);
 		RightLine->setChecked(CurItem->RightLine);
 		BottomLine->setChecked(CurItem->BottomLine);
-		Xpos->setEnabled(false);
-		Ypos->setEnabled(false);
 		Rotation->setEnabled(false);
 	}
 	else
@@ -1816,6 +1814,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		setter = false;
 		TabStack3->setCurrentIndex(0);
 	}
+	Xpos->setEnabled(!setter);
+	Ypos->setEnabled(!setter);
 	LayerGroup->setEnabled(!setter);
 	if ((CurItem->isGroupControl) || ((CurItem->Groups.count() != 0) && (!CurItem->isSingleSel)))
 	{
