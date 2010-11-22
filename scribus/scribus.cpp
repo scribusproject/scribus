@@ -361,7 +361,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
-	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecentFromFileWatcher(QString)));
+	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecentFromWatcher(QString)));
 	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 	connect(this, SIGNAL(TextISize(double)), propertiesPalette, SLOT(setSize(double)));
@@ -3419,7 +3419,7 @@ void ScribusMainWindow::removeRecent(QString fn, bool fromFileWatcher)
 	rebuildRecentFileMenu();
 }
 
-void ScribusMainWindow::removeRecentFromFileWatcher(QString fn)
+void ScribusMainWindow::removeRecentFromWatcher(QString fn)
 {
 	removeRecent(fn, true);
 }
