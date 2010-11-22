@@ -356,8 +356,6 @@ void ScribusDoc::init()
 	m_itemsChanged.connectObserver(m_docUpdater);
 	m_pagesChanged.connectObserver(m_docUpdater);
 
-	m_indexManager = new IndexManager(docPrefsData.indexPrefs.indexMap,docPrefsData.indexPrefs.indexVMap);
-
 	PrefsManager *prefsManager = PrefsManager::instance();
 	docPrefsData.colorPrefs.DCMSset = prefsManager->appPrefs.colorPrefs.DCMSset;
 	docPrefsData.pdfPrefs.SolidProf = docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -471,8 +469,6 @@ void ScribusDoc::init()
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
-
-	docPrefsData.indexPrefs.indexMap.insert("Index", QMap<QString, QList<int> >());
 }
 
 

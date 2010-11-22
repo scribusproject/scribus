@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QSet>
 #include <QHash>
-#include <QVariant>
 #include "pagestructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
@@ -388,14 +387,6 @@ struct ImageCachePrefs
 	int compressionLevel; //!< Cache image compression level (see QImage)
 };
 
-struct IndexPrefs
-{
-	//Index Map
-	//Map of Index Names, containing a Map of words/phrases with a list of page numbers
-	QMap<QString, QMap<QString, QList<int> > > indexMap;
-	QMap<QString, QVariant> indexVMap;
-};
-
 
 struct ApplicationPrefs
 {
@@ -441,7 +432,6 @@ struct ApplicationPrefs
 	//Added for Doc Only
 	DocumentInformation docInfo;
 	DocumentSectionMap docSectionMap;
-	IndexPrefs indexPrefs;
 };
 
 #endif

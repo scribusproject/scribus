@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "colormgmt/sccolormgmtengine.h"
 #include "documentinformation.h"
-#include "indexmanager.h"
 #include "observable.h"
 #include "page.h"
 #include "pageitem.h"
@@ -223,9 +222,6 @@ public:
 	DocumentSectionMap& sections() { return docPrefsData.docSectionMap; }
 	void setSections(DocumentSectionMap dsm) { docPrefsData.docSectionMap=dsm; }
 	const QMap<QString, int> & usedFonts() { return UsedFonts; }
-
-	QMap<QString, QMap<QString, QList<int> > >& indexMap() { return docPrefsData.indexPrefs.indexMap; }
-	IndexManager* indexManager() { return m_indexManager; }
 
 	const ApplicationPrefs& prefsData() { return docPrefsData; }
 	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData, bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
@@ -1042,7 +1038,6 @@ protected:
 	ScribusView* m_View;
 	ScGuardedObject<ScribusDoc> m_guardedObject;
 	Serializer *m_serializer;
-	IndexManager* m_indexManager;
 	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
