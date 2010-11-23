@@ -193,6 +193,8 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	bool hasDoc = (doc != NULL);
 	if (m_doc && (m_doc != doc))
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
+	if (m_doc != doc)
+		m_selectedStyleAction = 0;
 	m_doc = doc;
 	newButton->setEnabled(hasDoc);
 	cloneButton->setEnabled(hasDoc);
