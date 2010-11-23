@@ -523,7 +523,7 @@ void StyleManager::slotClone()
 	while (*it)
 	{ // can't create styles here cause createNewStyle() alters the selection
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
-		if (item)
+		if (item && !item->isRoot())
 			names << QPair<QString, QString>(item->rootName(), item->text(NAME_COL));
 		++it;
 	}
