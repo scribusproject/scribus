@@ -47,6 +47,16 @@ void Prefs_ColorManagement::languageChange()
 
 void Prefs_ColorManagement::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
+	if (!ScCore->haveCMS())
+	{
+		activateCMCheckBox->setEnabled(false);
+		warningLabel->setText("<qt><font color=\"red\">"+tr("Please add profiles so you can enable Color Management")+"</font></qt>");
+	}
+	else
+	{
+		warningLabel->resize(0,0);
+		warningLabel->hide();
+	}
 	activateCMCheckBox->setChecked(prefsData->colorPrefs.DCMSset.CMSinUse);
 
 	QString tmp_mp[] = { tr("Perceptual"), tr("Relative Colorimetric"),

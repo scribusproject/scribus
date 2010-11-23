@@ -200,8 +200,8 @@ void PreferencesDialog::setupGui()
 	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
 	if (prefs_ColorManagement)
 	{
-		prefs_ColorManagement->restoreDefaults(&localPrefs);
 		prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+		prefs_ColorManagement->restoreDefaults(&localPrefs);
 	}
 	if (prefs_Scrapbook) prefs_Scrapbook->restoreDefaults(&localPrefs);
 	if (prefs_Display) prefs_Display->restoreDefaults(&localPrefs);
