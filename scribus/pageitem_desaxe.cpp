@@ -548,6 +548,25 @@ class LatexParams_body : public Action_body
 struct  LatexParams : public MakeAction<LatexParams_body> 
 {};
 
+class LatexParamsExtra_body : public Action_body
+{
+	void begin (const Xml_string& tagName, Xml_attr attr)
+	{
+		if (tagName=="property")
+		{
+			if (this->dig->top<PageItem>()->realItemType() == PageItem::LatexFrame)
+			{
+				PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
+				QString name  = attr["name"];
+				QString value = attr["value"];
+				obj->editorProperties[name] = value;
+			}
+		}
+	}
+};
+
+class LatexParamsExtra : public MakeAction<LatexParamsExtra_body>
+{};
 
 
 const Xml_string PageItem::saxxDefaultElem("item");
@@ -678,7 +697,11 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconRollover, "icon-rollover-file" ));
 	ruleset.addRule("latex-source", LatexSource());
 	ruleset.addRule(itemPrefix, LatexParams());
-	
+	LatexParamsExtra laExtra;
+	Xml_string latexPrefixMG(Digester::concat(itemPrefix, "latex-source"));
+	ruleset.addRule(latexPrefixMG, laExtra);
+	ruleset.addRule(Digester::concat(latexPrefixMG, "property"), laExtra);
+
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QVector<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleVector ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));
 
