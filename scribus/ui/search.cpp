@@ -114,7 +114,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setCurrentComboItem(SFontVal, doc->currentStyle.charStyle().font().scName());
 	SFontVal->setEnabled(false);
 	SearchLayout->addWidget( SFontVal, 2, 1 );
-	SSizeVal = new ScrSpinBox( 0.5, 2048, Search, 1 );
+	SSizeVal = new ScrSpinBox( 0.5, 2048, Search, 0 );
 	SSizeVal->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
 	SSizeVal->setEnabled(false);
 	SearchLayout->addWidget( SSizeVal, 3, 1 );
@@ -201,7 +201,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setCurrentComboItem(RFontVal, doc->currentStyle.charStyle().font().scName());
 	RFontVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFontVal, 2, 1 );
-	RSizeVal = new ScrSpinBox( 0.5, 2048, Replace, 1 );
+	RSizeVal = new ScrSpinBox( 0.5, 2048, Replace, 0 );
 	RSizeVal->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
 	RSizeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RSizeVal, 3, 1 );
