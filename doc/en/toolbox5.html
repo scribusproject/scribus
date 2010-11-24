@@ -1,20 +1,31 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Ghostscript - Black Box Magic</title>
+	<title>Ghostscript &ndash; Black Box Magic</title>
 </head>
 <body>
-<h2>Ghostscript - Black Box Magic</h2>
+<h2>Ghostscript &ndash; Black Box Magic</h2>
+<h3>What is Ghostscript?</h3>
 
-<p>For those not familiar, Ghostscript strictly defined is a PostScript interpreter and many programs use GS for PostScript conversions and import/export. Likewise, Scribus uses Ghostscript, sometimes using some of the most advanced features available only in newer versions. </p>
+<p>For those not familiar, <a href="http://www.ghostscript.com/">Ghostscript (gs)</a>, strictly defined, is a so-called &ldquo;PostScript interpreter&rdquo;, and many programs use <code>gs</code> for PostScript conversions and import/export. Ghostscript has become one of the core building blocks of OSS software. It would be hard to imagine modern OSS distributions and software without it.</p>
+<p>Likewise, Scribus uses Ghostscript, sometimes taking advantage of the most sophisticated features that are available only in the latest versions. Scribus uses <code>gs</code> for two purposes, the first one being the import of rasterized <a href="importhints1.html">EPS files</a> into <a href="WwImages.html">image frames</a>. The second feature that requires <code>gs</code> is the <a href="print2.html">Print Preview</a>.</p>
 
-<p>With regard to Scribus, there are two major issues: Ghostscript is a kind of black box command line tool with sometimes obscure or difficult to understand switches. Accessing many of these is made much easier with GSview, noted later. The other is there have been some major improvements in the 8.x versions, especially with advanced PS3, PDF 1.4 features and high end printing features. The next section outlines a possible way to upgrade to the latest version, without breaking your existing CUPS/Foomatic/GIMP print setup.</p>
-
-<p>While Ghostscript originates from a commercial company and is dual licensed, the Ghostscript developers are very OSS friendly and have been very helpful to the Scribus team, especially with documentation and learning some of the more esoteric features. Ghostscript is one of core building blocks of OSS software. It would be hard to imagine OSS software without it.</p>
-
-<p>When speaking of &#034;devices&#034; in Ghostscript, this refers to a certain type of driver or software module which performs conversions or special types of PostScript processing.</p>
-
-<p>The latest generation of GS will have a new ink jet driver <strong>rinkj</strong>, which has some new techniques for optimal printing with some ink jet printers. Plus, support for jpeg2000 aka jasper, for lossless jpeg compression and PDF 1.5. Also, there are new devices which will support many advanced pre-press and printing features. Scribus will be one of the first applications to take advantage of these improvements. Thus, we always encourage you to have the latest Ghostscript available for your system and encourage distributions to migrate to GPL Ghostscript 8.x. </p>
+<p>We always encourage you to have the latest Ghostscript available for your system.</p>
+<h3>Installing Ghostscript</h3>
+<h4>Linux/UNIX</h4>
+<p>As mentioned above, Ghostscript is required by many applications. Thus, it&rsquo;s unlikely that it isn&rsquo;t installed on your system. If, for any reason, <code>gs</code> isn&rsquo;t available on your system or your system is being shipped with a version that&rsquo;s too old (you should at least use Ghostscript 8.6 with Scribus), you can <a href="http://ghostscript.com/releases/">download</a> a tarball from the <code>gs</code> website. Be careful to download Ghostscript itself, not ghostpdl, whose source code is in the same directory. Then follow the build instructions in the tarball and install it.</p>
+<h4>Windows</h4>
+<p> See the <a href="readme-win32.html">general information</a> about Scribus on Windows for further details.</p>
+<h4>Mac OS X</h4>
+<p>There are different ways to install Ghostscript for Mac OS X, but unfortunately, none of them seems to be as easy as most Mac users are used to:</p>
+<ul>
+<li>You can download a <a href="http://pages.uoregon.edu/koch/Ghostscript-8.71.pkg.zip">ZIP archive</a> with four DMGs of <code>gs</code> for various OS X versions. Please read the related <a href="http://pages.uoregon.edu/koch/Ghostscript-8.71.pdf">info file</a> to decide which version you need.</li>
+<li>You can isntall <code>gs</code> via <a href="http://pdb.finkproject.org/pdb/package.php/ghostscript">Fink</a>.</li>
+<li>The most current releases of Ghostscript are always available via <a href="http://www.macports.org/ports.php?by=library&substr=ghostscript">MacPorts</a>.</li>
+<li>Finally, you can, of course, download the latest <a href="http://ghostscript.com/releases/">source code</a> and compile Ghostscript yourself.</li>
+</ul>
+<h4>OS/2 and eComStation</h4>
+<p> See the <a href="readme-os2.html">general information</a> about Scribus on OS/2 for further details.</p>
 
 
 </body>
