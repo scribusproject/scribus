@@ -31,7 +31,7 @@ Requirements:
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.4.x 
 	libtiff >= 3.6.0
-	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
+	LittleCMS (liblcms) = 1.12 (1.18+ recommended)
 	libjpeg (depending on how Qt is packaged)
 	libpng
 	CUPS
@@ -44,8 +44,8 @@ Recommended:
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
 	apspell for the spell checker
-	podofo - 0.5.0+ for enhanced Illustrator AI/EPS import, svn versions
-        boost and boost-devel
+	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import
+        boost and boost-devel - needed for some advanced vector format display
 	
 
 
@@ -153,9 +153,9 @@ In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
     - A full listing of the compile command and compiler error messages,
       obtained by running `make' with VERBOSE=1 .
     - Operating system or distro, eg "Mac OS X" or "Debian Linux"
-    - OS or distro version, eg "Panther" or "Fedora Core 3". This is NOT the
+    - OS or distro version, eg "Panther" or "Fedora Core 10". This is NOT the
       Linux kernel version, though you can provide that too.
-    - Scribus version you're trying to compile, eg "1.2.1" or "1.3 cvs". If
+    - Scribus version you're trying to compile, eg "1.3.8" or "1.5.0.svn". If
       you're building an SVN version, please make sure you've run
       "svn revert -R ." (this WILL erase any patches / custom changes you've
       made), deleted the CMake cache with `rm -f CMakeCache.txt' and re-built
@@ -257,10 +257,10 @@ Recommended packages for compiling from source on SuSE 11.x:
         boost-devel
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.3.5+ on anything older than Suse 11.1. 
+Scribus 1.3.9+ on anything older than Suse 11.2. 
 
-Please note we do provide frequently updated packages including debuginfo rpms
-on the Suse Build Server. at http//software.opensuse.org .
+Please note we do provide frequently updated packages 
+on the Suse Build Server at http//software.opensuse.org
 
 Mac OS X
 ========
