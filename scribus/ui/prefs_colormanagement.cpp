@@ -25,7 +25,7 @@ Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc)
 		if (!m_Doc)
 		{
 			monitorProfileComboBox->setVisible(false);
-			monitorLabel->setText( tr("Monitor profiles can only be changed when no documents are open") );
+			monitorLabel->setText( tr("Monitor profiles can only be changed when no documents are open.") );
 		}
 		else
 		{
@@ -50,7 +50,7 @@ void Prefs_ColorManagement::restoreDefaults(struct ApplicationPrefs *prefsData)
 	if (!ScCore->haveCMS())
 	{
 		activateCMCheckBox->setEnabled(false);
-		warningLabel->setText("<qt><font color=\"red\">"+tr("Please add profiles so you can enable Color Management")+"</font></qt>");
+		warningLabel->setText("<qt><font color=\"red\">"+tr("<qt>Color Management cannot be activated due to missing color profiles.</br>You need to install at least one RGB and one CMYK profile.")+"</font></qt>");
 	}
 	else
 	{
