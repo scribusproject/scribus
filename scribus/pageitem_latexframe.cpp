@@ -420,6 +420,7 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 	}
 	qCritical() << "RENDER FRAME: latexError():" << 
 			tr("Running the application \"%1\" failed!").arg(config->executable()) << latex->error();
+	emit stateChanged(QProcess::NotRunning);
 }
 
 
