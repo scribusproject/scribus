@@ -666,6 +666,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPos());
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
 			{
+				m_doc->m_Selection->delaySignalsOn();
 				m_view->Deselect(true);
 				bool wantNormal = true;
 				if (SeleItem(m))
@@ -689,6 +690,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					m_view->requestMode(submodePaintingDone);
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				}
+				m_doc->m_Selection->delaySignalsOff();
 				if (wantNormal)
 					m_view->requestMode(modeNormal);
 				return;
