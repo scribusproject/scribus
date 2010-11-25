@@ -2416,13 +2416,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->CompressionMethodIndex = attrs.valueAsInt("COMPRESSIONMETHOD", 0);
 		if ((currItem->OverrideCompressionQuality = attrs.hasAttribute("COMPRESSIONQUALITY")))
 			currItem->CompressionQualityIndex = attrs.valueAsInt("COMPRESSIONQUALITY");
-		if (currItem->asLatexFrame())
-		{
-			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX") * scx, attrs.valueAsDouble("LOCALY") * scy);
-	//		currItem->setImageXYScale(1.0, 1.0);
-		}
-		else
-			currItem->setImageXYScale(scx, scy);
+		currItem->setImageXYScale(scx, scy);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 		clPath = attrs.valueAsString("ImageClip", "");
 		if (!clPath.isEmpty())

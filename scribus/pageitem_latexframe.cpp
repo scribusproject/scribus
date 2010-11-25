@@ -188,37 +188,32 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	imgValid = true;
 
 	//Save state and restore afterwards
-	bool do_update = PictureIsAvailable;
-	double scaleX = 72.0, scaleY = 72.0, offX = 0.0, offY = 0.0;
-	if (do_update) {
-		scaleX = LocalScX * pixm.imgInfo.xres;
-		scaleY = LocalScY * pixm.imgInfo.yres;
-		offX   = LocalX   / pixm.imgInfo.xres;
-		offY   = LocalY   / pixm.imgInfo.yres;
+	double xres, yres;
+	if (PictureIsAvailable)
+	{
+		xres = pixm.imgInfo.xres;
+		yres = pixm.imgInfo.yres;
 	}
+	else
+	{
+		xres = yres = realDpi();
+	}
+	double scaleX = LocalScX * xres;
+	double scaleY = LocalScY * yres;
+	double offX   = LocalX   / xres;
+	double offY   = LocalY   / yres;
 	PageItem_ImageFrame::loadImage(imageFile, true, realDpi());
 	if (PrefsManager::instance()->latexForceDpi()) 
 	{
 		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
 	}
 	
-	if (do_update) 
-	{
-		//Restoring parameters
-		LocalScX = scaleX / pixm.imgInfo.xres; //Account for dpi changes!
-		LocalScY = scaleY / pixm.imgInfo.yres;
-		LocalX   = offX   * pixm.imgInfo.xres;
-		LocalY   = offY   * pixm.imgInfo.yres;
-	} 
-	else 
-	{
-		//Setting sane defaults
-		LocalX = LocalY = 0;
-		LocalScX = 72.0/pixm.imgInfo.xres;
-		LocalScY = 72.0/pixm.imgInfo.yres;
-	}
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
-	
+	//Restore parameters, account for dpi changes
+	LocalScX = scaleX / pixm.imgInfo.xres;
+	LocalScY = scaleY / pixm.imgInfo.yres;
+	LocalX   = offX   * pixm.imgInfo.xres;
+	LocalY   = offY   * pixm.imgInfo.yres;
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	update();
 }
 
