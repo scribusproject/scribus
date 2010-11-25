@@ -2187,13 +2187,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
-		if (currItem->asLatexFrame())
-		{
-			currItem->setImageXYOffset(ScCLocale::toDoubleC(obj->attribute("LOCALX")) * scx, ScCLocale::toDoubleC(obj->attribute("LOCALY")) * scy);
-	//		currItem->setImageXYScale(1.0, 1.0);
-		}
-		else
-			currItem->setImageXYScale(scx, scy);
+		currItem->setImageXYScale(scx, scy);
 		clPath = obj->attribute("ImageClip", "");
 		if (currItem->pixm.imgInfo.PDSpathData.contains(clPath))
 		{
