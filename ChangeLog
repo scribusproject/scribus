@@ -1,3 +1,75 @@
+Scribus - 1.3.9.svn
+
+- 0008280: [Graphics / Image Frames] X and Y positions don't get saved when adjusting Latex Frame Contents (Herm) - closed.
+- 0009525: [General] When selecting another text frame in edit mode, properties palette switches to XYZ tab (jghali) - closed.
+- 0009517: [Usability] Fonts/headers are not carried over when copy-pasting LaTeX Render frames. (cbradney) - closed.
+- 0009513: [General] Crash when cloning styles in style manager (jghali) - closed.
+- 0009514: [General] Potential crash in style manager after closing doc (jghali) - closed.
+- 0009501: [General] Search and Replace: font size unit (cbradney) - closed.
+- 0009512: [Tables] X-Pos and Y-Pos no more active after having selected a table cell (jghali) - closed.
+- 0009502: [Story Editor / Text Frames] patch for Shift-LMB selects text again (cbradney) - closed.
+- 0009443: [User Interface] Copy of pdf fields locks the copied field name (cbradney) - closed.
+- 0009509: [General] removing an open .sla makes scribus crash (jghali) - closed.
+- 0009495: [Translation] de_1901 translation isn't loaded (cbradney) - closed.
+- 0009504: [Translation] Danish Translation for Scribus 1.3.9 (cbradney) - closed.
+- 0009503: [User Interface] Palettes in ./scribus/swatches aren't available after saving (fschmid) - closed.
+- 0009500: [General] Palette does not get disabled when undoing an object creation (jghali) - closed.
+- 0009498: [Translation] Hungarian translation update for 1.3.9 (christoph_s) - closed.
+- 0009492: [General] "Save Colour Set" saves palette to the wrong directory (fschmid) - closed.
+- 0002527: [Story Editor / Text Frames] Allow switching between traditional / standard and new German hyphenation as an alternative (christoph_s) - closed.
+- 0009479: [Import / Export] Crash importing SVG file into scribus (jghali) - closed.
+- 0009463: [Language Tools] Croatian hyphenation doesn't work (jghali) - closed.
+- 0009477: [Fonts] scribus crashes when modiying a font path (jghali) - closed.
+- 0009476: [General] not appearing guide issues when applying masterpages with guides (jghali) - closed.
+- 0009475: [General] Guides from Master Pages disappear from page (jghali) - closed.
+- 0009437: [User Interface] in 1.3.9svn - "-" on keyborad in Save dialog box not insert character - zoom out page instead (fschmid) - closed.
+- 0009337: [Story Editor / Text Frames] The font of the first line of the text in the story editor cannot be changed after first change (the 2nd change is not allowed) (jghali) - closed.
+- 0009428: [Story Editor / Text Frames] copy/paste in text frame are modyfing other characters (jghali) - closed.
+- 0009376: [Typography] Text Display Broken (jghali) - closed.
+- 0009426: [General] Adding guides doesn't change document status (fschmid) - closed.
+- 0009461: [Import / Export] EPS palettes are no longer read (fschmid) - closed.
+- 0009460: [Scripter] Add the Autoquote script from the wiki to the Scripts menu (christoph_s) - closed.
+- 0009217: [Import / Export] Improvements to the handling of colour palettes (fschmid) - closed.
+- 0009438: [Graphics / Image Frames] Scribus crashes on opening the image (jghali) - closed.
+- 0009455: [Plug-ins] Autoquote Hungarian support (christoph_s) - closed.
+- 0008270: [Import / Export] Resene colour palettes (christoph_s) - closed.
+- 0009418: [User Interface] BMP missing in the list of supported image file types (cbradney) - closed.
+- 0008184: [Import / Export] Colour palettes: US FS 595, Geology (christoph_s) - closed.
+- 0008182: [General] Japanese colour sets (christoph_s) - closed.
+- 0008877: [General] Templates Dated (christoph_s) - closed.
+- 0006723: [Usability] RFE: Allow copy, cut, paste, delete in Scrapbook (fschmid) - closed.
+- 0009397: [Import / Export] Wrong order of xmax and ymax in eps bounding box (fschmid) - closed.
+- 0009323: [Graphics / Image Frames] Scribus places EPS files randomly in image frames (fschmid) - closed.
+- 0009393: [Win32] Silent removal / uninstall is not completely silent (jghali) - closed.
+- 0009372: [Scrapbook] Items sent to the wrong Scrapbook folder (fschmid) - closed.
+- 0006891: [Story Editor / Text Frames] Dehyphenat single word resets all hyphenations in linked text frames (jghali) - closed.
+- 0009386: [User Interface] Line unit non consistent (cbradney) - closed.
+- 0009366: [Scrapbook] New Scrapbook pages are only available after relaunching Scribus (fschmid) - closed.
+- 0009389: [Documentation] Scripter API for "setLineCap(...)" shows wrong example "setLineEnd(endtype, ["name"])" (cbradney) - closed.
+- 0009382: [Fonts] Crash signal 0000011 when adding font directory (cbradney) - closed.
+- 0009339: [Plug-ins] Translated template category names lead to the wrong category (jghali) - closed.
+- 0009371: [Shape Drawing] Non-breakable spaces disappear when text is converted to outlines (jghali) - closed.
+- 0009322: [Build System] compilation fails (libdl && locale_t) (cbradney) - closed.
+- 0009359: [Translation] updated Hungarian translation for 1.3.9svn (cbradney) - closed.
+- 0009326: [Translation] Typos and other minor errors in Italian translation (cbradney) - closed.
+- 0008726: [Story Editor / Text Frames] No visual indicator for manual adjustments of tabs via the horizontal ruler (avox) - closed.
+- 0009316: [User Interface] Alternative icon for Render Frames (cbradney) - closed.
+- 0009333: [Story Editor / Text Frames] Cursor doesn't jump to next line upon "soft-return" (jghali) - closed.
+- 0009298: [User Interface] remove the option to edit styles when using the story editor (cbradney) - closed.
+- 0009307: [Mac OS] Paths to external tools for Render Frames do not seem to be working (cbradney) - closed.
+- 0009136: [Mac OS] Scribus won’t launch, crashes immediately (cbradney) - closed.
+- 0008367: [Import / Export] File selection dialog is unhelpful for mounted volumes (cbradney) - closed.
+- 0009332: [PDF] Out of order PDF export keeps 1..n page order (cbradney) - closed.
+- 0009305: [User Interface] if no frame is selected the PP should not show any level (cbradney) - closed.
+- 0009293: [User Interface] Properties Panel / Palette does not appear (cbradney) - closed.
+- 0009255: [General] Template dialog ignores new template categories (cbradney) - closed.
+- 0009319: [Qt4 Port] Wrong signal/slot connections as left over from Qt4 port (cbradney) - closed.
+- 0009266: [User Interface] Remove the "Color" entry in the extended "Save as Template" dialog or make it useful (cbradney) - closed.
+- 0009242: [User Interface] Tooltips are displayed in one line (cbradney) - closed.
+- 0009292: [General] Line end points position is too sensible to mouse clicks (jghali) - closed.
+- 0009311: [Build System] Compilation fails when embedding Python (I think) (cbradney) - closed.
+- 0009310: [Build System] compilation fails on openbsd because libdl is not found (cbradney) - closed.
+
 Scribus - 1.3.8svn
 
 
