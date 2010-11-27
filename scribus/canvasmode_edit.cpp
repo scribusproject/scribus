@@ -660,7 +660,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	if (GetItem(&currItem))
 	{
 //		m_view->slotDoCurs(false);
-		if (!currItem->locked() && !currItem->asLine())
+		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->asLine())
 		{
 			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPos());
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
