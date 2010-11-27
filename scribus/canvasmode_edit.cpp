@@ -443,17 +443,16 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 					start = currItem->itemText.startOfParagraph(nrPar);
 					stop = currItem->itemText.endOfParagraph(nrPar);
 				}
-				//qDebug() << "start: " << start << "  stop: " << stop;
+				currItem->itemText.deselectAll();
 				currItem->itemText.extendSelection(start, stop);
-				currItem->CPos   = stop;
-				currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
+				currItem->CPos = stop;
 			}
 			else
 			{	//Double click in a frame to select a word
 				oldCp = currItem->CPos;
-				currItem->CPos   = currItem->itemText.selectWord(currItem->CPos);
-				currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
+				currItem->CPos = currItem->itemText.selectWord(currItem->CPos);
 			}
+			currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
 		}
 	}
 	else
@@ -720,19 +719,33 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					if (currItem->itemText.lengthOfSelection() > 0)
 					{
 						if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
+						{
+							if (m->modifiers() & Qt::ControlModifier)
+								currItem->CPos = currItem->itemText.startOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
 							oldP = currItem->itemText.startOfSelection();
+						}
 						else
+						{
+							if (m->modifiers() & Qt::ControlModifier)
+								currItem->CPos = currItem->itemText.endOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
 							oldP = currItem->itemText.endOfSelection();
+						}
 						currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
 						oldCp = currItem->CPos;
 					}
 					else
 					{
 						int dir=1;
-						if (oldCp>currItem->CPos)
+						if (oldCp > currItem->CPos)
 							dir=-1;
-						if (currItem->asTextFrame())
-							currItem->asTextFrame()->ExpandSel(dir, oldP);
+						if (m->modifiers() & Qt::ControlModifier) //no selection but Ctrl+Shift+click still select paragraphs
+						{
+							if (dir == 1)
+								currItem->CPos = currItem->itemText.endOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
+							else
+								currItem->CPos = currItem->itemText.startOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
+						}
+						currItem->asTextFrame()->ExpandSel(dir, oldP);
 						oldCp = oldP;
 					}
 				}
