@@ -153,9 +153,74 @@ SET(SCRIBUS_UI_SRC
 )
 
 SET(SCRIBUS_MOC_CLASSES
+  actionmanager.h
+  canvas.h
+  canvasgesture_rulermove.h
+  canvasmode.h
+  canvasmode_edit.h
+#  canvasmode_legacy.h
+  canvasmode_measurements.h
+  canvasmode_normal.h
+  chartablemodel.h
+  chartableview.h
+  collect4output.h
+  colorblind.h
+  commonstrings.h
+  deferredtask.h
+  docinfo.h
+  fileloader.h
+  filesearch.h
+  filewatcher.h
+  fontlistmodel.h
+  guidesdelegate.h
+  guidesmodel.h
+  guidesview.h
+  hyphenator.h
+  latexhelpers.h
+  loadsaveplugin.h
+  menumanager.h
+  navigator.h
+  observable.h 
+  pageitem.h
+  pageitem_imageframe.h
+  pageitem_latexframe.h
+  pageitem_line.h
+  pageitem_pathtext.h
+  pageitem_polygon.h
+  pageitem_polyline.h
+  pageitem_symbol.h
+  pageitem_textframe.h
+  pageitempointer.h
+  pdf_analyzer.h
+  pdflib.h
+  pdflib_core.h
+  pluginmanager.h
+  prefsmanager.h
+  pslib.h
+  sampleitem.h
+  scgtplugin.h
+  schelptreemodel.h
+  scimagecachedir.h
+  scimagecachefile.h
+  scimagecachemanager.h
+  scplugin.h
+  scprintengine.h
+  scraction.h
+  scribus.h
+  scribusapp.h
+  scribuscore.h
+  scribusdoc.h
+  scribusview.h
+  scribuswin.h
+  selection.h
+  styleitem.h
+  tocgenerator.h
+  undogui.h
+  undomanager.h
+  upgradechecker.h
+  urllauncher.h
   ui/about.h
   ui/aboutplugins.h
-  actionmanager.h
   ui/adjustcmsdialog.h
   ui/aligndistribute.h
   ui/alignselect.h
@@ -169,28 +234,16 @@ SET(SCRIBUS_MOC_CLASSES
   ui/bookmarkpalette.h
   ui/bookmwin.h
   ui/buttonicon.h
-  canvas.h
-  canvasgesture_rulermove.h
-  canvasmode.h
-  canvasmode_edit.h
-#  canvasmode_legacy.h
-  canvasmode_measurements.h
-  canvasmode_normal.h
   ui/charselect.h
   ui/charselectenhanced.h
-  chartablemodel.h
-  chartableview.h
   ui/charzoom.h
   ui/checkDocument.h
   ui/cmsprefs.h
   ui/cmykfw.h
-  collect4output.h
   ui/collectforoutput_ui.h
-  colorblind.h
   ui/colorchart.h
   ui/colorcombo.h
   ui/colorlistbox.h
-  commonstrings.h
   ui/contextmenu.h
   ui/cpalette.h
   ui/cupsoptions.h
@@ -198,19 +251,13 @@ SET(SCRIBUS_MOC_CLASSES
   ui/customfdialog.h
   ui/dasheditor.h
   ui/dcolor.h
-  deferredtask.h
   ui/delpages.h
-  docinfo.h
 #  ui/docitemattrprefs.h
 #  ui/docsections.h
   ui/editor.h
   ui/effectsdialog.h
   ui/extimageprops.h
-  fileloader.h
-  filesearch.h
-  filewatcher.h
   ui/fontcombo.h
-  fontlistmodel.h
   ui/fontlistview.h
 #  ui/fontprefs.h
   ui/fontreplacedialog.h
@@ -221,13 +268,9 @@ SET(SCRIBUS_MOC_CLASSES
   ui/gtdialogs.h
   ui/gtfiledialog.h
   ui/guidemanager.h
-  guidesdelegate.h
-  guidesmodel.h
-  guidesview.h
   ui/helpbrowser.h
   ui/hruler.h
   ui/hyask.h
-  hyphenator.h
 #  ui/hysettings.h
   ui/imageinfodialog.h
   ui/insertTable.h
@@ -235,9 +278,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/inspage.h
   ui/javadocs.h
   ui/latexeditor.h
-  latexhelpers.h
   ui/layers.h
-  loadsaveplugin.h
   ui/loremipsum.h
   ui/margindialog.h
   ui/marginpresetlayout.h
@@ -245,46 +286,29 @@ SET(SCRIBUS_MOC_CLASSES
   ui/newmarginwidget.h
   ui/masterpagepalette.h
   ui/measurements.h
-  menumanager.h
   ui/mergedoc.h
   ui/missing.h
   ui/movepage.h
   ui/multipleduplicate.h
   ui/multiprogressdialog.h
-  navigator.h
   ui/newfile.h
   ui/newtemp.h
   ui/nftdialog.h
   ui/nftwidget.h
   ui/nodeeditpalette.h
-  observable.h
   ui/oneclick.h
   ui/outlinepalette.h
-  pageitem.h
-  pageitem_imageframe.h
-  pageitem_latexframe.h
-  pageitem_line.h
-  pageitem_pathtext.h
-  pageitem_polygon.h
-  pageitem_polyline.h
-  pageitem_symbol.h
-  pageitem_textframe.h
   ui/pageitemattributes.h
-  pageitempointer.h
   ui/pagelayout.h
   ui/pagepalette.h
   ui/pageselector.h
   ui/paintmanager.h
 #  ui/patterndialog.h
   ui/patternpropsdialog.h
-  pdf_analyzer.h
-  pdflib.h
-  pdflib_core.h
   ui/pdfopts.h
   ui/picsearch.h
   ui/picsearchoptions.h
   ui/picstatus.h
-  pluginmanager.h
   ui/pluginmanagerprefsgui.h
   ui/polygonwidget.h
   ui/polyprops.h
@@ -317,37 +341,20 @@ SET(SCRIBUS_MOC_CLASSES
   ui/prefs_pdfexport.h
   ui/prefs_tableofcontents.h
   ui/prefs_documentitemattributes.h
-  prefsmanager.h
   ui/prefspanel.h
   ui/preview.h
   ui/printdialog.h
   ui/propertiespalette.h
-  pslib.h
   ui/query.h
 #  ui/reformdoc.h
   ui/replacecolors.h
   ui/replaceonecolor.h
   ui/rulermover.h
-  sampleitem.h
   ui/scfilewidget.h
-  scgtplugin.h
-  schelptreemodel.h
-  scimagecachedir.h
-  scimagecachefile.h
-  scimagecachemanager.h
   ui/scinputdialog.h
   ui/scmenu.h
   ui/scmessagebox.h
-  scplugin.h
-  scprintengine.h
-  scraction.h
   ui/scrapbookpalette.h
-  scribus.h
-  scribusapp.h
-  scribuscore.h
-  scribusdoc.h
-  scribusview.h
-  scribuswin.h
   ui/scmwmenumanager.h
   ui/scrpalettebase.h
   ui/scrspinbox.h
@@ -356,7 +363,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/sctoolbar.h
   ui/sctreewidget.h
   ui/search.h
-  selection.h
   ui/selectobjects.h
   ui/selfield.h
   ui/shadebutton.h
@@ -380,7 +386,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/smtextstyles.h
   ui/spalette.h
   ui/storyeditor.h
-  styleitem.h
   ui/stylemanager.h
   ui/styleselect.h
   ui/styleview.h
@@ -401,7 +406,6 @@ SET(SCRIBUS_MOC_CLASSES
 #  ui/tabscrapbook.h
 #  ui/tabtools.h
 #  ui/tabtypography.h
-  tocgenerator.h
 #  ui/tocindexprefs.h
   ui/transformdialog.h
   ui/transparencypalette.h
@@ -412,11 +416,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/filetoolbar.h  
   ui/modetoolbar.h
   ui/pdftoolbar.h
-  undogui.h
-  undomanager.h
   ui/unicodesearch.h
-  upgradechecker.h
-  urllauncher.h
   ui/useprintermarginsdialog.h
   ui/vruler.h
 #  ${SCRIBUS_ITEMSETTERS_CLASS}
@@ -424,23 +424,8 @@ SET(SCRIBUS_MOC_CLASSES
 )
 
 SET(SCRIBUS_SOURCES
-  ui/about.cpp
-  ui/aboutplugins.cpp
   actionmanager.cpp
-  ui/adjustcmsdialog.cpp
-  ui/aligndistribute.cpp
-  ui/alignselect.cpp
-  ui/annot.cpp
-  ui/annota.cpp
   annotation.cpp
-  ui/applytemplatedialog.cpp
-  ui/arrowchooser.cpp
-  ui/autoform.cpp
-  ui/autoformbuttongroup.cpp
-  ui/basepointwidget.cpp
-  ui/bookmarkpalette.cpp
-  ui/bookmwin.cpp
-  ui/buttonicon.cpp
   canvas.cpp
   canvasgesture_linemove.cpp
   canvasgesture_pan.cpp
@@ -466,62 +451,30 @@ SET(SCRIBUS_SOURCES
   canvasmode_objimport.cpp
   canvasmode_panning.cpp
   canvasmode_rotate.cpp
-  ui/charselect.cpp
-  ui/charselectenhanced.cpp
   chartablemodel.cpp
   chartableview.cpp
-  ui/charzoom.cpp
-  ui/checkDocument.cpp
   cmserrorhandling.cpp
   cmsettings.cpp
-  ui/cmsprefs.cpp
-  ui/cmykfw.cpp
   collect4output.cpp
-  ui/collectforoutput_ui.cpp
   colorblind.cpp
-  ui/colorchart.cpp
-  ui/colorcombo.cpp
-  ui/colorlistbox.cpp
   colorsetmanager.cpp
   commonstrings.cpp
-  ui/contextmenu.cpp
-  ui/cpalette.cpp
-  ui/cupsoptions.cpp
-  ui/curvewidget.cpp
-  ui/customfdialog.cpp
-  ui/dasheditor.cpp
-  ui/dcolor.cpp
   deferredtask.cpp
-  ui/delpages.cpp
   docinfo.cpp
-#  ui/docitemattrprefs.cpp
-#  ui/docsections.cpp
   documentchecker.cpp
   documentinformation.cpp
-  ui/editor.cpp
-  ui/effectsdialog.cpp
   exif.cpp
-  ui/extimageprops.cpp
   fileloader.cpp
   filesearch.cpp
   fileunzip.cpp
   filewatcher.cpp
   ui/fontcombo.cpp
   fontlistmodel.cpp
-  ui/fontlistview.cpp
-#  ui/fontprefs.cpp
-  ui/fontreplacedialog.cpp
   fparser.cpp
   fpoint.cpp
   fpointarray.cpp
   fpoptimizer.cpp
-  ui/gradientaddedit.cpp
-  ui/gradienteditor.cpp
-  ui/gradientvectordialog.cpp
-  ui/gradientpreview.cpp
   gtaction.cpp
-  ui/gtdialogs.cpp
-  ui/gtfiledialog.cpp
   gtfont.cpp
   gtframestyle.cpp
   gtgettext.cpp
@@ -529,58 +482,25 @@ SET(SCRIBUS_SOURCES
   gtparagraphstyle.cpp
   gtstyle.cpp
   gtwriter.cpp
-  ui/guidemanager.cpp
   guidemanagercore.cpp
   guidesdelegate.cpp
   guidesmodel.cpp
   guidesview.cpp
-  ui/helpbrowser.cpp
   hnjalloc.c
-  ui/hruler.cpp
-  ui/hyask.cpp
   hyphen.c
   hyphenator.cpp
-#  ui/hysettings.cpp
-  ui/imageinfodialog.cpp
-  ui/insertTable.cpp
-  ui/insertaframe.cpp
-  ui/inspage.cpp
   ioapi.c
-  ui/javadocs.cpp
   KarbonCurveFit.cpp
   langmgr.cpp
-  ui/latexeditor.cpp
   latexhelpers.cpp
-  ui/layers.cpp
-  ui/linecombo.cpp
-  ui/linkbutton.cpp
   loadsaveplugin.cpp
-  ui/loremipsum.cpp
-  ui/margindialog.cpp
-  ui/marginpresetlayout.cpp
-  ui/marginwidget.cpp
-  ui/newmarginwidget.cpp
-  ui/masterpagepalette.cpp
-  ui/measurements.cpp
   menumanager.cpp
-  ui/mergedoc.cpp
   mesh.cpp
-  ui/missing.cpp
-  ui/movepage.cpp
-  ui/multipleduplicate.cpp
-  ui/multiprogressdialog.cpp
   navigator.cpp
-  ui/newfile.cpp
-  ui/newtemp.cpp
-  ui/nftdialog.cpp
-  ui/nftwidget.cpp
+  observable.cpp
   nftrcreader.cpp
   nftsettings.cpp
   nfttemplate.cpp
-  ui/nodeeditpalette.cpp
-  observable.cpp
-  ui/oneclick.cpp
-  ui/outlinepalette.cpp
   page.cpp
   pageitem.cpp
   pageitem_desaxe.cpp
@@ -592,30 +512,205 @@ SET(SCRIBUS_SOURCES
   pageitem_polyline.cpp
   pageitem_symbol.cpp
   pageitem_textframe.cpp
-  ui/pageitemattributes.cpp
   pageitempointer.cpp
-  ui/pagelayout.cpp
-  ui/pagepalette.cpp
-  ui/pageselector.cpp
   pagesize.cpp
-  ui/paintmanager.cpp
-#  ui/patterndialog.cpp
-  ui/patternpropsdialog.cpp
   pdf_analyzer.cpp
   pdflib.cpp
   pdflib_core.cpp
   pdfoptions.cpp
   pdfoptionsio.cpp
+  pluginmanager.cpp
+  prefscontext.cpp
+  prefsfile.cpp
+  prefsmanager.cpp
+  prefsreader.cpp
+  prefstable.cpp
+  pslib.cpp
+  rawimage.cpp
+  rc4.c
+  sampleitem.cpp
+  scclocale.cpp
+  sccolor.cpp
+  sccolorengine.cpp
+  sccolorshade.cpp
+  scdocoutput.cpp
+  scdocoutput_ps2.cpp
+  scfonts.cpp
+  scgtplugin.cpp
+  scgzfile.cpp
+  schelptreemodel.cpp
+  scimage.cpp
+  scimagecacheproxy.cpp
+  scimagecachedir.cpp
+  scimagecachefile.cpp
+  scimagecachemanager.cpp
+  scimagecachewriteaction.cpp
+  scimagestructs.cpp
+  scimgdataloader.cpp
+  scimgdataloader_gimp.cpp
+  scimgdataloader_jpeg.cpp
+  scimgdataloader_pdf.cpp
+  scimgdataloader_pgf.cpp
+  scimgdataloader_pict.cpp
+  scimgdataloader_ps.cpp
+  scimgdataloader_psd.cpp
+  scimgdataloader_qt.cpp
+  scimgdataloader_tiff.cpp
+  scimgdataloader_wpg.cpp
+  sclayer.cpp
+  sclockedfile.cpp
+  scmimedata.cpp
+  scpageoutput.cpp
+  scpageoutput_ps2.cpp
+  scpainter.cpp
+  scpainterex_ps2.cpp
+  scpainterexbase.cpp
+  scpaths.cpp
+  scpattern.cpp
+  scplugin.cpp
+  scpreview.cpp
+  scprintengine_ps.cpp
+  scraction.cpp
+  scribus.cpp
+  scribusXml.cpp
+  scribusapp.cpp
+  scribuscore.cpp
+  scribusdoc.cpp
+  scribusview.cpp
+  scribuswin.cpp
+  scslainforeader.cpp
+  scstreamfilter.cpp
+  scstreamfilter_ascii85.cpp
+  scstreamfilter_flate.cpp
+  scstreamfilter_jpeg.cpp
+  scstreamfilter_rc4.cpp
+  sctextstream.cpp
+  sctextstruct.cpp
+  scxmlstreamreader.cpp
+  selection.cpp
+  serializer.cpp
+  stencilreader.cpp
+  styleitem.cpp
+  textwriter.cpp
+  tocgenerator.cpp
+  transaction.cpp
+  undogui.cpp
+  undomanager.cpp
+  undoobject.cpp
+  undostack.cpp
+  undostate.cpp
+  units.cpp
+  unzip.c
+  updatemanager.cpp
+  upgradechecker.cpp
+  urllauncher.cpp
+  util.cpp
+  util_color.cpp
+  util_file.cpp
+  util_formats.cpp
+  util_ghostscript.cpp
+  util_icon.cpp
+  util_layer.cpp
+  util_math.cpp
+  util_printer.cpp
+  util_text.cpp
+  vgradient.cpp
+  vgradientex.cpp
+  ui/about.cpp
+  ui/aboutplugins.cpp
+  ui/adjustcmsdialog.cpp
+  ui/aligndistribute.cpp
+  ui/alignselect.cpp
+  ui/annot.cpp
+  ui/annota.cpp
+  ui/applytemplatedialog.cpp
+  ui/arrowchooser.cpp
+  ui/autoform.cpp
+  ui/autoformbuttongroup.cpp
+  ui/basepointwidget.cpp
+  ui/bookmarkpalette.cpp
+  ui/bookmwin.cpp
+  ui/buttonicon.cpp
+  ui/charselect.cpp
+  ui/charselectenhanced.cpp
+  ui/charzoom.cpp
+  ui/checkDocument.cpp
+  ui/cmsprefs.cpp
+  ui/cmykfw.cpp
+  ui/collectforoutput_ui.cpp
+  ui/colorchart.cpp
+  ui/colorcombo.cpp
+  ui/colorlistbox.cpp
+  ui/contextmenu.cpp
+  ui/cpalette.cpp
+  ui/cupsoptions.cpp
+  ui/curvewidget.cpp
+  ui/customfdialog.cpp
+  ui/dasheditor.cpp
+  ui/dcolor.cpp
+  ui/delpages.cpp
+#  ui/docitemattrprefs.cpp
+#  ui/docsections.cpp
+  ui/editor.cpp
+  ui/effectsdialog.cpp
+  ui/extimageprops.cpp
+  ui/fontlistview.cpp
+#  ui/fontprefs.cpp
+  ui/fontreplacedialog.cpp
+  ui/gradientaddedit.cpp
+  ui/gradienteditor.cpp
+  ui/gradientvectordialog.cpp
+  ui/gradientpreview.cpp
+  ui/gtdialogs.cpp
+  ui/gtfiledialog.cpp
+  ui/guidemanager.cpp
+  ui/helpbrowser.cpp
+  ui/hruler.cpp
+  ui/hyask.cpp
+#  ui/hysettings.cpp
+  ui/imageinfodialog.cpp
+  ui/insertTable.cpp
+  ui/insertaframe.cpp
+  ui/inspage.cpp
+  ui/javadocs.cpp
+  ui/latexeditor.cpp
+  ui/layers.cpp
+  ui/linecombo.cpp
+  ui/linkbutton.cpp
+  ui/loremipsum.cpp
+  ui/margindialog.cpp
+  ui/marginpresetlayout.cpp
+  ui/marginwidget.cpp
+  ui/newmarginwidget.cpp
+  ui/masterpagepalette.cpp
+  ui/mergedoc.cpp
+  ui/missing.cpp
+  ui/movepage.cpp
+  ui/multipleduplicate.cpp
+  ui/multiprogressdialog.cpp
+  ui/measurements.cpp
+  ui/newfile.cpp
+  ui/newtemp.cpp
+  ui/nftdialog.cpp
+  ui/nftwidget.cpp
+  ui/nodeeditpalette.cpp
+  ui/oneclick.cpp
+  ui/outlinepalette.cpp
+  ui/pageitemattributes.cpp
+  ui/pagelayout.cpp
+  ui/pagepalette.cpp
+  ui/pageselector.cpp
+  ui/paintmanager.cpp
+#  ui/patterndialog.cpp
+  ui/patternpropsdialog.cpp
   ui/pdfopts.cpp
   ui/picsearch.cpp
   ui/picsearchoptions.cpp
   ui/picstatus.cpp
-  pluginmanager.cpp
   ui/pluginmanagerprefsgui.cpp
   ui/polygonwidget.cpp
   ui/polyprops.cpp
 #  ui/prefs.cpp
-  prefscontext.cpp
   ui/preferencesdialog.cpp
   ui/prefs_colormanagement.cpp
   ui/prefs_display.cpp
@@ -643,100 +738,32 @@ SET(SCRIBUS_SOURCES
   ui/prefs_tableofcontents.cpp
   ui/prefs_documentitemattributes.cpp
 #  ui/prefsdialogbase.cpp
-  prefsfile.cpp
-  prefsmanager.cpp
   ui/prefspanel.cpp
-  prefsreader.cpp
-  prefstable.cpp
   ui/preview.cpp
   ui/printdialog.cpp
   ui/propertiespalette.cpp
-  pslib.cpp
   ui/query.cpp
-  rawimage.cpp
-  rc4.c
 #  ui/reformdoc.cpp
   ui/replacecolors.cpp
   ui/replaceonecolor.cpp
   ui/rulermover.cpp
-  sampleitem.cpp
-  scclocale.cpp
-  sccolor.cpp
-  sccolorengine.cpp
-  sccolorshade.cpp
   ui/sccombobox.cpp
-  scdocoutput.cpp
-  scdocoutput_ps2.cpp
   ui/scfilewidget.cpp
-  scfonts.cpp
-  scgtplugin.cpp
-  scgzfile.cpp
-  schelptreemodel.cpp
-  scimage.cpp
-  scimagecacheproxy.cpp
-  scimagecachedir.cpp
-  scimagecachefile.cpp
-  scimagecachemanager.cpp
-  scimagecachewriteaction.cpp
-  scimagestructs.cpp
-  scimgdataloader.cpp
-  scimgdataloader_gimp.cpp
-  scimgdataloader_jpeg.cpp
-  scimgdataloader_pdf.cpp
-  scimgdataloader_pgf.cpp
-  scimgdataloader_pict.cpp
-  scimgdataloader_ps.cpp
-  scimgdataloader_psd.cpp
-  scimgdataloader_qt.cpp
-  scimgdataloader_tiff.cpp
-  scimgdataloader_wpg.cpp
   ui/scinputdialog.cpp
-  sclayer.cpp
-  sclockedfile.cpp
   ui/scmenu.cpp
   ui/scmessagebox.cpp
-  scmimedata.cpp
-  scpageoutput.cpp
-  scpageoutput_ps2.cpp
-  scpainter.cpp
-  scpainterex_ps2.cpp
-  scpainterexbase.cpp
-  scpaths.cpp
-  scpattern.cpp
-  scplugin.cpp
-  scpreview.cpp
-  scprintengine_ps.cpp
-  scraction.cpp
   ui/scrapbookpalette.cpp
   ui/scresizecursor.cpp
-  scribus.cpp
-  scribusXml.cpp
-  scribusapp.cpp
-  scribuscore.cpp
-  scribusdoc.cpp
-  scribusview.cpp
-  scribuswin.cpp
   ui/scmwmenumanager.cpp
   ui/scrpalettebase.cpp
   ui/scrspinbox.cpp
-  scslainforeader.cpp
-  scstreamfilter.cpp
-  scstreamfilter_ascii85.cpp
-  scstreamfilter_flate.cpp
-  scstreamfilter_jpeg.cpp
-  scstreamfilter_rc4.cpp
   ui/sctablewidget.cpp
   ui/sctextbrowser.cpp
-  sctextstream.cpp
-  sctextstruct.cpp
   ui/sctoolbar.cpp
   ui/sctreewidget.cpp
-  scxmlstreamreader.cpp
   ui/search.cpp
-  selection.cpp
   ui/selectobjects.cpp
   ui/selfield.cpp
-  serializer.cpp
   ui/shadebutton.cpp
   ui/shortcutwidget.cpp
   ui/smalignselect.cpp
@@ -759,9 +786,7 @@ SET(SCRIBUS_SOURCES
   ui/smtextstyles.cpp
   ui/spalette.cpp
   ui/splash.cpp
-  stencilreader.cpp
   ui/storyeditor.cpp
-  styleitem.cpp
   ui/stylemanager.cpp
   ui/styleselect.cpp
   ui/styleview.cpp
@@ -782,10 +807,7 @@ SET(SCRIBUS_SOURCES
 #  ui/tabscrapbook.cpp
 #  ui/tabtools.cpp
 #  ui/tabtypography.cpp
-  textwriter.cpp
-  tocgenerator.cpp
 #  ui/tocindexprefs.cpp
-  transaction.cpp
   ui/transformdialog.cpp
   ui/transparencypalette.cpp
   tt/simpletreemodel/treeitem.cpp
@@ -797,31 +819,9 @@ SET(SCRIBUS_SOURCES
   ui/helpnavigation.cpp
   ui/modetoolbar.cpp
   ui/pdftoolbar.cpp
-  undogui.cpp
-  undomanager.cpp
-  undoobject.cpp
-  undostack.cpp
-  undostate.cpp
   ui/unicodesearch.cpp
-  units.cpp
-  unzip.c
-  updatemanager.cpp
-  upgradechecker.cpp
-  urllauncher.cpp
-  ui/useprintermarginsdialog.cpp
-  util.cpp
-  util_color.cpp
-  util_file.cpp
-  util_formats.cpp
-  util_ghostscript.cpp
-  util_icon.cpp
-  util_layer.cpp
-  util_math.cpp
-  util_printer.cpp
-  util_text.cpp
-  vgradient.cpp
-  vgradientex.cpp
   ui/vruler.cpp
+  ui/useprintermarginsdialog.cpp
 #  ${SCRIBUS_ITEMSETTERS_SRC}
   ${SCRIBUS_OSG_SRC}
   ${SCRIBUS_GMAGICK_SRC}
