@@ -406,12 +406,10 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
-	FPoint minSize = m_Doc->minCanvasCoordinate;
-	FPoint maxSize = m_Doc->maxCanvasCoordinate;
-	FPoint cOrigin = m_Doc->view()->canvasOrigin();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->updatesOn(false);
+	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
@@ -492,14 +490,17 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				m_Doc->setLoading(false);
 				m_Doc->changed();
 				m_Doc->setLoading(loadF);
-				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				if (!flags & LoadSavePlugin::lfLoadAsPattern)
 				{
-					m_Doc->m_Selection->addItem(Elements.at(dre), true);
+					m_Doc->m_Selection->delaySignalsOn();
+					for (int dre=0; dre<Elements.count(); ++dre)
+					{
+						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+					}
+					m_Doc->m_Selection->delaySignalsOff();
+					m_Doc->m_Selection->setGroupRect();
+					m_Doc->view()->updatesOn(true);
 				}
-				m_Doc->m_Selection->delaySignalsOff();
-				m_Doc->m_Selection->setGroupRect();
-				m_Doc->view()->updatesOn(true);
 			}
 			else
 			{
@@ -538,7 +539,8 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 		{
 			m_Doc->changed();
 			m_Doc->reformPages();
-			m_Doc->view()->updatesOn(true);
+			if (!flags & LoadSavePlugin::lfLoadAsPattern)
+				m_Doc->view()->updatesOn(true);
 		}
 		success = true;
 	}
@@ -553,8 +555,11 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
-	if ((showProgress) && (!interactive))
-		m_Doc->view()->DrawNew();
+	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	{
+		if ((showProgress) && (!interactive))
+			m_Doc->view()->DrawNew();
+	}
 	return success;
 }
 

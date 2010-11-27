@@ -593,14 +593,13 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 				m_Doc->documentInfo().setKeywords(Keys.left(Keys.length()-2));
 		}
 	}
-	FPoint minSize = m_Doc->minCanvasCoordinate;
-	FPoint maxSize = m_Doc->maxCanvasCoordinate;
-	FPoint cOrigin = m_Doc->view()->canvasOrigin();
-	m_Doc->view()->Deselect();
+	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->updatesOn(false);
+	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if (!m_Doc->PageColors.contains("Black"))
@@ -708,14 +707,17 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->setLoading(false);
 			m_Doc->changed();
 			m_Doc->setLoading(loadF);
-			m_Doc->m_Selection->delaySignalsOn();
-			for (int dre=0; dre<Elements.count(); ++dre)
+			if (!flags & LoadSavePlugin::lfLoadAsPattern)
 			{
- 				m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				m_Doc->m_Selection->delaySignalsOn();
+				for (int dre=0; dre<Elements.count(); ++dre)
+				{
+					m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				}
+				m_Doc->m_Selection->delaySignalsOff();
+				m_Doc->m_Selection->setGroupRect();
+				m_Doc->view()->updatesOn(true);
 			}
-			m_Doc->m_Selection->delaySignalsOff();
-	 		m_Doc->m_Selection->setGroupRect();
-			m_Doc->view()->updatesOn(true);
 			importCanceled = false;
 		}
 		else
@@ -757,7 +759,8 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		m_Doc->setLoading(false);
 		m_Doc->changed();
 		m_Doc->reformPages();
-		m_Doc->view()->updatesOn(true);
+		if (!flags & LoadSavePlugin::lfLoadAsPattern)
+			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
 	return true;

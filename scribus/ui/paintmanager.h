@@ -32,13 +32,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "vgradient.h"
+#include "scpattern.h"
 
 class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 {
 	Q_OBJECT
 
 	public:
-		PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, ScribusDoc *doc, ScribusMainWindow* scMW);
+		PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~PaintManagerDialog() {};
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */
@@ -62,6 +63,10 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		//! \brief Custom user's color set
 		QStringList customColSet;
 		bool hasImportedColors;
+		QMap<QString, ScPattern> dialogPatterns;
+		QMap<QString,QString> replaceMapPatterns;
+		QMap<QString,QString> origNamesPatterns;
+		QStringList origPatterns;
 	private slots:
 		void leaveDialog();
 		void slotRightClick(QPoint p);
@@ -77,13 +82,17 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		void loadDefaults(QTreeWidgetItem* item);
 		void saveDefaults();
 	protected:
+		QTreeWidgetItem* updatePatternList(QString addedName = "");
 		QTreeWidgetItem* updateGradientList(QString addedName = "");
 		QTreeWidgetItem* updateColorList(QString addedName = "");
 		ColorList getGradientColors();
+		void loadPatternDir();
+		void loadVectors(QString data);
 		void updateGradientColors(QString newName, QString oldName);
 		void loadGimpFormat(QString fileName);
 		void addGimpColor(QString &colorName, double r, double g, double b);
 		void loadScribusFormat(QString fileName);
+		QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
 		void doSaveDefaults(QString name, bool changed = false);
 		ColorSetManager csm;
 		bool paletteLocked;
@@ -91,6 +100,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		int sortRule;
 		QTreeWidgetItem *colorItems;
 		QTreeWidgetItem *gradientItems;
+		QTreeWidgetItem *patternItems;
 		QTreeWidgetItem *systemSwatches;
 		QTreeWidgetItem *userSwatches;
 		ColorList inDocUsedColors;

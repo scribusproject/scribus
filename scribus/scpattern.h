@@ -37,7 +37,7 @@ class SCRIBUS_API ScPattern
 {
 public:
 	ScPattern();
-	~ScPattern() {};
+	~ScPattern();
 	QImage* getPattern();
 	void setDoc(ScribusDoc *doc);
 	void setPattern(QString file);

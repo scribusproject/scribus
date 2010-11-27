@@ -206,6 +206,8 @@ public:
 	 * information such as filename and does the serialization of your files.
 	 */
 	ScribusDoc *doc;
+	/** \brief private doc for managing default patterns. */
+	ScribusDoc* m_doc;
 
 
 	QProgressBar* mainWindowProgressBar;
@@ -553,8 +555,8 @@ public slots:
 	void slotInsertFrame();
 	//! \brief Transform an item
 	void slotItemTransform();
-	//! \brief manages the documents patterns
-	void managePatterns();
+//	//! \brief manages the documents patterns
+//	void managePatterns();
 	//! \brief manages the documents gradients
 //	void manageGradients();
 	//! \brief manages paints

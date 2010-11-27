@@ -44,6 +44,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool savePalette(const QString & fileName);
+		virtual bool loadPalette(const QString & fileName);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - .sla page extraction support

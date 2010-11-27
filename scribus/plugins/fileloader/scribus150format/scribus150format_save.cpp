@@ -36,6 +36,30 @@ for which a new license (GPL+exception) is in place.
 
 #include "scxmlstreamwriter.h"
 
+bool Scribus150Format::savePalette(const QString & fileName)
+{
+	QString fileDir = QFileInfo(fileName).absolutePath();
+	std::auto_ptr<QIODevice> outputFile;
+	outputFile.reset( new QFile(fileName) );
+	if (!outputFile->open(QIODevice::WriteOnly))
+		return false;
+	ScXmlStreamWriter docu;
+	docu.setAutoFormatting(true);
+	docu.setDevice(outputFile.get());
+	docu.writeStartDocument();
+	docu.writeStartElement("SCRIBUSCOLORS");
+	writeColors(docu);
+	writeGradients(docu);
+	writePatterns(docu, fileDir);
+	docu.writeEndElement();
+	docu.writeEndDocument();
+	bool  writeSucceed = false;
+	const QFile* qFile = dynamic_cast<QFile*>(outputFile.get());
+	writeSucceed = (qFile->error() == QFile::NoError);
+	outputFile->close();
+	return writeSucceed;
+}
+
 bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
 	QString text, tf, tf2, tc, tc2;

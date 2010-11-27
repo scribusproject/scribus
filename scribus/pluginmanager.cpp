@@ -319,7 +319,8 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			}
 			else
 			{
-				QString actionName(ai.menu.toLower()+ai.menuAfterName);
+//				QString actionName(ai.menu.toLower()+ai.menuAfterName);
+				QString actionName(ai.menuAfterName);
 				ScrAction* afterAction=0;
 				if (mw->scrActions.contains(actionName))
 					afterAction=mw->scrActions[actionName];

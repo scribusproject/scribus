@@ -89,7 +89,7 @@ SET(SCRIBUS_UI_SRC
   ui/nftwidget.ui
   ui/pageitemattributes.ui
   ui/paintmanagerbase.ui
-  ui/patterndialog.ui
+#  ui/patterndialog.ui
   ui/picsearch.ui
   ui/picsearchoptions.ui
   ui/picstatus.ui
@@ -275,7 +275,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pagepalette.h
   ui/pageselector.h
   ui/paintmanager.h
-  ui/patterndialog.h
+#  ui/patterndialog.h
   ui/patternpropsdialog.h
   pdf_analyzer.h
   pdflib.h
@@ -599,7 +599,7 @@ SET(SCRIBUS_SOURCES
   ui/pageselector.cpp
   pagesize.cpp
   ui/paintmanager.cpp
-  ui/patterndialog.cpp
+#  ui/patterndialog.cpp
   ui/patternpropsdialog.cpp
   pdf_analyzer.cpp
   pdflib.cpp

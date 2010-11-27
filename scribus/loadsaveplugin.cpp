@@ -206,6 +206,16 @@ bool LoadSavePlugin::saveFile(const QString & /* fileName */,
 	return false;
 }
 
+bool LoadSavePlugin::savePalette(const QString & fileName)
+{
+	return false;
+}
+
+bool LoadSavePlugin::loadPalette(const QString & fileName)
+{
+	return false;
+}
+
 void LoadSavePlugin::setFileReadError()
 {
 	m_lastError = tr("An error occured while opening file or file is damaged");
@@ -427,6 +437,16 @@ bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 bool FileFormat::saveFile(const QString & fileName) const
 {
 	return (plug && save) ? plug->saveFile(fileName, *this) : false;
+}
+
+bool FileFormat::savePalette(const QString & fileName) const
+{
+	return (plug && save) ? plug->savePalette(fileName) : false;
+}
+
+bool FileFormat::loadPalette(const QString & fileName) const
+{
+	return (plug && load) ? plug->loadPalette(fileName) : false;
 }
 
 QString FileFormat::lastSavedFile(void) const

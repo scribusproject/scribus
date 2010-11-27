@@ -13,8 +13,15 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util.h"
 #include "util_icon.h"
+#include "util_color.h"
+#include "util_formats.h"
 #include "commonstrings.h"
 #include "prefsstructs.h"
+#include "fileloader.h"
+#include "loadsaveplugin.h"
+#include "plugins/formatidlist.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include <QDomElement>
 #include <QTextStream>
 #include <QByteArray>
@@ -246,3 +253,69 @@ bool ColorSetManager::paletteLocationLocked(const QString& palettePath)
 	return (paletteLocationLocks.contains(palettePath) && paletteLocationLocks.value(palettePath)==true);
 }
 
+bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName)
+{
+	QFile f(paletteFileName);
+	if(!f.open(QIODevice::ReadOnly))
+		return false;
+	QDomDocument docu("scridoc");
+	QTextStream ts(&f);
+	ts.setCodec("UTF-8");
+	QString errorMsg;
+	int errorLine = 0, errorColumn = 0;
+	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
+	{
+		f.close();
+		return false;
+	}
+	f.close();
+	QDomElement elem = docu.documentElement();
+	if (elem.tagName() != "SCRIBUSCOLORS")
+		return false;
+	return true;
+}
+
+bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QMap<QString,VGradient> &gradients, QMap<QString, ScPattern> &patterns, bool merge)
+{
+	if (checkPaletteFormat(paletteFileName))
+	{
+		ColorList colorListBack = doc->PageColors;
+		QMap<QString, VGradient> dialogGradientsBack = doc->docGradients;
+		QMap<QString, ScPattern> dialogPatternsBack = doc->docPatterns;
+		if (merge)
+		{
+			doc->PageColors = colors;
+			doc->docGradients = gradients;
+			doc->docPatterns = patterns;
+		}
+		else
+		{
+			doc->PageColors.clear();
+			doc->docGradients.clear();
+			doc->docPatterns.clear();
+		}
+		const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT);
+		if (fmt)
+		{
+			fmt->setupTargets(doc, 0, doc->scMW(), 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+			fmt->loadPalette(paletteFileName);
+		}
+		else
+			return false;
+		colors = doc->PageColors;
+		colors.setDocument(doc);
+		gradients = doc->docGradients;
+		patterns = doc->docPatterns;
+		doc->PageColors = colorListBack;
+		doc->docGradients = dialogGradientsBack;
+		doc->docPatterns = dialogPatternsBack;
+	}
+	else
+	{
+		if (importColorsFromFile(paletteFileName, colors, &gradients, merge))
+			colors.ensureDefaultColors();
+		else
+			return false;
+	}
+	return true;
+}

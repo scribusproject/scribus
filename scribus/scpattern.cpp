@@ -41,6 +41,10 @@ ScPattern::ScPattern()
 	yoffset = 0.0;
 };
 
+ScPattern::~ScPattern()
+{
+}
+
 void ScPattern::setDoc(ScribusDoc *doc)
 {
 	m_doc = doc;
@@ -54,6 +58,7 @@ QImage* ScPattern::getPattern()
 void ScPattern::setPattern(QString name)
 {
 	items.clear();
+	m_doc->setLoading(true);
 	PageItem* newItem = new PageItem_ImageFrame(m_doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 	if (newItem->loadImage(name, false, 72, false))
 	{
@@ -73,4 +78,5 @@ void ScPattern::setPattern(QString name)
 	}
 	else
 		pattern = QImage();
+	m_doc->setLoading(false);
 }

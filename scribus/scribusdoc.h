@@ -603,6 +603,10 @@ public:
 	*/
 	bool lineStylesUseColor(const QString& colorName);
 	/*!
+	* @brief Builds a qmap of the gradients used within the document
+	*/
+	void getUsedGradients(QMap<QString, VGradient> &Gradients);
+	/*!
 	* @brief Set the gradients for a document
 	*/
 	bool addGradient(QString &name, VGradient &gradient);
@@ -1215,6 +1219,7 @@ signals:
 	void rotationMode(int);
 	
 public slots:
+	void selectionChanged();
 	void itemSelection_ToggleLock();
 	void itemSelection_ToggleSizeLock();
 	void itemSelection_ToggleImageShown();

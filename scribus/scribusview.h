@@ -318,7 +318,6 @@ private slots:
 	 * @param y 
 	 */
 	void setRulerPos(int x, int y);
-	void selectionChanged();
 	void setObjectUndoMode();
 	void setGlobalUndoMode();
 	void dragTimerTimeOut();

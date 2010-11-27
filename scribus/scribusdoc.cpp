@@ -518,20 +518,32 @@ ScribusDoc::~ScribusDoc()
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
-			if (currItem->PictureIsAvailable)
-				ScCore->fileWatcher->removeFile(currItem->Pfile);
-			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+			if (currItem->itemType() == PageItem::ImageFrame)
 			{
-				QFileInfo fi(currItem->Pfile);
-				ScCore->fileWatcher->removeDir(fi.absolutePath());
+				if ((currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
+				{
+					ScCore->fileWatcher->removeFile(currItem->Pfile);
+					QFileInfo fi(currItem->Pfile);
+					ScCore->fileWatcher->removeDir(fi.absolutePath());
+				}
 			}
 		}
+		while (!pa.items.isEmpty())
+		{
+			delete pa.items.takeFirst();
+		}
 	}
+	docPatterns.clear();
+	docGradients.clear();
 	while (!DocItems.isEmpty())
 	{
 		delete DocItems.takeFirst();
 	}
-	FrameItems.clear();
+	while (!FrameItems.isEmpty())
+	{
+		delete FrameItems.takeFirst();
+	}
+//	FrameItems.clear();
 
 	while (!MasterPages.isEmpty())
 	{
@@ -590,12 +602,6 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
-
-	docGradients = prefsManager->appPrefs.defaultGradients;
-
-	PageColors = prefsManager->colorSet();
-	PageColors.ensureDefaultColors();
-	PageColors.setDocument(this);
 
 	docPrefsData.colorPrefs.DCMSset = prefsManager->appPrefs.colorPrefs.DCMSset;
 	docPrefsData.pdfPrefs.SolidProf = docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -2624,7 +2630,6 @@ void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 	}
 }
 
-
 void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 {
 	bool found;
@@ -2675,7 +2680,6 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	}
 }
 
-
 bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 {
 	bool found = false;
@@ -2696,6 +2700,19 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 		}
 	}
 	return found;
+}
+
+void ScribusDoc::getUsedGradients(QMap<QString, VGradient> &gradients)
+{
+	ResourceCollection resources;
+	this->getNamedResources(resources);
+	const QMap<QString, QString>& resGradients = resources.gradients();
+	QMap<QString, VGradient>::iterator it;
+	for (it = docGradients.begin(); it != docGradients.end(); ++it)
+	{
+		if (resGradients.contains(it.key()))
+			gradients.insert(it.key(), docGradients[it.key()]);
+	}
 }
 
 bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
@@ -7877,6 +7894,20 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	//FIXME: stop using m_View
 	m_View->updateLayerMenu();
 	setActiveLayer(newLayerID);
+}
+
+void ScribusDoc::selectionChanged()
+{
+	if (m_ScMW->isObjectSpecificUndo())
+	{
+		uint docSelectionCount = m_Selection->count();
+		if (docSelectionCount == 1)
+			undoManager->showObject(m_Selection->itemAt(0)->getUId());
+		else if (docSelectionCount == 0)
+			undoManager->showObject(currentPage()->getUId());
+		else
+			undoManager->showObject(Um::NO_UNDO_STACK);
+	}
 }
 
 

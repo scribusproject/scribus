@@ -143,6 +143,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.textSize = 120;
 
 	/** Default colours **/
+	appPrefs.defaultPatterns.clear();
 	appPrefs.defaultGradients.clear();
 	appPrefs.colorPrefs.DColors.clear();
 
@@ -2353,36 +2354,10 @@ bool PrefsManager::ReadPref(QString ho)
 		  appPrefs.fontPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
 		if (dc.tagName()=="DefaultColorSet")
 		{
-			appPrefs.colorPrefs.DColors.clear();
-			QString pfadC = "";
 			appPrefs.colorPrefs.DColorSet = dc.attribute("Name");
-			QStringList CustomColorSets = csm.userPaletteNames();
-			if (CustomColorSets.contains(appPrefs.colorPrefs.DColorSet))
-				pfadC = csm.userPaletteFileFromName(appPrefs.colorPrefs.DColorSet);
-			else
-				pfadC = csm.paletteFileFromName(appPrefs.colorPrefs.DColorSet);
-			if (appPrefs.colorPrefs.DColorSet != "Scribus Small")
+			if (appPrefs.colorPrefs.DColorSet == "Scribus Small")
 			{
-				if (importColorsFromFile(pfadC, appPrefs.colorPrefs.DColors, &appPrefs.defaultGradients, false))
-					appPrefs.colorPrefs.DColors.ensureDefaultColors();
-				else
-				{
-					appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
-					appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
-					ScColor cc = ScColor(255, 255, 255, 255);
-					cc.setRegistrationColor(true);
-					appPrefs.colorPrefs.DColors.insert("Registration", cc);
-					appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
-					appPrefs.colorPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
-					appPrefs.colorPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
-					appPrefs.colorPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
-					appPrefs.colorPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
-					appPrefs.colorPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-					appPrefs.colorPrefs.DColorSet = "Scribus Small";
-				}
-			}
-			else
-			{
+				appPrefs.colorPrefs.DColors.clear();
 				appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
 				appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
 				ScColor cc = ScColor(255, 255, 255, 255);

@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "stencilreader.h"
 #include "scconfig.h"
+#include "scribusXml.h"
 #include "loadsaveplugin.h"
 #include "fileloader.h"
 #include "plugins/formatidlist.h"
@@ -47,11 +48,11 @@ for which a new license (GPL+exception) is in place.
 #include <QImageReader>
 #include <QPainter>
 
-PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
+PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *p_doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
-	m_doc = doc;
+	m_doc = p_doc;
 	mainWin = scMW;
 	patternView->clear();
 	patternView->setMinimumWidth(175);
@@ -367,9 +368,17 @@ void PatternDialog::loadVectors(QString data)
 	m_doc->useRaster = false;
 	m_doc->SnapGuides = false;
 	if (fi.suffix().toLower() == "sce")
-		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, m_doc, m_doc->view());
+	{
+		ScriXmlDoc ss;
+		ss.ReadElem(data, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, PrefsManager::instance()->appPrefs.fontPrefs.GFontSub);
+//		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, m_doc, m_doc->view());
+	}
 	else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
-		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, m_doc, m_doc->view());
+	{
+		ScriXmlDoc ss;
+		ss.ReadElem(data, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, PrefsManager::instance()->appPrefs.fontPrefs.GFontSub);
+//		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, m_doc, m_doc->view());
+	}
 	else
 	{
 		FileLoader *fileLoader = new FileLoader(data);
@@ -379,7 +388,7 @@ void PatternDialog::loadVectors(QString data)
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 			if( fmt )
-				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted|LoadSavePlugin::lfKeepPatterns);
+				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted|LoadSavePlugin::lfKeepPatterns|LoadSavePlugin::lfLoadAsPattern);
 		}
 	}
 	m_doc->useRaster = savedAlignGrid;
@@ -440,9 +449,9 @@ void PatternDialog::loadVectors(QString data)
 		}
 	}
 	m_doc->setLoading(false);
-	m_doc->view()->Deselect(false);
+//	m_doc->view()->Deselect(false);
 	UndoManager::instance()->setUndoEnabled(wasUndo);
-	m_doc->view()->DrawNew();
+//	m_doc->view()->DrawNew();
 }
 
 void PatternDialog::patternSelected(QListWidgetItem* it)

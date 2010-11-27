@@ -270,12 +270,10 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
-	FPoint minSize = m_Doc->minCanvasCoordinate;
-	FPoint maxSize = m_Doc->maxCanvasCoordinate;
-	FPoint cOrigin = m_Doc->view()->canvasOrigin();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->updatesOn(false);
+	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
@@ -356,14 +354,17 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->setLoading(false);
 				m_Doc->changed();
 				m_Doc->setLoading(loadF);
-				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				if (!flags & LoadSavePlugin::lfLoadAsPattern)
 				{
-					m_Doc->m_Selection->addItem(Elements.at(dre), true);
+					m_Doc->m_Selection->delaySignalsOn();
+					for (int dre=0; dre<Elements.count(); ++dre)
+					{
+						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+					}
+					m_Doc->m_Selection->delaySignalsOff();
+					m_Doc->m_Selection->setGroupRect();
+					m_Doc->view()->updatesOn(true);
 				}
-				m_Doc->m_Selection->delaySignalsOff();
-				m_Doc->m_Selection->setGroupRect();
-				m_Doc->view()->updatesOn(true);
 			}
 			else
 			{
@@ -397,7 +398,8 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		{
 			m_Doc->changed();
 			m_Doc->reformPages();
-			m_Doc->view()->updatesOn(true);
+			if (!flags & LoadSavePlugin::lfLoadAsPattern)
+				m_Doc->view()->updatesOn(true);
 		}
 		success = true;
 	}
@@ -406,14 +408,18 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
-		m_Doc->view()->updatesOn(true);
+		if (!flags & LoadSavePlugin::lfLoadAsPattern)
+			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
-	if ((showProgress) && (!interactive))
-		m_Doc->view()->DrawNew();
+	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	{
+		if ((showProgress) && (!interactive))
+			m_Doc->view()->DrawNew();
+	}
 	return success;
 }
 

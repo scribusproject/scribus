@@ -323,7 +323,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(previewToolbarButton, SIGNAL(clicked()), this, SLOT(togglePreview()));
 	connect(cmsToolbarButton, SIGNAL(clicked()), this, SLOT(toggleCMS()));
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
-	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
+	connect(this, SIGNAL(HaveSel(int)), Doc, SLOT(selectionChanged()));
 	languageChange();
 // Commented out to fix bug #7865
 //	m_dragTimer = new QTimer(this);
@@ -1890,20 +1890,6 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		//else
 			//EmitValues(currItem);
 			//currItem->emitAllToGUI();
-	}
-}
-
-void ScribusView::selectionChanged()
-{
-	if (m_ScMW->isObjectSpecificUndo())
-	{
-		uint docSelectionCount=Doc->m_Selection->count();
-		if (docSelectionCount == 1)
-			undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
-		else if (docSelectionCount == 0)
-			undoManager->showObject(Doc->currentPage()->getUId());
-		else
-			undoManager->showObject(Um::NO_UNDO_STACK);
 	}
 }
 

@@ -6813,7 +6813,7 @@ bool PageItem::connectToGUI()
 	PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
 	connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(SetCurItem(PageItem *)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel(int)));
-	connect(this, SIGNAL(frameType(int)), m_Doc->view(), SLOT(selectionChanged()));
+	connect(this, SIGNAL(frameType(int)), m_Doc, SLOT(selectionChanged()));
 	connect(this, SIGNAL(frameType(int)), pp, SLOT(NewSel(int)));
 	connect(this, SIGNAL(frameLocked(bool)), pp, SLOT(setLocked(bool)));
 	connect(this, SIGNAL(frameSizeLocked(bool)), pp, SLOT(setSizeLocked(bool)));

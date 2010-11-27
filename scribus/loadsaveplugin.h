@@ -50,7 +50,8 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 			lfKeepColors      =  32,
 			lfKeepGradients   =  64,
 			lfKeepPatterns    = 128,
-			lfCreateThumbnail = 256
+			lfCreateThumbnail = 256,
+			lfLoadAsPattern   = 512
 		};
 
 		// Static functions:
@@ -80,9 +81,11 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Load the requested format from the specified path.
 		// Default implementation always reports failure.
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
+		virtual bool loadPalette(const QString & fileName);
 
 		// Save the requested format to the requested path.
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool savePalette(const QString & fileName);
 
 		// Return last file saved, this may be the last fileName argument passed to saveFile(),
 		// a temporary file name or an empty string if last call to saveFile() could not create
@@ -190,8 +193,10 @@ class SCRIBUS_API FileFormat
 		FileFormat(LoadSavePlugin * plug) : load(false), save(false), thumb(false), colorReading(false), plug(plug) {}
 		// Load a file with this format
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
+		bool loadPalette(const QString & fileName) const;
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
+		bool savePalette(const QString & fileName) const;
 		// Get last saved file
 		QString lastSavedFile(void) const;
 		

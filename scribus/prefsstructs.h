@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
+#include "scpattern.h"
 #include "vgradient.h"
 #include "documentinformation.h"
 
@@ -419,6 +420,7 @@ struct ApplicationPrefs
 
 	QList<ArrowDesc> arrowStyles;
 	QMap<QString, VGradient> defaultGradients;
+	QMap<QString, ScPattern> defaultPatterns;
 	QList<PageSet> pageSets;
 	QStringList activePageSizes;
 

@@ -151,7 +151,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pageselector.h"
 #include "pagesize.h"
 #include "ui/paintmanager.h"
-#include "ui/patterndialog.h"
+//#include "ui/patterndialog.h"
 #include "pdflib.h"
 #include "pdfoptions.h"
 #include "ui/pdfopts.h"
@@ -296,6 +296,11 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
+	m_doc = new ScribusDoc();
+	m_doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_doc->setPage(100, 100, 0, 0, 0, 0, 0, 0, false, false);
+	m_doc->addPage(0);
+	m_doc->setGUI(false, this, 0);
 	CurrStED = NULL;
 	setWindowTitle( tr("Scribus " VERSION));
 	setAttribute(Qt::WA_KeyCompression, false);
@@ -401,13 +406,33 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setAcceptDrops(true);
 	QCoreApplication::instance()->installEventFilter(this);
 	scrActions["toolsSelect"]->setChecked(true);
-
+	ColorSetManager csm;
+	csm.findPaletteLocations();
+	csm.findPalettes();
+	csm.findUserPalettes();
+	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+	QFile fc(Cpfad);
+	if (fc.exists())
+		csm.loadPalette(Cpfad, m_doc, prefsManager->appPrefs.colorPrefs.DColors, prefsManager->appPrefs.defaultGradients, prefsManager->appPrefs.defaultPatterns, false);
+	else
+	{
+		if (prefsManager->appPrefs.colorPrefs.DColorSet != "Scribus Small")
+		{
+			QStringList CustomColorSets = csm.userPaletteNames();
+			if (CustomColorSets.contains(prefsManager->appPrefs.colorPrefs.DColorSet))
+				Cpfad = csm.userPaletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
+			else
+				Cpfad = csm.paletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
+			csm.loadPalette(Cpfad, m_doc, prefsManager->appPrefs.colorPrefs.DColors, prefsManager->appPrefs.defaultGradients, prefsManager->appPrefs.defaultPatterns, false);
+		}
+	}
 	return retVal;
 }
 
 
 ScribusMainWindow::~ScribusMainWindow()
 {
+	delete m_doc;
 }
 
 void ScribusMainWindow::addScToolBar(ScToolBar *tb, QString name)
@@ -689,7 +714,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit", true);
 	scrMenuMgr->addMenuItem(scrActions["editReplaceColors"], "Edit", false);
 //	scrMenuMgr->addMenuItem(scrActions["editGradients"], "Edit", false);
-	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit", false);
+//	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit", false);
@@ -1873,9 +1898,41 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	ScribusDoc *tempDoc = new ScribusDoc();
 	if (requiresGUI)
 		doc=tempDoc;
-	//tempDoc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
 	tempDoc->setLoading(true);
 	outlinePalette->setDoc(tempDoc);
+	ColorSetManager csm;
+	csm.findPaletteLocations();
+	csm.findPalettes();
+	csm.findUserPalettes();
+	ColorList colorList;
+	QMap<QString, VGradient> gradientsList;
+	QMap<QString, ScPattern> patternsList;
+	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+	QFile fc(Cpfad);
+	if (fc.exists())
+	{
+		csm.loadPalette(Cpfad, doc, colorList, gradientsList, patternsList, false);
+		doc->PageColors = colorList;
+		doc->docGradients = gradientsList;
+		doc->docPatterns = patternsList;
+	}
+	else
+	{
+		if (prefsManager->appPrefs.colorPrefs.DColorSet != "Scribus Small")
+		{
+			QStringList CustomColorSets = csm.userPaletteNames();
+			if (CustomColorSets.contains(prefsManager->appPrefs.colorPrefs.DColorSet))
+				Cpfad = csm.userPaletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
+			else
+				Cpfad = csm.paletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
+			csm.loadPalette(Cpfad, doc, colorList, gradientsList, patternsList, false);
+			doc->PageColors = colorList;
+			doc->docGradients = gradientsList;
+			doc->docPatterns = patternsList;
+		}
+		else
+			doc->PageColors = prefsManager->appPrefs.colorPrefs.DColors;
+	}
 	tempDoc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
 	if (requiresGUI)
 	{
@@ -2354,7 +2411,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editReplaceColors"]->setEnabled(true);
-	scrActions["editPatterns"]->setEnabled(true);
+//	scrActions["editPatterns"]->setEnabled(true);
 //	scrActions["editGradients"]->setEnabled(true);
  	scrActions["editStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
@@ -4507,7 +4564,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editSelectAllOnLayer"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editReplaceColors"]->setEnabled(false);
-		scrActions["editPatterns"]->setEnabled(false);
+//		scrActions["editPatterns"]->setEnabled(false);
 //		scrActions["editGradients"]->setEnabled(false);
 		scrActions["editStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
@@ -9927,7 +9984,7 @@ void ScribusMainWindow::PutToPatterns()
 	view->DrawNew();
 	undoManager->setUndoEnabled(wasUndo);
 }
-
+/*
 void ScribusMainWindow::managePatterns()
 {
 	if (HaveDoc)
@@ -9951,24 +10008,47 @@ void ScribusMainWindow::managePatterns()
 		delete dia;
 		undoManager->setUndoEnabled(true);
 	}
+	else
+	{
+		QMap<QString, ScPattern> docPatterns(prefsManager->appPrefs.defaultPatterns);
+		m_doc->PageColors = prefsManager->colorSet();
+		m_doc->docGradients = prefsManager->appPrefs.defaultGradients;
+		doc = m_doc;
+		PatternDialog *dia = new PatternDialog(this, &docPatterns, m_doc, this);
+		if (dia->exec())
+		{
+			prefsManager->appPrefs.defaultPatterns = dia->dialogPatterns;
+			prefsManager->setColorSet(m_doc->PageColors);
+			prefsManager->appPrefs.defaultGradients = m_doc->docGradients;
+		}
+		doc = NULL;
+		delete dia;
+	}
 }
-
+*/
 void ScribusMainWindow::managePaints()
 {
 	ColorList edc;
 	QMap<QString, VGradient> *Gradients;
+	QMap<QString, ScPattern> *docPatterns;
+	ScribusDoc* tmpDoc;
 	if (HaveDoc)
 	{
 		Gradients = &doc->docGradients;
 		edc = doc->PageColors;
+		docPatterns = &doc->docPatterns;
+		tmpDoc = doc;
 	}
 	else
 	{
 		Gradients = &prefsManager->appPrefs.defaultGradients;
 		edc = prefsManager->colorSet();
+		docPatterns = &prefsManager->appPrefs.defaultPatterns;
+		tmpDoc = m_doc;
+		doc = m_doc;
 	}
 	undoManager->setUndoEnabled(false);
-	PaintManagerDialog *dia = new PaintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), doc, this);
+	PaintManagerDialog *dia = new PaintManagerDialog(this, Gradients, edc, prefsManager->colorSetName(), docPatterns, tmpDoc, this);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -10002,6 +10082,14 @@ void ScribusMainWindow::managePaints()
 				gradrsc.mapPatterns(dia->replaceMap);
 				doc->replaceNamedResources(gradrsc);
 			}
+			doc->setPatterns(dia->dialogPatterns);
+			if (!dia->replaceMapPatterns.isEmpty())
+			{
+				ResourceCollection colorrsc;
+				colorrsc.mapPatterns(dia->replaceMapPatterns);
+				doc->replaceNamedResources(colorrsc);
+			}
+			symbolPalette->updateSymbolList();
 			updateColorLists();
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
@@ -10014,7 +10102,25 @@ void ScribusMainWindow::managePaints()
 			prefsManager->setColorSet(dia->m_colorList);
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
+			prefsManager->appPrefs.defaultPatterns = dia->dialogPatterns;
+			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+			const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
+			if (fmt)
+			{
+				ScribusDoc *s_doc = new ScribusDoc();
+				s_doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+				s_doc->setPage(100, 100, 0, 0, 0, 0, 0, 0, false, false);
+				s_doc->addPage(0);
+				s_doc->setGUI(false, this, 0);
+				s_doc->PageColors = dia->m_colorList;
+				s_doc->setGradients(dia->dialogGradients);
+				s_doc->setPatterns(dia->dialogPatterns);
+				fmt->setupTargets(s_doc, 0, this, mainWindowProgressBar, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+				fmt->savePalette(Cpfad);
+				delete s_doc;
+			}
 			prefsManager->setColorSetName(dia->getColorSetName());
+			doc = NULL;
 		}
 	}
 	delete dia;

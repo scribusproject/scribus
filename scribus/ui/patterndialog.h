@@ -42,7 +42,7 @@ class SCRIBUS_API PatternDialog : public QDialog, Ui::PatternDialog
 	Q_OBJECT
 
 	public:
-		PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
+		PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *p_doc, ScribusMainWindow* scMW);
 		~PatternDialog() {};
 		void updatePatternList();
 		void loadVectors(QString data);

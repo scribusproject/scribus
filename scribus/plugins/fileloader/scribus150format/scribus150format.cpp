@@ -163,6 +163,338 @@ void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 	getReplacedFonts.clear();
 }
 
+bool Scribus150Format::loadPalette(const QString & fileName)
+{
+	if (m_Doc==0 || m_AvailableFonts==0)
+	{
+		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
+		return false;
+	}
+	ParagraphStyle vg;
+	struct ScribusDoc::BookMa bok;
+	QMap<int, ScribusDoc::BookMa> bookmarks;
+
+	QMap<int,int> TableID;
+	QMap<int,int> TableIDM;
+	QMap<int,int> TableIDF;
+	QList<PageItem*> TableItems;
+	QList<PageItem*> TableItemsM;
+	QList<PageItem*> TableItemsF;
+	QMap<PageItem*, int> groupID;
+	QMap<PageItem*, int> groupIDM;
+	QMap<PageItem*, int> groupIDF;
+	
+	QByteArray docBytes("");
+	loadRawText(fileName, docBytes);
+	QString f = QString::fromUtf8(docBytes);
+	if (f.isEmpty())
+	{
+		setFileReadError();
+		return false;
+	}
+	QString fileDir = QFileInfo(fileName).absolutePath();
+	ScColor lf = ScColor();
+	
+	if (m_mwProgressBar!=0)
+	{
+		m_mwProgressBar->setMaximum(f.length());
+		m_mwProgressBar->setValue(0);
+	}
+	
+	groupRemap.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	itemRemapM.clear();
+	itemNextM.clear();
+	itemCountM = 0;
+	itemRemapF.clear();
+	itemNextF.clear();
+
+	TableItems.clear();
+	TableID.clear();
+	TableItemsM.clear();
+	TableIDM.clear();
+	TableItemsF.clear();
+	TableIDF.clear();
+
+	m_Doc->GroupCounter = 1;
+	m_Doc->LastAuto = 0;
+	m_Doc->PageColors.clear();
+	m_Doc->Layers.clear();
+
+	bool firstElement = true;
+	bool success = true;
+//	bool hasPageSets = false;
+	int  progress = 0;
+
+	ScXmlStreamReader reader(f);
+	ScXmlStreamAttributes attrs;
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		QXmlStreamReader::TokenType tType = reader.readNext();
+		if (tType != QXmlStreamReader::StartElement)
+			continue;
+		QStringRef tagName = reader.name();
+		attrs = reader.scAttributes();
+
+		if (m_mwProgressBar != 0)
+		{
+			int newProgress = qRound(reader.characterOffset() / (double) f.length() * 100);
+			if (newProgress != progress)
+			{
+				m_mwProgressBar->setValue(reader.characterOffset());
+				progress = newProgress;
+			}
+		}
+
+		if (firstElement)
+		{
+			if (tagName != "SCRIBUSCOLORS")
+			{
+				success = false;
+				break;
+			}
+			firstElement = false;
+		}
+		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
+		{
+			success = readColor(m_Doc->PageColors, attrs);
+			if (!success) break;
+		}
+		if (tagName == "Gradient")
+		{
+			VGradient gra;
+			QString grName = attrs.valueAsString("Name");
+			success = readGradient(m_Doc, gra, reader);
+			if (!success) break;
+			if (!grName.isEmpty())
+			{
+				m_Doc->docGradients.insert(grName, gra);
+			}
+		}
+		if (tagName == "Arrows")
+		{
+			success = readArrows(m_Doc, attrs);
+			if (!success) break;
+		}
+		if (tagName == "MultiLine")
+		{
+			multiLine ml;
+			QString mlName = attrs.valueAsString("Name");
+			success = readMultiline(ml, reader);
+			if (!success) break;
+			if (!mlName.isEmpty())
+			{
+				m_Doc->MLineStyles.insert(mlName, ml);
+			}
+		}
+		if (tagName == "PAGEOBJECT" || tagName == "MASTEROBJECT" || tagName == "FRAMEOBJECT")
+		{
+			ItemInfo itemInfo;
+			success = readObject(m_Doc, reader, itemInfo, fileDir, false);
+			if (!success) break;
+
+			// first of linked chain?
+			if (tagName == "PAGEOBJECT")
+			{
+				if (itemInfo.nextItem != -1)
+					itemNext[itemInfo.item->ItemNr] = itemInfo.nextItem;
+			}
+			else if (tagName == "MASTEROBJECT")
+			{
+				if (itemInfo.nextItem != -1)
+					itemNextM[itemInfo.item->ItemNr] = itemInfo.nextItem;
+			}
+			/* not sure if we want that...
+			else if (tagName == "FRAMEOBJECT")
+			{
+				if (itemInfo.nextItem != -1)
+					itemNextF[itemInfo.item->ItemNr] = itemInfo.nextItem;
+			}*/
+
+			if (itemInfo.item->isTableItem)
+			{
+				if (tagName == "PAGEOBJECT")
+				{
+					TableItems.append(itemInfo.item);
+					TableID.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+				}
+				else if (tagName == "FRAMEOBJECT")
+				{
+					TableItemsF.append(itemInfo.item);
+					TableIDF.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+				}
+				else
+				{
+					TableItemsM.append(itemInfo.item);
+					TableIDM.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+				}
+			}
+			if (itemInfo.item->isGroupControl)
+			{
+				if (tagName == "PAGEOBJECT")
+					groupID.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				else if (tagName == "FRAMEOBJECT")
+					groupIDF.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				else
+					groupIDM.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
+			}
+		}
+		if (tagName == "Pattern")
+		{
+			success = readPattern(m_Doc, reader, fileDir);
+			if (!success) break;
+		}
+	}
+
+	if (reader.hasError())
+	{
+		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
+		return false;
+	}
+	if (TableItemsF.count() != 0)
+	{
+		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsF.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (TableItemsM.count() != 0)
+	{
+		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsM.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (TableItems.count() != 0)
+	{
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
+		{
+			PageItem* ta = TableItems.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (groupIDF.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupIDF.begin(); it != groupIDF.end(); ++it)
+		{
+			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.value());
+		}
+	}
+	if (groupID.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupID.begin(); it != groupID.end(); ++it)
+		{
+			it.key()->groupsLastItem = m_Doc->DocItems.at(it.value());
+		}
+	}
+	if (groupIDM.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
+		{
+			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.value());
+		}
+	}
+	// reestablish textframe links
+	if (itemNext.count() != 0)
+	{
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		{
+			if (lc.value() >= 0)
+			{
+				PageItem * Its = m_Doc->DocItems.at(lc.key());
+				PageItem * Itn = m_Doc->DocItems.at(lc.value());
+				if (Itn->prevInChain() || Its->nextInChain()) 
+				{
+					qDebug() << "scribus150format: corruption in linked textframes detected";
+					continue;
+				}
+				Its->link(Itn);
+			}
+		}
+	}
+	if (itemNextM.count() != 0)
+	{
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+		{
+			if (lc.value() >= 0)
+			{
+				PageItem * Its = m_Doc->MasterItems.at(lc.key());
+				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
+				if (Itn->prevInChain() || Its->nextInChain()) 
+				{
+					qDebug() << "scribus150format: corruption in linked textframes detected";
+					continue;
+				}
+				Its->link(Itn);
+			}
+		}
+	}
+
+	if (m_Doc->Layers.count() == 0)
+		m_Doc->Layers.newLayer( QObject::tr("Background") );
+	if (m_mwProgressBar!=0)
+	{
+		m_mwProgressBar->setValue(reader.characterOffset());
+		m_mwProgressBar->reset();
+	}
+	return true;
+}
+
 bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
 	if (m_Doc==0 || m_AvailableFonts==0)
