@@ -1259,10 +1259,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\patterndialog.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\patternpropsdialog.cpp"
 				>
 			</File>
@@ -6504,38 +6500,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\patterndialog.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\patternpropsdialog.h"
 				>
 				<FileConfiguration
@@ -11245,10 +11209,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\ui_patterndialog.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\ui_picsearch.h"
 				>
 			</File>
@@ -11926,10 +11886,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\ui\moc_patterndialog.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\moc_patternpropsdialog.cpp"
 				>
 			</File>
@@ -12528,10 +12484,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\paintmanagerbase.ui"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\ui\patterndialog.ui"
 				>
 			</File>
 			<File
