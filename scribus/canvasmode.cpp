@@ -791,7 +791,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 				return;
 				break;
 			case Qt::Key_PageUp:
-				if (m_doc->masterPageMode())
+				if (m_doc->masterPageMode() || m_doc->symbolEditMode())
 					m_view->scrollBy(0, -prefsManager->mouseWheelJump());
 				else
 				{
@@ -807,7 +807,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 				return;
 				break;
 			case Qt::Key_PageDown:
-				if (m_doc->masterPageMode())
+				if (m_doc->masterPageMode() || m_doc->symbolEditMode())
 					m_view->scrollBy(0, prefsManager->mouseWheelJump());
 				else
 				{

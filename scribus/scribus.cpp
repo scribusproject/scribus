@@ -559,8 +559,10 @@ void ScribusMainWindow::initPalettes()
 
 	symbolPalette = new SymbolPalette(this);
 	symbolPalette->setMainWindow(this);
-	connect( scrActions["toolsSymbols"], SIGNAL(toggled(bool)), symbolPalette, SLOT(setPaletteShown(bool)));
-	connect( symbolPalette, SIGNAL(paletteShown(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
+	connect(scrActions["toolsSymbols"], SIGNAL(toggled(bool)), symbolPalette, SLOT(setPaletteShown(bool)));
+	connect(symbolPalette, SIGNAL(paletteShown(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
+	connect(symbolPalette, SIGNAL(startEdit(QString)), this, SLOT(editSymbolStart(QString)));
+	connect(symbolPalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
 	symbolPalette->installEventFilter(this);
 	symbolPalette->hide();
 	
@@ -1419,7 +1421,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Qt::Key_PageUp:
-				if (doc->masterPageMode())
+				if (doc->masterPageMode() || doc->symbolEditMode())
 					view->scrollBy(0, -prefsManager->mouseWheelJump());
 				else
 				{
@@ -1435,7 +1437,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Qt::Key_PageDown:
-				if (doc->masterPageMode())
+				if (doc->masterPageMode() || doc->symbolEditMode())
 					view->scrollBy(0, prefsManager->mouseWheelJump());
 				else
 				{
@@ -2305,7 +2307,7 @@ void ScribusMainWindow::SwitchWin()
 		view->requestMode(submodeEndNodeEdit);
 	} */
 	scrActions["fileClose"]->setEnabled(true);
-	if (doc->masterPageMode())
+	if (doc->masterPageMode() || doc->symbolEditMode())
 	{
 		scrActions["pageInsert"]->setEnabled(false);
 		scrActions["pageDelete"]->setEnabled(false);
@@ -2316,9 +2318,18 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
 		scrActions["fileNewFromTemplate"]->setEnabled(false);
-		scrActions["fileSave"]->setEnabled(true);
+		if (doc->symbolEditMode())
+		{
+			scrActions["fileCollect"]->setEnabled(false);
+			scrActions["fileSaveAs"]->setEnabled(false);
+			scrMenuMgr->setMenuEnabled("FileExport", false);
+			scrActions["fileExportAsEPS"]->setEnabled(false);
+			scrActions["fileExportAsPDF"]->setEnabled(false);
+			scrActions["fileSave"]->setEnabled(false);
+		}
+		else
+			scrActions["fileSave"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(false);
-		scrActions["fileClose"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 		pagePalette->enablePalette(false);
@@ -3172,8 +3183,9 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	updateActiveWindowCaption(doc->DocName + "*");
 // 	scrActions["fileSave"]->setEnabled(true);
 // 	scrActions["fileSaveAs"]->setEnabled(true);
-	scrActions["fileCollect"]->setEnabled(true);
-	if (!doc->masterPageMode())
+	if (!doc->symbolEditMode())
+		scrActions["fileCollect"]->setEnabled(true);
+	else if (!doc->masterPageMode())
 	{
 		scrActions["fileClose"]->setEnabled(true);
 		if (doc->hasName)
@@ -4458,6 +4470,11 @@ bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileNa
 
 bool ScribusMainWindow::slotFileClose()
 {
+	if (doc->symbolEditMode())
+	{
+		editSymbolEnd();
+		return true;
+	}
 	ScribusWin* tw = ActWin;
 //	ActWin->close();
 	mdiArea->closeActiveSubWindow();
@@ -8500,6 +8517,111 @@ void ScribusMainWindow::ManageJava()
 	delete dia;
 }
 
+void ScribusMainWindow::editSelectedSymbolStart()
+{
+	if (doc->m_Selection->count() > 0)
+		editSymbolStart(doc->m_Selection->itemAt(0)->pattern());
+}
+
+void ScribusMainWindow::editSymbolStart(QString temp)
+{
+	if (HaveDoc)
+	{
+		view->Deselect(true);
+		storedPageNum = doc->currentPageNumber();
+		storedViewXCoor = view->contentsX();
+		storedViewYCoor = view->contentsY();
+		storedViewScale = view->scale();
+		view->showSymbolPage(temp);
+		scrActions["pageInsert"]->setEnabled(false);
+		scrActions["pageImport"]->setEnabled(false);
+		scrActions["pageDelete"]->setEnabled(false);
+		scrActions["pageCopy"]->setEnabled(false);
+		scrActions["pageMove"]->setEnabled(false);
+		scrActions["pageApplyMasterPage"]->setEnabled(false);
+		scrActions["pageCopyToMasterPage"]->setEnabled(false);
+		scrActions["editMasterPages"]->setEnabled(false);
+		scrActions["fileNew"]->setEnabled(false);
+		scrActions["fileNewFromTemplate"]->setEnabled(false);
+		scrActions["fileOpen"]->setEnabled(false);
+		scrActions["fileSave"]->setEnabled(false);
+		scrActions["fileClose"]->setToolTip( tr("Click here to leave symbol edit mode."));
+		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
+		scrActions["fileRevert"]->setEnabled(false);
+		scrActions["fileDocSetup150"]->setEnabled(false);
+		scrActions["filePrint"]->setEnabled(false);
+		scrActions["fileCollect"]->setEnabled(false);
+		scrActions["fileSaveAs"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("FileExport", false);
+		scrActions["fileExportAsEPS"]->setEnabled(false);
+		scrActions["fileExportAsPDF"]->setEnabled(false);
+		scrActions["PrintPreview"]->setEnabled(false);
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
+		pagePalette->enablePalette(false);
+		symbolPalette->editingStart(temp);
+		updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
+	}
+}
+
+void ScribusMainWindow::editSymbolEnd()
+{
+	view->setScale(storedViewScale);
+	view->hideSymbolPage();
+	slotSelect();
+	scrActions["editMasterPages"]->setEnabled(true);
+	scrActions["fileNew"]->setEnabled(true);
+	scrActions["fileNewFromTemplate"]->setEnabled(true);
+	scrActions["fileOpen"]->setEnabled(true);
+	scrActions["fileClose"]->setEnabled(true);
+	scrActions["fileClose"]->setToolTip( tr("Close"));
+	scrActions["fileSave"]->setEnabled(true);
+	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
+	scrActions["fileRevert"]->setEnabled(true);
+	scrActions["fileDocSetup150"]->setEnabled(true);
+	scrActions["filePrint"]->setEnabled(true);
+	scrActions["fileCollect"]->setEnabled(true);
+	scrActions["fileSaveAs"]->setEnabled(true);
+	scrMenuMgr->setMenuEnabled("FileExport", true);
+	scrActions["fileExportAsEPS"]->setEnabled(true);
+	scrActions["fileExportAsPDF"]->setEnabled(true);
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		scrActions["PrintPreview"]->setEnabled(true);
+	scrActions["pageInsert"]->setEnabled(true);
+	scrActions["pageCopy"]->setEnabled(true);
+	scrActions["pageImport"]->setEnabled(true);
+	scrActions["pageApplyMasterPage"]->setEnabled(true);
+	scrActions["pageCopyToMasterPage"]->setEnabled(true);
+	bool setter = doc->Pages->count() > 1 ? true : false;
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
+	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFTextField"]->setEnabled(true);
+	scrActions["toolsPDFCheckBox"]->setEnabled(true);
+	scrActions["toolsPDFComboBox"]->setEnabled(true);
+	scrActions["toolsPDFListBox"]->setEnabled(true);
+	scrActions["toolsPDFAnnotText"]->setEnabled(true);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
+	pagePalette->enablePalette(true);
+	pagePalette->rebuildMasters();
+	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
+	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
+	view->DrawNew();
+	pagePalette->Rebuild();
+	propertiesPalette->updateColorList();
+	symbolPalette->editingFinished();
+	updateActiveWindowCaption(doc->DocName);
+}
+
 void ScribusMainWindow::manageMasterPages(QString temp)
 {
 	if (HaveDoc)
@@ -8535,7 +8657,6 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["fileClose"]->setEnabled(false);
 			scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 			scrActions["fileRevert"]->setEnabled(false);
-//			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["fileDocSetup150"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
 			scrActions["PrintPreview"]->setEnabled(false);
@@ -9307,7 +9428,6 @@ void ScribusMainWindow::slotStoryEditor()
 		}
 		CurrStED = storyEditor;
 		connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-// 		connect(storyEditor, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
 		storyEditor->show();
 		storyEditor->raise();
 	}
@@ -9978,54 +10098,12 @@ void ScribusMainWindow::PutToPatterns()
 		outlinePalette->BuildTree();
 	doc->TotalItems = oldNum;
 	view->Deselect(true);
-//	doc->m_Selection->delaySignalsOn();
 	doc->m_Selection->copy(itemSelection, false);
 	doc->m_Selection->delaySignalsOff();
 	view->DrawNew();
 	undoManager->setUndoEnabled(wasUndo);
 }
-/*
-void ScribusMainWindow::managePatterns()
-{
-	if (HaveDoc)
-	{
-		undoManager->setUndoEnabled(false);
-		QMap<QString, ScPattern> docPatterns(doc->docPatterns);
-		PatternDialog *dia = new PatternDialog(this, &docPatterns, doc, this);
-		if (dia->exec())
-		{
-			doc->setPatterns(dia->dialogPatterns);
-			if (!dia->replaceMap.isEmpty())
-			{
-				ResourceCollection colorrsc;
-				colorrsc.mapPatterns(dia->replaceMap);
-				doc->replaceNamedResources(colorrsc);
-			}
-			propertiesPalette->updateColorList();
-			symbolPalette->updateSymbolList();
-			view->DrawNew();
-		}
-		delete dia;
-		undoManager->setUndoEnabled(true);
-	}
-	else
-	{
-		QMap<QString, ScPattern> docPatterns(prefsManager->appPrefs.defaultPatterns);
-		m_doc->PageColors = prefsManager->colorSet();
-		m_doc->docGradients = prefsManager->appPrefs.defaultGradients;
-		doc = m_doc;
-		PatternDialog *dia = new PatternDialog(this, &docPatterns, m_doc, this);
-		if (dia->exec())
-		{
-			prefsManager->appPrefs.defaultPatterns = dia->dialogPatterns;
-			prefsManager->setColorSet(m_doc->PageColors);
-			prefsManager->appPrefs.defaultGradients = m_doc->docGradients;
-		}
-		doc = NULL;
-		delete dia;
-	}
-}
-*/
+
 void ScribusMainWindow::managePaints()
 {
 	ColorList edc;

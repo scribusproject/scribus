@@ -79,7 +79,6 @@ void SymbolView::dropEvent(QDropEvent *e)
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
 	drag->setPixmap(currentItem()->icon().pixmap(48, 48));
-//	drag->setDragCursor(currentItem()->icon().pixmap(48, 48), Qt::CopyAction);
 	drag->exec(Qt::CopyAction);
 	clearSelection();
 }
@@ -97,7 +96,53 @@ SymbolPalette::SymbolPalette( QWidget* parent) : ScrPaletteBase( parent, "Symb",
 
 	unsetDoc();
 	m_scMW  = NULL;
+	editItemName = "";
+	editItem = NULL;
 	languageChange();
+	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+}
+
+void SymbolPalette::handleDoubleClick(QListWidgetItem *item)
+{
+	if (item)
+		emit startEdit(item->text());
+}
+
+void SymbolPalette::editingStart(QString name)
+{
+	editItemName = name;
+	QList<QListWidgetItem *> items = SymbolViewWidget->findItems(name, Qt::MatchExactly);
+	if (items.count() > 0)
+	{
+		editItem = items[0];
+		editItem->setFlags(0);
+	}
+}
+
+void SymbolPalette::editingFinished()
+{
+	if (!editItemName.isEmpty())
+	{
+		QPixmap pm;
+		ScPattern pa = currDoc->docPatterns[editItemName];
+		if (pa.getPattern()->width() >= pa.getPattern()->height())
+			pm = QPixmap::fromImage(pa.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		else
+			pm = QPixmap::fromImage(pa.getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+		QPixmap pm2(48, 48);
+		pm2.fill(palette().color(QPalette::Base));
+		QPainter p;
+		p.begin(&pm2);
+		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
+		p.end();
+		if (editItem != NULL)
+		{
+			editItem->setIcon(pm2);
+			editItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+		}
+	}
+	editItemName = "";
+	editItem = NULL;
 }
 
 void SymbolPalette::setMainWindow(ScribusMainWindow *mw)
@@ -142,7 +187,14 @@ void SymbolPalette::updateSymbolList()
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
 		p.end();
-		new QListWidgetItem(pm2, it.key(), SymbolViewWidget);
+		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), SymbolViewWidget);
+		if (it.key() == editItemName)
+		{
+			item->setFlags(0);
+			editItem = item;
+		}
+		else
+			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 	}
 }
 

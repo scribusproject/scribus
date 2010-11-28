@@ -295,6 +295,9 @@ public slots:
 	void showLayer();
 	//void LayerRemove(int l, bool dl = false);
 	void ManageJava();
+	void editSelectedSymbolStart();
+	void editSymbolStart(QString temp);
+	void editSymbolEnd();
 	void manageMasterPages(QString temp = "");
 	void manageMasterPagesEnd();
 	/** \brief generate a new document in the current view */

@@ -171,6 +171,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	rotMode(0),
 	automaticTextFrames(0),
 	m_masterPageMode(false),
+	m_symbolEditMode(false),
 	m_ScMW(0),
 	m_View(0),
 	m_guardedObject(this),
@@ -256,6 +257,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	rotMode(0),
 	automaticTextFrames(pagesSetup.autoTextFrames),
 	m_masterPageMode(false),
+	m_symbolEditMode(false),
 	m_ScMW(0),
 	m_View(0),
 	m_guardedObject(this),
@@ -5380,21 +5382,139 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 
 void ScribusDoc::setMasterPageMode(bool changeToMasterPageMode)
 {
-	if (changeToMasterPageMode==m_masterPageMode)
+	if (changeToMasterPageMode == m_masterPageMode)
 		return;
 	if (changeToMasterPageMode)
 	{
-		Pages=&MasterPages;
-		Items=&MasterItems;
+		Pages = &MasterPages;
+		Items = &MasterItems;
 	}
 	else
 	{
-		Pages=&DocPages;
-		Items=&DocItems;
+		Pages = &DocPages;
+		Items = &DocItems;
 	}
-	m_masterPageMode=changeToMasterPageMode;
+	m_masterPageMode = changeToMasterPageMode;
 }
 
+void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
+{
+	if (mode == m_symbolEditMode)
+		return;
+	m_symbolEditMode = mode;
+	if (mode)
+	{
+		ScPattern pa = docPatterns[symbolName];
+		currentEditedSymbol = symbolName;
+		Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pa.width, pa.height);
+		addedPage->setDocument(this);
+		addedPage->Margins.Top = 0;
+		addedPage->Margins.Bottom = 0;
+		addedPage->Margins.Left = 0;
+		addedPage->Margins.Right = 0;
+		addedPage->initialMargins.Top = 0;
+		addedPage->initialMargins.Bottom = 0;
+		addedPage->initialMargins.Left = 0;
+		addedPage->initialMargins.Right = 0;
+		addedPage->setPageNr(0);
+		addedPage->MPageNam = "";
+		addedPage->setPageName("");
+		TempPages.clear();
+		TempPages.append(addedPage);
+		Pages = &TempPages;
+		Items = &docPatterns[symbolName].items;
+		renumberItemsInListOrder();
+		m_Selection->delaySignalsOn();
+		for (int as = 0; as < Items->count(); ++as)
+		{
+			m_Selection->addItem(Items->at(as));
+		}
+		QRectF sR = m_Selection->getGroupRect();
+		moveGroup(-sR.x() + addedPage->xOffset(), -sR.y() + addedPage->yOffset());
+		m_Selection->clear();
+		m_Selection->delaySignalsOff();
+		changed();
+	}
+	else
+	{
+		PageItem* currItem = Items->at(0);
+		Page* addedPage = TempPages.at(0);
+		if (Items->count() > 1)
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			if (currItem->Groups.count() != 0)
+				firstElem = currItem->Groups.top();
+			for (int bx = 0; bx < Items->count(); ++bx)
+			{
+				PageItem* bxi = Items->at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+					{
+						isGroup = false;
+						break;
+					}
+				}
+				else
+				{
+					isGroup = false;
+					break;
+				}
+			}
+			if (!isGroup)
+			{
+				itemAdd(PageItem::Polygon, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+				PageItem *groupItem = Items->takeLast();
+				Items->insert(0, groupItem);
+				double minx =  std::numeric_limits<double>::max();
+				double miny =  std::numeric_limits<double>::max();
+				double maxx = -std::numeric_limits<double>::max();
+				double maxy = -std::numeric_limits<double>::max();
+				for (int as = 0; as < Items->count(); ++as)
+				{
+					PageItem* currItem = Items->at(as);
+					currItem->Groups.push(GroupCounter);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				groupItem->setXYPos(minx, miny, true);
+				groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
+				groupItem->SetRectFrame();
+				groupItem->ClipEdited = true;
+				groupItem->FrameType = 3;
+				groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+				groupItem->AutoName = false;
+				groupItem->isGroupControl = true;
+				groupItem->setFillTransparency(0);
+				groupItem->setLineTransparency(0);
+				groupItem->groupsLastItem = Items->at(Items->count()-1);
+				groupItem->Groups.push(GroupCounter);
+				GroupCounter++;
+				renumberItemsInListOrder();
+			}
+		}
+		currItem = Items->at(0);
+		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage();
+		docPatterns[currentEditedSymbol].width = currItem->gWidth;
+		docPatterns[currentEditedSymbol].height = currItem->gHeight;
+		if (masterPageMode())
+		{
+			Pages = &MasterPages;
+			Items = &MasterItems;
+		}
+		else
+		{
+			Pages = &DocPages;
+			Items = &DocItems;
+		}
+		delete addedPage;
+	}
+}
 
 void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active, const QChar fillChar, int fieldWidth)
 {

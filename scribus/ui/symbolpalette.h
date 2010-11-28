@@ -67,18 +67,27 @@ public:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
+	void editingStart(QString name);
+	void editingFinished();
 	void updateSymbolList();
 	
 	virtual void changeEvent(QEvent *e);
 
 public slots:
+	void handleDoubleClick(QListWidgetItem *item);
 	void languageChange();
+
+signals:
+	void startEdit(QString);
+	void endEdit();
 
 protected:
 	SymbolView *SymbolViewWidget;
 	QVBoxLayout* PaletteLayout;
 	ScribusDoc *currDoc;
 	ScribusMainWindow *m_scMW;
+	QListWidgetItem *editItem;
+	QString editItemName;
 };
 
 #endif

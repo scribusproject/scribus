@@ -234,6 +234,10 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 //				mousePressEvent(m);
 			}
 		}
+		else if (currItem->asSymbolFrame())
+		{
+			m_view->requestMode(submodeEditSymbol);
+		}
 	}
 }
 

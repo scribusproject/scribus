@@ -111,34 +111,43 @@ void ScribusWin::slotAutoSave()
 
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
-	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
+	if (m_Doc->symbolEditMode())
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
-											QDir::convertSeparators(m_Doc->DocName)+"\n"+
-											tr("has been changed since the last save."),
-											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
-											QMessageBox::Cancel);
-		if (exit == QMessageBox::Cancel)
+		m_MainWindow->editSymbolEnd();
+		ce->ignore();
+		return;
+	}
+	else
+	{
+		if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 		{
-			ce->ignore();
-			return;
-		}
-		if (exit == QMessageBox::Save)
-		{
-			if (m_MainWindow->slotFileSave())
-			{
-				if (m_Doc==m_MainWindow->storyEditor->currentDocument())
-					m_MainWindow->storyEditor->close();
-			}
-			else
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+												QDir::convertSeparators(m_Doc->DocName)+"\n"+
+												tr("has been changed since the last save."),
+												QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+												QMessageBox::Cancel);
+			if (exit == QMessageBox::Cancel)
 			{
 				ce->ignore();
 				return;
 			}
+			if (exit == QMessageBox::Save)
+			{
+				if (m_MainWindow->slotFileSave())
+				{
+					if (m_Doc==m_MainWindow->storyEditor->currentDocument())
+						m_MainWindow->storyEditor->close();
+				}
+				else
+				{
+					ce->ignore();
+					return;
+				}
+			}
 		}
+		m_MainWindow->DoFileClose();
 	}
-	m_MainWindow->DoFileClose();
 	ce->accept();
 }
 

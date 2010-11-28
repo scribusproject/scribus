@@ -595,6 +595,11 @@ void ScribusView::requestMode(int appMode)
 			m_previousMode = appMode;
 			m_ScMW->ModifyAnnot();
 			break;
+		case submodeEditSymbol:
+			appMode = Doc->appMode;
+			m_previousMode = appMode;
+			m_ScMW->editSelectedSymbolStart();
+			break;
 		default:
 			if (appMode < 0 || appMode > submodeFirstSubmode)
 			{
@@ -2860,7 +2865,6 @@ void ScribusView::showMasterPage(int nr)
 	Doc->setCurrentPage(Doc->Pages->at(nr));
 	pageSelector->setEnabled(false);
 	updateOn = false;
-//	reformPages();
 	zoom();
 	oldX = qRound(Doc->currentPage()->xOffset()- 10);
 	oldY = qRound(Doc->currentPage()->yOffset()- 10);
@@ -2875,18 +2879,37 @@ void ScribusView::hideMasterPage()
 	if (Doc->masterPageMode())
 		this->requestMode(modeNormal);
 	Doc->setMasterPageMode(false);
-//	Doc->currentPage = Doc->Pages->at(0);
 	pageSelector->setEnabled(true);
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
-//	setScale(OldScale);
-//	updateOn = false;
-//	GotoPage(0);
-//	slotDoZoom();
-//	oldX = qRound(Doc->currentPage->xOffset()- 10);
-//	oldY = qRound(Doc->currentPage->yOffset()- 10);
-//	SetCPo(oldX, oldY);
-//	updateOn = true;
-//	DrawNew();
+}
+
+void ScribusView::showSymbolPage(QString symbolName)
+{
+	Deselect(false);
+	OldScale = m_canvas->scale();
+	if (!Doc->symbolEditMode())
+		this->requestMode(modeNormal);
+	Doc->setSymbolEditMode(true, symbolName);
+	Doc->setCurrentPage(Doc->Pages->at(0));
+	pageSelector->setEnabled(false);
+	updateOn = false;
+	zoom();
+	oldX = qRound(Doc->currentPage()->xOffset()- 10);
+	oldY = qRound(Doc->currentPage()->yOffset()- 10);
+	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
+	updateOn = true;
+	DrawNew();
+}
+
+void ScribusView::hideSymbolPage()
+{
+	Deselect(true);
+	if (Doc->symbolEditMode())
+		this->requestMode(modeNormal);
+	Doc->setSymbolEditMode(false);
+	Doc->setCurrentPage(Doc->Pages->at(0));
+	pageSelector->setEnabled(true);
+	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 
 QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)

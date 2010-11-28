@@ -825,6 +825,13 @@ public:
 
 	/*** Is the document in master page mode? */
 	bool masterPageMode() const { return m_masterPageMode; }
+	/**
+	 * @brief Set the doc into symbol edit mode
+	 */
+	void setSymbolEditMode(bool mode, QString symbolName = "");
+
+	/*** Is the document in symbol edit mode? */
+	bool symbolEditMode() const { return m_symbolEditMode; }
 	
 	/**
 	 * @brief Add a section to the document sections list
@@ -1037,11 +1044,13 @@ protected:
 	int rotMode;
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
+	bool m_symbolEditMode;
 	QMap<QString, double> m_constants;
 	ScribusMainWindow* m_ScMW;
 	ScribusView* m_View;
 	ScGuardedObject<ScribusDoc> m_guardedObject;
 	Serializer *m_serializer;
+	QString currentEditedSymbol;
 	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -1063,6 +1072,8 @@ public: // Public attributes
 	QList<Page*> MasterPages;
 	/** \brief List of Document Pages */
 	QList<Page*> DocPages;
+	/** \brief List for temporary Pages */
+	QList<Page*> TempPages;
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */

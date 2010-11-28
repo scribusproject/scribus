@@ -54,6 +54,7 @@ enum SubMode
 	submodeStatusPic,       // open ManageImages dialog
 	submodeEditExternal,    // open external image editor
 	submodeAnnotProps,      // open properties dialog
+	submodeEditSymbol,		// open Symbol editor
 	submodeLastSubmode
 };
 

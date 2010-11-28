@@ -1135,6 +1135,7 @@ void PaintManagerDialog::importColorItems()
 				return;
 			if (!fileName.isEmpty())
 			{
+				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 				QFileInfo fi(fileName);
 				if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
@@ -1157,6 +1158,7 @@ void PaintManagerDialog::importColorItems()
 				updateGradientList();
 				updatePatternList();
 				itemSelected(0);
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
 		}
 	}

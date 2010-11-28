@@ -174,6 +174,8 @@ public:
 	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
+	void showSymbolPage(QString symbolName);
+	void hideSymbolPage();
 	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
 	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
 	void RecalcPicturesRes();
