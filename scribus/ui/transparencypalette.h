@@ -79,6 +79,7 @@ public slots:
 	void switchPatternMode();
 	void editGradientVector();
 	void setActiveGradDia(bool active);
+	void hideEditedPatterns(QStringList names);
 	void updatePatternList();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
 	void selectPattern(QListWidgetItem *c);

@@ -76,6 +76,7 @@ public slots:
 	void setNamedGradientStroke(const QString &name);
 	void selectPattern(QListWidgetItem *c);
 	void selectPatternS(QListWidgetItem *c);
+	void hideEditedPatterns(QStringList names);
 	void updatePatternList();
 	void updateGradientList();
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);

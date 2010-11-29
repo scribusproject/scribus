@@ -917,17 +917,43 @@ QStringList PaintManagerDialog::getUsedPatternsHelper(QString pattern, QStringLi
 	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
-		if ((!results.contains(pat->items.at(c)->pattern())) && ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol)))
-			pats.append(pat->items.at(c)->pattern());
+		if ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol))
+		{
+			const QString& patName = pat->items.at(c)->pattern();
+			if (!patName.isEmpty() && !results.contains(patName))
+				pats.append(patName);
+		}
+		const QString& pat2 = pat->items.at(c)->strokePattern();
+		if (!pat2.isEmpty() && !results.contains(pat2))
+			pats.append(pat->items.at(c)->strokePattern());
+		const QString& pat3 = pat->items.at(c)->patternMask();
+		if (!pat3.isEmpty() && !results.contains(pat3))
+			pats.append(pat->items.at(c)->patternMask());
 	}
 	if (!pats.isEmpty())
 	{
+		results = pats;
 		for (int c = 0; c < pats.count(); ++c)
 		{
 			getUsedPatternsHelper(pats[c], results);
 		}
 	}
-	return pats;
+/*	QStringList pats;
+	pats.clear();
+	for (int c = 0; c < pat->items.count(); ++c)
+	{
+		if ((!results.contains(pat->items.at(c)->pattern())) && ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol)))
+			pats.append(pat->items.at(c)->pattern());
+	}
+	if (!pats.isEmpty())
+	{
+		results = pats;
+		for (int c = 0; c < pats.count(); ++c)
+		{
+			getUsedPatternsHelper(pats[c], results);
+		}
+	} */
+	return results;
 }
 
 void PaintManagerDialog::removeUnusedColorItem()

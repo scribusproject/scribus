@@ -337,6 +337,16 @@ void Tpalette::setSpecialGradient(double x1, double y1, double x2, double y2, do
 		TGradDia->setValues(x1, y1, x2, y2, fx, fy, sg, sk, 0, 0);
 }
 
+void Tpalette::hideEditedPatterns(QStringList names)
+{
+	for (int a = 0; a < names.count(); a++)
+	{
+		QList<QListWidgetItem*> items = patternBox->findItems(names[a], Qt::MatchExactly);
+		if (items.count() > 0)
+			items[0]->setHidden(true);
+	}
+}
+
 void Tpalette::updatePatternList()
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));

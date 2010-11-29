@@ -96,8 +96,7 @@ SymbolPalette::SymbolPalette( QWidget* parent) : ScrPaletteBase( parent, "Symb",
 
 	unsetDoc();
 	m_scMW  = NULL;
-	editItemName = "";
-	editItem = NULL;
+	editItemNames.clear();
 	languageChange();
 	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 }
@@ -108,41 +107,21 @@ void SymbolPalette::handleDoubleClick(QListWidgetItem *item)
 		emit startEdit(item->text());
 }
 
-void SymbolPalette::editingStart(QString name)
+void SymbolPalette::editingStart(QStringList names)
 {
-	editItemName = name;
-	QList<QListWidgetItem *> items = SymbolViewWidget->findItems(name, Qt::MatchExactly);
-	if (items.count() > 0)
+	editItemNames = names;
+	for (int a = 0; a < editItemNames.count(); a++)
 	{
-		editItem = items[0];
-		editItem->setFlags(0);
+		QList<QListWidgetItem*> items = SymbolViewWidget->findItems(names[a], Qt::MatchExactly);
+		if (items.count() > 0)
+			items[0]->setFlags(0);
 	}
 }
 
 void SymbolPalette::editingFinished()
 {
-	if (!editItemName.isEmpty())
-	{
-		QPixmap pm;
-		ScPattern pa = currDoc->docPatterns[editItemName];
-		if (pa.getPattern()->width() >= pa.getPattern()->height())
-			pm = QPixmap::fromImage(pa.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
-		else
-			pm = QPixmap::fromImage(pa.getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
-		QPixmap pm2(48, 48);
-		pm2.fill(palette().color(QPalette::Base));
-		QPainter p;
-		p.begin(&pm2);
-		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
-		p.end();
-		if (editItem != NULL)
-		{
-			editItem->setIcon(pm2);
-			editItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
-		}
-	}
-	editItemName = "";
-	editItem = NULL;
+	editItemNames.clear();
+	updateSymbolList();
 }
 
 void SymbolPalette::setMainWindow(ScribusMainWindow *mw)
@@ -188,11 +167,8 @@ void SymbolPalette::updateSymbolList()
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), SymbolViewWidget);
-		if (it.key() == editItemName)
-		{
+		if (editItemNames.contains(it.key()))
 			item->setFlags(0);
-			editItem = item;
-		}
 		else
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 	}

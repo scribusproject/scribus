@@ -2894,19 +2894,20 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 		}
 		const QString& pat2 = pat->items.at(c)->strokePattern();
 		if (!pat2.isEmpty() && !results.contains(pat2))
-			results.append(pat->items.at(c)->strokePattern());
+			pats.append(pat->items.at(c)->strokePattern());
 		const QString& pat3 = pat->items.at(c)->patternMask();
 		if (!pat3.isEmpty() && !results.contains(pat3))
-			results.append(pat->items.at(c)->patternMask());
+			pats.append(pat->items.at(c)->patternMask());
 	}
 	if (!pats.isEmpty())
 	{
+		results = pats;
 		for (int c = 0; c < pats.count(); ++c)
 		{
 			getUsedPatternsHelper(pats[c], results);
 		}
 	}
-	return pats;
+	return results;
 }
 
 QStringList ScribusDoc::getUsedSymbols()

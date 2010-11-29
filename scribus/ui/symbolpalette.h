@@ -67,7 +67,7 @@ public:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	void editingStart(QString name);
+	void editingStart(QStringList names);
 	void editingFinished();
 	void updateSymbolList();
 	
@@ -86,8 +86,7 @@ protected:
 	QVBoxLayout* PaletteLayout;
 	ScribusDoc *currDoc;
 	ScribusMainWindow *m_scMW;
-	QListWidgetItem *editItem;
-	QString editItemName;
+	QStringList editItemNames;
 };
 
 #endif

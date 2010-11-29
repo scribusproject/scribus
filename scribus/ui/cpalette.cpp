@@ -533,6 +533,19 @@ void Cpalette::updatePatternList()
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
+void Cpalette::hideEditedPatterns(QStringList names)
+{
+	for (int a = 0; a < names.count(); a++)
+	{
+		QList<QListWidgetItem*> items = patternBox->findItems(names[a], Qt::MatchExactly);
+		if (items.count() > 0)
+			items[0]->setHidden(true);
+		items = patternBoxStroke->findItems(names[a], Qt::MatchExactly);
+		if (items.count() > 0)
+			items[0]->setHidden(true);
+	}
+}
+
 void Cpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
 {
 	patternList = docPatterns;

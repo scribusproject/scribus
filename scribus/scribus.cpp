@@ -211,6 +211,7 @@ for which a new license (GPL+exception) is in place.
 #include "tocgenerator.h"
 //#include "ui/tocindexprefs.h"
 #include "ui/transformdialog.h"
+#include "ui/transparencypalette.h"
 #include "ui/copypagetomasterpagedialog.h"
 #include "ui/edittoolbar.h"
 #include "ui/filetoolbar.h"
@@ -8566,7 +8567,22 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
 		pagePalette->enablePalette(false);
-		symbolPalette->editingStart(temp);
+		QStringList patterns2Del;
+		QStringList mainPatterns = doc->docPatterns.keys();
+		for (int a = 0; a < mainPatterns.count(); a++)
+		{
+			if (mainPatterns[a] != temp)
+			{
+				QStringList subPatterns;
+				subPatterns = doc->getUsedPatternsHelper(mainPatterns[a], subPatterns);
+				if (subPatterns.contains(temp))
+					patterns2Del.append(mainPatterns[a]);
+			}
+		}
+		patterns2Del.append(temp);
+		symbolPalette->editingStart(patterns2Del);
+		propertiesPalette->Cpal->hideEditedPatterns(patterns2Del);
+		propertiesPalette->Tpal->hideEditedPatterns(patterns2Del);
 		updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
 	}
 }
