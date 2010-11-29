@@ -197,8 +197,9 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 	//	return false;
 	
 #ifdef Q_WS_MAC
-	if (newMenuAction->icon().isNull() && ! (afterMenuAction->icon().isNull()))
-		newMenuAction->setIcon(loadIcon("noicon.xpm"));
+	if (newMenuAction && afterMenuAction)
+		if (newMenuAction->icon().isNull() && ! (afterMenuAction->icon().isNull()))
+			newMenuAction->setIcon(loadIcon("noicon.xpm"));
 #endif
 		
 	int pos=menuItemList.indexOf(QPointer<QObject>(afterMenuAction));
