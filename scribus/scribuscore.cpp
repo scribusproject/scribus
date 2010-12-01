@@ -360,7 +360,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 		if (profileName.isEmpty())
 		{
 			if (showInfo)
-				sDebug(QString("Color profile %s is broken : no valid description").arg(profInfo.file));
+				sDebug(QString("Color profile %1 is broken : no valid description").arg(profInfo.file));
 			continue;
 		}
 		if (!profInfo.debug.isEmpty())
