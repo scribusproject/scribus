@@ -622,6 +622,7 @@ public:
 	QStringList getUsedPatterns();
 	QStringList getUsedPatternsSelection(Selection* customSelection);
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
+	QStringList getPatternDependencyList(QStringList used);
 	/*!
 	* @brief Builds a QStringList of the symbols used within the document
 	*/

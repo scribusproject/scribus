@@ -1016,7 +1016,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	{
 		StdFonts.insert("/Helvetica", "");
 	} */
-	QStringList patterns = doc.getUsedPatterns();
+	QStringList patterns = doc.getPatternDependencyList(doc.getUsedPatterns());
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc.docPatterns[patterns[c]];

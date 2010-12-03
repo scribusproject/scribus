@@ -2903,10 +2903,12 @@ void ScribusView::showSymbolPage(QString symbolName)
 
 void ScribusView::hideSymbolPage()
 {
+	updatesOn(false);
 	Deselect(true);
 	if (Doc->symbolEditMode())
 		this->requestMode(modeNormal);
 	Doc->setSymbolEditMode(false);
+	updatesOn(true);
 	Doc->setCurrentPage(Doc->Pages->at(0));
 	pageSelector->setEnabled(true);
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));

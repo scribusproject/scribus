@@ -463,7 +463,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutStream(GrayCalc);
 	Optimization optim = optimization;
 	optimization = OptimizeSize;
-	QStringList patterns = m_Doc->getUsedPatterns();
+	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];

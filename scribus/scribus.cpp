@@ -8567,7 +8567,7 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
 		pagePalette->enablePalette(false);
-		QStringList patterns2Del;
+		patternsDependingOnThis.clear();
 		QStringList mainPatterns = doc->docPatterns.keys();
 		for (int a = 0; a < mainPatterns.count(); a++)
 		{
@@ -8576,20 +8576,19 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 				QStringList subPatterns;
 				subPatterns = doc->getUsedPatternsHelper(mainPatterns[a], subPatterns);
 				if (subPatterns.contains(temp))
-					patterns2Del.append(mainPatterns[a]);
+					patternsDependingOnThis.prepend(mainPatterns[a]);
 			}
 		}
-		patterns2Del.append(temp);
-		symbolPalette->editingStart(patterns2Del);
-		propertiesPalette->Cpal->hideEditedPatterns(patterns2Del);
-		propertiesPalette->Tpal->hideEditedPatterns(patterns2Del);
+		patternsDependingOnThis.prepend(temp);
+		symbolPalette->editingStart(patternsDependingOnThis);
+		propertiesPalette->Cpal->hideEditedPatterns(patternsDependingOnThis);
+		propertiesPalette->Tpal->hideEditedPatterns(patternsDependingOnThis);
 		updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
 	}
 }
 
 void ScribusMainWindow::editSymbolEnd()
 {
-	view->setScale(storedViewScale);
 	view->hideSymbolPage();
 	slotSelect();
 	scrActions["editMasterPages"]->setEnabled(true);
@@ -8629,6 +8628,7 @@ void ScribusMainWindow::editSymbolEnd()
 #endif
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
+	view->setScale(storedViewScale);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	view->DrawNew();

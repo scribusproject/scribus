@@ -2450,7 +2450,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 			}
 		}
 	}
-	QStringList patterns = doc->getUsedPatternsSelection(selection);
+	QStringList patterns = doc->getPatternDependencyList(doc->getUsedPatternsSelection(selection));
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern& pa = doc->docPatterns[patterns[c]];

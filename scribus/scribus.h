@@ -252,6 +252,7 @@ public:
 	ScMWMenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	QStringList RecentDocs;
+	QStringList patternsDependingOnThis;
 
 public slots:
 	void languageChange();

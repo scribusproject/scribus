@@ -1945,7 +1945,7 @@ QString SVGExPlug::getFillStyle(PageItem *Item)
 
 void SVGExPlug::writeBasePatterns()
 {
-	QStringList patterns = m_Doc->getUsedPatterns();
+	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		QStack<PageItem*> groupStack;

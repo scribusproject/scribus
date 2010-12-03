@@ -913,12 +913,12 @@ void Scribus150Format::writePageSets(ScXmlStreamWriter & docu)
 
 void Scribus150Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir) 
 {
-	QMap<QString, ScPattern>::Iterator itPat;
-	for (itPat = m_Doc->docPatterns.begin(); itPat != m_Doc->docPatterns.end(); ++itPat)
+	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->docPatterns.keys());
+	for (int a = 0; a < patterns.count(); a++)
 	{
 		docu.writeStartElement("Pattern");
-		docu.writeAttribute("Name",itPat.key());
-		ScPattern pa = itPat.value();
+		docu.writeAttribute("Name", patterns[a]);
+		ScPattern pa = m_Doc->docPatterns[patterns[a]];
 		docu.writeAttribute("width", pa.width);
 		docu.writeAttribute("height", pa.height);
 		docu.writeAttribute("scaleX", pa.scaleX);
