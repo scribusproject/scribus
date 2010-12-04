@@ -2168,8 +2168,6 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	setXY(i->xPos(), i->yPos());
 	setBH(i->width(), i->height());
 	NoPrint->setChecked(!i->printEnabled());
-	setLocked(i->locked());
-	setSizeLocked(i->sizeLocked());
 	setFlippedH(i->imageFlippedH());
 	setFlippedV(i->imageFlippedV());
 	RoVal = i->rotation();
@@ -2357,6 +2355,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		}
 	}
 	setXY(CurItem->xPos(), CurItem->yPos());
+	setLocked(i->locked());
+	setSizeLocked(i->sizeLocked());
 	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setLineWidth(i->lineWidth());
 	setLIvalue(i->lineStyle(), i->lineEnd(), i->lineJoin());
