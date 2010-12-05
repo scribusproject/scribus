@@ -124,9 +124,16 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	}
 //	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
 //		return true;
-	QRegExp regExp("Version=\"1.3.[4-9]");
+	QRegExp regExp134("Version=\"1.3.[4-9]");
+	QRegExp regExp140("Version=\"1.4.[0-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	return startElemPos >= 0 && (regExp.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
+	if (startElemPos >= 0)
+	{
+		bool is134 = ( regExp134.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		bool is140 = ( regExp140.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		return (is134 || is140);
+	}
+	return false;
 }
 
 QString Scribus134Format::readSLA(const QString & fileName)
@@ -146,14 +153,20 @@ QString Scribus134Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	QRegExp regExp("Version=\"1.3.[4-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0 && (regExp.indexIn(docBytes.mid(startElemPos, 64)) >= 0))
-		docText = QString::fromUtf8(docBytes);
-	else
+	if (startElemPos >= 0)
+	{
+		QRegExp regExp134("Version=\"1.3.[4-9]");
+		QRegExp regExp140("Version=\"1.4.[0-9]");
+		bool is134 = ( regExp134.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		bool is140 = ( regExp140.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		if (is134 || is140)
+			docText = QString::fromUtf8(docBytes);
+		if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
+			docText.truncate(docText.length()-1);
+	}
+	if (docText.isEmpty())
 		return QString::null;
-	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
-		docText.truncate(docText.length()-1);
 	return docText;
 }
 
