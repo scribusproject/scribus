@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
         <key>CFBundleGetInfoString</key>
-        <string>Scribus 1.3.5</string>
+        <string>Scribus 1.5.0</string>
         <key>CFBundleIdentifier</key>
         <string>net.scribus.aqua</string>
         <key>CFBundleName</key>
         <string>Scribus</string>
         <key>CFBundleShortVersionString</key>
-        <string>1.3.5</string>
+        <string>1.5.0</string>
 	<key>IFMajorVersion</key>
 	<integer>0</integer>
 	<key>IFMinorVersion</key>
