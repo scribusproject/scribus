@@ -529,7 +529,7 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
 		}
 		setIcon(pixmap);
 	}
-	setText(QString("%1 - %2\n%3").arg(targetName).arg(actionName).arg(actionDescription));
+	setText(tr("%1 - %2\n%3").arg(targetName).arg(actionName).arg(actionDescription));
 }
 
 //void UndoPalette::UndoItem::paint(QPainter *painter)
