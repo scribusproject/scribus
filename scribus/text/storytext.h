@@ -147,7 +147,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
  	uint nrOfParagraphs() const;
  	int startOfParagraph(uint index) const;
  	int endOfParagraph(uint index) const;
-	int nrOfParagraph(uint index) const;
+	uint nrOfParagraph(int pos) const;
 
  	uint nrOfRuns() const;
  	int startOfRun(uint index) const;
