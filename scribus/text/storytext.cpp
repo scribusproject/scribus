@@ -850,13 +850,14 @@ void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 }
 
 
-int StoryText::nrOfParagraph(uint index) const
+uint StoryText::nrOfParagraph(int pos) const
 {
-	int result = 0;
+	uint result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
-	index = qMin(index, (uint) that->length());
-	for (uint i=0; i < index; ++i) {
+	pos = qMin(pos, that->length());
+	for (int i=0; i < pos; ++i) 
+	{
 		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
@@ -869,7 +870,8 @@ uint StoryText::nrOfParagraphs() const
 	uint result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
-	for (int i=0; i < length(); ++i) {
+	for (int i=0; i < length(); ++i) 
+	{
 		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
@@ -883,7 +885,8 @@ int StoryText::startOfParagraph(uint index) const
 		return 0;
 
 	StoryText* that = const_cast<StoryText *>(this);
-	for (int i=0; i < length(); ++i) {
+	for (int i=0; i < length(); ++i) 
+	{
 		if (that->d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i + 1;
 	}
@@ -894,7 +897,8 @@ int StoryText::endOfParagraph(uint index) const
 {
 	++index;
 	StoryText* that = const_cast<StoryText *>(this);
-	for (int i=0; i < length(); ++i) {
+	for (int i=0; i < length(); ++i) 
+	{
 		if (that->d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i;
 	}
