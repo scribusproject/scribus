@@ -1955,10 +1955,13 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 			sourceSelection.addItem(itemToCopy);
 		}
 	}
-	Selection targetSelection(Serializer(*this).cloneObjects(sourceSelection));
-	for(int si(0); si < targetSelection.count(); ++si)
+	if (sourceSelection.count() > 0)
 	{
-		targetSelection.itemAt(si)->setLayer(whereToInsert);
+		Selection targetSelection(Serializer(*this).cloneObjects(sourceSelection));
+		for(int si(0); si < targetSelection.count(); ++si)
+		{
+			targetSelection.itemAt(si)->setLayer(whereToInsert);
+		}
 	}
 }
 
