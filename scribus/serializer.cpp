@@ -185,8 +185,14 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	UniqueID handler( & outputhandler );
 	handler.beginDoc();
 	handler.begin("SCRIBUSFRAGMENT", attr);
+
+	if (selection.count() == 0)
+	{
+		handler.end("SCRIBUSFRAGMENT");
+		handler.endDoc();
+		return;
+	}
 	ScribusDoc* doc = selection.itemAt(0)->doc();
-	
 	
 	QMap<QString,int>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
