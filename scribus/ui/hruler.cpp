@@ -116,12 +116,12 @@ double Hruler::textPosToCanvas(double x) const
 
 int Hruler::textPosToLocal(double x) const
 {
-	return qRound(textPosToCanvas(x) * Scaling);
+	return qRound(textPosToCanvas(x) * Scaling)- currView->contentsX();
 }
 
 double Hruler::localToTextPos(int x) const
 {
-	return x/Scaling - textBase();
+	return ((x + currView->contentsX()) / Scaling - textBase());
 }
 
 void Hruler::shift(double pos)
@@ -521,16 +521,18 @@ void Hruler::paintEvent(QPaintEvent *e)
 
 	if (textEditMode)
 	{
-		p.eraseRect(QRect(QPoint(qRound((ItemPos+Extra)*sc), 1), QPoint(qRound((ItemEndPos-RExtra)*sc), 15)));
-		p.drawLine(qRound((ItemPos+Extra)*sc), 16, qRound((ItemEndPos-RExtra)*sc), 16);
+		int rectX1 = textPosToLocal(Extra);
+		int rectX2 = textPosToLocal(ItemEndPos-ItemPos-RExtra);
+		p.eraseRect(QRect(QPoint(rectX1, 1), QPoint(rectX2, 15)));
+		p.drawLine(rectX1, 16, rectX2, 16);
 		p.save();
 		p.setRenderHints(QPainter::Antialiasing, true);
 		if (Revers)
 		{
-			p.translate(qRound((ItemPos)*sc), 0);
+			p.translate( textPosToLocal(0), 0);
 			p.scale(-1, 1);
-			p.translate(qRound((ItemPos+Extra)*sc-(ItemEndPos-RExtra)*sc), 0);
-			p.translate(-qRound(ItemPos*sc), 0);
+			p.translate( textPosToLocal(Extra) - textPosToLocal(ItemEndPos-ItemPos-RExtra), 0);
+			p.translate(-textPosToLocal(0), 0);
 		}
 		for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
 		{
