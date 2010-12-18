@@ -307,9 +307,18 @@ void StoryText::removeChars(int pos, uint len)
 		d->takeAt(i);
 		d->len--;
 		delete it;
+		// #9592 : adjust selFirst and selLast, those values have to be
+		// consistent in functions such as select()
+		if (i <= selLast) --selLast;
+		if (i < selFirst) --selFirst;
 	}
 
 	d->len = d->count();
+	if (selFirst > selLast)
+	{
+		selFirst =  0;
+		selLast  = -1;
+	}
 	invalidate(pos, length());
 }
 
