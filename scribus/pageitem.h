@@ -70,6 +70,7 @@ class PageItem_TextFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
 class PageItem_Symbol;
+class PageItem_Group;
 #ifdef HAVE_OSG
 class PageItem_OSGFrame;
 #endif
@@ -167,6 +168,7 @@ public:
 		LatexFrame  = 9,
 		OSGFrame    = 10,
 		Symbol		= 11,
+		Group		= 12,
 		Multiple	= 99
 	};
 
@@ -194,6 +196,7 @@ public:
 	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
 #endif
 	virtual PageItem_Symbol * asSymbolFrame() { return NULL; }
+	virtual PageItem_Group * asGroupFrame() { return NULL; }
 
 	virtual bool isImageFrame() const { return false; }
 	virtual bool isLine()       const { return false; }
@@ -204,6 +207,7 @@ public:
 	virtual bool isLatexFrame() const { return false; }
 	virtual bool isOSGFrame()   const { return false; }
 	virtual bool isSymbol()     const { return false; }
+	virtual bool isGroup()      const { return false; }
 
 	/** @brief Frame Type
 	 *
@@ -330,7 +334,7 @@ public:
 	 * @return bool true if the x, y is in the bounds 
 	 */
 	bool mouseWithinItem(const int x, const int y, double scale) const;
-	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
+//	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
@@ -582,6 +586,10 @@ public:
 	bool isGroupControl;
 	PageItem *groupsLastItem;
 	void setGroupsLastItem(PageItem* item);
+	QList<PageItem*> groupItemList;
+	virtual QList<PageItem*> getItemList();
+	double groupWidth;
+	double groupHeight;
 	double BoundingX;
 	double BoundingY;
 	double BoundingW;
@@ -1094,8 +1102,8 @@ public:
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo);
 
-	void getNamedResources(ResourceCollection& lists) const;
-	void replaceNamedResources(ResourceCollection& newNames);
+	virtual void getNamedResources(ResourceCollection& lists) const;
+	virtual void replaceNamedResources(ResourceCollection& newNames);
 
 	/**
 	 * @brief Return a variant of `originalName' that is guaranteed to be unique

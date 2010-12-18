@@ -1318,7 +1318,10 @@ void PaintManagerDialog::loadVectors(QString data)
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 			if( fmt )
+			{
+				fmt->setupTargets(m_doc, 0, mainWin, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted|LoadSavePlugin::lfKeepPatterns|LoadSavePlugin::lfLoadAsPattern);
+			}
 		}
 	}
 	m_doc->useRaster = savedAlignGrid;

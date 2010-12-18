@@ -492,39 +492,14 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		QBuffer b(&buf);
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
-		QStack<PageItem*> groupStack;
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
-			if (item->isGroupControl)
-			{
-				PS_save();
-				FPointArray cl = item->PoLine.copy();
-				QTransform mm;
-				mm.translate(item->gXpos, item->gYpos - pa.height);
-				mm.rotate(item->rotation());
-				cl.map( mm );
-				SetClipPath(&cl);
-				PS_closepath();
-				PS_clip(true);
-				groupStack.push(item->groupsLastItem);
-				continue;
-			}
 			PutStream("{\n");
 			PS_save();
 			PS_translate(item->gXpos, pa.height - item->gYpos);
 			ProcessItem(m_Doc, m_Doc->Pages->at(0), item, 0, sep, farb, ic, gcr, false, true, true);
 			PS_restore();
-			if (groupStack.count() != 0)
-			{
-				while (item == groupStack.top())
-				{
-					PS_restore();
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
 			PutStream("} exec\n");
 		}
 		for (int em = 0; em < pa.items.count(); ++em)
@@ -1478,7 +1453,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool gcr = options.doGCR;
 	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
-	QStack<PageItem*> groupStack;
 	int sepac;
 	int pagemult;
 	if ((sep) && (SepNam == QObject::tr("All")))
@@ -1526,7 +1500,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			ScQApp->processEvents();
 		}
 	}
-	//if ((!Art) && (view->SelItem.count() != 0))
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((!psExport) && (docSelectionCount != 0))
 	{
@@ -1536,7 +1509,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		double maxy = -999999.9;
 		for (uint ep = 0; ep < docSelectionCount; ++ep)
 		{
-			//PageItem* currItem = view->SelItem.at(ep);
 			PageItem* currItem = Doc->m_Selection->itemAt(ep);
 			double lw = currItem->lineWidth() / 2.0;
 			if (currItem->rotation() != 0)
@@ -1653,7 +1625,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			ScQApp->processEvents();
 		a = pageNs[aa]-1;
 		Page* page = Doc->Pages->at(a);
-		//if ((!Art) && (view->SelItem.count() != 0))
 		if ((!psExport) && (Doc->m_Selection->count() != 0))
 		{
 			MarginStruct Ma;
@@ -2289,30 +2260,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
 					QList<PageItem*> emG = hl->embedded.getGroupedItems();
-					QStack<PageItem*> groupStack;
 					for (int em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
-						if (embedded->isGroupControl)
-						{
-							PS_save();
-							FPointArray cl = embedded->PoLine.copy();
-							QTransform mm;
-							mm.translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)) * -1);
-							if (style.baselineOffset() != 0)
-								mm.translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
-							if (style.scaleH() != 1000)
-								mm.scale(style.scaleH() / 1000.0, 1);
-							if (style.scaleV() != 1000)
-								mm.scale(1, style.scaleV() / 1000.0);
-							mm.rotate(embedded->rotation());
-							cl.map( mm );
-							SetClipPath(&cl);
-							PS_closepath();
-							PS_clip(true);
-							groupStack.push(embedded->groupsLastItem);
-							continue;
-						}
 						PS_save();
 						PS_translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)));
 						if (style.baselineOffset() != 0)
@@ -2323,16 +2273,6 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_scale(1, style.scaleV() / 1000.0);
 						ProcessItem(Doc, a, embedded, PNr, sep, farb, ic, gcr, master, true);
 						PS_restore();
-						if (groupStack.count() != 0)
-						{
-							while (embedded == groupStack.top())
-							{
-								PS_restore();
-								groupStack.pop();
-								if (groupStack.count() == 0)
-									break;
-							}
-						}
 					}
 					PS_restore();
 					continue;
@@ -2671,41 +2611,43 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_translate(0, -c->height());
 				PS_scale(c->width() / pat.width, c->height() / pat.height);
 				PS_translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
-				QStack<PageItem*> groupStack;
 				for (int em = 0; em < pat.items.count(); ++em)
 				{
-					PageItem* embedded = pat.items.at(em);
-					if (embedded->isGroupControl)
-					{
-						PS_save();
-						FPointArray cl = embedded->PoLine.copy();
-						QTransform mm;
-						mm.translate(embedded->gXpos, -(embedded->gHeight - embedded->gYpos));
-						mm.rotate(embedded->rotation());
-						cl.map( mm );
-						SetClipPath(&cl);
-						PS_closepath();
-						PS_clip(true);
-						groupStack.push(embedded->groupsLastItem);
-						continue;
-					}
+					PageItem* embed = pat.items.at(em);
 					PS_save();
-					PS_translate(embedded->gXpos, embedded->gHeight - embedded->gYpos);
-					ProcessItem(m_Doc, a, embedded, PNr, sep, farb, ic, gcr, master, true);
+					PS_translate(embed->gXpos, embed->gHeight - embed->gYpos);
+					ProcessItem(m_Doc, a, embed, PNr, sep, farb, ic, gcr, master, true);
 					PS_restore();
-					if (groupStack.count() != 0)
-					{
-						while (embedded == groupStack.top())
-						{
-							PS_restore();
-							groupStack.pop();
-							if (groupStack.count() == 0)
-								break;
-						}
-					}
 				}
 				PS_restore();
 			}
+			break;
+		case PageItem::Group:
+			PS_save();
+			SetClipPath(&c->PoLine);
+			PS_closepath();
+			PS_clip(true);
+			if (c->imageFlippedH())
+			{
+				PS_translate(c->width(), 0);
+				PS_scale(-1, 1);
+			}
+			if (c->imageFlippedV())
+			{
+				PS_translate(0, -c->height());
+				PS_scale(1, -1);
+			}
+			PS_translate(0, -c->height());
+			PS_scale(c->width() / c->groupWidth, c->height() / c->groupHeight);
+			for (int em = 0; em < c->groupItemList.count(); ++em)
+			{
+				PageItem* embed = c->groupItemList.at(em);
+				PS_save();
+				PS_translate(embed->gXpos, embed->gHeight - embed->gYpos);
+				ProcessItem(m_Doc, a, embed, PNr, sep, farb, ic, gcr, master, true);
+				PS_restore();
+			}
+			PS_restore();
 			break;
 		default:
 			break;
@@ -2723,7 +2665,6 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	QString chstr, chglyph, tmp;
 	PageItem *c;
 	QList<PageItem*> PItems;
-	QStack<PageItem*> groupStack;
 	int Lnr = 0;
 	ScLayer ll;
 	ll.isPrintable = false;
@@ -2765,31 +2706,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 					continue;
 				if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 					continue;
-				if (c->isGroupControl)
-				{
-					PS_save();
-					FPointArray cl = c->PoLine.copy();
-					QTransform mm;
-					mm.translate(c->xPos() - a->xOffset(), (c->yPos() - a->yOffset()) - a->height());
-					mm.rotate(c->rotation());
-					cl.map( mm );
-					SetClipPath(&cl);
-					PS_closepath();
-					PS_clip(true);
-					groupStack.push(c->groupsLastItem);
-					continue;
-				}
 				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
-				if (groupStack.count() != 0)
-				{
-					while (c == groupStack.top())
-					{
-						PS_restore();
-						groupStack.pop();
-						if (groupStack.count() == 0)
-							break;
-					}
-				}
 			}
 		}
 		for (b = 0; b < PItems.count() && !abortExport; ++b)
@@ -2879,7 +2796,6 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 	bool success = true;
 	int h, s, v, k;
 	QVector<double> dum;
-	QStack<PageItem*> groupStack;
 	Page* mPage = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 	if (layer.isPrintable)
 	{
@@ -2891,20 +2807,6 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 				ScQApp->processEvents();
 			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
-			if (ite->isGroupControl)
-			{
-				PS_save();
-				FPointArray cl = ite->PoLine.copy();
-				QTransform mm;
-				mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - page->height());
-				mm.rotate(ite->rotation());
-				cl.map( mm );
-				SetClipPath(&cl);
-				PS_closepath();
-				PS_clip(true);
-				groupStack.push(ite->groupsLastItem);
-				continue;
-			}
 			if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
 			{
 				int mpIndex = Doc->MasterNames[page->MPageNam];
@@ -3002,17 +2904,8 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 				}
 				PS_restore();
 			}
-			if (groupStack.count() != 0)
-			{
-				while (ite == groupStack.top())
-				{
-					PS_restore();
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
-			if (!success) break;
+			if (!success)
+				break;
 		}
 	}
 	for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
@@ -3076,7 +2969,6 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint P
 	bool success = true;
 	int b, h, s, v, k;
 	QList<PageItem*> items;
-	QStack<PageItem*> groupStack;
 	items = (page->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
 	if (layer.isPrintable && !abortExport)
 	{
@@ -3111,32 +3003,9 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint P
 				continue;
 			if ((!page->pageName().isEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
 				continue;
-			if (item->isGroupControl)
-			{
-				PS_save();
-				FPointArray cl = item->PoLine.copy();
-				QTransform mm;
-				mm.translate(item->xPos() - page->xOffset(), (item->yPos() - page->yOffset()) - page->height());
-				mm.rotate(item->rotation());
-				cl.map( mm );
-				SetClipPath(&cl);
-				PS_closepath();
-				PS_clip(true);
-				groupStack.push(item->groupsLastItem);
-				continue;
-			}
 			success &= ProcessItem(Doc, page, item, PNr, sep, farb, ic, gcr, false);
-			if (groupStack.count() != 0)
-			{
-				while (item == groupStack.top())
-				{
-					PS_restore();
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
-			if (!success) break;
+			if (!success)
+				break;
 		}
 	}
 	if (!success)
@@ -3257,38 +3126,13 @@ void PSLib::HandleBrushPattern(PageItem *c, QPainterPath &path, Page* a, uint PN
 			trans.scale(1, -1);
 		}
 		PutStream( MatrixToStr(trans.m11(), trans.m12(), trans.m21(), trans.m22(), trans.dx(), trans.dy()) + " concat\n");
-		QStack<PageItem*> groupStack;
 		for (int em = 0; em < pat.items.count(); ++em)
 		{
 			PageItem* embedded = pat.items.at(em);
-			if (embedded->isGroupControl)
-			{
-				PS_save();
-				FPointArray cl = embedded->PoLine.copy();
-				QTransform mm;
-				mm.translate(embedded->gXpos, -(embedded->gHeight - embedded->gYpos));
-				mm.rotate(embedded->rotation());
-				cl.map( mm );
-				SetClipPath(&cl);
-				PS_closepath();
-				PS_clip(true);
-				groupStack.push(embedded->groupsLastItem);
-				continue;
-			}
 			PS_save();
 			PS_translate(embedded->gXpos, embedded->gHeight - embedded->gYpos);
 			ProcessItem(m_Doc, a, embedded, PNr, sep, farb, ic, gcr, master, true);
 			PS_restore();
-			if (groupStack.count() != 0)
-			{
-				while (embedded == groupStack.top())
-				{
-					PS_restore();
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
 		}
 		xpos += adv;
 		PS_restore();
@@ -4397,30 +4241,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 	{
 		QList<PageItem*> emG = hl->embedded.getGroupedItems();
-		QStack<PageItem*> groupStack;
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
-			if (embedded->isGroupControl)
-			{
-				PS_save();
-				FPointArray cl = embedded->PoLine.copy();
-				QTransform mm;
-				mm.translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)));
-				if (cstyle.baselineOffset() != 0)
-					mm.translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
-				if (cstyle.scaleH() != 1000)
-					mm.scale(cstyle.scaleH() / 1000.0, 1);
-				if (cstyle.scaleV() != 1000)
-					mm.scale(1, cstyle.scaleV() / 1000.0);
-				mm.rotate(embedded->rotation());
-				cl.map( mm );
-				SetClipPath(&cl);
-				PS_closepath();
-				PS_clip(true);
-				groupStack.push(embedded->groupsLastItem);
-				continue;
-			}
 			PS_save();
 			PS_translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
 			if (cstyle.baselineOffset() != 0)
@@ -4431,16 +4254,6 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				PS_scale(1, cstyle.scaleV() / 1000.0);
 			ProcessItem(Doc, pg, embedded, argh, sep, farb, ic, gcr, master, true);
 			PS_restore();
-			if (groupStack.count() != 0)
-			{
-				while (embedded == groupStack.top())
-				{
-					PS_restore();
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
 		}
 		for (int em = 0; em < emG.count(); ++em)
 		{

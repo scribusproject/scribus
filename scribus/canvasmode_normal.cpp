@@ -185,7 +185,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			m_view->requestMode(submodeEditExternal);
 		}
 #endif
-		else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
+		else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::Group) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 		{
 			if (currItem->locked()) //|| (!currItem->ScaleType))
 			{
@@ -208,7 +208,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
  				m_view->requestMode(modeEdit);
 			}
 			else
-				m_view->requestMode(modeEditClip);				
+				m_view->requestMode(modeEditClip);
 		}
 		else if (currItem->itemType() == PageItem::TextFrame)
 		{
@@ -236,7 +236,8 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		}
 		else if (currItem->asSymbolFrame())
 		{
-			m_view->requestMode(submodeEditSymbol);
+			if (!m_doc->symbolEditMode())
+				m_view->requestMode(submodeEditSymbol);
 		}
 	}
 }
@@ -1226,7 +1227,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			{
 				currItem->isSingleSel = true;
 			}
-			else if (currItem->Groups.count() > 0)
+/*			else if (currItem->Groups.count() > 0)
 			{
 				for (int ga=0; ga<m_doc->Items->count(); ++ga)
 				{
@@ -1246,7 +1247,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 						}
 					}
 				}
-			}
+			} */
 		}
 		if(pageChanged)
 		{
@@ -1410,7 +1411,9 @@ void CanvasMode_Normal::importToPage()
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 				if( fmt )
+				{
 					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+				}
 			}
 			if (m_doc->m_Selection->count() > 0)
 			{

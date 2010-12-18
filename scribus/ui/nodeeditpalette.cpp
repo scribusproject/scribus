@@ -408,19 +408,19 @@ void NodePalette::PolyStatus(int typ, uint size)
 	bool setter;
 	switch (typ)
 	{
-	case 6:
-		PolySplit->setEnabled(true);
-		BezierClose->setEnabled(false);
-		break;
-	case 7:
-		setter = size > 7 ? true : false;
-		BezierClose->setEnabled(setter);
-		PolySplit->setEnabled(setter);
-		break;
-	default:
-		BezierClose->setEnabled(false);
-		PolySplit->setEnabled(false);
-		break;
+		case PageItem::Polygon:
+			PolySplit->setEnabled(true);
+			BezierClose->setEnabled(false);
+			break;
+		case PageItem::PolyLine:
+			setter = size > 7 ? true : false;
+			BezierClose->setEnabled(setter);
+			PolySplit->setEnabled(setter);
+			break;
+		default:
+			BezierClose->setEnabled(false);
+			PolySplit->setEnabled(false);
+			break;
 	}
 }
 

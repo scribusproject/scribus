@@ -206,6 +206,11 @@ bool LoadSavePlugin::saveFile(const QString & /* fileName */,
 	return false;
 }
 
+bool LoadSavePlugin::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc)
+{
+	return false;
+}
+
 bool LoadSavePlugin::savePalette(const QString & fileName)
 {
 	return false;
@@ -442,6 +447,11 @@ bool FileFormat::saveFile(const QString & fileName) const
 bool FileFormat::savePalette(const QString & fileName) const
 {
 	return (plug && save) ? plug->savePalette(fileName) : false;
+}
+
+bool FileFormat::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const
+{
+	return (plug && load) ? plug->loadElements(data, fileDir, toLayer, Xp_in, Yp_in, loc) : false;
 }
 
 bool FileFormat::loadPalette(const QString & fileName) const

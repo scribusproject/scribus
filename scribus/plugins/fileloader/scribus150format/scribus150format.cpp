@@ -66,7 +66,7 @@ void Scribus150Format::languageChange()
 
 const QString Scribus150Format::fullTrName() const
 {
-	return QObject::tr("Scribus 1.3.4+ Support");
+	return QObject::tr("Scribus 1.5.0+ Support");
 }
 
 const ScActionPlugin::AboutData* Scribus150Format::getAboutData() const
@@ -76,8 +76,8 @@ const ScActionPlugin::AboutData* Scribus150Format::getAboutData() const
 	about->authors = QString::fromUtf8(
 			"Franz Schmid <franz@scribus.info>, "
 			"The Scribus Team");
-	about->shortDescription = tr("Scribus 1.3.4+ File Format Support");
-	about->description = tr("Allows Scribus to read Scribus 1.3.4 and higher formatted files.");
+	about->shortDescription = tr("Scribus 1.5.0+ File Format Support");
+	about->description = tr("Allows Scribus to read Scribus 1.5.0 and higher formatted files.");
 	// about->version
 	// about->releaseDate
 	// about->copyright
@@ -124,10 +124,14 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-//	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
-//		return true;
+	QRegExp regExp150("Version=\"1.5.[0-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	return startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).indexOf("Version=\"1.5.0") >= 0));
+	if (startElemPos >= 0)
+	{
+		bool is150 = ( regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		return is150;
+	}
+	return false;
 }
 
 QString Scribus150Format::readSLA(const QString & fileName)
@@ -148,12 +152,17 @@ QString Scribus150Format::readSLA(const QString & fileName)
 	}
 	QString docText("");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).indexOf("Version=\"1.5.0") >= 0)))
-		docText = QString::fromUtf8(docBytes);
-	else
+	if (startElemPos >= 0)
+	{
+		QRegExp regExp150("Version=\"1.5.[0-9]");
+		bool is150 = ( regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		if (is150)
+			docText = QString::fromUtf8(docBytes);
+		if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
+			docText.truncate(docText.length()-1);
+	}
+	if (docText.isEmpty())
 		return QString::null;
-	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
-		docText.truncate(docText.length()-1);
 	return docText;
 }
 
@@ -161,6 +170,345 @@ void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 {
 	getNewReplacement=false;
 	getReplacedFonts.clear();
+}
+
+bool Scribus150Format::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc)
+{
+	ParagraphStyle vg;
+	bool newVersion = false;
+	LayerToPaste = toLayer;
+	Xp = Xp_in;
+	Yp = Yp_in;
+	GrX = 0.0;
+	GrY = 0.0;
+
+	QMap<int,int> TableID;
+	QMap<int,int> TableIDM;
+	QMap<int,int> TableIDF;
+	QList<PageItem*> TableItems;
+	QList<PageItem*> TableItemsM;
+	QList<PageItem*> TableItemsF;
+	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackF;
+	QStack< QList<PageItem*> > groupStackM;
+	QStack< QList<PageItem*> > groupStackP;
+	QStack<int> groupStack2;
+
+	ScColor lf = ScColor();
+
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	itemRemapM.clear();
+	itemNextM.clear();
+	itemCountM = 0;
+	itemRemapF.clear();
+	itemNextF.clear();
+
+	TableItems.clear();
+	TableID.clear();
+	TableItemsM.clear();
+	TableIDM.clear();
+	TableItemsF.clear();
+	TableIDF.clear();
+
+	bool firstElement = true;
+	bool success = true;
+
+	ScXmlStreamReader reader(data);
+	ScXmlStreamAttributes attrs;
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		QXmlStreamReader::TokenType tType = reader.readNext();
+		if (tType != QXmlStreamReader::StartElement)
+			continue;
+		QStringRef tagName = reader.name();
+		attrs = reader.scAttributes();
+
+		if (firstElement)
+		{
+			if (tagName == "SCRIBUSELEM" || tagName == "SCRIBUSELEMUTF8")
+			{
+				if (!loc)
+				{
+					GrX = attrs.valueAsDouble("XP");
+					GrY = attrs.valueAsDouble("YP");
+				}
+				if (attrs.hasAttribute("Version"))
+					newVersion = true;
+			}
+			else
+			{
+				success = false;
+				break;
+			}
+			firstElement = false;
+		}
+		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
+		{
+			success = readColor(m_Doc->PageColors, attrs);
+			if (!success) break;
+		}
+		if (tagName == "Gradient")
+		{
+			VGradient gra;
+			QString grName = attrs.valueAsString("Name");
+			success = readGradient(m_Doc, gra, reader);
+			if (!success) break;
+			if (!grName.isEmpty())
+			{
+				m_Doc->docGradients.insert(grName, gra);
+			}
+		}
+		if (tagName == "STYLE")
+		{
+			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
+			StyleSet<ParagraphStyle>tmp;
+			tmp.create(vg);
+			m_Doc->redefineStyles(tmp, false);
+		}
+		if (tagName == "CHARSTYLE")
+		{
+			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
+			StyleSet<CharStyle> temp;
+			temp.create(vg.charStyle());
+			m_Doc->redefineCharStyles(temp, false);
+		}
+		if (tagName == "Arrows")
+		{
+			success = readArrows(m_Doc, attrs);
+			if (!success) break;
+		}
+		if (tagName == "MultiLine")
+		{
+			multiLine ml;
+			QString mlName = attrs.valueAsString("Name");
+			success = readMultiline(ml, reader);
+			if (!success) break;
+			if (!mlName.isEmpty())
+			{
+				m_Doc->MLineStyles.insert(mlName, ml);
+			}
+		}
+		if (tagName == "ITEM")
+		{
+			ItemInfo itemInfo;
+			success = readObject(m_Doc, reader, itemInfo, fileDir, true);
+			if (!success)
+				break;
+			// first of linked chain?
+			if (tagName == "ITEM")
+			{
+				if (itemInfo.nextItem != -1)
+					itemNext[itemInfo.item->ItemNr] = itemInfo.nextItem;
+			}
+			if (itemInfo.item->isTableItem)
+			{
+				if (tagName == "ITEM")
+				{
+					TableItems.append(itemInfo.item);
+					TableID.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+				}
+			}
+			if (groupStack.count() > 0)
+			{
+				groupStack.top().append(itemInfo.item);
+				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				{
+					if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
+						groupStackP.push(groupStack.pop());
+					else if (tagName == "FRAMEOBJECT")
+						groupStackF.push(groupStack.pop());
+					else
+						groupStackM.push(groupStack.pop());
+					groupStack2.pop();
+				}
+			}
+			if (itemInfo.isGroupControl)
+			{
+				QList<PageItem*> GroupItems;
+				GroupItems.append(itemInfo.item);
+				groupStack.push(GroupItems);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+			}
+		}
+		if (tagName == "Pattern")
+		{
+			success = readPattern(m_Doc, reader, fileDir);
+			if (!success) break;
+		}
+	}
+	if (reader.hasError())
+	{
+		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
+		return false;
+	}
+	if (TableItemsF.count() != 0)
+	{
+		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsF.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (TableItemsM.count() != 0)
+	{
+		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsM.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (TableItems.count() != 0)
+	{
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
+		{
+			PageItem* ta = TableItems.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	// reestablish textframe links
+	if (itemNext.count() != 0)
+	{
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		{
+			if (lc.value() >= 0)
+			{
+				PageItem * Its = m_Doc->DocItems.at(lc.key());
+				PageItem * Itn = m_Doc->DocItems.at(lc.value());
+				if (Itn->prevInChain() || Its->nextInChain()) 
+				{
+					qDebug() << "scribus150format: corruption in linked textframes detected";
+					continue;
+				}
+				Its->link(Itn);
+			}
+		}
+	}
+	if (groupStackP.count() > 0)
+	{
+		while (groupStackP.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackP.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->DocItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackF.count() > 0)
+	{
+		while (groupStackF.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackF.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->FrameItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackM.count() > 0)
+	{
+		while (groupStackM.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackM.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->MasterItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	m_Doc->renumberItemsInListOrder();
+	return true;
 }
 
 bool Scribus150Format::loadPalette(const QString & fileName)
@@ -171,8 +519,10 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		return false;
 	}
 	ParagraphStyle vg;
-	struct ScribusDoc::BookMa bok;
-	QMap<int, ScribusDoc::BookMa> bookmarks;
+	Xp = 0.0;
+	Yp = 0.0;
+	GrX = 0.0;
+	GrY = 0.0;
 
 	QMap<int,int> TableID;
 	QMap<int,int> TableIDM;
@@ -180,9 +530,11 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<PageItem*, int> groupID;
-	QMap<PageItem*, int> groupIDM;
-	QMap<PageItem*, int> groupIDF;
+	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackF;
+	QStack< QList<PageItem*> > groupStackM;
+	QStack< QList<PageItem*> > groupStackP;
+	QStack<int> groupStack2;
 	
 	QByteArray docBytes("");
 	loadRawText(fileName, docBytes);
@@ -201,7 +553,6 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		m_mwProgressBar->setValue(0);
 	}
 	
-	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -225,7 +576,6 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 
 	bool firstElement = true;
 	bool success = true;
-//	bool hasPageSets = false;
 	int  progress = 0;
 
 	ScXmlStreamReader reader(f);
@@ -332,14 +682,26 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 					TableIDM.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
 				}
 			}
-			if (itemInfo.item->isGroupControl)
+			if (groupStack.count() > 0)
 			{
-				if (tagName == "PAGEOBJECT")
-					groupID.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
-				else if (tagName == "FRAMEOBJECT")
-					groupIDF.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
-				else
-					groupIDM.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				groupStack.top().append(itemInfo.item);
+				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				{
+					if (tagName == "PAGEOBJECT")
+						groupStackP.push(groupStack.pop());
+					else if (tagName == "FRAMEOBJECT")
+						groupStackF.push(groupStack.pop());
+					else
+						groupStackM.push(groupStack.pop());
+					groupStack2.pop();
+				}
+			}
+			if (itemInfo.isGroupControl)
+			{
+				QList<PageItem*> GroupItems;
+				GroupItems.append(itemInfo.item);
+				groupStack.push(GroupItems);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
 			}
 		}
 		if (tagName == "Pattern")
@@ -423,30 +785,6 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				ta->BottomLink = 0;
 		}
 	}
-	if (groupIDF.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupIDF.begin(); it != groupIDF.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.value());
-		}
-	}
-	if (groupID.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupID.begin(); it != groupID.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->DocItems.at(it.value());
-		}
-	}
-	if (groupIDM.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.value());
-		}
-	}
 	// reestablish textframe links
 	if (itemNext.count() != 0)
 	{
@@ -484,6 +822,82 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			}
 		}
 	}
+	if (groupStackP.count() > 0)
+	{
+		while (groupStackP.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackP.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->DocItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackF.count() > 0)
+	{
+		while (groupStackF.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackF.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->FrameItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackM.count() > 0)
+	{
+		while (groupStackM.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackM.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->MasterItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	m_Doc->renumberItemsInListOrder();
 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
@@ -503,6 +917,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		return false;
 	}
 	ParagraphStyle vg;
+	Xp = 0.0;
+	Yp = 0.0;
+	GrX = 0.0;
+	GrY = 0.0;
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
@@ -514,9 +932,11 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<PageItem*, int> groupID;
-	QMap<PageItem*, int> groupIDM;
-	QMap<PageItem*, int> groupIDF;
+	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackF;
+	QStack< QList<PageItem*> > groupStackM;
+	QStack< QList<PageItem*> > groupStackP;
+	QStack<int> groupStack2;
 	
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -537,8 +957,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	// Stop autosave timer,it will be restarted only if doc has autosave feature is enabled
 	if (m_Doc->autoSaveTimer->isActive())
 		m_Doc->autoSaveTimer->stop();
-	
-	groupRemap.clear();
+
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -726,13 +1145,15 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		if (tagName == "PAGE" || tagName == "MASTERPAGE")
 		{
 			success = readPage(m_Doc, reader);
-			if (!success) break;
+			if (!success)
+				break;
 		}
 		if (tagName == "PAGEOBJECT" || tagName == "MASTEROBJECT" || tagName == "FRAMEOBJECT")
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, itemInfo, fileDir, false);
-			if (!success) break;
+			if (!success)
+				break;
 
 			// first of linked chain?
 			if (tagName == "PAGEOBJECT")
@@ -770,20 +1191,33 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 					TableIDM.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
 				}
 			}
-			if (itemInfo.item->isGroupControl)
+			if (groupStack.count() > 0)
 			{
-				if (tagName == "PAGEOBJECT")
-					groupID.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
-				else if (tagName == "FRAMEOBJECT")
-					groupIDF.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
-				else
-					groupIDM.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				groupStack.top().append(itemInfo.item);
+				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				{
+					if (tagName == "PAGEOBJECT")
+						groupStackP.push(groupStack.pop());
+					else if (tagName == "FRAMEOBJECT")
+						groupStackF.push(groupStack.pop());
+					else
+						groupStackM.push(groupStack.pop());
+					groupStack2.pop();
+				}
+			}
+			if (itemInfo.isGroupControl)
+			{
+				QList<PageItem*> GroupItems;
+				GroupItems.append(itemInfo.item);
+				groupStack.push(GroupItems);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
 			}
 		}
 		if (tagName == "Pattern")
 		{
 			success = readPattern(m_Doc, reader, fileDir);
-			if (!success) break;
+			if (!success)
+				break;
 		}
 	}
 
@@ -874,30 +1308,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				ta->BottomLink = 0;
 		}
 	}
-	if (groupIDF.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupIDF.begin(); it != groupIDF.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.value());
-		}
-	}
-	if (groupID.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupID.begin(); it != groupID.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->DocItems.at(it.value());
-		}
-	}
-	if (groupIDM.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.value());
-		}
-	}
 	//CB Add this in to set this in the file in memory. Its saved, why not load it.
 	//Will of course be replaced by per page settings although we still probably need a document default
 	if (!hasPageSets)
@@ -934,7 +1344,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 		}
 	}
-	
 	if (itemNextM.count() != 0)
 	{
 		QMap<int,int>::Iterator lc;
@@ -953,6 +1362,82 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 		}
 	}
+	if (groupStackP.count() > 0)
+	{
+		while (groupStackP.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackP.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->DocItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackF.count() > 0)
+	{
+		while (groupStackF.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackF.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->FrameItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackM.count() > 0)
+	{
+		while (groupStackM.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackM.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->MasterItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	m_Doc->renumberItemsInListOrder();
 	
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -971,7 +1456,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(reader.characterOffset());
 	return true;
-// 	return false;
 }
 
 // Low level plugin API
@@ -2056,7 +2540,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (!loadPage)
 	{
-		if (tagName == "PAGEOBJECT" || tagName == "FRAMEOBJECT" || tagName == "PatternItem")
+		if (tagName == "PAGEOBJECT" || tagName == "FRAMEOBJECT" || tagName == "PatternItem" || tagName == "ITEM")
 			doc->setMasterPageMode(false);
 		else
 			doc->setMasterPageMode(true);
@@ -2075,8 +2559,10 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->OwnPage = doc->OnPage(newItem);
 	else
 		newItem->OwnPage = attrs.valueAsInt("OwnPage");
-	if (tagName == "PAGEOBJECT")
+	if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
 		newItem->OnMasterPage = "";
+	if (tagName == "ITEM")
+		newItem->LayerID = LayerToPaste;
 	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);
 
@@ -2101,8 +2587,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	info.ownLink  = newItem->isTableItem ? attrs.valueAsInt("OwnLINK", 0) : 0;
 	info.groupLastItem = 0;
 
-	newItem->isGroupControl = attrs.valueAsBool("isGroupControl", 0);
-	if (newItem->isGroupControl)
+	info.isGroupControl = attrs.valueAsBool("isGroupControl", 0);
+	if (info.isGroupControl)
 	{
 		int groupLastItem = attrs.valueAsInt("groupsLastItem", 0);
 		// Sanity check for some broken files created using buggy development versions.
@@ -2319,6 +2805,24 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				}
 			}
 		}
+		if ((tName == "PAGEOBJECT") || (tName == "ITEM"))
+		{
+			if (newItem->asGroupFrame())
+			{
+				bool success = true;
+				QList<PageItem*>* DItems = doc->Items;
+				QList<PageItem*> GroupItems;
+				doc->Items = &GroupItems;
+				ItemInfo itemInfo;
+				success = readObject(doc, reader, itemInfo, baseDir, loadPage);
+				for (int as = 0; as < GroupItems.count(); ++as)
+				{
+					PageItem* currItem = GroupItems.at(as);
+					newItem->groupItemList.append(currItem);
+				}
+				doc->Items = DItems;
+			}
+		}
 	}
 	delete lastStyle;
 
@@ -2383,7 +2887,6 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			}
 		}
 	}
-
 	if (!loadPage)
 		doc->setMasterPageMode(false);
 	return !reader.hasError();
@@ -2402,7 +2905,9 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		return true;
 	}
 
-	QMap<PageItem*, int> groupID2;
+	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackP;
+	QStack<int> groupStack2;
 	QMap<int,int> TableID2;
 	QList<PageItem*> TableItems2;
 
@@ -2447,9 +2952,21 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			TableItems2.append(itemInfo.item);
 			TableID2.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
 		}
-		if (itemInfo.item->isGroupControl)
+		if (groupStack.count() > 0)
 		{
-			groupID2.insert(itemInfo.item, itemInfo.groupLastItem + itemInfo.item->ItemNr);
+			groupStack.top().append(itemInfo.item);
+			if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+			{
+				groupStackP.push(groupStack.pop());
+				groupStack2.pop();
+			}
+		}
+		if (itemInfo.isGroupControl)
+		{
+			QList<PageItem*> GroupItems;
+			GroupItems.append(itemInfo.item);
+			groupStack.push(GroupItems);
+			groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
 		}
 	}
 
@@ -2458,15 +2975,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	if (!success)
 	{
 		return false;
-	}
-
-	if (groupID2.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupID2.begin(); it != groupID2.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->Items->at(it.value());
-		}
 	}
 	if (TableItems2.count() != 0)
 	{
@@ -2491,6 +2999,32 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				ta->BottomLink = 0;
 		}
 	}
+	if (groupStackP.count() > 0)
+	{
+		while (groupStackP.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackP.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->DocItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	m_Doc->renumberItemsInListOrder();
 
 	uint itemCount2 = m_Doc->Items->count();
 	if (itemCount2 > itemCount1)
@@ -2653,9 +3187,14 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	int z = 0;
 	struct ImageLoadRequest loadingInfo;
 	PageItem::ItemType pt = static_cast<PageItem::ItemType>(attrs.valueAsInt("PTYPE"));
+	bool isGroupControl = attrs.valueAsBool("isGroupControl", 0);
+	if (isGroupControl)
+		pt = PageItem::Group;
 	double xf, yf;
 	double x   = attrs.valueAsDouble("XPOS");
 	double y   = attrs.valueAsDouble("YPOS");
+	x = Xp + x - GrX;
+	y = Yp + y - GrY;
 	double w   = attrs.valueAsDouble("WIDTH");
 	double h   = attrs.valueAsDouble("HEIGHT");
 	double pw  = attrs.valueAsDouble("PWIDTH");
@@ -2670,8 +3209,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	QColor tmpc;
 	PageItem *currItem=NULL;
 	QString tmp, clPath;
-	int xi;
-
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -2805,6 +3342,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->OwnPage = pagenr;
 		currItem->setPattern( attrs.valueAsString("pattern", "") );
 		break;
+	case PageItem::Group:
+		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
+		currItem->groupWidth = attrs.valueAsDouble("groupWidth", w);
+		currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
+		doc->GroupCounter++;
+		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
@@ -2914,7 +3460,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->itemText.setDefaultStyle(defStyle);
 		}
 	}
-
 	currItem->setRotation( attrs.valueAsDouble("ROT") );
 	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA"),
 								attrs.valueAsDouble("REXTRA", 1.0),
@@ -3046,35 +3591,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 		currItem->LayerID = attrs.valueAsInt("LAYER", 0);
-	tmp = "";
-
-	if (attrs.hasAttribute("GROUPS") && (attrs.valueAsInt("NUMGROUP", 0) != 0))
-	{
-		int groupMax = doc->GroupCounter;
-		QMap<int, int>::ConstIterator gIt;
-		tmp = attrs.valueAsString("GROUPS");
-		ScTextStream fg(&tmp, QIODevice::ReadOnly);
-		currItem->Groups.clear();
-		int numGroup = attrs.valueAsInt("NUMGROUP", 0);
-		for (int cx = 0; cx < numGroup; ++cx)
-		{
-			fg >> xi;
-			gIt = groupRemap.find(xi);
-			if (gIt != groupRemap.end())
-				currItem->Groups.push(gIt.value());
-			else
-			{
-				currItem->Groups.push(groupMax); 
-				groupRemap.insert(xi, groupMax);
-				++groupMax;
-			}
-		}
-		doc->GroupCounter = groupMax;
-		tmp = "";
-	}
-	else
-		currItem->Groups.clear();
-
 	tmp = "";
 	if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
 	{
@@ -3363,6 +3879,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	}
 	ParagraphStyle vg;
+	Xp = 0.0;
+	Yp = 0.0;
+	GrX = 0.0;
+	GrY = 0.0;
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
@@ -3371,7 +3891,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QString tmp;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
-	QMap<PageItem*, int> groupID;
+	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackF;
+	QStack< QList<PageItem*> > groupStackP;
+	QStack<int> groupStack2;
 	double pageX = 0, pageY = 0;
 	bool newVersion = false;
 	QMap<int,int> layerTrans;
@@ -3385,7 +3908,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 
-	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -3601,14 +4123,31 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 					TableItems.append(newItem);
 					TableID.insert(itemInfo.ownLink, newItem->ItemNr);
 				}
-				if (newItem->isGroupControl)
-				{
-					groupID.insert(newItem, itemInfo.groupLastItem + newItem->ItemNr);
-				}
 				if (tagName == "FRAMEOBJECT")
 				{
 					m_Doc->FrameItems.append(m_Doc->Items->takeAt(newItem->ItemNr));
 					newItem->ItemNr = m_Doc->FrameItems.count()-1;
+				}
+				if (groupStack.count() > 0)
+				{
+					groupStack.top().append(itemInfo.item);
+					if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+					{
+						if (tagName == "PAGEOBJECT")
+							groupStackP.push(groupStack.pop());
+						else if (tagName == "FRAMEOBJECT")
+							groupStackF.push(groupStack.pop());
+						else
+							groupStack.pop();
+						groupStack2.pop();
+					}
+				}
+				if (itemInfo.isGroupControl)
+				{
+					QList<PageItem*> GroupItems;
+					GroupItems.append(itemInfo.item);
+					groupStack.push(GroupItems);
+					groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
 				}
 			}
 		}
@@ -3655,16 +4194,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ta->BottomLink = 0;
 		}
 	}
-
-	if (groupID.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupID.begin(); it != groupID.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->Items->at(it.value());
-		}
-	}
-	
 	// reestablish textframe links
 	if (itemNext.count() != 0 && !Mpage)
 	{
@@ -3708,6 +4237,57 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 		}
 	}
+	if (groupStackP.count() > 0)
+	{
+		while (groupStackP.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackP.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->DocItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	if (groupStackF.count() > 0)
+	{
+		while (groupStackF.count() > 0)
+		{
+			QList<PageItem*> gpL = groupStackF.pop();
+			PageItem* gItem = gpL.takeFirst();
+			for (int id = 0; id < gpL.count(); id++)
+			{
+				PageItem* cItem = gpL.at(id);
+				cItem->gXpos = cItem->xPos() - gItem->xPos();
+				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				if (gItem->rotation() != 0)
+				{
+					QTransform ma;
+					ma.rotate(-gItem->rotation());
+					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+					cItem->setRotation(cItem->rotation() - gItem->rotation());
+				}
+				m_Doc->FrameItems.removeOne(cItem);
+			}
+			gItem->groupItemList = gpL;
+		}
+	}
+	m_Doc->renumberItemsInListOrder();
 	
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -3976,7 +4556,3 @@ bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return success;
 }
-
-
-
-

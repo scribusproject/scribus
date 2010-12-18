@@ -43,6 +43,10 @@ ScPattern::ScPattern()
 
 ScPattern::~ScPattern()
 {
+//	while (!items.isEmpty())
+//	{
+//		delete items.takeFirst();
+//	}
 }
 
 void ScPattern::setDoc(ScribusDoc *doc)

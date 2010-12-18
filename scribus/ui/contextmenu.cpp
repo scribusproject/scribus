@@ -318,27 +318,15 @@ void ContextMenu::createMenuItems_Selection()
 		//-->
 	}
 	//<-- Add Groups Items
-	if (selectedItemCount>1)
+	if (selectedItemCount > 1)
 	{
-		bool isGroup = true;
-		int firstElem = -1;
-		if (currItem->Groups.count() != 0)
-			firstElem = currItem->Groups.top();
-		for (int bx = 0; bx < selectedItemCount && isGroup==true; ++bx)
-		{
-			if (m_Sel.itemAt(bx)->Groups.count() != 0)
-			{
-				if (m_Sel.itemAt(bx)->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
-		}
-		if (!isGroup)
-			addAction(m_AP->scrActions["itemGroup"]);
+		addAction(m_AP->scrActions["itemGroup"]);
 	}
-	if (currItem->Groups.count() != 0)
+	else
+	{
+		if (currItem->isGroup())
 		addAction(m_AP->scrActions["itemUngroup"]);
+	}
 	//-->
 
 	//<-- Add Level Item

@@ -395,7 +395,7 @@ void PicStatus::SelectPic()
 		emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
 	else
 	{
-		if (currItem->isGroupControl)
+		if (currItem->isGroup())
 			emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
 		else
 			emit selectElement(currItem->OwnPage, currItem->ItemNr, true);

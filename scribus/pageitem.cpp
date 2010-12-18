@@ -202,6 +202,9 @@ PageItem::PageItem(const PageItem & other)
 	isSingleSel(other.isSingleSel),
 	isGroupControl(other.isGroupControl),
 	groupsLastItem(other.groupsLastItem),
+	groupItemList(other.groupItemList),
+	groupWidth(other.groupWidth),
+	groupHeight(other.groupHeight),
 	BoundingX(other.BoundingX),
 	BoundingY(other.BoundingY),
 	BoundingW(other.BoundingW),
@@ -552,6 +555,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = tr("Symbol");
 		setUPixmap(Um::IPolygon);
 		break;
+	case Group:
+		AnName = tr("Group");
+		setUPixmap(Um::IPolygon);
+		break;
 	default:
 		AnName = "Item";
 		break;
@@ -573,6 +580,9 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	IRender = Intent_Relative_Colorimetric;
 	EmProfile = "";
 	Groups.clear();
+	groupItemList.clear();
+	groupWidth = 1.0;
+	groupHeight = 1.0;
 	LayerID = m_Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
@@ -1311,13 +1321,12 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 	DrawObj_Pre(p);
 	if (m_Doc->layerOutline(LayerID))
 	{
-		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine) && (!isGroupControl))
+		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine))
 			DrawObj_Item(p, cullingArea);
 	}
 	else
 	{
-		if (!isGroupControl)
-			DrawObj_Item(p, cullingArea);
+		DrawObj_Item(p, cullingArea);
 	}
 	DrawObj_Post(p);
 }
@@ -1337,7 +1346,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	}
 	else
 	{
-		if (!isGroupControl)
+		if (!isGroup())
 		{
 #ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
@@ -1509,7 +1518,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
-	if (!isGroupControl)
+	if (!isGroup())
 	{
 		if (m_Doc->layerOutline(LayerID))
 		{
@@ -1556,7 +1565,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->endLayer();
 #endif
 			p->setMaskMode(0);
-			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line || itemType()==Symbol)
+			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line || itemType()==Symbol || itemType()==Group)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{
@@ -1686,7 +1695,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	{
 		double aestheticFactor(5.0);
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
-		if (!isGroupControl)
+		if (!isGroup())
 		{
 			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
 			{
@@ -1766,7 +1775,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->restore();
 			}
 		}
-		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (isGroup()) && (!view->m_canvas->isPreviewMode()))
 		{
 			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
@@ -1794,8 +1803,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	if (!m_Doc->DoDrawing)
 		return;
 	QList<PageItem*> emG;
-	QStack<PageItem*> groupStack;
-	groupStack.clear();
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
@@ -1818,52 +1825,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
-		if (embedded->isGroupControl)
-		{
-			p->save();
-			QTransform mm;
-			mm.translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
-			if (style.baselineOffset() != 0)
-				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
-			mm.scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-			mm.rotate(embedded->rotation());
-			if ((embedded->GrMask == 1) || (embedded->GrMask == 2) || (embedded->GrMask == 4) || (embedded->GrMask == 5))
-			{
-				if ((embedded->GrMask == 1) || (embedded->GrMask == 2))
-					p->setMaskMode(1);
-				else
-					p->setMaskMode(3);
-				if ((!embedded->gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-					embedded->gradientMaskVal = "";
-				if (!(embedded->gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-					embedded->mask_gradient = m_Doc->docGradients[embedded->gradientMaskVal];
-				p->mask_gradient = embedded->mask_gradient;
-				if ((embedded->GrMask == 1) || (embedded->GrMask == 4))
-					p->setGradientMask(VGradient::linear, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-				else
-					p->setGradientMask(VGradient::radial, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskFocalX, embedded->GrMaskFocalY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-			}
-			else if ((embedded->GrMask == 3) || (embedded->GrMask == 6))
-			{
-				if ((embedded->patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(embedded->patternMaskVal)))
-					p->setMaskMode(0);
-				else
-				{
-					p->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation + embedded->rotation(), embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
-					if (embedded->GrMask == 3)
-						p->setMaskMode(2);
-					else
-						p->setMaskMode(4);
-				}
-			}
-			else
-				p->setMaskMode(0);
-			FPointArray cl = embedded->PoLine.copy();
-			cl.map( mm );
-			p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-			groupStack.push(embedded->groupsLastItem);
-			continue;
-		}
 		p->save();
 		double x = embedded->xPos();
 		double y = embedded->yPos();
@@ -1889,6 +1850,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			case Polygon:
 			case PathText:
 			case Symbol:
+			case Group:
 				embedded->DrawObj_Item(p, cullingArea);
 				break;
 			case Line:
@@ -1904,17 +1866,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		embedded->Xpos = x;
 		embedded->Ypos = y;
 		p->restore();
-		if (groupStack.count() != 0)
-		{
-			while (embedded == groupStack.top())
-			{
-				p->endLayer();
-				p->restore();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
 		embedded->m_lineWidth = pws;
 	}
 	for (int em = 0; em < emG.count(); ++em)
@@ -2000,54 +1951,9 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 		}
 		trans *= savWM;
 		p->setWorldMatrix(trans);
-		QStack<PageItem*> groupStack;
-		groupStack.clear();
 		for (int em = 0; em < pat.items.count(); ++em)
 		{
 			PageItem* embedded = pat.items.at(em);
-			if (embedded->isGroupControl)
-			{
-				p->save();
-				QTransform mm;
-				mm.translate(embedded->gXpos, embedded->gYpos);
-				mm.rotate(embedded->rotation());
-				if ((embedded->GrMask == 1) || (embedded->GrMask == 2) || (embedded->GrMask == 4) || (embedded->GrMask == 5))
-				{
-					if ((embedded->GrMask == 1) || (embedded->GrMask == 2))
-						p->setMaskMode(1);
-					else
-						p->setMaskMode(3);
-					if ((!embedded->gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-						embedded->gradientMaskVal = "";
-					if (!(embedded->gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-						embedded->mask_gradient = m_Doc->docGradients[embedded->gradientMaskVal];
-					p->mask_gradient = embedded->mask_gradient;
-					if ((embedded->GrMask == 1) || (embedded->GrMask == 4))
-						p->setGradientMask(VGradient::linear, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-					else
-						p->setGradientMask(VGradient::radial, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskFocalX, embedded->GrMaskFocalY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-				}
-				else if ((embedded->GrMask == 3) || (embedded->GrMask == 6))
-				{
-					if ((embedded->patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(embedded->patternMaskVal)))
-						p->setMaskMode(0);
-					else
-					{
-						p->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation + embedded->rotation(), embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
-						if (embedded->GrMask == 3)
-							p->setMaskMode(2);
-						else
-							p->setMaskMode(4);
-					}
-				}
-				else
-					p->setMaskMode(0);
-				FPointArray cl = embedded->PoLine.copy();
-				cl.map( mm );
-				p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-				groupStack.push(embedded->groupsLastItem);
-				continue;
-			}
 			p->save();
 			p->translate(embedded->gXpos, embedded->gYpos);
 			embedded->isEmbedded = true;
@@ -2055,17 +1961,6 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 			embedded->DrawObj(p, QRectF());
 			embedded->isEmbedded = false;
 			p->restore();
-			if (groupStack.count() != 0)
-			{
-				while (embedded == groupStack.top())
-				{
-					p->endLayer();
-					p->restore();
-					groupStack.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
 		}
 		for (int em = 0; em < pat.items.count(); ++em)
 		{
@@ -2120,7 +2015,7 @@ void PageItem::paintObj(QPainter *p)
 		if (!m_Doc->m_Selection->isEmpty())
 		{
 //				qDebug() << "Item: " << ItemNr << "W: " << Width << "H: " << Height;
-			if (Groups.count() == 0)
+			if (!isGroup())
 			{
 				//Locked line colour selection
 				if (m_Locked)
@@ -2222,134 +2117,36 @@ QImage PageItem::DrawObj_toImage()
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
-	if (Groups.count() != 0)
-	{
-		for (int ga=0; ga<m_Doc->Items->count(); ++ga)
-		{
-			if (m_Doc->Items->at(ga)->Groups.count() != 0)
-			{
-				if (m_Doc->Items->at(ga)->Groups.top() == Groups.top())
-				{
-					if (!emG.contains(m_Doc->Items->at(ga)))
-					{
-						emG.append(m_Doc->Items->at(ga));
-						PageItem *currItem = m_Doc->Items->at(ga);
-						double x1, x2, y1, y2;
-						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-						minx = qMin(minx, x1);
-						miny = qMin(miny, y1);
-						maxx = qMax(maxx, x2);
-						maxy = qMax(maxy, y2);
-					}
-				}
-			}
-		}
-		for (int em = 0; em < emG.count(); ++em)
-		{
-			PageItem* currItem = emG.at(em);
-			currItem->gXpos = currItem->xPos() - minx;
-			currItem->gYpos = currItem->yPos() - miny;
-			currItem->gWidth = maxx - minx;
-			currItem->gHeight = maxy - miny;
-		}
-	}
-	else
-	{
-		double x1, x2, y1, y2;
-		getVisualBoundingRect(&x1, &y1, &x2, &y2);
-		minx = qMin(minx, x1);
-		miny = qMin(miny, y1);
-		maxx = qMax(maxx, x2);
-		maxy = qMax(maxy, y2);
-		gXpos = xPos() - minx;
-		gYpos = yPos() - miny;
-		gWidth = maxx - minx;
-		gHeight = maxy - miny;
-		emG.append(this);
-	}
+	double x1, x2, y1, y2;
+	getVisualBoundingRect(&x1, &y1, &x2, &y2);
+	minx = qMin(minx, x1);
+	miny = qMin(miny, y1);
+	maxx = qMax(maxx, x2);
+	maxy = qMax(maxy, y2);
+	gXpos = xPos() - minx;
+	gYpos = yPos() - miny;
+	gWidth = maxx - minx;
+	gHeight = maxy - miny;
+	emG.append(this);
 	return DrawObj_toImage(emG);
 }
 
 QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 {
 	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), QImage::Format_ARGB32_Premultiplied);
-//	retImg.fill( qRgba(255, 255, 255, 0) );
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(qMax(qRound(gWidth) / gWidth, qRound(gHeight) / gHeight));
-	QStack<PageItem*> groupStack;
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
-		if (embedded->isGroupControl)
-		{
-			painter->save();
-			QTransform mm;
-			mm.translate(embedded->gXpos, embedded->gYpos);
-			mm.rotate(embedded->rotation());
-			if ((embedded->GrMask == 1) || (embedded->GrMask == 2) || (embedded->GrMask == 4) || (embedded->GrMask == 5))
-			{
-				if ((embedded->GrMask == 1) || (embedded->GrMask == 2))
-					painter->setMaskMode(1);
-				else
-					painter->setMaskMode(3);
-				if ((!embedded->gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-					embedded->gradientMaskVal = "";
-				if (!(embedded->gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-					embedded->mask_gradient = m_Doc->docGradients[embedded->gradientMaskVal];
-				painter->mask_gradient = embedded->mask_gradient;
-				if ((embedded->GrMask == 1) || (embedded->GrMask == 4))
-					painter->setGradientMask(VGradient::linear, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-				else
-					painter->setGradientMask(VGradient::radial, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskFocalX, embedded->GrMaskFocalY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-			}
-			else if ((embedded->GrMask == 3) || (embedded->GrMask == 6))
-			{
-				if ((embedded->patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(embedded->patternMaskVal)))
-					painter->setMaskMode(0);
-				else
-				{
-					painter->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation + embedded->rotation(), embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
-					if (embedded->GrMask == 3)
-						painter->setMaskMode(2);
-					else
-						painter->setMaskMode(4);
-				}
-			}
-			else
-				painter->setMaskMode(0);
-			FPointArray cl = embedded->PoLine.copy();
-			cl.map( mm );
-			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-			groupStack.push(embedded->groupsLastItem);
-			continue;
-		}
 		painter->save();
-// 		qDebug()<<embedded<<embedded->xPos()<<embedded->yPos()<<embedded->gXpos<<embedded->gYpos;
-// 		double x = embedded->xPos();
-// 		double y = embedded->yPos();
-// 		embedded->Xpos = embedded->gXpos;
-// 		embedded->Ypos = embedded->gYpos;
-		// Seems to work without all this coordinates mess. To monitor tho
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		embedded->isEmbedded = true;
 		embedded->invalid = true;
 		embedded->DrawObj(painter, QRectF());
-// 		embedded->Xpos = x;
-// 		embedded->Ypos = y;
 		embedded->isEmbedded = false;
 		painter->restore();
-		if (groupStack.count() != 0)
-		{
-			while (embedded == groupStack.top())
-			{
-				painter->endLayer();
-				painter->restore();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
 	}
 	for (int em = 0; em < emG.count(); ++em)
 	{
@@ -2357,10 +2154,6 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 		if (!embedded->isTableItem)
 			continue;
 		painter->save();
-// 		double x = embedded->xPos();
-// 		double y = embedded->yPos();
-// 		embedded->Xpos = embedded->gXpos;
-// 		embedded->Ypos = embedded->gYpos;
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		painter->rotate(embedded->rotation());
 		embedded->isEmbedded = true;
@@ -2383,8 +2176,6 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 			}
 		}
 		embedded->isEmbedded = false;
-// 		embedded->Xpos = x;
-// 		embedded->Ypos = y;
 		painter->restore();
 	}
 	painter->end();
@@ -3820,7 +3611,7 @@ void PageItem::setLineStyle(Qt::PenStyle newStyle)
 
 void PageItem::setLineWidth(double newWidth)
 {
-	if ((m_lineWidth == newWidth) || (isGroupControl))
+	if ((m_lineWidth == newWidth) || (isGroup()))
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
@@ -4021,6 +3812,13 @@ void PageItem::setGroupsLastItem(PageItem* item)
 		undoManager->action(this, is);
 	}
 	groupsLastItem = item;
+}
+
+QList<PageItem*> PageItem::getItemList()
+{
+	QList<PageItem*> ret;
+	ret.clear();
+	return ret;
 }
 
 void PageItem::toggleSizeLock()
@@ -5079,7 +4877,7 @@ void PageItem::setTagged(bool tag)
 	tagged=tag;
 }
 
-void PageItem::replaceNamedResources(ResourceCollection& newNames) 
+void PageItem::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString,QString>::ConstIterator it;
 
@@ -5383,7 +5181,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	if (prevInChain() == NULL)
 		itemText.getNamedResources(lists);
 }
-
+/*
 void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 {
 	Buffer->PType = realItemType();
@@ -5443,8 +5241,6 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->PicArt = PicArt;
 	Buffer->flippedH = imageFlippedH();
 	Buffer->flippedV = imageFlippedV();
-/*	Buffer->BBoxX = BBoxX;
-	Buffer->BBoxH = BBoxH; */
 	Buffer->isPrintable = printEnabled();
 	Buffer->isBookmark = isBookmark;
 //	Buffer->BMnr = BMnr;
@@ -5554,7 +5350,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->startArrowScale = m_startArrowScale;
 	Buffer->endArrowScale = m_endArrowScale;
 }
-
+*/
 
 //Moved from View
 void PageItem::SetFrameShape(int count, double *vals)

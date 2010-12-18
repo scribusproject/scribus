@@ -102,8 +102,6 @@ void ScPageOutput::drawPage( Page* page, ScPainterExBase* painter)
 void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip)
 {
 	PageItem* currItem;
-	QStack<PageItem*> groupStack;
-	QStack<PageItem*> groupClips;
 	if (page->MPageNam.isEmpty())
 		return;
 	if (page->FromMaster.count() <= 0)
@@ -121,13 +119,6 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer
 			continue;
 		if (!currItem->printEnabled())
 			continue;
-		if (currItem->isGroupControl)
-		{
-			painter->save();
-			groupClips.push(currItem);
-			groupStack.push(currItem->groupsLastItem);
-			continue;
-		}
 		int savedOwnPage = currItem->OwnPage;
 		double OldX = currItem->xPos();
 		double OldY = currItem->yPos();
@@ -156,24 +147,6 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer
 			currItem->setXYPos(OldX, OldY, true);
 			currItem->BoundingX = OldBX;
 			currItem->BoundingY = OldBY;
-		}
-		if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
-			{
-				QTransform mm;
-				PageItem *tmpItem = groupClips.pop();
-				FPointArray cl = tmpItem->PoLine.copy();
-				mm.translate(tmpItem->xPos(), tmpItem->yPos());
-				mm.rotate(tmpItem->rotation());
-				cl.map( mm );
-				painter->setupPolygon(&cl);
-				painter->setClipPath();
-				painter->restore();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
 		}
 	}
 	for (uint a = 0; a < pageFromMasterCount; ++a)
@@ -233,8 +206,6 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer
 void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip)
 {
 	PageItem *currItem;
-	QStack<PageItem*> groupStack;
-	QStack<PageItem*> groupClips;
 	if (m_doc->Items->count() <= 0)
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
@@ -254,13 +225,6 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, ScLayer& 
 			if (currItem->OnMasterPage != page->pageName())
 				continue;
 		}
-		if (currItem->isGroupControl)
-		{
-			painter->save();
-			groupClips.push(currItem);
-			groupStack.push(currItem->groupsLastItem);
-			continue;
-		}
 		QRect oldR(currItem->getRedrawBounding(1.0));
 		if (clip.intersects(oldR))
 		{
@@ -275,24 +239,6 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, ScLayer& 
 					else
 						break;
 				}
-			}
-		}
-		if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
-			{
-				QTransform mm;
-				PageItem *tmpItem = groupClips.pop();
-				FPointArray cl = tmpItem->PoLine.copy();
-				mm.translate(tmpItem->xPos(), tmpItem->yPos());
-				mm.rotate(tmpItem->rotation());
-				cl.map( mm );
-				painter->setupPolygon(&cl);
-				painter->setClipPath();
-				painter->restore();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
 			}
 		}
 	}
@@ -644,7 +590,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 	if (!cembedded)
 		return;
 	QList<PageItem*> emG;
-	QStack<PageItem*> groupStack;
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
 	{
@@ -666,19 +611,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
-		if (embedded->isGroupControl)
-		{
-			p->save();
-			FPointArray cl = embedded->PoLine.copy();
-			QTransform mm;
-			mm.translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
-			if (style.baselineOffset() != 0)
-				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
-			mm.scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-			cl.map( mm );
-			groupStack.push(embedded->groupsLastItem);
-			continue;
-		}
 		p->save();
 		double x = embedded->xPos();
 		double y = embedded->yPos();
@@ -700,6 +632,8 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 			case PageItem::TextFrame:
 			case PageItem::Polygon:
 			case PageItem::PathText:
+			case PageItem::Symbol:
+			case PageItem::Group:
 				drawItem(embedded, p, clip);
 				break;
 			case PageItem::Line:
@@ -715,16 +649,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		embedded->setXPos(x, true);
 		embedded->setYPos(y, true);
 		p->restore();
-		if (groupStack.count() != 0)
-		{
-			while (embedded == groupStack.top())
-			{
-				p->restore();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
 		embedded->m_lineWidth = pws;
 	}
 	for (int em = 0; em < emG.count(); ++em)
@@ -816,8 +740,6 @@ void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const 
 	{
 		QRectF itRect;
 		PageItem* it = pattern.items.at(index);
-		if (it->isGroupControl)
-			continue;
 
 		painter->save();
 		painter->translate(patternOffsetX, patternOffsetY);

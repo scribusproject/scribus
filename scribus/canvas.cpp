@@ -1258,8 +1258,6 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
-	QStack<PageItem*> groupStack;
-	QStack<PageItem*> groupStack2;
 
 	PageItem *currItem;
 	Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
@@ -1289,66 +1287,6 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 		}
-		if (currItem->isGroupControl)
-		{
-			painter->save();
-			QTransform mm;
-			mm.translate(currItem->xPos(), currItem->yPos());
-			mm.rotate(currItem->rotation());
-			if ((currItem->maskType() == 1) || (currItem->maskType() == 2) || (currItem->maskType() == 4) || (currItem->maskType() == 5))
-			{
-				if ((currItem->maskType() == 1) || (currItem->maskType() == 2))
-					painter->setMaskMode(1);
-				else
-					painter->setMaskMode(3);
-				if ((!currItem->gradientMask().isEmpty()) && (!m_doc->docGradients.contains(currItem->gradientMask())))
-					currItem->gradientMaskVal = "";
-				if (!(currItem->gradientMask().isEmpty()) && (m_doc->docGradients.contains(currItem->gradientMask())))
-					currItem->mask_gradient = m_doc->docGradients[currItem->gradientMask()];
-				painter->mask_gradient = currItem->mask_gradient;
-				if ((currItem->maskType() == 1) || (currItem->maskType() == 4))
-					painter->setGradientMask(VGradient::linear, FPoint(currItem->GrMaskStartX, currItem->GrMaskStartY).transformPoint(mm, false), FPoint(currItem->GrMaskEndX, currItem->GrMaskEndY).transformPoint(mm, false), FPoint(currItem->GrMaskStartX, currItem->GrMaskStartY).transformPoint(mm, false), currItem->GrMaskScale, currItem->GrMaskSkew);
-				else
-					painter->setGradientMask(VGradient::radial, FPoint(currItem->GrMaskStartX, currItem->GrMaskStartY).transformPoint(mm, false), FPoint(currItem->GrMaskEndX, currItem->GrMaskEndY).transformPoint(mm, false), FPoint(currItem->GrMaskFocalX, currItem->GrMaskFocalY).transformPoint(mm, false), currItem->GrMaskScale, currItem->GrMaskSkew);
-			}
-			else if ((currItem->maskType() == 3) || (currItem->maskType() == 6))
-			{
-				if ((currItem->patternMask().isEmpty()) || (!m_doc->docPatterns.contains(currItem->patternMask())))
-					painter->setMaskMode(0);
-				else
-				{
-					painter->setPatternMask(&m_doc->docPatterns[currItem->patternMask()], currItem->patternMaskScaleX, currItem->patternMaskScaleY, currItem->patternMaskOffsetX + currItem->xPos(), currItem->patternMaskOffsetY + currItem->yPos(), currItem->patternMaskRotation + currItem->rotation(), currItem->patternMaskSkewX, currItem->patternMaskSkewY, currItem->patternMaskMirrorX, currItem->patternMaskMirrorY);
-					if (currItem->maskType() == 3)
-						painter->setMaskMode(2);
-					else
-						painter->setMaskMode(4);
-				}
-			}
-			else
-				painter->setMaskMode(0);
-			currItem->savedOwnPage = currItem->OwnPage;
-			currItem->OwnPage = page->pageNr();
-			if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesPrefs().layerMarkersShown) && (m_doc->layerCount() > 1))
-			{
-				currItem->DrawObj(painter, cullingArea);
-				currItem->DrawObj_Decoration(painter);
-			}
-			FPointArray cl = currItem->PoLine.copy();
-			cl.map( mm );
-			painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
-			groupStack.push(currItem->groupsLastItem);
-			groupStack2.push(currItem);
-			painter->setMaskMode(0);
-			currItem->OwnPage = currItem->savedOwnPage;
-			if (!currItem->ChangedMasterItem)
-			{
-				//Hack to not check for undo changes, indicate drawing only
-				currItem->setXYPos(OldX, OldY, true);
-				currItem->BoundingX = OldBX;
-				currItem->BoundingY = OldBY;
-			}
-			continue;
-		}
 		currItem->savedOwnPage = currItem->OwnPage;
 		currItem->OwnPage = page->pageNr();
 //FIXME						if (!evSpon || forceRedraw)
@@ -1373,42 +1311,6 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 			currItem->BoundingX = OldBX;
 			currItem->BoundingY = OldBY;
 		}
-		if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
-			{
-				painter->endLayer();
-				painter->restore();
-				PageItem *cite = groupStack2.pop();
-				double OldX = cite->xPos();
-				double OldY = cite->yPos();
-				double OldBX = cite->BoundingX;
-				double OldBY = cite->BoundingY;
-				if (!cite->ChangedMasterItem)
-				{
-					//Hack to not check for undo changes, indicate drawing only
-					cite->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-					cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-					cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-				}
-				if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesPrefs().layerMarkersShown) && (m_doc->layerCount() > 1))
-				{
-					cite->DrawObj(painter, cullingArea);
-					cite->DrawObj_Decoration(painter);
-				}
-				cite->OwnPage = cite->savedOwnPage;
-				if (!currItem->ChangedMasterItem)
-				{
-					//Hack to not check for undo changes, indicate drawing only
-					cite->setXYPos(OldX, OldY, true);
-					cite->BoundingX = OldBX;
-					cite->BoundingY = OldBY;
-				}
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
 	}
 	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
@@ -1422,8 +1324,6 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
 			continue;
 		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-			continue;
-		if (currItem->isGroupControl)
 			continue;
 		double OldX = currItem->xPos();
 		double OldY = currItem->yPos();
@@ -1491,8 +1391,6 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
-	QStack<PageItem*> groupStack;
-	QStack<PageItem*> groupStack2;
 
 	PageItem *currItem;
 	uint layerCount = m_doc->layerCount();
@@ -1514,51 +1412,6 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 		{
 			if (currItem->OnMasterPage != m_doc->currentPage()->pageName())
 				continue;
-		}
-		if (currItem->isGroupControl)
-		{
-			painter->save();
-			QTransform mm;
-			mm.translate(currItem->xPos(), currItem->yPos());
-			mm.rotate(currItem->rotation());
-			if ((currItem->maskType() == 1) || (currItem->maskType() == 2) || (currItem->maskType() == 4) || (currItem->maskType() == 5))
-			{
-				if ((currItem->maskType() == 1) || (currItem->maskType() == 2))
-					painter->setMaskMode(1);
-				else
-					painter->setMaskMode(3);
-				if ((!currItem->gradientMask().isEmpty()) && (!m_doc->docGradients.contains(currItem->gradientMask())))
-					currItem->gradientMaskVal = "";
-				if (!(currItem->gradientMask().isEmpty()) && (m_doc->docGradients.contains(currItem->gradientMask())))
-					currItem->mask_gradient = m_doc->docGradients[currItem->gradientMask()];
-				painter->mask_gradient = currItem->mask_gradient;
-				if ((currItem->maskType() == 1) || (currItem->maskType() == 4))
-					painter->setGradientMask(VGradient::linear, FPoint(currItem->GrMaskStartX, currItem->GrMaskStartY).transformPoint(mm, false), FPoint(currItem->GrMaskEndX, currItem->GrMaskEndY).transformPoint(mm, false), FPoint(currItem->GrMaskStartX, currItem->GrMaskStartY).transformPoint(mm, false), currItem->GrMaskScale, currItem->GrMaskSkew);
-				else
-					painter->setGradientMask(VGradient::radial, FPoint(currItem->GrMaskStartX, currItem->GrMaskStartY).transformPoint(mm, false), FPoint(currItem->GrMaskEndX, currItem->GrMaskEndY).transformPoint(mm, false), FPoint(currItem->GrMaskFocalX, currItem->GrMaskFocalY).transformPoint(mm, false), currItem->GrMaskScale, currItem->GrMaskSkew);
-			}
-			else if ((currItem->maskType() == 3) || (currItem->maskType() == 6))
-			{
-				if ((currItem->patternMask().isEmpty()) || (!m_doc->docPatterns.contains(currItem->patternMask())))
-					painter->setMaskMode(0);
-				else
-				{
-					painter->setPatternMask(&m_doc->docPatterns[currItem->patternMask()], currItem->patternMaskScaleX, currItem->patternMaskScaleY, currItem->patternMaskOffsetX + currItem->xPos(), currItem->patternMaskOffsetY + currItem->yPos(), currItem->patternMaskRotation + currItem->rotation(), currItem->patternMaskSkewX, currItem->patternMaskSkewY, currItem->patternMaskMirrorX, currItem->patternMaskMirrorY);
-					if (currItem->maskType() == 3)
-						painter->setMaskMode(2);
-					else
-						painter->setMaskMode(4);
-				}
-			}
-			else
-				painter->setMaskMode(0);
-			FPointArray cl = currItem->PoLine.copy();
-			cl.map( mm );
-			painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
-			groupStack.push(currItem->groupsLastItem);
-			groupStack2.push(currItem);
-			painter->setMaskMode(0);
-			continue;
 		}
 		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 		{
@@ -1605,23 +1458,6 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 			{
 			
 				setupEditHRuler(currItem);
-			}
-		}
-		if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
-			{
-				painter->endLayer();
-				painter->restore();
-				PageItem *cite = groupStack2.pop();
-				if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesPrefs().layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
-				{
-					cite->DrawObj(painter, cullingArea);
-					cite->DrawObj_Decoration(painter);
-				}
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
 			}
 		}
 	}

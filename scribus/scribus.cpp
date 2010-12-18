@@ -3084,7 +3084,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
 		scrActions["itemPrintingEnabled"]->setEnabled(true);
-		if (currItem->Groups.count() != 0)
+		if (currItem->isGroup())
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
 		{
@@ -3119,7 +3119,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		}
 		else
 		{
-			bool setter=!(currItem->isSingleSel && (currItem->isTableItem  || currItem->isGroupControl));
+			bool setter=!(currItem->isSingleSel && (currItem->isTableItem  || currItem->isGroup()));
 			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
@@ -3325,7 +3325,9 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 				if( fmt )
+				{
 					fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+				}
 			}
 			if (doc->m_Selection->count() > 0)
 			{
@@ -3467,7 +3469,9 @@ void ScribusMainWindow::importVectorFile()
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 				if( fmt )
+				{
 					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+				}
 			}
 		}
 	}
@@ -4924,7 +4928,7 @@ void ScribusMainWindow::slotEditCut()
 		}
 		else
 		{
-			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
+			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
 
 			// new version:
@@ -4999,9 +5003,9 @@ void ScribusMainWindow::slotEditCopy()
 		}
 		else
 		{
-			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
+			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-
+/*
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
@@ -5019,18 +5023,18 @@ void ScribusMainWindow::slotEditCopy()
 			Serializer::serializeObjects(objects, tmpfile2);
 			doc->itemSelection_DeleteItem(&objects);
 #endif
-
+*/
+			ScriXmlDoc ss;
+			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
 			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
-				ScriXmlDoc ss;
-				QString buffer = ss.WriteElem(doc, doc->m_Selection);
-				scrapbookPalette->ObjFromCopyAction(buffer, currItem->itemName());
+				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
 
-			ScFragmentMimeData* mimeData = new ScFragmentMimeData();
-			mimeData->setScribusFragment( QByteArray(xml.c_str(), xml.length()) );
-			mimeData->setText( QString::fromUtf8(xml.c_str(), xml.length()) );
+			ScElemMimeData* mimeData = new ScElemMimeData();
+			mimeData->setScribusElem(BufferS);
+			mimeData->setText(BufferS);
 			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		}
 		scrActions["editPaste"]->setEnabled(true);
@@ -5095,16 +5099,16 @@ void ScribusMainWindow::slotEditPaste()
 				// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
 				undoManager->setUndoEnabled(false);
 
-				if (ScMimeData::clipboardHasScribusElem())
-				{
+			//	if (ScMimeData::clipboardHasScribusElem())
+			//	{
 					QString buffer  = ScMimeData::clipboardScribusElem();
 					slotElemRead(buffer, 0, 0, false, true, doc, view);
-				}
-				else
-				{
-					QByteArray fragment = ScMimeData::clipboardScribusFragment();
-					doc->serializer()->deserializeObjects(fragment);
-				}
+			//	}
+			//	else
+			//	{
+			//		QByteArray fragment = ScMimeData::clipboardScribusFragment();
+			//		doc->serializer()->deserializeObjects(fragment);
+			//	}
 
 				// update style lists:
 				styleManager->setDoc(doc);
@@ -5184,17 +5188,17 @@ void ScribusMainWindow::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				if (ScMimeData::clipboardHasScribusElem())
-				{
+			//	if (ScMimeData::clipboardHasScribusElem())
+			//	{
 					QString buffer  = ScMimeData::clipboardScribusElem();
 					slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-				}
-				else
-				{
-					QByteArray fragment = ScMimeData::clipboardScribusFragment();
-					Selection pastedObjects = doc->serializer()->deserializeObjects(fragment);
-					for (int i=0; i < pastedObjects.count(); ++i)
-						pastedObjects.itemAt(i)->LayerID = doc->activeLayer();
+			//	}
+			//	else
+			//	{
+			//		QByteArray fragment = ScMimeData::clipboardScribusFragment();
+			//		Selection pastedObjects = doc->serializer()->deserializeObjects(fragment);
+			//		for (int i=0; i < pastedObjects.count(); ++i)
+			//			pastedObjects.itemAt(i)->LayerID = doc->activeLayer();
 
 					/*double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
@@ -5210,7 +5214,7 @@ void ScribusMainWindow::slotEditPaste()
 							pastedObjects.itemAt(i)->moveBy(x, y, true);
 						}
 					*/
-				}
+			//	}
 
 				// update style lists:
 				styleManager->setDoc(doc);
@@ -10004,7 +10008,6 @@ void ScribusMainWindow::slotItemTransform()
 void ScribusMainWindow::PutToPatterns()
 {
 	int z;
-	PageItem* groupItem;
 	uint docSelectionCount = doc->m_Selection->count();
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
@@ -10018,103 +10021,36 @@ void ScribusMainWindow::PutToPatterns()
 		return;
 	bool wasUndo = undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
-	int ac = doc->Items->count();
-	uint oldNum = doc->TotalItems;
-	bool savedAlignGrid = doc->useRaster;
-	bool savedAlignGuides = doc->SnapGuides;
-	internalCopy = true;
-	doc->useRaster = false;
-	doc->SnapGuides = false;
-	bool isGroup = true;
-	int firstElem = -1;
-	PageItem* currItem = doc->m_Selection->itemAt(0);
-	if (currItem->Groups.count() != 0)
-		firstElem = currItem->Groups.top();
-	for (uint bx = 0; bx < docSelectionCount; ++bx)
-	{
-		PageItem* bxi = doc->m_Selection->itemAt(bx);
-		if (bxi->Groups.count() != 0)
-		{
-			if (bxi->Groups.top() != firstElem)
-			{
-				isGroup = false;
-				break;
-			}
-		}
-		else
-		{
-			isGroup = false;
-			break;
-		}
-	}
+	PageItem* currItem;
 	Selection itemSelection(this, false);
 	itemSelection.copy(*doc->m_Selection, false);
-	slotEditCopy();
-	doc->m_Selection->delaySignalsOn();
 	view->Deselect(true);
-	if ((docSelectionCount > 1) && (!isGroup))
-	{
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, 0, 0, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
-		groupItem = doc->Items->at(z);
-	}
-	slotEditPaste();
-	doc->useRaster = savedAlignGrid;
-	doc->SnapGuides = savedAlignGuides;
-	internalCopy = false;
-	int ae = doc->Items->count();
-	if ((docSelectionCount > 1) && (!isGroup))
-	{
-		double minx =  std::numeric_limits<double>::max();
-		double miny =  std::numeric_limits<double>::max();
-		double maxx = -std::numeric_limits<double>::max();
-		double maxy = -std::numeric_limits<double>::max();
-		for (int as = ac+1; as < ae; ++as)
-		{
-			PageItem* currItem = doc->Items->at(as);
-			currItem->Groups.push(doc->GroupCounter);
-			double x1, x2, y1, y2;
-			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-			minx = qMin(minx, x1);
-			miny = qMin(miny, y1);
-			maxx = qMax(maxx, x2);
-			maxy = qMax(maxy, y2);
-		}
-		groupItem->setXYPos(minx, miny, true);
-		groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
-		groupItem->SetRectFrame();
-		groupItem->ClipEdited = true;
-		groupItem->FrameType = 3;
-		groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
-		groupItem->AutoName = false;
-		groupItem->isGroupControl = true;
-		groupItem->setFillTransparency(0);
-		groupItem->setLineTransparency(0);
-		groupItem->groupsLastItem = doc->Items->at(ae-1);
-		groupItem->Groups.push(doc->GroupCounter);
-		doc->GroupCounter++;
-	}
+	if (docSelectionCount > 1)
+		currItem = doc->groupObjectsSelection(&itemSelection);
+	else
+		currItem = itemSelection.itemAt(0);
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
-	currItem = doc->Items->at(ac);
 	pat.pattern = currItem->DrawObj_toImage();
 	pat.width = currItem->gWidth;
 	pat.height = currItem->gHeight;
-	for (int as = ac; as < ae; ++as)
-	{
-		PageItem* paItem = doc->Items->takeAt(ac);
-		paItem->setItemName(patternName+QString("_%1").arg(as-ac));
-		pat.items.append(paItem);
-	}
+	pat.items.append(currItem);
 	if (doc->docPatterns.contains(patternName))
 		doc->docPatterns.remove(patternName);
 	doc->addPattern(patternName, pat);
+	double x = currItem->xPos();
+	double y = currItem->yPos();
+	double w = currItem->width();
+	double h = currItem->height();
+	int d = doc->Items->indexOf(currItem);
+	z = doc->itemAdd(PageItem::Symbol, PageItem::Rectangle, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem* groupItem = doc->Items->takeAt(z);
+	groupItem->setPattern(patternName);
+	doc->Items->replace(d, groupItem);
 	propertiesPalette->updateColorList();
 	symbolPalette->updateSymbolList();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
-	doc->TotalItems = oldNum;
-	view->Deselect(true);
-	doc->m_Selection->copy(itemSelection, false);
 	doc->m_Selection->delaySignalsOff();
 	view->DrawNew();
 	undoManager->setUndoEnabled(wasUndo);

@@ -46,6 +46,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 		virtual bool savePalette(const QString & fileName);
 		virtual bool loadPalette(const QString & fileName);
+		virtual bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - .sla page extraction support
@@ -64,16 +65,18 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 			ItemSelectionPage   = 1,
 			ItemSelectionFrame  = 2,
 			ItemSelectionPattern= 3,
+			ItemSelectionGroup  = 4,
 		};
 
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void) { groupLastItem = nextItem = ownLink = 0; item = NULL; };
+			ItemInfo(void) { groupLastItem = nextItem = ownLink = 0; item = NULL; isGroupControl = false; };
 			PageItem* item;
 			int groupLastItem;
 			int nextItem;
 			int ownLink;
+			bool isGroupControl;
 		};
 
 		void registerFormats();
@@ -142,7 +145,6 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat);
 
-		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		QMap<int, int> itemRemapF;
@@ -153,6 +155,11 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		int itemCount;
 		int itemCountM;
 		bool layerFound;
+		int LayerToPaste;
+		double Xp;
+		double GrX;
+		double Yp;
+		double GrY;
 		QString clipPath;
 };
 

@@ -207,6 +207,8 @@ struct CopyPasteBuffer
 	QString IFont;
 	int ISize;
 	QStack<int> Groups;
+	double groupHeight;
+	double groupWidth;
 	int  LayerID;
 	bool ScaleType;
 	bool AspectRatio;

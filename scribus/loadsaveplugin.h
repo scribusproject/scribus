@@ -76,6 +76,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		static const FileFormat * getFormatById(const int id);
 		static FileFormat* getFormatByExt(const QString ext);
 
+		virtual bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc);
 		// Non-static members implemented by plugins:
 		//
 		// Load the requested format from the specified path.
@@ -191,6 +192,8 @@ class SCRIBUS_API FileFormat
 		FileFormat() : load(false), save(false), thumb(false), colorReading(false), plug(0) {}
 		// Standard ctor that sets up a valid FileFormat
 		FileFormat(LoadSavePlugin * plug) : load(false), save(false), thumb(false), colorReading(false), plug(plug) {}
+
+		bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const;
 		// Load a file with this format
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		bool loadPalette(const QString & fileName) const;

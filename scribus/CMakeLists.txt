@@ -182,6 +182,7 @@ SET(SCRIBUS_MOC_CLASSES
   navigator.h
   observable.h 
   pageitem.h
+  pageitem_group.h
   pageitem_imageframe.h
   pageitem_latexframe.h
   pageitem_line.h
@@ -504,6 +505,7 @@ SET(SCRIBUS_SOURCES
   page.cpp
   pageitem.cpp
   pageitem_desaxe.cpp
+  pageitem_group.cpp
   pageitem_imageframe.cpp
   pageitem_latexframe.cpp
   pageitem_line.cpp

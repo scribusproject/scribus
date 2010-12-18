@@ -1535,7 +1535,7 @@ void PropertiesPalette::setTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !HaveItem)
 		return;
-	if (CurItem->isGroupControl)
+	if (CurItem->isGroup())
 	{
 		if (mode == PageItem::TextFlowDisabled)
 			textFlowDisabled2->setChecked(true);
@@ -1815,7 +1815,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	Xpos->setEnabled(!setter);
 	Ypos->setEnabled(!setter);
 	LayerGroup->setEnabled(!setter);
-	if ((CurItem->isGroupControl) || ((CurItem->Groups.count() != 0) && (!CurItem->isSingleSel)))
+	if ((CurItem->isGroup()) && (!CurItem->isSingleSel))
 	{
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShapeItem, false);
@@ -1974,31 +1974,9 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	DoGroup->setEnabled(false);
 	DoUnGroup->setEnabled(false);
 	if (doc->m_Selection->count() > 1)
-	{
-		bool isGroup = true;
-		int firstElem = -1;
-		if (CurItem->Groups.count() != 0)
-			firstElem = CurItem->Groups.top();
-		for (int bx = 0; bx < doc->m_Selection->count(); ++bx)
-		{
-			if (doc->m_Selection->itemAt(bx)->Groups.count() != 0)
-			{
-				if (doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
-		}
-		if (!isGroup)
-			DoGroup->setEnabled(true);
-		else
-		{
-			if (CurItem->isGroupControl)
-				NameEdit->setEnabled(true);
-		}
-		if ((CurItem->Groups.count() != 0) && (isGroup))
-			DoUnGroup->setEnabled(true);
-	}
+		DoGroup->setEnabled(true);
+	if (doc->m_Selection->count() == 1)
+		DoUnGroup->setEnabled(CurItem->isGroup());
 #ifdef HAVE_OSG
 	if (CurItem->asOSGFrame())
 	{
@@ -2098,7 +2076,7 @@ void PropertiesPalette::NewSel(int nr)
 		TabStack->setItemEnabled(idTransparencyItem, true);
 		if (HaveItem && CurItem)
 		{
-			if ((CurItem->isGroupControl) || ((CurItem->Groups.count() != 0) && (!CurItem->isSingleSel)))
+			if ((CurItem->isGroup()) && (!CurItem->isSingleSel))
 				TabStack->setItemEnabled(idGroupItem, true);
 		}
 		FlipH->setCheckable( false );
@@ -2251,6 +2229,7 @@ void PropertiesPalette::NewSel(int nr)
 			RoundRect->setEnabled(false);
 			break;
 		case PageItem::Symbol:
+		case PageItem::Group:
 			TabStack->setItemEnabled(idShapeItem, false);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -4024,7 +4003,7 @@ void PropertiesPalette::DoFlow()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (CurItem->isGroupControl)
+		if (CurItem->isGroup())
 		{
 			if (textFlowDisabled2->isChecked())
 				mode = PageItem::TextFlowDisabled;
@@ -5228,7 +5207,7 @@ void PropertiesPalette::updateColorSpecialGradient()
 			Cpal->setMeshControlPoint();
 		else
 		{
-			if (currItem->isGroupControl)
+			if (currItem->isGroup())
 				TpalGroup->setSpecialGradient(currItem->GrMaskStartX * dur, currItem->GrMaskStartY * dur, currItem->GrMaskEndX * dur, currItem->GrMaskEndY * dur, currItem->GrMaskFocalX * dur, currItem->GrMaskFocalY * dur, currItem->GrMaskScale, currItem->GrMaskSkew);
 			else
 				Tpal->setSpecialGradient(currItem->GrMaskStartX * dur, currItem->GrMaskStartY * dur, currItem->GrMaskEndX * dur, currItem->GrMaskEndY * dur, currItem->GrMaskFocalX * dur, currItem->GrMaskFocalY * dur, currItem->GrMaskScale, currItem->GrMaskSkew);

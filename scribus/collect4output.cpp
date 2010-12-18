@@ -173,9 +173,10 @@ bool CollectForOutput::collectItems()
 {
 	uint counter = 0;
 	int c=0;
+	QList<PageItem*> allItems;
+	PageItem* ite = NULL;
 	for (uint lc = 0; lc < 3; ++lc)
 	{
-		PageItem* ite = NULL;
 		switch (lc)
 		{
 			case 0:
@@ -202,7 +203,15 @@ bool CollectForOutput::collectItems()
 					ite = m_Doc->FrameItems.at(b);
 					break;
 			}
-			processItem(ite);
+			if (ite->isGroup())
+				allItems = ite->getItemList();
+			else
+				allItems.append(ite);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				ite = allItems.at(ii);
+				processItem(ite);
+			}
 			if (uiCollect)
 				emit itemsCollected(c++);
 		}
@@ -212,7 +221,16 @@ bool CollectForOutput::collectItems()
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
 		for (int o = 0; o < pa.items.count(); o++)
 		{
-			processItem(pa.items.at(o));
+			ite = pa.items.at(o);
+			if (ite->isGroup())
+				allItems = ite->getItemList();
+			else
+				allItems.append(ite);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				ite = allItems.at(ii);
+				processItem(ite);
+			}
 		}
 		if (uiCollect)
 			emit patternsCollected(c);

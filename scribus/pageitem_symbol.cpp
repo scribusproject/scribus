@@ -102,54 +102,9 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			ScPattern pat = m_Doc->docPatterns[patternVal];
 			p->scale(Width / pat.width, Height / pat.height);
 			p->translate(pat.items.at(0)->gXpos, pat.items.at(0)->gYpos);
-			QStack<PageItem*> groupStack;
-			groupStack.clear();
 			for (int em = 0; em < pat.items.count(); ++em)
 			{
 				PageItem* embedded = pat.items.at(em);
-				if (embedded->isGroupControl)
-				{
-					p->save();
-					QTransform mm;
-					mm.translate(embedded->gXpos, embedded->gYpos);
-					mm.rotate(embedded->rotation());
-					if ((embedded->GrMask == 1) || (embedded->GrMask == 2) || (embedded->GrMask == 4) || (embedded->GrMask == 5))
-					{
-						if ((embedded->GrMask == 1) || (embedded->GrMask == 2))
-							p->setMaskMode(1);
-						else
-							p->setMaskMode(3);
-						if ((!embedded->gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-							embedded->gradientMaskVal = "";
-						if (!(embedded->gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(embedded->gradientMaskVal)))
-							embedded->mask_gradient = m_Doc->docGradients[embedded->gradientMaskVal];
-						p->mask_gradient = embedded->mask_gradient;
-						if ((embedded->GrMask == 1) || (embedded->GrMask == 4))
-							p->setGradientMask(VGradient::linear, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-						else
-							p->setGradientMask(VGradient::radial, FPoint(embedded->GrMaskStartX, embedded->GrMaskStartY).transformPoint(mm, false), FPoint(embedded->GrMaskEndX, embedded->GrMaskEndY).transformPoint(mm, false), FPoint(embedded->GrMaskFocalX, embedded->GrMaskFocalY).transformPoint(mm, false), embedded->GrMaskScale, embedded->GrMaskSkew);
-					}
-					else if ((embedded->GrMask == 3) || (embedded->GrMask == 6))
-					{
-						if ((embedded->patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(embedded->patternMaskVal)))
-							p->setMaskMode(0);
-						else
-						{
-							p->setPatternMask(&m_Doc->docPatterns[embedded->patternMask()], embedded->patternMaskScaleX, embedded->patternMaskScaleY, embedded->patternMaskOffsetX + embedded->xPos(), embedded->patternMaskOffsetY + embedded->yPos(), embedded->patternMaskRotation, embedded->patternMaskSkewX, embedded->patternMaskSkewY, embedded->patternMaskMirrorX, embedded->patternMaskMirrorY);
-							if (embedded->GrMask == 3)
-								p->setMaskMode(2);
-							else
-								p->setMaskMode(4);
-						}
-					}
-					else
-						p->setMaskMode(0);
-					FPointArray cl = embedded->PoLine.copy();
-					cl.map( mm );
-					p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-					groupStack.push(embedded->groupsLastItem);
-					continue;
-				}
 				p->save();
 				p->translate(embedded->gXpos, embedded->gYpos);
 				embedded->isEmbedded = true;
@@ -157,17 +112,6 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				embedded->DrawObj(p, QRectF());
 				embedded->isEmbedded = false;
 				p->restore();
-				if (groupStack.count() != 0)
-				{
-					while (embedded == groupStack.top())
-					{
-						p->endLayer();
-						p->restore();
-						groupStack.pop();
-						if (groupStack.count() == 0)
-							break;
-					}
-				}
 			}
 			for (int em = 0; em < pat.items.count(); ++em)
 			{

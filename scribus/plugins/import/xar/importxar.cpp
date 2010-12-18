@@ -318,7 +318,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -329,65 +329,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-		{
-			bool isGroup = true;
-			int firstElem = -1;
-			if (Elements.at(0)->Groups.count() != 0)
-				firstElem = Elements.at(0)->Groups.top();
-			for (int bx = 0; bx < Elements.count(); ++bx)
-			{
-				PageItem* bxi = Elements.at(bx);
-				if (bxi->Groups.count() != 0)
-				{
-					if (bxi->Groups.top() != firstElem)
-						isGroup = false;
-				}
-				else
-					isGroup = false;
-			}
-			if (!isGroup)
-			{
-				double minx = 999999.9;
-				double miny = 999999.9;
-				double maxx = -999999.9;
-				double maxy = -999999.9;
-				uint lowestItem = 999999;
-				uint highestItem = 0;
-				for (int a = 0; a < Elements.count(); ++a)
-				{
-					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-					PageItem* currItem = Elements.at(a);
-					lowestItem = qMin(lowestItem, currItem->ItemNr);
-					highestItem = qMax(highestItem, currItem->ItemNr);
-					double x1, x2, y1, y2;
-					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-					minx = qMin(minx, x1);
-					miny = qMin(miny, y1);
-					maxx = qMax(maxx, x2);
-					maxy = qMax(maxy, y2);
-				}
-				double gx = minx;
-				double gy = miny;
-				double gw = maxx - minx;
-				double gh = maxy - miny;
-				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
-				PageItem *neu = m_Doc->Items->takeAt(z);
-				m_Doc->Items->insert(lowestItem, neu);
-				neu->Groups.push(m_Doc->GroupCounter);
-				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-				neu->AutoName = false;
-				neu->isGroupControl = true;
-				neu->groupsLastItem = high;
-				neu->setTextFlowMode(PageItem::TextFlowDisabled);
-				for (int a = 0; a < m_Doc->Items->count(); ++a)
-				{
-					m_Doc->Items->at(a)->ItemNr = a;
-				}
-				Elements.prepend(neu);
-				m_Doc->GroupCounter++;
-			}
-		}
+			m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
@@ -400,7 +342,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->setLoading(false);
 				m_Doc->changed();
 				m_Doc->setLoading(loadF);
-				if (!flags & LoadSavePlugin::lfLoadAsPattern)
+				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
 					for (int dre=0; dre<Elements.count(); ++dre)
@@ -469,14 +411,14 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
-		if (!flags & LoadSavePlugin::lfLoadAsPattern)
+		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
 		if ((showProgress) && (!interactive))
 			m_Doc->view()->DrawNew();
@@ -3030,9 +2972,8 @@ void XarPlug::createBrushItem(QDataStream &ts)
 	gg.clipping = false;
 	gg.idNr = idNr;
 	gg.isBrush = true;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
-	neu->isGroupControl = true;
 	gg.groupItem = neu;
 	Elements.append(neu);
 	XarStyle *gc = m_gc.top();
@@ -3048,9 +2989,8 @@ void XarPlug::createGroupItem()
 	gg.clipping = false;
 	gg.idNr = 0;
 	gg.isBrush = false;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
-	neu->isGroupControl = true;
 	gg.groupItem = neu;
 	Elements.append(neu);
 	XarStyle *gc = m_gc.top();
@@ -3066,9 +3006,8 @@ void XarPlug::createClipItem()
 	gg.clipping = true;
 	gg.idNr = 0;
 	gg.isBrush = false;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
-	neu->isGroupControl = true;
 	gg.groupItem = neu;
 	Elements.append(neu);
 	XarStyle *gc = m_gc.top();
@@ -3542,7 +3481,7 @@ void XarPlug::popGraphicContext()
 				for (int a = gg.index+1; a < Elements.count(); ++a)
 				{
 					PageItem* currItem = Elements.at(a);
-					currItem->Groups.push(m_Doc->GroupCounter);
+					groupItem->groupItemList.append(currItem);
 					double x1, x2, y1, y2;
 					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 					minx = qMin(minx, x1);
@@ -3552,6 +3491,8 @@ void XarPlug::popGraphicContext()
 				}
 				groupItem->setXYPos(minx, miny, true);
 				groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
+				groupItem->groupWidth = groupItem->width();
+				groupItem->groupHeight = groupItem->height();
 				groupItem->SetRectFrame();
 				groupItem->ClipEdited = true;
 				groupItem->FrameType = 3;
@@ -3566,11 +3507,8 @@ void XarPlug::popGraphicContext()
 					m_Doc->AdjustItemSize(groupItem);
 				}
 				groupItem->AutoName = false;
-				groupItem->isGroupControl = true;
 				groupItem->setFillTransparency(0);
 				groupItem->setLineTransparency(0);
-				groupItem->groupsLastItem = Elements.last();
-				groupItem->Groups.push(m_Doc->GroupCounter);
 				m_Doc->GroupCounter++;
 				if (gg.isBrush)
 				{
@@ -3581,13 +3519,9 @@ void XarPlug::popGraphicContext()
 					pat.width = groupItem->width();
 					pat.height = groupItem->height();
 					pat.pattern = tmpImg;
-					for (int a = gg.index; a < Elements.count(); ++a)
-					{
-						PageItem* paItem = Elements.at(a);
-						paItem->setItemName(groupItem->itemName()+QString("_%1").arg(a));
-						pat.items.append(paItem);
-						m_Doc->Items->removeAll(paItem);
-					}
+					pat.items.append(groupItem);
+					m_Doc->Items->removeAll(groupItem);
+					Elements.removeAll(groupItem);
 					QString patternName = "Pattern_"+groupItem->itemName();
 					patternName = patternName.trimmed().simplified().replace(" ", "_");
 					m_Doc->addPattern(patternName, pat);
@@ -3595,6 +3529,15 @@ void XarPlug::popGraphicContext()
 					m_Doc->DoDrawing = false;
 					brushRef.insert(gg.idNr, patternName);
 				}
+				for (int a = 0; a < groupItem->groupItemList.count(); ++a)
+				{
+					PageItem* currItem = groupItem->groupItemList.at(a);
+					currItem->gXpos = currItem->xPos() - groupItem->xPos();
+					currItem->gYpos = currItem->yPos() - groupItem->yPos();
+					m_Doc->Items->removeAll(currItem);
+					Elements.removeAll(currItem);
+				}
+				m_Doc->renumberItemsInListOrder();
 			}
 		}
 	}
@@ -3603,7 +3546,7 @@ void XarPlug::popGraphicContext()
 		for (int a = 0; a < gc->Elements.count(); a++)
 		{
 			PageItem *item = gc->Elements.at(a);
-			if (item->isGroupControl)
+			if (item->isGroup())
 				continue;
 			if (!item->asPolyLine())
 			{

@@ -581,17 +581,11 @@ void OutlinePalette::slotMultiSelect()
 					if (!pgItem->isSelected())
 					{
 						m_MainWindow->closeActiveWindowMasterPageEditor();
-						//currDoc->m_Selection->setIsGUISelection(false);
 						currDoc->view()->SelectItemNr(pgItem->ItemNr, false, false);
 					}
 					break;
 			}
 		}
-		/*if (currDoc->m_Selection->count() > 0)
-		{
-			currDoc->m_Selection->setIsGUISelection(true);
-			currDoc->m_Selection->connectItemToGUI();
-		}*/
 		currDoc->m_Selection->delaySignalsOff();
 		currDoc->view()->DrawNew();
 	}
@@ -617,11 +611,11 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 		case 1:
 			if (!currDoc->masterPageMode())
 				emit selectMasterPage(item->PageItemObject->OnMasterPage);
-			if (item->PageItemObject->Groups.count() == 0)
+			if (item->PageItemObject->isGroup())
 				emit selectElement(-1, item->PageItemObject->ItemNr, false);
 			else
 			{
-				if (item->PageItemObject->isGroupControl)
+				if (item->PageItemObject->isGroup())
 					emit selectElement(-1, item->PageItemObject->ItemNr, false);
 				else
 					emit selectElement(-1, item->PageItemObject->ItemNr, true);
@@ -636,11 +630,11 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 		case 4:
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
-			if (pgItem->Groups.count() == 0)
+			if (pgItem->isGroup())
 				emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
 			else
 			{
-				if (pgItem->isGroupControl)
+				if (pgItem->isGroup())
 					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
 				else
 					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, true);
@@ -651,12 +645,7 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 	}
 	selectionTriggered = false;
 }
-/*
-void OutlinePalette::resizeEvent(QResizeEvent *r)
-{
-	reportDisplay->resize(r->size());
-}
-*/
+
 void OutlinePalette::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
@@ -671,7 +660,6 @@ void OutlinePalette::BuildTree(bool storeVals)
 	if (storeVals)
 		buildReopenVals();
 	clearPalette();
-	QList<PageItem*> subGroupList;
 	OutlineTreeItem * item = new OutlineTreeItem( reportDisplay, 0 );
 	rootObject = item;
 	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
@@ -680,10 +668,6 @@ void OutlinePalette::BuildTree(bool storeVals)
 	freeObjects = 0;
 	PageItem* pgItem;
 	QString tmp;
-	for (int b = 0; b < currDoc->MasterItems.count(); ++b)
-	{
-		currDoc->MasterItems.at(b)->Dirty = false;
-	}
 	for (int a = 0; a < static_cast<int>(currDoc->MasterPages.count()); ++a)
 	{
 		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
@@ -694,9 +678,9 @@ void OutlinePalette::BuildTree(bool storeVals)
 		for (int b = 0; b < currDoc->MasterItems.count(); ++b)
 		{
 			pgItem = currDoc->MasterItems.at(b);
-			if (((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam)) && (!pgItem->Dirty))
+			if (((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam)))
 			{
-				if (pgItem->Groups.count() == 0)
+				if (!pgItem->isGroup())
 				{
 					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
@@ -704,36 +688,20 @@ void OutlinePalette::BuildTree(bool storeVals)
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
 					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					pgItem->Dirty = true;
 				}
 				else
 				{
 					OutlineTreeItem * object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 1;
-					if (pgItem->isGroupControl)
-						object->setText(0, pgItem->itemName());
-					else
-						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setText(0, pgItem->itemName());
 					object->setIcon( 0, groupIcon );
 					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					pgItem->Dirty = true;
-					subGroupList.clear();
-					for (int ga = 0; ga < currDoc->MasterItems.count(); ++ga)
-					{
-						PageItem* pgItem2 = currDoc->MasterItems.at(ga);
-						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
-							subGroupList.append(pgItem2);
-					}
-					parseSubGroup(1, object, &subGroupList, 1);
+					parseSubGroup(object, &pgItem->groupItemList, 1);
 				}
 			}
 		}
 		page->setText(0, currDoc->MasterPages.at(a)->pageName());
-	}
-	for (int b = 0; b < currDoc->DocItems.count(); ++b)
-	{
-		currDoc->DocItems.at(b)->Dirty = false;
 	}
 	for (int a = 0; a < static_cast<int>(currDoc->DocPages.count()); ++a)
 	{
@@ -744,9 +712,9 @@ void OutlinePalette::BuildTree(bool storeVals)
 		for (int b = 0; b < currDoc->DocItems.count(); ++b)
 		{
 			pgItem = currDoc->DocItems.at(b);
-			if ((pgItem->OwnPage == a) && (!pgItem->Dirty))
+			if (pgItem->OwnPage == a)
 			{
-				if (pgItem->Groups.count() == 0)
+				if (!pgItem->isGroup())
 				{
 					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
@@ -754,28 +722,16 @@ void OutlinePalette::BuildTree(bool storeVals)
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
 					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					pgItem->Dirty = true;
 				}
 				else
 				{
 					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 3;
-					if (pgItem->isGroupControl)
-						object->setText(0, pgItem->itemName());
-					else
-						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setText(0, pgItem->itemName());
 					object->setIcon( 0, groupIcon );
 					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					pgItem->Dirty = true;
-					subGroupList.clear();
-					for (int ga = 0; ga < currDoc->DocItems.count(); ++ga)
-					{
-						PageItem* pgItem2 = currDoc->DocItems.at(ga);
-						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
-							subGroupList.append(pgItem2);
-					}
-					parseSubGroup(1, object, &subGroupList, 3);
+					parseSubGroup(object, &pgItem->groupItemList, 3);
 				}
 			}
 		}
@@ -799,9 +755,9 @@ void OutlinePalette::BuildTree(bool storeVals)
 		for (int b = 0; b < currDoc->DocItems.count(); ++b)
 		{
 			pgItem = currDoc->DocItems.at(b);
-			if ((pgItem->OwnPage == -1) && (!pgItem->Dirty))
+			if (pgItem->OwnPage == -1)
 			{
-				if (pgItem->Groups.count() == 0)
+				if (!pgItem->isGroup())
 				{
 					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
@@ -809,28 +765,16 @@ void OutlinePalette::BuildTree(bool storeVals)
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
 					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					pgItem->Dirty = true;
 				}
 				else
 				{
 					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 4;
-					if (pgItem->isGroupControl)
-						object->setText(0, pgItem->itemName());
-					else
-						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setText(0, pgItem->itemName());
 					object->setIcon( 0, groupIcon );
 					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					pgItem->Dirty = true;
-					subGroupList.clear();
-					for (int ga = 0; ga < currDoc->DocItems.count(); ++ga)
-					{
-						PageItem* pgItem2 = currDoc->DocItems.at(ga);
-						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
-							subGroupList.append(pgItem2);
-					}
-					parseSubGroup(1, object, &subGroupList, 4);
+					parseSubGroup(object, &pgItem->groupItemList, 4);
 				}
 			}
 		}
@@ -876,50 +820,30 @@ void OutlinePalette::filterTree()
 		filterTree( filterEdit->text() );
 }
 
-void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
+void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
 {
-	QList<PageItem*> *subGroup;
 	PageItem *pgItem;
-	QString tmp;
 	for (int b = 0; b < subGroupList->count(); ++b)
 	{
 		pgItem = subGroupList->at(b);
-		if (!pgItem->Dirty)
+		if (!pgItem->isGroup())
 		{
-			if (static_cast<int>(pgItem->Groups.count()) <= level)
-			{
-				OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
-				grp->PageItemObject = pgItem;
-				grp->type = itemType;
-				grp->setText(0, pgItem->itemName());
-				setItemIcon(grp, pgItem);
-				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				pgItem->Dirty = true;
-			}
-			else
-			{
-				OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
-				grp->PageItemObject = pgItem;
-				grp->type = itemType;
-				if (pgItem->isGroupControl)
-					grp->setText(0, pgItem->itemName());
-				else
-				grp->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.at(pgItem->Groups.count()-level-1)));
-				grp->setIcon( 0, groupIcon );
-				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				pgItem->Dirty = true;
-				subGroup = new QList<PageItem*>;
-				subGroup->clear();
-				for (int ga = 0; ga < subGroupList->count(); ++ga)
-				{
-					PageItem* pgItem2 = subGroupList->at(ga);
-					if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
-						((pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (pgItem->Groups.at(pgItem->Groups.count()-level-1))) && (pgItem2 != pgItem))
-						subGroup->append(pgItem2);
-				}
-				parseSubGroup(level+1, grp, subGroup, itemType);
-				delete subGroup;
-			}
+			OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
+			grp->PageItemObject = pgItem;
+			grp->type = itemType;
+			grp->setText(0, pgItem->itemName());
+			setItemIcon(grp, pgItem);
+			grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+		}
+		else
+		{
+			OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
+			grp->PageItemObject = pgItem;
+			grp->type = itemType;
+			grp->setText(0, pgItem->itemName());
+			grp->setIcon( 0, groupIcon );
+			grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+			parseSubGroup(grp, &pgItem->groupItemList, itemType);
 		}
 	}
 }
@@ -931,7 +855,6 @@ void OutlinePalette::changeEvent(QEvent *e)
 	else
 		QWidget::changeEvent(e);
 }
-
 
 void OutlinePalette::languageChange()
 {

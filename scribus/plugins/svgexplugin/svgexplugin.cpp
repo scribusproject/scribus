@@ -279,8 +279,6 @@ void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 	QDomElement layerGroup;
 	PageItem *Item;
 	QList<PageItem*> Items;
-	QStack<PageItem*> groupStack;
-	QStack<QDomElement> groupStack2;
 	Page* SavedAct = m_Doc->currentPage();
 	if (page->pageName().isEmpty())
 		Items = m_Doc->DocItems;
@@ -315,46 +313,7 @@ void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 			continue;
 		if ((!page->pageName().isEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
 			continue;
-		if (Item->isGroupControl)
-		{
-			groupStack.push(Item->groupsLastItem);
-			groupStack2.push(layerGroup);
-			layerGroup = docu.createElement("g");
-			if (!Item->AutoName)
-				layerGroup.setAttribute("id", Item->itemName());
-			if (Item->GrMask > 0)
-				layerGroup.setAttribute("mask", handleMask(Item, Item->xPos()-page->xOffset(), Item->yPos()-page->yOffset()));
-			else
-			{
-				if (Item->fillTransparency() != 0)
-					layerGroup.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
-			}
-			QDomElement ob = docu.createElement("clipPath");
-			ob.setAttribute("id", "Clip"+IToStr(ClipCount));
-			QDomElement cl = docu.createElement("path");
-			cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
-			QString trans = "translate("+FToStr(Item->xPos()-page->xOffset())+", "+FToStr(Item->yPos()-page->yOffset())+")";
-			if (Item->rotation() != 0)
-				trans += " rotate("+FToStr(Item->rotation())+")";
-			cl.setAttribute("transform", trans);
-			ob.appendChild(cl);
-			globalDefs.appendChild(ob);
-			layerGroup.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
-			ClipCount++;
-			continue;
-		}
 		ProcessItemOnPage(Item->xPos()-page->xOffset(), Item->yPos()-page->yOffset(), Item, &layerGroup);
-		if (groupStack.count() != 0)
-		{
-			while (Item == groupStack.top())
-			{
-				groupStack.pop();
-				groupStack2.top().appendChild(layerGroup);
-				layerGroup = groupStack2.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
 	}
 	for(int j = 0; j < Items.count(); ++j)
 	{
@@ -441,6 +400,36 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 			break;
 		case PageItem::Symbol:
 			ob = processSymbolItem(Item, trans);
+			break;
+		case PageItem::Group:
+			if (Item->groupItemList.count() > 0)
+			{
+				ob = docu.createElement("g");
+				if (!Item->AutoName)
+					ob.setAttribute("id", Item->itemName());
+				if (Item->GrMask > 0)
+					ob.setAttribute("mask", handleMask(Item, xOffset, yOffset));
+				else
+				{
+					if (Item->fillTransparency() != 0)
+						ob.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
+				}
+				ob.setAttribute("transform", trans);
+				ob.setAttribute("style", "fill:none; stroke:none");
+				QDomElement obc = docu.createElement("clipPath");
+				obc.setAttribute("id", "Clip"+IToStr(ClipCount));
+				QDomElement cl = docu.createElement("path");
+				cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
+				obc.appendChild(cl);
+				globalDefs.appendChild(obc);
+				ob.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
+				ClipCount++;
+				for (int em = 0; em < Item->groupItemList.count(); ++em)
+				{
+					PageItem* embed = Item->groupItemList.at(em);
+					ProcessItemOnPage(embed->gXpos, embed->gYpos, embed, &ob);
+				}
+			}
 			break;
 		default:
 			break;
@@ -1692,7 +1681,7 @@ QString SVGExPlug::handleMask(PageItem *Item, double xOffset, double yOffset)
 		mask.setAttribute("id", maskID);
 		QDomElement ob = docu.createElement("path");
 		ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0 L "+FToStr(Item->width())+" "+FToStr(Item->height())+" L 0 "+FToStr(Item->height())+" Z");
-		if (Item->isGroupControl)
+		if (Item->isGroup())
 		{
 			QString trans = "translate("+FToStr(xOffset)+", "+FToStr(yOffset)+")";
 			if (Item->rotation() != 0)
@@ -1714,11 +1703,6 @@ QString SVGExPlug::handleMask(PageItem *Item, double xOffset, double yOffset)
 			bool mirrorX, mirrorY;
 			Item->maskFlip(mirrorX, mirrorY);
 			QTransform mpa;
-	//		if (Item->isGroupControl)
-	//		{
-	//			if (Item->rotation() != 0)
-	//				mpa.rotate(-Item->rotation());
-	//		}
 			mpa.translate(patternOffsetX, patternOffsetY);
 			mpa.rotate(patternRotation);
 			mpa.shear(-patternSkewX, patternSkewY);
@@ -1799,7 +1783,7 @@ QString SVGExPlug::handleMask(PageItem *Item, double xOffset, double yOffset)
 			ob.setAttribute("fill", "url(#Grad"+IToStr(GradCount)+")");
 			GradCount++;
 		}
-		if ((Item->lineColor() != CommonStrings::None) && (!Item->isGroupControl))
+		if ((Item->lineColor() != CommonStrings::None) && (!Item->isGroup()))
 		{
 			ob.setAttribute("stroke", "white");
 			if (Item->lineWidth() != 0.0)
@@ -1948,8 +1932,6 @@ void SVGExPlug::writeBasePatterns()
 	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
 	for (int c = 0; c < patterns.count(); ++c)
 	{
-		QStack<PageItem*> groupStack;
-		QStack<QDomElement> groupStack2;
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
 		QDomElement patt = docu.createElement("pattern");
 		patt.setAttribute("id", patterns[c]);
@@ -1958,39 +1940,7 @@ void SVGExPlug::writeBasePatterns()
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* Item = pa.items.at(em);
-			if (Item->isGroupControl)
-			{
-				groupStack.push(Item->groupsLastItem);
-				groupStack2.push(patt);
-				patt = docu.createElement("g");
-				if (Item->fillTransparency() != 0)
-					patt.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
-				QDomElement ob = docu.createElement("clipPath");
-				ob.setAttribute("id", "Clip"+IToStr(ClipCount));
-				QDomElement cl = docu.createElement("path");
-				cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
-				QString trans = "translate("+FToStr(Item->gXpos)+", "+FToStr(Item->gYpos)+")";
-				if (Item->rotation() != 0)
-					trans += " rotate("+FToStr(Item->rotation())+")";
-				cl.setAttribute("transform", trans);
-				ob.appendChild(cl);
-				globalDefs.appendChild(ob);
-				patt.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
-				ClipCount++;
-				continue;
-			}
 			ProcessItemOnPage(Item->gXpos, Item->gYpos, Item, &patt);
-			if (groupStack.count() != 0)
-			{
-				while (Item == groupStack.top())
-				{
-					groupStack.pop();
-					groupStack2.top().appendChild(patt);
-					patt = groupStack2.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
 		}
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
@@ -2030,8 +1980,6 @@ void SVGExPlug::writeBaseSymbols()
 	QStringList patterns = m_Doc->getUsedSymbols();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
-		QStack<PageItem*> groupStack;
-		QStack<QDomElement> groupStack2;
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
 		QDomElement patt = docu.createElement("symbol");
 		patt.setAttribute("id", "S"+patterns[c]);
@@ -2039,39 +1987,7 @@ void SVGExPlug::writeBaseSymbols()
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* Item = pa.items.at(em);
-			if (Item->isGroupControl)
-			{
-				groupStack.push(Item->groupsLastItem);
-				groupStack2.push(patt);
-				patt = docu.createElement("g");
-				if (Item->fillTransparency() != 0)
-					patt.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
-				QDomElement ob = docu.createElement("clipPath");
-				ob.setAttribute("id", "Clip"+IToStr(ClipCount));
-				QDomElement cl = docu.createElement("path");
-				cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
-				QString trans = "translate("+FToStr(Item->gXpos)+", "+FToStr(Item->gYpos)+")";
-				if (Item->rotation() != 0)
-					trans += " rotate("+FToStr(Item->rotation())+")";
-				cl.setAttribute("transform", trans);
-				ob.appendChild(cl);
-				globalDefs.appendChild(ob);
-				patt.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
-				ClipCount++;
-				continue;
-			}
 			ProcessItemOnPage(Item->gXpos, Item->gYpos, Item, &patt);
-			if (groupStack.count() != 0)
-			{
-				while (Item == groupStack.top())
-				{
-					groupStack.pop();
-					groupStack2.top().appendChild(patt);
-					patt = groupStack2.pop();
-					if (groupStack.count() == 0)
-						break;
-				}
-			}
 		}
 		for (int em = 0; em < pa.items.count(); ++em)
 		{

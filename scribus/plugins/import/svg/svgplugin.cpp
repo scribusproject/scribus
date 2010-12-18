@@ -292,64 +292,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 	QImage tmpImage = QImage();
 	if (Elements.count() > 0)
 	{
-		bool isGroup = true;
-		int firstElem = -1;
-		if (Elements.at(0)->Groups.count() != 0)
-			firstElem = Elements.at(0)->Groups.top();
-		for (int bx = 0; bx < Elements.count(); ++bx)
-		{
-			PageItem* bxi = Elements.at(bx);
-			if (bxi->Groups.count() != 0)
-			{
-				if (bxi->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
-		}
-		if (!isGroup)
-		{
-			double minx = 999999.9;
-			double miny = 999999.9;
-			double maxx = -999999.9;
-			double maxy = -999999.9;
-			uint lowestItem = 999999;
-			uint highestItem = 0;
-			for (int a = 0; a < Elements.count(); ++a)
-			{
-				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-				PageItem* currItem = Elements.at(a);
-				lowestItem = qMin(lowestItem, currItem->ItemNr);
-				highestItem = qMax(highestItem, currItem->ItemNr);
-				double x1, x2, y1, y2;
-				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-				minx = qMin(minx, x1);
-				miny = qMin(miny, y1);
-				maxx = qMax(maxx, x2);
-				maxy = qMax(maxy, y2);
-			}
-			double gx = minx;
-			double gy = miny;
-			double gw = maxx - minx;
-			double gh = maxy - miny;
-			PageItem *high = m_Doc->Items->at(highestItem);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
-			PageItem *neu = m_Doc->Items->takeAt(z);
-			m_Doc->Items->insert(lowestItem, neu);
-			neu->Groups.push(m_Doc->GroupCounter);
-			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-			neu->AutoName = false;
-			neu->isGroupControl = true;
-			neu->groupsLastItem = high;
-			for (int a = 0; a < m_Doc->Items->count(); ++a)
-			{
-				m_Doc->Items->at(a)->ItemNr = a;
-			}
-			neu->setRedrawBounding();
-			neu->setTextFlowMode(PageItem::TextFlowDisabled);
-			Elements.prepend(neu);
-			m_Doc->GroupCounter++;
-		}
+		m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		for (int dre=0; dre<Elements.count(); ++dre)
@@ -452,11 +395,11 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -528,64 +471,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	}
 	if (Elements.count() > 1)
 	{
-		bool isGroup = true;
-		int firstElem = -1;
-		if (Elements.at(0)->Groups.count() != 0)
-			firstElem = Elements.at(0)->Groups.top();
-		for (int bx = 0; bx < Elements.count(); ++bx)
-		{
-			PageItem* bxi = Elements.at(bx);
-			if (bxi->Groups.count() != 0)
-			{
-				if (bxi->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
-		}
-		if (!isGroup)
-		{
-			double minx = 999999.9;
-			double miny = 999999.9;
-			double maxx = -999999.9;
-			double maxy = -999999.9;
-			uint lowestItem = 999999;
-			uint highestItem = 0;
-			for (int a = 0; a < Elements.count(); ++a)
-			{
-				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-				PageItem* currItem = Elements.at(a);
-				lowestItem = qMin(lowestItem, currItem->ItemNr);
-				highestItem = qMax(highestItem, currItem->ItemNr);
-				double x1, x2, y1, y2;
-				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-				minx = qMin(minx, x1);
-				miny = qMin(miny, y1);
-				maxx = qMax(maxx, x2);
-				maxy = qMax(maxy, y2);
-			}
-			double gx = minx;
-			double gy = miny;
-			double gw = maxx - minx;
-			double gh = maxy - miny;
-			PageItem *high = m_Doc->Items->at(highestItem);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
-			PageItem *neu = m_Doc->Items->takeAt(z);
-			m_Doc->Items->insert(lowestItem, neu);
-			neu->Groups.push(m_Doc->GroupCounter);
-			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-			neu->AutoName = false;
-			neu->isGroupControl = true;
-			neu->groupsLastItem = high;
-			for (int a = 0; a < m_Doc->Items->count(); ++a)
-			{
-				m_Doc->Items->at(a)->ItemNr = a;
-			}
-			neu->setRedrawBounding();
-			neu->setTextFlowMode(PageItem::TextFlowDisabled);
-			Elements.prepend(neu);
-			m_Doc->GroupCounter++;
-		}
+		m_Doc->groupObjectsList(Elements);
 	}
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
@@ -600,7 +486,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->setLoading(false);
 			m_Doc->changed();
 			m_Doc->setLoading(loadF);
-			if (!flags & LoadSavePlugin::lfLoadAsPattern)
+			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			{
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
@@ -671,11 +557,11 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		m_Doc->setLoading(false);
 		m_Doc->changed();
 		m_Doc->reformPages();
-		if (!flags & LoadSavePlugin::lfLoadAsPattern)
+		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
 		if (interactive)
 			m_Doc->view()->DrawNew();
@@ -1194,7 +1080,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	groupLevel++;
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
@@ -1269,9 +1155,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		else
 			neu->SetRectFrame();
 		neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
-		neu->Groups.push(m_Doc->GroupCounter);
-		neu->isGroupControl = true;
-		neu->groupsLastItem = gElements.at(gElements.count()-1);
 		if( !e.attribute("id").isEmpty() )
 			neu->setItemName(e.attribute("id"));
 		else
@@ -1280,20 +1163,22 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		neu->setFillTransparency(1 - gc->Opacity);
 		neu->gXpos = neu->xPos() - gx;
 		neu->gYpos = neu->yPos() - gy;
-		neu->gWidth = gw;
-		neu->gHeight = gh;
+		neu->groupWidth = gw;
+		neu->groupHeight = gh;
 		for (int gr = 0; gr < gElements.count(); ++gr)
 		{
-			gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
-			gElements.at(gr)->gXpos = gElements.at(gr)->xPos() - gx;
-			gElements.at(gr)->gYpos = gElements.at(gr)->yPos() - gy;
-			gElements.at(gr)->gWidth = gw;
-			gElements.at(gr)->gHeight = gh;
-			GElements.append(gElements.at(gr));
+			PageItem* currItem = gElements.at(gr);
+			currItem->gXpos = currItem->xPos() - gx;
+			currItem->gYpos = currItem->yPos() - gy;
+			currItem->gWidth = gw;
+			currItem->gHeight = gh;
+			neu->groupItemList.append(currItem);
+			m_Doc->Items->removeAll(currItem);
 		}
 		neu->setRedrawBounding();
 		neu->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->GroupCounter++;
+		m_Doc->renumberItemsInListOrder();
 	}
 	delete( m_gc.pop() );
 	return GElements;
@@ -2770,10 +2655,8 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		inGroupYOrigin = 999999;
 		double wpat = parseUnit(b.attribute("width", "0"));
 		double hpat = parseUnit(b.attribute("height", "0"));
-		int ac = m_Doc->Items->count();
 		QList<PageItem*> GElements;
 		GElements = parseGroup( b );
-		int ae = m_Doc->Items->count();
 		if (GElements.count() > 0)
 		{
 			ScPattern pat = ScPattern();
@@ -2794,20 +2677,8 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			m_Doc->DoDrawing = false;
 			pat.width = qMin(currItem->gWidth, wpat);
 			pat.height = qMin(currItem->gHeight, hpat);
-			bool more = false;
-			for (int as = ac; as < ae; ++as)
-			{
-				PageItem* Neu = m_Doc->Items->takeAt(ac);
-				if (more)
-				{
-					Neu->moveBy(xOrg, yOrg, true);
-					Neu->gXpos += xOrg;
-					Neu->gYpos += yOrg;
-				}
-				more = true;
-				Neu->ItemNr = pat.items.count();
-				pat.items.append(Neu);
-			}
+			pat.items.append(currItem);
+			m_Doc->Items->removeAll(currItem);
 			m_Doc->addPattern(id, pat);
 			importedPatterns.append(id);
 			importedPattTrans.insert(origName, id);

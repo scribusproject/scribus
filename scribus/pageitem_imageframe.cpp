@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include "filewatcher.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
@@ -37,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scribus.h"
 #include "scribusstructs.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
 #include "undomanager.h"
@@ -51,6 +53,16 @@ for which a new license (GPL+exception) is in place.
 PageItem_ImageFrame::PageItem_ImageFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::ImageFrame, x, y, w, h, w2, fill, outline)
 {
+}
+
+PageItem_ImageFrame::~PageItem_ImageFrame()
+{
+	if ((PictureIsAvailable) && (!Pfile.isEmpty()))
+	{
+		ScCore->fileWatcher->removeFile(Pfile);
+		QFileInfo fi(Pfile);
+		ScCore->fileWatcher->removeDir(fi.absolutePath());
+	}
 }
 
 void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)

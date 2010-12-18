@@ -97,25 +97,9 @@ QList<PageItem*> InlineFrame::getGroupedItems()
 	if (hasItem())
 	{
 		PageItem* dItem = d->item;
-		ScribusDoc& doc(*dItem->doc());
 		result.append(d->item);
-		if (dItem->Groups.count() != 0)
-		{
-			for (int ga=0; ga < doc.FrameItems.count(); ++ga)
-			{
-				if (doc.FrameItems.at(ga)->Groups.count() != 0)
-				{
-					if (doc.FrameItems.at(ga)->Groups.top() == dItem->Groups.top())
-					{
-						if (doc.FrameItems.at(ga)->ItemNr != dItem->ItemNr)
-						{
-							if (!result.contains(doc.FrameItems.at(ga)))
-								result.append(doc.FrameItems.at(ga));
-						}
-					}
-				}
-			}
-		}
+		if (dItem->isGroup())
+			result = dItem->getItemList();
 	}
 	return result;
 }

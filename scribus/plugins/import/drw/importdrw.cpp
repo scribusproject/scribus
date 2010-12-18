@@ -93,66 +93,8 @@ QImage DrwPlug::readThumbnail(QString fName)
 		{
 			tmpSel->clear();
 			QDir::setCurrent(CurDirP);
-			if (Elements.count() > 0)
-			{
-				bool isGroup = true;
-				int firstElem = -1;
-				if (Elements.at(0)->Groups.count() != 0)
-					firstElem = Elements.at(0)->Groups.top();
-				for (int bx = 0; bx < Elements.count(); ++bx)
-				{
-					PageItem* bxi = Elements.at(bx);
-					if (bxi->Groups.count() != 0)
-					{
-						if (bxi->Groups.top() != firstElem)
-							isGroup = false;
-					}
-					else
-						isGroup = false;
-				}
-				if (!isGroup)
-				{
-					double minx = 999999.9;
-					double miny = 999999.9;
-					double maxx = -999999.9;
-					double maxy = -999999.9;
-					uint lowestItem = 999999;
-					uint highestItem = 0;
-					for (int a = 0; a < Elements.count(); ++a)
-					{
-						Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-						PageItem* currItem = Elements.at(a);
-						lowestItem = qMin(lowestItem, currItem->ItemNr);
-						highestItem = qMax(highestItem, currItem->ItemNr);
-						double x1, x2, y1, y2;
-						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-						minx = qMin(minx, x1);
-						miny = qMin(miny, y1);
-						maxx = qMax(maxx, x2);
-						maxy = qMax(maxy, y2);
-					}
-					double gx = minx;
-					double gy = miny;
-					double gw = maxx - minx;
-					double gh = maxy - miny;
-					PageItem *high = m_Doc->Items->at(highestItem);
-					int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
-					PageItem *neu = m_Doc->Items->takeAt(z);
-					m_Doc->Items->insert(lowestItem, neu);
-					neu->Groups.push(m_Doc->GroupCounter);
-					neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-					neu->AutoName = false;
-					neu->isGroupControl = true;
-					neu->groupsLastItem = high;
-					neu->setTextFlowMode(PageItem::TextFlowDisabled);
-					for (int a = 0; a < m_Doc->Items->count(); ++a)
-					{
-						m_Doc->Items->at(a)->ItemNr = a;
-					}
-					Elements.prepend(neu);
-					m_Doc->GroupCounter++;
-				}
-			}
+			if (Elements.count() > 1)
+				m_Doc->groupObjectsList(Elements);
 		}
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
@@ -287,7 +229,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -298,65 +240,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-		{
-			bool isGroup = true;
-			int firstElem = -1;
-			if (Elements.at(0)->Groups.count() != 0)
-				firstElem = Elements.at(0)->Groups.top();
-			for (int bx = 0; bx < Elements.count(); ++bx)
-			{
-				PageItem* bxi = Elements.at(bx);
-				if (bxi->Groups.count() != 0)
-				{
-					if (bxi->Groups.top() != firstElem)
-						isGroup = false;
-				}
-				else
-					isGroup = false;
-			}
-			if (!isGroup)
-			{
-				double minx = 999999.9;
-				double miny = 999999.9;
-				double maxx = -999999.9;
-				double maxy = -999999.9;
-				uint lowestItem = 999999;
-				uint highestItem = 0;
-				for (int a = 0; a < Elements.count(); ++a)
-				{
-					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-					PageItem* currItem = Elements.at(a);
-					lowestItem = qMin(lowestItem, currItem->ItemNr);
-					highestItem = qMax(highestItem, currItem->ItemNr);
-					double x1, x2, y1, y2;
-					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-					minx = qMin(minx, x1);
-					miny = qMin(miny, y1);
-					maxx = qMax(maxx, x2);
-					maxy = qMax(maxy, y2);
-				}
-				double gx = minx;
-				double gy = miny;
-				double gw = maxx - minx;
-				double gh = maxy - miny;
-				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
-				PageItem *neu = m_Doc->Items->takeAt(z);
-				m_Doc->Items->insert(lowestItem, neu);
-				neu->Groups.push(m_Doc->GroupCounter);
-				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-				neu->AutoName = false;
-				neu->isGroupControl = true;
-				neu->groupsLastItem = high;
-				neu->setTextFlowMode(PageItem::TextFlowDisabled);
-				for (int a = 0; a < m_Doc->Items->count(); ++a)
-				{
-					m_Doc->Items->at(a)->ItemNr = a;
-				}
-				Elements.prepend(neu);
-				m_Doc->GroupCounter++;
-			}
-		}
+			m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
@@ -369,7 +253,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->setLoading(false);
 				m_Doc->changed();
 				m_Doc->setLoading(loadF);
-				if (!flags & LoadSavePlugin::lfLoadAsPattern)
+				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
 					for (int dre=0; dre<Elements.count(); ++dre)
@@ -427,7 +311,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		{
 			m_Doc->changed();
 			m_Doc->reformPages();
-			if (!flags & LoadSavePlugin::lfLoadAsPattern)
+			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				m_Doc->view()->updatesOn(true);
 		}
 		success = true;
@@ -443,7 +327,7 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
 		if ((showProgress) && (!interactive))
 			m_Doc->view()->DrawNew();
@@ -1334,17 +1218,15 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 					for (uint i = 0; i < selectedItemCount; ++i)
 					{
 						PageItem *item = tmpSel->itemAt(i);
-						item->Groups.push(m_Doc->GroupCounter);
-						listStack.top().GElements.append(item);
+						popped.groupItem->groupItemList.append(item);
+						item->gXpos = item->xPos() - popped.groupItem->xPos();
+						item->gYpos = item->yPos() - popped.groupItem->yPos();
 					}
-					popped.groupItem->Groups.push(m_Doc->GroupCounter);
 					if (popped.itemGroupName.isEmpty())
-						popped.groupItem->setItemName( tr("Group%1").arg(popped.groupItem->Groups.top()));
+						popped.groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 					else
 						popped.groupItem->setItemName(popped.itemGroupName);
 					popped.groupItem->AutoName = false;
-					popped.groupItem->isGroupControl = true;
-					popped.groupItem->groupsLastItem = tmpSel->itemAt(selectedItemCount - 1);
 				}
 				m_Doc->GroupCounter++;
 				tmpSel->clear();
@@ -1460,7 +1342,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds >> dummy;
 			if (dummy > 0)
 			{
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
+				z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
 				gList.groupItem = m_Doc->Items->at(z);
 				gList.groupX = groupX + bBox.x();
 				gList.groupY = groupY + bBox.y();

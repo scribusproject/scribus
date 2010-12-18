@@ -214,7 +214,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -227,65 +227,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		QDir::setCurrent(CurDirP);
 //		if ((Elements.count() > 1) && (interactive))
 		if (Elements.count() > 1)
-		{
-			bool isGroup = true;
-			int firstElem = -1;
-			if (Elements.at(0)->Groups.count() != 0)
-				firstElem = Elements.at(0)->Groups.top();
-			for (int bx = 0; bx < Elements.count(); ++bx)
-			{
-				PageItem* bxi = Elements.at(bx);
-				if (bxi->Groups.count() != 0)
-				{
-					if (bxi->Groups.top() != firstElem)
-						isGroup = false;
-				}
-				else
-					isGroup = false;
-			}
-			if (!isGroup)
-			{
-				double minx = 999999.9;
-				double miny = 999999.9;
-				double maxx = -999999.9;
-				double maxy = -999999.9;
-				uint lowestItem = 999999;
-				uint highestItem = 0;
-				for (int a = 0; a < Elements.count(); ++a)
-				{
-					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-					PageItem* currItem = Elements.at(a);
-					lowestItem = qMin(lowestItem, currItem->ItemNr);
-					highestItem = qMax(highestItem, currItem->ItemNr);
-					double x1, x2, y1, y2;
-					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-					minx = qMin(minx, x1);
-					miny = qMin(miny, y1);
-					maxx = qMax(maxx, x2);
-					maxy = qMax(maxy, y2);
-				}
-				double gx = minx;
-				double gy = miny;
-				double gw = maxx - minx;
-				double gh = maxy - miny;
-				PageItem *high = m_Doc->Items->at(highestItem);
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
-				PageItem *neu = m_Doc->Items->takeAt(z);
-				m_Doc->Items->insert(lowestItem, neu);
-				neu->Groups.push(m_Doc->GroupCounter);
-				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-				neu->AutoName = false;
-				neu->isGroupControl = true;
-				neu->groupsLastItem = high;
-				neu->setTextFlowMode(PageItem::TextFlowDisabled);
-				for (int a = 0; a < m_Doc->Items->count(); ++a)
-				{
-					m_Doc->Items->at(a)->ItemNr = a;
-				}
-				Elements.prepend(neu);
-				m_Doc->GroupCounter++;
-			}
-		}
+			m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
@@ -298,7 +240,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				m_Doc->setLoading(false);
 				m_Doc->changed();
 				m_Doc->setLoading(loadF);
-				if (!flags & LoadSavePlugin::lfLoadAsPattern)
+				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
 					for (int dre=0; dre<Elements.count(); ++dre)
@@ -347,7 +289,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		{
 			m_Doc->changed();
 			m_Doc->reformPages();
-			if (!flags & LoadSavePlugin::lfLoadAsPattern)
+			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				m_Doc->view()->updatesOn(true);
 		}
 		success = true;
@@ -363,7 +305,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
-	if (!flags & LoadSavePlugin::lfLoadAsPattern)
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
 		if ((showProgress) && (!interactive))
 			m_Doc->view()->DrawNew();
@@ -506,8 +448,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
 	QStack<PageItem*> groupStack;
+	QStack< QList<PageItem*> > groupStackP;
 	QStack<int>  gsStack;
-	QStack<uint> elemCount;
 	QStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
@@ -609,14 +551,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setFillTransparency(1.0 - Opacity);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
-						if (groupStack.count() != 0)
-						{
-							QStack<int> groupOld = groupStack.top()->Groups;
-							for (int gg = 0; gg < groupOld.count(); gg++)
-							{
-								ite->Groups.push(groupOld[gg]);
-							}
-						}
+						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
+							groupStackP.top().append(ite);
 						Elements.append(ite);
 						lastPath = currPath;
 					}
@@ -661,14 +597,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						m_Doc->AdjustItemSize(ite);
 						ite->setLineWidth(LineW);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						if (groupStack.count() != 0)
-						{
-							QStack<int> groupOld = groupStack.top()->Groups;
-							for (int gg = 0; gg < groupOld.count(); gg++)
-							{
-								ite->Groups.push(groupOld[gg]);
-							}
-						}
+						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
+							groupStackP.top().append(ite);
 						Elements.append(ite);
 					}
 					lastPath = "";
@@ -687,7 +617,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					if (vers < "4.3.3")
 					{
 						clipCoords = Coords;
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+						z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 						ite = m_Doc->Items->at(z);
 						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -697,22 +627,15 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						m_Doc->AdjustItemSize(ite);
-						ite->Groups.push(m_Doc->GroupCounter);
-						if (groupStack.count() != 0)
-						{
-							QStack<int> groupOld = groupStack.top()->Groups;
-							for (int gg = 0; gg < groupOld.count(); gg++)
-							{
-								ite->Groups.push(groupOld[gg]);
-							}
-						}
-						ite->isGroupControl = true;
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 						ite->AutoName = false;
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						Elements.append(ite);
+						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
+							groupStackP.top().append(ite);
 						groupStack.push(ite);
-						elemCount.push(Elements.count());
+						QList<PageItem*> gElements;
+						groupStackP.push(gElements);
 						gsStackMarks.push(gsStack.count());
 						m_Doc->GroupCounter++;
 					}
@@ -723,7 +646,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						if ((tmpPath.boundingRect().width() != 0) && (tmpPath.boundingRect().height() != 0))
 						{
 							clipCoords.fromQPainterPath(tmpPath);
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 							ite = m_Doc->Items->at(z);
 							ite->PoLine = clipCoords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 							ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -733,22 +656,15 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							ite->setWidthHeight(wh.x(),wh.y());
 							ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 							m_Doc->AdjustItemSize(ite);
-							ite->Groups.push(m_Doc->GroupCounter);
-							if (groupStack.count() != 0)
-							{
-								QStack<int> groupOld = groupStack.top()->Groups;
-								for (int gg = 0; gg < groupOld.count(); gg++)
-								{
-									ite->Groups.push(groupOld[gg]);
-								}
-							}
-							ite->isGroupControl = true;
 							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 							ite->AutoName = false;
 							ite->setTextFlowMode(PageItem::TextFlowDisabled);
 							Elements.append(ite);
+							if ((groupStack.count() != 0) && (groupStackP.count() != 0))
+								groupStackP.top().append(ite);
 							groupStack.push(ite);
-							elemCount.push(Elements.count());
+							QList<PageItem*> gElements;
+							groupStackP.push(gElements);
 							gsStackMarks.push(gsStack.count());
 							m_Doc->GroupCounter++;
 						}
@@ -767,19 +683,17 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				// #6834 : self defense against incorrectly balanced save/restore
 				if (gsStack.count() > 0)
 					gsStack.pop();
-				if (groupStack.count() != 0)
+				if ((groupStack.count() != 0) && (groupStackP.count() != 0))
 				{
 					if (gsStack.count() < static_cast<int>(gsStackMarks.top()))
 					{
 						PageItem *ite = groupStack.pop();
-						int count = elemCount.pop();
-						if (count == Elements.count())
+						QList<PageItem*> gList = groupStackP.pop();
+						for (int d = 0; d < gList.count(); d++)
 						{
-							m_Doc->Items->removeLast();
-							Elements.removeLast();
+							Elements.removeAll(gList.at(d));
 						}
-						else
-							ite->groupsLastItem = Elements.at(Elements.count()-1);
+						m_Doc->groupObjectsToItem(ite, gList);
 						gsStackMarks.pop();
 					}
 				}
@@ -788,7 +702,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			{
 				ScTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> LineW;
-//				currPath += params;
 			}
 			else if (token == "ld")
 			{
@@ -804,7 +717,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						DashPattern.append(dcp);
 					}
 				}
-//				currPath += params;
 			}
 			else if (token == "lc")
 			{
@@ -825,7 +737,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						CapStyle = Qt::FlatCap;
 						break;
 				}
-//				currPath += params;
 			}
 			else if (token == "lj")
 			{
@@ -846,7 +757,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						JoinStyle = Qt::MiterJoin;
 						break;
 				}
-//				currPath += params;
 			}
 			else if (token == "cp") {
 				ClosedPath = true;
@@ -863,14 +773,12 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			while (!groupStack.isEmpty())
 			{
 				PageItem *ite = groupStack.pop();
-				int count = elemCount.pop();
-				if (count == Elements.count())
+				QList<PageItem*> gList = groupStackP.pop();
+				for (int d = 0; d < gList.count(); d++)
 				{
-					m_Doc->Items->removeLast();
-					Elements.removeLast();
+					Elements.removeAll(gList.at(d));
 				}
-				else
-					ite->groupsLastItem = Elements.at(Elements.count()-1);
+				m_Doc->groupObjectsToItem(ite, gList);
 			}
 		}
 	}

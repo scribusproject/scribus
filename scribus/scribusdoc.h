@@ -117,6 +117,7 @@ public:
 	ScribusDoc(const QString& docName, int unitIndex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup);
 	~ScribusDoc();
 	void init();
+	QList<PageItem*> getAllItems(QList<PageItem*> &items);
 	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
 	void setLoading(const bool);
 	bool isLoading() const;
@@ -922,6 +923,9 @@ public:
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
 
+	PageItem* groupObjectsSelection(Selection* customSelection=0);
+	PageItem* groupObjectsList(QList<PageItem*> &itemList);
+	void groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemList);
 	const PageItem * itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection=0);
 	void itemSelection_UnGroupObjects(Selection* customSelection=0);
 	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection=0);
@@ -1014,7 +1018,7 @@ public:
 	void AdjustItemSize(PageItem *currItem);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
 	void rotateGroup(double angle, FPoint RCenter);
-	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
+	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0, bool scaleLine = false);
 	//! \brief Get a list of frames of certain type
 	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
 	//! \brief Returns a serializer for this document
