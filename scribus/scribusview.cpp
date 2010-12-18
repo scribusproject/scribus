@@ -1676,6 +1676,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 		FPoint pf(m_canvas->globalToCanvas(QPoint(x,y)));
 		if( m_canvas->frameHitTest(QPointF(pf.x(),pf.y()), currItem) == Canvas::INSIDE )
 		{
+			// #9592 : layout must be valid here, or screenToPosition() may crash
+			if (currItem->invalid)
+				currItem->layout();
 			if(currItem->reversed())
 			{ //handle Right to Left writing
 				FPoint point(currItem->width()-(pf.x() - currItem->xPos()), pf.y() - currItem->yPos());

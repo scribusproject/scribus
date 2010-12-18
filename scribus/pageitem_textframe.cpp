@@ -925,7 +925,9 @@ void PageItem_TextFrame::layout()
 			qDebug() << QString("layout(): backBox=%1 is no textframe!!").arg((ulong)BackBox);
 		else 
 			BackBox->layout();
-		return;
+		// #9592 : warning, BackBox->layout() may not layout BackBox next box
+		if (!invalid)
+			return;
 	}
 	else if (!invalid && OnMasterPage.isEmpty()) {
 //		qDebug() << QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage);
