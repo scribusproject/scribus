@@ -126,9 +126,16 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 				currItem->Frame = false;
 				currItem->ClipEdited = true;
 				currItem->FrameType = 3;
+				double oW = currItem->width();
+				double oH = currItem->height();
 				currDoc->AdjustItemSize(currItem, true);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
+				if (currItem->isGroup())
+				{
+					currItem->groupWidth = currItem->groupWidth * (currItem->OldB2 / oW);
+					currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
+				}
 				currItem->updateClip();
 				currItem->ContourLine = currItem->PoLine.copy();
 			}

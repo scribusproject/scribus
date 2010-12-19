@@ -391,7 +391,7 @@ void PicStatus::SelectPic()
 		return;
 
 	ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-	if (currItem->Groups.count() == 0)
+	if (!currItem->isGroup())
 		emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
 	else
 	{

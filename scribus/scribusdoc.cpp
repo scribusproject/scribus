@@ -5108,24 +5108,12 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 void ScribusDoc::GroupOnPage(PageItem* currItem)
 {
-	QList<PageItem*> Objects;
-	PageItem* item;
-	if (currItem->Groups.count() == 0)
+	if (!currItem->isGroup())
 		return;
-	int ObjGroup = currItem->Groups.top();
-	uint docItemCount=Items->count();
-	for (uint a = 0; a < docItemCount; ++a)
-	{
-		item = Items->at(a);
-		if (item->Groups.count() != 0)
-		{
-			if (item->Groups.top() == ObjGroup)
-				Objects.append(item);
-		}
-	}
+	QList<PageItem*> Objects = currItem->getItemList();
 	int Off_Page = -1;
 	int On_Page = 999999;
-	uint objectCount=Objects.count();
+	uint objectCount = Objects.count();
 	for (uint a = 0; a < objectCount; ++a)
 	{
 		int res = OnPage(Objects.at(a));
@@ -5258,7 +5246,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			PageItem *item = Items->at(ite);
 			if (item->OwnPage < 0)
 			{
-				if (item->Groups.count() != 0)
+				if (item->isGroup())
 					GroupOnPage(item);
 				else
 					item->OwnPage = OnPage(item);
@@ -5273,7 +5261,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 				}
 				else
 				{
-					if (item->Groups.count() != 0)
+					if (item->isGroup())
 						GroupOnPage(item);
 					else
 						item->OwnPage = OnPage(item);
@@ -11915,6 +11903,14 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup)
 			currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
 		SizeItem(tp.x(), tp.y(), currItem, true, false);
 		currItem->PoLine = Clip.copy();
+		if (currItem->isGroup() && includeGroup)
+		{
+			for (int em = 0; em < currItem->groupItemList.count(); ++em)
+			{
+				PageItem* embedded = currItem->groupItemList.at(em);
+				MoveItem(-tp2.x(), -tp2.y(), embedded, true);
+			}
+		}
 	}
 	currItem->ClipEdited = true;
 	currItem->OldB2 = currItem->width();
@@ -12608,7 +12604,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 	if (docSelectionCount > 1)
 	{
 		currItem = m_Selection->itemAt(0);
-		if (currItem->Groups.count() != 0)
+		if (currItem->isGroup())
 			return;
 		m_Selection->delaySignalsOn();
 		currItem->Frame = false;

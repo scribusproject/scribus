@@ -1824,42 +1824,10 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		}
 		else
 		{
-			if (currItem->Groups.count() != 0)
+			Doc->m_Selection->addItem(currItem);
+			if (draw)
 			{
-				if (Doc->m_Selection->count() != 0)
-				{
-					if (Doc->m_Selection->findItem(currItem) == -1)
-						Doc->m_Selection->addItem(currItem);
-				}
-				else
-					Doc->m_Selection->addItem(currItem);
-
-				for (int ga=0; ga<Doc->Items->count(); ++ga)
-				{
-					if (Doc->Items->at(ga)->Groups.count() != 0)
-					{
-						if (Doc->Items->at(ga)->Groups.top() == currItem->Groups.top())
-						{
-							if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
-							{
-								if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
-									Doc->m_Selection->addItem(Doc->Items->at(ga));
-							}
-							if (draw)
-							{
-								updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-							}
-						}
-					}
-				}
-			}
-			else
-			{
-				Doc->m_Selection->addItem(currItem);
-				if (draw)
-				{
-					updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-				}
+				updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 			}
 			//CB FIXME/TODO We are surely prepending here and we have turned off
 			//emitting in prepend below so do it here.

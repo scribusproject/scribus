@@ -274,44 +274,15 @@ bool Selection::removeItem(PageItem *item)
     bool removeOk(false);
 	if (!m_SelList.isEmpty() && m_SelList.contains(item))
 	{
-		bool itemIsGroup(item->Groups.count() > 0);
-		if(itemIsGroup)
+		removeOk=(m_SelList.removeAll(item)==1);
+		if (removeOk)
 		{
-			QList<PageItem*> gItems;
-			foreach(PageItem *pi, m_SelList)
+			if (m_isGUISelection)
 			{
-				if(!pi->groups().isEmpty() && !item->groups().isEmpty())
-				{
-					if(pi->groups().top() == item->groups().top())
-						gItems << pi;
-				}
+				item->setSelected(false);
+				item->disconnectFromGUI();
 			}
-			foreach(PageItem *gi, gItems)
-			{
-				removeOk=(m_SelList.removeAll(gi)==1);
-				if (removeOk)
-				{
-					if (m_isGUISelection)
-					{
-						gi->setSelected(false);
-						gi->disconnectFromGUI();
-					}
-					gi->isSingleSel = false;
-				}
-			}
-		}
-		else // regular item
-		{
-			removeOk=(m_SelList.removeAll(item)==1);
-			if (removeOk)
-			{
-				if (m_isGUISelection)
-				{
-					item->setSelected(false);
-					item->disconnectFromGUI();
-				}
-				item->isSingleSel = false;
-			}
+			item->isSingleSel = false;
 		}
 
 

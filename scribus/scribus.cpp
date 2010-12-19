@@ -3051,7 +3051,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 
 			if ((currItem->asTextFrame() && (bx->asPolygon() || bx->asPolyLine())) || (bx->asTextFrame() && (currItem->asPolygon() || currItem->asPolyLine())))
 			{
-				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (bx->nextInChain() == 0) && (bx->prevInChain() == 0) && (currItem->Groups.count() == 0) && (bx->Groups.count() == 0))
+				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (bx->nextInChain() == 0) && (bx->prevInChain() == 0) && (!currItem->isGroup()) && (!bx->isGroup()))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
 
@@ -4017,15 +4017,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		for (int azz=0; azz<docItemsCount; ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
-			//CB dont need this as we get it from the loading page in 1.2.x docs. 1.3.x items have this anyway.
-			/*
-			if (ite->Groups.count() != 0)
-				doc->GroupOnPage(ite);
-			else
-				ite->OwnPage = doc->OnPage(ite);
-			*/
-			//view->setRedrawBounding(ite);
-//			qDebug() << QString("load D: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			if(ite->nextInChain() == NULL)
 				ite->layout();
 /*			if (doc->OldBM)
