@@ -11886,11 +11886,11 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 }
 
 
-void ScribusDoc::AdjustItemSize(PageItem *currItem)
+void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup)
 {
 	bool siz = currItem->Sizing;
 	currItem->Sizing = false;
-	if (!(currItem->isGroup() || currItem->isSymbol()))
+	if ((!(currItem->isGroup() || currItem->isSymbol())) || includeGroup)
 	{
 		FPointArray Clip;
 		Clip = currItem->PoLine;

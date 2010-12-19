@@ -116,7 +116,7 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 		{
 			for (int a = 0; a < dia->origPathItem.count(); a++)
 			{
-				PageItem *currItem = currDoc->m_Selection->itemAt(a);
+				PageItem *currItem = dia->origPageItem[a];
 				if (currItem->itemType() == PageItem::Line)
 					continue;
 				QPainterPath path = dia->origPathItem[a]->path();
@@ -126,7 +126,7 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 				currItem->Frame = false;
 				currItem->ClipEdited = true;
 				currItem->FrameType = 3;
-				currDoc->AdjustItemSize(currItem);
+				currDoc->AdjustItemSize(currItem, true);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
 				currItem->updateClip();

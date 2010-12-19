@@ -251,19 +251,39 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	setModal(true);
 	buttonZoomOut->setIcon(QIcon(loadIcon("16/zoom-out.png")));
 	buttonZoomI->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	addItemsToScene(doc->m_Selection, doc, 0, 0);
+	previewWidget->setRenderHint(QPainter::Antialiasing);
+	previewWidget->setScene(&scene);
+	isFirst = true;
+	addLens();
+	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
+	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
+	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
+	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
+	connect(buttonAdd, SIGNAL(clicked()), this, SLOT(addLens()));
+	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removeLens()));
+	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
+	connect(buttonZoomI, SIGNAL(clicked()), this, SLOT(doZoomIn()));
+	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(&scene, SIGNAL(selectionChanged()), this, SLOT(selectionHasChanged()));
+}
 
+void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent)
+{
 	PageItem *currItem;
 	double gx, gy, gh, gw;
-	doc->m_Selection->setGroupRect();
-	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-	uint selectedItemCount = doc->m_Selection->count();
-	QStack<PageItem*> groupStack;
-	QStack<QGraphicsPathItem*> groupStack2;
-	QStack<PageItem*> groupStack3;
-	groupStack2.push(0);
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
+	uint selectedItemCount = itemSelection->count();
+//	QStack<PageItem*> groupStack;
+//	QStack<QGraphicsPathItem*> groupStack2;
+//	QStack<PageItem*> groupStack3;
+//	groupStack2.push(0);
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = doc->m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
 		FPointArray path = currItem->PoLine;
 		QPainterPath pp;
 		if (currItem->itemType() == PageItem::PolyLine)
@@ -271,8 +291,8 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		else
 			pp = path.toQPainterPath(true);
 		origPath.append(pp);
-		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, groupStack2.top());
-		if (groupStack2.top() == 0)
+		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, parentItem);
+		if (parentItem == 0)
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
@@ -280,7 +300,6 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		}
 		else
 		{
-			PageItem* parent = groupStack3.top();
 			QTransform mm;
 			mm.rotate(-parent->rotation());
 			mm.translate(-parent->xPos(), -parent->yPos());
@@ -288,7 +307,8 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		}
 		pItem->setZValue(i);
 		origPathItem.append(pItem);
-		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->controlsGroup()))
+		origPageItem.append(currItem);
+		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->isGroup()))
 			pItem->setBrush(Qt::NoBrush);
 		else
 		{
@@ -359,7 +379,7 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				pItem->setBrush(paint);
 			}
 		}
-		if (currItem->controlsGroup())
+		if (currItem->isGroup())
 			pItem->setPen(Qt::NoPen);
 		else if (currItem->NamedLStyle.isEmpty())
 		{
@@ -427,14 +447,20 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
 			}
 		}
-		if (currItem->controlsGroup())
+		if (currItem->isGroup())
 		{
-			groupStack.push(currItem->groupsLastItem);
-			groupStack2.push(pItem);
-			groupStack3.push(currItem);
+	//		groupStack.push(currItem->groupsLastItem);
+	//		groupStack2.push(pItem);
+	//		groupStack3.push(currItem);
 			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
+			Selection tmpSelection(this, false);
+			for (int a = 0; a < currItem->groupItemList.count(); a++)
+			{
+				tmpSelection.addItem(currItem->groupItemList.at(a));
+			}
+			addItemsToScene(&tmpSelection, doc, pItem, currItem);
 		}
-		if (groupStack.count() != 0)
+	/*	if (groupStack.count() != 0)
 		{
 			while (currItem == groupStack.top())
 			{
@@ -444,25 +470,9 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				if (groupStack.count() == 0)
 					break;
 			}
-		}
+		} */
 	}
 
-	previewWidget->setRenderHint(QPainter::Antialiasing);
-	previewWidget->setScene(&scene);
-	isFirst = true;
-	addLens();
-	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
-	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
-	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
-	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
-	connect(buttonAdd, SIGNAL(clicked()), this, SLOT(addLens()));
-	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removeLens()));
-	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
-	connect(buttonZoomI, SIGNAL(clicked()), this, SLOT(doZoomIn()));
-	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
-	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-	connect(&scene, SIGNAL(selectionChanged()), this, SLOT(selectionHasChanged()));
 }
 
 void LensDialog::showEvent(QShowEvent *e)

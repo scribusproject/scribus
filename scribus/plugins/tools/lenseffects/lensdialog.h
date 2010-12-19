@@ -72,11 +72,13 @@ class PLUGIN_API LensDialog : public QDialog, Ui::LensDialogBase
 public:
 	LensDialog(QWidget* parent, ScribusDoc *doc);
 	~LensDialog() {};
+	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void lensSelected(LensItem *item);
 	void setLensPositionValues(QPointF p);
 	QGraphicsScene scene;
 	QList<QPainterPath> origPath;
 	QList<QGraphicsPathItem*> origPathItem;
+	QList<PageItem*> origPageItem;
 	QList<LensItem*> lensList;
 	int currentLens;
 	bool isFirst;

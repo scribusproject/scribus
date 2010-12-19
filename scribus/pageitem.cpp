@@ -873,9 +873,15 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 		return;
 	invalid = true;
 	if (dX!=0.0)
+	{
 		Xpos+=dX;
+		gXpos+=dX;
+	}
 	if (dY!=0.0)
+	{
 		Ypos+=dY;
+		gYpos+=dY;
+	}
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();

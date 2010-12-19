@@ -2615,7 +2615,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					PageItem* embed = pat.items.at(em);
 					PS_save();
-					PS_translate(embed->gXpos, embed->gHeight - embed->gYpos);
+					PS_translate(embed->gXpos, c->height() - embed->gYpos);
 					ProcessItem(m_Doc, a, embed, PNr, sep, farb, ic, gcr, master, true);
 					PS_restore();
 				}
@@ -2643,7 +2643,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				PageItem* embed = c->groupItemList.at(em);
 				PS_save();
-				PS_translate(embed->gXpos, embed->gHeight - embed->gYpos);
+				PS_translate(embed->gXpos, c->height() - embed->gYpos);
 				ProcessItem(m_Doc, a, embed, PNr, sep, farb, ic, gcr, master, true);
 				PS_restore();
 			}

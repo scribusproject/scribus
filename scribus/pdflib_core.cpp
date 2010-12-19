@@ -2500,7 +2500,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							{
 								PageItem* embedded = pat.items.at(em);
 								tmpD += "q\n";
-								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								QString output;
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
 									return "";
@@ -2515,7 +2515,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
 									continue;
 								tmpD += "q\n";
-								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								tmpD += PDF_ProcessTableItem(embedded, pag);
 								tmpD += "Q\n";
 							}
@@ -2546,7 +2546,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							{
 								PageItem* embedded = ite->groupItemList.at(em);
 								tmpD += "q\n";
-								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								QString output;
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
 									return "";
@@ -2561,7 +2561,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
 									continue;
 								tmpD += "q\n";
-								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								tmpD += PDF_ProcessTableItem(embedded, pag);
 								tmpD += "Q\n";
 							}
@@ -4234,7 +4234,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				{
 					PageItem* embedded = pat.items.at(em);
 					tmpD += "q\n";
-					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					QString output;
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 						return "";
@@ -4249,7 +4249,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
 						continue;
 					tmpD += "q\n";
-					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					tmpD += PDF_ProcessTableItem(embedded, pag);
 					tmpD += "Q\n";
 				}
@@ -4280,7 +4280,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				{
 					PageItem* embedded = ite->groupItemList.at(em);
 					tmpD += "q\n";
-					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					QString output;
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 						return "";
@@ -4295,7 +4295,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
 						continue;
 					tmpD += "q\n";
-					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
+					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					tmpD += PDF_ProcessTableItem(embedded, pag);
 					tmpD += "Q\n";
 				}
