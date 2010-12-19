@@ -299,25 +299,6 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 				m_view->DrawNew();
 			}
 		}
-/*		uint docPagesCount=m_doc->Pages->count();
-		uint docCurrPageNo=m_doc->currentPageNumber();
-		for (uint i = 0; i < docPagesCount; ++i)
-		{
-			int x = static_cast<int>(m_doc->Pages->at(i)->xOffset() * m_canvas->scale());
-			int y = static_cast<int>(m_doc->Pages->at(i)->yOffset() * m_canvas->scale());
-			int w = static_cast<int>(m_doc->Pages->at(i)->width() * m_canvas->scale());
-			int h = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
-			if (QRect(x, y, w, h).intersects(mpo))
-			{
-				if (docCurrPageNo != i)
-				{
-					m_doc->setCurrentPage(m_doc->Pages->at(i));
-					setMenTxt(i);
-					DrawNew();
-				}
-				break;
-			}
-		} */
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 }
@@ -394,48 +375,16 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
-//				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
-				if (currItem->Groups.count() > 0)
-				{
-					m_doc->m_Selection->delaySignalsOn();
-					for (int ga=0; ga<m_doc->Items->count(); ++ga)
-					{
-						PageItem* item = m_doc->Items->at(ga);
-						if (item->Groups.count() != 0)
-						{
-							if (item->Groups.top() == currItem->Groups.top())
-							{
-								if (m_doc->m_Selection->findItem(item) >= 0)
-								{
-									m_doc->m_Selection->removeItem(item);
-								}
-							}
-						}
-					}
-					m_doc->m_Selection->delaySignalsOff();
-				}
-				else
-				{
-					m_doc->m_Selection->removeItem(currItem);
-				}
+				m_doc->m_Selection->removeItem(currItem);
 				break;
 			}
-//			else
-//				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
-//					<< m_doc->m_Selection->itemAt(i)->getTransform() 
-//					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
 		}
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
 	{
 		m_view->Deselect(false);
 	}
-	
-//	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
-//		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
-//		<< "current sel" << m_doc->m_Selection->count();
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
-//	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
@@ -451,33 +400,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 				m_doc->m_Selection->clear();
 			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
 			m_doc->m_Selection->addItem(currItem);
-			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroupControl))
+			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
 			{
 				currItem->isSingleSel = true;
 			}
-			else if (currItem->Groups.count() > 0)
-			{
-				for (int ga=0; ga<m_doc->Items->count(); ++ga)
-				{
-					PageItem* item = m_doc->Items->at(ga);
-					if (item->Groups.count() != 0)
-					{
-						if (item->Groups.top() == currItem->Groups.top())
-						{
-							if (item->ItemNr != currItem->ItemNr)
-							{
-								if (m_doc->m_Selection->findItem(item) == -1)
-								{
-									m_doc->m_Selection->addItem(item, true);
-								}
-							}
-							item->isSingleSel = false;
-						}
-					}
-				}
-			}
 		}
-
 		currItem->update();
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
@@ -490,11 +417,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			//	emit ItemPos(x, y);
-			//	emit ItemGeom(w, h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
-			//	m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-			//	emit HaveSel(currItem->itemType());
 		}
 		if (m_doc->m_Selection->count() == 1)
 		{
@@ -509,7 +432,6 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		}
 		return true;
 	}
-	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 		m_view->Deselect(true);

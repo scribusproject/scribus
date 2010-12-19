@@ -1499,12 +1499,6 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("BottomLINK", -1);
 		docu.writeAttribute("OwnLINK", item->ItemNr);
 	}
-	docu.writeAttribute("isGroupControl", static_cast<int>(item->isGroupControl));
-	if (item->isGroupControl)
-	{
-		if (item->groupsLastItem != 0)
-			docu.writeAttribute("groupsLastItem", item->groupsLastItem->ItemNr - item->ItemNr);
-	}
 	docu.writeAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
 	QVector<double>::Iterator dax;
@@ -1528,12 +1522,6 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		colp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 	}
 	docu.writeAttribute("COCOOR", colp);
-	docu.writeAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
-	QString glp = "";
-	QStack<int>::Iterator nx;
-	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
-		glp += tmp.setNum((*nx)) + " ";
-	docu.writeAttribute("GROUPS", glp);
 	if ( ! item->itemText.defaultStyle().charStyle().isInhLanguage())
 		docu.writeAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
 	docu.writeAttribute("startArrowIndex", item->startArrowIndex());

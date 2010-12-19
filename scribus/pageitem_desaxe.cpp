@@ -150,22 +150,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("pagenumber", toXMLString(item->pixm.imgInfo.actualPageNumber));
 	result.insert("cms-profile", item->cmsProfile());
 	result.insert("cms-intent", toXMLString(item->cmsRenderingIntent()));
-	
-	if (item->groups().count() > 0)
-	{
-		QString grouplist = "";
-		QStack<int>::const_iterator it;
-		for (it = item->groups().begin(); it != item->groups().end(); ++it)
-			grouplist += toXMLString( *it ) + " ";	
-		result.insert("groups", toXMLString(grouplist));
-		result.insert("isGroupControl", toXMLString(item->controlsGroup()));
-		if (item->isGroupControl)
-		{
-			if (item->groupsLastItem != 0)
-				result.insert("groupsLastItem", "obj" + toXMLString(item->groupsLastItem->getUId()));
-		}
-	}
-	
+
 	result.insert("isTableItem", toXMLString(item->isTableItem));
 	if (item->isTableItem)
 	{

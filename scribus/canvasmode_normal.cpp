@@ -1050,7 +1050,6 @@ void CanvasMode_Normal::keyReleaseEvent(QKeyEvent *e)
 //CB-->Doc/Fix
 bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 {
-// 	qDebug()<<"CanvasMode_Normal::SeleItem";
 	m_canvas->m_viewMode.operItemSelecting = true;
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
@@ -1064,7 +1063,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
-//	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 
 	if(!m_doc->guidesPrefs().guidePlacement) // guides are on foreground and want to be processed first
@@ -1166,48 +1164,16 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
-//				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
-				if (currItem->Groups.count() > 0)
-				{
-					m_doc->m_Selection->delaySignalsOn();
-					for (int ga=0; ga<m_doc->Items->count(); ++ga)
-					{
-						PageItem* item = m_doc->Items->at(ga);
-						if (item->Groups.count() != 0)
-						{
-							if (item->Groups.top() == currItem->Groups.top())
-							{
-								if (m_doc->m_Selection->findItem(item) >= 0)
-								{
-									m_doc->m_Selection->removeItem(item);
-								}
-							}
-						}
-					}
-					m_doc->m_Selection->delaySignalsOff();
-				}
-				else
-				{
-					m_doc->m_Selection->removeItem(currItem);
-				}
+				m_doc->m_Selection->removeItem(currItem);
 				break;
 			}
-//			else
-//				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
-//					<< m_doc->m_Selection->itemAt(i)->getTransform() 
-//					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
 		}
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier)
 	{
 		m_view->Deselect(false);
 	}
-	
-//	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
-//		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
-//		<< "current sel" << m_doc->m_Selection->count();
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
-//	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
@@ -1223,31 +1189,10 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				m_doc->m_Selection->clear();
 			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
 			m_doc->m_Selection->addItem(currItem);
-			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroupControl))
+			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
 			{
 				currItem->isSingleSel = true;
 			}
-/*			else if (currItem->Groups.count() > 0)
-			{
-				for (int ga=0; ga<m_doc->Items->count(); ++ga)
-				{
-					PageItem* item = m_doc->Items->at(ga);
-					if (item->Groups.count() != 0)
-					{
-						if (item->Groups.top() == currItem->Groups.top())
-						{
-							if (item->ItemNr != currItem->ItemNr)
-							{
-								if (m_doc->m_Selection->findItem(item) == -1)
-								{
-									m_doc->m_Selection->addItem(item, true);
-								}
-							}
-							item->isSingleSel = false;
-						}
-					}
-				}
-			} */
 		}
 		if(pageChanged)
 		{
@@ -1255,7 +1200,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_canvas->update();
 		}
 		else
-// 			currItem->update();
 			m_canvas->update();
 		
 		m_doc->m_Selection->delaySignalsOff();
@@ -1271,27 +1215,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			//					emit ItemPos(x, y);
-			//					emit ItemGeom(w, h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
-			//					m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-			//					emit HaveSel(currItem->itemType());
 		}
-// 		if (m_doc->m_Selection->count() == 1)
-// 		{
-// 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo.toRect(), m);
-// 			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
-// 			{
-// 				qDebug()<<__LINE__<< "QCursor(Qt::OpenHandCursor)"; 
-// 				qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
-// 			}
-// 		}
-// 		else
-// 		{
-// 			qDebug()<<__LINE__<< "QCursor(Qt::OpenHandCursor)";
-// 		        qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
-// 		}
-// 		qDebug()<<"Out Of SeleItem"<<__LINE__;
 		return true;
 	}
 	if ((m_doc->guidesPrefs().guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
@@ -1305,9 +1230,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		{
 			m_view->startGesture(guideMoveGesture);
 			guideMoveGesture->mouseMoveEvent(m);
-			//m_doc->m_Selection->setIsGUISelection(true);
 			m_doc->m_Selection->connectItemToGUI();
-// 			qDebug()<<"Out Of SeleItem"<<__LINE__;
 			return true;
 		}
 		else
@@ -1318,7 +1241,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			guideMoveGesture->mouseSelectGuide(m);
 		}
 	}
-	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
 	{
@@ -1330,7 +1252,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		else
 			m_view->Deselect(true);
 	}
-// 	qDebug()<<"Out Of SeleItem"<<__LINE__;
 	return false;
 }
 

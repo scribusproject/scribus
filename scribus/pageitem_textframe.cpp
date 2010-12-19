@@ -137,23 +137,16 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				return result;
 			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Dp = m_Doc->Pages->at(savedOwnPage);
-			int currentGroup = -1;
 			for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
 				docItem = m_Doc->MasterItems.at(a);
 				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
-					if (docItem->Groups.count() == 0)
-						currentGroup = -1;
-					if ((currentGroup != -1) && (docItem->Groups.count() != 0) && (currentGroup == docItem->Groups.top()))
-						continue;
 					if (docItem->textFlowAroundObject())
 					{
 						result = result.subtract(itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
 					}
-					if (docItem->isGroupControl)
-						currentGroup = docItem->Groups.top();
 				}
 			} // for all masterItems
 			// (JG) #6009 : disable possible interaction between master text frames and normal frames
@@ -174,21 +167,14 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 		} // if (!OnMasterPage.isEmpty())
 		else
 		{
-			int currentGroup = -1;
 			for (uint a = 0; a < docItemsCount; ++a)
 			{
 				docItem = m_Doc->Items->at(a);
 				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
-					if (docItem->Groups.count() == 0)
-						currentGroup = -1;
-					if ((currentGroup != -1) && (docItem->Groups.count() != 0) && (currentGroup == docItem->Groups.top()))
-						continue;
 					if (docItem->textFlowAroundObject())
 						result = result.subtract(itemShape(docItem, 0, 0));
-					if (docItem->isGroupControl && !docItem->Groups.isEmpty())
-						currentGroup = docItem->Groups.top();
 				}
 			} // for all docItems
 		} // if(OnMasterPage.isEmpty()		

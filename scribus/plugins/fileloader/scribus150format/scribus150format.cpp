@@ -325,7 +325,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 					groupStack2.pop();
 				}
 			}
-			if (itemInfo.isGroupControl)
+			if (itemInfo.isGroupFlag)
 			{
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
@@ -696,7 +696,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 					groupStack2.pop();
 				}
 			}
-			if (itemInfo.isGroupControl)
+			if (itemInfo.isGroupFlag)
 			{
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
@@ -1205,7 +1205,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 					groupStack2.pop();
 				}
 			}
-			if (itemInfo.isGroupControl)
+			if (itemInfo.isGroupFlag)
 			{
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
@@ -2587,18 +2587,9 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	info.ownLink  = newItem->isTableItem ? attrs.valueAsInt("OwnLINK", 0) : 0;
 	info.groupLastItem = 0;
 
-	info.isGroupControl = attrs.valueAsBool("isGroupControl", 0);
-	if (info.isGroupControl)
-	{
-		int groupLastItem = attrs.valueAsInt("groupsLastItem", 0);
-		// Sanity check for some broken files created using buggy development versions.
-		if ((newItem->Groups.count() == 0) || (groupLastItem <= 0)) 
-		{
-			newItem->isGroupControl = false;
-			newItem->setFillColor("None");
-		}
-		info.groupLastItem = groupLastItem;
-	}
+	info.isGroupFlag = attrs.valueAsBool("isGroupControl", 0);
+	if (info.isGroupFlag)
+		info.groupLastItem = attrs.valueAsInt("groupsLastItem", 0);
 
 	struct ImageLoadRequest loadingInfo;
 #ifdef HAVE_OSG
@@ -2961,7 +2952,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				groupStack2.pop();
 			}
 		}
-		if (itemInfo.isGroupControl)
+		if (itemInfo.isGroupFlag)
 		{
 			QList<PageItem*> GroupItems;
 			GroupItems.append(itemInfo.item);
@@ -3187,8 +3178,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	int z = 0;
 	struct ImageLoadRequest loadingInfo;
 	PageItem::ItemType pt = static_cast<PageItem::ItemType>(attrs.valueAsInt("PTYPE"));
-	bool isGroupControl = attrs.valueAsBool("isGroupControl", 0);
-	if (isGroupControl)
+	bool isGroupFlag = attrs.valueAsBool("isGroupControl", 0);
+	if (isGroupFlag)
 		pt = PageItem::Group;
 	double xf, yf;
 	double x   = attrs.valueAsDouble("XPOS");
@@ -4142,7 +4133,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						groupStack2.pop();
 					}
 				}
-				if (itemInfo.isGroupControl)
+				if (itemInfo.isGroupFlag)
 				{
 					QList<PageItem*> GroupItems;
 					GroupItems.append(itemInfo.item);

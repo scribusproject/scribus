@@ -434,28 +434,8 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				QPainterPath currClip;
 				currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
 				currClip.closeSubpath();
-//				qDebug() << "itemUnderCursor: master" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
-//				if (currClip.intersects(mouseArea))
-//					qDebug() << "    within Clip:" << currClip.toFillPolygon();
 				if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
-//				if ((QRegion(itemPos.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
-//					(QRegion(currItem->Clip * itemPos).contains(mpo.toRect())))
 				{
-					if (currItem->Groups.count() != 0 && !allowInGroup)
-					{
-						// look for the group control
-						// FIXME: Items or MasterPageItems??
-						for (int ga=0; ga < m_doc->Items->count(); ++ga)
-						{
-							if (m_doc->Items->at(ga)->Groups.count() != 0 
-								&& m_doc->Items->at(ga)->Groups.top() == currItem->Groups.top() 
-								&& m_doc->Items->at(ga)->controlsGroup())
-							{
-								currItem = m_doc->Items->at(ga);
-								break;
-							}
-						}
-					}
 					return currItem;
 				}
 			}
@@ -467,7 +447,6 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		return NULL;
 
 	int currNr = itemAbove? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
-//	qDebug() << "itemUnderCursor searching from" << currNr << itemAbove << m_doc->Items->count();
 	while (currNr >= 0)
 	{
 		currItem = m_doc->Items->at(currNr);
@@ -487,28 +466,9 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			QPainterPath currClip;
 			currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
 			currClip.closeSubpath();
-//			qDebug() << "itemUnderCursor:" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
-//			if (currClip.intersects(mouseArea))
-//				qDebug() << "    within Clip:" << currClip.toFillPolygon();
 			if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
-//				if ((QRegion(itemPos.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
-//				(QRegion(currItem->Clip * itemPos).contains(mpo.toRect())))
 			{
-				if (currItem->Groups.count() != 0 && !allowInGroup)
-				{
-					// look for the group control
-					for (int ga=0; ga < m_doc->Items->count(); ++ga)
-					{
-						if (m_doc->Items->at(ga)->Groups.count() != 0 
-							&& m_doc->Items->at(ga)->Groups.top() == currItem->Groups.top() 
-							&& m_doc->Items->at(ga)->controlsGroup())
-						{
-							currItem = m_doc->Items->at(ga);
-							break;
-						}
-					}
-				}
-				return currItem;				
+				return currItem;
 			}
 		}
 		--currNr;
