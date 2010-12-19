@@ -162,6 +162,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 {
 	setObjectName("s");
 	setAttribute(Qt::WA_StaticContents);
+	setAttribute(Qt::WA_InputMethodEnabled, true);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setViewportMargins(m_vhRulerHW, m_vhRulerHW, 0, 0);
@@ -4643,6 +4644,22 @@ void ScribusView::keyPressEvent(QKeyEvent *k)
 void ScribusView::keyReleaseEvent(QKeyEvent *k)
 {
 	m_ScMW->keyReleaseEvent(k);
+}
+
+void ScribusView::inputMethodEvent ( QInputMethodEvent * event )
+{
+//	qDebug() << "IME" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
+	for(int i = 0; i < event->commitString().length(); ++i)
+	{
+		QKeyEvent ev( QEvent::KeyPress, 0, Qt::NoModifier, event->commitString().mid(i,1));
+		keyPressEvent(&ev);
+	}
+}
+
+QVariant ScribusView::inputMethodQuery ( Qt::InputMethodQuery query ) const
+{
+//	qDebug() << "IMQ" << query;
+	return QVariant();
 }
 
 void ScribusView::wheelEvent(QWheelEvent *w)

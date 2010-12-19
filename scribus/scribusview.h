@@ -362,6 +362,8 @@ public:
 
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
+	void inputMethodEvent ( QInputMethodEvent * event );
+	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
 
 	inline void registerMousePress(QPoint p);
 	bool mousePressed();
