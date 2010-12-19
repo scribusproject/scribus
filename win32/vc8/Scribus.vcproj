@@ -1195,6 +1195,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pageitem_group.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pageitem_imageframe.cpp"
 				>
 			</File>
@@ -6009,6 +6013,38 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_group.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11827,6 +11863,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_pageitem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pageitem_group.cpp"
 				>
 			</File>
 			<File
