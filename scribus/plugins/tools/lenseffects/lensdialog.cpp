@@ -277,10 +277,6 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	uint selectedItemCount = itemSelection->count();
-//	QStack<PageItem*> groupStack;
-//	QStack<QGraphicsPathItem*> groupStack2;
-//	QStack<PageItem*> groupStack3;
-//	groupStack2.push(0);
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);
@@ -449,9 +445,6 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 		}
 		if (currItem->isGroup())
 		{
-	//		groupStack.push(currItem->groupsLastItem);
-	//		groupStack2.push(pItem);
-	//		groupStack3.push(currItem);
 			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
 			Selection tmpSelection(this, false);
 			for (int a = 0; a < currItem->groupItemList.count(); a++)
@@ -460,17 +453,6 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 			}
 			addItemsToScene(&tmpSelection, doc, pItem, currItem);
 		}
-	/*	if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
-			{
-				groupStack3.pop();
-				groupStack2.pop();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		} */
 	}
 
 }

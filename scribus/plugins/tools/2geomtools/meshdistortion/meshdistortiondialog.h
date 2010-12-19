@@ -84,6 +84,7 @@ class PLUGIN_API MeshDistortionDialog : public QDialog, Ui::MeshDistortionDialog
 public:
 	MeshDistortionDialog(QWidget* parent, ScribusDoc *doc);
 	~MeshDistortionDialog() {};
+	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void adjustHandles();
 	void updateMesh(bool gridOnly);
 	void updateAndExit();
@@ -98,6 +99,7 @@ public:
 	QGraphicsScene scene;
 	QGraphicsPathItem* pItemG;
 	QList<QGraphicsPathItem*> origPathItem;
+	QList<PageItem*> origPageItem;
 	QList<NodeItem*> nodeItems;
 	QList< Geom::Piecewise<Geom::D2<Geom::SBasis> > > origPath;
 	std::vector<Geom::Point> handles;
