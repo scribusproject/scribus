@@ -78,7 +78,8 @@ public slots:
 signals:
 	//void rescan();
 	//! \brief Signal emitted when user selects any page item in error list.
-	void selectElement(int, int);
+//	void selectElement(int, int);
+	void selectElementByItem(PageItem *, bool);
 	//! \brief Signal emitted when user selects any page in error list.
 	void selectPage(int);
 	//! \brief Signal emitted when user selects any master page in error list.
@@ -99,13 +100,13 @@ protected:
 	QHBoxLayout* layout1;
 	QHBoxLayout* layout2;
 	//! \brief Mappping Page Item - item nr.
-	QMap<QTreeWidgetItem*, int> itemMap;
+	QMap<QTreeWidgetItem*, PageItem*> itemMap;
 	//! \brief Mappping Page - page nr.
 	QMap<QTreeWidgetItem*, int> pageMap;
 	//! \brief Mappping Master Page - MP nr.
 	QMap<QTreeWidgetItem*, QString> masterPageMap;
 	//! \brief Mappping MP Item - MP item nr.
-	QMap<QTreeWidgetItem*, int> masterPageItemMap;
+	QMap<QTreeWidgetItem*, PageItem*> masterPageItemMap;
 
 	//! \brief a reference to the current document
 	ScribusDoc* m_Doc;

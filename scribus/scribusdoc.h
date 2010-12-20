@@ -1015,6 +1015,7 @@ public:
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
+	bool MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void AdjustItemSize(PageItem *currItem, bool includeGroup = false);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
 	void rotateGroup(double angle, FPoint RCenter);
@@ -1185,8 +1186,8 @@ public:
 	QList<OpenNodesList> OpenNodes;
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docLayerErrors;
-	QMap<int, errorCodes> docItemErrors;
-	QMap<int, errorCodes> masterItemErrors;
+	QMap<PageItem*, errorCodes> docItemErrors;
+	QMap<PageItem*, errorCodes> masterItemErrors;
 	FPointArray symReturn;
 	FPointArray symNewLine;
 	FPointArray symTab;

@@ -11824,6 +11824,11 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool constrainRotation)
 {
 	PageItem *currItem = Items->at(ite);
+	return MoveSizeItem(newX, newY, currItem, fromMP, constrainRotation);
+}
+
+bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP, bool constrainRotation)
+{
 	QRectF oldR(currItem->getBoundingRect());
 	if (currItem->asLine())
 	{
@@ -11861,12 +11866,12 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 			ma3.rotate(currItem->rotation());
 			double mxc3 = currItem->xPos() - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
 			double myc3 = currItem->yPos() - (ma3.m22() * npv.y() + ma3.m12() * npv.x() + ma3.dy());
-			SizeItem(currItem->width() - newY.x(), currItem->height() - newY.y(), ite, fromMP, true, false);
+			SizeItem(currItem->width() - newY.x(), currItem->height() - newY.y(), currItem, fromMP, true, false);
 			MoveItem(-mxc3, -myc3, currItem, fromMP);
 		}
 		else
 		{
-			SizeItem(currItem->width() - newY.x(), currItem->height() - newY.y(), ite, fromMP, true, false);
+			SizeItem(currItem->width() - newY.x(), currItem->height() - newY.y(), currItem, fromMP, true, false);
 			MoveItem(newX.x(), newX.y(), currItem, fromMP);
 		}
 	}

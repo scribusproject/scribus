@@ -2997,7 +2997,7 @@ void PropertiesPalette::NewX()
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				CurItem->setXYPos(x, CurItem->yPos(), true);
 				CurItem->setRotation(r, true);
-				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->SizeItem(w, CurItem->height(), CurItem, true);
 			}
 			else
 			{
@@ -3077,8 +3077,8 @@ void PropertiesPalette::NewY()
 			doc->MoveItem(0, y - CurItem->yPos(), CurItem, true);
 			CurItem->setXYPos(CurItem->xPos(), y, true);
 			CurItem->setRotation(r, true);
-			doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-			doc->RotateItem(r, CurItem->ItemNr);
+			doc->SizeItem(w, CurItem->height(), CurItem, true);
+			doc->RotateItem(r, CurItem);
 		}
 		else
 		{
@@ -3147,7 +3147,7 @@ void PropertiesPalette::NewW()
 				CurItem->setRotation(r, true);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 			}
-			doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+			doc->SizeItem(w, CurItem->height(), CurItem, true, true, false);
 		}
 		else
 		{
@@ -3171,7 +3171,7 @@ void PropertiesPalette::NewW()
 						doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 						bb2 = bb2->RightLink;
 					}
-					doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+					doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb, true);
 					bb = bb->BottomLink;
 				}
 				bb2 = bb;
@@ -3180,7 +3180,7 @@ void PropertiesPalette::NewW()
 					doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 					bb2 = bb2->RightLink;
 				}
-				doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+				doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb, true);
 				doc->RotMode ( rmo );
 				if (keepFrameWHRatioButton->isChecked())
 				{
@@ -3195,10 +3195,10 @@ void PropertiesPalette::NewW()
 				if (keepFrameWHRatioButton->isChecked())
 				{
 					setBH(w, (w / oldW) * CurItem->height());
-					doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true, true, false);
+					doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem, true, true, false);
 				}
 				else
-					doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+					doc->SizeItem(w, CurItem->height(), CurItem, true, true, false);
 			}
 		}
 		CurItem->Sizing = oldS;
@@ -3253,7 +3253,7 @@ void PropertiesPalette::NewH()
 					CurItem->setRotation(r, true);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+				doc->SizeItem(w, CurItem->height(), CurItem, true, true, false);
 			}
 			else
 			{
@@ -3277,7 +3277,7 @@ void PropertiesPalette::NewH()
 							doc->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 							bb2 = bb2->BottomLink;
 						}
-						doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+						doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb, true);
 						bb = bb->RightLink;
 					}
 					bb2 = bb;
@@ -3286,7 +3286,7 @@ void PropertiesPalette::NewH()
 						doc->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 						bb2 = bb2->BottomLink;
 					}
-					doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+					doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb, true);
 					doc->RotMode ( rmo );
 					if (keepFrameWHRatioButton->isChecked())
 					{
@@ -3301,10 +3301,10 @@ void PropertiesPalette::NewH()
 					if (keepFrameWHRatioButton->isChecked())
 					{
 						setBH((h / oldH) * CurItem->width(), h);
-						doc->SizeItem((h / oldH) * CurItem->width(), h, CurItem->ItemNr, true, true, false);
+						doc->SizeItem((h / oldH) * CurItem->width(), h, CurItem, true, true, false);
 					}
 					else
-						doc->SizeItem(CurItem->width(), h, CurItem->ItemNr, true, true, false);
+						doc->SizeItem(CurItem->width(), h, CurItem, true, true, false);
 				}
 			}
 			CurItem->Sizing = oldS;
@@ -3330,7 +3330,7 @@ void PropertiesPalette::setRotation()
 			setXY(gx, gy);
 		}
 		else
-			doc->RotateItem(Rotation->value()*(-1), CurItem->ItemNr);
+			doc->RotateItem(Rotation->value()*(-1), CurItem);
 		if (!_userActionOn)
 		{
 			for (int i = 0; i < doc->m_Selection->count(); ++i)

@@ -1051,7 +1051,7 @@ void CanvasMode_Normal::keyReleaseEvent(QKeyEvent *e)
 bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.operItemSelecting = true;
-	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
+	const unsigned SELECT_IN_GROUP = Qt::AltModifier; // Qt::MetaModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
 	QTransform p;

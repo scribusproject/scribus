@@ -169,7 +169,7 @@ public:
 	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
 	 */
 	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=NULL, bool allowInGroup=false, bool allowMasterItems=false) const;
-	
+	PageItem* itemInGroup(PageItem* group, QTransform itemPos, QRectF mouseArea) const;
 	PageItem* itemUnderItem(PageItem* item, int& index) const;
 	
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }

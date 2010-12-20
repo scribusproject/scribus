@@ -615,10 +615,11 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 				emit selectElement(-1, item->PageItemObject->ItemNr, false);
 			else
 			{
+				pgItem = item->PageItemObject;
 				if (item->PageItemObject->isGroup())
 					emit selectElement(-1, item->PageItemObject->ItemNr, false);
 				else
-					emit selectElement(-1, item->PageItemObject->ItemNr, true);
+					emit selectElementByItem(pgItem, true);
 			}
 			break;
 		case 2:
@@ -637,7 +638,7 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 				if (pgItem->isGroup())
 					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
 				else
-					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, true);
+					emit selectElementByItem(pgItem, true);
 			}
 			break;
 		default:

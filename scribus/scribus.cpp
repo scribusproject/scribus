@@ -584,10 +584,12 @@ void ScribusMainWindow::initPalettes()
 	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setChecked(bool)));
 	styleManager->installEventFilter(this);
 
-	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
+//	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
+	connect(docCheckerPalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
+	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewParStyle(const QString&)));
@@ -600,7 +602,7 @@ void ScribusMainWindow::initPalettes()
 
 	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 	connect(bookmarkPalette->BView, SIGNAL(changed()), this, SLOT(slotDocCh()));
-	connect(bookmarkPalette->BView, SIGNAL(SelectElement(PageItem *)), this, SLOT(selectItemsFromOutlines(PageItem *)));
+	connect(bookmarkPalette->BView, SIGNAL(SelectElement(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	// guides
 	connect(scrActions["pageManageGuides"], SIGNAL(toggled(bool)), guidePalette, SLOT(setPaletteShown(bool)));
 	connect(guidePalette, SIGNAL(paletteShown(bool)), scrActions["pageManageGuides"], SLOT(setChecked(bool)));
@@ -7506,10 +7508,38 @@ void ScribusMainWindow::duplicateItemMulti()
 	delete dia;
 }
 
-void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite)
+void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 {
-	int d = doc->Items->indexOf(ite);
-	selectItemsFromOutlines(ite->OwnPage, d, true);
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
+	activateWindow();
+	view->Deselect(true);
+	if ((ite->OwnPage != -1) && (ite->OwnPage != static_cast<int>(doc->currentPage()->pageNr())))
+		view->GotoPage(ite->OwnPage);
+	doc->m_Selection->delaySignalsOn();
+	view->SelectItem(ite, true, single);
+	doc->m_Selection->delaySignalsOff();
+	doc->m_Selection->connectItemToGUI();
+	if (doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+	 	double rotation=currItem->rotation();
+		if ( rotation != 0.0 )
+		{
+			double MPI180=1.0/(180.0*M_PI);
+			double y1 = sin(rotation*MPI180) * currItem->width();
+			double x1 = cos(rotation*MPI180) * currItem->width();
+			double y2 = sin((rotation+90.0)*MPI180) * currItem->height();
+			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
+			double mx = currItem->xPos() + ((x1 + x2)/2.0);
+			double my = currItem->yPos() + ((y1 + y2)/2.0);
+			view->SetCCPo(mx, my);
+		}
+		else
+		{
+			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
+		}
+	}
 }
 
 void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)

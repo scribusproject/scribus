@@ -100,7 +100,7 @@ public slots:
 
 signals:
 	void MarkMoved();
-	void SelectElement(PageItem *);
+	void SelectElement(PageItem *, bool);
 	void changed();
 
 protected:

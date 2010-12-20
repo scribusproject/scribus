@@ -158,7 +158,7 @@ void BookMView::setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * /*previ
 	BookMItem * i = dynamic_cast<BookMItem*>(current);
 	// something weird here at 1st call...
 	if (i)
-		emit SelectElement(i->PageObject);
+		emit SelectElement(i->PageObject, false);
 }
 
 void BookMView::dropEvent(QDropEvent *e)

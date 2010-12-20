@@ -38,7 +38,6 @@ for which a new license (GPL+exception) is in place.
 
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
-	PageItem* currItem;
 	QString chstr;
 	struct CheckerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = currDoc->checkerProfiles()[currDoc->curCheckProfile()].ignoreErrors;
@@ -88,45 +87,67 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (layerError.count() != 0)
 			currDoc->docLayerErrors.insert(ll.ID, layerError);
 	}
-	for (int d = 0; d < currDoc->MasterItems.count(); ++d)
+	QList<PageItem*> allItems;
+	uint masterItemsCount = currDoc->MasterItems.count();
+	for (uint i = 0; i < masterItemsCount; ++i)
 	{
-		currItem = currDoc->MasterItems.at(d);
-		if (!currItem->printEnabled())
-			continue;
-		if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
-			continue;
-		itemError.clear();
-		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
-			itemError.insert(PDFAnnotField, 0);
-		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))
-			itemError.insert(Transparency, 0);
-		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
+		PageItem* currItem = currDoc->MasterItems.at(i);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if (currItem->GrType == 9)
+			currItem = allItems.at(ii);
+			if (!currItem->printEnabled())
+				continue;
+			if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
+				continue;
+			itemError.clear();
+			if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
+				itemError.insert(PDFAnnotField, 0);
+			if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))
+				itemError.insert(Transparency, 0);
+			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 			{
-				if (currItem->GrCol1transp != 1.0)
-					itemError.insert(Transparency, 0);
-				else if (currItem->GrCol2transp != 1.0)
-					itemError.insert(Transparency, 0);
-				else if (currItem->GrCol3transp != 1.0)
-					itemError.insert(Transparency, 0);
-				else if (currItem->GrCol4transp != 1.0)
-					itemError.insert(Transparency, 0);
-			}
-			else if (currItem->GrType == 11)
-			{
-				for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+				if (currItem->GrType == 9)
 				{
-					for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+					if (currItem->GrCol1transp != 1.0)
+						itemError.insert(Transparency, 0);
+					else if (currItem->GrCol2transp != 1.0)
+						itemError.insert(Transparency, 0);
+					else if (currItem->GrCol3transp != 1.0)
+						itemError.insert(Transparency, 0);
+					else if (currItem->GrCol4transp != 1.0)
+						itemError.insert(Transparency, 0);
+				}
+				else if (currItem->GrType == 11)
+				{
+					for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 					{
-						if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
+						for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+						{
+							if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
+								itemError.insert(Transparency, 0);
+						}
+					}
+				}
+				else
+				{
+					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					{
+						if (colorStops[offset]->opacity != 1.0)
+						{
 							itemError.insert(Transparency, 0);
+							break;
+						}
 					}
 				}
 			}
-			else
+			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
 			{
-				QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
 				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 				{
 					if (colorStops[offset]->opacity != 1.0)
@@ -136,248 +157,258 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					}
 				}
 			}
-		}
-		if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
-		{
-			QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
+				itemError.insert(Transparency, 0);
+			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
+				itemError.insert(ObjectNotOnPage, 0);
+	#ifdef HAVE_OSG
+			if (currItem->asImageFrame() && !currItem->asOSGFrame())
+	#else
+			if (currItem->asImageFrame())
+	#endif
 			{
-				if (colorStops[offset]->opacity != 1.0)
+				if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
+					itemError.insert(MissingImage, 0);
+				else
 				{
-					itemError.insert(Transparency, 0);
-					break;
-				}
-			}
-		}
-		if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
-			itemError.insert(Transparency, 0);
-		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
-			itemError.insert(ObjectNotOnPage, 0);
-#ifdef HAVE_OSG
-		if (currItem->asImageFrame() && !currItem->asOSGFrame())
-#else
-		if (currItem->asImageFrame())
-#endif
-		{
-			if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
-				itemError.insert(MissingImage, 0);
-			else
-			{
-				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
-						  && (currItem->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(ImageDPITooLow, 0);
-				if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
-						  && (currItem->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(ImageDPITooHigh, 0);
-				QFileInfo fi = QFileInfo(currItem->Pfile);
-				QString ext = fi.suffix().toLower();
-				if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
-					itemError.insert(PlacedPDF, 0);
-				if ((ext == "gif") && (checkerSettings.checkForGIF))
-					itemError.insert(ImageIsGIF, 0);
-
-				if (extensionIndicatesPDF(ext))
-				{
-					PDFAnalyzer analyst(currItem->Pfile);
-					QList<PDFColorSpace> usedColorSpaces;
-					bool hasTransparency = false;
-					QList<PDFFont> usedFonts;
-					int pageNum = qMin(qMax(1, currItem->pixm.imgInfo.actualPageNumber), currItem->pixm.imgInfo.numberOfPages) - 1;
-					QList<PDFImage> imgs;
-					bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
-					if (succeeded)
+					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
+							&& (currItem->isRaster) && (checkerSettings.checkResolution))
+						itemError.insert(ImageDPITooLow, 0);
+					if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
+							&& (currItem->isRaster) && (checkerSettings.checkResolution))
+						itemError.insert(ImageDPITooHigh, 0);
+					QFileInfo fi = QFileInfo(currItem->Pfile);
+					QString ext = fi.suffix().toLower();
+					if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
+						itemError.insert(PlacedPDF, 0);
+					if ((ext == "gif") && (checkerSettings.checkForGIF))
+						itemError.insert(ImageIsGIF, 0);
+	
+					if (extensionIndicatesPDF(ext))
 					{
-						if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
+						PDFAnalyzer analyst(currItem->Pfile);
+						QList<PDFColorSpace> usedColorSpaces;
+						bool hasTransparency = false;
+						QList<PDFFont> usedFonts;
+						int pageNum = qMin(qMax(1, currItem->pixm.imgInfo.actualPageNumber), currItem->pixm.imgInfo.numberOfPages) - 1;
+						QList<PDFImage> imgs;
+						bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
+						if (succeeded)
 						{
-							eColorSpaceType currPrintProfCS = ColorSpace_Unknown;
-							if (currDoc->HasCMS)
+							if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
 							{
-								ScColorProfile printerProf = currDoc->DocPrinterProf;
-								currPrintProfCS = printerProf.colorSpace();
-							}
-							if (checkerSettings.checkNotCMYKOrSpot)
-							{
-								for (int i=0; i<usedColorSpaces.size(); ++i)
+								eColorSpaceType currPrintProfCS = ColorSpace_Unknown;
+								if (currDoc->HasCMS)
 								{
-									if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
-										|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
+									ScColorProfile printerProf = currDoc->DocPrinterProf;
+									currPrintProfCS = printerProf.colorSpace();
+								}
+								if (checkerSettings.checkNotCMYKOrSpot)
+								{
+									for (int i=0; i<usedColorSpaces.size(); ++i)
 									{
-										itemError.insert(NotCMYKOrSpot, 0);
-										break;
+										if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
+											|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
+										{
+											itemError.insert(NotCMYKOrSpot, 0);
+											break;
+										}
+									}
+								}
+								if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+								{
+									for (int i=0; i<usedColorSpaces.size(); ++i)
+									{
+										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
+										{
+											itemError.insert(DeviceColorAndOutputIntend, 0);
+											break;
+										}
+										else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+										{
+											itemError.insert(DeviceColorAndOutputIntend, 0);
+											break;
+										}
 									}
 								}
 							}
-							if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+							if (checkerSettings.checkTransparency && hasTransparency)
+								itemError.insert(Transparency, 0);
+							if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
 							{
-								for (int i=0; i<usedColorSpaces.size(); ++i)
+								for (int i=0; i<usedFonts.size(); ++i)
 								{
-									if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
-									{
-										itemError.insert(DeviceColorAndOutputIntend, 0);
-										break;
-									}
-									else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
-									{
-										itemError.insert(DeviceColorAndOutputIntend, 0);
-										break;
-									}
+									PDFFont currentFont = usedFonts[i];
+									if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
+										itemError.insert(FontNotEmbedded, 0);
+									if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
+										itemError.insert(EmbeddedFontIsOpenType, 0);
+								}
+							}
+							if (checkerSettings.checkResolution)
+							{
+								for (int i=0; i<imgs.size(); ++i)
+								{
+									if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
+										itemError.insert(ImageDPITooLow, 0);
+									if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
+										itemError.insert(ImageDPITooHigh, 0);
 								}
 							}
 						}
-						if (checkerSettings.checkTransparency && hasTransparency)
-							itemError.insert(Transparency, 0);
-						if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
-						{
-							for (int i=0; i<usedFonts.size(); ++i)
-							{
-								PDFFont currentFont = usedFonts[i];
-								if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
-									itemError.insert(FontNotEmbedded, 0);
-								if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
-									itemError.insert(EmbeddedFontIsOpenType, 0);
-							}
-						}
-						if (checkerSettings.checkResolution)
-						{
-							for (int i=0; i<imgs.size(); ++i)
-							{
-								if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
-									itemError.insert(ImageDPITooLow, 0);
-								if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
-									itemError.insert(ImageDPITooHigh, 0);
-							}
-						}
 					}
 				}
 			}
-		}
-		if ((currItem->asTextFrame()) || (currItem->asPathText()))
-		{
-#ifndef NLS_PROTO
-			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
-				itemError.insert(TextOverflow, 0);
-			if (currItem->isAnnotation())
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
-				ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
-				if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
-					itemError.insert(WrongFontInAnnotation, 0);
-			}
-			for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
-			{
-				uint chr = currItem->itemText.text(e).unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
-					continue;
-				if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+	#ifndef NLS_PROTO
+				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
+					itemError.insert(TextOverflow, 0);
+				if (currItem->isAnnotation())
 				{
-					chstr = currItem->itemText.text(e);
-					if (chstr.toUpper() != currItem->itemText.text(e))
-						chstr = chstr.toUpper();
-					chr = chstr[0].unicode();
+					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
+					if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
+						itemError.insert(WrongFontInAnnotation, 0);
 				}
-				if (chr == 9)
+				for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
 				{
-					for (int t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
+					uint chr = currItem->itemText.text(e).unicode();
+					if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
+						continue;
+					if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						if (currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
-							continue;
-						chstr = QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
-						{
-							if (chstr.toUpper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
-								chstr = chstr.toUpper();
-						}
+						chstr = currItem->itemText.text(e);
+						if (chstr.toUpper() != currItem->itemText.text(e))
+							chstr = chstr.toUpper();
 						chr = chstr[0].unicode();
-						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(MissingGlyph, 0);
 					}
-					for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
+					if (chr == 9)
 					{
-						if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
-							continue;
-						chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+						for (int t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
 						{
-							if (chstr.toUpper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
-								chstr = chstr.toUpper();
+							if (currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
+								continue;
+							chstr = QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
+							if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+							{
+								if (chstr.toUpper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
+									chstr = chstr.toUpper();
+							}
+							chr = chstr[0].unicode();
+							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
+								itemError.insert(MissingGlyph, 0);
 						}
-						chr = chstr[0].unicode();
-						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(MissingGlyph, 0);
+						for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
+						{
+							if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
+								continue;
+							chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
+							if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+							{
+								if (chstr.toUpper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
+									chstr = chstr.toUpper();
+							}
+							chr = chstr[0].unicode();
+							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
+								itemError.insert(MissingGlyph, 0);
+						}
+						continue;
 					}
-					continue;
-				}
-				if ((chr == 30) || (chr == 23))
-				{
-					for (int numco = 0x30; numco < 0x3A; ++numco)
+					if ((chr == 30) || (chr == 23))
 					{
-						if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
-							itemError.insert(MissingGlyph, 0);
+						for (int numco = 0x30; numco < 0x3A; ++numco)
+						{
+							if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
+								itemError.insert(MissingGlyph, 0);
+						}
+						continue;
 					}
-					continue;
+					if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
+						itemError.insert(MissingGlyph, 0);
 				}
-				if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-					itemError.insert(MissingGlyph, 0);
+	#endif
 			}
-#endif
-		}
-		if (((currItem->fillColor() != CommonStrings::None) || (currItem->lineColor() != CommonStrings::None)) && (checkerSettings.checkNotCMYKOrSpot))
-		{
-			bool rgbUsed = false;
-			if ((currItem->fillColor() != CommonStrings::None))
+			if (((currItem->fillColor() != CommonStrings::None) || (currItem->lineColor() != CommonStrings::None)) && (checkerSettings.checkNotCMYKOrSpot))
 			{
-				ScColor tmpC = currDoc->PageColors[currItem->fillColor()];
-				if (tmpC.getColorModel() == colorModelRGB)
-					rgbUsed = true;
+				bool rgbUsed = false;
+				if ((currItem->fillColor() != CommonStrings::None))
+				{
+					ScColor tmpC = currDoc->PageColors[currItem->fillColor()];
+					if (tmpC.getColorModel() == colorModelRGB)
+						rgbUsed = true;
+				}
+				if ((currItem->lineColor() != CommonStrings::None))
+				{
+					ScColor tmpC = currDoc->PageColors[currItem->lineColor()];
+					if (tmpC.getColorModel() == colorModelRGB)
+						rgbUsed = true;
+				}
+				if (rgbUsed)
+					itemError.insert(NotCMYKOrSpot, 0);
 			}
-			if ((currItem->lineColor() != CommonStrings::None))
-			{
-				ScColor tmpC = currDoc->PageColors[currItem->lineColor()];
-				if (tmpC.getColorModel() == colorModelRGB)
-					rgbUsed = true;
-			}
-			if (rgbUsed)
-				itemError.insert(NotCMYKOrSpot, 0);
+			if (itemError.count() != 0)
+				currDoc->masterItemErrors.insert(currItem, itemError);
 		}
-		if (itemError.count() != 0)
-			currDoc->masterItemErrors.insert(d /*currItem->ItemNr*/, itemError);
 	}
-	for (int d = 0; d < currDoc->DocItems.count(); ++d)
+	allItems.clear();
+	uint docItemsCount = currDoc->DocItems.count();
+	for (uint i = 0; i < docItemsCount; ++i)
 	{
-		currItem = currDoc->DocItems.at(d);
-		if (!currItem->printEnabled())
-			continue;
-		if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
-			continue;
-		itemError.clear();
-		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))
-			itemError.insert(Transparency, 0);
-		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
+		PageItem* currItem = currDoc->DocItems.at(i);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if (currItem->GrType == 9)
+			currItem = allItems.at(ii);
+			if (!currItem->printEnabled())
+				continue;
+			if (!(currDoc->layerPrintable(currItem->LayerID)) && (checkerSettings.ignoreOffLayers))
+				continue;
+			itemError.clear();
+			if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))
+				itemError.insert(Transparency, 0);
+			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 			{
-				if (currItem->GrCol1transp != 1.0)
-					itemError.insert(Transparency, 0);
-				else if (currItem->GrCol2transp != 1.0)
-					itemError.insert(Transparency, 0);
-				else if (currItem->GrCol3transp != 1.0)
-					itemError.insert(Transparency, 0);
-				else if (currItem->GrCol4transp != 1.0)
-					itemError.insert(Transparency, 0);
-			}
-			else if (currItem->GrType == 11)
-			{
-				for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+				if (currItem->GrType == 9)
 				{
-					for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+					if (currItem->GrCol1transp != 1.0)
+						itemError.insert(Transparency, 0);
+					else if (currItem->GrCol2transp != 1.0)
+						itemError.insert(Transparency, 0);
+					else if (currItem->GrCol3transp != 1.0)
+						itemError.insert(Transparency, 0);
+					else if (currItem->GrCol4transp != 1.0)
+						itemError.insert(Transparency, 0);
+				}
+				else if (currItem->GrType == 11)
+				{
+					for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 					{
-						if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
+						for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+						{
+							if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
+								itemError.insert(Transparency, 0);
+						}
+					}
+				}
+				else
+				{
+					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					{
+						if (colorStops[offset]->opacity != 1.0)
+						{
 							itemError.insert(Transparency, 0);
+							break;
+						}
 					}
 				}
 			}
-			else
+			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
 			{
-				QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
 				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 				{
 					if (colorStops[offset]->opacity != 1.0)
@@ -387,212 +418,199 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					}
 				}
 			}
-		}
-		if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
-		{
-			QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
-			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+			if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
+				itemError.insert(Transparency, 0);
+			if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
+				itemError.insert(PDFAnnotField, 0);
+			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
+				itemError.insert(ObjectNotOnPage, 0);
+	#ifdef HAVE_OSG
+			if (currItem->asImageFrame() && !currItem->asOSGFrame())
+	#else
+			if (currItem->asImageFrame())
+	#endif
 			{
-				if (colorStops[offset]->opacity != 1.0)
+				if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
+					itemError.insert(MissingImage, 0);
+				else
 				{
-					itemError.insert(Transparency, 0);
-					break;
-				}
-			}
-		}
-		if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
-			itemError.insert(Transparency, 0);
-		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
-			itemError.insert(PDFAnnotField, 0);
-		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
-			itemError.insert(ObjectNotOnPage, 0);
-#ifdef HAVE_OSG
-		if (currItem->asImageFrame() && !currItem->asOSGFrame())
-#else
-		if (currItem->asImageFrame())
-#endif
-		{
-			if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
-				itemError.insert(MissingImage, 0);
-			else
-			{
-				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
-						   && (currItem->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(ImageDPITooLow, 0);
-				if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
-						  && (currItem->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(ImageDPITooHigh, 0);
-				QFileInfo fi = QFileInfo(currItem->Pfile);
-				QString ext = fi.suffix().toLower();
-				if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
-					itemError.insert(PlacedPDF, 0);
-				if ((ext == "gif") && (checkerSettings.checkForGIF))
-					itemError.insert(ImageIsGIF, 0);
-				if (extensionIndicatesPDF(ext))
-				{
-					PDFAnalyzer analyst(currItem->Pfile);
-					QList<PDFColorSpace> usedColorSpaces;
-					bool hasTransparency = false;
-					QList<PDFFont> usedFonts;
-					int pageNum = qMin(qMax(1, currItem->pixm.imgInfo.actualPageNumber), currItem->pixm.imgInfo.numberOfPages) - 1;
-					QList<PDFImage> imgs;
-					bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
-					if (succeeded)
+					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
+							&& (currItem->isRaster) && (checkerSettings.checkResolution))
+						itemError.insert(ImageDPITooLow, 0);
+					if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
+							&& (currItem->isRaster) && (checkerSettings.checkResolution))
+						itemError.insert(ImageDPITooHigh, 0);
+					QFileInfo fi = QFileInfo(currItem->Pfile);
+					QString ext = fi.suffix().toLower();
+					if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
+						itemError.insert(PlacedPDF, 0);
+					if ((ext == "gif") && (checkerSettings.checkForGIF))
+						itemError.insert(ImageIsGIF, 0);
+					if (extensionIndicatesPDF(ext))
 					{
-						if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
+						PDFAnalyzer analyst(currItem->Pfile);
+						QList<PDFColorSpace> usedColorSpaces;
+						bool hasTransparency = false;
+						QList<PDFFont> usedFonts;
+						int pageNum = qMin(qMax(1, currItem->pixm.imgInfo.actualPageNumber), currItem->pixm.imgInfo.numberOfPages) - 1;
+						QList<PDFImage> imgs;
+						bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
+						if (succeeded)
 						{
-							int currPrintProfCS = -1;
-							if (currDoc->HasCMS)
+							if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
 							{
-								ScColorProfile printerProf = currDoc->DocPrinterProf;
-								currPrintProfCS = static_cast<int>(printerProf.colorSpace());
-							}
-							if (checkerSettings.checkNotCMYKOrSpot)
-							{
-								for (int i=0; i<usedColorSpaces.size(); ++i)
+								int currPrintProfCS = -1;
+								if (currDoc->HasCMS)
 								{
-									if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
-										|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
+									ScColorProfile printerProf = currDoc->DocPrinterProf;
+									currPrintProfCS = static_cast<int>(printerProf.colorSpace());
+								}
+								if (checkerSettings.checkNotCMYKOrSpot)
+								{
+									for (int i=0; i<usedColorSpaces.size(); ++i)
 									{
-										itemError.insert(NotCMYKOrSpot, 0);
-										break;
+										if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
+											|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
+										{
+											itemError.insert(NotCMYKOrSpot, 0);
+											break;
+										}
+									}
+								}
+								if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+								{
+									for (int i=0; i<usedColorSpaces.size(); ++i)
+									{
+										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
+										{
+											itemError.insert(DeviceColorAndOutputIntend, 0);
+											break;
+										}
+										else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
+										{
+											itemError.insert(DeviceColorAndOutputIntend, 0);
+											break;
+										}
 									}
 								}
 							}
-							if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+							if (checkerSettings.checkTransparency && hasTransparency)
+								itemError.insert(Transparency, 0);
+							if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
 							{
-								for (int i=0; i<usedColorSpaces.size(); ++i)
+								for (int i=0; i<usedFonts.size(); ++i)
 								{
-									if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
-									{
-										itemError.insert(DeviceColorAndOutputIntend, 0);
-										break;
-									}
-									else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
-									{
-										itemError.insert(DeviceColorAndOutputIntend, 0);
-										break;
-									}
+									PDFFont currentFont = usedFonts[i];
+									if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
+										itemError.insert(FontNotEmbedded, 0);
+									if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
+										itemError.insert(EmbeddedFontIsOpenType, 0);
+								}
+							}
+							if (checkerSettings.checkResolution)
+							{
+								for (int i=0; i<imgs.size(); ++i)
+								{
+									if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
+										itemError.insert(ImageDPITooLow, 0);
+									if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
+										itemError.insert(ImageDPITooHigh, 0);
 								}
 							}
 						}
-						if (checkerSettings.checkTransparency && hasTransparency)
-							itemError.insert(Transparency, 0);
-						if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
-						{
-							for (int i=0; i<usedFonts.size(); ++i)
-							{
-								PDFFont currentFont = usedFonts[i];
-								if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
-									itemError.insert(FontNotEmbedded, 0);
-								if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
-									itemError.insert(EmbeddedFontIsOpenType, 0);
-							}
-						}
-						if (checkerSettings.checkResolution)
-						{
-							for (int i=0; i<imgs.size(); ++i)
-							{
-								if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
-									itemError.insert(ImageDPITooLow, 0);
-								if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
-									itemError.insert(ImageDPITooHigh, 0);
-							}
-						}
 					}
 				}
 			}
-		}
-		if ((currItem->asTextFrame()) || (currItem->asPathText()))
-		{
-#ifndef NLS_PROTO
-			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
-				itemError.insert(TextOverflow, 0);
-			if (currItem->isAnnotation())
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
-				ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
-				if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
-					itemError.insert(WrongFontInAnnotation, 0);
-			}
-			for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
-			{
-				uint chr = currItem->itemText.text(e).unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
-					continue;
-				if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+	#ifndef NLS_PROTO
+				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
+					itemError.insert(TextOverflow, 0);
+				if (currItem->isAnnotation())
 				{
-					chstr = currItem->itemText.text(e,1);
-					if (chstr.toUpper() != currItem->itemText.text(e,1))
-						chstr = chstr.toUpper();
-					chr = chstr[0].unicode();
+					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
+					if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
+						itemError.insert(WrongFontInAnnotation, 0);
 				}
-				if (chr == 9)
+				for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
 				{
-					for (int t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
+					uint chr = currItem->itemText.text(e).unicode();
+					if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
+						continue;
+					if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						if (currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
-							continue;
-						chstr = QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
-						{
-							if (chstr.toUpper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
-								chstr = chstr.toUpper();
-						}
+						chstr = currItem->itemText.text(e,1);
+						if (chstr.toUpper() != currItem->itemText.text(e,1))
+							chstr = chstr.toUpper();
 						chr = chstr[0].unicode();
-						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(MissingGlyph, 0);
 					}
-					for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
+					if (chr == 9)
 					{
-						if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
-							continue;
-						chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+						for (int t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
 						{
-							if (chstr.toUpper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
-								chstr = chstr.toUpper();
+							if (currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
+								continue;
+							chstr = QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
+							if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+							{
+								if (chstr.toUpper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
+									chstr = chstr.toUpper();
+							}
+							chr = chstr[0].unicode();
+							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
+								itemError.insert(MissingGlyph, 0);
 						}
-						chr = chstr[0].unicode();
-						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(MissingGlyph, 0);
+						for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
+						{
+							if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
+								continue;
+							chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
+							if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+							{
+								if (chstr.toUpper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
+									chstr = chstr.toUpper();
+							}
+							chr = chstr[0].unicode();
+							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
+								itemError.insert(MissingGlyph, 0);
+						}
+						continue;
 					}
-					continue;
-				}
-				if ((chr == 30) || (chr == 23))
-				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
+					if ((chr == 30) || (chr == 23))
 					{
-						if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
-							itemError.insert(MissingGlyph, 0);
+						for (uint numco = 0x30; numco < 0x3A; ++numco)
+						{
+							if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
+								itemError.insert(MissingGlyph, 0);
+						}
+						continue;
 					}
-					continue;
+					if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
+						itemError.insert(MissingGlyph, 0);
 				}
-				if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-					itemError.insert(MissingGlyph, 0);
+	#endif
 			}
-#endif
-		}
-		if (((currItem->fillColor() != CommonStrings::None) || (currItem->lineColor() != CommonStrings::None)) && (checkerSettings.checkNotCMYKOrSpot))
-		{
-			bool rgbUsed = false;
-			if ((currItem->fillColor() != CommonStrings::None))
+			if (((currItem->fillColor() != CommonStrings::None) || (currItem->lineColor() != CommonStrings::None)) && (checkerSettings.checkNotCMYKOrSpot))
 			{
-				ScColor tmpC = currDoc->PageColors[currItem->fillColor()];
-				if (tmpC.getColorModel() == colorModelRGB)
-					rgbUsed = true;
+				bool rgbUsed = false;
+				if ((currItem->fillColor() != CommonStrings::None))
+				{
+					ScColor tmpC = currDoc->PageColors[currItem->fillColor()];
+					if (tmpC.getColorModel() == colorModelRGB)
+						rgbUsed = true;
+				}
+				if ((currItem->lineColor() != CommonStrings::None))
+				{
+					ScColor tmpC = currDoc->PageColors[currItem->lineColor()];
+					if (tmpC.getColorModel() == colorModelRGB)
+						rgbUsed = true;
+				}
+				if (rgbUsed)
+					itemError.insert(NotCMYKOrSpot, 0);
 			}
-			if ((currItem->lineColor() != CommonStrings::None))
-			{
-				ScColor tmpC = currDoc->PageColors[currItem->lineColor()];
-				if (tmpC.getColorModel() == colorModelRGB)
-					rgbUsed = true;
-			}
-			if (rgbUsed)
-				itemError.insert(NotCMYKOrSpot, 0);
+			if (itemError.count() != 0)
+				currDoc->docItemErrors.insert(currItem, itemError);
 		}
-		if (itemError.count() != 0)
-			currDoc->docItemErrors.insert(d /*currItem->ItemNr*/, itemError);
 	}
-
 	return ((currDoc->docItemErrors.count() != 0) || (currDoc->masterItemErrors.count() != 0) || (currDoc->docLayerErrors.count() != 0));
 }

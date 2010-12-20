@@ -468,8 +468,47 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			currClip.closeSubpath();
 			if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
 			{
+				if (currItem->isGroup() && allowInGroup)
+				{
+					PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
+					if (ret != NULL)
+						return ret;
+				}
 				return currItem;
 			}
+		}
+		--currNr;
+	}
+	return NULL;
+}
+
+PageItem* Canvas::itemInGroup(PageItem* group, QTransform itemPos, QRectF mouseArea) const
+{
+	int currNr = group->groupItemList.count() - 1;
+	while (currNr >= 0)
+	{
+		PageItem* embedded = group->groupItemList.at(currNr);
+		QPainterPath currPath(itemPos.map(QPointF(embedded->gXpos,embedded->gYpos)));
+		currPath.lineTo(itemPos.map(QPointF(embedded->width(), embedded->gYpos)));
+		currPath.lineTo(itemPos.map(QPointF(embedded->width(), embedded->height())));
+		currPath.lineTo(itemPos.map(QPointF(embedded->gXpos, embedded->height())));
+		currPath.closeSubpath();
+		QPainterPath currClip;
+		currClip.addPolygon(itemPos.map(QPolygonF(embedded->Clip)));
+		currClip.closeSubpath();
+		if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
+		{
+			if (embedded->isGroup())
+			{
+				QTransform itemPosG = itemPos;
+				itemPosG.translate(embedded->gXpos,embedded->gYpos);
+				itemPosG.scale(group->width() / group->groupWidth, group->height() / group->groupHeight);
+				PageItem* ret = itemInGroup(embedded, itemPosG, mouseArea);
+				if (ret != NULL)
+					return ret;
+			}
+			else
+				return embedded;
 		}
 		--currNr;
 	}
