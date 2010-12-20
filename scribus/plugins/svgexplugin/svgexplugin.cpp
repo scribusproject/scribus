@@ -414,7 +414,8 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 					if (Item->fillTransparency() != 0)
 						ob.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
 				}
-				ob.setAttribute("transform", trans);
+				QString tr = trans + QString(" scale(%1, %2)").arg(Item->width() / Item->groupWidth).arg(Item->height() / Item->groupHeight);
+				ob.setAttribute("transform", tr);
 				ob.setAttribute("style", "fill:none; stroke:none");
 				QDomElement obc = docu.createElement("clipPath");
 				obc.setAttribute("id", "Clip"+IToStr(ClipCount));

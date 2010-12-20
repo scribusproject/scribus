@@ -2608,8 +2608,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_translate(0, -c->height());
 					PS_scale(1, -1);
 				}
-				PS_translate(0, -c->height());
 				PS_scale(c->width() / pat.width, c->height() / pat.height);
+				PS_translate(0, -c->height());
 				PS_translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
 				for (int em = 0; em < pat.items.count(); ++em)
 				{
@@ -2637,8 +2637,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_translate(0, -c->height());
 				PS_scale(1, -1);
 			}
-			PS_translate(0, -c->height());
 			PS_scale(c->width() / c->groupWidth, c->height() / c->groupHeight);
+			PS_translate(0, -c->height());
 			for (int em = 0; em < c->groupItemList.count(); ++em)
 			{
 				PageItem* embed = c->groupItemList.at(em);
