@@ -339,7 +339,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				itemError.insert(NotCMYKOrSpot, 0);
 		}
 		if (itemError.count() != 0)
-			currDoc->masterItemErrors.insert(currItem->ItemNr, itemError);
+			currDoc->masterItemErrors.insert(d /*currItem->ItemNr*/, itemError);
 	}
 	for (int d = 0; d < currDoc->DocItems.count(); ++d)
 	{
@@ -591,7 +591,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				itemError.insert(NotCMYKOrSpot, 0);
 		}
 		if (itemError.count() != 0)
-			currDoc->docItemErrors.insert(currItem->ItemNr, itemError);
+			currDoc->docItemErrors.insert(d /*currItem->ItemNr*/, itemError);
 	}
 
 	return ((currDoc->docItemErrors.count() != 0) || (currDoc->masterItemErrors.count() != 0) || (currDoc->docLayerErrors.count() != 0));
