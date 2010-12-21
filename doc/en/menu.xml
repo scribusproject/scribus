@@ -137,7 +137,6 @@
 			<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
 			<submenuitem text="Scripter Extensions API" file="scripterapi-extensions.html"/>
 		</submenuitem>
-		<submenuitem text="Coding Standards" file="codingstandards.html"/>
 		<submenuitem text="Translation Howto" file="translation_howto.html"/>
 		<submenuitem text="Lorem ipsum Howto" file="lipsum.html"/>
 	</area>
