@@ -16,5 +16,7 @@
  #define CAIRO_HAS_WIN32_SURFACE 1
  #define CAIRO_HAS_WIN32_FONT 1
  #undef CAIRO_HAS_FC_FONT
+ #undef CAIRO_HAS_FT_FONT
+ #undef CAIRO_HAS_PNG_FUNCTIONS
 #endif
 #endif

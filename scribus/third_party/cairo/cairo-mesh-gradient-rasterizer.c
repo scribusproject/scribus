@@ -50,6 +50,15 @@
 #define VPARSTEPS 64.0
 #define UPARSTEPS 64.0
 
+#if defined (_WIN32)
+#ifdef max
+#undef max
+#endif
+#ifdef min
+#undef min
+#endif
+#endif
+
 
 /* Utils */
 static inline double

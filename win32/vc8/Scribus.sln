@@ -4,6 +4,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-main", "Scribus.vcp
 	ProjectSection(ProjectDependencies) = postProject
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661} = {AAA3586D-6218-4CDB-BDD2-BC0198946661}
 		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454} = {7D5110DE-0EA4-43CD-882C-1B86DCE78454}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "svgexport", "svgexport\svgexport.vcproj", "{9652EA11-AFA0-4CDF-88AC-7912C653EFE6}"
@@ -234,6 +235,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drwimport", "drwimport\drwi
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-cairo", "scribus-cairo\scribus-cairo.vcproj", "{7D5110DE-0EA4-43CD-882C-1B86DCE78454}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-pgf", "scribus-pgf\scribus-pgf.vcproj", "{AAA3586D-6218-4CDB-BDD2-BC0198946661}"
 EndProject
@@ -629,6 +632,14 @@ Global
 		{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{A46C3979-E6DD-408F-BB9E-ED5EC3292AFA}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{7D5110DE-0EA4-43CD-882C-1B86DCE78454}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32

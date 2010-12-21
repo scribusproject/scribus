@@ -85,7 +85,9 @@ IF (WIN32)
   SET(CAIRO_WIN32_ONLY_SOURCES
       cairo-win32-font.c
       cairo-win32-printing-surface.c
+	  cairo-win32-surface.c
       cairo-scaled-font-subsets.c
+	  cairo-truetype-subset.c
      )
 ELSE(WIN32)
   SET(CAIRO_WIN32_ONLY_SOURCES)

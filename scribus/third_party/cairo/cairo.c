@@ -89,7 +89,6 @@ static const cairo_t _cairo_nil = {
 cairo_status_t
 _cairo_error (cairo_status_t status)
 {
-    CAIRO_ENSURE_UNIQUE;
     assert (_cairo_status_is_error (status));
 
     return status;

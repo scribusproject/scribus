@@ -37,6 +37,10 @@
 		Value="E:\Libs-msvc2005\libtiff-3.8.2"
 	/>
 	<UserMacro
+		Name="PIXMAN_DIR"
+		Value="E:\Libs-msvc2005\pixman-0.18.0"
+	/>
+	<UserMacro
 		Name="PODOFO_DIR"
 		Value="E:\Libs-msvc2005\podofo-0.8.0"
 	/>
