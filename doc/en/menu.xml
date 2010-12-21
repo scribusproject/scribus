@@ -115,7 +115,6 @@
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
 	</area>
 	<area text="For Developers" file="developers.html">
-		<submenuitem text="Scribus Document Format" file="scribusfileformat.html"/>
 		<submenuitem text="Scripter" file="scripter1.html"/>
 		<submenuitem text="Scripter FAQ" file="scripter-faq.html"/>
 		<submenuitem text="Scripter API" file="scripterapi.html">
