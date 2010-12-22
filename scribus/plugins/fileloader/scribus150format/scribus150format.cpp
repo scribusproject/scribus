@@ -571,8 +571,8 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = 0;
-	m_Doc->PageColors.clear();
-	m_Doc->Layers.clear();
+//	m_Doc->PageColors.clear();
+//	m_Doc->Layers.clear();
 
 	bool firstElement = true;
 	bool success = true;
