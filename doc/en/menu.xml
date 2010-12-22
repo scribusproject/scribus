@@ -8,8 +8,6 @@
 			<submenuitem text="About the team" file="about1.html"/>
 			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
-		<submenuitem text="Installation" file="install.html">
-		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
 			<submenuitem text="Configuring Scribus" file="settings1.html"/>
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
