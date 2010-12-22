@@ -14,9 +14,6 @@
 			<submenuitem text="Compiling using CMake" file="install4.html"/>
 			<submenuitem text="Compiling using CMake on OS X" file="install5.html"/>
 		</submenuitem>
-		<submenuitem text="Cross Platform" file="cross-platform.html">
-			<submenuitem text="Mac OSX Readme" file="readme-macosx.html"/>
-			<submenuitem text="OS/2 Readme" file="readme-os2.html"/>
 			<submenuitem text="Windows Readme" file="readme-win32.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
