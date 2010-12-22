@@ -315,6 +315,7 @@ public:
 	QRectF getBoundingRect() const;
 	QRectF getCurrentBoundingRect(double moreSpace = 0.0) const;
 	QRectF getVisualBoundingRect() const;
+	QTransform getGroupTransform() const;
 	void getTransform(QTransform& mat) const;
 	QTransform getTransform() const;
 	/**

@@ -488,20 +488,23 @@ PageItem* Canvas::itemInGroup(PageItem* group, QTransform itemPos, QRectF mouseA
 	while (currNr >= 0)
 	{
 		PageItem* embedded = group->groupItemList.at(currNr);
-		QPainterPath currPath(itemPos.map(QPointF(embedded->gXpos,embedded->gYpos)));
-		currPath.lineTo(itemPos.map(QPointF(embedded->width(), embedded->gYpos)));
+		QPainterPath currPath(itemPos.map(QPointF(0, 0)));
+		currPath.lineTo(itemPos.map(QPointF(embedded->width(), 0)));
 		currPath.lineTo(itemPos.map(QPointF(embedded->width(), embedded->height())));
-		currPath.lineTo(itemPos.map(QPointF(embedded->gXpos, embedded->height())));
+		currPath.lineTo(itemPos.map(QPointF(0, embedded->height())));
 		currPath.closeSubpath();
+		currPath.translate(embedded->gXpos, embedded->gYpos);
 		QPainterPath currClip;
 		currClip.addPolygon(itemPos.map(QPolygonF(embedded->Clip)));
 		currClip.closeSubpath();
+		currClip.translate(embedded->gXpos, embedded->gYpos);
 		if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
 		{
 			if (embedded->isGroup())
 			{
 				QTransform itemPosG = itemPos;
-				itemPosG.translate(embedded->gXpos,embedded->gYpos);
+				QTransform eTrans = embedded->getGroupTransform();
+				itemPosG *= eTrans;
 				itemPosG.scale(group->width() / group->groupWidth, group->height() / group->groupHeight);
 				PageItem* ret = itemInGroup(embedded, itemPosG, mouseArea);
 				if (ret != NULL)

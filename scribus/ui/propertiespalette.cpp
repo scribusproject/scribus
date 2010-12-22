@@ -2264,15 +2264,15 @@ void PropertiesPalette::setMultipleSelection(bool isMultiple)
 	{
 		FlipH->setCheckable( false );
 		FlipV->setCheckable( false );
-		PageItem *i;
-		uint lowestItem = 999999;
-		for (int a=0; a<doc->m_Selection->count(); ++a)
-		{
-			i = doc->m_Selection->itemAt(a);
-			lowestItem = qMin(lowestItem, i->ItemNr);
-		}
-		i = doc->Items->at(lowestItem);
-		SetCurItem(i);
+//		PageItem *i;
+//		uint lowestItem = 999999;
+//		for (int a=0; a<doc->m_Selection->count(); ++a)
+//		{
+//			i = doc->m_Selection->itemAt(a);
+//			lowestItem = qMin(lowestItem, i->ItemNr);
+//		}
+//		i = doc->Items->at(lowestItem);
+		SetCurItem(doc->m_Selection->itemAt(0));
 	}
 }
 

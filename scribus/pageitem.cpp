@@ -5446,7 +5446,13 @@ void PageItem::SetFrameRound()
 	FrameType = 2;
 }
 
-
+QTransform PageItem::getGroupTransform() const
+{
+	QTransform result;
+	result.translate(gXpos, gYpos);
+	result.rotate(Rot);
+	return result;
+}
 
 void PageItem::getTransform(QTransform& mat) const
 {
