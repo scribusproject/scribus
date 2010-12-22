@@ -10,7 +10,6 @@
 		</submenuitem>
 		<submenuitem text="Installation" file="install.html">
 			<submenuitem text="Scribus Source &amp; SVN" file="install1.html"/>
-			<submenuitem text="Requirements" file="install2.html"/>
 			<submenuitem text="Compiling using CMake on OS X" file="install5.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
