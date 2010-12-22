@@ -9,7 +9,6 @@
 			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
 		<submenuitem text="Installation" file="install.html">
-			<submenuitem text="Compiling using CMake on OS X" file="install5.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
 			<submenuitem text="Configuring Scribus" file="settings1.html"/>
