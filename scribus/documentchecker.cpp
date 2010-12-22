@@ -349,6 +349,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			if (itemError.count() != 0)
 				currDoc->masterItemErrors.insert(currItem, itemError);
 		}
+		allItems.clear();
 	}
 	allItems.clear();
 	uint docItemsCount = currDoc->DocItems.count();
@@ -611,6 +612,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			if (itemError.count() != 0)
 				currDoc->docItemErrors.insert(currItem, itemError);
 		}
+		allItems.clear();
 	}
 	return ((currDoc->docItemErrors.count() != 0) || (currDoc->masterItemErrors.count() != 0) || (currDoc->docLayerErrors.count() != 0));
 }

@@ -86,7 +86,7 @@ private slots:
 signals:
 	void selectPage(int);
 	void selectMasterPage(QString);
-	void selectElement(int, int, bool);
+	void selectElementByItem(PageItem *, bool);
 	void refreshItem(PageItem*);
 
 protected:

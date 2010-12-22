@@ -500,6 +500,7 @@ ScribusDoc::~ScribusDoc()
 				ScCore->fileWatcher->removeDir(fi.absolutePath());
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
@@ -519,6 +520,7 @@ ScribusDoc::~ScribusDoc()
 				ScCore->fileWatcher->removeDir(fi.absolutePath());
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
@@ -538,6 +540,7 @@ ScribusDoc::~ScribusDoc()
 				ScCore->fileWatcher->removeDir(fi.absolutePath());
 			}
 		}
+		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -563,6 +566,7 @@ ScribusDoc::~ScribusDoc()
 					}
 				}
 			}
+			allItems.clear();
 		}
 		while (!pa.items.isEmpty())
 		{
@@ -2597,6 +2601,7 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 			if (currItem->LayerID == layerID)
 				return true;
 		}
+		allItems.clear();
 	}
 	uint docItemsCount=DocItems.count();
 	for (uint i = 0; i < docItemsCount; ++i)
@@ -2612,6 +2617,7 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 			if (currItem->LayerID == layerID)
 				return true;
 		}
+		allItems.clear();
 	}
 	return false;
 }
@@ -2851,6 +2857,7 @@ QStringList ScribusDoc::getUsedPatterns()
 					results.append(currItem->patternMask());
 			}
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < DocItems.count(); ++c)
 	{
@@ -2875,6 +2882,7 @@ QStringList ScribusDoc::getUsedPatterns()
 					results.append(currItem->patternMask());
 			}
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
@@ -2899,6 +2907,7 @@ QStringList ScribusDoc::getUsedPatterns()
 					results.append(currItem->patternMask());
 			}
 		}
+		allItems.clear();
 	}
 	for (QMap<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
@@ -2925,6 +2934,7 @@ QStringList ScribusDoc::getUsedPatterns()
 				if (!pat3.isEmpty() && !results.contains(pat3))
 					results.append(pat3);
 			}
+			allItems.clear();
 		}
 	}
 	return results;
@@ -3072,6 +3082,7 @@ QStringList ScribusDoc::getUsedSymbols()
 			if ((!results.contains(currItem->strokePattern())) && ((!currItem->strokePattern().isEmpty()) && (currItem->patternStrokePath)))
 				results.append(currItem->pattern());
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < DocItems.count(); ++c)
 	{
@@ -3091,6 +3102,7 @@ QStringList ScribusDoc::getUsedSymbols()
 					results.append(currItem->strokePattern());
 			}
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
@@ -3110,6 +3122,7 @@ QStringList ScribusDoc::getUsedSymbols()
 					results.append(currItem->strokePattern());
 			}
 		}
+		allItems.clear();
 	}
 	for (QMap<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
@@ -3131,6 +3144,7 @@ QStringList ScribusDoc::getUsedSymbols()
 						results.append(currItem->strokePattern());
 				}
 			}
+			allItems.clear();
 		}
 	}
 	return results;
@@ -3220,6 +3234,7 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 					}
 				}
 			}
+			allItems.clear();
 		}
 	}
 	QMap<QString,int>::Iterator itfo, itnext;
@@ -3282,6 +3297,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 				it = allItems.at(ii);
 				checkItemForFonts(it, Really, lc);
 			}
+			allItems.clear();
 		}
 	}
 	QStringList patterns = getUsedPatterns();
@@ -3300,6 +3316,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 				it = allItems.at(ii);
 				checkItemForFonts(it, Really, 3);
 			}
+			allItems.clear();
 		}
 	}
 }
@@ -3520,6 +3537,7 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 					continue;
 				profileNames.append(it->IProfile);
 			}
+			allItems.clear();
 		}
 	}
 
@@ -6218,6 +6236,7 @@ void ScribusDoc::updateAllItemQColors()
 				}
 			}
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < MasterItems.count(); ++c)
 	{
@@ -6241,6 +6260,7 @@ void ScribusDoc::updateAllItemQColors()
 				}
 			}
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < FrameItems.count(); ++c)
 	{
@@ -6264,6 +6284,7 @@ void ScribusDoc::updateAllItemQColors()
 				}
 			}
 		}
+		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -6291,6 +6312,7 @@ void ScribusDoc::updateAllItemQColors()
 					}
 				}
 			}
+			allItems.clear();
 		}
 	}
 }
@@ -6339,6 +6361,7 @@ void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, Profiles
 					loadPict(it->Pfile, it, true);
 				}
 			}
+			allItems.clear();
 			if (usingGUI)
 			{
 				++counter;
@@ -7846,6 +7869,7 @@ void ScribusDoc::updatePict(QString name)
 				currItem->setImageFlippedV(fvo);
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
@@ -7866,6 +7890,7 @@ void ScribusDoc::updatePict(QString name)
 				currItem->setImageFlippedV(fvo);
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a <FrameItems.count(); ++a)
 	{
@@ -7886,6 +7911,7 @@ void ScribusDoc::updatePict(QString name)
 				currItem->setImageFlippedV(fvo);
 			}
 		}
+		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -7910,6 +7936,7 @@ void ScribusDoc::updatePict(QString name)
 					currItem->setImageFlippedV(fvo);
 				}
 			}
+			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
@@ -7951,6 +7978,7 @@ void ScribusDoc::updatePictDir(QString name)
 				}
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
@@ -7982,6 +8010,7 @@ void ScribusDoc::updatePictDir(QString name)
 				}
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a <FrameItems.count(); ++a)
 	{
@@ -8013,6 +8042,7 @@ void ScribusDoc::updatePictDir(QString name)
 				}
 			}
 		}
+		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -8048,6 +8078,7 @@ void ScribusDoc::updatePictDir(QString name)
 					}
 				}
 			}
+			allItems.clear();
 			PageItem *ite = pa.items.at(0);
 			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 		}
@@ -8077,6 +8108,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			if (currItem->PictureIsAvailable)
 				cc++;
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
@@ -8091,6 +8123,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			if (currItem->PictureIsAvailable)
 				cc++;
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
@@ -8105,6 +8138,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			if (currItem->PictureIsAvailable)
 				cc++;
 		}
+		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -8123,6 +8157,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				if (currItem->PictureIsAvailable)
 					cc++;
 			}
+			allItems.clear();
 		}
 	}
 	m_ScMW->mainWindowProgressBar->setMaximum((cc > 0) ? cc : 1);
@@ -8155,6 +8190,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				if (!docPtr) return;
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
@@ -8185,6 +8221,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				if (!docPtr) return;
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
@@ -8215,6 +8252,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				if (!docPtr) return;
 			}
 		}
+		allItems.clear();
 	}
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -8248,6 +8286,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 					if (!docPtr) return;
 				}
 			}
+			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
@@ -8277,6 +8316,7 @@ void ScribusDoc::removePict(QString name)
 				currItem->pixm = ScImage();
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
@@ -8294,6 +8334,7 @@ void ScribusDoc::removePict(QString name)
 				currItem->pixm = ScImage();
 			}
 		}
+		allItems.clear();
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
 	{
@@ -8311,6 +8352,7 @@ void ScribusDoc::removePict(QString name)
 				currItem->pixm = ScImage();
 			}
 		}
+		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -8332,6 +8374,7 @@ void ScribusDoc::removePict(QString name)
 					currItem->pixm = ScImage();
 				}
 			}
+			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
@@ -8443,6 +8486,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 					currItem->setLayer(newLayerID);
 			}
 		}
+		allItems.clear();
 	}
 	if (tmpSelection.count() != 0)
 		itemSelection_DeleteItem(&tmpSelection);
@@ -8930,6 +8974,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 				}
 			}
 		}
+		allItems.clear();
 	}
 	for (int c=0; c<MasterItems.count(); ++c)
 	{
@@ -8951,6 +8996,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 				}
 			}
 		}
+		allItems.clear();
 	}
 	for (int c=0; c<FrameItems.count(); ++c)
 	{
@@ -8972,6 +9018,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 				}
 			}
 		}
+		allItems.clear();
 	}
 	
 	if (!found) //No image frames in the current selection!
@@ -10942,6 +10989,7 @@ void ScribusDoc::invalidateAll()
 			ite = allItems.at(ii);
 			ite->invalidateLayout();
 		}
+		allItems.clear();
 	}
 	for (int c=0; c < MasterItems.count(); ++c)
 	{
@@ -10955,6 +11003,7 @@ void ScribusDoc::invalidateAll()
 			ite = allItems.at(ii);
 			ite->invalidateLayout();
 		}
+		allItems.clear();
 	}
 	// for now hope that frameitems get invalidated by their parents layout() method.
 }
@@ -10975,6 +11024,7 @@ void ScribusDoc::invalidateLayer(int layerID)
 			if (ite->LayerID == layerID)
 				ite->invalidateLayout();
 		}
+		allItems.clear();
 	}
 	if (this->masterPageMode())
 	{
@@ -10991,6 +11041,7 @@ void ScribusDoc::invalidateLayer(int layerID)
 				if (ite->LayerID == layerID)
 					ite->invalidateLayout();
 			}
+			allItems.clear();
 		}
 	}
 	// for now hope that frameitems get invalidated by their parents layout() method.
@@ -11012,6 +11063,7 @@ void ScribusDoc::invalidateRegion(QRectF region)
 			if (ite->getBoundingRect().intersects(region))
 				ite->invalidateLayout();
 		}
+		allItems.clear();
 	}
 	for (int c=0; c<MasterItems.count(); ++c)
 	{
@@ -11026,6 +11078,7 @@ void ScribusDoc::invalidateRegion(QRectF region)
 		// for now invalidate all masteritems, should be only necessary in masterpagemode
 			ite->invalidateLayout();
 		}
+		allItems.clear();
 	}
 	// for now hope that frameitems get invalidated by their parents layout() method.
 }
@@ -13395,6 +13448,7 @@ QMap<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType
 			if (ite->itemType() == itemType && ite->nextInChain()==NULL && !ite->isAutoFrame())
 				namesMap.insert(ite, ite->itemName());
 		}
+		allItems.clear();
 	}
 	return namesMap;
 }

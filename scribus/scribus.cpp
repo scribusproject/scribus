@@ -2109,17 +2109,28 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 	bool enablePicManager = false;
 	if (HaveDoc)
 	{
+		QList<PageItem*> allItems;
 		for (int i = 0; i < doc->Items->count(); ++i)
 		{
-#ifdef HAVE_OSG
-			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (!((doc->Items->at(i)->asLatexFrame()) || (doc->Items->at(i)->asOSGFrame()))))
-#else
-			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (!(doc->Items->at(i)->asLatexFrame())))
-#endif
+			PageItem *currItem = doc->Items->at(i);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
 			{
-				enablePicManager = true;
-				break;
+				PageItem* item = allItems.at(ii);
+#ifdef HAVE_OSG
+				if ((item->itemType() == PageItem::ImageFrame) && (!((item->asLatexFrame()) || (item->asOSGFrame()))))
+#else
+				if ((item->itemType() == PageItem::ImageFrame) && (!(item->asLatexFrame())))
+#endif
+				{
+					enablePicManager = true;
+					break;
+				}
 			}
+			allItems.clear();
 		}
 	}
 	scrActions["extrasManageImages"]->setEnabled(enablePicManager);
@@ -9095,7 +9106,7 @@ void ScribusMainWindow::StatusPic()
 		PicStatus *dia = new PicStatus(this, doc);
 		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
-		connect(dia, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
+		connect(dia, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 //		connect(dia, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 		dia->exec();
 		delete dia;

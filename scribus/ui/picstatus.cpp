@@ -119,36 +119,55 @@ void PicStatus::fillTable()
 	QListWidgetItem *firstItem=0;
 	QListWidgetItem *tempItem=0;
 
+	QList<PageItem*> allItems;
 	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 	{
-		item = m_Doc->MasterItems.at(i);
-		QFileInfo fi = QFileInfo(item->Pfile);
-		QString Iname = "";
-		if (item->isInlineImage)
-			Iname = tr("Embedded Image");
+		PageItem *currItem = m_Doc->MasterItems.at(i);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
 		else
-			Iname = fi.fileName();
-		if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
-			tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
-		if (firstItem == 0)
-			firstItem = tempItem;
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			item = allItems.at(ii);
+			QFileInfo fi = QFileInfo(item->Pfile);
+			QString Iname = "";
+			if (item->isInlineImage)
+				Iname = tr("Embedded Image");
+			else
+				Iname = fi.fileName();
+			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
+				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
+			if (firstItem == 0)
+				firstItem = tempItem;
+		}
+		allItems.clear();
 	}
-
+	allItems.clear();
 	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 	{
-		item = m_Doc->DocItems.at(i);
-		QFileInfo fi = QFileInfo(item->Pfile);
-		QString Iname = "";
-		if (item->isInlineImage)
-			Iname = tr("Embedded Image");
+		PageItem *currItem = m_Doc->DocItems.at(i);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
 		else
-			Iname = fi.fileName();
-		if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
-			tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
-		// if an image is selected in a doc, Manage Pictures should
-		// display the selected image and its values
-		if (firstItem == 0 || item->isSelected())
-			firstItem = tempItem;
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			item = allItems.at(ii);
+			QFileInfo fi = QFileInfo(item->Pfile);
+			QString Iname = "";
+			if (item->isInlineImage)
+				Iname = tr("Embedded Image");
+			else
+				Iname = fi.fileName();
+			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
+				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
+			// if an image is selected in a doc, Manage Pictures should
+			// display the selected image and its values
+			if (firstItem == 0 || item->isSelected())
+				firstItem = tempItem;
+		}
+		allItems.clear();
 	}
 	imageViewArea->setCurrentItem(firstItem);
 	if (firstItem!=0)
@@ -391,15 +410,7 @@ void PicStatus::SelectPic()
 		return;
 
 	ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-	if (!currItem->isGroup())
-		emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
-	else
-	{
-		if (currItem->isGroup())
-			emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
-		else
-			emit selectElement(currItem->OwnPage, currItem->ItemNr, true);
-	}
+	emit selectElementByItem(currItem, true);
 }
 
 bool PicStatus::loadPict(const QString & newFilePath)

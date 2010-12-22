@@ -212,6 +212,7 @@ bool CollectForOutput::collectItems()
 				ite = allItems.at(ii);
 				processItem(ite);
 			}
+			allItems.clear();
 			if (uiCollect)
 				emit itemsCollected(c++);
 		}
@@ -231,6 +232,7 @@ bool CollectForOutput::collectItems()
 				ite = allItems.at(ii);
 				processItem(ite);
 			}
+			allItems.clear();
 		}
 		if (uiCollect)
 			emit patternsCollected(c);
