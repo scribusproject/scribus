@@ -115,32 +115,16 @@ bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 	bool ret = ScActionPlugin::handleSelection(doc, SelectedType);
 	if (!ret)
 	{
-		if (doc->m_Selection->count() > 1)
+		if (doc->m_Selection->count() == 2)
 		{
-			bool isGroup = true;
-			int firstElem = -1;
 			PageItem *currItem = doc->m_Selection->itemAt(0);
-			if (currItem->Groups.count() != 0)
+			if (currItem->isGroup())
 			{
-				firstElem = currItem->Groups.top();
-				for (int bx = 0; bx < doc->m_Selection->count() - 1; ++bx)
-				{
-					PageItem* bxi = doc->m_Selection->itemAt(bx);
-					if (bxi->Groups.count() != 0)
-					{
-						if (bxi->Groups.top() != firstElem)
-							isGroup = false;
-						if (currItem->itemType() == PageItem::Line)
-							isGroup = false;
-					}
-					else
-						isGroup = false;
-				}
-				currItem = doc->m_Selection->itemAt(doc->m_Selection->count() - 1);
+				currItem = doc->m_Selection->itemAt(1);
 				if (currItem->itemType() != PageItem::PolyLine)
 					ret = false;
 				else
-					ret = isGroup;
+					ret = true;
 			}
 			else
 			{
@@ -149,23 +133,9 @@ bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 				else
 				{
 					currItem = doc->m_Selection->itemAt(1);
-					if (currItem->Groups.count() != 0)
+					if (currItem->isGroup())
 					{
-						firstElem = currItem->Groups.top();
-						for (int bx = 1; bx < doc->m_Selection->count(); ++bx)
-						{
-							PageItem* bxi = doc->m_Selection->itemAt(bx);
-							if (bxi->Groups.count() != 0)
-							{
-								if (bxi->Groups.top() != firstElem)
-									isGroup = false;
-								if (currItem->itemType() == PageItem::Line)
-									isGroup = false;
-							}
-							else
-								isGroup = false;
-						}
-						ret = isGroup;
+						ret = true;
 					}
 				}
 			}
@@ -187,11 +157,11 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 1)
 	{
-		if ((currDoc->m_Selection->itemAt(0)->Groups.count() != 0) || (currDoc->m_Selection->itemAt(1)->Groups.count() != 0))
+		if ((currDoc->m_Selection->itemAt(0)->isGroup()) || (currDoc->m_Selection->itemAt(1)->isGroup()))
 		{
 			selOffs = 0;
 			selCount = currDoc->m_Selection->count() - 1;
-			if (currDoc->m_Selection->itemAt(0)->Groups.count() == 0)
+			if (!currDoc->m_Selection->itemAt(0)->isGroup())
 			{
 				pathItem = currDoc->m_Selection->itemAt(0);
 				selOffs = 1;
@@ -202,14 +172,21 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			QTransform mp;
 			mp.rotate(pathItem->rotation());
 			effectPath.map(mp);
-			for (int bx = 0; bx < selCount; ++bx)
+			PageItem* bxi = currDoc->m_Selection->itemAt(selOffs);
+			originalPathG.append(bxi->PoLine.copy());
+			originalXPosG.append(bxi->xPos());
+			originalYPosG.append(bxi->yPos());
+			originalRotG.append(bxi->rotation());
+			patternItemG.append(bxi);
+			QList<PageItem*> bxiL = bxi->getItemList();
+			for (int bx = 0; bx < bxiL.count(); ++bx)
 			{
-				PageItem* bxi = currDoc->m_Selection->itemAt(bx + selOffs);
-				originalPathG.append(bxi->PoLine.copy());
-				originalXPosG.append(bxi->xPos());
-				originalYPosG.append(bxi->yPos());
-				originalRotG.append(bxi->rotation());
-				patternItemG.append(bxi);
+				PageItem* cIte = bxiL.at(bx);
+				originalPathG.append(cIte->PoLine.copy());
+				originalXPosG.append(cIte->xPos());
+				originalYPosG.append(cIte->yPos());
+				originalRotG.append(cIte->rotation());
+				patternItemG.append(cIte);
 			}
 			QPainterPath tmpPath = effectPath.toQPainterPath(false);
 			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), tmpPath.length(), true);
@@ -286,7 +263,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->FrameType = 3;
 			bxi->setXYPos(originalXPosG[bx], originalYPosG[bx]);
 			bxi->setRotation(originalRotG[bx]);
-			currDoc->AdjustItemSize(bxi);
+			currDoc->AdjustItemSize(bxi, true);
 			bxi->OldB2 = bxi->width();
 			bxi->OldH2 = bxi->height();
 			bxi->updateClip();
@@ -329,9 +306,21 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->ClipEdited = true;
 			bxi->FrameType = 3;
 			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY);
-			currDoc->AdjustItemSize(bxi);
+			if (!bxi->isGroup())
+			{
+				bxi->gXpos = deltaX;
+				bxi->gYpos = deltaY;
+			}
+			double oW = bxi->width();
+			double oH = bxi->height();
+			currDoc->AdjustItemSize(bxi, true);
 			bxi->OldB2 = bxi->width();
 			bxi->OldH2 = bxi->height();
+			if (bxi->isGroup())
+			{
+				bxi->groupWidth = bxi->groupWidth * (bxi->OldB2 / oW);
+				bxi->groupHeight = bxi->groupHeight * (bxi->OldH2 / oH);
+			}
 			bxi->updateClip();
 			bxi->ContourLine = bxi->PoLine.copy();
 		}
@@ -379,7 +368,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		patternItem->setXYPos(pathItem->xPos(), pathItem->yPos());
 		patternItem->setRotation(0);
 	}
-	currDoc->AdjustItemSize(patternItem);
+	currDoc->AdjustItemSize(patternItem, true);
 	patternItem->OldB2 = patternItem->width();
 	patternItem->OldH2 = patternItem->height();
 	patternItem->updateClip();

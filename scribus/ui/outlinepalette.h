@@ -76,7 +76,6 @@ public slots:
 
 signals:
 	void ToggleAllPalettes();
-	void selectElement(int, int, bool);
 	void selectElementByItem(PageItem *, bool);
 	void selectPage(int);
 	void selectMasterPage(QString);

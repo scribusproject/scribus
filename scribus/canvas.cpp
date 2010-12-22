@@ -436,6 +436,12 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				currClip.closeSubpath();
 				if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
 				{
+					if (currItem->isGroup() && allowInGroup)
+					{
+						PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
+						if (ret != NULL)
+							return ret;
+					}
 					return currItem;
 				}
 			}

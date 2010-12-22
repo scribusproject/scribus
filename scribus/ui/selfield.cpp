@@ -40,19 +40,29 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 	Layout1->addWidget( Text1 );
 	AvailFields = new QListWidget( this );
 	AvailFields->setMinimumSize( QSize( 130, 180 ) );
-	for (int se = 0; se < Doc->Items->count(); ++se)
+	QList<PageItem*> allItems;
+	for (int a = 0; a < Doc->Items->count(); ++a)
 	{
-		PageItem* item = Doc->Items->at(se);
-		if (Art < 2)
-		{
-			if ((item->isAnnotation()) && ((item->annotation().Type() > 1) && (item->annotation().Type() < 12)))
-				AvailFields->addItem(item->itemName());
-		}
+		PageItem *currItem = Doc->Items->at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
 		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if ((item->isAnnotation()) && (item->annotation().Type() == Art) && (item->itemName() != Own))
-				AvailFields->addItem(item->itemName());
+			PageItem* item = allItems.at(ii);
+			if (Art < 2)
+			{
+				if ((item->isAnnotation()) && ((item->annotation().Type() > 1) && (item->annotation().Type() < 12)))
+					AvailFields->addItem(item->itemName());
+			}
+			else
+			{
+				if ((item->isAnnotation()) && (item->annotation().Type() == Art) && (item->itemName() != Own))
+					AvailFields->addItem(item->itemName());
+			}
 		}
+		allItems.clear();
 	}
 	Layout1->addWidget( AvailFields );
 	Layout5->addLayout( Layout1 );

@@ -296,13 +296,24 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 				else
 				{
 					bool found = false;
-					for (int b = 0; b < currDoc->Items->count(); ++b)
+					QList<PageItem*> allItems;
+					for (int a = 0; a < currDoc->Items->count(); ++a)
 					{
-						if ((NameNew == currDoc->Items->at(b)->itemName()) && (currDoc->Items->at(b) != item->PageItemObject))
+						PageItem *currItem = currDoc->Items->at(a);
+						if (currItem->isGroup())
+							allItems = currItem->getItemList();
+						else
+							allItems.append(currItem);
+						for (int ii = 0; ii < allItems.count(); ii++)
 						{
-							found = true;
-							break;
+							PageItem* ite = allItems.at(ii);
+							if ((NameNew == ite->itemName()) && (ite != item->PageItemObject))
+							{
+								found = true;
+								break;
+							}
 						}
+						allItems.clear();
 					}
 					if (found)
 					{
@@ -612,15 +623,9 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 			if (!currDoc->masterPageMode())
 				emit selectMasterPage(item->PageItemObject->OnMasterPage);
 			if (item->PageItemObject->isGroup())
-				emit selectElement(-1, item->PageItemObject->ItemNr, false);
+				emit selectElementByItem(pgItem, false);
 			else
-			{
-				pgItem = item->PageItemObject;
-				if (item->PageItemObject->isGroup())
-					emit selectElement(-1, item->PageItemObject->ItemNr, false);
-				else
-					emit selectElementByItem(pgItem, true);
-			}
+				emit selectElementByItem(pgItem, true);
 			break;
 		case 2:
 			pg = item->PageObject->pageNr();
@@ -632,14 +637,9 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
 			if (pgItem->isGroup())
-				emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
+				emit selectElementByItem(pgItem, false);
 			else
-			{
-				if (pgItem->isGroup())
-					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
-				else
-					emit selectElementByItem(pgItem, true);
-			}
+				emit selectElementByItem(pgItem, true);
 			break;
 		default:
 			break;

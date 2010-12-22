@@ -159,10 +159,21 @@ void TOCIndexPrefs::generatePageItemList()
 	itemDestFrameComboBox->addItem(trStrNone);
 	if (currDoc!=NULL)
 	{
-		for (int d = 0; d < currDoc->DocItems.count(); ++d)
+		QList<PageItem*> allItems;
+		for (int a = 0; a < currDoc->DocItems.count(); ++a)
 		{
-			if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
-				itemDestFrameComboBox->addItem(currDoc->DocItems.at(d)->itemName());
+			PageItem *currItem = currDoc->DocItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				currItem = allItems.at(ii);
+				if (currItem->itemType() == PageItem::TextFrame)
+					itemDestFrameComboBox->addItem(currItem->itemName());
+			}
+			allItems.clear();
 		}
 	}
 	else

@@ -184,47 +184,50 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 
 	PageItem *pItem;
-
-	for ( int i = 0; i < srcDoc->MasterItems.count(); ++i )
+	QList<PageItem*> allItems;
+	for (int a = 0; a < srcDoc->MasterItems.count(); ++a)
 	{
-		pItem = srcDoc->MasterItems.at ( i );
-
-		if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
+		PageItem *currItem = srcDoc->MasterItems.at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			QString itemText;
-
-			if ( pItem->PictureIsAvailable )
+			pItem = allItems.at(ii);
+			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
 			{
-				itemText = QString ( "Frame %1" ).arg ( i+1 );
+				QString itemText;
+				if ( pItem->PictureIsAvailable )
+					itemText = QString ( "Frame %1" ).arg ( pItem->itemName() );
+				else
+					itemText = QString ( "Frame %1 (empty)" ).arg ( pItem->itemName() );
+				insertFramesCombobox->addItem ( itemText, 0 );
 			}
-			else
-			{
-				itemText = QString ( "Frame %1 (empty)" ).arg ( i+1 );
-			}
-
-			insertFramesCombobox->addItem ( itemText, 0 );
 		}
+		allItems.clear();
 	}
-
-	for ( int i = 0; i < srcDoc->Items->count(); ++i )
+	for (int a = 0; a < srcDoc->Items->count(); ++a)
 	{
-		pItem = srcDoc->Items->at ( i );
-
-		if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
+		PageItem *currItem = srcDoc->Items->at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			QString itemText;
-
-			if ( pItem->PictureIsAvailable )
+			pItem = allItems.at(ii);
+			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
 			{
-				itemText = QString ( "Frame %1" ).arg ( i+1 );
+				QString itemText;
+				if ( pItem->PictureIsAvailable )
+					itemText = QString ( "Frame %1" ).arg ( pItem->itemName() );
+				else
+					itemText = QString ( "Frame %1 (empty)" ).arg ( pItem->itemName() );
+				insertFramesCombobox->addItem ( itemText, 0 );
 			}
-			else
-			{
-				itemText = QString ( "Frame %1 (empty)" ).arg ( i+1 );
-			}
-
-			insertFramesCombobox->addItem ( itemText, 0 );
 		}
+		allItems.clear();
 	}
 
 
@@ -603,34 +606,47 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 {
 	PageItem *pItem;
 	QStringList imageFiles;
-
 	int id = item->data ( 0, Qt::UserRole ).toInt();
-
-
-	for ( int i = 0; i < srcDoc->MasterItems.count(); ++i )
+	QList<PageItem*> allItems;
+	for (int a = 0; a < srcDoc->MasterItems.count(); ++a)
 	{
-		pItem = srcDoc->MasterItems.at ( i );
-
-		if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->PictureIsAvailable ) && ( !pItem->asLatexFrame() ) )
+		PageItem *currItem = srcDoc->MasterItems.at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
+			pItem = allItems.at(ii);
+			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->PictureIsAvailable ) && ( !pItem->asLatexFrame() ) )
 			{
-				imageFiles.append ( pItem->Pfile );
+				if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
+				{
+					imageFiles.append ( pItem->Pfile );
+				}
 			}
 		}
+		allItems.clear();
 	}
-
-	for ( int i = 0; i < srcDoc->Items->count(); ++i )
+	for (int a = 0; a < srcDoc->Items->count(); ++a)
 	{
-		pItem = srcDoc->Items->at ( i );
-
-		if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->PictureIsAvailable ) && ( !pItem->asLatexFrame() ) )
+		PageItem *currItem = srcDoc->Items->at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
+			pItem = allItems.at(ii);
+			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->PictureIsAvailable ) && ( !pItem->asLatexFrame() ) )
 			{
-				imageFiles.append ( pItem->Pfile );
+				if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
+				{
+					imageFiles.append ( pItem->Pfile );
+				}
 			}
 		}
+		allItems.clear();
 	}
 
 //todo: check if item is selected: item->isSelected()

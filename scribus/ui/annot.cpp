@@ -1208,13 +1208,24 @@ void Annot::NewName()
 		return;
 	}
 	bool found = false;
-	for (int b = 0; b < view->Doc->Items->count(); ++b)
+	QList<PageItem*> allItems;
+	for (int a = 0; a < view->Doc->Items->count(); ++a)
 	{
-		if ((NameNew == view->Doc->Items->at(b)->itemName()) && (view->Doc->Items->at(b) != item))
+		PageItem *currItem = view->Doc->Items->at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			found = true;
-			break;
+			PageItem* ite = allItems.at(ii);
+			if ((NameNew == ite->itemName()) && (ite != item))
+			{
+				found = true;
+				break;
+			}
 		}
+		allItems.clear();
 	}
 	if (found)
 	{

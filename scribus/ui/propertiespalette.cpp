@@ -4698,13 +4698,24 @@ void PropertiesPalette::NewName()
 		return;
 	}
 	bool found = false;
-	for (int b = 0; b < doc->Items->count(); ++b)
+	QList<PageItem*> allItems;
+	for (int a = 0; a < doc->Items->count(); ++a)
 	{
-		if ((NameNew == doc->Items->at(b)->itemName()) && (doc->Items->at(b) != CurItem))
+		PageItem *currItem = doc->Items->at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			found = true;
-			break;
+			PageItem* item = allItems.at(ii);
+			if ((NameNew == item->itemName()) && (item != CurItem))
+			{
+				found = true;
+				break;
+			}
 		}
+		allItems.clear();
 	}
 	if (found)
 	{

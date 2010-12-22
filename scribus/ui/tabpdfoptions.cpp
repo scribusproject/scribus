@@ -1060,23 +1060,51 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
-		for (int c = 0; c < doc->FrameItems.count(); ++c)
+		QList<PageItem*> allItems;
+		for (int a = 0; a < doc->FrameItems.count(); ++a)
 		{
-			pgit = doc->FrameItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			PageItem *currItem = doc->FrameItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				pgit = allItems.at(ii);
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+			allItems.clear();
 		}
-		for (int c = 0; c < doc->MasterItems.count(); ++c)
+		for (int a = 0; a < doc->MasterItems.count(); ++a)
 		{
-			pgit = doc->MasterItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			PageItem *currItem = doc->MasterItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				pgit = allItems.at(ii);
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+			allItems.clear();
 		}
-		for (int c = 0; c < doc->DocItems.count(); ++c)
+		for (int a = 0; a < doc->DocItems.count(); ++a)
 		{
-			pgit = doc->DocItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			PageItem *currItem = doc->DocItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				pgit = allItems.at(ii);
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+			allItems.clear();
 		}
 		QMap<QString,int>::const_iterator it;
 		AvailFlist->clear();

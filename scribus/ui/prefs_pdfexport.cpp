@@ -238,23 +238,51 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	{
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
-		for (int c = 0; c < m_doc->FrameItems.count(); ++c)
+		QList<PageItem*> allItems;
+		for (int a = 0; a < m_doc->FrameItems.count(); ++a)
 		{
-			pgit=m_doc->FrameItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			PageItem *currItem = m_doc->FrameItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				pgit = allItems.at(ii);
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+			allItems.clear();
 		}
-		for (int c = 0; c < m_doc->MasterItems.count(); ++c)
+		for (int a = 0; a < m_doc->MasterItems.count(); ++a)
 		{
-			pgit=m_doc->MasterItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			PageItem *currItem = m_doc->MasterItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				pgit = allItems.at(ii);
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+			allItems.clear();
 		}
-		for (int c = 0; c < m_doc->DocItems.count(); ++c)
+		for (int a = 0; a < m_doc->DocItems.count(); ++a)
 		{
-			pgit=m_doc->DocItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			PageItem *currItem = m_doc->DocItems.at(a);
+			if (currItem->isGroup())
+				allItems = currItem->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				pgit = allItems.at(ii);
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+			allItems.clear();
 		}
 		QMap<QString,int>::const_iterator it;
 		availableFontsListWidget->clear();
