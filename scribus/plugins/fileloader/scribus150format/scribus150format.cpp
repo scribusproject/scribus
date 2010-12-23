@@ -179,8 +179,8 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	LayerToPaste = toLayer;
 	Xp = Xp_in;
 	Yp = Yp_in;
-	GrX = 0.0;
-	GrY = 0.0;
+//	GrX = 0.0;
+//	GrY = 0.0;
 
 	QMap<int,int> TableID;
 	QMap<int,int> TableIDM;
@@ -2562,7 +2562,10 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
 		newItem->OnMasterPage = "";
 	if (tagName == "ITEM")
+	{
 		newItem->LayerID = LayerToPaste;
+		newItem->OwnPage = doc->OnPage(newItem);
+	}
 	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);
 

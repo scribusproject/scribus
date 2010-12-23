@@ -2372,7 +2372,7 @@ void ScribusMainWindow::SwitchWin()
 			slotDocCh(false);
 		else
 		{
-			bool setter = doc->Pages->count() > 1 ? true : false;
+			bool setter = doc->DocPages.count() > 1 ? true : false;
 			scrActions["pageDelete"]->setEnabled(setter);
 			scrActions["pageMove"]->setEnabled(setter);
 		}
@@ -2486,7 +2486,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 
-	bool setter = doc->Pages->count() > 1 ? true : false;
+	bool setter = doc->DocPages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	scrActions["pageInsert"]->setEnabled(true);
@@ -3197,17 +3197,18 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	updateActiveWindowCaption(doc->DocName + "*");
 // 	scrActions["fileSave"]->setEnabled(true);
 // 	scrActions["fileSaveAs"]->setEnabled(true);
-	if (!doc->symbolEditMode())
-		scrActions["fileCollect"]->setEnabled(true);
-	else if (!doc->masterPageMode())
+	if (!doc->masterPageMode())
 	{
+		if (!doc->symbolEditMode())
+		{
+			if (doc->hasName)
+				scrActions["fileRevert"]->setEnabled(true);
+			bool multiPages = doc->DocPages.count() > 1;
+			scrActions["pageDelete"]->setEnabled(multiPages);
+			scrActions["pageMove"]->setEnabled(multiPages);
+			scrActions["fileCollect"]->setEnabled(true);
+		}
 		scrActions["fileClose"]->setEnabled(true);
-		if (doc->hasName)
-			scrActions["fileRevert"]->setEnabled(true);
-
-		bool multiPages = doc->Pages->count() > 1;
-		scrActions["pageDelete"]->setEnabled(multiPages);
-		scrActions["pageMove"]->setEnabled(multiPages);
 	}
 
 	if (outlinePalette->isVisible())
@@ -4934,7 +4935,7 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-
+/*
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
@@ -4955,7 +4956,18 @@ void ScribusMainWindow::slotEditCut()
 			mimeData->setScribusFragment ( QByteArray(xml.c_str(), xml.length()) );
 			mimeData->setText( QString::fromUtf8(xml.c_str(), xml.length()) );
 			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-
+*/
+			ScriXmlDoc ss;
+			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
+			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+			{
+				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
+				rebuildRecentPasteMenu();
+			}
+			ScElemMimeData* mimeData = new ScElemMimeData();
+			mimeData->setScribusElem(BufferS);
+			mimeData->setText(BufferS);
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 			for (int i=0; i < doc->m_Selection->count(); ++i)
 			{
 				PageItem* frame = doc->m_Selection->itemAt(i);
@@ -5035,7 +5047,6 @@ void ScribusMainWindow::slotEditCopy()
 				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
-
 			ScElemMimeData* mimeData = new ScElemMimeData();
 			mimeData->setScribusElem(BufferS);
 			mimeData->setText(BufferS);
@@ -6902,8 +6913,7 @@ void ScribusMainWindow::CopyPage()
 		view->Deselect(true);
 		view->DrawNew();
 		pagePalette->rebuildPages();
-		if (outlinePalette->isVisible())
-			outlinePalette->BuildTree();
+		slotDocCh();
 	}
 	delete dia;
 }
@@ -8660,7 +8670,7 @@ void ScribusMainWindow::editSymbolEnd()
 	scrActions["pageImport"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
 	scrActions["pageCopyToMasterPage"]->setEnabled(true);
-	bool setter = doc->Pages->count() > 1 ? true : false;
+	bool setter = doc->DocPages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
@@ -8761,7 +8771,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["pageImport"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
 	scrActions["pageCopyToMasterPage"]->setEnabled(true);
-	bool setter = doc->Pages->count() > 1 ? true : false;
+	bool setter = doc->DocPages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);

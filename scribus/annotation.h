@@ -28,12 +28,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 #include "scribusapi.h"
-#include "desaxe/saxio.h"
+//#include "desaxe/saxio.h"
 
 //FIXME: Someone please fix these variable names.. 
 //They are simply moved here, not all fixed.
 //TODO make the usage in various places a little simpler
-class SCRIBUS_API Annotation : public SaxIO
+class SCRIBUS_API Annotation // : public SaxIO
 {
 	public:
 		//Do we need a null or an empty QString for these? Remove the qstring initialisations if null is ok.
@@ -47,11 +47,11 @@ class SCRIBUS_API Annotation : public SaxIO
 		{
 		}
 		
-	static const Xml_string saxxDefaultElem;
-	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
+//	static const Xml_string saxxDefaultElem;
+//	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
 	
-	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+//	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
+//	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 
 	void setType(int newType) { AnType=newType; }
 	void setAction(const QString& newAction) { AnAction=newAction; }

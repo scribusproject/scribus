@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "desaxe/digester.h"
-#include "desaxe/saxXML.h"
+//#include "desaxe/saxXML.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "ui/guidemanager.h"
@@ -1997,21 +1997,21 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 	if(!setActiveLayer(whereToInsert))
 		return;
 	Selection sourceSelection(this);
-	for (int ite(0); ite < Items->count(); ++ite)
+	for (int ite = 0; ite < Items->count(); ++ite)
 	{
 		PageItem *itemToCopy = Items->at(ite);
 		if (itemToCopy->LayerID == layerIDToCopy)
 		{
 			sourceSelection.addItem(itemToCopy);
 		}
-	}
-	if (sourceSelection.count() > 0)
-	{
-		Selection targetSelection(Serializer(*this).cloneObjects(sourceSelection));
-		for(int si(0); si < targetSelection.count(); ++si)
+		if (sourceSelection.count() != 0)
 		{
-			targetSelection.itemAt(si)->setLayer(whereToInsert);
+			ScriXmlDoc *ss = new ScriXmlDoc();
+			QString dataS = ss->WriteElem(this, &sourceSelection);
+			ss->ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, whereToInsert);
+			delete ss;
 		}
+		sourceSelection.clear();
 	}
 }
 
@@ -5973,42 +5973,39 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	Page* lastDest = NULL;
 
 	uint oldItems = Items->count();
-	QList<QByteArray> itemBuffer;
+	QList<QString> itemBuffer;
+	Selection tempSelection(this, false);
 	m_Selection->clear();
-	m_Selection->delaySignalsOn();
+	tempSelection.delaySignalsOn();
 	if (oldItems>0)
 	{
-		ScLayers::iterator it;
 		if (Layers.count()!= 0)
 		{
 			int currActiveLayer = activeLayer();
-			for (it = Layers.begin(); it != Layers.end(); ++it)
+			for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 			{
 				setActiveLayer(it->ID);
 				for (uint ite = 0; ite < oldItems; ++ite)
 				{
 					PageItem *itemToCopy = Items->at(ite);
 					if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && (it->ID == itemToCopy->LayerID))
-						m_Selection->addItem(itemToCopy, true);
+						tempSelection.addItem(itemToCopy, true);
 				}
-				if (m_Selection->count() != 0)
+				if (tempSelection.count() != 0)
 				{
-					std::ostringstream xmlString;
-					SaxXML xmlStream(xmlString);
-					Serializer::serializeObjects(*m_Selection, xmlStream);
-					std::string xml(xmlString.str());
-					itemBuffer.append( QByteArray(xml.c_str(), xml.size()) );
-					m_Selection->clear();
+					ScriXmlDoc *ss = new ScriXmlDoc();
+					QString dataS = ss->WriteElem(this, &tempSelection);
+					itemBuffer.append(dataS);
+					delete ss;
 				}
 				else
-				{
-					itemBuffer.append(QByteArray());
-				}
+					itemBuffer.append(QString());
+				tempSelection.clear();
 			}
 			setActiveLayer(currActiveLayer);
 		}
 	}
-	m_Selection->delaySignalsOff();
+	tempSelection.delaySignalsOff();
 
 
 	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
@@ -6077,14 +6074,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				{
 					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
 					{
-						QByteArray fragment = itemBuffer[lcount];
-						Selection pastedObjects = Serializer(*this).deserializeObjects(fragment);
-						for (int i=0; i < pastedObjects.count(); ++i)
-							pastedObjects.itemAt(i)->LayerID = it->ID;
-						// We do not need moveGroup undo actions
-						UndoManager::instance()->setUndoEnabled(false);
-						moveGroup(destination->xOffset() - from->xOffset(), destination->yOffset() - from->yOffset(), false, &pastedObjects);
-						UndoManager::instance()->setUndoEnabled(true);
+						QString fragment = itemBuffer[lcount];
+						ScriXmlDoc *ss = new ScriXmlDoc();
+						ss->ReadElemToLayer(fragment, appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
+						delete ss;
 					}
 					lcount++;
 				}

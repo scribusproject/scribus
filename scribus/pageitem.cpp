@@ -63,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "sclimits.h"
 #include "text/nlsconfig.h"
+#include "text/storytext.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
@@ -3807,7 +3808,7 @@ void PageItem::setLocked(bool isLocked)
 	if (isLocked != m_Locked)
 		toggleLock();
 }
-
+/*
 void PageItem::setGroupsLastItem(PageItem* item)
 {
 	if (UndoManager::undoEnabled())
@@ -3819,7 +3820,7 @@ void PageItem::setGroupsLastItem(PageItem* item)
 	}
 	groupsLastItem = item;
 }
-
+*/
 QList<PageItem*> PageItem::getItemList()
 {
 	QList<PageItem*> ret;

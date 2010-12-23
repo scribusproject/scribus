@@ -2152,7 +2152,7 @@ void ScribusView::PasteToPage()
 	int ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
-	if (ScMimeData::clipboardHasScribusFragment())
+/*	if (ScMimeData::clipboardHasScribusFragment())
 	{
 		bool savedAlignGrid = Doc->useRaster;
 		bool savedAlignGuides = Doc->SnapGuides;
@@ -2167,10 +2167,10 @@ void ScribusView::PasteToPage()
 		Doc->m_Selection->clear();
 	}
 	else
-	{
+	{ */
 		QString buffer = ScMimeData::clipboardScribusElem();
 		emit LoadElem(buffer, dragX, dragY, false, false, Doc, this);
-	}
+//	}
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();

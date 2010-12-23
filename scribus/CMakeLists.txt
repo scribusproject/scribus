@@ -426,7 +426,7 @@ SET(SCRIBUS_MOC_CLASSES
 
 SET(SCRIBUS_SOURCES
   actionmanager.cpp
-  annotation.cpp
+#  annotation.cpp
   canvas.cpp
   canvasgesture_linemove.cpp
   canvasgesture_pan.cpp
@@ -504,7 +504,7 @@ SET(SCRIBUS_SOURCES
   nfttemplate.cpp
   page.cpp
   pageitem.cpp
-  pageitem_desaxe.cpp
+#  pageitem_desaxe.cpp
   pageitem_group.cpp
   pageitem_imageframe.cpp
   pageitem_latexframe.cpp

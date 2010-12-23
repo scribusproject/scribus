@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_text.h"
 #include "util_math.h"
-
+/*
 void Annotation::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
@@ -108,3 +108,4 @@ void Annotation::desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& 
 	ruleset.addRule(annPrefix, Factory<Annotation>());
 	ruleset.addRule(annPrefix, ParseAnnotation());
 }
+*/

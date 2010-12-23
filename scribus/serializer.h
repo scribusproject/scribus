@@ -58,19 +58,19 @@ public:
 	  Writes all objects in selection to handler as a fragment. Needed styles and colors
 	  are included.
 	*/
-	static void serializeObjects(const Selection& objects, SaxHandler& handler);
+//	static void serializeObjects(const Selection& objects, SaxHandler& handler);
 	/**
 	  Reads objects from the given QString which must represent a fragment, imports them
 	  into the document and returns a (nonGUI) selection to it.
 	*/
-	Selection deserializeObjects(const QByteArray & xml);
+//	Selection deserializeObjects(const QByteArray & xml);
 	/**
 	  Reads objects from the given QFile which must represent a fragment, imports them
 	  into the document and returns a (nonGUI) selection to it.
 	 */
-	Selection deserializeObjects(const QFile & xml);
+//	Selection deserializeObjects(const QFile & xml);
 
-	Selection cloneObjects(const Selection& objects);
+//	Selection cloneObjects(const Selection& objects);
 	
 	/** Legacy method to read plain text for a textframe */
 	static bool readWithEncoding(const QString& filename, const QString& encoding, 
@@ -82,8 +82,8 @@ public:
 private:
 	ScribusDoc& m_Doc;
 	ColorList backUpColors;
-	Selection importCollection();
-	void updateGradientColors(const ColorList& colors);
+//	Selection importCollection();
+//	void updateGradientColors(const ColorList& colors);
 };
 
 #endif

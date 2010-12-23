@@ -232,11 +232,11 @@ public:
 			delete tempImageFile;
 	}
 
-	static const Xml_string saxxDefaultElem;
-	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
+//	static const Xml_string saxxDefaultElem;
+//	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
 	
-	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {};
+	void saxx(SaxHandler& handler) const {}
 	
 	/**
 	 * @brief Clear the contents of a frame.
@@ -543,12 +543,12 @@ public:
 	bool ScaleType;
 	bool AspectRatio;
 	QStack<int> Groups;
-	const QStack<int>& groups() const { return Groups; }
-	QStack<int>& groups() { return Groups; }
-	void setGroups( QStack<int> val) { Groups = val; }
+//	const QStack<int>& groups() const { return Groups; }
+//	QStack<int>& groups() { return Groups; }
+//	void setGroups( QStack<int> val) { Groups = val; }
 	
-	bool controlsGroup() const { return isGroupControl; }
-	void setControlsGroup(bool val) { isGroupControl = val; }
+//	bool controlsGroup() const { return isGroupControl; }
+//	void setControlsGroup(bool val) { isGroupControl = val; }
 	
 	QVector<double> DashValues;
 	double DashOffset;
@@ -586,7 +586,7 @@ public:
 	bool isSingleSel;
 	bool isGroupControl;
 	PageItem *groupsLastItem;
-	void setGroupsLastItem(PageItem* item);
+//	void setGroupsLastItem(PageItem* item);
 	QList<PageItem*> groupItemList;
 	virtual QList<PageItem*> getItemList();
 	double groupWidth;

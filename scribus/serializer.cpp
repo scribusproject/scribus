@@ -177,6 +177,7 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 }
 
 
+#if 0
 void Serializer::serializeObjects(const Selection& selection, SaxHandler& outputhandler)
 {
 	Xml_attr attr;
@@ -445,6 +446,7 @@ Selection Serializer::importCollection()
 	return result;
 }
 
+#endif
 
 bool Serializer::writeWithEncoding(const QString& filename, const QString& encoding, 
 								   const QString& txt)
@@ -482,7 +484,7 @@ bool Serializer::readWithEncoding(const QString& filename, const QString& encodi
 	}
 	return false;
 }
-
+/*
 void Serializer::updateGradientColors(const ColorList& colors)
 {
 	VColorStop* grStop;
@@ -595,3 +597,4 @@ void Serializer::updateGradientColors(const ColorList& colors)
 		}
 	}
 }
+*/

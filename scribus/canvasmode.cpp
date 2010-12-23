@@ -247,16 +247,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
-				if( currItem->Groups.count() > 0)
-				{
-					if(! currItem->controlsGroup() )
-						continue;
-					else
-					{
-						if(currItem->Groups.count() > 1)
-							continue;
-					}
-				}
+				if (!m_doc->Items->contains(currItem))
+					continue;
 				psx->save();
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
@@ -451,18 +443,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
-				
-				//Try to detect if the pageitem is a top level item.
-				if( currItem->Groups.count() > 0)
-				{
-					if(! currItem->controlsGroup() ) 
-						continue;
-					else
-					{
-						if(currItem->Groups.count() > 1)
-							continue;
-					}
-				}
+				if (!m_doc->Items->contains(currItem))
+					continue;
 				p->save();
 				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold /*&& currItem->rotation() == 0*/)
 				{
