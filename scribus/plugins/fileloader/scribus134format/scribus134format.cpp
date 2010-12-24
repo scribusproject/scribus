@@ -95,7 +95,7 @@ void Scribus134Format::registerFormats()
 	fmt.trName = tr("Scribus 1.3.4+ Document");
 	fmt.formatId = FORMATID_SLA134IMPORT;
 	fmt.load = true;
-	fmt.save = true;
+	fmt.save = false;
 	fmt.colorReading = true;
 	fmt.filter = fmt.trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", Qt::CaseInsensitive);
@@ -561,39 +561,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				ta->BottomLink = 0;
 		}
 	}
-/*	if (groupIDF.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupIDF.begin(); it != groupIDF.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.value());
-		}
-	}
-	if (groupID.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupID.begin(); it != groupID.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->DocItems.at(it.value());
-		}
-	}
-	if (groupIDM.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.value());
-		}
-	} */
 	//CB Add this in to set this in the file in memory. Its saved, why not load it.
 	//Will of course be replaced by per page settings although we still probably need a document default
 	if (!hasPageSets)
 	{
 		m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), firstPage);
-//->Prefs		m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = firstPage;
-//		m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
-//		m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
-//		m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
 	}
 
 	m_Doc->setMasterPageMode(false);
@@ -3341,15 +3313,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
-		}
-	}
-
-	if (groupID.count() != 0)
-	{
-		QMap<PageItem*, int>::Iterator it;
-		for (it = groupID.begin(); it != groupID.end(); ++it)
-		{
-			it.key()->groupsLastItem = m_Doc->Items->at(it.value());
 		}
 	}
 	

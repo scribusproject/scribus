@@ -2637,80 +2637,6 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 	}
 	else
 		p->drawPolygon(pts);
-/*
-	QColor tmp;
-	if (Segments.count() != 0)
-	{
-		QList<uint>::Iterator it2end=Segments.end();
-		uint FirstVal = 0;
-		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
-		{
-			if (NamedLStyle.isEmpty())
-			{
-				if (lineColor() != CommonStrings::None)
-					p->setPen(QPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin));
-				p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
-			}
-			else
-			{
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(QPen(tmp,
-									 qMax(static_cast<int>(ml[it].Width), 1),
-									 static_cast<Qt::PenStyle>(ml[it].Dash),
-									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-					p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
-				}
-			}
-			FirstVal = (*it2);
-		}
-		if (NamedLStyle.isEmpty())
-		{
-			if (lineColor() != CommonStrings::None)
-				p->setPen(QPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin));
-			p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
-		}
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(QPen(tmp,
-								 qMax(static_cast<int>(ml[it].Width), 1),
-								 static_cast<Qt::PenStyle>(ml[it].Dash),
-								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
-			}
-		}
-	}
-	else
-	{
-		if (NamedLStyle.isEmpty())
-		{
-			if (lineColor() != CommonStrings::None)
-				p->setPen(QPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin));
-			p->drawPolygon(pts);
-		}
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(QPen(tmp,
-								 qMax(static_cast<int>(ml[it].Width), 1),
-								 static_cast<Qt::PenStyle>(ml[it].Dash),
-								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolygon(pts);
-			}
-		}
-	} */
 }
 
 void PageItem::setItemName(const QString& newName)
@@ -3808,19 +3734,7 @@ void PageItem::setLocked(bool isLocked)
 	if (isLocked != m_Locked)
 		toggleLock();
 }
-/*
-void PageItem::setGroupsLastItem(PageItem* item)
-{
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >("GroupsLastItem");
-		is->set("GROUPS_LASTITEM", "groups_lastitem");
-		is->setItem(std::pair<PageItem*, PageItem*>(this->groupsLastItem, item));
-		undoManager->action(this, is);
-	}
-	groupsLastItem = item;
-}
-*/
+
 QList<PageItem*> PageItem::getItemList()
 {
 	QList<PageItem*> ret;
@@ -4292,8 +4206,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLayer(ss, isUndo);
 		else if (ss->contains("GET_IMAGE"))
 			restoreGetImage(ss, isUndo);
-		else if (ss->contains("GROUPS_LASTITEM"))
-			restoreGroupsLastItem(ss, isUndo);
 		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
 			restoreShapeContour(ss, isUndo);
 		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
@@ -4727,18 +4639,6 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	}
 	else
 		loadImage(fn, false);
-}
-
-void PageItem::restoreGroupsLastItem(SimpleState *state, bool isUndo)
-{
-	ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> > *>(state);
-	if (is)
-	{
-		if (isUndo)
-			this->groupsLastItem = is->getItem().first;
-		else
-			this->groupsLastItem = is->getItem().second;
-	}
 }
 
 void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
@@ -5188,176 +5088,6 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	if (prevInChain() == NULL)
 		itemText.getNamedResources(lists);
 }
-/*
-void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
-{
-	Buffer->PType = realItemType();
-	Buffer->Xpos = Xpos;
-	Buffer->Ypos = Ypos;
-	Buffer->Width = Width;
-	Buffer->Height = Height;
-	Buffer->RadRect = RadRect;
-	Buffer->FrameType = FrameType;
-	Buffer->ClipEdited = ClipEdited;
-	Buffer->Pwidth = m_lineWidth;
-	Buffer->Pcolor = fillColor();
-	Buffer->Pcolor2 = lineColor();
-	Buffer->Shade = fillShade();
-	Buffer->Shade2 = lineShade();
-	Buffer->FillRule = fillRule;
-	Buffer->GrColor = "";
-	Buffer->GrColor2 = "";
-	Buffer->GrShade = 100;
-	Buffer->GrShade2 = 100;
-	Buffer->fill_gradient = fill_gradient;
-	Buffer->GrType = GrType;
-	Buffer->GrStartX = GrStartX;
-	Buffer->GrStartY = GrStartY;
-	Buffer->GrEndX = GrEndX;
-	Buffer->GrEndY = GrEndY;
-	Buffer->GrFocalX = GrFocalX;
-	Buffer->GrFocalY = GrFocalY;
-	Buffer->GrScale = GrScale;
-	Buffer->GrSkew = GrSkew;
-	Buffer->GrControl1 = GrControl1;
-	Buffer->GrControl2 = GrControl2;
-	Buffer->GrControl3 = GrControl3;
-	Buffer->GrControl4 = GrControl4;
-	Buffer->GrControl5 = GrControl5;
-	Buffer->GrColorP1 = GrColorP1;
-	Buffer->GrColorP2 = GrColorP2;
-	Buffer->GrColorP3 = GrColorP3;
-	Buffer->GrColorP4 = GrColorP4;
-	Buffer->GrCol1transp = GrCol1transp;
-	Buffer->GrCol2transp = GrCol2transp;
-	Buffer->GrCol3transp = GrCol3transp;
-	Buffer->GrCol4transp = GrCol4transp;
-	Buffer->GrCol1Shade = GrCol1Shade;
-	Buffer->GrCol2Shade = GrCol2Shade;
-	Buffer->GrCol3Shade = GrCol3Shade;
-	Buffer->GrCol4Shade = GrCol4Shade;
-	Buffer->meshGradientArray = meshGradientArray;
-	Buffer->Rot = Rot;
-	Buffer->PLineArt = PLineArt;
-	Buffer->PLineEnd = PLineEnd;
-	Buffer->PLineJoin = PLineJoin;
-	Buffer->LocalScX = LocalScX;
-	Buffer->LocalScY = LocalScY;
-	Buffer->LocalX = LocalX;
-	Buffer->LocalY = LocalY;
-	Buffer->PicArt = PicArt;
-	Buffer->flippedH = imageFlippedH();
-	Buffer->flippedV = imageFlippedV();
-	Buffer->isPrintable = printEnabled();
-	Buffer->isBookmark = isBookmark;
-//	Buffer->BMnr = BMnr;
-	Buffer->m_isAnnotation = m_isAnnotation;
-	Buffer->m_annotation = m_annotation;
-	Buffer->Extra = Extra;
-	Buffer->TExtra = TExtra;
-	Buffer->BExtra = BExtra;
-	Buffer->RExtra = RExtra;
-	Buffer->firstLineOffsetP = firstLineOffsetP;
-	Buffer->Pfile = Pfile;
-	Buffer->Pfile2 = Pfile2;
-	Buffer->Pfile3 = Pfile3;
-	QString Text = "";
-	uint itemTextCount=itemText.length();
-	if (itemTextCount != 0)
-	{
-		for (uint a=0; a<itemTextCount; ++a)
-		{
-			if( (itemText.text(a) == '\n') || (itemText.text(a) == '\r'))
-				Text += QString(QChar(5))+"\t";
-			else if(itemText.text(a) == '\t')
-				Text += QString(QChar(4))+"\t";
-			else
-				Text += itemText.text(a,1)+"\t";
-			Text += itemText.charStyle(a).font().scName()+"\t";
-			Text += QString::number(itemText.charStyle(a).fontSize() / 10.0)+"\t";
-			Text += itemText.charStyle(a).fillColor()+"\t";
-			Text += QString::number(itemText.charStyle(a).tracking())+"\t";
-			Text += QString::number(itemText.charStyle(a).fillShade())+'\t';
-			Text += QString::number(itemText.charStyle(a).effects())+'\t';
-			Text += QString::number(findParagraphStyle(m_Doc, itemText.paragraphStyle(a)))+'\t';
-			Text += itemText.charStyle(a).strokeColor()+"\t";
-			Text += QString::number(itemText.charStyle(a).strokeShade())+'\t';
-			Text += QString::number(itemText.charStyle(a).scaleH())+'\t';
-			Text += QString::number(itemText.charStyle(a).scaleV())+'\t';
-			Text += QString::number(itemText.charStyle(a).baselineOffset())+'\t';
-			Text += QString::number(itemText.charStyle(a).shadowXOffset())+'\t';
-			Text += QString::number(itemText.charStyle(a).shadowYOffset())+'\t';
-			Text += QString::number(itemText.charStyle(a).outlineWidth())+'\t';
-			Text += QString::number(itemText.charStyle(a).underlineOffset())+'\t';
-			Text += QString::number(itemText.charStyle(a).underlineWidth())+'\t';
-			Text += QString::number(itemText.charStyle(a).strikethruOffset())+'\t';
-			Text += QString::number(itemText.charStyle(a).strikethruWidth())+'\n';
-		}
-	}
-	if (asLatexFrame()) {
-		Buffer->itemText = asLatexFrame()->formula();
-	} else {
-		Buffer->itemText = Text;
-	}
-	Buffer->Clip = Clip;
-	Buffer->PoLine = PoLine.copy();
-	Buffer->ContourLine = ContourLine.copy();
-	//Buffer->UseContour = textFlowUsesContourLine();
-	Buffer->DashValues = DashValues;
-	Buffer->DashOffset = DashOffset;
-	Buffer->PoShow = PoShow;
-	Buffer->BaseOffs = BaseOffs;
-	Buffer->textPathFlipped = textPathFlipped;
-	Buffer->textPathType = textPathType;
-	Buffer->TextflowMode = textFlowMode();
-	Buffer->Groups = Groups;
-	Buffer->IProfile = IProfile;
-	Buffer->IRender = IRender;
-	Buffer->UseEmbedded = UseEmbedded;
-	Buffer->EmProfile = EmProfile;
-	Buffer->LayerID = LayerID;
-	Buffer->ScaleType = ScaleType;
-	Buffer->AspectRatio = AspectRatio;
-	Buffer->Locked = locked();
-	Buffer->LockRes = sizeLocked();
-	Buffer->Transparency = fillTransparency();
-	Buffer->TranspStroke = lineTransparency();
-	Buffer->TransBlend = fillBlendmode();
-	Buffer->TransBlendS = lineBlendmode();
-	Buffer->Reverse = Reverse;
-	Buffer->NamedLStyle = NamedLStyle;
-	Buffer->Cols = Cols;
-	Buffer->ColGap = ColGap;
-	Buffer->isTableItem = isTableItem;
-	Buffer->TopLine = TopLine;
-	Buffer->LeftLine = LeftLine;
-	Buffer->RightLine = RightLine;
-	Buffer->BottomLine = BottomLine;
-	if (isTableItem)
-	{
-		if (TopLink != 0)
-			Buffer->TopLinkID = TopLink->ItemNr;
-		else
-			Buffer->TopLinkID = -1;
-		if (LeftLink != 0)
-			Buffer->LeftLinkID = LeftLink->ItemNr;
-		else
-			Buffer->LeftLinkID = -1;
-		if (RightLink != 0)
-			Buffer->RightLinkID = RightLink->ItemNr;
-		else
-			Buffer->RightLinkID = -1;
-		if (BottomLink != 0)
-			Buffer->BottomLinkID = BottomLink->ItemNr;
-		else
-			Buffer->BottomLinkID = -1;
-	}
-	Buffer->startArrowIndex = m_startArrowIndex;
-	Buffer->endArrowIndex = m_endArrowIndex;
-	Buffer->startArrowScale = m_startArrowScale;
-	Buffer->endArrowScale = m_endArrowScale;
-}
-*/
 
 //Moved from View
 void PageItem::SetFrameShape(int count, double *vals)

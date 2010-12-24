@@ -35,7 +35,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
-		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool saveFile(const QString & fileName, const FileFormat & fmt) { return false; };
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - .sla page extraction support
@@ -55,12 +55,8 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(QString fStr, ScribusDoc *doc);
-		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master);
-		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		
-		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		int  itemCount;

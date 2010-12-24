@@ -586,7 +586,6 @@ public:
 	bool isSingleSel;
 	bool isGroupControl;
 	PageItem *groupsLastItem;
-//	void setGroupsLastItem(PageItem* item);
 	QList<PageItem*> groupItemList;
 	virtual QList<PageItem*> getItemList();
 	double groupWidth;
@@ -1225,7 +1224,6 @@ protected:
 	void restoreShapeType(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
 	void restoreGetImage(SimpleState *state, bool isUndo);
-	void restoreGroupsLastItem(SimpleState *state, bool isUndo);
 
 	void restoreShapeContour(UndoState *state, bool isUndo);
 	void restoreImageEffects(UndoState *state, bool isUndo);

@@ -191,7 +191,6 @@ public:
 	void restoreUngrouping(SimpleState *state, bool isUndo);
 	void restoreAddPage(SimpleState *state, bool isUndo);
 	void restoreDeletePage(SimpleState *state, bool isUndo);
-	struct CopyPasteBuffer Buffer;
 	struct CopyContentsBuffer contentsBuffer;
 	bool internalCopy;
 	int  HaveDoc;

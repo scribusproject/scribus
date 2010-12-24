@@ -4870,13 +4870,6 @@ void ScribusMainWindow::slotFileQuit()
 	close();
 }
 
-/*
-static bool hasXMLRootElem(const QString& buffer, const QString& elemtag)
-{
-	return buffer.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0;
-}
-*/
-
 void ScribusMainWindow::slotEditCut()
 {
 //	int a;
@@ -4935,28 +4928,6 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-/*
-			// new version:
-			std::ostringstream xmlString;
-			SaxXML xmlStream(xmlString);
-//			qDebug() << QString("call serializer: %1").arg((ulong) & (doc->m_Selection));
-			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
-			std::string xml(xmlString.str());
-			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
-
-			if (prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook)
-			{
-				ScriXmlDoc ss;
-				QString buffer = ss.WriteElem(doc, doc->m_Selection);
-				scrapbookPalette->ObjFromCopyAction(buffer, currItem->itemName());
-				rebuildRecentPasteMenu();
-			}
-
-			ScFragmentMimeData* mimeData = new ScFragmentMimeData();
-			mimeData->setScribusFragment ( QByteArray(xml.c_str(), xml.length()) );
-			mimeData->setText( QString::fromUtf8(xml.c_str(), xml.length()) );
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-*/
 			ScriXmlDoc ss;
 			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
 			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
@@ -5021,25 +4992,6 @@ void ScribusMainWindow::slotEditCopy()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-/*
-			// new version:
-			std::ostringstream xmlString;
-			SaxXML xmlStream(xmlString);
-			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
-			std::string xml(xmlString.str());
-
-#ifdef DESAXE_DEBUG
-			// debug:
-			SaxXML tmpfile1("tmp-scribus1.xml", true);
-			Serializer::serializeObjects(*doc->m_Selection, tmpfile1);
-			Serializer *digester = doc->serializer();
-			QFile file ("tmp-scribus1.xml");
-			Selection objects = digester->deserializeObjects(file);
-			SaxXML tmpfile2("tmp-scribus2.xml", true);
-			Serializer::serializeObjects(objects, tmpfile2);
-			doc->itemSelection_DeleteItem(&objects);
-#endif
-*/
 			ScriXmlDoc ss;
 			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
 			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
@@ -5113,18 +5065,8 @@ void ScribusMainWindow::slotEditPaste()
 				// HACK #6541 : undo does not handle text modification => do not record embedded item creation
 				// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
 				undoManager->setUndoEnabled(false);
-
-			//	if (ScMimeData::clipboardHasScribusElem())
-			//	{
-					QString buffer  = ScMimeData::clipboardScribusElem();
-					slotElemRead(buffer, 0, 0, false, true, doc, view);
-			//	}
-			//	else
-			//	{
-			//		QByteArray fragment = ScMimeData::clipboardScribusFragment();
-			//		doc->serializer()->deserializeObjects(fragment);
-			//	}
-
+				QString buffer  = ScMimeData::clipboardScribusElem();
+				slotElemRead(buffer, 0, 0, false, true, doc, view);
 				// update style lists:
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();
@@ -5203,34 +5145,8 @@ void ScribusMainWindow::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-			//	if (ScMimeData::clipboardHasScribusElem())
-			//	{
-					QString buffer  = ScMimeData::clipboardScribusElem();
-					slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-			//	}
-			//	else
-			//	{
-			//		QByteArray fragment = ScMimeData::clipboardScribusFragment();
-			//		Selection pastedObjects = doc->serializer()->deserializeObjects(fragment);
-			//		for (int i=0; i < pastedObjects.count(); ++i)
-			//			pastedObjects.itemAt(i)->LayerID = doc->activeLayer();
-
-					/*double x = doc->currentPage()->xOffset();
-					double y = doc->currentPage()->yOffset();
-					for (uint i=0; i < pastedObjects.count(); ++i)
-						if (! pastedObjects.itemAt(i)->isEmbedded)
-						{
-						//	const Page* pg = doc->Pages->at(doc->OnPage(pastedObjects.itemAt(i)));
-						//	if (!pg)
-						//		pg = doc->Pages->at(doc->Pages->count() - 1);
-						//	if (pg)
-						//		pastedObjects.itemAt(i)->moveBy(x - pg->xOffset(), y - pg->yOffset(), true);
-							qDebug() << QString("move pasted: %1 %2,%3 + %4,%5").arg((ulong)pastedObjects.itemAt(i)).arg(x).arg(y).arg(pastedObjects.itemAt(i)->xPos()).arg(pastedObjects.itemAt(i)->yPos());
-							pastedObjects.itemAt(i)->moveBy(x, y, true);
-						}
-					*/
-			//	}
-
+				QString buffer  = ScMimeData::clipboardScribusElem();
+				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 				// update style lists:
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();

@@ -669,15 +669,6 @@ public:
 	 * @brief Copies a normal page to be a master pages
 	 */
 	bool copyPageToMasterPage(const int, const int, const int, const QString&, bool);
-	/**
-	 * @brief Paste an item to the document.
-	 * The bulk of a paste item process runs here for want of a better place, but its a better place
-	 * than the view where it used to be. 
-	 * TODO Once the pageitem restructure is done, this is probably unnecessary but it removes the 
-	 * unnecessary part from the view for now which is overloaded with non ScrollView code.
-	 */
-	//TODO: void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
-	void PasteItem(struct CopyPasteBuffer *Buffer, bool drag = false, bool noResize = true);
 	
 	/**
 	 * @brief Add an Item to the document.

@@ -10,7 +10,6 @@ scribus134formatimpl.h
 
 SET(SCR134FORMAT_FL_PLUGIN_SOURCES
 scribus134format.cpp
-scribus134format_save.cpp
 scribus134formatimpl.cpp
 )
 

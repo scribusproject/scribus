@@ -43,7 +43,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
-		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool saveFile(const QString & fileName, const FileFormat & fmt) { return false; };
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - .sla page extraction support
@@ -111,7 +111,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
 
 		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr = -2 /* currentPage*/);
-
+/*
 		void writeCheckerProfiles(ScXmlStreamWriter& docu);
 		void writeLinestyles(ScXmlStreamWriter& docu);
 		void writeJavascripts(ScXmlStreamWriter& docu);
@@ -138,7 +138,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master);
 		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat);
-
+*/
 		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
