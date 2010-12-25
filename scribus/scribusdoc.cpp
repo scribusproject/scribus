@@ -9117,7 +9117,6 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	PageItem *currItem;
-	int ObjGroup;
 	struct AlignObjs Object;
 	AObjects.clear();
 	for (uint a = 0; a < selectedItemCount; ++a)
@@ -9125,7 +9124,7 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 		currItem = itemSelection->itemAt(a);
 		Object.Objects.clear();
 		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
-		if (currItem->Groups.count() > 0)
+/*		if (currItem->Groups.count() > 0)
 		{
 			ObjGroup = currItem->Groups.top();
 			bool found = false;
@@ -9151,12 +9150,12 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 			}
 		}
 		else
-		{
+		{ */
 			Object.Group = 0;
 			Object.ObjNr = currItem->ItemNr;
 			Object.Objects.append(currItem);
 			AObjects.append(Object);
-		}
+//		}
 	}
 	for (int i = 0; i < AObjects.count(); ++i)
 	{
@@ -11934,7 +11933,6 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 	}
 	itemSelection->getVisualGroupRect(&x, &y, &w, &h);
 	uint lowestItem = 999999;
-//	uint highestItem = 0;
 	for (uint a=0; a<selectedItemCount; ++a)
 	{
 		currItem = itemSelection->itemAt(a);
@@ -11943,7 +11941,6 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 		currItem->gWidth = w;
 		currItem->gHeight = h;
 		lowestItem = qMin(lowestItem, currItem->ItemNr);
-//		highestItem = qMax(highestItem, currItem->ItemNr);
 	}
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
@@ -11958,43 +11955,14 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-/*
-		double lw = 0.0;
-		if (currItem->lineColor() != CommonStrings::None)
-			lw = currItem->lineWidth() / 2.0;
-		if (currItem->rotation() != 0)
-		{
-			FPointArray pb;
-			pb.resize(0);
-			pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-			pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-			pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-			pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
-			{
-				minx = qMin(minx, pb.point(pc).x());
-				miny = qMin(miny, pb.point(pc).y());
-				maxx = qMax(maxx, pb.point(pc).x());
-				maxy = qMax(maxy, pb.point(pc).y());
-			}
-		}
-		else
-		{
-			minx = qMin(minx, currItem->xPos()-lw);
-			miny = qMin(miny, currItem->yPos()-lw);
-			maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-			maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-		}
-*/
 		}
 	double gx = minx;
 	double gy = miny;
 	double gw = maxx - minx;
 	double gh = maxy - miny;
-//	PageItem *high = Items->at(highestItem);
 	bool wasUndo = UndoManager::undoEnabled();
 	undoManager->setUndoEnabled(false);
-	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, docPrefsData.itemToolPrefs.shapeFillColor, docPrefsData.itemToolPrefs.shapeLineColor, true);
+	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *groupItem = Items->takeAt(z);
 	Items->insert(lowestItem, groupItem);
 	groupItem->setItemName( tr("Group%1").arg(GroupCounter));
@@ -12003,36 +11971,24 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 	groupItem->groupHeight = gh;
 	groupItem->LayerID = objectsLayer;
 	undoManager->setUndoEnabled(wasUndo);
-
-//	QMap<int, uint> ObjOrder;
 	for (uint c = 0; c < selectedItemCount; ++c)
 	{
 		currItem = itemSelection->itemAt(c);
-	//	ObjOrder.insert(currItem->ItemNr, c);
 		int d = Items->indexOf(currItem);
 		groupItem->groupItemList.append(Items->takeAt(d));
 	}
-//	QList<uint> Oindex = ObjOrder.values();
-//	for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
-//	{
-//		Items->insert(lowestItem+1, itemSelection->itemAt(Oindex[c]));
-//	}
-
 	renumberItemsInListOrder();
 	itemSelection->clear();
 	itemSelection->addItem(groupItem);
-//	itemSelection->prependItem(groupItem);
 	selectedItemCount = itemSelection->count();
-//	SimpleState *ss = new SimpleState(Um::Group, tooltip);
-//	ss->set("GROUP", "group");
-//	ss->set("itemcount", selectedItemCount);
-
-//	for (uint a=0; a<selectedItemCount; ++a)
-//	{
-//		currItem = itemSelection->itemAt(a);
-//		currItem->Groups.push(GroupCounter);
-//		ss->set(QString("item%1").arg(a), currItem->uniqueNr);
-//	}
+	SimpleState *ss = new SimpleState(Um::Group, tooltip);
+	ss->set("GROUP", "group");
+	ss->set("itemcount", selectedItemCount);
+	for (uint a=0; a<selectedItemCount; ++a)
+	{
+		currItem = itemSelection->itemAt(a);
+		ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+	}
 	GroupCounter++;
 	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));
 	emit docChanged();
@@ -12042,7 +11998,7 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 		m_ScMW->scrActions["itemGroup"]->setEnabled(false);
 		m_ScMW->scrActions["itemUngroup"]->setEnabled(true);
 	}
-//	undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+	undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 	return groupItem;
 }
 
@@ -12054,7 +12010,6 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		uint docSelectionCount = itemSelection->count();
 		PageItem *currItem;
 		QList<PageItem*> toDelete;
-//		QMap<int, QList<PageItem*> > groupObjects; 
 		for (uint a=0; a < docSelectionCount; ++a)
 		{
 			currItem = itemSelection->itemAt(a);
@@ -12065,7 +12020,6 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		// Remove group control objects
 		setLoading(true);
 		itemSelection->delaySignalsOn();
-//		QList<PageItem*>::iterator it;
 		for (int b = 0; b < toDelete.count(); b++)
 		{
 			currItem = toDelete.at(b);

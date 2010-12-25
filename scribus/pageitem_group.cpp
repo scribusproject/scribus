@@ -56,6 +56,17 @@ PageItem_Group::~PageItem_Group()
 //	}
 }
 
+void PageItem_Group::adjustXYPosition()
+{
+	for (int em = 0; em < groupItemList.count(); ++em)
+	{
+		PageItem* embedded = groupItemList.at(em);
+		embedded->setXYPos(xPos() + embedded->gXpos, yPos() + embedded->gYpos, true);
+		if (embedded->isGroup())
+			embedded->asGroupFrame()->adjustXYPosition();
+	}
+}
+
 QList<PageItem*> PageItem_Group::getItemList()
 {
 	QList<PageItem*> ret;

@@ -96,6 +96,12 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		QList<double> originalRotG;
 		QList<double> originalXPosG;
 		QList<double> originalYPosG;
+		QList<double> originalXPosGi;
+		QList<double> originalYPosGi;
+		QList<double> originalWidthG;
+		QList<double> originalHeightG;
+		QList<double> originalWidth;
+		QList<double> originalHeight;
 		QList<PageItem *> patternItemG;
 	private slots:
 		void updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate);

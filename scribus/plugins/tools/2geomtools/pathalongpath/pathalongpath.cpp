@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pathdialog.h"
 #include "pathalongpath.h"
+#include "pageitem_group.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "util.h"
@@ -173,10 +174,17 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			mp.rotate(pathItem->rotation());
 			effectPath.map(mp);
 			PageItem* bxi = currDoc->m_Selection->itemAt(selOffs);
+			bxi->asGroupFrame()->adjustXYPosition();
 			originalPathG.append(bxi->PoLine.copy());
 			originalXPosG.append(bxi->xPos());
 			originalYPosG.append(bxi->yPos());
+			originalXPosGi.append(bxi->gXpos);
+			originalYPosGi.append(bxi->gYpos);
 			originalRotG.append(bxi->rotation());
+			originalWidth.append(bxi->width());
+			originalHeight.append(bxi->height());
+			originalWidthG.append(bxi->groupWidth);
+			originalHeightG.append(bxi->groupHeight);
 			patternItemG.append(bxi);
 			QList<PageItem*> bxiL = bxi->getItemList();
 			for (int bx = 0; bx < bxiL.count(); ++bx)
@@ -185,6 +193,12 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				originalPathG.append(cIte->PoLine.copy());
 				originalXPosG.append(cIte->xPos());
 				originalYPosG.append(cIte->yPos());
+				originalWidth.append(cIte->width());
+				originalHeight.append(cIte->height());
+				originalWidthG.append(cIte->groupWidth);
+				originalHeightG.append(cIte->groupHeight);
+				originalXPosGi.append(cIte->gXpos);
+				originalYPosGi.append(cIte->gYpos);
 				originalRotG.append(cIte->rotation());
 				patternItemG.append(cIte);
 			}
@@ -252,26 +266,27 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate)
 {
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-	if (effectType == -1)
+	for (int bx = 0; bx < patternItemG.count(); ++bx)
 	{
-		for (int bx = 0; bx < patternItemG.count(); ++bx)
-		{
-			PageItem* bxi = patternItemG[bx];
-			bxi->PoLine = originalPathG[bx];
-			bxi->Frame = false;
-			bxi->ClipEdited = true;
-			bxi->FrameType = 3;
-			bxi->setXYPos(originalXPosG[bx], originalYPosG[bx]);
-			bxi->setRotation(originalRotG[bx]);
-			currDoc->AdjustItemSize(bxi, true);
-			bxi->OldB2 = bxi->width();
-			bxi->OldH2 = bxi->height();
-			bxi->updateClip();
-			bxi->ContourLine = bxi->PoLine.copy();
-		}
-		firstUpdate = true;
+		PageItem* bxi = patternItemG[bx];
+		bxi->PoLine = originalPathG[bx];
+		bxi->Frame = false;
+		bxi->ClipEdited = true;
+		bxi->FrameType = 3;
+		bxi->setXYPos(originalXPosG[bx], originalYPosG[bx], true);
+		bxi->setRotation(originalRotG[bx]);
+		bxi->gXpos = originalXPosGi[bx];
+		bxi->gYpos = originalYPosGi[bx];
+		bxi->setWidthHeight(originalWidth[bx], originalHeight[bx], true);
+		bxi->groupWidth = originalWidthG[bx];
+		bxi->groupHeight = originalHeightG[bx];
+		bxi->OldB2 = bxi->width();
+		bxi->OldH2 = bxi->height();
+		bxi->updateClip();
+		bxi->ContourLine = bxi->PoLine.copy();
 	}
-	else
+	firstUpdate = true;
+	if (effectType != -1)
 	{
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(effectPath, false);
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > patternpwd2;
@@ -287,8 +302,10 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 		{
 			PageItem* bxi = patternItemG[bx];
 			FPointArray pathP = originalPathG[bx].copy();
-			double deltaX = originalXPosG[bx] - originX;
-			double deltaY = originalYPosG[bx] - originY;
+			FPoint tp(getMinClipF(&pathP));
+			double deltaX, deltaY;
+			deltaX = originalXPosG[bx] - originX;
+			deltaY = originalYPosG[bx] - originY;
 			QTransform mm;
 			mm.rotate(originalRotG[bx]);
 			pathP.map(mm);
@@ -305,12 +322,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->Frame = false;
 			bxi->ClipEdited = true;
 			bxi->FrameType = 3;
-			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY);
-			if (!bxi->isGroup())
-			{
-				bxi->gXpos = deltaX;
-				bxi->gYpos = deltaY;
-			}
+			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY, true);
 			double oW = bxi->width();
 			double oH = bxi->height();
 			currDoc->AdjustItemSize(bxi, true);
