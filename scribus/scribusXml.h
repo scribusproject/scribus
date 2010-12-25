@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QXmlStreamAttributes>
 #include <QXmlStreamReader>
-#include <QXmlStreamWriter>
+//#include <QXmlStreamWriter>
 class PageItem;
 class PrefsManager;
 class SCFonts;
@@ -53,7 +53,7 @@ public:
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub);
 	bool ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer);
 	QString WriteElem(ScribusDoc *doc, Selection *selection);
-	
+/*
 protected:
 	void SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);
 	void WriteObject (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved);
@@ -61,6 +61,7 @@ protected:
 	void WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
 	void WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
 	void WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& style, const QString& nodeName);
+*/
 };
 
 #endif // _SCRIBUS_CONFIG_

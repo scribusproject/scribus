@@ -216,6 +216,11 @@ bool LoadSavePlugin::savePalette(const QString & fileName)
 	return false;
 }
 
+QString LoadSavePlugin::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
+{
+	return "";
+}
+
 bool LoadSavePlugin::loadPalette(const QString & fileName)
 {
 	return false;
@@ -447,6 +452,11 @@ bool FileFormat::saveFile(const QString & fileName) const
 bool FileFormat::savePalette(const QString & fileName) const
 {
 	return (plug && save) ? plug->savePalette(fileName) : false;
+}
+
+QString FileFormat::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) const
+{
+	return (plug && save) ? plug->saveElements(xp, yp, wp, hp, selection, prevData) : "";
 }
 
 bool FileFormat::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const

@@ -87,6 +87,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Save the requested format to the requested path.
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 		virtual bool savePalette(const QString & fileName);
+		virtual QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData);
 
 		// Return last file saved, this may be the last fileName argument passed to saveFile(),
 		// a temporary file name or an empty string if last call to saveFile() could not create
@@ -200,6 +201,7 @@ class SCRIBUS_API FileFormat
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
 		bool savePalette(const QString & fileName) const;
+		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) const;
 		// Get last saved file
 		QString lastSavedFile(void) const;
 		

@@ -70,7 +70,7 @@ using namespace std;
 ScriXmlDoc::ScriXmlDoc()
 {
 }
-
+#if 0
 void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat)
 {
 	double xf, yf;
@@ -322,7 +322,7 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("startArrowScale", item->startArrowScale());
 	writer.writeAttribute("endArrowScale"  , item->endArrowScale());
 }
-
+#endif
 bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
 {
 	QString ff = "";
@@ -409,6 +409,100 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	return false;
 }
 
+QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
+{
+	if (selection->count()==0)
+		return "";
+	double xp, yp, wp, hp;
+	QString tmp, tmpy;
+	PageItem *item;
+	QString documentStr = "";
+	item = selection->itemAt(0);
+	QList<PageItem*> emG;
+	emG.clear();
+	for (int cor = 0; cor < selection->count(); ++cor)
+	{
+		emG.append(selection->itemAt(cor));
+	}
+	double selectionWidth = 0;
+	double selectionHeight = 0;
+	if (selection->isMultipleSelection())
+	{
+		double gx, gy, gw, gh;
+		selection->getGroupRect(&gx, &gy, &gw, &gh);
+		xp = gx - doc->currentPage()->xOffset();
+		yp = gy - doc->currentPage()->yOffset();
+		wp = gw;
+		hp = gh;
+		selection->getVisualGroupRect(&gx, &gy, &selectionWidth, &selectionHeight);
+	}
+	else
+	{
+		if (item->rotation() != 0)
+		{
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			double xpo = item->xPos() - doc->currentPage()->xOffset();
+			double ypo = item->yPos() - doc->currentPage()->yOffset();
+			FPointArray pb(4);
+			pb.setPoint(0, FPoint(xpo, ypo));
+			pb.setPoint(1, FPoint(item->width(), 0.0, xpo, ypo, item->rotation(), 1.0, 1.0));
+			pb.setPoint(2, FPoint(item->width(), item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
+			pb.setPoint(3, FPoint(0.0, item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
+			for (uint pc = 0; pc < 4; ++pc)
+			{
+				minx = qMin(minx, pb.point(pc).x());
+				miny = qMin(miny, pb.point(pc).y());
+				maxx = qMax(maxx, pb.point(pc).x());
+				maxy = qMax(maxy, pb.point(pc).y());
+			}
+			wp = maxx - minx;
+			hp = maxy - miny;
+		}
+		else
+		{
+			wp = item->width();
+			hp = item->height();
+		}
+		selectionWidth = item->visualWidth();
+		selectionHeight = item->visualHeight();
+		xp = item->xPos() - doc->currentPage()->xOffset();
+		yp = item->yPos() - doc->currentPage()->yOffset();
+	}
+	double scaleI = 50.0 / qMax(selectionWidth, selectionHeight);
+	QImage retImg = QImage(50, 50, QImage::Format_ARGB32_Premultiplied);
+	retImg.fill( qRgba(0, 0, 0, 0) );
+	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
+	painter->setZoomFactor(scaleI);
+	for (int em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		painter->save();
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->setXYPos(embedded->xPos()- doc->currentPage()->xOffset() - xp, embedded->yPos()- doc->currentPage()->yOffset() - yp, true);
+		embedded->invalid = true;
+		embedded->DrawObj(painter, QRectF());
+		embedded->setXYPos(x, y, true);
+		painter->restore();
+	}
+	delete painter;
+	QBuffer buffer;
+	buffer.open(QIODevice::WriteOnly);
+	retImg.save(&buffer, "PNG");
+	QByteArray ba = buffer.buffer().toBase64();
+	buffer.close();
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
+	if (fmt)
+	{
+		fmt->setupTargets(doc, 0, doc->scMW(), 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+		documentStr = fmt->saveElements(xp, yp, wp, hp, selection, ba);
+	}
+	return documentStr;
+}
+#if 0
 QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 {
 	if (selection->count()==0)
@@ -735,7 +829,6 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	writer.writeEndDocument();
 	return documentStr;
 }
-
 void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved)
 {
 	QString text, tmp, tmpy;
@@ -1272,3 +1365,4 @@ void ScriXmlDoc::WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& s
 
 	writer.writeEndElement();
 }
+#endif

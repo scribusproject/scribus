@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "ui/missing.h"
 #include "prefsmanager.h"
+#include "resourcecollection.h"
 #include "scconfig.h"
 #include "scpattern.h"
 #include "scribusdoc.h"
@@ -35,6 +36,56 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 
 #include "scxmlstreamwriter.h"
+
+QString Scribus150Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
+{
+	QString fileDir = QDir::homePath();
+	QString documentStr;
+	documentStr.reserve(524288);
+	ScXmlStreamWriter writer(&documentStr);
+	writer.setAutoFormatting(true);
+	writer.writeStartElement("SCRIBUSELEMUTF8");
+	writer.writeAttribute("XP", xp);
+	writer.writeAttribute("YP", yp);
+	writer.writeAttribute("W", wp);
+	writer.writeAttribute("H", hp);
+	writer.writeAttribute("COUNT",   selection->count());
+	writer.writeAttribute("Version", QString(VERSION));
+	writer.writeAttribute("previewData", QString(prevData));
+	writeColors(writer, true);
+	writeGradients(writer, true);
+	ResourceCollection lists;
+	QList<PageItem*> emG;
+	for (int cor = 0; cor < selection->count(); ++cor)
+	{
+		selection->itemAt(cor)->getNamedResources(lists);
+		emG.append(selection->itemAt(cor));
+	}
+	QList<QString>::Iterator it;
+	QList<QString> names = lists.styleNames();
+	for (it = names.begin(); it != names.end(); ++it)
+	{
+		putPStyle(writer, m_Doc->paragraphStyles().get(*it), "STYLE");
+	}
+	names = lists.charStyleNames();
+	for (it = names.begin(); it != names.end(); ++it)
+	{
+		writer.writeStartElement("CHARSTYLE");
+		putNamedCStyle(writer, m_Doc->charStyles().get(*it));
+		writer.writeEndElement();
+	}
+/*	names = lists.lineStyleNames();
+	for (it = names.begin(); it != names.end(); ++it)
+	{
+		writeLinestyles(writer, true, *it);
+	} */
+	writeLinestyles(writer);
+	writePatterns(writer, fileDir, true, selection);
+	WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionElements, &emG);
+	writer.writeEndElement();
+	writer.writeEndDocument();
+	return documentStr;
+}
 
 bool Scribus150Format::savePalette(const QString & fileName)
 {
@@ -269,7 +320,6 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("calligrapicPenStyle", m_Doc->itemToolPrefs().calligrapicPenStyle);
 
 	writeCheckerProfiles(docu);
-	writeLinestyles(docu);
 	writeJavascripts(docu);
 	writeBookmarks(docu);
 	writeColors(docu);
@@ -277,6 +327,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeHyphenatorLists(docu);
 	writePStyles(docu);
 	writeCStyles(docu);
+	writeLinestyles(docu);
 	writeLayers(docu);
 	writePrintOptions(docu);
 	writePdfOptions(docu);
@@ -417,10 +468,15 @@ void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu)
 }
 
 
-void Scribus150Format::writeColors(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part) 
 {	
 	ColorList::Iterator itc;
-	for (itc = m_Doc->PageColors.begin(); itc != m_Doc->PageColors.end(); ++itc)
+	ColorList usedColors;
+	if (part)
+		m_Doc->getUsedColors(usedColors);
+	else
+		usedColors = m_Doc->PageColors;
+	for (itc = usedColors.begin(); itc != usedColors.end(); ++itc)
 	{
 		docu.writeEmptyElement("COLOR");
 		docu.writeAttribute("NAME",itc.key());
@@ -434,10 +490,15 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu)
 	
 }
 
-void Scribus150Format::writeGradients(ScXmlStreamWriter & docu)
+void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
 {
 	QMap<QString, VGradient>::Iterator itGrad;
-	for (itGrad = m_Doc->docGradients.begin(); itGrad != m_Doc->docGradients.end(); ++itGrad)
+	QMap<QString, VGradient> gradMap;
+	if (part)
+		m_Doc->getUsedGradients(gradMap);
+	else
+		gradMap = m_Doc->docGradients;
+	for (itGrad = gradMap.begin(); itGrad != gradMap.end(); ++itGrad)
 	{
 		docu.writeStartElement("Gradient");
 		docu.writeAttribute("Name",itGrad.key());
@@ -911,9 +972,13 @@ void Scribus150Format::writePageSets(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir) 
+void Scribus150Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir, bool part, Selection* selection)
 {
-	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->docPatterns.keys());
+	QStringList patterns;
+	if (part)
+		patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatternsSelection(selection));
+	else
+		patterns = m_Doc->getPatternDependencyList(m_Doc->docPatterns.keys());
 	for (int a = 0; a < patterns.count(); a++)
 	{
 		docu.writeStartElement("Pattern");
@@ -1161,6 +1226,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			break;
 		case ItemSelectionGroup:
 		case ItemSelectionPattern:
+		case ItemSelectionElements:
 			items = some_items;
 			break;
 		default:
@@ -1191,6 +1257,19 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			case ItemSelectionPattern:
 				docu.writeStartElement("PatternItem");
 				break;
+			case ItemSelectionElements:
+				docu.writeStartElement("ITEM");
+				break;
+		}
+		if (master == ItemSelectionElements)
+		{
+			docu.writeAttribute("XPOS", item->xPos() - doc->currentPage()->xOffset());
+			docu.writeAttribute("YPOS", item->yPos() - doc->currentPage()->yOffset());
+		}
+		else
+		{
+			docu.writeAttribute("XPOS", item->xPos());
+			docu.writeAttribute("YPOS", item->yPos());
 		}
 		SetItemProps(docu, item, baseDir, true);
 		docu.writeAttribute("OnMasterPage", item->OnMasterPage);
@@ -1558,8 +1637,8 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (newFormat)
 		docu.writeAttribute("OwnPage", item->OwnPage);
 	docu.writeAttribute("PTYPE",item->realItemType());
-	docu.writeAttribute("XPOS",item->xPos());
-	docu.writeAttribute("YPOS",item->yPos());
+//	docu.writeAttribute("XPOS",item->xPos());
+//	docu.writeAttribute("YPOS",item->yPos());
 	docu.writeAttribute("WIDTH",item->width());
 	docu.writeAttribute("HEIGHT",item->height());
 	docu.writeAttribute("RADRECT",item->cornerRadius());

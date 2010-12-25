@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusstructs.h"
 #include "styles/styleset.h"
+#include "selection.h"
 
 #include <QMap>
 #include <QString>
@@ -45,6 +46,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 		virtual bool savePalette(const QString & fileName);
+		virtual QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData);
 		virtual bool loadPalette(const QString & fileName);
 		virtual bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
@@ -66,6 +68,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 			ItemSelectionFrame  = 2,
 			ItemSelectionPattern= 3,
 			ItemSelectionGroup  = 4,
+			ItemSelectionElements = 5,
 		};
 
 		class ItemInfo
@@ -121,8 +124,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeLinestyles(ScXmlStreamWriter& docu);
 		void writeJavascripts(ScXmlStreamWriter& docu);
 		void writeBookmarks(ScXmlStreamWriter& docu);
-		void writeColors(ScXmlStreamWriter& docu);
-		void writeGradients(ScXmlStreamWriter & docu);
+		void writeColors(ScXmlStreamWriter& docu, bool part = false);
+		void writeGradients(ScXmlStreamWriter & docu, bool part = false);
 		void writeHyphenatorLists(ScXmlStreamWriter& docu);
 		void writePStyles(ScXmlStreamWriter& docu);
 		void writeCStyles(ScXmlStreamWriter& docu);
@@ -138,7 +141,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeTOC(ScXmlStreamWriter& docu);
 		void writePageSets(ScXmlStreamWriter& docu);
 		void writeSections(ScXmlStreamWriter& docu);
-		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir);
+		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir, bool part = false, Selection* selection = 0);
 		void writeContent(ScXmlStreamWriter& docu, const QString& baseDir);
 
 		void WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master);
