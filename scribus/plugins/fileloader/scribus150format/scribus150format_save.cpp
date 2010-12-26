@@ -84,6 +84,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionElements, &emG);
 	writer.writeEndElement();
 	writer.writeEndDocument();
+	documentStr.squeeze();
 	return documentStr;
 }
 

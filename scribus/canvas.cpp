@@ -25,6 +25,7 @@
 #include "canvasmode.h"
 #include "page.h"
 #include "pageitem_textframe.h"
+#include "pageitem_group.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scpainter.h"
@@ -438,6 +439,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				{
 					if (currItem->isGroup() && allowInGroup)
 					{
+						currItem->asGroupFrame()->adjustXYPosition();
 						PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
 						if (ret != NULL)
 							return ret;
@@ -476,6 +478,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			{
 				if (currItem->isGroup() && allowInGroup)
 				{
+					currItem->asGroupFrame()->adjustXYPosition();
 					PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
 					if (ret != NULL)
 						return ret;

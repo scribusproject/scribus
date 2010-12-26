@@ -53,15 +53,6 @@ public:
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub);
 	bool ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer);
 	QString WriteElem(ScribusDoc *doc, Selection *selection);
-/*
-protected:
-	void SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);
-	void WriteObject (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved);
-	void WriteITEXTs (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item);
-	void WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
-	void WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
-	void WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& style, const QString& nodeName);
-*/
 };
 
 #endif // _SCRIBUS_CONFIG_
