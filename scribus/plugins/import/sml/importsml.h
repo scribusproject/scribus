@@ -63,6 +63,7 @@ private:
 	QString processColor(QDomElement &elem);
 	void processStrokeNode(QDomElement &elem);
 	void processFillNode(QDomElement &elem);
+	void processLineNode(QDomElement &elem);
 	void processPointNode(QDomElement &elem);
 	
 	QList<PageItem*> Elements;

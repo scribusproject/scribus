@@ -403,6 +403,7 @@ void SmlPlug::finishItem(QDomElement &e, PageItem* ite)
 	ite->setLineJoin(LineJoin);
 	ite->setLineEnd(LineEnd);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	m_Doc->AdjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
@@ -436,6 +437,8 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 				processFillNode(pg);
 			else if (pg.tagName() == "KivioPoint")
 				processPointNode(pg);
+			else if (pg.tagName() == "Line")
+				processLineNode(pg);
 			node = node.nextSibling();
 		}
 	}
@@ -527,6 +530,21 @@ void SmlPlug::processFillNode(QDomElement &elem)
 		CurrColorFill = CommonStrings::None;
 	else
 		CurrColorFill = processColor(elem);
+}
+
+void SmlPlug::processLineNode(QDomElement &elem)
+{
+	double x = ScCLocale::toDoubleC(elem.attribute("x1"));
+	double y = ScCLocale::toDoubleC(elem.attribute("y1"));
+	double x1 = ScCLocale::toDoubleC(elem.attribute("x2"));
+	double y1 = ScCLocale::toDoubleC(elem.attribute("y2"));
+	if (!first)
+		Coords.setMarker();
+	Coords.addPoint(x, y);
+	Coords.addPoint(x, y);
+	Coords.addPoint(x1, y1);
+	Coords.addPoint(x1, y1);
+	first = false;
 }
 
 void SmlPlug::processPointNode(QDomElement &elem)
