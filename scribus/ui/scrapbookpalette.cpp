@@ -87,17 +87,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	QFileInfo fi(dt);
 	QMimeData *mimeData = new QMimeData;
 	QList<QUrl> urlList;
-	if (fi.suffix().toLower() == "sml")
-	{
-		QByteArray cf;
-		loadRawText(dt, cf);
-		QString f = QString::fromUtf8(cf.data());
-		StencilReader *pre = new StencilReader();
-		dt = pre->createObjects(f);
-		delete pre;
-		mimeData->setText(dt);
-	}
-	else if (fi.suffix().toLower() == "shape")
+	if (fi.suffix().toLower() == "shape")
 	{
 		QByteArray cf;
 		loadRawText(dt, cf);
@@ -568,8 +558,6 @@ void BibView::ReadContents(QString name)
 	fileCount += dd.count();
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	fileCount += d.count();
-	QDir d2(name, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-	fileCount += d2.count();
 	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	fileCount += d3.count();
 	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
@@ -646,42 +634,6 @@ void BibView::ReadContents(QString name)
 			}
 			previewFiles.append(fi.baseName()+".png");
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), pm);
-		}
-	}
-	if ((d2.exists()) && (d2.count() != 0))
-	{
-		for (uint dc = 0; dc < d2.count(); ++dc)
-		{
-			if (pgDia)
-			{
-				pgDia->setValue(readCount);
-				readCount++;
-			}
-			QPixmap pm;
-			QByteArray cf;
-			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])), cf))
-				continue;
-			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			if (fi2.exists())
-				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-			else
-			{
-				if (fi3.exists())
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-				else
-				{
-					QString f = QString::fromUtf8(cf.data());
-					StencilReader *pre = new StencilReader();
-					pm = pre->createPreview(f);
-					if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-						pm.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")), "PNG");
-					delete pre;
-				}
-			}
-			previewFiles.append(fi.baseName()+".png");
-			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])), pm);
 		}
 	}
 	if ((d3.exists()) && (d3.count() != 0))

@@ -1280,11 +1280,9 @@ void CanvasMode_Normal::importToPage()
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
 	}
 	allFormats += "*.sce *.SCE ";
-	allFormats += "*.shape *.SHAPE ";
-	allFormats += "*.sml *.SML);;";
+	allFormats += "*.shape *.SHAPE);;";
 	formats += "Scribus Objects (*.sce *.SCE);;";
-	formats += "Dia Shapes (*.shape *.SHAPE);;";
-	formats += "Kivio Stencils (*.sml *.SML)";
+	formats += "Dia Shapes (*.shape *.SHAPE)";
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
@@ -1299,15 +1297,7 @@ void CanvasMode_Normal::importToPage()
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
 		m_doc->setLoading(true);
 		QFileInfo fi(fileName);
-		if (fi.suffix().toLower() == "sml")
-		{
-			QString f = "";
-			loadText(fileName, &f);
-			StencilReader *pre = new StencilReader();
-			fileName = pre->createObjects(f);
-			delete pre;
-		}
-		else if (fi.suffix().toLower() == "shape")
+		if (fi.suffix().toLower() == "shape")
 		{
 			QString f = "";
 			loadText(fileName, &f);
@@ -1321,7 +1311,7 @@ void CanvasMode_Normal::importToPage()
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
 			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), true, false, m_doc, m_doc->view());
-		else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
+		else if (fi.suffix().toLower() == "shape")
 			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), false, true, m_doc, m_doc->view());
 		else
 		{

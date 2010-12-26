@@ -104,7 +104,7 @@ QIcon ImIconProvider::icon(const QFileInfo &fi) const
 			return oosxdpm;
 		else if (ext.endsWith("sxw", Qt::CaseInsensitive))
 			return oosxwpm;
-		else if (allFormatsV.contains(ext) || ext.endsWith("sce", Qt::CaseInsensitive) || ext.endsWith("sml", Qt::CaseInsensitive) || ext.endsWith("shape", Qt::CaseInsensitive))
+		else if (allFormatsV.contains(ext) || ext.endsWith("sce", Qt::CaseInsensitive) || ext.endsWith("shape", Qt::CaseInsensitive))
 			return vectorpm;
 		else
 			return QFileIconProvider::icon(fi);
@@ -228,32 +228,6 @@ void FDialogPreview::GenPreview(QString name)
 					repaint();
 				}
 			}
-		}
-	}
-	else if (ext.toUtf8() == "sml")
-	{
-		QPixmap pmi;
-		QByteArray cf;
-		if (loadRawText(name, cf))
-		{
-			QString f = QString::fromUtf8(cf.data());
-			StencilReader *pre = new StencilReader();
-			pmi = pre->createPreview(f);
-			QImage im = pmi.toImage();
-			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-			QPainter p;
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-			pm = *pixmap();
-			p.begin(&pm);
-			p.fillRect(0, 0, w, h-21, b);
-			p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
-			p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
-			QString desc = tr("Size:")+QString(" %1 x %2").arg(im.width()).arg(im.height());
-			p.drawText(2, h-5, desc);
-			p.end();
-			setPixmap(pm);
-			repaint();
-			delete pre;
 		}
 	}
 	else if (ext.toUtf8() == "shape")

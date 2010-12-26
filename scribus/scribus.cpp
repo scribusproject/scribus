@@ -3370,15 +3370,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		else
 		{
 			UndoTransaction pasteAction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
-			if (fi.suffix().toLower() == "sml")
-			{
-				QString f = "";
-				loadText(data, &f);
-				StencilReader *pre = new StencilReader();
-				data = pre->createObjects(f);
-				delete pre;
-			}
-			else if (fi.suffix().toLower() == "shape")
+			if (fi.suffix().toLower() == "shape")
 			{
 				QString f = "";
 				loadText(data, &f);
@@ -3427,6 +3419,7 @@ void ScribusMainWindow::importVectorFile()
 	{
 		if (fmt->load)
 		{
+			qDebug() << "Format " << fmt->filter << " Nr " << fmtCode;
 			formats += fmt->filter + ";;";
 			int an = fmt->filter.indexOf("(");
 			int en = fmt->filter.indexOf(")");
@@ -3441,11 +3434,9 @@ void ScribusMainWindow::importVectorFile()
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
 	}
 	allFormats += "*.sce *.SCE ";
-	allFormats += "*.shape *.SHAPE ";
-	allFormats += "*.sml *.SML);;";
+	allFormats += "*.shape *.SHAPE);;";
 	formats += "Scribus Objects (*.sce *.SCE);;";
-	formats += "Dia Shapes (*.shape *.SHAPE);;";
-	formats += "Kivio Stencils (*.sml *.SML)";
+	formats += "Dia Shapes (*.shape *.SHAPE)";
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
@@ -3459,7 +3450,7 @@ void ScribusMainWindow::importVectorFile()
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi(fileName);
 		QString suffix = fi.suffix().toLower();
-		if ((suffix == "sce") || (suffix == "sml") || (suffix == "shape"))
+		if ((suffix == "sce") || (suffix == "shape"))
 		{
 			QList<QUrl> urls;
 			QMimeData* md = new QMimeData();
@@ -3469,9 +3460,6 @@ void ScribusMainWindow::importVectorFile()
 			dr->setMimeData(md);
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 			dr->setPixmap(dragCursor);
-		//	dr->setDragCursor(dragCursor, Qt::CopyAction);
-		//	dr->setDragCursor(dragCursor, Qt::MoveAction);
-		//	dr->setDragCursor(dragCursor, Qt::LinkAction);
 			dr->exec();
 		}
 		else
@@ -9733,7 +9721,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 		for( int i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].toLocalFile().toLower();
-			if (fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") || fileUrl.endsWith(".sml") || fileUrl.endsWith(".shape") || fileUrl.endsWith(".sce"))
+			if (fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") || fileUrl.endsWith(".shape") || fileUrl.endsWith(".sce"))
 			{
 				accepted = true;
 				break;
@@ -9782,7 +9770,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					loadDoc( fi.absoluteFilePath() );
 				}
 			}
-			else if ((fileUrl.endsWith(".shape")) || (fileUrl.endsWith(".sml")) || (fileUrl.endsWith(".sce")))
+			else if ((fileUrl.endsWith(".shape")) || (fileUrl.endsWith(".sce")))
 			{
 				QUrl url( fileUrls[i] );
 				QFileInfo fi(url.path());
@@ -9800,8 +9788,6 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 						StencilReader *pre = new StencilReader();
 						if (fileUrl.endsWith(".shape"))
 							data = pre->createShape(f);
-						else if (fileUrl.endsWith(".sml"))
-							data = pre->createObjects(f);
 						delete pre;
 					}
 					double gx, gy, gw, gh;

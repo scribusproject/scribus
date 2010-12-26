@@ -915,7 +915,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		bool vectorFile = false;
 		if (fi.exists())
 		{
-			if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce"))
+			if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce"))
 				vectorFile = true;
 			else
 			{
@@ -993,17 +993,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				if (fi.exists())
 				{
 					QString data;
-					if (fi.suffix().toLower() == "sml")
-					{
-						QByteArray cf;
-						loadRawText(url.toLocalFile(), cf);
-						StencilReader *pre = new StencilReader();
-						QString f = QString::fromUtf8(cf.data());
-						data = pre->createObjects(f);
-						delete pre;
-						emit LoadElem(data, dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
-					}
-					else if (fi.suffix().toLower() == "shape")
+					if (fi.suffix().toLower() == "shape")
 					{
 						QByteArray cf;
 						loadRawText(url.toLocalFile(), cf);
