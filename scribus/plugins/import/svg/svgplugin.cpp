@@ -1158,7 +1158,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		if( !e.attribute("id").isEmpty() )
 			neu->setItemName(e.attribute("id"));
 		else
-			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 		neu->AutoName = false;
 		neu->setFillTransparency(1 - gc->Opacity);
 		neu->gXpos = neu->xPos() - gx;
