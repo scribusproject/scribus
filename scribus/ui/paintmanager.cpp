@@ -55,7 +55,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "sctextstream.h"
 #include "scribusXml.h"
-#include "stencilreader.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_color.h"
@@ -1078,9 +1077,7 @@ void PaintManagerDialog::importColorItems()
 				fmt = LoadSavePlugin::getFormatById(fmtCode);
 			}
 			allFormats += "*.sce *.SCE ";
-			allFormats += "*.shape *.SHAPE ";
 			formats.append("Scribus Objects (*.sce *.SCE)");
-			formats.append("Dia Shapes (*.shape *.SHAPE)");
 			QString form1 = "";
 			QString form2 = "";
 			QStringList imgFormats;
@@ -1162,7 +1159,7 @@ void PaintManagerDialog::importColorItems()
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 				QFileInfo fi(fileName);
-				if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
+				if ((fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
 				{
 					loadVectors(fileName);
 				}
@@ -1231,7 +1228,7 @@ void PaintManagerDialog::loadPatternDir()
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
-				if ((ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
+				if ((ext == "sce") || (!formats.contains(ext)))
 					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
@@ -1240,7 +1237,7 @@ void PaintManagerDialog::loadPatternDir()
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
-				if ((ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
+				if ((ext == "sce") || (!formats.contains(ext)))
 					continue;
 				else if (formats.contains(ext))
 				{
@@ -1275,14 +1272,6 @@ void PaintManagerDialog::loadVectors(QString data)
 	m_doc->setLoading(true);
 	QFileInfo fi(data);
 	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-	if (fi.suffix().toLower() == "shape")
-	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createShape(f);
-		delete pre;
-	}
 	uint ac = m_doc->Items->count();
 	uint ap = m_doc->docPatterns.count();
 	bool savedAlignGrid = m_doc->useRaster;
@@ -1293,11 +1282,6 @@ void PaintManagerDialog::loadVectors(QString data)
 	{
 		ScriXmlDoc ss;
 		ss.ReadElem(data, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, PrefsManager::instance()->appPrefs.fontPrefs.GFontSub);
-	}
-	else if (fi.suffix().toLower() == "shape")
-	{
-		ScriXmlDoc ss;
-		ss.ReadElem(data, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, PrefsManager::instance()->appPrefs.fontPrefs.GFontSub);
 	}
 	else
 	{

@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "scconfig.h"
 #include "scgzfile.h"
+#include "sclimits.h"
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
@@ -1122,10 +1123,10 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	}
 	else
 	{
-		double minx = 999999.9;
-		double miny = 999999.9;
-		double maxx = -999999.9;
-		double maxy = -999999.9;
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
 		GElements.append(neu);
 		for (int gr = 0; gr < gElements.count(); ++gr)
 		{

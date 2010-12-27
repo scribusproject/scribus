@@ -111,7 +111,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 #include "serializer.h"
-#include "stencilreader.h"
 #include "ui/storyeditor.h"
 #include "ui/symbolpalette.h"
 #include "text/nlsconfig.h"
@@ -915,7 +914,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		bool vectorFile = false;
 		if (fi.exists())
 		{
-			if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce"))
+			if (fi.suffix().toLower() == "sce")
 				vectorFile = true;
 			else
 			{
@@ -993,17 +992,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				if (fi.exists())
 				{
 					QString data;
-					if (fi.suffix().toLower() == "shape")
-					{
-						QByteArray cf;
-						loadRawText(url.toLocalFile(), cf);
-						StencilReader *pre = new StencilReader();
-						QString f = QString::fromUtf8(cf.data());
-						data = pre->createShape(f);
-						delete pre;
-						emit LoadElem(data, dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
-					}
-					else if (fi.suffix().toLower() == "sce")
+					if (fi.suffix().toLower() == "sce")
 					{
 						emit LoadElem(url.toLocalFile(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
 					}

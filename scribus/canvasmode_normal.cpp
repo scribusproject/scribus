@@ -49,7 +49,6 @@
 #include "scribusview.h"
 #include "scribusXml.h"
 #include "selection.h"
-#include "stencilreader.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
@@ -1279,10 +1278,8 @@ void CanvasMode_Normal::importToPage()
 		fmtCode++;
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
 	}
-	allFormats += "*.sce *.SCE ";
-	allFormats += "*.shape *.SHAPE);;";
+	allFormats += "*.sce *.SCE;;";
 	formats.append("Scribus Objects (*.sce *.SCE)");
-	formats.append("Dia Shapes (*.shape *.SHAPE)");
 	qSort(formats);
 	allFormats += formats.join(";;");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -1298,22 +1295,12 @@ void CanvasMode_Normal::importToPage()
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
 		m_doc->setLoading(true);
 		QFileInfo fi(fileName);
-		if (fi.suffix().toLower() == "shape")
-		{
-			QString f = "";
-			loadText(fileName, &f);
-			StencilReader *pre = new StencilReader();
-			fileName = pre->createShape(f);
-			delete pre;
-		}
 		bool savedAlignGrid = m_doc->useRaster;
 		bool savedAlignGuides = m_doc->SnapGuides;
 		m_doc->useRaster = false;
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
 			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), true, false, m_doc, m_doc->view());
-		else if (fi.suffix().toLower() == "shape")
-			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), false, true, m_doc, m_doc->view());
 		else
 		{
 			FileLoader *fileLoader = new FileLoader(fileName);

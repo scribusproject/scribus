@@ -89,7 +89,6 @@ for which a new license (GPL+exception) is in place.
 #include "canvasmode.h"
 #include "ui/charselect.h"
 #include "ui/checkDocument.h"
-//#include "ui/cmsprefs.h"
 #include "ui/collectforoutput_ui.h"
 #include "ui/colorcombo.h"
 #include "commonstrings.h"
@@ -101,14 +100,12 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/saxXML.h"
 #include "desaxe/simple_actions.h"
 #include "docinfo.h"
-//#include "ui/docitemattrprefs.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
 #include "ui/effectsdialog.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "ui/fontcombo.h"
-//#include "ui/fontprefs.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "gtgettext.h"
@@ -116,7 +113,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/helpbrowser.h"
 #include "ui/hruler.h"
 #include "hyphenator.h"
-//#include "ui/hysettings.h"
 #include "ui/imageinfodialog.h"
 #include "ui/insertaframe.h"
 #include "ui/inspage.h"
@@ -151,7 +147,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pageselector.h"
 #include "pagesize.h"
 #include "ui/paintmanager.h"
-//#include "ui/patterndialog.h"
 #include "pdflib.h"
 #include "pdfoptions.h"
 #include "ui/pdfopts.h"
@@ -160,7 +155,6 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include "ui/polygonwidget.h"
 #include "ui/preferencesdialog.h"
-//#include "ui/prefs.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -170,7 +164,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "pslib.h"
 #include "ui/query.h"
-//#include "ui/reformdoc.h"
 #include "ui/replacecolors.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
@@ -197,19 +190,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui/smlinestyle.h"
 #include "ui/smtextstyles.h"
 #include "ui/splash.h"
-#include "stencilreader.h"
 #include "ui/storyeditor.h"
 #include "ui/stylemanager.h"
 #include "ui/symbolpalette.h"
-//#include "ui/tabcheckdoc.h"
-//#include "ui/tabguides.h"
 #include "ui/tabmanager.h"
-//#include "ui/tabpdfoptions.h"
-//#include "ui/tabtools.h"
-//#include "ui/tabtypography.h"
 #include "text/nlsconfig.h"
 #include "tocgenerator.h"
-//#include "ui/tocindexprefs.h"
 #include "ui/transformdialog.h"
 #include "ui/transparencypalette.h"
 #include "ui/copypagetomasterpagedialog.h"
@@ -3370,24 +3356,13 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		else
 		{
 			UndoTransaction pasteAction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
-			if (fi.suffix().toLower() == "shape")
-			{
-				QString f = "";
-				loadText(data, &f);
-				StencilReader *pre = new StencilReader();
-				data = pre->createShape(f);
-				delete pre;
-			}
 			view->Deselect(true);
 			uint ac = doc->Items->count();
 			bool savedAlignGrid = doc->useRaster;
 			bool savedAlignGuides = doc->SnapGuides;
 			doc->useRaster = false;
 			doc->SnapGuides = false;
-			if (fi.suffix().toLower() == "sce")
-				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
-			else
-				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
 			doc->useRaster = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			Selection tmpSelection(this, false);
@@ -3432,10 +3407,8 @@ void ScribusMainWindow::importVectorFile()
 		fmtCode++;
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
 	}
-	allFormats += "*.sce *.SCE ";
-	allFormats += "*.shape *.SHAPE);;";
+	allFormats += "*.sce *.SCE;;";
 	formats.append("Scribus Objects (*.sce *.SCE)");
-	formats.append("Dia Shapes (*.shape *.SHAPE)");
 	qSort(formats);
 	allFormats += formats.join(";;");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -9770,7 +9743,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					loadDoc( fi.absoluteFilePath() );
 				}
 			}
-			else if ((fileUrl.endsWith(".shape")) || (fileUrl.endsWith(".sce")))
+			else if (fileUrl.endsWith(".sce"))
 			{
 				QUrl url( fileUrls[i] );
 				QFileInfo fi(url.path());
@@ -9780,16 +9753,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					QString data;
 					QByteArray cf;
 					loadRawText(url.toLocalFile(), cf);
-					if (fileUrl.endsWith(".sce"))
-						data = QString::fromUtf8(cf.data());
-					else
-					{
-						QString f = QString::fromUtf8(cf.data());
-						StencilReader *pre = new StencilReader();
-						if (fileUrl.endsWith(".shape"))
-							data = pre->createShape(f);
-						delete pre;
-					}
+					data = QString::fromUtf8(cf.data());
 					double gx, gy, gw, gh;
 					ScriXmlDoc *ss = new ScriXmlDoc();
 					if(ss->ReadElemHeader(data, false, &gx, &gy, &gw, &gh))
@@ -9797,10 +9761,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 						doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 						HaveNewDoc();
 						doc->reformPages(true);
-						if (fileUrl.endsWith(".sce"))
-							slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
-						else
-							slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+						slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
 						slotDocCh(false);
 						doc->regionsChanged()->update(QRectF());
 						delete ss;

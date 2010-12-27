@@ -591,7 +591,7 @@ SET(SCRIBUS_SOURCES
   scxmlstreamreader.cpp
   selection.cpp
   serializer.cpp
-  stencilreader.cpp
+#  stencilreader.cpp
   styleitem.cpp
   textwriter.cpp
   tocgenerator.cpp

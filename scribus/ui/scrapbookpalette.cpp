@@ -42,7 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpreview.h"
 #include "scimage.h"
 #include "scribuscore.h"
-#include "stencilreader.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"
@@ -87,17 +86,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	QFileInfo fi(dt);
 	QMimeData *mimeData = new QMimeData;
 	QList<QUrl> urlList;
-	if (fi.suffix().toLower() == "shape")
-	{
-		QByteArray cf;
-		loadRawText(dt, cf);
-		QString f = QString::fromUtf8(cf.data());
-		StencilReader *pre = new StencilReader();
-		dt = pre->createShape(f);
-		delete pre;
-		mimeData->setText(dt);
-	}
-	else if (fi.suffix().toLower() == "sce")
+	if (fi.suffix().toLower() == "sce")
 	{
 		if ( fi.exists() )
 		{
@@ -118,7 +107,6 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
 	drag->setPixmap(objectMap[currentItem()->text()].Preview);
-//	drag->setDragCursor(objectMap[currentItem()->text()].Preview, Qt::CopyAction);
 	drag->exec(Qt::CopyAction);
 	clearSelection();
  }
@@ -306,199 +294,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 	s.writeRawData(cs.data(), cs.length());
 	f.close();
 }
-/*
-void BibView::SaveContents(QString name, QString oldName)
-{
-	QDir thumbs(name);
-	if (thumbs.exists())
-	{
-		if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-			thumbs.mkdir(".ScribusThumbs");
-	}
-	QDir d(oldName, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
-	{
-		for (uint dc = 0; dc < d.count(); ++dc)
-		{
-			QByteArray cf;
-			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d[dc])), cf))
-				continue;
-			QString ff = QString::fromUtf8(cf.data());
-			QPixmap pm;
-			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-			if (fi2.exists())
-				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-			else
-			{
-				QString f;
-				if (cf.left(16) == "<SCRIBUSELEMUTF8")
-					f = QString::fromUtf8(cf.data());
-				else
-					f = cf.data();
-				ScPreview *pre = new ScPreview();
-				pm = QPixmap::fromImage(pre->createPreview(f));
-				delete pre;
-			}
-			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])));
-			if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-				pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/.ScribusThumbs/"+fi3.baseName()+".png")), "PNG");
-			checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), QDir::cleanPath(QDir::convertSeparators(name)));
-		}
-	}
-	QDir d2(oldName, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-	if ((d2.exists()) && (d2.count() != 0))
-	{
-		for (uint dc = 0; dc < d2.count(); ++dc)
-		{
-			QByteArray cf;
-			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d2[dc])), cf))
-				continue;
-			QFile fil(QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])));
-			if(!fil.open(QIODevice::WriteOnly))
-				continue ;
-			QDataStream s(&fil);
-			s.writeRawData(cf.data(), cf.length());
-			fil.close();
-			QPixmap pm;
-			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d2[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			if (fi2.exists())
-				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			else
-			{
-				QString f = QString::fromUtf8(cf.data());
-				StencilReader *pre = new StencilReader();
-				pm = pre->createPreview(f);
-				delete pre;
-			}
-			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d2[dc])));
-			if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-				pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/"+fi3.baseName()+".png")), "PNG");
-		}
-	}
-	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-	if ((d3.exists()) && (d3.count() != 0))
-	{
-		for (uint dc = 0; dc < d3.count(); ++dc)
-		{
-			QByteArray cf;
-			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d3[dc])), cf))
-				continue;
-			QFile fil(QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])));
-			if(!fil.open(QIODevice::WriteOnly))
-				continue ;
-			QDataStream s(&fil);
-			s.writeRawData(cf.data(), cf.length());
-			fil.close();
-			QPixmap pm;
-			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d3[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			if (fi2.exists())
-				pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			else
-			{
-				QString f = QString::fromUtf8(cf.data());
-				StencilReader *pre = new StencilReader();
-				QString f2 = pre->createShape(f);
-				ScPreview *pre2 = new ScPreview();
-				pm = QPixmap::fromImage(pre2->createPreview(f2));
-				delete pre;
-				delete pre2;
-			}
-			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])));
-			if (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews)
-				pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/"+fi3.baseName()+".png")), "PNG");
-		}
-	}
-	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
-	for (int v = 0; v < vectorFiles.count(); v++)
-	{
-		QString ext = "*." + vectorFiles[v];
-		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		if ((d4.exists()) && (d4.count() != 0))
-		{
-			for (uint dc = 0; dc < d4.count(); ++dc)
-			{
-				QByteArray cf;
-				if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d4[dc])), cf))
-					continue;
-				QFile fil(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-				if(!fil.open(QIODevice::WriteOnly))
-					continue ;
-				QDataStream s(&fil);
-				s.writeRawData(cf.data(), cf.length());
-				fil.close();
-				QPixmap pm;
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				if (fi2.exists())
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				else
-				{
-					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-					int testResult = fileLoader->TestFile();
-					delete fileLoader;
-					if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
-					{
-						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-						if( fmt )
-						{
-							QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-							im = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-							pm = QPixmap::fromImage(im);
-						}
-					}
-				}
-				QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(name + "/" + d4[dc])));
-				if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-					pm.save(QDir::cleanPath(QDir::convertSeparators(fi3.path()+"/.ScribusThumbs/"+fi3.fileName()+".png")), "PNG");
-			}
-		}
-	}
-	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
-	QStringList rasterFiles = formatD.split("|");
-	for (int v = 0; v < rasterFiles.count(); v++)
-	{
-		QString ext = "*." + rasterFiles[v];
-		QDir d5(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		if ((d5.exists()) && (d5.count() != 0))
-		{
-			for (uint dc = 0; dc < d5.count(); ++dc)
-			{
-				QByteArray cf;
-				if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(oldName + "/" + d5[dc])), cf))
-					continue;
-				QFile fil(QDir::cleanPath(QDir::convertSeparators(name + "/" + d5[dc])));
-				if(!fil.open(QIODevice::WriteOnly))
-					continue ;
-				QDataStream s(&fil);
-				s.writeRawData(cf.data(), cf.length());
-				fil.close();
-				QPixmap pm;
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d5[dc])));
-				QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				if (fi2.exists())
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				else
-				{
-					bool mode = false;
-					ScImage im;
-					CMSettings cms(0, "", Intent_Perceptual);
-					cms.allowColorManagement(false);
-					if (im.loadPicture(QDir::cleanPath(QDir::convertSeparators(name + "/" + d5[dc])), 1, cms, ScImage::Thumbnail, 72, &mode))
-					{
-						QImage img = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-						if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-							img.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
-						pm = QPixmap::fromImage(img);
-					}
-				}
-			}
-		}
-	}
-}
-*/
+
 void BibView::ReadOldContents(QString name, QString newName)
 {
 	bool isUtf8 = false;
@@ -558,8 +354,6 @@ void BibView::ReadContents(QString name)
 	fileCount += dd.count();
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	fileCount += d.count();
-	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-	fileCount += d3.count();
 	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	for (int v = 0; v < vectorFiles.count(); v++)
 	{
@@ -634,56 +428,6 @@ void BibView::ReadContents(QString name)
 			}
 			previewFiles.append(fi.baseName()+".png");
 			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d[dc])), pm);
-		}
-	}
-	if ((d3.exists()) && (d3.count() != 0))
-	{
-		for (uint dc = 0; dc < d3.count(); ++dc)
-		{
-			if (pgDia)
-			{
-				pgDia->setValue(readCount);
-				readCount++;
-			}
-			QPixmap pm;
-			QByteArray cf;
-			if (!loadRawText(QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])), cf))
-				continue;
-			QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])));
-			QFileInfo fi2(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-			QFileInfo fi2p(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".xpm")));
-			QFileInfo fi3(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-			if ((fi2.exists()) || (fi2p.exists()) || (fi3.exists()))
-			{
-				if (fi3.exists())
-				{
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")));
-					previewFiles.append(fi.baseName()+".png");
-				}
-				else if (fi2.exists())
-				{
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".png")));
-					previewFiles.append(fi.baseName()+".png");
-				}
-				else if (fi2p.exists())
-				{
-					pm.load(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/"+fi.baseName()+".xpm")));
-					previewFiles.append(fi.baseName()+".xpm");
-				}
-			}
-			else
-			{
-				QString f = QString::fromUtf8(cf.data());
-				StencilReader *pre = new StencilReader();
-				QString f2 = pre->createShape(f);
-				ScPreview *pre2 = new ScPreview();
-				pm = QPixmap::fromImage(pre2->createPreview(f2));
-				if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-					pm.save(QDir::cleanPath(QDir::convertSeparators(fi.path()+"/.ScribusThumbs/"+fi.baseName()+".png")), "PNG");
-				delete pre;
-				delete pre2;
-			}
-			AddObj(fi.baseName(), QDir::cleanPath(QDir::convertSeparators(name + "/" + d3[dc])), pm);
 		}
 	}
 	for (int v = 0; v < vectorFiles.count(); v++)
