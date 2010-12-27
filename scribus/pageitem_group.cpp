@@ -192,6 +192,18 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			}
 			p->endLayer();
 			p->restore();
+			if (m_Doc->guidesPrefs().framesShown)
+			{
+				for (int em = 0; em < groupItemList.count(); ++em)
+				{
+					PageItem* embedded = groupItemList.at(em);
+					double x = embedded->xPos();
+					double y = embedded->yPos();
+					embedded->setXYPos(embedded->gXpos, embedded->gYpos, true);
+					embedded->DrawObj_Decoration(p);
+					embedded->setXYPos(x, y, true);
+				}
+			}
 		}
 		else
 		{
