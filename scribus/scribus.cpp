@@ -3411,7 +3411,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 void ScribusMainWindow::importVectorFile()
 {
 	QString fileName = "";
-	QString formats = "";
+	QStringList formats;
 	QString allFormats = tr("All Supported Formats")+" (";
 	int fmtCode = FORMATID_ODGIMPORT;
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
@@ -3419,8 +3419,7 @@ void ScribusMainWindow::importVectorFile()
 	{
 		if (fmt->load)
 		{
-			qDebug() << "Format " << fmt->filter << " Nr " << fmtCode;
-			formats += fmt->filter + ";;";
+			formats.append(fmt->filter);
 			int an = fmt->filter.indexOf("(");
 			int en = fmt->filter.indexOf(")");
 			while (an != -1)
@@ -3435,9 +3434,10 @@ void ScribusMainWindow::importVectorFile()
 	}
 	allFormats += "*.sce *.SCE ";
 	allFormats += "*.shape *.SHAPE);;";
-	formats += "Scribus Objects (*.sce *.SCE);;";
-	formats += "Dia Shapes (*.shape *.SHAPE)";
-	allFormats += formats;
+	formats.append("Scribus Objects (*.sce *.SCE)");
+	formats.append("Dia Shapes (*.shape *.SHAPE)");
+	qSort(formats);
+	allFormats += formats.join(";;");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);

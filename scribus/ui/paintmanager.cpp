@@ -1056,7 +1056,7 @@ void PaintManagerDialog::importColorItems()
 		else if ((it->parent() == patternItems) || (it == patternItems))
 		{
 			QString fileName;
-			QString formats = "";
+			QStringList formats;
 			QString allFormats = tr("All Supported Formats")+" (";
 			int fmtCode = FORMATID_ODGIMPORT;
 			const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
@@ -1064,7 +1064,7 @@ void PaintManagerDialog::importColorItems()
 			{
 				if (fmt->load)
 				{
-					formats += fmt->filter + ";;";
+					formats.append(fmt->filter);
 					int an = fmt->filter.indexOf("(");
 					int en = fmt->filter.indexOf(")");
 					while (an != -1)
@@ -1078,9 +1078,9 @@ void PaintManagerDialog::importColorItems()
 				fmt = LoadSavePlugin::getFormatById(fmtCode);
 			}
 			allFormats += "*.sce *.SCE ";
-			allFormats += "*.shape *.SHAPE);;";
-			formats += "Scribus Objects (*.sce *.SCE);;";
-			formats += "Dia Shapes (*.shape *.SHAPE)";
+			allFormats += "*.shape *.SHAPE ";
+			formats.append("Scribus Objects (*.sce *.SCE)");
+			formats.append("Dia Shapes (*.shape *.SHAPE)");
 			QString form1 = "";
 			QString form2 = "";
 			QStringList imgFormats;
@@ -1092,7 +1092,7 @@ void PaintManagerDialog::importColorItems()
 				form2 = QString(QImageReader::supportedImageFormats().at(i)).toUpper();
 				if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
 				{
-					formats += form2 + " (*."+form1+" *."+form2+");;";
+					formats.append(form2 + " (*."+form1+" *."+form2+")");
 					allFormats += "*."+form1+" *."+form2+" ";
 					imgFormats.append(form1);
 				}
@@ -1102,7 +1102,7 @@ void PaintManagerDialog::importColorItems()
 					// are acceptable extensions.
 					if (!jpgFound)
 					{
-						formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+						formats.append("JPEG (*.jpg *.jpeg *.JPG *.JPEG)");
 						allFormats += "*.jpg *.jpeg *.JPG *.JPEG ";
 						imgFormats.append("jpeg");
 						imgFormats.append("jpg");
@@ -1113,7 +1113,7 @@ void PaintManagerDialog::importColorItems()
 				{
 					if (!tiffFound)
 					{
-						formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+						formats.append("TIFF (*.tif *.tiff *.TIF *.TIFF)");
 						allFormats += "*.tif *.tiff *.TIF *.TIFF ";
 						imgFormats.append("tif");
 						imgFormats.append("tiff");
@@ -1128,17 +1128,16 @@ void PaintManagerDialog::importColorItems()
 			}
 			if (!tiffFound)
 			{
-				formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+				formats.append("TIFF (*.tif *.tiff *.TIF *.TIFF)");
 				allFormats += "*.tif *.tiff *.TIF *.TIFF ";
 			}
 			if (!jpgFound)
 			{
-				formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+				formats.append("JPEG (*.jpg *.jpeg *.JPG *.JPEG)");
 				allFormats += "*.jpg *.jpeg *.JPG *.JPEG ";
 			}
-			formats += "PSD (*.psd *.PSD);;";
-			formats += "Gimp Patterns (*.pat *.PAT);;";
-			formats += tr("All Files (*)");
+			formats.append("PSD (*.psd *.PSD)");
+			formats.append("Gimp Patterns (*.pat *.PAT)");
 			allFormats += "*.psd *.PSD ";
 			allFormats += "*.pat *.PAT);;";
 			imgFormats.append("tif");
@@ -1149,7 +1148,8 @@ void PaintManagerDialog::importColorItems()
 			imgFormats.append("eps");
 			imgFormats.append("epsi");
 			imgFormats.append("ps");
-			allFormats += formats;
+			qSort(formats);
+			allFormats += formats.join(";;");
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 			QString wdir = dirs->get("patterns", ".");
 			CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
