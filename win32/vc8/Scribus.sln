@@ -240,6 +240,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-cairo", "scribus-ca
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-pgf", "scribus-pgf\scribus-pgf.vcproj", "{AAA3586D-6218-4CDB-BDD2-BC0198946661}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smlimport", "smlimport\smlimport.vcproj", "{610E7F1D-5850-4294-96DD-B949D00E3176}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-arthur|Win32 = Debug-arthur|Win32
@@ -648,6 +650,14 @@ Global
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{610E7F1D-5850-4294-96DD-B949D00E3176}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

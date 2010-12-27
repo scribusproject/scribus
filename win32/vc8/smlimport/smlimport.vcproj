@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="scribus134format"
-	ProjectGUID="{B9131D43-8E1B-4660-A5C1-B58F9D8BDCF7}"
-	RootNamespace="scribus134format"
+	Name="smlimport"
+	ProjectGUID="{610E7F1D-5850-4294-96DD-B949D00E3176}"
+	RootNamespace="smlimport"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -30,16 +30,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -57,7 +54,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins/\&quot;;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -80,13 +77,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcms2_staticd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\scribus134format.dll"
+				OutputFile="$(OutDir)\importsml.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\scribus134format.pdb"
+				ProgramDatabaseFile="$(OutDir)\importsml.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\scribus134format.lib"
+				ImportLibrary="$(OutDir)\importsml.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -126,16 +123,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -178,15 +172,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms2_static.lib scribus-api.lib"
-				OutputFile="$(OutDir)\scribus134format.dll"
+				OutputFile="$(OutDir)\importsml.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\scribus134format.pdb"
+				ProgramDatabaseFile="$(OutDir)\importsml.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\scribus134format.lib"
+				ImportLibrary="$(OutDir)\importsml.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -226,16 +220,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -253,7 +244,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..;..\..\..\scribus;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins/\&quot;;AVOID_WIN32_FILEIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -276,13 +267,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib  QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib lcms2_staticd.lib scribus-api.lib"
-				OutputFile="$(OutDir)\scribus134format.dll"
+				OutputFile="$(OutDir)\importsml.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\scribus134format.pdb"
+				ProgramDatabaseFile="$(OutDir)\importsml.pdb"
 				SubSystem="2"
-				ImportLibrary="$(OutDir)\scribus134format.lib"
+				ImportLibrary="$(OutDir)\importsml.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -322,16 +313,13 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="moc.exe"
+			/>
+			<Tool
 				Name="rcc.exe"
 			/>
 			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
 				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
 			/>
 			<Tool
 				Name="uic.exe"
@@ -374,15 +362,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib  QtXml4.lib freetype.lib libjpeg.a libtiff.lib lcms2_static.lib scribus-api.lib"
-				OutputFile="$(OutDir)\scribus134format.dll"
+				OutputFile="$(OutDir)\importsml.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\scribus134format.pdb"
+				ProgramDatabaseFile="$(OutDir)\importsml.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)\scribus134format.lib"
+				ImportLibrary="$(OutDir)\importsml.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -419,15 +407,15 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134format.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\sml\importsml.cpp"
 				>
 			</File>
 			<File
-				RelativePath="scribus134formatdll.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\sml\importsmlplugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134formatimpl.cpp"
+				RelativePath="smlimportdll.cpp"
 				>
 			</File>
 		</Filter>
@@ -436,7 +424,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134format.h"
+				RelativePath="..\..\..\scribus\plugins\import\sml\importsml.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -468,7 +456,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134formatimpl.h"
+				RelativePath="..\..\..\scribus\plugins\import\sml\importsmlplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -504,11 +492,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\scribus134format\moc_scribus134format.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\sml\moc_importsml.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\fileloader\scribus134format\moc_scribus134formatimpl.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\sml\moc_importsmlplugin.cpp"
 				>
 			</File>
 		</Filter>
