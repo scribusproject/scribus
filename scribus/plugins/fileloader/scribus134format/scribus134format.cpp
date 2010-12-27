@@ -2919,7 +2919,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		{
 			currItem->GrStartX = attrs.valueAsDouble("GRSTARTX", 0.0);
 			currItem->GrStartY = attrs.valueAsDouble("GRSTARTY", 0.0);
-			currItem->GrEndX   = attrs.valueAsDouble("GRENDX", 0.0);
+			currItem->GrEndX   = attrs.valueAsDouble("GRENDX", currItem->width());
 			currItem->GrEndY   = attrs.valueAsDouble("GRENDY", 0.0);
 			GrColor = attrs.valueAsString("GRCOLOR","");
 			if (!GrColor.isEmpty())

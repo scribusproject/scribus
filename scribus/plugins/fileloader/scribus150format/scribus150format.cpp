@@ -3696,7 +3696,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		{
 			currItem->GrStartX = attrs.valueAsDouble("GRSTARTX", 0.0);
 			currItem->GrStartY = attrs.valueAsDouble("GRSTARTY", 0.0);
-			currItem->GrEndX   = attrs.valueAsDouble("GRENDX", 0.0);
+			currItem->GrEndX   = attrs.valueAsDouble("GRENDX", currItem->width());
 			currItem->GrEndY   = attrs.valueAsDouble("GRENDY", 0.0);
 			currItem->GrFocalX = attrs.valueAsDouble("GRFOCALX", 0.0);
 			currItem->GrFocalY = attrs.valueAsDouble("GRFOCALY", 0.0);
@@ -3782,7 +3782,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->stroke_gradient.clearStops();
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
 	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
-	currItem->GrStrokeEndX   = attrs.valueAsDouble("GRENDXS", 0.0);
+	currItem->GrStrokeEndX   = attrs.valueAsDouble("GRENDXS", currItem->width());
 	currItem->GrStrokeEndY   = attrs.valueAsDouble("GRENDYS", 0.0);
 	currItem->GrStrokeFocalX = attrs.valueAsDouble("GRFOCALXS", 0.0);
 	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
@@ -3817,7 +3817,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->mask_gradient.clearStops();
 	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
 	currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);
-	currItem->GrMaskEndX   = attrs.valueAsDouble("GRENDXM", 0.0);
+	currItem->GrMaskEndX   = attrs.valueAsDouble("GRENDXM", currItem->width());
 	currItem->GrMaskEndY   = attrs.valueAsDouble("GRENDYM", 0.0);
 	currItem->GrMaskFocalX = attrs.valueAsDouble("GRFOCALXM", 0.0);
 	currItem->GrMaskFocalY = attrs.valueAsDouble("GRFOCALYM", 0.0);

@@ -1850,7 +1850,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 		currItem->GrStartX = ScCLocale::toDoubleC(obj->attribute("GRSTARTX"), 0.0);
 		currItem->GrStartY = ScCLocale::toDoubleC(obj->attribute("GRSTARTY"), 0.0);
-		currItem->GrEndX = ScCLocale::toDoubleC(obj->attribute("GRENDX"), 0.0);
+		currItem->GrEndX = ScCLocale::toDoubleC(obj->attribute("GRENDX"), currItem->width());
 		currItem->GrEndY = ScCLocale::toDoubleC(obj->attribute("GRENDY"), 0.0);
 		GrColor = obj->attribute("GRCOLOR","");
 		if (!GrColor.isEmpty())
