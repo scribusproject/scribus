@@ -164,7 +164,6 @@ PageItem::PageItem(const PageItem & other)
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
-//	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
 	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
 	NextBox(NULL),  // otherwise other.NextBox->BackBox would be inconsistent
@@ -201,8 +200,6 @@ PageItem::PageItem(const PageItem & other)
 	BottomLine(other.BottomLine),
 	isTableItem(other.isTableItem),
 	isSingleSel(other.isSingleSel),
-	isGroupControl(other.isGroupControl),
-	groupsLastItem(other.groupsLastItem),
 	groupItemList(other.groupItemList),
 	groupWidth(other.groupWidth),
 	groupHeight(other.groupHeight),
@@ -571,7 +568,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	setUName(AnName);
 	m_annotation.setBorderColor(outline);
 	HasSel = false;
-//	Tinput = false;
 	isAutoText = false;
 	inPdfArticle = false;
 	isRaster = false;
@@ -817,8 +813,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isSingleSel = false;
 	Dirty = false;
 	invalid = true;
-	isGroupControl = false;
-	groupsLastItem = 0;
 	ChangedMasterItem = false;
 	isEmbedded = false;
 	OnMasterPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageName() : QString();
@@ -1812,23 +1806,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	QList<PageItem*> emG;
 	emG.clear();
 	emG.append(cembedded);
-	if (cembedded->Groups.count() != 0)
-	{
-		for (int ga=0; ga<m_Doc->FrameItems.count(); ++ga)
-		{
-			if (m_Doc->FrameItems.at(ga)->Groups.count() != 0)
-			{
-				if (m_Doc->FrameItems.at(ga)->Groups.top() == cembedded->Groups.top())
-				{
-					if (m_Doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
-					{
-						if (!emG.contains(m_Doc->FrameItems.at(ga)))
-							emG.append(m_Doc->FrameItems.at(ga));
-					}
-				}
-			}
-		}
-	}
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);

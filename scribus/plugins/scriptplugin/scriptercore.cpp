@@ -157,41 +157,6 @@ void ScripterCore::FinishScriptRun()
 		ScMW->pagePalette->setView(ScMW->view);
 		ScMW->pagePalette->Rebuild();
 		ScMW->doc->RePos = true;
-/*		QImage pgPix(10, 10, QImage::Format_ARGB32);
-		QRect rd = QRect(0,0,9,9);
-		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		for (int azz=0; azz<ScMW->doc->Items->count(); ++azz)
-		{
-			PageItem *ite = ScMW->doc->Items->at(azz);
-			if (ite->Groups.count() != 0)
-				ScMW->doc->GroupOnPage(ite);
-			else
-				ite->OwnPage = ScMW->doc->OnPage(ite);
-			ite->setRedrawBounding();
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText)) // && (!ite->Redrawn))
-			{
-				if (ite->itemType() == PageItem::PathText)
-				{
-					ite->Frame = false;
-					ite->updatePolyClip();
-					ite->DrawObj(painter, rd);
-				}
-				else
-				{
-					if ((ite->prevInChain() != 0) || (ite->nextInChain() != 0))
-					{
-						PageItem *nextItem = ite;
-						while (nextItem->prevInChain() != 0)
-							nextItem = nextItem->prevInChain();
-						ite = nextItem;
-						ite->DrawObj(painter, rd);
-					}
-					else
-						ite->DrawObj(painter, rd);
-				}
-			}
-		}
-		delete painter; */
 		ScMW->doc->RePos = false;
 		if (ScMW->doc->m_Selection->count() != 0)
 		{

@@ -591,23 +591,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		return;
 	QList<PageItem*> emG;
 	emG.append(cembedded);
-	if (cembedded->Groups.count() != 0)
-	{
-		for (int ga=0; ga < m_doc->FrameItems.count(); ++ga)
-		{
-			if (m_doc->FrameItems.at(ga)->Groups.count() != 0)
-			{
-				if (m_doc->FrameItems.at(ga)->Groups.top() == cembedded->Groups.top())
-				{
-					if (m_doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
-					{
-						if (!emG.contains(m_doc->FrameItems.at(ga)))
-							emG.append(m_doc->FrameItems.at(ga));
-					}
-				}
-			}
-		}
-	}
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);

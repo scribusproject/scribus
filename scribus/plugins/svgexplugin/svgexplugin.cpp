@@ -1184,41 +1184,12 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 {
 	const CharStyle & charStyle(*hl);
 	QList<PageItem*> emG = hl->embedded.getGroupedItems();
-	QStack<PageItem*> groupStack;
-	QStack<QDomElement> groupStack2;
 	QDomElement layerGroup = docu.createElement("g");
 	if (pathT)
 		layerGroup.setAttribute("transform", MatrixToStr(finalMat));
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
-		if (embedded->isGroupControl)
-		{
-			groupStack.push(embedded->groupsLastItem);
-			groupStack2.push(layerGroup);
-			layerGroup = docu.createElement("g");
-			if (embedded->fillTransparency() != 0)
-				layerGroup.setAttribute("opacity", FToStr(1.0 - embedded->fillTransparency()));
-			QDomElement ob = docu.createElement("clipPath");
-			ob.setAttribute("id", "Clip"+IToStr(ClipCount));
-			QDomElement cl = docu.createElement("path");
-			cl.setAttribute("d", SetClipPath(&embedded->PoLine, true));
-			QTransform mm;
-			mm.translate(xpos + embedded->gXpos * (charStyle.scaleH() / 1000.0), (ypos - (embedded->gHeight * (charStyle.scaleV() / 1000.0)) + embedded->gYpos * (charStyle.scaleV() / 1000.0)));
-			if (charStyle.baselineOffset() != 0)
-				mm.translate(0, embedded->gHeight * (charStyle.baselineOffset() / 1000.0));
-			if (charStyle.scaleH() != 1000)
-				mm.scale(charStyle.scaleH() / 1000.0, 1);
-			if (charStyle.scaleV() != 1000)
-				mm.scale(1, charStyle.scaleV() / 1000.0);
-			mm.rotate(embedded->rotation());
-			cl.setAttribute("transform", MatrixToStr(mm));
-			ob.appendChild(cl);
-			globalDefs.appendChild(ob);
-			layerGroup.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
-			ClipCount++;
-			continue;
-		}
 		QDomElement obE;
 		QString fill = getFillStyle(embedded);
 		QString stroke = "stroke:none";
@@ -1264,17 +1235,6 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 		mm.rotate(embedded->rotation());
 		obE.setAttribute("transform", MatrixToStr(mm));
 		layerGroup.appendChild(obE);
-		if (groupStack.count() != 0)
-		{
-			while (embedded == groupStack.top())
-			{
-				groupStack.pop();
-				groupStack2.top().appendChild(layerGroup);
-				layerGroup = groupStack2.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
 	}
 	for (int em = 0; em < emG.count(); ++em)
 	{

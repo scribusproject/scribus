@@ -3018,28 +3018,17 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		bool hPoly = false;
-		bool isGroup = true;
-		int firstElem = -1;
-		if (currItem->Groups.count() != 0)
-			firstElem = currItem->Groups.top();
 		for (uint bx=0; bx < docSelectionCount; ++bx)
 		{
 			PageItem* bxi=doc->m_Selection->itemAt(bx);
 			if ((bxi->asPolygon()) || (bxi->asPolyLine()))
 				hPoly = true;
-			if (bxi->Groups.count() != 0)
-			{
-				if (bxi->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
 		}
 		// It is possible to select objects on different layer using
 		// document outline palette. We need to check selected objects
 		// are on a common layer before allowing user to group them
 		bool objectsOnSameLayer = (doc->m_Selection->objectsLayer() != -1);
-		scrActions["itemGroup"]->setEnabled(!isGroup && objectsOnSameLayer);
+		scrActions["itemGroup"]->setEnabled(objectsOnSameLayer);
 		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
 		if (docSelectionCount == 2)
 		{
@@ -5046,8 +5035,6 @@ void ScribusMainWindow::slotEditPaste()
 				for (int as = ac; as < doc->Items->count(); ++as)
 				{
 					doc->m_Selection->addItem(doc->Items->at(as));
-					if (isGroup)
-						doc->Items->at(as)->Groups.push(doc->GroupCounter);
 				}
 				doc->m_Selection->delaySignalsOff();
 				if (isGroup)

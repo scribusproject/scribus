@@ -5174,27 +5174,6 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		Page* addedPage = TempPages.at(0);
 		if (Items->count() > 1)
 		{
-		/*	bool isGroup = true;
-			int firstElem = -1;
-			if (currItem->Groups.count() != 0)
-				firstElem = currItem->Groups.top();
-			for (int bx = 0; bx < Items->count(); ++bx)
-			{
-				PageItem* bxi = Items->at(bx);
-				if (bxi->Groups.count() != 0)
-				{
-					if (bxi->Groups.top() != firstElem)
-					{
-						isGroup = false;
-						break;
-					}
-				}
-				else
-				{
-					isGroup = false;
-					break;
-				}
-			} */
 			if ((!currItem->isGroup()) && (Items->count() > 1))
 			{
 				itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
@@ -9124,38 +9103,10 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 		currItem = itemSelection->itemAt(a);
 		Object.Objects.clear();
 		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
-/*		if (currItem->Groups.count() > 0)
-		{
-			ObjGroup = currItem->Groups.top();
-			bool found = false;
-			for (int a2 = 0; a2 < AObjects.count(); ++a2)
-			{
-				if (AObjects[a2].Group == ObjGroup)
-				{
-					AObjects[a2].x1 = qMin(AObjects[a2].x1, Object.x1);
-					AObjects[a2].y1 = qMin(AObjects[a2].y1, Object.y1);
-					AObjects[a2].x2 = qMax(AObjects[a2].x2, Object.x2);
-					AObjects[a2].y2 = qMax(AObjects[a2].y2, Object.y2);
-					AObjects[a2].Objects.append(currItem);
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-			{
-				Object.Group = ObjGroup;
-				Object.ObjNr = 0;
-				Object.Objects.append(currItem);
-				AObjects.append(Object);
-			}
-		}
-		else
-		{ */
-			Object.Group = 0;
-			Object.ObjNr = currItem->ItemNr;
-			Object.Objects.append(currItem);
-			AObjects.append(Object);
-//		}
+		Object.Group = 0;
+		Object.ObjNr = currItem->ItemNr;
+		Object.Objects.append(currItem);
+		AObjects.append(Object);
 	}
 	for (int i = 0; i < AObjects.count(); ++i)
 	{

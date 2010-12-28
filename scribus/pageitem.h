@@ -232,9 +232,6 @@ public:
 			delete tempImageFile;
 	}
 
-//	static const Xml_string saxxDefaultElem;
-//	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
-	
 	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {};
 	void saxx(SaxHandler& handler) const {}
 	
@@ -292,8 +289,6 @@ public:
 			
 protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
-	//void DrawObj_TextFrame(ScPainter *p, QRectF e, double sc);
-	//void DrawObj_Line(ScPainter *p);
 	void DrawObj_Polygon(ScPainter *p);
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
@@ -308,8 +303,6 @@ public:
 	void updatePolyClip();
 	void updateClip();
 	void convertClip();
-	//QRect getRedrawBounding(const double);
-	//void setRedrawBounding();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	QRectF getBoundingRect() const;
@@ -335,7 +328,6 @@ public:
 	 * @return bool true if the x, y is in the bounds 
 	 */
 	bool mouseWithinItem(const int x, const int y, double scale) const;
-//	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
@@ -543,13 +535,6 @@ public:
 	bool ScaleType;
 	bool AspectRatio;
 	QStack<int> Groups;
-//	const QStack<int>& groups() const { return Groups; }
-//	QStack<int>& groups() { return Groups; }
-//	void setGroups( QStack<int> val) { Groups = val; }
-	
-//	bool controlsGroup() const { return isGroupControl; }
-//	void setControlsGroup(bool val) { isGroupControl = val; }
-	
 	QVector<double> DashValues;
 	double DashOffset;
 	const QVector<double>& dashes() const { return DashValues; }
@@ -584,8 +569,6 @@ public:
 	void setTopLink(PageItem* lnk) { TopLink = lnk; }
 	void setBottomLink(PageItem* lnk) { BottomLink = lnk; }
 	bool isSingleSel;
-	bool isGroupControl;
-	PageItem *groupsLastItem;
 	QList<PageItem*> groupItemList;
 	virtual QList<PageItem*> getItemList();
 	double groupWidth;
