@@ -1447,24 +1447,7 @@ void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
 			tmpSelection.addItem(Items->at(itemNr));
 	}
 	if (isUndo)
-	{
-		uint docSelectionCount=tmpSelection.count();
-		PageItem *currItem;
-		uint lowestItem = 999999;
-		for (uint a=0; a<docSelectionCount; ++a)
-		{
-			currItem = tmpSelection.itemAt(a);
-			lowestItem = qMin(lowestItem, currItem->ItemNr);
-		}
-		if ((lowestItem > 0) && (Items->at(lowestItem-1)->Groups.count() != 0))
-		{
-			if (Items->at(lowestItem-1)->Groups.top() == tmpSelection.itemAt(0)->Groups.top())
-			{
-				tmpSelection.addItem(Items->at(lowestItem-1), true);
-			}
-		}
 		itemSelection_UnGroupObjects(&tmpSelection);
-	}
 	else
 		itemSelection_GroupObjects(false, false, &tmpSelection);
 	QRectF rect(x, y , w, h);
@@ -1494,24 +1477,7 @@ void ScribusDoc::restoreUngrouping(SimpleState *state, bool isUndo)
 	if (isUndo)
 		itemSelection_GroupObjects(false, false, &tmpSelection);
 	else
-	{
-		uint docSelectionCount=tmpSelection.count();
-		PageItem *currItem;
-		uint lowestItem = 999999;
-		for (uint a=0; a<docSelectionCount; ++a)
-		{
-			currItem = tmpSelection.itemAt(a);
-			lowestItem = qMin(lowestItem, currItem->ItemNr);
-		}
-		if ((lowestItem > 0) && (Items->at(lowestItem-1)->Groups.count() != 0))
-		{
-			if (Items->at(lowestItem-1)->Groups.top() == tmpSelection.itemAt(0)->Groups.top())
-			{
-				tmpSelection.addItem(Items->at(lowestItem-1));
-			}
-		}
 		itemSelection_UnGroupObjects(&tmpSelection);
-	}
 	QRectF rect(x, y , w, h);
 	regionsChanged()->update(rect.adjusted(-10, -10, 20, 20));
 	m_Selection->delaySignalsOff();
@@ -8558,7 +8524,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = itemSelection->itemAt(offs);
-		if ((((currItem->isSingleSel) && (currItem->Groups.count() != 0)) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
+		if ((((currItem->isSingleSel) && (!Items->contains(currItem))) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
 		{
 			offs++;
 			continue;

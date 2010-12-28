@@ -533,7 +533,6 @@ public:
 	int  LayerID;
 	bool ScaleType;
 	bool AspectRatio;
-	QStack<int> Groups;
 	QVector<double> DashValues;
 	double DashOffset;
 	const QVector<double>& dashes() const { return DashValues; }

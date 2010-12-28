@@ -180,7 +180,6 @@ PageItem::PageItem(const PageItem & other)
 	LayerID(other.LayerID),
 	ScaleType(other.ScaleType),
 	AspectRatio(other.AspectRatio),
-	Groups(other.Groups),
 	DashValues(other.DashValues),
 	DashOffset(other.DashOffset),
 	fill_gradient(other.fill_gradient),
@@ -576,7 +575,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	UseEmbedded = true;
 	IRender = Intent_Relative_Colorimetric;
 	EmProfile = "";
-	Groups.clear();
 	groupItemList.clear();
 	groupWidth = 1.0;
 	groupHeight = 1.0;

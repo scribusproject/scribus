@@ -8924,24 +8924,7 @@ void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
 			view->SelectItemNr(itemNr);
 	}
 	if (isUndo)
-	{
-		uint docSelectionCount=doc->m_Selection->count();
-		PageItem *currItem;
-		uint lowestItem = 999999;
-		for (uint a=0; a<docSelectionCount; ++a)
-		{
-			currItem = doc->m_Selection->itemAt(a);
-			lowestItem = qMin(lowestItem, currItem->ItemNr);
-		}
-		if ((lowestItem > 0) && (doc->Items->at(lowestItem-1)->Groups.count() != 0))
-		{
-			if (doc->Items->at(lowestItem-1)->Groups.top() == doc->m_Selection->itemAt(0)->Groups.top())
-			{
-				view->SelectItemNr(lowestItem-1);
-			}
-		}
 		UnGroupObj();
-	}
 	else
 		GroupObj(false);
 }
@@ -8963,24 +8946,7 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 	if (isUndo)
 		GroupObj(false);
 	else
-	{
-		uint docSelectionCount=doc->m_Selection->count();
-		PageItem *currItem;
-		uint lowestItem = 999999;
-		for (uint a=0; a<docSelectionCount; ++a)
-		{
-			currItem = doc->m_Selection->itemAt(a);
-			lowestItem = qMin(lowestItem, currItem->ItemNr);
-		}
-		if ((lowestItem > 0) && (doc->Items->at(lowestItem-1)->Groups.count() != 0))
-		{
-			if (doc->Items->at(lowestItem-1)->Groups.top() == doc->m_Selection->itemAt(0)->Groups.top())
-			{
-				view->SelectItemNr(lowestItem-1);
-			}
-		}
 		UnGroupObj();
-	}
 }
 
 void ScribusMainWindow::StatusPic()

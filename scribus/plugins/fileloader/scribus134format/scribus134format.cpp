@@ -2402,7 +2402,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	QColor tmpc;
 	PageItem *currItem=NULL;
 	QString tmp;
-	int xi;
 	double xf, yf, xf2;
 	QString clPath;
 
@@ -2777,33 +2776,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 		currItem->LayerID = attrs.valueAsInt("LAYER", 0);
 	tmp = "";
-
-	if (attrs.hasAttribute("GROUPS") && (attrs.valueAsInt("NUMGROUP", 0) != 0))
-	{
-		int groupMax = doc->GroupCounter;
-		QMap<int, int>::ConstIterator gIt;
-		tmp = attrs.valueAsString("GROUPS");
-		ScTextStream fg(&tmp, QIODevice::ReadOnly);
-		currItem->Groups.clear();
-		int numGroup = attrs.valueAsInt("NUMGROUP", 0);
-		for (int cx = 0; cx < numGroup; ++cx)
-		{
-			fg >> xi;
-			gIt = groupRemap.find(xi);
-			if (gIt != groupRemap.end())
-				currItem->Groups.push(gIt.value());
-			else
-			{
-				currItem->Groups.push(groupMax); 
-				groupRemap.insert(xi, groupMax);
-				++groupMax;
-			}
-		}
-		doc->GroupCounter = groupMax;
-		tmp = "";
-	}
-	else
-		currItem->Groups.clear();
 
 	QList<ParagraphStyle::TabRecord> tbs;
 	tmp = "";
