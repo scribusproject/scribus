@@ -1168,6 +1168,7 @@ public:
 	QMap<QString, VGradient> docGradients;
 	QWidget* WinHan;
 	bool DoDrawing;
+	bool drawAsPreview;
 	struct OpenNodesList
 	{
 		int type;

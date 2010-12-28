@@ -2686,7 +2686,6 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 
 void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 {
-	ScribusView* view = m_Doc->view();
 	p->save();
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
@@ -2695,7 +2694,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	{
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
 		double aestheticFactor(5.0);
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
+		double scpInv = 1.0 / (qMax(p->zoomFactor(), 1.0) * aestheticFactor);
 		if ((Frame) && (m_Doc->guidesPrefs().framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2738,14 +2737,14 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		//Draw the overflow icon
 		if (frameOverflows())
 		{//CB && added here for jghali prior to commit access
-			if ((!view->m_canvas->isPreviewMode()))
+			if ((!m_Doc->drawAsPreview))
 				drawOverflowMarker(p);
 		}
-		if ((m_Doc->guidesPrefs().colBordersShown) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().colBordersShown) && (!m_Doc->drawAsPreview))
 			drawColumnBorders(p);
-		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!m_Doc->drawAsPreview))
 		{
-			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::black, 0.5/ p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerID));
 			p->setBrushOpacity(1.0);
@@ -3472,8 +3471,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	p->drawLine(FPoint(scm_lineWidth16, scpheight3), FPoint(scm_lineWidth3, scpheight16));
 	*/
 	//TODO: CB clean
-	ScribusView* view = m_Doc->view();
-	double scp1 = 1 ;// / ScMW->view->scale();
+	double scp1 = p->zoomFactor() ;// / ScMW->view->scale();
 	double ofwh = 8 * scp1;
 	//CB moved down while locked marker disabled
 	//double ofx = Width - ofwh/2;
@@ -3484,15 +3482,15 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	double ly1= ofy;
 	double lx2= ofx+ofwh;
 	double ly2= ofy+ofwh;
-	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if ((isBookmark) || (m_isAnnotation))
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if ((BackBox != 0) || (NextBox != 0))
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if (m_Locked)
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if (m_Doc->m_Selection->containsItem(this))
-		p->setPen(Qt::red, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(Qt::red, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -3504,8 +3502,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 
 void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 {
-	ScribusView* view = m_Doc->view();
-	p->setPen(Qt::black, 0.5/ view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(Qt::black, 0.5/ p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);

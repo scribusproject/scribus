@@ -310,7 +310,6 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	if (ScCore->primaryMainWindow()->doc->DoDrawing)
 	{
 // FIXME adapt to Qt-4 painting style
-//		it->paintObj();
 		it->Dirty = false;
 	}
 //	Py_INCREF(Py_None);

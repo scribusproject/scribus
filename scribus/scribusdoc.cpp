@@ -243,6 +243,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docPrefsData.pdfPrefs.bleeds = docPrefsData.docSetupPrefs.bleeds;
 	docPrefsData.pdfPrefs.useDocBleeds = true;
 	Print_Options.firstUse = true;
+	drawAsPreview = false;
 }
 
 
@@ -333,6 +334,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docPrefsData.docSetupPrefs.pageOrientation=pagesSetup.orientation;
 	docPrefsData.docSetupPrefs.pagePositioning=pagesSetup.pageArrangement;
 	Print_Options.firstUse = true;
+	drawAsPreview = false;
 }
 
 
@@ -7175,11 +7177,6 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 		ma.scale(-1, 1);
 		currItem->ContourLine.map(ma);
 		regionsChanged()->update(QRectF());
-//		currItem->Tinput = true;
-//		currItem->FrameOnly = true;
-//		currItem->paintObj();
-//		currItem->FrameOnly = false;
-//		m_View->MarkClip(currItem, currItem->ContourLine, true);
 		changed();
 		return;
 	}
@@ -7224,11 +7221,6 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 		ma.scale(1, -1);
 		currItem->ContourLine.map(ma);
 		regionsChanged()->update(QRectF());
-//		currItem->Tinput = true;
-//		currItem->FrameOnly = true;
-//		currItem->paintObj();
-//		currItem->FrameOnly = false;
-//		m_View->MarkClip(currItem, currItem->ContourLine, true);
 		changed();
 		return;
 	}
@@ -11248,10 +11240,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	currItem->OwnPage = OnPage(currItem);
 	if (currItem->Sizing)
 	{
-//		currItem->Tinput = true;
 		currItem->FrameOnly = true;
-//		if ((m_View->frameResizeHandle == 1) && !(currItem->asLine()))
-//			currItem->paintObj();
 
 		if (currItem->FrameType == 0 || currItem->asLine())
 		{

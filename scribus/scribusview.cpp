@@ -412,6 +412,7 @@ void ScribusView::switchPreviewVisual(int vis)
 void ScribusView::togglePreview()
 {
 	m_canvas->m_viewMode.viewAsPreview = !m_canvas->m_viewMode.viewAsPreview;
+	Doc->drawAsPreview = m_canvas->m_viewMode.viewAsPreview;
 	if (m_canvas->m_viewMode.viewAsPreview)
 	{
 		storedFramesShown = Doc->guidesPrefs().framesShown;
@@ -1812,20 +1813,6 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			//emitting in prepend below so do it here.
 			//Doc->m_Selection->itemAt(0)->emitAllToGUI();
 		}
-	}
-	else
-	{
-	//CB Prepend used to occur to enable level changes to work properly, however with
-	//current selection code we dont seem to need that anymore
-	/*
-		if (Doc->m_Selection->count() > 1)
-		{
-			PageItem *bb = Doc->m_Selection->itemAt(0);
-			Doc->m_Selection->removeItem(currItem);
-			Doc->m_Selection->prependItem(currItem, false);
-			currItem->paintObj();
-			bb->paintObj();
-		}*/
 	}
 	if (draw)
 	{

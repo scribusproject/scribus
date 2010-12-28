@@ -275,7 +275,6 @@ public:
 	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
 	
   /** Zeichnet das Item */
-	void paintObj(QPainter *p);
 	void DrawObj(ScPainter *p, QRectF e);
 	void DrawObj_Pre(ScPainter *p);
 	virtual void DrawObj_Post(ScPainter *p);

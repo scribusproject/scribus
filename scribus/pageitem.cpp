@@ -1687,7 +1687,6 @@ void PageItem::DrawObj_Post(ScPainter *p)
 
 void PageItem::DrawObj_Decoration(ScPainter *p)
 {
-	ScribusView* view = m_Doc->view();
 	p->save();
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
@@ -1695,7 +1694,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double aestheticFactor(5.0);
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
+		double scpInv = 1.0 / (qMax(p->zoomFactor(), 1.0) * aestheticFactor);
 		if (!isGroup())
 		{
 			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
@@ -1743,7 +1742,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		}
 		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(Qt::darkGray, 1.0 / qMax(view->scale(), 1.0), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::darkGray, 1.0 / qMax(p->zoomFactor(), 1.0), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
 #ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
@@ -1765,7 +1764,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 
 				|| ((72.0 / imageYScale()) > maxres)) 
-				&& (isRaster) && (checkres) && (!view->m_canvas->isPreviewMode()) && (PrefsManager::instance()->appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
+				&& (isRaster) && (checkres) && (!m_Doc->drawAsPreview) && (PrefsManager::instance()->appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
 			{
 				double ofx = Width - 22.0;
 				double ofy = Height - 22.0;
@@ -1776,9 +1775,9 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->restore();
 			}
 		}
-		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (isGroup()) && (!view->m_canvas->isPreviewMode()))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (isGroup()) && (!m_Doc->drawAsPreview))
 		{
-			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::black, 0.5/ p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerID));
 			p->setBrushOpacity(1.0);
@@ -1976,121 +1975,11 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 			embedded->isEmbedded = false;
 			p->restore();
 		}
-//		p->drawImage(pat.getPattern());
 		p->setWorldMatrix(savWM);
 		xpos += adv;
 		p->restore();
 	}
 	p->newPath();
-}
-
-void PageItem::paintObj(QPainter *p)
-{
-	if ((!m_Doc->DoDrawing) || (m_Doc->RePos))
-	{
-		FrameOnly = false;
-		return;
-	}
-	double sc = m_Doc->view()->scale();
-	double handleSize = 6.0 / sc;
-	double halfSize = 3.0 / sc;
-	if ((!FrameOnly) && (!m_Doc->RePos))
-	{
-		if (!m_Doc->m_Selection->isEmpty())
-		{
-//				qDebug() << "Item: " << ItemNr << "W: " << Width << "H: " << Height;
-			if (!isGroup())
-			{
-				//Locked line colour selection
-				if (m_Locked)
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				else
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				p->setBrush(Qt::NoBrush);
-				double lw2 = 1.0 / sc;
-				double lw = 1.0 / sc;
-				Qt::PenCapStyle le = Qt::FlatCap;
-				if (NamedLStyle.isEmpty())
-				{
-					lw2 = (m_lineWidth / 2.0)  / sc;
-					lw = qMax(m_lineWidth, 1.0)  / sc;
-					le = PLineEnd;
-				}
-				else
-				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					lw2 = (ml[ml.size()-1].Width / 2.0) / sc;
-					lw = qMax(ml[ml.size()-1].Width, 1.0) / sc;
-					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-				}
-				//Draw our frame outline
-				if (asLine())
-				{
-					if (le != Qt::FlatCap)
-						p->drawRect(QRectF(-lw2, -lw2, Width+lw, lw));
-					else
-						p->drawRect(QRectF(-1 / sc, -lw2, Width, lw));
-				}
-				else
-					p->drawRect(QRectF(0, 0, Width, Height));
-//				p->setPen(QPen(PrefsManager::instance()->appPrefs.drameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				p->setBrush(PrefsManager::instance()->appPrefs.displayPrefs.frameColor);
-				p->setPen(Qt::NoPen);
-				if ((!m_Locked) && (!m_SizeLocked))
-				{
-					if (! asLine())
-					{
-						p->drawRect(QRectF(0.0, 0.0, handleSize, handleSize));
-						p->drawRect(QRectF(Width - handleSize, Height - handleSize, handleSize, handleSize));
-						p->drawRect(QRectF(Width - handleSize, 0.0, handleSize, handleSize));
-						p->drawRect(QRectF(0.0, Height - handleSize, handleSize, handleSize));
-						if (Width > 6)
-						{
-							p->drawRect(QRectF(Width / 2.0 - halfSize, Height - handleSize, handleSize, handleSize));
-							p->drawRect(QRectF(Width / 2.0 - halfSize, 0.0, handleSize, handleSize));
-						}
-						if (Height > 6)
-						{
-							p->drawRect(QRectF(Width - handleSize, Height / 2.0 - halfSize, handleSize, handleSize));
-							p->drawRect(QRectF(0.0, Height / 2.0 - halfSize, handleSize, handleSize));
-						}
-					}
-					else
-					{
-						p->drawRect(QRectF(-halfSize, -halfSize, handleSize, handleSize));
-						p->drawRect(QRectF(Width + halfSize, -halfSize, -handleSize, handleSize));
-					}
-				}
-			}
-			else
-			{
-				p->setPen(QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				p->setBrush(Qt::NoBrush);
-				p->drawRect(QRectF(0.0, 0.0, Width, Height));
-				if (m_Doc->m_Selection->count() == 1)
-				{
-					p->setPen(Qt::NoPen);
-//					p->setPen(QPen(PrefsManager::instance()->appPrefs.frameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-					p->setBrush(PrefsManager::instance()->appPrefs.displayPrefs.frameGroupColor);
-					p->drawRect(QRectF(0.0, 0.0, handleSize, handleSize));
-					p->drawRect(QRectF(Width - handleSize, Height - handleSize, handleSize, handleSize));
-					p->drawRect(QRectF(Width - handleSize, 0.0, handleSize, handleSize));
-					p->drawRect(QRectF(0.0, Height - handleSize, handleSize, handleSize));
-					if (Width > 6)
-					{
-						p->drawRect(QRectF(Width / 2.0 - halfSize, Height - handleSize, handleSize, handleSize));
-						p->drawRect(QRectF(Width / 2.0 - halfSize, 0.0, handleSize, handleSize));
-					}
-					if (Height > 6)
-					{
-						p->drawRect(QRectF(Width - handleSize, Height / 2.0 - halfSize, handleSize, handleSize));
-						p->drawRect(QRectF(0.0, Height / 2.0 - halfSize, handleSize, handleSize));
-					}
-				}
-			}
-		}
-	}
-	FrameOnly = false;
 }
 
 QImage PageItem::DrawObj_toImage()
@@ -5965,7 +5854,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 void PageItem::drawLockedMarker(ScPainter *p)
 {
 	//TODO: CB clean
-	double scp1 = 1 ;// / ScMW->view->scale();
+	double scp1 = p->zoomFactor() ;// / ScMW->view->scale();
 	double ofwh = 6 * scp1;
 	double ofx = Width - ofwh/2;
 	double ofy = Height - ofwh*1.5;
@@ -5973,8 +5862,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	double by1= ofy+3 * scp1;
 	double bw= 4*scp1;
 	double bh= 2*scp1;
-	ScribusView* view = m_Doc->view();
-	p->setPen(Qt::black, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(Qt::black, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -5982,7 +5870,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->drawRect(ofx, ofy, ofwh, ofwh);
 	p->setBrush(Qt::black);
 	p->drawRect(bx1, by1, bw, bh);
-	p->setPen(Qt::black, 1.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin);
+	p->setPen(Qt::black, 1.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin);
 	if (m_Locked)
 		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
 	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));
