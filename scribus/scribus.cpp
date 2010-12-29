@@ -5352,11 +5352,27 @@ void ScribusMainWindow::slotHelpCheckUpdates()
 	dia.exec();
 }
 
-void ScribusMainWindow::slotOnlineHelp()
+void ScribusMainWindow::slotOnlineHelp(const QString & jumpToSection, const QString & jumpToFile)
 {
-	helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
-	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
-	helpBrowser->show();
+	if (!helpBrowser)
+	{
+		helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage(), jumpToSection, jumpToFile);
+		connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
+	}
+	else //just set the requested page
+	{
+		if (!jumpToSection.isNull() || !jumpToFile.isNull())
+		{
+			helpBrowser->jumpToHelpSection(jumpToSection, jumpToFile, true);
+		}
+	}
+	slotRaiseOnlineHelp();
+}
+
+void ScribusMainWindow::slotRaiseOnlineHelp()
+{
+	if (helpBrowser)
+		helpBrowser->show();
 }
 
 void ScribusMainWindow::slotOnlineHelpClosed()
@@ -7826,8 +7842,9 @@ void ScribusMainWindow::slotDocSetup150()
 		pagePalette->rebuildPages();
 	}
 }
-void ScribusMainWindow::ShowSubs()
+int ScribusMainWindow::ShowSubs()
 {
+	bool showGSHelp=false;
 	if (!ScCore->haveGS())
 	{
 		QMessageBox mb(this);
@@ -7838,14 +7855,18 @@ void ScribusMainWindow::ShowSubs()
 #else
 		msg2 += tr("Until this is remedied, you cannot import EPS images or use PostScript Print Preview. ")+"\n";
 #endif
-		msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
+		//msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
+		msg2 += tr("Click the Help button read Scribus-related Ghostscript help and installation instructions.") + "</qt>";
 		QMessageBox msgBox;
 		msgBox.addButton(QMessageBox::Ok);
+		msgBox.addButton(QMessageBox::Help);
 		msgBox.setIcon(QMessageBox::Warning);
 		msgBox.setWindowTitle( tr("Ghostscript is missing") );
 		msgBox.setText(msg);
 		msgBox.setInformativeText(msg2);
-		msgBox.exec();
+		int i=msgBox.exec();
+		if (i==QMessageBox::Help)
+			showGSHelp=true;
 	}
 
 	propertiesPalette->startup();
@@ -7871,7 +7892,15 @@ void ScribusMainWindow::ShowSubs()
 
 	activateWindow();
 	if (!scriptIsRunning())
+	{
 		raise();
+		if (showGSHelp)
+		{
+			slotOnlineHelp("", "toolbox5.html");
+			return QMessageBox::Help;
+		}
+	}
+	return 0;
 }
 
 void ScribusMainWindow::doPrintPreview()

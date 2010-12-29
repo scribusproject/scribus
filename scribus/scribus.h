@@ -155,7 +155,7 @@ public:
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
 	void setTBvals(PageItem *currItem);
-	void ShowSubs();
+	int ShowSubs();
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	void doPasteRecent(QString data);
@@ -375,7 +375,8 @@ public slots:
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
 	void slotHelpCheckUpdates();
-	void slotOnlineHelp();
+	void slotRaiseOnlineHelp();
+	void slotOnlineHelp(const QString & jumpToSection=QString::null, const QString & jumpToFile=QString::null);
 	void slotOnlineHelpClosed();
 	void ToggleTips();
 	void ToggleMouseTips();
@@ -668,7 +669,7 @@ private:
 	PrefsManager *prefsManager;
 	FormatsManager *formatsManager;
 
-	HelpBrowser* helpBrowser;
+	QPointer<HelpBrowser> helpBrowser;
 };
 
 #endif
