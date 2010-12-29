@@ -41,7 +41,7 @@ Recommended Spec File Description:
 -----------------------------------------------------------------------------
 %description
 Scribus is an desktop open source page layout program with the aim of producing
-commerical grade output in PDF and Postscript, primarily, though not exclusively
+commercial grade output in PDF and Postscript, primarily, though not exclusively
 for Linux. Scirbus runs natively on  BSD, Linux, OS/2, Solaris, and Win32.
 -----------------------------------------------------------------------------
 
@@ -64,12 +64,12 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_datadir}/mime/packag
 install scribus.xml $RPM_BUILD_ROOT%{_datadir}/mime/packages/scribus.xml
 
 %post
-umask 022
+
 [ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1 ||:
 [ ! -x /usr/bin/update-mime-database ] || /usr/bin/update-mime-database %{_datadir}/mime >/dev/null 2>&1 ||:
 
 %postun 
-umask 022
+
 [ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1
 [ ! -x /usr/bin/update-mime-database ] || /usr/bin/update-mime-database %{_datadir}/mime >/dev/null 2>&1 ||:
 
@@ -82,8 +82,8 @@ Detailed notes on exact library requirements are detailed in the BUILDING file w
 
 There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
 and the mailing list. Mailing list info can be found at: 
-http://nashi.altmuehlnet.de/mailman/listinfo/scribus
+http://lists.scribus.info/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in April 2009
+in December 2010
