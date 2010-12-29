@@ -4,14 +4,14 @@
   <release platform="OS2" stability="stable" version="1.3.3.14" />
   <release platform="MacOSX" stability="stable" version="1.3.3.14" />
   <release platform="Win32" stability="stable" version="1.3.3.14" />
-  <release platform="X11" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="OS2" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="MacOSX" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="Win32" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="X11" stability="unstable" version="1.3.9" />
-  <release platform="Win32" stability="unstable" version="1.3.9" />
-  <release platform="MacOSX" stability="unstable" version="1.3.9" />
-  <release platform="OS2" stability="unstable" version="1.3.9" />
+  <release platform="X11" stability="stablesvn" version="1.3.3.14" />
+  <release platform="OS2" stability="stablesvn" version="1.3.3.14" />
+  <release platform="MacOSX" stability="stablesvn" version="1.3.3.14" />
+  <release platform="Win32" stability="stablesvn" version="1.3.3.14" />
+  <release platform="X11" stability="unstable" version="1.4.0.svn" />
+  <release platform="Win32" stability="unstable" version="1.4.0.svn" />
+  <release platform="MacOSX" stability="unstable" version="1.4.0.svn" />
+  <release platform="OS2" stability="unstable" version="1.4.0.svn" />
   <release platform="X11" stability="unstablesvn" version="1.5.0.svn" />
   <release platform="Win32" stability="unstablesvn" version="1.5.0.svn" />
   <release platform="MacOSX" stability="unstablesvn" version="1.5.0.svn" />
