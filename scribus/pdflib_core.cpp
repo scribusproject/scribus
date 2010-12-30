@@ -2492,7 +2492,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							if (ite->imageFlippedV())
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
 							QTransform trans;
-							trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
+							trans.scale(ite->width() / pat.width, ite->height() / pat.height);
 							trans.translate(0.0, -ite->height());
 							trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
 							PutPage(FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n");
@@ -4228,7 +4228,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				QTransform trans;
 				trans.scale(ite->width() / pat.width, ite->height() / pat.height);
 				trans.translate(0.0, -ite->height());
-				trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
+			//	trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
 				tmp += FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n";
 				for (int em = 0; em < pat.items.count(); ++em)
 				{
@@ -4274,7 +4274,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				QTransform trans;
 				trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 				trans.translate(0.0, -ite->height());
-				trans.translate(ite->groupItemList.at(0)->gXpos, -ite->groupItemList.at(0)->gYpos);
+			//	trans.translate(ite->groupItemList.at(0)->gXpos, -ite->groupItemList.at(0)->gYpos);
 				tmp += FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n";
 				for (int em = 0; em < ite->groupItemList.count(); ++em)
 				{
