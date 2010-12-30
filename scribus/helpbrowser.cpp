@@ -449,7 +449,7 @@ void HelpBrowser::histChosen(QAction* i)
 		textBrowser->setSource( QUrl::fromLocalFile(mHistory[i].url) );
 }
 
-void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile)
+void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile, bool dontChangeIfAlreadyLoaded)
 {
 	QString toLoad;
 	bool noDocs=false;
@@ -474,12 +474,16 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 		}
 	}
 	else
-		toLoad=jumpToFile;
-
+//		toLoad=jumpToFile;
+	{
+		toLoad=ScPaths::instance().docDir() + language + "/" + jumpToFile;
+	}
 	if (!noDocs)
 		loadHelp(toLoad);
 	else
-		displayNoHelp();
+//		displayNoHelp();
+		if (!dontChangeIfAlreadyLoaded)
+			displayNoHelp();
 }
 
 void HelpBrowser::loadHelp(const QString& filename)

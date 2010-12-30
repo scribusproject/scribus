@@ -81,6 +81,9 @@ public:
 	
 	static bool firstRun;
 
+public slots:
+	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="", bool dontChangeIfAlreadyLoaded=false);
+
 protected:
 	void closeEvent(QCloseEvent * event);
 
@@ -129,7 +132,6 @@ protected:
 protected slots:
 	virtual void languageChange();
 	void histChosen(QAction* i);
-	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="");
 	void loadHelp(const QString& filename);
 	void loadMenu();
 	void showLinkContents(const QString &link);

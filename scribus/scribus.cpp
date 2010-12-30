@@ -3907,7 +3907,14 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			delete fileLoader;
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
+			QString title = tr("Fatal Error") ;
+			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>";
+			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>"; 
+			QMessageBox msgBox(QMessageBox::Critical, title, msg, QMessageBox::Ok | QMessageBox::Help, this);
+			msgBox.setInformativeText(infoMsg);
+			int i=msgBox.exec();
+			if (i==QMessageBox::Help)
+				slotOnlineHelp("", "fileproblems.html");
 			return false;
 		}
 		bool is12doc=false;
@@ -5511,11 +5518,27 @@ void ScribusMainWindow::slotHelpCheckUpdates()
 	dia.exec();
 }
 
-void ScribusMainWindow::slotOnlineHelp()
+void ScribusMainWindow::slotOnlineHelp(const QString & jumpToSection, const QString & jumpToFile)
 {
-	helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
-	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
-	helpBrowser->show();
+	if (!helpBrowser)
+	{
+		helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage(), jumpToSection, jumpToFile);
+		connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
+	}
+	else //just set the requested page
+	{
+		if (!jumpToSection.isNull() || !jumpToFile.isNull())
+		{
+			helpBrowser->jumpToHelpSection(jumpToSection, jumpToFile, true);
+		}
+	}
+	slotRaiseOnlineHelp();
+}
+
+void ScribusMainWindow::slotRaiseOnlineHelp()
+{
+	if (helpBrowser)
+		helpBrowser->show();
 }
 
 void ScribusMainWindow::slotOnlineHelpClosed()
@@ -7696,9 +7719,9 @@ void ScribusMainWindow::slotPrefsOrg()
 		prefsOrg(&dia);
 }
 
-void ScribusMainWindow::ShowSubs()
+int ScribusMainWindow::ShowSubs()
 {
-	QString mess;
+	bool showGSHelp=false;
 	if (!ScCore->haveGS())
 	{
 		QMessageBox mb(this);
@@ -7709,14 +7732,18 @@ void ScribusMainWindow::ShowSubs()
 #else
 		msg2 += tr("Until this is remedied, you cannot import EPS images or use PostScript Print Preview. ")+"\n";
 #endif
-		msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
+		//msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
+		msg2 += tr("Click the Help button read Scribus-related Ghostscript help and installation instructions.") + "</qt>";
 		QMessageBox msgBox;
 		msgBox.addButton(QMessageBox::Ok);
+		msgBox.addButton(QMessageBox::Help);
 		msgBox.setIcon(QMessageBox::Warning);
 		msgBox.setWindowTitle( tr("Ghostscript is missing") );
 		msgBox.setText(msg);
 		msgBox.setInformativeText(msg2);
-		msgBox.exec();
+		int i=msgBox.exec();
+		if (i==QMessageBox::Help)
+			showGSHelp=true;
 	}
 
 	propertiesPalette->startup();
@@ -7741,7 +7768,15 @@ void ScribusMainWindow::ShowSubs()
 
 	activateWindow();
 	if (!scriptIsRunning())
+	{
 		raise();
+		if (showGSHelp)
+		{
+			slotOnlineHelp("", "toolbox5.html");
+			return QMessageBox::Help;
+		}
+	}
+	return 0;
 }
 
 void ScribusMainWindow::doPrintPreview()
