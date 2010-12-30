@@ -116,20 +116,27 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
-	scribus->ShowSubs();
-
-	if (!m_Files.isEmpty())
+	int subsRet=scribus->ShowSubs();
+	if (subsRet==0)
 	{
-		for (int i = 0; i < m_Files.size(); ++i)
-			scribus->loadDoc(m_Files.at(i));
-	}
-	else
-	{
-		if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog)
-			scribus->startUpDialog();
+		if (!m_Files.isEmpty())
+		{
+			for (int i = 0; i < m_Files.size(); ++i)
+				scribus->loadDoc(m_Files.at(i));
+		}
 		else
-			scribus->setFocus();
+		{
+			if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog)
+				scribus->startUpDialog();
+			else
+				scribus->setFocus();
+		}
 	}
+	else if (subsRet==QMessageBox::Help)
+	{
+		scribus->slotRaiseOnlineHelp();
+	}
+
 	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
