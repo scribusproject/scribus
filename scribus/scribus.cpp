@@ -3742,7 +3742,14 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			delete fileLoader;
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
+			QString title = tr("Fatal Error") ;
+			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>";
+			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>";
+			QMessageBox msgBox(QMessageBox::Critical, title, msg, QMessageBox::Ok | QMessageBox::Help, this);
+			msgBox.setInformativeText(infoMsg);
+			int i=msgBox.exec();
+			if (i==QMessageBox::Help)
+					slotOnlineHelp("", "fileproblems.html");
 			return false;
 		}
 		bool is12doc=false;

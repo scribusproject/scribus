@@ -95,6 +95,7 @@
 		<submenuitem text="Hints &amp; FAQs" file="topten.html">
 			<submenuitem text="Help" file="faq1.html"/>
 			<submenuitem text="Development" file="faq3.html"/>
+			<submenuitem text="Problems with Document Files" file="fileproblems.html"/>
 		</submenuitem>
 	</area>
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
