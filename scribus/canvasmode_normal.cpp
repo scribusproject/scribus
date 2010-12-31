@@ -40,6 +40,7 @@
 #include "hyphenator.h"
 #include "loadsaveplugin.h"
 #include "pageitem_textframe.h"
+#include "pageitem_regularpolygon.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -58,6 +59,7 @@
 #include "ui/customfdialog.h"
 #include "ui/insertTable.h"
 #include "ui/pageselector.h"
+#include "ui/polyprops.h"
 #include "ui/propertiespalette.h"
 #include "plugins/formatidlist.h"
 
@@ -237,6 +239,18 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		{
 			if (!m_doc->symbolEditMode())
 				m_view->requestMode(submodeEditSymbol);
+		}
+		else if (currItem->asRegularPolygon())
+		{
+			PageItem_RegularPolygon* item = currItem->asRegularPolygon();
+			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactorGuiVal, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature);
+			if (dia->exec())
+			{
+				dia->getValues(&item->polyCorners, &item->polyFactorGuiVal, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature);
+				item->recalcPath();
+			}
+			delete dia;
+			m_view->updateContents();
 		}
 	}
 }

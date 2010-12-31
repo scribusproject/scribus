@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif
+#include "pageitem_regularpolygon.h"
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -1701,6 +1702,7 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().polyCorners      = attrs.valueAsInt("POLYC", 4);
 	doc->itemToolPrefs().polyFactor = attrs.valueAsDouble("POLYF", 0.5);
 	doc->itemToolPrefs().polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
+	doc->itemToolPrefs().polyInnerRot     = attrs.valueAsDouble("POLYIR", 0.0);
 	doc->itemToolPrefs().polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
 	doc->itemToolPrefs().polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
 	doc->itemToolPrefs().polyUseFactor    = attrs.valueAsBool("POLYS", false);
@@ -3345,6 +3347,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
 		doc->GroupCounter++;
 		break;
+	case PageItem::RegularPolygon:
+		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
+		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
+		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
@@ -3653,6 +3661,17 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	{
 		currItem->updatePolyClip();
 		currItem->Frame = true;
+	}
+	if (currItem->asRegularPolygon())
+	{
+		PageItem_RegularPolygon *regitem = currItem->asRegularPolygon();
+		regitem->polyCorners      = attrs.valueAsInt("POLYC", 4);
+		regitem->polyFactor       = attrs.valueAsDouble("POLYF", 0.5);
+		regitem->polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
+		regitem->polyInnerRot     = attrs.valueAsDouble("POLYIR", 0.0);
+		regitem->polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
+		regitem->polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
+		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
 	}
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;

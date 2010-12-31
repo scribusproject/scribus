@@ -2189,6 +2189,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::ItemType1:
 					case PageItem::ItemType3:
 					case PageItem::Polygon:
+					case PageItem::RegularPolygon:
 						PutPage("q\n");
 						if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 						{
@@ -3924,6 +3925,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
+		case PageItem::RegularPolygon:
 			tmp += "q\n";
 			if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 			{

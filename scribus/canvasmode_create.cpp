@@ -104,7 +104,7 @@ void CreateMode::drawControls(QPainter* p)
 		}
 		else if (createObjectMode == modeDrawRegularPolygon)
 		{
-			QPainterPath path = RegularPolygon(localRect.width(), localRect.height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature);
+			QPainterPath path = RegularPolygonPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
@@ -513,7 +513,7 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 		frameType = (int) PageItem::Unspecified;
 		break;
 	case modeDrawRegularPolygon:
-		itemType  = (int) PageItem::Polygon;
+		itemType  = (int) PageItem::RegularPolygon;
 		frameType = (int) PageItem::Unspecified;
 		break;
 	case modeInsertPDFButton:
@@ -673,16 +673,9 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeDrawRegularPolygon:
 		{
 			if (modifiers == Qt::ShiftModifier)
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+				z = m_doc->itemAddArea(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 			else
-			{
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
-			}
-			currItem = m_doc->Items->at(z);
-			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature);
-			currItem->PoLine.fromQPainterPath(path);
-			m_doc->AdjustItemSize(currItem);
-			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+				z = m_doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 			/*
 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
 			m_doc->m_Selection->clear();

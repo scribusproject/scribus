@@ -205,6 +205,7 @@ struct ItemToolPrefs
 	double polyFactor; //! Convex/Concave factor as a double
 	bool polyUseFactor; //! Whether to use a factor for shaping
 	double polyRotation; //! Rotation of a polygon
+	double polyInnerRot; //! Rotation of the inner points of a star
 	double polyCurvature; //! Curvature of polygon
 	/* Image Tool */
 	QString imageFillColor; //! Default fill color of an image frame

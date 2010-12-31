@@ -125,7 +125,10 @@ void ModeToolBar::GetPolyProps()
 {
 	PolygonProps* dia = new PolygonProps(this, m_ScMW->doc->itemToolPrefs().polyCorners, m_ScMW->doc->itemToolPrefs().polyFactorGuiVal, m_ScMW->doc->itemToolPrefs().polyFactor, m_ScMW->doc->itemToolPrefs().polyUseFactor, m_ScMW->doc->itemToolPrefs().polyRotation, m_ScMW->doc->itemToolPrefs().polyCurvature);
 	if (dia->exec())
+	{
 		dia->getValues(&m_ScMW->doc->itemToolPrefs().polyCorners, &m_ScMW->doc->itemToolPrefs().polyFactorGuiVal, &m_ScMW->doc->itemToolPrefs().polyFactor, &m_ScMW->doc->itemToolPrefs().polyUseFactor, &m_ScMW->doc->itemToolPrefs().polyRotation, &m_ScMW->doc->itemToolPrefs().polyCurvature);
+		m_ScMW->scrActions["toolsInsertPolygon"]->trigger();
+	}
 	delete dia;
 }
 

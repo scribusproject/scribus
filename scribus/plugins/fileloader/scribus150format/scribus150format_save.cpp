@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif
+#include "pageitem_regularpolygon.h"
 
 #include "units.h"
 #include "util.h"
@@ -256,6 +257,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYC", m_Doc->itemToolPrefs().polyCorners);
 	docu.writeAttribute("POLYF", m_Doc->itemToolPrefs().polyFactor);
 	docu.writeAttribute("POLYR", m_Doc->itemToolPrefs().polyRotation);
+	docu.writeAttribute("POLYIR", m_Doc->itemToolPrefs().polyInnerRot);
 	docu.writeAttribute("POLYCUR", m_Doc->itemToolPrefs().polyCurvature);
 	docu.writeAttribute("POLYFD", m_Doc->itemToolPrefs().polyFactorGuiVal);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs().polyUseFactor));
@@ -1424,6 +1426,18 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		docu.writeAttribute("LAYER", item->LayerID);
 		docu.writeAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
+		if (item->asRegularPolygon())
+		{
+			PageItem_RegularPolygon *regitem = item->asRegularPolygon();
+			docu.writeAttribute("POLYC", regitem->polyCorners);
+			docu.writeAttribute("POLYF", regitem->polyFactor);
+			docu.writeAttribute("POLYR", regitem->polyRotation);
+			docu.writeAttribute("POLYIR", regitem->polyInnerRot);
+			docu.writeAttribute("POLYCUR", regitem->polyCurvature);
+			docu.writeAttribute("POLYFD", regitem->polyFactorGuiVal);
+			docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
+		}
+
 		if (item->nextInChain() != 0)
 			docu.writeAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else
@@ -1434,7 +1448,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		else
 		{
 			docu.writeAttribute("BACKITEM", -1);
-			writeITEXTs(doc, docu, item); 	
+			writeITEXTs(doc, docu, item);
 		}
 
 		if (item->effectsInUse.count() != 0)

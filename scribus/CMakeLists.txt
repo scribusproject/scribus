@@ -189,6 +189,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_pathtext.h
   pageitem_polygon.h
   pageitem_polyline.h
+  pageitem_regularpolygon.h
   pageitem_symbol.h
   pageitem_textframe.h
   pageitempointer.h
@@ -512,6 +513,7 @@ SET(SCRIBUS_SOURCES
   pageitem_pathtext.cpp
   pageitem_polygon.cpp
   pageitem_polyline.cpp
+  pageitem_regularpolygon.cpp
   pageitem_symbol.cpp
   pageitem_textframe.cpp
   pageitempointer.cpp

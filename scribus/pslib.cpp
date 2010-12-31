@@ -2009,6 +2009,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
+		case PageItem::RegularPolygon:
 			if ((c->fillColor() != CommonStrings::None) || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);

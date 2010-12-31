@@ -617,6 +617,7 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 			case PageItem::PathText:
 			case PageItem::Symbol:
 			case PageItem::Group:
+			case PageItem::RegularPolygon:
 				drawItem(embedded, p, clip);
 				break;
 			case PageItem::Line:

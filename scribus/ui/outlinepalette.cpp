@@ -128,6 +128,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 							tipText = CommonStrings::itemType_Line;
  							break;
  						case PageItem::Polygon:
+						case PageItem::RegularPolygon:
 							tipText = CommonStrings::itemType_Polygon;
  							break;
  						case PageItem::PolyLine:
@@ -488,6 +489,7 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 		item->setIcon( 0, lineIcon );
 		break;
 	case PageItem::Polygon:
+	case PageItem::RegularPolygon:
 		item->setIcon( 0, polygonIcon );
 		break;
 	case PageItem::PolyLine:

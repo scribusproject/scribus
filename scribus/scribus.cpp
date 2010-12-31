@@ -2954,8 +2954,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 //		scrActions["itemSendToScrapbook"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
-		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
-		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
+		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
+		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
 		scrActions["itemExtendedImageProperties"]->setEnabled(false);
 		scrActions["itemUpdateImage"]->setEnabled(false);
 		scrActions["itemPreviewLow"]->setEnabled(false);
@@ -2972,6 +2972,15 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		}
+		if (SelectedType == PageItem::RegularPolygon) //Polygon
+		{
+			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
+		}
 		else if (SelectedType == PageItem::PolyLine) //Polyline
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -2981,7 +2990,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		}
-		else if (SelectedType == PageItem::PolyLine) // Line
+		else if (SelectedType == PageItem::Line) // Line
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(true);

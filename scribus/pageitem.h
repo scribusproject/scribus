@@ -66,6 +66,7 @@ class PageItem_ImageFrame;
 class PageItem_Line;
 class PageItem_Polygon;
 class PageItem_PolyLine;
+class PageItem_RegularPolygon;
 class PageItem_TextFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
@@ -75,7 +76,6 @@ class PageItem_Group;
 class PageItem_OSGFrame;
 #endif
 
-struct CopyPasteBuffer;
 /**
   *@author Franz Schmid
   */
@@ -157,19 +157,20 @@ public:
 	 * Multiple is used for checking in @sa Selection for all same type of items
 	 */
 	enum ItemType {
-		ItemType1	= 1,
-		ImageFrame	= 2,
-		ItemType3	= 3,
-		TextFrame	= 4,
-		Line		= 5,
-		Polygon		= 6,
-		PolyLine	= 7,
-		PathText	= 8,
-		LatexFrame  = 9,
-		OSGFrame    = 10,
-		Symbol		= 11,
-		Group		= 12,
-		Multiple	= 99
+		ItemType1		= 1,
+		ImageFrame		= 2,
+		ItemType3		= 3,
+		TextFrame		= 4,
+		Line			= 5,
+		Polygon			= 6,
+		PolyLine		= 7,
+		PathText		= 8,
+		LatexFrame  	= 9,
+		OSGFrame    	= 10,
+		Symbol			= 11,
+		Group			= 12,
+		RegularPolygon	= 13,
+		Multiple		= 99
 	};
 
 	/** @brief Text flow mode
@@ -197,17 +198,19 @@ public:
 #endif
 	virtual PageItem_Symbol * asSymbolFrame() { return NULL; }
 	virtual PageItem_Group * asGroupFrame() { return NULL; }
+	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; }
 
-	virtual bool isImageFrame() const { return false; }
-	virtual bool isLine()       const { return false; }
-	virtual bool isPathText()   const { return false; }
-	virtual bool isPolygon()    const { return false; }
-	virtual bool isPolyLine()   const { return false; }
-	virtual bool isTextFrame()  const { return false; }
-	virtual bool isLatexFrame() const { return false; }
-	virtual bool isOSGFrame()   const { return false; }
-	virtual bool isSymbol()     const { return false; }
-	virtual bool isGroup()      const { return false; }
+	virtual bool isImageFrame()		const { return false; }
+	virtual bool isLine()			const { return false; }
+	virtual bool isPathText()		const { return false; }
+	virtual bool isPolygon()		const { return false; }
+	virtual bool isPolyLine()		const { return false; }
+	virtual bool isTextFrame()		const { return false; }
+	virtual bool isLatexFrame()		const { return false; }
+	virtual bool isOSGFrame()		const { return false; }
+	virtual bool isSymbol()			const { return false; }
+	virtual bool isGroup()			const { return false; }
+	virtual bool isRegularPolygon()	const { return false; }
 
 	/** @brief Frame Type
 	 *

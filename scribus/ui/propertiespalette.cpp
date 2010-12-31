@@ -54,6 +54,8 @@ for which a new license (GPL+exception) is in place.
 #include "cpalette.h"
 #include "transparencypalette.h"
 #include "pageitem_textframe.h"
+#include "pageitem_regularpolygon.h"
+#include "polyprops.h"
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
@@ -2092,7 +2094,7 @@ void PropertiesPalette::NewSel(int nr)
 			i=doc->m_Selection->itemAt(0);
 			HaveItem=true;
 			EditShape->setEnabled(!i->locked());
-			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && !i->locked());
+			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && nr!=13 && !i->locked());
 		}
 		else
 		{
@@ -2205,6 +2207,7 @@ void PropertiesPalette::NewSel(int nr)
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
+		case PageItem::RegularPolygon:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -4106,8 +4109,24 @@ void PropertiesPalette::handleShapeEdit()
 	if ((HaveDoc) && (HaveItem))
 	{
 		tmpSelection->clear();
-		m_ScMW->view->requestMode(modeEditClip);
-		RoundRect->setEnabled(false);
+		if (CurItem->asRegularPolygon())
+		{
+			PageItem_RegularPolygon* item = CurItem->asRegularPolygon();
+			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactorGuiVal, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature);
+			if (dia->exec())
+			{
+				dia->getValues(&item->polyCorners, &item->polyFactorGuiVal, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature);
+				item->recalcPath();
+			}
+			delete dia;
+			CurItem->update();
+			emit DocChanged();
+		}
+		else
+		{
+			m_ScMW->view->requestMode(modeEditClip);
+			RoundRect->setEnabled(false);
+		}
 	}
 }
 

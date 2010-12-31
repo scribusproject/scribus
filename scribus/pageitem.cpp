@@ -556,6 +556,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = tr("Group");
 		setUPixmap(Um::IPolygon);
 		break;
+	case RegularPolygon:
+		AnName = tr("RegularPolygon");
+		setUPixmap(Um::IPolygon);
+		break;
 	default:
 		AnName = "Item";
 		break;
@@ -1832,6 +1836,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			case PathText:
 			case Symbol:
 			case Group:
+			case RegularPolygon:
 				embedded->DrawObj_Item(p, cullingArea);
 				break;
 			case Line:
@@ -2585,6 +2590,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					GrColorP1 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2620,6 +2626,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					GrColorP2 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2655,6 +2662,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					GrColorP3 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2690,6 +2698,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					GrColorP4 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2754,6 +2763,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					MColor = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2801,6 +2811,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					MColor = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -3100,6 +3111,7 @@ void PageItem::setFillColor(const QString &newColor)
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					tmp = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -3193,6 +3205,7 @@ void PageItem::setLineColor(const QString &newColor)
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
+				case RegularPolygon:
 					tmp = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
@@ -3314,6 +3327,7 @@ void PageItem::setLineQColor()
 				case ImageFrame:
 				case LatexFrame:
 				case OSGFrame:
+				case RegularPolygon:
 					lineColorVal = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
@@ -3351,6 +3365,7 @@ void PageItem::setFillQColor()
 				case Line:
 				case PolyLine:
 				case Polygon:
+				case RegularPolygon:
 					fillColorVal = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -3721,6 +3736,7 @@ void PageItem::convertTo(ItemType newType)
 			fromType = Um::TextFrame;
 			break;
 		case Polygon:
+		case RegularPolygon:
 			fromType = Um::Polygon;
 			break;
 		default:
@@ -3742,6 +3758,7 @@ void PageItem::convertTo(ItemType newType)
 			setUPixmap(Um::ITextFrame);
 			break;
 		case Polygon:
+		case RegularPolygon:
 			toType = Um::Polygon;
 			setUPixmap(Um::IPolygon);
 			break;

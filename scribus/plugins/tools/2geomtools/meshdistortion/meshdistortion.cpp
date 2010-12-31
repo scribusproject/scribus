@@ -79,6 +79,7 @@ void MeshDistortionPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
 	m_actionInfo.needsNumObjects = 3;
 }
 

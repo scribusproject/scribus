@@ -379,6 +379,7 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 	{
 		case PageItem::Polygon:
 		case PageItem::PolyLine:
+		case PageItem::RegularPolygon:
 			ob = processPolyItem(Item, trans, fill, stroke);
 			if ((Item->lineColor() != CommonStrings::None) && ((Item->startArrowIndex() != 0) || (Item->endArrowIndex() != 0)))
 				ob = processArrows(Item, ob, trans);
@@ -514,7 +515,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *Item, QString trans, QString fi
 {
 	bool closedPath;
 	QDomElement ob;
-	if (Item->itemType() == PageItem::Polygon)
+	if ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon))
 		closedPath = true;
 	else
 		closedPath = false;
@@ -1199,6 +1200,7 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 		{
 			case PageItem::Polygon:
 			case PageItem::PolyLine:
+			case PageItem::RegularPolygon:
 				obE = processPolyItem(embedded, trans, fill, stroke);
 				if ((embedded->lineColor() != CommonStrings::None) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
 					obE = processArrows(embedded, obE, trans);

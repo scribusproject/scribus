@@ -65,7 +65,7 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-QPainterPath RegularPolygon(double w, double h, uint c, bool star, double factor, double rota, double factor2)
+QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
