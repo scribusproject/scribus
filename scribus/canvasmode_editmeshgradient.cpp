@@ -424,6 +424,8 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		double newX = mousePointDoc.x();
 		double newY = mousePointDoc.y();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
+		FPoint npf = FPoint(mousePointDoc.x(), mousePointDoc.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+		m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 		FPoint npx(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
 		if (selectedMeshPoints.count() > 0)
 		{
@@ -804,5 +806,4 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
 	upRect.translate(currItem->xPos(), currItem->yPos());
 	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
-
 }

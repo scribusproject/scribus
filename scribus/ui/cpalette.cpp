@@ -233,7 +233,7 @@ void Cpalette::updateFromItem()
 	else
 		tabWidgetStroke->setCurrentIndex(0);
 	setMeshPoint();
-	editMeshColors->setEnabled(true);
+	editMeshColors->setEnabled(!CGradDia->isVisible());
 	gradEditButton->setEnabled(true);
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
