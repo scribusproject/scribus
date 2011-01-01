@@ -3381,8 +3381,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->isBookmark  = attrs.valueAsInt("BOOKMARK");
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
 		doc->OldBM = true;
-	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH"));
-	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV"));
+	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
+	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
 	currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
 	currItem->ClipEdited = attrs.valueAsInt("CLIPEDIT", 0);
 	currItem->setFillColor(Pcolor);
@@ -3464,13 +3464,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 	}
 	currItem->setRotation( attrs.valueAsDouble("ROT") );
-	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA"),
+	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 1.0),
 								attrs.valueAsDouble("REXTRA", 1.0),
 								attrs.valueAsDouble("TEXTRA", 1.0),
 								attrs.valueAsDouble("BEXTRA", 1.0));
 	currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FLOP")));
 
-	currItem->PLineArt  = Qt::PenStyle(attrs.valueAsInt("PLINEART"));
+	currItem->PLineArt  = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
 	currItem->PLineEnd  = Qt::PenCapStyle(attrs.valueAsInt("PLINEEND", 0));
 	currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("PLINEJOIN", 0));
 	currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE"));
@@ -4112,13 +4112,13 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				if (tagName == "PAGEOBJECT")
 				{
 					itemRemap[itemCount++] = m_Doc->DocItems.count();
-					if (attrs.valueAsInt("NEXTITEM") != -1)
+					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
 						itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
 				}
 				else if (tagName == "MASTEROBJECT")
 				{
 					itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
-					if (attrs.valueAsInt("NEXTITEM") != -1)
+					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
 						itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
 				}
 
