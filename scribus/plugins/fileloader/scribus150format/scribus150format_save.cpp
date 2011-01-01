@@ -259,6 +259,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYR", m_Doc->itemToolPrefs().polyRotation);
 	docu.writeAttribute("POLYIR", m_Doc->itemToolPrefs().polyInnerRot);
 	docu.writeAttribute("POLYCUR", m_Doc->itemToolPrefs().polyCurvature);
+	docu.writeAttribute("POLYOCUR", m_Doc->itemToolPrefs().polyOuterCurvature);
 	docu.writeAttribute("POLYFD", m_Doc->itemToolPrefs().polyFactorGuiVal);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs().polyUseFactor));
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->autoSave()));
@@ -1434,6 +1435,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("POLYR", regitem->polyRotation);
 			docu.writeAttribute("POLYIR", regitem->polyInnerRot);
 			docu.writeAttribute("POLYCUR", regitem->polyCurvature);
+			docu.writeAttribute("POLYOCUR", regitem->polyOuterCurvature);
 			docu.writeAttribute("POLYFD", regitem->polyFactorGuiVal);
 			docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
 		}

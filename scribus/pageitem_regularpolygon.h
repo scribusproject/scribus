@@ -54,6 +54,7 @@ public:
 	double polyRotation; //! Rotation of a polygon
 	double polyCurvature; //! Curvature of polygon
 	double polyInnerRot;
+	double polyOuterCurvature;
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);

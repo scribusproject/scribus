@@ -3121,7 +3121,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemTransform"]->setEnabled(setter);
-			scrActions["itemDelete"]->setEnabled(!currItem->isSingleSel);
+			scrActions["itemDelete"]->setEnabled(true);
 			scrActions["itemLowerToBottom"]->setEnabled(setter);
 			scrActions["itemRaiseToTop"]->setEnabled(setter);
 			scrActions["itemRaise"]->setEnabled(setter);

@@ -54,6 +54,7 @@ PageItem_RegularPolygon::PageItem_RegularPolygon(ScribusDoc *pa, double x, doubl
 	polyRotation = m_Doc->itemToolPrefs().polyRotation;
 	polyCurvature = m_Doc->itemToolPrefs().polyCurvature;
 	polyInnerRot = 0.0;
+	polyOuterCurvature = 0.0;
 	QPainterPath path = RegularPolygonPath(w, h, polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature);
 	PoLine.fromQPainterPath(path);
 	Clip = FlattenPath(PoLine, Segments);

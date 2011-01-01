@@ -1704,6 +1704,7 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
 	doc->itemToolPrefs().polyInnerRot     = attrs.valueAsDouble("POLYIR", 0.0);
 	doc->itemToolPrefs().polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
+	doc->itemToolPrefs().polyOuterCurvature    = attrs.valueAsDouble("POLYOCUR", 0.0);
 	doc->itemToolPrefs().polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
 	doc->itemToolPrefs().polyUseFactor    = attrs.valueAsBool("POLYS", false);
 
@@ -3670,6 +3671,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		regitem->polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
 		regitem->polyInnerRot     = attrs.valueAsDouble("POLYIR", 0.0);
 		regitem->polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
+		regitem->polyOuterCurvature    = attrs.valueAsDouble("POLYOCUR", 0.0);
 		regitem->polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
 		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
 	}

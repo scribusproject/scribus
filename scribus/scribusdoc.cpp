@@ -8509,6 +8509,25 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	}
 }
 
+QList<PageItem*>* ScribusDoc::GroupOfItem(QList<PageItem*>* itemList, PageItem* item)
+{
+	if (itemList->contains(item))
+		return itemList;
+	else
+	{
+		for (int a = 0; a < itemList->count(); a++)
+		{
+			if (itemList->at(a)->isGroup())
+			{
+				QList<PageItem*>* ite = GroupOfItem(&itemList->at(a)->groupItemList, item);
+				if (ite != NULL)
+					return ite;
+			}
+		}
+		return NULL;
+	}
+	return NULL;
+}
 
 void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool forceDeletion)
 {
@@ -8522,6 +8541,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	QList<PageItem*> delItems;
 	QList<PageItem*> textInteractionItems;// text frames possibly interested in removal of selected items
 	PageItem *currItem;
+	QList<PageItem*>* itemList = Items;
 	uint offs = 0;
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
@@ -8532,8 +8552,21 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		currItem = itemSelection->itemAt(offs);
 		if ((((currItem->isSingleSel) && (!Items->contains(currItem))) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
 		{
-			offs++;
-			continue;
+			if (currItem->locked())
+			{
+				offs++;
+				continue;
+			}
+			else
+			{
+				itemList = GroupOfItem(Items, currItem);
+				if (itemList == NULL)
+				{
+					itemList = Items;
+					offs++;
+					continue;
+				}
+			}
 		}
 		//CB FIXME remove this and include of storyeditor.h too
 		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
@@ -8603,7 +8636,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);
 			m_ScMW->DelBookMark(currItem);
-		Items->removeAll(currItem);
+		itemList->removeAll(currItem);
 //		if (forceDeletion || !UndoManager::undoEnabled())
 		if (forceDeletion)
 			delete currItem;

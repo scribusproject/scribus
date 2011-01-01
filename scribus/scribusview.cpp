@@ -1816,7 +1816,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	}
 	if (draw)
 	{
-		if (Doc->m_Selection->count() > 1)
+		if (Doc->m_Selection->count() > 0)
 		{
 			Doc->m_Selection->setGroupRect();
 			double x, y, w, h;

@@ -914,6 +914,7 @@ public:
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
 
+	QList<PageItem*>* GroupOfItem(QList<PageItem*>* itemList, PageItem* item);
 	PageItem* groupObjectsSelection(Selection* customSelection=0);
 	PageItem* groupObjectsList(QList<PageItem*> &itemList);
 	void groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemList);

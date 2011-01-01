@@ -207,6 +207,7 @@ struct ItemToolPrefs
 	double polyRotation; //! Rotation of a polygon
 	double polyInnerRot; //! Rotation of the inner points of a star
 	double polyCurvature; //! Curvature of polygon
+	double polyOuterCurvature; //! outer Curvature of polygon
 	/* Image Tool */
 	QString imageFillColor; //! Default fill color of an image frame
 	int imageFillColorShade; //! Default shade of fill color of an image grame
