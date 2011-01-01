@@ -1219,6 +1219,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pageitem_regularpolygon.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pageitem_symbol.cpp"
 				>
 			</File>
@@ -6233,6 +6237,38 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_polyline.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_regularpolygon.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11891,6 +11927,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_pageitem_polyline.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pageitem_regularpolygon.cpp"
 				>
 			</File>
 			<File
