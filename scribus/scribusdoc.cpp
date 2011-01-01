@@ -4969,7 +4969,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 							pastedObjects.itemAt(i)->LayerNr = it->LNr;
 						// We do not need moveGroup undo actions
 						UndoManager::instance()->setUndoEnabled(false);
-						moveGroup(destination->xOffset() - from->xOffset(), destination->yOffset() - from->yOffset(), false, &pastedObjects);
+						moveGroup(destination->xOffset() - from->xOffset(), destination->yOffset() - from->yOffset(), true, &pastedObjects);
 						UndoManager::instance()->setUndoEnabled(true);
 					}
 					lcount++;
@@ -9500,43 +9500,20 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 
 bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fromMP)
 {
-	if (currItem->locked())
-		return false;
+	if (!fromMP)
+	{
+		if (currItem->locked())
+			return false;
+	}
 	bool retw = false;
 	double oldx = currItem->xPos();
 	double oldy = currItem->yPos();
 	currItem->moveBy(newX, newY);
-/*	if ((useRaster) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
-	{
-		FPoint np = ApplyGridF(FPoint(currItem->xPos(), currItem->yPos()));
-		currItem->setXYPos(np.x(), np.y());
-	}
-	if ((SnapGuides) && (!m_View->operItemMoving) && (appMode == modeNormal) && (!EditClip) && (!fromMP))
-		SnapToGuides(currItem); */
 	if ((currItem->xPos() != oldx) || (currItem->yPos() != oldy))
 		retw = true;
-	if (!fromMP)
-	{
-/*		if (GroupSel)
-		{
-			double gx, gy, gh, gw;
-			setGroupRect();
-			getGroupRect(&gx, &gy, &gw, &gh);
-			emit ItemPos(gx, gy);
-		}
-		else */
-		//CB if (!GroupSel)
-		//CB	emit ItemPos(currItem->xPos(), currItem->yPos());
-		//CB qDebug("if (!GroupSel) 			emit ItemPos(currItem->xPos(), currItem->yPos());");
-	}
-/*	if (!loading)
-		emit UpdtObj(currentPage->pageNr(), b->ItemNr); */
 	//FIXME: stop using m_View
 	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
 	setRedrawBounding(currItem);
-//	QRect newR(currItem->getRedrawBounding(m_View->scale()));
-//	if ((!m_View->operItemMoving) && (!currItem->Sizing))
-//		emit updateContents(newR.unite(oldR));
 	currItem->OwnPage = OnPage(currItem);
 	return retw;
 }
