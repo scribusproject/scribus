@@ -65,7 +65,7 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2)
+QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2, double innerRot)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -87,6 +87,7 @@ QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double fa
 			{
 				wf *= di;
 				hf *= di;
+				sc += innerRot;
 			}
 			mx = sin(sc / 180.0 * M_PI) * (wf) + (w/2.0);
 			my = cos(sc / 180.0 * M_PI) * (hf) + (h/2.0);

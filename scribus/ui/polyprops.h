@@ -20,9 +20,9 @@ class SCRIBUS_API PolygonProps : public QDialog
 	Q_OBJECT
 
 public:
-	PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature);
+	PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot);
 	~PolygonProps() {};
-	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature);
+	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature, double* polyInnerRot);
 	PolygonWidget* polyWidget;
 	QPushButton* okButton;
 	QPushButton* cancelButton;

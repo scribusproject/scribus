@@ -17,17 +17,18 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 
 	public:
 		PolygonWidget(QWidget* parent);
-		PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature);
+		PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot);
 		~PolygonWidget() {};
 
-		void setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature);
-		void getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature);
+		void setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot);
+		void getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot);
 		void restoreDefaults(struct ItemToolPrefs *prefsData);
 		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
 
 	protected slots:
 		void setFactorSlider(int a);
 		void setRotationSlider(int a);
+		void setInnerRotationSlider(int a);
 		void setCurvatureSlider(int a);
 		void updatePreview();
 		double GetZeroFactor();

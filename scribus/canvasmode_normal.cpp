@@ -243,10 +243,10 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		else if (currItem->asRegularPolygon())
 		{
 			PageItem_RegularPolygon* item = currItem->asRegularPolygon();
-			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactorGuiVal, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature);
+			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactorGuiVal, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature, item->polyInnerRot);
 			if (dia->exec())
 			{
-				dia->getValues(&item->polyCorners, &item->polyFactorGuiVal, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature);
+				dia->getValues(&item->polyCorners, &item->polyFactorGuiVal, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature, &item->polyInnerRot);
 				item->recalcPath();
 			}
 			delete dia;
