@@ -1757,6 +1757,16 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	setXY(i->xPos(), i->yPos());
 	setBH(i->width(), i->height());
 	NoPrint->setChecked(!i->printEnabled());
+	if (i->isImageFrame() || i->isTextFrame() || i->isLatexFrame() || i->isOSGFrame() || i->isSymbol() || i->isGroup())
+	{
+		FlipH->setCheckable(true);
+		FlipV->setCheckable(true);
+	}
+	else
+	{
+		FlipH->setCheckable(false);
+		FlipV->setCheckable(false);
+	}
 	setFlippedH(i->imageFlippedH());
 	setFlippedV(i->imageFlippedV());
 	RoVal = i->rotation();
@@ -2113,15 +2123,20 @@ void PropertiesPalette::NewSel(int nr)
 		TabStack->setItemEnabled(idTransparencyItem, true);
 		//CB If Toggle is not possible, then we need to enable it so we can turn it off
 		//It then gets reset below for items where its valid
-		if ((nr>4) && (nr<9))
+		FlipH->setCheckable(true);
+		FlipV->setCheckable(true);
+		if ((nr == 2) || (nr == 4) || ((nr >= 9) && (nr <= 12)))
 		{
 			FlipH->setCheckable(true);
 			FlipV->setCheckable(true);
+		}
+		else
+		{
+			FlipH->setCheckable(false);
+			FlipV->setCheckable(false);
 			FlipH->setChecked(false);
 			FlipV->setChecked(false);
 		}
-		FlipH->setCheckable((nr>=0) && (nr<5));
-		FlipV->setCheckable((nr>=0) && (nr<5));
 		//CB Why cant we do this for lines?
 //		FlipH->setEnabled((nr!=-1) && (nr!=5));
 //		FlipV->setEnabled((nr!=-1) && (nr!=5));

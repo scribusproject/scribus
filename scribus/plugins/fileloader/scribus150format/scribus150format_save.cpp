@@ -1656,6 +1656,8 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("GRTYPS",item->GrTypeStroke);
 	docu.writeAttribute("ROT",item->rotation());
 	docu.writeAttribute("PRINTABLE", item->printEnabled() ? 1 : 0);
+	docu.writeAttribute("FLIPPEDH", item->imageFlippedH());
+	docu.writeAttribute("FLIPPEDV", item->imageFlippedV());
 	if (!(item->isGroup() || item->isSymbol()))
 	{
 		docu.writeAttribute("PWIDTH",item->lineWidth());
@@ -1738,8 +1740,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("LOCALY",item->imageYOffset());
 		docu.writeAttribute("LOCALROT" ,item->imageRotation());
 		docu.writeAttribute("PICART", item->imageShown() ? 1 : 0);
-		docu.writeAttribute("FLIPPEDH", item->imageFlippedH());
-		docu.writeAttribute("FLIPPEDV", item->imageFlippedV());
 		docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 		docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
 		if ( ! item->itemText.defaultStyle().charStyle().isInhFillColor())
