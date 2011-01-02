@@ -828,6 +828,7 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("hideMenuBar", static_cast<int>(m_Doc->pdfOptions().hideMenuBar));
 	docu.writeAttribute("hideToolBar", static_cast<int>(m_Doc->pdfOptions().hideToolBar));
 	docu.writeAttribute("fitWindow", static_cast<int>(m_Doc->pdfOptions().fitWindow));
+	docu.writeAttribute("openAfterExport", static_cast<int>(m_Doc->pdfOptions().openAfterExport));
 	docu.writeAttribute("PageLayout", m_Doc->pdfOptions().PageLayout);
 	docu.writeAttribute("openAction", m_Doc->pdfOptions().openAction);
 	for (int pdoF = 0; pdoF < m_Doc->pdfOptions().EmbedList.count(); ++pdoF)

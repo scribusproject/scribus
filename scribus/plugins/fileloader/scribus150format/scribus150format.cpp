@@ -2249,6 +2249,7 @@ bool Scribus150Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().hideMenuBar   = attrs.valueAsBool("hideMenuBar", false);
 	doc->pdfOptions().hideToolBar   = attrs.valueAsBool("hideToolBar", false);
 	doc->pdfOptions().fitWindow     = attrs.valueAsBool("fitWindow", false);
+	doc->pdfOptions().openAfterExport     = attrs.valueAsBool("openAfterExport", false);
 	doc->pdfOptions().PageLayout    = attrs.valueAsInt("PageLayout", 0);
 	doc->pdfOptions().openAction    = attrs.valueAsString("openAction", "");
 

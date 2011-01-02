@@ -467,6 +467,7 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.hideMenuBar = false;
 	appPrefs.pdfPrefs.hideToolBar = false;
 	appPrefs.pdfPrefs.fitWindow = false;
+	appPrefs.pdfPrefs.openAfterExport = false;
 	appPrefs.pdfPrefs.PageLayout = PDFOptions::SinglePage;
 	appPrefs.pdfPrefs.openAction = "";
 	appPrefs.imageCachePrefs.cacheEnabled = false;
@@ -1726,6 +1727,10 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("DisplayFullscreen", static_cast<int>(appPrefs.pdfPrefs.displayFullscreen));
 	pdf.setAttribute("DisplayLayers", static_cast<int>(appPrefs.pdfPrefs.displayLayers));
 	pdf.setAttribute("DisplayThumbs", static_cast<int>(appPrefs.pdfPrefs.displayThumbs));
+	pdf.setAttribute("hideMenuBar", static_cast<int>(appPrefs.pdfPrefs.hideMenuBar));
+	pdf.setAttribute("hideToolBar", static_cast<int>(appPrefs.pdfPrefs.hideToolBar));
+	pdf.setAttribute("fitWindow", static_cast<int>(appPrefs.pdfPrefs.fitWindow));
+	pdf.setAttribute("openAfterExport", static_cast<int>(appPrefs.pdfPrefs.openAfterExport));
 	pdf.setAttribute("PageLayout", appPrefs.pdfPrefs.PageLayout);
 	pdf.setAttribute("OpenAction", appPrefs.pdfPrefs.openAction);
 	QMap<QString,LPIData>::Iterator itlp;
@@ -2431,6 +2436,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.pdfPrefs.displayFullscreen = static_cast<bool>(dc.attribute("DisplayFullscreen", "0").toInt());
 			appPrefs.pdfPrefs.displayLayers = static_cast<bool>(dc.attribute("DisplayLayers", "0").toInt());
 			appPrefs.pdfPrefs.displayThumbs = static_cast<bool>(dc.attribute("DisplayThumbs", "0").toInt());
+			appPrefs.pdfPrefs.hideMenuBar = static_cast<bool>(dc.attribute("hideMenuBar", "0").toInt());
+			appPrefs.pdfPrefs.hideToolBar = static_cast<bool>(dc.attribute("hideToolBar", "0").toInt());
+			appPrefs.pdfPrefs.fitWindow = static_cast<bool>(dc.attribute("fitWindow", "0").toInt());
+			appPrefs.pdfPrefs.openAfterExport = static_cast<bool>(dc.attribute("openAfterExport", "0").toInt());
 			appPrefs.pdfPrefs.PageLayout = dc.attribute("PageLayout", "0").toInt();
 			appPrefs.pdfPrefs.openAction = dc.attribute("OpenAction", "");
 			QDomNode PFO = DOC.firstChild();
