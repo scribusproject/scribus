@@ -17,11 +17,11 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 
 	public:
 		PolygonWidget(QWidget* parent);
-		PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot);
+		PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 		~PolygonWidget() {};
 
-		void setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot);
-		void getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot);
+		void setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+		void getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature);
 		void restoreDefaults(struct ItemToolPrefs *prefsData);
 		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
 
@@ -30,6 +30,7 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 		void setRotationSlider(int a);
 		void setInnerRotationSlider(int a);
 		void setCurvatureSlider(int a);
+		void setOuterCurvatureSlider(int a);
 		void updatePreview();
 		double GetZeroFactor();
 		double GetMaxFactor();

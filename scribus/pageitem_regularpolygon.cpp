@@ -58,7 +58,7 @@ PageItem_RegularPolygon::PageItem_RegularPolygon(ScribusDoc *pa, double x, doubl
 	polyCurvature = m_Doc->itemToolPrefs().polyCurvature;
 	polyInnerRot = m_Doc->itemToolPrefs().polyInnerRot;
 	polyOuterCurvature = m_Doc->itemToolPrefs().polyOuterCurvature;
-	QPainterPath path = RegularPolygonPath(w, h, polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot);
+	QPainterPath path = RegularPolygonPath(w, h, polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	PoLine.fromQPainterPath(path);
 	Clip = FlattenPath(PoLine, Segments);
 }
@@ -74,7 +74,7 @@ void PageItem_RegularPolygon::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 
 void PageItem_RegularPolygon::recalcPath()
 {
-	QPainterPath path = RegularPolygonPath(width(), height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot);
+	QPainterPath path = RegularPolygonPath(width(), height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	PoLine.fromQPainterPath(path);
 	Clip = FlattenPath(PoLine, Segments);
 }

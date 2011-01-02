@@ -65,7 +65,7 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2, double innerRot)
+QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2, double innerRot, double factor3)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -73,9 +73,10 @@ QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double fa
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	bool first = true;
 	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (w / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (h / 2.0) + (h/2.0) - h, 2));
 	QPainterPath pts;
+	// calculate corner Points first
+	QList<QPointF> cornerPoints;
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -91,53 +92,72 @@ QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double fa
 			}
 			mx = sin(sc / 180.0 * M_PI) * (wf) + (w/2.0);
 			my = cos(sc / 180.0 * M_PI) * (hf) + (h/2.0);
-			if (first)
-				pts.moveTo(mx, my);
-			else
-			{
-				if (factor2 != 0.0)
-				{
-					if (x % 2 != 0)
-					{
-						QPointF curr = pts.currentPosition();
-						double mxc = sin((sc + 90.0) / 180.0 * M_PI) * (-trueLength * factor2) + mx;
-						double myc = cos((sc + 90.0) / 180.0 * M_PI) * (-trueLength * factor2) + my;
-						pts.cubicTo(curr, QPointF(mxc, myc), QPointF(mx, my));
-					}
-					else
-					{
-						QPointF curr = pts.currentPosition();
-						double mxc = sin((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.x();
-						double myc = cos((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.y();
-						pts.cubicTo(QPointF(mxc, myc), QPointF(mx, my), QPointF(mx, my));
-					}
-				}
-				else
-					pts.lineTo(mx, my);
-			}
 		}
 		else
 		{
 			mx = sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0);
 			my = cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0);
-			if (first)
-				pts.moveTo(mx, my);
-			else
-				pts.lineTo(mx, my);
 		}
-		first = false;
+		cornerPoints.append(QPointF(mx, my));
 	}
-	if ((star) && (factor2 != 0.0))
+	// now calculate bezier control points if needed;
+	if (star)
 	{
-		sc = 360.0 + 180.0 + rota;
-		mx = sin(sc / 180.0 * M_PI) * (w / 2.0) + (w/2.0);
-		my = cos(sc / 180.0 * M_PI) * (h / 2.0) + (h/2.0);
-		QPointF curr = pts.currentPosition();
-		double mxc = sin((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.x();
-		double myc = cos((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.y();
-		pts.cubicTo(QPointF(mxc, myc), QPointF(mx, my), QPointF(mx, my));
+		pts.moveTo(cornerPoints[0]);
+		double mxc1, myc1, mxc2, myc2;
+		for (int a = 0; a < cornerPoints.count() - 2; a++)
+		{
+			sc = seg * a + 180.0 + rota;
+			if (a % 2 != 0)
+			{
+				// outer control point
+				QLineF oline = QLineF(cornerPoints[a+1], cornerPoints[a-1]);
+				mxc1 = oline.pointAt(factor3).x();
+				myc1 = oline.pointAt(factor3).y();
+				// inner control point
+				mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a].x();
+				myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a].y();
+				pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[a+1]);
+			}
+			else
+			{
+				// outer control point
+				QLineF oline = QLineF(cornerPoints[a], cornerPoints[a+2]);
+				mxc1 = oline.pointAt(factor3).x();
+				myc1 = oline.pointAt(factor3).y();
+				// inner control point
+				mxc2 = sin((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a+1].x();
+				myc2 = cos((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[a+1].y();
+				pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints[a+1]);
+			}
+		}
+		// outer control point
+		QLineF oline = QLineF(cornerPoints[cornerPoints.count()-2], cornerPoints[0]);
+		mxc1 = oline.pointAt(factor3).x();
+		myc1 = oline.pointAt(factor3).y();
+		// inner control point
+		sc = seg * (cornerPoints.count()-1) + 180.0 + rota;
+		mxc2 = sin((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].x();
+		myc2 = cos((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].y();
+		pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints[cornerPoints.count()-1]);
+		oline = QLineF(cornerPoints[0], cornerPoints[cornerPoints.count()-2]);
+		mxc1 = oline.pointAt(factor3).x();
+		myc1 = oline.pointAt(factor3).y();
+		// inner control point
+		mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].x();
+		myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].y();
+		pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[0]);
+		pts.closeSubpath();
 	}
-	pts.closeSubpath();
+	else
+	{
+		pts.moveTo(cornerPoints[0]);
+		for (int a = 1; a < cornerPoints.count(); a++)
+		{
+			pts.lineTo(cornerPoints[a]);
+		}
+		pts.closeSubpath();
+	}
 	return pts;
 }
 
