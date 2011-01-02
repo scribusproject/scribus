@@ -112,8 +112,12 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 		failed = true;
 		return;
 	}
+	while (proc->waitForReadyRead())
+	{
+		usleep(5000);
+	}
 
-	while(proc->state()==QProcess::Running)
+	while(!proc->atEnd() || proc->state()==QProcess::Running)
 	{
 		proc->setReadChannel(QProcess::StandardOutput);
 		if ( proc->canReadLine() )
