@@ -33,7 +33,7 @@ bool hasAntiword()
 #if defined(_WIN32)
 	exename = ScPaths::instance().libDir() + "tools/antiword/antiword.exe";
 #endif
-	test->start(exename);
+	test->start(exename, QStringList());
 	if (test->waitForStarted())
 	{
 		found = true;
@@ -97,7 +97,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	proc->setWorkingDirectory( ScPaths::instance().libDir() + "tools/antiword/" ); 
 #endif
 	QStringList args;
-	args << "-t" << "-w 0" << filename;
+	args << "-t" << "-w 0" << QDir::toNativeSeparators(filename);
 	//connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
 	//connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
 #if defined(_WIN32)
