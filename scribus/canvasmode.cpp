@@ -24,6 +24,7 @@
 #include "canvasmode_drawfreehand.h"
 #include "canvasmode_drawcalligraphic.h"
 #include "canvasmode_edit.h"
+#include "canvasmode_editarc.h"
 #include "canvasmode_editgradient.h"
 #include "canvasmode_editmeshgradient.h"
 #include "canvasmode_eyedropper.h"
@@ -134,6 +135,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 		case modeDrawText:
 		case modeDrawTable:
 		case modeDrawRegularPolygon:
+		case modeDrawArc:
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:
@@ -165,6 +167,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeRotation:
 			result = new CanvasMode_Rotate(view);
+			break;
+		case modeEditArc:
+			result = new CanvasMode_EditArc(view);
 			break;
 			// more modes as they are defined...
 			
@@ -539,6 +544,7 @@ void CanvasMode::setModeCursor()
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
+		case modeDrawArc:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
 			break;
 		case modeDrawImage:
@@ -590,6 +596,7 @@ void CanvasMode::setModeCursor()
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
 		case modeInsertPDF3DAnnotation:
+		case modeEditArc:
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 		default:

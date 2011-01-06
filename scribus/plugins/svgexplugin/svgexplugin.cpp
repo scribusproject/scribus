@@ -377,6 +377,7 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 		stroke = getStrokeStyle(Item);
 	switch (Item->itemType())
 	{
+		case PageItem::Arc:
 		case PageItem::Polygon:
 		case PageItem::PolyLine:
 		case PageItem::RegularPolygon:
@@ -515,7 +516,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *Item, QString trans, QString fi
 {
 	bool closedPath;
 	QDomElement ob;
-	if ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon))
+	if ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon) || (Item->itemType() == PageItem::Arc))
 		closedPath = true;
 	else
 		closedPath = false;
@@ -1198,6 +1199,7 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 			stroke = getStrokeStyle(embedded);
 		switch (embedded->itemType())
 		{
+			case PageItem::Arc:
 			case PageItem::Polygon:
 			case PageItem::PolyLine:
 			case PageItem::RegularPolygon:

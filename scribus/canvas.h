@@ -90,6 +90,7 @@ public:
 	friend class CanvasMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
+	friend class CanvasMode_EditArc;
 	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_EditMeshGradient;
 	friend class CanvasMode_EyeDropper;

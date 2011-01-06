@@ -270,6 +270,8 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.polyInnerRot = 0.0;
 	appPrefs.itemToolPrefs.polyCurvature = 0.0;
 	appPrefs.itemToolPrefs.polyOuterCurvature = 0.0;
+	appPrefs.itemToolPrefs.arcStartAngle = 30.0;
+	appPrefs.itemToolPrefs.arcSweepAngle = 300.0;
 //	appPrefs.PSize = 40;
 	appPrefs.printerPrefs.ClipMargin = false;
 	appPrefs.printerPrefs.GCRMode = false;
@@ -1472,6 +1474,8 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("PolygonFactorGUI", appPrefs.itemToolPrefs.polyFactorGuiVal);
 	dcItemTools.setAttribute("PolygonCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyCurvature));
 	dcItemTools.setAttribute("PolygonOuterCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyOuterCurvature));
+	dcItemTools.setAttribute("arcStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcStartAngle));
+	dcItemTools.setAttribute("arcSweepAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcSweepAngle));
 	dcItemTools.setAttribute("PolygonUseFactor", static_cast<int>(appPrefs.itemToolPrefs.polyUseFactor));
 	dcItemTools.setAttribute("ImageScaleType", static_cast<int>(appPrefs.itemToolPrefs.imageScaleType));
 	dcItemTools.setAttribute("ImageAspectRatio", static_cast<int>(appPrefs.itemToolPrefs.imageAspectRatio));
@@ -2065,6 +2069,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.polyUseFactor  = static_cast<bool>(dc.attribute("PolygonUseFactor", "0").toInt());
 			appPrefs.itemToolPrefs.lineStartArrow = dc.attribute("LineStartArrow", "0").toInt();
 			appPrefs.itemToolPrefs.lineEndArrow   = dc.attribute("LineEndArrow", "0").toInt();
+			appPrefs.itemToolPrefs.arcStartAngle = ScCLocale::toDoubleC(dc.attribute("arcStartAngle"), 30.0);
+			appPrefs.itemToolPrefs.arcSweepAngle = ScCLocale::toDoubleC(dc.attribute("arcSweepAngle"), 300.0);
 			if (dc.hasAttribute("Face"))
 			{
 				QString tmpf=dc.attribute("Face");

@@ -310,7 +310,9 @@ enum AppMode
 	modeImportObject,
 	modeInsertPDF3DAnnotation,
 	modeEditMeshGradient,
-	modeDrawCalligraphicLine
+	modeDrawCalligraphicLine,
+	modeDrawArc,
+	modeEditArc
 };
 
 struct AlignObjs

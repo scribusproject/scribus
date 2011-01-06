@@ -72,6 +72,7 @@ class PageItem_PathText;
 class PageItem_LatexFrame;
 class PageItem_Symbol;
 class PageItem_Group;
+class PageItem_Arc;
 #ifdef HAVE_OSG
 class PageItem_OSGFrame;
 #endif
@@ -170,6 +171,7 @@ public:
 		Symbol			= 11,
 		Group			= 12,
 		RegularPolygon	= 13,
+		Arc				= 14,
 		Multiple		= 99
 	};
 
@@ -199,6 +201,7 @@ public:
 	virtual PageItem_Symbol * asSymbolFrame() { return NULL; }
 	virtual PageItem_Group * asGroupFrame() { return NULL; }
 	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; }
+	virtual PageItem_Arc * asArc() { return NULL; }
 
 	virtual bool isImageFrame()		const { return false; }
 	virtual bool isLine()			const { return false; }
@@ -211,6 +214,7 @@ public:
 	virtual bool isSymbol()			const { return false; }
 	virtual bool isGroup()			const { return false; }
 	virtual bool isRegularPolygon()	const { return false; }
+	virtual bool isArc()			const { return false; }
 
 	/** @brief Frame Type
 	 *

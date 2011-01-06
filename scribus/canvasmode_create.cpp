@@ -102,6 +102,15 @@ void CreateMode::drawControls(QPainter* p)
 		{
 			p->drawEllipse(localRect);
 		}
+		else if (createObjectMode == modeDrawArc)
+		{
+			QPainterPath path;
+			path.moveTo(localRect.width() / 2.0, localRect.height() / 2.0);
+			path.arcTo(0.0, 0.0, localRect.width(), localRect.height(), m_doc->itemToolPrefs().arcStartAngle, m_doc->itemToolPrefs().arcSweepAngle);
+			path.closeSubpath();
+			p->translate(localRect.left(), localRect.top());
+			p->drawPath(path);
+		}
 		else if (createObjectMode == modeDrawRegularPolygon)
 		{
 			QPainterPath path = RegularPolygonPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature, m_doc->itemToolPrefs().polyInnerRot, m_doc->itemToolPrefs().polyOuterCurvature);
@@ -516,6 +525,10 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 		itemType  = (int) PageItem::RegularPolygon;
 		frameType = (int) PageItem::Unspecified;
 		break;
+	case modeDrawArc:
+		itemType  = (int) PageItem::Arc;
+		frameType = (int) PageItem::Unspecified;
+		break;
 	case modeInsertPDFButton:
 	case modeInsertPDFTextfield:
 	case modeInsertPDFCheckbox:
@@ -671,32 +684,17 @@ PageItem* CreateMode::doCreateNewObject(void)
 		}
 		break;
 	case modeDrawRegularPolygon:
-		{
-			if (modifiers == Qt::ShiftModifier)
-				z = m_doc->itemAddArea(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
-			else
-				z = m_doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
-			/*
-			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-			m_doc->m_Selection->clear();
-			m_doc->m_Selection->addItem(currItem);
-			currItem->update();
-			inItemCreation = true;
-//FIXME:				m_canvas->m_viewMode.operItemResizing = true;
-			if (m->modifiers() == Qt::ShiftModifier)
-			{
-				m_view->requestMode(modeNormal);
-// itemAdd calls PageItem::update					emit DocChanged();
-				inItemCreation = false;
-//					m_view->updateContents();
-			}
-			else
-			{
-//FIXME:					m_canvas->m_viewMode.operItemMoving = true;
-				m_canvas->setRenderModeFillBuffer();
-			}*/
-			break;
-		}
+		if (modifiers == Qt::ShiftModifier)
+			z = m_doc->itemAddArea(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+		else
+			z = m_doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+		break;
+	case modeDrawArc:
+		if (modifiers == Qt::ShiftModifier)
+			z = m_doc->itemAddArea(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+		else
+			z = m_doc->itemAdd(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+		break;
 	case modeInsertPDFButton:
 	case modeInsertPDFTextfield:
 	case modeInsertPDFCheckbox:

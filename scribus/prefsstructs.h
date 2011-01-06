@@ -226,6 +226,9 @@ struct ItemToolPrefs
 	double calligrapicPenAngle;		//! Angle of the calligraphics Brush
 	double calligrapicPenWidth;		//! Width of the calligraphics Brush
 	int calligrapicPenStyle; //! Line style of the calligraphics Brush
+	/* Arc Tool */
+	double arcStartAngle;    //! angle where the arc starts
+	double arcSweepAngle;    //! angle the arc spans
 };
 
 struct OperatorToolPrefs

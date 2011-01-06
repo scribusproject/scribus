@@ -809,6 +809,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTableFrame"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertShape"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertPolygon"], "Insert", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertArc"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertLine"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert", false);
@@ -2458,6 +2459,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
 	scrActions["toolsInsertCalligraphicLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
+	scrActions["toolsInsertArc"]->setEnabled(true);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(true);
 	scrActions["toolsMeasurements"]->setEnabled(true);
 	scrActions["toolsEyeDropper"]->setEnabled(true);
@@ -2972,7 +2974,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		}
-		if (SelectedType == PageItem::RegularPolygon) //Polygon
+		else if ((SelectedType == PageItem::RegularPolygon) || (SelectedType == PageItem::Arc)) // Regular Polygon + Arc
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
@@ -4620,6 +4622,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
 		scrActions["toolsInsertCalligraphicLine"]->setEnabled(false);
 		scrActions["toolsInsertPolygon"]->setEnabled(false);
+		scrActions["toolsInsertArc"]->setEnabled(false);
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -6106,6 +6109,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
 		scrActions["toolsInsertCalligraphicLine"]->setEnabled(false);
 		scrActions["toolsInsertPolygon"]->setEnabled(false);
+		scrActions["toolsInsertArc"]->setEnabled(false);
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -6187,6 +6191,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
 	scrActions["toolsInsertCalligraphicLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
+	scrActions["toolsInsertArc"]->setEnabled(true);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(true);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
@@ -6276,6 +6281,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsInsertTableFrame"]->setChecked(mode==modeDrawTable);
 	scrActions["toolsInsertShape"]->setChecked(mode==modeDrawShapes);
 	scrActions["toolsInsertPolygon"]->setChecked(mode==modeDrawRegularPolygon);
+	scrActions["toolsInsertArc"]->setChecked(mode==modeDrawArc);
 	scrActions["toolsInsertLine"]->setChecked(mode==modeDrawLine);
 	scrActions["toolsInsertBezier"]->setChecked(mode==modeDrawBezierLine);
 	scrActions["toolsInsertFreehandLine"]->setChecked(mode==modeDrawFreehandLine);
@@ -6439,6 +6445,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		switch (mode)
 		{
 			case modeDrawShapes:
+			case modeDrawArc:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
@@ -6503,6 +6510,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeMeasurementTool:
 			case modeEditGradientVectors:
 			case modeEditMeshGradient:
+			case modeEditArc:
 				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 				break;
 			default:
@@ -9172,6 +9180,7 @@ void ScribusMainWindow::changeLayer(int )
 	scrActions["toolsInsertFreehandLine"]->setEnabled(setter);
 	scrActions["toolsInsertCalligraphicLine"]->setEnabled(setter);
 	scrActions["toolsInsertPolygon"]->setEnabled(setter);
+	scrActions["toolsInsertArc"]->setEnabled(setter);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(setter);
 	if (doc->masterPageMode())
 	{

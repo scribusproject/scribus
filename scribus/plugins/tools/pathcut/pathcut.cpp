@@ -85,6 +85,7 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
 	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
 	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = 2;
 	m_actionInfo.firstObjectType.append(PageItem::PolyLine);

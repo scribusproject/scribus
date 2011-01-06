@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 	#include "pageitem_osgframe.h"
 #endif
 #include "pageitem_regularpolygon.h"
+#include "pageitem_arc.h"
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -1708,6 +1709,9 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
 	doc->itemToolPrefs().polyUseFactor    = attrs.valueAsBool("POLYS", false);
 
+	doc->itemToolPrefs().arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
+	doc->itemToolPrefs().arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
+
 	doc->itemToolPrefs().lineStartArrow = attrs.valueAsInt("StartArrow", 0);
 	doc->itemToolPrefs().lineEndArrow   = attrs.valueAsInt("EndArrow", 0);
 	doc->itemToolPrefs().imageScaleX      = attrs.valueAsDouble("PICTSCX", 1.0);
@@ -3355,6 +3359,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
+	case PageItem::Arc:
+		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
+		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
+		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
@@ -3675,6 +3685,14 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		regitem->polyOuterCurvature    = attrs.valueAsDouble("POLYOCUR", 0.0);
 		regitem->polyFactorGuiVal = attrs.valueAsInt("POLYFD", 0);
 		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
+	}
+	if (currItem->asArc())
+	{
+		PageItem_Arc *arcitem = currItem->asArc();
+		arcitem->arcHeight     = attrs.valueAsDouble("arcHeight", 1.0);
+		arcitem->arcWidth      = attrs.valueAsDouble("arcWidth", 1.0);
+		arcitem->arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
+		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
 	}
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;

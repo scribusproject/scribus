@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 	#include "pageitem_osgframe.h"
 #endif
 #include "pageitem_regularpolygon.h"
+#include "pageitem_arc.h"
 
 #include "units.h"
 #include "util.h"
@@ -262,6 +263,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYOCUR", m_Doc->itemToolPrefs().polyOuterCurvature);
 	docu.writeAttribute("POLYFD", m_Doc->itemToolPrefs().polyFactorGuiVal);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs().polyUseFactor));
+	docu.writeAttribute("arcStartAngle", m_Doc->itemToolPrefs().arcStartAngle);
+	docu.writeAttribute("arcSweepAngle", m_Doc->itemToolPrefs().polyInnerRot);
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->autoSave()));
 	docu.writeAttribute("AutoSaveTime", m_Doc->autoSaveTime());
 	docu.writeAttribute("ScratchBottom", m_Doc->scratch()->Bottom);
@@ -1682,6 +1685,14 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("POLYOCUR", regitem->polyOuterCurvature);
 		docu.writeAttribute("POLYFD", regitem->polyFactorGuiVal);
 		docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
+	}
+	if (item->asArc())
+	{
+		PageItem_Arc *arcitem = item->asArc();
+		docu.writeAttribute("arcHeight", arcitem->arcHeight);
+		docu.writeAttribute("arcWidth", arcitem->arcWidth);
+		docu.writeAttribute("arcStartAngle", arcitem->arcStartAngle);
+		docu.writeAttribute("arcSweepAngle", arcitem->arcSweepAngle);
 	}
 	if(item->isAnnotation())
 	{

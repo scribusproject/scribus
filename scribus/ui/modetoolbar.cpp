@@ -70,7 +70,8 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	m_ScMW->scrActions["toolsInsertPolygon"]->setMenu(insertPolygonButtonMenu);
 	QToolButton* tb2 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertPolygon"]));
 	tb2->setPopupMode(QToolButton::MenuButtonPopup);
-		
+
+	this->addAction(m_ScMW->scrActions["toolsInsertArc"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertFreehandLine"]);

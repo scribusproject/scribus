@@ -101,6 +101,7 @@ public:
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_EditMeshGradient;
+	friend class CanvasMode_EditArc;
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;

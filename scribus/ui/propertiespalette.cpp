@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "transparencypalette.h"
 #include "pageitem_textframe.h"
 #include "pageitem_regularpolygon.h"
+#include "pageitem_arc.h"
 #include "polyprops.h"
 #include "sccombobox.h"
 #include "scfonts.h"
@@ -1970,6 +1971,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	setXY(CurItem->xPos(), CurItem->yPos());
 	setLocked(i->locked());
 	setSizeLocked(i->sizeLocked());
+	NoResize->setEnabled(!CurItem->isArc());
 	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setLineWidth(i->lineWidth());
 	setLIvalue(i->lineStyle(), i->lineEnd(), i->lineJoin());
@@ -2223,6 +2225,7 @@ void PropertiesPalette::NewSel(int nr)
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
 		case PageItem::RegularPolygon:
+		case PageItem::Arc:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -4136,6 +4139,11 @@ void PropertiesPalette::handleShapeEdit()
 			delete dia;
 			CurItem->update();
 			emit DocChanged();
+		}
+		else if (CurItem->asArc())
+		{
+			m_ScMW->view->requestMode(modeEditArc);
+			RoundRect->setEnabled(false);
 		}
 		else
 		{

@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_symbol.h"
 #include "pageitem_group.h"
 #include "pageitem_regularpolygon.h"
+#include "pageitem_arc.h"
 #include "ui/pagepalette.h"
 #include "pagesize.h"
 #include "pagestructs.h"
@@ -4023,6 +4024,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			newItem = new PageItem_RegularPolygon(this, x, y, b, h, w, fill, outline);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
+		case PageItem::Arc:
+			newItem = new PageItem_Arc(this, x, y, b, h, w, fill, outline);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
+			break;
 		default:
 //			qDebug() << "unknown item type";
 			assert (false);
@@ -4253,6 +4258,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		case PageItem::Symbol:
 		case PageItem::Group:
 		case PageItem::RegularPolygon:
+		case PageItem::Arc:
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
 		//At this point, we cannot create a PathText item like this, only by conversion, do nothing
@@ -4280,12 +4286,12 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	}
 
 	//ItemType Polygon
-	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine || itemType == PageItem::RegularPolygon)
+	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine || itemType == PageItem::RegularPolygon || itemType == PageItem::Arc)
 	{
 		newItem->PLineArt = Qt::PenStyle(docPrefsData.itemToolPrefs.shapeLineStyle);
 		newItem->setFillShade(docPrefsData.itemToolPrefs.shapeFillColorShade);
 		newItem->setLineShade(docPrefsData.itemToolPrefs.shapeLineColorShade);
-		if ((itemType == PageItem::Polygon) || (itemType == PageItem::RegularPolygon))
+		if ((itemType == PageItem::Polygon) || (itemType == PageItem::RegularPolygon) || (itemType == PageItem::Arc))
 			newItem->ContourLine = newItem->PoLine.copy();
 	}
 }

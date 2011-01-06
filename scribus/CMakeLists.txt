@@ -180,8 +180,9 @@ SET(SCRIBUS_MOC_CLASSES
   loadsaveplugin.h
   menumanager.h
   navigator.h
-  observable.h 
+  observable.h
   pageitem.h
+  pageitem_arc.h
   pageitem_group.h
   pageitem_imageframe.h
   pageitem_latexframe.h
@@ -443,6 +444,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_eyedropper.cpp
   canvasmode_framelinks.cpp
   canvasmode_edit.cpp
+  canvasmode_editarc.cpp
   canvasmode_editgradient.cpp
   canvasmode_editmeshgradient.cpp
 #  canvasmode_legacy.cpp
@@ -505,6 +507,7 @@ SET(SCRIBUS_SOURCES
   nfttemplate.cpp
   page.cpp
   pageitem.cpp
+  pageitem_arc.cpp
 #  pageitem_desaxe.cpp
   pageitem_group.cpp
   pageitem_imageframe.cpp

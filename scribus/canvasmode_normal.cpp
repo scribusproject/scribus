@@ -41,6 +41,7 @@
 #include "loadsaveplugin.h"
 #include "pageitem_textframe.h"
 #include "pageitem_regularpolygon.h"
+#include "pageitem_arc.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -251,6 +252,10 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			delete dia;
 			m_view->updateContents();
+		}
+		else if (currItem->asArc())
+		{
+			m_view->requestMode(modeEditArc);
 		}
 	}
 }
