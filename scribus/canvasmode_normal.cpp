@@ -942,15 +942,17 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	{
 		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
-		QRectF Sele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy);
-		Sele = m_canvas->canvasToLocal(Sele).normalized();
+		QRectF canvasSele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
+		QRectF localSele  = m_canvas->canvasToLocal(canvasSele).normalized();
 		if (!m_doc->masterPageMode())
 		{
 			uint docPagesCount=m_doc->Pages->count();
 			uint docCurrPageNo=m_doc->currentPageNumber();
 			for (uint i = 0; i < docPagesCount; ++i)
 			{
-				if (QRectF(m_doc->Pages->at(i)->xOffset(), m_doc->Pages->at(i)->yOffset(), m_doc->Pages->at(i)->width(), m_doc->Pages->at(i)->height()).intersects(Sele))
+				Page*  page = m_doc->Pages->at(i);
+				QRectF pageRect(page->xOffset(), page->yOffset(), page->width(), page->height());
+				if (pageRect.intersects(canvasSele))
 				{
 					if (docCurrPageNo != i)
 					{
@@ -971,12 +973,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				PageItem* docItem = m_doc->Items->at(a);
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
-				QTransform p;
-				m_canvas->Transform(docItem, p);
-			//	QRegion apr = QRegion(docItem->Clip * p);
 				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
-			//	if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
-				if ((Sele.contains(apr2)) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
+				if ((localSele.contains(apr2)) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);
