@@ -162,7 +162,8 @@ public:
 		FillOpacity(1.0),
 		StrokeOpacity(1.0),
 		textAnchor("start"),
-		clipPath()
+		clipPath(),
+		forGroup(false)
 		{
 		}
 	bool Display;
@@ -211,6 +212,7 @@ public:
 	QString textAnchor;
 	QString textDecoration;
 	FPointArray clipPath;
+	bool forGroup;
 };
 
 class SVGPlug : public QObject
