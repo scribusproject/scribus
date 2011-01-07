@@ -12787,6 +12787,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\stylemanager.ui"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\transformdialogbase.ui"
 				>
 			</File>
