@@ -643,6 +643,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_editarc.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_editgradient.cpp"
 				>
 			</File>
@@ -1188,6 +1192,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_arc.cpp"
 				>
 			</File>
 			<File
@@ -2798,6 +2806,10 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_editarc.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_editgradient.h"
@@ -6013,6 +6025,38 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_arc.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -11899,6 +11943,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_pageitem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pageitem_arc.cpp"
 				>
 			</File>
 			<File
