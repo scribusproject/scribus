@@ -1,0 +1,57 @@
+<html><head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Multiple Duplicate and Transform</title>
+</head><body>
+<h2>Multiple Duplicate and Transform</h2>
+<p>Duplicating items on a page with precision is an important feature of every layout or drawing application. While it&lsquo;s always possible to use a simple copy and paste operation to duplicate an object, letting the computer calculate the position of duplicates can make life easier and save a lot of time. Scribus offers two powerful and versatile tools for the creation and the placement of copied items: <b>Multiple Duplicate</b> and <b>Transform</b>. In some ways, these two feature are quite similar, but each allows for slightly different approaches to making multiple copies of some object on your page.
+</p>
+<h3>Multiple Duplicate</h3>
+<p>Let&lsquo;s just mention briefly that <b>Duplicate</b> (<i>Item > Duplicate</i> or Ctrl+D) is a simple operation, making a copy of your selected object, with a displacement of  10 points in each of the X and Y directions. If you wish to specify another form of placement automatically, then use <b>Multiple Duplicate</b> and make just one copy.</p>
+<table width="90%"><tr><td valign="top"><table cellpadding="5px"><tr><td>Prior to 1.3.5, Multiple Duplicate (<i>Item > Multiple Duplicate</i>) was a simple process of making one or more copies of an object with successive X and Y offsets from one copy to the next. It still can work that way, but first we&lsquo;ll have a look at what may be a more useful method &ndash; creating rows and columns. This is not creating a table, but a simple repetitive array of your selected object.<p></p>
+<p>To the right, we see the &ldquo;By Rows and Columns&rdquo; tab. The settings  you see in the dialog will result in the montage you see below. One 
+feature to notice is that &ldquo;Horizontal Gap&rdquo; refers to these <i>vertical spaces</i> between columns.</p>
+</td></tr>
+<tr><td><img src="images/sadie4by2b.png" />
+</td></tr></table>
+<td><img src="images/multipledup_rows.png"/></td>
+</tr>
+</table>
+<table width="90%" cellpadding="5"><tbody><tr><td valign="top">Now to the right we see the other tab, &ldquo;By Number of Copies&rdquo;. This works similar to how Multiple Duplicate did in previous versions, but even here we see the option for creating a gap between copies rather than just shifting by some absolute amount, which does still remain an option. The settings here will produce one of the rows you see in the above example. Notice that 3 <i>copies</i> in addition to the original produces 4 columns.<p></p>
+<p>You may also notice the spinbox labeled <b>Rotation</b> in this dialog, and thus you can also add some rotation to each successive object. In the example below, 3 copies were made, with an 8-point gap and 10° rotation from one to the next.</p>
+<p>The dotted line you see is a horizontal guide placed to show that the axis of rotation is around the basepoint, in this case the upper left 
+corner of the frame. Also see how the content rotates with the frame &ndash; below we will see how <b>Transform</b> is quite different in this regard.</p>
+</td>
+<td><img src="images/multipledup_copies.png"></td></tr>
+<tr><td colspan="2"><img src="images/multipledup_rotation.png"></td></tr>
+</tbody></table>
+<h3>Transform</h3>
+In its simplest usage, <b>Transform</b> (<i>Item > Transform</i>) can modify an object in one or more of the following ways:
+<ul>
+<li>Scaling</li>
+<li>Translation</li>
+<li>Rotation</li>
+<li>Skewing</li>
+</ul>
+<p>To be clear, &ldquo;Translation&rdquo; refers to moving an object right/left and up/down on the document. Each of these operations is available somewhere else in Scribus, so using one of these to change an object is hardly efficient. The value to the Transform feature rather rests with the fact that you can perform these operations serially, and that you can use it to serially create copies of the object, performing the modifications 
+serially each time.</p>
+<p>Here is a montage of the various options when you select these operations:</p>
+<img src="images/transform_dialogb.png">
+<p>The possible combinations of these operations are quite endless, so experimentation is needed to get a sense of different effects in various 
+combinations. Let&lsquo;s look at a simple example, in which we translate an image, then rotate each copy 10°, conceptually similar to our multiple 
+duplicate experiment above. But look at the very different result:</p>
+<img src="images/transform_translaterotation.png">
+<p>The process started out similarly, with lateral translation, then rotation, but then the next translation is along the rotated horizontal axis of frame 2, then the process repeated again. Also, note that the image itself is not rotated. You will find that a similar phenomenon occurs with text frame, with the lines of text remaining aligned horizontally with the page, not rotated with the frame. You will also find that the results are different if you rotate first and then translate the frame, so the order of the various operations is important.</p>
+<p>Now look at this example, with settings of a 140 point translation, then 60% scaling. Aside from the expected sequential scaling, notice that the amount of translation has been scaled down with each copy, presumably by 60%.</p>
+<img src="images/transform_translatescaling.png">
+<p>In this simple example of the effects of skewing, we have combined a 130 point translation and 5° horizontal skewing. If we had also done 
+vertical skewing, then frames would have deviated sequentially in a vertical direction, similar to what we saw with rotation above.</p>
+<img src="images/transform_translateskewing.png">
+<p>All of the above examples began with an image in a frame and the image scaled to frame. Something very different happens if we use free 
+scaling. In this case the image itself is not shifted, but instead the new frame copy is something like a port hole to the image as originally 
+placed, thus the scaling of the image must be adjusted so that there will be image present with each new copy, so this works something like an absolute pasting of an image in several frames. Here we see a translation of 130 points, then horizontal and vertical skewing of 5° each.</p>
+<img src="images/transform_translateskewing1.png">
+<p>We can of course avoid these content considerations if we are using Transform on a shape or polygon. A limitation of Transform is that there is no way of trying out settings such as a preview, and no way to save a set of operations for later use, so one ends up with trial and error, and either remembering settings or taking notes to try out various settings. So with this in mind, here is an example of a tranformed arrow, about 41 points in width, rotated 30° and then translated 46 points, for 11 copies:</p>
+<img src="images/transform_translaterotation1.png">
+<p>Math helps us a bit here. Rotating 30° for 11 copies adds up to 330°, so this would be expected to fill in the circle as we see here. Ideally, one may need to play with translation or the basepoint to try to get the desired effect.</p>
+</body></html>
