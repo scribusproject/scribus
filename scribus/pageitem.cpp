@@ -3714,8 +3714,10 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 	{
 		QRectF baseRect(getBoundingRect());
 		QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
-		for(int idx = (allItems ? items->count()-1 : ItemNr-1); idx >= 0 ; --idx)
+		for(int idx = items->count()-1; idx >= 0 ; --idx)
 		{
+			if ((items->at(idx) == this) && (!allItems))
+				break;
 			if(idx != static_cast<int>(ItemNr)) // avoids itself
 			{
 				if(items->at(idx)->asTextFrame()) // do not bother with no text frames
