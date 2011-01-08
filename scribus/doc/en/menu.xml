@@ -46,6 +46,7 @@
 			<submenuitem file="WwImages.html" text="Working with Images" />
 			<submenuitem file="WwRenderframes.html" text="Working with Render Frames" />
 			<submenuitem file="WwShapes.html" text="Working with Shapes" />
+			<submenuitem file="multiple_transform.html" text="Multiple Duplicate and Transform" />
 			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
 			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
 			<submenuitem file="WwFill.html" text="Working with Fill: Colors, Gradients and Patterns" />
