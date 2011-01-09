@@ -196,8 +196,8 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	{
 		if (dia->importFailed)
 			QMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
-		else if (dia->unsupported)
-			QMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
+	//	else if (dia->unsupported)
+	//		QMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
 	}
 
 	delete dia;
@@ -231,6 +231,7 @@ SVGPlug::SVGPlug( ScribusDoc* doc, int flags )
 	unsupported = false;
 	importFailed = false;
 	importCanceled = true;
+	firstLayer = true;
 	importedColors.clear();
 	importedGradients.clear();
 	importedPatterns.clear();
@@ -432,7 +433,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_gc.top()->matrix = matrix;
 		}
 	}
-	QList<PageItem*> Elements = parseGroup( docElem );
+	QList<PageItem*> Elements = parseDoc( docElem );
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setTitle(docTitle);
@@ -470,7 +471,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			}
 		}
 	}
-	if (Elements.count() > 1)
+	if ((Elements.count() > 1) && (!(flags & LoadSavePlugin::lfCreateDoc)))
 	{
 		m_Doc->groupObjectsList(Elements);
 	}
@@ -1085,14 +1086,152 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 {
 	FPointArray clipPath;
 	QList<PageItem*> GElements, gElements;
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	groupLevel++;
-	setupNode(e);
-	parseClipPathAttr(e, clipPath);
-	m_gc.top()->forGroup = true;
-	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
-	PageItem *neu = m_Doc->Items->at(z);
+	if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (e.hasAttribute("inkscape:groupmode")) && (e.attribute("inkscape:groupmode") == "layer"))
+	{
+		setupNode(e);
+		QString LayerName = e.attribute("inkscape:label", "Layer");
+		double trans = m_gc.top()->Opacity;
+		int currentLayer = 0;
+		if (!firstLayer)
+			currentLayer = m_Doc->addLayer(LayerName, true);
+		else
+			m_Doc->changeLayerName(currentLayer, LayerName);
+		m_Doc->setLayerVisible(currentLayer, true);
+		m_Doc->setLayerLocked(currentLayer, false);
+		m_Doc->setLayerPrintable(currentLayer, true);
+		m_Doc->setLayerTransparency(currentLayer, trans);
+		firstLayer = false;
+		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+		{
+			QDomElement b = n.toElement();
+			if( b.isNull() || isIgnorableNode(b) )
+				continue;
+			SvgStyle svgStyle;
+			parseStyle( &svgStyle, b);
+			if (!svgStyle.Display) 
+				continue;
+			QList<PageItem*> el = parseElement(b);
+			for (int ec = 0; ec < el.count(); ++ec)
+				GElements.append(el.at(ec));
+		}
+		delete( m_gc.pop() );
+	}
+	else
+	{
+		double BaseX = m_Doc->currentPage()->xOffset();
+		double BaseY = m_Doc->currentPage()->yOffset();
+		groupLevel++;
+		setupNode(e);
+		parseClipPathAttr(e, clipPath);
+		m_gc.top()->forGroup = true;
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+		PageItem *neu = m_Doc->Items->at(z);
+		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+		{
+			QDomElement b = n.toElement();
+			if( b.isNull() || isIgnorableNode(b) )
+				continue;
+			SvgStyle svgStyle;
+			parseStyle( &svgStyle, b);
+			if (!svgStyle.Display) 
+				continue;
+			QList<PageItem*> el = parseElement(b);
+			for (int ec = 0; ec < el.count(); ++ec)
+				gElements.append(el.at(ec));
+		}
+		groupLevel--;
+		SvgStyle *gc = m_gc.top();
+		if (clipPath.size() == 0)
+		{
+			if (gc->clipPath.size() != 0)
+				clipPath = gc->clipPath.copy();
+		}
+		if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
+		{
+			// Unfortunately we have to take the long route here, or we risk crash on undo/redo
+			// FIXME : create group object after parsing grouped objects
+			/*m_Doc->Items->takeAt(z);
+			delete neu;*/
+			Selection tmpSelection(m_Doc, false);
+			tmpSelection.addItem(neu);
+			m_Doc->itemSelection_DeleteItem(&tmpSelection);
+			for (int a = 0; a < m_Doc->Items->count(); ++a)
+			{
+				m_Doc->Items->at(a)->ItemNr = a;
+			}
+			for (int gr = 0; gr < gElements.count(); ++gr)
+			{
+				GElements.append(gElements.at(gr));
+			}
+		}
+		else
+		{
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			GElements.append(neu);
+			for (int gr = 0; gr < gElements.count(); ++gr)
+			{
+				PageItem* currItem = gElements.at(gr);
+				double x1, x2, y1, y2;
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			neu->setXYPos(gx, gy);
+			neu->setWidthHeight(gw, gh);
+			if (clipPath.size() != 0)
+			{
+				QTransform mm = gc->matrix;
+				neu->PoLine = clipPath.copy();
+				neu->PoLine.map(mm);
+				neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
+				clipPath.resize(0);
+
+			}
+			else
+				neu->SetRectFrame();
+			neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+			if( !e.attribute("id").isEmpty() )
+				neu->setItemName(e.attribute("id"));
+			else
+				neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+			neu->AutoName = false;
+			neu->setFillTransparency(1 - gc->Opacity);
+			neu->gXpos = neu->xPos() - gx;
+			neu->gYpos = neu->yPos() - gy;
+			neu->groupWidth = gw;
+			neu->groupHeight = gh;
+			for (int gr = 0; gr < gElements.count(); ++gr)
+			{
+				PageItem* currItem = gElements.at(gr);
+				currItem->gXpos = currItem->xPos() - gx;
+				currItem->gYpos = currItem->yPos() - gy;
+				currItem->gWidth = gw;
+				currItem->gHeight = gh;
+				neu->groupItemList.append(currItem);
+				m_Doc->Items->removeAll(currItem);
+			}
+			neu->setRedrawBounding();
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_Doc->GroupCounter++;
+			m_Doc->renumberItemsInListOrder();
+		}
+		delete( m_gc.pop() );
+	}
+	return GElements;
+}
+
+QList<PageItem*> SVGPlug::parseDoc(const QDomElement &e)
+{
+	QList<PageItem*> GElements;
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
@@ -1104,94 +1243,8 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			continue;
 		QList<PageItem*> el = parseElement(b);
 		for (int ec = 0; ec < el.count(); ++ec)
-			gElements.append(el.at(ec));
+			GElements.append(el.at(ec));
 	}
-	groupLevel--;
-	SvgStyle *gc = m_gc.top();
-	if (clipPath.size() == 0)
-	{
-		if (gc->clipPath.size() != 0)
-			clipPath = gc->clipPath.copy();
-	}
-	if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
-	{
-		// Unfortunately we have to take the long route here, or we risk crash on undo/redo
-		// FIXME : create group object after parsing grouped objects
-		/*m_Doc->Items->takeAt(z);
-		delete neu;*/
-		Selection tmpSelection(m_Doc, false);
-		tmpSelection.addItem(neu);
-		m_Doc->itemSelection_DeleteItem(&tmpSelection);
-		for (int a = 0; a < m_Doc->Items->count(); ++a)
-		{
-			m_Doc->Items->at(a)->ItemNr = a;
-		}
-		for (int gr = 0; gr < gElements.count(); ++gr)
-		{
-			GElements.append(gElements.at(gr));
-		}
-	}
-	else
-	{
-		double minx =  std::numeric_limits<double>::max();
-		double miny =  std::numeric_limits<double>::max();
-		double maxx = -std::numeric_limits<double>::max();
-		double maxy = -std::numeric_limits<double>::max();
-		GElements.append(neu);
-		for (int gr = 0; gr < gElements.count(); ++gr)
-		{
-			PageItem* currItem = gElements.at(gr);
-			double x1, x2, y1, y2;
-			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-			minx = qMin(minx, x1);
-			miny = qMin(miny, y1);
-			maxx = qMax(maxx, x2);
-			maxy = qMax(maxy, y2);
-		}
-		double gx = minx;
-		double gy = miny;
-		double gw = maxx - minx;
-		double gh = maxy - miny;
-		neu->setXYPos(gx, gy);
-		neu->setWidthHeight(gw, gh);
-		if (clipPath.size() != 0)
-		{
-			QTransform mm = gc->matrix;
-			neu->PoLine = clipPath.copy();
-			neu->PoLine.map(mm);
-			neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
-			clipPath.resize(0);
-
-		}
-		else
-			neu->SetRectFrame();
-		neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
-		if( !e.attribute("id").isEmpty() )
-			neu->setItemName(e.attribute("id"));
-		else
-			neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-		neu->AutoName = false;
-		neu->setFillTransparency(1 - gc->Opacity);
-		neu->gXpos = neu->xPos() - gx;
-		neu->gYpos = neu->yPos() - gy;
-		neu->groupWidth = gw;
-		neu->groupHeight = gh;
-		for (int gr = 0; gr < gElements.count(); ++gr)
-		{
-			PageItem* currItem = gElements.at(gr);
-			currItem->gXpos = currItem->xPos() - gx;
-			currItem->gYpos = currItem->yPos() - gy;
-			currItem->gWidth = gw;
-			currItem->gHeight = gh;
-			neu->groupItemList.append(currItem);
-			m_Doc->Items->removeAll(currItem);
-		}
-		neu->setRedrawBounding();
-		neu->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->GroupCounter++;
-		m_Doc->renumberItemsInListOrder();
-	}
-	delete( m_gc.pop() );
 	return GElements;
 }
 

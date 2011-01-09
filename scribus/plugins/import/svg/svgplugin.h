@@ -246,6 +246,7 @@ public:
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
 	QList<PageItem*> parseA(const QDomElement &e);
 	QList<PageItem*> parseGroup(const QDomElement &e);
+	QList<PageItem*> parseDoc(const QDomElement &e);
 	QList<PageItem*> parseElement(const QDomElement &e);
 	QList<PageItem*> parseCircle(const QDomElement &e);
 	QList<PageItem*> parseEllipse(const QDomElement &e);
@@ -308,6 +309,7 @@ public:
 	double inGroupXOrigin;
 	double inGroupYOrigin;
 	int importerFlags;
+	bool firstLayer;
 };
 
 #endif
