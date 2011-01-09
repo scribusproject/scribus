@@ -8324,7 +8324,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			if (!pdfViewer.isEmpty())
 			{
 				QStringList args;
-				args << doc->pdfOptions().fileName;
+				args << QDir::toNativeSeparators(doc->pdfOptions().fileName);
 				System(pdfViewer, args);
 			}
 		}
