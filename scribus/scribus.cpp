@@ -3407,7 +3407,7 @@ void ScribusMainWindow::importVectorFile()
 		fmtCode++;
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
 	}
-	allFormats += "*.sce *.SCE;;";
+	allFormats += "*.sce *.SCE);;";
 	formats.append("Scribus Objects (*.sce *.SCE)");
 	qSort(formats);
 	allFormats += formats.join(";;");
