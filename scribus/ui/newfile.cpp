@@ -367,6 +367,7 @@ void NewDoc::createOpenDocPage()
 	fileDialog = new QFileDialog(openDocFrame, tr("Open"), docDir, formats);
 	fileDialog->setFileMode(QFileDialog::ExistingFile);
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+	fileDialog->setOption(QFileDialog::DontUseNativeDialog);
 #if QT_VERSION >= 0x040600
 	fileDialog->setNameFilterDetailsVisible(false);
 #else
