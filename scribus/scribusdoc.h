@@ -1008,7 +1008,7 @@ public:
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
-	void AdjustItemSize(PageItem *currItem, bool includeGroup = false);
+	void AdjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
 	void rotateGroup(double angle, FPoint RCenter);
 	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0, bool scaleLine = false);

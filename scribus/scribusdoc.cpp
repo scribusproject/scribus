@@ -11385,7 +11385,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool
 }
 
 
-void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup)
+void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool moveInGroup)
 {
 	bool siz = currItem->Sizing;
 	currItem->Sizing = false;
@@ -11414,7 +11414,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup)
 			currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
 		SizeItem(tp.x(), tp.y(), currItem, true, false);
 		currItem->PoLine = Clip.copy();
-		if (currItem->isGroup() && includeGroup)
+		if (currItem->isGroup() && includeGroup && moveInGroup)
 		{
 			for (int em = 0; em < currItem->groupItemList.count(); ++em)
 			{
@@ -11587,7 +11587,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			bb->PoLine.map(ma2);
 			bb->setRotation(0.0);
 			bb->ClipEdited = true;
-			AdjustItemSize(bb);
+			AdjustItemSize(bb, true, false);
 			QTransform ma3;
 			ma3.translate(gx, gy);
 			ma3.scale(scx, scy);
@@ -11601,7 +11601,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				QTransform ma;
 				ma.rotate(-bb->rotation());
 				bb->PoLine.map(ma);
-				AdjustItemSize(bb);
+				AdjustItemSize(bb, true, false);
 			}
 		}
 		if (scaleText)
