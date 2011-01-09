@@ -316,7 +316,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 				{
 					if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
 						groupStackP.push(groupStack.pop());
@@ -325,6 +325,8 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 					else
 						groupStackM.push(groupStack.pop());
 					groupStack2.pop();
+					if (groupStack2.count() == 0)
+						break;
 				}
 			}
 			if (itemInfo.isGroupFlag)
@@ -687,7 +689,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 				{
 					if (tagName == "PAGEOBJECT")
 						groupStackP.push(groupStack.pop());
@@ -696,6 +698,8 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 					else
 						groupStackM.push(groupStack.pop());
 					groupStack2.pop();
+					if (groupStack2.count() == 0)
+						break;
 				}
 			}
 			if (itemInfo.isGroupFlag)
@@ -1196,7 +1200,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 				{
 					if (tagName == "PAGEOBJECT")
 						groupStackP.push(groupStack.pop());
@@ -1205,6 +1209,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 					else
 						groupStackM.push(groupStack.pop());
 					groupStack2.pop();
+					if (groupStack2.count() == 0)
+						break;
 				}
 			}
 			if (itemInfo.isGroupFlag)
@@ -2957,10 +2963,12 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		if (groupStack.count() > 0)
 		{
 			groupStack.top().append(itemInfo.item);
-			if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+			while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 			{
 				groupStackP.push(groupStack.pop());
 				groupStack2.pop();
+				if (groupStack2.count() == 0)
+					break;
 			}
 		}
 		if (itemInfo.isGroupFlag)
@@ -4165,7 +4173,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				if (groupStack.count() > 0)
 				{
 					groupStack.top().append(itemInfo.item);
-					if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+					while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 					{
 						if (tagName == "PAGEOBJECT")
 							groupStackP.push(groupStack.pop());
@@ -4174,6 +4182,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						else
 							groupStack.pop();
 						groupStack2.pop();
+						if (groupStack2.count() == 0)
+							break;
 					}
 				}
 				if (itemInfo.isGroupFlag)

@@ -448,7 +448,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 				{
 					if (tagName == "PAGEOBJECT")
 						groupStackP.push(groupStack.pop());
@@ -457,6 +457,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					else
 						groupStackM.push(groupStack.pop());
 					groupStack2.pop();
+					if (groupStack2.count() == 0)
+						break;
 				}
 			}
 			if (itemInfo.isGroupFlag)
@@ -2054,10 +2056,12 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		if (groupStack.count() > 0)
 		{
 			groupStack.top().append(itemInfo.item);
-			if (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+			while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
 			{
 				groupStackP.push(groupStack.pop());
 				groupStack2.pop();
+				if (groupStack2.count() == 0)
+					break;
 			}
 		}
 		if (itemInfo.isGroupFlag)
@@ -2535,6 +2539,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		doc->GroupCounter++;
 		break;
 	case PageItem::Symbol:
+	case PageItem::RegularPolygon:
+	case PageItem::Arc:
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
