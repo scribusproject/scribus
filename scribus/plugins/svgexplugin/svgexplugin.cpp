@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QBuffer>
 #include <QList>
 #include <QCheckBox>
-#include <QSharedPointer>
+#include <QScopedPointer>
 
 #include "svgexplugin.h"
 
@@ -124,7 +124,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QSharedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
+		QScopedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
@@ -157,7 +157,6 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		Options.inlineImages = inlineImages->isChecked();
 		Options.exportPageBackground = exportBack->isChecked();
 		Options.compressFile = compress->isChecked();
-		openDia.clear();
 
 		if (fileName.isEmpty())
 			return true;
@@ -209,6 +208,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	docElement.setAttribute("height", FToStr(pageHeight)+"pt");
 	docElement.setAttribute("viewBox", QString("0 0 %1 %2").arg(pageWidth).arg(pageHeight));
 	docElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+	docElement.setAttribute("xmlns:inkscape","http://www.inkscape.org/namespaces/inkscape");
 	docElement.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	docElement.setAttribute("version","1.1");
 	if (!m_Doc->documentInfo().title().isEmpty())
@@ -292,6 +292,8 @@ void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
 
 	layerGroup = docu.createElement("g");
 	layerGroup.setAttribute("id", layer.Name);
+	layerGroup.setAttribute("inkscape:label", layer.Name);
+	layerGroup.setAttribute("inkscape:groupmode", "layer");
 	if (layer.transparency != 1.0)
 		layerGroup.setAttribute("opacity", FToStr(layer.transparency));
 	for(int j = 0; j < Items.count(); ++j)
