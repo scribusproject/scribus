@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QBuffer>
 #include <QList>
 #include <QCheckBox>
-#include <QSharedPointer>
+#include <QScopedPointer>
 
 #include "svgexplugin.h"
 
@@ -125,7 +125,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QSharedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
+		QScopedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
@@ -158,7 +158,6 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		Options.inlineImages = inlineImages->isChecked();
 		Options.exportPageBackground = exportBack->isChecked();
 		Options.compressFile = compress->isChecked();
-		openDia.clear();
 
 		if (fileName.isEmpty())
 			return true;
