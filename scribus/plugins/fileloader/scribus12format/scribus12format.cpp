@@ -369,6 +369,8 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		m_Doc->Items->at(z)->groupHeight = Buffer->groupHeight;
 		break;
 	case PageItem::Multiple:
+	case PageItem::RegularPolygon:
+	case PageItem::Arc:
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:
