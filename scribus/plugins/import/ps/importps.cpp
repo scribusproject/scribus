@@ -626,7 +626,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						m_Doc->AdjustItemSize(ite);
+						m_Doc->AdjustItemSize(ite, true);
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 						ite->AutoName = false;
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -655,7 +655,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							FPoint wh = getMaxClipF(&ite->PoLine);
 							ite->setWidthHeight(wh.x(),wh.y());
 							ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-							m_Doc->AdjustItemSize(ite);
+							m_Doc->AdjustItemSize(ite, true);
 							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 							ite->AutoName = false;
 							ite->setTextFlowMode(PageItem::TextFlowDisabled);
