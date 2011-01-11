@@ -1170,6 +1170,8 @@ public:
 	QWidget* WinHan;
 	bool DoDrawing;
 	bool drawAsPreview;
+	bool viewAsPreview;
+	int previewVisual;
 	struct OpenNodesList
 	{
 		int type;

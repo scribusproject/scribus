@@ -246,6 +246,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	docPrefsData.pdfPrefs.useDocBleeds = true;
 	Print_Options.firstUse = true;
 	drawAsPreview = false;
+	viewAsPreview = false;
+	previewVisual = -1;
 }
 
 
@@ -337,6 +339,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	docPrefsData.docSetupPrefs.pagePositioning=pagesSetup.pageArrangement;
 	Print_Options.firstUse = true;
 	drawAsPreview = false;
+	viewAsPreview = false;
+	previewVisual = -1;
 }
 
 
@@ -3759,10 +3763,10 @@ void ScribusDoc::recalculateColors()
 		{
 			const ScColor& col = PageColors[cstops.at(cst)->name];
 			QColor tmp = ScColorEngine::getShadeColorProof(col, this, cstops.at(cst)->shade);
-			if ((view()) && (view()->m_canvas->usePreviewVisual()))
+			if (viewAsPreview)
 			{
 				VisionDefectColor defect;
-				tmp = defect.convertDefect(tmp, view()->m_canvas->previewVisual());
+				tmp = defect.convertDefect(tmp, previewVisual);
 			}
 			cstops.at(cst)->color = tmp;
 		}
@@ -7290,10 +7294,6 @@ void ScribusDoc::connectDocSignals()
 			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
 			connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
 		}
-//		connect(this, SIGNAL(refreshItem(PageItem*)), view(), SLOT(RefreshItem(PageItem*)));
-//		connect(this, SIGNAL(updateContents()), view(), SLOT(slotUpdateContents()));
-//		connect(this, SIGNAL(updateContents(const QRect&)), view(), SLOT(slotUpdateContents(const QRect&)));
-//		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), view(), SLOT(adjustCanvas(double, double, double, double)));
 	}
 }
 

@@ -404,6 +404,8 @@ void ScribusView::adjustCMS()
 void ScribusView::switchPreviewVisual(int vis)
 {
 	m_canvas->setPreviewVisual(vis);
+	Doc->viewAsPreview = m_canvas->usePreviewVisual();
+	Doc->previewVisual = m_canvas->previewVisual();
 	Doc->recalculateColors();
 	Doc->recalcPicturesRes();
 	DrawNew();

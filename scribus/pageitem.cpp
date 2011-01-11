@@ -2104,10 +2104,10 @@ void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
 {
 	const ScColor& col = m_Doc->PageColors[farbe];
 	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		*tmp = defect.convertDefect(*tmp, m_Doc->view()->m_canvas->previewVisual());
+		*tmp = defect.convertDefect(*tmp, m_Doc->previewVisual);
 	}
 }
 
@@ -2610,10 +2610,10 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 	}
 	else
 		GrColorP1QColor = QColor(255, 255, 255, 0);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		GrColorP1QColor = defect.convertDefect(GrColorP1QColor, m_Doc->view()->m_canvas->previewVisual());
+		GrColorP1QColor = defect.convertDefect(GrColorP1QColor, m_Doc->previewVisual);
 	}
 	GrColorP2 = col2;
 	if (GrColorP2 != CommonStrings::None)
@@ -2647,10 +2647,10 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 	}
 	else
 		GrColorP2QColor = QColor(255, 255, 255, 0);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		GrColorP2QColor = defect.convertDefect(GrColorP2QColor, m_Doc->view()->m_canvas->previewVisual());
+		GrColorP2QColor = defect.convertDefect(GrColorP2QColor, m_Doc->previewVisual);
 	}
 	GrColorP3 = col3;
 	if (GrColorP3 != CommonStrings::None)
@@ -2684,10 +2684,10 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 	}
 	else
 		GrColorP3QColor = QColor(255, 255, 255, 0);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		GrColorP3QColor = defect.convertDefect(GrColorP3QColor, m_Doc->view()->m_canvas->previewVisual());
+		GrColorP3QColor = defect.convertDefect(GrColorP3QColor, m_Doc->previewVisual);
 	}
 	GrColorP4 = col4;
 	if (GrColorP4 != CommonStrings::None)
@@ -2721,10 +2721,10 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 	}
 	else
 		GrColorP4QColor = QColor(255, 255, 255, 0);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		GrColorP4QColor = defect.convertDefect(GrColorP4QColor, m_Doc->view()->m_canvas->previewVisual());
+		GrColorP4QColor = defect.convertDefect(GrColorP4QColor, m_Doc->previewVisual);
 	}
 }
 
@@ -2787,10 +2787,10 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 	}
 	else
 		MQColor = QColor(255, 255, 255, 0);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		MQColor = defect.convertDefect(MQColor, m_Doc->view()->m_canvas->previewVisual());
+		MQColor = defect.convertDefect(MQColor, m_Doc->previewVisual);
 	}
 	if ((x > -1) && (y > -1))
 	{
@@ -2836,10 +2836,10 @@ void PageItem::createGradientMesh(int rows, int cols)
 	}
 	else
 		MQColor = QColor(255, 255, 255, 0);
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		MQColor = defect.convertDefect(MQColor, m_Doc->view()->m_canvas->previewVisual());
+		MQColor = defect.convertDefect(MQColor, m_Doc->previewVisual);
 	}
 	meshGradientArray.clear();
 	double xoffs = Width / static_cast<double>(cols);
@@ -3354,10 +3354,10 @@ void PageItem::setLineQColor()
 		const ScColor& col = m_Doc->PageColors[lineColorVal];
 		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
 	}
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		strokeQColor = defect.convertDefect(strokeQColor, m_Doc->view()->m_canvas->previewVisual());
+		strokeQColor = defect.convertDefect(strokeQColor, m_Doc->previewVisual);
 	}
 }
 
@@ -3391,10 +3391,10 @@ void PageItem::setFillQColor()
 		const ScColor& col = m_Doc->PageColors[fillColorVal];
 		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, fillShadeVal);
 	}
-	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
+	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
-		fillQColor = defect.convertDefect(fillQColor, m_Doc->view()->m_canvas->previewVisual());
+		fillQColor = defect.convertDefect(fillQColor, m_Doc->previewVisual);
 	}
 }
 
@@ -4189,42 +4189,19 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double   w = state->getDouble("NEW_RWIDTH");
 	double   h = state->getDouble("NEW_RHEIGHT");
 	int  stateCode = state->transactionCode;
-	bool redraw = ((stateCode != 1) && (stateCode != 3));;
-	//CB Commented out test code
-	//QRect oldR(getRedrawBounding(view->scale()));
-	//double mx = ox - x;
-	//double my = oy - y;
+	bool redraw = ((stateCode != 1) && (stateCode != 3));
 	if (isUndo)
 	{
-		/*Rot=ort;
-		Xpos+=mx;
-		Ypos+=my;
-		Width=ow;
-		Height=oh;*/
 		m_Doc->RotateItem(ort, this);
 		m_Doc->MoveItem(ox - Xpos, oy - Ypos, this, false);
 		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
 	}
 	else
 	{
-		/*mx = -mx;
-		my = -my;
-		Rot=rt;
-		Xpos-=mx;
-		Ypos-=my;
-		Width=w;
-		Height=h;
-		*/
 		m_Doc->RotateItem(rt, this);
 		m_Doc->MoveItem(x - Xpos, y - Ypos, this, false);
 		m_Doc->SizeItem(w, h, this, false, true, redraw);
 	}
-	/*
-	m_Doc->setRedrawBounding(this);
-	QRect newR(getRedrawBounding(view->scale()));
-	view->updateContents(newR.unite(oldR));
-	OwnPage = m_Doc->OnPage(this);
-	*/
 	oldRot = Rot;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
@@ -5857,7 +5834,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	if (PictureIsAvailable)
 	{
-		if (m_Doc->view() && (m_Doc->view()->m_canvas->usePreviewVisual()))
+		if (m_Doc->viewAsPreview)
 		{
 			VisionDefectColor defect;
 			QColor tmpC;
@@ -5873,7 +5850,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				{
 					rgb = *s;
 					tmpC.setRgb(rgb);
-					tmpC = defect.convertDefect(tmpC, m_Doc->view()->m_canvas->previewVisual());
+					tmpC = defect.convertDefect(tmpC, m_Doc->previewVisual);
 					a = qAlpha(rgb);
 					tmpC.getRgb(&r, &g, &b);
 					*s = qRgba(r, g, b, a);

@@ -183,7 +183,7 @@ public:
 	bool isPreviewMode() const { return m_viewMode.previewMode || m_viewMode.viewAsPreview; }
 	bool usePreviewVisual() const { return m_viewMode.viewAsPreview && m_viewMode.previewVisual != 0; }
 	int previewVisual() const { return m_viewMode.previewVisual; }
-	void setPreviewVisual(int mode) { m_viewMode.previewVisual = qMax(0, mode); m_viewMode.viewAsPreview = (mode >= 0); }
+	void setPreviewVisual(int mode);
 	
 	void DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRect clip);
 	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip);
