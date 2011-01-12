@@ -17,11 +17,11 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 
 	public:
 		PolygonWidget(QWidget* parent);
-		PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+		PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 		~PolygonWidget() {};
 
-		void setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
-		void getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature);
+		void setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+		void getValues(int* polyCorners, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature);
 		void restoreDefaults(struct ItemToolPrefs *prefsData);
 		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
 
@@ -37,6 +37,7 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 		double GetFactor();
 
 	protected:
+		double getUserValFromFactor(double factor);
 		double PFactor;
 		void connectSignals(bool);
 };

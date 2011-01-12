@@ -265,7 +265,6 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;
 	appPrefs.itemToolPrefs.polyUseFactor = false;
-	appPrefs.itemToolPrefs.polyFactorGuiVal = 0;
 	appPrefs.itemToolPrefs.polyRotation = 0.0;
 	appPrefs.itemToolPrefs.polyInnerRot = 0.0;
 	appPrefs.itemToolPrefs.polyCurvature = 0.0;
@@ -1471,7 +1470,6 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("PolygonFactor", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyFactor));
 	dcItemTools.setAttribute("PolygonRotation", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyRotation));
 	dcItemTools.setAttribute("PolygonInnerRotation", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyInnerRot));
-	dcItemTools.setAttribute("PolygonFactorGUI", appPrefs.itemToolPrefs.polyFactorGuiVal);
 	dcItemTools.setAttribute("PolygonCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyCurvature));
 	dcItemTools.setAttribute("PolygonOuterCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyOuterCurvature));
 	dcItemTools.setAttribute("arcStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcStartAngle));
@@ -2065,7 +2063,6 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.polyInnerRot = ScCLocale::toDoubleC(dc.attribute("PolygonInnerRotation"), 0.0);
 			appPrefs.itemToolPrefs.polyCurvature = ScCLocale::toDoubleC(dc.attribute("PolygonCurvature"), 0.0);
 			appPrefs.itemToolPrefs.polyOuterCurvature = ScCLocale::toDoubleC(dc.attribute("PolygonOuterCurvature"), 0.0);
-			appPrefs.itemToolPrefs.polyFactorGuiVal = dc.attribute("PolygonFactorGUI", "0").toInt();
 			appPrefs.itemToolPrefs.polyUseFactor  = static_cast<bool>(dc.attribute("PolygonUseFactor", "0").toInt());
 			appPrefs.itemToolPrefs.lineStartArrow = dc.attribute("LineStartArrow", "0").toInt();
 			appPrefs.itemToolPrefs.lineEndArrow   = dc.attribute("LineEndArrow", "0").toInt();

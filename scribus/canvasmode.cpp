@@ -27,6 +27,7 @@
 #include "canvasmode_editarc.h"
 #include "canvasmode_editgradient.h"
 #include "canvasmode_editmeshgradient.h"
+#include "canvasmode_editpolygon.h"
 #include "canvasmode_eyedropper.h"
 #include "canvasmode_framelinks.h"
 #include "canvasmode_magnifier.h"
@@ -170,6 +171,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeEditArc:
 			result = new CanvasMode_EditArc(view);
+			break;
+		case modeEditPolygon:
+			result = new CanvasMode_EditPolygon(view);
 			break;
 			// more modes as they are defined...
 			
@@ -597,6 +601,7 @@ void CanvasMode::setModeCursor()
 		case modeInsertPDFLinkAnnotation:
 		case modeInsertPDF3DAnnotation:
 		case modeEditArc:
+		case modeEditPolygon:
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 		default:

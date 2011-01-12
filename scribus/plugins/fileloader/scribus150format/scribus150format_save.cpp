@@ -261,7 +261,6 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYIR", m_Doc->itemToolPrefs().polyInnerRot);
 	docu.writeAttribute("POLYCUR", m_Doc->itemToolPrefs().polyCurvature);
 	docu.writeAttribute("POLYOCUR", m_Doc->itemToolPrefs().polyOuterCurvature);
-	docu.writeAttribute("POLYFD", m_Doc->itemToolPrefs().polyFactorGuiVal);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs().polyUseFactor));
 	docu.writeAttribute("arcStartAngle", m_Doc->itemToolPrefs().arcStartAngle);
 	docu.writeAttribute("arcSweepAngle", m_Doc->itemToolPrefs().polyInnerRot);
@@ -1683,7 +1682,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("POLYIR", regitem->polyInnerRot);
 		docu.writeAttribute("POLYCUR", regitem->polyCurvature);
 		docu.writeAttribute("POLYOCUR", regitem->polyOuterCurvature);
-		docu.writeAttribute("POLYFD", regitem->polyFactorGuiVal);
 		docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
 	}
 	if (item->asArc())

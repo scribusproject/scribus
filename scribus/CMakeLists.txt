@@ -447,6 +447,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_editarc.cpp
   canvasmode_editgradient.cpp
   canvasmode_editmeshgradient.cpp
+  canvasmode_editpolygon.cpp
 #  canvasmode_legacy.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp

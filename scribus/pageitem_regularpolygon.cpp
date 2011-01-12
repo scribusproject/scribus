@@ -52,7 +52,6 @@ PageItem_RegularPolygon::PageItem_RegularPolygon(ScribusDoc *pa, double x, doubl
 {
 	polyCorners = m_Doc->itemToolPrefs().polyCorners;
 	polyFactor = m_Doc->itemToolPrefs().polyFactor;
-	polyFactorGuiVal = m_Doc->itemToolPrefs().polyFactorGuiVal;
 	polyUseFactor = m_Doc->itemToolPrefs().polyUseFactor;
 	polyRotation = m_Doc->itemToolPrefs().polyRotation;
 	polyCurvature = m_Doc->itemToolPrefs().polyCurvature;

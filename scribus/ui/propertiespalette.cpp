@@ -4130,10 +4130,10 @@ void PropertiesPalette::handleShapeEdit()
 		if (CurItem->asRegularPolygon())
 		{
 			PageItem_RegularPolygon* item = CurItem->asRegularPolygon();
-			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactorGuiVal, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature, item->polyInnerRot, item->polyOuterCurvature);
+			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature, item->polyInnerRot, item->polyOuterCurvature);
 			if (dia->exec())
 			{
-				dia->getValues(&item->polyCorners, &item->polyFactorGuiVal, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature, &item->polyInnerRot, &item->polyOuterCurvature);
+				dia->getValues(&item->polyCorners, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature, &item->polyInnerRot, &item->polyOuterCurvature);
 				item->recalcPath();
 			}
 			delete dia;

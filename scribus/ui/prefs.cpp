@@ -394,7 +394,6 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.scrapbookPrefs.numScrapbookCopies = tabScrapbook->numScrapCopies->value();
 
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.itemToolPrefs.polyCorners,
-									&prefsManager->appPrefs.itemToolPrefs.polyFactorGuiVal,
 									&prefsManager->appPrefs.itemToolPrefs.polyFactor,
 									&prefsManager->appPrefs.itemToolPrefs.polyUseFactor,
 									&prefsManager->appPrefs.itemToolPrefs.polyRotation,

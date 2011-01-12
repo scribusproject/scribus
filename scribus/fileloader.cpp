@@ -287,7 +287,6 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->itemToolPrefs().polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
 	currDoc->itemToolPrefs().polyOuterCurvature = prefsManager->appPrefs.itemToolPrefs.polyOuterCurvature;
 	currDoc->itemToolPrefs().polyInnerRot = prefsManager->appPrefs.itemToolPrefs.polyInnerRot;
-	currDoc->itemToolPrefs().polyFactorGuiVal = prefsManager->appPrefs.itemToolPrefs.polyFactorGuiVal;
 	currDoc->itemToolPrefs().polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
 	currDoc->setAutoSave(prefsManager->appPrefs.docSetupPrefs.AutoSave);
 	currDoc->setAutoSaveTime(prefsManager->appPrefs.docSetupPrefs.AutoSaveTime);

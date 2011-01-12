@@ -6511,6 +6511,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeEditGradientVectors:
 			case modeEditMeshGradient:
 			case modeEditArc:
+			case modeEditPolygon:
 				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 				break;
 			default:

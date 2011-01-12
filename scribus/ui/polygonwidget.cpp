@@ -27,10 +27,10 @@ PolygonWidget::PolygonWidget(QWidget* parent) : QWidget( parent )
 }
 
 
-PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : QWidget( parent )
+PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : QWidget( parent )
 {
 	setupUi(this);
-	setValues(polyCorners, polyFd, polyF, polyUseConvexFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
+	setValues(polyCorners, polyF, polyUseConvexFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	updatePreview();
 	// signals and slots connections
 	connectSignals(true);
@@ -87,11 +87,12 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	connectSignals(false);
 	PFactor = prefsData->polyFactor;
 	cornersSpinBox->setValue(prefsData->polyCorners);
+	int fGui = qRound(getUserValFromFactor(prefsData->polyFactor));
 	rotationSpinBox->setValue(static_cast<int>(prefsData->polyRotation));
 	rotationSlider->setValue(static_cast<int>(prefsData->polyRotation));
 	applyConvexGroupBox->setChecked(prefsData->polyUseFactor);
-	factorSpinBox->setValue(prefsData->polyFactorGuiVal);
-	factorSlider->setValue(prefsData->polyFactorGuiVal);
+	factorSpinBox->setValue(fGui);
+	factorSlider->setValue(fGui);
 	applyConvexGroupBox->setChecked(prefsData->polyUseFactor);
 	curvatureSpinBox->setValue(qRound(prefsData->polyCurvature * 100));
 	curvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));
@@ -108,24 +109,24 @@ void PolygonWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
 	prefsData->polyCorners = cornersSpinBox->value();
 	prefsData->polyFactor = PFactor;
 	prefsData->polyUseFactor = applyConvexGroupBox->isChecked();
-	prefsData->polyFactorGuiVal = factorSlider->value();
 	prefsData->polyRotation = rotationSpinBox->value();
 	prefsData->polyInnerRot = innerRotationspinBox->value();
 	prefsData->polyCurvature = curvatureSpinBox->value() / 100.0;
 	prefsData->polyOuterCurvature = OuterCurvatureSpinBox->value() / 100.0;
 }
 
-void PolygonWidget::setValues(int polyCorners, int polyFd, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature)
+void PolygonWidget::setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature)
 {
 	PFactor = polyF;
 	cornersSpinBox->setValue(polyCorners);
+	int fGui = qRound(getUserValFromFactor(polyF));
 	rotationSpinBox->setValue(static_cast<int>(polyRotation));
 	rotationSlider->setValue(static_cast<int>(polyRotation));
 	innerRotationspinBox->setValue(static_cast<int>(polyInnerRot));
 	innerRotationSlider->setValue(static_cast<int>(polyInnerRot));
 	applyConvexGroupBox->setChecked(polyUseConvexFactor);
-	factorSpinBox->setValue(polyFd);
-	factorSlider->setValue(polyFd);
+	factorSpinBox->setValue(fGui);
+	factorSlider->setValue(fGui);
 	applyConvexGroupBox->setChecked(polyUseConvexFactor);
 	curvatureSpinBox->setValue(qRound(polyCurvature * 100));
 	curvatureSlider->setValue(qRound(polyCurvature * 100));
@@ -133,12 +134,11 @@ void PolygonWidget::setValues(int polyCorners, int polyFd, double polyF, bool po
 	OuterCurvatureSlider->setValue(qRound(polyOuterCurvature * 100));
 }
 
-void PolygonWidget::getValues(int* polyCorners, int* polyFd, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature)
+void PolygonWidget::getValues(int* polyCorners, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature)
 {
 	*polyCorners = cornersSpinBox->value();
 	*polyF = PFactor;
 	*polyUseConvexFactor = applyConvexGroupBox->isChecked();
-	*polyFd = factorSlider->value();
 	*polyRotation = rotationSpinBox->value();
 	*polyInnerRot = innerRotationspinBox->value();
 	*polyCurvature = curvatureSpinBox->value() / 100.0;
@@ -215,6 +215,18 @@ void PolygonWidget::updatePreview()
 	p.strokePath(pp, p.pen());
 	p.end();
 	Preview->setPixmap(pm);
+}
+
+double PolygonWidget::getUserValFromFactor(double factor)
+{
+	double userVal = 0.0;
+	double mi = GetZeroFactor();
+	double ma = GetMaxFactor();
+	if ((factor / mi * 100.0 - 100.0) > 0)
+		userVal = (factor - mi) / (ma - mi) * 100.0;
+	else
+		userVal = factor / mi * 100.0 - 100.0;
+	return userVal;
 }
 
 double PolygonWidget::GetZeroFactor()

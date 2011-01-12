@@ -93,6 +93,7 @@ public:
 	friend class CanvasMode_EditArc;
 	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_EditMeshGradient;
+	friend class CanvasMode_EditPolygon;
 	friend class CanvasMode_EyeDropper;
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;

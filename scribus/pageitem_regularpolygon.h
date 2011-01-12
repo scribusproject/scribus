@@ -49,7 +49,6 @@ public:
 	/* Regular Polygon Tool */
 	int polyCorners;  //! Number of corners for a polygon
 	double polyFactor; //! Convex/Concave factor as a double
-	int polyFactorGuiVal; //! Factor value suitable for our GUI
 	bool polyUseFactor; //! Whether to use a factor for shaping
 	double polyRotation; //! Rotation of a polygon
 	double polyCurvature; //! Curvature of polygon
