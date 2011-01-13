@@ -124,7 +124,7 @@ void ModeToolBar::newCalValues()
 
 void ModeToolBar::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this, m_ScMW->doc->itemToolPrefs().polyCorners, m_ScMW->doc->itemToolPrefs().polyFactor, m_ScMW->doc->itemToolPrefs().polyUseFactor, m_ScMW->doc->itemToolPrefs().polyRotation, m_ScMW->doc->itemToolPrefs().polyCurvature, m_ScMW->doc->itemToolPrefs().polyInnerRot, m_ScMW->doc->itemToolPrefs().polyOuterCurvature);
+	PolygonProps* dia = new PolygonProps(m_ScMW, m_ScMW->doc->itemToolPrefs().polyCorners, m_ScMW->doc->itemToolPrefs().polyFactor, m_ScMW->doc->itemToolPrefs().polyUseFactor, m_ScMW->doc->itemToolPrefs().polyRotation, m_ScMW->doc->itemToolPrefs().polyCurvature, m_ScMW->doc->itemToolPrefs().polyInnerRot, m_ScMW->doc->itemToolPrefs().polyOuterCurvature);
 	if (dia->exec())
 	{
 		dia->getValues(&m_ScMW->doc->itemToolPrefs().polyCorners, &m_ScMW->doc->itemToolPrefs().polyFactor, &m_ScMW->doc->itemToolPrefs().polyUseFactor, &m_ScMW->doc->itemToolPrefs().polyRotation, &m_ScMW->doc->itemToolPrefs().polyCurvature, &m_ScMW->doc->itemToolPrefs().polyInnerRot, &m_ScMW->doc->itemToolPrefs().polyOuterCurvature);
