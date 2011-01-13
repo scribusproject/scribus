@@ -256,7 +256,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		FPointArray ar;
 		ar.fromQPainterPath(pp);
 		if (m_arcPoint == useControlStart)
-			startPoint = ar.pointQF(3);
+			startPoint = ar.pointQF(2);
 		else if (m_arcPoint == useControlSweep)
 			endPoint = ar.pointQF(ar.size() - 4);
 		currItem->update();
@@ -347,7 +347,7 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->AdjustItemSize(currItem);
 		item->arcStartAngle = startAngle;
 		item->arcSweepAngle = endAngle - startAngle;
-		startPoint = currItem->PoLine.pointQF(3);
+		startPoint = currItem->PoLine.pointQF(2);
 		endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
 		centerPoint = currItem->PoLine.pointQF(0);
 		widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());

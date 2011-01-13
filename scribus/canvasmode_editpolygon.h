@@ -60,8 +60,8 @@ private:
 		noPointDefined,
 		useControlOuter,
 		useControlInner,
-		useControlHeight,
-		useControlWidth
+		useControlInnerCurve,
+		useControlOuterCurve
 	} ePolygonPoint;
 
 	inline bool GetItem(PageItem** pi);
@@ -76,8 +76,8 @@ private:
 	QPointF startPoint;
 	QPointF endPoint;
 	QPointF centerPoint;
-	QPointF widthPoint;
-	QPointF heightPoint;
+	QPointF innerCPoint;
+	QPointF outerCPoint;
 	int polyCorners;
 	bool polyUseFactor;
 	double polyFactor;
