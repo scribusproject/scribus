@@ -84,7 +84,7 @@ public:
 	void svgClosePath();
 	void calculateArc(bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
 	bool parseSVG(const QString& svgPath);
-	QString svgPath() const;
+	QString svgPath(bool closed = false) const;
 	QPainterPath toQPainterPath(bool closed);
 	void fromQPainterPath(QPainterPath &path);
 private:

@@ -3396,7 +3396,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setStartArrowScale(attrs.valueAsInt("startArrowScale", 100));
 	currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
 	currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
-	currItem->isBookmark  = attrs.valueAsInt("BOOKMARK");
+	currItem->isBookmark  = attrs.valueAsInt("BOOKMARK", 0);
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
 		doc->OldBM = true;
 	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
@@ -3405,8 +3405,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->ClipEdited = attrs.valueAsInt("CLIPEDIT", 0);
 	currItem->setFillColor(Pcolor);
 	currItem->setLineColor(Pcolor2);
-	currItem->setFillShade(attrs.valueAsInt("SHADE"));
-	currItem->setLineShade(attrs.valueAsInt("SHADE2"));
+	currItem->setFillShade(attrs.valueAsInt("SHADE", 100));
+	currItem->setLineShade(attrs.valueAsInt("SHADE2", 100));
 
 	ParagraphStyle pstyle;
 	if (attrs.hasAttribute("LINESP"))
@@ -3481,7 +3481,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->itemText.setDefaultStyle(defStyle);
 		}
 	}
-	currItem->setRotation( attrs.valueAsDouble("ROT") );
+	currItem->setRotation( attrs.valueAsDouble("ROT", 0.0) );
 	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 1.0),
 								attrs.valueAsDouble("REXTRA", 1.0),
 								attrs.valueAsDouble("TEXTRA", 1.0),
@@ -3491,7 +3491,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->PLineArt  = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
 	currItem->PLineEnd  = Qt::PenCapStyle(attrs.valueAsInt("PLINEEND", 0));
 	currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("PLINEJOIN", 0));
-	currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE"));
+	currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE", 1));
 	currItem->setIsAnnotation( attrs.valueAsInt("ANNOTATION", 0));
 	currItem->annotation().setType( attrs.valueAsInt("ANTYPE", 0));
 	QString AnName = attrs.valueAsString("ANNAME","");
@@ -3582,7 +3582,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->textPathFlipped = attrs.valueAsBool("textPathFlipped", false);
 	if ( attrs.hasAttribute("TEXTFLOWMODE") )
 		currItem->setTextFlowMode((PageItem::TextFlowMode) attrs.valueAsInt("TEXTFLOWMODE", 0));
-	else if ( attrs.valueAsInt("TEXTFLOW") )
+	else if ( attrs.valueAsInt("TEXTFLOW", 0) != 0)
 	{
 		if (attrs.valueAsInt("TEXTFLOW2", 0))
 			currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
@@ -3593,13 +3593,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
-	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
 	currItem->setReversed(attrs.valueAsBool("REVERS", false));
 	currItem->setLocked (attrs.valueAsBool("LOCK", false));
 	currItem->setSizeLocked(attrs.valueAsBool("LOCKR", false));
-	currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));
 	currItem->fillRule    = attrs.valueAsBool("fillRule", true);
 	currItem->doOverprint = attrs.valueAsBool("doOverprint", false);
+	currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));
 	if (attrs.hasAttribute("TransValueS"))
 		currItem->setLineTransparency(attrs.valueAsDouble("TransValueS", 0.0));
 	else
@@ -3628,6 +3627,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 	else
 		currItem->DashValues.clear();
+	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
 
 	tmp = "";
 	if (attrs.hasAttribute("NUMPO"))
@@ -3644,7 +3644,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 	}
 	else
+	{
 		currItem->PoLine.resize(0);
+		currItem->PoLine.parseSVG(attrs.valueAsString("path"));
+	}
 
 	tmp = "";
 	if (attrs.hasAttribute("NUMCO"))
@@ -3660,6 +3663,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->ContourLine.setPoint(cx, xf, yf);
 		}
 	}
+	else if (attrs.hasAttribute("copath"))
+		currItem->ContourLine.parseSVG(attrs.valueAsString("path"));
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
 

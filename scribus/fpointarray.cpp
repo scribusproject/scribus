@@ -514,11 +514,12 @@ struct SVGState
 };
 
 
-QString FPointArray::svgPath() const
+QString FPointArray::svgPath(bool closed) const
 {
 	QString tmp = "";
-	FPoint np, np1, np2;
+	FPoint np, np1, np2, np3;
 	bool nPath = true;
+	bool first = true;
 	if (size() > 3)
 	{
 		for (uint poi=0; poi < size()-3; poi += 4)
@@ -532,58 +533,24 @@ QString FPointArray::svgPath() const
 			if (nPath)
 			{
 				np = point(poi);
+				if ((!first) && (closed))
+					tmp += "Z ";
 				tmp += "M"+QString::number(np.x())+" "+QString::number(np.y())+" ";
 				nPath = false;
 			}
-			np = point(poi+1);
-			tmp += "C"+QString::number(np.x())+" "+QString::number(np.y())+" ";
-			np1 = point(poi+3);
-			tmp += QString::number(np1.x())+" "+QString::number(np1.y())+" ";
-			np2 = point(poi+2);
-			tmp += QString::number(np2.x())+" "+QString::number(np2.y())+" ";
+			np = point(poi);
+			np1 = point(poi+1);
+			np2 = point(poi+3);
+			np3 = point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				tmp += QString("L%1 %2 ").arg(np3.x()).arg(np3.y());
+			else
+				tmp += QString("C%1 %2 %3 %4 %5 %6 ").arg(np1.x()).arg(np1.y()).arg(np2.x()).arg(np2.y()).arg(np3.x()).arg(np3.y());
 		}
+		if (closed)
+			tmp += "Z";
 	}
 	return tmp;
-/*	Xml_string result;
-	bool hasPoint = false;
-	double x, y, x1, y1, x2, y2, xe=0, ye=0; 
-	uint i=0;
-	while (i < size())
-	{
-		point(i++, &x, &y);
-		if (x > 900000 && y > 900000)  // marker for closepath
-		{
-			hasPoint = false;
-			continue;
-		}
-		if (!hasPoint || x != xe || y != ye) // start a subpath
-		{
-			result += "M";
-			result += QString::number(x);
-			result += " ";
-			result += QString::number(y);
-			result += "C";
-			hasPoint = true;
-		}
-		else 
-			result += " ";
-		
-		point(i++, &x1, &y1);
-		point(i++, &x2, &y2);
-		point(i++, &xe, &ye);
-		result += QString::number(x1);
-		result += " ";
-		result += QString::number(y1);
-		result += " ";
-		result += QString::number(x2);
-		result += " ";
-		result += QString::number(y2);
-		result += " ";
-		result += QString::number(xe);
-		result += " ";
-		result += QString::number(ye);
-	}
-	return result;	*/
 }
 
 QPainterPath FPointArray::toQPainterPath(bool closed)
