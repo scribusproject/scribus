@@ -551,6 +551,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setFillTransparency(1.0 - Opacity);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
+						if (ite->itemType() == PageItem::Polygon)
+							ite->ContourLine = ite->PoLine.copy();
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
 							groupStackP.top().append(ite);
 						Elements.append(ite);
@@ -595,6 +597,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
 						m_Doc->AdjustItemSize(ite);
+						if (ite->itemType() == PageItem::Polygon)
+							ite->ContourLine = ite->PoLine.copy();
 						ite->setLineWidth(LineW);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
@@ -627,6 +631,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						m_Doc->AdjustItemSize(ite, true);
+						ite->ContourLine = ite->PoLine.copy();
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 						ite->AutoName = false;
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -656,6 +661,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							ite->setWidthHeight(wh.x(),wh.y());
 							ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 							m_Doc->AdjustItemSize(ite, true);
+							ite->ContourLine = ite->PoLine.copy();
 							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 							ite->AutoName = false;
 							ite->setTextFlowMode(PageItem::TextFlowDisabled);

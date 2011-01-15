@@ -3664,7 +3664,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 	}
 	else if (attrs.hasAttribute("copath"))
-		currItem->ContourLine.parseSVG(attrs.valueAsString("path"));
+		currItem->ContourLine.parseSVG(attrs.valueAsString("copath"));
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
 

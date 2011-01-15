@@ -490,8 +490,10 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part)
 			docu.writeAttribute("RGB",m_Doc->PageColors[itc.key()].nameRGB());
 		else
 			docu.writeAttribute("CMYK",m_Doc->PageColors[itc.key()].nameCMYK());
-		docu.writeAttribute("Spot",static_cast<int>(m_Doc->PageColors[itc.key()].isSpotColor()));
-		docu.writeAttribute("Register",static_cast<int>(m_Doc->PageColors[itc.key()].isRegistrationColor()));
+		if (m_Doc->PageColors[itc.key()].isSpotColor())
+			docu.writeAttribute("Spot",static_cast<int>(m_Doc->PageColors[itc.key()].isSpotColor()));
+		if (m_Doc->PageColors[itc.key()].isRegistrationColor())
+			docu.writeAttribute("Register",static_cast<int>(m_Doc->PageColors[itc.key()].isRegistrationColor()));
 	}
 	
 }
@@ -1283,9 +1285,10 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("OnMasterPage", item->OnMasterPage);
 		if (!item->pixm.imgInfo.usedPath.isEmpty())
 			docu.writeAttribute("ImageClip", item->pixm.imgInfo.usedPath);
-		docu.writeAttribute("ImageRes", item->pixm.imgInfo.lowResType);
-		docu.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
-		docu.writeAttribute("isInline", static_cast<int>(item->isEmbedded));
+		if (item->pixm.imgInfo.lowResType != 1)
+			docu.writeAttribute("ImageRes", item->pixm.imgInfo.lowResType);
+		if (item->isEmbedded)
+			docu.writeAttribute("isInline", 1);
 		if (!item->fillRule)
 			docu.writeAttribute("fillRule", 0);
 		if (item->doOverprint)
@@ -1677,15 +1680,13 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	{
 		docu.writeAttribute("PWIDTH",item->lineWidth());
 		if (item->fillColor() != CommonStrings::None)
-		{
 			docu.writeAttribute("PCOLOR",item->fillColor());
+		if (item->fillShade() != 100)
 			docu.writeAttribute("SHADE",item->fillShade());
-		}
 		if (item->lineColor() != CommonStrings::None)
-		{
 			docu.writeAttribute("PCOLOR2",item->lineColor());
+		if (item->lineShade() != 100)
 			docu.writeAttribute("SHADE2",item->lineShade());
-		}
 		if (!item->NamedLStyle.isEmpty())
 			docu.writeAttribute("NAMEDLST",item->NamedLStyle);
 		if (item->PLineArt != 0)
@@ -1854,6 +1855,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (((item->asImageFrame() && !(item->asLatexFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 #endif
 	{
+		docu.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
 		if (item->isInlineImage)
 		{
 			docu.writeAttribute("PFILE", "");
@@ -1897,10 +1899,14 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	if (!item->Pfile3.isEmpty())
 		docu.writeAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
-	docu.writeAttribute("PRFILE",item->IProfile);
-	docu.writeAttribute("EPROF", item->EmProfile);
-	docu.writeAttribute("IRENDER",item->IRender);
-	docu.writeAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
+	if (!item->IProfile.isEmpty())
+		docu.writeAttribute("PRFILE",item->IProfile);
+	if (!item->EmProfile.isEmpty())
+		docu.writeAttribute("EPROF", item->EmProfile);
+	if (item->IRender != 1)
+		docu.writeAttribute("IRENDER",item->IRender);
+	if (!item->UseEmbedded)
+		docu.writeAttribute("EMBEDDED", 0);
 	if (item->asImageFrame())
 	{
 		if (item->OverrideCompressionMethod)

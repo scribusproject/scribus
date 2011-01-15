@@ -537,6 +537,7 @@ QString FPointArray::svgPath(bool closed) const
 					tmp += "Z ";
 				tmp += "M"+QString::number(np.x())+" "+QString::number(np.y())+" ";
 				nPath = false;
+				first = false;
 			}
 			np = point(poi);
 			np1 = point(poi+1);
