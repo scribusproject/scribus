@@ -71,14 +71,11 @@ SET(SCRIBUS_UI_SRC
   ui/charselectenhanced.ui
   ui/cmsprefsbase.ui
   ui/colorpalette.ui
-#  ui/docitemattrprefs.ui
-#  ui/docsections.ui
   ui/gradientaddedit.ui
   ui/gradienteditor.ui
   ui/gradientvectorbase.ui
   ui/gtfiledialog.ui
   ui/guidemanager.ui
-#  ui/hysettingsBase.ui
   ui/insertaframe.ui
   ui/latexeditor.ui
   ui/newmarginwidgetbase.ui
@@ -89,7 +86,6 @@ SET(SCRIBUS_UI_SRC
   ui/nftwidget.ui
   ui/pageitemattributes.ui
   ui/paintmanagerbase.ui
-#  ui/patterndialog.ui
   ui/picsearch.ui
   ui/picsearchoptions.ui
   ui/picstatus.ui
@@ -132,14 +128,6 @@ SET(SCRIBUS_UI_SRC
   ui/smreplacedia.ui
   ui/smstyleimport.ui
   ui/stylemanager.ui
-#  ui/tabdisplay.ui
-#  ui/tabexternaltoolswidget.ui
-#  ui/tabgeneral.ui
-#  ui/tabkeyboardshortcutswidget.ui
-#  ui/tabmiscellaneous.ui
-#  ui/tabprinter.ui
-#  ui/tabscrapbook.ui
-#  ui/tocindexprefs.ui
   ui/transformdialogbase.ui
   ui/transparencypalette.ui
   ui/copypagetomasterpage.ui
@@ -158,7 +146,6 @@ SET(SCRIBUS_MOC_CLASSES
   canvasgesture_rulermove.h
   canvasmode.h
   canvasmode_edit.h
-#  canvasmode_legacy.h
   canvasmode_measurements.h
   canvasmode_normal.h
   chartablemodel.h
@@ -255,14 +242,11 @@ SET(SCRIBUS_MOC_CLASSES
   ui/dasheditor.h
   ui/dcolor.h
   ui/delpages.h
-#  ui/docitemattrprefs.h
-#  ui/docsections.h
   ui/editor.h
   ui/effectsdialog.h
   ui/extimageprops.h
   ui/fontcombo.h
   ui/fontlistview.h
-#  ui/fontprefs.h
   ui/fontreplacedialog.h
   ui/gradientaddedit.h
   ui/gradienteditor.h
@@ -274,7 +258,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/helpbrowser.h
   ui/hruler.h
   ui/hyask.h
-#  ui/hysettings.h
   ui/imageinfodialog.h
   ui/insertTable.h
   ui/insertaframe.h
@@ -306,7 +289,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pagepalette.h
   ui/pageselector.h
   ui/paintmanager.h
-#  ui/patterndialog.h
   ui/patternpropsdialog.h
   ui/pdfopts.h
   ui/picsearch.h
@@ -315,8 +297,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pluginmanagerprefsgui.h
   ui/polygonwidget.h
   ui/polyprops.h
-#  ui/prefs.h
-#  ui/prefsdialogbase.h
   ui/preferencesdialog.h
   ui/prefs_colormanagement.h
   ui/prefs_display.h
@@ -349,7 +329,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/printdialog.h
   ui/propertiespalette.h
   ui/query.h
-#  ui/reformdoc.h
   ui/replacecolors.h
   ui/replaceonecolor.h
   ui/rulermover.h
@@ -394,22 +373,9 @@ SET(SCRIBUS_MOC_CLASSES
   ui/styleview.h
   ui/swatchcombo.h
   ui/symbolpalette.h
-#  ui/tabcheckdoc.h
-#  ui/tabdisplay.h
-#  ui/tabdocument.h
-#  ui/tabexternaltoolswidget.h
-#  ui/tabgeneral.h
-#  ui/tabguides.h
-#  ui/tabkeyboardshortcutswidget.h
   ui/tabmanager.h
-#  ui/tabmiscellaneous.h
   ui/tabpdfoptions.h
-#  ui/tabprinter.h
   ui/tabruler.h
-#  ui/tabscrapbook.h
-#  ui/tabtools.h
-#  ui/tabtypography.h
-#  ui/tocindexprefs.h
   ui/transformdialog.h
   ui/transparencypalette.h
   tt/simpletreemodel/treemodel.h
@@ -428,7 +394,6 @@ SET(SCRIBUS_MOC_CLASSES
 
 SET(SCRIBUS_SOURCES
   actionmanager.cpp
-#  annotation.cpp
   canvas.cpp
   canvasgesture_linemove.cpp
   canvasgesture_pan.cpp
@@ -448,7 +413,6 @@ SET(SCRIBUS_SOURCES
   canvasmode_editgradient.cpp
   canvasmode_editmeshgradient.cpp
   canvasmode_editpolygon.cpp
-#  canvasmode_legacy.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
@@ -509,7 +473,6 @@ SET(SCRIBUS_SOURCES
   page.cpp
   pageitem.cpp
   pageitem_arc.cpp
-#  pageitem_desaxe.cpp
   pageitem_group.cpp
   pageitem_imageframe.cpp
   pageitem_latexframe.cpp
@@ -597,7 +560,6 @@ SET(SCRIBUS_SOURCES
   scxmlstreamreader.cpp
   selection.cpp
   serializer.cpp
-#  stencilreader.cpp
   styleitem.cpp
   textwriter.cpp
   tocgenerator.cpp
@@ -657,13 +619,10 @@ SET(SCRIBUS_SOURCES
   ui/dasheditor.cpp
   ui/dcolor.cpp
   ui/delpages.cpp
-#  ui/docitemattrprefs.cpp
-#  ui/docsections.cpp
   ui/editor.cpp
   ui/effectsdialog.cpp
   ui/extimageprops.cpp
   ui/fontlistview.cpp
-#  ui/fontprefs.cpp
   ui/fontreplacedialog.cpp
   ui/gradientaddedit.cpp
   ui/gradienteditor.cpp
@@ -675,7 +634,6 @@ SET(SCRIBUS_SOURCES
   ui/helpbrowser.cpp
   ui/hruler.cpp
   ui/hyask.cpp
-#  ui/hysettings.cpp
   ui/imageinfodialog.cpp
   ui/insertTable.cpp
   ui/insertaframe.cpp
@@ -709,7 +667,6 @@ SET(SCRIBUS_SOURCES
   ui/pagepalette.cpp
   ui/pageselector.cpp
   ui/paintmanager.cpp
-#  ui/patterndialog.cpp
   ui/patternpropsdialog.cpp
   ui/pdfopts.cpp
   ui/picsearch.cpp
@@ -718,7 +675,6 @@ SET(SCRIBUS_SOURCES
   ui/pluginmanagerprefsgui.cpp
   ui/polygonwidget.cpp
   ui/polyprops.cpp
-#  ui/prefs.cpp
   ui/preferencesdialog.cpp
   ui/prefs_colormanagement.cpp
   ui/prefs_display.cpp
@@ -745,13 +701,11 @@ SET(SCRIBUS_SOURCES
   ui/prefs_pdfexport.cpp
   ui/prefs_tableofcontents.cpp
   ui/prefs_documentitemattributes.cpp
-#  ui/prefsdialogbase.cpp
   ui/prefspanel.cpp
   ui/preview.cpp
   ui/printdialog.cpp
   ui/propertiespalette.cpp
   ui/query.cpp
-#  ui/reformdoc.cpp
   ui/replacecolors.cpp
   ui/replaceonecolor.cpp
   ui/rulermover.cpp
@@ -800,22 +754,9 @@ SET(SCRIBUS_SOURCES
   ui/styleview.cpp
   ui/swatchcombo.cpp
   ui/symbolpalette.cpp
-#  ui/tabcheckdoc.cpp
-#  ui/tabdisplay.cpp
-#  ui/tabdocument.cpp
-#  ui/tabexternaltoolswidget.cpp
-#  ui/tabgeneral.cpp
-#  ui/tabguides.cpp
-#  ui/tabkeyboardshortcutswidget.cpp
   ui/tabmanager.cpp
-#  ui/tabmiscellaneous.cpp
   ui/tabpdfoptions.cpp
-#  ui/tabprinter.cpp
   ui/tabruler.cpp
-#  ui/tabscrapbook.cpp
-#  ui/tabtools.cpp
-#  ui/tabtypography.cpp
-#  ui/tocindexprefs.cpp
   ui/transformdialog.cpp
   ui/transparencypalette.cpp
   tt/simpletreemodel/treeitem.cpp
