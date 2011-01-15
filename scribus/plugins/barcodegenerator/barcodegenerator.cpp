@@ -330,7 +330,7 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 		opts += " includecheckintext";
 	if (ui.includeCheck->isChecked() & ui.includeCheck->isEnabled())
 		opts += " includecheck";
-	QString comm("15 10 moveto (%1) (%2) %3");
+	QString comm("15 10 moveto (%1) (%2) /%3 /uk.co.terryburton.bwipp findresource exec");
 	comm = comm.arg(ui.codeEdit->text()).arg(opts).arg(map[ui.bcCombo->currentText()].command);
 	comm = psCommand + comm;
 	QFile f(psFile);
