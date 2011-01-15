@@ -30,7 +30,7 @@
 #include "scribusdoc.h"
 #include "ui/scmwmenumanager.h"
 #include "undomanager.h"
-#include "canvasmode_legacy.h"
+#include "canvasmode_normal.h"
 
 // #include "util.h" //just for tdebug
 
