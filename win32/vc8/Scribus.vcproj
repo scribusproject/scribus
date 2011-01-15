@@ -555,10 +555,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\annotation.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\ui\applytemplatedialog.cpp"
 				>
 			</File>
@@ -1932,10 +1928,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\splash.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\stencilreader.cpp"
 				>
 			</File>
 			<File
@@ -10349,10 +10341,6 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\splash.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\scribus\stencilreader.h"
 				>
 			</File>
 			<File
