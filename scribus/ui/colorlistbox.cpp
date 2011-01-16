@@ -446,13 +446,14 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 
 bool ColorListBox::viewportEvent(QEvent *event)
 {
+	/* commented out because of random crashes in the colorcombobox of the gradient editor
 	if (event->type() == QEvent::ToolTip)
 	{
 		if (cList != NULL)
 		{
 			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
 			QListWidgetItem* it = itemAt(helpEvent->pos());
-			if (it != 0)
+			if (it != NULL)
 			{
 				event->accept();
 				QString tipText = "";
@@ -477,7 +478,8 @@ bool ColorListBox::viewportEvent(QEvent *event)
 			}
 		}
 	}
-	else if (event->type() == QEvent::MouseButtonPress)
+	else */
+	if (event->type() == QEvent::MouseButtonPress)
 	{
 		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
 		if (mouseEvent->button() == Qt::RightButton)
