@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Scribus-build"
+	>
+	<UserMacro
+		Name="QT4_DIR"
+		Value="F:\Libraries-vc9\qt-4.6.3"
+	/>
+	<UserMacro
+		Name="BOOST_DIR"
+		Value="F:\Libraries-vc9\boost-1.35.0"
+	/>
+	<UserMacro
+		Name="CAIRO_DIR"
+		Value="F:\Libraries-vc9\cairo-1.8.8"
+	/>
+	<UserMacro
+		Name="FREETYPE_DIR"
+		Value="F:\Libraries-vc9\freetype-2.4.2"
+	/>
+	<UserMacro
+		Name="ICONV_DIR"
+		Value="F:\Libraries-vc9\iconv-1.9.2"
+	/>
+	<UserMacro
+		Name="LCMS_DIR"
+		Value="F:\Libraries-vc9\lcms-2.0"
+	/>
+	<UserMacro
+		Name="LIBJPEG_DIR"
+		Value="F:\Libraries-vc9\libjpeg-6b-3"
+	/>
+	<UserMacro
+		Name="LIBTIFF_DIR"
+		Value="F:\Libraries-vc9\libtiff-3.8.2"
+	/>
+	<UserMacro
+		Name="PIXMAN_DIR"
+		Value="F:\Libraries-vc9\pixman-0.18.0"
+	/>
+	<UserMacro
+		Name="PODOFO_DIR"
+		Value="F:\Libraries-vc9\podofo-0.8.2"
+	/>
+	<UserMacro
+		Name="LIBXML2_DIR"
+		Value="F:\Libraries-vc9\libxml2-2.6.32+"
+	/>
+	<UserMacro
+		Name="PYTHON_DIR"
+		Value="F:\Libraries-vc9\Python-2.7.1"
+	/>
+</VisualStudioPropertySheet>
