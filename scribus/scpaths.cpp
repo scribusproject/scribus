@@ -279,7 +279,7 @@ QStringList ScPaths::getDirsFromEnvVar(const QString envVar, const QString dirTo
 	sep=';';
 #endif
 	QStringList dirs;
-#if defined(Q_OS_MAC) or defined(Q_OS_UNIX)
+#if defined(Q_OS_MAC) || defined(Q_OS_UNIX)
 	QStringList env(QProcess::systemEnvironment());
 	QString path_data;
 	foreach (QString line, env)
