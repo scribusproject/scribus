@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QPixmap>
 #include <QList>
+#include <QStack>
 #include <string>
 #include <vector>
 
@@ -302,6 +303,7 @@ private:
 	double bleedDisplacementY;
 	QMap<QString, QMap<uint, uint> > Type3Fonts;
 	QString xmpPacket;
+	QStack<QPointF> groupStackPos;
 
 protected slots:
 	void cancelRequested();

@@ -65,6 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
+#include "pageitem_group.h"
 #include "pdfoptions.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"
@@ -3386,7 +3387,12 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
-	PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+	double scaleW = controlItem->groupWidth / controlItem->width();
+	double scaleH = controlItem->groupHeight / controlItem->height();
+	if (controlItem != NULL)
+		PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->width() * scaleW)+" "+FToStr(controlItem->height() * scaleH)+" ]\n");
+	else
+		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	if (Options.Compress)
 		data = CompressStr(&data);
@@ -3500,6 +3506,8 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded, bool pattern)
 {
 	QString tmp(""), tmpOut;
+	if (ite->isGroup())
+		ite->asGroupFrame()->adjustXYPosition();
 	ite->setRedrawBounding();
 	double bLeft, bRight, bBottom, bTop;
 	getBleeds(pag, bLeft, bRight, bBottom, bTop);
@@ -4278,8 +4286,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				QTransform trans;
 				trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 				trans.translate(0.0, -ite->height());
-			//	trans.translate(ite->groupItemList.at(0)->gXpos, -ite->groupItemList.at(0)->gYpos);
 				tmp += FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n";
+				groupStackPos.push(QPointF(ite->xPos(), ite->height()));
 				for (int em = 0; em < ite->groupItemList.count(); ++em)
 				{
 					PageItem* embedded = ite->groupItemList.at(em);
@@ -4303,6 +4311,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					tmpD += PDF_ProcessTableItem(embedded, pag);
 					tmpD += "Q\n";
 				}
+				groupStackPos.pop();
 				if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
 					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
 				else
@@ -6251,8 +6260,16 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	QTransform mpa;
 	if ((inPattern == 0) && (kind != 2))
 	{
-		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-currItem->rotation());
+		if (groupStackPos.count() != 0)
+		{
+			mpa.translate(currItem->xPos() - groupStackPos.top().x(), groupStackPos.top().y() - currItem->gYpos);
+			mpa.rotate(-currItem->rotation());
+		}
+		else
+		{
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-currItem->rotation());
+		}
 	}
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	bool mirrorX, mirrorY;
@@ -6644,8 +6661,16 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 	QTransform mpa;
 	if (inPattern == 0)
 	{
-		mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-c->rotation());
+		if (groupStackPos.count() != 0)
+		{
+			mpa.translate(c->xPos() - groupStackPos.top().x(), groupStackPos.top().y() - c->gYpos);
+			mpa.rotate(-c->rotation());
+		}
+		else
+		{
+			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-c->rotation());
+		}
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
@@ -7045,8 +7070,16 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 	QTransform mpa;
 	if (inPattern == 0)
 	{
-		mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-c->rotation());
+		if (groupStackPos.count() != 0)
+		{
+			mpa.translate(c->xPos() - groupStackPos.top().x(), groupStackPos.top().y() - c->gYpos);
+			mpa.rotate(-c->rotation());
+		}
+		else
+		{
+			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-c->rotation());
+		}
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
@@ -7368,8 +7401,16 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 	QTransform mpa;
 	if (inPattern == 0)
 	{
-		mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-c->rotation());
+		if (groupStackPos.count() != 0)
+		{
+			mpa.translate(c->xPos() - groupStackPos.top().x(), groupStackPos.top().y() - c->gYpos);
+			mpa.rotate(-c->rotation());
+		}
+		else
+		{
+			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-c->rotation());
+		}
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
@@ -7476,8 +7517,16 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	bool spotMode = false;
 	if (inPattern == 0)
 	{
-		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-currItem->rotation());
+		if (groupStackPos.count() != 0)
+		{
+			mpa.translate(currItem->xPos() - groupStackPos.top().x(), groupStackPos.top().y() - currItem->gYpos);
+			mpa.rotate(-currItem->rotation());
+		}
+		else
+		{
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.rotate(-currItem->rotation());
+		}
 	}
 	if (Gskew == 90)
 		Gskew = 1;
