@@ -105,8 +105,11 @@ void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 	QPointF mPoint = item->PoLine.pointQF(0);
 	double nWidth = mPoint.x() - widthPoint.x();
 	double nHeight = mPoint.y() - heightPoint.y();
+	double nSweep = endAngle - startAngle;
+	if (nSweep < 0)
+		nSweep += 360;
 	pp.moveTo(mPoint);
-	pp.arcTo(QRectF(mPoint.x() - nWidth, mPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, endAngle - startAngle);
+	pp.arcTo(QRectF(mPoint.x() - nWidth, mPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
 	pp.closeSubpath();
 	psx->drawPath(pp);
 	psx->setPen(p1bd);
@@ -248,6 +251,8 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		else if (m_arcPoint == useControlWidth)
 			widthPoint = QPointF(widthPoint.x() + (newX - Mxp), widthPoint.y());
 		double nSweep = endAngle - startAngle;
+		if (nSweep < 0)
+			nSweep += 360;
 		double nWidth = sPoint.x() - widthPoint.x();
 		double nHeight = sPoint.y() - heightPoint.y();
 		pp.moveTo(sPoint);
@@ -256,9 +261,17 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		FPointArray ar;
 		ar.fromQPainterPath(pp);
 		if (m_arcPoint == useControlStart)
+		{
 			startPoint = ar.pointQF(2);
+			QLineF stLinA = QLineF(smPoint, itemMatrix.map(startPoint));
+			m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+		}
 		else if (m_arcPoint == useControlSweep)
+		{
 			endPoint = ar.pointQF(ar.size() - 4);
+			QLineF stLinA = QLineF(smPoint, itemMatrix.map(endPoint));
+			m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+		}
 		currItem->update();
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
@@ -339,9 +352,12 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 		double nHeight = mPoint.y() - heightPoint.y();
 		item->arcWidth = nWidth * 2.0;
 		item->arcHeight = nHeight * 2.0;
+		double nSweep = endAngle - startAngle;
+		if (nSweep < 0)
+			nSweep += 360;
 		QPainterPath pp;
 		pp.moveTo(mPoint);
-		pp.arcTo(QRectF(mPoint.x() - item->arcWidth / 2.0, mPoint.y() - item->arcHeight / 2.0, item->arcWidth, item->arcHeight), startAngle, endAngle - startAngle);
+		pp.arcTo(QRectF(mPoint.x() - item->arcWidth / 2.0, mPoint.y() - item->arcHeight / 2.0, item->arcWidth, item->arcHeight), startAngle, nSweep);
 		pp.closeSubpath();
 		currItem->PoLine.fromQPainterPath(pp);
 		m_doc->AdjustItemSize(currItem);
