@@ -3387,10 +3387,19 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
-	double scaleW = controlItem->groupWidth / controlItem->width();
-	double scaleH = controlItem->groupHeight / controlItem->height();
 	if (controlItem != NULL)
-		PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->width() * scaleW)+" "+FToStr(controlItem->height() * scaleH)+" ]\n");
+	{
+		double scaleW, scaleH;
+		if (controlItem->groupWidth > controlItem->width())
+			scaleW = controlItem->groupWidth / controlItem->width();
+		else
+			scaleW = 1.0 / (controlItem->groupWidth / controlItem->width());
+		if (controlItem->groupHeight > controlItem->height())
+			scaleH = controlItem->groupHeight / controlItem->height();
+		else
+			scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
+		PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+	}
 	else
 		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
