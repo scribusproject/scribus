@@ -1680,7 +1680,7 @@ void PropertiesPalette::SelTab(int t)
 		return;
 	// fix for #5991: Property Palette text input box focus stays even when on another tab
 	// Disable widgets in all pages except current one - PV
-	foreach (QObject *o, TabStack->widget(t)->children())
+/*	foreach (QObject *o, TabStack->widget(t)->children())
 	{
 		// Layouts, boxes etc aren't widgets at all
 		// so let's skip them silently...
@@ -1698,7 +1698,8 @@ void PropertiesPalette::SelTab(int t)
 			}
 		}
 	}
-/*	bool enable;
+*/
+	bool enable;
 	for (int i = 0; i < TabStack->count(); ++i)
 	{
 		enable = (i == t);
@@ -1835,7 +1836,7 @@ void PropertiesPalette::SelTab(int t)
 			KnockOut->setChecked(!CurItem->doOverprint);
 			Overprint->setChecked(CurItem->doOverprint);
 		}
-	} */
+	}
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
