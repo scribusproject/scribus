@@ -67,6 +67,7 @@ SET(SCRIBUS_ITEMSETTERS_SRC
 SET(SCRIBUS_UI_SRC
   ui/aboutplugins.ui
   ui/aligndistribute.ui
+  ui/arcvectorbase.ui
   ui/charselect.ui
   ui/charselectenhanced.ui
   ui/cmsprefsbase.ui
@@ -146,6 +147,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasgesture_rulermove.h
   canvasmode.h
   canvasmode_edit.h
+  canvasmode_editarc.h
   canvasmode_measurements.h
   canvasmode_normal.h
   chartablemodel.h
@@ -217,6 +219,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/annot.h
   ui/annota.h
   ui/applytemplatedialog.h
+  ui/arcvectordialog.h
   ui/arrowchooser.h
   ui/autoform.h
   ui/autoformbuttongroup.h
@@ -594,6 +597,7 @@ SET(SCRIBUS_SOURCES
   ui/annot.cpp
   ui/annota.cpp
   ui/applytemplatedialog.cpp
+  ui/arcvectordialog.cpp
   ui/arrowchooser.cpp
   ui/autoform.cpp
   ui/autoformbuttongroup.cpp

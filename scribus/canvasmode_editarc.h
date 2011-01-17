@@ -28,6 +28,7 @@
 
 #include "canvasmode.h"
 #include "fpointarray.h"
+#include "ui/arcvectordialog.h"
 
 class PageItem;
 class ScribusMainWindow;
@@ -38,6 +39,7 @@ class ScribusView;
 
 class CanvasMode_EditArc :  public CanvasMode
 {	
+	Q_OBJECT
 public:
 	CanvasMode_EditArc(ScribusView* view);
 
@@ -78,6 +80,10 @@ private:
 	double startAngle;
 	double endAngle;
 	eArcPoint m_arcPoint;
+	ArcVectorDialog* VectorDialog;
+
+private slots:
+	void applyValues(double start, double end, double height, double width);
 };
 
 
