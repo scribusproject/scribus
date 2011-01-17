@@ -225,212 +225,6 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
-		<Configuration
-			Name="Debug-arthur|Win32"
-			OutputDirectory="..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\Scribus-build.vsprops"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="uic.exe"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
-			/>
-			<Tool
-				Name="rcc.exe"
-			/>
-			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				InlineFunctionExpansion="0"
-				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\vc9;..\..\scribus;..\..\scribus\colormgmt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;..\..\scribus\third_party\cairo;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
-				IgnoreStandardIncludePath="false"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				DisableLanguageExtensions="false"
-				ForceConformanceInForLoopScope="true"
-				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4005;4244;4251;4258;4267;4996"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib libjpeg.a libtiff.lib lcms2_staticd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib scribus-cairo.lib scribus-pgf.lib scribus-wpg.lib"
-				OutputFile="$(OutDir)\Scribus.exe"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
-				IgnoreDefaultLibraryNames=""
-				GenerateDebugInformation="true"
-				AssemblyDebug="0"
-				ProgramDatabaseFile="$(OutDir)\Scribus.pdb"
-				SubSystem="1"
-				OptimizeForWindows98="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\scribus-api.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release-arthur|Win32"
-			OutputDirectory="..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\Scribus-build.vsprops"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="uic.exe"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="moc.exe"
-			/>
-			<Tool
-				Name="rcc.exe"
-			/>
-			<Tool
-				Name="lrelease.exe"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\vc9;..\..\scribus;..\..\scribus\colormgmt;..\..\scribus\fonts;..\..\scribus\text;..\..\scribus\styles;..\..\scribus\simpletreemodel;..\..\scribus\ui;..\..\scribus\third_party\cairo;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
-				StringPooling="true"
-				RuntimeLibrary="2"
-				BufferSecurityCheck="true"
-				EnableFunctionLevelLinking="true"
-				ForceConformanceInForLoopScope="true"
-				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4005;4244;4251;4258;4267;4996"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib freetype.lib libjpeg.a libtiff.lib lcms2_static.lib mscms.lib PoDoFoLib.lib WSock32.Lib scribus-cairo.lib scribus-pgf.lib scribus-wpg.lib"
-				OutputFile="$(OutDir)\Scribus.exe"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\Scribus.pdb"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				LinkTimeCodeGeneration="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\scribus-api.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -2133,20 +1927,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\aboutplugins.h"
@@ -2160,20 +1940,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2197,20 +1963,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\adjustcmsdialog.h"
@@ -2224,20 +1976,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2261,20 +1999,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\alignselect.h"
@@ -2288,20 +2012,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2325,20 +2035,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\annota.h"
@@ -2352,20 +2048,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2393,20 +2075,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\arrowchooser.h"
@@ -2420,20 +2088,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2457,20 +2111,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\autoformbuttongroup.h"
@@ -2484,20 +2124,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2521,20 +2147,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\bookmarkpalette.h"
@@ -2548,20 +2160,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2585,20 +2183,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\buttonicon.h"
@@ -2617,20 +2201,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvas.h"
@@ -2644,20 +2214,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2701,20 +2257,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode.h"
@@ -2728,20 +2270,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2780,20 +2308,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2845,20 +2359,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_nodeedit.h"
@@ -2876,20 +2376,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2925,20 +2411,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\charselectenhanced.h"
@@ -2952,20 +2424,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -2993,20 +2451,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\chartableview.h"
@@ -3020,20 +2464,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3057,20 +2487,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\checkDocument.h"
@@ -3084,20 +2500,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3129,20 +2531,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\cmykfw.h"
@@ -3156,20 +2544,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3193,20 +2567,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\collectforoutput_ui.h"
@@ -3220,20 +2580,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3259,22 +2605,6 @@
 						AdditionalDependencies=""
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\colorblind.h"
@@ -3288,20 +2618,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3325,20 +2641,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\colorcombo.h"
@@ -3357,20 +2659,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\colorlistbox.h"
@@ -3384,20 +2672,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3425,20 +2699,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\contextmenu.h"
@@ -3452,20 +2712,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3489,20 +2735,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\cpalette.h"
@@ -3521,20 +2753,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\createrange.h"
@@ -3548,20 +2766,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3587,22 +2791,6 @@
 						AdditionalDependencies=""
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\cupsoptions.h"
@@ -3616,20 +2804,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3653,20 +2827,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\customfdialog.h"
@@ -3680,20 +2840,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3717,20 +2863,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\dcolor.h"
@@ -3744,20 +2876,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3781,20 +2899,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\delpages.h"
@@ -3808,20 +2912,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -3845,20 +2935,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\documentchecker.h"
@@ -3872,20 +2948,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3913,20 +2975,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\edittoolbar.h"
@@ -3945,20 +2993,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\effectsdialog.h"
@@ -3972,20 +3006,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4013,20 +3033,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\fileloader.h"
@@ -4040,20 +3046,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4077,20 +3069,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\filetoolbar.h"
@@ -4104,20 +3082,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4145,20 +3109,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\fontcombo.h"
@@ -4172,20 +3122,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4209,20 +3145,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\fontlistview.h"
@@ -4241,20 +3163,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\fontreplacedialog.h"
@@ -4268,20 +3176,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4337,20 +3231,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gradienteditor.h"
@@ -4364,20 +3244,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4401,20 +3267,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gradientvectordialog.h"
@@ -4428,20 +3280,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4469,20 +3307,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\gtfiledialog.h"
@@ -4496,20 +3320,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4561,20 +3371,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\guidemanagercore.h"
@@ -4597,20 +3393,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\guidesmodel.h"
@@ -4624,20 +3406,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4665,28 +3433,6 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\helpbrowser.h"
@@ -4700,28 +3446,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -4757,28 +3481,6 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\hnjalloc.h"
@@ -4796,28 +3498,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -4849,28 +3529,6 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\hyphen.h"
@@ -4888,20 +3546,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4929,20 +3573,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\insertaframe.h"
@@ -4956,20 +3586,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -4993,20 +3609,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\inspage.h"
@@ -5020,20 +3622,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5061,20 +3649,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\langmgr.h"
@@ -5092,20 +3666,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5137,28 +3697,6 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\layers.h"
@@ -5177,20 +3715,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\linecombo.h"
@@ -5204,20 +3728,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5249,20 +3759,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\loremipsum.h"
@@ -5276,20 +3772,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5313,20 +3795,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\marginpresetlayout.h"
@@ -5340,20 +3808,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5377,20 +3831,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\masterpagepalette.h"
@@ -5404,20 +3844,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5441,20 +3867,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\menumanager.h"
@@ -5473,20 +3885,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\mergedoc.h"
@@ -5500,20 +3898,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5541,20 +3925,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\modetoolbar.h"
@@ -5568,20 +3938,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5605,20 +3961,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\multipleduplicate.h"
@@ -5632,20 +3974,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5669,20 +3997,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\navigator.h"
@@ -5696,20 +4010,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5733,20 +4033,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\newmarginwidget.h"
@@ -5760,20 +4046,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5797,20 +4069,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\nftdialog.h"
@@ -5824,20 +4082,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5873,20 +4117,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\nodeeditpalette.h"
@@ -5900,20 +4130,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -5937,20 +4153,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\oneclick.h"
@@ -5969,20 +4171,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\outlinepalette.h"
@@ -5996,20 +4184,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6037,20 +4211,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_arc.h"
@@ -6064,20 +4224,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6101,20 +4247,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_imageframe.h"
@@ -6128,20 +4260,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6165,20 +4283,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_line.h"
@@ -6192,20 +4296,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6229,20 +4319,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_polygon.h"
@@ -6256,20 +4332,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6293,20 +4355,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_regularpolygon.h"
@@ -6320,20 +4368,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6357,20 +4391,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_textframe.h"
@@ -6384,20 +4404,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6421,20 +4427,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitempointer.h"
@@ -6448,20 +4440,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6485,20 +4463,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\pagepalette.h"
@@ -6517,20 +4481,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\pageselector.h"
@@ -6544,20 +4494,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6589,20 +4525,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\styles\paragraphstyle.h"
@@ -6620,20 +4542,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6657,20 +4565,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pdflib.h"
@@ -6689,20 +4583,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pdflib_core.h"
@@ -6716,20 +4596,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6761,20 +4627,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\pdftoolbar.h"
@@ -6788,20 +4640,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6825,20 +4663,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\picsearchoptions.h"
@@ -6852,20 +4676,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6889,20 +4699,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pluginmanager.h"
@@ -6916,20 +4712,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -6953,20 +4735,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\polygonwidget.h"
@@ -6980,20 +4748,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7017,20 +4771,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\preferencesdialog.h"
@@ -7044,20 +4784,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7081,20 +4807,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_display.h"
@@ -7108,20 +4820,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7145,20 +4843,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_documentitemattributes.h"
@@ -7172,20 +4856,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7209,20 +4879,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_documentsetup.h"
@@ -7236,20 +4892,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7273,20 +4915,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_fonts.h"
@@ -7300,20 +4928,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7337,20 +4951,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_hyphenator.h"
@@ -7364,20 +4964,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7401,20 +4987,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_itemtools.h"
@@ -7428,20 +5000,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7465,20 +5023,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_miscellaneous.h"
@@ -7492,20 +5036,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7529,20 +5059,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_pagesizes.h"
@@ -7556,20 +5072,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7593,20 +5095,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_paths.h"
@@ -7620,20 +5108,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7657,20 +5131,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_plugins.h"
@@ -7684,20 +5144,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7721,20 +5167,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_printer.h"
@@ -7748,20 +5180,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7785,20 +5203,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_tableofcontents.h"
@@ -7812,20 +5216,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7849,20 +5239,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefs_userinterface.h"
@@ -7876,20 +5252,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7921,20 +5283,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\prefspanel.h"
@@ -7948,20 +5296,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -7997,20 +5331,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\printdialog.h"
@@ -8024,20 +5344,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8061,20 +5367,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\pslib.h"
@@ -8093,20 +5385,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\query.h"
@@ -8120,20 +5398,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8165,20 +5429,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\replaceonecolor.h"
@@ -8192,20 +5442,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8237,20 +5473,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\sampleitem.h"
@@ -8264,20 +5486,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8337,28 +5545,6 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\fonts\scface.h"
@@ -8384,20 +5570,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8429,20 +5601,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scguardedptr.h"
@@ -8464,20 +5622,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8505,20 +5649,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scimagecachefile.h"
@@ -8537,20 +5667,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scimagecachemanager.h"
@@ -8564,20 +5680,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8657,20 +5759,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\sclayer.h"
@@ -8688,28 +5776,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -8749,20 +5815,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\scmessagebox.h"
@@ -8776,20 +5828,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8812,20 +5850,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -8885,20 +5909,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scpreview.h"
@@ -8920,28 +5930,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -8977,20 +5965,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\scrapbookpalette.h"
@@ -9004,20 +5978,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9053,28 +6013,6 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scribusapi.h"
@@ -9092,20 +6030,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9129,20 +6053,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scribusdoc.h"
@@ -9156,20 +6066,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9197,20 +6093,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scribuswin.h"
@@ -9224,20 +6106,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9269,28 +6137,6 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\scrpalettebase.h"
@@ -9309,20 +6155,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\scrspinbox.h"
@@ -9336,20 +6168,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9397,20 +6215,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\text\sctext_shared.h"
@@ -9428,20 +6232,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9473,20 +6263,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\sctreewidget.h"
@@ -9500,20 +6276,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9545,20 +6307,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\selection.h"
@@ -9572,20 +6320,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9609,20 +6343,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\selfield.h"
@@ -9636,20 +6356,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9677,20 +6383,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\shortcutwidget.h"
@@ -9704,20 +6396,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9741,20 +6419,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smcheckbox.h"
@@ -9768,20 +6432,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9805,20 +6455,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smcstylewidget.h"
@@ -9832,20 +6468,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9869,20 +6491,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smlinestyle.h"
@@ -9896,20 +6504,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9933,20 +6527,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smpstylewidget.h"
@@ -9960,20 +6540,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -9997,20 +6563,6 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smreplacedia.h"
@@ -10024,20 +6576,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10061,20 +6599,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smscrspinbox.h"
@@ -10088,20 +6612,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10125,20 +6635,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smspinbox.h"
@@ -10152,20 +6648,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10189,20 +6671,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smstyleselect.h"
@@ -10216,20 +6684,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10253,20 +6707,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smtextstyles.h"
@@ -10285,20 +6725,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\spalette.h"
@@ -10312,20 +6738,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10357,20 +6769,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\text\storytext.h"
@@ -10384,20 +6782,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10433,20 +6817,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\stylemanager.h"
@@ -10465,20 +6835,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\styleselect.h"
@@ -10492,20 +6848,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10533,20 +6875,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\swatchcombo.h"
@@ -10560,20 +6888,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10597,20 +6911,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\tabmanager.h"
@@ -10624,20 +6924,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10661,20 +6947,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\tabruler.h"
@@ -10688,20 +6960,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10729,20 +6987,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\transaction.h"
@@ -10765,20 +7009,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\transparencypalette.h"
@@ -10792,20 +7022,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10837,28 +7053,6 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\tt\simpletreemodel\treemodel.h"
@@ -10872,20 +7066,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10909,20 +7089,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\undomanager.h"
@@ -10936,20 +7102,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -10985,20 +7137,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\units.h"
@@ -11029,20 +7167,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\urllauncher.h"
@@ -11061,20 +7185,6 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\useprintermarginsdialog.h"
@@ -11088,20 +7198,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -11172,20 +7268,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-arthur|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-arthur|Win32"
 					>
 					<Tool
 						Name="moc.exe"
