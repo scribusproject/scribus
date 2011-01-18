@@ -597,48 +597,30 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeDrawShapes:
 		switch (createObjectSubMode)
 		{
-		case 0:
-			if (modifiers == Qt::ShiftModifier)
-			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
+			case 0:
+				if (modifiers == Qt::ShiftModifier)
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
+				else
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 0;
-			}
-			else
-			{
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
-				m_doc->Items->at(z)->FrameType = 0;
-			}
-			break;
-		case 1:
-			if (modifiers == Qt::ShiftModifier)
-			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
+				break;
+			case 1:
+				if (modifiers == Qt::ShiftModifier)
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
+				else
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 1;
-			}
-			else
-			{
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
-				m_doc->Items->at(z)->FrameType = 1;
-			}
-			break;
-		default:
-			if (modifiers == Qt::ShiftModifier)
-			{
-				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
+				break;
+			default:
+				if (modifiers == Qt::ShiftModifier)
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
+				else
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
 				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
-			}
-			else
-			{
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
-				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
-				m_doc->AdjustItemSize(m_doc->Items->at(z));
-				m_doc->setRedrawBounding(m_doc->Items->at(z));
-				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
-			}
-			break;
+				break;
 		}
 		break;
 	case modeDrawLine:
@@ -655,33 +637,21 @@ PageItem* CreateMode::doCreateNewObject(void)
 		break;
 	case modeDrawLatex:
 		if (modifiers == Qt::ShiftModifier)
-		{
 			z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
-		}
 		else
-		{
 			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
-		}
 		break;
 	case modeDrawImage:
 		if (modifiers == Qt::ShiftModifier)
-		{
 			z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
-		}
 		else
-		{
 			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
-		}
 		break;
 	case modeDrawText:
 		if (modifiers == Qt::ShiftModifier)
-		{
 			z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().textFont, true);
-		}	
 		else
-		{
 			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().textFont, true);
-		}
 		break;
 	case modeDrawRegularPolygon:
 		if (modifiers == Qt::ShiftModifier)
@@ -694,6 +664,8 @@ PageItem* CreateMode::doCreateNewObject(void)
 			z = m_doc->itemAddArea(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+		m_doc->AdjustItemSize(m_doc->Items->at(z));
+		m_doc->setRedrawBounding(m_doc->Items->at(z));
 		break;
 	case modeInsertPDFButton:
 	case modeInsertPDFTextfield:

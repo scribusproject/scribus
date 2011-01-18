@@ -152,9 +152,9 @@ void ScrPaletteBase::keyPressEvent(QKeyEvent *keyEvent)
 	*/
 void ScrPaletteBase::closeEvent(QCloseEvent *closeEvent)
 {
-	emit paletteShown(false);
 	closeEvent->ignore();
 	hide();
+	emit paletteShown(false);
 }
 
 void ScrPaletteBase::hideEvent(QHideEvent*)

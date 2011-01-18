@@ -175,10 +175,7 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	endAngle = startAngle + item->arcSweepAngle;
 	QLineF res = QLineF(centerPoint, startPoint);
 	QLineF swe = QLineF(centerPoint, endPoint);
-	double nSweep = swe.angle() - res.angle();
-	if (nSweep < 0)
-		nSweep += 360;
-	VectorDialog->setValues(res.angle(), nSweep, item->arcHeight, item->arcWidth);
+	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
 	VectorDialog->show();
 	setModeCursor();
 	if (fromGesture)
@@ -186,6 +183,19 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 		m_view->update();
 	}
 	connect(VectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
+	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
+	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+}
+
+void CanvasMode_EditArc::endEditing(bool active)
+{
+	if (!active)
+		endEditing();
+}
+
+void CanvasMode_EditArc::endEditing()
+{
+	m_view->requestMode(modeNormal);
 }
 
 void CanvasMode_EditArc::applyValues(double start, double end, double height, double width)
@@ -204,7 +214,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	QLineF inp = QLineF(QPointF(width / 2.0, height / 2.0), QPointF(width, height / 2.0));
 	inp.setAngle(start);
 	QLineF res = bb.map(inp);
-	inp.setAngle(start + end);
+	inp.setAngle(end);
 	QLineF ena = bb.map(inp);
 	startAngle = res.angle();
 	endAngle = ena.angle();
@@ -324,10 +334,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		}
 		QLineF res = QLineF(centerPoint, startPoint);
 		QLineF swe = QLineF(centerPoint, endPoint);
-		nSweep = swe.angle() - res.angle();
-		if (nSweep < 0)
-			nSweep += 360;
-		VectorDialog->setValues(res.angle(), nSweep, nHeight * 2, nWidth * 2);
+		VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
 		currItem->update();
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();

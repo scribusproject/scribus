@@ -2106,7 +2106,7 @@ void PropertiesPalette::NewSel(int nr)
 			i=doc->m_Selection->itemAt(0);
 			HaveItem=true;
 			EditShape->setEnabled(!i->locked());
-			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && nr!=13 && !i->locked());
+			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && nr!=13 && nr!=14 && !i->locked());
 		}
 		else
 		{

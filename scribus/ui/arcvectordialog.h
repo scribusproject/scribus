@@ -54,6 +54,7 @@ public slots:
 
 signals:
 	void NewVectors(double, double, double, double);
+	void endEdit();
 
 };
 #endif

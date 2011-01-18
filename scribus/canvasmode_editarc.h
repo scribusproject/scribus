@@ -83,6 +83,8 @@ private:
 	ArcVectorDialog* VectorDialog;
 
 private slots:
+	void endEditing(bool active);
+	void endEditing();
 	void applyValues(double start, double end, double height, double width);
 };
 

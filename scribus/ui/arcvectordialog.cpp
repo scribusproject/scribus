@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "arcvectordialog.h"
 
-ArcVectorDialog::ArcVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
+ArcVectorDialog::ArcVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "ArcVectorDialog", false, 0 )
 {
 	setupUi(this);
 	startAngle->setNewUnit(6);
@@ -34,7 +34,9 @@ ArcVectorDialog::ArcVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "Gra
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
+	connect(exitButton, SIGNAL(clicked()), this, SIGNAL(endEdit()));
 	languageChange();
+	resize(minimumSizeHint());
 }
 
 void ArcVectorDialog::changeEvent(QEvent *e)
