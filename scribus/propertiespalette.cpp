@@ -1680,7 +1680,7 @@ void PropertiesPalette::SelTab(int t)
 		return;
 	// fix for #5991: Property Palette text input box focus stays even when on another tab
 	// Disable widgets in all pages except current one - PV
-#if !defined Q_OS_OSX and !defined HAVE_CARBON
+#ifndef HAVE_CARBON
 	foreach (QObject *o, TabStack->widget(t)->children())
 	{
 		// Layouts, boxes etc aren't widgets at all
