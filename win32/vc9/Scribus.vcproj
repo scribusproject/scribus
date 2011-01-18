@@ -94,7 +94,6 @@
 				AssemblyDebug="0"
 				ProgramDatabaseFile="$(OutDir)\Scribus.pdb"
 				SubSystem="1"
-				OptimizeForWindows98="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				ImportLibrary="$(OutDir)\scribus-api.lib"
@@ -347,6 +346,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\applytemplatedialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\arcvectordialog.cpp"
 				>
 			</File>
 			<File
@@ -2077,6 +2080,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\arcvectordialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\arrowchooser.h"
 				>
 				<FileConfiguration
@@ -2317,6 +2338,20 @@
 			<File
 				RelativePath="..\..\scribus\canvasmode_editarc.h"
 				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_editgradient.h"
@@ -7304,6 +7339,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_arcvectorbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_charselect.h"
 				>
 			</File>
@@ -7625,6 +7664,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_arcvectordialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_arrowchooser.cpp"
 				>
 			</File>
@@ -7666,6 +7709,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_canvasmode_edit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasmode_editarc.cpp"
 				>
 			</File>
 			<File
@@ -8591,6 +8638,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\aligndistribute.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\arcvectorbase.ui"
 				>
 			</File>
 			<File
