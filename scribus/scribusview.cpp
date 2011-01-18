@@ -2796,7 +2796,8 @@ void ScribusView::GotoPage(int Seite)
 
 void ScribusView::showMasterPage(int nr)
 {
-	Deselect(false);
+	// #9684 : we need Deselect() to emit HaveSel() when switching masterpage
+	Deselect(true);
 	OldScale = m_canvas->scale();
 	if (!Doc->masterPageMode())
 		this->requestMode(modeNormal);
