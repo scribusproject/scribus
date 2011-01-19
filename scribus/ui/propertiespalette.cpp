@@ -1768,6 +1768,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		FlipH->setCheckable(false);
 		FlipV->setCheckable(false);
 	}
+	FlipH->setDisabled(i->isRegularPolygon() || i->isArc());
+	FlipV->setDisabled(i->isRegularPolygon() || i->isArc());
 	setFlippedH(i->imageFlippedH());
 	setFlippedV(i->imageFlippedV());
 	RoVal = i->rotation();
@@ -2142,8 +2144,8 @@ void PropertiesPalette::NewSel(int nr)
 		//CB Why cant we do this for lines?
 //		FlipH->setEnabled((nr!=-1) && (nr!=5));
 //		FlipV->setEnabled((nr!=-1) && (nr!=5));
-		FlipH->setEnabled(nr!=-1);
-		FlipV->setEnabled(nr!=-1);
+		FlipH->setEnabled(nr!=-1 && nr!=13 && nr!=14);
+		FlipV->setEnabled(nr!=-1 && nr!=13 && nr!=14);
 		switch (nr)
 		{
 		case -1:
@@ -2278,9 +2280,20 @@ void PropertiesPalette::setMultipleSelection(bool isMultiple)
 		return;
 	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc,
 	//these can be enabled all the time
-	FlipH->setEnabled(true);
-	FlipV->setEnabled(true);
 	NameEdit->setEnabled(!isMultiple);
+	uint selectedItemCount = doc->m_Selection->count();
+	bool found = false;
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			if (doc->m_Selection->itemAt(i)->isArc() || doc->m_Selection->itemAt(i)->isRegularPolygon())
+				found = true;
+			break;
+		}
+	}
+	FlipH->setEnabled(!found);
+	FlipV->setEnabled(!found);
 	if (doc->m_Selection->count() > 1)
 	{
 		FlipH->setCheckable( false );

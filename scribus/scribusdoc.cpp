@@ -5044,6 +5044,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	// If converting a text frame to another object, drop links
 	if (oldItem->asTextFrame() && (newType != PageItem::TextFrame))
 		oldItem->dropLinks();
+	// if converting an arc to another object release size lock
+	if (oldItem->isArc() && (newType != PageItem::Arc))
+		newItem->setSizeLocked(false);
 	// If converting text to path, delete the bezier
 	if (newType == PageItem::PathText)
 	{
