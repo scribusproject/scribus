@@ -72,9 +72,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_text.h"
 #include "util_file.h"
 #include "util_icon.h"
-#ifdef HAVE_CAIRO
-	#include <cairo.h>
-#endif
+
+#include <cairo.h>
 
 using namespace std;
 
@@ -1355,17 +1354,12 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	{
 		if (!isGroup())
 		{
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 			p->setBlendModeFill(fillBlendmode());
 	#else
 			if (fillBlendmode() != 0)
 				p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
 	#endif
-#else
-			if (fillBlendmode() != 0)
-				p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
-#endif
 			p->setLineWidth(m_lineWidth);
 			if (GrType != 0)
 			{
@@ -1470,7 +1464,6 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 			}
 			else
 				p->setLineWidth(0);
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 			p->setBrushOpacity(1.0 - fillTransparency());
 			p->setPenOpacity(1.0 - lineTransparency());
@@ -1480,12 +1473,6 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 			if (lineBlendmode() == 0)
 				p->setPenOpacity(1.0 - lineTransparency());
 	#endif
-#else
-			if (fillBlendmode() == 0)
-				p->setBrushOpacity(1.0 - fillTransparency());
-			if (lineBlendmode() == 0)
-				p->setPenOpacity(1.0 - lineTransparency());
-#endif
 			p->setFillRule(fillRule);
 			if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
 			{
@@ -1560,23 +1547,17 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		else
 		{
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 			if (fillBlendmode() != 0)
 				p->endLayer();
 	#else
 			p->setBlendModeFill(0);
 	#endif
-#else
-			if (fillBlendmode() != 0)
-				p->endLayer();
-#endif
 			p->setMaskMode(0);
 			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line || itemType()==Symbol || itemType()==Group)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 				p->setBlendModeStroke(lineBlendmode());
 				p->setPenOpacity(1.0 - lineTransparency());
@@ -1584,10 +1565,6 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				if (lineBlendmode() != 0)
 					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
 	#endif
-#else
-				if (lineBlendmode() != 0)
-					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-#endif
 				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
 					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
@@ -1670,17 +1647,12 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						}
 					}
 				}
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 				if (lineBlendmode() != 0)
 					p->endLayer();
 	#else
 				p->setBlendModeStroke(0);
 	#endif
-#else
-				if (lineBlendmode() != 0)
-					p->endLayer();
-#endif
 			}
 		}
 	}
@@ -1734,15 +1706,11 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				}
 				else
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
-#ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
 					p->setupPolygon(&PoLine, false);
 	#else
 					p->setupPolygon(&PoLine);
 	#endif
-#else
-					p->setupPolygon(&PoLine);
-#endif
 				p->strokePath();
 			}
 		}
@@ -1750,15 +1718,11 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		{
 			p->setPen(Qt::darkGray, 1.0 / qMax(p->zoomFactor(), 1.0), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
-#ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
 			p->setupPolygon(&ContourLine, false);
 	#else
 			p->setupPolygon(&ContourLine);
 	#endif
-#else
-			p->setupPolygon(&ContourLine);
-#endif
 			p->strokePath();
 		}
 		if (itemType()==ImageFrame)

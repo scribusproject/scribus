@@ -55,9 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_ghostscript.h"
 
-#ifdef HAVE_CAIRO
-	#include <cairo.h>
-#endif
+#include <cairo.h>
 
 #ifdef HAVE_PODOFO
 	#include <podofo/podofo.h>
@@ -1491,12 +1489,10 @@ void AIPlug::processData(QString data)
 					ite->setFillEvenOdd(fillRule);
 					ite->setFillTransparency(1.0 - Opacity);
 					ite->setLineTransparency(1.0 - Opacity);
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 					ite->setFillBlendmode(blendMode);
 					ite->setLineBlendmode(blendMode);
 	#endif
-#endif
 					if (!currentPatternName.isEmpty())
 					{
 						ite->setPattern(currentPatternName);

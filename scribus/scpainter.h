@@ -24,11 +24,9 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "mesh.h"
 
-#ifdef HAVE_CAIRO
 typedef struct _cairo cairo_t;
 typedef struct _cairo_surface cairo_surface_t;
 typedef struct _cairo_pattern cairo_pattern_t;
-#endif
 
 class SCRIBUS_API ScPainter
 {
@@ -120,7 +118,7 @@ public:
 
 private:
 	void drawVPath( int mode );
-#ifdef HAVE_CAIRO
+
 	cairo_t *m_cr;
 	struct layerProp
 	{
@@ -147,33 +145,7 @@ private:
 	cairo_pattern_t *getMaskPattern();
 	cairo_surface_t *imageMask;
 	QImage imageQ;
-#else
-	QPainter painter;
-	QPainterPath m_path;
-	struct layerProp
-	{
-		QImage *data;
-		int blendmode;
-		double tranparency;
-		int maskMode;				// 0 = none, 1 = gradient 2 = pattern
-		double mask_patternScaleX;
-		double mask_patternScaleY;
-		double mask_patternOffsetX;
-		double mask_patternOffsetY;
-		double mask_patternRotation;
-		double mask_patternSkewX;
-		double mask_patternSkewY;
-		bool mask_patternMirrorX;
-		bool mask_patternMirrorY;
-		double mask_gradientScale;
-		double mask_gradientSkew;
-		VGradient mask_gradient;
-		ScPattern *maskPattern;
-		FPointArray groupClip;
-		bool pushed;
-	};
-	Qt::PenStyle PLineStyle;
-#endif
+
 	QStack<layerProp> Layers;
 	QImage *m_image;
 	double  m_layerTransparency;

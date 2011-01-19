@@ -31,9 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "sctextbrowser.h"
 
-#ifdef HAVE_CAIRO
 #include <cairo.h>
-#endif
 
 #include "util_ghostscript.h"
 #include "util_icon.h"
@@ -149,11 +147,12 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	bu += "*";
 #endif
 	bu += "-";
-#ifdef HAVE_CAIRO
-	bu += "C";
+#ifdef HAVE_PRIVATE_CAIRO
+	bu += "PC";
 	bu += cairo_version_string();
 #else
-	bu += "Q";
+	bu += "C";
+	bu += cairo_version_string();
 #endif
 
 // Some more information if we are not on a 32bit little endian Unix machine

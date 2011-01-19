@@ -52,9 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "util.h"
 #include "util_math.h"
-#ifdef HAVE_CAIRO
-	#include <cairo.h>
-#endif
+#include <cairo.h>
 
 using namespace std;
 
@@ -2561,7 +2559,6 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 		if (fillBlendmode() != 0)
 			p->endLayer();
@@ -2569,14 +2566,9 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		if (fillBlendmode() != 0)
 			p->setBlendModeFill(0);
 	#endif
-#else
-		if (fillBlendmode() != 0)
-			p->endLayer();
-#endif
 		p->setMaskMode(0);
 		if (!m_Doc->RePos)
 		{
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 			p->setBlendModeStroke(lineBlendmode());
 			p->setPenOpacity(1.0 - lineTransparency());
@@ -2584,10 +2576,6 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			if (lineBlendmode() != 0)
 				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
 	#endif
-#else
-			if (lineBlendmode() != 0)
-				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-#endif
 			if (!isTableItem)
 			{
 				p->setupPolygon(&PoLine);
@@ -2665,7 +2653,6 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					}
 				}
 			}
-#ifdef HAVE_CAIRO
 	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 			if (lineBlendmode() != 0)
 				p->endLayer();
@@ -2673,10 +2660,6 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			if (lineBlendmode() != 0)
 				p->setBlendModeStroke(0);
 	#endif
-#else
-			if (lineBlendmode() != 0)
-				p->endLayer();
-#endif
 		}
 	}
 	p->setFillMode(ScPainter::Solid);
@@ -2707,30 +2690,22 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 
 			p->setFillMode(0);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
-#ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
 			p->setupPolygon(&PoLine, false);
 	#else
 			p->setupPolygon(&PoLine);
 	#endif
-#else
-			p->setupPolygon(&PoLine);
-#endif
 			p->strokePath();
 		}
 		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
-#ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
 			p->setupPolygon(&ContourLine, false);
 	#else
 			p->setupPolygon(&ContourLine);
 	#endif
-#else
-			p->setupPolygon(&ContourLine);
-#endif
 			p->strokePath();
 		}
 
