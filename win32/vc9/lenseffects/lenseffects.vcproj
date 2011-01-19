@@ -115,7 +115,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release-Cairo|Win32"
+			Name="Release-cairo|Win32"
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
@@ -249,7 +249,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-Cairo|Win32"
+					Name="Release-cairo|Win32"
 					>
 					<Tool
 						Name="moc.exe"
@@ -267,7 +267,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-Cairo|Win32"
+					Name="Release-cairo|Win32"
 					>
 					<Tool
 						Name="moc.exe"
