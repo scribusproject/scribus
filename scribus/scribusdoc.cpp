@@ -8299,6 +8299,19 @@ void ScribusDoc::itemSelection_FlipH()
 			}
 			currItem->GrStartX = currItem->width() - currItem->GrStartX;
 			currItem->GrEndX = currItem->width() - currItem->GrEndX;
+			if (currItem->isArc())
+			{
+				PageItem_Arc *ar = currItem->asArc();
+				ar->arcStartAngle = (180 - ar->arcStartAngle) - ar->arcSweepAngle;
+				if (ar->arcStartAngle < 0)
+					ar->arcStartAngle += 360;
+				else if (ar->arcStartAngle > 360)
+					ar->arcStartAngle -= 360;
+				ar->recalcPath();
+				FPoint tp2(getMinClipF(&currItem->PoLine));
+				currItem->PoLine.translate(-tp2.x(), -tp2.y());
+				AdjustItemSize(currItem);
+			}
 		}
 	}
 	regionsChanged()->update(QRectF());
@@ -8364,6 +8377,20 @@ void ScribusDoc::itemSelection_FlipV()
 			}
 			currItem->GrStartY = currItem->height() - currItem->GrStartY;
 			currItem->GrEndY = currItem->height() - currItem->GrEndY;
+			if (currItem->isArc())
+			{
+				PageItem_Arc *ar = currItem->asArc();
+				ar->arcStartAngle *= -1;
+				ar->arcStartAngle -= ar->arcSweepAngle;
+				if (ar->arcStartAngle < 0)
+					ar->arcStartAngle += 360;
+				else if (ar->arcStartAngle > 360)
+					ar->arcStartAngle -= 360;
+				ar->recalcPath();
+				FPoint tp2(getMinClipF(&currItem->PoLine));
+				currItem->PoLine.translate(-tp2.x(), -tp2.y());
+				AdjustItemSize(currItem);
+			}
 		}
 		regionsChanged()->update(QRectF());
 	}
