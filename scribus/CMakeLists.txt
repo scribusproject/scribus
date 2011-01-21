@@ -148,6 +148,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasmode.h
   canvasmode_edit.h
   canvasmode_editarc.h
+  canvasmode_editpolygon.h
   canvasmode_measurements.h
   canvasmode_normal.h
   chartablemodel.h

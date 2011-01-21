@@ -185,6 +185,24 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	connect(VectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
 	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+}
+
+void CanvasMode_EditArc::updateFromItem()
+{
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	PageItem_Arc* item = currItem->asArc();
+	centerPoint = currItem->PoLine.pointQF(0);
+	startPoint = currItem->PoLine.pointQF(3);
+	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
+	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
+	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
+	startAngle = item->arcStartAngle;
+	endAngle = startAngle + item->arcSweepAngle;
+	QLineF res = QLineF(centerPoint, startPoint);
+	QLineF swe = QLineF(centerPoint, endPoint);
+	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
+	m_view->update();
 }
 
 void CanvasMode_EditArc::endEditing(bool active)
@@ -243,6 +261,7 @@ void CanvasMode_EditArc::deactivate(bool forGesture)
 	delete VectorDialog;
 	m_view->redrawMarker->hide();
 	m_arcPoint = noPointDefined;
+	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)

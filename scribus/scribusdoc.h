@@ -1229,6 +1229,7 @@ signals:
 
 	//! Signal a change in rotation mode (aka basepoint)
 	void rotationMode(int);
+	void updateEditItem();
 	
 public slots:
 	void selectionChanged();

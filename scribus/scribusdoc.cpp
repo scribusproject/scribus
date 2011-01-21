@@ -8286,6 +8286,7 @@ void ScribusDoc::itemSelection_FlipH()
 				FPoint tp2(getMinClipF(&currItem->PoLine));
 				currItem->PoLine.translate(-tp2.x(), -tp2.y());
 				AdjustItemSize(currItem);
+				emit updateEditItem();
 			}
 			else if (currItem->isRegularPolygon())
 			{
@@ -8293,6 +8294,7 @@ void ScribusDoc::itemSelection_FlipH()
 				ar->polyRotation *= -1;
 				ar->polyInnerRot *= -1;
 				ar->recalcPath();
+				emit updateEditItem();
 			}
 			currItem->setRedrawBounding();
 		}
@@ -8331,6 +8333,7 @@ void ScribusDoc::itemSelection_FlipH()
 				FPoint tp2(getMinClipF(&currItem->PoLine));
 				currItem->PoLine.translate(-tp2.x(), -tp2.y());
 				AdjustItemSize(currItem);
+				emit updateEditItem();
 			}
 			else if (currItem->isRegularPolygon())
 			{
@@ -8338,6 +8341,7 @@ void ScribusDoc::itemSelection_FlipH()
 				ar->polyRotation *= -1;
 				ar->polyInnerRot *= -1;
 				ar->recalcPath();
+				emit updateEditItem();
 			}
 		}
 	}
@@ -8391,6 +8395,7 @@ void ScribusDoc::itemSelection_FlipV()
 				FPoint tp2(getMinClipF(&currItem->PoLine));
 				currItem->PoLine.translate(-tp2.x(), -tp2.y());
 				AdjustItemSize(currItem);
+				emit updateEditItem();
 			}
 			else if (currItem->isRegularPolygon())
 			{
@@ -8399,6 +8404,7 @@ void ScribusDoc::itemSelection_FlipV()
 				ar->polyRotation *= -1;
 				ar->polyInnerRot *= -1;
 				ar->recalcPath();
+				emit updateEditItem();
 			}
 			currItem->setRedrawBounding();
 		}
@@ -8439,6 +8445,7 @@ void ScribusDoc::itemSelection_FlipV()
 				FPoint tp2(getMinClipF(&currItem->PoLine));
 				currItem->PoLine.translate(-tp2.x(), -tp2.y());
 				AdjustItemSize(currItem);
+				emit updateEditItem();
 			}
 			else if (currItem->isRegularPolygon())
 			{
@@ -8447,6 +8454,7 @@ void ScribusDoc::itemSelection_FlipV()
 				ar->polyRotation *= -1;
 				ar->polyInnerRot *= -1;
 				ar->recalcPath();
+				emit updateEditItem();
 			}
 		}
 		regionsChanged()->update(QRectF());

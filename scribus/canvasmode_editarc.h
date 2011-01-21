@@ -82,6 +82,9 @@ private:
 	eArcPoint m_arcPoint;
 	ArcVectorDialog* VectorDialog;
 
+public slots:
+	void updateFromItem();
+
 private slots:
 	void endEditing(bool active);
 	void endEditing();

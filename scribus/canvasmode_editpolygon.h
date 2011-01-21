@@ -37,7 +37,8 @@ class ScribusView;
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
 
 class CanvasMode_EditPolygon :  public CanvasMode
-{	
+{
+	Q_OBJECT
 public:
 	CanvasMode_EditPolygon(ScribusView* view);
 
@@ -86,6 +87,9 @@ private:
 	double polyInnerRot;
 	double polyOuterCurvature;
 	ePolygonPoint m_polygonPoint;
+
+public slots:
+	void updateFromItem();
 };
 
 

@@ -141,6 +141,32 @@ void CanvasMode_EditPolygon::leaveEvent(QEvent *e)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
+void CanvasMode_EditPolygon::updateFromItem()
+{
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
+	centerPoint = QPointF(currItem->width() / 2.0, currItem->height() / 2.0);
+	startPoint = currItem->PoLine.pointQF(0);
+	endPoint = currItem->PoLine.pointQF(2);
+	polyCorners = item->polyCorners;
+	polyUseFactor = item->polyUseFactor;
+	polyFactor = item->polyFactor;
+	polyRotation = item->polyRotation;
+	polyCurvature = item->polyCurvature;
+	polyInnerRot = item->polyInnerRot;
+	polyOuterCurvature = item->polyOuterCurvature;
+	uint cx = polyUseFactor ? polyCorners * 2 : polyCorners;
+	double seg = 360.0 / cx;
+	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (item->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (item->height() / 2.0) + (item->height()/2.0) - item->height(), 2));
+	QLineF innerLine = QLineF(endPoint, centerPoint);
+	innerLine.setAngle(innerLine.angle() + 90);
+	innerLine.setLength(trueLength * polyCurvature);
+	innerCPoint = innerLine.p2();
+	QLineF outerLine = QLineF(startPoint, currItem->PoLine.pointQF(6));
+	outerLine.setLength(outerLine.length() * polyOuterCurvature);
+	outerCPoint = outerLine.p2();
+	m_view->update();
+}
 
 void CanvasMode_EditPolygon::activate(bool fromGesture)
 {
@@ -178,12 +204,14 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 		m_view->update();
+	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditPolygon::deactivate(bool forGesture)
 {
 	m_view->redrawMarker->hide();
 	m_polygonPoint = noPointDefined;
+	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 }
 
 double CanvasMode_EditPolygon::getUserValFromFactor(double factor)
