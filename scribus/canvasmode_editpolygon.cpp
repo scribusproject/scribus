@@ -191,6 +191,8 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	polyCurvature = item->polyCurvature;
 	polyInnerRot = item->polyInnerRot;
 	polyOuterCurvature = item->polyOuterCurvature;
+	VectorDialog = new PolygonProps(m_ScMW, polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature, true);
+	VectorDialog->show();
 	uint cx = polyUseFactor ? polyCorners * 2 : polyCorners;
 	double seg = 360.0 / cx;
 	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (item->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (item->height() / 2.0) + (item->height()/2.0) - item->height(), 2));
@@ -205,13 +207,47 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	if (fromGesture)
 		m_view->update();
 	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	connect(VectorDialog, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SLOT(applyValues(int, double, bool, double, double, double, double)));
+	connect(VectorDialog, SIGNAL(accepted()), this, SLOT(endEditing()));
+	connect(VectorDialog, SIGNAL(rejected()), this, SLOT(endEditing()));
 }
 
 void CanvasMode_EditPolygon::deactivate(bool forGesture)
 {
+	VectorDialog->close();
+	delete VectorDialog;
 	m_view->redrawMarker->hide();
 	m_polygonPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+}
+
+void CanvasMode_EditPolygon::endEditing()
+{
+	m_view->requestMode(modeNormal);
+}
+
+void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF, double polyR, double polyCur, double polyIRot, double polyOCur)
+{
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
+	polyCorners = polyC;
+	polyFactor = polyF;
+	polyRotation = polyR;
+	polyCurvature = polyCur;
+	polyInnerRot = polyIRot;
+	polyOuterCurvature = polyOCur;
+	item->polyCorners = polyC;
+	item->polyUseFactor = polyUseCF;
+	item->polyFactor = polyFactor;
+	item->polyRotation = polyRotation;
+	item->polyCurvature = polyCurvature;
+	item->polyInnerRot = polyInnerRot;
+	item->polyOuterCurvature = polyOuterCurvature;
+	item->recalcPath();
+	updateFromItem();
+	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
+	upRect.translate(currItem->xPos(), currItem->yPos());
+	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
 }
 
 double CanvasMode_EditPolygon::getUserValFromFactor(double factor)
@@ -304,6 +340,7 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 		QLineF outerLine = QLineF(startPoint, ar.pointQF(6));
 		outerLine.setLength(outerLine.length() * polyOuterCurvature);
 		outerCPoint = outerLine.p2();
+		VectorDialog->setValues(polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 		currItem->update();
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
@@ -435,6 +472,7 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 		item->polyInnerRot = polyInnerRot;
 		item->polyOuterCurvature = polyOuterCurvature;
 		item->recalcPath();
+		VectorDialog->setValues(polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	}
 	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
 	upRect.translate(currItem->xPos(), currItem->yPos());

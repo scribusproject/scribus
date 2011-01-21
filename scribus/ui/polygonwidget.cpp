@@ -24,18 +24,20 @@ using namespace std;
 PolygonWidget::PolygonWidget(QWidget* parent) : QWidget( parent )
 {
 	setupUi(this);
+	editMode = false;
 }
 
-
-PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : QWidget( parent )
+PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature, bool forEditMode) : QWidget( parent )
 {
 	setupUi(this);
+	editMode = forEditMode;
+	if (editMode)
+		Preview->hide();
 	setValues(polyCorners, polyF, polyUseConvexFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	updatePreview();
 	// signals and slots connections
 	connectSignals(true);
 }
-
 
 void PolygonWidget::connectSignals(bool conn)
 {
@@ -182,6 +184,11 @@ void PolygonWidget::setOuterCurvatureSlider(int a)
 
 void PolygonWidget::updatePreview()
 {
+	if (editMode)
+	{
+		emit NewVectors(cornersSpinBox->value(), PFactor, applyConvexGroupBox->isChecked(), rotationSpinBox->value(), curvatureSpinBox->value() / 100.0, innerRotationspinBox->value(), OuterCurvatureSpinBox->value() / 100.0);
+		return;
+	}
 	double roundness = curvatureSpinBox->value() / 100.0;
 	double innerround = OuterCurvatureSpinBox->value() / 100.0;
 	QPixmap pm = QPixmap(Preview->width() - 5, Preview->height() - 5);

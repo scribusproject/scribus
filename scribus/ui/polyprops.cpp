@@ -14,15 +14,18 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "util_icon.h"
 
-PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : QDialog( parent )
+PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature, bool forEditMode) : QDialog( parent )
 {
-	setModal(true);
+	if (forEditMode)
+		setModal(false);
+	else
+		setModal(true);
 	setWindowTitle( tr( "Polygon Properties" ) );
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	PolygonPropsLayout = new QVBoxLayout( this );
 	PolygonPropsLayout->setMargin(10);
 	PolygonPropsLayout->setSpacing(5);
-	polyWidget = new PolygonWidget(this, polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature);
+	polyWidget = new PolygonWidget(this, polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature, forEditMode);
 	PolygonPropsLayout->addWidget( polyWidget );
 	Layout1 = new QHBoxLayout;
 	Layout1->setMargin(0);
@@ -38,6 +41,12 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS,
 	Layout1->addWidget( cancelButton );
 	PolygonPropsLayout->addLayout( Layout1 );
 	// signals and slots connections
+	if (forEditMode)
+	{
+		connect(polyWidget, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SIGNAL(NewVectors(int, double, bool, double, double, double, double)));
+		cancelButton->hide();
+		okButton->setText( tr("End Edit"));
+	}
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
@@ -45,4 +54,9 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS,
 void PolygonProps::getValues(int* polyC, double* polyF, bool* polyS, double* polyR, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature)
 {
 	polyWidget->getValues(polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature);
+}
+
+void PolygonProps::setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature)
+{
+	polyWidget->setValues(polyCorners, polyF, polyUseConvexFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 }

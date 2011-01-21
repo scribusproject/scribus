@@ -257,6 +257,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 
 void CanvasMode_EditArc::deactivate(bool forGesture)
 {
+	disconnect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	VectorDialog->close();
 	delete VectorDialog;
 	m_view->redrawMarker->hide();

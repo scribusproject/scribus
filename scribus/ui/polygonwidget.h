@@ -17,7 +17,7 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 
 	public:
 		PolygonWidget(QWidget* parent);
-		PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+		PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature, bool forEditMode = false);
 		~PolygonWidget() {};
 
 		void setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
@@ -40,6 +40,10 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 		double getUserValFromFactor(double factor);
 		double PFactor;
 		void connectSignals(bool);
+		bool editMode;
+
+	signals:
+		void NewVectors(int, double, bool, double, double, double, double);
 };
 
 #endif

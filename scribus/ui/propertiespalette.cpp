@@ -4121,16 +4121,8 @@ void PropertiesPalette::handleShapeEdit()
 		tmpSelection->clear();
 		if (CurItem->asRegularPolygon())
 		{
-			PageItem_RegularPolygon* item = CurItem->asRegularPolygon();
-			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature, item->polyInnerRot, item->polyOuterCurvature);
-			if (dia->exec())
-			{
-				dia->getValues(&item->polyCorners, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature, &item->polyInnerRot, &item->polyOuterCurvature);
-				item->recalcPath();
-			}
-			delete dia;
-			CurItem->update();
-			emit DocChanged();
+			m_ScMW->view->requestMode(modeEditPolygon);
+			RoundRect->setEnabled(false);
 		}
 		else if (CurItem->asArc())
 		{
@@ -4142,6 +4134,7 @@ void PropertiesPalette::handleShapeEdit()
 			m_ScMW->view->requestMode(modeEditClip);
 			RoundRect->setEnabled(false);
 		}
+		emit DocChanged();
 	}
 }
 
