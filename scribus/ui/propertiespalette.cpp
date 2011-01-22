@@ -3124,6 +3124,8 @@ void PropertiesPalette::NewW()
 	y = Ypos->value() / m_unitRatio;
 	w = Width->value() / m_unitRatio;
 	h = Height->value() / m_unitRatio;
+	double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
+	double oldH = (CurItem->height() != 0.0) ? CurItem->height() : 1.0;
 	if (doc->m_Selection->isMultipleSelection())
 	{
 		if (!_userActionOn)
@@ -3163,7 +3165,6 @@ void PropertiesPalette::NewW()
 		}
 		else
 		{
-			double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
 			if (CurItem->isTableItem)
 			{
 				int rmo = doc->RotMode();
@@ -3213,6 +3214,20 @@ void PropertiesPalette::NewW()
 					doc->SizeItem(w, CurItem->height(), CurItem, true, true, false);
 			}
 		}
+		if (CurItem->isArc())
+		{
+			double dw = w - oldW;
+			double dh = h - oldH;
+			PageItem_Arc* item = CurItem->asArc();
+			double dsch = item->arcHeight / oldH;
+			double dscw = item->arcWidth / oldW;
+			item->arcWidth += dw * dscw;
+			item->arcHeight += dh * dsch;
+			item->recalcPath();
+			FPoint tp2(getMinClipF(&CurItem->PoLine));
+			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
+			doc->AdjustItemSize(CurItem);
+		}
 		CurItem->Sizing = oldS;
 	}
 	emit DocChanged();
@@ -3225,6 +3240,8 @@ void PropertiesPalette::NewH()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
+		double oldH = (CurItem->height() != 0.0) ? CurItem->height() : 1.0;
 		double x,y,w,h, gx, gy, gh, gw;
 		x = Xpos->value() / m_unitRatio;
 		y = Ypos->value() / m_unitRatio;
@@ -3269,7 +3286,6 @@ void PropertiesPalette::NewH()
 			}
 			else
 			{
-				double oldH = (CurItem->height() != 0.0) ? CurItem->height() : 1.0;
 				if (CurItem->isTableItem)
 				{
 					int rmo = doc->RotMode();
@@ -3320,6 +3336,20 @@ void PropertiesPalette::NewH()
 				}
 			}
 			CurItem->Sizing = oldS;
+		}
+		if (CurItem->isArc())
+		{
+			double dw = w - oldW;
+			double dh = h - oldH;
+			PageItem_Arc* item = CurItem->asArc();
+			double dsch = item->arcHeight / oldH;
+			double dscw = item->arcWidth / oldW;
+			item->arcWidth += dw * dscw;
+			item->arcHeight += dh * dsch;
+			item->recalcPath();
+			FPoint tp2(getMinClipF(&CurItem->PoLine));
+			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
+			doc->AdjustItemSize(CurItem);
 		}
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
