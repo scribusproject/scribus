@@ -29,6 +29,8 @@
 #include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"
+#include "pageitem_arc.h"
+#include "util_math.h"
 
 ResizeGesture::ResizeGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
@@ -196,6 +198,18 @@ void ResizeGesture::doResize(bool scaleContent)
 //		qDebug() << "ResizeGesture::doResize: begin transaction" << m_transactionStarted;
 	}
 	QRectF newBounds = m_bounds.normalized();
+	double dw = (newBounds.width() - m_extraWidth) - currItem->width();
+	double dh = (newBounds.height() - m_extraHeight) - currItem->height();
+	double dsch = 1.0;
+	double dscw = 1.0;
+	if (currItem->isArc())
+	{
+		PageItem_Arc* item = currItem->asArc();
+		if (currItem->height() != 0.0)
+			dsch = item->arcHeight / currItem->height();
+		if (currItem->width() != 0.0)
+			dscw = item->arcWidth / currItem->width();
+	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		int RotModeBack = m_doc->RotMode();
@@ -293,10 +307,20 @@ void ResizeGesture::doResize(bool scaleContent)
 		currItem->setXYPos(newBounds.x() + m_extraX, newBounds.y() + m_extraY);
 		currItem->setWidth(newBounds.width() - m_extraWidth);
 		currItem->setHeight(newBounds.height() - m_extraHeight);
+		currItem->updateClip();
+		if (currItem->isArc())
+		{
+			PageItem_Arc* item = currItem->asArc();
+			item->arcWidth += dw * dscw;
+			item->arcHeight += dh * dsch;
+			item->recalcPath();
+			FPoint tp2(getMinClipF(&currItem->PoLine));
+			currItem->PoLine.translate(-tp2.x(), -tp2.y());
+			m_doc->AdjustItemSize(currItem);
+		}
 		// rotation does not change
 	}
 	m_origBounds = m_bounds;
-	currItem->updateClip();
 }
 
 

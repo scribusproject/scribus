@@ -60,7 +60,6 @@ PageItem_Arc::PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double 
 	path.closeSubpath();
 	PoLine.fromQPainterPath(path);
 	Clip = FlattenPath(PoLine, Segments);
-	setSizeLocked(true);
 }
 
 void PageItem_Arc::DrawObj_Item(ScPainter *p, QRectF /*e*/)

@@ -1971,7 +1971,6 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	setXY(CurItem->xPos(), CurItem->yPos());
 	setLocked(i->locked());
 	setSizeLocked(i->sizeLocked());
-	NoResize->setEnabled(!CurItem->isArc());
 	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setLineWidth(i->lineWidth());
 	setLIvalue(i->lineStyle(), i->lineEnd(), i->lineJoin());

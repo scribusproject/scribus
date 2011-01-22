@@ -5044,9 +5044,6 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	// If converting a text frame to another object, drop links
 	if (oldItem->asTextFrame() && (newType != PageItem::TextFrame))
 		oldItem->dropLinks();
-	// if converting an arc to another object release size lock
-	if (oldItem->isArc() && (newType != PageItem::Arc))
-		newItem->setSizeLocked(false);
 	// If converting text to path, delete the bezier
 	if (newType == PageItem::PathText)
 	{
@@ -11635,6 +11632,18 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		bb->OldH = bb->height();
 		bb->OldB2 = bb->width();
 		bb->OldH2 = bb->height();
+		double dw = (bb->width() * scx) - bb->width();
+		double dh = (bb->height() * scy) - bb->height();
+		double dsch = 1.0;
+		double dscw = 1.0;
+		if (bb->isArc())
+		{
+			PageItem_Arc* item = bb->asArc();
+			if (bb->height() != 0.0)
+				dsch = item->arcHeight / bb->height();
+			if (bb->width() != 0.0)
+				dscw = item->arcWidth / bb->width();
+		}
 		bb->Sizing = false;
 		double oldRot, oldLocalX, oldLocalY;
 		oldRot = bb->rotation();
@@ -11682,6 +11691,15 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			bb->PoLine.map(ma2);
 			bb->setRotation(0.0);
 			bb->ClipEdited = true;
+			if (bb->isArc())
+			{
+				PageItem_Arc* item = bb->asArc();
+				item->arcWidth += dw * dscw;
+				item->arcHeight += dh * dsch;
+				item->recalcPath();
+				FPoint tp2(getMinClipF(&bb->PoLine));
+				bb->PoLine.translate(-tp2.x(), -tp2.y());
+			}
 			AdjustItemSize(bb, true, false);
 			QTransform ma3;
 			ma3.translate(gx, gy);
