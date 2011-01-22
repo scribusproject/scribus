@@ -934,15 +934,21 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	{
 		if (!m_doc->nodeEdit.EdPoints)
 			return;
-		if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
+		if (!(currItem->isLine() || currItem->isPathText() || currItem->isPolyLine()))
 		{
 			if ((currItem->Segments.count() == 0) && (Clip.size() <= 12))  // min. 3 points
+			{
+				m_doc->nodeEdit.deselect();
 				return;
+			}
 		}
 		else
 		{
 			if (Clip.size() <= 4)
+			{
+				m_doc->nodeEdit.deselect();
 				return;
+			}
 		}
 		if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) <= 12))
 		{
@@ -954,7 +960,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		{
 			if (m_doc->nodeEdit.ClRe == static_cast<int>(StartInd))
 			{
-				if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
+				if (!(currItem->isLine() || currItem->isPathText() || currItem->isPolyLine()))
 				{
 					FPoint kp(Clip.point(EndInd-3));
 					cli.putPoints(0, StartInd, Clip);
