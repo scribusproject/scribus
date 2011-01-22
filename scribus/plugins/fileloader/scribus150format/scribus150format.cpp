@@ -1863,8 +1863,8 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 		color.fromQColor(QColor(attrs.valueAsString("RGB")));
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
-	QString name = attrs.valueAsString("NAME");
-	colors.insert((name.isEmpty()) ? color.name() : name, color);
+	QString name = attrs.valueAsString("NAME", color.name());
+	colors.tryAddColor(name, color);
 	return true;
 }
 
