@@ -3390,15 +3390,31 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	if (controlItem != NULL)
 	{
 		double scaleW, scaleH;
-		if (controlItem->groupWidth > controlItem->width())
-			scaleW = controlItem->groupWidth / controlItem->width();
-		else
-			scaleW = 1.0 / (controlItem->groupWidth / controlItem->width());
-		if (controlItem->groupHeight > controlItem->height())
-			scaleH = controlItem->groupHeight / controlItem->height();
-		else
-			scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
-		PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+		if (controlItem->isGroup())
+		{
+			if (controlItem->groupWidth > controlItem->width())
+				scaleW = controlItem->groupWidth / controlItem->width();
+			else
+				scaleW = 1.0 / (controlItem->groupWidth / controlItem->width());
+			if (controlItem->groupHeight > controlItem->height())
+				scaleH = controlItem->groupHeight / controlItem->height();
+			else
+				scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+		}
+		if (controlItem->isSymbol())
+		{
+			ScPattern pat = doc.docPatterns[controlItem->pattern()];
+			if (pat.width > controlItem->width())
+				scaleW = pat.width / controlItem->width();
+			else
+				scaleW = 1.0 / (pat.width / controlItem->width());
+			if (pat.height > controlItem->height())
+				scaleH = pat.height / controlItem->height();
+			else
+				scaleH = 1.0 / (pat.height / controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(pat.width * scaleW)+" "+FToStr(pat.height * scaleH)+" ]\n");
+		}
 	}
 	else
 		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
