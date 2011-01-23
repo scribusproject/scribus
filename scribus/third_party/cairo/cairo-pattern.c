@@ -1157,7 +1157,7 @@ cairo_pattern_set_user_data (cairo_pattern_t		 *pattern,
  * Since: XXX
  **/
 cairo_public void
-cairo_pattern_begin_patch (cairo_pattern_t *pattern)
+cairo_pattern_mesh_begin_patch (cairo_pattern_t *pattern)
 {
     cairo_mesh_pattern_t *mesh;
     cairo_status_t status;
@@ -1258,7 +1258,7 @@ _calc_control_point (cairo_gradient_patch_t *patch, int control_point)
  * Since: XXX
  **/
 cairo_public void
-cairo_pattern_end_patch (cairo_pattern_t *pattern)
+cairo_pattern_mesh_end_patch (cairo_pattern_t *pattern)
 {
     cairo_mesh_pattern_t *mesh;
     int i;
@@ -1279,7 +1279,7 @@ cairo_pattern_end_patch (cairo_pattern_t *pattern)
 	return;
 
     while (mesh->current_side  < 3) {
-	cairo_pattern_line_to (pattern,
+	cairo_pattern_mesh_line_to (pattern,
 			       mesh->current_patch->points[0][0][0],
 			       mesh->current_patch->points[0][0][1]);
 	mesh->current_patch->colors[mesh->current_side] = mesh->current_patch->colors[0];
@@ -1315,7 +1315,7 @@ cairo_pattern_end_patch (cairo_pattern_t *pattern)
  * Since: XXX
  **/
 cairo_public void
-cairo_pattern_curve_to (cairo_pattern_t *pattern,
+cairo_pattern_mesh_curve_to (cairo_pattern_t *pattern,
 			double x1,
 			double y1,
 			double x2,
@@ -1392,7 +1392,7 @@ cairo_pattern_curve_to (cairo_pattern_t *pattern,
  * Since: XXX
  **/
 cairo_public void
-cairo_pattern_line_to (cairo_pattern_t *pattern,
+cairo_pattern_mesh_line_to (cairo_pattern_t *pattern,
 		       double x,
 		       double y)
 {
@@ -1459,7 +1459,7 @@ cairo_pattern_line_to (cairo_pattern_t *pattern,
  * Since: XXX
  **/
 cairo_public void
-cairo_pattern_move_to (cairo_pattern_t *pattern,
+cairo_pattern_mesh_move_to (cairo_pattern_t *pattern,
 		       double x,
 		       double y)
 {
@@ -1496,7 +1496,7 @@ cairo_pattern_move_to (cairo_pattern_t *pattern,
  * Since: XXX
  **/
 cairo_public void
-cairo_pattern_set_control_point (cairo_pattern_t *pattern,
+cairo_pattern_mesh_set_control_point (cairo_pattern_t *pattern,
 				 int              point_num,
 				 double           x,
 				 double           y)
@@ -1624,7 +1624,7 @@ _cairo_pattern_set_corner_color (cairo_pattern_t *pattern,
  * %CAIRO_STATUS_PATTERN_TYPE_MISMATCH.
  **/
 void
-cairo_pattern_set_corner_color_rgb (cairo_pattern_t *pattern,
+cairo_pattern_mesh_set_corner_color_rgb (cairo_pattern_t *pattern,
 				    int              corner_num,
 				    double red, double green, double blue)
 {
@@ -1665,7 +1665,7 @@ cairo_pattern_set_corner_color_rgb (cairo_pattern_t *pattern,
  * %CAIRO_STATUS_PATTERN_TYPE_MISMATCH.
  **/
 void
-cairo_pattern_set_corner_color_rgba (cairo_pattern_t *pattern,
+cairo_pattern_mesh_set_corner_color_rgba (cairo_pattern_t *pattern,
 				     int              corner_num,
 				     double red, double green, double blue,
 				     double alpha)
