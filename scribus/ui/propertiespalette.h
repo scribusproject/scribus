@@ -347,6 +347,7 @@ signals:
 	void ShapeEdit();
 	void NewFont(const QString&);
 	void UpdtGui(int);
+	void updateEditItem();
 
 protected:
 	ScribusMainWindow *m_ScMW;

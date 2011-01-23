@@ -207,6 +207,8 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	if (fromGesture)
 		m_view->update();
 	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	connect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	
 	connect(VectorDialog, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SLOT(applyValues(int, double, bool, double, double, double, double)));
 	connect(VectorDialog, SIGNAL(accepted()), this, SLOT(endEditing()));
 	connect(VectorDialog, SIGNAL(rejected()), this, SLOT(endEditing()));
@@ -219,6 +221,7 @@ void CanvasMode_EditPolygon::deactivate(bool forGesture)
 	m_view->redrawMarker->hide();
 	m_polygonPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	disconnect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditPolygon::endEditing()
@@ -283,6 +286,7 @@ void CanvasMode_EditPolygon::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
+	m_view->requestMode(modeNormal);
 }
 
 void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
@@ -313,7 +317,13 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 				polyFactor = factor;
 		}
 		if (m_polygonPoint == useControlOuter)
+		{
 			polyRotation = stLinA.angle() - 90;
+			if (polyRotation < -180)
+				polyRotation += 360;
+			if (polyRotation > 180)
+				polyRotation -= 360;
+		}
 		if (m_polygonPoint == useControlInnerCurve)
 		{
 			QPointF ePoint = itemMatrix.map(endPoint);

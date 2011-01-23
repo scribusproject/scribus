@@ -3228,6 +3228,8 @@ void PropertiesPalette::NewW()
 			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
 			doc->AdjustItemSize(CurItem);
 		}
+		if (CurItem->isArc() || CurItem->isRegularPolygon())
+			emit updateEditItem();
 		CurItem->Sizing = oldS;
 	}
 	emit DocChanged();
@@ -3351,6 +3353,8 @@ void PropertiesPalette::NewH()
 			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
 			doc->AdjustItemSize(CurItem);
 		}
+		if (CurItem->isArc() || CurItem->isRegularPolygon())
+			emit updateEditItem();
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
 	}

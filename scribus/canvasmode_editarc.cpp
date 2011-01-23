@@ -186,6 +186,7 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	connect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::updateFromItem()
@@ -263,6 +264,7 @@ void CanvasMode_EditArc::deactivate(bool forGesture)
 	m_view->redrawMarker->hide();
 	m_arcPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	disconnect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
@@ -270,37 +272,7 @@ void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	PageItem *currItem = 0;
-	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
-	{
-		if ((m_doc->m_Selection->isMultipleSelection()) && (m_doc->appMode == modeNormal))
-		{
-			if (GetItem(&currItem))
-			{
-				/* CB: old code, removing this as shift-alt select on an unselected table selects a cell now.
-				//#6789 is closed by sorting this.
-				if (currItem->isTableItem)
-				{
-					m_view->Deselect(false);
-					m_doc->m_Selection->addItem(currItem);
-					currItem->isSingleSel = true;
-					//CB FIXME dont call this if the added item is item 0
-					if (!m_doc->m_Selection->primarySelectionIs(currItem))
-						currItem->emitAllToGUI();
-					m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-				}*/
-			}
-			return;
-		}
-		else
-		{
-			if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame()))
-			{
-				mousePressEvent(m);
-				return;
-			}
-		}
-	}
+	m_view->requestMode(modeNormal);
 }
 
 
