@@ -2364,6 +2364,20 @@
 			<File
 				RelativePath="..\..\scribus\canvasmode_editpolygon.h"
 				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_eyedropper.h"
@@ -7713,6 +7727,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_canvasmode_editarc.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasmode_editpolygon.cpp"
 				>
 			</File>
 			<File
