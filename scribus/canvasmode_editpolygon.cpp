@@ -216,6 +216,7 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 
 void CanvasMode_EditPolygon::deactivate(bool forGesture)
 {
+	disconnect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	VectorDialog->close();
 	delete VectorDialog;
 	m_view->redrawMarker->hide();
