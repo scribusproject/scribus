@@ -19,7 +19,7 @@ import scribus
 
 if scribus.haveDoc():
     c = 0
-    lang = scribus.valueDialog("Choose by language or country", 'Language: af, be, ch, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk\n are current choices','en')
+    lang = scribus.valueDialog("Choose by language or country", 'Language: af, be, ch, cs, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk\n are current choices','en')
     if (lang == 'en'):
         lead_double = u"\u201c"
         follow_double = u"\u201d"
@@ -70,7 +70,7 @@ if scribus.haveDoc():
         follow_double = u"\u00bb"
 	follow_double = u"\u201d"
         lead_single = u"\u2018"
-    elif ((lang == 'lt') or (lang == 'mk') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'et')):
+    elif ((lang == 'lt') or (lang == 'mk') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
         lead_double = u"\u201e"
         follow_double = u"\u201c"
         lead_single = u"\u2019"
@@ -80,7 +80,7 @@ if scribus.haveDoc():
 	follow_double = u"\u201d"
 	lead_single = u"\u00bb"
 	follow_single = u"\u00ab"
-    else:
+ else:
         scribus.messageBox('Language Error', 'You need to choose an available language', icon=0, button1=1)
         sys.exit(2)
         
