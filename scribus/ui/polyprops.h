@@ -13,14 +13,36 @@ class QHBoxLayout;
 class QPushButton;
 
 #include "scribusapi.h"
+#include "ui/scrpalettebase.h"
 class PolygonWidget;
+
+class SCRIBUS_API PolyVectorDialog :  public ScrPaletteBase
+{
+	Q_OBJECT
+
+public:
+	PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+	~PolyVectorDialog() {};
+	void setValues(int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+	PolygonWidget* polyWidget;
+	QPushButton* okButton;
+
+signals:
+	void NewVectors(int, double, bool, double, double, double, double);
+	void endEdit();
+
+protected:
+	QVBoxLayout* PolygonPropsLayout;
+	QHBoxLayout* Layout1;
+
+};
 
 class SCRIBUS_API PolygonProps : public QDialog
 {
 	Q_OBJECT
 
 public:
-	PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature, bool forEditMode = false);
+	PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 	~PolygonProps() {};
 	void getValues(int* polyC, double* polyF, bool* polyS, double* polyR, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature);
 	void setValues(int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);

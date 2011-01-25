@@ -191,7 +191,7 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	polyCurvature = item->polyCurvature;
 	polyInnerRot = item->polyInnerRot;
 	polyOuterCurvature = item->polyOuterCurvature;
-	VectorDialog = new PolygonProps(m_ScMW, polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature, true);
+	VectorDialog = new PolyVectorDialog(m_ScMW, polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	VectorDialog->show();
 	uint cx = polyUseFactor ? polyCorners * 2 : polyCorners;
 	double seg = 360.0 / cx;
@@ -210,8 +210,8 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	connect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 	
 	connect(VectorDialog, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SLOT(applyValues(int, double, bool, double, double, double, double)));
-	connect(VectorDialog, SIGNAL(accepted()), this, SLOT(endEditing()));
-	connect(VectorDialog, SIGNAL(rejected()), this, SLOT(endEditing()));
+	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
+	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 }
 
 void CanvasMode_EditPolygon::deactivate(bool forGesture)
@@ -222,6 +222,12 @@ void CanvasMode_EditPolygon::deactivate(bool forGesture)
 	m_polygonPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
 	disconnect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+}
+
+void CanvasMode_EditPolygon::endEditing(bool active)
+{
+	if (!active)
+		endEditing();
 }
 
 void CanvasMode_EditPolygon::endEditing()

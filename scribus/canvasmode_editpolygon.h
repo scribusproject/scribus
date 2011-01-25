@@ -88,11 +88,12 @@ private:
 	double polyInnerRot;
 	double polyOuterCurvature;
 	ePolygonPoint m_polygonPoint;
-	PolygonProps *VectorDialog;
+	PolyVectorDialog *VectorDialog;
 
 public slots:
 	void applyValues(int polyC, double polyF, bool polyUseCF, double polyR, double polyCur, double polyIRot, double polyOCur);
 	void updateFromItem();
+	void endEditing(bool active);
 	void endEditing();
 };
 
