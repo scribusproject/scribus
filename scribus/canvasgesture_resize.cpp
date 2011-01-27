@@ -30,6 +30,7 @@
 #include "selection.h"
 #include "undomanager.h"
 #include "pageitem_arc.h"
+#include "pageitem_spiral.h"
 #include "util_math.h"
 
 ResizeGesture::ResizeGesture (CanvasMode* parent) : CanvasGesture(parent)
@@ -210,6 +211,14 @@ void ResizeGesture::doResize(bool scaleContent)
 		if (currItem->width() != 0.0)
 			dscw = item->arcWidth / currItem->width();
 	}
+	if (currItem->isSpiral())
+	{
+		PageItem_Spiral* item = currItem->asSpiral();
+		if (currItem->height() != 0.0)
+			dsch = item->spiralHeight / currItem->height();
+		if (currItem->width() != 0.0)
+			dscw = item->spiralWidth / currItem->width();
+	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		int RotModeBack = m_doc->RotMode();
@@ -317,6 +326,13 @@ void ResizeGesture::doResize(bool scaleContent)
 			FPoint tp2(getMinClipF(&currItem->PoLine));
 			currItem->PoLine.translate(-tp2.x(), -tp2.y());
 			m_doc->AdjustItemSize(currItem);
+		}
+		if (currItem->isSpiral())
+		{
+			PageItem_Spiral* item = currItem->asSpiral();
+			item->spiralWidth += dw * dscw;
+			item->spiralHeight += dh * dsch;
+			item->recalcPath();
 		}
 		// rotation does not change
 	}

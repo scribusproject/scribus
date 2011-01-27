@@ -563,6 +563,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = tr("Arc");
 		setUPixmap(Um::IPolygon);
 		break;
+	case Spiral:
+		AnName = tr("Spiral");
+		setUPixmap(Um::IPolygon);
+		break;
 	default:
 		AnName = "Item";
 		break;
@@ -1554,7 +1558,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setBlendModeFill(0);
 	#endif
 			p->setMaskMode(0);
-			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line || itemType()==Symbol || itemType()==Group)
+			if (itemType()==PathText || itemType()==PolyLine || itemType()==Spiral || itemType()==Line || itemType()==Symbol || itemType()==Group)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{
@@ -1810,6 +1814,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 				break;
 			case Line:
 			case PolyLine:
+			case Spiral:
 				embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 				embedded->DrawObj_Item(p, cullingArea);
 				break;
@@ -2562,6 +2567,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					GrColorP1 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2599,6 +2605,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					GrColorP2 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2636,6 +2643,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					GrColorP3 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2673,6 +2681,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					GrColorP4 = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2739,6 +2748,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					MColor = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -2788,6 +2798,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					MColor = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -3089,6 +3100,7 @@ void PageItem::setFillColor(const QString &newColor)
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					tmp = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:
@@ -3184,6 +3196,7 @@ void PageItem::setLineColor(const QString &newColor)
 				case OSGFrame:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					tmp = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
@@ -3307,6 +3320,7 @@ void PageItem::setLineQColor()
 				case OSGFrame:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					lineColorVal = m_Doc->itemToolPrefs().shapeLineColor;
 					break;
 				default:
@@ -3346,6 +3360,7 @@ void PageItem::setFillQColor()
 				case Polygon:
 				case RegularPolygon:
 				case Arc:
+				case Spiral:
 					fillColorVal = m_Doc->itemToolPrefs().shapeFillColor;
 					break;
 				default:

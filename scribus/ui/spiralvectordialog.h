@@ -5,9 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          arcvectordialog.h  -  description
+                          spiralvectordialog.h  -  description
                              -------------------
-    begin                : Mon Jan 17 2011
+    begin                : Wed Jan 27 2011
     copyright            : (C) 2011 by Franz Schmid
     email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
@@ -21,10 +21,10 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef ARCVECTOR_H
-#define ARCVECTOR_H
+#ifndef SPIRALVECTOR_H
+#define SPIRALVECTOR_H
 
-#include "ui_arcvectorbase.h"
+#include "ui_spiralvectorbase.h"
 
 #include <QWidget>
 #include <QLayout>
@@ -37,23 +37,23 @@ for which a new license (GPL+exception) is in place.
   *@author Franz Schmid
   */
 
-class SCRIBUS_API ArcVectorDialog :  public ScrPaletteBase, Ui::ArcVectorBase
+class SCRIBUS_API SpiralVectorDialog :  public ScrPaletteBase, Ui::SpiralVectorBase
 {
 	Q_OBJECT
 
 public:
-	ArcVectorDialog( QWidget* parent);
-	~ArcVectorDialog() {};
+	SpiralVectorDialog( QWidget* parent);
+	~SpiralVectorDialog() {};
 	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void languageChange();
 	void changeVectors();
-	void setValues(double start, double sweep, double height, double width);
+	void setValues(double start, double sweep, double height, double width, double factor);
 	void unitChange(int unitIndex);
 
 signals:
-	void NewVectors(double, double, double, double);
+	void NewVectors(double, double, double, double, double);
 	void endEdit();
 
 };

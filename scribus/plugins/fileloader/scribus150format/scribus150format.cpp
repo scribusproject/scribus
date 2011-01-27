@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_spiral.h"
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -1716,6 +1717,9 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 
 	doc->itemToolPrefs().arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
 	doc->itemToolPrefs().arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
+	doc->itemToolPrefs().spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
+	doc->itemToolPrefs().spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 1080.0);
+	doc->itemToolPrefs().spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
 
 	doc->itemToolPrefs().lineStartArrow = attrs.valueAsInt("StartArrow", 0);
 	doc->itemToolPrefs().lineEndArrow   = attrs.valueAsInt("EndArrow", 0);
@@ -3372,6 +3376,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
+	case PageItem::Spiral:
+		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
+		currItem = doc->Items->at(z);
+		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
+		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
@@ -3704,6 +3714,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		arcitem->arcWidth      = attrs.valueAsDouble("arcWidth", 1.0);
 		arcitem->arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
 		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
+	}
+	if (currItem->asSpiral())
+	{
+		PageItem_Spiral *arcitem = currItem->asSpiral();
+		arcitem->spiralHeight     = attrs.valueAsDouble("spiralHeight", 1.0);
+		arcitem->spiralWidth      = attrs.valueAsDouble("spiralWidth", 1.0);
+		arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
+		arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
+		arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
 	}
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;

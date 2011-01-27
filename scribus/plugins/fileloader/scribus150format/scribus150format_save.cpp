@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_spiral.h"
 
 #include "units.h"
 #include "util.h"
@@ -263,7 +264,10 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYOCUR", m_Doc->itemToolPrefs().polyOuterCurvature);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->itemToolPrefs().polyUseFactor));
 	docu.writeAttribute("arcStartAngle", m_Doc->itemToolPrefs().arcStartAngle);
-	docu.writeAttribute("arcSweepAngle", m_Doc->itemToolPrefs().polyInnerRot);
+	docu.writeAttribute("arcSweepAngle", m_Doc->itemToolPrefs().arcSweepAngle);
+	docu.writeAttribute("spiralStartAngle", m_Doc->itemToolPrefs().spiralStartAngle);
+	docu.writeAttribute("spiralEndAngle", m_Doc->itemToolPrefs().spiralEndAngle);
+	docu.writeAttribute("spiralFactor", m_Doc->itemToolPrefs().spiralFactor);
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->autoSave()));
 	docu.writeAttribute("AutoSaveTime", m_Doc->autoSaveTime());
 	docu.writeAttribute("ScratchBottom", m_Doc->scratch()->Bottom);
@@ -1714,6 +1718,15 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("arcWidth", arcitem->arcWidth);
 		docu.writeAttribute("arcStartAngle", arcitem->arcStartAngle);
 		docu.writeAttribute("arcSweepAngle", arcitem->arcSweepAngle);
+	}
+	if (item->asSpiral())
+	{
+		PageItem_Spiral *arcitem = item->asSpiral();
+		docu.writeAttribute("spiralHeight", arcitem->spiralHeight);
+		docu.writeAttribute("spiralWidth", arcitem->spiralWidth);
+		docu.writeAttribute("spiralStartAngle", arcitem->spiralStartAngle);
+		docu.writeAttribute("spiralEndAngle", arcitem->spiralEndAngle);
+		docu.writeAttribute("spiralFactor", arcitem->spiralFactor);
 	}
 	if(item->isAnnotation())
 	{

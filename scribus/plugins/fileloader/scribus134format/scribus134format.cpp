@@ -2540,6 +2540,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::Symbol:
 	case PageItem::RegularPolygon:
 	case PageItem::Arc:
+	case PageItem::Spiral:
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;

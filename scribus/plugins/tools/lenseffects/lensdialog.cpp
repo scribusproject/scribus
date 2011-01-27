@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scpattern.h"
 #include "commonstrings.h"
+#include "pageitem_group.h"
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 {
@@ -280,6 +281,8 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);
+		if (currItem->isGroup())
+			currItem->asGroupFrame()->adjustXYPosition();
 		FPointArray path = currItem->PoLine;
 		QPainterPath pp;
 		if (currItem->itemType() == PageItem::PolyLine)

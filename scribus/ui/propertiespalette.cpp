@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_spiral.h"
 #include "polyprops.h"
 #include "sccombobox.h"
 #include "scfonts.h"
@@ -1612,7 +1613,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		SCustom->setIcon(SCustom->getIconPixmap(1));
 	if (CurItem->FrameType > 3)
 		SCustom->setIcon(SCustom->getIconPixmap(CurItem->FrameType-2));
-	if ((CurItem->asLine()) || (CurItem->asPolyLine()))
+	if ((CurItem->asLine()) || (CurItem->asPolyLine()) || (CurItem->asSpiral()))
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
@@ -2105,7 +2106,7 @@ void PropertiesPalette::NewSel(int nr)
 			i=doc->m_Selection->itemAt(0);
 			HaveItem=true;
 			EditShape->setEnabled(!i->locked());
-			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && nr!=13 && nr!=14 && !i->locked());
+			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && nr!=13 && nr!=14 && nr!=15 && !i->locked());
 		}
 		else
 		{
@@ -2235,6 +2236,7 @@ void PropertiesPalette::NewSel(int nr)
 				RoundRect->setEnabled(false);
 			break;
 		case PageItem::PolyLine:
+		case PageItem::Spiral:
 			TabStack->setItemEnabled(idShapeItem, true);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
@@ -3228,7 +3230,21 @@ void PropertiesPalette::NewW()
 			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
 			doc->AdjustItemSize(CurItem);
 		}
-		if (CurItem->isArc() || CurItem->isRegularPolygon())
+		if (CurItem->isSpiral())
+		{
+			double dw = w - oldW;
+			double dh = h - oldH;
+			PageItem_Spiral* item = CurItem->asSpiral();
+			double dsch = item->spiralHeight / oldH;
+			double dscw = item->spiralWidth / oldW;
+			item->spiralWidth += dw * dscw;
+			item->spiralHeight += dh * dsch;
+			item->recalcPath();
+			FPoint tp2(getMinClipF(&CurItem->PoLine));
+			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
+			doc->AdjustItemSize(CurItem);
+		}
+		if (CurItem->isArc() || CurItem->isRegularPolygon() || CurItem->isSpiral())
 			emit updateEditItem();
 		CurItem->Sizing = oldS;
 	}
@@ -3353,7 +3369,21 @@ void PropertiesPalette::NewH()
 			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
 			doc->AdjustItemSize(CurItem);
 		}
-		if (CurItem->isArc() || CurItem->isRegularPolygon())
+		if (CurItem->isSpiral())
+		{
+			double dw = w - oldW;
+			double dh = h - oldH;
+			PageItem_Spiral* item = CurItem->asSpiral();
+			double dsch = item->spiralHeight / oldH;
+			double dscw = item->spiralWidth / oldW;
+			item->spiralWidth += dw * dscw;
+			item->spiralHeight += dh * dsch;
+			item->recalcPath();
+			FPoint tp2(getMinClipF(&CurItem->PoLine));
+			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
+			doc->AdjustItemSize(CurItem);
+		}
+		if (CurItem->isArc() || CurItem->isRegularPolygon() || CurItem->isSpiral())
 			emit updateEditItem();
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
@@ -4160,6 +4190,11 @@ void PropertiesPalette::handleShapeEdit()
 		else if (CurItem->asArc())
 		{
 			m_ScMW->view->requestMode(modeEditArc);
+			RoundRect->setEnabled(false);
+		}
+		else if (CurItem->asSpiral())
+		{
+			m_ScMW->view->requestMode(modeEditSpiral);
 			RoundRect->setEnabled(false);
 		}
 		else
@@ -5347,7 +5382,7 @@ void PropertiesPalette::setLocked(bool isLocked)
 	Locked->setChecked(isLocked);
 	if ((HaveDoc) && (HaveItem))
 	{
-		SCustom->setEnabled(!CurItem->asLine() && !CurItem->asPolyLine() && !CurItem->asPathText() && !isLocked);
+		SCustom->setEnabled(!CurItem->asLine() && !CurItem->asPolyLine() && !CurItem->asSpiral() && !CurItem->asPathText() && !isLocked);
 		if (((CurItem->asTextFrame()) || (CurItem->asImageFrame()) || (CurItem->asPolygon())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
 			RoundRect->setEnabled(!isLocked);
 		else

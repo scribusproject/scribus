@@ -708,6 +708,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-polygon.png"), loadIcon("22/draw-polygon.png"), "", defaultKey(name), mainWindow, modeDrawRegularPolygon));
 	name="toolsInsertArc";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-arc.png"), loadIcon("22/draw-arc.png"), "", defaultKey(name), mainWindow, modeDrawArc));
+	name="toolsInsertSpiral";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-spiral.png"), loadIcon("22/draw-spiral.png"), "", defaultKey(name), mainWindow, modeDrawSpiral));
 	name="toolsInsertLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("Stift16.xpm"), loadIcon("Stift.xpm"), "", defaultKey(name), mainWindow, modeDrawLine));
 	name="toolsInsertBezier";
@@ -783,7 +785,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
-	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertLine" << "toolsInsertBezier";
+	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
@@ -1475,6 +1477,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
 	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
 	(*scrActions)["toolsInsertArc"]->setText( tr("Insert Arc"));
+	(*scrActions)["toolsInsertSpiral"]->setText( tr("Insert Spiral"));
 	(*scrActions)["toolsInsertLine"]->setText( tr("Insert &Line"));
 	(*scrActions)["toolsInsertCalligraphicLine"]->setText( tr("Insert Calligraphic Line"));
 	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert &Bezier Curve"));
@@ -1866,6 +1869,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsInsertShape"
 		<< "toolsInsertPolygon"
 		<< "toolsInsertArc"
+		<< "toolsInsertSpiral"
 		<< "toolsInsertLine"
 		<< "toolsInsertBezier"
 		<< "toolsInsertFreehandLine"

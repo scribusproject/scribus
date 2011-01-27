@@ -87,6 +87,7 @@ void PathStrokerPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
 	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
 	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = 1;
 }

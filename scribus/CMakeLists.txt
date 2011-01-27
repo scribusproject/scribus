@@ -128,6 +128,7 @@ SET(SCRIBUS_UI_SRC
   ui/smpstylewidget.ui
   ui/smreplacedia.ui
   ui/smstyleimport.ui
+  ui/spiralvectorbase.ui
   ui/stylemanager.ui
   ui/transformdialogbase.ui
   ui/transparencypalette.ui
@@ -149,6 +150,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasmode_edit.h
   canvasmode_editarc.h
   canvasmode_editpolygon.h
+  canvasmode_editspiral.h
   canvasmode_measurements.h
   canvasmode_normal.h
   chartablemodel.h
@@ -181,6 +183,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_polygon.h
   pageitem_polyline.h
   pageitem_regularpolygon.h
+  pageitem_spiral.h
   pageitem_symbol.h
   pageitem_textframe.h
   pageitempointer.h
@@ -371,6 +374,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/smtabruler.h
   ui/smtextstyles.h
   ui/spalette.h
+  ui/spiralvectordialog.h
   ui/storyeditor.h
   ui/stylemanager.h
   ui/styleselect.h
@@ -417,6 +421,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_editgradient.cpp
   canvasmode_editmeshgradient.cpp
   canvasmode_editpolygon.cpp
+  canvasmode_editspiral.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
@@ -485,6 +490,7 @@ SET(SCRIBUS_SOURCES
   pageitem_polygon.cpp
   pageitem_polyline.cpp
   pageitem_regularpolygon.cpp
+  pageitem_spiral.cpp
   pageitem_symbol.cpp
   pageitem_textframe.cpp
   pageitempointer.cpp
@@ -752,6 +758,7 @@ SET(SCRIBUS_SOURCES
   ui/smtabruler.cpp
   ui/smtextstyles.cpp
   ui/spalette.cpp
+  ui/spiralvectordialog.cpp
   ui/splash.cpp
   ui/storyeditor.cpp
   ui/stylemanager.cpp

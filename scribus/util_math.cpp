@@ -161,6 +161,114 @@ QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double fa
 	return pts;
 }
 
+QPainterPath SpiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor)
+{
+	if (spiralStartAngle >= spiralEndAngle)
+		return QPainterPath();
+	double startAngleK = spiralStartAngle;
+	double endAngleK = spiralEndAngle;
+	QPainterPath path, path2;
+	double sh = spiralHeight / (spiralFactor + 1.0);
+	double sw = 0.0;
+	double ww = spiralWidth;
+	double hh = spiralHeight - sh;
+	double segStart = 0.0;
+	double segEnd = 180.0;
+	double spanAngle = 180.0;
+	double startAngle = 0.0;
+	bool segPart = true;
+	bool draw = false;
+	QPointF tp;
+	path2.moveTo(sw, sh);
+	while (segStart < endAngleK)
+	{
+		if (startAngleK >= segEnd)
+		{
+			tp = path2.currentPosition();
+			if (segPart)
+			{
+				sw = tp.x();
+				sh = spiralHeight / (spiralFactor + 1.0);
+				path2.arcTo(sw, sh - hh, ww, hh * 2, 180, 180);
+			}
+			else
+			{
+				sw = tp.x() - ww;
+				sh = spiralHeight / (spiralFactor + 1.0) - hh;
+				path2.arcTo(sw, sh, ww, hh * 2, 0, 180);
+			}
+			segPart = !segPart;
+			ww /= spiralFactor;
+			hh /= spiralFactor;
+			segStart += 180.0;
+			segEnd += 180.0;
+			spanAngle = 180.0;
+			continue;
+		}
+		if ((startAngleK >= segStart) && (startAngleK <= segEnd))
+		{
+			startAngle = startAngleK + 180;
+			spanAngle = segEnd - startAngleK;
+			if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+				spanAngle -= segEnd - endAngleK;
+			if (segPart)
+			{
+				sw = tp.x();
+				sh = spiralHeight / (spiralFactor + 1.0);
+				path.arcMoveTo(sw, sh - hh, ww, hh * 2, startAngle);
+				path.arcTo(sw, sh - hh, ww, hh * 2, startAngle, spanAngle);
+				startAngle = 0.0;
+			}
+			else
+			{
+				sw = tp.x() - ww;
+				sh = spiralHeight / (spiralFactor + 1.0) - hh;
+				path.arcMoveTo(sw, sh, ww, hh * 2, startAngle);
+				path.arcTo(sw, sh, ww, hh * 2, startAngle, spanAngle);
+				startAngle = 180.0;
+			}
+			draw = true;
+			segPart = !segPart;
+			ww /= spiralFactor;
+			hh /= spiralFactor;
+			if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+				break;
+			segStart += 180.0;
+			segEnd += 180.0;
+			spanAngle = 180.0;
+			continue;
+		}
+		if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+			spanAngle -= segEnd - endAngleK;
+		tp = path.currentPosition();
+		if (segPart)
+		{
+			sw = tp.x();
+			sh = tp.y();
+			if (draw)
+				path.arcTo(sw, sh - hh, ww, hh * 2, startAngle, spanAngle);
+			startAngle = 0.0;
+		}
+		else
+		{
+			sw = tp.x() - ww;
+			sh = tp.y() - hh;
+			if (draw)
+				path.arcTo(sw, sh, ww, hh * 2, startAngle, spanAngle);
+			startAngle = 180.0;
+		}
+		segPart = !segPart;
+		ww /= spiralFactor;
+		hh /= spiralFactor;
+		if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+			break;
+		segStart += 180.0;
+		segEnd += 180.0;
+		spanAngle = 180.0;
+	}
+	return path;
+}
+
 QList<QPainterPath> decomposePath(QPainterPath &path)
 {
 	QList<QPainterPath> ret;

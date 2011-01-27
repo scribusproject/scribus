@@ -117,6 +117,12 @@ void CreateMode::drawControls(QPainter* p)
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
+		else if (createObjectMode == modeDrawSpiral)
+		{
+			QPainterPath path = SpiralPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().spiralStartAngle, m_doc->itemToolPrefs().spiralEndAngle, m_doc->itemToolPrefs().spiralFactor);
+			p->translate(localRect.left(), localRect.top());
+			p->drawPath(path);
+		}
 		else if ((createObjectMode == modeDrawShapes) && (createObjectSubMode > 1))
 		{
 			FPointArray poly;
@@ -529,6 +535,10 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 		itemType  = (int) PageItem::Arc;
 		frameType = (int) PageItem::Unspecified;
 		break;
+	case modeDrawSpiral:
+		itemType  = (int) PageItem::Spiral;
+		frameType = (int) PageItem::Unspecified;
+		break;
 	case modeInsertPDFButton:
 	case modeInsertPDFTextfield:
 	case modeInsertPDFCheckbox:
@@ -664,6 +674,14 @@ PageItem* CreateMode::doCreateNewObject(void)
 			z = m_doc->itemAddArea(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
+		m_doc->AdjustItemSize(m_doc->Items->at(z));
+		m_doc->setRedrawBounding(m_doc->Items->at(z));
+		break;
+	case modeDrawSpiral:
+		if (modifiers == Qt::ShiftModifier)
+			z = m_doc->itemAddArea(PageItem::Spiral, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor, true);
+		else
+			z = m_doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor, true);
 		m_doc->AdjustItemSize(m_doc->Items->at(z));
 		m_doc->setRedrawBounding(m_doc->Items->at(z));
 		break;

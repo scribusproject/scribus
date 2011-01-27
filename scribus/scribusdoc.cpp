@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_spiral.h"
 #include "ui/pagepalette.h"
 #include "pagesize.h"
 #include "pagestructs.h"
@@ -4032,6 +4033,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			newItem = new PageItem_Arc(this, x, y, b, h, w, fill, outline);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
+		case PageItem::Spiral:
+			newItem = new PageItem_Spiral(this, x, y, b, h, w, fill, outline);
+			Q_ASSERT(frameType==PageItem::Unspecified);
+			break;
 		default:
 //			qDebug() << "unknown item type";
 			assert (false);
@@ -4255,6 +4260,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			}
 			break;
 		case PageItem::PolyLine:
+		case PageItem::Spiral:
 			newItem->ClipEdited = true;
 			break;
 		case PageItem::PathText:
@@ -4290,7 +4296,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	}
 
 	//ItemType Polygon
-	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine || itemType == PageItem::RegularPolygon || itemType == PageItem::Arc)
+	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine || itemType==PageItem::Spiral || itemType == PageItem::RegularPolygon || itemType == PageItem::Arc)
 	{
 		newItem->PLineArt = Qt::PenStyle(docPrefsData.itemToolPrefs.shapeLineStyle);
 		newItem->setFillShade(docPrefsData.itemToolPrefs.shapeFillColorShade);
@@ -4985,6 +4991,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
+			newItem->FrameType = 3;
 			if(oldItem->itemType()==PageItem::Line)
 			{
 				QTransform ma;
@@ -5927,7 +5934,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 			//cb moved to setlinewidth
 			//currItem->Oldm_lineWidth = currItem->lineWidth();
 			currItem->setLineWidth(w);
-			if (currItem->asPolyLine())
+			if (currItem->asPolyLine() || currItem->asSpiral())
 				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 			if (currItem->asLine())
 			{
@@ -6351,6 +6358,7 @@ void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
 							case PageItem::Polygon:
 							case PageItem::ImageFrame:
 							case PageItem::LatexFrame:
+							case PageItem::Spiral:
 								currItem->setLineColor(docPrefsData.itemToolPrefs.shapeLineColor);
 								break;
 							default:
@@ -6398,6 +6406,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 								case PageItem::Line:
 								case PageItem::PolyLine:
 								case PageItem::Polygon:
+								case PageItem::Spiral:
 									currItem->setFillColor(docPrefsData.itemToolPrefs.shapeFillColor);
 									break;
 								default:
@@ -10852,7 +10861,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		PageItem *currItem = itemSelection->itemAt(a);
-		if (!(currItem->asLine() || currItem->asPolyLine()))
+		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
 		if (startArrowID!=-1)
 		{
@@ -10895,7 +10904,7 @@ void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc,
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		PageItem *currItem = itemSelection->itemAt(a);
-		if (!(currItem->asLine() || currItem->asPolyLine()))
+		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
 		if (startArrowSc !=  -1)
 		{
@@ -11518,7 +11527,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 	currItem->ClipEdited = true;
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
-	if (currItem->asPolyLine())
+	if (currItem->asPolyLine() || currItem->asSpiral())
 		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 	else if (currItem->asPathText())
 		currItem->updatePolyClip();
@@ -11644,6 +11653,14 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			if (bb->width() != 0.0)
 				dscw = item->arcWidth / bb->width();
 		}
+		if (bb->isSpiral())
+		{
+			PageItem_Spiral* item = bb->asSpiral();
+			if (bb->height() != 0.0)
+				dsch = item->spiralHeight / bb->height();
+			if (bb->width() != 0.0)
+				dscw = item->spiralWidth / bb->width();
+		}
 		bb->Sizing = false;
 		double oldRot, oldLocalX, oldLocalY;
 		oldRot = bb->rotation();
@@ -11696,6 +11713,15 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				PageItem_Arc* item = bb->asArc();
 				item->arcWidth += dw * dscw;
 				item->arcHeight += dh * dsch;
+				item->recalcPath();
+				FPoint tp2(getMinClipF(&bb->PoLine));
+				bb->PoLine.translate(-tp2.x(), -tp2.y());
+			}
+			if (bb->isSpiral())
+			{
+				PageItem_Spiral* item = bb->asSpiral();
+				item->spiralWidth += dw * dscw;
+				item->spiralHeight += dh * dsch;
 				item->recalcPath();
 				FPoint tp2(getMinClipF(&bb->PoLine));
 				bb->PoLine.translate(-tp2.x(), -tp2.y());

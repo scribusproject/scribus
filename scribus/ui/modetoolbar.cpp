@@ -72,6 +72,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	tb2->setPopupMode(QToolButton::MenuButtonPopup);
 
 	this->addAction(m_ScMW->scrActions["toolsInsertArc"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertSpiral"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertFreehandLine"]);

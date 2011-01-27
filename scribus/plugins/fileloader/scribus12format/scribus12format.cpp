@@ -371,6 +371,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	case PageItem::Multiple:
 	case PageItem::RegularPolygon:
 	case PageItem::Arc:
+	case PageItem::Spiral:
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:

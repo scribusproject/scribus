@@ -228,6 +228,10 @@ struct ItemToolPrefs
 	/* Arc Tool */
 	double arcStartAngle;    //! angle where the arc starts
 	double arcSweepAngle;    //! angle the arc spans
+	/* Spiral Tool */
+	double spiralStartAngle;    //! angle where the spiral starts
+	double spiralEndAngle;    //! angle where the spiral ends
+	double spiralFactor;	//! factor the spiral gets smaller
 };
 
 struct OperatorToolPrefs

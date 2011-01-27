@@ -2063,6 +2063,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			break;
 		case PageItem::PolyLine:
+		case PageItem::Spiral:
 			if ((c->fillColor() != CommonStrings::None) || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);

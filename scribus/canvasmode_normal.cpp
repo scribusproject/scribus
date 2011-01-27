@@ -241,18 +241,6 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			if (!m_doc->symbolEditMode())
 				m_view->requestMode(submodeEditSymbol);
 		}
-	/*	else if (currItem->asRegularPolygon())
-		{
-			PageItem_RegularPolygon* item = currItem->asRegularPolygon();
-			PolygonProps* dia = new PolygonProps(m_ScMW, item->polyCorners, item->polyFactor, item->polyUseFactor, item->polyRotation, item->polyCurvature, item->polyInnerRot, item->polyOuterCurvature);
-			if (dia->exec())
-			{
-				dia->getValues(&item->polyCorners, &item->polyFactor, &item->polyUseFactor, &item->polyRotation, &item->polyCurvature, &item->polyInnerRot, &item->polyOuterCurvature);
-				item->recalcPath();
-			}
-			delete dia;
-			m_view->updateContents();
-		} */
 		else if (currItem->asArc())
 		{
 			m_view->requestMode(modeEditArc);
@@ -260,6 +248,10 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		else if (currItem->asRegularPolygon())
 		{
 			m_view->requestMode(modeEditPolygon);
+		}
+		else if (currItem->asSpiral())
+		{
+			m_view->requestMode(modeEditSpiral);
 		}
 	}
 }

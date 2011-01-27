@@ -2281,6 +2281,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						}
 						break;
 					case PageItem::PolyLine:
+					case PageItem::Spiral:
 						if (ite->PoLine.size() > 4) // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
 							PutPage("q\n");
@@ -4051,6 +4052,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			break;
 		case PageItem::PolyLine:
+		case PageItem::Spiral:
 			if (ite->PoLine.size() > 4)  // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 			{
 				tmp += "q\n";

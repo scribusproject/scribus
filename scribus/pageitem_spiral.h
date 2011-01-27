@@ -5,11 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          arcvectordialog.h  -  description
+                          pageitem.h  -  description
                              -------------------
-    begin                : Mon Jan 17 2011
-    copyright            : (C) 2011 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+    copyright            : Scribus Team
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,40 +19,42 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef ARCVECTOR_H
-#define ARCVECTOR_H
+#ifndef PAGEITEM_SPIRAL_H
+#define PAGEITEM_SPIRAL_H
 
-#include "ui_arcvectorbase.h"
+#include <QString>
+#include <QRectF>
 
-#include <QWidget>
-#include <QLayout>
-#include <QLabel>
-#include <QEvent>
 #include "scribusapi.h"
-#include "ui/scrpalettebase.h"
+#include "pageitem.h"
+class ScPainter;
+class ScribusDoc;
 
-/**
-  *@author Franz Schmid
-  */
 
-class SCRIBUS_API ArcVectorDialog :  public ScrPaletteBase, Ui::ArcVectorBase
+class SCRIBUS_API PageItem_Spiral : public PageItem
 {
 	Q_OBJECT
 
 public:
-	ArcVectorDialog( QWidget* parent);
-	~ArcVectorDialog() {};
-	virtual void changeEvent(QEvent *e);
+	PageItem_Spiral(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_Spiral(const PageItem & p) : PageItem(p) {}
+	~PageItem_Spiral() {};
 
-public slots:
-	void languageChange();
-	void changeVectors();
-	void setValues(double start, double sweep, double height, double width);
-	void unitChange(int unitIndex);
-
-signals:
-	void NewVectors(double, double, double, double);
-	void endEdit();
+	virtual PageItem_Spiral * asSpiral() { return this; }
+	virtual bool isSpiral() const { return true; }
+	virtual ItemType realItemType() const { return PageItem::Spiral; }
+	virtual void applicableActions(QStringList& actionList);
+	virtual QString infoDescription();
+	void recalcPath();
+	double spiralHeight; //! height of the circumfering ellipse
+	double spiralWidth;  //! width of the circumfering ellipse
+	double spiralStartAngle;    //! angle where the spiral starts
+	double spiralEndAngle;    //! angle the spiral spans
+	double spiralFactor;	//! factor the spiral gets smaller
+	
+protected:
+	virtual void DrawObj_Item(ScPainter *p, QRectF e);
 
 };
+
 #endif

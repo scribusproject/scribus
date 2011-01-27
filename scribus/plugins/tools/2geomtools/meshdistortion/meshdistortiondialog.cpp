@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "pageitem.h"
+#include "pageitem_group.h"
 #include "sccolorengine.h"
 #include "scpattern.h"
 #include "selection.h"
@@ -204,12 +205,17 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	uint selectedItemCount = itemSelection->count();
-	w4 = qMax(gw, gh) / 2.0;
-	w2 = qMax(gw, gh);
-	ww = qMax(gw, gh) * 2.0;
+	if (parentItem == 0)
+	{
+		w4 = qMax(gw, gh) / 2.0;
+		w2 = qMax(gw, gh);
+		ww = qMax(gw, gh) * 2.0;
+	}
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);
+		if (currItem->isGroup())
+			currItem->asGroupFrame()->adjustXYPosition();
 		FPointArray path = currItem->PoLine;
 		deltaX = ((w2 - gw) / 2.0) + w4;
 		deltaY = ((w2 - gh) / 2.0) + w4;
@@ -227,10 +233,12 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 		}
 		else
 		{
-			QTransform mm;
-			mm.rotate(-parent->rotation());
-			mm.translate(-parent->xPos(), -parent->yPos());
-			pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
+		//	QTransform mm;
+		//	mm.rotate(-parent->rotation());
+		//	mm.translate(-parent->xPos(), -parent->yPos());
+		//	pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
+			pItem->setPos(QPointF(currItem->gXpos, currItem->gYpos));
+			pItem->rotate(currItem->rotation());
 		}
 		QPainterPath pathO = pp;
 		QTransform mmO;

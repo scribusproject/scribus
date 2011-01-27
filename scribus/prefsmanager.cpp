@@ -271,6 +271,9 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.polyOuterCurvature = 0.0;
 	appPrefs.itemToolPrefs.arcStartAngle = 30.0;
 	appPrefs.itemToolPrefs.arcSweepAngle = 300.0;
+	appPrefs.itemToolPrefs.spiralStartAngle = 0.0;
+	appPrefs.itemToolPrefs.spiralEndAngle = 1080.0;
+	appPrefs.itemToolPrefs.spiralFactor = 1.2;
 //	appPrefs.PSize = 40;
 	appPrefs.printerPrefs.ClipMargin = false;
 	appPrefs.printerPrefs.GCRMode = false;
@@ -1474,6 +1477,9 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("PolygonOuterCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyOuterCurvature));
 	dcItemTools.setAttribute("arcStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcStartAngle));
 	dcItemTools.setAttribute("arcSweepAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcSweepAngle));
+	dcItemTools.setAttribute("spiralStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralStartAngle));
+	dcItemTools.setAttribute("spiralEndAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralEndAngle));
+	dcItemTools.setAttribute("spiralFactor", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralFactor));
 	dcItemTools.setAttribute("PolygonUseFactor", static_cast<int>(appPrefs.itemToolPrefs.polyUseFactor));
 	dcItemTools.setAttribute("ImageScaleType", static_cast<int>(appPrefs.itemToolPrefs.imageScaleType));
 	dcItemTools.setAttribute("ImageAspectRatio", static_cast<int>(appPrefs.itemToolPrefs.imageAspectRatio));
@@ -2068,6 +2074,9 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.lineEndArrow   = dc.attribute("LineEndArrow", "0").toInt();
 			appPrefs.itemToolPrefs.arcStartAngle = ScCLocale::toDoubleC(dc.attribute("arcStartAngle"), 30.0);
 			appPrefs.itemToolPrefs.arcSweepAngle = ScCLocale::toDoubleC(dc.attribute("arcSweepAngle"), 300.0);
+			appPrefs.itemToolPrefs.spiralStartAngle = ScCLocale::toDoubleC(dc.attribute("spiralStartAngle"), 0.0);
+			appPrefs.itemToolPrefs.spiralEndAngle = ScCLocale::toDoubleC(dc.attribute("spiralEndAngle"), 1080.0);
+			appPrefs.itemToolPrefs.spiralFactor = ScCLocale::toDoubleC(dc.attribute("spiralFactor"), 1.2);
 			if (dc.hasAttribute("Face"))
 			{
 				QString tmpf=dc.attribute("Face");

@@ -54,12 +54,7 @@ PageItem_Arc::PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double 
 	arcWidth = w;
 	arcStartAngle = m_Doc->itemToolPrefs().arcStartAngle;
 	arcSweepAngle = m_Doc->itemToolPrefs().arcSweepAngle;
-	QPainterPath path;
-	path.moveTo(w / 2.0, h / 2.0);
-	path.arcTo(0.0, 0.0, w, h, arcStartAngle, arcSweepAngle);
-	path.closeSubpath();
-	PoLine.fromQPainterPath(path);
-	Clip = FlattenPath(PoLine, Segments);
+	recalcPath();
 }
 
 void PageItem_Arc::DrawObj_Item(ScPainter *p, QRectF /*e*/)

@@ -35,6 +35,7 @@ FPoint SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineE
 QPolygon SCRIBUS_API FlattenPath(const FPointArray& ina, QList<uint> &Segs);
 QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 QPainterPath SCRIBUS_API RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
+QPainterPath SCRIBUS_API SpiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);
 uint SCRIBUS_API getDouble(QString in, bool raw);
 inline double SCRIBUS_API sind(double);
 inline double SCRIBUS_API cosd(double);
