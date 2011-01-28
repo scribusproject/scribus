@@ -3232,17 +3232,8 @@ void PropertiesPalette::NewW()
 		}
 		if (CurItem->isSpiral())
 		{
-			double dw = w - oldW;
-			double dh = h - oldH;
 			PageItem_Spiral* item = CurItem->asSpiral();
-			double dsch = item->spiralHeight / oldH;
-			double dscw = item->spiralWidth / oldW;
-			item->spiralWidth += dw * dscw;
-			item->spiralHeight += dh * dsch;
 			item->recalcPath();
-			FPoint tp2(getMinClipF(&CurItem->PoLine));
-			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
-			doc->AdjustItemSize(CurItem);
 		}
 		if (CurItem->isArc() || CurItem->isRegularPolygon() || CurItem->isSpiral())
 			emit updateEditItem();
@@ -3371,17 +3362,8 @@ void PropertiesPalette::NewH()
 		}
 		if (CurItem->isSpiral())
 		{
-			double dw = w - oldW;
-			double dh = h - oldH;
 			PageItem_Spiral* item = CurItem->asSpiral();
-			double dsch = item->spiralHeight / oldH;
-			double dscw = item->spiralWidth / oldW;
-			item->spiralWidth += dw * dscw;
-			item->spiralHeight += dh * dsch;
 			item->recalcPath();
-			FPoint tp2(getMinClipF(&CurItem->PoLine));
-			CurItem->PoLine.translate(-tp2.x(), -tp2.y());
-			doc->AdjustItemSize(CurItem);
 		}
 		if (CurItem->isArc() || CurItem->isRegularPolygon() || CurItem->isSpiral())
 			emit updateEditItem();

@@ -51,8 +51,6 @@ using namespace std;
 PageItem_Spiral::PageItem_Spiral(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::Spiral, x, y, w, h, w2, fill, outline)
 {
-	spiralHeight = h;
-	spiralWidth = w;
 	spiralStartAngle = m_Doc->itemToolPrefs().spiralStartAngle;
 	spiralEndAngle = m_Doc->itemToolPrefs().spiralEndAngle;
 	spiralFactor = m_Doc->itemToolPrefs().spiralFactor;
@@ -214,6 +212,8 @@ void PageItem_Spiral::recalcPath()
 		return;
 	double startAngleK = spiralStartAngle;
 	double endAngleK = spiralEndAngle;
+	double spiralHeight = height();
+	double spiralWidth = width();
 	QPainterPath path, path2;
 	double sh = spiralHeight / (spiralFactor + 1.0);
 	double sw = 0.0;

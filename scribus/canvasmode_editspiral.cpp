@@ -100,21 +100,6 @@ void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, PageItem* currItem
 	psx->rotate(currItem->rotation());
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
-/*	QPainterPath pp;
-	PageItem_Spiral* item = currItem->asSpiral();
-	QPointF mPoint = item->PoLine.pointQF(0);
-	double nWidth = mPoint.x() - widthPoint.x();
-	double nHeight = mPoint.y() - heightPoint.y();
-	double nSweep = endAngle - startAngle;
-	if (nSweep < 0)
-		nSweep += 360;
-	pp.moveTo(mPoint);
-	pp.arcTo(QRectF(mPoint.x() - nWidth, mPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
-	pp.closeSubpath();
-	psx->drawPath(pp);
-	psx->setPen(p1bd);
-	psx->drawLine(mPoint, widthPoint);
-	psx->drawLine(mPoint, heightPoint); */
 	psx->setPen(p8b);
 	if (m_arcPoint == useControlStart)
 		psx->setPen(p8r);
@@ -126,16 +111,6 @@ void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, PageItem* currItem
 	else
 		psx->setPen(p8b);
 	psx->drawPoint(endPoint);
-/*	if (m_arcPoint == useControlWidth)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(widthPoint);
-	if (m_arcPoint == useControlHeight)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(heightPoint); */
 }
 
 void CanvasMode_EditSpiral::enterEvent(QEvent *)
@@ -169,13 +144,9 @@ void CanvasMode_EditSpiral::activate(bool fromGesture)
 //	centerPoint = currItem->PoLine.pointQF(0);
 	startPoint = currItem->PoLine.pointQF(0);
 	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
-//	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
-//	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
 	startAngle = item->spiralStartAngle;
 	endAngle = item->spiralEndAngle;
-//	QLineF res = QLineF(centerPoint, startPoint);
-//	QLineF swe = QLineF(centerPoint, endPoint);
-	VectorDialog->setValues(startAngle, endAngle, item->spiralHeight, item->spiralWidth, item->spiralFactor);
+	VectorDialog->setValues(startAngle, endAngle, item->height(), item->width(), item->spiralFactor);
 	VectorDialog->show();
 	setModeCursor();
 	if (fromGesture)
@@ -196,13 +167,9 @@ void CanvasMode_EditSpiral::updateFromItem()
 	centerPoint = currItem->PoLine.pointQF(0);
 	startPoint = currItem->PoLine.pointQF(0);
 	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
-//	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
-//	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
 	startAngle = item->spiralStartAngle;
-	endAngle = startAngle + item->spiralEndAngle;
-//	QLineF res = QLineF(centerPoint, startPoint);
-//	QLineF swe = QLineF(centerPoint, endPoint);
-	VectorDialog->setValues(startAngle, endAngle, item->spiralHeight, item->spiralWidth, item->spiralFactor);
+	endAngle = item->spiralEndAngle;
+	VectorDialog->setValues(startAngle, endAngle, item->height(), item->width(), item->spiralFactor);
 	m_view->update();
 }
 
@@ -217,6 +184,41 @@ void CanvasMode_EditSpiral::endEditing()
 	m_view->requestMode(modeNormal);
 }
 
+QPointF CanvasMode_EditSpiral::getSegment(double angle)
+{
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	PageItem_Spiral *item = currItem->asSpiral();
+	double ww = item->width();
+	double wws = 0.0;
+	double wwn = ww;
+	double hh = item->height() - (item->height() / (item->spiralFactor + 1.0));
+	double segStart = 0.0;
+	double segEnd = 180;
+	bool segPart = true;
+	QPointF ret = QPointF(item->width() / 2.0, item->height() / 2.0);
+	if (angle < 0)
+		return ret;
+	while (true)
+	{
+		QLineF lin = QLineF(QPointF(wws, hh), QPointF(wwn, hh));
+		if ((angle <= segEnd) && (angle >= segStart))
+		{
+			ret = lin.pointAt(0.5);
+			break;
+		}
+		ww /= item->spiralFactor;
+		wws = wwn;
+		if (segPart)
+			wwn -= ww;
+		else
+			wwn += ww;
+		segPart = !segPart;
+		segStart += 180.0;
+		segEnd += 180.0;
+	}
+	return ret;
+}
+
 void CanvasMode_EditSpiral::applyValues(double start, double end, double height, double width, double factor)
 {
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -226,8 +228,6 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double height,
 //	QRectF upRect2 = QRectF(mPoint.x() - item->arcWidth / 2.0, mPoint.y() - item->arcHeight / 2.0, item->arcWidth, item->arcHeight);
 //	upRect = upRect2.united(upRect);
 	upRect.translate(currItem->xPos(), currItem->yPos());
-	item->spiralWidth = width;
-	item->spiralHeight = height;
 	item->spiralStartAngle = start;
 	item->spiralEndAngle = end;
 	item->spiralFactor = factor;
@@ -254,6 +254,8 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double height,
 //	item->arcSweepAngle = endAngle - startAngle;
 	startPoint = currItem->PoLine.pointQF(0);
 	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
+	startAngle = item->spiralStartAngle;
+	endAngle = item->spiralEndAngle;
 //	centerPoint = currItem->PoLine.pointQF(0);
 //	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
 //	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
@@ -286,57 +288,54 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 	m->accept();
 	double newX = mousePointDoc.x();
 	double newY = mousePointDoc.y();
-/*	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
+	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed() && (m_arcPoint != noPointDefined))
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
+		PageItem_Spiral *item = currItem->asSpiral();
 		QTransform itemMatrix;
 		itemMatrix.translate(currItem->xPos(), currItem->yPos());
 		itemMatrix.rotate(currItem->rotation());
-		QPointF sPoint = currItem->PoLine.pointQF(0);
+		QPointF sPoint;
+		if (m_arcPoint == useControlStart)
+			sPoint = getSegment(startAngle);
+		else if (m_arcPoint == useControlEnd)
+			sPoint = getSegment(endAngle);
 		QPointF smPoint = itemMatrix.map(sPoint);
 		QLineF stLinA = QLineF(smPoint, QPointF(Mxp, Myp));
 		QLineF stLinM = QLineF(smPoint, QPointF(newX, newY));
 		double deltaAngle = stLinM.angle() - stLinA.angle();
-		QPainterPath pp;
-		if (m_arcPoint == useControlStart)
-			startAngle += deltaAngle;
-		else if (m_arcPoint == useControlSweep)
-			endAngle += deltaAngle;
-		else if (m_arcPoint == useControlHeight)
-			heightPoint = QPointF(heightPoint.x(), heightPoint.y() + (newY - Myp));
-		else if (m_arcPoint == useControlWidth)
-			widthPoint = QPointF(widthPoint.x() + (newX - Mxp), widthPoint.y());
-		double nSweep = endAngle - startAngle;
-		if (nSweep < 0)
-			nSweep += 360;
-		double nWidth = sPoint.x() - widthPoint.x();
-		double nHeight = sPoint.y() - heightPoint.y();
-		pp.moveTo(sPoint);
-		pp.arcTo(QRectF(sPoint.x() - nWidth, sPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
-		pp.closeSubpath();
-		FPointArray ar;
-		ar.fromQPainterPath(pp);
+		if (deltaAngle < -180)
+			deltaAngle = deltaAngle + 360;
+		else if (deltaAngle > 180)
+			deltaAngle = deltaAngle - 360;
 		if (m_arcPoint == useControlStart)
 		{
-			startPoint = ar.pointQF(2);
-			QLineF stLinA = QLineF(smPoint, itemMatrix.map(startPoint));
-			m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+			if (startAngle + deltaAngle >= 0)
+			{
+				startAngle += deltaAngle;
+				item->spiralStartAngle = startAngle;
+				item->recalcPath();
+				startPoint = currItem->PoLine.pointQF(0);
+			}
+			VectorDialog->setValues(startAngle, endAngle, item->height(), item->width(), item->spiralFactor);
 		}
-		else if (m_arcPoint == useControlSweep)
+		else if (m_arcPoint == useControlEnd)
 		{
-			endPoint = ar.pointQF(ar.size() - 4);
-			QLineF stLinA = QLineF(smPoint, itemMatrix.map(endPoint));
-			m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+			if (endAngle + deltaAngle > startAngle)
+			{
+				endAngle += deltaAngle;
+				item->spiralEndAngle = endAngle;
+				item->recalcPath();
+				endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
+			}
+			VectorDialog->setValues(startAngle, endAngle, item->height(), item->width(), item->spiralFactor);
 		}
-		QLineF res = QLineF(centerPoint, startPoint);
-		QLineF swe = QLineF(centerPoint, endPoint);
-		VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
 		currItem->update();
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
 		upRect.translate(currItem->xPos(), currItem->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
-	} */
+	}
 	Mxp = newX;
 	Myp = newY;
 }
@@ -355,34 +354,26 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x();
 	Myp = mousePointDoc.y(); //m->y();
-/*	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix; */
+	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-/*	itemMatrix.translate(currItem->xPos(), currItem->yPos());
+	itemMatrix.translate(currItem->xPos(), currItem->yPos());
 	itemMatrix.rotate(currItem->rotation());
 	QPointF stPoint = startPoint;
 	stPoint = itemMatrix.map(stPoint);
 	QPointF swPoint = endPoint;
 	swPoint = itemMatrix.map(swPoint);
-	QPointF shPoint = heightPoint;
-	shPoint = itemMatrix.map(shPoint);
-	QPointF sPoint = widthPoint;
-	sPoint = itemMatrix.map(sPoint);
 	if (m_canvas->hitsCanvasPoint(m->globalPos(), stPoint))
 		m_arcPoint = useControlStart;
 	else if (m_canvas->hitsCanvasPoint(m->globalPos(), swPoint))
-		m_arcPoint = useControlSweep;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), shPoint))
-		m_arcPoint = useControlHeight;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), sPoint))
-		m_arcPoint = useControlWidth;
-	else */
+		m_arcPoint = useControlEnd;
+	else
 		m_arcPoint = noPointDefined;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
@@ -399,36 +390,6 @@ void CanvasMode_EditSpiral::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-/*	PageItem_Arc* item = currItem->asArc();
-	QPointF mPoint = item->PoLine.pointQF(0); */
 	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-/*	QRectF upRect2 = QRectF(mPoint.x() - item->arcWidth / 2.0, mPoint.y() - item->arcHeight / 2.0, item->arcWidth, item->arcHeight);
-	upRect = upRect2.united(upRect);
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	if ((m_arcPoint == useControlStart) || (m_arcPoint == useControlSweep) || (m_arcPoint == useControlHeight) || (m_arcPoint == useControlWidth))
-	{
-		double nWidth = mPoint.x() - widthPoint.x();
-		double nHeight = mPoint.y() - heightPoint.y();
-		item->arcWidth = nWidth * 2.0;
-		item->arcHeight = nHeight * 2.0;
-		double nSweep = endAngle - startAngle;
-		if (nSweep < 0)
-			nSweep += 360;
-		QPainterPath pp;
-		pp.moveTo(mPoint);
-		pp.arcTo(QRectF(mPoint.x() - item->arcWidth / 2.0, mPoint.y() - item->arcHeight / 2.0, item->arcWidth, item->arcHeight), startAngle, nSweep);
-		pp.closeSubpath();
-		currItem->PoLine.fromQPainterPath(pp);
-		m_doc->AdjustItemSize(currItem);
-		item->arcStartAngle = startAngle;
-		item->arcSweepAngle = endAngle - startAngle;
-		startPoint = currItem->PoLine.pointQF(2);
-		endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
-		centerPoint = currItem->PoLine.pointQF(0);
-		widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
-		heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
-		startAngle = item->arcStartAngle;
-		endAngle = startAngle + item->arcSweepAngle;
-	} */
 	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
 }

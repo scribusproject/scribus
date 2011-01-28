@@ -46,8 +46,6 @@ public:
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
 	void recalcPath();
-	double spiralHeight; //! height of the circumfering ellipse
-	double spiralWidth;  //! width of the circumfering ellipse
 	double spiralStartAngle;    //! angle where the spiral starts
 	double spiralEndAngle;    //! angle the spiral spans
 	double spiralFactor;	//! factor the spiral gets smaller

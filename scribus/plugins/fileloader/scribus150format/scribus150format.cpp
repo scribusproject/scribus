@@ -3718,8 +3718,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (currItem->asSpiral())
 	{
 		PageItem_Spiral *arcitem = currItem->asSpiral();
-		arcitem->spiralHeight     = attrs.valueAsDouble("spiralHeight", 1.0);
-		arcitem->spiralWidth      = attrs.valueAsDouble("spiralWidth", 1.0);
 		arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
 		arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
 		arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);

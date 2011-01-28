@@ -11653,14 +11653,6 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			if (bb->width() != 0.0)
 				dscw = item->arcWidth / bb->width();
 		}
-		if (bb->isSpiral())
-		{
-			PageItem_Spiral* item = bb->asSpiral();
-			if (bb->height() != 0.0)
-				dsch = item->spiralHeight / bb->height();
-			if (bb->width() != 0.0)
-				dscw = item->spiralWidth / bb->width();
-		}
 		bb->Sizing = false;
 		double oldRot, oldLocalX, oldLocalY;
 		oldRot = bb->rotation();
@@ -11720,13 +11712,10 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			if (bb->isSpiral())
 			{
 				PageItem_Spiral* item = bb->asSpiral();
-				item->spiralWidth += dw * dscw;
-				item->spiralHeight += dh * dsch;
 				item->recalcPath();
-				FPoint tp2(getMinClipF(&bb->PoLine));
-				bb->PoLine.translate(-tp2.x(), -tp2.y());
 			}
-			AdjustItemSize(bb, true, false);
+			else
+				AdjustItemSize(bb, true, false);
 			QTransform ma3;
 			ma3.translate(gx, gy);
 			ma3.scale(scx, scy);

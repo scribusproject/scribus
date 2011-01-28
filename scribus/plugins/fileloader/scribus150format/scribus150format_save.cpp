@@ -1722,8 +1722,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->asSpiral())
 	{
 		PageItem_Spiral *arcitem = item->asSpiral();
-		docu.writeAttribute("spiralHeight", arcitem->spiralHeight);
-		docu.writeAttribute("spiralWidth", arcitem->spiralWidth);
 		docu.writeAttribute("spiralStartAngle", arcitem->spiralStartAngle);
 		docu.writeAttribute("spiralEndAngle", arcitem->spiralEndAngle);
 		docu.writeAttribute("spiralFactor", arcitem->spiralFactor);

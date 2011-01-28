@@ -62,11 +62,10 @@ private:
 		noPointDefined,
 		useControlStart,
 		useControlEnd,
-		useControlHeight,
-		useControlWidth
 	} eSpiralPoint;
 
 	inline bool GetItem(PageItem** pi);
+	QPointF getSegment(double angle);
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;

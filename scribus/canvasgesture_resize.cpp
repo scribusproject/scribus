@@ -211,14 +211,6 @@ void ResizeGesture::doResize(bool scaleContent)
 		if (currItem->width() != 0.0)
 			dscw = item->arcWidth / currItem->width();
 	}
-	if (currItem->isSpiral())
-	{
-		PageItem_Spiral* item = currItem->asSpiral();
-		if (currItem->height() != 0.0)
-			dsch = item->spiralHeight / currItem->height();
-		if (currItem->width() != 0.0)
-			dscw = item->spiralWidth / currItem->width();
-	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		int RotModeBack = m_doc->RotMode();
@@ -330,8 +322,6 @@ void ResizeGesture::doResize(bool scaleContent)
 		if (currItem->isSpiral())
 		{
 			PageItem_Spiral* item = currItem->asSpiral();
-			item->spiralWidth += dw * dscw;
-			item->spiralHeight += dh * dsch;
 			item->recalcPath();
 		}
 		// rotation does not change
