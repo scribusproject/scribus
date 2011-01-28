@@ -315,6 +315,23 @@ void PageItem_Spiral::recalcPath()
 		spanAngle = 180.0;
 	}
 	PoLine.fromQPainterPath(path);
+	if (imageFlippedV() || imageFlippedH())
+	{
+		if (imageFlippedV())
+		{
+			QTransform ma;
+			ma.scale(1, -1);
+			PoLine.map(ma);
+			PoLine.translate(0, height());
+		}
+		if (imageFlippedH())
+		{
+			QTransform ma;
+			ma.scale(-1, 1);
+			PoLine.map(ma);
+			PoLine.translate(width(), 0);
+		}
+	}
 	Clip = FlattenPath(PoLine, Segments);
 }
 

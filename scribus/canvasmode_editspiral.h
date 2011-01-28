@@ -66,6 +66,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 	QPointF getSegment(double angle);
+	double computeRealAngle(double angle);
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
@@ -73,9 +74,6 @@ private:
 	bool m_lastPosWasOverGuide;
 	QPointF startPoint;
 	QPointF endPoint;
-	QPointF centerPoint;
-	QPointF widthPoint;
-	QPointF heightPoint;
 	double startAngle;
 	double endAngle;
 	eSpiralPoint m_arcPoint;
@@ -87,7 +85,7 @@ public slots:
 private slots:
 	void endEditing(bool active);
 	void endEditing();
-	void applyValues(double start, double end, double height, double width, double factor);
+	void applyValues(double start, double end, double factor);
 };
 
 

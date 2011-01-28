@@ -2170,6 +2170,13 @@ void Canvas::displayRotHUD(QPoint m, double rot)
 	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)), this);
 }
 
+void Canvas::displayRealRotHUD(QPoint m, double rot)
+{
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+		return;
+	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)), this);
+}
+
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 {
 	static QString rulerItemRef;

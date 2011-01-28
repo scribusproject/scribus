@@ -1759,7 +1759,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	setXY(i->xPos(), i->yPos());
 	setBH(i->width(), i->height());
 	NoPrint->setChecked(!i->printEnabled());
-	if (i->isImageFrame() || i->isTextFrame() || i->isLatexFrame() || i->isOSGFrame() || i->isSymbol() || i->isGroup())
+	if (i->isImageFrame() || i->isTextFrame() || i->isLatexFrame() || i->isOSGFrame() || i->isSymbol() || i->isGroup() || i->isSpiral())
 	{
 		FlipH->setCheckable(true);
 		FlipV->setCheckable(true);
@@ -2127,7 +2127,7 @@ void PropertiesPalette::NewSel(int nr)
 		//It then gets reset below for items where its valid
 		FlipH->setCheckable(true);
 		FlipV->setCheckable(true);
-		if ((nr == 2) || (nr == 4) || ((nr >= 9) && (nr <= 12)))
+		if ((nr == 2) || (nr == 4) || ((nr >= 9) && (nr <= 12)) || (nr == 15))
 		{
 			FlipH->setCheckable(true);
 			FlipV->setCheckable(true);

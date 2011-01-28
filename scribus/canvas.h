@@ -196,6 +196,7 @@ public:
 	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	void displayRotHUD(QPoint m, double rot);
+	void displayRealRotHUD(QPoint m, double rot);
 	
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	

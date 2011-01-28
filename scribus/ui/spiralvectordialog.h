@@ -49,11 +49,10 @@ public:
 public slots:
 	void languageChange();
 	void changeVectors();
-	void setValues(double start, double sweep, double height, double width, double factor);
-	void unitChange(int unitIndex);
+	void setValues(double start, double sweep, double factor);
 
 signals:
-	void NewVectors(double, double, double, double, double);
+	void NewVectors(double, double, double);
 	void endEdit();
 
 };

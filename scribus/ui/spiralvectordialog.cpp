@@ -32,8 +32,6 @@ SpiralVectorDialog::SpiralVectorDialog(QWidget* parent) : ScrPaletteBase( parent
 	sweepAngle->setValues(0, 36000, 1, 0);
 	connect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(arcFactor,   SIGNAL(valueChanged(int)), this, SLOT(changeVectors()));
 	connect(exitButton, SIGNAL(clicked()), this, SIGNAL(endEdit()));
 	languageChange();
@@ -56,24 +54,18 @@ void SpiralVectorDialog::languageChange()
 	resize(minimumSizeHint());
 }
 
-void SpiralVectorDialog::setValues(double start, double sweep, double height, double width, double factor)
+void SpiralVectorDialog::setValues(double start, double sweep, double factor)
 {
 	disconnect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	disconnect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	disconnect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	disconnect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	disconnect(arcFactor,   SIGNAL(valueChanged(int)), this, SLOT(changeVectors()));
 	startAngle->setValue(start);
 	sweepAngle->setValue(sweep);
-	arcHeight->setValue(height);
-	arcWidth->setValue(width);
 	startAngle->setMaximum(sweep - 1);
 	sweepAngle->setMinimum(start + 1);
 	arcFactor->setValue(qRound(factor * 100) - 100);
 	connect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(arcFactor,   SIGNAL(valueChanged(int)), this, SLOT(changeVectors()));
 }
 
@@ -81,15 +73,5 @@ void SpiralVectorDialog::changeVectors()
 {
 	startAngle->setMaximum(sweepAngle->value() - 1);
 	sweepAngle->setMinimum(startAngle->value() + 1);
-	emit NewVectors(startAngle->value(), sweepAngle->value(), arcHeight->value(), arcWidth->value(), (arcFactor->value() + 100) / 100.0);
-}
-
-void SpiralVectorDialog::unitChange(int unitIndex)
-{
-	disconnect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	disconnect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	arcHeight->setNewUnit(unitIndex);
-	arcWidth->setNewUnit(unitIndex);
-	connect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
+	emit NewVectors(startAngle->value(), sweepAngle->value(), (arcFactor->value() + 100) / 100.0);
 }
