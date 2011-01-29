@@ -68,6 +68,7 @@ SET(SCRIBUS_UI_SRC
   ui/aboutplugins.ui
   ui/aligndistribute.ui
   ui/arcvectorbase.ui
+  ui/arcwidgetbase.ui
   ui/charselect.ui
   ui/charselectenhanced.ui
   ui/cmsprefsbase.ui
@@ -223,6 +224,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/annot.h
   ui/annota.h
   ui/applytemplatedialog.h
+  ui/arcwidget.h
   ui/arcvectordialog.h
   ui/arrowchooser.h
   ui/autoform.h
@@ -604,6 +606,7 @@ SET(SCRIBUS_SOURCES
   ui/annot.cpp
   ui/annota.cpp
   ui/applytemplatedialog.cpp
+  ui/arcwidget.cpp
   ui/arcvectordialog.cpp
   ui/arrowchooser.cpp
   ui/autoform.cpp

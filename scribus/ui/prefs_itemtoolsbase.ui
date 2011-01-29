@@ -79,8 +79,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>637</width>
-            <height>632</height>
+            <width>643</width>
+            <height>646</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -651,8 +651,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>637</width>
-            <height>632</height>
+            <width>643</width>
+            <height>646</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1440,6 +1440,53 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>Arc</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="ArcWidget" name="arcDisplay" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>100</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_17">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_12">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -1447,8 +1494,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>FontCombo</class>
@@ -1480,6 +1527,12 @@
    <class>LinkButton</class>
    <extends>QToolButton</extends>
    <header>ui/linkbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ArcWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/arcwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

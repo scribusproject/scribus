@@ -194,6 +194,9 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	calPenAngleSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenAngle);
 	calPenWidthSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenWidth);
 
+	// Arc Tool
+	arcDisplay->restoreDefaults(&prefsData->itemToolPrefs);
+
 	enableSignals(true);
 }
 
@@ -312,6 +315,9 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->itemToolPrefs.calligrapicPenLineWidth = calPenLineWidthSpinBox->value();
 	prefsData->itemToolPrefs.calligrapicPenAngle = calPenAngleSpinBox->value();
 	prefsData->itemToolPrefs.calligrapicPenWidth = calPenWidthSpinBox->value();
+
+	//Arc Tool
+	arcDisplay->saveGuiToPrefs(&prefsData->itemToolPrefs);
 }
 
 void Prefs_ItemTools::enableSignals(bool on)
