@@ -21,7 +21,9 @@
 */
 
 #include "KarbonCurveFit.h"
+#include <QVector>
 #include <math.h>
+const qreal Zero = 10e-12;
 
 /*
 	An Algorithm for Automatically Fitting Digitized Curves
@@ -32,7 +34,7 @@
 	http://www.acm.org/pubs/tog/GraphicsGems/gems/README
 */
 
-#define MAXPOINTS	1000		/* The most points you can have */
+//#define MAXPOINTS	1000		/* The most points you can have */
 
 class FitVector {
 	public:
@@ -53,7 +55,7 @@ class FitVector {
 
 	void normalize(){
 		double len=length();
-		if(len==0.0f)
+		if (qFuzzyCompare(len, 0.0)) 
 			return;
 		m_X/=len; m_Y/=len;
 	}
@@ -65,7 +67,7 @@ class FitVector {
 
 	void scale(double s){
 		double len = length();
-		if(len==0.0f)
+		if (qFuzzyCompare(len, 0.0)) 
 			return;
 		m_X *= s/len;
 		m_Y *= s/len;
@@ -128,9 +130,11 @@ static double *ChordLengthParameterize(const QList<QPointF> &points,int first,in
 		u[i-first] = u[i-first-1] +
 	  			distance(points.at(i), points.at(i-1));
     }
-
+    double denominator = u[last-first];
+    if (qFuzzyCompare(denominator, 0.0))
+      denominator = Zero;
     for (i = first + 1; i <= last; i++) {
-		u[i-first] = u[i-first] / u[last-first];
+		u[i-first] = u[i-first] / denominator;
     }
 
     return(u);
@@ -208,7 +212,7 @@ static double B3(double u)
 QPointF* GenerateBezier(const QList<QPointF> &points, int first, int last, double *uPrime,FitVector tHat1,FitVector tHat2)
 {
     int 	i;
-    FitVector	A[MAXPOINTS][2];	/* Precomputed rhs for eqn	*/
+//    FitVector	A[MAXPOINTS][2];	/* Precomputed rhs for eqn	*/
     int 	nPts;			/* Number of pts in sub-curve */
     double 	C[2][2];			/* Matrix C		*/
     double 	X[2];			/* Matrix X			*/
@@ -223,7 +227,7 @@ QPointF* GenerateBezier(const QList<QPointF> &points, int first, int last, doubl
     curve = new QPointF[4];
     nPts = last - first + 1;
 
- 
+    QVector< QVector<FitVector> > A(nPts, QVector<FitVector>(2));
     /* Compute the A's	*/
     for (i = 0; i < nPts; i++) {
 		FitVector v1, v2;
@@ -274,9 +278,11 @@ QPointF* GenerateBezier(const QList<QPointF> &points, int first, int last, doubl
     det_X_C1  = X[0]    * C[1][1] - X[1]    * C[0][1];
 
     /* Finally, derive alpha values	*/
-    if (det_C0_C1 == 0.0) {
+     if (qFuzzyCompare(det_C0_C1, 0.0)) {
 		det_C0_C1 = (C[0][0] * C[1][1]) * 10e-12;
     }
+    if (qFuzzyCompare(det_C0_C1, 0.0))
+      det_C0_C1 = Zero;
     alpha_l = det_X_C1 / det_C0_C1;
     alpha_r = det_C0_X / det_C0_C1;
 
@@ -408,7 +414,8 @@ static double NewtonRaphsonRootFind(QPointF *Q,QPointF P,double u)
     numerator = (Q_u.x() - P.x()) * (Q1_u.x()) + (Q_u.y() - P.y()) * (Q1_u.y());
     denominator = (Q1_u.x()) * (Q1_u.x()) + (Q1_u.y()) * (Q1_u.y()) +
 		      	  (Q_u.x() - P.x()) * (Q2_u.x()) + (Q_u.y() - P.y()) * (Q2_u.y());
-    
+    if (qFuzzyCompare(denominator, 0.0)) 
+      denominator = Zero;
     /* u = u - f(u)/f'(u) */
     uPrime = u - (numerator/denominator);
     return (uPrime);
