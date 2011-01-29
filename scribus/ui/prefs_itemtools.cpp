@@ -196,6 +196,8 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	// Arc Tool
 	arcDisplay->restoreDefaults(&prefsData->itemToolPrefs);
+	// Spiral Tool
+	spiralDisplay->restoreDefaults(&prefsData->itemToolPrefs);
 
 	enableSignals(true);
 }
@@ -318,6 +320,8 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 	//Arc Tool
 	arcDisplay->saveGuiToPrefs(&prefsData->itemToolPrefs);
+	//Spiral Tool
+	spiralDisplay->saveGuiToPrefs(&prefsData->itemToolPrefs);
 }
 
 void Prefs_ItemTools::enableSignals(bool on)

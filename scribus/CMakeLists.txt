@@ -130,6 +130,7 @@ SET(SCRIBUS_UI_SRC
   ui/smreplacedia.ui
   ui/smstyleimport.ui
   ui/spiralvectorbase.ui
+  ui/spiralwidgetbase.ui
   ui/stylemanager.ui
   ui/transformdialogbase.ui
   ui/transparencypalette.ui
@@ -377,6 +378,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/smtextstyles.h
   ui/spalette.h
   ui/spiralvectordialog.h
+  ui/spiralwidget.h
   ui/storyeditor.h
   ui/stylemanager.h
   ui/styleselect.h
@@ -762,6 +764,7 @@ SET(SCRIBUS_SOURCES
   ui/smtextstyles.cpp
   ui/spalette.cpp
   ui/spiralvectordialog.cpp
+  ui/spiralwidget.cpp
   ui/splash.cpp
   ui/storyeditor.cpp
   ui/stylemanager.cpp
