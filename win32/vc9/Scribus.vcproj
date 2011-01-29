@@ -449,6 +449,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_editspiral.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_eyedropper.cpp"
 				>
 			</File>
@@ -1022,6 +1026,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_regularpolygon.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_spiral.cpp"
 				>
 			</File>
 			<File
@@ -1721,6 +1729,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\spiralvectordialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\splash.cpp"
 				>
 			</File>
@@ -2363,6 +2375,24 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_editpolygon.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_editspiral.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -4407,6 +4437,24 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_regularpolygon.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_spiral.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6798,6 +6846,24 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\spiralvectordialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\splash.h"
 				>
 			</File>
@@ -7617,6 +7683,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_spiralvectorbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_stylemanager.h"
 				>
 			</File>
@@ -7731,6 +7801,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_canvasmode_editpolygon.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasmode_editspiral.cpp"
 				>
 			</File>
 			<File
@@ -8119,6 +8193,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_pageitem_regularpolygon.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pageitem_spiral.cpp"
 				>
 			</File>
 			<File
@@ -8558,6 +8636,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_spiralvectordialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_storyeditor.cpp"
 				>
 			</File>
@@ -8928,6 +9010,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smstyleimport.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\spiralvectorbase.ui"
 				>
 			</File>
 			<File
