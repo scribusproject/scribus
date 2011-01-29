@@ -66,7 +66,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 	QPointF getSegment(double angle);
-	double computeRealAngle(double angle);
+	double computeRealAngle(double angle, bool fromDia);
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
