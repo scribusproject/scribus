@@ -353,6 +353,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\arcwidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\arrowchooser.cpp"
 				>
 			</File>
@@ -1733,6 +1737,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\spiralwidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\splash.cpp"
 				>
 			</File>
@@ -2093,6 +2101,24 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\arcvectordialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\arcwidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6864,6 +6890,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\spiralwidget.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\splash.h"
 				>
 			</File>
@@ -7423,6 +7467,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_arcwidgetbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_charselect.h"
 				>
 			</File>
@@ -7687,6 +7735,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_spiralwidgetbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_stylemanager.h"
 				>
 			</File>
@@ -7749,6 +7801,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_arcvectordialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_arcwidget.cpp"
 				>
 			</File>
 			<File
@@ -8640,6 +8696,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_spiralwidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_storyeditor.cpp"
 				>
 			</File>
@@ -8742,6 +8802,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\arcvectorbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\arcwidgetbase.ui"
 				>
 			</File>
 			<File
@@ -9014,6 +9078,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\spiralvectorbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\spiralwidgetbase.ui"
 				>
 			</File>
 			<File
