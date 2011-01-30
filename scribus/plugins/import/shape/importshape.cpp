@@ -447,16 +447,21 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			{
 				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default") || (params == "inverse")))
 				{
-					fill.setNamedColor( params );
-					FillCol = "FromDia"+fill.name();
-					ScColor tmp;
-					tmp.fromQColor(fill);
-					tmp.setSpotColor(false);
-					tmp.setRegistrationColor(false);
-					QString fNam = m_Doc->PageColors.tryAddColor(FillCol, tmp);
-					if (fNam == FillCol)
-						importedColors.append(FillCol);
-					FillCol = fNam;
+					if (params == "nofill")
+						FillCol = CommonStrings::None;
+					else
+					{
+						fill.setNamedColor( params );
+						FillCol = "FromDia"+fill.name();
+						ScColor tmp;
+						tmp.fromQColor(fill);
+						tmp.setSpotColor(false);
+						tmp.setRegistrationColor(false);
+						QString fNam = m_Doc->PageColors.tryAddColor(FillCol, tmp);
+						if (fNam == FillCol)
+							importedColors.append(FillCol);
+						FillCol = fNam;
+					}
 				}
 			}
 			else if (command == "stroke")
