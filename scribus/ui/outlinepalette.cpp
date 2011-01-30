@@ -628,6 +628,7 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 		case 1:
 			if (!currDoc->masterPageMode())
 				emit selectMasterPage(item->PageItemObject->OnMasterPage);
+			pgItem = item->PageItemObject;
 			if (item->PageItemObject->isGroup())
 				emit selectElementByItem(pgItem, false);
 			else
