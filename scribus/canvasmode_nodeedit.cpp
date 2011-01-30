@@ -1081,8 +1081,19 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	if (edited)
 	{
 		currItem->FrameType = 3;
+		double xp, yp, w, h, xp2, yp2, w2, h2;
+		xp = currItem->xPos();
+		yp = currItem->yPos();
+		w = currItem->width();
+		h = currItem->height();
 		m_doc->AdjustItemSize(currItem);
+		xp2 = currItem->xPos();
+		yp2 = currItem->yPos();
+		w2 = currItem->width();
+		h2 = currItem->height();
 		currItem->update();
+		if ((xp != xp2) || (yp != yp2) || (w != w2) || (h != h2))
+			m_view->DrawNew();
 	}
 	if ((m_doc->nodeEdit.SelNode.count() != 0) || ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.EdPoints)))
 	{

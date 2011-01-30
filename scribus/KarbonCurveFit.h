@@ -26,6 +26,7 @@
 #include <QList>
 #include <QPointF>
 #include <QPainterPath>
+#include <QPolygonF>
 
 /*
  * Fits bezier curve to given list of points.
@@ -43,6 +44,7 @@
  */
 
 QPainterPath bezierFit( const QList<QPointF> &points, float error );
+QPainterPath bezierFit( const QPolygonF &points, float error );
 
 #endif
 

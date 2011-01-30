@@ -537,7 +537,8 @@ QPointF *FitCubic(const QList<QPointF> &points,int first,int last,FitVector tHat
 }
 
 
-QPainterPath bezierFit(const QList<QPointF> &points,float error){
+QPainterPath bezierFit(const QList<QPointF> &points,float error)
+{
 	FitVector tHat1, tHat2;
 
 	tHat1 = ComputeLeftTangent(points,0);
@@ -561,3 +562,8 @@ QPainterPath bezierFit(const QList<QPointF> &points,float error){
 	return path;
 }
 
+QPainterPath bezierFit( const QPolygonF &points, float error )
+{
+	QList<QPointF> clip = QList<QPointF>::fromVector(points);
+	return bezierFit(clip, error);
+}
