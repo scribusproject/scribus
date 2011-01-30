@@ -28,6 +28,8 @@
 #include <QPainterPath>
 #include <QPolygonF>
 
+#include "scribusapi.h"
+
 /*
  * Fits bezier curve to given list of points.
  *
@@ -43,8 +45,8 @@
  * @return a path shape representing the fitted curve
  */
 
-QPainterPath bezierFit( const QList<QPointF> &points, float error );
-QPainterPath bezierFit( const QPolygonF &points, float error );
+QPainterPath SCRIBUS_API bezierFit( const QList<QPointF> &points, float error );
+QPainterPath SCRIBUS_API bezierFit( const QPolygonF &points, float error );
 
 #endif
 

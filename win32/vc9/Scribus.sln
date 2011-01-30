@@ -163,14 +163,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-lib2geom", "scribus
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathalongpath", "pathalongpath\pathalongpath.vcproj", "{CAF6D555-0E2E-4ABB-9585-00860B8B183E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meshdistortion", "meshdistortion\meshdistortion.vcproj", "{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathconnect", "pathconnect\pathconnect.vcproj", "{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}"
@@ -246,6 +246,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smlimport", "smlimport\smli
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shapeimport", "shapeimport\shapeimport.vcproj", "{1A8E95AC-29CD-459E-9E5E-09FA64ECC4F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flattenpath", "flattenpath\flattenpath.vcproj", "{FC2F57D2-73F5-4ACD-B51B-3ED524F0C826}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smoothpath", "smoothpath\smoothpath.vcproj", "{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
@@ -464,6 +474,14 @@ Global
 		{1A8E95AC-29CD-459E-9E5E-09FA64ECC4F6}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{1A8E95AC-29CD-459E-9E5E-09FA64ECC4F6}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{1A8E95AC-29CD-459E-9E5E-09FA64ECC4F6}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{FC2F57D2-73F5-4ACD-B51B-3ED524F0C826}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{FC2F57D2-73F5-4ACD-B51B-3ED524F0C826}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{FC2F57D2-73F5-4ACD-B51B-3ED524F0C826}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{FC2F57D2-73F5-4ACD-B51B-3ED524F0C826}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
