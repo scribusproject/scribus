@@ -183,6 +183,14 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						itemError.insert(PlacedPDF, 0);
 					if ((ext == "gif") && (checkerSettings.checkForGIF))
 						itemError.insert(ImageIsGIF, 0);
+
+					//qDebug() << "MASTER: ImageUnderfullsFrame" << currItem->height() << currItem->imageYScale()*currItem->pixm.height() << currItem->width() << currItem->imageXScale()*currItem->pixm.width();
+					// check image vs. frame sizes
+					if (currItem->height() > currItem->imageYScale() * currItem->pixm.height()
+					    || currItem->width() > currItem->imageXScale() * currItem->pixm.width())
+					{
+						itemError.insert(ImageUnderfullsFrame, 0);
+					}
 	
 					if (extensionIndicatesPDF(ext))
 					{
@@ -447,6 +455,15 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						itemError.insert(PlacedPDF, 0);
 					if ((ext == "gif") && (checkerSettings.checkForGIF))
 						itemError.insert(ImageIsGIF, 0);
+
+					//qDebug() << "REGULAR: ImageUnderfullsFrame" << currItem->height() << currItem->imageYScale()*currItem->pixm.height() << currItem->width() << currItem->imageXScale()*currItem->pixm.width();
+					// check image vs. frame sizes
+					if (currItem->height() > currItem->imageYScale() * currItem->pixm.height()
+					    || currItem->width() > currItem->imageXScale() * currItem->pixm.width())
+					{
+						itemError.insert(ImageUnderfullsFrame, 0);
+					}
+
 					if (extensionIndicatesPDF(ext))
 					{
 						PDFAnalyzer analyst(currItem->Pfile);

@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #define DOCUMENTCHECKER_H
 
 #include "scribusapi.h"
+#include "scribusstructs.h"
+
 class ScribusDoc;
 
 /*! \brief It create a error/warning list for CheckDocument GUI class.
@@ -34,6 +36,7 @@ see scribusstructs.h) and parsed into tree view in CheckDocument widgets.
 class SCRIBUS_API DocumentChecker
 {
 	public:
+
 		//! Check the passed document for errors, return true on error found
 		static bool checkDocument(ScribusDoc *currDoc);
 };

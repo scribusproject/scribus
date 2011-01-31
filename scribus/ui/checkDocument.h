@@ -131,6 +131,7 @@ protected:
 	QString isGIF;
 	QString isGIFtoolTip;
 	QString WrongFont;
+	QString imageUnderfullsFrame;
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
