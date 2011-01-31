@@ -111,7 +111,7 @@ void ResizeGesture::deactivate(bool forgesture)
 void ResizeGesture::drawControls(QPainter* p) 
 {
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRect localRect = m_canvas->canvasToLocal(m_bounds);
+	QRect localRect = m_canvas->canvasToLocal(m_bounds.normalized());
 	p->save();
 	//	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
 	//	p->drawRect(localRect);
@@ -132,12 +132,14 @@ void ResizeGesture::drawControls(QPainter* p)
 
 	if (m_origBounds != m_bounds)
 	{
+		QRectF n_bounds = m_bounds.normalized();
+		QRectF n_origBounds = m_origBounds.normalized();
 		p->save();
 //		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
-		drawOutline(p, qAbs(m_bounds.width()) / qMax(qAbs(m_origBounds.width()), static_cast<qreal>(1.0)), 
-					qAbs(m_bounds.height()) / qMax(qAbs(m_origBounds.height()), static_cast<qreal>(1.0)),
-					m_bounds.left() - m_origBounds.left(),
-					m_bounds.top() - m_origBounds.top());
+		drawOutline(p, qAbs(n_bounds.width()) / qMax(qAbs(n_origBounds.width()), static_cast<qreal>(1.0)), 
+					qAbs(n_bounds.height()) / qMax(qAbs(n_origBounds.height()), static_cast<qreal>(1.0)),
+					n_bounds.left() - n_origBounds.left(),
+					n_bounds.top() - n_origBounds.top());
 		p->restore();
 	}
 }
