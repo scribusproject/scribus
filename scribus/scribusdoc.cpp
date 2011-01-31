@@ -5350,7 +5350,9 @@ const QChar ScribusDoc::getSectionPageNumberFillCharForPageIndex(const uint page
 	//If a section is inactive, theres no page numbers printed
 	if (docPrefsData.docSectionMap[key].active==false)
 		return retVal;
-	retVal=docPrefsData.docSectionMap[key].pageNumberFillChar;
+	retVal = docPrefsData.docSectionMap[key].pageNumberFillChar;
+	if (retVal == QChar(0))
+		retVal = QChar(32);
 	return retVal;
 }
 
@@ -5364,7 +5366,7 @@ int ScribusDoc::getSectionPageNumberWidthForPageIndex(const uint pageIndex) cons
 	//If a section is inactive, theres no page numbers printed
 	if (docPrefsData.docSectionMap[key].active==false)
 		return retVal;
-	retVal=docPrefsData.docSectionMap[key].pageNumberWidth;
+	retVal = qMin(docPrefsData.docSectionMap[key].pageNumberWidth, 20);			// added the qmin as a sanity check -> fixes bug #9721
 	return retVal;
 }
 
