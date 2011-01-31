@@ -206,8 +206,8 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		}
-		case ImageUnderfullsFrame:
-			item->setText(COLUMN_PROBLEM, imageUnderfullsFrame);
+		case PartFilledImageFrame:
+			item->setText(COLUMN_PROBLEM, partFilledImageFrame);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
 		case Transparency:
@@ -620,7 +620,7 @@ void CheckDocument::languageChange()
 	rasterPDF = tr("Object is a placed PDF");
 	isGIF = tr("Image is GIF");
 	WrongFont = tr("Annotation uses a non TrueType font");
-	imageUnderfullsFrame = tr("Image is smaller than its frame");
+	partFilledImageFrame = tr("Image dimension is smaller than its frame");
 	//isGIFtoolTip = "<qt>" + tr("GIF images are not reccomended for print. See the online docs for more info") + "</qt>";
 }
 

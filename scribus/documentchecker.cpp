@@ -189,7 +189,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					if (currItem->height() > currItem->imageYScale() * currItem->pixm.height()
 					    || currItem->width() > currItem->imageXScale() * currItem->pixm.width())
 					{
-						itemError.insert(ImageUnderfullsFrame, 0);
+						itemError.insert(PartFilledImageFrame, 0);
 					}
 	
 					if (extensionIndicatesPDF(ext))
@@ -461,7 +461,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					if (currItem->height() > currItem->imageYScale() * currItem->pixm.height()
 					    || currItem->width() > currItem->imageXScale() * currItem->pixm.width())
 					{
-						itemError.insert(ImageUnderfullsFrame, 0);
+						itemError.insert(PartFilledImageFrame, 0);
 					}
 
 					if (extensionIndicatesPDF(ext))
