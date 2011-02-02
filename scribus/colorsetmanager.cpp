@@ -112,7 +112,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 			}
 			fiC.close();
 		}
-		appPrefs.colorPrefs.DColorSet = "Scribus Basic";
+		appPrefs.colorPrefs.DColorSet = ScPaths::instance().shareDir() + "swatches/" + "Scribus Basic";
 	}
 }
 
