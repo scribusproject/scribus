@@ -1618,6 +1618,7 @@ void ActionManager::createDefaultShortcuts()
 
 	//Item Menu
 	defKeys.insert("itemDuplicate", Qt::CTRL+Qt::Key_D);
+	defKeys.insert("itemMulDuplicate", Qt::CTRL+Qt::SHIFT+Qt::Key_D);
 	defKeys.insert("itemDelete", Qt::CTRL+Qt::Key_K);
 	defKeys.insert("itemGroup", Qt::CTRL+Qt::Key_G);
 	defKeys.insert("itemUngroup", Qt::CTRL+Qt::SHIFT+Qt::Key_G);
