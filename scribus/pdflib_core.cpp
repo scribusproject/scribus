@@ -1046,10 +1046,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
-		ScFace::FontFormat fformat = AllFonts[it.key()].format();
-		if ((!AllFonts[it.key()].hasNames()) || (Options.SubsetList.contains(it.key())))
+		ScFace& face(AllFonts[it.key()]);
+		ScFace::FontFormat fformat = face.format();
+		if ((!face.hasNames()) || (Options.SubsetList.contains(it.key())))
 		{
-			if (AllFonts[it.key()].hasNames())
+			if (face.hasNames())
 			{
 				UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
 				uint SubFonts = 0;
@@ -1064,7 +1065,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				QString fon("");
 				QMap<uint, uint> glyphMapping;
 				QMap<uint,std::pair<QChar,QString> > gl;
-				AllFonts[it.key()].glyphNames(gl);
+				face.glyphNames(gl);
 				QMap<uint,FPointArray>& RealGlyphs(it.value());
 				QMap<uint,FPointArray>::Iterator ig;
 				for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
@@ -4577,7 +4578,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				uint idx = hl->glyph.glyph;
 				uint idx1;
 				if (Options.SubsetList.contains(style.font().replacementName()))
-					idx1 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] / 255;
+					idx1 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] / 256;
 				else
 					idx1 = idx / 224;
 				tmp += UsedFontsP[style.font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
