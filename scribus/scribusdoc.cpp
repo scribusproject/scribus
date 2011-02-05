@@ -12248,6 +12248,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	uint StartInd = 0;
 	m_Selection->delaySignalsOn();
 	PageItem *currItem = m_Selection->itemAt(0);
+	int currItemNr = currItem->ItemNr;
 	uint EndInd = currItem->PoLine.size();
 	for (uint a = EndInd-1; a > 0; --a)
 	{
@@ -12255,8 +12256,9 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		{
 			StartInd = a + 1;
 			bb = new PageItem_Polygon(*currItem);
-			Items->append(bb);
-			bb->ItemNr = Items->count()-1;
+			currItemNr++;
+			Items->insert(currItemNr, bb);
+			bb->ItemNr = currItemNr;
 			bb->convertTo(PageItem::Polygon);
 			bb->Frame = false;
 			bb->FrameType = 3;
@@ -12266,6 +12268,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 			AdjustItemSize(bb);
 			bb->ContourLine = bb->PoLine.copy();
 			bb->ClipEdited = true;
+			m_Selection->addItem(bb, false);
 			a -= 3;
 			EndInd = StartInd - 4;
 		}
@@ -12275,6 +12278,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	currItem->ContourLine = currItem->PoLine.copy();
 	currItem->ClipEdited = true;
 	m_Selection->delaySignalsOff();
+	renumberItemsInListOrder();
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
 	regionsChanged()->update(QRectF());

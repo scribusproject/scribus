@@ -207,7 +207,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			newItem->OldH2 = newItem->height();
 			newItem->updateClip();
 			newItem->ContourLine = newItem->PoLine.copy();
-			newItem->setFillEvenOdd(true);
+			newItem->setFillEvenOdd(false);
 			currDoc->m_Selection->addItem(newItem);
 		}
 		else
@@ -262,7 +262,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					newItem->OldH2 = newItem->height();
 					newItem->updateClip();
 					newItem->ContourLine = newItem->PoLine.copy();
-					newItem->setFillEvenOdd(true);
+					newItem->setFillEvenOdd(false);
 					currDoc->m_Selection->addItem(newItem);
 				}
 			}
