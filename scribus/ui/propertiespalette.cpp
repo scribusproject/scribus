@@ -4997,6 +4997,7 @@ void PropertiesPalette::languageChange()
 	optMarginRadioLeft->setText( tr("Left Only","optical margins") );
 	optMarginRadioRight->setText( tr("Right Only","optical margins") );
 	optMarginResetButton->setText( tr("Reset") );
+	OptMarginsItem->setText(0, tr("Optical Margins"));
 	wordTrackingLabel->setText( tr("Word Tracking"));
 	minWordTrackingLabel->setText( tr("Min:"));
 	normWordTrackingLabel->setText( tr("Norm:"));
@@ -5007,7 +5008,10 @@ void PropertiesPalette::languageChange()
 	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
 	styleWidgetsItem->setText(0, tr("Style Settings"));
 	flopItem->setText(0, tr("First Line Offset"));
-    DistanceItem->setText(0, tr("Columns & Text Distances"));
+	flopRealHeight->setText( tr("Maximum Ascent"));
+	flopFontAscent->setText( tr("Font Ascent"));
+	flopLineSpacing->setText( tr("Line Spacing"));
+	DistanceItem->setText(0, tr("Columns & Text Distances"));
 	Distance2Item->setText(0, tr("Path Text Properties"));
 	imagePageNumberLabel->setText( tr("&Page Number:"));
 	FreeScale->setText( tr("&Free Scaling"));
