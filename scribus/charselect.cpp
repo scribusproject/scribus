@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
 #include "charselectenhanced.h"
@@ -106,16 +107,20 @@ void CharSelect::slot_insertSpecialChars(const QString & chars)
 void CharSelect::slot_insertSpecialChar()
 {
 	emit insertSpecialChar();
-
 	if (!m_Item)
 		return;
-
 	if (m_Item->HasSel)
+	{
+		m_Item->itemTextSaxed = m_Item->getItemTextSaxed(PageItem::SELECTION);
 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
+		m_Item->asTextFrame()->lastUndoAction = PageItem::NOACTION;
+	}
 	if (m_Item->asTextFrame())
 		m_Item->asTextFrame()->invalidateLayout();
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	QChar ch;
+	QString txtIns;
+	m_Item->oldCPos = m_Item->CPos;
 	for (int a=0; a<chToIns.length(); ++a)
 	{
 		ch = chToIns.at(a);
@@ -125,7 +130,12 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(32);
 		m_Item->itemText.insertChars(m_Item->CPos, ch, true);
 		m_Item->CPos += 1;
+		txtIns.append(ch);
 	}
+	if (m_Item->itemTextSaxed.isEmpty())
+		m_Item->asTextFrame()->updateUndo(PageItem::INS, txtIns);
+	else
+		m_Item->asTextFrame()->updateUndo(PageItem::REPSAX, m_Item->getTextSaxed(txtIns));
 	m_doc->updateFrameItems();
 	m_doc->view()->DrawNew();
 	m_doc->changed();
@@ -137,7 +147,11 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 	if (!m_Item)
 		return;
 	if (m_Item->HasSel)
+	{
+		m_Item->itemTextSaxed = m_Item->getItemTextSaxed(PageItem::SELECTION);
 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
+		m_Item->asTextFrame()->lastUndoAction = PageItem::NOACTION;
+	}
 	if (m_Item->asTextFrame())
 		m_Item->asTextFrame()->invalidateLayout();
 // 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
@@ -145,7 +159,12 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 		ch = QChar(13);
 	if (ch == QChar(9))
 		ch = QChar(32);
+	m_Item->oldCPos = m_Item->CPos;
 	m_Item->itemText.insertChars(m_Item->CPos, ch, true);
+	if (m_Item->itemTextSaxed.isEmpty())
+		m_Item->asTextFrame()->updateUndo(PageItem::INS, QString(ch));
+	else
+		m_Item->asTextFrame()->updateUndo(PageItem::REPSAX, m_Item->getTextSaxed(QString(ch)));
 	m_doc->updateFrameItems();
 	m_Item->CPos += 1;
 	m_doc->view()->DrawNew();

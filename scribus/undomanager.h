@@ -434,7 +434,10 @@ private:
 	void setTexts();
 
 public:
-
+	/**
+	 * @brief Returns last saved Undo state
+	 */
+	UndoState* getLastUndoState();
 	/**
 	* @name Action strings
 	* Strings describing undo actions
@@ -585,6 +588,7 @@ public:
 	static QString Copy;
 	static QString CopyPage;
 	static QString ToOutlines;
+	static QString EditText;
 	/*@}*/
 
 	/**

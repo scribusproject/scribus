@@ -167,6 +167,23 @@ public:
 		TextFlowUsesContourLine = 3,
 		TextFlowUsesImageClipping = 4
 	};
+	//enum for actions in updateUndo and restoreEditText
+	typedef enum {
+		NOACTION = -1, //it is for checking if sequence of actions was done - after deselect text frame new sequence will be
+		PARAMFULL = 0, //parameters for whole frame
+		PARAMSEL = 1,  //paramaters for selected text
+		DELSAX = 2,	//delete with styles
+		INSSAX = 3,	//insert with styles
+		REPSAX = 4,	//replace with styles
+		INS = 5		//inserting chars without styles (from keyboard)
+	} EditAct;
+
+	typedef enum {  // for recognise what was changing during text edition/changing
+		FRAME = 1,
+		PARAGRAPH = 2,
+		SELECTION = 3,
+		CHAR = 4
+	} EditActPlace;
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
 	virtual PageItem_ImageFrame * asImageFrame() { return NULL; }
@@ -448,6 +465,11 @@ public:
 	int CPos;
   /** Text des Elements */
 	StoryText itemText;
+  // for itemText undo purpose
+	int oldCPos;
+	QString itemTextSaxed;
+	QString getItemTextSaxed(EditActPlace undoItem);
+	QString getTextSaxed(QString str);
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
   /** Flag for redraw in EditMode */
@@ -1060,6 +1082,8 @@ protected:
 
 	void restoreShapeContour(UndoState *state, bool isUndo);
 	void restoreImageEffects(UndoState *state, bool isUndo);
+	void restoreEditText(SimpleState *state, bool isUndo);
+
 	/*@}*/
 
 	/**

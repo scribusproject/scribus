@@ -311,6 +311,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 			continue;
 		if (currItem->itemText.length() != 0)
 		{
+			currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::FRAME);
 			m_Doc->itemSelection_ClearItem();
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
@@ -342,7 +343,12 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 #endif
 		
 		// K.I.S.S.:
-		currItem->itemText.insertChars(0, lp->createLorem(paraCount, random));
+		QString Lorip = lp->createLorem(paraCount, random);
+		currItem->itemText.insertChars(0, Lorip);
+		if (currItem->itemTextSaxed.isEmpty())
+			currItem->asTextFrame()->updateUndo(PageItem::INS,Lorip);
+		else
+			currItem->asTextFrame()->updateUndo(PageItem::REPSAX, currItem->getTextSaxed(Lorip));
 		delete lp;
 
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)

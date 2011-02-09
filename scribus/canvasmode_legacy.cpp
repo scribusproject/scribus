@@ -1800,7 +1800,9 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							if (!cc.isNull())
 							{
 								// K.I.S.S.:
+								currItem->oldCPos = 0;
 								currItem->itemText.insertChars(0, cc, true);
+								currItem->asTextFrame()->updateUndo(PageItem::INS,cc);
 								if (m_doc->docHyphenator->AutoCheck)
 									m_doc->docHyphenator->slotHyphenate(currItem);
 								m_ScMW->BookMarkTxT(currItem);

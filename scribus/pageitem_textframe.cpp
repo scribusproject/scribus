@@ -46,6 +46,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
+#include "scribusXml.h"
+#include "serializer.h"
 #include "selection.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
@@ -67,6 +69,8 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
+	lastUndoAction = NOACTION;
+//	lastAction4Paragraph = false;
 	
 	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
@@ -78,7 +82,9 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
-	
+	lastUndoAction = NOACTION;
+//	lastAction4Paragraph = false;
+
 	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
 
@@ -2653,11 +2659,11 @@ void PageItem_TextFrame::clearContents()
 	PageItem *nextItem = this;
 	while (nextItem->prevInChain() != 0)
 		nextItem = nextItem->prevInChain();
-
+	nextItem->itemTextSaxed = nextItem->getItemTextSaxed(PageItem::FRAME); //for undo
 	ParagraphStyle defaultStyle = nextItem->itemText.defaultStyle();
 	nextItem->itemText.clear();
 	nextItem->itemText.setDefaultStyle(defaultStyle);
-
+	nextItem->asTextFrame()->updateUndo(); //for undo
 	while (nextItem != 0)
 	{
 		nextItem->CPos = 0;
@@ -2710,6 +2716,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_Down:
 		if ( (buttonModifiers & Qt::ShiftModifier) == 0 )
 			deselectAll();
+		lastUndoAction = PageItem::NOACTION;
 	}
 
 	if (unicodeTextEditMode)
@@ -2735,11 +2742,25 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (ok)
 			{
 				if (itemText.lengthOfSelection() > 0)
+				{
+					itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 					deleteSelectedTextFromFrame();
+					lastUndoAction = PageItem::NOACTION;
+				}
 				if (conv < 31)
 					conv = 32;
+				if (conv == 32)
+				{
+					qDebug() << "SPACE conv?";
+					lastUndoAction = PageItem::NOACTION;
+				}
+				oldCPos = CPos;
 				itemText.insertChars(CPos, QString(QChar(conv)), true);
 				CPos += 1;
+				if (itemTextSaxed.isEmpty())
+					updateUndo(INS, QString(QChar(conv)));
+				else
+					updateUndo(REPSAX, getTextSaxed(QString(QChar(conv))));
 //				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
 				update();
@@ -3016,7 +3037,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (itemText.lengthOfSelection() > 0)
 			{
+				oldCPos = itemText.startOfSelection();
+				itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 				deleteSelectedTextFromFrame();
+				updateUndo(DELSAX);
 				m_Doc->scMW()->setTBvals(this);
 				update();
 //				view->RefreshItem(this);
@@ -3031,8 +3055,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		cr = itemText.text(CPos,1);
 		if (itemText.lengthOfSelection() == 0)
+		{
 			itemText.select(CPos, 1, true);
+			HasSel = true;
+		}
+		oldCPos = itemText.startOfSelection();
+		itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 		deleteSelectedTextFromFrame();
+		updateUndo(DELSAX);
 		update();
 //		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
@@ -3048,7 +3078,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (itemText.lengthOfSelection() > 0)
 			{
+				oldCPos = itemText.startOfSelection();
+				itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 				deleteSelectedTextFromFrame();
+				updateUndo(DELSAX);
 				m_Doc->scMW()->setTBvals(this);
 				update();
 			}
@@ -3061,8 +3094,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			--CPos;
 			itemText.select(CPos, 1, true);
+			HasSel = true;
 		}
+		oldCPos = itemText.startOfSelection();
+		itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 		deleteSelectedTextFromFrame();
+		updateUndo(DELSAX);
 //		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
@@ -3090,7 +3127,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 #endif
 			if (!controlCharHack && !x11Hack && !k->text().isEmpty())
 			{
+				oldCPos = itemText.startOfSelection();
+				itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 				deleteSelectedTextFromFrame();
+				lastUndoAction = PageItem::NOACTION;
 				doUpdate = true;
 			}
 			/*
@@ -3106,16 +3146,30 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		//if ((kk == Qt::Key_Tab) || ((kk == Qt::Key_Return) && (buttonState & Qt::ShiftButton)))
 		if (kk == Qt::Key_Tab)
 		{
+			oldCPos = CPos;
 			itemText.insertChars(CPos, QString(SpecialChars::TAB), true);
 			CPos += 1;
+			lastUndoAction = PageItem::NOACTION;
+			if (itemTextSaxed.isEmpty())
+				updateUndo(INS, QString(SpecialChars::TAB));
+			else
+				updateUndo(REPSAX, getTextSaxed(QString(SpecialChars::TAB)));
 //			Tinput = true;
 //			view->RefreshItem(this);
 			doUpdate = true;
 		}
 		else if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
 		{
+			if (uc[0] == QChar(32) || uc[0] == QChar(13))
+				lastUndoAction = PageItem::NOACTION;
+			if (lastUndoAction != PageItem::INS)
+				oldCPos = CPos;
 			itemText.insertChars(CPos, uc, true);
 			CPos += 1;
+			if (itemTextSaxed.isEmpty())
+				updateUndo(INS, uc);
+			else
+				updateUndo(REPSAX, getTextSaxed(uc));
 			if ((m_Doc->docHyphenator->AutoCheck) && (CPos > 1))
 			{
 				Twort = "";
@@ -3278,6 +3332,28 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 // 	layoutWeakLock = true;
 // 	update();
 	m_Doc->regionsChanged()->update(getBoundingRect());
+	lastUndoAction = PageItem::NOACTION;
+}
+
+void PageItem_TextFrame::ExpandParSel() //expand selection to whole paragrpah(s)
+{
+	if (m_Doc->appMode != modeEdit)
+		return;
+	int StartSel = 0, LenSel = 0;
+	if (HasSel)
+	{
+		//extend selection to whole paragraphs
+		StartSel = itemText.startOfParagraph(itemText.nrOfParagraph(itemText.startOfSelection()));
+		LenSel = itemText.endOfParagraph(itemText.nrOfParagraph(itemText.endOfSelection())) - StartSel;
+	}
+	else
+	{
+		//extend selection to whole paragraph
+		StartSel = itemText.startOfParagraph(itemText.nrOfParagraph(CPos));
+		LenSel = itemText.endOfParagraph(itemText.nrOfParagraph(CPos)) - StartSel;
+	}
+	itemText.select(StartSel, LenSel);
+	qDebug() << "ExpandParSel" << StartSel << LenSel;
 }
 
 void PageItem_TextFrame::deselectAll()
@@ -3299,6 +3375,7 @@ void PageItem_TextFrame::deselectAll()
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
 	m_Doc->scMW()->DisableTxEdit();
+	lastUndoAction = PageItem::NOACTION;
 }
 
 double PageItem_TextFrame::columnWidth()
@@ -3557,4 +3634,76 @@ QString PageItem_TextFrame::infoDescription()
 void PageItem_TextFrame::slotInvalidateLayout()
 {
 	invalidateLayout();
+}
+
+void PageItem_TextFrame::updateUndo(EditAct action, QString str)
+{
+	if (UndoManager::undoEnabled() && undoManager->undoEnabled())
+	{
+		SimpleState* ss;
+		bool newState = true;  // indicate when new undoState should be created
+		if (lastUndoAction == action && action != REPSAX && action != DELSAX)
+		{
+			ss = (SimpleState*) undoManager->getLastUndoState();
+			if (ss->undoObject() == this)
+			{
+				if (action == PARAMFULL || action == PARAMSEL)
+				{
+					itemTextSaxed = ss->get("STEXT_OLD");
+					newState = false;
+				}
+				else if (action == INSSAX || action == INS)
+				{
+					QString tmpstr(ss->get("STEXT_STR"));
+					tmpstr.append(str);
+					str = tmpstr;
+					newState = false;
+				}
+			}
+		}
+		if (newState)
+		{
+			ss = new SimpleState(UndoManager::EditText);
+			ss->set("STEXT_CPOS",oldCPos);
+		}
+		if (action == INSSAX || action == INS)
+			ss->set("STEXT_STR",str);
+		else if (action == DELSAX)
+			ss->set("STEXT_STR",itemTextSaxed);
+		else if (action == REPSAX)
+		{
+			ss->set("STEXT_NEW",str);
+			ss->set("STEXT_OLD",itemTextSaxed);
+		}
+		else
+		{
+			if (action == PARAMFULL && m_Doc->appMode == modeEdit)
+			{
+				//action is for paragraph where cursor is
+				ExpandParSel();
+				action = PARAMSEL;
+			}
+			if (action == PARAMSEL)
+			{
+				ss->set("STEXT_CPOS",CPos);
+				ss->set("STEXT_SELSTART", itemText.startOfSelection());
+				ss->set("STEXT_SELLEN", itemText.endOfSelection() - itemText.startOfSelection());
+			}
+			ss->set("STEXT_OLD", itemTextSaxed);
+			itemTextSaxed = getItemTextSaxed((action == PARAMSEL) ? SELECTION : FRAME);
+			ss->set("STEXT_NEW", itemTextSaxed);
+			if (QString::compare(ss->get("STEXT_OLD"),ss->get("STEXT_NEW")) == 0)
+			{
+				//nothing change - quit without set new Undo step
+				itemTextSaxed.clear();
+				delete ss;
+				return;
+			}
+		}
+		itemTextSaxed.clear();
+		lastUndoAction = action;
+		ss->set("STEXT",(int) action);
+		if (newState)
+			undoManager->action(this, ss);
+	}
 }

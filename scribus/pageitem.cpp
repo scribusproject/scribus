@@ -34,6 +34,9 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <cassert>
 #include <QDebug>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 #include "canvas.h"
 #include "scpaths.h"
@@ -44,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.h"
 #include "page.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "resourcecollection.h"
@@ -60,9 +64,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scribuswin.h"
 #include "sctextstream.h"
+#include "serializer.h"
 #include "selection.h"
 #include "sclimits.h"
 #include "text/nlsconfig.h"
+#include "desaxe/saxXML.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
@@ -327,6 +333,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
+	oldCPos = 0;
 	Extra = 0;
 	TExtra = 0;
 	BExtra = 0;
@@ -3210,6 +3217,9 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreShapeContour(ss, isUndo);
 		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
 			restoreImageEffects(ss, isUndo);
+		else if (ss->contains("STEXT"))
+			restoreEditText(ss, isUndo);
+
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -3708,8 +3718,190 @@ void PageItem::restoreImageEffects(UndoState *state, bool isUndo)
 	}
 }
 
+void PageItem::restoreEditText(SimpleState *state, bool isUndo)
+{
+	if (!isTextFrame())
+		return;
+	EditAct action = (EditAct) state->getInt("STEXT");
+	if (action == PARAMFULL || action == PARAMSEL)
+	{
+		QString buffer;
+		if (isUndo)
+			buffer.append(state->get("STEXT_OLD"));
+		else
+			buffer.append(state->get("STEXT_NEW"));
+		if (!buffer.isEmpty())
+		{
+			Serializer dig(*m_Doc);
+			dig.store<ScribusDoc>("<scribusdoc>", m_Doc);
+			StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
+			dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
+			dig.parseMemory(buffer.toStdString().c_str(), buffer.length());
+			StoryText* story = dig.result<StoryText>();
+			if (action == PARAMFULL)
+			{
+				itemText.selectAll();
+				itemText.clear();
+				itemText.append(*story);
+			}
+			else if (action == PARAMSEL)
+			{
+				itemText.deselectAll();
+				itemText.select(state->getInt("STEXT_SELSTART"),state->getInt("STEXT_SELLEN"));
+				asTextFrame()->deleteSelectedTextFromFrame();
+				itemText.insert(state->getInt("STEXT_SELSTART"), *story);
+				itemText.select(state->getInt("STEXT_SELSTART"), story->length());
+				HasSel = true;
+			}
+			CPos = itemText.endOfSelection();
+			delete story;
+		}
+		else { qDebug() << "UNDO buffer EMPTY";}
+	}
+	else if (action == REPSAX)
+	{
+		QString buffout, buffin;  //buffout is deleted, buffin is inserted
+		int pos = state->getInt("STEXT_CPOS");
+		if (isUndo)
+		{
+			buffin.append(state->get("STEXT_OLD"));
+			buffout.append(state->get("STEXT_NEW"));
+		}
+		else
+		{
+			buffin.append(state->get("STEXT_NEW"));
+			buffout.append(state->get("STEXT_OLD"));
+		}
+
+		Serializer dig(*m_Doc);
+		dig.store<ScribusDoc>("<scribusdoc>", m_Doc);
+		StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
+		dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
+		dig.parseMemory(buffout.toStdString().c_str(), buffout.length());
+		StoryText* story = dig.result<StoryText>();
+		itemText.select(pos,story->length(), true);
+		asTextFrame()->deleteSelectedTextFromFrame();
+
+		Serializer dig2(*m_Doc);
+		dig2.store<ScribusDoc>("<scribusdoc>", m_Doc);
+		StoryText::desaxeRules("/", dig2, "SCRIBUSTEXT");
+		dig2.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
+		dig2.parseMemory(buffin.toStdString().c_str(), buffin.length());
+		story = dig2.result<StoryText>();
+		itemText.insert(pos,*story);
+		itemText.select(pos, story->length());
+		HasSel = true;
+		CPos = pos + story->length();
+		delete story;
+	}
+	else if (action == INSSAX || action == DELSAX)
+	{
+		QString str = state->get("STEXT_STR");
+		if (str.isEmpty())
+			str = itemTextSaxed;
+		int pos = state->getInt("STEXT_CPOS");
+		Serializer dig(*m_Doc);
+		dig.store<ScribusDoc>("<scribusdoc>", m_Doc);
+		StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
+		dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
+		dig.parseMemory(str.toStdString().c_str(), str.length());
+		StoryText* story = dig.result<StoryText>();
+		if ((action == INSSAX && isUndo) || (action == DELSAX && !isUndo))
+		{
+			//undo for INSSAX, redo for DELSAX
+			itemText.select(pos, story->length());
+			asTextFrame()->deleteSelectedTextFromFrame();
+		}
+		else
+		{
+			//undo for DELSAX, redo for INSSAX
+			itemText.insert(pos, *story);
+			CPos = pos + story->length();
+		}
+		delete story;
+	}
+	else if (action == INS)
+	{
+		QString str = state->get("STEXT_STR");
+		int pos = state->getInt("STEXT_CPOS");
+		if (isUndo)
+		{
+			itemText.select(pos, str.length());
+			asTextFrame()->deleteSelectedTextFromFrame();
+		}
+		else
+		{
+			itemText.insertChars(pos, str, true);
+			CPos = pos + str.length();
+		}
+	}
+	// after Undo or Redo new actions should create new undoStates
+	asTextFrame()->lastUndoAction = NOACTION;
+
+	m_Doc->scMW()->setTBvals(this);
+	update();
+}
+
+QString PageItem::getItemTextSaxed(EditActPlace undoItem)
+{
+	if (!isTextFrame()) return "";
+	StoryText iT(m_Doc);
+	iT.setDefaultStyle(itemText.defaultStyle());
+	if (undoItem == FRAME)
+		iT.insert(0, itemText);
+	else
+	{
+		int StartOldSel = 0, LenOldSel = 0;
+		if (undoItem == PARAGRAPH)
+		{
+			if (HasSel)
+			{
+				StartOldSel = itemText.startOfSelection();
+				LenOldSel = itemText.lengthOfSelection();
+			}
+			asTextFrame()->ExpandParSel();
+		}
+		else if (undoItem == CHAR || (undoItem == SELECTION && !HasSel))
+		{
+			itemText.select(CPos,1);
+			HasSel = true;
+		}
+		//is SELECTION
+		iT.insert(0, itemText, true);
+		if (LenOldSel > 0) //restoring old selection if undoItem was PARAPGRAPH
+		{
+			itemText.select(StartOldSel, LenOldSel);
+			HasSel = true;
+		}
+	}
+	//saxing text
+	std::ostringstream xmlString;
+	SaxXML xmlStream(xmlString);
+	xmlStream.beginDoc();
+	iT.saxx(xmlStream, "SCRIBUSTEXT");
+	xmlStream.endDoc();
+	std::string xml(xmlString.str());
+	return QString(xml.c_str());
+}
+
+QString PageItem::getTextSaxed(QString str)
+{
+	StoryText iT(m_Doc);
+	iT.setDefaultStyle(itemText.defaultStyle());
+	iT.insertChars(0,str,true);
+	std::ostringstream xmlString;
+	SaxXML xmlStream(xmlString);
+	xmlStream.beginDoc();
+	iT.saxx(xmlStream, "SCRIBUSTEXT");
+	xmlStream.endDoc();
+	std::string xml(xmlString.str());
+	return QString(xml.c_str());
+}
+
 void PageItem::select()
 {
+	if (m_Doc->m_Selection->count() == 1 && m_Doc->m_Selection->itemAt()->isTextFrame())
+		m_Doc->m_Selection->itemAt()->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 	m_Doc->view()->Deselect(false);
 	//CB #2969 add this true parm to addItem so we dont connectToGUI, the rest of view->SelectItem isnt needed anyway
 	m_Doc->m_Selection->addItem(this, true);

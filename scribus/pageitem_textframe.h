@@ -66,6 +66,7 @@ public:
 	void deleteSelectedTextFromFrame();
 	void setNewPos(int oldPos, int len, int dir);
 	void ExpandSel(int dir, int oldPos);
+	void ExpandParSel(); //expand selection to whole paragrpah(s)
 	void deselectAll();
 	
 	virtual void invalidateLayout();
@@ -104,7 +105,9 @@ private:
 	void setShadow();
 	QString currentShadow;
 	QMap<QString,StoryText> shadows;
-	
+public:
+	void updateUndo(EditAct action = PARAMFULL, QString str = "");
+	EditAct lastUndoAction;
 private slots:
 	void slotInvalidateLayout();
 };

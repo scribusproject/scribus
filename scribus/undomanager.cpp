@@ -525,6 +525,11 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 	target->setUName(oldName);
 }
 
+UndoState* UndoManager::getLastUndoState()
+{
+	return stacks_[currentDoc_].undoActions_[0];
+}
+
 void UndoManager::undo(int steps)
 {
 	if (!undoEnabled_)
@@ -958,6 +963,7 @@ void UndoManager::languageChange()
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
+	UndoManager::EditText		= tr("Edit text");
 }
 
 void UndoManager::initIcons()
@@ -1158,6 +1164,7 @@ QString UndoManager::RemoveAllPageGuides = "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
 QString UndoManager::ToOutlines         = "";
+QString UndoManager::EditText		= "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

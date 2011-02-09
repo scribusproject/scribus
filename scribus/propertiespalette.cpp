@@ -52,7 +52,9 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "sccolorengine.h"
 #include "cpalette.h"
+#include "pageitem.h"
 #include "pageitem_textframe.h"
+#include "styles/paragraphstyle.h"
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
@@ -2944,8 +2946,16 @@ void PropertiesPalette::setLineSpacingMode(int id)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (CurItem->asTextFrame())
+		{
+//			CurItem->asTextFrame()->ExpandParSel();
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+//			CurItem->asTextFrame()->lastAction4Paragraph = true;
+		}
 		doc->itemSelection_SetLineSpacingMode(id);
 		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo();
 	}
 }
 
@@ -3287,6 +3297,8 @@ void PropertiesPalette::setOpticalMargins()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(PageItem::FRAME);
 	int omt(ParagraphStyle::OM_None);
 //	if (optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
 	if (optMarginRadioBoth->isChecked())
@@ -3297,6 +3309,8 @@ void PropertiesPalette::setOpticalMargins()
 		omt = ParagraphStyle::OM_RightHangingPunct;
 
 	doc->itemSelection_SetOpticalMargins(omt);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo();
 }
 
 void PropertiesPalette::resetOpticalMargins()
@@ -3324,9 +3338,13 @@ void PropertiesPalette::setMinWordTracking()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	ParagraphStyle newStyle;
 	newStyle.setMinWordTracking(minWordTrackingSpinBox->value() / 100.0);
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 
@@ -3334,28 +3352,40 @@ void PropertiesPalette::setNormWordTracking()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	ParagraphStyle newStyle;
 //	newStyle.setNormWordTracking(percent / 100.0);
 	newStyle.charStyle().setWordTracking(normWordTrackingSpinBox->value() / 100.0);
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::setMinGlyphExtension()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	ParagraphStyle newStyle;
 	newStyle.setMinGlyphExtension(minGlyphExtSpinBox->value() / 100.0);
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::setMaxGlyphExtension()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	ParagraphStyle newStyle;
 	newStyle.setMaxGlyphExtension(maxGlyphExtSpinBox->value() / 100.0);
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 
@@ -3373,14 +3403,22 @@ void PropertiesPalette::NewTScaleV()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetScaleV(qRound(ChScaleV->value() * 10));
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::NewTBase()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetBaselineOffset(qRound(ChBase->value() * 10));
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::setTScale(double e)
@@ -3407,7 +3445,11 @@ void PropertiesPalette::NewTScale()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetScaleH(qRound(ChScale->value() * 10));
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::NewX()
@@ -3831,7 +3873,15 @@ void PropertiesPalette::NewLineSpacing()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+	{
+//		CurItem->asTextFrame()->ExpandParSel();
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+//		CurItem->asTextFrame()->lastAction4Paragraph = true;
+	}
 	doc->itemSelection_SetLineSpacing(LineSp->value());
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo();
 }
 
 void PropertiesPalette::HandleGapSwitch()
@@ -3893,14 +3943,22 @@ void PropertiesPalette::NewSize()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetFontSize(qRound(Size->value()*10.0));
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::NewTracking()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetTracking(qRound(Extra->value() * 10.0));
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::NewLocalXY()
@@ -4218,25 +4276,72 @@ void PropertiesPalette::VChangeD()
 
 void PropertiesPalette::NewAlignement(int a)
 {
+	int StartSel = 0, EndSel = 0, LenSel = 0;
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+	{
+		// hack for apply left align for text with no align at all
+		//so during Undo/Redo some align will be applied
+		if (doc->appMode == modeEdit)
+		{
+			//selected parapgraph(s) only
+			CurItem->asTextFrame()->ExpandParSel();
+			StartSel = CurItem->itemText.startOfSelection();
+			EndSel = CurItem->itemText.endOfSelection();
+			for (uint i = CurItem->itemText.nrOfParagraph(StartSel); i <= CurItem->itemText.nrOfParagraph(EndSel); i++)
+			{
+				if (CurItem->itemText.paragraphStyle(CurItem->itemText.startOfParagraph(i)).alignment() == 0)
+				{
+					CurItem->itemText.select(CurItem->itemText.startOfParagraph(i), CurItem->itemText.endOfParagraph(i) - CurItem->itemText.startOfParagraph(i));
+					CurItem->HasSel = true;
+					doc->itemSelection_SetAlignment(0);
+				}
+			}
+		}
+		else
+		{
+			//for whole frame
+			for (uint i = 0; i <= CurItem->itemText.nrOfParagraph(CurItem->itemText.lastInFrame()); i++)
+			{
+				if (CurItem->itemText.paragraphStyle(CurItem->itemText.startOfParagraph(i)).alignment() == 0)
+				{
+					CurItem->CPos = CurItem->itemText.startOfParagraph(i);
+					doc->itemSelection_SetAlignment(0);
+				}
+
+			}
+		}
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+//		CurItem->asTextFrame()->lastAction4Paragraph = true;
+	}
 	doc->itemSelection_SetAlignment(a);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo();
 }
 
 void PropertiesPalette::setTypeStyle(int s)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	emit NewEffects(s);
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::newShadowOffs()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (CurItem->asTextFrame())
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 		int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
 		int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
 		doc->itemSelection_SetShadowOffsets(x, y);
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 	}
 }
 
@@ -4256,9 +4361,13 @@ void PropertiesPalette::newUnderline()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (CurItem->asTextFrame())
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 		int x = qRound(SeStyle->UnderlineVal->LPos->value() * 10.0);
 		int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
 		doc->itemSelection_SetUnderline(x, y);
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 	}
 }
 
@@ -4278,9 +4387,13 @@ void PropertiesPalette::newStrike()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (CurItem->asTextFrame())
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 		int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
 		int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
 		doc->itemSelection_SetStrikethru(x, y);
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 	}
 }
 
@@ -4309,7 +4422,13 @@ void PropertiesPalette::newOutlineW()
 {
 	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
+	{
+		if (CurItem->asTextFrame())
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 		doc->itemSelection_SetOutlineWidth(x);
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
+	}
 }
 
 void PropertiesPalette::DoLower()
@@ -4635,7 +4754,11 @@ void PropertiesPalette::doClearCStyle()
 		return;
 	if (HaveDoc)
 	{
+		if (CurItem->asTextFrame())
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 		doc->itemSelection_EraseCharStyle();
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo(doc->appMode == modeEdit? PageItem::PARAMSEL : PageItem::PARAMFULL);
 	}
 }
 
@@ -4646,9 +4769,17 @@ void PropertiesPalette::doClearPStyle()
 		return;
 	if (HaveDoc)
 	{
+		if (CurItem->asTextFrame())
+		{
+//			CurItem->asTextFrame()->ExpandParSel();
+			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+//			CurItem->asTextFrame()->lastAction4Paragraph = true;
+		}
 		doc->itemSelection_EraseParagraphStyle();
 		CharStyle emptyCStyle;
 		doc->itemSelection_SetCharStyle(emptyCStyle);
+		if (CurItem->asTextFrame())
+			CurItem->asTextFrame()->updateUndo(doc->appMode == modeEdit ? PageItem::PARAMSEL : PageItem::PARAMFULL);
 	}
 }
 
@@ -4794,14 +4925,23 @@ void PropertiesPalette::newTxtFill()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetFillColor(TxFill->currentColor());
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::newTxtStroke()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	doc->itemSelection_SetStrokeColor(TxStroke->currentColor());
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
+
 }
 
 void PropertiesPalette::setActShade()
@@ -4809,6 +4949,8 @@ void PropertiesPalette::setActShade()
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	int b;
+	if (CurItem->asTextFrame())
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
 	if (PM1 == sender())
 	{
 		b = PM1->getValue();
@@ -4819,6 +4961,8 @@ void PropertiesPalette::setActShade()
 		b = PM2->getValue();
 		doc->itemSelection_SetFillShade(b);
 	}
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo(CurItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 }
 
 void PropertiesPalette::setActFarben(QString p, QString b, double shp, double shb)
@@ -4966,6 +5110,10 @@ void PropertiesPalette::handleFillRule()
 		return;
 	CurItem->fillRule = EvenOdd->isChecked();
 	CurItem->update();
+	qDebug() << "PropertiesPalette::handleFillRule() updateUNDO";
+	if (CurItem->asTextFrame())
+		CurItem->asTextFrame()->updateUndo();
+
 	emit DocChanged();
 }
 
@@ -5049,6 +5197,11 @@ void PropertiesPalette::ManageTabs()
 		TabManager *dia = new TabManager(this, doc->unitIndex(), style.tabValues(), i2->columnWidth());
 		if (dia->exec())
 		{
+			if (CurItem->asTextFrame())
+			{
+				CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+//				CurItem->asTextFrame()->lastAction4Paragraph = true;
+			}
 			if (doc->appMode != modeEdit)
 			{
 				ParagraphStyle newStyle(CurItem->itemText.defaultStyle());
@@ -5062,6 +5215,9 @@ void PropertiesPalette::ManageTabs()
 				doc->itemSelection_ApplyParagraphStyle(newStyle);
 			}
 			CurItem->update();
+			if (CurItem->asTextFrame())
+				CurItem->asTextFrame()->updateUndo();
+
 			emit DocChanged();
 		}
 		delete dia;

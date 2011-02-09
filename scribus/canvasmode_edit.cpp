@@ -375,6 +375,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	PageItem *currItem = 0;
 	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame())
 	{
+		currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 		//CB if annotation, open the annotation dialog
 		if (currItem->isAnnotation())
 		{
@@ -619,7 +620,10 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					}
 					if (currItem->asTextFrame())
+					{
 						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+						currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
+					}
 				}
 				else
 				{
@@ -636,6 +640,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		//CB Where we set the cursor for a click in text frame
 		if (currItem->asTextFrame())
 		{
+			currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 			inText = m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 			//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
 			if (!inText)
@@ -644,6 +649,8 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				m_view->Deselect(true);
 				//m_view->slotDoCurs(true);
 				m_view->requestMode(modeNormal);
+				if (currItem->isTextFrame())
+					currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 				return;
 			}
 
@@ -668,6 +675,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 							oldP = currItem->itemText.endOfSelection();
 						}
 						currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
+						currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 						oldCp = currItem->CPos;
 					}
 					else
@@ -683,6 +691,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 								currItem->CPos = currItem->itemText.startOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
 						}
 						currItem->asTextFrame()->ExpandSel(dir, oldP);
+						currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 						oldCp = oldP;
 					}
 				}
@@ -690,6 +699,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				{
 					oldCp = currItem->CPos;
 					currItem->itemText.deselectAll();
+					currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 					currItem->HasSel = false;
 				}
 				currItem->emitAllToGUI();
@@ -704,7 +714,9 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					if (!cc.isNull())
 					{
 						// K.I.S.S.:
+						currItem->oldCPos = 0;
 						currItem->itemText.insertChars(0, cc, true);
+						currItem->asTextFrame()->updateUndo(PageItem::INS,cc);
 						if (m_doc->docHyphenator->AutoCheck)
 							m_doc->docHyphenator->slotHyphenate(currItem);
 						m_ScMW->BookMarkTxT(currItem);
@@ -722,6 +734,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		else if (!currItem->asImageFrame() || 
 				 m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 		{
+			m_doc->m_Selection->delaySignalsOn();
 			m_view->Deselect(true);
 			if (SeleItem(m))
 			{

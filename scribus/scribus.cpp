@@ -137,6 +137,7 @@ for which a new license (GPL+exception) is in place.
 #include "nodeeditpalette.h"
 #include "outlinepalette.h"
 #include "page.h"
+#include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_textframe.h"
@@ -1112,9 +1113,18 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 					if (unicodevalue!=-1)
 					{
 						if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
+						{
+							currItem->oldCPos = currItem->itemText.startOfSelection();
+							currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::SELECTION);
 							currItem->asTextFrame()->deleteSelectedTextFromFrame();
-
+						}
+						else
+							currItem->oldCPos = currItem->CPos;
 						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)), true);
+						if (currItem->itemTextSaxed.isEmpty())
+							currItem->asTextFrame()->updateUndo(PageItem::INS, QString(QChar(unicodevalue)));
+						else
+							currItem->asTextFrame()->updateUndo(PageItem::REPSAX, currItem->getTextSaxed(QString(QChar(unicodevalue))));
 						currItem->CPos += 1;
 //						currItem->Tinput = true;
 						currItem->update();
@@ -1131,7 +1141,9 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
 #else
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN), true);
+							currItem->oldCPos = currItem->CPos;
 							currItem->CPos += 1;
+							currItem->asTextFrame()->updateUndo(PageItem::INS, QString(SpecialChars::SHYPHEN));
 #endif
 //							currItem->Tinput = true;
 							currItem->update();
@@ -3318,7 +3330,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLockSize"]->setChecked(currItem->sizeLocked());
 		scrActions["itemPrintingEnabled"]->setChecked(currItem->printEnabled());
 	}
-
 	//propertiesPalette->NewSel(SelectedType);
 	if (SelectedType != -1)
 	{
@@ -4296,6 +4307,7 @@ void ScribusMainWindow::slotGetContent()
 			ImportSetup impsetup=gt->run();
 			if (impsetup.runDialog)
 			{
+				currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::FRAME);
 				if (currItem->itemText.length() != 0)
 				{
 					int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
@@ -4303,6 +4315,7 @@ void ScribusMainWindow::slotGetContent()
 						return;
 				}
 				gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false);
+				currItem->asTextFrame()->updateUndo();
 			}
 			delete gt;
 			if (doc->docHyphenator->AutoCheck)
@@ -4328,7 +4341,8 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 
 	if (!currItem->asTextFrame())
 		return; // not a text frame
-
+	// I dont know what is doing here, but Undo dont hurts
+	currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::FRAME);
 	ScGTPluginManager::instance()->run();
 	if (doc->docHyphenator->AutoCheck)
 		doc->docHyphenator->slotHyphenate(currItem);
@@ -4337,6 +4351,7 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 		if (doc->Items->at(a)->isBookmark)
 			bookmarkPalette->BView->ChangeText(doc->Items->at(a));
 	}
+	currItem->asTextFrame()->updateUndo();
 	view->DrawNew();
 	slotDocCh();
 }
@@ -4392,7 +4407,10 @@ void ScribusMainWindow::slotFileAppend()
 		ImportSetup impsetup=gt->run();
 		if (impsetup.runDialog)
 		{
+			PageItem *currItem = doc->m_Selection->itemAt(0);
+			currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::FRAME);
 			gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, true);
+			currItem->asTextFrame()->updateUndo();
 		}
 		delete gt;
 		//CB Hyphenating now emits doc changed, plus we change lang as appropriate
@@ -4971,6 +4989,10 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if ((currItem->itemText.length() == 0) || (!currItem->HasSel))
 				return;
+			currItem->oldCPos = currItem->itemText.startOfSelection();
+			//for undo
+			currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::SELECTION);
+
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
 			itemText.insert(0, currItem->itemText, true);
@@ -4988,6 +5010,8 @@ void ScribusMainWindow::slotEditCut()
 			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 
 			dynamic_cast<PageItem_TextFrame*>(currItem)->deleteSelectedTextFromFrame();
+			//for undo
+			currItem->asTextFrame()->updateUndo(PageItem::DELSAX);
 			currItem->update();
 		}
 		else
@@ -5123,14 +5147,19 @@ void ScribusMainWindow::slotEditPaste()
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
 			assert(currItem != NULL);
+			currItem->lastUndoAction = PageItem::NOACTION;
 			if (currItem->HasSel)
+			{
+				//for text undo, storing current selection
+				currItem->itemTextSaxed = currItem->getItemTextSaxed(PageItem::SELECTION);
 				currItem->deleteSelectedTextFromFrame();
+			}
 
 			if (currItem->CPos < 0)
 				currItem->CPos = 0;
 			if (currItem->CPos > currItem->itemText.length())
 				currItem->CPos = currItem->itemText.length();
-
+			currItem->oldCPos = currItem->CPos;
 			if (ScMimeData::clipboardHasScribusText())
 			{
 				Serializer dig(*doc);
@@ -5144,6 +5173,13 @@ void ScribusMainWindow::slotEditPaste()
 				StoryText* story = dig.result<StoryText>();
 
 				currItem->itemText.insert(currItem->CPos, *story);
+
+				//for text undo, select inserted text for saxing it
+				currItem->itemText.select(currItem->CPos,story->length());
+				currItem->HasSel = true;
+				//if itemTextSaxed is not empty there was selection
+				currItem->updateUndo(currItem->itemTextSaxed.isEmpty() ? PageItem::INSSAX : PageItem::REPSAX,currItem->getItemTextSaxed(PageItem::SELECTION));
+
 				currItem->CPos += story->length();
 
 				delete story;
@@ -5229,6 +5265,11 @@ void ScribusMainWindow::slotEditPaste()
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
 				currItem->CPos += 1;
 				undoManager->setUndoEnabled(true);
+				//for text undo, select inserted text for saxing it
+				currItem->itemText.select(currItem->oldCPos,currItem->CPos - currItem->oldCPos);
+				currItem->HasSel = true;
+				//if itemTextSaxed is not empty there was selection
+				currItem->updateUndo(currItem->itemTextSaxed.isEmpty() ? PageItem::INSSAX : PageItem::REPSAX,currItem->getItemTextSaxed(PageItem::SELECTION));
 			}
 			else
 			{
@@ -5237,6 +5278,15 @@ void ScribusMainWindow::slotEditPaste()
 				text = text.replace("\r\n", SpecialChars::PARSEP);
 				text = text.replace('\n', SpecialChars::PARSEP);
 				currItem->itemText.insertChars(currItem->CPos, text, true);
+				//for text undo, select inserted text for saxing it
+				currItem->itemText.select(currItem->CPos,text.length());
+				currItem->HasSel = true;
+				//if itemTextSaxed is not empty there was selection
+				if (currItem->itemTextSaxed.isEmpty())
+					currItem->updateUndo(PageItem::INS, text);
+				else
+					currItem->updateUndo(PageItem::REPSAX, currItem->getTextSaxed(text));
+
 			}
 			currItem->update();
 		}
@@ -6950,7 +7000,15 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 			}
 		}
 	}
+	//for undo
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (currItem->asTextFrame())
+		currItem->itemTextSaxed = currItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
+	qDebug() << "setNewFont" << currItem->HasSel;
 	doc->itemSelection_SetFont(nf2);
+	if (currItem->asTextFrame())
+		currItem->asTextFrame()->updateUndo(currItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
+
 //	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	view->DrawNew();
 // 	slotDocCh();
@@ -6958,6 +7016,10 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 
 void ScribusMainWindow::setItemFSize(int id)
 {
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (currItem->asTextFrame())
+		currItem->itemTextSaxed = currItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
+
 	int c = id;
 	if (c != -1)
 		doc->itemSelection_SetFontSize(c*10);
@@ -6973,6 +7035,9 @@ void ScribusMainWindow::setItemFSize(int id)
 		}
 		delete dia;
 	}
+	if (currItem->asTextFrame())
+		currItem->asTextFrame()->updateUndo(currItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
+
 	propertiesPalette->setSize(c*10);
 // 	slotDocCh();
 }
@@ -7353,9 +7418,9 @@ void ScribusMainWindow::setNewAlignment(int a)
 	if (HaveDoc)
 	{
 //		doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a));
+		PageItem *currItem = doc->m_Selection->itemAt(0);
 		doc->itemSelection_SetAlignment(a);
 		propertiesPalette->setAli(a);
-		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
 }
@@ -7370,8 +7435,16 @@ void ScribusMainWindow::setNewParStyle(const QString& name)
 			doc->itemSelection_EraseParagraphStyle();
 		}
 		else */
-			doc->itemSelection_SetNamedParagraphStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->asTextFrame())
+		{
+//			currItem->asTextFrame()->ExpandParSel();
+//			currItem->asTextFrame()->lastAction4Paragraph = true;
+			currItem->itemTextSaxed = currItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+		}
+		doc->itemSelection_SetNamedParagraphStyle(name);
+		if (currItem->asTextFrame())
+			currItem->asTextFrame()->updateUndo();
 		setTBvals(currItem);
 	}
 }
@@ -7386,8 +7459,12 @@ void ScribusMainWindow::setNewCharStyle(const QString& name)
 			doc->itemSelection_EraseCharStyle();
 		}
 		else */
-			doc->itemSelection_SetNamedCharStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->asTextFrame())
+			currItem->itemTextSaxed = currItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
+		doc->itemSelection_SetNamedCharStyle(name);
+		if (currItem->asTextFrame())
+			currItem->asTextFrame()->updateUndo(currItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
 		setTBvals(currItem);
 	}
 }
