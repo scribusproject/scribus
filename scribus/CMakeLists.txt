@@ -471,6 +471,7 @@ SET(SCRIBUS_SOURCES
   hnjalloc.c
   hyphen.c
   hyphenator.cpp
+  indexmanager.cpp
   ioapi.c
   KarbonCurveFit.cpp
   langmgr.cpp

@@ -331,7 +331,7 @@ QString About::trTranslationTitle(QString title)
 		result = tr("Previous Translation Contributors:");
 	else
 	{
-		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
+		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trTranslationTitle()" << std::endl;
 		result = title;
 	}
 	return result;
