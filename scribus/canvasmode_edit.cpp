@@ -822,15 +822,6 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 //	m_view->stopDragTimer();
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
-		if (currItem->asTextFrame())
-		{
-			QString rcWord=currItem->itemText.wordAt(currItem->CPos);
-			qDebug()<<rcWord;
-			if (m->modifiers() & Qt::ShiftModifier)
-				m_doc->indexManager()->removeWord(rcWord, currItem->OwnPage);
-			else
-				m_doc->indexManager()->addWord(rcWord, currItem->OwnPage);
-		}
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
