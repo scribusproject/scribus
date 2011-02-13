@@ -92,6 +92,13 @@ localization = {
         'Červen', 'Červenec', 'Srpen', 'Září',
         'Říjen', 'Listopad', 'Prosinec'],
      ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne']],
+# Croatian by daweed
+'Croatian' :
+    [['Siječanj', 'Veljača', 'Ožujak', 'Travanj', 'Svibanj',
+        'Lipanj', 'Srpanj', 'Kolovoz', 'Rujan',
+        'Listopad', 'Studeni', 'Prosinac'],
+     ['Ponedjeljak','Utorak','Srijeda','Četvrtak','Petak','Subota', 'Nedjelja']],
+
 'Dutch' :
     [['Januari', 'Februari', 'Maart', 'April',
       'Mei', 'Juni', 'Juli', 'Augustus', 'September',
