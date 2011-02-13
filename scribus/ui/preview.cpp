@@ -584,6 +584,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 		bool useIC = UseICC->isChecked();
 		if (!doc->HasCMS)
 			useIC = false;
+		if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
+			useIC = false;
 		PrintOptions options;
 		options.pageNumbers.push_back(Seite+1);
 		options.outputSeparations = false;
@@ -649,6 +651,11 @@ int PPreview::RenderPreview(int Seite, int Res)
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
 	}
+	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9) && UseICC->isChecked())
+	{
+		args.append("-sDefaultCMYKProfile="+doc->DocInputCMYKProf.profilePath());
+		args.append("-sOutputICCProfile="+doc->DocPrinterProf.profilePath());
+	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
@@ -688,6 +695,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		doc->getUsedFonts(ReallyUsed);
 		bool useIC = UseICC->isChecked();
 		if (!doc->HasCMS)
+			useIC = false;
+		if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
 			useIC = false;
 		PrintOptions options;
 		options.pageNumbers.push_back(Seite+1);
@@ -736,6 +745,11 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	{
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
+	}
+	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9) && UseICC->isChecked())
+	{
+		args1.append("-sDefaultCMYKProfile="+doc->DocInputCMYKProf.profilePath());
+		args1.append("-sOutputICCProfile="+doc->DocPrinterProf.profilePath());
 	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
