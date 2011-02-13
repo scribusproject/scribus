@@ -696,7 +696,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				m_imageInfoRecord.type = ImageType7;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
-				m_pixelFormat = Format_CMYK_8;
+				m_pixelFormat = Format_YMCK_8;
 			}
 			else
 			{
@@ -774,7 +774,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 			}
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 			m_imageInfoRecord.type = ImageType7;
-			m_pixelFormat = Format_CMYK_8;
+			m_pixelFormat = Format_YMCK_8;
 		}
 		else
 		{
@@ -986,7 +986,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 					}
 				}
 			}
-			m_pixelFormat = Format_CMYK_8;
+			m_pixelFormat = Format_YMCK_8;
 		}
 		if ( cinfo.output_components == 1 )
 		{
@@ -1107,7 +1107,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 					}
 				}
 			}
-			m_pixelFormat = Format_CMYK_8;
+			m_pixelFormat = Format_YMCK_8;
 		}
 		if ( cinfo.output_components == 1 )
 		{
@@ -1250,7 +1250,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 				if (psMode == 4)
 				{
 					m_imageInfoRecord.colorspace = ColorSpaceCMYK;
-					m_pixelFormat = Format_CMYK_8;
+					m_pixelFormat = Format_YMCK_8;
 				}
 				else
 				{
@@ -1503,7 +1503,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
-	m_pixelFormat = Format_CMYK_8;
+	m_pixelFormat = Format_YMCK_8;
 }
 
 void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
@@ -1604,7 +1604,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
-	m_pixelFormat = Format_CMYK_8;
+	m_pixelFormat = Format_YMCK_8;
 }
 
 void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
