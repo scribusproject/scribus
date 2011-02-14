@@ -44,6 +44,7 @@ struct CheckerPrefs
 	bool checkDeviceColorsAndOutputIntend; // unmanaged colors (device colors) must agree with output intend
 	bool checkFontNotEmbedded; // embedded PDF might use fonts without embedding
 	bool checkFontIsOpenType; // embedded PDF might use OpenType font program (only allowed in PDF/X-4 and PDF 1.6)
+	bool checkPartFilledImageFrames;
 };
 
 typedef QMap<QString, CheckerPrefs> CheckerPrefsList;
@@ -93,7 +94,7 @@ struct UIPrefs
 	QStringList RecentDocs; //! List of recent documents
 	QString language; //! Language of the user interface
 	bool useSmallWidgets; //! Use small widgets in the palettes
-	bool useTabs;         //! Use a tabbed MainWidget a la FireFox 
+	bool useTabs;		 //! Use a tabbed MainWidget a la FireFox 
 	bool showStartupDialog; //! Whether to show the startup dialog or not
 	bool showSplashOnStartup; //! Whether to show the splashscreen or not
 	bool stickyTools; //! Whether a user's tool section remains after use or the normal tool is reselected
@@ -226,11 +227,11 @@ struct ItemToolPrefs
 	double calligrapicPenWidth;		//! Width of the calligraphics Brush
 	int calligrapicPenStyle; //! Line style of the calligraphics Brush
 	/* Arc Tool */
-	double arcStartAngle;    //! angle where the arc starts
-	double arcSweepAngle;    //! angle the arc spans
+	double arcStartAngle;	//! angle where the arc starts
+	double arcSweepAngle;	//! angle the arc spans
 	/* Spiral Tool */
-	double spiralStartAngle;    //! angle where the spiral starts
-	double spiralEndAngle;    //! angle where the spiral ends
+	double spiralStartAngle;	//! angle where the spiral starts
+	double spiralEndAngle;	//! angle where the spiral ends
 	double spiralFactor;	//! factor the spiral gets smaller
 };
 
@@ -390,7 +391,7 @@ struct ScripterPrefs
 // Image Cache
 struct ImageCachePrefs
 {
-	bool cacheEnabled;    //!< Enable the image cache
+	bool cacheEnabled;	//!< Enable the image cache
 	int maxCacheSizeMiB;  //!< Maximum total size of image cache in MiB
 	int maxCacheEntries;  //!< Maximum number of cache entries
 	int compressionLevel; //!< Cache image compression level (see QImage)

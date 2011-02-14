@@ -88,8 +88,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>595</width>
-        <height>543</height>
+        <width>597</width>
+        <height>545</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -233,6 +233,13 @@
         <widget class="QCheckBox" name="checkMissingImagesCheckBox">
          <property name="text">
           <string>Check for missing images</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkPartFilledImageFramesCheckBox">
+         <property name="text">
+          <string>Check for part filed image frames</string>
          </property>
         </widget>
        </item>

@@ -1080,6 +1080,7 @@ bool Scribus134Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	checkerSettings.checkOrphans      = attrs.valueAsBool("checkOrphans", true);
 	checkerSettings.checkOverflow     = attrs.valueAsBool("checkOverflow", true);
 	checkerSettings.checkPictures     = attrs.valueAsBool("checkPictures", true);
+	checkerSettings.checkPartFilledImageFrames = attrs.valueAsBool("checkPartFilledImageFrames", false);
 	checkerSettings.checkResolution   = attrs.valueAsBool("checkResolution", true);
 	checkerSettings.checkTransparency = attrs.valueAsBool("checkTransparency", true);
 	checkerSettings.minResolution     = attrs.valueAsDouble("minResolution", 72.0);

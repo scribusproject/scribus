@@ -389,6 +389,7 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 		docu.writeAttribute("checkOrphans", static_cast<int>(itcp.value().checkOrphans));
 		docu.writeAttribute("checkOverflow", static_cast<int>(itcp.value().checkOverflow));
 		docu.writeAttribute("checkPictures", static_cast<int>(itcp.value().checkPictures));
+                docu.writeAttribute("checkPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
 		docu.writeAttribute("checkResolution", static_cast<int>(itcp.value().checkResolution));
 		docu.writeAttribute("checkTransparency", static_cast<int>(itcp.value().checkTransparency));
 		docu.writeAttribute("minResolution",itcp.value().minResolution);

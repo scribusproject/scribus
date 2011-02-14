@@ -483,6 +483,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				checkerSettings.checkOrphans = static_cast<bool>(pg.attribute("checkOrphans", "1").toInt());
 				checkerSettings.checkOverflow = static_cast<bool>(pg.attribute("checkOverflow", "1").toInt());
 				checkerSettings.checkPictures = static_cast<bool>(pg.attribute("checkPictures", "1").toInt());
+				checkerSettings.checkPartFilledImageFrames = static_cast<bool>(pg.attribute("checkPartFilledImageFrames", "0").toInt());
 				checkerSettings.checkResolution = static_cast<bool>(pg.attribute("checkResolution", "1").toInt());
 				checkerSettings.checkTransparency = static_cast<bool>(pg.attribute("checkTransparency", "1").toInt());
 				checkerSettings.minResolution = ScCLocale::toDoubleC(pg.attribute("minResolution"), 72.0);

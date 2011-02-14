@@ -5,17 +5,17 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-	copyright            : (C) 2005 by Craig Bradney
-	email                : cbradney@zip.com.au
+	copyright			: (C) 2005 by Craig Bradney
+	email				: cbradney@zip.com.au
 ***************************************************************************/
 
 /***************************************************************************
-*                                                                         *
+*																		 *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
+*   the Free Software Foundation; either version 2 of the License, or	 *
+*   (at your option) any later version.								   *
+*																		 *
 ***************************************************************************/
 
 #include <QColor>
@@ -119,7 +119,7 @@ void PrefsManager::setup()
 	if (importingFrom12)
 		convert12Preferences();
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
-	//     have conflicts if they dont nuke their settings.
+	//	 have conflicts if they dont nuke their settings.
 	// - Remove for 1.3.0 release: importingFrom12=true;
 	//>>CB
 }
@@ -1573,6 +1573,7 @@ bool PrefsManager::WritePref(QString ho)
 		dcVerifierProfile.setAttribute("CheckOverflow", static_cast<int>(itcp.value().checkOverflow));
 		dcVerifierProfile.setAttribute("CheckPictures", static_cast<int>(itcp.value().checkPictures));
 		dcVerifierProfile.setAttribute("CheckResolution", static_cast<int>(itcp.value().checkResolution));
+        dcVerifierProfile.setAttribute("CheckPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
 		dcVerifierProfile.setAttribute("CheckTransparency", static_cast<int>(itcp.value().checkTransparency));
 		dcVerifierProfile.setAttribute("CheckAnnotations", static_cast<int>(itcp.value().checkAnnotations));
 		dcVerifierProfile.setAttribute("CheckRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
@@ -1897,11 +1898,11 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.docSetupPrefs.margins.Left   = ScCLocale::toDoubleC(dc.attribute("MarginLeft"), 9.0);
 			appPrefs.docSetupPrefs.margins.Right  = ScCLocale::toDoubleC(dc.attribute("MarginRight"), 9.0);
 			appPrefs.docSetupPrefs.marginPreset   = dc.attribute("MarginPreset", "0").toInt();
-			appPrefs.docSetupPrefs.pagePositioning    = dc.attribute("PagePositioning", "0").toInt();
-			appPrefs.docSetupPrefs.AutoSave      = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
+			appPrefs.docSetupPrefs.pagePositioning	= dc.attribute("PagePositioning", "0").toInt();
+			appPrefs.docSetupPrefs.AutoSave	  = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 			appPrefs.docSetupPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
 			appPrefs.docSetupPrefs.saveCompressed = static_cast<bool>(dc.attribute("SaveCompressed", "0").toInt());
-			appPrefs.docSetupPrefs.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
+			appPrefs.docSetupPrefs.bleeds.Top	= ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
 			appPrefs.docSetupPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
 			appPrefs.docSetupPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
 			appPrefs.docSetupPrefs.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0);
@@ -1921,9 +1922,9 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.displayPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
 			appPrefs.displayPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
 			appPrefs.displayPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
-			appPrefs.displayPrefs.scratch.Top    = ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
+			appPrefs.displayPrefs.scratch.Top	= ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
 			appPrefs.displayPrefs.pageGapHorizontal  = ScCLocale::toDoubleC(dc.attribute("PageGapHorizontal"), 0.0);
-			appPrefs.displayPrefs.pageGapVertical    = ScCLocale::toDoubleC(dc.attribute("PageGapVertical"), 40.0);
+			appPrefs.displayPrefs.pageGapVertical	= ScCLocale::toDoubleC(dc.attribute("PageGapVertical"), 40.0);
 			appPrefs.displayPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
 			appPrefs.displayPrefs.paperColor = QColor(dc.attribute("PageColor"));
 			if (dc.hasAttribute("ScratchColor"))
@@ -2050,7 +2051,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.textDistances.Right = ScCLocale::toDoubleC(dc.attribute("TextDistanceRight"), 0.0);
 			appPrefs.itemToolPrefs.shapeLineStyle = dc.attribute("ShapeLineStyle").toInt();
 			appPrefs.itemToolPrefs.lineStyle = dc.attribute("LineStyle").toInt();
-			appPrefs.itemToolPrefs.shapeLineWidth     = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 1.0);
+			appPrefs.itemToolPrefs.shapeLineWidth	 = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 1.0);
 			appPrefs.itemToolPrefs.lineWidth = ScCLocale::toDoubleC(dc.attribute("LineWidth"), 1.0);
 			appPrefs.itemToolPrefs.shapeLineColorShade = dc.attribute("ShapeLineColorShade").toInt();
 			appPrefs.itemToolPrefs.lineColorShade = dc.attribute("LineColorShade").toInt();
@@ -2261,6 +2262,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkOverflow = static_cast<bool>(dc.attribute("CheckOverflow", "1").toInt());
 			checkerSettings.checkPictures = static_cast<bool>(dc.attribute("CheckPictures", "1").toInt());
 			checkerSettings.checkResolution = static_cast<bool>(dc.attribute("CheckResolution", "1").toInt());
+			checkerSettings.checkPartFilledImageFrames = static_cast<bool>(dc.attribute("CheckPartFilledImageFrames", "0").toInt());
 			checkerSettings.checkTransparency = static_cast<bool>(dc.attribute("CheckTransparency", "1").toInt());
 			checkerSettings.minResolution = ScCLocale::toDoubleC(dc.attribute("MinimumResolution"), 144.0);
 			checkerSettings.maxResolution = ScCLocale::toDoubleC(dc.attribute("MaximumResolution"), 4800.0);
@@ -2424,7 +2426,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.pdfPrefs.ImageProf = dc.attribute("ImageProfile", "");
 			appPrefs.pdfPrefs.PrintProf = dc.attribute("PrintProfile", "");
 			appPrefs.pdfPrefs.Info = dc.attribute("InfoString", "");
-			appPrefs.pdfPrefs.bleeds.Top    = ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
+			appPrefs.pdfPrefs.bleeds.Top	= ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
 			appPrefs.pdfPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
 			appPrefs.pdfPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
 			appPrefs.pdfPrefs.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0);
@@ -2569,6 +2571,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkOverflow = true;
 		checkerSettings.checkPictures = true;
 		checkerSettings.checkResolution = true;
+		checkerSettings.checkPartFilledImageFrames = false;
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = false;
 		checkerSettings.checkRasterPDF = true;
@@ -2593,15 +2596,15 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
 		checkerSettings.checkDeviceColorsAndOutputIntend = true;
-		cp->insert( CommonStrings::PDF_X3    , checkerSettings);
+		cp->insert( CommonStrings::PDF_X3	, checkerSettings);
 		checkerSettings.checkNotCMYKOrSpot = true;
 		checkerSettings.checkDeviceColorsAndOutputIntend = false;
-		cp->insert( CommonStrings::PDF_X1a    , checkerSettings);
+		cp->insert( CommonStrings::PDF_X1a	, checkerSettings);
 		checkerSettings.checkNotCMYKOrSpot = false;
 		checkerSettings.checkDeviceColorsAndOutputIntend = true;
 		checkerSettings.checkTransparency = false;
 		checkerSettings.checkFontIsOpenType = false;
-		cp->insert( CommonStrings::PDF_X4    , checkerSettings);
+		cp->insert( CommonStrings::PDF_X4	, checkerSettings);
 	}
 }
 

@@ -5,20 +5,20 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-	begin                : 2005
-	copyright            : (C) 2005 by Franz Schmid
-	email                : Franz.Schmid@altmuehlnet.de
-	copyright            : (C) 2005 by Craig Bradney
-	email                : cbradney@zip.com.au
+	begin				: 2005
+	copyright			: (C) 2005 by Franz Schmid
+	email				: Franz.Schmid@altmuehlnet.de
+	copyright			: (C) 2005 by Craig Bradney
+	email				: cbradney@zip.com.au
 ***************************************************************************/
 
 /***************************************************************************
-*                                                                         *
+*																		 *
 *   ScMW program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
+*   the Free Software Foundation; either version 2 of the License, or	 *
+*   (at your option) any later version.								   *
+*																		 *
 ***************************************************************************/
 
 #include "commonstrings.h"
@@ -36,6 +36,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 
+
+bool isPartFilledImageFrame(PageItem * currItem)
+{
+    //qDebug() << "X" << currItem->width() << currItem->imageXScale() / 72.0 * currItem->pixm.imgInfo.xres * currItem->pixm.width();
+    //qDebug() << "Y" << currItem->height() << currItem->imageYScale() / 72.0 * currItem->pixm.imgInfo.yres * currItem->pixm.height();
+	return (currItem->height() > currItem->imageYScale() / 72.0 * currItem->pixm.imgInfo.yres * currItem->pixm.height()
+			|| currItem->width() > currItem->imageXScale() / 72.0 * currItem->pixm.imgInfo.xres * currItem->pixm.width());
+}
+
+
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
 	QString chstr;
@@ -47,6 +57,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkOverflow = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOverflow;
 	checkerSettings.checkPictures = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkPictures;
 	checkerSettings.checkResolution = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkResolution;
+	checkerSettings.checkPartFilledImageFrames = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkPartFilledImageFrames;
 	checkerSettings.checkTransparency = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkTransparency;
 	checkerSettings.minResolution = currDoc->checkerProfiles()[currDoc->curCheckProfile()].minResolution;
 	checkerSettings.maxResolution = currDoc->checkerProfiles()[currDoc->curCheckProfile()].maxResolution;
@@ -167,6 +178,13 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			if (currItem->asImageFrame())
 	#endif
 			{
+
+				// check image vs. frame sizes
+				if (checkerSettings.checkPartFilledImageFrames && isPartFilledImageFrame(currItem))
+				{
+					itemError.insert(PartFilledImageFrame, 0);
+				}
+
 				if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 					itemError.insert(MissingImage, 0);
 				else
@@ -184,14 +202,6 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					if ((ext == "gif") && (checkerSettings.checkForGIF))
 						itemError.insert(ImageIsGIF, 0);
 
-					//qDebug() << "MASTER: ImageUnderfullsFrame" << currItem->height() << currItem->imageYScale()*currItem->pixm.height() << currItem->width() << currItem->imageXScale()*currItem->pixm.width();
-					// check image vs. frame sizes
-					if (currItem->height() > currItem->imageYScale() * currItem->pixm.height()
-					    || currItem->width() > currItem->imageXScale() * currItem->pixm.width())
-					{
-						itemError.insert(PartFilledImageFrame, 0);
-					}
-	
 					if (extensionIndicatesPDF(ext))
 					{
 						PDFAnalyzer analyst(currItem->Pfile);
@@ -439,6 +449,13 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			if (currItem->asImageFrame())
 	#endif
 			{
+
+				// check image vs. frame sizes
+				if (checkerSettings.checkPartFilledImageFrames && isPartFilledImageFrame(currItem))
+				{
+					itemError.insert(PartFilledImageFrame, 0);
+				}
+
 				if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
 					itemError.insert(MissingImage, 0);
 				else
@@ -455,14 +472,6 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						itemError.insert(PlacedPDF, 0);
 					if ((ext == "gif") && (checkerSettings.checkForGIF))
 						itemError.insert(ImageIsGIF, 0);
-
-					//qDebug() << "REGULAR: ImageUnderfullsFrame" << currItem->height() << currItem->imageYScale()*currItem->pixm.height() << currItem->width() << currItem->imageXScale()*currItem->pixm.width();
-					// check image vs. frame sizes
-					if (currItem->height() > currItem->imageYScale() * currItem->pixm.height()
-					    || currItem->width() > currItem->imageXScale() * currItem->pixm.width())
-					{
-						itemError.insert(PartFilledImageFrame, 0);
-					}
 
 					if (extensionIndicatesPDF(ext))
 					{
