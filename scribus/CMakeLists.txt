@@ -468,8 +468,6 @@ SET(SCRIBUS_SOURCES
   guidesdelegate.cpp
   guidesmodel.cpp
   guidesview.cpp
-  hnjalloc.c
-  hyphen.c
   hyphenator.cpp
   ioapi.c
   KarbonCurveFit.cpp
@@ -794,6 +792,16 @@ SET(SCRIBUS_SOURCES
   ${SCRIBUS_GMAGICK_SRC}
 )
 
+IF(NOT HAVE_HYPHEN)
+  SET(SCRIBUS_SOURCES
+    ${SCRIBUS_SOURCES}
+    hnjalloc.c
+    hyphen.c
+  )
+ENDIF(NOT HAVE_HYPHEN)
+
+
+
 IF(WIN32)
   SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
   SET(SCRIBUS_WIN32_ONLY_SOURCES
@@ -868,6 +876,13 @@ IF(HAVE_PODOFO)
     ${LIBPODOFO_INCLUDE_DIR}
     )
 ENDIF(HAVE_PODOFO)
+
+IF(HAVE_HYPHEN)
+  TARGET_LINK_LIBRARIES(${EXE_NAME}
+    ${HYPHEN_LIBRARY}
+  )
+ENDIF(HAVE_HYPHEN)
+
 
 IF(GESTURE_FRAME_PREVIEW)
    MESSAGE(STATUS "Enable gesture frame preview [experimental]")
