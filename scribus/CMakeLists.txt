@@ -397,10 +397,8 @@ SET(SCRIBUS_SOURCES
   guidesdelegate.cpp
   guidesmodel.cpp
   helpbrowser.cpp
-  hnjalloc.c
   hruler.cpp
   hyask.cpp
-  hyphen.c
   hyphenator.cpp
   hysettings.cpp
   imageinfodialog.cpp
@@ -635,6 +633,14 @@ SET(SCRIBUS_SOURCES
   vruler.cpp
 )
 
+IF(NOT HAVE_HYPHEN)
+  SET(SCRIBUS_SOURCES
+    ${SCRIBUS_SOURCES}
+    hnjalloc.c
+    hyphen.c
+  )
+ENDIF(NOT HAVE_HYPHEN)
+
 IF(WIN32)
   SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
   SET(SCRIBUS_WIN32_ONLY_SOURCES
@@ -799,6 +805,12 @@ IF(HAVE_PODOFO)
     ${LIBPODOFO_LIBRARY}
   )
 ENDIF(HAVE_PODOFO)
+
+IF(HAVE_HYPHEN)
+  TARGET_LINK_LIBRARIES(${EXE_NAME}
+    ${HYPHEN_LIBRARY}
+  )
+ENDIF(HAVE_HYPHEN)
 
 # Now build plugins
 SET(PLUGIN_LIBRARIES

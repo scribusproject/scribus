@@ -466,6 +466,9 @@ SET (QT_MT_REQUIRED TRUE)
 SET (QT_MIN_VERSION "4.6.0")
 IF (WANT_QT4MAC_COCOA)
   SET (QT_MAC_USE_COCOA TRUE)
+ELSE (WANT_QT4MAC_COCOA)
+  SET (HAVE_CARBON 1 CACHE TYPE BOOL)
+  ADD_DEFINITIONS("-DHAVE_CARBON=1")
 ENDIF (WANT_QT4MAC_COCOA)
 IF (WANT_QT3SUPPORT)
   SET (QT_USE_QT3SUPPORT TRUE)
@@ -685,6 +688,16 @@ IF (WITH_PODOFO)
   ENDIF (LIBPODOFO_FOUND)
 ENDIF (WITH_PODOFO)
 #>>PoDoFo for AI PDF import
+
+#<<HYPHEN for system hyphenation library
+FIND_PACKAGE(HYPHEN)
+IF(HYPHEN_FOUND)
+  MESSAGE("system hyphenation library found OK")
+  SET(HAVE_HYPHEN 1)
+ELSE(HYPHEN_FOUND)
+  MESSAGE("system hyphenation library NOT found - will use internal one")
+ENDIF(HYPHEN_FOUND)
+#>>HYPHEN for system hyphenation library
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
