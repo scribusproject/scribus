@@ -1,0 +1,37 @@
+- 0008232: [Build System] use system hyphenation library if available (cbradney) - resolved.
+- 0009731: [Scripter] Added Croatian language to calendarwizard (plinnell) - resolved.
+- 0009726: [PDF] chinese word is auto-replaced by another word in generated PDF (jghali) - resolved.
+- 0009724: [Language Tools] lithuanian "lorem ipsum" for Scribus 1.4 and 1.5 (plinnell) - closed.
+- 0009733: [Undo/Redo] language not changed (cbradney) - closed.
+- 0005211: [Internal] Issues with dereferencing type-punned pointer (fschmid) - closed.
+- 0008452: [General] Ctrl+D should be duplicate object (like inkscape etc.) (cbradney) - closed.
+- 0009691: [Plug-ins] add Czech support for Autoquote (plinnell) - closed.
+- 0009706: [Translation] Revised and complete lithuanian translation + one remark... (plinnell) - closed.
+- 0009642: [Canvas] drag selecting on canvas changes the "active" page (jghali) - closed.
+- 0002163: [User Interface] Drag cursor on canvas doesn't always match up to drag theshold around grab point (cbradney) - closed.
+- 0009643: [Canvas] copy pasting on different pages pastes on the wrong page (ale) - closed.
+- 0006960: [General] Object are placed on the wrong page (plinnell) - closed.
+- 0009585: [Canvas] Horizontal ruler markers misplacement (jghali) - closed.
+- 0009684: [Build System] crash with access violation (jghali) - closed.
+- 0008555: [User Interface] when using spinbox arrows or arrow keys, Ctrl, Shift, etc. do not modify the digit changed (cbradney) - closed.
+- 0005102: [Story Editor / Text Frames] rotating text frame causes text in it to reflow! (cbradney) - closed.
+- 0003468: [Import / Export] Add export all text from .sla into single text file. (ale) - closed.
+- 0009526: [Import / Export] SVG export crashes Scribus 1.3.8. and 1.5.0.svn (fschmid) - closed.
+- 0009650: [General] [PATCH] Correctly record item name change in undo (jghali) - closed.
+- 0009616: [Import / Export] Scribus freezes when importing (Get text) Microsoft Word document into text box (ale) - closed.
+- 0009632: [Usability] Wrong duplicates pages (fschmid) - closed.
+- 0009631: [General] Addition of help buttons on dialogs that link to documentation pages in the Help Browser (cbradney) - closed.
+- 0009520: [General] A more descriptive warning on opening a faulty file (cbradney) - closed.
+- 0001709: [General] Add a Start -up dialog to set preferences and choose files. (plinnell) - closed.
+- 0009552: [Story Editor / Text Frames] StoryText::nrOfParagraph take uint parameter and return int type (cbradney) - closed.
+- 0009539: [Translation] untranstable undo manager items (cbradney) - closed.
+- 0009592: [Story Editor / Text Frames] crash with sequential cutting of text (jghali) - closed.
+- 0009638: [Translation] Updatet translation of Scribus 1.3.3.9 to Norwegian bokmål (plinnell) - closed.
+- 0009609: [Plug-ins] Scribus 1.3.9 plugins error - Cannot find plugin: Cannot load specified object (jghali) - closed.
+- 0001908: [Story Editor / Text Frames] Dead Keys do not work (avox) - closed.
+- 0001686: [Story Editor / Text Frames] Text chaining can consume all cpu (fschmid) - closed.
+- 0003862: [Import / Export] Complex gradients in EPS file from Adobe InDesign crashes import (avox) - closed.
+- 0009567: [General] Crash when creating duplicate layer (jghali) - closed.
+- 0006466: [Import / Export] Hangs, then crashes when importing 1.2Mb eps file (plinnell) - closed.
+- 0009555: [Usability] Width and Height not greyed out for Locked object (jghali) - closed.
+- 0009543: [Undo/Redo] Add horizontal guide displayed as vertical in history (ale) - closed.
