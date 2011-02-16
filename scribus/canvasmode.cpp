@@ -41,6 +41,7 @@
 #ifdef GESTURE_FRAME_PREVIEW
 #include "pageitempreview.h"
 #endif
+#include "pageitem_group.h"
 #include "prefsmanager.h"
 #include "selection.h"
 #include "scpainter.h"
@@ -428,19 +429,54 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 //				currItem->DrawObj(&scp, vr);
 //				p->drawImage(vr, img, img.rect() );
 				
-				p->save();
-				p->setBrush(m_brush["outline"]);
-				p->setPen(m_pen["outline"]);
-				p->translate(currItem->xPos(), currItem->yPos());
-				p->translate(deltax, deltay);
-				if (currItem->rotation() != 0)
+				if (currItem->isGroup())
 				{
-					p->setRenderHint(QPainter::Antialiasing);
-					p->rotate(currItem->rotation());
+					p->save();
+					p->setBrush(m_brush["outline"]);
+					p->setPen(m_pen["outline"]);
+					p->translate(currItem->xPos(), currItem->yPos());
+					p->translate(deltax, deltay);
+					if (currItem->rotation() != 0)
+					{
+						p->setRenderHint(QPainter::Antialiasing);
+						p->rotate(currItem->rotation());
+					}
+					p->scale(scalex, scaley);
+					PageItem_Group* gItem = currItem->asGroupFrame();
+					uint itemCountG = gItem->groupItemList.count();
+					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
+					{
+						for (uint cg = 0; cg < itemCountG; cg++)
+						{
+							p->save();
+							currItem = gItem->groupItemList.at(cg);
+							p->translate(currItem->gXpos, currItem->gYpos);
+							currItem->DrawPolyL(p, currItem->Clip);
+							p->restore();
+						}
+					}
+					else
+					{
+						currItem->DrawPolyL(p, currItem->Clip);
+					}
+					p->restore();
 				}
-				p->scale(scalex, scaley);
-				currItem->DrawPolyL(p, currItem->Clip);
-				p->restore();
+				else
+				{
+					p->save();
+					p->setBrush(m_brush["outline"]);
+					p->setPen(m_pen["outline"]);
+					p->translate(currItem->xPos(), currItem->yPos());
+					p->translate(deltax, deltay);
+					if (currItem->rotation() != 0)
+					{
+						p->setRenderHint(QPainter::Antialiasing);
+						p->rotate(currItem->rotation());
+					}
+					p->scale(scalex, scaley);
+					currItem->DrawPolyL(p, currItem->Clip);
+					p->restore();
+				}
 			}
 		}	
 	}
