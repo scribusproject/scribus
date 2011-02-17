@@ -3640,26 +3640,57 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->DashValues.clear();
 	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
 
-	tmp = "";
-	if (attrs.hasAttribute("NUMPO"))
+	if (currItem->asRegularPolygon())
 	{
-		currItem->PoLine.resize(attrs.valueAsUInt("NUMPO"));
-		tmp = attrs.valueAsString("POCOOR");
-		ScTextStream fp(&tmp, QIODevice::ReadOnly);
-		uint numPo = attrs.valueAsUInt("NUMPO");
-		for (uint cx=0; cx < numPo; ++cx)
-		{
-			fp >> xf;
-			fp >> yf;
-			currItem->PoLine.setPoint(cx, xf, yf);
-		}
+		PageItem_RegularPolygon *regitem = currItem->asRegularPolygon();
+		regitem->polyCorners      = attrs.valueAsInt("POLYC", 4);
+		regitem->polyFactor       = attrs.valueAsDouble("POLYF", 0.5);
+		regitem->polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
+		regitem->polyInnerRot     = attrs.valueAsDouble("POLYIR", 0.0);
+		regitem->polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
+		regitem->polyOuterCurvature    = attrs.valueAsDouble("POLYOCUR", 0.0);
+		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
+		regitem->recalcPath();
+	}
+	else if (currItem->asArc())
+	{
+		PageItem_Arc *arcitem = currItem->asArc();
+		arcitem->arcHeight     = attrs.valueAsDouble("arcHeight", 1.0);
+		arcitem->arcWidth      = attrs.valueAsDouble("arcWidth", 1.0);
+		arcitem->arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
+		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
+		arcitem->recalcPath();
+	}
+	else if (currItem->asSpiral())
+	{
+		PageItem_Spiral *arcitem = currItem->asSpiral();
+		arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
+		arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
+		arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
+		arcitem->recalcPath();
 	}
 	else
 	{
-		currItem->PoLine.resize(0);
-		currItem->PoLine.parseSVG(attrs.valueAsString("path"));
+		tmp = "";
+		if (attrs.hasAttribute("NUMPO"))
+		{
+			currItem->PoLine.resize(attrs.valueAsUInt("NUMPO"));
+			tmp = attrs.valueAsString("POCOOR");
+			ScTextStream fp(&tmp, QIODevice::ReadOnly);
+			uint numPo = attrs.valueAsUInt("NUMPO");
+			for (uint cx=0; cx < numPo; ++cx)
+			{
+				fp >> xf;
+				fp >> yf;
+				currItem->PoLine.setPoint(cx, xf, yf);
+			}
+		}
+		else
+		{
+			currItem->PoLine.resize(0);
+			currItem->PoLine.parseSVG(attrs.valueAsString("path"));
+		}
 	}
-
 	tmp = "";
 	if (attrs.hasAttribute("NUMCO"))
 	{
@@ -3696,32 +3727,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	{
 		currItem->updatePolyClip();
 		currItem->Frame = true;
-	}
-	if (currItem->asRegularPolygon())
-	{
-		PageItem_RegularPolygon *regitem = currItem->asRegularPolygon();
-		regitem->polyCorners      = attrs.valueAsInt("POLYC", 4);
-		regitem->polyFactor       = attrs.valueAsDouble("POLYF", 0.5);
-		regitem->polyRotation     = attrs.valueAsDouble("POLYR", 0.0);
-		regitem->polyInnerRot     = attrs.valueAsDouble("POLYIR", 0.0);
-		regitem->polyCurvature    = attrs.valueAsDouble("POLYCUR", 0.0);
-		regitem->polyOuterCurvature    = attrs.valueAsDouble("POLYOCUR", 0.0);
-		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
-	}
-	if (currItem->asArc())
-	{
-		PageItem_Arc *arcitem = currItem->asArc();
-		arcitem->arcHeight     = attrs.valueAsDouble("arcHeight", 1.0);
-		arcitem->arcWidth      = attrs.valueAsDouble("arcWidth", 1.0);
-		arcitem->arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
-		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
-	}
-	if (currItem->asSpiral())
-	{
-		PageItem_Spiral *arcitem = currItem->asSpiral();
-		arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
-		arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
-		arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
 	}
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;
