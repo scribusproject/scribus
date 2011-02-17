@@ -80,7 +80,7 @@ if scribus.haveDoc():
 	follow_double = u"\u201d"
 	lead_single = u"\u00bb"
 	follow_single = u"\u00ab"
- else:
+    else:
         scribus.messageBox('Language Error', 'You need to choose an available language', icon=0, button1=1)
         sys.exit(2)
         
