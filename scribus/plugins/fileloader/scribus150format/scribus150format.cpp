@@ -2023,7 +2023,15 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
-	newStyle.setParent(attrs.valueAsString("PARENT", ""));
+	
+	QString parentStyle = attrs.valueAsString("PARENT", "");
+	if (!parentStyle.isEmpty())
+	{
+		if (m_Doc->styleExists(parentStyle))
+			newStyle.setParent(parentStyle);
+		else
+			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
+	}
 
 	static const QString LINESPMode("LINESPMode");
 	if (attrs.hasAttribute(LINESPMode))

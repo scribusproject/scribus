@@ -517,7 +517,8 @@ public:
 // 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
 
 	void getNamedResources(ResourceCollection& lists) const;
-	void replaceNamedResources(ResourceCollection& newNames);	
+	void replaceNamedResources(ResourceCollection& newNames);
+	bool styleExists(QString styleName);
 	
 	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
 	/**
