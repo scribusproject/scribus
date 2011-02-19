@@ -727,6 +727,76 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("endArrowIndex"  , item->endArrowIndex());
 }
 
+bool ScriXmlDoc::compareStyles(ParagraphStyle &vg, const ParagraphStyle &vg2)
+{
+	if (vg.alignment() != vg2.alignment())
+		return false;
+	if (vg.lineSpacingMode() != vg2.lineSpacingMode())
+		return false;
+	if (vg.lineSpacing() != vg2.lineSpacing())
+		return false;
+	if (vg.leftMargin() != vg2.leftMargin())
+		return false;
+	if (vg.gapBefore() != vg2.gapBefore())
+		return false;
+	if (vg.charStyle().font().scName() != vg2.charStyle().font().scName())
+		return false;
+	if (vg.charStyle().fontSize() != vg2.charStyle().fontSize())
+		return false;
+	if (vg.hasDropCap() != vg2.hasDropCap())
+		return false;
+	if (vg.dropCapLines() != vg2.dropCapLines())
+		return false;
+	if (vg.dropCapOffset() != vg2.dropCapOffset())
+		return false;
+	if (vg.charStyle().effects() != vg2.charStyle().effects())
+		return false;
+	if (vg.charStyle().fillColor() != vg2.charStyle().fillColor())
+		return false;
+	if (vg.charStyle().fillShade() != vg2.charStyle().fillShade())
+		return false;
+	if (vg.charStyle().strokeColor() != vg2.charStyle().strokeColor())
+		return false;
+	if (vg.charStyle().strokeShade() != vg2.charStyle().strokeShade())
+		return false;
+	if (vg.lineSpacingMode() != vg2.lineSpacingMode())
+		return false;
+	if (vg.charStyle().shadowXOffset() != vg2.charStyle().shadowXOffset())
+		return false;
+	if (vg.charStyle().shadowYOffset() != vg2.charStyle().shadowYOffset())
+		return false;
+	if (vg.charStyle().outlineWidth() != vg2.charStyle().outlineWidth())
+		return false;
+	if (vg.charStyle().underlineOffset() != vg2.charStyle().underlineOffset())
+		return false;
+	if (vg.charStyle().underlineWidth() != vg2.charStyle().underlineWidth())
+		return false;
+	if (vg.charStyle().strikethruOffset() != vg2.charStyle().strikethruOffset())
+		return false;
+	if (vg.charStyle().strikethruWidth() != vg2.charStyle().strikethruWidth())
+		return false;
+	if (vg.charStyle().scaleH() != vg2.charStyle().scaleH())
+		return false;
+	if (vg.charStyle().scaleV() != vg2.charStyle().scaleV())
+		return false;
+	if (vg.charStyle().baselineOffset() != vg2.charStyle().baselineOffset())
+		return false;
+	if (vg.charStyle().tracking() != vg2.charStyle().tracking())
+		return false;
+	if (vg.tabValues().count() != vg2.tabValues().count())
+		return false;
+	for (int a = 0; a < vg.tabValues().count(); ++a)
+	{
+		if (vg.tabValues().at(a).tabType != vg2.tabValues().at(a).tabType)
+			return false;
+		if (vg.tabValues().at(a).tabPosition != vg2.tabValues().at(a).tabPosition)
+			return false;
+		if (vg.tabValues().at(a).tabFillChar != vg2.tabValues().at(a).tabFillChar)
+			return false;
+	}
+	return true;
+}
+
 //CB: Private only now
 void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl)
 {
@@ -832,7 +902,8 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 		if (vg.name() == docParagraphStyles[xx].name())
 		{
 			//Compare the attributes of the pasted styles vs existing ones
-			if (vg.equiv(docParagraphStyles[xx]))
+		//	if (vg.equiv(docParagraphStyles[xx]))
+			if (compareStyles(vg, docParagraphStyles[xx]))
 			{
 				if (fl)
 				{
@@ -853,7 +924,8 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 	{
 		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
-			if (vg.equiv(docParagraphStyles[xx]))
+		//	if (vg.equiv(docParagraphStyles[xx]))
+			if (compareStyles(vg, docParagraphStyles[xx]))
 			{
 				vg.setName(docParagraphStyles[xx].name());
 				fou = true;

@@ -77,6 +77,7 @@ protected:
 
 	void GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
 	void GetItemText (const QXmlStreamAttributes& attrs, StoryText& story, ScribusDoc *doc, LastStyles* last, bool VorLFound, bool impo);
+	bool compareStyles(ParagraphStyle &vg, const ParagraphStyle &vg2);
 	void GetStyle(QXmlStreamReader& reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl);
 
 	void ReadPattern(QXmlStreamReader& reader, ScribusDoc* doc, ScribusView *view, const QString& fileName, int& GrMax, bool styleFound, bool newVersion);
