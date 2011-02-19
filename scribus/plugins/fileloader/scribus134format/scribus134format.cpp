@@ -1979,7 +1979,14 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 		vg.setDefaultStyle(true);
 	else
 		vg.setDefaultStyle(false);
-	vg.setParent(pg.attribute("PARENT", ""));
+	QString parentStyle = pg.attribute("PARENT", "");
+	if (!parentStyle.isEmpty())
+	{
+		if (m_Doc->styleExists(parentStyle))
+			vg.setParent(parentStyle);
+		else
+			vg.setParent(CommonStrings::DefaultParagraphStyle);
+	}
 	if (pg.hasAttribute("LINESPMode"))
 		vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode").toInt()));
 	if (pg.hasAttribute("LINESP"))

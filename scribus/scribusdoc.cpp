@@ -908,6 +908,16 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	}	
 }
 
+bool ScribusDoc::styleExists(QString styleName)
+{
+	for (int ff = 0; ff < paragraphStyles().count(); ++ff)
+	{
+		if (paragraphStyles()[ff].name() == styleName)
+			return true;
+	}
+	return false;
+}
+
 
 void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {
