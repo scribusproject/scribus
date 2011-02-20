@@ -2300,7 +2300,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	{
 		actionManager->connectNewViewActions(tempView);
 		alignDistributePalette->setDoc(tempDoc);
-		docCheckerPalette->clearErrorList();
+//		docCheckerPalette->clearErrorList();
 	}
 	w->setView(tempView);
 	ActWin = w;
@@ -2452,7 +2452,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		if ((HaveDoc) && (doc != ActWin->doc()))
 			outlinePalette->buildReopenVals();
 	}
-	docCheckerPalette->clearErrorList();
+//	docCheckerPalette->clearErrorList();
 
 	if (HaveDoc && (doc != NULL) && doc->hasGUI())
 	{
@@ -2498,8 +2498,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
 	{
-		scanDocument();
-		docCheckerPalette->buildErrorList(doc);
+//		scanDocument();
+//		docCheckerPalette->buildErrorList(doc);
 		SwitchWin();
 		QWidgetList windows = wsp->windowList();
 		ScribusWin* swin;
@@ -3366,11 +3366,11 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
 {
-	if (!doc->isLoading() && docCheckerPalette->isVisible())
-	{
-		scanDocument();
-		docCheckerPalette->buildErrorList(doc);
-	}
+//	if (!doc->isLoading() && docCheckerPalette->isVisible())
+//	{
+//		scanDocument();
+//		docCheckerPalette->buildErrorList(doc);
+//	}
 	if (!doc->isModified())
 		doc->setModified(true);
 	updateActiveWindowCaption(doc->DocName + "*");
@@ -3848,11 +3848,11 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		propertiesPalette->SetLineFormats(doc);
 		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
-		if (!Mpa)
-		{
-			scanDocument();
-			docCheckerPalette->buildErrorList(doc);
-		}
+//		if (!Mpa)
+//		{
+//			scanDocument();
+//			docCheckerPalette->buildErrorList(doc);
+//		}
 		slotDocCh();
 		rebuildLayersList();
 		view->updateLayerMenu();
