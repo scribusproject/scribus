@@ -278,6 +278,7 @@ void StyleManager::slotDelete()
 		applyButton->setEnabled(true);
 		resetButton->setEnabled(true);
 		reloadStyleView(false);
+		slotOk();
 	}
 }
 
@@ -872,10 +873,8 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			if (m_styleActions.contains(key))
 				continue;
 
-			m_styleActions[key] =
-					new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply") ,	shortcutValue, m_doc->view(), 0, 0.0, key);
-			connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
-					this, SLOT(slotApplyStyle(QString)));
+			m_styleActions[key] = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply") ,	shortcutValue, m_doc->view(), 0, 0.0, key);
+			connect(m_styleActions[key], SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 		}
 	}
 }
