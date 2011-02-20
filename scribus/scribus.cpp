@@ -2199,8 +2199,8 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
 	{
-		scanDocument();
-		docCheckerPalette->buildErrorList(doc);
+//		scanDocument();
+//		docCheckerPalette->buildErrorList(doc);
 		SwitchWin();
 		QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 		ScribusWin* swin;
@@ -3178,11 +3178,11 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
 {
-	if (!doc->isLoading() && docCheckerPalette->isVisible())
-	{
-		scanDocument();
-		docCheckerPalette->buildErrorList(doc);
-	}
+//	if (!doc->isLoading() && docCheckerPalette->isVisible())
+//	{
+//		scanDocument();
+//		docCheckerPalette->buildErrorList(doc);
+//	}
 	if (!doc->isModified())
 		doc->setModified(true);
 	updateActiveWindowCaption(doc->DocName + "*");
@@ -3682,11 +3682,11 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles());
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles());
 		symbolPalette->updateSymbolList();
-		if (!Mpa)
-		{
-			scanDocument();
-			docCheckerPalette->buildErrorList(doc);
-		}
+//		if (!Mpa)
+//		{
+//			scanDocument();
+//			docCheckerPalette->buildErrorList(doc);
+//		}
 		slotDocCh();
 		rebuildLayersList();
 		view->updateLayerMenu();
