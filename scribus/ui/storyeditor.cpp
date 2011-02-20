@@ -1761,14 +1761,14 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_st"], "InsertLigature", true);
 
 	seMenuMgr->createMenu("Settings", tr("&Settings"));
-//	seMenuMgr->addMenuItem(seActions["settingsBackground"], "Settings", true);
-//	seMenuMgr->addMenuItem(seActions["settingsDisplayFont"], "Settings", true);
+	seMenuMgr->addMenuItem(seActions["settingsBackground"], "Settings", true);
+	seMenuMgr->addMenuItem(seActions["settingsDisplayFont"], "Settings", true);
 //	seMenuMgr->addMenuItem(seActions["settingsSmartTextSelection"], "Settings", true);
 
 	seMenuMgr->addMenuToMenuBar("File");
 	seMenuMgr->addMenuToMenuBar("Edit");
 	seMenuMgr->addMenuToMenuBar("Insert");
-//	seMenuMgr->addMenuToMenuBar("Settings");
+	seMenuMgr->addMenuToMenuBar("Settings");
 }
 
 void StoryEditor::buildGUI()
