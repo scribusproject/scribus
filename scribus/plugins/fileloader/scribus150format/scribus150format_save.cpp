@@ -66,17 +66,33 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	}
 	QList<QString>::Iterator it;
 	QList<QString> names = lists.styleNames();
-	for (it = names.begin(); it != names.end(); ++it)
+	QList<int> styleList = m_Doc->getSortedStyleList();
+	for (int a = 0; a < styleList.count(); ++a)
 	{
-		putPStyle(writer, m_Doc->paragraphStyles().get(*it), "STYLE");
+		if (names.contains(m_Doc->paragraphStyles()[styleList[a]].name()))
+			putPStyle(writer, m_Doc->paragraphStyles()[styleList[a]], "STYLE");
 	}
+//	for (it = names.begin(); it != names.end(); ++it)
+//	{
+//		putPStyle(writer, m_Doc->paragraphStyles().get(*it), "STYLE");
+//	}
 	names = lists.charStyleNames();
-	for (it = names.begin(); it != names.end(); ++it)
+	styleList = m_Doc->getSortedCharStyleList();
+	for (int a = 0; a < styleList.count(); ++a)
 	{
-		writer.writeStartElement("CHARSTYLE");
-		putNamedCStyle(writer, m_Doc->charStyles().get(*it));
-		writer.writeEndElement();
+		if (names.contains(m_Doc->charStyles()[styleList[a]].name()))
+		{
+			writer.writeStartElement("CHARSTYLE");
+			putNamedCStyle(writer, m_Doc->charStyles()[styleList[a]]);
+			writer.writeEndElement();
+		}
 	}
+//	for (it = names.begin(); it != names.end(); ++it)
+//	{
+//		writer.writeStartElement("CHARSTYLE");
+//		putNamedCStyle(writer, m_Doc->charStyles().get(*it));
+//		writer.writeEndElement();
+//	}
 /*	names = lists.lineStyleNames();
 	for (it = names.begin(); it != names.end(); ++it)
 	{
@@ -548,11 +564,16 @@ void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter &docu)
 
 void Scribus150Format::writePStyles(ScXmlStreamWriter & docu) 
 {
-	//	if (m_Doc->docParagraphStyles.count() > 5)
+	QList<int> styleList = m_Doc->getSortedStyleList();
+	for (int a = 0; a < styleList.count(); ++a)
 	{
-		for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
-			putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
+		putPStyle(docu, m_Doc->paragraphStyles()[styleList[a]], "STYLE");
 	}
+	//	if (m_Doc->docParagraphStyles.count() > 5)
+//	{
+//		for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
+//			putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
+//	}
 }
 
 void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName)
@@ -628,12 +649,19 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 
 void Scribus150Format::writeCStyles(ScXmlStreamWriter & docu) 
 {
-	for (int ff = 0; ff < m_Doc->charStyles().count(); ++ff)
+	QList<int> styleList = m_Doc->getSortedCharStyleList();
+	for (int a = 0; a < styleList.count(); ++a)
 	{
 		docu.writeStartElement("CHARSTYLE");
-		putNamedCStyle(docu, m_Doc->charStyles()[ff]);
+		putNamedCStyle(docu, m_Doc->charStyles()[styleList[a]]);
 		docu.writeEndElement();
 	}
+//	for (int ff = 0; ff < m_Doc->charStyles().count(); ++ff)
+//	{
+//		docu.writeStartElement("CHARSTYLE");
+//		putNamedCStyle(docu, m_Doc->charStyles()[ff]);
+//		docu.writeEndElement();
+//	}
 }
 
 void Scribus150Format::putCStylePT(ScXmlStreamWriter & docu, const CharStyle & style)
