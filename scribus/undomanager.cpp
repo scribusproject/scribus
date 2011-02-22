@@ -507,7 +507,8 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	{
 //		qDebug() << "UndoManager: Action executed:" << target->getUName() << state->getName();
 		state->setUndoObject(target);
-		stacks_[currentDoc_].action(state);
+		if (stacks_[currentDoc_].action(state))
+			emit popBack();
 	}
 	if (targetPixmap)
 		target->setUPixmap(oldIcon);
