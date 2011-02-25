@@ -205,7 +205,11 @@ void StyleManager::setDoc(ScribusDoc *doc)
 
 	// clear the style list and reload from new doc
 	styleView->clear();
-	m_selectedStyleAction = 0;
+	if (m_selectedStyleAction)
+	{
+		m_rightClickPopup->removeAction(m_selectedStyleAction);
+		m_selectedStyleAction = 0;
+	}
 	m_styleActions.clear();
 	for (int i = 0; i < m_items.count(); ++i)
 	{
