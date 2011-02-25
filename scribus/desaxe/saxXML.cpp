@@ -80,8 +80,8 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 		else
 		{
 			QString txt(Xml_data(it));
-			txt.replace("\"", "&quot;");
 			txt.replace("&", "&amp;");
+			txt.replace("\"", "&quot;");
 			txt.replace("<", "&lt;");
 			txt.replace(">", "&gt;"); 
 			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"" << fromXMLString(txt) << "\"";
