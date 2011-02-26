@@ -3645,7 +3645,7 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 		if (lastUndoAction == action && action != REPSAX && action != DELSAX)
 		{
 			ss = (SimpleState*) undoManager->getLastUndoState();
-			if (ss->undoObject() == this)
+			if (ss && ss->undoObject() == this)
 			{
 				if (action == PARAMFULL || action == PARAMSEL)
 				{
