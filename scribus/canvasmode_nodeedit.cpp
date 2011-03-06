@@ -62,7 +62,20 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	p->translate(currItem->xPos(), currItem->yPos());
-	p->rotate(currItem->rotation());			
+	p->rotate(currItem->rotation());
+	if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
+	{
+		if (currItem->imageFlippedH())
+		{
+			p->translate(currItem->width(), 0);
+			p->scale(-1, 1);
+		}
+		if (currItem->imageFlippedV())
+		{
+			p->translate(0, currItem->height());
+			p->scale(1, -1);
+		}
+	}
 	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
 
@@ -671,6 +684,19 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 //	npf2 = FPoint(m->pos() * pm.inverted());
 	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, true);
 	QTransform pm2 = currItem->getTransform();
+	if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
+	{
+		if (currItem->imageFlippedH())
+		{
+			pm2.translate(currItem->width(), 0);
+			pm2.scale(-1, 1);
+		}
+		if (currItem->imageFlippedV())
+		{
+			pm2.translate(0, currItem->height());
+			pm2.scale(1, -1);
+		}
+	}
 	for (int a=0; a < signed(Clip.size()); ++a)
 	{
 		if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
@@ -1236,7 +1262,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	}
 	int newX = m->x();
 	int newY = m->y();
-	FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
+	FPoint np(newX - Mxp, newY - Myp, 0, 0, currItem->rotation(), 1, 1, true);
 	np = np * (1.0 / m_canvas->scale());
 	m_canvas->m_viewMode.operItemMoving = true;
 	currItem = m_doc->m_Selection->itemAt(0);
