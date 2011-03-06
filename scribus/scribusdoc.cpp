@@ -7295,6 +7295,8 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	if (selectedItemCount != 0)
 	{
 		PageItem *currItem;
+		bool userDecide = false;
+		bool userWantClear = true;
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			currItem = itemSelection->itemAt(i);
@@ -7302,20 +7304,25 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			{
 				if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable))
 					ScCore->fileWatcher->removeFile(currItem->Pfile);
+				currItem->clearContents();
 			}
 			else
-			if (currItem->asTextFrame() && ScCore->usingGUI())
+			if (currItem->asTextFrame())
 			{
-				if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
+				if (ScCore->usingGUI() && (! userDecide))
 				{
-					int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
+					if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
+					{
+						int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
 										tr("Do you really want to clear all your text?"),
 										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
-					if (t == QMessageBox::No)
-						continue;
+						userWantClear = (t != QMessageBox::No);
+						userDecide = true;
+					}
 				}
+				if (userWantClear)
+					currItem->clearContents();
 			}
-			currItem->clearContents();
 		}
 		updateFrameItems();
 		regionsChanged()->update(QRectF());
