@@ -1310,7 +1310,9 @@ void StyleManager::loadType(const QString &name)
 			m_widget->removeTab(m_widget->indexOf(m_shortcutWidget));
 	}
 	m_widget = m_item->widget(); // show the widget for the style type
-	insertShortcutPage(m_widget);
+	//<<#8230: Hide the shortcut page as it does not work
+	//insertShortcutPage(m_widget);
+	//>>
 	m_widget->setParent(mainFrame);
 	m_layout->addWidget(m_widget, 0, 0);
 	layout()->activate();
