@@ -1124,6 +1124,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				if (currItem->isGroup())
 				{
 					PageItem_Group* gItem = currItem->asGroupFrame();
+					pp->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
 					uint itemCountG = gItem->groupItemList.count();
 					if (itemCountG < moveWithFullOutlinesThreshold)
 					{
