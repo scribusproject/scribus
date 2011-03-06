@@ -330,7 +330,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("MAJORC",m_Doc->guidesPrefs().majorGridColor.name());
 	docu.writeAttribute("GuideC", m_Doc->guidesPrefs().guideColor.name());
 	docu.writeAttribute("BaseC", m_Doc->guidesPrefs().baselineGridColor.name());
-	docu.writeAttribute("GuideZ", m_Doc->guidesPrefs().guideRad);
+//	docu.writeAttribute("GuideZ", m_Doc->guidesPrefs().guideRad);
 	docu.writeAttribute("BACKG", static_cast<int>(m_Doc->guidesPrefs().guidePlacement));
 	docu.writeAttribute("PAGEC",m_Doc->paperColor().name());
 	docu.writeAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
@@ -405,7 +405,7 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 		docu.writeAttribute("checkOrphans", static_cast<int>(itcp.value().checkOrphans));
 		docu.writeAttribute("checkOverflow", static_cast<int>(itcp.value().checkOverflow));
 		docu.writeAttribute("checkPictures", static_cast<int>(itcp.value().checkPictures));
-                docu.writeAttribute("checkPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
+		docu.writeAttribute("checkPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
 		docu.writeAttribute("checkResolution", static_cast<int>(itcp.value().checkResolution));
 		docu.writeAttribute("checkTransparency", static_cast<int>(itcp.value().checkTransparency));
 		docu.writeAttribute("minResolution",itcp.value().minResolution);
