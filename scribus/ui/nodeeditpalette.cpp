@@ -539,6 +539,7 @@ void NodePalette::ResetContour()
 		currItem->ContourLine = currItem->PoLine.copy();
 		currItem->ClipEdited = true;
 		view->DrawNew();
+		emit DocChanged();
 	}
 }
 
@@ -550,6 +551,7 @@ void NodePalette::ResetContourToImageClip()
 		currItem->ContourLine = currItem->imageClip.copy();
 		currItem->ClipEdited = true;
 		view->DrawNew();
+		emit DocChanged();
 	}
 }
 
@@ -562,6 +564,7 @@ void NodePalette::ResetShapeToImageClip()
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		doc->AdjustItemSize(currItem);
+		doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
 }
@@ -585,6 +588,7 @@ void NodePalette::MovePoint()
 		}
 		doc->nodeEdit.moveClipPoint(currItem, np);
 		doc->AdjustItemSize(currItem);
+		doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
 }
