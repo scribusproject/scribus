@@ -225,7 +225,7 @@ PyObject *scribus_getimgscale(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? Py_BuildValue("(ff)", i->imageXScale(), i->imageYScale()) : NULL;
+	return i != NULL ? Py_BuildValue("(ff)", i->imageXScale() / 72.0 * i->pixm.imgInfo.xres, i->imageYScale() / 72.0 * i->pixm.imgInfo.yres) : NULL;
 }
 
 PyObject *scribus_getimgname(PyObject* /* self */, PyObject* args)
