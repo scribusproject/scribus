@@ -1070,14 +1070,15 @@ protected:
 
 	void restoreType(SimpleState *state, bool isUndo);
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
-	void restoreImageScaleType(SimpleState *state, bool isUndo);
+	void restoreImageScaleMode(SimpleState *state, bool isUndo);
 	void restoreImageScaleChange(SimpleState *state, bool isUndo);
 	void restoreImageOffsetChange(SimpleState *state, bool isUndo);
+	void restoreClearImage(UndoState *state, bool isUndo);
+	void restoreGetImage(UndoState *state, bool isUndo);
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
 	void restoreContourLine(SimpleState *state, bool isUndo);
 	void restoreShapeType(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
-	void restoreGetImage(SimpleState *state, bool isUndo);
 	void restoreGroupsLastItem(SimpleState *state, bool isUndo);
 
 	void restoreShapeContour(UndoState *state, bool isUndo);

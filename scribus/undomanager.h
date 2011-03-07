@@ -589,6 +589,7 @@ public:
 	static QString CopyPage;
 	static QString ToOutlines;
 	static QString EditText;
+	static QString ClearImage;
 	/*@}*/
 
 	/**
