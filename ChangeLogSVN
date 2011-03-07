@@ -1,27 +1,5 @@
-
-======================================
-- 0008230: [Styles] Style hotkeys do not work (cbradney) - closed.
-- 0009745: [Scripter] [patch] the return value of getImageScale() does not really make sense... (cbradney) - closed.
-- 0009787: [Usability] [PATCH] making Edit/Contents/Clear warning appearing once (cbradney) - closed.
-- 0009778: [Styles] Crash when applying paragraph style (cbradney) - closed.
-- 0009568: [Undo/Redo] [FEATURE SOLVED] undow for text frames (plinnell) - closed.
-- 0003599: [Undo/Redo] Undo: Clear content is not recorded by the undo engine (cbradney) - closed.
-- 0005317: [Graphics / Image Frames] "Fit to frame" for images not redoable (cbradney) - closed.
-- 0009811: [Undo/Redo] [FIX] undo for changing image scaling type, undo for clear contents of image frame and fix undo loading new image (cbradney) - closed.
-- 0008442: [Canvas] ctrl+d should import vector files (ale) - closed.
-- 0009747: [General] cannot open this file (fschmid) - closed.
-- 0009776: [Styles] Duplicated Styles due to Special Characters (jghali) - closed.
-- 0007779: [Styles] Paragraph styles duplicated on copy/paste (fschmid) - closed.
-- 0009760: [Usability] Preflight Verifier nightmare - document check is called twice for each error item selection (fschmid) - closed.
-- 0009765: [Win32] Uninstaller leaves folders in Start Menu > Programs (jghali) - closed.
-- 0009676: [General] "Advanced select all" ignores grouped elements (cbradney) - closed.
-- 0009564: [Undo/Redo] [BUG] Action History holds action steps above maximum lenght (jghali) - closed.
-- 0009751: [Plug-ins] wrong indent in Autoquote.py (plinnell) - closed.
-- 0009549: [Build System] Two plugins do not honor RPATH cmake var (malex) - closed.
-- 0009726: [PDF] chinese word is auto-replaced by another word in generated PDF (jghali) - closed.
-- 0009731: [Scripter] Added Croatian language to calendarwizard (plinnell) - closed.
-=======
 Scribus - 1.4.0.rc2
+- 0009809: [Styles] Crash When Creating New Style (cbradney) - resolved.
 - 0009745: [Scripter] [patch] the return value of getImageScale() does not really make sense... (cbradney) - resolved.
 - 0008230: [Styles] Style hotkeys do not work (cbradney) - resolved.
 - 0009787: [Usability] [PATCH] making Edit/Contents/Clear warning appearing once (cbradney) - closed.
@@ -44,7 +22,6 @@ Scribus - 1.4.0.rc2
 
 Scribus - 1.4.0.rc1
 
->>>>>>> .r16422
 - 0008232: [Build System] use system hyphenation library if available (cbradney) - resolved.
 - 0009731: [Scripter] Added Croatian language to calendarwizard (plinnell) - resolved.
 - 0009726: [PDF] chinese word is auto-replaced by another word in generated PDF (jghali) - resolved.
@@ -82,3 +59,4 @@ Scribus - 1.4.0.rc1
 - 0006466: [Import / Export] Hangs, then crashes when importing 1.2Mb eps file (plinnell) - closed.
 - 0009555: [Usability] Width and Height not greyed out for Locked object (jghali) - closed.
 - 0009543: [Undo/Redo] Add horizontal guide displayed as vertical in history (ale) - closed.
+
