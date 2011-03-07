@@ -3607,13 +3607,10 @@ void PageItem::restoreClearImage(UndoState *state, bool isUndo)
 		setImageFlippedH(is->getBool("CI_FLIPPH"));
 		setImageFlippedV(is->getBool("CI_FLIPPV"));
 		setImageScalingMode(is->getBool("CI_SCALING"),is->getBool("CI_ASPECT"));
-		setImageXOffset(is->getDouble("CI_XOFF"));
-		setImageXScale(is->getDouble("CI_XSCALE"));
-		setImageYOffset(is->getDouble("CI_YOFF"));
-		setImageYScale(is->getDouble("CI_YSCALE"));
+		setImageXYOffset(is->getDouble("CI_XOFF"), is->getDouble("CI_YOFF"));
+		setImageXYScale(is->getDouble("CI_XSCALE"), is->getDouble("CI_YSCALE"));
 		setFillTransparency(is->getDouble("CI_FILLT"));
 		setLineTransparency(is->getDouble("CI_LINET"));
-
 		select();
 		m_Doc->updatePic();
 	}
