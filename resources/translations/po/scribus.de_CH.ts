@@ -31401,11 +31401,6 @@ diese zu finden und zu korrigieren</translation>
         <translation>Einige Farbprofile, die in diesem Dokument verwendet werden, sind nicht installiert:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7813"/>
-        <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/scribus.cpp" line="8068"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle Dateien (*)</translation>
@@ -31445,6 +31440,11 @@ diese zu finden und zu korrigieren</translation>
         <location filename="../../../scribus/scribus.cpp" line="3557"/>
         <source>All Supported Formats</source>
         <translation>Alle unterstützten Formate</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>

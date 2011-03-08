@@ -25493,7 +25493,7 @@ Du kan bruke forhåndssjekken for å rette dem.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -21264,6 +21264,11 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/scribus.cpp" line="7818"/>
         <source>Ghostscript is missing</source>
         <translation type="unfinished"></translation>
@@ -21468,11 +21473,6 @@ Rotation: %4</source>
         <location filename="../../../scribus/scribus.cpp" line="7166"/>
         <source>No Style</source>
         <translation type="unfinished">Без стил</translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/scribus.cpp" line="7813"/>
-        <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7966"/>

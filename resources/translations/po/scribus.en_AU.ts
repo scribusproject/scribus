@@ -28524,11 +28524,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Some colour profiles used by this document are not installed:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7813"/>
-        <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/scribus.cpp" line="8068"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;All Files (*)</translation>
@@ -28559,6 +28554,11 @@ Consider using the Preflight Verifier to correct them</translation>
         <location filename="../../../scribus/scribus.cpp" line="3557"/>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>

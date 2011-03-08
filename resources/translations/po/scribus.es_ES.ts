@@ -25944,6 +25944,11 @@ Considere utilizar el Preflight Verifier para corregirlos</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/scribus.cpp" line="7818"/>
         <source>Ghostscript is missing</source>
         <translation type="unfinished"></translation>
@@ -26083,11 +26088,6 @@ Considere utilizar el Preflight Verifier para corregirlos</translation>
         <location filename="../../../scribus/scribus.cpp" line="4092"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Algunos perfiles de color usados en este documento no están instalados:</translation>
-    </message>
-    <message>
-        <location filename="../../../scribus/scribus.cpp" line="7813"/>
-        <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8068"/>

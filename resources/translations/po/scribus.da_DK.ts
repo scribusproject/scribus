@@ -30864,11 +30864,6 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
         <translation>Nogle ICC profiler brugt i dette dokument er ikke installeret:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7813"/>
-        <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../scribus/scribus.cpp" line="8068"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle filer (*)</translation>
@@ -30900,6 +30895,11 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
         <location filename="../../../scribus/scribus.cpp" line="3557"/>
         <source>All Supported Formats</source>
         <translation>Alle understøttede formater</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>

@@ -20039,6 +20039,11 @@ Rotation: %4</source>
         <translation>拉丁语连字 (&amp;t)</translation>
     </message>
     <message>
+        <location filename="../../../scribus/scribus.cpp" line="7813"/>
+        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../../scribus/scribus.cpp" line="9466"/>
         <source>&amp;Alignment</source>
         <translation>对齐 (&amp;A)</translation>
@@ -20225,9 +20230,8 @@ Rotation: %4</source>
         <translation>没有样式</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7813"/>
         <source>Click the Help button read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation>点击帮助按钮阅读与 Scribus 有关的 Ghostscript 帮助和安装信息。</translation>
+        <translation type="obsolete">点击帮助按钮阅读与 Scribus 有关的 Ghostscript 帮助和安装信息。</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7966"/>
