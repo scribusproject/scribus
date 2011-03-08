@@ -3090,7 +3090,11 @@ void PageItem::changeImageOffsetUndoAction()
 
 void PageItem::changeImageScaleUndoAction()
 {
-	if (oldLocalScX == LocalScX && oldLocalScY == LocalScY)
+	//#9817: Hack for this rounding issue caused by conversion to text values. Undo needs fixing.
+	if ((ScCLocale::toDoubleC(ScCLocale::toQStringC(oldLocalScX)) ==
+		ScCLocale::toDoubleC(ScCLocale::toQStringC(LocalScX)))
+		&& (ScCLocale::toDoubleC(ScCLocale::toQStringC(oldLocalScY)) ==
+		ScCLocale::toDoubleC(ScCLocale::toQStringC(LocalScY))))
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -3711,10 +3715,8 @@ void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 			setImageFlippedH(is->getBool("FLIPPH"));
 			setImageFlippedV(is->getBool("FLIPPV"));
 			setImageScalingMode(is->getBool("SCALING"), is->getBool("ASPECT"));
-			setImageXOffset(is->getDouble("XOFF"));
-			setImageXScale(is->getDouble("XSCALE"));
-			setImageYOffset(is->getDouble("YOFF"));
-			setImageYScale(is->getDouble("YSCALE"));
+			setImageXYOffset(is->getDouble("XOFF"), is->getDouble("YOFF"));
+			setImageXYScale(is->getDouble("XSCALE"), is->getDouble("YSCALE"));
 			setFillTransparency(is->getDouble("FILLT"));
 			setLineTransparency(is->getDouble("LINET"));
 		}
