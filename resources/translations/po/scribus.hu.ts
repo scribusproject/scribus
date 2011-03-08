@@ -19972,7 +19972,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7302"/>
         <source>Remove content from frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Keretek tartalmának eltávolítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7320"/>
@@ -20284,7 +20284,7 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3923"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>A fájl sérült, vagy lehet, hogy egy későbbi Scribus verzióval lett készítve.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4879"/>
@@ -20530,7 +20530,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7813"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Súgó gombra való kattintással elérhetőek a Ghostscripttel kapcsolatos információk és telepítési instrukciók.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>
@@ -26401,17 +26401,17 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="967"/>
         <source>Edit text</source>
-        <translation type="unfinished"></translation>
+        <translation>Szöveg szerkesztése</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="968"/>
         <source>Clear image frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Képkeret tartalmának törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="969"/>
         <source>Clear frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Keret tartalmának törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="868"/>
@@ -26731,7 +26731,8 @@ X: %4, Y: %5</translation>
         <location filename="../../../scribus/undogui.cpp" line="532"/>
         <source>%1 - %2
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="309"/>
