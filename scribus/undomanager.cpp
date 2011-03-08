@@ -966,6 +966,7 @@ void UndoManager::languageChange()
 	UndoManager::ToOutlines         = tr("Convert to outlines");
 	UndoManager::EditText		= tr("Edit text");
 	UndoManager::ClearImage		= tr("Clear image frame content");
+	UndoManager::ClearContent	= tr("Clear frame content");
 }
 
 void UndoManager::initIcons()
@@ -1168,6 +1169,7 @@ QString UndoManager::CopyPage           = "";
 QString UndoManager::ToOutlines         = "";
 QString UndoManager::EditText		= "";
 QString UndoManager::ClearImage		= "";
+QString UndoManager::ClearContent	= "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

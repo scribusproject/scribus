@@ -7297,6 +7297,9 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 		PageItem *currItem;
 		bool userDecide = false;
 		bool userWantClear = true;
+		UndoTransaction* activeTransaction = NULL;
+		if (selectedItemCount > 1)
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ClearContent, tr( "Remove content from frames" ), Um::IDelete));
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			currItem = itemSelection->itemAt(i);
@@ -7323,6 +7326,12 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 				if (userWantClear)
 					currItem->clearContents();
 			}
+		}
+		if (activeTransaction)
+		{
+			activeTransaction->commit();
+			delete activeTransaction;
+			activeTransaction = NULL;
 		}
 		updateFrameItems();
 		regionsChanged()->update(QRectF());

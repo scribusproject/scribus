@@ -306,7 +306,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		 * for output settings. I use ugly hack to stop freezing calling help()
 		 * in script. pv. */
 		cm        += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
-		cm        += QString("sys.path[0] = \"%1\"\n").arg(escapedAbsPath);
+		cm        += QString("sys.path.insert(0, \"%1\")\n").arg(escapedAbsPath);
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
 		cm        += QString("sys.stdin = cStringIO.StringIO()\n");

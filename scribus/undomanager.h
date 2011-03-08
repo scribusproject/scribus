@@ -590,6 +590,7 @@ public:
 	static QString ToOutlines;
 	static QString EditText;
 	static QString ClearImage;
+	static QString ClearContent;
 	/*@}*/
 
 	/**
