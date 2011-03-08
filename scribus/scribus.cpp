@@ -7810,7 +7810,7 @@ int ScribusMainWindow::ShowSubs()
 		msg2 += tr("Until this is remedied, you cannot import EPS images or use PostScript Print Preview. ")+"\n";
 #endif
 		//msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
-		msg2 += tr("Click the Help button read Scribus-related Ghostscript help and installation instructions.") + "</qt>";
+		msg2 += tr( "Click the Help button to read Scribus-related Ghostscript help and installation instructions." ) + "</qt>";
 		QMessageBox msgBox;
 		msgBox.addButton(QMessageBox::Ok);
 		msgBox.addButton(QMessageBox::Help);
