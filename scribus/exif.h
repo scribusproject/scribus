@@ -57,6 +57,7 @@ class ExifData
 		QString CameraModel;
 		QString DateTime;
 		int   Orientation;
+		int orientationCount;
 		int   Height, Width;
 		int   ExifImageLength, ExifImageWidth;
 		int   IsColor;

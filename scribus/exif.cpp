@@ -529,7 +529,11 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 				break;
 
 			case TAG_ORIENTATION:
-				Orientation = ( int ) ConvertAnyFormat ( ValuePtr, Format );
+				if (orientationCount == 0)
+				{
+					Orientation = ( int ) ConvertAnyFormat ( ValuePtr, Format );
+					orientationCount++;
+				}
 				break;
 
 			case TAG_DATETIME_ORIGINAL:
@@ -898,6 +902,7 @@ ExifData::ExifData()
 	CompressionLevel = 0;
 	exifDataValid = false;
 	recurseLevel = 0;
+	orientationCount = 0;
 }
 
 //--------------------------------------------------------------------------
@@ -963,9 +968,12 @@ bool ExifData::isThumbnailSane()
 //--------------------------------------------------------------------------
 QImage ExifData::getThumbnail()
 {
-	if ( Thumbnail.isNull() ) return QImage(); // Qt4 NULL->QImage() is it sane?
-	if ( !Orientation || Orientation == 1 ) return Thumbnail;
-
+	if ( Thumbnail.isNull() )
+		return QImage(); // Qt4 NULL->QImage() is it sane?
+	if (orientationCount > 1)
+		return Thumbnail;
+	if ( !Orientation || Orientation == 1 )
+		return Thumbnail;
 	// now fix orientation
 	QTransform M;
 	QTransform flip = QTransform ( -1,0,0,1,0,0 );
