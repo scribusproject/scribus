@@ -276,8 +276,9 @@ void CharSelect::uniSaveButton_clicked()
 		return;
 	if (!f.endsWith(".ucp"))
 		f+=".ucp";
-	if (!overwrite(this, f))
-		return;
+//#9832: Qt does this for us now in getSaveFileName
+//	if (!overwrite(this, f))
+//		return;
 	saveUserContent(f);
 }
 
