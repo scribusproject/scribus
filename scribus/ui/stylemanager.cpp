@@ -1053,7 +1053,8 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 		QMessageBox::information(this, CommonStrings::trWarning,
 		                         tr("This key sequence is already in use"),
 		                         CommonStrings::tr_OK);
-		m_shortcutWidget->setShortcut(m_item->shortcut(sitem->text(NAME_COL)));
+		if (m_shortcutWidget)
+			m_shortcutWidget->setShortcut(m_item->shortcut(sitem->text(NAME_COL)));
 		return;
 	}
 
@@ -1144,16 +1145,22 @@ void StyleManager::slotSetupWidget()
 		{
 			nameEdit->setText( tr("More than one style selected"));
 			nameEdit->setEnabled(false);
-			m_shortcutWidget->setEnabled(false);
-			m_shortcutWidget->setShortcut(QString::null);
+			if (m_shortcutWidget)
+			{
+				m_shortcutWidget->setEnabled(false);
+				m_shortcutWidget->setShortcut(QString::null);
+			}
 		}
 		else
 		{
 			nameEdit->setText(selection.second[0]);
 // 			qDebug() << selection.second[0] << m_item->isDefaultStyle(selection.second[0]);
 			nameEdit->setEnabled(! (m_item->isDefaultStyle(selection.second[0])));
-			m_shortcutWidget->setEnabled(true);
-			m_shortcutWidget->setShortcut(m_item->shortcut(selection.second[0]));
+			if (m_shortcutWidget)
+			{
+				m_shortcutWidget->setEnabled(true);
+				m_shortcutWidget->setShortcut(m_item->shortcut(selection.second[0]));
+			}
 		}
 	}
 	else
