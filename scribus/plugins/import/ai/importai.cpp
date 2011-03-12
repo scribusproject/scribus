@@ -1457,7 +1457,8 @@ void AIPlug::processData(QString data)
 /* Start Object creation commands */
 		else if ((command == "b") || (command == "B") || (command == "f") || (command == "F") || (command == "s") || (command == "S"))
 		{
-			if (Coords.size() > 3)
+			FPoint wh = Coords.WidthHeight();
+			if ((Coords.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 			{
 				if ((!WasU) || ((WasU) && (FirstU)))
 				{
@@ -2774,7 +2775,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	pos += QPointF(baseX, -baseY);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	ite->setWidthHeight(w * m1, h * m4);
+	ite->setWidthHeight(fabs(w * m1), fabs(h * m4));
 	double rotation = getRotationFromMatrix(imgMatrix, 0.0);
 	ite->setRotation(rotation * 180 / M_PI);
 	ite->SetRectFrame();

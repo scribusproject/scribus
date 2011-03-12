@@ -443,10 +443,10 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					}
 					p->scale(scalex, scaley);
 					PageItem_Group* gItem = currItem->asGroupFrame();
-					p->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
 					uint itemCountG = gItem->groupItemList.count();
 					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
 					{
+						p->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
 						for (uint cg = 0; cg < itemCountG; cg++)
 						{
 							p->save();

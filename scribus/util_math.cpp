@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_math.h"
 #include "scconfig.h"
+#include "sclimits.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 
@@ -381,8 +382,8 @@ FPoint getMaxClipF(FPointArray* Clip)
 FPoint getMinClipF(FPointArray* Clip)
 {
 	FPoint np, rp;
-	double mx = 99999;
-	double my = 99999;
+	double mx =  std::numeric_limits<double>::max();
+	double my =  std::numeric_limits<double>::max();
 	uint clipSize=Clip->size();
 	for (uint c = 0; c < clipSize; ++c)
 	{
