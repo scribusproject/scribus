@@ -631,6 +631,7 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
 				currDoc->PDF_Options.ImageProf = tabPDF->ImageP->currentText();
 				currDoc->PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
+				currDoc->PDF_Options.Info      = tabPDF->InfoString->text();
 			}
 		}
 	}

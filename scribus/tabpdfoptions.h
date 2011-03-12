@@ -98,6 +98,7 @@ public:
 	QLineEdit* PassUser;
 	QComboBox* PDFVersionCombo;
 	QComboBox* PrintProfC;
+	QLineEdit* InfoString;
 	QCheckBox* PrintSec;
 	QSpinBox* Resolution;
 	QComboBox* RotateDeg;
@@ -179,7 +180,6 @@ protected:
 	QCheckBox* fitWindow;
 	QCheckBox* hideMenuBar;
 	QCheckBox* hideToolBar;
-	QLineEdit* InfoString;
 	QSpinBox* LPIangle;
 	QSpinBox* LPIfreq;
 	QComboBox* LPIfunc;
