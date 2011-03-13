@@ -1110,19 +1110,6 @@ bool Scribus134Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 
 void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle)
 {
-	static const QString CNAME("CNAME");
-	if (attrs.hasAttribute(CNAME))
-		newStyle.setName(attrs.valueAsString(CNAME));
-
-	// The default style attribute must be correctly set before trying to assign a parent
-	static const QString DEFAULTSTYLE("DefaultStyle");
-	if (newStyle.hasName() && attrs.hasAttribute(DEFAULTSTYLE))
-		newStyle.setDefaultStyle(attrs.valueAsInt(DEFAULTSTYLE));
-	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
-		newStyle.setDefaultStyle(true);
-	else
-		newStyle.setDefaultStyle(false);
-
 	static const QString CPARENT("CPARENT");
 	if (attrs.hasAttribute(CPARENT))
 		newStyle.setParent(attrs.valueAsString(CPARENT));
@@ -1218,6 +1205,24 @@ void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 	static const QString WORDTRACK("wordTrack");
 	if (attrs.hasAttribute(WORDTRACK))
 		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
+}
+
+void Scribus134Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle)
+{
+	static const QString CNAME("CNAME");
+	if (attrs.hasAttribute(CNAME))
+		newStyle.setName(attrs.valueAsString(CNAME));
+
+	// The default style attribute must be correctly set before trying to assign a parent
+	static const QString DEFAULTSTYLE("DefaultStyle");
+	if (newStyle.hasName() && attrs.hasAttribute(DEFAULTSTYLE))
+		newStyle.setDefaultStyle(attrs.valueAsInt(DEFAULTSTYLE));
+	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
+		newStyle.setDefaultStyle(true);
+	else
+		newStyle.setDefaultStyle(false);
+
+	readCharacterStyleAttrs(doc, attrs, newStyle);
 }
 
 void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle, SCFonts &fonts)
@@ -3489,7 +3494,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 		if (tagName == "CHARSTYLE")
 		{
 			cstyle.erase();
-			readCharacterStyleAttrs(doc, attrs, cstyle);
+			readNamedCharacterStyleAttrs(doc, attrs, cstyle);
 			docCharStyles.create(cstyle);
 		}
 	}

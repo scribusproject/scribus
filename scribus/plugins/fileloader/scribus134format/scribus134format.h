@@ -93,6 +93,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
 		bool readColor(ColorList& colors, ScXmlStreamAttributes& attrs);
 		void readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
+		void readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last, bool impo=false, bool VorLFound=false);

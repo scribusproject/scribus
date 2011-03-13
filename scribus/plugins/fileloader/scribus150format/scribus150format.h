@@ -101,6 +101,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		bool readColor(ColorList& colors, ScXmlStreamAttributes& attrs);
 		bool readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader);
 		void readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
+		void readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last);
