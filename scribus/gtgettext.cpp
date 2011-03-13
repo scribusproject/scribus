@@ -62,10 +62,16 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 		// Attempt to determine the importer based on the file's extension. 
 		// Create a Qstring with what could be an extension.
 		QString fend = filename.right(filename.length() - filename.lastIndexOf(".") - 1);
-		// Look for that extension in the importer Qmap. 
+		QString fendL(fend.toLower());
+		// Look for that extension in the importer QMap. 
 		if (importerMap.find(fend) != importerMap.end())
 			// If the map is found, assign ida to the corresponding struct in the map.
 			ida = *importerMap[fend];
+		// Otherwise, test for the lowercase version
+		else
+		if (importerMap.find(fendL) != importerMap.end())
+			// If the map is found, assign ida to the corresponding struct in the map.
+			ida = *importerMap[fendL];
 		// Otherwise, try and ask the user.
 		else
 		{
