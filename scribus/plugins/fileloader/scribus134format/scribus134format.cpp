@@ -1699,17 +1699,9 @@ namespace {
 
 void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle)
 {
-	if (it->hasAttribute("CNAME"))
-		newStyle.setName(it->attribute("CNAME"));
-	// The default style attribute must be correctly set before trying to assign a parent
-	if (newStyle.hasName() && it->hasAttribute("DefaultStyle"))
-		newStyle.setDefaultStyle(it->attribute("DefaultStyle").toInt());
-	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
-		newStyle.setDefaultStyle(true);
-	else
-		newStyle.setDefaultStyle(false);
 	if (it->hasAttribute("CPARENT"))
 		newStyle.setParent(it->attribute("CPARENT"));
+
 	if (it->hasAttribute("FONT"))
 		newStyle.setFont(m_AvailableFonts->findFont(it->attribute("FONT"),doc));
 	
@@ -1778,8 +1770,22 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 
 	if (it->hasAttribute("wordTrack"))
 		newStyle.setWordTracking(ScCLocale::toDoubleC(it->attribute("wordTrack")));
-
 }	
+
+void Scribus134Format::GetNamedCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle)
+{
+	if (it->hasAttribute("CNAME"))
+		newStyle.setName(it->attribute("CNAME"));
+	// The default style attribute must be correctly set before trying to assign a parent
+	if (newStyle.hasName() && it->hasAttribute("DefaultStyle"))
+		newStyle.setDefaultStyle(it->attribute("DefaultStyle").toInt());
+	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
+		newStyle.setDefaultStyle(true);
+	else
+		newStyle.setDefaultStyle(false);
+
+	GetCStyle(it, doc, newStyle);
+}
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
@@ -3552,7 +3558,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 			if(pg.tagName()=="CHARSTYLE")
 			{
 				cstyle.erase();
-				GetCStyle(&pg, doc, cstyle);
+				GetNamedCStyle(&pg, doc, cstyle);
 				docCharStyles.create(cstyle);
 			}
 			PAGE=PAGE.nextSibling();
