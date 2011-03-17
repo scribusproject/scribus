@@ -139,6 +139,7 @@ void KernFeature::makeCoverage()
 			{
 				quint16 GlyphCount ( toUint16 ( Coverage_Offset + 2 ) );
 				quint16 GlyphID ( Coverage_Offset + 4 );
+				if (GlyphCount == 0) continue;
 
 				for ( unsigned int gl ( 0 ); gl < GlyphCount; ++gl )
 				{
@@ -148,6 +149,7 @@ void KernFeature::makeCoverage()
 			else if ( 2 == CoverageFormat ) // Coverage Format2 => ranges based
 			{
 				quint16 RangeCount ( toUint16 ( Coverage_Offset + 2 ) );
+				if (RangeCount == 0) continue;
 
 // 				int gl_base ( 0 );
 				for ( int r ( 0 ); r < RangeCount; ++r )
@@ -156,8 +158,18 @@ void KernFeature::makeCoverage()
 					quint16 Start ( toUint16 ( rBase ) );
 					quint16 End ( toUint16 ( rBase + 2 ) );
 // 					quint16 StartCoverageIndex ( toUint16 ( rBase + 4 ) );
-					for ( unsigned int gl ( Start ); gl <= End; ++gl )
-						coverages[SubTable]  << gl;
+					// #9842 : for some font such as Gabriola Regular
+					// the range maybe be specified in reverse order
+					if (Start <= End)
+					{
+						for ( unsigned int gl ( Start ); gl <= End; ++gl )
+							coverages[SubTable]  << gl;
+					}
+					else
+					{
+						for ( unsigned int gl ( Start ); gl >= End; --gl )
+							coverages[SubTable]  << gl;
+					}
 				}
 			}
 			else
