@@ -345,6 +345,7 @@ void Preferences::updatePreferences()
 
 	prefsManager->appPrefs.AppFontSize = tabGeneral->GFsize->value();
 	prefsManager->appPrefs.PaletteFontSize = tabGeneral->GTFsize->value();
+	qDebug()<<"1) appPrefs.PaletteFontSize="<<prefsManager->appPrefs.PaletteFontSize;
 	ScQApp->neverSplash(!tabGeneral->showSplashCheckBox->isChecked());
 	prefsManager->appPrefs.showStartupDialog = tabGeneral->startUpDialog->isChecked();
 	prefsManager->appPrefs.Wheelval = tabGeneral->wheelJumpSpin->value();

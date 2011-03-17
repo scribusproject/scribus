@@ -108,7 +108,7 @@ void PrefsManager::setup()
 	setupPreferencesLocation();
 
 	importingFrom12=copyOldPreferences();
-	prefsFile = new PrefsFile( prefsLocation + "/prefs135.xml" );
+	prefsFile = new PrefsFile( prefsLocation + "/prefs140.xml" );
 	if (importingFrom12)
 		convert12Preferences();
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
@@ -714,36 +714,36 @@ void PrefsManager::initArrowStyles()
 
 QString PrefsManager::setupPreferencesLocation()
 {
-	QString Pff = QDir::convertSeparators(ScPaths::getApplicationDataDir());
-	QFileInfo Pffi = QFileInfo(Pff);
-	QString PrefsPfad;
+	QString appDataDir(QDir::convertSeparators(ScPaths::getApplicationDataDir()));
+	QFileInfo fiAppDataDir = QFileInfo(appDataDir);
+	QString prefsLoc;
 	//If we are using the ScPaths default prefs location
-	if (Pffi.exists())
+	if (fiAppDataDir.exists())
 	{
-		if (Pffi.isDir())
-			PrefsPfad = Pff;
+		if (fiAppDataDir.isDir())
+			prefsLoc = appDataDir;
 		else
-			PrefsPfad = QDir::homePath();
+			prefsLoc = QDir::homePath();
 	}
 	else // Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	{
 		QDir prefsDirectory = QDir();
-		prefsDirectory.mkdir(Pff);
-		PrefsPfad = Pff;
+		prefsDirectory.mkdir(appDataDir);
+		prefsLoc = appDataDir;
 		QString oldPR = QDir::convertSeparators(QDir::homePath()+"/.scribus.rc");
 		QFileInfo oldPi = QFileInfo(oldPR);
 		if (oldPi.exists())
-			moveFile(oldPR, Pff+"/scribus.rc");
+			moveFile(oldPR, appDataDir+"scribus.rc");
 		QString oldPR2 = QDir::convertSeparators(QDir::homePath()+"/.scribusfont.rc");
 		QFileInfo oldPi2 = QFileInfo(oldPR2);
 		if (oldPi2.exists())
-			moveFile(oldPR2, Pff+"/scribusfont.rc");
+			moveFile(oldPR2, appDataDir+"scribusfont.rc");
 		QString oldPR3 = QDir::convertSeparators(QDir::homePath()+"/.scribusscrap.scs");
 		QFileInfo oldPi3 = QFileInfo(oldPR3);
 		if (oldPi3.exists())
-			moveFile(oldPR3, Pff+"/scrap.scs");
+			moveFile(oldPR3, appDataDir+"scrap.scs");
 	}
-	QString scB = QDir::convertSeparators(Pff+"/scrapbook");
+	QString scB = QDir::convertSeparators(appDataDir+"scrapbook");
 	QFileInfo scBi = QFileInfo(scB);
 	if (!scBi.exists())
 	{
@@ -758,8 +758,8 @@ QString PrefsManager::setupPreferencesLocation()
 		QDir scrapDirectoryT = QDir();
 		scrapDirectoryT.mkdir(QDir::convertSeparators(scB+"/tmp"));
 	}
-	prefsLocation=PrefsPfad;
-	return PrefsPfad;
+	prefsLocation=prefsLoc;
+	return prefsLoc;
 }
 
 const QString PrefsManager::preferencesLocation()
@@ -769,45 +769,50 @@ const QString PrefsManager::preferencesLocation()
 
 bool PrefsManager::copyOldPreferences()
 {
-	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString prefs12[4], prefs130[4], prefs134[4], prefs135[4];
+	//Now make copies for 1.4.0 use and leave the old ones alone for <1.3.0 usage
+	QString prefs12[4], prefs130[4], prefs134[4], prefs135[4], prefs140[4];
 
 	// Special case for scribus.rc - if found, use scribus123.rc,
 	// otherwise fall back to the possibly mis-encoded scribus.rc .
-	prefs12[0]=QDir::convertSeparators(prefsLocation+"/scribus123.rc");
+	prefs12[0]=QDir::convertSeparators(prefsLocation+"scribus123.rc");
 	if (!QFile::exists(prefs12[0]))
-		prefs12[0] = prefsLocation+"/scribus.rc";
+		prefs12[0] = prefsLocation+"scribus.rc";
+	prefs12[1]=QDir::convertSeparators(prefsLocation+"scrap.scs");
+	prefs12[2]=QDir::convertSeparators(prefsLocation+"prefs.xml");
+	prefs12[3]=QDir::convertSeparators(prefsLocation+"scripter.rc");
+	prefs130[0]=QDir::convertSeparators(prefsLocation+"scribus13.rc");
+	prefs130[1]=QDir::convertSeparators(prefsLocation+"scrap13.scs");
+	prefs130[2]=QDir::convertSeparators(prefsLocation+"prefs13.xml");
+	prefs130[3]=QDir::convertSeparators(prefsLocation+"scripter13.rc");
+	prefs134[0]=QDir::convertSeparators(prefsLocation+"scribus134.rc");
+	prefs134[1]=QDir::convertSeparators(prefsLocation+"scrap134.scs");
+	prefs134[2]=QDir::convertSeparators(prefsLocation+"prefs134.xml");
+	prefs134[3]=QDir::convertSeparators(prefsLocation+"scripter134.rc");
+	prefs135[0]=QDir::convertSeparators(prefsLocation+"scribus135.rc");
+	prefs135[1]=QDir::convertSeparators(prefsLocation+"scrap135.scs");
+	prefs135[2]=QDir::convertSeparators(prefsLocation+"prefs135.xml");
+	prefs135[3]=QDir::convertSeparators(prefsLocation+"scripter135.rc");
+	prefs140[0]=QDir::convertSeparators(prefsLocation+"scribus140.rc");
+	prefs140[1]=QDir::convertSeparators(prefsLocation+"scrap140.scs");
+	prefs140[2]=QDir::convertSeparators(prefsLocation+"prefs140.xml");
+	prefs140[3]=QDir::convertSeparators(prefsLocation+"scripter140.rc");
 
-	prefs12[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
-	prefs12[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
-	prefs12[3]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
-	prefs130[0]=QDir::convertSeparators(prefsLocation+"/scribus13.rc");
-	prefs130[1]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
-	prefs130[2]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
-	prefs130[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
-	prefs134[0]=QDir::convertSeparators(prefsLocation+"/scribus134.rc");
-	prefs134[1]=QDir::convertSeparators(prefsLocation+"/scrap134.scs");
-	prefs134[2]=QDir::convertSeparators(prefsLocation+"/prefs134.xml");
-	prefs134[3]=QDir::convertSeparators(prefsLocation+"/scripter134.rc");
-	prefs135[0]=QDir::convertSeparators(prefsLocation+"/scribus135.rc");
-	prefs135[1]=QDir::convertSeparators(prefsLocation+"/scrap135.scs");
-	prefs135[2]=QDir::convertSeparators(prefsLocation+"/prefs135.xml");
-	prefs135[3]=QDir::convertSeparators(prefsLocation+"/scripter135.rc");
-
-	bool existsPrefs12[4], existsPrefs130[4], existsPrefs134[4], existsPrefs135[4];
+	bool existsPrefs12[4], existsPrefs130[4], existsPrefs134[4], existsPrefs135[4], existsPrefs140[4];
 	for (uint i=0;i<4;++i)
 	{
 		existsPrefs12[i]=QFile::exists(prefs12[i]);
 		existsPrefs130[i]=QFile::exists(prefs130[i]);
 		existsPrefs134[i]=QFile::exists(prefs134[i]);
 		existsPrefs135[i]=QFile::exists(prefs135[i]);
+		existsPrefs140[i]=QFile::exists(prefs140[i]);
 	}
 
 	bool retVal=false;
-	if (existsPrefs135[0] && existsPrefs135[2])
+	if (existsPrefs140[0] && existsPrefs140[2])
 		return retVal;
+
 	//Only check for these three as they will be autocreated if they dont exist.
-	if( (existsPrefs12[0] && !existsPrefs130[0] && !existsPrefs134[0]) || (existsPrefs12[2] && !existsPrefs130[2] && !existsPrefs134[2]) )
+	if( (existsPrefs12[0] && !existsPrefs130[0] && !existsPrefs134[0] && !existsPrefs135[0]) || (existsPrefs12[2] && !existsPrefs130[2] && !existsPrefs134[2] && !existsPrefs135[2]) )
 	{
 		retVal=true; // converting from 1.2 prefs
 		if (ScCore->usingGUI())
@@ -822,8 +827,8 @@ bool PrefsManager::copyOldPreferences()
 			{
 				for (uint i=0;i<4;++i)
 				{
-					if (existsPrefs12[i] && !existsPrefs135[i])
-						copyFile(prefs12[i], prefs135[i]);
+					if (existsPrefs12[i] && !existsPrefs140[i])
+						copyFile(prefs12[i], prefs140[i]);
 				}
 			}
 			if (splashShown)
@@ -831,12 +836,21 @@ bool PrefsManager::copyOldPreferences()
 		}
 	}
 	else
+	if(existsPrefs135[0])
+	{
+		for (uint i=0;i<4;++i)
+		{
+			if (existsPrefs135[i] && !existsPrefs140[i])
+				copyFile(prefs135[i], prefs140[i]);
+		}
+	}
+	else
 	if(existsPrefs134[0])
 	{
 		for (uint i=0;i<4;++i)
 		{
-			if (existsPrefs134[i] && !existsPrefs135[i])
-				copyFile(prefs134[i], prefs135[i]);
+			if (existsPrefs134[i] && !existsPrefs140[i])
+				copyFile(prefs134[i], prefs140[i]);
 		}
 	}
 	else
@@ -844,8 +858,8 @@ bool PrefsManager::copyOldPreferences()
 	{
 		for (uint i=0;i<4;++i)
 		{
-			if (existsPrefs130[i] && !existsPrefs135[i])
-				copyFile(prefs130[i], prefs135[i]);
+			if (existsPrefs130[i] && !existsPrefs140[i])
+				copyFile(prefs130[i], prefs140[i]);
 		}
 	}
 	return retVal;
@@ -872,7 +886,7 @@ void PrefsManager::ReadPrefs(const QString & fname)
 {
 	QString realFile;
 	if (fname.isNull())
-		realFile = prefsLocation + "/scribus135.rc";
+		realFile = prefsLocation + "/scribus140.rc";
 	else
 		realFile = fname;
 
@@ -965,7 +979,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())
-		realFile = prefsLocation+"/scribus135.rc";
+		realFile = prefsLocation+"/scribus140.rc";
 	else
 		realFile = fname;
 	if (!WritePref(realFile))
@@ -1223,13 +1237,13 @@ bool PrefsManager::showPageShadow() const
 	return appPrefs.showPageShadow;
 }
 
-bool PrefsManager::WritePref(QString ho)
+bool PrefsManager::WritePref(QString filename)
 {
 	QDomDocument docu("scribusrc");
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("VERSION","1.3.5");
+	elem.setAttribute("VERSION","1.4.0");
 	QDomElement dc=docu.createElement("GUI");
 	dc.setAttribute("STILT",appPrefs.GUI);
 	dc.setAttribute("RAD",appPrefs.Wheelval);
@@ -1696,7 +1710,7 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(liElem);
 	// write file
 	bool result = false;
-	QFile f(ho);
+	QFile f(filename);
 	if(!f.open(QIODevice::WriteOnly))
 	{
 		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
@@ -1711,8 +1725,7 @@ bool PrefsManager::WritePref(QString ho)
 			result = true;
 		else
 			m_lastError = tr("Writing to preferences file \"%1\" failed: "
-				             "QIODevice status code %2")
-				.arg(ho).arg(f.errorString());
+				             "QIODevice status code %2").arg(ho).arg(f.errorString());
 	}
 	if (f.isOpen())
 		f.close();
@@ -1745,14 +1758,14 @@ bool PrefsManager::ReadPref(QString ho)
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
 	//Ignore scribus*.rc files prior to 1.3.5 due to changes
-	bool prefs135FileFound=false;
+	bool prefs135140FileFound=false;
 	if (elem.hasAttribute("VERSION"))
 	{
-		if (elem.attribute("VERSION") == "1.3.5")
-			prefs135FileFound=true;
+		if (elem.attribute("VERSION") == "1.3.5" || elem.attribute("VERSION") == "1.4.0")
+			prefs135140FileFound=true;
 	}
-	firstTimeIgnoreOldPrefs=!prefs135FileFound;
-	if (!prefs135FileFound)
+	firstTimeIgnoreOldPrefs=!prefs135140FileFound;
+	if (!prefs135140FileFound)
 		return false;
 	appPrefs.DColors.clear();
 	appPrefs.latexCommands.clear();
