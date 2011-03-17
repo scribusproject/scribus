@@ -1714,7 +1714,7 @@ bool PrefsManager::WritePref(QString filename)
 	if(!f.open(QIODevice::WriteOnly))
 	{
 		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
-			.arg(ho).arg(qApp->translate("QFile",f.errorString().toLatin1().constData()));
+			.arg(filename).arg(qApp->translate("QFile",f.errorString().toLatin1().constData()));
 	}
 	else
 	{
@@ -1725,7 +1725,7 @@ bool PrefsManager::WritePref(QString filename)
 			result = true;
 		else
 			m_lastError = tr("Writing to preferences file \"%1\" failed: "
-				             "QIODevice status code %2").arg(ho).arg(f.errorString());
+				             "QIODevice status code %2").arg(filename).arg(f.errorString());
 	}
 	if (f.isOpen())
 		f.close();
