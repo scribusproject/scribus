@@ -3925,9 +3925,10 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 		iT.insert(0, itemText);
 	else
 	{
-		int StartOldSel = 0, LenOldSel = 0;
+		int StartOldSel = -1, LenOldSel = -1;
 		if (undoItem == PARAGRAPH)
 		{
+			LenOldSel = 0;
 			if (HasSel)
 			{
 				StartOldSel = itemText.startOfSelection();
@@ -3937,6 +3938,9 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 		}
 		else if (undoItem == CHAR || (undoItem == SELECTION && !HasSel))
 		{
+			LenOldSel = itemText.lengthOfSelection();
+			if (LenOldSel > 0)
+				StartOldSel = itemText.startOfSelection();
 			itemText.select(CPos,1);
 			HasSel = true;
 		}
@@ -3946,6 +3950,11 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 		{
 			itemText.select(StartOldSel, LenOldSel);
 			HasSel = true;
+		}
+		else if (LenOldSel == 0)
+		{
+			itemText.deselectAll();
+			HasSel = false;
 		}
 	}
 	//saxing text

@@ -3677,6 +3677,10 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 		}
 		else
 		{
+			int oldSelStart = -1, oldSelLen = -1;
+			oldSelLen = itemText.lengthOfSelection();
+			if (oldSelLen > 0)
+				oldSelStart = itemText.startOfSelection();
 			if (action == PARAMFULL && m_Doc->appMode == modeEdit)
 			{
 				//action is for paragraph where cursor is
@@ -3692,6 +3696,16 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 			ss->set("STEXT_OLD", itemTextSaxed);
 			itemTextSaxed = getItemTextSaxed((action == PARAMSEL) ? SELECTION : FRAME);
 			ss->set("STEXT_NEW", itemTextSaxed);
+			if (oldSelLen > 0)
+			{
+				itemText.select(oldSelStart, oldSelLen);
+				HasSel = true;
+			}
+			else if (oldSelLen == 0)
+			{
+				itemText.deselectAll();
+				HasSel = false;
+			}
 			if (QString::compare(ss->get("STEXT_OLD"),ss->get("STEXT_NEW")) == 0)
 			{
 				//nothing change - quit without set new Undo step
