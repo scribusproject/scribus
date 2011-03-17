@@ -333,11 +333,11 @@ QString ScPaths::getApplicationDataDir(void)
 #if defined(_WIN32)
 	QString appData = getSpecialDir(CSIDL_APPDATA);
 	if (QDir(appData).exists())
-#ifdef APPLICATION_DATA_DIR
+	#ifdef APPLICATION_DATA_DIR
 		return (appData + "/" + APPLICATION_DATA_DIR + "/");
-#else
+	#else
 		return (appData + "/Scribus/");
-#endif
+	#endif
 #endif
 
 #ifdef APPLICATION_DATA_DIR
