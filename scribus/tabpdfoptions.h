@@ -57,6 +57,9 @@ public:
 
 	void storeValues(PDFOptions& options);
 
+	// Specifically to update doc settings from doc prefs
+	void updateDocumentSettings(ScribusDoc *doc);
+
 	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
 
 	// GUI member pointers

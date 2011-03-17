@@ -1475,6 +1475,118 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	}
 }
 
+// Specifically to update doc settings from doc prefs
+void TabPDFOptions::updateDocumentSettings(ScribusDoc *doc)
+{
+	doc->PDF_Options.Thumbnails = CheckBox1->isChecked();
+	doc->PDF_Options.Compress = Compression->isChecked();
+	doc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) CMethod->currentIndex();
+	doc->PDF_Options.Quality = CQuality->currentIndex();
+	doc->PDF_Options.embedPDF = EmbedPDF->isChecked();
+	doc->PDF_Options.Resolution = Resolution->value();
+	doc->PDF_Options.RecalcPic = DSColor->isChecked();
+	doc->PDF_Options.PicRes = ValC->value();
+	doc->PDF_Options.Bookmarks = CheckBM->isChecked();
+	doc->PDF_Options.Binding = ComboBind->currentIndex();
+	doc->PDF_Options.MirrorH = MirrorH->isChecked();
+	doc->PDF_Options.MirrorV = MirrorV->isChecked();
+	doc->PDF_Options.RotateDeg = RotateDeg->currentIndex() * 90;
+	doc->PDF_Options.Articles = Article->isChecked();
+	doc->PDF_Options.Encrypt = Encry->isChecked();
+	doc->PDF_Options.UseLPI = UseLPI->isChecked();
+	doc->PDF_Options.useLayers = useLayers->isChecked();
+	doc->PDF_Options.UseSpotColors = !useSpot->isChecked();
+	doc->PDF_Options.doMultiFile = false;
+	doc->PDF_Options.cropMarks  = cropMarks->isChecked();
+	doc->PDF_Options.bleedMarks = bleedMarks->isChecked();
+	doc->PDF_Options.registrationMarks = registrationMarks->isChecked();
+	doc->PDF_Options.colorMarks = colorMarks->isChecked();
+	doc->PDF_Options.docInfoMarks = docInfoMarks->isChecked();
+	doc->PDF_Options.markOffset = markOffset->value() / unitRatio;
+	doc->PDF_Options.useDocBleeds = docBleeds->isChecked();
+	doc->PDF_Options.bleeds.Bottom = BleedBottom->value() / doc->unitRatio();
+	doc->PDF_Options.bleeds.Top = BleedTop->value() / doc->unitRatio();
+	doc->PDF_Options.bleeds.Left = BleedLeft->value() / doc->unitRatio();
+	doc->PDF_Options.bleeds.Right = BleedRight->value() / doc->unitRatio();
+	doc->PDF_Options.doClip = ClipMarg->isChecked();
+	/* DISABLED CR 2006-12-07 Work around #2964
+	doc->PDF_Options.displayBookmarks = useBookmarks->isChecked();
+	doc->PDF_Options.displayFullscreen = useFullScreen->isChecked();
+	doc->PDF_Options.displayLayers = useLayers2->isChecked();
+	doc->PDF_Options.displayThumbs = useThumbnails->isChecked();
+	int pgl = PDFOptions::SinglePage;
+	if (singlePage->isChecked())
+		pgl = PDFOptions::SinglePage;
+	else if (continuousPages->isChecked())
+		pgl = PDFOptions::OneColumn;
+	else if (doublePageLeft->isChecked())
+		pgl = PDFOptions::TwoColumnLeft;
+	else if (doublePageRight->isChecked())
+		pgl = PDFOptions::TwoColumnRight;
+	doc->PDF_Options.PageLayout = pgl;
+	*/
+	doc->PDF_Options.openAction = "";
+	if (Encry->isChecked())
+	{
+		int Perm = -64;
+		if (PDFVersionCombo->currentIndex() == 1)
+			Perm &= ~0x00240000;
+		if (PrintSec->isChecked())
+			Perm += 4;
+		if (ModifySec->isChecked())
+			Perm += 8;
+		if (CopySec->isChecked())
+			Perm += 16;
+		if (AddSec->isChecked())
+			Perm += 32;
+		doc->PDF_Options.Permissions = Perm;
+		doc->PDF_Options.PassOwner = PassOwner->text();
+		doc->PDF_Options.PassUser = PassUser->text();
+	}
+	if (PDFVersionCombo->currentIndex() == 0)
+		doc->PDF_Options.Version = PDFOptions::PDFVersion_13;
+	if (PDFVersionCombo->currentIndex() == 1)
+		doc->PDF_Options.Version = PDFOptions::PDFVersion_14;
+	if (PDFVersionCombo->currentIndex() == 2)
+		doc->PDF_Options.Version = PDFOptions::PDFVersion_15;
+	if (PDFVersionCombo->currentIndex() == 3)
+		doc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
+	if (OutCombo->currentIndex() == 0)
+	{
+		doc->PDF_Options.isGrayscale = false;
+		doc->PDF_Options.UseRGB = true;
+		doc->PDF_Options.UseProfiles = false;
+		doc->PDF_Options.UseProfiles2 = false;
+	}
+	else
+	{
+		if (OutCombo->currentIndex() == 3)
+		{
+			doc->PDF_Options.isGrayscale = true;
+			doc->PDF_Options.UseRGB = false;
+			doc->PDF_Options.UseProfiles = false;
+			doc->PDF_Options.UseProfiles2 = false;
+		}
+		else
+		{
+			doc->PDF_Options.isGrayscale = false;
+			doc->PDF_Options.UseRGB = false;
+			if (doc->HasCMS)
+			{
+				doc->PDF_Options.UseProfiles = EmbedProfs->isChecked();
+				doc->PDF_Options.UseProfiles2 = EmbedProfs2->isChecked();
+				doc->PDF_Options.Intent = IntendS->currentIndex();
+				doc->PDF_Options.Intent2 = IntendI->currentIndex();
+				doc->PDF_Options.EmbeddedI = NoEmbedded->isChecked();
+				doc->PDF_Options.SolidProf = SolidPr->currentText();
+				doc->PDF_Options.ImageProf = ImageP->currentText();
+				doc->PDF_Options.PrintProf = PrintProfC->currentText();
+				doc->PDF_Options.Info      = InfoString->text();
+			}
+		}
+	}
+}
+
 void TabPDFOptions::doDocBleeds()
 {
 	if (docBleeds->isChecked())
