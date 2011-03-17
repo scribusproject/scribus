@@ -157,8 +157,18 @@ void KernFeature::makeCoverage()
 					quint16 Start ( toUint16 ( rBase ) );
 					quint16 End ( toUint16 ( rBase + 2 ) );
 // 					quint16 StartCoverageIndex ( toUint16 ( rBase + 4 ) );
-					for ( unsigned int gl ( Start ); gl <= End; ++gl )
-						coverages[SubTable]  << gl;
+					// #9842 : for some font such as Gabriola Regular
+					// the range maybe be specified in reverse order
+					if (Start <= End)
+					{
+						for ( unsigned int gl ( Start ); gl <= End; ++gl )
+							coverages[SubTable]  << gl;
+					}
+					else
+					{
+						for ( unsigned int gl ( Start ); gl >= End; --gl )
+							coverages[SubTable]  << gl;
+					}
 				}
 			}
 			else
