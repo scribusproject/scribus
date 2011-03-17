@@ -3941,7 +3941,7 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 			HasSel = true;
 		}
 		//is SELECTION
-		iT.insert(0, itemText, true);
+		iT.insert(0, itemText, HasSel);
 		if (LenOldSel > 0) //restoring old selection if undoItem was PARAPGRAPH
 		{
 			itemText.select(StartOldSel, LenOldSel);

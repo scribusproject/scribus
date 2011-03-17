@@ -3353,7 +3353,7 @@ void PageItem_TextFrame::ExpandParSel() //expand selection to whole paragrpah(s)
 		LenSel = itemText.endOfParagraph(itemText.nrOfParagraph(CPos)) - StartSel;
 	}
 	itemText.select(StartSel, LenSel);
-	qDebug() << "ExpandParSel" << StartSel << LenSel;
+	HasSel = true;
 }
 
 void PageItem_TextFrame::deselectAll()
