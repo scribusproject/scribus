@@ -43,6 +43,7 @@ FPointArray FPointArray::copy() const
 	tmp << *this;
 	tmp.count = count;
 	tmp.capacity = capacity;
+	tmp.QVector<FPoint>::squeeze();
 	return tmp; 
 }
 
@@ -64,6 +65,22 @@ FPointArray & FPointArray::operator=( const FPointArray &a )
  */
 bool FPointArray::resize(uint newCount)
 {
+	if (newCount == 0)
+	{
+		QVector<FPoint>::resize(0);
+		QVector<FPoint>::squeeze();
+		capacity = newCount;
+		count = newCount;
+		return true;
+	}
+	else
+	{
+		QVector<FPoint>::resize(newCount);
+		capacity = newCount;
+		count = newCount;
+		return true;
+	}
+/*	
 	if (newCount <= capacity) {
 		count = newCount;
 		return true;
@@ -86,7 +103,7 @@ bool FPointArray::resize(uint newCount)
 			return true;
 		}
 	}
-	sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
+	sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount)); */
 	return false;
 }
 

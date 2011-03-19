@@ -58,9 +58,9 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 	if (!fileStdErr.isEmpty())
 		proc.setStandardErrorFile(fileStdErr);
 	proc.start(exename, args);
-	if (proc.waitForStarted(5000))
+	if (proc.waitForStarted(15000))
 	{
-		while (!proc.waitForFinished(5000))
+		while (!proc.waitForFinished(15000))
 		{
 			qApp->processEvents();
 			if (cancel && (*cancel == true))
