@@ -3796,6 +3796,8 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 {
 	if (!isTextFrame())
 		return;
+	itemText.deselectAll();
+	HasSel = false;
 	EditAct action = (EditAct) state->getInt("STEXT");
 	if (action == PARAMFULL || action == PARAMSEL)
 	{
@@ -3821,10 +3823,11 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 			else if (action == PARAMSEL)
 			{
 				itemText.deselectAll();
-				itemText.select(state->getInt("STEXT_SELSTART"),state->getInt("STEXT_SELLEN"));
+				int SelStart = state->getInt("STEXT_SELSTART");
+				itemText.select(SelStart,state->getInt("STEXT_SELLEN"));
 				asTextFrame()->deleteSelectedTextFromFrame();
-				itemText.insert(state->getInt("STEXT_SELSTART"), *story);
-				itemText.select(state->getInt("STEXT_SELSTART"), story->length());
+				itemText.insert(SelStart, *story);
+				itemText.select(SelStart, story->length());
 				HasSel = true;
 			}
 			CPos = itemText.endOfSelection();
@@ -3853,7 +3856,7 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 		dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
 		dig.parseMemory(buffout.toStdString().c_str(), buffout.length());
 		StoryText* story = dig.result<StoryText>();
-		itemText.select(pos,story->length(), true);
+		itemText.select(pos,story->length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 
 		Serializer dig2(*m_Doc);
@@ -3941,6 +3944,8 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 			LenOldSel = itemText.lengthOfSelection();
 			if (LenOldSel > 0)
 				StartOldSel = itemText.startOfSelection();
+			if (CPos >= itemText.length())
+				return  "";
 			itemText.select(CPos,1);
 			HasSel = true;
 		}

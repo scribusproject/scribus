@@ -3640,6 +3640,24 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 {
 	if (UndoManager::undoEnabled() && undoManager->undoEnabled())
 	{
+		int oldSelStart = -1, oldSelLen = -1;
+		oldSelLen = itemText.lengthOfSelection();
+		if (oldSelLen > 0)
+			oldSelStart = itemText.startOfSelection();
+		if (action == PARAMFULL && m_Doc->appMode == modeEdit)
+		{
+			//action is for paragraph where cursor is
+			ExpandParSel();
+			action = PARAMSEL;
+		}
+		if (CPos >= itemText.length() && itemTextSaxed.isEmpty() && action == PARAMFULL && m_Doc->appMode == modeEdit)
+		{ 
+			//case when cursor is after last character without selection and nothing was and will be done
+			//changes will be ignored
+			lastUndoAction = PageItem::NOACTION;
+			restoreTextSelection(oldSelStart, oldSelLen);
+			return;
+		}
 		SimpleState* ss;
 		bool newState = true;  // indicate when new undoState should be created
 		if (lastUndoAction == action && action != REPSAX && action != DELSAX)
@@ -3664,7 +3682,7 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 		if (newState)
 		{
 			ss = new SimpleState(UndoManager::EditText);
-			ss->set("STEXT_CPOS",oldCPos);
+			ss->set("STEXT_CPOS", oldCPos);
 		}
 		if (action == INSSAX || action == INS)
 			ss->set("STEXT_STR",str);
@@ -3677,10 +3695,6 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 		}
 		else
 		{
-			int oldSelStart = -1, oldSelLen = -1;
-			oldSelLen = itemText.lengthOfSelection();
-			if (oldSelLen > 0)
-				oldSelStart = itemText.startOfSelection();
 			if (action == PARAMFULL && m_Doc->appMode == modeEdit)
 			{
 				//action is for paragraph where cursor is
@@ -3691,25 +3705,16 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 			{
 				ss->set("STEXT_CPOS",CPos);
 				ss->set("STEXT_SELSTART", itemText.startOfSelection());
-				ss->set("STEXT_SELLEN", itemText.endOfSelection() - itemText.startOfSelection());
+				ss->set("STEXT_SELLEN", itemText.lengthOfSelection());
 			}
 			ss->set("STEXT_OLD", itemTextSaxed);
 			itemTextSaxed = getItemTextSaxed((action == PARAMSEL) ? SELECTION : FRAME);
 			ss->set("STEXT_NEW", itemTextSaxed);
-			if (oldSelLen > 0)
-			{
-				itemText.select(oldSelStart, oldSelLen);
-				HasSel = true;
-			}
-			else if (oldSelLen == 0)
-			{
-				itemText.deselectAll();
-				HasSel = false;
-			}
 			if (QString::compare(ss->get("STEXT_OLD"),ss->get("STEXT_NEW")) == 0)
 			{
 				//nothing change - quit without set new Undo step
 				itemTextSaxed.clear();
+				restoreTextSelection(oldSelStart, oldSelLen);
 				delete ss;
 				return;
 			}
@@ -3719,5 +3724,16 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 		ss->set("STEXT",(int) action);
 		if (newState)
 			undoManager->action(this, ss);
+		// Restore user selection
+		restoreTextSelection(oldSelStart, oldSelLen);
 	}
+}
+
+void PageItem_TextFrame::restoreTextSelection(int oldSelStart, int oldSelLength)
+{
+	if (oldSelLength > 0)
+		itemText.select(oldSelStart, oldSelLength);
+	else if (oldSelLength == 0)
+		itemText.deselectAll();
+	HasSel = (oldSelLength > 0);
 }

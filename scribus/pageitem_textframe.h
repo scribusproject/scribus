@@ -103,6 +103,7 @@ private:
 	bool cursorBiasBackward;
 
 	void setShadow();
+	void restoreTextSelection(int selStart, int selLength);
 	QString currentShadow;
 	QMap<QString,StoryText> shadows;
 public:
