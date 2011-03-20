@@ -305,25 +305,26 @@ int ColorWheel::valueFromPoint(const QPoint & p) const
 
 bool ColorWheel::recomputeColor(ScColor col)
 {
+	int angle;
 	int origh, origs, origv;
 	ColorMap::iterator it;
 	QColor c(ScColorEngine::getRGBColor(col, currentDoc));
 	QColor act(ScColorEngine::getRGBColor(actualColor, currentDoc));
 
 	c.getHsv(&origh, &origs, &origv);
-	for (it = colorMap.begin(); it != colorMap.end(); ++it)
+	angle = origh + angleShift;
+	if (angle > 359)
+		angle -= 360;
+	if (colorMap.contains(angle))
 	{
 		int tmph, tmps, tmpv;
-		QColor col(ScColorEngine::getRGBColor(it.value(), currentDoc));
+		QColor col(ScColorEngine::getRGBColor(colorMap[angle], currentDoc));
 		col.getHsv(&tmph, &tmps, &tmpv);
-		if (origh == tmph)
-		{
-			act.setHsv(tmph, origs, origv);
-			actualColor.fromQColor(act);
-			actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
-			baseAngle = it.key();
-			return true;
-		}
+		act.setHsv(tmph , origs, origv);
+		actualColor.fromQColor(act);
+		actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
+		baseAngle = angle;
+		return true;
 	}
 	return false;
 }
