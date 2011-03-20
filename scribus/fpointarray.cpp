@@ -56,38 +56,18 @@ FPointArray & FPointArray::operator=( const FPointArray &a )
 	return *this; 
 }
 
-
-/* optimized for speed:
- *   never shrink
- *   when growing, try to double size
- *   if capacity permits, just increase count
- */
 bool FPointArray::resize(uint newCount)
 {
-	if (newCount <= capacity) {
-		count = newCount;
-		return true;
+	if (newCount == 0)
+	{
+		QVector<FPoint>::resize(0);
+		QVector<FPoint>::squeeze();
 	}
-	else if (newCount <= 2*capacity) {
-		QVector<FPoint>::resize(2*capacity);
-		if( static_cast<uint>(QVector<FPoint>::size()) == 2*capacity )
-		{
-			capacity *= 2;
-			count = newCount;
-			return true;
-		}
-	}
-	else {
+	else
 		QVector<FPoint>::resize(newCount);
-		if( static_cast<uint>(QVector<FPoint>::size()) == newCount )
-		{
-			capacity = newCount;
-			count = newCount;
-			return true;
-		}
-	}
-	sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
-	return false;
+	capacity = newCount;
+	count = newCount;
+	return true;
 }
 
 
