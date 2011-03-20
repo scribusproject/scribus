@@ -41,8 +41,6 @@ FPointArray FPointArray::copy() const
 { 
 	FPointArray tmp;
 	tmp << *this;
-	tmp.count = count;
-	tmp.capacity = capacity;
 	tmp.QVector<FPoint>::squeeze();
 	return tmp; 
 }
@@ -51,9 +49,8 @@ FPointArray FPointArray::copy() const
 FPointArray & FPointArray::operator=( const FPointArray &a )
 { 
 	QVector<FPoint>::operator=(a);
-	count = a.count; 
-	capacity = a.capacity;
 	svgState = NULL;
+	QVector<FPoint>::squeeze();
 	return *this; 
 }
 
@@ -69,42 +66,12 @@ bool FPointArray::resize(uint newCount)
 	{
 		QVector<FPoint>::resize(0);
 		QVector<FPoint>::squeeze();
-		capacity = newCount;
-		count = newCount;
-		return true;
 	}
 	else
 	{
 		QVector<FPoint>::resize(newCount);
-		capacity = newCount;
-		count = newCount;
-		return true;
 	}
-/*	
-	if (newCount <= capacity) {
-		count = newCount;
-		return true;
-	}
-	else if (newCount <= 2*capacity) {
-		QVector<FPoint>::resize(2*capacity);
-		if( static_cast<uint>(QVector<FPoint>::size()) == 2*capacity )
-		{
-			capacity *= 2;
-			count = newCount;
-			return true;
-		}
-	}
-	else {
-		QVector<FPoint>::resize(newCount);
-		if( static_cast<uint>(QVector<FPoint>::size()) == newCount )
-		{
-			capacity = newCount;
-			count = newCount;
-			return true;
-		}
-	}
-	sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount)); */
-	return false;
+	return true;
 }
 
 
@@ -131,7 +98,7 @@ bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 bool FPointArray::putPoints( int index, int nPoints, double firstx, double firsty,  ... )
 {
 	va_list ap;
-	if ( index + nPoints > static_cast<int>(count) )
+	if ( index + nPoints > QVector<FPoint>::count())
 	{
 		if ( !FPointArray::resize(index + nPoints) )
 			return false;
@@ -155,7 +122,7 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 
 bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, int fromIndex )
 {
-	if ( index + nPoints > static_cast<int>(count) )
+	if ( index + nPoints > QVector<FPoint>::count() )
 	{	// extend array
 		if ( !FPointArray::resize(index + nPoints) )
 			return false;
@@ -207,7 +174,7 @@ void FPointArray::translate( double dx, double dy )
 {
 	FPoint pt( dx, dy );
 	Iterator pend = begin();
-	pend += count;
+	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
 		if (p->x() < 900000)
@@ -218,7 +185,7 @@ void FPointArray::translate( double dx, double dy )
 void FPointArray::scale( double sx, double sy )
 {
 	Iterator pend = begin();
-	pend += count;
+	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
 		if (p->x() < 900000) {
@@ -230,11 +197,11 @@ void FPointArray::scale( double sx, double sy )
 
 FPoint FPointArray::WidthHeight() const
 {
-	if ( count == 0 )
+	if ( QVector<FPoint>::count() == 0 )
 		return FPoint( 0.0, 0.0 );		// null rectangle
 	ConstIterator pd = begin();
 	ConstIterator pend = begin();
-	pend += count;
+	pend += QVector<FPoint>::count();
 	double minx, maxx, miny, maxy;
 	minx = maxx = pd->xp;
 	miny = maxy = pd->yp;
@@ -268,7 +235,7 @@ void FPointArray::map( QTransform m )
 	const double dy  = m.dy();
 	double mx, my;
 	Iterator pend = begin();
-	pend += count;
+	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
 		if (p->xp > 900000)
@@ -296,20 +263,18 @@ void FPointArray::setMarker()
 
 void FPointArray::addPoint(double x, double y)
 {
-	FPointArray::resize(count+1);
-	setPoint(count-1, x, y);
+	QVector::append(FPoint(x, y));
 }
 
 void FPointArray::addPoint(FPoint p)
 {
-	FPointArray::resize(count+1);
-	setPoint(count-1, p);
+	QVector::append(p);
 }
 
 
 bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) const
 {
-	int i = count-4;
+	int i = QVector<FPoint>::count()-4;
 	if (i < 0)
 		return false;
 	ConstIterator p = begin();
@@ -331,29 +296,18 @@ bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, d
 
 void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
 {
-	const int i = count;
-	FPointArray::resize(count+4);
-	Iterator p = begin();
-	p += i;
-	p->setXY(x1, y1);
-	++p;
-	p->setXY(x2, y2);
-	++p;
-	p->setXY(x3, y3);
-	++p;
-	p->setXY(x4, y4);
+	QVector::append(FPoint(x1, y1));
+	QVector::append(FPoint(x2, y2));
+	QVector::append(FPoint(x3, y3));
+	QVector::append(FPoint(x4, y4));
 }
 
 void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 {
-	const int i = count;
-	FPointArray::resize(count+4);
-	Iterator p = begin();
-	p += i;
-	*p++ = p1;
-	*p++ = p2;
-	*p++ = p3;
-	*p = p4;
+	QVector::append(p1);
+	QVector::append(p2);
+	QVector::append(p3);
+	QVector::append(p4);
 }
 
 double FPointArray::lenPathSeg(int seg) const
@@ -480,22 +434,6 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 		*p = q[ 0 ];
 	delete[]( q );
 	return;
-}
-
-bool FPointArray::operator==(const FPointArray &rhs) const
-{
-	return count == rhs.count && 
-	       capacity == rhs.capacity &&
-	       QVector<FPoint>::operator==(rhs);
-}
-
-bool FPointArray::operator!=(const FPointArray &rhs) const
-{
-	if (count != rhs.count)
-		return true;
-	if (capacity != rhs.capacity)
-		return true;
-	return QVector<FPoint>::operator!=(rhs);
 }
 
 

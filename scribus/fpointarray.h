@@ -39,13 +39,13 @@ for which a new license (GPL+exception) is in place.
 
 struct SVGState;
 
-class SCRIBUS_API FPointArray : private QVector<FPoint>
+class SCRIBUS_API FPointArray : public QVector<FPoint>
 {
 public: 
-	FPointArray() : count(0), capacity(0), svgState(NULL) {};
-	FPointArray(int size) : QVector<FPoint>(size), count(size), capacity(size), svgState(NULL) {};
-	FPointArray(const FPointArray &a) : QVector<FPoint>(a), count(a.count), capacity(a.capacity), svgState(NULL) {};
-	uint size() const { return count; };
+	FPointArray() : svgState(NULL) {};
+	FPointArray(int size) : QVector<FPoint>(size), svgState(NULL) {};
+	FPointArray(const FPointArray &a) : QVector<FPoint>(a), svgState(NULL) {};
+	uint size() const { return static_cast<uint>(QVector<FPoint>::count()); };
 	bool resize(uint newCount);
 	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
 	void setPoint(uint i, FPoint p) {	setPoint(i, p.xp, p.yp); };
@@ -72,8 +72,6 @@ public:
 	double lenPathDist(int seg, double t1, double t2) const;
 	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const;
 	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const;
-	bool operator==(const FPointArray &rhs) const;
-	bool operator!=(const FPointArray &rhs) const;
 	~FPointArray();
 	void svgInit();
 	void svgMoveTo(double x, double y);
@@ -88,8 +86,6 @@ public:
 	QPainterPath toQPainterPath(bool closed);
 	void fromQPainterPath(QPainterPath &path);
 private:
-	uint count;
-	uint capacity;
 	SVGState * svgState;
 };
 
