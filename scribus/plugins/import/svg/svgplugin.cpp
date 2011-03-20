@@ -1185,44 +1185,59 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			double gy = miny;
 			double gw = maxx - minx;
 			double gh = maxy - miny;
-			neu->setXYPos(gx, gy);
-			neu->setWidthHeight(gw, gh);
-			if (clipPath.size() != 0)
+			if (((gx > -9999999) && (gx < 9999999)) && ((gy > -9999999) && (gy < 9999999)) && ((gw > 0) && (gw < 9999999)) && ((gh > 0) && (gh < 9999999)))
 			{
-				QTransform mm = gc->matrix;
-				neu->PoLine = clipPath.copy();
-				neu->PoLine.map(mm);
-				neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
-				clipPath.resize(0);
-
+				neu->setXYPos(gx, gy);
+				neu->setWidthHeight(gw, gh);
+				if (clipPath.size() != 0)
+				{
+					QTransform mm = gc->matrix;
+					neu->PoLine = clipPath.copy();
+					neu->PoLine.map(mm);
+					neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
+					clipPath.resize(0);
+					neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+				}
+				else
+					neu->SetRectFrame();
+				if( !e.attribute("id").isEmpty() )
+					neu->setItemName(e.attribute("id"));
+				else
+					neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+				neu->AutoName = false;
+				neu->setFillTransparency(1 - gc->Opacity);
+				neu->gXpos = neu->xPos() - gx;
+				neu->gYpos = neu->yPos() - gy;
+				neu->groupWidth = gw;
+				neu->groupHeight = gh;
+				for (int gr = 0; gr < gElements.count(); ++gr)
+				{
+					PageItem* currItem = gElements.at(gr);
+					currItem->gXpos = currItem->xPos() - gx;
+					currItem->gYpos = currItem->yPos() - gy;
+					currItem->gWidth = gw;
+					currItem->gHeight = gh;
+					neu->groupItemList.append(currItem);
+					m_Doc->Items->removeAll(currItem);
+				}
+				neu->setRedrawBounding();
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
+				m_Doc->GroupCounter++;
+				m_Doc->renumberItemsInListOrder();
 			}
 			else
-				neu->SetRectFrame();
-			neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
-			if( !e.attribute("id").isEmpty() )
-				neu->setItemName(e.attribute("id"));
-			else
-				neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-			neu->AutoName = false;
-			neu->setFillTransparency(1 - gc->Opacity);
-			neu->gXpos = neu->xPos() - gx;
-			neu->gYpos = neu->yPos() - gy;
-			neu->groupWidth = gw;
-			neu->groupHeight = gh;
-			for (int gr = 0; gr < gElements.count(); ++gr)
 			{
-				PageItem* currItem = gElements.at(gr);
-				currItem->gXpos = currItem->xPos() - gx;
-				currItem->gYpos = currItem->yPos() - gy;
-				currItem->gWidth = gw;
-				currItem->gHeight = gh;
-				neu->groupItemList.append(currItem);
-				m_Doc->Items->removeAll(currItem);
+				// Group is out of valid coordinates, remove it
+				GElements.removeAll(neu);
+				Selection tmpSelection(m_Doc, false);
+				tmpSelection.addItem(neu);
+				for (int gr = 0; gr < gElements.count(); ++gr)
+				{
+					tmpSelection.addItem(gElements.at(gr));
+				}
+				m_Doc->itemSelection_DeleteItem(&tmpSelection);
+				m_Doc->renumberItemsInListOrder();
 			}
-			neu->setRedrawBounding();
-			neu->setTextFlowMode(PageItem::TextFlowDisabled);
-			m_Doc->GroupCounter++;
-			m_Doc->renumberItemsInListOrder();
 		}
 		delete( m_gc.pop() );
 	}
