@@ -3650,7 +3650,7 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 			ExpandParSel();
 			action = PARAMSEL;
 		}
-		if (CPos >= itemText.length() && itemTextSaxed.isEmpty() && action == PARAMFULL && m_Doc->appMode == modeEdit)
+		if (CPos >= itemText.length() && itemTextSaxed.isEmpty() && action == PARAMSEL && m_Doc->appMode == modeEdit)
 		{ 
 			//case when cursor is after last character without selection and nothing was and will be done
 			//changes will be ignored
