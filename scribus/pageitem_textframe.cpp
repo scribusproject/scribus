@@ -3715,7 +3715,8 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 				//nothing change - quit without set new Undo step
 				itemTextSaxed.clear();
 				restoreTextSelection(oldSelStart, oldSelLen);
-				delete ss;
+				if (newState)
+					delete ss;
 				return;
 			}
 		}
