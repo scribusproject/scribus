@@ -263,12 +263,12 @@ void FPointArray::setMarker()
 
 void FPointArray::addPoint(double x, double y)
 {
-	QVector::append(FPoint(x, y));
+	QVector<FPoint>::append(FPoint(x, y));
 }
 
 void FPointArray::addPoint(FPoint p)
 {
-	QVector::append(p);
+	QVector<FPoint>::append(p);
 }
 
 
@@ -296,18 +296,18 @@ bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, d
 
 void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
 {
-	QVector::append(FPoint(x1, y1));
-	QVector::append(FPoint(x2, y2));
-	QVector::append(FPoint(x3, y3));
-	QVector::append(FPoint(x4, y4));
+	QVector<FPoint>::append(FPoint(x1, y1));
+	QVector<FPoint>::append(FPoint(x2, y2));
+	QVector<FPoint>::append(FPoint(x3, y3));
+	QVector<FPoint>::append(FPoint(x4, y4));
 }
 
 void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 {
-	QVector::append(p1);
-	QVector::append(p2);
-	QVector::append(p3);
-	QVector::append(p4);
+	QVector<FPoint>::append(p1);
+	QVector<FPoint>::append(p2);
+	QVector<FPoint>::append(p3);
+	QVector<FPoint>::append(p4);
 }
 
 double FPointArray::lenPathSeg(int seg) const
