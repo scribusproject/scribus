@@ -706,6 +706,28 @@ void SearchReplace::slotDoReplace()
 		if (Doc->scMW()->CurrStED != NULL)
 		{
 			StoryEditor* se=Doc->scMW()->CurrStED;
+			if (RText->isChecked())
+			{
+				disconnect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
+				int SelStart = se->Editor->textCursor().selectionStart();
+				int SelEnd = se->Editor->textCursor().selectionEnd();
+//					se->Editor->insChars(RTextVal->text());
+				se->Editor->textCursor().setPosition(SelStart);
+				se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
+				se->Editor->textCursor().removeSelectedText();
+//FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
+				QString newText = RTextVal->text();
+				se->Editor->insertPlainText(newText);
+				if (newText.length() > 0)
+				{
+					QTextCursor textCursor = se->Editor->textCursor();
+					textCursor.setPosition(SelStart);
+					textCursor.setPosition(SelStart + newText.length(), QTextCursor::KeepAnchor);
+					se->Editor->setTextCursor(textCursor);
+				}
+				connect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
+//				se->newAlign(se->Editor->currentParaStyle);
+			}
 			if (RStyle->isChecked())
 				se->newAlign(RStyleVal->currentIndex());
 			if (RFill->isChecked())
@@ -722,21 +744,6 @@ void SearchReplace::slotDoReplace()
 				se->newTxSize(RSizeVal->value());
 			if (REffect->isChecked())
 				se->newTxStyle(REffVal->getStyle());
-			if (RText->isChecked())
-			{
-				disconnect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
-				int SelStart, SelEnd;
-				SelStart = se->Editor->textCursor().selectionStart();
-				SelEnd = se->Editor->textCursor().selectionEnd();
-//					se->Editor->insChars(RTextVal->text());
-				se->Editor->textCursor().setPosition(SelStart);
-				se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-				se->Editor->textCursor().removeSelectedText();
-//FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
-				se->Editor->insertPlainText(RTextVal->text());
-				connect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
-//				se->newAlign(se->Editor->currentParaStyle);
-			}
 		}
 	}
 	DoReplace->setEnabled(false);
