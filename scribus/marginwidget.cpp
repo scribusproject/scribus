@@ -6,13 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 #include "marginwidget.h"
 
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QToolTip>
 #include <QCheckBox>
+#include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QToolTip>
 
 #include "scrspinbox.h"
 #include "units.h"
