@@ -44,10 +44,14 @@ public:
 	
 	virtual void activate(bool);
 	virtual void deactivate(bool);
+
 	virtual void mouseDoubleClickEvent(QMouseEvent *m);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
+
+	virtual void keyPressEvent(QKeyEvent *e);
+
 	virtual void drawControls(QPainter* p);
 
 // protected:
@@ -70,6 +74,7 @@ private:
 	QTimer* m_blinker;
 	bool m_lastPosWasOverGuide;
 	double mRulerGuide;
+	bool m_longCursorTime;
 
 private slots:
 	void blinkTextCursor();

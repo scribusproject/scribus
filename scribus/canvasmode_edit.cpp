@@ -70,6 +70,7 @@ CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(v
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(rulerPreview(double, double)));
 	mRulerGuide = -1;
+	m_longCursorTime=false;
 }
 
 inline bool CanvasMode_Edit::GetItem(PageItem** pi)
@@ -89,6 +90,36 @@ void CanvasMode_Edit::blinkTextCursor()
 		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
 	}
 }
+
+void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
+{
+	PageItem* currItem;
+	if (GetItem(&currItem))
+	{
+		PageItem_TextFrame* textframe = currItem->asTextFrame();
+		if (textframe)
+		{
+			m_cursorVisible=true;
+			int kk = e->key();
+			switch (kk)
+			{
+				case Qt::Key_PageUp:
+				case Qt::Key_PageDown:
+				case Qt::Key_Up:
+				case Qt::Key_Down:
+				case Qt::Key_Home:
+				case Qt::Key_End:
+					m_longCursorTime=true;
+					break;
+				default:
+					m_longCursorTime=false;
+					break;
+			}
+			blinkTextCursor();
+		}
+	}
+}
+
 
 
 void CanvasMode_Edit::rulerPreview(double base, double xp)
@@ -174,12 +205,16 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 
 void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textframe )
 {
-	if(textframe->lastInFrame() < 0)
-		return;
-	if ( m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2 )
+//	CB: If we have this test in we get no initial cursor placed for a new text frame
+//	if(textframe->lastInFrame() < 0)
+//		return;
+	if ((!m_longCursorTime && m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2 ) ||
+		(m_longCursorTime && m_blinkTime.elapsed() > qApp->cursorFlashTime() )
+		)
 	{
 		m_cursorVisible = !m_cursorVisible;
 		m_blinkTime.restart();
+		m_longCursorTime=false;
 	}
 	if ( m_cursorVisible )
 	{
@@ -369,12 +404,6 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	oldCp = Cp = -1;
 	frameResizeHandle = -1;
 	setModeCursor();
-	if (m_doc->appMode == modeEdit)
-	{
-		m_blinker->start(500);
-		m_blinkTime.start();
-		m_cursorVisible = true;
-	}
 	if (fromGesture)
 	{
 		m_view->update();
@@ -384,7 +413,16 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	if(GetItem(&it))
 	{
 		if (it->asTextFrame())
+		{
 			m_canvas->setupEditHRuler(it, true);
+			if (m_doc->appMode == modeEdit)
+			{
+				m_blinker->start(200);
+				m_blinkTime.start();
+				m_cursorVisible = true;
+				blinkTextCursor();
+			}
+		}
 	}
 }
 
