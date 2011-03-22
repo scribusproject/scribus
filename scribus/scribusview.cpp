@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include <QColor>
+#include <QDir>
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
@@ -46,8 +47,10 @@ for which a new license (GPL+exception) is in place.
 #include <QPaintEvent>
 #include <QPixmap>
 #include <QPolygon>
+#include <QSizeGrip>
 #include <QStack>
 #include <QStringList>
+#include <QUrl>
 #include <QWheelEvent>
 #include <QWidgetAction>
 
@@ -58,10 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
-#include <QUrl>
-#include <QDir>
-#include <QEvent>
-#include <QSizeGrip>
+
 #if QT_VERSION  > 0x030102
 	#define SPLITVC Qt::SplitHCursor
 	#define SPLITHC Qt::SplitVCursor

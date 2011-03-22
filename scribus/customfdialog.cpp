@@ -26,14 +26,12 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFileInfo>
 #include <QFrame>
-#include <QFrame>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QImageReader>
 #include <QLabel>
 #include <QPainter>
 #include <QPixmap>
-#include <QPushButton>
 #include <QPushButton>
 #include <QTextCodec>
 #include <QVBoxLayout>

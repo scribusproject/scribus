@@ -8,10 +8,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <QColorDialog>
 #include <QCursor>
-#include <QSpinBox>
-#include <QToolTip>
 #include <QPixmap>
+#include <QSpinBox>
 #include <QStackedWidget>
+#include <QToolTip>
 
 #include "arrowchooser.h"
 #include "cmsprefs.h"
@@ -44,7 +44,6 @@ for which a new license (GPL+exception) is in place.
 #include "tabtools.h"
 #include "tabtypography.h"
 #include "tocindexprefs.h"
-#include "units.h"
 #include "units.h"
 #include "util_icon.h"
 
