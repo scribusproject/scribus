@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
-#include <QMatrix>
 #include <QList>
+#include <QMatrix>
 #include <QString>
 #include <QStringList>
 #include <QStyleFactory>
@@ -50,7 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
-#include "scribuscore.h"
 #include "ui/modetoolbar.h"
 #include "util_file.h"
 #include "util_ghostscript.h"

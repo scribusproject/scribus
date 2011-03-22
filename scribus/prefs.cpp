@@ -53,7 +53,6 @@ for which a new license (GPL+exception) is in place.
 #include "tocindexprefs.h"
 #include "undomanager.h"
 #include "units.h"
-#include "units.h"
 #include "util_icon.h"
 
 using namespace std;

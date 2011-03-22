@@ -7,6 +7,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribus134format.h"
 #include "scribus134formatimpl.h"
 
+#include <QApplication>
+#include <QByteArray>
+#include <QCursor>
+#include <QFileInfo>
+#include <QList>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
@@ -15,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scclocale.h"
 #include "scconfig.h"
+#include "scgzfile.h"
 #include "scpattern.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -22,20 +29,10 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scribuscore.h"
 #include "undomanager.h"
-
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
 #include "util_color.h"
-#include "scgzfile.h"
-#include "scpattern.h"
-#include <QCursor>
-// #include <QDebug>
-#include <QFileInfo>
-#include <QList>
-#include <QByteArray>
-#include <QApplication>
-
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
