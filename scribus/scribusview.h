@@ -134,7 +134,8 @@ public:
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const Doc;
 	Canvas * const m_canvas;
-	CanvasMode* m_canvasMode; // might be a CanvasGesture
+	CanvasMode* m_canvasMode; // might be a CanvasGesture FIXME make private
+	CanvasMode* canvasMode();
 	QMap<int,CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
@@ -512,6 +513,11 @@ inline void ScribusView::resetDragTimer()
 inline bool ScribusView::dragTimerElapsed()
 {
 	return m_dragTimerFired;
+}
+
+inline CanvasMode* ScribusView::canvasMode()
+{
+	return m_canvasMode;
 }
 
 #endif

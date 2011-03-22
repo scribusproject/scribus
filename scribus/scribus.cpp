@@ -1871,6 +1871,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				if (currItem->itemType() == PageItem::TextFrame)
 				{
 					bool kr=keyrep;
+					view->canvasMode()->keyPressEvent(k); //Hack for 1.4.x for stopping the cursor blinking while moving about.
 					currItem->handleModeEditKey(k, keyrep);
 					keyrep=kr;
 				}
