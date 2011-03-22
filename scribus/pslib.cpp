@@ -23,15 +23,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "pslib.h"
 
+#include <cstdlib>
+
 #include <QFileInfo>
 #include <QImage>
 #include <QColor>
-//#include <QDebug>
 #include <QFontInfo>
 #include <QList>
 #include <QByteArray>
-#include <QList>
-#include <cstdlib>
 #include <QRegExp>
 #include <QBuffer>
 #include <QStack>

@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "scribusapi.h"
-#include <QToolTip>
 #include "util_icon.h"
 
 SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)

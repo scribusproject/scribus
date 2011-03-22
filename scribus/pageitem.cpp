@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 #include "canvas.h"
-#include "scpaths.h"
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "commonstrings.h"

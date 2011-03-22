@@ -60,7 +60,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QUrl>
 #include <QDir>
-#include <QEvent>
 #include <QSizeGrip>
 #if QT_VERSION  > 0x030102
 	#define SPLITVC Qt::SplitHCursor
