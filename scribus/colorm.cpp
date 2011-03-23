@@ -307,13 +307,13 @@ void ColorManager::loadDefaults(const QString &txt)
 			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+"swatches/"+Fname);
 		}
 	}
-	QFileInfo fi(pfadC2);
-	if (fi.absolutePath() == ScPaths::getApplicationDataDir()+"swatches/locked")
-		paletteLocked = true;
-	else
-		paletteLocked = !fi.isWritable();
 	if (txt != "Scribus Small")
 	{
+		QFileInfo fi(pfadC2);
+		if (fi.absolutePath() == ScPaths::getApplicationDataDir()+"swatches/locked")
+			paletteLocked = true;
+		else
+			paletteLocked = !fi.isWritable();
 		if (importColorsFromFile(pfadC2, EditColors))
 		{
 			EditColors.ensureDefaultColors();
