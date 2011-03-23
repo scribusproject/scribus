@@ -4505,13 +4505,13 @@ void PageItem::SetFrameRound()
 	if (RadRect > 0)
 	{
 		PoLine.addQuadPoint(rr, 0, rr, 0, Width_rr, 0, Width_rr, 0);
-		PoLine.addQuadPoint(Width_rr, 0, Width_rr+rrxBezierFactor, 0, Width, rr, Width, rrxBezierFactor);
+		PoLine.addQuadPoint(Width_rr, 0, Width_rr+rrxBezierFactor, 0, Width, rr, Width, rr-rrxBezierFactor);
 		PoLine.addQuadPoint(Width, rr, Width, rr, Width, Height_rr, Width, Height_rr);
 		PoLine.addQuadPoint(Width, Height_rr, Width, Height_rr+rrxBezierFactor, Width_rr, Height, Width_rr+rrxBezierFactor, Height);
 		PoLine.addQuadPoint(Width_rr, Height, Width_rr, Height, rr, Height, rr, Height);
-		PoLine.addQuadPoint(rr, Height, rrxBezierFactor, Height, 0, Height_rr, 0, Height_rr+rrxBezierFactor);
+		PoLine.addQuadPoint(rr, Height, rr-rrxBezierFactor, Height, 0, Height_rr, 0, Height_rr+rrxBezierFactor);
 		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
-		PoLine.addQuadPoint(0, rr, 0, rrxBezierFactor, rr, 0, rr*bezierFactor, 0);
+		PoLine.addQuadPoint(0, rr, 0, rr-rrxBezierFactor, rr, 0, rr-rrxBezierFactor, 0);
 	}
 	else
 	{
