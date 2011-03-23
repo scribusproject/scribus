@@ -45,7 +45,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 		appPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
 		appPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		appPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		appPrefs.DColorSet = "Scribus-Small";
+		appPrefs.DColorSet = "Scribus_Small";
 	}
 	else
 	{
