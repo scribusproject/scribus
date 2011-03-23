@@ -744,7 +744,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	shadingLineShape->setValue(prefsData->dShade2);
 
 	comboFillShape->clear();
-	comboFillShape->addItem( tr("None"));
+	comboFillShape->addItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentIndex(comboFillShape->count()-1);
 	endOfColorList=colorList->end();
