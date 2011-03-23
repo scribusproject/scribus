@@ -9420,9 +9420,11 @@ void ScribusMainWindow::insertSampleText()
 
 void ScribusMainWindow::languageChange()
 {
-//	qDebug() << "void ScribusMainWindow::languageChange()";
 	if (ScCore->initialized())
 	{
+		//Update colours in case someone has a translated None colour in their preference settings
+		//before changing the tr_NoneColor to the new value. See #9267, #5529
+		prefsManager->languageChange();
 		CommonStrings::languageChange();
 		//Update actions
 		if (actionManager!=NULL)

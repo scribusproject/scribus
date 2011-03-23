@@ -198,6 +198,10 @@ public:
 	//! \brief Temporarily public while this class takes shape so progress can happen and cvs can build
 	struct ApplicationPrefs appPrefs;
 	PrefsFile* prefsFile;
+	
+public slots:
+	void languageChange();
+	
 private:
 	/**
 	* @brief The only instance of PrefsManager available.

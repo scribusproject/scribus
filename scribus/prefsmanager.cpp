@@ -2475,3 +2475,23 @@ int PrefsManager::gsResolution()
 {
 	return appPrefs.gs_Resolution;
 }
+
+void PrefsManager::languageChange()
+{
+	if (appPrefs.toolSettings.dTextBackGround == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dTextBackGround = CommonStrings::None;
+	if (appPrefs.toolSettings.dTextLineColor == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dTextLineColor = CommonStrings::None;
+	if (appPrefs.toolSettings.dPen == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dPen = CommonStrings::None;
+	if (appPrefs.toolSettings.dPenText == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dPenText = CommonStrings::None;
+	if (appPrefs.toolSettings.dStrokeText == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dStrokeText = CommonStrings::None;
+	if (appPrefs.toolSettings.dBrush == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dBrush = CommonStrings::None;
+	if (appPrefs.toolSettings.dPenLine == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dPenLine = CommonStrings::None;
+	if (appPrefs.toolSettings.dBrushPict == CommonStrings::tr_NoneColor)
+		appPrefs.toolSettings.dBrushPict = CommonStrings::None;
+}
