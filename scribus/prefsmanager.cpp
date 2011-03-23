@@ -2650,3 +2650,24 @@ int PrefsManager::gsResolution()
 {
 	return appPrefs.extToolPrefs.gs_Resolution;
 }
+
+void PrefsManager::languageChange()
+{
+	if (appPrefs.itemToolPrefs.textFillColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.textFillColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.textLineColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.textLineColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.shapeLineColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.shapeLineColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.textColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.textColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.textStrokeColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.textStrokeColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.shapeFillColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.shapeFillColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.lineColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.lineColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.imageFillColor = CommonStrings::None;
+}
+
