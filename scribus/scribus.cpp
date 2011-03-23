@@ -68,9 +68,6 @@ for which a new license (GPL+exception) is in place.
 #include <signal.h>
 #include <string>
 
-
-
-
 #include "about.h"
 #include "aboutplugins.h"
 #include "actionmanager.h"
@@ -217,7 +214,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "vruler.h"
 #include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
 
 
 #if defined(_WIN32)
