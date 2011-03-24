@@ -586,6 +586,8 @@ public:
 	static QString Copy;
 	static QString CopyPage;
 	static QString ToOutlines;
+	static QString LinkTextFrame;
+	static QString UnlinkTextFrame;
 	/*@}*/
 
 	/**

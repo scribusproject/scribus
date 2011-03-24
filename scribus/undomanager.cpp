@@ -960,6 +960,8 @@ void UndoManager::languageChange()
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
+	UndoManager::LinkTextFrame		= tr("Link text frame");
+	UndoManager::UnlinkTextFrame	= tr("Unlink text frame");
 }
 
 void UndoManager::initIcons()

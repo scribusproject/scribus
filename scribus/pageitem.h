@@ -1219,6 +1219,7 @@ protected:
 
 	void restoreShapeContour(UndoState *state, bool isUndo);
 	void restoreImageEffects(UndoState *state, bool isUndo);
+	void restoreLinkTextFrame(UndoState *state, bool isUndo);
 	/*@}*/
 
 	/**
