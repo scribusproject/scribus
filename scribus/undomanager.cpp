@@ -947,6 +947,8 @@ void UndoManager::languageChange()
 	UndoManager::SetLayerName       = tr("Change name of the layer");
 	UndoManager::FlowLayer			= tr("Enable text flow around for lower layers");
 	UndoManager::DisableFlowLayer	= tr("Disable text flow around for lower layers");
+	UndoManager::SetLayerBlendMode	= tr("Set layer blend mode");
+	UndoManager::SetLayerTransparency=tr("Set layer opacity");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::ChangeFormula      = tr("Change formula");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
@@ -1143,7 +1145,7 @@ QString UndoManager::AddPages           = "";
 QString UndoManager::DeletePage         = "";
 QString UndoManager::DeletePages        = "";
 QString UndoManager::AddLayer           = "";
-QString UndoManager::DuplicateLayer	= "";
+QString UndoManager::DuplicateLayer     = "";
 QString UndoManager::DeleteLayer        = "";
 QString UndoManager::RenameLayer        = "";
 QString UndoManager::RaiseLayer         = "";
@@ -1154,6 +1156,8 @@ QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
 QString UndoManager::FlowLayer			= "";
 QString UndoManager::DisableFlowLayer	= "";
+QString UndoManager::SetLayerBlendMode  = "";
+QString UndoManager::SetLayerTransparency="";
 QString UndoManager::GetImage           = "";
 QString UndoManager::ChangeFormula      = "";
 QString UndoManager::MultipleDuplicate  = "";
@@ -1169,7 +1173,7 @@ QString UndoManager::ImageEffects       = "";
 QString UndoManager::InsertFrame        = "";
 QString UndoManager::AdjustFrameToImage = "";
 QString UndoManager::RemoveAllGuides    = "";
-QString UndoManager::RemoveAllPageGuides = "";
+QString UndoManager::RemoveAllPageGuides= "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
 QString UndoManager::ToOutlines         = "";
@@ -1178,6 +1182,7 @@ QString UndoManager::ClearImage			= "";
 QString UndoManager::ClearContent		= "";
 QString UndoManager::LinkTextFrame		= "";
 QString UndoManager::UnlinkTextFrame	= "";
+
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

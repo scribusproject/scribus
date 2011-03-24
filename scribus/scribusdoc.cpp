@@ -1294,10 +1294,24 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			setLayerPrintable(ss->getInt("ACTIVE"), isUndo ? !print : print);
 			layersUndo=true;
 		}
-		else if (ss->contains("FLOW_LAYER"))
+		else if (ss->contains("LAYER_FLOW"))
 		{
 			bool flow = ss->getBool("FLOW");
 			setLayerFlow(ss->getInt("ACTIVE"), isUndo ? !flow : flow);
+			layersUndo=true;
+		}
+		else if (ss->contains("LAYER_TRANSPARENCY"))
+		{
+			double old_trans = ss->getDouble("OLD_TRANS");
+			double new_trans = ss->getDouble("NEW_TRANS");
+			setLayerTransparency(ss->getInt("ACTIVE"), isUndo ? old_trans : new_trans);
+			layersUndo=true;
+		}
+		else if (ss->contains("LAYER_BLENDMODE"))
+		{
+			int old_blend = ss->getInt("OLD_BLENDMODE");
+			int new_blend = ss->getInt("NEW_BLENDMODE");
+			setLayerBlendMode(ss->getInt("ACTIVE"), isUndo ? old_blend : new_blend);
 			layersUndo=true;
 		}
 		else if (ss->contains("ADD_LAYER"))
@@ -1350,6 +1364,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			{
 				m_ScMW->changeLayer(ss->getInt("ACTIVE"));
 				m_ScMW->layerPalette->rebuildList();
+				m_ScMW->layerPalette->markActiveLayer(activeLayer());
 			}
 		}
 	}
@@ -2074,18 +2089,15 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 	{
 		if (it->LNr == layerNumber)
 		{
-			bool oldPrintable = it->isPrintable;
-			it->isPrintable = isPrintable;
-
-			if (oldPrintable!=isPrintable && UndoManager::undoEnabled())
+			if (it->isPrintable!=isPrintable && UndoManager::undoEnabled())
 			{
-				SimpleState *ss = new SimpleState(isPrintable ? Um::PrintLayer : Um::DoNotPrintLayer,
-						                          "", Um::IPrint);
+				SimpleState *ss = new SimpleState(isPrintable ? Um::PrintLayer : Um::DoNotPrintLayer, "", Um::IPrint);
 				ss->set("PRINT_LAYER", "print_layer");
-				ss->set("ACTIVE", (*it).LNr);
+				ss->set("ACTIVE", it->LNr);
 				ss->set("PRINT", isPrintable);
 				undoManager->action(this, ss, it->Name, Um::ILayer);
 			}
+			it->isPrintable = isPrintable;
 			found=true;
 			break;
 		}
@@ -2184,18 +2196,15 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 	{
 		if (it->LNr == layerNumber)
 		{
-			bool oldFlow = it->flowControl;
-			it->flowControl = flow;
-			
-			if (oldFlow!=flow && UndoManager::undoEnabled())
+			if (it->flowControl!=flow && UndoManager::undoEnabled())
 			{
 				SimpleState *ss = new SimpleState(flow ? Um::FlowLayer : Um::DisableFlowLayer, "", Um::ITextFrame);
-				ss->set("FLOW_LAYER", "flow_layer");
-				ss->set("ACTIVE", (*it).LNr);
+				ss->set("LAYER_FLOW", "layer_flow");
+				ss->set("ACTIVE", it->LNr);
 				ss->set("FLOW", flow);
 				undoManager->action(this, ss, it->Name, Um::ILayer);
 			}
-			
+			it->flowControl = flow;			
 			found=true;
 			break;
 		}
@@ -2237,6 +2246,15 @@ bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 	{
 		if (it->LNr == layerNumber)
 		{
+			if (it->transparency!=trans && UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(Um::SetLayerTransparency, "", Um::ILayer);
+				ss->set("LAYER_TRANSPARENCY", "layer_transparency");
+				ss->set("ACTIVE", it->LNr);
+				ss->set("OLD_TRANS", it->transparency);
+				ss->set("NEW_TRANS", trans);
+				undoManager->action(this, ss, it->Name, Um::ILayer);
+			}
 			it->transparency = trans;
 			found=true;
 			break;
@@ -2270,6 +2288,15 @@ bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 	{
 		if (it->LNr == layerNumber)
 		{
+			if (it->blendMode!=blend && UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(Um::SetLayerBlendMode, "", Um::ILayer);
+				ss->set("LAYER_BLENDMODE", "layer_blendmode");
+				ss->set("ACTIVE", it->LNr);
+				ss->set("OLD_BLENDMODE", it->blendMode);
+				ss->set("NEW_BLENDMODE", blend);
+				undoManager->action(this, ss, it->Name, Um::ILayer);
+			}
 			it->blendMode = blend;
 			found=true;
 			break;
@@ -4834,7 +4861,6 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 void ScribusDoc::removePageFromSection(const uint pageIndex)
 {
 	//Get the section of the new page index.
-	bool found = false;
 	uint fromIndex, toIndex;
 	DocumentSectionMap::Iterator it = sections.begin();
 	for (; it!= sections.end(); ++it)
@@ -10303,9 +10329,9 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		QMap<int, QList<PageItem*> >::iterator groupIt;
 		for (it = toDelete.begin(); it != toDelete.end(); ++it)
 		{
-			PageItem* groupItem = it.key();
-			int groupId = it.value();
-			groupIt = groupObjects.find(groupId);
+			//PageItem* groupItem = it.key();
+			//int groupId = it.value();
+			groupIt = groupObjects.find(it.value());
 			if (groupIt == groupObjects.end()) 
 				continue;
 			QList<PageItem*> groupItems = groupIt.value();
