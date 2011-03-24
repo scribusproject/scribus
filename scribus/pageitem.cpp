@@ -5002,9 +5002,27 @@ void PageItem::SetFrameRound()
 	setCornerRadius(qMin(RadRect, qMin(Width,Height)/2));
 	PoLine.resize(0);
 	double rr = fabs(RadRect);
-	QPainterPath path;
-	path.addRoundedRect(0, 0, Width, Height, rr, rr);
-	PoLine.fromQPainterPath(path);
+	if (RadRect > 0.0)
+	{
+		QPainterPath path;
+		path.addRoundedRect(0, 0, Width, Height, rr, rr);
+		PoLine.fromQPainterPath(path);
+	}
+	else
+	{
+		double bezierFactor = 0.552284749; //Bezier Control Point Factor: 8/3*(sin(45)-0.5)
+		double rrxBezierFactor = rr*bezierFactor;
+		double Width_rr = Width-rr;
+		double Height_rr = Height-rr;
+		PoLine.addQuadPoint(rr, 0, rr, 0, Width_rr, 0, Width_rr, 0);
+		PoLine.addQuadPoint(Width_rr, 0, Width_rr, rrxBezierFactor, Width, rr, Width-rrxBezierFactor, rr);
+		PoLine.addQuadPoint(Width, rr, Width, rr, Width, Height_rr, Width, Height_rr);
+		PoLine.addQuadPoint(Width, Height_rr, Width-rrxBezierFactor, Height_rr, Width_rr, Height, Width_rr, Height-rrxBezierFactor);
+		PoLine.addQuadPoint(Width_rr, Height, Width_rr, Height, rr, Height, rr, Height);
+		PoLine.addQuadPoint(rr, Height, rr, Height-rrxBezierFactor, 0, Height_rr, rrxBezierFactor, Height_rr);
+		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
+		PoLine.addQuadPoint(0, rr, rrxBezierFactor, rr, rr, 0, rr, rr*bezierFactor);
+	}
 	Clip = FlattenPath(PoLine, Segments);
 	ClipEdited = false;
 	FrameType = 2;
