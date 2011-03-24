@@ -1471,6 +1471,12 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			setLayerFlow(ss->getInt("ACTIVE"), isUndo ? !flow : flow);
 			layersUndo=true;
 		}
+		else if (ss->contains("LAYER_LOCK"))
+		{
+			bool lock = ss->getBool("LOCK");
+			setLayerLocked(ss->getInt("ACTIVE"), isUndo ? !lock : lock);
+			layersUndo=true;
+		}
 		else if (ss->contains("LAYER_TRANSPARENCY"))
 		{
 			double old_trans = ss->getDouble("OLD_TRANS");
@@ -2291,6 +2297,15 @@ bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
 	{
 		if (it->ID == layerID)
 		{
+			// == because isEditable vs isLocked...
+			if (it->isEditable==isLocked && UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(isLocked ? Um::SetLayerLocked : Um::SetLayerUnlocked, "", Um::ILayer);
+				ss->set("LAYER_LOCK", "layer_lock");
+				ss->set("ACTIVE", it->ID);
+				ss->set("LOCK", isLocked);
+				undoManager->action(this, ss, it->Name, Um::ILayer);
+			}
 			it->isEditable = !isLocked;
 			found=true;
 			break;

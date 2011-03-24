@@ -573,6 +573,8 @@ public:
 	static QString DisableFlowLayer;
 	static QString SetLayerBlendMode;
 	static QString SetLayerTransparency;
+	static QString SetLayerLocked;
+	static QString SetLayerUnlocked;
 	static QString GetImage;
 	static QString ChangeFormula;
 	static QString MultipleDuplicate;
