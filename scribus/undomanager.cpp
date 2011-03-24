@@ -949,6 +949,8 @@ void UndoManager::languageChange()
 	UndoManager::DisableFlowLayer	= tr("Disable text flow around for lower layers");
 	UndoManager::SetLayerBlendMode	= tr("Set layer blend mode");
 	UndoManager::SetLayerTransparency=tr("Set layer opacity");
+	UndoManager::SetLayerLocked     =tr("Lock layer");
+	UndoManager::SetLayerUnlocked   =tr("Unlock layer");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::ChangeFormula      = tr("Change formula");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
@@ -1158,6 +1160,8 @@ QString UndoManager::FlowLayer			= "";
 QString UndoManager::DisableFlowLayer	= "";
 QString UndoManager::SetLayerBlendMode  = "";
 QString UndoManager::SetLayerTransparency="";
+QString UndoManager::SetLayerLocked     = "";
+QString UndoManager::SetLayerUnlocked   = "";
 QString UndoManager::GetImage           = "";
 QString UndoManager::ChangeFormula      = "";
 QString UndoManager::MultipleDuplicate  = "";
