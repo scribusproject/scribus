@@ -941,6 +941,8 @@ void UndoManager::languageChange()
 	UndoManager::PrintLayer         = tr("Enable printing of layer");
 	UndoManager::DoNotPrintLayer    = tr("Disable printing of layer");
 	UndoManager::SetLayerName       = tr("Change name of the layer");
+	UndoManager::FlowLayer			= tr("Enable text flow around for lower layers");
+	UndoManager::DisableFlowLayer	= tr("Disable text flow around for lower layers");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::ChangeFormula      = tr("Change formula");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
@@ -1145,6 +1147,8 @@ QString UndoManager::SendToLayer        = "";
 QString UndoManager::PrintLayer         = "";
 QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
+QString UndoManager::FlowLayer          = "";
+QString UndoManager::DisableFlowLayer   = "";
 QString UndoManager::GetImage           = "";
 QString UndoManager::ChangeFormula      = "";
 QString UndoManager::MultipleDuplicate  = "";

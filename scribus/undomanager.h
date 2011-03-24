@@ -569,6 +569,8 @@ public:
 	static QString PrintLayer;
 	static QString DoNotPrintLayer;
 	static QString SetLayerName;
+	static QString FlowLayer;
+	static QString DisableFlowLayer;
 	static QString GetImage;
 	static QString ChangeFormula;
 	static QString MultipleDuplicate;
