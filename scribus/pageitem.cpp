@@ -783,12 +783,20 @@ void PageItem::link(PageItem* nxt)
 		nxt->firstChar = 0;
 		nxt = nxt->NextBox;
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >(UndoManager::LinkTextFrame);
+		is->set("LINK_TEXT_FRAME", "linkTextFrame");
+		is->setItem(std::pair<PageItem*, PageItem*>(this, NextBox));
+		undoManager->action(this, is);
+	}
 }
 
 void PageItem::unlink()
 {
 	if( NextBox )
 	{
+		PageItem *undoNextBox=NextBox;
 		// make sure lastInFrame is valid
 		layout();
 		/*
@@ -826,6 +834,13 @@ void PageItem::unlink()
 		}
 		// NextBox == NULL now
 		NextBox = NULL;
+		if (UndoManager::undoEnabled())
+		{
+			ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >(UndoManager::UnlinkTextFrame);
+			is->set("UNLINK_TEXT_FRAME", "unlinkTextFrame");
+			is->setItem(std::pair<PageItem*, PageItem*>(this, undoNextBox));
+			undoManager->action(this, is);
+		}
 	}
 }
 
@@ -3236,6 +3251,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreEditText(ss, isUndo);
 		else if (ss->contains("CLEAR_IMAGE"))
 			restoreClearImage(ss,isUndo);
+		else if (ss->contains("LINK_TEXT_FRAME"))
+			restoreLinkTextFrame(ss,isUndo);
+		else if (ss->contains("UNLINK_TEXT_FRAME"))
+			restoreUnlinkTextFrame(ss,isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -3621,6 +3640,35 @@ void PageItem::restoreClearImage(UndoState *state, bool isUndo)
 		asImageFrame()->clearContents();
 }
 
+void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
+{
+	if (!isTextFrame())
+		return;
+	if (isUndo)
+	{
+		unlink();
+	}
+	else
+	{
+		ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(state);
+		asTextFrame()->link(is->getItem().second->asTextFrame());
+	}
+}
+
+void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
+{
+	if (!isTextFrame())
+		return;
+	if (isUndo)
+	{
+		ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(state);
+		asTextFrame()->link(is->getItem().second->asTextFrame());
+	}
+	else
+	{
+		unlink();
+	}
+}
 
 
 void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)

@@ -591,6 +591,8 @@ public:
 	static QString EditText;
 	static QString ClearImage;
 	static QString ClearContent;
+	static QString LinkTextFrame;
+	static QString UnlinkTextFrame;
 	/*@}*/
 
 	/**
