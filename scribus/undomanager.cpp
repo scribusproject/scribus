@@ -1138,7 +1138,7 @@ QString UndoManager::AddPages           = "";
 QString UndoManager::DeletePage         = "";
 QString UndoManager::DeletePages        = "";
 QString UndoManager::AddLayer           = "";
-QString UndoManager::DuplicateLayer	= "";
+QString UndoManager::DuplicateLayer     = "";
 QString UndoManager::DeleteLayer        = "";
 QString UndoManager::RenameLayer        = "";
 QString UndoManager::RaiseLayer         = "";
@@ -1168,6 +1168,8 @@ QString UndoManager::RemoveAllPageGuides = "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
 QString UndoManager::ToOutlines         = "";
+QString UndoManager::LinkTextFrame      = "";
+QString UndoManager::UnlinkTextFrame    = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
