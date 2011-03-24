@@ -408,6 +408,8 @@ void NewDoc::createRecentDocPage()
 	uint max = qMin(prefsManager->appPrefs.uiPrefs.recentDocCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
 		recentDocListBox->addItem( QDir::convertSeparators(recentDocList[m]) );
+	if (max>0)
+		recentDocListBox->setCurrentRow(0);
 }
 
 void NewDoc::setWidth(double)
