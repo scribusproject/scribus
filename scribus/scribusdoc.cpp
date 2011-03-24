@@ -1294,6 +1294,12 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			setLayerPrintable(ss->getInt("ACTIVE"), isUndo ? !print : print);
 			layersUndo=true;
 		}
+		else if (ss->contains("FLOW_LAYER"))
+		{
+			bool flow = ss->getBool("FLOW");
+			setLayerFlow(ss->getInt("ACTIVE"), isUndo ? !flow : flow);
+			layersUndo=true;
+		}
 		else if (ss->contains("ADD_LAYER"))
 		{
 			if (isUndo)
@@ -2078,7 +2084,7 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 				ss->set("PRINT_LAYER", "print_layer");
 				ss->set("ACTIVE", (*it).LNr);
 				ss->set("PRINT", isPrintable);
-				undoManager->action(this, ss, DocName, Um::IDocument);
+				undoManager->action(this, ss, it->Name, Um::ILayer);
 			}
 			found=true;
 			break;
@@ -2178,7 +2184,18 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 	{
 		if (it->LNr == layerNumber)
 		{
+			bool oldFlow = it->flowControl;
 			it->flowControl = flow;
+			
+			if (oldFlow!=flow && UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(flow ? Um::FlowLayer : Um::DisableFlowLayer, "", Um::ITextFrame);
+				ss->set("FLOW_LAYER", "flow_layer");
+				ss->set("ACTIVE", (*it).LNr);
+				ss->set("FLOW", flow);
+				undoManager->action(this, ss, it->Name, Um::ILayer);
+			}
+			
 			found=true;
 			break;
 		}
