@@ -214,9 +214,7 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-
 				}
-
 			}
 		}
 		else if ( ValueFormat1 && ( !ValueFormat2 ) )
@@ -233,9 +231,7 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-
 				}
-
 			}
 		}
 		else
@@ -340,10 +336,10 @@ KernFeature::ClassDefTable KernFeature::getClass ( quint16 classDefOffset, quint
 			quint16 End ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 2 ) );
 			quint16 Class ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 4 ) );
 
-			for ( quint16 gl ( Start ); gl <= End; ++gl )
+			for ( int gl ( Start ); gl <= (int) End; ++gl )
 			{
-				ret[0].removeAll ( gl );
-				ret[Class] << gl;
+				ret[0].removeAll ( (quint16) gl );
+				ret[Class] << (quint16) gl;
 			}
 		}
 	}
