@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem.h"
+
 #include <QPainter>
 #include <QPen>
 #include <QFont>
@@ -42,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/cpalette.h"
 #include "ui/guidemanager.h"
 #include "page.h"
+#include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 #include "ui/propertiespalette.h"
@@ -6417,22 +6419,6 @@ void PageItem::moveImageInFrame(double newX, double newY)
 		imageClip.map(cl);
 	}
 }
-
-void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
-{
-	if (!isTextFrame())
-		return;
-	if (isUndo)
-	{
-		unlink();
-	}
-	else
-	{
-		ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(state);
-		asTextFrame()->link(is->getItem().second->asTextFrame());
-	}
-}
-
 
 void PageItem::convertClip()
 {
