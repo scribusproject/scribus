@@ -1507,8 +1507,6 @@ void AIPlug::processData(QString data)
 					}
 					ite->setLineEnd(CapStyle);
 					ite->setLineJoin(JoinStyle);
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						ite->setLocked(itemLocked);
 					if (!WasU)
 					{
 						FPoint wh = getMaxClipF(&ite->PoLine);
@@ -1522,6 +1520,8 @@ void AIPlug::processData(QString data)
 						Elements.append(ite);
 					if (groupStack.count() != 0)
 						groupStack.top().append(ite);
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(itemLocked);
 					
 				}
 				else
@@ -1535,6 +1535,8 @@ void AIPlug::processData(QString data)
 				Coords.svgInit();
 				FirstU = false;
 				itemRendered = true;
+				CurrFillShade = 100.0;
+				CurrStrokeShade = 100.0;
 			}
 		}
 		else if (command == "*u")
