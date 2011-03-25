@@ -1534,7 +1534,25 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			restoreMasterPageApplying(ss, isUndo);
 		else if (ss->contains("COPY_PAGE"))
 			restorePageCopy(ss, isUndo);
-
+		else if (ss->contains("PAGE_CHANGEPROPS"))
+		{
+			if (isUndo)
+			{
+				changePageMargins(ss->getDouble("OLD_PAGE_INITIALTOP"), ss->getDouble("OLD_PAGE_INITIALBOTTOM"),
+						ss->getDouble("OLD_PAGE_INITIALLEFT"), ss->getDouble("OLD_PAGE_INITIALRIGHT"),
+						ss->getDouble("OLD_PAGE_INITIALHEIGHT"), ss->getDouble("OLD_PAGE_INITIALWIDTH"),
+						ss->getDouble("OLD_PAGE_HEIGHT"), ss->getDouble("OLD_PAGE_WIDTH"), ss->getInt("OLD_PAGE_ORIENTATION"),
+						ss->get("OLD_PAGE_SIZE"), ss->getInt("OLD_PAGE_MARGINPRESET"), ss->getBool("OLD_PAGE_MOVEOBJECTS"), ss->getInt("PAGE_NUM"), ss->getInt("OLD_PAGE_TYPE"));
+			}
+			else
+			{
+				changePageMargins(ss->getDouble("NEW_PAGE_INITIALTOP"), ss->getDouble("NEW_PAGE_INITIALBOTTOM"),
+						ss->getDouble("NEW_PAGE_INITIALLEFT"), ss->getDouble("NEW_PAGE_INITIALRIGHT"),
+						ss->getDouble("NEW_PAGE_INITIALHEIGHT"), ss->getDouble("NEW_PAGE_INITIALWIDTH"),
+						ss->getDouble("NEW_PAGE_HEIGHT"), ss->getDouble("NEW_PAGE_WIDTH"), ss->getInt("NEW_PAGE_ORIENTATION"),
+						ss->get("NEW_PAGE_SIZE"), ss->getInt("NEW_PAGE_MARGINPRESET"), ss->getBool("OLD_PAGE_MOVEOBJECTS"), ss->getInt("PAGE_NUM"), ss->getInt("NEW_PAGE_TYPE"));
+			}
+		}
 		if (layersUndo)
 		{
 			if (ScCore->usingGUI())
@@ -3858,7 +3876,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 }
 
 
-bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int pageNumber, const int pageType)
+bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber, const int pageType)
 {
 	bool retVal=true;
 	if (pageNumber==-1)
@@ -3872,6 +3890,39 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 			retVal=false;
 		else
 		{
+			QRectF pagebox(currentPage()->xOffset(), currentPage()->yOffset(), qMax( currentPage()->width(), width), qMax(currentPage()->height(), height));
+			if (UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(Um::ChangePageProps);//, QString("%1").arg(pageNumber), Um::IPage);
+				ss->set("PAGE_CHANGEPROPS", "page_changeprops");
+				ss->set("PAGE_NUM", pageNumber);
+				ss->set("OLD_PAGE_INITIALTOP", currentPage()->initialMargins.Top);
+				ss->set("OLD_PAGE_INITIALBOTTOM", currentPage()->initialMargins.Bottom);
+				ss->set("OLD_PAGE_INITIALLEFT", currentPage()->initialMargins.Left);
+				ss->set("OLD_PAGE_INITIALRIGHT", currentPage()->initialMargins.Right);
+				ss->set("OLD_PAGE_INITIALHEIGHT", currentPage()->initialHeight());
+				ss->set("OLD_PAGE_INITIALWIDTH", currentPage()->initialWidth());
+				ss->set("OLD_PAGE_HEIGHT", currentPage()->height());
+				ss->set("OLD_PAGE_WIDTH", currentPage()->width());
+				ss->set("OLD_PAGE_ORIENTATION", currentPage()->orientation());
+				ss->set("OLD_PAGE_SIZE", currentPage()->m_pageSize);
+				ss->set("OLD_PAGE_TYPE", currentPage()->LeftPg);
+				ss->set("OLD_PAGE_MARGINPRESET", currentPage()->marginPreset);
+				ss->set("OLD_PAGE_MOVEOBJECTS", moveObjects);
+				ss->set("NEW_PAGE_INITIALTOP", initialTop);
+				ss->set("NEW_PAGE_INITIALBOTTOM", initialBottom);
+				ss->set("NEW_PAGE_INITIALLEFT", initialLeft);
+				ss->set("NEW_PAGE_INITIALRIGHT", initialRight);
+				ss->set("NEW_PAGE_INITIALHEIGHT", initialHeight);
+				ss->set("NEW_PAGE_INITIALWIDTH", initialWidth);
+				ss->set("NEW_PAGE_HEIGHT", height);
+				ss->set("NEW_PAGE_WIDTH", width);
+				ss->set("NEW_PAGE_ORIENTATION", orientation);
+				ss->set("NEW_PAGE_SIZE", pageSize);
+				ss->set("NEW_PAGE_TYPE", pageType);
+				ss->set("NEW_PAGE_MARGINPRESET", marginPreset);
+				undoManager->action(this, ss);
+			}
 			//set the current page's values
 			currentPage()->initialMargins.Top = initialTop;
 			currentPage()->initialMargins.Bottom = initialBottom;
@@ -3884,6 +3935,10 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 			currentPage()->setOrientation(orientation);
 			currentPage()->m_pageSize = pageSize;
 			currentPage()->LeftPg = pageType;
+			currentPage()->marginPreset = marginPreset;
+			reformPages(moveObjects);
+			invalidateRegion(pagebox);
+			regionsChanged()->update(pagebox);
 			changed();
 		}
 	}

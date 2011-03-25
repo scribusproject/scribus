@@ -1560,84 +1560,6 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	emit DocChanged();
 }
 
-/*
-void ScribusView::Reset1Control()
-{
-	Doc->nodeEdit.reset1Control(Doc->m_Selection->itemAt(0));
-}
-
-void ScribusView::ResetControl()
-{
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	Doc->nodeEdit.resetControl(currItem);
-}
-*/
-
-/*
-//CB-->Doc
-void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSelection)
-{
-	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
-	Q_ASSERT(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
-	if (selectedItemCount == 0)
-		return;
-
-	if (!_groupTransactionStarted && selectedItemCount > 1)
-	{
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint i = 0; i < selectedItemCount; ++i)
-			tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-									  Um::Move, tooltip, Um::IMove);
-		_groupTransactionStarted = true;
-	}
-
-	Doc->moveGroup(x, y, fromMP, itemSelection);
-}
-
-//CB-->Doc
-void ScribusView::RotateGroup(double win)
-{
-	if (!_groupTransactionStarted && Doc->m_Selection->count() > 1)
-	{
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (int i = 0; i < Doc->m_Selection->count(); ++i)
-			tooltip += "\t" + Doc->m_Selection->itemAt(i)->getUName() + "\n";
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-									  Um::Rotate, tooltip, Um::IRotate);
-		_groupTransactionStarted = true;
-	}
-
-	Doc->rotateGroup(win, RCenter);
-}
-
-
-
-void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* customSelection)
-{
-	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
-	Q_ASSERT(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
-	if (selectedItemCount == 0)
-		return;
-
-	if (!_groupTransactionStarted && selectedItemCount > 1)
-	{
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint i = 0; i < selectedItemCount; ++i)
-			tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-									  Um::Resize, tooltip, Um::IResize);
-		_groupTransactionStarted = true;
-	}
-
-	Doc->scaleGroup(scx, scy, scaleText, itemSelection);
-	emit DocChanged();
-}
-*/
-
-
 bool ScribusView::slotSetCurs(int x, int y)
 {
 	PageItem *currItemGeneric;
@@ -1645,9 +1567,6 @@ bool ScribusView::slotSetCurs(int x, int y)
 	{
 		if (!((currItemGeneric->asTextFrame()) || (currItemGeneric->asImageFrame())))
 			return false;
-		// unsed by gcc warning - PV
-		//int xP = qRound(x/m_canvas->scale() + Doc->minCanvasCoordinate.x());
-		//int yP = qRound(y/m_canvas->scale() + Doc->minCanvasCoordinate.y());
 		if (currItemGeneric->asImageFrame())
 			return true;
 		PageItem_TextFrame *currItem=currItemGeneric->asTextFrame();

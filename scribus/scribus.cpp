@@ -6855,20 +6855,21 @@ void ScribusMainWindow::changePageMargins()
 			doc->changePageMargins(dia->top(), dia->bottom(),
 								   dia->left(), dia->right(),
 								   ph, pw, ph, pw, orientation,
-								   sizeName, doc->currentPage()->pageNr(), lp);
+								   sizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr(), lp);
 		}
 		else
 		{
 			doc->changePageMargins(dia->top(), dia->bottom(),
 								   dia->left(), dia->right(),
 								   ph, pw, ph, pw, orientation,
-								   sizeName, doc->currentPage()->pageNr());
+								   sizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr());
 			if (dia->masterPage() != Nam)
 				Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
 		}
-		doc->currentPage()->marginPreset = dia->getMarginPreset();
-		view->reformPages(dia->getMoveObjects());
-		view->DrawNew();
+		//CB: Moved to changePageMargins for #2338
+		//doc->currentPage()->marginPreset = dia->getMarginPreset();
+		//view->reformPages(dia->getMoveObjects());
+		//view->DrawNew();
 	}
 	delete dia;
 }

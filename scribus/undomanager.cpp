@@ -931,6 +931,7 @@ void UndoManager::languageChange()
 	UndoManager::AddPages           = tr("Add pages");
 	UndoManager::DeletePage         = tr("Delete page");
 	UndoManager::DeletePages        = tr("Delete pages");
+	UndoManager::ChangePageProps    = tr("Change page properties");
 	UndoManager::AddLayer           = tr("Add layer");
 	UndoManager::DuplicateLayer	= tr("Duplicate layer %1");
 	UndoManager::DeleteLayer        = tr("Delete layer");
@@ -1140,6 +1141,7 @@ QString UndoManager::AddPage            = "";
 QString UndoManager::AddPages           = "";
 QString UndoManager::DeletePage         = "";
 QString UndoManager::DeletePages        = "";
+QString UndoManager::ChangePageProps    = "";
 QString UndoManager::AddLayer           = "";
 QString UndoManager::DuplicateLayer     = "";
 QString UndoManager::DeleteLayer        = "";
