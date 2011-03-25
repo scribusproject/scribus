@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
+#include "sclimits.h"
 #include "sclistboxpixmap.h"
 #include "scclocale.h"
 #include "scpainter.h"
@@ -524,7 +525,7 @@ void PaintManagerDialog::editColorItem()
 							ite->setGradientMask(newName);
 					}
 					PageItem *ite = pa.items.at(0);
-					dialogPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+					dialogPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 				}
 				QTreeWidgetItem *lg = updateGradientList(dia->name());
 				if (lg != 0)
@@ -1319,7 +1320,17 @@ void PaintManagerDialog::loadVectors(QString data)
 		ScPattern pat = ScPattern();
 		pat.setDoc(m_doc);
 		PageItem* currItem = m_doc->Items->at(ac);
-		pat.pattern = currItem->DrawObj_toImage();
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 		pat.width = currItem->gWidth;
 		pat.height = currItem->gHeight;
 		for (uint as = ac; as < ae; ++as)
@@ -1509,7 +1520,7 @@ void PaintManagerDialog::updateGradientColors(QString newName, QString oldName)
 			}
 		}
 		PageItem *ite = pa.items.at(0);
-		dialogPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+		dialogPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 	m_doc->PageColors = colorListBack;
 }

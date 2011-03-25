@@ -291,8 +291,8 @@ public:
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Decoration(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, QRectF e) = 0;
-	QImage DrawObj_toImage();
-	QImage DrawObj_toImage(QList<PageItem*> &emG);
+	QImage DrawObj_toImage(double maxSize);
+	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
 	
 	virtual void applicableActions(QStringList& actionList) = 0;
 	virtual QString infoDescription();

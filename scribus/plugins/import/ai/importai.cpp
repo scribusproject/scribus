@@ -182,9 +182,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		tmpSel->setGroupRect();
 		double xs = tmpSel->width();
 		double ys = tmpSel->height();
-		double sc = 500.0 / qMax(xs, ys);
-		m_Doc->scaleGroup(sc, sc, true, tmpSel);
-		tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage = Elements.at(0)->DrawObj_toImage(500);
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
 		m_Doc->m_Selection->delaySignalsOff();
@@ -2496,7 +2494,7 @@ void AIPlug::processPattern(QDataStream &ts)
 						currItem->setItemName(currentPatternDefName);
 						currItem->AutoName = false;
 						m_Doc->DoDrawing = true;
-						QImage tmpImg = currItem->DrawObj_toImage();
+						QImage tmpImg = currItem->DrawObj_toImage(qMax(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1)));
 						if (!tmpImg.isNull())
 						{
 							QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
@@ -2644,7 +2642,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 					currItem->setItemName(currentPatternDefName);
 					currItem->AutoName = false;
 					m_Doc->DoDrawing = true;
-					pat.pattern = currItem->DrawObj_toImage();
+					pat.pattern = currItem->DrawObj_toImage(qMax(tmpSel->width(), tmpSel->height()));
 					if (!pat.pattern.isNull())
 					{
 						pat.width = currItem->gWidth;

@@ -304,9 +304,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 		tmpSel->setGroupRect();
 		double xs = tmpSel->width();
 		double ys = tmpSel->height();
-		double sc = 500.0 / qMax(xs, ys);
-		m_Doc->scaleGroup(sc, sc, true, tmpSel);
-		tmpImage = Elements.at(0)->DrawObj_toImage();
+		tmpImage = Elements.at(0)->DrawObj_toImage(500);
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
 		m_Doc->m_Selection->delaySignalsOff();
@@ -2742,7 +2740,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			pat.setDoc(m_Doc);
 			PageItem* currItem = GElements.at(0);
 			m_Doc->DoDrawing = true;
-			pat.pattern = currItem->DrawObj_toImage();
+			pat.pattern = currItem->DrawObj_toImage(qMax(wpat, hpat));
 			double xOrg = 0.0;
 			double yOrg = 0.0;
 			if (inGroupXOrigin < 0.0)

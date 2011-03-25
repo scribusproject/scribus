@@ -3973,7 +3973,7 @@ void ScribusDoc::recalculateColors()
 				loadPict(ite->Pfile, ite, true, false);
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 }
 
@@ -5349,7 +5349,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			}
 		}
 		currItem = Items->at(0);
-		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage();
+		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMax(currItem->gWidth, currItem->gHeight));
 		docPatterns[currentEditedSymbol].width = currItem->gWidth;
 		docPatterns[currentEditedSymbol].height = currItem->gHeight;
 		if (m_ScMW->patternsDependingOnThis.count() > 1)
@@ -5359,7 +5359,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 				Items = &docPatterns[m_ScMW->patternsDependingOnThis[a]].items;
 				renumberItemsInListOrder();
 				currItem = Items->at(0);
-				docPatterns[m_ScMW->patternsDependingOnThis[a]].pattern = currItem->DrawObj_toImage();
+				docPatterns[m_ScMW->patternsDependingOnThis[a]].pattern = currItem->DrawObj_toImage(qMax(currItem->gWidth, currItem->gHeight));
 			}
 		}
 		if (masterPageMode())
@@ -7542,7 +7542,7 @@ void ScribusDoc::updatePict(QString name)
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 	regionsChanged()->update(QRectF());
 	changed();
@@ -7683,7 +7683,7 @@ void ScribusDoc::updatePictDir(QString name)
 			}
 			allItems.clear();
 			PageItem *ite = pa.items.at(0);
-			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 		}
 	}
 	regionsChanged()->update(QRectF());
@@ -7892,7 +7892,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 	regionsChanged()->update(QRectF());
 	changed();
@@ -7980,7 +7980,7 @@ void ScribusDoc::removePict(QString name)
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 	regionsChanged()->update(QRectF());
 	changed();

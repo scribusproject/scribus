@@ -1975,7 +1975,7 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 	p->newPath();
 }
 
-QImage PageItem::DrawObj_toImage()
+QImage PageItem::DrawObj_toImage(double maxSize)
 {
 	QList<PageItem*> emG;
 	emG.clear();
@@ -1993,16 +1993,17 @@ QImage PageItem::DrawObj_toImage()
 	gYpos = yPos() - miny;
 	gWidth = maxx - minx;
 	gHeight = maxy - miny;
+	double sc = maxSize / qMax(gWidth, gHeight);
 	emG.append(this);
-	return DrawObj_toImage(emG);
+	return DrawObj_toImage(emG, sc);
 }
 
-QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
+QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 {
-	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), QImage::Format_ARGB32_Premultiplied);
+	QImage retImg = QImage(qRound(gWidth * scaling), qRound(gHeight * scaling), QImage::Format_ARGB32_Premultiplied);
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
-	painter->setZoomFactor(qMax(qRound(gWidth) / gWidth, qRound(gHeight) / gHeight));
+	painter->setZoomFactor(scaling);
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);

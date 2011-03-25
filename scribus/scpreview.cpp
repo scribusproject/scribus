@@ -68,7 +68,7 @@ QImage ScPreview::createPreview(QString data)
 					double ys = tmpSel->height();
 				//	double sc = 60.0 / qMax(xs, ys);
 				//	m_Doc->scaleGroup(sc, sc, true, tmpSel);
-					QImage tmpImage = Elements.at(0)->DrawObj_toImage();
+					QImage tmpImage = Elements.at(0)->DrawObj_toImage(128);
 					tmpImage.setText("XSize", QString("%1").arg(xs));
 					tmpImage.setText("YSize", QString("%1").arg(ys));
 					m_Doc->m_Selection->delaySignalsOff();

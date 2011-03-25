@@ -9970,7 +9970,17 @@ void ScribusMainWindow::PutToPatterns()
 		currItem = itemSelection.itemAt(0);
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
-	pat.pattern = currItem->DrawObj_toImage();
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	double x1, x2, y1, y2;
+	currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+	minx = qMin(minx, x1);
+	miny = qMin(miny, y1);
+	maxx = qMax(maxx, x2);
+	maxy = qMax(maxy, y2);
+	pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 	pat.width = currItem->gWidth;
 	pat.height = currItem->gHeight;
 	pat.items.append(currItem);
