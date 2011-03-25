@@ -341,9 +341,9 @@ KernFeature::ClassDefTable KernFeature::getClass ( quint16 classDefOffset, quint
 			quint16 End ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 2 ) );
 			quint16 Class ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 4 ) );
 
-			for ( quint16 gl ( Start ); gl <= End; ++gl )
+			for ( int gl ( Start ); gl <= (int) End; ++gl )
 			{
-				ret[0].removeAll ( gl );
+				ret[0].removeAll ( (quint16) gl );
 				ret[Class] << gl;
 			}
 		}
