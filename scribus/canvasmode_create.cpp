@@ -81,9 +81,10 @@ void CreateMode::drawControls(QPainter* p)
 
 	if (createObjectMode != modeDrawLine)
 	{
-		QRectF  bounds = QRectF(topLeft, btRight).normalized();
-		QRect   localRect = m_canvas->canvasToLocal(bounds);
-
+		QRectF bounds = QRectF(topLeft, btRight).normalized();
+		QRect localRect = m_canvas->canvasToLocal(bounds);
+		if (localRect.width() <= 0 || localRect.height() <= 0)
+			return;
 		p->setRenderHint(QPainter::Antialiasing);
 
 		p->save();
