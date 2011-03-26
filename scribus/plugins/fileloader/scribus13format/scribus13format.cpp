@@ -1663,10 +1663,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		if (currItem->itemName() == AnName)
 			currItem->AutoName = true;
 		else
-		{
 			currItem->setItemName(AnName);
-			currItem->AutoName = false;
-		}
 	}
 
 	currItem->annotation().setAction(obj->attribute("ANACTION",""));

@@ -2683,10 +2683,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (currItem->itemName() == AnName)
 			currItem->AutoName = true;
 		else
-		{
 			currItem->setItemName(AnName);
-			currItem->AutoName = false;
-		}
 	}
 	currItem->annotation().setAction( attrs.valueAsString("ANACTION","") );
 	currItem->annotation().setE_act ( attrs.valueAsString("ANEACT","") );

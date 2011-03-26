@@ -326,7 +326,6 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 					else
 					{
 						item->PageItemObject->setItemName(NameNew);
-						item->PageItemObject->AutoName = false;
 						m_MainWindow->propertiesPalette->SetCurItem(item->PageItemObject);
 						currDoc->setModified(true);
 					}

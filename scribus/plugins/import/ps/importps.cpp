@@ -633,7 +633,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						m_Doc->AdjustItemSize(ite, true);
 						ite->ContourLine = ite->PoLine.copy();
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-						ite->AutoName = false;
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						Elements.append(ite);
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
@@ -663,7 +662,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							m_Doc->AdjustItemSize(ite, true);
 							ite->ContourLine = ite->PoLine.copy();
 							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-							ite->AutoName = false;
 							ite->setTextFlowMode(PageItem::TextFlowDisabled);
 							Elements.append(ite);
 							if ((groupStack.count() != 0) && (groupStackP.count() != 0))

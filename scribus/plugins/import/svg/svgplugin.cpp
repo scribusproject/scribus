@@ -671,10 +671,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 	{
 		QString nodeId = e.toElement().attribute("id");
 		if( !nodeId.isEmpty() )
-		{
 			item->setItemName(" "+nodeId);
-			item->AutoName = false;
-		}
 	}
 	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
@@ -1202,7 +1199,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 					neu->setItemName(e.attribute("id"));
 				else
 					neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-				neu->AutoName = false;
 				neu->setFillTransparency(1 - gc->Opacity);
 				neu->gXpos = neu->xPos() - gx;
 				neu->gYpos = neu->yPos() - gy;

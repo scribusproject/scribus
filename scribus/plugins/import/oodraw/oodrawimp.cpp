@@ -693,7 +693,6 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 			neu->setItemName(e.attribute("id"));
 		else
 			neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-		neu->AutoName = false;
 	}
 	return elements;
 }
@@ -962,10 +961,7 @@ QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 		ite->setLineTransparency(oostyle.strokeTrans);
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		if (!drawID.isEmpty())
-		{
 			ite->setItemName(drawID);
-			ite->AutoName = false;
-		}
 		ite = parseTextP(n.toElement(), ite);
 		elements.append(ite);
 	}
@@ -1199,10 +1195,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 	if (oostyle.dashes.count() != 0)
 		item->DashValues = oostyle.dashes;
 	if (!drawID.isEmpty())
-	{
 		item->setItemName(drawID);
-		item->AutoName = false;
-	}
 	if (elm.hasAttribute("draw:transform"))
 	{
 		parseTransform(&item->PoLine, elm.attribute("draw:transform"));

@@ -2507,6 +2507,7 @@ void PageItem::setItemName(const QString& newName)
 		return;
 	QString oldName = AnName;
 	AnName = generateUniqueCopyName(newName);
+	AutoName=false;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(AnName).arg(newName));

@@ -1822,10 +1822,7 @@ void Annot::SetValues()
 	bool AAct = false;
 	item->annotation().setType(ComboBox1->currentIndex()+2);
 	if (Name->text() != OldName)
-	{
 		item->setItemName(Name->text());
-		item->AutoName = false;
-	}
 	item->annotation().setToolTip(Tip->text());
 	item->annotation().setRollOver(TextO->text());
 	item->annotation().setDown(DownT->text());
