@@ -5,25 +5,20 @@
 </head>
 <body>
 <h3>Scribus on Windows</h3>
-<h4>Historical Background</h4>
-
-<p>Scribus was originally developed on and for Linux, but over time it has been ported to other platforms like Mac OS X or Windows, so sometimes things work in a rather OS-neutral way.</p>
-
-<h4>Downloading Scribus for Windows</h4>
-<p>The latest Windows installers can be downloaded from <a href="http://sourceforge.net/projects/scribus/files/">Sourceforge</a>.</p>
 
 <h3>Hardware/Software Minimum Requirements:</h3>
 <p>
 <ul>
-<li>Windows 2000 SP4, Windows XP, Vista or 7 are supported. Windows 98 and ME have not been tested and are <b>not supported</b>. Any and all bug reports relating to Windows 9X will be closed quickly. </li>
-<li>512MB RAM or more is strongly recommended &ndash; the more, the better. </li>
-<li>Pentium III or better &ndash; 750MHz or better</li>
+<li>Windows 2000 SP4, Windows XP, Vista or 7 are supported. Windows 98 and ME are <b>not supported</b>. </li>
+<li>512 MB RAM or more is strongly recommended &ndash; the more, the better. </li>
+<li>Pentium III or better &ndash; 750 MHz or better.</li>
+<li>Scribus only is available in 32-bit versions for Windows. This has not been shown to be an issue on any 64-bit system, and requires no special preparation or after-installation adjustments.</li>
 <li><i>It is strongly recommended to disable any custom desktop themes. If you encounter any strange behaviour, like no document appearing on screen, use the &ldquo;Windows Classic&ldquo; theme. There is a known Qt issue with custom themes causing document loading problems. This is especially true with third party themes.</i></li>
 </ul>
 </p>
 <h3>Before Installing Scribus</h3>
 <ul>
-   <li>Install Ghostscript for Windows - <a href="http://ghostscript.com/releases/">Ghostscript 8.7+</a> or later is recommended. This is important for EPS import. Note: After installing there are two .exe files installed by the installer. The correct .exe name to use in the Scribus Preferences (under <i>External Tools</i>) for Ghostscript is <code>gswin32c.exe</code>, <b>not</b> <code>gswin32.exe</code>. In the large majority of cases <b>if</b> Ghostscript is properly installed before installing Scribus, Scribus will automatically detect the location for Ghostscript for you.</li>
+   <li>Install Ghostscript for Windows - <a href="http://ghostscript.com/releases/">Ghostscript 8.7+</a> or later is recommended. This is important for EPS import. Note: After installing there are two .exe files installed by the installer. The correct .exe name to use in the Scribus Preferences (under <i>External Tools</i>) for Ghostscript is <code>gswin32c.exe</code>, <b>not</b> <code>gswin32.exe</code>. In the large majority of cases <b>if</b> Ghostscript is properly installed before installing Scribus, Scribus will automatically detect the location for Ghostscript for you. This having been said, Ghostscript is not essential to the use of Scribus for most purposes. If you have not installed Ghostscript, when you run Scribus you will get a warning and a link to help you get it, but you can choose not to add this external tool.</li>
    <li>Scribus is <b>very</b> intolerant of poorly constructed or marginal grade fonts. Once installed, please read the font setup section in the documentation carefully. Scribus may and often will refuse to load fonts which do not follow the True Type, Type 1 and OpenType specifications properly. What this means in plain English is that freeware fonts may work in other programs, but will be rejected by Scribus when starting. Some of the information is Linux-specific, but has detailed explanations as to why poor quality fonts will cause problems. </li>
  </ul>
  <h3>After Installing</h3>
