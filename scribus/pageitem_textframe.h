@@ -67,6 +67,7 @@ public:
 	void setNewPos(int oldPos, int len, int dir);
 	void ExpandSel(int dir, int oldPos);
 	void ExpandParSel(); //expand selection to whole paragrpah(s)
+	void expandParaSelection(bool includeEOL = false);
 	void deselectAll();
 	
 	virtual void invalidateLayout();

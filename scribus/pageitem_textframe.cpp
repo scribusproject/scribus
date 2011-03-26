@@ -3356,6 +3356,29 @@ void PageItem_TextFrame::ExpandParSel() //expand selection to whole paragrpah(s)
 	HasSel = true;
 }
 
+void PageItem_TextFrame::expandParaSelection(bool includeEOL)
+{
+	int selStart, selLength;
+	if (HasSel)
+	{
+		//extend selection to whole paragraphs
+		selStart  = itemText.startOfParagraph(itemText.nrOfParagraph(itemText.startOfSelection()));
+		selLength = itemText.endOfParagraph(itemText.nrOfParagraph(itemText.endOfSelection())) - selStart;
+	}
+	else
+	{
+		//extend selection to whole paragraph
+		selStart  = itemText.startOfParagraph(itemText.nrOfParagraph(CPos));
+		selLength = itemText.endOfParagraph(itemText.nrOfParagraph(CPos)) - selStart;
+	}
+	if (includeEOL)
+		selLength += 1;
+	selLength = qMin(selLength, itemText.length() - selStart);
+
+	itemText.select(selStart, selLength);
+	HasSel = true;
+}
+
 void PageItem_TextFrame::deselectAll()
 {
 	if ( itemText.lengthOfSelection() > 0 )
@@ -3647,10 +3670,10 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 		if (action == PARAMFULL && m_Doc->appMode == modeEdit)
 		{
 			//action is for paragraph where cursor is
-			ExpandParSel();
+			expandParaSelection(true);
 			action = PARAMSEL;
 		}
-		if (CPos >= itemText.length() && itemTextSaxed.isEmpty() && action == PARAMSEL && m_Doc->appMode == modeEdit)
+		if (CPos >= itemText.length() && itemTextSaxed.isEmpty() && action == PARAMFULL && m_Doc->appMode == modeEdit)
 		{ 
 			//case when cursor is after last character without selection and nothing was and will be done
 			//changes will be ignored
@@ -3667,8 +3690,17 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 			{
 				if (action == PARAMFULL || action == PARAMSEL)
 				{
-					itemTextSaxed = ss->get("STEXT_OLD");
 					newState = false;
+					if (itemTextSaxed.length() > 0)
+					{
+						/*QString tmpStr = ss->get("STEXT_NEW");
+						newState = (tmpStr.length() > 0 && tmpStr != itemTextSaxed);*/
+						newState = true;
+					}
+					if (newState == false)
+					{
+						itemTextSaxed = ss->get("STEXT_OLD");
+					}
 				}
 				else if (action == INSSAX || action == INS)
 				{
@@ -3698,7 +3730,7 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 			if (action == PARAMFULL && m_Doc->appMode == modeEdit)
 			{
 				//action is for paragraph where cursor is
-				ExpandParSel();
+				expandParaSelection(true);
 				action = PARAMSEL;
 			}
 			if (action == PARAMSEL)

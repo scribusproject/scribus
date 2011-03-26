@@ -4276,43 +4276,30 @@ void PropertiesPalette::VChangeD()
 
 void PropertiesPalette::NewAlignement(int a)
 {
-	int StartSel = 0, EndSel = 0, LenSel = 0;
+	int selStart = 0, selEnd = 0, selLength = 0;
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	if (CurItem->asTextFrame())
 	{
 		// hack for apply left align for text with no align at all
 		//so during Undo/Redo some align will be applied
+		StoryText& itemText(CurItem->itemText);
 		if (doc->appMode == modeEdit)
 		{
 			//selected parapgraph(s) only
-			CurItem->asTextFrame()->ExpandParSel();
-			StartSel = CurItem->itemText.startOfSelection();
-			EndSel = CurItem->itemText.endOfSelection();
-			for (uint i = CurItem->itemText.nrOfParagraph(StartSel); i <= CurItem->itemText.nrOfParagraph(EndSel); i++)
-			{
-				if (CurItem->itemText.paragraphStyle(CurItem->itemText.startOfParagraph(i)).alignment() == 0)
-				{
-					CurItem->itemText.select(CurItem->itemText.startOfParagraph(i), CurItem->itemText.endOfParagraph(i) - CurItem->itemText.startOfParagraph(i));
-					CurItem->HasSel = true;
-					doc->itemSelection_SetAlignment(0);
-				}
-			}
+			selStart = (itemText.lengthOfSelection() > 0) ? itemText.startOfSelection() : CurItem->CPos;
+			selEnd   = (itemText.lengthOfSelection() > 0) ? itemText.endOfSelection() : CurItem->CPos;
+			selStart = itemText.startOfParagraph( itemText.nrOfParagraph(selStart) );
+			selEnd   = itemText.endOfParagraph  ( itemText.nrOfParagraph(selEnd) );
 		}
 		else
 		{
 			//for whole frame
-			for (uint i = 0; i <= CurItem->itemText.nrOfParagraph(CurItem->itemText.lastInFrame()); i++)
-			{
-				if (CurItem->itemText.paragraphStyle(CurItem->itemText.startOfParagraph(i)).alignment() == 0)
-				{
-					CurItem->CPos = CurItem->itemText.startOfParagraph(i);
-					doc->itemSelection_SetAlignment(0);
-				}
-
-			}
+			selStart = itemText.startOfParagraph( 0 );
+			selEnd   = itemText.endOfParagraph  ( itemText.nrOfParagraph(itemText.lastInFrame()) );
 		}
-		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
+		selLength = qMin(selEnd - selStart + 1, itemText.length() - selStart);
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(selStart, selLength);
 //		CurItem->asTextFrame()->lastAction4Paragraph = true;
 	}
 	doc->itemSelection_SetAlignment(a);

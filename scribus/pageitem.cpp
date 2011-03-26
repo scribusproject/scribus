@@ -3874,7 +3874,13 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 				int SelStart = state->getInt("STEXT_SELSTART");
 				itemText.select(SelStart,state->getInt("STEXT_SELLEN"));
 				asTextFrame()->deleteSelectedTextFromFrame();
+				int ItemLength = itemText.length();
 				itemText.insert(SelStart, *story);
+				// If we have inserted at end of text we have to restore trailing style
+				if (ItemLength == SelStart && story->length() > 0 && story->text(-1) != SpecialChars::PARSEP)
+				{
+					itemText.setStyle(-1, story->paragraphStyle(story->length()));
+				}
 				itemText.select(SelStart, story->length());
 				HasSel = true;
 			}
@@ -3985,7 +3991,7 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 				StartOldSel = itemText.startOfSelection();
 				LenOldSel = itemText.lengthOfSelection();
 			}
-			asTextFrame()->ExpandParSel();
+			asTextFrame()->expandParaSelection(true);
 		}
 		else if (undoItem == CHAR || (undoItem == SELECTION && !HasSel))
 		{
@@ -4015,6 +4021,42 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 	SaxXML xmlStream(xmlString);
 	xmlStream.beginDoc();
 	iT.saxx(xmlStream, "SCRIBUSTEXT");
+	xmlStream.endDoc();
+	std::string xml(xmlString.str());
+	return QString(xml.c_str());
+}
+
+QString PageItem::getItemTextSaxed(int selStart, int selLength)
+{
+	if (selStart < 0 || selLength < 0)
+		return QString();
+	
+	StoryText it(m_Doc);
+	it.setDefaultStyle(itemText.defaultStyle());
+
+	int oldSelStart = -1, oldSelLength = -1;
+	oldSelStart  = itemText.startOfSelection();
+	oldSelLength = itemText.lengthOfSelection();
+
+	itemText.select(selStart, selLength);
+	it.insert(0, itemText, (selLength > 0));
+	
+	if (oldSelLength > 0) //restoring old selection if undoItem was PARAPGRAPH
+	{
+		itemText.select(oldSelStart, oldSelLength);
+		HasSel = true;
+	}
+	else if (oldSelLength == 0)
+	{
+		itemText.deselectAll();
+		HasSel = false;
+	}
+
+	//saxing text
+	std::ostringstream xmlString;
+	SaxXML xmlStream(xmlString);
+	xmlStream.beginDoc();
+	it.saxx(xmlStream, "SCRIBUSTEXT");
 	xmlStream.endDoc();
 	std::string xml(xmlString.str());
 	return QString(xml.c_str());

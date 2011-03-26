@@ -469,6 +469,7 @@ public:
 	int oldCPos;
 	QString itemTextSaxed;
 	QString getItemTextSaxed(EditActPlace undoItem);
+	QString getItemTextSaxed(int selStart, int selLength);
 	QString getTextSaxed(QString str);
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
