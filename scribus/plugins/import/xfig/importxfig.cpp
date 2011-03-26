@@ -283,7 +283,6 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
 				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-				neu->AutoName = false;
 				neu->isGroupControl = true;
 				neu->groupsLastItem = high;
 				neu->setTextFlowMode(PageItem::TextFlowDisabled);

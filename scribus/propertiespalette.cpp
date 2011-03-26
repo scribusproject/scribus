@@ -5155,7 +5155,6 @@ void PropertiesPalette::NewName()
 		if (CurItem->itemName() != NameEdit->text())
 		{
 			CurItem->setItemName(NameEdit->text());
-			CurItem->AutoName = false;
 			emit DocChanged();
 		}
 	}

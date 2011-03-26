@@ -468,7 +468,6 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-			neu->AutoName = false;
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
 			neu->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -618,7 +617,6 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 			neu->setItemName(e.attribute("id"));
 		else
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-		neu->AutoName = false;
 //		neu->setFillTransparency(1 - gc->Opacity);
 		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
@@ -895,10 +893,7 @@ QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 		ite->setLineTransparency(oostyle.strokeTrans);
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		if (!drawID.isEmpty())
-		{
 			ite->setItemName(drawID);
-			ite->AutoName = false;
-		}
 		ite = parseTextP(n.toElement(), ite);
 		elements.append(ite);
 	}
@@ -1132,10 +1127,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 	if (oostyle.dashes.count() != 0)
 		item->DashValues = oostyle.dashes;
 	if (!drawID.isEmpty())
-	{
 		item->setItemName(drawID);
-		item->AutoName = false;
-	}
 	if (elm.hasAttribute("draw:transform"))
 	{
 		parseTransform(&item->PoLine, elm.attribute("draw:transform"));

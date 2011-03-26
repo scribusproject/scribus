@@ -3672,17 +3672,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			if (currItem->itemName() == Buffer->AnName)
 				currItem->AutoName = true;
 			else
-			{
 				currItem->setItemName(Buffer->AnName);
-				currItem->AutoName = false;
-			}
 		}
 		else
-		{
-//			currItem->setItemName(currItem->generateUniqueCopyName(Buffer->AnName));
 			currItem->setItemName(Buffer->AnName);
-			currItem->AutoName = false;
-		}
 	}
 	else
 	{
@@ -4133,7 +4126,6 @@ void ScribusView::TextToPath()
 						bb->setLocked(currItem->locked());
 						bb->NamedLStyle = currItem->NamedLStyle;
 						bb->setItemName(currItem->itemName()+"+U"+ccounter.setNum(a));
-						bb->AutoName = false;
 						FPoint start, stop;
 						if (charStyle.effects() & ScStyle_Subscript)
 						{
@@ -4175,7 +4167,6 @@ void ScribusView::TextToPath()
 							bb->setLocked(currItem->locked());
 							bb->NamedLStyle = currItem->NamedLStyle;
 							bb->setItemName(currItem->itemName()+"+Sh"+ccounter.setNum(a));
-							bb->AutoName = false;
 							bb->PoLine = pts.copy();
 							QMatrix shmap;
 							shmap.translate(glxTr, glyTr);
@@ -4211,7 +4202,6 @@ void ScribusView::TextToPath()
 						bb->setLocked(currItem->locked());
 						bb->NamedLStyle = currItem->NamedLStyle;
 						bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
-						bb->AutoName = false;
 						bb->PoLine = pts.copy();
 						if (!currItem->asPathText())
 							bb->setRotation(currItem->rotation());
@@ -4276,7 +4266,6 @@ void ScribusView::TextToPath()
 						bb->setLocked(currItem->locked());
 						bb->NamedLStyle = currItem->NamedLStyle;
 						bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
-						bb->AutoName = false;
 						FPoint start = FPoint(hl->glyph.xoffset-kern, -Upos);
 						FPoint stop = FPoint(hl->glyph.xoffset+Ulen, -Upos);
 						bb->PoLine.resize(0);
@@ -4367,7 +4356,6 @@ void ScribusView::TextToPath()
 							bb->setLocked(currItem->locked());
 							bb->NamedLStyle = currItem->NamedLStyle;
 							bb->setItemName(currItem->itemName()+"+U"+ccounter.setNum(a));
-							bb->AutoName = false;
 							bb->setRotation(currItem->rotation());
 							bb->PoLine.addQuadPoint(FPoint(0, 0), FPoint(0, 0), FPoint(hl->glyph.xadvance, 0), FPoint(hl->glyph.xadvance, 0));
 							bb->setLineColor(hl->fillColor());
@@ -4427,7 +4415,6 @@ void ScribusView::TextToPath()
 								bb->setLocked(currItem->locked());
 								bb->NamedLStyle = currItem->NamedLStyle;
 								bb->setItemName(currItem->itemName()+"+Sh"+ccounter.setNum(a));
-								bb->AutoName = false;
 								bb->PoLine = pts.copy();
 								bb->setRotation(currItem->rotation());
 								bb->setFillColor(hl->strokeColor());
@@ -4477,7 +4464,6 @@ void ScribusView::TextToPath()
 							bb->setLocked(currItem->locked());
 							bb->NamedLStyle = currItem->NamedLStyle;
 							bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
-							bb->AutoName = false;
 							bb->PoLine = pts.copy();
 							bb->setRotation(currItem->rotation());
 							bb->setFillColor(hl->fillColor());
@@ -4554,7 +4540,6 @@ void ScribusView::TextToPath()
 							bb->setLocked(currItem->locked());
 							bb->NamedLStyle = currItem->NamedLStyle;
 							bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
-							bb->AutoName = false;
 							bb->setRotation(currItem->rotation());
 							bb->PoLine.addQuadPoint(FPoint(0, 0), FPoint(0, 0), FPoint(hl->glyph.xadvance, 0), FPoint(hl->glyph.xadvance, 0));
 							bb->setLineColor(hl->fillColor());

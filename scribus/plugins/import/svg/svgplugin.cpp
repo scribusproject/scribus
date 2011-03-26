@@ -408,7 +408,6 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-			neu->AutoName = false;
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
 			for (int a = 0; a < m_Doc->Items->count(); ++a)
@@ -594,10 +593,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 	{
 		QString nodeId = e.toElement().attribute("id");
 		if( !nodeId.isEmpty() )
-		{
 			item->setItemName(" "+nodeId);
-			item->AutoName = false;
-		}
 	}
 	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
@@ -1018,7 +1014,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			neu->setItemName(e.attribute("id"));
 		else
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-		neu->AutoName = false;
 		neu->setFillTransparency(1 - gc->Opacity);
 		neu->gXpos = neu->xPos() - gx;
 		neu->gYpos = neu->yPos() - gy;

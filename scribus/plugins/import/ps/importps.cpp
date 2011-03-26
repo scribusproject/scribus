@@ -278,7 +278,6 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
 				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-				neu->AutoName = false;
 				neu->isGroupControl = true;
 				neu->groupsLastItem = high;
 				neu->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -705,7 +704,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						}
 						ite->isGroupControl = true;
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-						ite->AutoName = false;
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						Elements.append(ite);
 						groupStack.push(ite);
@@ -741,7 +739,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							}
 							ite->isGroupControl = true;
 							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-							ite->AutoName = false;
 							ite->setTextFlowMode(PageItem::TextFlowDisabled);
 							Elements.append(ite);
 							groupStack.push(ite);

@@ -36,10 +36,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
-		}
 	}
 //	if (Name != EMPTY_STRING)
 //		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
@@ -76,10 +73,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
-		}
 	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
@@ -112,10 +106,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
-		}
 	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
@@ -146,10 +137,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
-		}
 	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
@@ -211,10 +199,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
-		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
 }
@@ -295,10 +280,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(ic)->AutoName = false;
-		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
 }
@@ -382,10 +364,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(ic)->AutoName = false;
-		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
 }
@@ -478,10 +457,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(ic)->AutoName = false;
-		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
 }
@@ -525,10 +501,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-		{
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
-			ScCore->primaryMainWindow()->doc->Items->at(i)->AutoName = false;
-		}
 	}
 	return PyString_FromString(it->itemName().toUtf8());
 }

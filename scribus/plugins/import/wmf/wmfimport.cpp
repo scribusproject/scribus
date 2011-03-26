@@ -645,7 +645,6 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-			neu->AutoName = false;
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
 			for (int a = 0; a < m_Doc->Items->count(); ++a)

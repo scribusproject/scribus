@@ -2041,7 +2041,6 @@ void AIPlug::processPattern(QDataStream &ts)
 					pat.setDoc(m_Doc);
 					PageItem* currItem = tmpSel->itemAt(0);
 					currItem->setItemName(currentPatternDefName);
-					currItem->AutoName = false;
 					m_Doc->DoDrawing = true;
 					QImage tmpImg = currItem->DrawObj_toImage();
 					QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32);
