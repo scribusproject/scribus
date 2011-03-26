@@ -198,8 +198,8 @@ void CharSelect::closeEnhanced()
 	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
 	           this, SLOT(slot_insertSpecialChars(const QString &)));
 	m_enhanced->close();
-	m_enhanced->deleteLater();
-//	m_enhanced = 0;
+	delete m_enhanced;
+	m_enhanced = 0;
 }
 
 void CharSelect::hideButton_toggled(bool state)
