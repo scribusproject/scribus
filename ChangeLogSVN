@@ -1,3 +1,55 @@
+Scribus - 1.4.0.rc3
+- 0008799: [Typography] Wrong apostrophe in Sample Text (cbradney) - closed.
+- 0009865: [Undo/Redo] [FIX] wrong restore paragraph`s alignment changes (jghali) - closed.
+- 0009867: [Undo/Redo] [BUG] text undo strange behaviour for line spacing changes (jghali) - closed.
+- 0002338: [General] Manage Page Properties: Changes are not recorded by the undo system (cbradney) - closed.
+- 0009378: [PDF] copy field from other document does not save field name (cbradney) - closed.
+- 0009728: [Shape Drawing] Drawing a circle causes crash (avox) - closed.
+- 0009879: [Documentation] selected documentation updates (cbradney) - closed.
+- 0008531: [Import / Export] crashes opening an odt file (plinnell) - closed.
+- 0009875: [Undo/Redo] Add undo/redo for text frame linking/unlinking (cbradney) - closed.
+- 0004930: [Undo/Redo] Layers: Mode and transparency are not recorded by undo system (cbradney) - closed.
+- 0005095: [Undo/Redo] layers: only the print setting creates an undo action - all other settings not (cbradney) - closed.
+- 0009877: [Usability] Select single file by default in recent documents list (cbradney) - closed.
+- 0009267: [Shape Drawing] Non-existent default color for frames (cbradney) - closed.
+- 0005529: [General] a color called "None" is treated strangely (cbradney) - closed.
+- 0009010: [Story Editor / Text Frames] Impossible to remove Frame Breaks in text frames with Delete key (cbradney) - closed.
+- 0008133: [Usability] Have blinking cursor stay showing whenever it is active (cbradney) - closed.
+- 0008577: [Story Editor / Text Frames] manually typed glyph number not inserted in text (cbradney) - closed.
+- 0008283: [User Interface] English-American UI still uses settings from non-English OS: default colour "Geen" in stead of "None" (cbradney) - closed.
+- 0009870: [Graphics / Image Frames] corner rounding shows wrong result for positiv radii (fschmid) - closed.
+- 0003637: [Shape Drawing] Rounded corner are not round (fschmid) - closed.
+- 0009864: [General] Search/Replace doesn't work for fonts (regression) (jghali) - closed.
+- 0009863: [User Interface] Improved text cursor visibility (cbradney) - closed.
+- 0009861: [Undo/Redo] [FIX] fix creating undo state if cursors is placed after last text char (cbradney) - closed.
+- 0009860: [Undo/Redo] [FIX] urgent patch for undo text related crashes (cbradney) - closed.
+- 0009855: [Import / Export] Crash when importing EPS file. (fschmid) - closed.
+- 0009856: [Color Management] Frequent ""Unable to find the requested color..." error in color wheel (jghali) - closed.
+- 0009576: [Graphics / Image Frames] Crash when previewing cmyk jpeg image with no thumbnail (cbradney) - closed.
+- 0009838: [Story Editor / Text Frames] Crash when changing any text setting after entering some new text in a new frame (jghali) - closed.
+- 0009852: [PDF] Doc prefs do not save PDF marks related settings (jghali) - closed.
+- 0009842: [General] Crash when using Gabriola Regular font (jghali) - closed.
+- 0009851: [General] Move preferences files to 140 versioning scheme (cbradney) - closed.
+- 0004286: [User Interface] Some copied items do not refresh or copy correctly (cbradney) - closed.
+- 0005523: [Story Editor / Text Frames] text redraw problem when changing linespacing after typing in frame (cbradney) - closed.
+- 0001034: [Story Editor / Text Frames] Edit Paste disabled after copy from another program, but Control V works (cbradney) - closed.
+- 0009831: [Color Management] Doc prefs do not save PDF/X-3 info string (jghali) - closed.
+- 0003007: [Import / Export] Import Text filter does not recognize upper case extension (cbradney) - closed.
+- 0003389: [User Interface] Drop down list for text colour in the properties palette behaves weird (cbradney) - closed.
+- 0009839: [General] Crash when copying text frame from old doc (jghali) - closed.
+- 0002176: [User Interface] wrong automatically applied colors (jghali) - closed.
+- 0005353: [Story Editor / Text Frames] Selecting second line of text in text frame is impossible (cbradney) - closed.
+- 0002812: [Story Editor / Text Frames] Text shade not updated when editing shade of text on a path on the "text" palette (cbradney) - closed.
+- 0004500: [Usability] Popupmenue entry "Scale image To Frame Size" (cbradney) - closed.
+- 0007861: [Mac OS] refresh problem on OS X (cbradney) - closed.
+- 0009832: [User Interface] "Replace file?" dialog shown twice when overwriting character palette (cbradney) - closed.
+- 0009817: [Undo/Redo] [BUG] unwanted undo state is created after selecting image frame with image sclaed to frame size (cbradney) - closed.
+- 0009816: [Undo/Redo] [FIX] undo transaction for clearing content of selected image and text frames (cbradney) - closed.
+- 0009823: [Build System] libmeshdistortion cannot be linked with binutils-gold (malex) - closed.
+- 0009822: [Translation] Hungarian translation update for 1.4 (v2) (cbradney) - closed.
+- 0009818: [Translation] string freeze for 1.4 (cbradney) - closed.
+- 0009809: [Styles] Crash When Creating New Style (cbradney) - closed.
+
 Scribus - 1.4.0.rc2
 - 0009809: [Styles] Crash When Creating New Style (cbradney) - resolved.
 - 0009745: [Scripter] [patch] the return value of getImageScale() does not really make sense... (cbradney) - resolved.
