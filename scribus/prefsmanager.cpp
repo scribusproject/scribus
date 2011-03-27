@@ -2076,9 +2076,9 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.spiralStartAngle = ScCLocale::toDoubleC(dc.attribute("SpiralStartAngle"), 0.0);
 			appPrefs.itemToolPrefs.spiralEndAngle = ScCLocale::toDoubleC(dc.attribute("SpiralEndAngle"), 1080.0);
 			appPrefs.itemToolPrefs.spiralFactor = ScCLocale::toDoubleC(dc.attribute("SpiralFactor"), 1.2);
-			if (dc.hasAttribute("Face"))
+			if (dc.hasAttribute("FontFace"))
 			{
-				QString tmpf=dc.attribute("Face");
+				QString tmpf=dc.attribute("FontFace");
 				QString newFont = "";
 				if (!appPrefs.fontPrefs.AvailFonts.contains(tmpf) || !appPrefs.fontPrefs.AvailFonts[tmpf].usable())
 				{
@@ -2092,7 +2092,7 @@ bool PrefsManager::ReadPref(QString ho)
 					newFont = tmpf;
 				if (!newFont.isEmpty())
 					appPrefs.itemToolPrefs.textFont = newFont;
-				appPrefs.itemToolPrefs.textSize = qRound( ScCLocale::toDoubleC(dc.attribute("SIZE"), 12.0) * 10.0 );
+				appPrefs.itemToolPrefs.textSize = qRound( ScCLocale::toDoubleC(dc.attribute("FontSize"), 12.0) * 10.0 );
 			}
 		}
 
