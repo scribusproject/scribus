@@ -1,4 +1,5 @@
 Scribus - 1.4.0.rc3
+- 0009884: [Styles] Character styles not working (jghali) - resolved.
 - 0008799: [Typography] Wrong apostrophe in Sample Text (cbradney) - closed.
 - 0009865: [Undo/Redo] [FIX] wrong restore paragraph`s alignment changes (jghali) - closed.
 - 0009867: [Undo/Redo] [BUG] text undo strange behaviour for line spacing changes (jghali) - closed.
