@@ -27882,7 +27882,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7416"/>
         <source>Remove content from frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Remove content from frames</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7434"/>
@@ -28200,7 +28200,7 @@ Rotation: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3920"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>The file may be damaged or may have been produced in a later version of Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3946"/>
@@ -28558,7 +28558,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7811"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>
@@ -34781,7 +34781,7 @@ to %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="938"/>
         <source>Change page properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Change page properties</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="939"/>
@@ -34831,32 +34831,32 @@ to %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="949"/>
         <source>Enable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable text flow around for lower layers</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="950"/>
         <source>Disable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Disable text flow around for lower layers</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="951"/>
         <source>Set layer blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Set layer blend mode</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="952"/>
         <source>Set layer opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Set layer opacity</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Lock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Lock layer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="954"/>
         <source>Unlock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Unlock layer</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="955"/>
@@ -34866,27 +34866,27 @@ to %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="974"/>
         <source>Edit text</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit text</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="975"/>
         <source>Clear image frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Clear image frame content</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="976"/>
         <source>Clear frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Clear frame content</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="977"/>
         <source>Link text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Link text frame</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="978"/>
         <source>Unlink text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Unlink text frame</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="910"/>
@@ -35139,7 +35139,8 @@ X: %4, Y: %5</translation>
         <location filename="../../../scribus/undogui.cpp" line="532"/>
         <source>%1 - %2
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="309"/>
