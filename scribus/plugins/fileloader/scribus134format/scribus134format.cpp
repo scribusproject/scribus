@@ -328,7 +328,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		if (tagName == "CHARSTYLE")
 		{
 			CharStyle cstyle;
-			readNamedCharacterStyleAttrs(m_Doc, reader.scAttributes(), cstyle);
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			readNamedCharacterStyleAttrs(m_Doc, attrs, cstyle);
 			StyleSet<CharStyle> temp;
 			temp.create(cstyle);
 			m_Doc->redefineCharStyles(temp, false);
