@@ -545,16 +545,17 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				readParagraphStyle(vg, pg, *m_AvailableFonts, m_Doc);
+				readParagraphStyle(vg, pg, m_Doc);
 				StyleSet<ParagraphStyle>tmp;
 				tmp.create(vg);
 				m_Doc->redefineStyles(tmp, false);
 			}
 			if(pg.tagName()=="CHARSTYLE")
 			{
-				readParagraphStyle(vg, pg, *m_AvailableFonts, m_Doc);
+				CharStyle cstyle;
+				readCharacterStyle(cstyle, pg, m_Doc);
 				StyleSet<CharStyle> temp;
-				temp.create(vg.charStyle());
+				temp.create(cstyle);
 				m_Doc->redefineCharStyles(temp, false);
 			}
 			if(pg.tagName()=="JAVA")
@@ -1031,7 +1032,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
-							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
@@ -1039,14 +1040,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						{
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager = PrefsManager::instance();
-							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
 						else if (it.tagName()=="tab")
 						{
 							CharStyle newStyle;
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
-							GetCStyle(&it, m_Doc, newStyle);
+							GetCharStyle(&it, m_Doc, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 							last->StyleStart = Neu->itemText.length()-1;
 							last->Style = newStyle;
@@ -1072,7 +1073,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							else
 								Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGECOUNT);
 							CharStyle newStyle;
-							GetCStyle(&it, m_Doc, newStyle);
+							GetCharStyle(&it, m_Doc, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 							last->StyleStart = Neu->itemText.length()-1;
 							last->Style = newStyle;
@@ -1270,7 +1271,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
-							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
@@ -1278,14 +1279,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						{
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager = PrefsManager::instance();
-							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
 						else if (it.tagName()=="tab")
 						{
 							CharStyle newStyle;
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
-							GetCStyle(&it, m_Doc, newStyle);
+							GetCharStyle(&it, m_Doc, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 							last->StyleStart = Neu->itemText.length()-1;
 							last->Style = newStyle;
@@ -1311,7 +1312,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							else
 								Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGECOUNT);
 							CharStyle newStyle;
-							GetCStyle(&it, m_Doc, newStyle);
+							GetCharStyle(&it, m_Doc, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 							last->StyleStart = Neu->itemText.length()-1;
 							last->Style = newStyle;
@@ -1694,7 +1695,7 @@ namespace {
 }// namespace
 
 
-void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle)
+void Scribus134Format::GetCharStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle)
 {
 	if (it->hasAttribute("CPARENT"))
 		newStyle.setParent(it->attribute("CPARENT"));
@@ -1769,19 +1770,19 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setWordTracking(ScCLocale::toDoubleC(it->attribute("wordTrack")));
 }	
 
-void Scribus134Format::GetNamedCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle)
+void Scribus134Format::readCharacterStyle(CharStyle & newStyle, const QDomElement& it, ScribusDoc *doc)
 {
-	if (it->hasAttribute("CNAME"))
-		newStyle.setName(it->attribute("CNAME"));
+	if (it.hasAttribute("CNAME"))
+		newStyle.setName(it.attribute("CNAME"));
 	// The default style attribute must be correctly set before trying to assign a parent
-	if (newStyle.hasName() && it->hasAttribute("DefaultStyle"))
-		newStyle.setDefaultStyle(it->attribute("DefaultStyle").toInt());
+	if (newStyle.hasName() && it.hasAttribute("DefaultStyle"))
+		newStyle.setDefaultStyle(it.attribute("DefaultStyle").toInt());
 	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
 
-	GetCStyle(it, doc, newStyle);
+	GetCharStyle(&it, doc, newStyle);
 }
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
@@ -1789,7 +1790,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	QString tmp2;
 	CharStyle newStyle;
 	
-	GetCStyle(it, doc, newStyle);
+	GetCharStyle(it, doc, newStyle);
 
 	if (it->hasAttribute("Unicode"))
 	{
@@ -1971,7 +1972,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 
 
 
-void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
+void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, ScribusDoc *doc)
 {
 	vg.erase();
 	vg.setName(pg.attribute("NAME", ""));
@@ -2075,7 +2076,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	if (pg.hasAttribute("MaxGlyphExtend"))
 		vg.setMaxGlyphExtension(ScCLocale::toDoubleC(pg.attribute("MaxGlyphExtend")));
 	
-	GetCStyle( &pg, doc, vg.charStyle());
+	GetCharStyle( &pg, doc, vg.charStyle());
 	
 	fixLegacyParStyle(vg);
 }
@@ -3048,7 +3049,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
-							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
@@ -3056,14 +3057,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						{
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager = PrefsManager::instance();
-							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
 						else if (it.tagName()=="tab")
 						{
 							CharStyle newStyle;
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
-							GetCStyle(&it, m_Doc, newStyle);
+							GetCharStyle(&it, m_Doc, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 							last->StyleStart = Neu->itemText.length()-1;
 							last->Style = newStyle;
@@ -3089,7 +3090,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							else
 								Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGECOUNT);
 							CharStyle newStyle;
-							GetCStyle(&it, m_Doc, newStyle);
+							GetCharStyle(&it, m_Doc, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 							last->StyleStart = Neu->itemText.length()-1;
 							last->Style = newStyle;
@@ -3440,7 +3441,7 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 	QString tmV;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
 	PrefsManager* prefsManager=PrefsManager::instance();
-	readParagraphStyle(*vg, *pg, prefsManager->appPrefs.AvailFonts, doc);
+	readParagraphStyle(*vg, *pg, doc);
 	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{
 		if (vg->name() == (*docParagraphStyles)[xx].name())
@@ -3552,7 +3553,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 			if(pg.tagName()=="CHARSTYLE")
 			{
 				cstyle.erase();
-				GetNamedCStyle(&pg, doc, cstyle);
+				readCharacterStyle(cstyle, pg, doc);
 				docCharStyles.create(cstyle);
 			}
 			PAGE=PAGE.nextSibling();
