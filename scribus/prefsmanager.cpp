@@ -1473,11 +1473,11 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("PolygonInnerRotation", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyInnerRot));
 	dcItemTools.setAttribute("PolygonCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyCurvature));
 	dcItemTools.setAttribute("PolygonOuterCurvature", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyOuterCurvature));
-	dcItemTools.setAttribute("arcStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcStartAngle));
-	dcItemTools.setAttribute("arcSweepAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcSweepAngle));
-	dcItemTools.setAttribute("spiralStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralStartAngle));
-	dcItemTools.setAttribute("spiralEndAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralEndAngle));
-	dcItemTools.setAttribute("spiralFactor", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralFactor));
+	dcItemTools.setAttribute("ArcStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcStartAngle));
+	dcItemTools.setAttribute("ArcSweepAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.arcSweepAngle));
+	dcItemTools.setAttribute("SpiralStartAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralStartAngle));
+	dcItemTools.setAttribute("SpiralEndAngle", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralEndAngle));
+	dcItemTools.setAttribute("SpiralFactor", ScCLocale::toQStringC(appPrefs.itemToolPrefs.spiralFactor));
 	dcItemTools.setAttribute("PolygonUseFactor", static_cast<int>(appPrefs.itemToolPrefs.polyUseFactor));
 	dcItemTools.setAttribute("ImageScaleType", static_cast<int>(appPrefs.itemToolPrefs.imageScaleType));
 	dcItemTools.setAttribute("ImageAspectRatio", static_cast<int>(appPrefs.itemToolPrefs.imageAspectRatio));
@@ -1487,14 +1487,14 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("LineEndArrow", appPrefs.itemToolPrefs.lineEndArrow);
 	dcItemTools.setAttribute("FontFace",appPrefs.itemToolPrefs.textFont);
 	dcItemTools.setAttribute("FontSize",appPrefs.itemToolPrefs.textSize / 10.0);
-	dcItemTools.setAttribute("calligrapicPenFillColor", appPrefs.itemToolPrefs.calligrapicPenFillColor);
-	dcItemTools.setAttribute("calligrapicPenLineColor", appPrefs.itemToolPrefs.calligrapicPenLineColor);
-	dcItemTools.setAttribute("calligrapicPenFillColorShade", appPrefs.itemToolPrefs.calligrapicPenFillColorShade);
-	dcItemTools.setAttribute("calligrapicPenLineColorShade", appPrefs.itemToolPrefs.calligrapicPenLineColorShade);
-	dcItemTools.setAttribute("calligrapicPenLineWidth", appPrefs.itemToolPrefs.calligrapicPenLineWidth);
-	dcItemTools.setAttribute("calligrapicPenAngle", appPrefs.itemToolPrefs.calligrapicPenAngle);
-	dcItemTools.setAttribute("calligrapicPenWidth", appPrefs.itemToolPrefs.calligrapicPenWidth);
-	dcItemTools.setAttribute("calligrapicPenStyle",appPrefs.itemToolPrefs.calligrapicPenStyle);
+	dcItemTools.setAttribute("CalligrapicPenFillColor", appPrefs.itemToolPrefs.calligrapicPenFillColor);
+	dcItemTools.setAttribute("CalligrapicPenLineColor", appPrefs.itemToolPrefs.calligrapicPenLineColor);
+	dcItemTools.setAttribute("CalligrapicPenFillColorShade", appPrefs.itemToolPrefs.calligrapicPenFillColorShade);
+	dcItemTools.setAttribute("CalligrapicPenLineColorShade", appPrefs.itemToolPrefs.calligrapicPenLineColorShade);
+	dcItemTools.setAttribute("CalligrapicPenLineWidth", appPrefs.itemToolPrefs.calligrapicPenLineWidth);
+	dcItemTools.setAttribute("CalligrapicPenAngle", appPrefs.itemToolPrefs.calligrapicPenAngle);
+	dcItemTools.setAttribute("CalligrapicPenWidth", appPrefs.itemToolPrefs.calligrapicPenWidth);
+	dcItemTools.setAttribute("CalligrapicPenStyle",appPrefs.itemToolPrefs.calligrapicPenStyle);
 	elem.appendChild(dcItemTools);
 
 	QDomElement dcOperatorTools=docu.createElement("OperatorTools");
@@ -2020,14 +2020,14 @@ bool PrefsManager::ReadPref(QString ho)
 
 		if (dc.tagName()=="ItemTools")
 		{
-			appPrefs.itemToolPrefs.calligrapicPenFillColor = dc.attribute("calligrapicPenFillColor", "Black");
-			appPrefs.itemToolPrefs.calligrapicPenLineColor = dc.attribute("calligrapicPenLineColor", "Black");
-			appPrefs.itemToolPrefs.calligrapicPenFillColorShade = dc.attribute("calligrapicPenFillColorShade", "100").toInt();
-			appPrefs.itemToolPrefs.calligrapicPenLineColorShade = dc.attribute("calligrapicPenLineColorShade", "100").toInt();
-			appPrefs.itemToolPrefs.calligrapicPenLineWidth = ScCLocale::toDoubleC(dc.attribute("calligrapicPenLineWidth"), 1.0);
-			appPrefs.itemToolPrefs.calligrapicPenAngle = ScCLocale::toDoubleC(dc.attribute("calligrapicPenAngle"), 0.0);
-			appPrefs.itemToolPrefs.calligrapicPenWidth = ScCLocale::toDoubleC(dc.attribute("calligrapicPenWidth"), 10.0);
-			appPrefs.itemToolPrefs.calligrapicPenStyle = dc.attribute("calligrapicPenStyle").toInt();
+			appPrefs.itemToolPrefs.calligrapicPenFillColor = dc.attribute("CalligrapicPenFillColor", "Black");
+			appPrefs.itemToolPrefs.calligrapicPenLineColor = dc.attribute("CalligrapicPenLineColor", "Black");
+			appPrefs.itemToolPrefs.calligrapicPenFillColorShade = dc.attribute("CalligrapicPenFillColorShade", "100").toInt();
+			appPrefs.itemToolPrefs.calligrapicPenLineColorShade = dc.attribute("CalligrapicPenLineColorShade", "100").toInt();
+			appPrefs.itemToolPrefs.calligrapicPenLineWidth = ScCLocale::toDoubleC(dc.attribute("CalligrapicPenLineWidth"), 1.0);
+			appPrefs.itemToolPrefs.calligrapicPenAngle = ScCLocale::toDoubleC(dc.attribute("CalligrapicPenAngle"), 0.0);
+			appPrefs.itemToolPrefs.calligrapicPenWidth = ScCLocale::toDoubleC(dc.attribute("CalligrapicPenWidth"), 10.0);
+			appPrefs.itemToolPrefs.calligrapicPenStyle = dc.attribute("CalligrapicPenStyle").toInt();
 			appPrefs.itemToolPrefs.shapeLineColor = dc.attribute("ShapeLineColor");
 			appPrefs.itemToolPrefs.shapeFillColor = dc.attribute("ShapeFillColor", CommonStrings::None);
 			appPrefs.itemToolPrefs.lineColor = dc.attribute("LineColor");
@@ -2071,11 +2071,11 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.polyUseFactor  = static_cast<bool>(dc.attribute("PolygonUseFactor", "0").toInt());
 			appPrefs.itemToolPrefs.lineStartArrow = dc.attribute("LineStartArrow", "0").toInt();
 			appPrefs.itemToolPrefs.lineEndArrow   = dc.attribute("LineEndArrow", "0").toInt();
-			appPrefs.itemToolPrefs.arcStartAngle = ScCLocale::toDoubleC(dc.attribute("arcStartAngle"), 30.0);
-			appPrefs.itemToolPrefs.arcSweepAngle = ScCLocale::toDoubleC(dc.attribute("arcSweepAngle"), 300.0);
-			appPrefs.itemToolPrefs.spiralStartAngle = ScCLocale::toDoubleC(dc.attribute("spiralStartAngle"), 0.0);
-			appPrefs.itemToolPrefs.spiralEndAngle = ScCLocale::toDoubleC(dc.attribute("spiralEndAngle"), 1080.0);
-			appPrefs.itemToolPrefs.spiralFactor = ScCLocale::toDoubleC(dc.attribute("spiralFactor"), 1.2);
+			appPrefs.itemToolPrefs.arcStartAngle = ScCLocale::toDoubleC(dc.attribute("ArcStartAngle"), 30.0);
+			appPrefs.itemToolPrefs.arcSweepAngle = ScCLocale::toDoubleC(dc.attribute("ArcSweepAngle"), 300.0);
+			appPrefs.itemToolPrefs.spiralStartAngle = ScCLocale::toDoubleC(dc.attribute("SpiralStartAngle"), 0.0);
+			appPrefs.itemToolPrefs.spiralEndAngle = ScCLocale::toDoubleC(dc.attribute("SpiralEndAngle"), 1080.0);
+			appPrefs.itemToolPrefs.spiralFactor = ScCLocale::toDoubleC(dc.attribute("SpiralFactor"), 1.2);
 			if (dc.hasAttribute("Face"))
 			{
 				QString tmpf=dc.attribute("Face");
