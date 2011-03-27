@@ -104,7 +104,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readPage(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader);
 		bool readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader);
-		void readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle, SCFonts &fonts);
+		void readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle);
 		bool readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, const QString& baseDir);
 		bool readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader);

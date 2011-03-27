@@ -266,14 +266,14 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 		}
 		if (tagName == "STYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
+			readParagraphStyle(m_Doc, reader, vg);
 			StyleSet<ParagraphStyle>tmp;
 			tmp.create(vg);
 			m_Doc->redefineStyles(tmp, false);
 		}
 		if (tagName == "CHARSTYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
+			readParagraphStyle(m_Doc, reader, vg);
 			StyleSet<CharStyle> temp;
 			temp.create(vg.charStyle());
 			m_Doc->redefineCharStyles(temp, false);
@@ -1071,16 +1071,17 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (tagName == "STYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
+			readParagraphStyle(m_Doc, reader, vg);
 			StyleSet<ParagraphStyle>tmp;
 			tmp.create(vg);
 			m_Doc->redefineStyles(tmp, false);
 		}
 		if (tagName == "CHARSTYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg, *m_AvailableFonts);
+			CharStyle cstyle;
+			readNamedCharacterStyleAttrs(m_Doc, reader.scAttributes(), cstyle);
 			StyleSet<CharStyle> temp;
-			temp.create(vg.charStyle());
+			temp.create(cstyle);
 			m_Doc->redefineCharStyles(temp, false);
 		}
 		if (tagName == "JAVA")
@@ -2014,7 +2015,7 @@ void Scribus150Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStream
 	readCharacterStyleAttrs(doc, attrs, newStyle);
 }
 
-void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle, SCFonts &fonts)
+void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle)
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 
@@ -2696,7 +2697,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PARSEP);
 			ParagraphStyle newStyle;
 			PrefsManager* prefsManager = PrefsManager::instance();
-			readParagraphStyle(doc, reader, newStyle, prefsManager->appPrefs.fontPrefs.AvailFonts);
+			readParagraphStyle(doc, reader, newStyle);
 			newItem->itemText.setStyle(newItem->itemText.length()-1, newStyle);
 			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle->Style);
 		}
@@ -2704,7 +2705,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		{
 			ParagraphStyle newStyle;
 			PrefsManager* prefsManager = PrefsManager::instance();
-			readParagraphStyle(doc, reader, newStyle, prefsManager->appPrefs.fontPrefs.AvailFonts);
+			readParagraphStyle(doc, reader, newStyle);
 			newItem->itemText.setStyle(newItem->itemText.length(), newStyle);
 		}
 		else if (tName == "tab")
@@ -4391,7 +4392,7 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 	QString tmpf, tmV;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
 	PrefsManager* prefsManager = PrefsManager::instance();
-	readParagraphStyle(doc, reader, style, prefsManager->appPrefs.fontPrefs.AvailFonts);
+	readParagraphStyle(doc, reader, style);
 	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{
 		if (style.name() == (*docParagraphStyles)[xx].name())
