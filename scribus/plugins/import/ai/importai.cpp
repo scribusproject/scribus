@@ -675,6 +675,7 @@ QString AIPlug::parseColor(QString data)
 //		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
+	meshColorMode = 0;
 	return ret;
 }
 
@@ -714,6 +715,7 @@ QString AIPlug::parseColorGray(QString data)
 //		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
+	meshColorMode = 2;
 	return ret;
 }
 
@@ -757,6 +759,7 @@ QString AIPlug::parseColorRGB(QString data)
 //		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
+	meshColorMode = 1;
 	return ret;
 }
 
@@ -810,6 +813,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 //		importedColors.append(FarNam);
 		ret = FarNam;
 	}
+	meshColorMode = 0;
 	return ret;
 }
 
@@ -846,6 +850,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 				}
 			}
 		}
+		meshColorMode = 1;
 	}
 	else
 	{
@@ -872,6 +877,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 				}
 			}
 		}
+		meshColorMode = 0;
 	}
 	QString tmpS = data;
 	int an = data.indexOf("(");
@@ -1074,18 +1080,14 @@ void AIPlug::processData(QString data)
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x1 >> y1 >> x2 >> y2;
-			Coords.svgCurveToCubic(currentPoint.x(), currentPoint.y(),
-								   x1 - docX, docHeight - (y1 - docY),
-								   x2 - docX, docHeight - (y2 - docY));
+			Coords.svgCurveToCubic(x1 - docX, docHeight - (y1 - docY), x2 - docX, docHeight - (y2 - docY), x2 - docX, docHeight - (y2 - docY));
 			currentPoint = FPoint(x2 - docX, docHeight - (y2 - docY));
 		}
 		else if ((command == "V") || (command == "v"))
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y >> x2 >> y2;
-			Coords.svgCurveToCubic(x - docX, docHeight - (y - docY),
-								   currentPoint.x(), currentPoint.y(),
-								   x2 - docX, docHeight - (y2 - docY));
+			Coords.svgCurveToCubic(currentPoint.x(), currentPoint.y(), x - docX, docHeight - (y - docY), x2 - docX, docHeight - (y2 - docY));
 			currentPoint = FPoint(x2 - docX, docHeight - (y2 - docY));
 		}
 /* End Path construction commands */
@@ -1135,8 +1137,6 @@ void AIPlug::processData(QString data)
 					}
 					ite->setLineEnd(CapStyle);
 					ite->setLineJoin(JoinStyle);
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						ite->setLocked(itemLocked);
 					if (!WasU)
 					{
 						FPoint wh = getMaxClipF(&ite->PoLine);
@@ -1144,6 +1144,8 @@ void AIPlug::processData(QString data)
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
 					}
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(itemLocked);
 					if (patternMode)
 						PatternElements.append(ite);
 					else
@@ -1161,6 +1163,8 @@ void AIPlug::processData(QString data)
 				}
 				Coords.resize(0);
 				Coords.svgInit();
+				CurrFillShade = 100.0;
+				CurrStrokeShade = 100.0;
 				FirstU = false;
 				itemRendered = true;
 			}
@@ -1433,8 +1437,6 @@ void AIPlug::processData(QString data)
 				accumColorM = 0.0;
 				accumColorY = 0.0;
 				accumColorK = 0.0;
-				meshColorMode = 0;
-			//	meshBoundingPath = QPainterPath();
 			}
 			if (Cdata.contains("/End"))
 			{
@@ -1451,14 +1453,6 @@ void AIPlug::processData(QString data)
 						}
 						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
 						ite = tmpSel->itemAt(0);
-					/*	if (!meshBoundingPath.isEmpty())
-						{
-							ite = tmpSel->itemAt(0);
-							clipCoords.fromQPainterPath(meshBoundingPath);
-							clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
-							ite->PoLine = clipCoords.copy();
-							ite->PoLine.translate(baseX, baseY);
-						} */
 						if (patternMode)
 							PatternElements.append(ite);
 						else
@@ -1510,6 +1504,8 @@ void AIPlug::processData(QString data)
 					meshColorMode = 0;
 				else if (Cdata.contains("RGB"))
 					meshColorMode = 1;
+				else if (Cdata.contains("Gray"))
+					meshColorMode = 2;
 			}
 			if (mKey == "E")
 			{
@@ -1538,7 +1534,7 @@ void AIPlug::processData(QString data)
 						}
 					}
 				}
-				else
+				else if (meshColorMode == 1)
 				{
 					tmpColor.setColorRGB(Cc, Mc, Yc);
 					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
@@ -1547,6 +1543,23 @@ void AIPlug::processData(QString data)
 						{
 							it.value().getRGB(&hC, &hM, &hY);
 							if ((Cc == hC) && (Mc == hM) && (Yc == hY))
+							{
+								CurrColorFill = it.key();
+								found = true;
+								break;
+							}
+						}
+					}
+				}
+				else if (meshColorMode == 2)
+				{
+					tmpColor.setColor(0, 0, 0, Cc);
+					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+					{
+						if (it.value().getColorModel() == colorModelCMYK)
+						{
+							it.value().getCMYK(&hC, &hM, &hY, &hK);
+							if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 							{
 								CurrColorFill = it.key();
 								found = true;
@@ -1574,8 +1587,6 @@ void AIPlug::processData(QString data)
 				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorFill, CurrColorFill, true);
 				ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
-			//	QPainterPath tmpPath = Coords.toQPainterPath(true);
-			//	meshBoundingPath = meshBoundingPath.united(tmpPath);
 				ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
@@ -1613,8 +1624,10 @@ void AIPlug::processData(QString data)
 				kVal = 0.0;
 				if (meshColorMode == 0)
 					mVals4 >> cVal >> mVal >> yVal >> kVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
-				else
+				else if (meshColorMode == 1)
 					mVals4 >> cVal >> mVal >> yVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
+				else if (meshColorMode == 2)
+					mVals4 >> cVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
 				accumColorC += cVal;
 				accumColorM += mVal;
 				accumColorY += yVal;
