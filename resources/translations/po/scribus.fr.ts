@@ -26283,7 +26283,7 @@ Rotation : %4</translation>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7416"/>
         <source>Remove content from frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le contenu des cadres</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="10317"/>
@@ -26514,7 +26514,7 @@ Rotation : %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3920"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier est peut-être endommagé ou il a peut-être été créé avec une version plus récente de Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3946"/>
@@ -26919,7 +26919,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7811"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur le bouton d&apos;Aide pour les instructions relatives à l’installation de Ghostcript.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>
@@ -34108,7 +34108,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="938"/>
         <source>Change page properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier les propriétés de la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="939"/>
@@ -34158,32 +34158,32 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="949"/>
         <source>Enable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer l&apos;habillage des calques des niveaux inférieurs</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="950"/>
         <source>Disable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactiver l&apos;habillage des calques des niveaux inférieurs</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="951"/>
         <source>Set layer blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramétrer le mode de fusion</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="952"/>
         <source>Set layer opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramétrer l’opacité des calques</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Lock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Verrouiller le calque</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="954"/>
         <source>Unlock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Déverrouiller le calque</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="955"/>
@@ -34225,27 +34225,27 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="974"/>
         <source>Edit text</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier le texte</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="975"/>
         <source>Clear image frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer le contenu du cadre d’image</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="976"/>
         <source>Clear frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer le contenu du cadre</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="977"/>
         <source>Link text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Lier le cadre de texte</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="978"/>
         <source>Unlink text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Délier le cadre du texte</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="921"/>
@@ -34413,7 +34413,8 @@ to %2</source>
         <location filename="../../../scribus/undogui.cpp" line="532"/>
         <source>%1 - %2
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="309"/>
