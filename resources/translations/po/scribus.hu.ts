@@ -4690,7 +4690,7 @@ A Beszúrás gomb hozzáad egy betűkészletjelet a kiválasztáshoz, a Törlés
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="413"/>
         <source>Transparency used</source>
-        <translation>Átlátszóság akalmazásban</translation>
+        <translation>Átlátszóság alkalmazásban</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="418"/>
@@ -16129,14 +16129,16 @@ Check path and filename.</source>
     <message>
         <location filename="../../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="48"/>
         <source>html</source>
-        <translation>html</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="616"/>
         <source>
 External Links
 </source>
-        <translation>Külső hivatkozások</translation>
+        <translation>
+Külső hivatkozások
+</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/gettext/txtim/txtim.cpp" line="21"/>
@@ -26400,37 +26402,37 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="938"/>
         <source>Change page properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldal tulajdonságok beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="949"/>
         <source>Enable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Az alsóbb keret szövege körbefuttatásának engedélyezése</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="950"/>
         <source>Disable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Az alsóbb keret szövege körbefuttatásának tiltása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="951"/>
         <source>Set layer blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Réteg keverési módjának beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="952"/>
         <source>Set layer opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Réteg átlátszatlanságának beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Lock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Réteg zárolása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="954"/>
         <source>Unlock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Réteg zárolásának feloldása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="974"/>
@@ -26450,12 +26452,12 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="977"/>
         <source>Link text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Szövegkeretek összekapcsolása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="978"/>
         <source>Unlink text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Szövegkeretek közti kapcsolat megszüntetése</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="868"/>
