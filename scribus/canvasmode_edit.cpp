@@ -205,9 +205,10 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 
 void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textframe )
 {
-//	CB: If we have this test in we get no initial cursor placed for a new text frame
-//	if(textframe->lastInFrame() < 0)
-//		return;
+	//CB: If we have this test in we get no initial cursor placed for a new text frame
+	// but if we do, we crash when we resize.. #9886
+	if(textframe->lastInFrame() < 0)
+		return;
 	if ((!m_longCursorTime && m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2 ) ||
 		(m_longCursorTime && m_blinkTime.elapsed() > qApp->cursorFlashTime() )
 		)
