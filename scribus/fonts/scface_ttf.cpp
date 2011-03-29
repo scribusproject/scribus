@@ -39,7 +39,7 @@ KernFeature::KernFeature ( FT_Face face )
 			m_valid = false;
 
 		GPOSTableRaw.clear();
-		coverages.clear();
+//		coverages.clear();
 	}
 	else
 		m_valid = false;
@@ -67,11 +67,51 @@ double KernFeature::getPairValue ( unsigned int glyph1, unsigned int glyph2 ) co
 {
 	if ( m_valid )
 	{
-		if ( pairs.contains ( glyph1 ) )
+
+		if ( pairs.contains( glyph1 )
+				&& pairs[glyph1].contains(glyph2))
 		{
-			if ( pairs[glyph1].contains ( glyph2 ) )
+			return pairs[glyph1][glyph2];
+		}
+		else
+		{
+			qDebug()<<"Search in classes";
+			foreach (const quint16& coverageId, coverages.keys())
 			{
-				return pairs[glyph1][glyph2];
+				// for each pairpos table, coverage lists covered _first_ (left) glyph
+				if(coverages[coverageId].contains(glyph1))
+				{
+					foreach(const quint16& classDefOffset, classGlyphFirst[coverageId].keys())
+					{
+						const ClassDefTable& cdt(classGlyphFirst[coverageId][classDefOffset]);
+						foreach(const quint16& classIndex, cdt.keys())
+						{
+							const QList<quint16>& gl(cdt[classIndex]);
+							if(gl.contains(glyph1))
+							{
+								//qDebug()<<"Found G1"<<glyph1<<"in Class"<<classIndex<<"at pos"<<gl.indexOf(glyph1);
+								// Now we got the index of the first glyph class, see if glyph2 is in one of the left glyphs classes attached to this subtable.
+								foreach(const quint16& classDefOffset2, classGlyphSecond[coverageId].keys())
+								{
+									const ClassDefTable& cdt2(classGlyphSecond[coverageId][classDefOffset2]);
+									foreach(const quint16& classIndex2, cdt2.keys())
+									{
+										const QList<quint16>& gl2(cdt2[classIndex2]);
+										if(gl2.contains(glyph2))
+										{
+											//qDebug()<<"Found G2"<<glyph2<<"in Class"<<classIndex2<<"at pos"<<gl2.indexOf(glyph2);
+
+											double v(classValue[coverageId][classIndex][classIndex2]);
+											// Cache this pair into "pairs" map.
+											pairs[glyph1][glyph2] = v;
+											return v;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -215,7 +255,6 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-
 				}
 
 			}
@@ -245,7 +284,7 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 		}
 
 	}
-	else if ( PosFormat == 2 )
+	else if ( PosFormat == 2 ) // class kerning
 	{
 		quint16 ValueFormat1 ( toUint16 ( subtableOffset +4 ) );
 		quint16 ValueFormat2 ( toUint16 ( subtableOffset +6 ) );
@@ -256,50 +295,35 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 		quint16 Class1Record ( subtableOffset +16 );
 
 		// first extract classses
-		ClassDefTable Class1Data ( getClass ( ClassDef1 , subtableOffset ) );
-		ClassDefTable Class2Data ( getClass ( ClassDef2 , subtableOffset ) );
+		getClass(true, ClassDef1 , subtableOffset );
+		getClass(false, ClassDef2 , subtableOffset );
 
 		if ( ValueFormat1 && ValueFormat2 )
 		{
 			for ( quint16 C1 ( 0 );C1 < Class1Count; ++C1 )
 			{
-				QList<quint16> Class1 ( Class1Data[C1] );
 				quint16 Class2Record ( Class1Record + ( C1 * ( 2 * 2 * Class2Count ) ) );
 				for ( quint16 C2 ( 0 );C2 < Class2Count; ++C2 )
 				{
 					qint16 Value1 ( toInt16 ( Class2Record + ( C2 * ( 2 * 2 ) ) ) );
-					QList<quint16> Class2 ( Class2Data[C2] );
-					// keep it barbarian :D
-					foreach ( quint16 FirstGlyph, Class1 )
+					if(Value1 != 0)
 					{
-						foreach ( quint16 SecondGlyph, Class2 )
-						{
-							if ( Value1 )
-								pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-						}
+						classValue[subtableOffset][C1][C2] = double ( Value1 );
 					}
 				}
 			}
 		}
 		else if ( ValueFormat1 && ( !ValueFormat2 ) )
 		{
-			for ( quint16 C1 ( 0 );C1 < Class1Count; ++C1 )
+			for ( quint16 C1 ( 1 );C1 < Class1Count; ++C1 )
 			{
-				QString cdbg ( QString::number ( C1 ).rightJustified ( 5,QChar ( 32 ) ) );
-				QList<quint16> Class1 ( Class1Data[C1] );
 				quint16 Class2Record ( Class1Record + ( C1 * ( 2 * Class2Count ) ) );
-				for ( quint16 C2 ( 0 );C2 < Class2Count; ++C2 )
+				for ( quint16 C2 ( 1 );C2 < Class2Count; ++C2 )
 				{
 					qint16 Value1 ( toInt16 ( Class2Record + ( C2 * 2 ) ) );
-					QList<quint16> Class2 ( Class2Data[C2] );
-
-					foreach ( quint16 FirstGlyph, Class1 )
+					if(Value1 != 0)
 					{
-						foreach ( quint16 SecondGlyph, Class2 )
-						{
-							if ( Value1 )
-								pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-						}
+						classValue[subtableOffset][C1][C2] = double ( Value1 );
 					}
 				}
 			}
@@ -314,10 +338,22 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 		qDebug() <<"unknown PosFormat"<<PosFormat;
 }
 
-KernFeature::ClassDefTable KernFeature::getClass ( quint16 classDefOffset, quint16 coverageId )
+KernFeature::ClassDefTable KernFeature::getClass ( bool leftGlyph, quint16 classDefOffset, quint16 coverageId )
 {
+	if(leftGlyph)
+	{
+		if(classGlyphFirst.contains(coverageId) && classGlyphFirst[coverageId].contains(classDefOffset))
+			return classGlyphFirst[coverageId][classDefOffset];
+	}
+	else
+	{
+		if(classGlyphSecond.contains(coverageId) && classGlyphSecond[coverageId].contains(classDefOffset))
+			return classGlyphSecond[coverageId][classDefOffset];
+	}
+
 	ClassDefTable ret;
-	ret[0] = coverages[coverageId];
+
+	QList<quint16> excludeList;
 	quint16 ClassFormat ( toUint16 ( classDefOffset ) );
 	if ( ClassFormat == 1 )
 	{
@@ -327,7 +363,7 @@ KernFeature::ClassDefTable KernFeature::getClass ( quint16 classDefOffset, quint
 
 		for ( quint16 CV ( 0 );CV < GlyphCount; ++CV )
 		{
-			ret[0].removeAll ( StartGlyph + CV );
+			excludeList<<StartGlyph + CV;
 			ret[ toUint16 ( ClassValueArray + ( CV * 2 ) ) ] << StartGlyph + CV;
 		}
 	}
@@ -343,13 +379,27 @@ KernFeature::ClassDefTable KernFeature::getClass ( quint16 classDefOffset, quint
 
 			for ( int gl ( Start ); gl <= (int) End; ++gl )
 			{
-				ret[0].removeAll ( (quint16) gl );
+				excludeList<< (quint16) gl;
 				ret[Class] << gl;
 			}
 		}
 	}
 	else
 		qDebug() <<"Unknown Class Table type";
+
+	// if possible (all glyphs are "classed"), avoid to pass through this slow piece of code.
+	if(excludeList.count() != coverages[coverageId].count())
+	{
+		foreach(const quint16& gidx, coverages[coverageId])
+		{
+			if(!excludeList.contains(gidx))
+				ret[0] << gidx;
+		}
+	}
+	if(leftGlyph)
+		classGlyphFirst[coverageId][classDefOffset] = ret;
+	else
+		classGlyphSecond[coverageId][classDefOffset] = ret;
 
 	return ret;
 }

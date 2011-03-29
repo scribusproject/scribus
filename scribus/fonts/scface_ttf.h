@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
  */
 class SCRIBUS_API KernFeature
 {
+	typedef QMap<quint16, QList<quint16> > ClassDefTable; // <Class index (0 to N) , list of glyphs >
+
 	public:
 		/**
 		* Build a ready-to-use kerning pairs table
@@ -48,13 +50,15 @@ class SCRIBUS_API KernFeature
 		bool m_valid;
 		QByteArray GPOSTableRaw;
 		QMap<quint16,QList<quint16> > coverages;
-		QMap<quint16, QMap<quint16, double> > pairs;
+		mutable QMap<quint16, QMap<quint16, double> > pairs;
+		QMap< quint16, QMap<quint16, ClassDefTable> > classGlyphFirst; // < subtable offset, map<offset, class definition table> > for first glyph
+		QMap< quint16, QMap<quint16, ClassDefTable> > classGlyphSecond; // < subtable offset, map<offset, class definition table> > for second glyph
+		QMap< quint16, QMap<int, QMap<int, double> > > classValue; // < subtable offset, map<class1, map<class2, value> > >
 
 		void makeCoverage();
 		void makePairs ( quint16 subtableOffset );
 
-		typedef QMap<quint16, QList<quint16> > ClassDefTable; // <Class , list<GLyph> >
-		ClassDefTable getClass ( quint16 classDefOffset, quint16 coverageId );
+		ClassDefTable getClass (bool leftGlyph, quint16 classDefOffset, quint16 coverageId );
 		inline quint16 toUint16 ( quint16 index );
 		inline qint16 toInt16 ( quint16 index );
 
