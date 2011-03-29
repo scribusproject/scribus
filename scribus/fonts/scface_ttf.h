@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "fonts/ftface.h"
 
+
 #include FT_TRUETYPE_TABLES_H
 #include FT_TRUETYPE_TAGS_H
 
@@ -20,6 +21,8 @@ for which a new license (GPL+exception) is in place.
  */
 class SCRIBUS_API KernFeature
 {
+	typedef QMap<quint16, QList<quint16> > ClassDefTable; // <Class index (0 to N) , list of glyphs >
+
 	public:
 		/**
 		* Build a ready-to-use kerning pairs table
@@ -47,13 +50,15 @@ class SCRIBUS_API KernFeature
 		bool m_valid;
 		QByteArray GPOSTableRaw;
 		QMap<quint16,QList<quint16> > coverages;
-		QMap<quint16, QMap<quint16, double> > pairs;
+		mutable QMap<quint16, QMap<quint16, double> > pairs;
+		QMap< quint16, QMap<quint16, ClassDefTable> > classGlyphFirst; // < subtable offset, map<offset, class definition table> > for first glyph
+		QMap< quint16, QMap<quint16, ClassDefTable> > classGlyphSecond; // < subtable offset, map<offset, class definition table> > for second glyph
+		QMap< quint16, QMap<int, QMap<int, double> > > classValue; // < subtable offset, map<class1, map<class2, value> > >
 
 		void makeCoverage();
 		void makePairs ( quint16 subtableOffset );
 
-		typedef QMap<quint16, QList<quint16> > ClassDefTable; // <Class , list<GLyph> >
-		ClassDefTable getClass ( quint16 classDefOffset, quint16 coverageId );
+		ClassDefTable getClass (bool leftGlyph, quint16 classDefOffset, quint16 coverageId );
 		inline quint16 toUint16 ( quint16 index );
 		inline qint16 toInt16 ( quint16 index );
 
@@ -72,30 +77,29 @@ class SCRIBUS_API KernFeature
 };
 
 
+
 /*
 	Class ScFace_ttf
 	Subclass of ScFace, specifically for TrueType fonts.
 	Implements: RealName() and EmbedFont().
 */
 
-
-
 class SCRIBUS_API ScFace_ttf : public FtFace
 {
-	public:
-		ScFace_ttf ( QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face );
-		~ScFace_ttf();
-		
-		void load () const;
-		void unload () const;
-		
-		bool EmbedFont ( QString &str ) const;
-		void RawData ( QByteArray & bb ) const;
-		
-		qreal glyphKerning ( uint gl1, uint gl2, qreal sz ) const;
-		
-	private:
-		mutable KernFeature * kernFeature;
+public:
+	ScFace_ttf ( QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face );
+	~ScFace_ttf();
+
+	void load () const;
+	void unload () const;
+
+	bool EmbedFont(QString &str) const;
+	void RawData(QByteArray & bb) const;
+
+	qreal glyphKerning ( uint gl1, uint gl2, qreal sz ) const;
+
+private:
+	mutable KernFeature * kernFeature;
 };
 
 #endif
