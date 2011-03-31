@@ -75,7 +75,7 @@ double KernFeature::getPairValue ( unsigned int glyph1, unsigned int glyph2 ) co
 		}
 		else
 		{
-			qDebug()<<"Search in classes";
+			//qDebug()<<"Search in classes";
 			foreach (const quint16& coverageId, coverages.keys())
 			{
 				// for each pairpos table, coverage lists covered _first_ (left) glyph
@@ -273,16 +273,13 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-
 				}
-
 			}
 		}
 		else
 		{
 //			qDebug() <<"ValueFormat1 is null or both ValueFormat1 and ValueFormat2 are null";
 		}
-
 	}
 	else if ( PosFormat == 2 ) // class kerning
 	{
