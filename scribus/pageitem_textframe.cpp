@@ -905,10 +905,14 @@ void PageItem_TextFrame::layout()
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
-		if (!prevInChain)
-			qDebug() << QString("layout(): backBox=%1 is no textframe!!").arg((ulong)BackBox);
-		else 
-			BackBox->layout();
+		while (prevInChain && prevInChain->invalid)
+		{
+			if (!prevInChain->BackBox || !prevInChain->BackBox->invalid)
+				break;
+			prevInChain = dynamic_cast<PageItem_TextFrame*>(prevInChain->BackBox);
+		}
+		if (prevInChain && prevInChain->invalid)
+			prevInChain->layout();
 		// #9592 : warning, BackBox->layout() may not layout BackBox next box
 		if (!invalid)
 			return;
