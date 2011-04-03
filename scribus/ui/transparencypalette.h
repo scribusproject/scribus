@@ -61,8 +61,6 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 
-	void handleUpdateRequest(int);
-
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
 	void hideSelectionButtons();
@@ -75,6 +73,8 @@ public:
 	void setPatterns(QMap<QString, ScPattern> *docPatterns);
 
 public slots:
+	void handleUpdateRequest(int);
+
 	void editLineSelectorButton();
 	void editFillSelectorButton();
 	void updateCList();
