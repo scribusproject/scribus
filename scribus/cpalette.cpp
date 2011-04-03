@@ -708,10 +708,7 @@ void Cpalette::slotGrad(int number)
 		gradEdit->Preview->fill_gradient = currentItem->fill_gradient;
 		gradEdit->Preview->updateDisplay();
 	}
-	if (number > 0)
-		blendMode->setEnabled(false);
-	else
-		blendMode->setEnabled(true);
+	blendMode->setEnabled(number <= 0);
 	emit NewGradient(number);
 }
 
@@ -722,6 +719,8 @@ void Cpalette::ChooseGrad(int number)
 		gradientQCombo->setCurrentIndex(0);
 		currentGradient = 0;
 	}
+
+	currentGradient = (number > 0) ? number : 0;
 	//no need to disconnect as qcombobox only emits from user action
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	GradientMode = number == 0 ? false : number == 8 ? false : true;
@@ -789,16 +788,20 @@ void Cpalette::ChooseGrad(int number)
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	// JG probably not needed at all and should probably not be here
 	updateCList();
-	switch (number)
+	if (number == 0)
 	{
-	case 0:
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
-		break;
-	default:
+		if (currentItem)
+		{
+			setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
+			setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
+		}
+	}
+	else
+	{
 		PM1->setValue(Shade);
 		updateBoxS(Color);
-		break;
 	}
 //	setFocus();
 	repaint();
