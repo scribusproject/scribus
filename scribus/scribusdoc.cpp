@@ -12423,11 +12423,15 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			}
 			tempSelection.clear();
 			tempSelection.delaySignalsOff();
-			delete currItem;
 			renumberItemsInListOrder();
 		}
 		setLoading(wasLoad);
 		itemSelection->delaySignalsOff();
+
+		// Delete items after delaySignalsOff() call so that palette are updated before item deletion
+		for (int b = 0; b < toDelete.count(); b++)
+			delete currItem;
+
 		// Create undo actions
 /*		UndoTransaction* undoTransaction = NULL;
 		if (UndoManager::undoEnabled() && toDelete.count() > 1)
