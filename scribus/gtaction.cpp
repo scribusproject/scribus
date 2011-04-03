@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QCursor>
 #include <QList>
+#include <QProgressBar>
 #include <QStringList>
 
 #include "gtaction.h"
@@ -45,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_icon.h"
 #include "ui/propertiespalette.h"
+#include "ui/propertiespalette_text.h"
 #include "ui/missing.h"
 
 
@@ -416,7 +418,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	tmp.create(vg);
 	textFrame->doc()->redefineStyles(tmp, false);
 	
-	m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
+	m_ScMW->propertiesPalette->textPal->updateParagraphStyles();
 }
 
 void gtAction:: setCharStyleAttributes(gtFont *font, CharStyle& style)

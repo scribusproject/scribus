@@ -7,9 +7,10 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "wmfimportplugin.h"
 
-#include <QFile>
-#include <QRegExp>
 #include <QCursor>
+#include <QFile>
+#include <QMessageBox>
+#include <QRegExp>
 
 #include "ui/customfdialog.h"
 #include "scribus.h"

@@ -58,22 +58,34 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scpainter.h"
 #include "scpattern.h"
+#include "scribus.h"
+#include "selection.h"
 #include "util.h"
 #include "util_math.h"
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 {
+	m_blockUpdates = 0;
 	currentItem = NULL;
 	patternList = NULL;
 	CGradDia = NULL;
 	CGradDia = new GradientVectorDialog(this->parentWidget());
 	CGradDia->hide();
+
 	setupUi(this);
+	fillModeCombo->addItem( tr("Solid") );
+	fillModeCombo->addItem( tr("Gradient") );
+	strokeModeCombo->addItem( tr("Solid") );
+	strokeModeCombo->addItem( tr("Gradient") );
+
+	gradEdit->layout()->setAlignment(Qt::AlignTop);
+	gradEditStroke->layout()->setAlignment(Qt::AlignTop);
 	gradientTypeStroke->setCurrentIndex(0);
-	editLineColorSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
+	/*editLineColorSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
 	editFillColorSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
 	connect(editLineColorSelector, SIGNAL(clicked()), this, SLOT(editLineColorSelectorButton()));
-	connect(editFillColorSelector, SIGNAL(clicked()), this, SLOT(editFillColorSelectorButton()));
+	connect(editFillColorSelector, SIGNAL(clicked()), this, SLOT(editFillColorSelectorButton()));*/
+	connect(tabFillStroke, SIGNAL(currentChanged(int)), this, SLOT(fillStrokeSelector(int)));
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	connect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
 	connect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
@@ -81,8 +93,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
 	connect(editMeshColors, SIGNAL(clicked()), this, SLOT(editMeshPointColor()));
-	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(toggleColorDisplay()));
+	connect(fillModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGrad(int)));
 	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)));
 	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 	connect(CGradDia, SIGNAL(editGradient(int)), this, SIGNAL(editGradient(int)));
@@ -92,16 +104,16 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(CGradDia, SIGNAL(reset1Control()), this, SLOT(resetOneControlPoint()));
 	connect(CGradDia, SIGNAL(resetAllControl()), this, SLOT(resetAllControlPoints()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
-	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
+	connect(gradEdit, SIGNAL(gradientChanged()) , this, SLOT(handleFillGradient()));
+	connect(editPatternProps, SIGNAL(clicked()) , this, SLOT(changePatternProps()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 	connect(patternBoxStroke, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
-	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	connect(strokeModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGradStroke(int)));
 	connect(editPatternPropsStroke, SIGNAL(clicked()), this, SLOT(changePatternPropsStroke()));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
-	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
+	connect(gradEditStroke, SIGNAL(gradientChanged()) , this, SLOT(handleStrokeGradient()));
 	connect(gradEditButtonStroke, SIGNAL(clicked()), this, SLOT(editGradientVectorStroke()));
 	connect(followsPath, SIGNAL(clicked()), this, SLOT(toggleStrokePattern()));
 	connect(colorPoint1, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
@@ -119,8 +131,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
 	connect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 	connect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
-	editFillColorSelector->setChecked(true);
-	editFillColorSelectorButton();
+	tabFillStroke->setCurrentIndex(0);
+	updateFromItem();
+	/*editFillColorSelector->setChecked(true);
+	editFillColorSelectorButton();*/
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -137,7 +151,29 @@ void Cpalette::setCurrentItem(PageItem* item)
 
 void Cpalette::setDocument(ScribusDoc* doc)
 {
+	disconnect(this, SIGNAL(NewPen(QString)), 0, 0);
+	disconnect(this, SIGNAL(NewBrush(QString)), 0, 0);
+	disconnect(this, SIGNAL(NewPenShade(int)), 0, 0);
+	disconnect(this, SIGNAL(NewBrushShade(int)), 0, 0);
+	disconnect(this, SIGNAL(NewGradient(int)), 0, 0);
+	disconnect(this, SIGNAL(NewGradientS(int)), 0, 0);
+	disconnect(this, SIGNAL(NewPattern(QString)), 0, 0);
+	disconnect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
+	disconnect(this, SIGNAL(NewOverprint(int)), 0, 0);
+	disconnect(this, SIGNAL(NewPatternS(QString)), 0, 0);
+	disconnect(this, SIGNAL(NewPatternTypeS(bool)), 0, 0);
+	disconnect(this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), 0, 0);
+
+	if (currentDoc)
+	{
+		disconnect(currentDoc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+		disconnect(currentDoc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+		disconnect(currentDoc->scMW()     , SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
+	}
+
+	ScribusDoc* oldDoc = currentDoc;
 	currentDoc = doc;
+
 	if (doc == NULL)
 	{
 		colorListStroke->cList = NULL;
@@ -149,6 +185,30 @@ void Cpalette::setDocument(ScribusDoc* doc)
 		colorListFill->cList = &doc->PageColors;
 		gradEdit->setColors(doc->PageColors);
 		currentUnit = doc->unitIndex();
+
+		updateColorList();
+
+		connect(this, SIGNAL(NewPen(QString))      , doc, SLOT(itemSelection_SetItemPen(QString)));
+		connect(this, SIGNAL(NewBrush(QString))    , doc, SLOT(itemSelection_SetItemBrush(QString)));
+		connect(this, SIGNAL(NewPenShade(int))     , this, SLOT(handleStrokeShade(int)));
+		connect(this, SIGNAL(NewBrushShade(int))   , this, SLOT(handleFillShade(int)));
+		connect(this, SIGNAL(NewGradient(int))     , doc, SLOT(itemSelection_SetItemGradFill(int)));
+		connect(this, SIGNAL(NewGradientS(int))    , doc, SLOT(itemSelection_SetItemGradStroke(int)));
+		connect(this, SIGNAL(NewPattern(QString))  , doc, SLOT(itemSelection_SetItemPatternFill(QString)));
+		connect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double, double, double, bool, bool)));
+		connect(this, SIGNAL(NewOverprint(int))    , this, SLOT(handleOverprint(int)));
+		connect(this, SIGNAL(NewPatternS(QString)) , doc, SLOT(itemSelection_SetItemStrokePattern(QString)));
+		connect(this, SIGNAL(NewPatternTypeS(bool)), doc, SLOT(itemSelection_SetItemStrokePatternType(bool)));
+		connect(this, SIGNAL(NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemStrokePatternProps(double, double, double, double, double, double, double, double, bool, bool)));
+
+		connect(currentDoc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+		connect(currentDoc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+		connect(currentDoc->scMW()     , SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
+	}
+
+	if (oldDoc != currentDoc)
+	{
+		displayGradient(0);
 	}
 }
 
@@ -160,10 +220,10 @@ void Cpalette::updateFromItem()
 		return;
 	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	disconnect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
-	disconnect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	disconnect(strokeModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGradStroke(int)));
 	disconnect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
-	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	disconnect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
+	disconnect(gradEdit      , SIGNAL(gradientChanged()), this, SLOT(handleFillGradient()));
+	disconnect(gradEditStroke, SIGNAL(gradientChanged()), this, SLOT(handleStrokeGradient()));
 	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	disconnect(colorPoint1, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	disconnect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
@@ -181,12 +241,9 @@ void Cpalette::updateFromItem()
 	disconnect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 	disconnect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 	updateCList();
-	if (currentItem->doOverprint)
-		setActOverprint(1);
-	else
-		setActOverprint(0);
-	setActFarben(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
-	ChooseGrad(currentItem->GrType);
+	displayOverprint(currentItem->doOverprint ? 1 : 0);
+	displayColorValues(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
+	displayGradient(currentItem->GrType);
 	gradEdit->setGradient(currentItem->fill_gradient);
 	gradEditStroke->setGradient(currentItem->stroke_gradient);
 	if (!currentItem->gradient().isEmpty())
@@ -216,7 +273,7 @@ void Cpalette::updateFromItem()
 		else
 			gradientTypeStroke->setCurrentIndex(1);
 	}
-	if (patternList->count() == 0)
+	/*if (patternList->count() == 0)
 	{
 		tabWidgetStroke->setTabEnabled(2, false);
 		tabWidget->setTabEnabled(2, false);
@@ -225,22 +282,33 @@ void Cpalette::updateFromItem()
 	{
 		tabWidgetStroke->setTabEnabled(2, true);
 		tabWidget->setTabEnabled(2, true);
-	}
+	}*/
+	enablePatterns(patternList->count() != 0);
 	if (!currentItem->strokePattern().isEmpty())
-		tabWidgetStroke->setCurrentIndex(2);
+		strokeModeCombo->setCurrentIndex(2);
 	else if (currentItem->GrTypeStroke > 0)
-		tabWidgetStroke->setCurrentIndex(1);
+		strokeModeCombo->setCurrentIndex(1);
 	else
-		tabWidgetStroke->setCurrentIndex(0);
+		strokeModeCombo->setCurrentIndex(0);
 	setMeshPoint();
 	editMeshColors->setEnabled(!CGradDia->isVisible());
 	gradEditButton->setEnabled(true);
+
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+	bool mirrorX, mirrorY;
+	currentItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	currentItem->patternFlip(mirrorX, mirrorY);
+	setActPattern(currentItem->pattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+	currentItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+	currentItem->strokePatternFlip(mirrorX, mirrorY);
+	setActPatternStroke(currentItem->strokePattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY, patternSpace, currentItem->isStrokePatternToPath());
+
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
-	connect(tabWidgetStroke, SIGNAL(currentChanged(int)), this, SLOT(slotGradStroke(int)));
+	connect(strokeModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGradStroke(int)));
 	connect(gradientTypeStroke, SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
-	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SIGNAL(strokeGradientChanged()));
+	connect(gradEdit      , SIGNAL(gradientChanged()), this, SLOT(handleFillGradient()));
+	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SLOT(handleStrokeGradient()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(colorPoint1, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	connect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
@@ -257,6 +325,75 @@ void Cpalette::updateFromItem()
 	connect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
 	connect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
 	connect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+}
+
+PageItem* Cpalette::currentItemFromSelection()
+{
+	PageItem *currentItem = NULL;
+
+	if (currentDoc)
+	{
+		if (currentDoc->m_Selection->count() > 1)
+		{
+			uint lowestItem = 999999;
+			for (int a=0; a < currentDoc->m_Selection->count(); ++a)
+			{
+				currentItem = currentDoc->m_Selection->itemAt(a);
+				lowestItem = qMin(lowestItem, currentItem->ItemNr);
+			}
+			currentItem = currentDoc->Items->at(lowestItem);
+		}
+		else if (currentDoc->m_Selection->count() == 1)
+		{
+			currentItem = currentDoc->m_Selection->itemAt(0);
+		}
+	}
+
+	return currentItem;
+}
+
+void Cpalette::enablePatterns(bool enable)
+{
+	if (enable)
+	{
+		if (fillModeCombo->count() < 3)
+			fillModeCombo->addItem( tr("Pattern") );
+		if (strokeModeCombo->count() < 3)
+			strokeModeCombo->addItem( tr("Pattern") );
+	}
+	else
+	{
+		if (fillModeCombo->count() == 3)
+			fillModeCombo->removeItem(2);
+		if (strokeModeCombo->count() == 3)
+			strokeModeCombo->removeItem(2);
+	}
+}
+
+void Cpalette::handleSelectionChanged()
+{
+	if (currentDoc && !updatesBlocked())
+	{
+		PageItem* currentItem = currentItemFromSelection();
+		setCurrentItem(currentItem);
+		updateFromItem();
+	}
+}
+
+void Cpalette::handleUpdateRequest(int updateFlags)
+{
+	if (updateFlags & reqColorsUpdate)
+		updateColorList();
+}
+
+void Cpalette::updateColorList()
+{
+	if (currentDoc)
+	{
+		this->setColors(currentDoc->PageColors);
+		this->setGradients(&currentDoc->docGradients);
+		this->setPatterns(&currentDoc->docPatterns);
+	}
 }
 
 void Cpalette::updateCList()
@@ -289,7 +426,7 @@ void Cpalette::updateCList()
 	connect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 }
 
-void Cpalette::ToggleColorDisplay()
+void Cpalette::toggleColorDisplay()
 {
 	if (currentDoc != NULL)
 	{
@@ -300,32 +437,89 @@ void Cpalette::ToggleColorDisplay()
 	}
 }
 
-void Cpalette::setActOverprint(int val)
+void Cpalette::displayOverprint(int val)
 {
 	disconnect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 	overPrintCombo->setCurrentIndex(val);
 	connect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 }
 
-void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
+void Cpalette::handleFillShade(int val)
+{
+	if (currentDoc)
+	{
+		blockUpdates(true);
+		currentDoc->itemSelection_SetItemBrushShade(val);
+		blockUpdates(false);
+	}
+}
+
+void Cpalette::handleStrokeShade(int val)
+{
+	if (currentDoc)
+	{
+		blockUpdates(true);
+		currentDoc->itemSelection_SetItemPenShade(val);
+		blockUpdates(false);
+	}
+}
+
+void Cpalette::handleOverprint(int val)
+{
+	if (currentDoc)
+	{
+		bool setter = true;
+		if (val == 0)
+			setter = false;
+		currentDoc->itemSelection_SetOverprint(setter);
+	}
+}
+
+void Cpalette::handleFillGradient()
+{
+	if (currentDoc)
+	{
+		VGradient gradient(gradEdit->gradient());
+		blockUpdates(true);
+		currentDoc->updateManager()->setUpdatesDisabled();
+		currentDoc->itemSelection_SetFillGradient(gradient);
+		currentDoc->updateManager()->setUpdatesEnabled();
+		blockUpdates(false);
+	}
+}
+
+void Cpalette::handleStrokeGradient()
+{
+	if (currentDoc)
+	{
+		VGradient gradient(gradEditStroke->gradient());
+		blockUpdates(true);
+		currentDoc->updateManager()->setUpdatesDisabled();
+		currentDoc->itemSelection_SetLineGradient(gradient);
+		currentDoc->updateManager()->setUpdatesEnabled();
+		blockUpdates(false);
+	}
+}
+
+void Cpalette::displayColorValues(QString stroke, QString fill, int sShade, int fShade)
 {
 	disconnect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
 	disconnect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
 	disconnect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
 	disconnect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
-	strokeShade->setValue(shp);
-	fillShade->setValue(shp);
-	if ((p != CommonStrings::None) && (!p.isEmpty()))
+	strokeShade->setValue(sShade);
+	fillShade->setValue(fShade);
+	if ((stroke != CommonStrings::None) && (!stroke.isEmpty()))
 	{
-		QList<QListWidgetItem *> cCol = colorListStroke->findItems(p, Qt::MatchExactly);
+		QList<QListWidgetItem *> cCol = colorListStroke->findItems(stroke, Qt::MatchExactly);
 		if (cCol.count() != 0)
 			colorListStroke->setCurrentItem(cCol[0]);
 	}
 	else
 		colorListStroke->setCurrentRow(0);
-	if ((b != CommonStrings::None) && (!b.isEmpty()))
+	if ((fill != CommonStrings::None) && (!fill.isEmpty()))
 	{
-		QList<QListWidgetItem *> cCol = colorListFill->findItems(b, Qt::MatchExactly);
+		QList<QListWidgetItem *> cCol = colorListFill->findItems(fill, Qt::MatchExactly);
 		if (cCol.count() != 0)
 			colorListFill->setCurrentItem(cCol[0]);
 	}
@@ -361,14 +555,19 @@ void Cpalette::selectColorF(QListWidgetItem *item)
 	emit NewBrush(sFarbe);
 }
 
-void Cpalette::SetColors(ColorList newColorList)
+void Cpalette::setColors(ColorList newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
 	updateCList();
 }
 
-void Cpalette::editLineColorSelectorButton()
+void Cpalette::fillStrokeSelector(int /*index*/)
+{
+	updateFromItem();
+}
+
+/*void Cpalette::editLineColorSelectorButton()
 {
 	if (editLineColorSelector->isChecked())
 	{
@@ -386,7 +585,7 @@ void Cpalette::editFillColorSelectorButton()
 		editLineColorSelector->setChecked(false);
 	}
 	updateFromItem();
-}
+}*/
 
 void Cpalette::updateGradientList()
 {
@@ -424,7 +623,7 @@ void Cpalette::updateGradientList()
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 }
 
-void Cpalette::SetGradients(QMap<QString, VGradient> *docGradients)
+void Cpalette::setGradients(QMap<QString, VGradient> *docGradients)
 {
 	gradientList = docGradients;
 	updateGradientList();
@@ -546,7 +745,7 @@ void Cpalette::hideEditedPatterns(QStringList names)
 	}
 }
 
-void Cpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
+void Cpalette::setPatterns(QMap<QString, ScPattern> *docPatterns)
 {
 	patternList = docPatterns;
 	updatePatternList();
@@ -649,17 +848,18 @@ void Cpalette::slotGradStroke(int number)
 		emit NewGradientS(0);
 		emit NewPatternS("");
 	}
+	strokeModeStack->setCurrentIndex(number);
 }
 
-void Cpalette::ChooseGrad(int number)
+void Cpalette::displayGradient(int number)
 {
-	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	disconnect(fillModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGrad(int)));
 	if (number==-1)
 	{
-		tabWidget->setCurrentIndex(0);
+		fillModeCombo->setCurrentIndex(0);
 	}
 	if (number == 0)
-		tabWidget->setCurrentIndex(0);
+		fillModeCombo->setCurrentIndex(0);
 	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10) || (number == 11))
 	{
 		if ((number == 5) || (number == 7))
@@ -718,19 +918,20 @@ void Cpalette::ChooseGrad(int number)
 			stackedWidget_2->setCurrentIndex(0);
 			gradientType->setCurrentIndex(0);
 		}
-		tabWidget->setCurrentIndex(1);
+		fillModeCombo->setCurrentIndex(1);
 	}
 	else
 	{
 		if (patternList->count() == 0)
 		{
-			tabWidget->setCurrentIndex(0);
+			fillModeCombo->setCurrentIndex(0);
 			emit NewGradient(0);
 		}
 		else
-			tabWidget->setCurrentIndex(2);
+			fillModeCombo->setCurrentIndex(2);
 	}
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	fillModeStack->setCurrentIndex( fillModeCombo->currentIndex() );
+	connect(fillModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGrad(int)));
 }
 
 void Cpalette::slotGrad(int number)
@@ -739,7 +940,7 @@ void Cpalette::slotGrad(int number)
 	{
 		disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 		disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
-		disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+		disconnect(gradEdit, SIGNAL(gradientChanged()) , this, SLOT(handleFillGradient()));
 		if (!currentItem->gradient().isEmpty())
 		{
 			setCurrentComboItem(namedGradient, currentItem->gradient());
@@ -810,12 +1011,13 @@ void Cpalette::slotGrad(int number)
 		}
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 		connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
-		connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+		connect(gradEdit, SIGNAL(gradientChanged()) , this, SLOT(handleFillGradient()));
 	}
 	else if (number == 2)
 		emit NewGradient(8);
 	else
 		emit NewGradient(0);
+	fillModeStack->setCurrentIndex(number);
 }
 
 void Cpalette::slotGradType(int type)
@@ -884,11 +1086,6 @@ void Cpalette::slotGradTypeStroke(int type)
 		emit NewGradientS(6);
 	else
 		emit NewGradientS(7);
-}
-
-void Cpalette::setActGradient(int typ)
-{
-	ChooseGrad(typ);
 }
 
 void Cpalette::editMeshPointColor()
@@ -1134,7 +1331,7 @@ void Cpalette::changePatternProps()
 	m_Pattern_mirrorX = dia->FlipH->isChecked();
 	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;
-	tabWidget->setCurrentIndex(2);
+	fillModeCombo->setCurrentIndex(2);
 	emit NewGradient(8);
 }
 

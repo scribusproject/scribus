@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "pageitem.h"
 
+#include <QMessageBox>
+
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
 // Please don't implement the functionality of your plugin here; do that

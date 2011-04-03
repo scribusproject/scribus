@@ -51,6 +51,13 @@ ScrSpinBox::~ScrSpinBox()
 {
 }
 
+void ScrSpinBox::showValue(double val)
+{
+	this->blockSignals(true);
+	setValue(val);
+	this->blockSignals(false);
+}
+
 
 void ScrSpinBox::setParameters( int s )
 {

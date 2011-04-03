@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDir>
 #include <QEvent>
+#include <QMessageBox>
 
 #include "scconfig.h"
 

@@ -55,8 +55,11 @@ public:
 	void setActColor(QColor c, QString n, int s);
 	void setActTrans(double t);
 	void setActStep(double t);
+	void setGradient(const VGradient& gradient);
 	void setGradientEditable(bool val);
-	VGradient fill_gradient;
+
+	const VGradient& gradient() { return fill_gradient; }
+	
 	QList<int> StopM;
 	bool Mpressed;
 	bool outside;
@@ -66,12 +69,17 @@ public:
 	int contextStop;
 	QPoint mPos;
 
+private:
+
+	VGradient fill_gradient;
+
 private slots:
 	void addStop();
 	void removeStop();
 
 signals:
 	void selectedColor(QString, int);
+	void selectedStop(VColorStop*);
 	void currTrans(double);
 	void currStep(double);
 	void gradientChanged();

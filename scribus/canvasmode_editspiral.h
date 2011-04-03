@@ -79,6 +79,10 @@ private:
 	eSpiralPoint m_arcPoint;
 	SpiralVectorDialog* VectorDialog;
 
+	int    m_blockUpdateFromItem;
+	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
+	bool   updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
+
 public slots:
 	void updateFromItem();
 

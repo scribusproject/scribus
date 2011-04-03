@@ -60,6 +60,8 @@
 #include "units.h"
 #include "util_icon.h"
 
+#include <QMdiArea>
+#include <QMdiSubWindow>
 #include <QPainter>
 
 

@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include <QApplication>
+
 #include "commonstrings.h"
 #include "page.h"
 #include "pageitem_group.h"
@@ -155,7 +157,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->save();
 				p->translate(embedded->gXpos, embedded->gYpos);
 				embedded->isEmbedded = true;
-				embedded->invalid = true;
+				embedded->invalidateLayout();
 				embedded->DrawObj(p, QRectF());
 				embedded->isEmbedded = false;
 				p->restore();
@@ -169,7 +171,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->translate(embedded->gXpos, embedded->gYpos);
 				p->rotate(embedded->rotation());
 				embedded->isEmbedded = true;
-				embedded->invalid = true;
+				embedded->invalidateLayout();
 				if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
 				{
 					QColor tmp;

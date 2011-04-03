@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribusdoc.h"
 
+#include <QApplication>
+
 PyObject *scribus_actualpage(PyObject* /* self */)
 {
 	if(!checkHaveDocument())

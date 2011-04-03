@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include <QApplication>
+
 #include "commonstrings.h"
 #include "page.h"
 #include "pageitem.h"

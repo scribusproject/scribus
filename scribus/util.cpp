@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <algorithm>
 #include "util.h"
 #include <zlib.h>
+#include <QApplication>
 #include <QCryptographicHash>
 #include <QDomElement>
 #include <QProcess>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertyWidget_DistanceBase</class>
+ <widget class="QFrame" name="PropertyWidget_DistanceBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>210</width>
+    <height>165</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::StyledPanel</enum>
+  </property>
+  <property name="frameShadow">
+   <enum>QFrame::Raised</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="margin">
+    <number>5</number>
+   </property>
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="columnsLabel">
+     <property name="text">
+      <string>Colu&amp;mns:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QSpinBox" name="columns">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>3000</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="ScComboBox" name="columnGapLabel">
+     <item>
+      <property name="text">
+       <string>Gap:</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Width:</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="ScrSpinBox" name="columnGap"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="topLabel">
+     <property name="text">
+      <string>To&amp;p:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="ScrSpinBox" name="topDistance"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="bottomLabel">
+     <property name="text">
+      <string>&amp;Bottom:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="ScrSpinBox" name="bottomDistance"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="leftLabel">
+     <property name="text">
+      <string>&amp;Left:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="ScrSpinBox" name="leftDistance"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="rightLabel">
+     <property name="text">
+      <string>&amp;Right:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="ScrSpinBox" name="rightDistance"/>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QToolButton" name="tabsButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>T&amp;abulators...</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ui/sccombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -340,6 +340,23 @@ enum PageOrientation
 	customPage = 30
 };
 
+enum UpdateRequests
+{
+	reqColorsUpdate = 1,
+	reqCharStylesUpdate = 2,
+	reqParaStylesUpdate = 4,
+	reqTextStylesUpdate = 6,
+	reqArrowStylesUpdate = 8,
+	reqLineStylesUpdate  = 16,
+	reqSymbolsUpdate     = 32,
+	reqDefFontListUpdate = 64,
+	reqDocFontListUpdate = 128,
+	reqStyleComboDocUpdate = 256,
+	reqCmsOptionsUpdate  = 512,
+	reqCustomShapeUpdate = 1024,
+	reqUpdateAll = 65535
+};
+
 //! \brief Common type for guides list
 typedef QList<double> Guides;
 

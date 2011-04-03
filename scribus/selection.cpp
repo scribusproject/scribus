@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 
 Selection::Selection(QObject* parent)
 	: QObject(parent),
-	m_hasGroupSelection(false),
 	m_isGUISelection(false),
 	m_delaySignals(0),
 	m_sigSelectionChanged(false),
@@ -37,7 +36,6 @@ Selection::Selection(QObject* parent)
 
 Selection::Selection(QObject* parent, bool guiSelection) 
 	: QObject(parent),
-	m_hasGroupSelection(false),
 	m_isGUISelection(guiSelection),
 	m_delaySignals(0),
 	m_sigSelectionChanged(false),
@@ -50,7 +48,6 @@ Selection::Selection(QObject* parent, bool guiSelection)
 Selection::Selection(const Selection& other) :
 	QObject(other.parent()),
 	m_SelList(other.m_SelList),
-	m_hasGroupSelection(other.m_hasGroupSelection),
 	// We do not copy m_isGUISelection as :
 	// 1) copy ctor is used for temporary selections
 	// 2) having two GUI selections for same doc should really be avoided
@@ -66,7 +63,7 @@ Selection::Selection(const Selection& other) :
 		m_SelList[0]->connectToGUI();
 		m_SelList[0]->emitAllToGUI();
 		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_hasGroupSelection);
+		emit selectionIsMultiple(m_SelList.count() > 1);
 	}
 	groupX = other.groupX;
 	groupY = other.groupY;
@@ -89,7 +86,6 @@ Selection& Selection::operator=( const Selection &other )
 			(*it)->setSelected(false);
 	}
 	m_SelList=other.m_SelList;
-	m_hasGroupSelection=other.m_hasGroupSelection;
 	// Do not copy m_isGUISelection for consistency with cpy ctor
 	/* m_isGUISelection = other.m_isGUISelection; */
 	// We do not copy m_delaySignals as that can potentially
@@ -101,7 +97,7 @@ Selection& Selection::operator=( const Selection &other )
 		m_SelList[0]->connectToGUI();
 		m_SelList[0]->emitAllToGUI();
 		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_hasGroupSelection);
+		emit selectionIsMultiple(m_SelList.count() > 1);
 	}
 	return *this;
 }
@@ -117,7 +113,6 @@ void Selection::copy(Selection& other, bool emptyOther)
 			(*it)->setSelected(false);
 	}
 	m_SelList=other.m_SelList;
-	m_hasGroupSelection=other.m_hasGroupSelection;
 	if (m_isGUISelection && !m_SelList.isEmpty())
 		m_sigSelectionIsMultiple = true;
 	if (emptyOther)
@@ -147,7 +142,6 @@ bool Selection::clear()
 		}
 	}
 	m_SelList.clear();
-	m_hasGroupSelection   = false;
 	m_sigSelectionChanged = true;
 	sendSignals();
 	return true;
@@ -158,7 +152,7 @@ bool Selection::connectItemToGUI()
 	bool ret = false;
 	if (!m_isGUISelection || m_SelList.isEmpty())
 		return ret;
-	if (m_hasGroupSelection==false)
+	if (m_SelList.count() == 1)
 	{
 		QPointer<PageItem> pi=m_SelList.first();
 		//Quick check to see if the pointer is NULL, if its NULL, we should remove it from the list now
@@ -210,7 +204,6 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 			m_sigSelectionChanged = true;
 			m_sigSelectionIsMultiple = true;
 		}
-		m_hasGroupSelection = (m_SelList.count()>1);	
 		sendSignals();
 		return true;
 	}
@@ -231,8 +224,7 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 			item->setSelected(true);
 			m_sigSelectionChanged = true;
 			m_sigSelectionIsMultiple = true;
-		}
-		m_hasGroupSelection = (m_SelList.count()>1);	
+		}	
 		sendSignals();
 		return true;
 	}
@@ -285,9 +277,6 @@ bool Selection::removeItem(PageItem *item)
 			item->isSingleSel = false;
 		}
 
-
-		if (m_SelList.isEmpty())
-			m_hasGroupSelection=false;
 		if (m_isGUISelection)
 		{
 			m_sigSelectionChanged = true;
@@ -314,8 +303,6 @@ PageItem* Selection::takeItem(int itemIndex)
 				if (itemIndex == 0)
 					item->disconnectFromGUI();
 			}
-			if (m_SelList.isEmpty())
-				m_hasGroupSelection=false;
 			sendSignals();
 			return item;
 		}
@@ -546,7 +533,7 @@ void Selection::sendSignals(bool guiConnect)
 		if (m_sigSelectionChanged)
 			emit selectionChanged();
 		if (m_sigSelectionIsMultiple)
-			emit selectionIsMultiple(m_hasGroupSelection);
+			emit selectionIsMultiple(m_SelList.count() > 1);
 		m_sigSelectionChanged = false;
 		m_sigSelectionIsMultiple = false;
 	}

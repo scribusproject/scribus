@@ -63,6 +63,7 @@
 CanvasMode_EditArc::CanvasMode_EditArc(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;
+	m_blockUpdateFromItem = 0;
 	m_arcPoint = noPointDefined;
 }
 
@@ -185,12 +186,13 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	connect(VectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
 	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
-	connect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::updateFromItem()
 {
+	if (updateFromItemBlocked())
+		return;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Arc* item = currItem->asArc();
 	centerPoint = currItem->PoLine.pointQF(0);
@@ -263,8 +265,7 @@ void CanvasMode_EditArc::deactivate(bool forGesture)
 	delete VectorDialog;
 	m_view->redrawMarker->hide();
 	m_arcPoint = noPointDefined;
-	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
-	disconnect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
@@ -327,7 +328,9 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		QLineF res = QLineF(centerPoint, startPoint);
 		QLineF swe = QLineF(centerPoint, endPoint);
 		VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
+		blockUpdateFromItem(true);
 		currItem->update();
+		blockUpdateFromItem(false);
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
 		upRect.translate(currItem->xPos(), currItem->yPos());

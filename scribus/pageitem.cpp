@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "commonstrings.h"
-#include "ui/cpalette.h"
 #include "ui/guidemanager.h"
 #include "page.h"
 #include "pageitem_textframe.h"
@@ -850,7 +849,6 @@ void PageItem::setXPos(const double newXPos, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit position(Xpos, Ypos);
 }
 
 void PageItem::setYPos(const double newYPos, bool drawingOnly)
@@ -859,7 +857,6 @@ void PageItem::setYPos(const double newYPos, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit position(Xpos, Ypos);
 }
 
 void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawingOnly)
@@ -869,7 +866,6 @@ void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawing
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit position(Xpos, Ypos);
 }
 
 void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
@@ -890,7 +886,6 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit position(Xpos, Ypos);
 }
 
 void PageItem::setWidth(const double newWidth)
@@ -900,7 +895,6 @@ void PageItem::setWidth(const double newWidth)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::setHeight(const double newHeight)
@@ -910,7 +904,6 @@ void PageItem::setHeight(const double newHeight)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::setWidthHeight(const double newWidth, const double newHeight, bool drawingOnly)
@@ -921,7 +914,6 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight, boo
 	if (drawingOnly)
 		return;
 	checkChanges();
-	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::setWidthHeight(const double newWidth, const double newHeight)
@@ -932,7 +924,6 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::resizeBy(const double dH, const double dW)
@@ -947,7 +938,6 @@ void PageItem::resizeBy(const double dH, const double dW)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::setRotation(const double newRotation, bool drawingOnly)
@@ -956,7 +946,6 @@ void PageItem::setRotation(const double newRotation, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit rotation(Rot);
 }
 
 void PageItem::rotateBy(const double dR)
@@ -967,7 +956,6 @@ void PageItem::rotateBy(const double dR)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit rotation(Rot);
 }
 
 void PageItem::setSelected(const bool toSelect)
@@ -981,7 +969,6 @@ void PageItem::setImageXScale(const double newImageXScale)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageYScale(const double newImageYScale)
@@ -990,7 +977,6 @@ void PageItem::setImageYScale(const double newImageYScale)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
@@ -1000,7 +986,6 @@ void PageItem::setImageXYScale(const double newImageXScale, const double newImag
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageXOffset(const double newImageXOffset)
@@ -1009,7 +994,6 @@ void PageItem::setImageXOffset(const double newImageXOffset)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageYOffset(const double newImageYOffset)
@@ -1018,7 +1002,6 @@ void PageItem::setImageYOffset(const double newImageYOffset)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageXYOffset(const double newImageXOffset, const double newImageYOffset)
@@ -1028,7 +1011,6 @@ void PageItem::setImageXYOffset(const double newImageXOffset, const double newIm
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
@@ -1042,7 +1024,6 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageRotation(const double newRotation)
@@ -1051,7 +1032,6 @@ void PageItem::setImageRotation(const double newRotation)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-	emit imageRotation(LocalRot);
 }
 
 void PageItem::setReversed(bool newReversed)
@@ -1273,25 +1253,25 @@ const CharStyle& PageItem::currentCharStyle() const
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
 	Extra=newLeft;
-	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistRight(double newRight)
 {
 	RExtra=newRight;
-	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistTop(double newTop)
 {
 	TExtra=newTop;
-	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistBottom(double newBottom)
 {
 	BExtra=newBottom;
-	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom)
@@ -1300,7 +1280,7 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	RExtra=newRight;
 	TExtra=newTop;
 	BExtra=newBottom;
-	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 double PageItem::gridOffset() const { return m_Doc->guidesPrefs().offsetBaselineGrid; }
@@ -1320,7 +1300,7 @@ void PageItem::setColumnGap(double gap)
 void PageItem::setCornerRadius(double newRadius)
 {
 	RadRect=newRadius;
-	emit cornerRadius(RadRect);
+	//emit cornerRadius(RadRect);
 }
 
 
@@ -3164,7 +3144,6 @@ void PageItem::setFillShade(double newShade)
 	}
 	fillShadeVal = newShade;
 	setFillQColor();
-//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setFillTransparency(double newTransparency)
@@ -3239,7 +3218,6 @@ void PageItem::setLineColor(const QString &newColor)
 	}
 	lineColorVal = tmp;
 	setLineQColor();
-//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setLineShade(double newShade)
@@ -3261,7 +3239,6 @@ void PageItem::setLineShade(double newShade)
 	}
 	lineShadeVal = newShade;
 	setLineQColor();
-//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setStrokePattern(const QString &newPattern)
@@ -3559,7 +3536,6 @@ void PageItem::flipImageH()
 		undoManager->action(this, ss);
 	}
 	m_ImageIsFlippedH = !m_ImageIsFlippedH;
-	emit frameFlippedH(m_ImageIsFlippedH);
 }
 
 void PageItem::setImageFlippedV(bool flipped)
@@ -3577,7 +3553,6 @@ void PageItem::flipImageV()
 		undoManager->action(this, ss);
 	}
 	m_ImageIsFlippedV = !m_ImageIsFlippedV;
-	emit frameFlippedV(m_ImageIsFlippedV);
 }
 
 void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
@@ -3618,7 +3593,7 @@ void PageItem::toggleLock()
 		undoManager->action(this, ss);
 	}
 	m_Locked = !m_Locked;
-	emit frameLocked(m_Locked);
+	//emit frameLocked(m_Locked);
 }
 
 void PageItem::setLocked(bool isLocked)
@@ -3647,7 +3622,7 @@ void PageItem::toggleSizeLock()
 		undoManager->action(this, ss);
 	}
 	m_SizeLocked = !m_SizeLocked;
-	emit frameSizeLocked(m_SizeLocked);
+	//emit frameSizeLocked(m_SizeLocked);
 }
 
 void PageItem::setSizeLocked(bool isLocked)
@@ -3676,7 +3651,6 @@ void PageItem::togglePrintEnabled()
 		undoManager->action(this, ss);
 	}
 	m_PrintEnabled=!m_PrintEnabled;
-	emit printEnabled(m_PrintEnabled);
 }
 
 void PageItem::setTextFlowMode(TextFlowMode mode)
@@ -6061,8 +6035,6 @@ void PageItem::AdjustPictScale()
 		cl.scale(LocalScX, LocalScY);
 		imageClip.map(cl);
 	}
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
-	emit imageRotation(LocalRot);
 }
 
 void PageItem::setExternalFile(QString val)
@@ -6174,7 +6146,6 @@ void PageItem::updateGradientVectors()
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();
 	//CB Will only emit if connected, ie is first in GUI selection
 	double dur=m_Doc->unitRatio();
-	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 }
 
 void PageItem::setPolyClip(int up, int down)
@@ -6253,52 +6224,26 @@ bool PageItem::connectToGUI()
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
 	PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
-	connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(SetCurItem(PageItem *)));
+	//connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(setCurrentItem(PageItem *)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc, SLOT(selectionChanged()));
-	connect(this, SIGNAL(frameType(int)), pp, SLOT(NewSel(int)));
-	connect(this, SIGNAL(frameLocked(bool)), pp, SLOT(setLocked(bool)));
-	connect(this, SIGNAL(frameSizeLocked(bool)), pp, SLOT(setSizeLocked(bool)));
-	connect(this, SIGNAL(frameFlippedH(bool)), pp, SLOT(setFlippedH(bool)));
-	connect(this, SIGNAL(frameFlippedV(bool)), pp, SLOT(setFlippedV(bool)));
-	connect(this, SIGNAL(printEnabled(bool)), pp, SLOT(setPrintingEnabled(bool)));
-	connect(this, SIGNAL(position(double, double)), pp, SLOT(setXY(double, double)));
-	connect(this, SIGNAL(widthAndHeight(double, double)), pp, SLOT(setBH(double, double)));
-//CB unused in 135 connect(this, SIGNAL(colors(QString, QString, double, double)), m_Doc->scMW(), SLOT(setCSMenu()));
-//	connect(this, SIGNAL(colors(QString, QString, double, double)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-//	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
-	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double, double, double, bool, bool)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double, double, double, bool, bool)));
-//	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
-	connect(this, SIGNAL(rotation(double)), pp, SLOT(setR(double)));
-//	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));
-//	connect(this, SIGNAL(blendmode(int, int)), pp->Cpal, SLOT(setActBlend(int, int)));
+	//connect(this, SIGNAL(frameType(int)), pp, SLOT(handleSelectionChanged()));
+	//connect(this, SIGNAL(frameLocked(bool)), pp, SLOT(setLocked(bool)));
+	//connect(this, SIGNAL(frameSizeLocked(bool)), pp, SLOT(setSizeLocked(bool)));
 	//Shape signals
-	//Not connected when transferring code: void columns(int, double); //Number, gap
-	connect(this, SIGNAL(cornerRadius(double)), pp, SLOT(setRR(double)));
+	//connect(this, SIGNAL(cornerRadius(double)), pp, SLOT(setRR(double)));
 	//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	//Line signals
-	connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setLineWidth(double)));
-	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), pp, SLOT(setScaleAndOffset(double, double, double, double)));
-	connect(this, SIGNAL(imageRotation(double)), pp, SLOT(setImgRotation(double)));
-	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), pp, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
+	//connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setLineWidth(double)));
+	//connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), pp, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	//Frame text signals
-	connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
-	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setTextToFrameDistances(double, double, double, double)));
-	connect(this, SIGNAL(textKerning(double)), pp, SLOT(setExtra(double)));
-	connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
-	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStilvalue(int)));
-	connect(this, SIGNAL(textFont(const QString&)), pp, SLOT(setFontFace(const QString&)));
-	connect(this, SIGNAL(textSize(double)), pp, SLOT(setSize(double)));
-	connect(this, SIGNAL(textWidthScale(double)), pp, SLOT(setTScale(double)));
-	connect(this, SIGNAL(textHeightScale(double)), pp, SLOT(setTScaleV(double)));
-	connect(this, SIGNAL(textBaseLineOffset(double)), pp, SLOT(setTBase(double)));
-	connect(this, SIGNAL(textOutline(double)), pp, SLOT(setOutlineW(double)));
-	connect(this, SIGNAL(textShadow(double, double )), pp, SLOT(setShadowOffs(double, double )));
-	connect(this, SIGNAL(textUnderline(double, double)), pp, SLOT(setUnderline(double, double)));
-	connect(this, SIGNAL(textStrike(double, double)), pp, SLOT(setStrike(double, double)));
-	connect(this, SIGNAL(textColor(QString, QString, double, double)), pp, SLOT(setActFarben(QString, QString, double, double)));
-//	connect(this, SIGNAL(textFormatting(int)), pp, SLOT(setAli(int)));
-//	connect(this, SIGNAL(textFormatting(int)), ScMW, SLOT(setAbsValue(int)));
+	//connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
+	//connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setTextToFrameDistances(double, double, double, double)));
+	//connect(this, SIGNAL(textKerning(double)), pp, SLOT(setExtra(double)));
+	//connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
+	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStyleEffects(int)));
+	//connect(this, SIGNAL(textFont(const QString&)), pp, SLOT(setFontFace(const QString&)));
+	//connect(this, SIGNAL(textSize(double)), pp, SLOT(setSize(double)));
 
 	return true;
 }
@@ -6321,49 +6266,21 @@ void PageItem::emitAllToGUI()
 
 	emit myself(this);
 	emit frameType(m_ItemType);
-/*CB using the emit myself* instead of all of these
-	emit position(Xpos, Ypos);
-	emit widthAndHeight(Width, Height);
-	emit rotation(Rot);
-	emit frameLocked(m_Locked);
-	emit frameSizeLocked(m_SizeLocked);
-	emit frameFlippedH(m_ImageIsFlippedH);
-	emit frameFlippedV(m_ImageIsFlippedV);
-	emit printEnabled(m_PrintEnabled);
-	emit lineWidth(m_lineWidth);
-	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
-*/
-//CB unused in 135 emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
-//	emit gradientType(GrType);
+
+//CB unused in 135
 //	double dur=m_Doc->unitRatio();
-//	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
-//	emit transparency(fillTransparencyVal, lineTransparencyVal);
 //	emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
 /*CB using the emit myself* instead of all of these
-	emit patternFill(patternVal, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
-	emit columns(Cols, ColGap);
 */
-	if (m_Doc->appMode == modeEdit)
-	{
-/* maybe already done elsewhere? -- av
-		emit lineSpacing(currentStyle().lineSpacing());
-		emit textKerning(currentCharStyle().tracking());
-		emit textStyle(currentCharStyle().effects());
-		emit textFont(currentCharStyle().font()->scName());
-		emit textSize(currentCharStyle().fontSize());
-*/
-		//		emit textFormatting(currentStyle().alignment());
-	}
-	else
+	if (m_Doc->appMode != modeEdit)
 	{
 //TODO remove and use the emit myself
-		emit lineSpacing(itemText.defaultStyle().lineSpacing());
-		emit textKerning(itemText.defaultStyle().charStyle().tracking());
+		//emit lineSpacing(itemText.defaultStyle().lineSpacing());
+		//emit textKerning(itemText.defaultStyle().charStyle().tracking());
 		emit textStyle(itemText.defaultStyle().charStyle().effects());
-		emit textFont(itemText.defaultStyle().charStyle().font().scName());
-		emit textSize(itemText.defaultStyle().charStyle().fontSize());
+		//emit textFont(itemText.defaultStyle().charStyle().font().scName());
+		//emit textSize(itemText.defaultStyle().charStyle().fontSize());
 //		emit textFormatting(itemText.defaultStyle().alignment());
 	}
 }

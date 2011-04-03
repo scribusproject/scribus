@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "masterpagepalette.h"
 
+#include <QApplication>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QSpacerItem>

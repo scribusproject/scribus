@@ -16,6 +16,7 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
+#include <QProgressBar>
 #include <QRegExp>
 
 #include "shortwords.h"

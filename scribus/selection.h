@@ -139,7 +139,7 @@ class SCRIBUS_API Selection : public QObject
 		PageItem *itemAt(int index=0) { return itemAt_(index); }
 		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }
 		QStringList getSelectedItemsByName() const;
-		bool isMultipleSelection() const { return m_hasGroupSelection; }
+		bool isMultipleSelection() const { return (m_SelList.count() > 1); }
 		bool isGUISelection() const { return m_isGUISelection; }
 		double width() const;
 		double height() const;
@@ -165,7 +165,6 @@ class SCRIBUS_API Selection : public QObject
 	protected:
 		PageItem *itemAt_(int index=0);
 		SelectionList m_SelList;
-		bool m_hasGroupSelection;
 		bool m_isGUISelection;
 		double groupX;
 		double groupY;

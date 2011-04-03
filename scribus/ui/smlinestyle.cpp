@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "smlinestylewidget.h"
 #include "scribus.h"
 #include "propertiespalette.h"
+#include "propertiespalette_line.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -261,7 +262,7 @@ void SMLineStyle::apply()
 		}
 	}
 	doc_->changed();
-	doc_->scMW()->propertiesPalette->SetLineFormats(doc_);
+	doc_->scMW()->requestUpdate(reqLineStylesUpdate);
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
 	// doc_->view()->DrawNew();
 	selectionIsDirty_ = false;

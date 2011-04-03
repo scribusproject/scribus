@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 
 #include <QMessageBox>
+#include <QProgressBar>
 #include <QString>
 #include <QMap>
 #include <QDir>

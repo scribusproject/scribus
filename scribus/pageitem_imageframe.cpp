@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 // #include <QDebug>
+#include <QApplication>
 #include <QGridLayout>
 #include <QKeyEvent>
 

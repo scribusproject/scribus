@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribuscore.h"
 #include "plugins/formatidlist.h"
+
 #include <QList>
+#include <QMessageBox>
 
 QList<FileFormat> LoadSavePlugin::formats;
 

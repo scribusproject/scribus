@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QMimeData>
 #include <QMessageBox>
-
+#include <QPainter>
 
 #include "commonstrings.h"
 #include "page.h"

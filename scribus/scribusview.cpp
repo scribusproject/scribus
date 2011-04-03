@@ -75,15 +75,9 @@ for which a new license (GPL+exception) is in place.
 #include "canvasmode.h"
 #include "canvasmode_objimport.h"
 #include "actionmanager.h"
-#include "ui/adjustcmsdialog.h"
 #include "commonstrings.h"
-#include "ui/extimageprops.h"
 #include "filewatcher.h"
-#include "ui/guidemanager.h"
-#include "ui/hruler.h"
 #include "hyphenator.h"
-#include "ui/insertTable.h"
-#include "ui/oneclick.h"
 #include "page.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
@@ -92,27 +86,37 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
-#include "ui/pageitemattributes.h"
-#include "ui/pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
-#include "ui/rulermover.h"
 #include "scclocale.h"
-#include "ui/scmessagebox.h"
 #include "scmimedata.h"
 #include "scpainter.h"
 #include "scpaths.h"
-#include "ui/scrapbookpalette.h"
 #include "scribuscore.h"
 #include "scribuswin.h"
 #include "scribusXml.h"
 #include "selection.h"
 #include "serializer.h"
+#include "text/nlsconfig.h"
+#include "ui/adjustcmsdialog.h"
+#include "ui/extimageprops.h"
+#include "ui/guidemanager.h"
+#include "ui/hruler.h"
+#include "ui/insertTable.h"
+#include "ui/oneclick.h"
+#include "ui/pageitemattributes.h"
+#include "ui/pageselector.h"
+#include "ui/propertiespalette.h"
+#include "ui/propertiespalette_image.h"
+#include "ui/propertiespalette_line.h"
+#include "ui/propertiespalette_text.h"
+#include "ui/rulermover.h"
+#include "ui/scmessagebox.h"
+#include "ui/scrapbookpalette.h"
 #include "ui/storyeditor.h"
 #include "ui/symbolpalette.h"
-#include "text/nlsconfig.h"
+#include "ui/vruler.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
@@ -120,7 +124,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "ui/vruler.h"
 #include "loadsaveplugin.h"
 #include "fileloader.h"
 #include "plugins/formatidlist.h"
@@ -163,6 +166,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	p.setBrush(QPalette::Window, PrefsManager::instance()->appPrefs.displayPrefs.scratchColor);
 	setPalette(p);
 	setAttribute(Qt::WA_StaticContents);
+	setAttribute(Qt::WA_InputMethodEnabled, true);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setViewportMargins(m_vhRulerHW, m_vhRulerHW, 0, 0);
@@ -379,7 +383,7 @@ void ScribusView::languageChange()
 void ScribusView::toggleCMS()
 {
 	Doc->enableCMS(!Doc->HasCMS);
-	m_ScMW->propertiesPalette->ShowCMS();
+	m_ScMW->requestUpdate(reqCmsOptionsUpdate);
 	DrawNew();
 }
 
@@ -393,7 +397,7 @@ void ScribusView::adjustCMS()
 		{
 			Doc->enableCMS(Doc->cmsSettings().CMSinUse);
 			cmsToolbarButton->setChecked(Doc->HasCMS);
-			m_ScMW->propertiesPalette->ShowCMS();
+			m_ScMW->requestUpdate(reqCmsOptionsUpdate);;
 			DrawNew();
 		}
 	}
@@ -707,7 +711,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 //			redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
 //			if (!redrawMarker->isVisible())
 //				redrawMarker->show();
-			emit ItemGeom(gw, gh);
+			emit ItemGeom();
 		}
 		delete ss;
 		ss=NULL;
@@ -1036,11 +1040,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 									undoManager->setUndoEnabled(false);
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 									Doc->moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
-									m_ScMW->propertiesPalette->updateColorList();
-									m_ScMW->symbolPalette->updateSymbolList();
-									m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
-									m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
-									m_ScMW->propertiesPalette->SetLineFormats(Doc);
+									m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqTextStylesUpdate | reqLineStylesUpdate);
 									undoManager->setUndoEnabled(true);
 								}
 							}
@@ -1196,8 +1196,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				activeTransaction->commit();
 				delete activeTransaction;
 				activeTransaction = NULL;
-				emit ItemPos(gx, gy);
-				emit ItemGeom(gw, gh);
+				emit ItemGeom();
 			}
 			else if (Doc->m_Selection->count() == 1)
 			{
@@ -1598,37 +1597,17 @@ bool ScribusView::slotSetCurs(int x, int y)
 				if (b<0)
 					b=0;
 				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(b);
-				emit ItemTextStrike(Doc->currentStyle.charStyle().strikethruOffset(), Doc->currentStyle.charStyle().strikethruWidth());
-				emit ItemTextUnderline(Doc->currentStyle.charStyle().underlineOffset(), Doc->currentStyle.charStyle().underlineWidth());
-				emit ItemTextOutline(Doc->currentStyle.charStyle().outlineWidth());
-				emit ItemTextShadow(Doc->currentStyle.charStyle().shadowXOffset(), Doc->currentStyle.charStyle().shadowYOffset());
-				emit ItemTextSca(Doc->currentStyle.charStyle().scaleH());
-				emit ItemTextScaV(Doc->currentStyle.charStyle().scaleV());
-				emit ItemTextFarben(Doc->currentStyle.charStyle().strokeColor(), Doc->currentStyle.charStyle().fillColor(), Doc->currentStyle.charStyle().strokeShade(), Doc->currentStyle.charStyle().fillShade());
-				emit ItemTextFont(Doc->currentStyle.charStyle().font().scName());
-				emit ItemTextSize(Doc->currentStyle.charStyle().fontSize());
-				emit ItemTextUSval(Doc->currentStyle.charStyle().tracking());
-				emit ItemTextStil(Doc->currentStyle.charStyle().effects());
-				emit ItemTextAbs(currItem->itemText.paragraphStyle(b).alignment());
-				emit ItemTextBase(Doc->currentStyle.charStyle().baselineOffset());
+				emit ItemCharStyle(Doc->currentStyle.charStyle());
+				emit ItemTextEffects(Doc->currentStyle.charStyle().effects());
+				emit ItemTextAlign(currItem->itemText.paragraphStyle(b).alignment());
 				return true;
 			}
 			else
 			{
 				Doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
-				emit ItemTextStrike(currItem->itemText.defaultStyle().charStyle().strikethruOffset(), currItem->itemText.defaultStyle().charStyle().strikethruWidth());
-				emit ItemTextUnderline(currItem->itemText.defaultStyle().charStyle().underlineOffset(), currItem->itemText.defaultStyle().charStyle().underlineWidth());
-				emit ItemTextOutline(currItem->itemText.defaultStyle().charStyle().outlineWidth());
-				emit ItemTextShadow(currItem->itemText.defaultStyle().charStyle().shadowXOffset(), currItem->itemText.defaultStyle().charStyle().shadowYOffset());
-				emit ItemTextSca(currItem->itemText.defaultStyle().charStyle().scaleH());
-				emit ItemTextScaV(currItem->itemText.defaultStyle().charStyle().scaleV());
-				emit ItemTextFarben(currItem->itemText.defaultStyle().charStyle().strokeColor(), currItem->itemText.defaultStyle().charStyle().fillColor(), currItem->itemText.defaultStyle().charStyle().strokeShade(), currItem->itemText.defaultStyle().charStyle().fillShade());
-				emit ItemTextFont(currItem->itemText.defaultStyle().charStyle().font().scName());
-				emit ItemTextSize(currItem->itemText.defaultStyle().charStyle().fontSize());
-				emit ItemTextUSval(currItem->itemText.defaultStyle().charStyle().tracking());
-				emit ItemTextStil(currItem->itemText.defaultStyle().charStyle().effects());
-				emit ItemTextAbs( 0 );
-				emit ItemTextBase(currItem->itemText.defaultStyle().charStyle().baselineOffset());
+				emit ItemCharStyle(currItem->itemText.defaultStyle().charStyle());
+				emit ItemTextEffects(currItem->itemText.defaultStyle().charStyle().effects());
+				emit ItemTextAlign( 0 );
 				return true;
 			}
 		}
@@ -1741,11 +1720,10 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			Doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			emit ItemPos(x, y);
-			emit ItemGeom(w, h);
 			getGroupRectScreen(&x, &y, &w, &h);
 			updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			//CB move in here as the emitAllToGUI will do it otherwise
+			emit ItemGeom();
 			emit HaveSel(currItem->itemType());
 		}
 		//CB done by addItem for single selection or the frame data is already there
@@ -2092,8 +2070,7 @@ void ScribusView::PasteToPage()
 		Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false, &newObjects);
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
-		emit ItemPos(gx, gy);
-		emit ItemGeom(gw, gh);
+		emit ItemGeom();
 		emit HaveSel(newObjects.itemAt(0)->itemType());
 	}
 	else if (newObjects.count() == 1)
@@ -3019,8 +2996,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 		{
 			double x, y, w, h;
 			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			emit ItemPos(x, y);
-			emit ItemGeom(w, h);
+			emit ItemGeom();
 		}
 		else
 			Doc->m_Selection->itemAt(0)->emitAllToGUI();
@@ -4053,6 +4029,22 @@ void ScribusView::keyPressEvent(QKeyEvent *k)
 void ScribusView::keyReleaseEvent(QKeyEvent *k)
 {
 	m_ScMW->keyReleaseEvent(k);
+}
+
+void ScribusView::inputMethodEvent ( QInputMethodEvent * event )
+{
+	qDebug() << "IME" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
+	for(int i = 0; i < event->commitString().length(); ++i)
+	{
+		QKeyEvent ev( QEvent::KeyPress, 0, Qt::NoModifier, event->commitString().mid(i,1));
+		keyPressEvent(&ev);
+	}
+}
+
+QVariant ScribusView::inputMethodQuery ( Qt::InputMethodQuery query ) const
+{
+//	qDebug() << "IMQ" << query;
+	return QVariant();
 }
 
 void ScribusView::wheelEvent(QWheelEvent *w)

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_icon.h"
 
+#include <QApplication>
 #include <QCloseEvent>
 #include <QDir>
 #include <QFileInfo>

@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDrag>
 #include <QFile>
 #include <QList>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QPainterPath>
 #include <QRegExp>

@@ -75,6 +75,7 @@ public:
 
 public slots:
 	void handleDoubleClick(QListWidgetItem *item);
+	void handleUpdateRequest(int);
 	void languageChange();
 
 signals:

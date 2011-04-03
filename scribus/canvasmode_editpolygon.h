@@ -90,6 +90,10 @@ private:
 	ePolygonPoint m_polygonPoint;
 	PolyVectorDialog *VectorDialog;
 
+	int    m_blockUpdateFromItem;
+	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
+	bool   updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
+
 public slots:
 	void applyValues(int polyC, double polyF, bool polyUseCF, double polyR, double polyCur, double polyIRot, double polyOCur);
 	void updateFromItem();

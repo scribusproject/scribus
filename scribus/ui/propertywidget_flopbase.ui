@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertyWidget_FlopBase</class>
+ <widget class="QFrame" name="PropertyWidget_FlopBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>218</width>
+    <height>88</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::StyledPanel</enum>
+  </property>
+  <property name="frameShadow">
+   <enum>QFrame::Raised</enum>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QRadioButton" name="flopRealHeight">
+     <property name="text">
+      <string>Maximum Ascent</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>flopGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="flopFontAscent">
+     <property name="text">
+      <string>Font Ascent</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>flopGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="flopLineSpacing">
+     <property name="text">
+      <string>Line Spacing</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>flopGroup</string>
+     </attribute>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="flopGroup"/>
+ </buttongroups>
+</ui>

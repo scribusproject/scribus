@@ -62,6 +62,7 @@
 CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;
+	m_blockUpdateFromItem = 0;
 	m_polygonPoint = noPointDefined;
 }
 
@@ -143,6 +144,8 @@ void CanvasMode_EditPolygon::leaveEvent(QEvent *e)
 
 void CanvasMode_EditPolygon::updateFromItem()
 {
+	if (updateFromItemBlocked())
+		return;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
 	centerPoint = QPointF(currItem->width() / 2.0, currItem->height() / 2.0);
@@ -206,8 +209,7 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 		m_view->update();
-	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
-	connect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 	
 	connect(VectorDialog, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SLOT(applyValues(int, double, bool, double, double, double, double)));
 	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
@@ -221,8 +223,7 @@ void CanvasMode_EditPolygon::deactivate(bool forGesture)
 	delete VectorDialog;
 	m_view->redrawMarker->hide();
 	m_polygonPoint = noPointDefined;
-	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
-	disconnect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditPolygon::endEditing(bool active)
@@ -358,7 +359,9 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 		outerLine.setLength(outerLine.length() * polyOuterCurvature);
 		outerCPoint = outerLine.p2();
 		VectorDialog->setValues(polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
+		blockUpdateFromItem(true);
 		currItem->update();
+		blockUpdateFromItem(false);
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
 		upRect.translate(currItem->xPos(), currItem->yPos());

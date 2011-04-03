@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribusapp.h"
 
+#include <QMessageBox>
+
 CollectForOutput_UI::CollectForOutput_UI(QWidget* parent, ScribusDoc* doc, QString outputDirectory, bool withFonts, bool withProfiles, bool compressDoc) :
 	CollectForOutput(doc, outputDirectory, withFonts, withProfiles, compressDoc)
 {

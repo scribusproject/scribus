@@ -132,9 +132,7 @@ void GradientPreview::keyPressEvent(QKeyEvent *e)
 				ActStop = 0;
 				repaint();
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
-				emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-				emit currTrans(cstops.at(ActStop)->opacity);
-				emit currStep(cstops.at(ActStop)->rampPoint);
+				emit selectedStop(cstops.at(ActStop));
 			}
 		}
 	}
@@ -154,9 +152,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 			if (fpo.contains(m->pos()))
 			{
 				ActStop = yg;
-				emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-				emit currTrans(cstops.at(ActStop)->opacity);
-				emit currStep(cstops.at(ActStop)->rampPoint);
+				emit selectedStop(cstops.at(ActStop));
 				repaint();
 				onlyselect = true;
 				return;
@@ -179,9 +175,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 				ActStop = 0;
 				repaint();
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
-				emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-				emit currTrans(cstops.at(ActStop)->opacity);
-				emit currStep(cstops.at(ActStop)->rampPoint);
+				emit selectedStop(cstops.at(ActStop));
 			}
 			if ((m->y() < height()) && (m->y() > 43) && (m->x() > 0) && (m->x() < width()) && (ActStop == -1))
 			{
@@ -200,9 +194,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 					if (fpo.contains(m->pos()))
 					{
 						ActStop = yg;
-						emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-						emit currTrans(cstops.at(ActStop)->opacity);
-						emit currStep(cstops.at(ActStop)->rampPoint);
+						emit selectedStop(cstops.at(ActStop));
 						repaint();
 						break;
 					}
@@ -322,9 +314,7 @@ void GradientPreview::addStop()
 		if (fpo.contains(mPos))
 		{
 			ActStop = yg;
-			emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-			emit currTrans(cstops.at(ActStop)->opacity);
-			emit currStep(cstops.at(ActStop)->rampPoint);
+			emit selectedStop(cstops.at(ActStop));
 			repaint();
 			break;
 		}
@@ -340,22 +330,17 @@ void GradientPreview::removeStop()
 		ActStop = 0;
 		repaint();
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
-		emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-		emit currTrans(cstops.at(ActStop)->opacity);
-		emit currStep(cstops.at(ActStop)->rampPoint);
+		emit selectedStop(cstops.at(ActStop));
 	}
 }
 
 void GradientPreview::updateDisplay()
 {
-	ActStop = 0;
 	repaint();
 	if (!fill_gradient.colorStops().isEmpty())
 	{
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
-		emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-		emit currTrans(cstops.at(ActStop)->opacity);
-		emit currStep(cstops.at(ActStop)->rampPoint);
+		emit selectedStop(cstops.at(ActStop));
 	}
 }
 
@@ -386,6 +371,32 @@ void GradientPreview::setActStep(double t)
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	cstops.at(ActStop)->rampPoint = t;
 	repaint();
+}
+
+void GradientPreview::setGradient(const VGradient& gradient)
+{
+	if ((gradient.colorStops().count() == fill_gradient.colorStops().count()) && (ActStop >= 0))
+	{
+		int diffStops = 0;
+		for (int i = 0; i < fill_gradient.colorStops().count(); ++i)
+		{
+			VColorStop* stop1 = gradient.colorStops().at(i);
+			VColorStop* stop2 = fill_gradient.colorStops().at(i);
+			if ((stop1->color != stop2->color) || (stop1->midPoint != stop2->midPoint) ||
+				(stop1->name  != stop2->name)  || (stop1->opacity != stop2->opacity)   ||
+				(stop1->rampPoint != stop2->rampPoint) || (stop1->shade != stop2->shade))
+			{
+				++diffStops;
+			}
+		}
+		if (diffStops > 1)
+			ActStop = 0;
+	}
+	if ((ActStop < 0) && (gradient.colorStops().count() > 0))
+		ActStop = 0;
+	if (ActStop >= gradient.colorStops().count())
+		ActStop = 0;
+	fill_gradient = gradient;
 }
 
 void GradientPreview::setGradientEditable(bool val)

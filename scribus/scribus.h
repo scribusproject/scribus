@@ -30,39 +30,28 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 // include files for QT
-#include <QAction>
+
 #include <QActionGroup>
-#include <QApplication>
 #include <QClipboard>
-#include <QCloseEvent>
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QEvent>
-#include <QFont>
 #include <QKeyEvent>
-#include <QLabel>
 #include <QMainWindow>
 #include <QMap>
-#include <QMenu>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QMouseEvent>
 #include <QMultiHash>
-#include <QPainter>
 #include <QPixmap>
 #include <QPointer>
 #include <QProcess>
-#include <QProgressBar>
-#include <QProgressDialog>
-#include <QStatusBar>
 #include <QString>
-#include <QTimer>
-#include <QToolButton>
-#include <QToolTip>
-#include <QWheelEvent>
-#include <QMdiArea>
-#include <QMdiSubWindow>
 
+class QCloseEvent;
+class QDragEnterEvent;
+class QDropEvent;
+class QEvent;
+class QKeyEvent;
+class QLabel;
+class QMdiArea;
+class QMdiSubWindow;
+class QProgressBar;
+class QToolButton;
 
 // application specific includes
 #include "scribusapi.h"
@@ -154,6 +143,9 @@ public:
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
+	void inputMethodEvent ( QInputMethodEvent * event );
+	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
+	void requestUpdate(int);
 	void setTBvals(PageItem *currItem);
 	int ShowSubs();
 	void applyNewMaster(QString name);
@@ -466,8 +458,6 @@ public slots:
 	void setBrushShade(int sh);
 	void setGradFill(int typ);
 	*/
-	void updtGradFill();
-	void updtGradStroke();
 	void updtGradMask();
 	void updtGradMaskGroup();
 	/*
@@ -477,8 +467,6 @@ public slots:
 	void setBrushFarbe(QString farbe);
 	*/
 	//CB: void setCSMenu();
-	/** Fragt nach den Farben */
-//	void GetBrushPen();
 	/** Erzeugt einen Rahmen */
 	void MakeFrame(int f, int c, double *vals);
 	//** Loescht ein Element */
@@ -496,7 +484,7 @@ public slots:
 	void setNewAlignment(int a);
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);
-	void setAbsValue(int a);
+	void setAlignmentValue(int a);
 	void selectItemsFromOutlines(PageItem *ite, bool single = false);
 	void selectItemsFromOutlines(int Page, int Item, bool single = false);
 	void selectPagesFromOutlines(int Page);
@@ -507,8 +495,8 @@ public slots:
 	void SaveAsPDF();
 	void doSaveAsPDF();
 	void setMainWindowActive();
-	void setItemHoch(int h);
-	void setStilvalue(int s);
+	void setItemEffects(int h);
+	void setStyleEffects(int s);
 	void setItemTypeStyle(int id);
 	void slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
@@ -573,18 +561,8 @@ public slots:
 signals:
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)
-	void TextISize(double);
-	void TextIFont(const QString&);
-	void TextUSval(double);
-	void TextStil(int);
-	void TextFarben(QString, QString, double, double);
-	void TextScale(double);
-	void TextScaleV(double);
-	void TextBase(double);
-	void TextShadow(double, double);
-	void TextOutline(double);
-	void TextUnderline(double, double);
-	void TextStrike(double, double);
+	void TextEffects(int);
+	void UpdateRequest(int updateFlags);
 
 protected:
 	/*!

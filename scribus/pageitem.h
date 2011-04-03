@@ -62,21 +62,19 @@ class ResourceCollection;
 class QFrame;
 class QGridLayout;
 
+class PageItem_Arc;
+class PageItem_Group;
 class PageItem_ImageFrame;
 class PageItem_Line;
+class PageItem_OSGFrame;
 class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_RegularPolygon;
 class PageItem_TextFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
-class PageItem_Symbol;
-class PageItem_Group;
-class PageItem_Arc;
 class PageItem_Spiral;
-#ifdef HAVE_OSG
-class PageItem_OSGFrame;
-#endif
+class PageItem_Symbol;
 
 /**
   *@author Franz Schmid
@@ -197,9 +195,8 @@ public:
 	virtual PageItem_PolyLine * asPolyLine() { return NULL; }
 	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
 	virtual PageItem_LatexFrame * asLatexFrame() { return NULL; }
-#ifdef HAVE_OSG
+
 	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
-#endif
 	virtual PageItem_Symbol * asSymbolFrame() { return NULL; }
 	virtual PageItem_Group * asGroupFrame() { return NULL; }
 	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; }
@@ -1533,46 +1530,18 @@ signals:
 	//Frame signals
 	void myself(PageItem *);
 	void frameType(int);   // not related to Frametype but to m_itemIype :-/
-	void position(double, double); //X,Y
-	void widthAndHeight(double, double); //W,H
-	void rotation(double); //Degrees rotation	
-	void colors(QString, QString, double, double); //lineColor, fillColor, lineShade, fillShade
-	void gradientType(int); //Normal, horizontal, vertical, etc.
-	void patternFill(QString, double, double, double, double, double, double, double, bool, bool);
-	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
-	void transparency(double, double); //fillTransparency, lineTransparency
-	void blendmode(int, int); //fillBlendmode, lineBlendmode
-	void frameLocked(bool); //Frame lock
-	void frameSizeLocked(bool); //Frame size lock
-	void frameFlippedH(bool); //Frame flipped horizontally
-	void frameFlippedV(bool); //Frame flipped vertically
-	void printEnabled(bool); //Frame is set to print or not
+	//void frameLocked(bool); //Frame lock
+	//void frameSizeLocked(bool); //Frame size lock
 	//Shape signals
-	void columns(int, double); //Number, gap
-	void cornerRadius(double); //Corner radius of the shape
-	//Line signals
-	void lineWidth(double);
-	void lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
+	//void cornerRadius(double); //Corner radius of the shape
 	//Frame text signals
-	void lineSpacing(double);
-	void textKerning(double);
+	//void lineSpacing(double);
+	//void textKerning(double);
 	void textStyle(int);
-	void textFont(const QString&);
-	void textSize(double);
-	void textWidthScale(double);
-	void textHeightScale(double);
-	void textBaseLineOffset(double);
-	void textOutline(double);
-	void textShadow(double, double);
-	void textUnderline(double, double);
-	void textStrike(double, double);
-	void textColor(QString, QString, double, double);
-	void textFormatting(int);
-	void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
+	//void textFont(const QString&);
+	//void textSize(double);
+	//void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
 	//FIXME: columns, grid ?
-	//Frame image signals
-	void imageOffsetScale(double, double, double, double);
-	void imageRotation(double);
 };
 
 Q_DECLARE_METATYPE(PageItem*);

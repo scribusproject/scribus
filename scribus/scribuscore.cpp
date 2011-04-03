@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QDebug>
 #include <QGlobalStatic>
+#include <QMessageBox>
 
 #include "commonstrings.h"
 #include "filewatcher.h"

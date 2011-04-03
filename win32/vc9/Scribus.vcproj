@@ -1277,6 +1277,62 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_group.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_image.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_line.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_shape.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_text.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_utils.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_xyz.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_advanced.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_distance.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_flop.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_optmargins.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_pathtext.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_textcolor.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidgetbase.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pslib.cpp"
 				>
 			</File>
@@ -1326,6 +1382,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\sccombobox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\scdockpalette.cpp"
 				>
 			</File>
 			<File
@@ -5492,6 +5552,244 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_group.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_image.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_line.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_shape.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_text.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_utils.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_xyz.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_advanced.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_distance.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_flop.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_optmargins.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_pathtext.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_textcolor.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidgetbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pslib.h"
 				>
 				<FileConfiguration
@@ -5638,6 +5936,24 @@
 			<File
 				RelativePath="..\..\scribus\scconfig.h"
 				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\scdockpalette.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scdocoutput.h"
@@ -6118,22 +6434,14 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7699,6 +8007,58 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_groupbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_imagebase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_linebase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_shapebase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_textbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_xyzbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_advancedbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_distancebase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_flopbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_linebase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_optmarginsbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_pathtextbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_textcolorbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_replacecolors.h"
 				>
 			</File>
@@ -8468,6 +8828,58 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_group.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_image.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_line.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_shape.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_text.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_utils.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_xyz.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_advanced.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_distance.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_flop.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_optmargins.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_pathtext.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_textcolor.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\moc_pslib.cpp"
 				>
 			</File>
@@ -8489,6 +8901,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_sampleitem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_scdockpalette.cpp"
 				>
 			</File>
 			<File
@@ -9034,6 +9450,54 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\printdialogbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_groupbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_imagebase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_linebase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_shapebase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_textbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_xyzbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_advancedbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_distancebase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_flopbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_optmarginsbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_pathtextbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_textcolorbase.ui"
 				>
 			</File>
 			<File

@@ -132,8 +132,8 @@ protected:
 	double unitRatio;
 	
 signals:
-	void Schliessen();
 	void DocChanged();
+	void paletteClosed();
 };
 
 #endif // NODEPALETTE_H

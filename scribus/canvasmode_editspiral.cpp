@@ -47,6 +47,7 @@
 CanvasMode_EditSpiral::CanvasMode_EditSpiral(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;
+	m_blockUpdateFromItem = 0;
 	m_arcPoint = noPointDefined;
 }
 
@@ -136,12 +137,13 @@ void CanvasMode_EditSpiral::activate(bool fromGesture)
 	connect(VectorDialog, SIGNAL(NewVectors(double, double, double)), this, SLOT(applyValues(double, double, double)));
 	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	connect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
-	connect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditSpiral::updateFromItem()
 {
+	if (updateFromItemBlocked())
+		return;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Spiral* item = currItem->asSpiral();
 	startPoint = currItem->PoLine.pointQF(0);
@@ -248,8 +250,7 @@ void CanvasMode_EditSpiral::deactivate(bool forGesture)
 	delete VectorDialog;
 	m_view->redrawMarker->hide();
 	m_arcPoint = noPointDefined;
-	disconnect(m_doc, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
-	disconnect(m_ScMW->propertiesPalette, SIGNAL(updateEditItem()), this, SLOT(updateFromItem()));
+	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditSpiral::mouseDoubleClickEvent(QMouseEvent *m)

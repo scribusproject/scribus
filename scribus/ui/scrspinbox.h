@@ -31,6 +31,9 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		QString textFromValue ( double value ) const;
 		QValidator::State validate ( QString & input, int & pos ) const;
 		void fixup ( QString & input ) const;
+
+		// call QDoubleSpinBox::setValue() without emitting valueChanged() signal
+		void showValue(double val);
 		
 		//custom
 		void init(int unitIndex);

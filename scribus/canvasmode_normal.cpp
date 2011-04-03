@@ -62,6 +62,8 @@
 #include "ui/pageselector.h"
 #include "ui/polyprops.h"
 #include "ui/propertiespalette.h"
+#include "ui/propertiespalette_line.h"
+#include "ui/propertiespalette_text.h"
 #include "plugins/formatidlist.h"
 
 
@@ -931,6 +933,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			//currItem->emitAllToGUI();
 			m_view->updatesOn(true);
 			m_view->updateContents();
+			m_doc->changed();
 		}
 	}
 	//CB Drag selection performed here
@@ -1011,8 +1014,9 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemMoving = false;
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-			m_ScMW->propertiesPalette->setXY(x,y);
-			m_ScMW->propertiesPalette->setBH(w,h);
+			//Now unuseful as PropertiesPalette_XYZ::setCurrentItem() handles multiple selection
+			//m_ScMW->propertiesPalette->setXY(x,y);
+			//m_ScMW->propertiesPalette->setBH(w,h);
 		}
 		/*else
 			currItem->emitAllToGUI();*/
@@ -1332,10 +1336,7 @@ void CanvasMode_Normal::importToPage()
 				double x2, y2, w, h;
 				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 				m_doc->moveGroup(pastePoint.x() - x2, pastePoint.y() - y2);
-				m_ScMW->propertiesPalette->updateColorList();
-				m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
-				m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
-				m_ScMW->propertiesPalette->SetLineFormats(m_doc);
+				m_ScMW->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 			}
 		}
 		for (int a = 0; a < m_doc->m_Selection->count(); ++a)

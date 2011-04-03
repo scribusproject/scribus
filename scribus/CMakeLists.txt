@@ -120,6 +120,18 @@ SET(SCRIBUS_UI_SRC
   ui/prefs_tableofcontentsbase.ui
   ui/prefs_documentitemattributesbase.ui
   ui/printdialogbase.ui
+  ui/propertiespalette_groupbase.ui
+  ui/propertiespalette_imagebase.ui
+  ui/propertiespalette_linebase.ui
+  ui/propertiespalette_shapebase.ui
+  ui/propertiespalette_textbase.ui
+  ui/propertiespalette_xyzbase.ui
+  ui/propertywidget_advancedbase.ui
+  ui/propertywidget_distancebase.ui
+  ui/propertywidget_flopbase.ui
+  ui/propertywidget_optmarginsbase.ui
+  ui/propertywidget_pathtextbase.ui
+  ui/propertywidget_textcolorbase.ui
   ui/replacecolors.ui
   ui/replaceonecolor.ui
   ui/selectobjects.ui
@@ -338,10 +350,24 @@ SET(SCRIBUS_MOC_CLASSES
   ui/preview.h
   ui/printdialog.h
   ui/propertiespalette.h
+  ui/propertiespalette_group.h
+  ui/propertiespalette_image.h
+  ui/propertiespalette_line.h
+  ui/propertiespalette_shape.h
+  ui/propertiespalette_text.h
+  ui/propertiespalette_utils.h
+  ui/propertiespalette_xyz.h
+  ui/propertywidget_advanced.h
+  ui/propertywidget_distance.h
+  ui/propertywidget_flop.h
+  ui/propertywidget_optmargins.h
+  ui/propertywidget_pathtext.h
+  ui/propertywidget_textcolor.h
   ui/query.h
   ui/replacecolors.h
   ui/replaceonecolor.h
   ui/rulermover.h
+  ui/scdockpalette.h
   ui/scfilewidget.h
   ui/scinputdialog.h
   ui/scmenu.h
@@ -719,11 +745,26 @@ SET(SCRIBUS_SOURCES
   ui/preview.cpp
   ui/printdialog.cpp
   ui/propertiespalette.cpp
+  ui/propertiespalette_image.cpp
+  ui/propertiespalette_group.cpp
+  ui/propertiespalette_line.cpp
+  ui/propertiespalette_shape.cpp
+  ui/propertiespalette_text.cpp
+  ui/propertiespalette_utils.cpp
+  ui/propertiespalette_xyz.cpp
+  ui/propertywidget_advanced.cpp
+  ui/propertywidget_distance.cpp
+  ui/propertywidget_flop.cpp
+  ui/propertywidget_optmargins.cpp
+  ui/propertywidget_pathtext.cpp
+  ui/propertywidget_textcolor.cpp
+  ui/propertywidgetbase.cpp
   ui/query.cpp
   ui/replacecolors.cpp
   ui/replaceonecolor.cpp
   ui/rulermover.cpp
   ui/sccombobox.cpp
+  ui/scdockpalette.cpp
   ui/scfilewidget.cpp
   ui/scinputdialog.cpp
   ui/scmenu.cpp

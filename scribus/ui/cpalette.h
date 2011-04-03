@@ -63,15 +63,34 @@ public:
 	void setCurrentItem(PageItem* item);
 	void updateFromItem();
 
+	void updateColorList();
+
+	void setColors(ColorList newColorList);
+	void setGradients(QMap<QString, VGradient> *docGradients);
+	void setPatterns(QMap<QString, ScPattern> *docPatterns);
+
+private:
+
+	PageItem* currentItemFromSelection();
+
 public slots:
-	void editLineColorSelectorButton();
-	void editFillColorSelectorButton();
-	void SetColors(ColorList newColorList);
-	void setActOverprint(int);
+
+	void handleSelectionChanged();
+	void handleUpdateRequest(int);
+
+	/*void editLineColorSelectorButton();
+	void editFillColorSelectorButton();*/
+	void fillStrokeSelector(int /*index*/);
+	void displayColorValues(QString stroke, QString fille, int sShade, int fShade);
+	void displayGradient(int nr);
+	void displayOverprint(int);
+	void handleFillShade(int);
+	void handleStrokeShade(int);
+	void handleOverprint(int);
+	void handleFillGradient();
+	void handleStrokeGradient();
 	void updateCList();
-	void ToggleColorDisplay();
-	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
-	void SetGradients(QMap<QString, VGradient> *docGradients);
+	void toggleColorDisplay();
 	void setNamedGradient(const QString &name);
 	void setNamedGradientStroke(const QString &name);
 	void selectPattern(QListWidgetItem *c);
@@ -81,15 +100,12 @@ public slots:
 	void updateGradientList();
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
-	void setActFarben(QString p, QString b, int shp, int shb);
 	void selectColorS(QListWidgetItem *c);
 	void selectColorF(QListWidgetItem *c);
 	void slotGradStroke(int number);
-	void ChooseGrad(int nr);
 	void slotGrad(int nr);
 	void slotGradType(int type);
 	void slotGradTypeStroke(int type);
-	void setActGradient(int typ);
 	void setGradientColors();
 	void editMeshPointColor();
 	void createNewMeshGradient();
@@ -122,8 +138,6 @@ signals:
 	void NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool);
 	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
 	void NewOverprint(int);
-	void gradientChanged();
-	void strokeGradientChanged();
 	void editGradient(int);
 
 protected:
@@ -141,8 +155,8 @@ protected:
 	double m_Pattern_rotation;
 	double m_Pattern_skewX;
 	double m_Pattern_skewY;
-	bool m_Pattern_mirrorX;
-	bool m_Pattern_mirrorY;
+	bool   m_Pattern_mirrorX;
+	bool   m_Pattern_mirrorY;
 	double m_Pattern_scaleXS;
 	double m_Pattern_scaleYS;
 	double m_Pattern_offsetXS;
@@ -151,10 +165,16 @@ protected:
 	double m_Pattern_skewXS;
 	double m_Pattern_skewYS;
 	double m_Pattern_spaceS;
-	bool m_Pattern_mirrorXS;
-	bool m_Pattern_mirrorYS;
-	int currentUnit;
-	int editStrokeGradient;
+	bool   m_Pattern_mirrorXS;
+	bool   m_Pattern_mirrorYS;
+	int    currentUnit;
+	int    editStrokeGradient;
+
+	int    m_blockUpdates;
+	void   blockUpdates(bool block) { if (block) ++m_blockUpdates; else --m_blockUpdates; }
+	bool   updatesBlocked() { return (m_blockUpdates > 0); }
+
+	void   enablePatterns(bool enable);
 };
 
 #endif

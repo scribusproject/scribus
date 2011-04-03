@@ -14,6 +14,7 @@
 ***************************************************************************/
 
 // #include <QDebug>
+#include <QApplication>
 #include <QFrame>
 #include <QGridLayout>
 #include <QLabel>

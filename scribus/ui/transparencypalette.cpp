@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scpainter.h"
 #include "scpattern.h"
+#include "scribus.h"
 #include "util_icon.h"
 #include "util.h"
 #include "util_math.h"
@@ -67,11 +68,52 @@ void Tpalette::setCurrentItem(PageItem* item)
 
 void Tpalette::setDocument(ScribusDoc* doc)
 {
+	disconnect(this, SIGNAL(NewTrans(double)), 0, 0);
+	disconnect(this, SIGNAL(NewTransS(double)), 0, 0);
+	disconnect(this, SIGNAL(NewGradient(int)), 0, 0);
+	disconnect(this, SIGNAL(NewBlend(int)), 0, 0);
+	disconnect(this, SIGNAL(NewBlendS(int)), 0, 0);
+	disconnect(this, SIGNAL(NewPattern(QString)), 0, 0);
+	disconnect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), 0, 0);
+	
+	if (currentDoc)
+	{
+		disconnect(currentDoc->scMW(), SIGNAL(UpdateRequest(int)), this, 0);
+	}
+
 	currentDoc = doc;
+
 	if (doc != NULL)
 	{
 		gradEdit->setColors(doc->PageColors);
 		currentUnit = doc->unitIndex();
+
+		updateColorList();
+
+		connect(this, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
+		connect(this, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
+		connect(this, SIGNAL(NewBlend(int)), doc, SLOT(itemSelection_SetItemFillBlend(int)));
+		connect(this, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
+		connect(this, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradMask(int)));
+		connect(this, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternMask(QString)));
+		connect(this, SIGNAL(NewPatternProps(double, double, double, double, double, double, double, bool, bool)), doc, SLOT(itemSelection_SetItemPatternMaskProps(double, double, double, double, double, double, double, bool, bool)));
+		connect(doc->scMW(), SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
+	}
+}
+
+void Tpalette::handleUpdateRequest(int updateFlags)
+{
+	if (updateFlags & reqColorsUpdate)
+		updateColorList();
+}
+
+void Tpalette::updateColorList()
+{
+	if (currentDoc)
+	{
+		this->setColors(currentDoc->PageColors);
+		this->setPatterns(&currentDoc->docPatterns);
+		this->setGradients(&currentDoc->docGradients);
 	}
 }
 
@@ -128,6 +170,13 @@ void Tpalette::updateFromItem()
 		gradientType->setCurrentIndex(0);
 	else if ((currentItem->GrMask == 2) || (currentItem->GrMask == 5))
 		gradientType->setCurrentIndex(1);
+
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	bool mirrorX, mirrorY;
+	currentItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	currentItem->maskFlip(mirrorX, mirrorY);
+	setActPattern(currentItem->patternMask(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
@@ -171,13 +220,13 @@ void Tpalette::updateGradientList()
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 }
 
-void Tpalette::SetGradients(QMap<QString, VGradient> *docGradients)
+void Tpalette::setGradients(QMap<QString, VGradient> *docGradients)
 {
 	gradientList = docGradients;
 	updateGradientList();
 }
 
-void Tpalette::SetColors(ColorList newColorList)
+void Tpalette::setColors(ColorList newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
@@ -372,7 +421,7 @@ void Tpalette::updatePatternList()
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
-void Tpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
+void Tpalette::setPatterns(QMap<QString, ScPattern> *docPatterns)
 {
 	patternList = docPatterns;
 	updatePatternList();

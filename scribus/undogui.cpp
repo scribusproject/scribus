@@ -23,10 +23,11 @@ for which a new license (GPL+exception) is in place.
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include <QCheckBox>
 #include <QDebug>
 #include <QEvent>
+#include <QPainter>
 #include <QPushButton>
-#include <QCheckBox>
 #include <QVBoxLayout>
 
 #include "undogui.h"

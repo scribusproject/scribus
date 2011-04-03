@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
+#include <QApplication>
+
 /*
 newDocument(size, margins, orientation, firstPageNumber,
             unit, pagesType, firstPageOrder)*/

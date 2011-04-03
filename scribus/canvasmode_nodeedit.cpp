@@ -17,6 +17,7 @@
 
 #include <QMenu>
 #include <QMouseEvent>
+#include <QPainter>
 
 #include "canvas.h"
 #include "canvasgesture_rectselect.h"

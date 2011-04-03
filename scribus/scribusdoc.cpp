@@ -1419,10 +1419,6 @@ void ScribusDoc::undoRedoDone()
 {
 	m_Selection->delaySignalsOff();
 	m_docUpdater->endUpdate();
-	// #9500 : Ensure PP is properly disabled when selection is empty
-	// after undoing or redoing an action
-	if (m_Selection->count() == 0)
-		emit firstSelectedItemType(-1);
 }
 
 void ScribusDoc::restore(UndoState* state, bool isUndo)
@@ -2105,15 +2101,14 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 		{
 			sourceSelection.addItem(itemToCopy);
 		}
-		if (sourceSelection.count() != 0)
-		{
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			QString dataS = ss->WriteElem(this, &sourceSelection);
-			ss->ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, whereToInsert);
-			delete ss;
-		}
-		sourceSelection.clear();
 	}
+	if (sourceSelection.count() != 0)
+	{
+		ScriXmlDoc ss;
+		QString dataS = ss.WriteElem(this, &sourceSelection);
+		ss.ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, whereToInsert);
+	}
+	sourceSelection.clear();
 }
 
 
@@ -8674,6 +8669,23 @@ void ScribusDoc::itemSelection_FlipV()
 	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 }
 
+void ScribusDoc::itemSelection_Rotate(double angle, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+
+	if (itemSelection->count() == 0) return;
+	
+	if (itemSelection->count() > 1)
+	{
+		rotateGroup(angle, itemSelection);
+	}
+	else if (itemSelection->count() == 1)
+	{
+		RotateItem(angle, itemSelection->itemAt(0));
+	}
+	changed();
+}
 
 void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 {
@@ -8782,6 +8794,57 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 	if (!found) //No image frames in the current selection!
 		return;
 	recalcPicturesRes();
+	changed();
+}
+
+void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, double* points)
+{
+	if ((item->itemType() == PageItem::PolyLine) || (item->itemType() == PageItem::PathText))
+			return;
+
+	if (UndoManager::undoEnabled())
+	{
+		// Store shape info in this form:
+		// CHANGE_SHAPE_TYPE - ID of the undo operation
+		// OLD_FRAME_TYPE - original frame type
+		// NEW_FRAME_TYPE - change of frame type
+		// binary QPair<FPointArray, FPointArray> - .first original shape, .second new shape
+		ItemState<QPair<FPointArray,FPointArray> > *is = new ItemState<QPair<FPointArray,FPointArray> >(Um::ChangeShapeType, "", Um::IBorder);
+		is->set("CHANGE_SHAPE_TYPE", "change_shape_type");
+		is->set("OLD_FRAME_TYPE", item->FrameType);
+		is->set("NEW_FRAME_TYPE", frameType);
+		// HACK: this is propably Evil Code (TM). I have to find better way...
+		FPointArray newShape;
+		int ix = 0;
+		for (int i = 0; i < count/2; ++i)
+		{
+			double x = item->width()  * points[ix] / 100.0;
+			double y = item->height() * points[ix+1] / 100.0;
+			newShape.addPoint(x, y);
+			ix += 2;
+		}
+		// HACK: end of hack
+		is->setItem(qMakePair(item->shape(), newShape));
+		UndoManager::instance()->action(item, is);
+	}
+
+	switch (frameType)
+	{
+	case 0:
+		item->SetRectFrame();
+		this->setRedrawBounding(item);
+		break;
+	case 1:
+		item->SetOvalFrame();
+		this->setRedrawBounding(item);
+		break;
+	default:
+		item->SetFrameShape(count, points);
+		this->setRedrawBounding(item);
+		item->FrameType = frameType + 2;
+		break;
+	}
+	item->update();
 	changed();
 }
 
@@ -11782,13 +11845,36 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 	regionsChanged()->update(OldRect.adjusted(-10, -10, 20, 20));
 }
 
+void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
 
-void ScribusDoc::rotateGroup(double angle, FPoint RCenter)
+	double gx, gy, gh, gw;
+	FPoint rotationPoint(0, 0);
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
+	if (this->rotMode == 0)
+		rotationPoint = FPoint(gx, gy);
+	if (this->rotMode == 1)
+		rotationPoint = FPoint(gx, gy);
+	if (this->rotMode == 2)
+		rotationPoint = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+	if (this->rotMode == 3)
+		rotationPoint = FPoint(gx, gy+gh);
+	if (this->rotMode == 4)
+		rotationPoint = FPoint(gx+gw, gy+gh);
+	rotateGroup(angle, rotationPoint, itemSelection);
+}
+
+void ScribusDoc::rotateGroup(double angle, FPoint RCenter, Selection* customSelection)
 {
 	double gxS, gyS, ghS, gwS;
 	double sc = 1; // FIXME:av Scale;
 	PageItem* currItem;
-	m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	
+	itemSelection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 	QTransform ma;
 	ma.translate(RCenter.x(), RCenter.y());
 	ma.scale(1, 1);
@@ -11797,18 +11883,18 @@ void ScribusDoc::rotateGroup(double angle, FPoint RCenter)
 //	gyS -= minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10));
 	FPoint n;
-	for (int a = 0; a < m_Selection->count(); ++a)
+	for (int a = 0; a < itemSelection->count(); ++a)
 	{
-		currItem = m_Selection->itemAt(a);
+		currItem = itemSelection->itemAt(a);
 		n = FPoint(currItem->xPos() - RCenter.x(), currItem->yPos() - RCenter.y());
 		currItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
 		currItem->rotateBy(angle);
 		setRedrawBounding(currItem);
 	}
-	currItem = m_Selection->itemAt(0);
+	currItem = itemSelection->itemAt(0);
 	GroupOnPage(currItem);
-	m_Selection->setGroupRect();
-	m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 //	gxS -= minCanvasCoordinate.x();
 //	gyS -= minCanvasCoordinate.y();
 	regionsChanged()->update(QRectF(gxS-5, gyS-5, gwS+10, ghS+10).unite(oldR));

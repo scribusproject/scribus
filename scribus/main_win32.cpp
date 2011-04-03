@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <io.h>
 
 #include <QApplication>
+#include <QMessageBox>
 #include <exception>
 using namespace std;
 

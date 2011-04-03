@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
+#include <QApplication>
 #include <QRegExp>
 #include <QCursor>
 #include <QDir>

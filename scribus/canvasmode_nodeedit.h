@@ -23,6 +23,8 @@
 #include <QTransform>
 #include <QRect>
 
+class QPainter;
+
 class PageItem;
 class RectSelect;
 class ScribusMainWindow;

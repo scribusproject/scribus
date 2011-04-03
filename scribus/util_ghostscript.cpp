@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_ghostscript.h"
 
+#include <QApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>

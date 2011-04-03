@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertiesPalette_LineBase</class>
+ <widget class="QWidget" name="PropertiesPalette_LineBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="lineModeLabel">
+     <property name="text">
+      <string>&amp;Basepoint:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="lineTypeLabel">
+     <property name="text">
+      <string>T&amp;ype of Line:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QLabel" name="startArrowLabel">
+     <property name="text">
+      <string>Start Arrow:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="ArrowChooser" name="startArrow"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="startArrowScaleLabel">
+     <property name="text">
+      <string>Scaling:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QSpinBox" name="startArrowScale">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>300</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QSpinBox" name="endArrowScale">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>300</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QLabel" name="endArrowScaleLabel">
+     <property name="text">
+      <string>Scaling:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2" colspan="2">
+    <widget class="ArrowChooser" name="endArrow"/>
+   </item>
+   <item row="1" column="2" colspan="2">
+    <widget class="LineCombo" name="lineType"/>
+   </item>
+   <item row="0" column="2" colspan="2">
+    <widget class="ScComboBox" name="lineMode"/>
+   </item>
+   <item row="3" column="2" colspan="2">
+    <widget class="QLabel" name="endArrowLabel">
+     <property name="text">
+      <string>End Arrow:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QLabel" name="lineWidthLabel">
+     <property name="text">
+      <string>Line &amp;Width:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2" colspan="2">
+    <widget class="ScrSpinBox" name="lineWidth">
+     <property name="specialValueText">
+      <string>Hairline</string>
+     </property>
+     <property name="maximum">
+      <double>300.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QLabel" name="lineJoinLabel">
+     <property name="text">
+      <string>Ed&amp;ges:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2" colspan="2">
+    <widget class="ScComboBox" name="lineJoinStyle"/>
+   </item>
+   <item row="8" column="0" colspan="2">
+    <widget class="QLabel" name="lineEndLabel">
+     <property name="text">
+      <string>&amp;Endings:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2" colspan="2">
+    <widget class="ScComboBox" name="lineEndStyle"/>
+   </item>
+   <item row="9" column="0" colspan="4">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <layout class="QVBoxLayout" name="lineStyleLayout">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QListWidget" name="lineStyles"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="tableLineGroup">
+         <property name="title">
+          <string>Cell Lines</string>
+         </property>
+         <layout class="QVBoxLayout" name="tableLineLayout">
+          <item>
+           <widget class="QCheckBox" name="leftLine">
+            <property name="text">
+             <string>Line at the Left</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="rightLine">
+            <property name="text">
+             <string>Line at the Right</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="bottomLine">
+            <property name="text">
+             <string>Line at the Bottom</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="topLine">
+            <property name="text">
+             <string>Line at the Top</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="4">
+    <widget class="DashEditor" name="dashEditor">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>10</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ui/sccombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LineCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/linecombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ArrowChooser</class>
+   <extends>QComboBox</extends>
+   <header>ui/arrowchooser.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DashEditor</class>
+   <extends>QFrame</extends>
+   <header>ui/dasheditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

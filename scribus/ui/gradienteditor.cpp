@@ -27,29 +27,31 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include "util.h"
 
+// Note : use temporarily editingFinished() signal to track value changes in stopPos, stopOpacity and
+// stopShade spinboxes. valueChanged() cause focus problems in these widgets due to signals emitted
+// by ScribusDoc::itemSelection_SetFillGradient() and itemSelection_SetStrokeGradient()
 
 GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 {
 	setupUi(this);
-	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+	connect(stopPos    , SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+	connect(stopColor  , SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
+	connect(stopOpacity, SIGNAL(valueChanged(int)), this, SLOT(setStopTrans(int)));
+	connect(stopShade  , SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
+	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));
 	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
 	connect(Preview, SIGNAL(currStep(double)), this, SIGNAL(gradientChanged()));
-	connect(stopColor, SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
-	connect(stopOpacity, SIGNAL(valueChanged(int)), this, SLOT(setStopTrans(int)));
-	connect(stopShade, SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
-	connect(Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
-	connect(Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
 }
 
 void GradientEditor::setGradient(VGradient grad)
 {
-	Preview->fill_gradient = grad;
+	Preview->setGradient(grad);
 	Preview->updateDisplay();
 }
 
 const VGradient GradientEditor::gradient()
 {
-	return Preview->fill_gradient;
+	return Preview->gradient();
 }
 
 void GradientEditor::setColors(ColorList &colorList)
@@ -60,22 +62,29 @@ void GradientEditor::setColors(ColorList &colorList)
 
 void GradientEditor::setPos(double p)
 {
-	disconnect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
-	Position->setValue(qRound(p * 100));
-	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+	stopPos->blockSignals(true);
+	stopPos->setValue(qRound(p * 100));
+	stopPos->blockSignals(false);
 }
 
 void GradientEditor::setGradTrans(double val)
 {
-	disconnect(stopOpacity, SIGNAL(valueChanged(int)), this, SLOT(setStopTrans(int)));
+	stopOpacity->blockSignals(true);
 	stopOpacity->setValue(qRound(val * 100));
-	connect(stopOpacity, SIGNAL(valueChanged(int)), this, SLOT(setStopTrans(int)));
+	stopOpacity->blockSignals(false);
+}
+
+void GradientEditor::slotDisplayStop(VColorStop* stop)
+{
+	setPos(stop->rampPoint);
+	slotColor(stop->name, stop->shade);
+	setGradTrans(stop->opacity);
 }
 
 void GradientEditor::slotColor(QString name, int shade)
 {
-	disconnect(stopColor, SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
-	disconnect(stopShade, SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
+	stopColor->blockSignals(true);
+	stopShade->blockSignals(true);
 	stopShade->setValue(shade);
 	QString nam = name;
 	if (name == CommonStrings::None)
@@ -90,8 +99,8 @@ void GradientEditor::slotColor(QString name, int shade)
 		stopOpacity->setEnabled(true);
 	}
 	setCurrentComboItem(stopColor, nam);
-	connect(stopColor, SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
-	connect(stopShade, SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
+	stopColor->blockSignals(false);
+	stopShade->blockSignals(false);
 }
 
 void GradientEditor::setGradientEditable(bool val)
@@ -99,7 +108,7 @@ void GradientEditor::setGradientEditable(bool val)
 	stopShade->setEnabled(val);
 	stopOpacity->setEnabled(val);
 	stopColor->setEnabled(val);
-	Position->setEnabled(val);
+	stopPos->setEnabled(val);
 	Preview->setGradientEditable(val);
 }
 
@@ -159,7 +168,7 @@ void GradientEditor::changeEvent(QEvent *e)
 void GradientEditor::languageChange()
 {
 	Desc->setText( tr( "Position:" ) );
-	Position->setSuffix( tr(" %") );
+	stopPos->setSuffix( tr(" %") );
 }
 
 bool GradientEditor::event(QEvent * event)

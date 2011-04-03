@@ -16,6 +16,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "selection.h"
 #include "ui/propertiespalette.h"
+#include "ui/propertiespalette_line.h"
+#include "ui/propertiespalette_text.h"
 
 #include <QString>
 
@@ -53,10 +55,7 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 				ScCore->primaryMainWindow()->view->startGroupTransaction();
 				ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 				ScCore->primaryMainWindow()->view->endGroupTransaction();
-				ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-				ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
-				ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
-				ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
+				ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 			}
 		}
 	}
@@ -90,10 +89,7 @@ PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 			ScCore->primaryMainWindow()->view->startGroupTransaction();
 			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
+			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 		}
 	}
 	else
@@ -126,10 +122,7 @@ PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
 			ScCore->primaryMainWindow()->view->startGroupTransaction();
 			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
+			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 		}
 	}
 	else
@@ -162,10 +155,7 @@ PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
 			ScCore->primaryMainWindow()->view->startGroupTransaction();
 			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
+			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate)
 		}
 	}
 	else
@@ -198,10 +188,7 @@ PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
 			ScCore->primaryMainWindow()->view->startGroupTransaction();
 			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
+			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate)
 		}
 	}
 	else

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QEvent>
+#include <QMessageBox>
 #include <QTabWidget>
 
 #include "alignselect.h"
@@ -15,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmwmenumanager.h"
 #include "prefsmanager.h"
 #include "propertiespalette.h"
+#include "propertiespalette_text.h"
 #include "sccombobox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -298,8 +300,7 @@ void SMParagraphStyle::apply()
 
 	deleted_.clear(); // deletion done at this point
 
-	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
-	doc_->scMW()->propertiesPalette->charStyleCombo->updateFormatList();
+	doc_->scMW()->requestUpdate(reqTextStylesUpdate);
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
 	// doc_->view()->DrawNew();
 	doc_->changed();
@@ -1658,8 +1659,7 @@ void SMCharacterStyle::apply()
 
 	deleted_.clear(); // deletion done at this point
 
-	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
-	doc_->scMW()->propertiesPalette->charStyleCombo->updateFormatList();
+	doc_->scMW()->requestUpdate(reqTextStylesUpdate);
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
 	// doc_->view()->DrawNew();
 	doc_->changed();

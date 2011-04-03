@@ -4,130 +4,48 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef MPALETTE_H
-#define MPALETTE_H
+#ifndef PROPERTIESPALETTE_H
+#define PROPERTIESPALETTE_H
 
 #include <QListWidgetItem>
 #include <QLineEdit>
 
-class QButtonGroup;
-class QCheckBox;
 class QCloseEvent;
-class QComboBox;
-class QEvent;
 class QEvent;
 class QFocusEvent;
-class QFrame;
-class QGridLayout;
-class QGroupBox;
-class QHBoxLayout;
-class QLabel;
-class QMenu;
-class QPushButton;
-class QRadioButton;
-class QSpinBox;
-class QStackedWidget;
-class QStackedWidget;
 class QToolBox;
 class QVBoxLayout;
 class QWidget;
 
-
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "scdockpalette.h"
+#include "scguardedptr.h"
 #include "scrspinbox.h"
 #include "pageitem.h"
 #include "page.h"
 #include "linkbutton.h"
 #include "linecombo.h"
 #include "spalette.h"
-#include "alignselect.h"
-#include "shadebutton.h"
 #include "sclistboxpixmap.h"
 #include "scguardedptr.h"
 #include "sctreewidget.h"
 
-class StyleSelect;
-class ScribusDoc;
-class Cpalette;
-class Tpalette;
-class Autoforms;
-class ArrowChooser;
-class ScComboBox;
-class ScribusMainWindow;
-class UserActionSniffer;
-class DashEditor;
-class Selection;
-class BasePointWidget;
 class ColorCombo;
-class FontComboH;
+class Cpalette;
+class NameWidget;
+class PropertiesPalette_Group;
+class PropertiesPalette_Image;
+class PropertiesPalette_Line;
+class PropertiesPalette_Shape;
+class PropertiesPalette_Text;
+class PropertiesPalette_XYZ;
+class ScComboBox;
+class ScribusDoc;
+class ScribusMainWindow;
+class Selection;
+class Tpalette;
 
-
-struct SCRIBUS_API LineFormatValue
-{
-	multiLine m_Line;
-	ScGuardedPtr<ScribusDoc> m_doc;
-	QString m_name;
-	
-	LineFormatValue();
-	LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString name );
-	LineFormatValue(const LineFormatValue& other);
-	LineFormatValue& operator= (const LineFormatValue& other);
-};
-
-
-Q_DECLARE_METATYPE(LineFormatValue);
-
-
-class SCRIBUS_API LineFormatItem : public QListWidgetItem
-{	
-	enum {
-		LineFormatUserType = UserType + 2
-	} usrtyp;
-	
-public:	
-	LineFormatItem( ScribusDoc* doc, const multiLine& line, const QString& name ) : QListWidgetItem(NULL, LineFormatUserType)
-	{		
-		setText(name);
-		setData(Qt::UserRole, QVariant::fromValue(LineFormatValue(line, doc, name))); 
-	};
-	LineFormatItem( ) : QListWidgetItem(NULL, LineFormatUserType)
-	{		
-		setText("");
-		setData(Qt::UserRole, QVariant::fromValue(LineFormatValue())); 
-	};
-	LineFormatItem * clone () const { return new LineFormatItem(*this); }
-};
-
-
-
-class SCRIBUS_API LineFormatItemDelegate : public ScListBoxPixmap<37, 37>
-{
-public:
-	LineFormatItemDelegate() : ScListBoxPixmap<37, 37>() {}
-	virtual int rtti() const { return 148523874; }
-	virtual QString text(const QVariant&) const;
-	virtual void redraw(const QVariant&) const;
-};
-
-
-
-class SCRIBUS_API NameWidget : public QLineEdit
-{
-	Q_OBJECT
-
-public:
-	NameWidget(QWidget* parent);
-	~NameWidget() {};
-
-signals:
-	void Leaved();
-
-protected:
-	virtual void focusOutEvent(QFocusEvent *);
-};
-
-class SCRIBUS_API PropertiesPalette : public ScrPaletteBase
+class SCRIBUS_API PropertiesPalette : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -139,215 +57,61 @@ public:
 	virtual void closeEvent(QCloseEvent *closeEvent);
 	
 	void updateColorSpecialGradient();
-	const VGradient getFillGradient();
-	const VGradient getStrokeGradient();
 	const VGradient getMaskGradient();
 	const VGradient getMaskGradientGroup();
 	void updateColorList();
 	void setGradientEditMode(bool);
-	void updateCmsList();
 	void setTextFlowMode(PageItem::TextFlowMode mode);
-	void ShowCMS();
-	/*! \brief fills the langs combobox in language specific order
-	\author 10/07/2004 - Petr Vanek - rewritten to fix #1185.
-	Uses sortQStringList from utils.cpp - STL!
-	\param langMap a structure with languages/hyphs*/
-	void fillLangCombo(QMap<QString,QString> langMap);
+
 	/** @brief Returns true if there is a user action going on at the moment of call. */
 	bool userActionOn(); // not yet implemented!!! This is needed badly.
                          // When user releases the mouse button or arrow key, changes must be checked
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
 
+
+	PropertiesPalette_Group* groupPal;
+	PropertiesPalette_Image* imagePal;
+	PropertiesPalette_Line*  linePal;
+	PropertiesPalette_Shape* shapePal;
+	PropertiesPalette_Text*  textPal;
+	PropertiesPalette_XYZ*   xyzPal;
 	Cpalette *Cpal;
 	Tpalette *Tpal;
-	Tpalette *TpalGroup;
-	Autoforms* SCustom;
-	Autoforms* SCustom2;
-	ParaStyleComboBox *paraStyleCombo;
-	CharStyleComboBox *charStyleCombo;
-	FontComboH* Fonts;
-	ArrowChooser* startArrow;
-	ArrowChooser* endArrow;
-	BasePointWidget* RotationGroup;
-	QGroupBox* textFlowOptions;
-	QGroupBox* textFlowOptions2;
-	QButtonGroup* textFlowOptionsB;
-	QButtonGroup* textFlowOptionsB2;
-	DashEditor* dashEditor;
+
+private:
+
+	PageItem* currentItemFromSelection();
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
-	void languageChange();
+	
 	void setDoc(ScribusDoc *d);
+	void setCurrentItem(PageItem *i);
 	void unsetDoc();
 	void unsetItem();
-//	void setCurrentItem(PageItem *);
-	void setMultipleSelection(bool);
-	void NewSel(int nr);
-	void SetCurItem(PageItem *i);
+
+	void handleSelectionChanged();
+	
 	void unitChange();
-	void setLevel(uint l);
-	void setXY(double x, double y);
-	void setBH(double x, double y);
-	void setR(double r);
-	void setRR(double r);
-	void setCols(int r, double g);
-// 	void setLspMode(QAction *);
-	void setLineSpacingMode(int id);
-	void setLsp(double r);
-	void setupLineSpacingSpinbox(int mode, double value);
-	void setSize(double s);
-	void setFontFace(const QString&);
-	void setExtra(double e);
-	void setTextToFrameDistances(double left, double top, double bottom, double right);
-	void ChangeScaling();
-	void setImgRotation(double rot);
-	void setScaleAndOffset(double scx, double scy, double x, double y);
-	void setLineWidth(double s);
-	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
-	void setFlop(FirstLineOffsetPolicy);
-	/// update TB values:
-	void updateStyle(const ParagraphStyle& newCurrent);
-	void setStil(int s);
-	void setAli(int e);
-	void setParStyle(const QString& name);
-	void setCharStyle(const QString& name);
-	void setOpticalMargins();
-	void resetOpticalMargins();
-	void updateOpticalMargins(const ParagraphStyle& pStyle);
-	void setMinWordTracking();
-	void setNormWordTracking();
-	void setMinGlyphExtension();
-	void setMaxGlyphExtension();
-	void setShadowOffs(double x, double y);
-	void setUnderline(double p, double w);
-	void newUnderline();
-	void setStrike(double p, double w);
-	void newStrike();
-	void setOutlineW(double x);
-	void newOutlineW();
-	void setTScale(double e);
-	void NewTScale();
-	void NewTScaleV();
-	void NewTBase();
-	void setTScaleV(double e);
-	void setTBase(double e);
-	void SetLineFormats(ScribusDoc *dd);
-	void SetSTline(QListWidgetItem *c);
-	void NewTFont(QString);
-	void newTxtFill();
-	void newTxtStroke();
-	void setActShade();
-	void setActFarben(QString p, QString b, double shp, double shb);
-	void ManageTabs();
+	void languageChange();
+
 	void setLocked(bool);
-	void setSizeLocked(bool);
-	void setPrintingEnabled(bool);
-	void setFlippedH(bool);
-	void setFlippedV(bool);
-	void endEdit2();
 
 private slots:
 	void SelTab(int t);
-	void NewX();
-	void NewY();
-	void NewW();
-	void NewH();
-	void setRotation();
-	void NewCornerRadius();
-	void NewLineSpacing();
-	void HandleGapSwitch();
-	void NewCols();
-	void NewGap();
-	void NewSize();
-	void NewTracking();
-	void handleFlipH();
-	void handleFlipV();
-	void NewPage();
-	void ToggleKette();
-	void HChange();
-	void VChange();
-	void ToggleKetteD();
-	void HChangeD();
-	void VChangeD();
-	void NewLocalXY();
-	void NewLocalSC();
-	void NewLocalDpi();
-	void NewLocalRot();
-	void NewLineWidth();
-	void NewLineStyle();
-	void NewLineJoin();
-	void NewLineEnd();
-	void NewLineMode();
+
+	void NewLineMode(int mode);
 	void NewAlignement(int a);
-	void setTypeStyle(int s);
-	void newShadowOffs();
-	void DoLower();
-	void DoRaise();
-	void DoFront();
-	void DoBack();
-	void NewRotMode(int m);
-	void DoFlow();
-	void MakeIrre(int f, int c, qreal *vals);
-	void NewTDist();
+	void handleNewShape(int frameType);
 	void NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void toggleGradientEdit(int);
 	void NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void toggleGradientEditM();
-	void toggleGradientEditMGroup();
-	void DoRevert();
-	void doClearCStyle();
-	void doClearPStyle();
 	void handleShapeEdit();
-	void handleShapeEdit2();
-	void handleImageEffects();
-	void handleExtImgProperties();
-	void handleLock();
-	void handleLockSize();
-	void handlePrint();
-	void handlePathType();
-	void handlePathFlip();
-	void handlePathLine();
-	void handlePathDist();
-	void handlePathOffs();
-	void handleFillRule();
-	void handleOverprint(int);
-	void ChangeProfile(const QString& prn);
-	void ChangeIntent();
-	void ChangeCompressionMethod();
-	void ChangeCompressionQuality();
-	void NewName();
-	void NewLanguage();
-	void HandleTLines();
-	void setStartArrow(int id);
-	void setEndArrow(int id);
-	void setStartArrowScale(int sc);
-	void setEndArrowScale(int sc);
-	void setGroupTransparency(double trans);
-	void setGroupBlending(int blend);
-	void setGroupGradMask(int typ);
-	void setGroupPatternMask(QString pattern);
-	void setGroupPatternMaskProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	void doGrouping();
-	void dashChange();
-	void flop(int);
-
-protected slots:
-	//virtual void reject();
-	void spinboxStartUserAction();
-	void spinboxFinishUserAction();
-	void updateSpinBoxConstants();
 
 signals:
 	void DocChanged();
-	void NewParStyle(int);
-	void NewAlignment(int);
-	void NewEffects(int);
-	void ShapeEdit();
-	void NewFont(const QString&);
-	void UpdtGui(int);
-	void updateEditItem();
 
 protected:
 	ScribusMainWindow *m_ScMW;
@@ -355,298 +119,33 @@ protected:
 	QVBoxLayout* MpalLayout;
 	QVBoxLayout* pageLayout;
 	QVBoxLayout* pageLayout_2;
-	QVBoxLayout* pageLayout_2c;
 	QVBoxLayout* pageLayout_3;
 	QVBoxLayout* pageLayout_4;
 	QVBoxLayout* pageLayout_5;
-	QVBoxLayout* pageLayout_5a;
-	QVBoxLayout* pageLayout_5b;
 	QVBoxLayout* pageLayout_6;
 	QVBoxLayout* pageLayout_7;
-	QVBoxLayout* TLineLayout;
-	QHBoxLayout* layout60;
-	QGridLayout* Layout44;
-	QHBoxLayout* Layout13;
-	QGridLayout* layout41;
-	QGridLayout* layout41a;
-	QGridLayout* layout41c;
-	QHBoxLayout* Layout1;
-	QHBoxLayout* Layout1AL;
-	QGridLayout* layout43;
-	QVBoxLayout* Layout24;
-	QHBoxLayout* Layout18;
-	QGridLayout* Layout12_2;
-	QGridLayout* imagePageNumberSelector;
-	QHBoxLayout* NameGroupLayout;
-	QGridLayout* GeoGroupLayout;
-	QGridLayout* LayerGroupLayout;
-	QHBoxLayout* ShapeGroupLayout;
-	QGridLayout* DistanceLayout;
-	QGridLayout* DistanceLayout2;
-	QVBoxLayout* DistanceLayout3;
-	QGridLayout* GroupBox3aLayout;
-	QVBoxLayout* GroupBoxCMLayout;
-	QVBoxLayout* GroupBoxCompressionLayout;
-	QVBoxLayout* textFlowOptionsLayout;
-	QVBoxLayout* textFlowOptionsLayout2;
-	QHBoxLayout* layout23;
-	QHBoxLayout* layout24;
+
 	QVBoxLayout* page_group_layout;
-	QHBoxLayout* ShapeGroupLayout2;
-	QVBoxLayout* Layout1t;
-	QHBoxLayout* wordTrackingHLayout;
-	QHBoxLayout* glyphExtensionHLayout;
-	QGridLayout* flopLayout;
-	QVBoxLayout* OptMarginsLayout;
-	QHBoxLayout* Layout12_2a;
-	QHBoxLayout* Layout12_2b;
-	
-	NameWidget* NameEdit;
 	
 	QWidget* page;
 	QWidget* page_2;
-	QWidget* page_2a;
-	QWidget* page_2c;
 	QWidget* page_3;
 	QWidget* page_4;
 	QWidget* page_5;
-	QWidget* page_5a;
-	QWidget* page_5b;
 	QWidget* page_6;
 	QWidget* page_7;
 	QWidget* page_group;
-	
-	QLabel* xposLabel;
-	QLabel* widthLabel;
-	QLabel* yposLabel;
-	QLabel* heightLabel;
-	QLabel* rotationLabel;
-	QLabel* basepointLabel;
-	QLabel* LevelTxt;
-	QLabel* SRect;
-	QLabel* SRect2;
-	QLabel* rndcornersLabel;
-	QLabel* startoffsetLabel;
-	QLabel* distfromcurveLabel;
-	QLabel* pathTextTypeLabel;
-	QLabel* topLabel;
-	QLabel* columnsLabel;
-	QLabel* bottomLabel;
-	QLabel* leftLabel;
-	QLabel* rightLabel;
-	QLabel* trackingLabel;
-	QLabel* fontsizeLabel;
-	QLabel* lineSpacingLabel;
-	QLabel* yscaleLabel;
-	QLabel* xscaleLabel;
-	QLabel* xposImgLabel;
-	QLabel* yposImgLabel;
-	QLabel* imageRotationLabel;
-	QLabel* linewidthLabel;
-	QLabel* endingsLabel;
-	QLabel* linetypeLabel;
-	QLabel* StrokeIcon;
-	QLabel* ShadeTxt2;
-	QLabel* ShadeTxt1;
-	QLabel* FillIcon;
-	QLabel* paraStyleLabel;
-	QLabel* charStyleLabel;
-	QLabel* langLabel;
-	QLabel* LineModeT;
-	QLabel* TextCms1;
-	QLabel* TextCms2;
-	QLabel* TextCompressionMethod;
-	QLabel* TextCompressionQuality;
-	QLabel* edgesLabel;
-	QLabel* ChBaseTxt;
-	QLabel* ScaleTxt;
-	QLabel* ScaleTxtV;
-	QLabel* imagePageNumberLabel;
-	QLabel* imgDPIXLabel;
-	QLabel* imgDPIYLabel;
-	QLabel* startArrowText;
-	QLabel* endArrowText;
-	QLabel* TransTxt;
-	QLabel* TransTxt2;
-	QLabel* wordTrackingLabel;
-	QLabel* minWordTrackingLabel;
-	QLabel* normWordTrackingLabel;
-	QLabel* glyphExtensionLabel;
-	QLabel* minGlyphExtensionLabel;
-	QLabel* maxGlyphExtensionLabel;
-	QLabel* startArrowSpinText;
-	QLabel* endArrowSpinText;
-
-	ScComboBox* colgapLabel;
-	StyleSelect* SeStyle;
-	AlignSelect* GroupAlign;
-
-	LinkButton* keepImageWHRatioButton;
-	LinkButton* keepFrameWHRatioButton;
-	LinkButton* keepImageDPIRatioButton;
-	LineCombo* LStyle;
-
-	ShadeButton *PM1;
-	ShadeButton *PM2;
-	PageItem *CurItem;
-	bool HaveDoc;
-	bool HaveItem;
-	ScribusDoc *doc;
-	double m_unitRatio;
-	int m_unitIndex;
-	bool LMode;
-	double RoVal;
-
-
-	QGroupBox* ShapeGroup;
-	QGroupBox* ShapeGroup2;
-	QGroupBox* Distance3;
-
-	QToolButton* TabsButton;
-
-	QToolButton* Zup;
-	QToolButton* ZDown;
-	QToolButton* ZTop;
-	QToolButton* ZBottom;
 
 	QToolBox* TabStack;
-	QStackedWidget* TabStack2;
-	QStackedWidget* TabStack3;
 
-
-	QGroupBox* NameGroup;
-	QGroupBox* GeoGroup;
-	QGroupBox* LayerGroup;
-	QFrame* GroupBoxCM;
-	QFrame* GroupBoxCompression;
-	QGroupBox* TLines;
-	QGroupBox* GroupBox3a;
-	QGroupBox* TransGroup;
-
-	QToolButton* textFlowDisabled;
-	QToolButton* textFlowUsesFrameShape;
-	QToolButton* textFlowUsesBoundingBox;
-	QToolButton* textFlowUsesContourLine;
-	QToolButton* textFlowUsesImageClipping;
-	QToolButton* textFlowDisabled2;
-	QToolButton* textFlowUsesFrameShape2;
-	QToolButton* textFlowUsesBoundingBox2;
-	QToolButton* textFlowUsesContourLine2;
-	QToolButton* textFlowUsesImageClipping2;
-	QCheckBox* Aspect;
-	QCheckBox* flippedPathText;
-	QCheckBox* showcurveCheckBox;
-	QCheckBox* TopLine;
-	QCheckBox* LeftLine;
-	QCheckBox* RightLine;
-	QCheckBox* BottomLine;
-
-	ScComboBox* pathTextType;
-	QComboBox* langCombo;
-	QComboBox* InputP;
-	QComboBox* MonitorI;
-	QComboBox* CompressionMethod;
-	QComboBox* CompressionQuality;
-	QComboBox* LineMode;
-	QComboBox* lineSpacingModeCombo;
-	ColorCombo* TxStroke;
-	QComboBox* LJoinStyle;
-	QComboBox* LEndStyle;
-	ColorCombo* TxFill;
-	ScComboBox* blendMode;
-	QRadioButton *optMarginRadioNone;
-	QRadioButton *optMarginRadioBoth;
-	QRadioButton *optMarginRadioLeft;
-	QRadioButton *optMarginRadioRight;
-	QPushButton *optMarginResetButton;
-
-	QListWidget* StyledLine;
-
-	ScrSpinBox* Width;
-	ScrSpinBox* Xpos;
-	ScrSpinBox* Ypos;
-	ScrSpinBox* Height;
-	ScrSpinBox* Rotation;
-	ScrSpinBox* RoundRect;
-	ScrSpinBox* dGap;
-	ScrSpinBox* DTop;
-	ScrSpinBox* DBottom;
-	ScrSpinBox* DLeft;
-	ScrSpinBox* DRight;
-	ScrSpinBox* Dist;
-	ScrSpinBox* LineW;
-	ScrSpinBox* Size;
-	ScrSpinBox* LineSp;
-	ScrSpinBox* Extra;
-	ScrSpinBox* imageYOffsetSpinBox;
-	ScrSpinBox* imageXOffsetSpinBox;
-	ScrSpinBox* imageRotation;
-	ScrSpinBox* imageYScaleSpinBox;
-	ScrSpinBox* imageXScaleSpinBox;
-	ScrSpinBox* imgDpiX;
-	ScrSpinBox* imgDpiY;
-	ScrSpinBox* LSize;
-	ScrSpinBox* ChScale;
-	ScrSpinBox* ChScaleV;
-	ScrSpinBox* ChBase;
-	ScrSpinBox* minWordTrackingSpinBox;
-	ScrSpinBox* normWordTrackingSpinBox;
-	ScrSpinBox* minGlyphExtSpinBox;
-	ScrSpinBox* maxGlyphExtSpinBox;
-	QSpinBox* imagePageNumber;
-	QSpinBox* DCol;
-	QSpinBox* TransSpin;
-	QSpinBox* startArrowScaleSpin;
-	QSpinBox* endArrowScaleSpin;
-
-	QRadioButton* FreeScale;
-	QRadioButton* FrameScale;
-	QRadioButton* EvenOdd;
-	QRadioButton* NonZero;
-	QRadioButton* flopRealHeight;
-	QRadioButton* flopFontAscent;
-	QRadioButton* flopLineSpacing;
+	bool      m_haveDoc;
+	bool      m_haveItem;
+	double    m_unitRatio;
+	int       m_unitIndex;
+	PageItem* m_item;
 	
-	QButtonGroup* flopGroup;
-
-	QFrame* Frame4;
-
-	QMenu* lineSpacingPop;
-
-	QToolButton* DoGroup;
-	QToolButton* DoUnGroup;
-	QToolButton* FlipH;
-	QToolButton* FlipV;
-	QToolButton* Locked;
-	QToolButton* NoPrint;
-	QToolButton* NoResize;
-	QToolButton* Revert;
-	QToolButton* charStyleClear;
-	QToolButton* paraStyleClear;
-	QToolButton* EditShape;
-	QToolButton* EditShape2;
-	QToolButton* EditEffects;
-	QToolButton* EditPSDProps;
-
-	ScTreeWidget* TextTree;
-	QFrame* colorWidgets;
-	QTreeWidgetItem* colorWidgetsItem;
-	QFrame* advancedWidgets;
-	QTreeWidgetItem* advancedWidgetsItem;
-	QFrame* styleWidgets;
-	QTreeWidgetItem* styleWidgetsItem;
-	QFrame* flopBox;
-	QTreeWidgetItem* flopItem;
-	QFrame* Distance;
-	QTreeWidgetItem* DistanceItem;
-	QFrame* Distance2;
-	QTreeWidgetItem* Distance2Item;
-	QFrame* OptMargins;
-	QTreeWidgetItem* OptMarginsItem;
-
-	bool _userActionOn;
-	UserActionSniffer *userActionSniffer;
-	void installSniffer(ScrSpinBox *spinBox);
+	ScGuardedPtr<ScribusDoc> m_doc;
+	
 	
 	int idXYZItem;
 	int idShapeItem;
@@ -656,20 +155,6 @@ protected:
 	int idColorsItem;
 	int idTransparencyItem;
 	int idGroupItem;
-	Selection* tmpSelection;
-};
-
-class SCRIBUS_API UserActionSniffer : public QObject
-{
-	Q_OBJECT
-
-public:
-	UserActionSniffer( QObject* parent );
-protected:
-	bool eventFilter( QObject *o, QEvent *e );
-signals:
-	void actionStart();
-	void actionEnd();
 };
 
 #endif

@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_formats.h"
 
+#include <QMessageBox>
 
 int importai_getPluginAPIVersion()
 {

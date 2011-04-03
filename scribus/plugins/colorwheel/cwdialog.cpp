@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QHeaderView>
+#include <QMessageBox>
 
 #include "ui/cmykfw.h"
 #include "colorblind.h"

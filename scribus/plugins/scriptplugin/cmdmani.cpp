@@ -6,10 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdmani.h"
 #include "cmdutil.h"
-#include "ui/propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 #include "selection.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "ui/propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
+#include "ui/propertiespalette_image.h"
 #include "undomanager.h"
 #include "sctextstream.h"
 
@@ -562,7 +563,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	// Force the braindead app to notice the changes
 
 	//FIXME emit or something so we dont need this
-	ScCore->primaryMainWindow()->propertiesPalette->setScaleAndOffset(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
+	ScCore->primaryMainWindow()->propertiesPalette->imagePal->displayScaleAndOffset(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
 	item->AdjustPictScale();
 	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
 

@@ -15,7 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "text/specialchars.h"
 #include "util.h"
+
 #include <QMessageBox>
+#include <QProgressBar>
 
 const char* AspellPluginImpl::kDEF_CONTEXT = "AspellPlugin";
 const QString AspellPluginImpl::kDEF_ASPELL_ENTRY =

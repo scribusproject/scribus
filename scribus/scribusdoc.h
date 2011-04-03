@@ -1013,7 +1013,8 @@ public:
 	bool MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void AdjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
-	void rotateGroup(double angle, FPoint RCenter);
+	void rotateGroup(double angle, Selection* customSelection = 0);
+	void rotateGroup(double angle, FPoint RCenter, Selection* customSelection = 0);
 	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0, bool scaleLine = false);
 	//! \brief Get a list of frames of certain type
 	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
@@ -1248,6 +1249,9 @@ public slots:
 	*/
 	void allItems_ChangePreviewResolution(int id);
 
+	//FIXME : change to process a selection
+	void item_setFrameShape(PageItem* item, int frameType, int count, double* points); 
+
 	void itemSelection_ClearItem(Selection* customSelection=0);
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
 	void itemSelection_DeleteItem(Selection* customSelection=0, bool forceDeletion=false);
@@ -1262,6 +1266,7 @@ public slots:
 	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection=0);
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
+	void itemSelection_Rotate(double angle, Selection* customSelection = 0);
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
 	void itemSelection_SendToLayer(int layerID);

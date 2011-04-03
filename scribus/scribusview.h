@@ -334,7 +334,9 @@ public:
 
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
-
+	void inputMethodEvent ( QInputMethodEvent * event );
+	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
+	
 	inline void registerMousePress(QPoint p);
 	bool mousePressed();
 	void resetMousePressed();
@@ -370,10 +372,9 @@ protected: // Protected methods
 signals:
 	void changeUN(int);
 	void changeLA(int);
-	void ItemPos(double, double);
 	void HaveSel(int);
-	void ItemGeom(double, double);
 	void DocChanged();
+	void ItemGeom();
 	void PolyOpen();
 	void PStatus(int, uint);
 	void SetAngle(double);
@@ -381,21 +382,11 @@ signals:
 	void SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	void SetLocalValues(double, double, double, double);
 	void ItemTextAttr(double);
-	void ItemTextUSval(double);
 	void ItemTextCols(int, double);
 	void SetDistValues(double, double, double, double);
-	void ItemTextAbs(int);
-	void ItemTextFont(const QString&);
-	void ItemTextSize(double);
-	void ItemTextSca(double);
-	void ItemTextScaV(double);
-	void ItemTextBase(double);
-	void ItemTextOutline(double);
-	void ItemTextShadow(double, double);
-	void ItemTextUnderline(double, double);
-	void ItemTextStrike(double, double);
-	void ItemTextFarben(QString, QString, double, double);
-	void ItemTextStil(int);
+	void ItemCharStyle(const CharStyle&);
+	void ItemTextAlign(int);
+	void ItemTextEffects(int);
 	void HasTextSel();
 	void HasNoTextSel();
 	void MVals(double, double, double, double, double, double, int);

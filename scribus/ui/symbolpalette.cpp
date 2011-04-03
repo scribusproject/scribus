@@ -128,7 +128,12 @@ void SymbolPalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_scMW = mw;
 	if (m_scMW == NULL)
+	{
 		SymbolViewWidget->clear();
+		disconnect(m_scMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
+		return;
+	}
+	connect(m_scMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)), Qt::UniqueConnection);
 }
 
 void SymbolPalette::setDoc(ScribusDoc *newDoc)
@@ -147,6 +152,12 @@ void SymbolPalette::unsetDoc()
 {
 	currDoc = NULL;
 	SymbolViewWidget->clear();
+}
+
+void SymbolPalette::handleUpdateRequest(int updateFlags)
+{
+	if (updateFlags & reqSymbolsUpdate)
+		updateSymbolList();
 }
 
 void SymbolPalette::updateSymbolList()

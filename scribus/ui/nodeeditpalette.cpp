@@ -863,7 +863,7 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
-	emit Schliessen();
+	emit paletteClosed();
 	ScrPaletteBase::closeEvent(ce);
 }
 
@@ -883,7 +883,7 @@ void NodePalette::EndEdit()
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
 	EditCont->setChecked(false);
-	emit Schliessen();
+	emit paletteClosed();
 }
 
 void NodePalette::changeEvent(QEvent *e)

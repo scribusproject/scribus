@@ -53,6 +53,7 @@ class SCRIBUS_API Tpalette : public QWidget, Ui::transparencyPalette
 	Q_OBJECT
 
 	friend class PropertiesPalette;
+	friend class PropertiesPalette_Group;
 
 public:
 	Tpalette(QWidget* parent);
@@ -60,18 +61,24 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 
+	void handleUpdateRequest(int);
+
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
 	void hideSelectionButtons();
 	void updateFromItem();
+
+	void updateColorList();
+
+	void setColors(ColorList newColorList);
+	void setGradients(QMap<QString, VGradient> *docGradients);
+	void setPatterns(QMap<QString, ScPattern> *docPatterns);
 
 public slots:
 	void editLineSelectorButton();
 	void editFillSelectorButton();
 	void updateCList();
 	void updateGradientList();
-	void SetGradients(QMap<QString, VGradient> *docGradients);
-	void SetColors(ColorList newColorList);
 	void slotGrad(int nr);
 	void slotGradType(int type);
 	void setNamedGradient(const QString &name);
@@ -81,7 +88,6 @@ public slots:
 	void setActiveGradDia(bool active);
 	void hideEditedPatterns(QStringList names);
 	void updatePatternList();
-	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
 	void selectPattern(QListWidgetItem *c);
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void changePatternProps();

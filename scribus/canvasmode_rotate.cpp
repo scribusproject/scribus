@@ -316,24 +316,20 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 		{
 			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		}
-		double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
+		double angle = 0;
+		double newW  = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 		if (m->modifiers() & Qt::ControlModifier)
 		{
 			newW=constrainAngle(newW, m_doc->opToolPrefs().constrain);
 			m_view->oldW=constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
 			//RotateGroup uses MoveBy so its pretty hard to constrain the result
-			if (m_doc->m_Selection->isMultipleSelection())
-				m_doc->rotateGroup(newW-m_view->oldW, m_view->RCenter);
-			else
-				m_doc->RotateItem(newW, currItem->ItemNr);
+			angle = m_doc->m_Selection->isMultipleSelection() ? (newW-m_view->oldW) : newW;
 		}
 		else
 		{
-			if (m_doc->m_Selection->isMultipleSelection())
-				m_doc->rotateGroup(newW - m_view->oldW, m_view->RCenter);
-			else
-				m_doc->RotateItem(currItem->rotation() - (m_view->oldW - newW), currItem->ItemNr);
+			angle = m_doc->m_Selection->isMultipleSelection() ? (newW - m_view->oldW) : (currItem->rotation() - (m_view->oldW - newW));
 		}
+		m_doc->itemSelection_Rotate(angle);
 		m_view->oldW = newW;
 		m_canvas->setRenderModeUseBuffer(false);
 		if (!m_doc->m_Selection->isMultipleSelection())

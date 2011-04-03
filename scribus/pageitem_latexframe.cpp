@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_latexframe.h"
 
 #include <QDebug>
+#include <QMessageBox>
 #include <QTemporaryFile>
 
 #include "prefsmanager.h"
@@ -213,7 +214,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	LocalScY = scaleY / pixm.imgInfo.yres;
 	LocalX   = offX   * pixm.imgInfo.xres;
 	LocalY   = offY   * pixm.imgInfo.yres;
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
+	//emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	update();
 }
 

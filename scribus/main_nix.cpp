@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <signal.h>
 
 #include <QApplication>
+#include <QMessageBox>
 
 #define BASE_QM "scribus"
 

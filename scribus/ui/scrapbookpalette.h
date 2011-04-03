@@ -52,11 +52,9 @@ public:
 
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
-	void CloseMpal();
-	void CloseTpal();
 	void objDropped(QString text);
 	void fileDropped(QString path, int testResult);
+	void paletteClosed();
 
 protected:
 	void dragEnterEvent(QDragEnterEvent *e);
