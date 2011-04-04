@@ -10257,7 +10257,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/buttonicon.cpp" line="38"/>
         <source>Layout:</source>
-        <translation>Udformning</translation>
+        <translation>Udformning:</translation>
     </message>
     <message>
         <location filename="../../../scribus/buttonicon.cpp" line="41"/>
@@ -25306,7 +25306,7 @@ Scripter dokumentationen for mere information.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="28"/>
         <source>Look &amp;in:</source>
-        <translation>Se &amp;i;</translation>
+        <translation>Se &amp;i:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="34"/>
@@ -30178,7 +30178,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7416"/>
         <source>Remove content from frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern indhold fra rammer</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="7434"/>
@@ -30499,7 +30499,7 @@ Rotation: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3920"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Filen kan være ødelagt eller være lavet i en nyere version af Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3946"/>
@@ -30899,7 +30899,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7811"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik på hjælpeknappen for at læse Scribus-relateret Ghostscript-hjælp og installationsvejledning.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="9680"/>
@@ -38038,7 +38038,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="938"/>
         <source>Change page properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Ændr sideegenskaber</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="939"/>
@@ -38088,32 +38088,32 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="949"/>
         <source>Enable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivér tekst-flydning for bagvedliggende lag</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="950"/>
         <source>Disable text flow around for lower layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Deaktivér tekst-flydning for bagvedliggende lag</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="951"/>
         <source>Set layer blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt lagets blandings-tilstand</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="952"/>
         <source>Set layer opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sæt lagets uigennemsigtighed</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Lock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås lag</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="954"/>
         <source>Unlock layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Frigør lag</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="955"/>
@@ -38123,27 +38123,27 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="974"/>
         <source>Edit text</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér tekst</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="975"/>
         <source>Clear image frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern billedrammens indhold</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="976"/>
         <source>Clear frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern rammens indhold</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="977"/>
         <source>Link text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammenkæd tekstramme</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="978"/>
         <source>Unlink text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bryd sammenkædning af tekstramme</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="905"/>
@@ -38382,7 +38382,8 @@ X: %4, Y: %5</translation>
         <location filename="../../../scribus/undogui.cpp" line="532"/>
         <source>%1 - %2
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2
+%3</translation>
     </message>
     <message>
         <location filename="../../../scribus/undogui.cpp" line="309"/>
@@ -38555,7 +38556,7 @@ Fejl:%2 på linje: %3, række: %4</translation>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
 Would you like to start the system&apos;s default browser instead?</source>
         <translation>Scribus var ikke i stand til at starte det eksterne netlæser program %1. Tjek venligst instillingen i præferencer.
-Kunne du tænke dig at starte systemets standard netlæser i stedet for. </translation>
+Kunne du tænke dig at starte systemets standard netlæser i stedet for?</translation>
     </message>
 </context>
 <context>
