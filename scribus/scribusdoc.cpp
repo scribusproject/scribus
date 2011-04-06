@@ -3504,21 +3504,13 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 			}
 			if ((chr == 30) || (chr == 23))
 			{
-				/* CB Removed forced loading of 0-9 for section based numbering
-				for (uint numco = 0x30; numco < 0x3A; ++numco)
-				{
-					if (it->itemText.charStyle(e)->cfont->CharWidth.contains(numco))
-					{
-						gly = it->itemText.charStyle(e)->cfont->GlyphArray[numco].Outlines.copy();
-						it->itemText.charStyle(e)->cfont->RealGlyphs.insert(numco, gly);
-					}
-				}*/
 				//Our page number collection string
 				QString pageNumberText(QString::null);
 				if (chr == 30)
 				{//ch == SpecialChars::PAGENUMBER
-					//If not on a master page just get the page number for the page and the text
-					if (lc!=0)
+					if (e > 0 && it->itemText.text(e-1) == SpecialChars::PAGENUMBER)
+						pageNumberText=SpecialChars::ZWNBSPACE;
+					else if (lc!=0) //If not on a master page just get the page number for the page and the text
 					{
 //						pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
 						pageNumberText = QString("%1").arg(getSectionPageNumberForPageIndex(it->OwnPage),
