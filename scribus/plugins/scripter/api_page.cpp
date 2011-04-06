@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "../formatidlist.h"
 #include "loadsaveplugin.h"
 #include "ui/propertiespalette.h"
+#include "ui/propertiespalette_text.h"
+#include "ui/propertiespalette_line.h"
 
 
 
