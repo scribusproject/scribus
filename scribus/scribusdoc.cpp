@@ -9538,7 +9538,10 @@ void ScribusDoc::endAlign()
 	changed();
 	m_ScMW->HaveNewSel(m_Selection->itemAt(0)->itemType());
 	for (int i = 0; i < m_Selection->count(); ++i)
+	{
 		setRedrawBounding(m_Selection->itemAt(i));
+		m_Selection->itemAt(i)->invalidateLayout();
+	}
 	m_alignTransaction->commit(); // commit and send the action to the UndoManager
 	delete m_alignTransaction;
 	m_alignTransaction = NULL;
