@@ -185,9 +185,7 @@ void ContextMenu::createMenuItems_Selection()
 		if (selectedItemCount==1 && currItem->asImageFrame())
 		{
 			if (QApplication::clipboard()->mimeData()->hasImage())
-			{
-				addAction( tr("Paste Image from Clipboard"), m_AP, SLOT(slotGetClipboardImage()));
-			}
+				addAction(m_AP->scrActions["editPasteImageFromClipboard"]);
 		}
 		if (m_actionList.contains("itemAdjustFrameToImage"))
 			addAction(m_AP->scrActions["itemAdjustFrameToImage"]);

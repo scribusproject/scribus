@@ -212,6 +212,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/edit-paste.png"), QPixmap(), "", defaultKey(name), mainWindow, 0));
 	name="editPasteContentsAbs";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/edit-paste.png"), QPixmap(), "", defaultKey(name), mainWindow, 1));
+	name="editPasteImageFromClipboard";
+	scrActions->insert(name, new ScrAction(loadIcon("16/edit-paste.png"), loadIcon("22/edit-paste.png"), "", defaultKey(name), mainWindow));
 	name="editClearContents";
 	scrActions->insert(name, new ScrAction(loadIcon("16/edit-delete.png"), loadIcon("22/edit-delete.png"), "", defaultKey(name), mainWindow));
 	name="editSelectAll";
@@ -252,6 +254,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editCopyContents"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopyContents()) );
 	connect( (*scrActions)["editPasteContents"], SIGNAL(triggeredData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
 	connect( (*scrActions)["editPasteContentsAbs"], SIGNAL(triggeredData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
+	connect( (*scrActions)["editPasteImageFromClipboard"], SIGNAL(triggered()), mainWindow, SLOT(slotGetClipboardImage()) );
 	connect( (*scrActions)["editSelectAll"], SIGNAL(triggered()), mainWindow, SLOT(SelectAll()) );
 	connect( (*scrActions)["editSelectAllOnLayer"], SIGNAL(triggered()), mainWindow, SLOT(SelectAllOnLayer()) );
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(triggered()), mainWindow, SLOT(deselectAll()) );
@@ -1312,6 +1315,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editCopyContents"]->setTexts( tr("&Copy"));
 	(*scrActions)["editPasteContents"]->setTexts( tr("&Paste"));
 	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste (&Absolute)"));
+	(*scrActions)["editPasteImageFromClipboard"]->setTexts( tr("Paste Image from Clipboard"));
 	(*scrActions)["editClearContents"]->setTexts( tr("C&lear"));
 	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
 	(*scrActions)["editSelectAllOnLayer"]->setTexts( tr("Advanced Select All..."));
@@ -1777,6 +1781,7 @@ void ActionManager::createDefaultMenus()
 		<< "editCopyContents"
 		<< "editPasteContents"
 		<< "editPasteContentsAbs"
+		<< "editPasteImageFromClipboard"
 		<< "editClearContents"
 		<< "editSelectAll"
 		<< "editSelectAllOnLayer"

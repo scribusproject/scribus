@@ -4162,7 +4162,7 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 
 void ScribusMainWindow::slotGetClipboardImage()
 {
-	if ((doc->m_Selection->count() != 0) && (QApplication::clipboard()->mimeData()->hasImage()))
+	if (HaveDoc && (doc->m_Selection->count() != 0) && (QApplication::clipboard()->mimeData()->hasImage()))
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (currItem->itemType() == PageItem::ImageFrame)
