@@ -1330,6 +1330,64 @@ void AIPlug::getCommands(QString data, QStringList &commands)
 	}
 }
 
+void AIPlug::decodeA85(QByteArray &psdata, QString tmp)
+{
+	uchar byte;
+	ushort data;
+	unsigned long sum = 0;
+	int quintet = 0;
+	for (int c = 0; c < tmp.length(); c++)
+	{
+		byte = QChar(tmp.at(c)).cell();
+		if (byte >= '!' && byte <= 'u')
+		{
+			sum = sum * 85 + ((unsigned long)byte - '!');
+			quintet++;
+			if (quintet == 5)
+			{
+				psdata.resize(psdata.size()+4);
+				data = (sum >> 24) & 0xFF;
+				psdata[psdata.size()-4] = data;
+				data = (sum >> 16) & 0xFF;
+				psdata[psdata.size()-3] = data;
+				data = (sum >> 8) & 0xFF;
+				psdata[psdata.size()-2] = data;
+				data = sum & 0xFF;
+				psdata[psdata.size()-1] = data;
+				quintet = 0;
+				sum = 0;
+			}
+		}
+		else if (byte == 'z')
+		{
+			psdata.resize(psdata.size()+4);
+			psdata[psdata.size()-4] = 0;
+			psdata[psdata.size()-3] = 0;
+			psdata[psdata.size()-2] = 0;
+			psdata[psdata.size()-1] = 0;
+		}
+		else if (byte == '~')
+		{
+			if (quintet)
+			{
+				int i;
+				for (i = 0; i < 5 - quintet; i++)
+					sum *= 85;
+				if (quintet > 1)
+					sum += (0xFFFFFF >> ((quintet - 2) * 8));
+				for (i = 0; i < quintet - 1; i++)
+				{
+					data = (sum >> (24 - 8 * i)) & 0xFF;
+					psdata.resize(psdata.size()+1);
+					psdata[psdata.size()-1] = data;
+				}
+				quintet = 0;
+			}
+			break;
+		}
+	}
+}
+
 void AIPlug::processData(QString data)
 {
 	double x, y, x1, y1, x2, y2;
@@ -1338,6 +1396,73 @@ void AIPlug::processData(QString data)
 	QString command = "";
 	QString Cdata = "";
 	QStringList da;
+	if (dataMode && fObjectMode)
+	{
+		if (data.contains("~>"))
+		{
+			dataString += data.mid(1);
+			dataMode = false;
+			QByteArray fData;
+			decodeA85(fData, dataString);
+			dataString = "";
+			if (fObjectMode)
+			{
+				FPoint wh = currentSpecialPath.WidthHeight();
+				if ((currentSpecialPath.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
+				{
+					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					ite = m_Doc->Items->at(z);
+					ite->PoLine = currentSpecialPath.copy();
+					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+					ite->ClipEdited = true;
+					ite->FrameType = 3;
+					ite->setFillShade(CurrFillShade);
+					ite->setLineShade(CurrStrokeShade);
+					ite->setFillEvenOdd(fillRule);
+					ite->setFillTransparency(1.0 - Opacity);
+					ite->setLineTransparency(1.0 - Opacity);
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
+					ite->setFillBlendmode(blendMode);
+					ite->setLineBlendmode(blendMode);
+#endif
+					ite->setLineEnd(CapStyle);
+					ite->setLineJoin(JoinStyle);
+					wh = getMaxClipF(&ite->PoLine);
+					ite->setWidthHeight(wh.x(),wh.y());
+					ite->setTextFlowMode(PageItem::TextFlowDisabled);
+					m_Doc->AdjustItemSize(ite);
+					ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.pdf");
+					ite->tempImageFile->open();
+					ite->tempImageFile->write(fData);
+					QString imgName = getLongPathName(ite->tempImageFile->fileName());
+					ite->tempImageFile->close();
+					ite->isInlineImage = true;
+					m_Doc->LoadPict(imgName, z);
+					if (ite->PictureIsAvailable)
+						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
+					ite->setImageFlippedV(true);
+					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					ite->setRedrawBounding();
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(itemLocked);
+					if (patternMode)
+						PatternElements.append(ite);
+					else
+						Elements.append(ite);
+					if (groupStack.count() != 0)
+						groupStack.top().append(ite);
+				}
+			}
+			fObjectMode = false;
+			currentSpecialPath.resize(0);
+			currentSpecialPath.svgInit();
+		}
+		else
+		{
+			dataString += data.mid(1);
+		}
+		return;
+	}
 	getCommands(data, da);
 	for (int a = 0; a < da.count(); a++)
 	{
@@ -1401,6 +1526,10 @@ void AIPlug::processData(QString data)
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
 				b->setFillTransparency(1.0 - Opacity);
 				b->setLineTransparency(1.0 - Opacity);
+	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
+				b->setFillBlendmode(blendMode);
+				b->setLineBlendmode(blendMode);
+	#endif
 				b->updateClip();
 				if (patternMode)
 					PatternElements.append(b);
@@ -1533,13 +1662,13 @@ void AIPlug::processData(QString data)
 					Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					ite->PoLine.putPoints(ite->PoLine.size(), Coords.size(), Coords);
 				}
-				Coords.resize(0);
-				Coords.svgInit();
 				FirstU = false;
 				itemRendered = true;
 				CurrFillShade = 100.0;
 				CurrStrokeShade = 100.0;
 			}
+			Coords.resize(0);
+			Coords.svgInit();
 		}
 		else if (command == "*u")
 		{
@@ -1558,12 +1687,14 @@ void AIPlug::processData(QString data)
 		{
 			QList<PageItem*> gElements;
 			groupStack.push(gElements);
+			clipStack.push(clipCoords);
 		}
 		else if ((command == "U") || (command == "Q"))
 		{
 			if (groupStack.count() != 0)
 			{
 				QList<PageItem*> gElements = groupStack.pop();
+				clipCoords = clipStack.pop();
 				tmpSel->clear();
 				if (gElements.count() > 0)
 				{
@@ -1607,9 +1738,24 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "W")
 		{
-			if (clipCoords.size() > 0)
-				clipCoords.setMarker();
-			clipCoords.putPoints(clipCoords.size(), Coords.size(), Coords);
+			if (clipStack.count() != 0)
+			{
+				if (clipStack.top().size() > 3)
+				{
+					clipStack.top().setMarker();
+					clipStack.top().putPoints(clipStack.top().size(), Coords.size(), Coords);
+				}
+				else
+					clipStack.top() = Coords.copy();
+			}
+		}
+		else if ((command == "N") || (command == "n"))
+		{
+			if (command == "n")
+				Coords.svgClosePath();
+			currentSpecialPath = Coords.copy();
+			Coords.resize(0);
+			Coords.svgInit();
 		}
 /* End Object construction commands */
 /* Start Graphics state commands */
@@ -1854,6 +2000,10 @@ void AIPlug::processData(QString data)
 					ite->setFillEvenOdd(fillRule);
 					ite->setFillTransparency(1.0 - Opacity);
 					ite->setLineTransparency(1.0 - Opacity);
+	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
+					ite->setFillBlendmode(blendMode);
+					ite->setLineBlendmode(blendMode);
+	#endif
 					ite->setLineEnd(CapStyle);
 					ite->setLineJoin(JoinStyle);
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -2090,6 +2240,7 @@ void AIPlug::processData(QString data)
 				m_Doc->setLayerMarker(currentLayer, QColor(rc, gc, bc));
 				QList<PageItem*> gElements;
 				groupStack.push(gElements);
+				clipStack.push(clipCoords);
 				firstLayer = false;
 			}
 			Coords.resize(0);
@@ -2102,6 +2253,7 @@ void AIPlug::processData(QString data)
 				if (groupStack.count() != 0)
 				{
 					QList<PageItem*> gElements = groupStack.pop();
+					clipStack.pop();
 					tmpSel->clear();
 					if (gElements.count() > 0)
 					{
@@ -2381,11 +2533,6 @@ void AIPlug::processData(QString data)
 			Coords.resize(0);
 			Coords.svgInit();
 		}
-		else if ((command == "N") || (command == "n"))
-		{
-			Coords.resize(0);
-			Coords.svgInit();
-		}
 		else if (command == "[")
 		{
 			Coords.resize(0);
@@ -2402,6 +2549,18 @@ void AIPlug::processData(QString data)
 				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
 			}
+		}
+		else if (command == ",")
+		{
+			if (Cdata.contains("/Data"))
+			{
+				dataMode = true;
+				dataString = "";
+			}
+		}
+		else if (command == ":")
+		{
+			fObjectMode = true;
 		}
 /* End special Commands */
 /* Skip everything else */
@@ -2814,6 +2973,10 @@ void AIPlug::processRaster(QDataStream &ts)
 	ite->setFillEvenOdd(fillRule);
 	ite->setFillTransparency(1.0 - Opacity);
 	ite->setLineTransparency(1.0 - Opacity);
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
+	ite->setFillBlendmode(blendMode);
+	ite->setLineBlendmode(blendMode);
+#endif
 	ite->setLineEnd(CapStyle);
 	ite->setLineJoin(JoinStyle);
 	uchar *p;
@@ -2978,6 +3141,28 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			}
 		}
 	}
+	else if (tmp.startsWith("BeginTextDocument"))
+	{
+		QString dataStringT = "";
+		tmp = removeAIPrefix(readLinefromDataStream(ts));
+		while (!ts.atEnd())
+		{
+			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			if (tmp.startsWith("EndTextDocument"))
+			{
+			//	QByteArray fData;
+			//	decodeA85(fData, dataStringT);
+				break;
+			}
+		//	else
+		//		dataStringT += tmp.mid(1);
+			if(progressDialog)
+			{
+				progressDialog->setProgress("GI", ts.device()->pos());
+				qApp->processEvents();
+			}
+		}
+	}
 	else if (tmp.startsWith("%%BeginProlog"))
 	{
 		while (!ts.atEnd())
@@ -3089,7 +3274,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	{
 		while (!ts.atEnd())
 		{
-			tmp = removeAIPrefix(readLinefromDataStream(ts));
+			QString rl = readLinefromDataStream(ts);
+			tmp = removeAIPrefix(rl);
 			if (tmp.startsWith("BeginRaster"))
 			{
 				processRaster(ts);
@@ -3098,7 +3284,7 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			if (tmp.startsWith("EndLayer"))
 				break;
 			else
-				processData(tmp);
+				processData(rl);
 			if(progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
@@ -3129,6 +3315,9 @@ bool AIPlug::convert(QString fn)
 	patternMode = false;
 	symbolMode = false;
 	meshMode = false;
+	dataMode = false;
+	fObjectMode = false;
+	dataString = "";
 	itemLocked = false;
 	patternX1 = 0.0;
 	patternY1 = 0.0;
@@ -3138,6 +3327,8 @@ bool AIPlug::convert(QString fn)
 	Coords.svgInit();
 	clipCoords.resize(0);
 	clipCoords.svgInit();
+	currentSpecialPath.resize(0);
+	currentSpecialPath.svgInit();
 	currentPoint = FPoint(0.0, 0.0);
 	currentLayer = 0;
 	currentGradient = VGradient(VGradient::linear);
@@ -3162,6 +3353,7 @@ bool AIPlug::convert(QString fn)
 	currentStrokePatternRotation = 0.0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
+	clipStack.push(clipCoords);
 	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
 	commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";			// Object creation
 	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation

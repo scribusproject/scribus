@@ -78,6 +78,7 @@ private:
 	QString parseCustomColorX(QString data, double &shade, QString type);
 	QStringList getStrings(QString data);
 	void getCommands(QString data, QStringList &commands);
+	void decodeA85(QByteArray &psdata, QString tmp);
 	void processData(QString data);
 	void processGradientData(QString data);
 	void processSymbol(QDataStream &ts, bool sym);
@@ -89,6 +90,7 @@ private:
 	QList<PageItem*> Elements;
 	QList<PageItem*> PatternElements;
 	QStack<QList<PageItem*> > groupStack;
+	QStack<FPointArray> clipStack;
 	ColorList CustColors;
 	QStringList importedColors;
 	QStringList importedGradients;
@@ -115,6 +117,7 @@ private:
 
 	FPointArray Coords;
 	FPointArray clipCoords;
+	FPointArray currentSpecialPath;
 	FPoint currentPoint;
 	int currentLayer;
 	bool firstLayer;
@@ -197,6 +200,9 @@ private:
 	QString currentSymbolName;
 	QMap<QString, QPointF> importedSymbols;
 	bool symbolMode;
+	bool dataMode;
+    bool fObjectMode;
+	QString dataString;
 
 public slots:
 	void cancelRequested() { cancel = true; }
