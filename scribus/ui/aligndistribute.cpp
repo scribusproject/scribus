@@ -105,9 +105,9 @@ void AlignDistributePalette::languageChange()
 	alignMoveOrResizeLabel->setText( tr( "&Align Sides By:" ) );
 	int alignMethodValue=alignMoveOrResizeCombo->currentIndex();
 	alignMoveOrResizeCombo->clear();
-	alignMoveOrResizeCombo->addItem( tr("Moving (Preserve Size)") );
-	alignMoveOrResizeCombo->addItem( tr("Resizing (Preserve Opposite Side)") );
-	alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item:<ul><li>Always move the other side too (preserve existing width and height), or </li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
+	alignMoveOrResizeCombo->addItem( tr("Move") );
+	alignMoveOrResizeCombo->addItem( tr("Resize") );
+	alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item do one of the following:<ul><li>Always move the other side too (preserve existing width and height)</li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
 	alignMethodChanged(alignMethodValue);
 	alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
 	alignLeftOutToolButton->setText( QString::null );
