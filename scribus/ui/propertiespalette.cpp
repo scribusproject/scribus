@@ -75,13 +75,13 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	m_haveItem = false;
 	m_unitRatio = 1.0;
 
-	//setObjectName(QString::fromLocal8Bit("PropertiesPalette"));
+	setObjectName(QString::fromLocal8Bit("PropertiesPalette"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
-	MpalLayout = new QVBoxLayout();
-	MpalLayout->setMargin(5);
-	MpalLayout->setSpacing(1);
-	setLayout(MpalLayout);
+//	MpalLayout = new QVBoxLayout();
+//	MpalLayout->setMargin(5);
+//	MpalLayout->setSpacing(1);
+//	setLayout(MpalLayout);
 
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
@@ -175,7 +175,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	pageLayout_7->addWidget( Tpal );
 	idTransparencyItem = TabStack->addItem(page_7, "&Transparency" );
 
-	MpalLayout->addWidget( TabStack );
+//	MpalLayout->addWidget( TabStack );
 
 	setWidget( TabStack );
 

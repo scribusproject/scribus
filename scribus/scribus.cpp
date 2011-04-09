@@ -3046,6 +3046,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemCombinePolygons"]->setEnabled(false);
 	}
+
 	if (docSelectionCount != 0)
 	{
 		actionManager->setPDFActions(view);
@@ -3128,8 +3129,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		actionManager->connectNewSelectionActions(view, doc);
 // 		propertiesPalette->handleSelectionChanged();
 	}
-	else
-		propertiesPalette->handleSelectionChanged();
+//	else
+//		propertiesPalette->handleSelectionChanged();
 
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
@@ -4022,6 +4023,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		else
 			w->show();
 		view->show();
+		// Seems to fix crash on loading
+		ActWin = NULL;
 		newActWin(w->getSubWin());
 		doc->setCurrentPage(doc->DocPages.at(0));
 		view->cmsToolbarButton->setChecked(doc->HasCMS);
