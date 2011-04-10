@@ -8303,6 +8303,10 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <source>Insert Spiral</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Paste Image from Clipboard</source>
+        <translation type="unfinished">Paste Image from Clipboard</translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -8386,15 +8390,15 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Moving (Preserve Size)</source>
-        <translation type="unfinished">Moving (Preserve Size)</translation>
+        <translation type="obsolete">Moving (Preserve Size)</translation>
     </message>
     <message>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="unfinished">Resizing (Preserve Opposite Side)</translation>
+        <translation type="obsolete">Resizing (Preserve Opposite Side)</translation>
     </message>
     <message>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -8547,6 +8551,18 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>The location of the selected guide to align to</source>
         <translation type="unfinished">The location of the selected guide to align to</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation type="unfinished">Move</translation>
+    </message>
+    <message>
+        <source>Resize</source>
+        <translation type="unfinished">Resize</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12022,7 +12038,7 @@ See the Edit Colours section of the documentation for more details.</translation
     </message>
     <message>
         <source>Paste Image from Clipboard</source>
-        <translation>Paste Image from Clipboard</translation>
+        <translation type="obsolete">Paste Image from Clipboard</translation>
     </message>
 </context>
 <context>
@@ -12231,7 +12247,7 @@ See the Edit Colours section of the documentation for more details.</translation
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="obsolete">Pattern</translation>
+        <translation type="unfinished">Pattern</translation>
     </message>
     <message>
         <source>Exclusion</source>
@@ -12260,6 +12276,14 @@ See the Edit Colours section of the documentation for more details.</translation
     <message>
         <source>Create Mesh</source>
         <translation>Create Mesh</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <translation type="unfinished">Solid</translation>
+    </message>
+    <message>
+        <source>Gradient</source>
+        <translation type="unfinished">Gradient</translation>
     </message>
 </context>
 <context>
@@ -25110,27 +25134,27 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="obsolete">Name</translation>
     </message>
     <message>
         <source>Geometry</source>
-        <translation>Geometry</translation>
+        <translation type="obsolete">Geometry</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Basepoint:</translation>
+        <translation type="obsolete">Basepoint:</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Level</translation>
+        <translation type="obsolete">Level</translation>
     </message>
     <message>
         <source>Shape:</source>
-        <translation>Shape:</translation>
+        <translation type="obsolete">Shape:</translation>
     </message>
     <message>
         <source>Distance of Text</source>
@@ -25138,115 +25162,115 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation>Show Curve</translation>
+        <translation type="obsolete">Show Curve</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Start Offset:</translation>
+        <translation type="obsolete">Start Offset:</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>Distance from Curve:</translation>
+        <translation type="obsolete">Distance from Curve:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation>Input Profile:</translation>
+        <translation type="obsolete">Input Profile:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Rendering Intent:</translation>
+        <translation type="obsolete">Rendering Intent:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Perceptual</translation>
+        <translation type="obsolete">Perceptual</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relative Colourimetric</translation>
+        <translation type="obsolete">Relative Colourimetric</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Saturation</translation>
+        <translation type="obsolete">Saturation</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolute Colourimetric</translation>
+        <translation type="obsolete">Absolute Colourimetric</translation>
     </message>
     <message>
         <source>Left Point</source>
-        <translation>Left Point</translation>
+        <translation type="obsolete">Left Point</translation>
     </message>
     <message>
         <source>End Points</source>
-        <translation>End Points</translation>
+        <translation type="obsolete">End Points</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Mitre Join</translation>
+        <translation type="obsolete">Mitre Join</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Bevel Join</translation>
+        <translation type="obsolete">Bevel Join</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Round Join</translation>
+        <translation type="obsolete">Round Join</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation>Flat Cap</translation>
+        <translation type="obsolete">Flat Cap</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation>Square Cap</translation>
+        <translation type="obsolete">Square Cap</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation>Round Cap</translation>
+        <translation type="obsolete">Round Cap</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation>No Style</translation>
+        <translation type="obsolete">No Style</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Font Size</translation>
+        <translation type="obsolete">Font Size</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Line Spacing</translation>
+        <translation type="obsolete">Line Spacing</translation>
     </message>
     <message>
         <source>Name of selected object</source>
-        <translation>Name of selected object</translation>
+        <translation type="obsolete">Name of selected object</translation>
     </message>
     <message>
         <source>Horizontal position of current basepoint</source>
-        <translation>Horizontal position of current basepoint</translation>
+        <translation type="obsolete">Horizontal position of current basepoint</translation>
     </message>
     <message>
         <source>Vertical position of current basepoint</source>
-        <translation>Vertical position of current basepoint</translation>
+        <translation type="obsolete">Vertical position of current basepoint</translation>
     </message>
     <message>
         <source>Width</source>
-        <translation>Width</translation>
+        <translation type="obsolete">Width</translation>
     </message>
     <message>
         <source>Height</source>
-        <translation>Height</translation>
+        <translation type="obsolete">Height</translation>
     </message>
     <message>
         <source>Rotation of object at current basepoint</source>
-        <translation>Rotation of object at current basepoint</translation>
+        <translation type="obsolete">Rotation of object at current basepoint</translation>
     </message>
     <message>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Point from which measurements or rotation angles are referenced</translation>
+        <translation type="obsolete">Point from which measurements or rotation angles are referenced</translation>
     </message>
     <message>
         <source>Select top left for basepoint</source>
@@ -25270,35 +25294,35 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Flip Horizontal</source>
-        <translation>Flip Horizontal</translation>
+        <translation type="obsolete">Flip Horizontal</translation>
     </message>
     <message>
         <source>Flip Vertical</source>
-        <translation>Flip Vertical</translation>
+        <translation type="obsolete">Flip Vertical</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>Move one level up</translation>
+        <translation type="obsolete">Move one level up</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>Move one level down</translation>
+        <translation type="obsolete">Move one level down</translation>
     </message>
     <message>
         <source>Move to front</source>
-        <translation>Move to front</translation>
+        <translation type="obsolete">Move to front</translation>
     </message>
     <message>
         <source>Move to back</source>
-        <translation>Move to back</translation>
+        <translation type="obsolete">Move to back</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
-        <translation>Lock or unlock the object</translation>
+        <translation type="obsolete">Lock or unlock the object</translation>
     </message>
     <message>
         <source>Lock or unlock the size of the object</source>
-        <translation>Lock or unlock the size of the object</translation>
+        <translation type="obsolete">Lock or unlock the size of the object</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -25306,159 +25330,159 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation>Scaling width of characters</translation>
+        <translation type="obsolete">Scaling width of characters</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Saturation of colour of text stroke</translation>
+        <translation type="obsolete">Saturation of colour of text stroke</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Saturation of colour of text fill</translation>
+        <translation type="obsolete">Saturation of colour of text fill</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>Change settings for left or end points</translation>
+        <translation type="obsolete">Change settings for left or end points</translation>
     </message>
     <message>
         <source>Pattern of line</source>
-        <translation>Pattern of line</translation>
+        <translation type="obsolete">Pattern of line</translation>
     </message>
     <message>
         <source>Thickness of line</source>
-        <translation>Thickness of line</translation>
+        <translation type="obsolete">Thickness of line</translation>
     </message>
     <message>
         <source>Type of line joins</source>
-        <translation>Type of line joins</translation>
+        <translation type="obsolete">Type of line joins</translation>
     </message>
     <message>
         <source>Type of line end</source>
-        <translation>Type of line end</translation>
+        <translation type="obsolete">Type of line end</translation>
     </message>
     <message>
         <source>Line style of current object</source>
-        <translation>Line style of current object</translation>
+        <translation type="obsolete">Line style of current object</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation>Choose the shape of frame...</translation>
+        <translation type="obsolete">Choose the shape of frame...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation>Edit shape of the frame...</translation>
+        <translation type="obsolete">Edit shape of the frame...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
-        <translation>Set radius of corner rounding</translation>
+        <translation type="obsolete">Set radius of corner rounding</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Number of columns in text frame</translation>
+        <translation type="obsolete">Number of columns in text frame</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation>Distance between columns</translation>
+        <translation type="obsolete">Distance between columns</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation>Distance of text from top of frame</translation>
+        <translation type="obsolete">Distance of text from top of frame</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation>Distance of text from bottom of frame</translation>
+        <translation type="obsolete">Distance of text from bottom of frame</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation>Distance of text from left of frame</translation>
+        <translation type="obsolete">Distance of text from left of frame</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation>Distance of text from right of frame</translation>
+        <translation type="obsolete">Distance of text from right of frame</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Edit tab settings of text frame...</translation>
+        <translation type="obsolete">Edit tab settings of text frame...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Allow the image to be a different size to the frame</translation>
+        <translation type="obsolete">Allow the image to be a different size to the frame</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation>Horizontal offset of image within frame</translation>
+        <translation type="obsolete">Horizontal offset of image within frame</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation>Vertical offset of image within frame</translation>
+        <translation type="obsolete">Vertical offset of image within frame</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
-        <translation>Resize the image horizontally</translation>
+        <translation type="obsolete">Resize the image horizontally</translation>
     </message>
     <message>
         <source>Resize the image vertically</source>
-        <translation>Resize the image vertically</translation>
+        <translation type="obsolete">Resize the image vertically</translation>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
-        <translation>Keep the X and Y scaling the same</translation>
+        <translation type="obsolete">Keep the X and Y scaling the same</translation>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation>Make the image fit within the size of the frame</translation>
+        <translation type="obsolete">Make the image fit within the size of the frame</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation>Use image proportions rather than those of the frame</translation>
+        <translation type="obsolete">Use image proportions rather than those of the frame</translation>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation>Cell Lines</translation>
+        <translation type="obsolete">Cell Lines</translation>
     </message>
     <message>
         <source>Line at Top</source>
-        <translation>Line at Top</translation>
+        <translation type="obsolete">Line at Top</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation>Line at the Left</translation>
+        <translation type="obsolete">Line at the Left</translation>
     </message>
     <message>
         <source>Line at the Right </source>
-        <translation>Line at the Right </translation>
+        <translation type="obsolete">Line at the Right </translation>
     </message>
     <message>
         <source>Line at Bottom</source>
-        <translation>Line at Bottom</translation>
+        <translation type="obsolete">Line at Bottom</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
-        <translation>Keep the aspect ratio</translation>
+        <translation type="obsolete">Keep the aspect ratio</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
-        <translation>Source profile of the image</translation>
+        <translation type="obsolete">Source profile of the image</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Rendering intent for the image</translation>
+        <translation type="obsolete">Rendering intent for the image</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
-        <translation>Path Text Properties</translation>
+        <translation type="obsolete">Path Text Properties</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Indicates the level the object is on, 0 means the object is at the bottom</translation>
+        <translation type="obsolete">Indicates the level the object is on, 0 means the object is at the bottom</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation>Switches between Gap or Column width</translation>
+        <translation type="obsolete">Switches between Gap or Column width</translation>
     </message>
     <message>
         <source>Column width</source>
-        <translation>Column width</translation>
+        <translation type="obsolete">Column width</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
@@ -25486,23 +25510,23 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-Pos:</translation>
+        <translation type="obsolete">&amp;X-Pos:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-Pos:</translation>
+        <translation type="obsolete">&amp;Y-Pos:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;Width:</translation>
+        <translation type="obsolete">&amp;Width:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Height:</translation>
+        <translation type="obsolete">&amp;Height:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rotation:</translation>
+        <translation type="obsolete">&amp;Rotation:</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
@@ -25511,220 +25535,220 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation>R&amp;ound
+        <translation type="obsolete">R&amp;ound
 Corners:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Colu&amp;mns:</translation>
+        <translation type="obsolete">Colu&amp;mns:</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
-        <translation>To&amp;p:</translation>
+        <translation type="obsolete">To&amp;p:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Bottom:</translation>
+        <translation type="obsolete">&amp;Bottom:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Left:</translation>
+        <translation type="obsolete">&amp;Left:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;Right:</translation>
+        <translation type="obsolete">&amp;Right:</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
-        <translation>T&amp;abulators...</translation>
+        <translation type="obsolete">T&amp;abulators...</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation>Use &amp;Bounding Box</translation>
+        <translation type="obsolete">Use &amp;Bounding Box</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation>&amp;Use Contour Line</translation>
+        <translation type="obsolete">&amp;Use Contour Line</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;Free Scaling</translation>
+        <translation type="obsolete">&amp;Free Scaling</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation>X-Sc&amp;ale:</translation>
+        <translation type="obsolete">X-Sc&amp;ale:</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation>Y-Scal&amp;e:</translation>
+        <translation type="obsolete">Y-Scal&amp;e:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Rotation:</translation>
+        <translation type="obsolete">Rotation:</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>Scale &amp;To Frame Size</translation>
+        <translation type="obsolete">Scale &amp;To Frame Size</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
-        <translation>P&amp;roportional</translation>
+        <translation type="obsolete">P&amp;roportional</translation>
     </message>
     <message>
         <source>PDF Compression Method:</source>
-        <translation>PDF Compression Method:</translation>
+        <translation type="obsolete">PDF Compression Method:</translation>
     </message>
     <message>
         <source>PDF Compression Quality:</source>
-        <translation>PDF Compression Quality:</translation>
+        <translation type="obsolete">PDF Compression Quality:</translation>
     </message>
     <message>
         <source>Global</source>
-        <translation>Global</translation>
+        <translation type="obsolete">Global</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation>Automatic</translation>
+        <translation type="obsolete">Automatic</translation>
     </message>
     <message>
         <source>Lossy - JPEG</source>
-        <translation>Lossy - JPEG</translation>
+        <translation type="obsolete">Lossy - JPEG</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
-        <translation>Lossless - Zip</translation>
+        <translation type="obsolete">Lossless - Zip</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation>Maximum</translation>
+        <translation type="obsolete">Maximum</translation>
     </message>
     <message>
         <source>High</source>
-        <translation>High</translation>
+        <translation type="obsolete">High</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Medium</translation>
+        <translation type="obsolete">Medium</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation>Low</translation>
+        <translation type="obsolete">Low</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation>Minimum</translation>
+        <translation type="obsolete">Minimum</translation>
     </message>
     <message>
         <source>&amp;Basepoint:</source>
-        <translation>&amp;Basepoint:</translation>
+        <translation type="obsolete">&amp;Basepoint:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation>T&amp;ype of Line:</translation>
+        <translation type="obsolete">T&amp;ype of Line:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation>Line &amp;Width:</translation>
+        <translation type="obsolete">Line &amp;Width:</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
-        <translation>Ed&amp;ges:</translation>
+        <translation type="obsolete">Ed&amp;ges:</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
-        <translation>&amp;Endings:</translation>
+        <translation type="obsolete">&amp;Endings:</translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
+        <translation type="obsolete">When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <source>Compression method used in PDF export for the image</source>
-        <translation>Compression method used in PDF export for the image</translation>
+        <translation type="obsolete">Compression method used in PDF export for the image</translation>
     </message>
     <message>
         <source>Compression quality used in PDF export for the image</source>
-        <translation>Compression quality used in PDF export for the image</translation>
+        <translation type="obsolete">Compression quality used in PDF export for the image</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
-        <translation>&amp;X1:</translation>
+        <translation type="obsolete">&amp;X1:</translation>
     </message>
     <message>
         <source>X&amp;2:</source>
-        <translation>X&amp;2:</translation>
+        <translation type="obsolete">X&amp;2:</translation>
     </message>
     <message>
         <source>Y&amp;1:</source>
-        <translation>Y&amp;1:</translation>
+        <translation type="obsolete">Y&amp;1:</translation>
     </message>
     <message>
         <source>&amp;Y2:</source>
-        <translation>&amp;Y2:</translation>
+        <translation type="obsolete">&amp;Y2:</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation>Right to Left Writing</translation>
+        <translation type="obsolete">Right to Left Writing</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manual Tracking</translation>
+        <translation type="obsolete">Manual Tracking</translation>
     </message>
     <message>
         <source>Start Arrow:</source>
-        <translation>Start Arrow:</translation>
+        <translation type="obsolete">Start Arrow:</translation>
     </message>
     <message>
         <source>End Arrow:</source>
-        <translation>End Arrow:</translation>
+        <translation type="obsolete">End Arrow:</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation>Offset to baseline of characters</translation>
+        <translation type="obsolete">Offset to baseline of characters</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation>Scaling height of characters</translation>
+        <translation type="obsolete">Scaling height of characters</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation>Fixed Linespacing</translation>
+        <translation type="obsolete">Fixed Linespacing</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Automatic Linespacing</translation>
+        <translation type="obsolete">Automatic Linespacing</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Align to Baseline Grid</translation>
+        <translation type="obsolete">Align to Baseline Grid</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation>Actual X-DPI:</translation>
+        <translation type="obsolete">Actual X-DPI:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation>Actual Y-DPI:</translation>
+        <translation type="obsolete">Actual Y-DPI:</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
+        <translation type="obsolete">Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation>Fill Rule</translation>
+        <translation type="obsolete">Fill Rule</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation>Even-Odd</translation>
+        <translation type="obsolete">Even-Odd</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation>Non Zero</translation>
+        <translation type="obsolete">Non Zero</translation>
     </message>
     <message>
         <source>Overprinting</source>
@@ -25740,51 +25764,51 @@ Corners:</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
+        <translation type="obsolete">Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Colour of selected text. If Outline text decoration is enabled, this colour will be the fill colour. If Drop Shadow Text is enabled, then this will be the top most colour.</translation>
+        <translation type="obsolete">Colour of selected text. If Outline text decoration is enabled, this colour will be the fill colour. If Drop Shadow Text is enabled, then this will be the top most colour.</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Gap:</translation>
+        <translation type="obsolete">Gap:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Width:</translation>
+        <translation type="obsolete">Width:</translation>
     </message>
     <message>
         <source>Text &amp;Flow Around Frame</source>
-        <translation>Text &amp;Flow Around Frame</translation>
+        <translation type="obsolete">Text &amp;Flow Around Frame</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Disabled</translation>
+        <translation type="obsolete">Disabled</translation>
     </message>
     <message>
         <source>Use Frame &amp;Shape</source>
-        <translation>Use Frame &amp;Shape</translation>
+        <translation type="obsolete">Use Frame &amp;Shape</translation>
     </message>
     <message>
         <source>Image Effects</source>
-        <translation>Image Effects</translation>
+        <translation type="obsolete">Image Effects</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation>Extended Image Properties</translation>
+        <translation type="obsolete">Extended Image Properties</translation>
     </message>
     <message>
         <source>Disable text flow from lower frames around object</source>
-        <translation>Disable text flow from lower frames around object</translation>
+        <translation type="obsolete">Disable text flow from lower frames around object</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Use the frame shape for text flow of text frames below the object.</translation>
+        <translation type="obsolete">Use the frame shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
+        <translation type="obsolete">Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
     </message>
     <message>
         <source>Transparency Settings</source>
@@ -25864,7 +25888,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Group the selected objects</source>
-        <translation>Group the selected objects</translation>
+        <translation type="obsolete">Group the selected objects</translation>
     </message>
     <message>
         <source>Destroys the selected group</source>
@@ -25872,7 +25896,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation>Auto</translation>
+        <translation type="obsolete">Auto</translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
@@ -25884,27 +25908,27 @@ Corners:</translation>
     </message>
     <message>
         <source>Default</source>
-        <translation>Default</translation>
+        <translation type="obsolete">Default</translation>
     </message>
     <message>
         <source>Stair Step</source>
-        <translation>Stair Step</translation>
+        <translation type="obsolete">Stair Step</translation>
     </message>
     <message>
         <source>Skew</source>
-        <translation>Skew</translation>
+        <translation type="obsolete">Skew</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Type:</translation>
+        <translation type="obsolete">Type:</translation>
     </message>
     <message>
         <source>Paragraph St&amp;yle:</source>
-        <translation>Paragraph St&amp;yle:</translation>
+        <translation type="obsolete">Paragraph St&amp;yle:</translation>
     </message>
     <message>
         <source>Character St&amp;yle:</source>
-        <translation>Character St&amp;yle:</translation>
+        <translation type="obsolete">Character St&amp;yle:</translation>
     </message>
     <message>
         <source>Optical Margins:</source>
@@ -25912,67 +25936,67 @@ Corners:</translation>
     </message>
     <message>
         <source>Word Tracking</source>
-        <translation>Word Tracking</translation>
+        <translation type="obsolete">Word Tracking</translation>
     </message>
     <message>
         <source>Min:</source>
-        <translation>Min:</translation>
+        <translation type="obsolete">Min:</translation>
     </message>
     <message>
         <source>Max:</source>
-        <translation>Max:</translation>
+        <translation type="obsolete">Max:</translation>
     </message>
     <message>
         <source>Glyph Extension</source>
-        <translation>Glyph Extension</translation>
+        <translation type="obsolete">Glyph Extension</translation>
     </message>
     <message>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Paragraph style of currently selected text or paragraph</translation>
+        <translation type="obsolete">Paragraph style of currently selected text or paragraph</translation>
     </message>
     <message>
         <source>Character style of currently selected text or paragraph</source>
-        <translation>Character style of currently selected text or paragraph</translation>
+        <translation type="obsolete">Character style of currently selected text or paragraph</translation>
     </message>
     <message>
         <source>Flip Text</source>
-        <translation>Flip Text</translation>
+        <translation type="obsolete">Flip Text</translation>
     </message>
     <message>
         <source>Use Image Clip Path</source>
-        <translation>Use Image Clip Path</translation>
+        <translation type="obsolete">Use Image Clip Path</translation>
     </message>
     <message>
         <source>Norm:</source>
-        <translation>Norm:</translation>
+        <translation type="obsolete">Norm:</translation>
     </message>
     <message>
         <source>Use the clipping path of the image</source>
-        <translation>Use the clipping path of the image</translation>
+        <translation type="obsolete">Use the clipping path of the image</translation>
     </message>
     <message>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Remove Direct Paragraph Formatting</translation>
+        <translation type="obsolete">Remove Direct Paragraph Formatting</translation>
     </message>
     <message>
         <source>Remove Direct Character Formatting</source>
-        <translation>Remove Direct Character Formatting</translation>
+        <translation type="obsolete">Remove Direct Character Formatting</translation>
     </message>
     <message>
         <source>Minimal width of spaces between words</source>
-        <translation>Minimal width of spaces between words</translation>
+        <translation type="obsolete">Minimal width of spaces between words</translation>
     </message>
     <message>
         <source>Normal width of spaces between words</source>
-        <translation>Normal width of spaces between words</translation>
+        <translation type="obsolete">Normal width of spaces between words</translation>
     </message>
     <message>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>Minimal shrinkage of glyphs for justification</translation>
+        <translation type="obsolete">Minimal shrinkage of glyphs for justification</translation>
     </message>
     <message>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>Maximal extension of glyphs for justification</translation>
+        <translation type="obsolete">Maximal extension of glyphs for justification</translation>
     </message>
     <message>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
@@ -25980,71 +26004,71 @@ Corners:</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation>Enable or disable exporting of the object</translation>
+        <translation type="obsolete">Enable or disable exporting of the object</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Custom</translation>
+        <translation type="obsolete">Custom</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Edit...</translation>
+        <translation type="obsolete">&amp;Edit...</translation>
     </message>
     <message>
         <source>First Line Offset</source>
-        <translation>First Line Offset</translation>
+        <translation type="obsolete">First Line Offset</translation>
     </message>
     <message>
         <source>Maximum Ascent</source>
-        <translation>Maximum Ascent</translation>
+        <translation type="obsolete">Maximum Ascent</translation>
     </message>
     <message>
         <source>Font Ascent</source>
-        <translation>Font Ascent</translation>
+        <translation type="obsolete">Font Ascent</translation>
     </message>
     <message>
         <source>Color &amp; Effects</source>
-        <translation>Colour &amp; Effects</translation>
+        <translation type="obsolete">Colour &amp; Effects</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation>Advanced Settings</translation>
+        <translation type="obsolete">Advanced Settings</translation>
     </message>
     <message>
         <source>Style Settings</source>
-        <translation>Style Settings</translation>
+        <translation type="obsolete">Style Settings</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation>Baseline</translation>
+        <translation type="obsolete">Baseline</translation>
     </message>
     <message>
         <source>Ungroup the selected group</source>
-        <translation>Ungroup the selected group</translation>
+        <translation type="obsolete">Ungroup the selected group</translation>
     </message>
     <message>
         <source>Select the line spacing mode.</source>
-        <translation>Select the line spacing mode.</translation>
+        <translation type="obsolete">Select the line spacing mode.</translation>
     </message>
     <message>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>Set the height of the first line of the text frame to use the tallest height of the included characters</translation>
+        <translation type="obsolete">Set the height of the first line of the text frame to use the tallest height of the included characters</translation>
     </message>
     <message>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>Set the height of the first line of text frame to use the full ascent of the font(s) in use</translation>
+        <translation type="obsolete">Set the height of the first line of text frame to use the full ascent of the font(s) in use</translation>
     </message>
     <message>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>Set the height of the first line of the text frame to the specified line height</translation>
+        <translation type="obsolete">Set the height of the first line of the text frame to the specified line height</translation>
     </message>
     <message>
         <source>&amp;Page Number:</source>
-        <translation>&amp;Page Number:</translation>
+        <translation type="obsolete">&amp;Page Number:</translation>
     </message>
     <message>
         <source>Columns &amp; Text Distances</source>
-        <translation>Columns &amp; Text Distances</translation>
+        <translation type="obsolete">Columns &amp; Text Distances</translation>
     </message>
     <message>
         <source>Left Protruding</source>
@@ -26064,55 +26088,586 @@ Corners:</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation type="obsolete">Reset</translation>
     </message>
     <message>
         <source>Optical Margins</source>
-        <translation>Optical Margins</translation>
+        <translation type="obsolete">Optical Margins</translation>
     </message>
     <message>
         <source>Hairline</source>
-        <translation>Hairline</translation>
+        <translation type="obsolete">Hairline</translation>
     </message>
     <message>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>Both Sides</translation>
+        <translation type="obsolete">Both Sides</translation>
     </message>
     <message>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>Left Only</translation>
+        <translation type="obsolete">Left Only</translation>
     </message>
     <message>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>Right Only</translation>
+        <translation type="obsolete">Right Only</translation>
     </message>
     <message>
         <source>Arrow head style for start of line</source>
-        <translation>Arrow head style for start of line</translation>
+        <translation type="obsolete">Arrow head style for start of line</translation>
     </message>
     <message>
         <source>Arrow head style for end of line</source>
-        <translation>Arrow head style for end of line</translation>
+        <translation type="obsolete">Arrow head style for end of line</translation>
     </message>
     <message>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation>Effective horizontal DPI of the image after scaling</translation>
+        <translation type="obsolete">Effective horizontal DPI of the image after scaling</translation>
     </message>
     <message>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation>Effective vertical DPI of the image after scaling</translation>
+        <translation type="obsolete">Effective vertical DPI of the image after scaling</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
+        <translation type="obsolete">Scaling:</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Group</name>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Edit...</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished">Shape</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished">Text &amp;Flow Around Frame</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Disabled</translation>
+    </message>
+    <message>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished">Use Frame &amp;Shape</translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Use &amp;Bounding Box</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">&amp;Use Contour Line</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">Use Image Clip Path</translation>
+    </message>
+    <message>
+        <source>Disable text flow from lower frames around object</source>
+        <translation type="unfinished">Disable text flow from lower frames around object</translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="unfinished">Use the frame shape for text flow of text frames below the object.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished">Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
+    </message>
+    <message>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
+        <translation type="unfinished">When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
+    </message>
+    <message>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished">Use the clipping path of the image</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_GroupBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished">Shape</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Edit...</translation>
+    </message>
+    <message>
+        <source>Text Flow Around Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Disabled</translation>
+    </message>
+    <message>
+        <source>textFlowBtnGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Frame Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Use &amp;Bounding Box</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">&amp;Use Contour Line</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">Use Image Clip Path</translation>
+    </message>
+    <message>
+        <source>Transparency</source>
+        <translation type="unfinished">Transparency</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Image</name>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation type="unfinished">Actual X-DPI:</translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation type="unfinished">Actual Y-DPI:</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;X-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Pos:</translation>
+    </message>
+    <message>
+        <source>X-Sc&amp;ale:</source>
+        <translation type="unfinished">X-Sc&amp;ale:</translation>
+    </message>
+    <message>
+        <source>Y-Scal&amp;e:</source>
+        <translation type="unfinished">Y-Scal&amp;e:</translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished">&amp;Free Scaling</translation>
+    </message>
+    <message>
+        <source>&amp;Page Number:</source>
+        <translation type="unfinished">&amp;Page Number:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation type="unfinished">Rotation:</translation>
+    </message>
+    <message>
+        <source>P&amp;roportional</source>
+        <translation type="unfinished">P&amp;roportional</translation>
+    </message>
+    <message>
+        <source>Image Effects</source>
+        <translation type="unfinished">Image Effects</translation>
+    </message>
+    <message>
+        <source>Extended Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input Profile:</source>
+        <translation type="unfinished">Input Profile:</translation>
+    </message>
+    <message>
+        <source>Rendering Intent:</source>
+        <translation type="unfinished">Rendering Intent:</translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation type="unfinished">Perceptual</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation type="unfinished">Relative Colourimetric</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Saturation</translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation type="unfinished">Absolute Colourimetric</translation>
+    </message>
+    <message>
+        <source>Global</source>
+        <translation type="unfinished">Global</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished">Automatic</translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation type="unfinished">Lossy - JPEG</translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
+        <translation type="unfinished">Lossless - Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation type="unfinished">Maximum</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished">High</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished">Medium</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished">Low</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="unfinished">Minimum</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation type="unfinished">Horizontal offset of image within frame</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation type="unfinished">Vertical offset of image within frame</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation type="unfinished">Resize the image horizontally</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation type="unfinished">Resize the image vertically</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation type="unfinished">Keep the X and Y scaling the same</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation type="unfinished">Allow the image to be a different size to the frame</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation type="unfinished">Make the image fit within the size of the frame</translation>
+    </message>
+    <message>
+        <source>Effective horizontal DPI of the image after scaling</source>
+        <translation type="unfinished">Effective horizontal DPI of the image after scaling</translation>
+    </message>
+    <message>
+        <source>Effective vertical DPI of the image after scaling</source>
+        <translation type="unfinished">Effective vertical DPI of the image after scaling</translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation type="unfinished">Use image proportions rather than those of the frame</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation type="unfinished">Source profile of the image</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation type="unfinished">Rendering intent for the image</translation>
+    </message>
+    <message>
+        <source>Compression method used in PDF export for the image</source>
+        <translation type="unfinished">Compression method used in PDF export for the image</translation>
+    </message>
+    <message>
+        <source>Compression quality used in PDF export for the image</source>
+        <translation type="unfinished">Compression quality used in PDF export for the image</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_ImageBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="unfinished">X-Pos:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation type="unfinished">Rotation:</translation>
+    </message>
+    <message>
+        <source>&amp;Page Number:</source>
+        <translation type="unfinished">&amp;Page Number:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="unfinished">Y-Pos:</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished">Scaling</translation>
+    </message>
+    <message>
+        <source>X-Sc&amp;ale:</source>
+        <translation type="unfinished">X-Sc&amp;ale:</translation>
+    </message>
+    <message>
+        <source>Y-Scal&amp;e:</source>
+        <translation type="unfinished">Y-Scal&amp;e:</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation type="unfinished">Actual X-DPI:</translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation type="unfinished">Actual Y-DPI:</translation>
+    </message>
+    <message>
+        <source>Free</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proportional</source>
+        <translation type="unfinished">Proportional</translation>
+    </message>
+    <message>
+        <source>To Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation type="unfinished">Colour Management</translation>
+    </message>
+    <message>
+        <source>Input Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Intent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Compression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Effects</source>
+        <translation type="unfinished">Image Effects</translation>
+    </message>
+    <message>
+        <source>Extended Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Line</name>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Custom</translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">No Style</translation>
+    </message>
+    <message>
+        <source>Left Point</source>
+        <translation type="unfinished">Left Point</translation>
+    </message>
+    <message>
+        <source>End Points</source>
+        <translation type="unfinished">End Points</translation>
+    </message>
+    <message>
+        <source>&amp;Basepoint:</source>
+        <translation type="unfinished">&amp;Basepoint:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype of Line:</source>
+        <translation type="unfinished">T&amp;ype of Line:</translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished">Start Arrow:</translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
+        <translation type="unfinished">End Arrow:</translation>
     </message>
     <message>
         <source>Scaling:</source>
         <translation type="unfinished">Scaling:</translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished">Line &amp;Width:</translation>
+    </message>
+    <message>
+        <source>Ed&amp;ges:</source>
+        <translation type="unfinished">Ed&amp;ges:</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished">Mitre Join</translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Bevel Join</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished">Round Join</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished">Flat Cap</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished">Square Cap</translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished">Round Cap</translation>
+    </message>
+    <message>
+        <source>&amp;Endings:</source>
+        <translation type="unfinished">&amp;Endings:</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation type="unfinished">Cell Lines</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation type="unfinished">Line at Top</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation type="unfinished">Line at the Left</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation type="unfinished">Line at the Right </translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation type="unfinished">Line at Bottom</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Hairline</source>
+        <translation type="unfinished">Hairline</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation type="unfinished">Change settings for left or end points</translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation type="unfinished">Pattern of line</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation type="unfinished">Thickness of line</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation type="unfinished">Type of line joins</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation type="unfinished">Type of line end</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation type="unfinished">Line style of current object</translation>
+    </message>
+    <message>
+        <source>Arrow head style for start of line</source>
+        <translation type="unfinished">Arrow head style for start of line</translation>
+    </message>
+    <message>
+        <source>Arrow head style for end of line</source>
+        <translation type="unfinished">Arrow head style for end of line</translation>
     </message>
     <message>
         <source>Arrow head scale for start of line</source>
@@ -26121,6 +26676,891 @@ Corners:</translation>
     <message>
         <source>Arrow head scale for end of line</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_LineBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>&amp;Basepoint:</source>
+        <translation type="unfinished">&amp;Basepoint:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype of Line:</source>
+        <translation type="unfinished">T&amp;ype of Line:</translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished">Start Arrow:</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
+        <translation type="unfinished">Scaling:</translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
+        <translation type="unfinished">End Arrow:</translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished">Line &amp;Width:</translation>
+    </message>
+    <message>
+        <source>Hairline</source>
+        <translation type="unfinished">Hairline</translation>
+    </message>
+    <message>
+        <source>Ed&amp;ges:</source>
+        <translation type="unfinished">Ed&amp;ges:</translation>
+    </message>
+    <message>
+        <source>&amp;Endings:</source>
+        <translation type="unfinished">&amp;Endings:</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation type="unfinished">Cell Lines</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation type="unfinished">Line at the Left</translation>
+    </message>
+    <message>
+        <source>Line at the Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at the Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at the Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Shape</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Shape:</source>
+        <translation type="unfinished">Shape:</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation type="unfinished">Choose the shape of frame...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Edit...</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation type="unfinished">Set radius of corner rounding</translation>
+    </message>
+    <message>
+        <source>R&amp;ound Corners:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished">Fill Rule</translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished">Even-Odd</translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished">Non Zero</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished">Text &amp;Flow Around Frame</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Disabled</translation>
+    </message>
+    <message>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished">Use Frame &amp;Shape</translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Use &amp;Bounding Box</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">&amp;Use Contour Line</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">Use Image Clip Path</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_ShapeBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished">Shape</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Edit...</translation>
+    </message>
+    <message>
+        <source>Round Corners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Flow Around Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Disabled</translation>
+    </message>
+    <message>
+        <source>textFlowBtnGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Frame Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Use &amp;Bounding Box</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">&amp;Use Contour Line</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">Use Image Clip Path</translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished">Fill Rule</translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished">Even-Odd</translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished">Non Zero</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Text</name>
+    <message>
+        <source>Color &amp; Effects</source>
+        <translation type="unfinished">Colour &amp; Effects</translation>
+    </message>
+    <message>
+        <source>First Line Offset</source>
+        <translation type="unfinished">First Line Offset</translation>
+    </message>
+    <message>
+        <source>Columns &amp; Text Distances</source>
+        <translation type="unfinished">Columns &amp; Text Distances</translation>
+    </message>
+    <message>
+        <source>Optical Margins</source>
+        <translation type="unfinished">Optical Margins</translation>
+    </message>
+    <message>
+        <source>Advanced Settings</source>
+        <translation type="unfinished">Advanced Settings</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation type="unfinished">Path Text Properties</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation type="unfinished">Baseline</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Distance between columns</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation type="unfinished">Column width</translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">Paragraph St&amp;yle:</translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">Character St&amp;yle:</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation type="unfinished">Fixed Linespacing</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation type="unfinished">Automatic Linespacing</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation type="unfinished">Align to Baseline Grid</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation type="unfinished">Font Size</translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Line Spacing</translation>
+    </message>
+    <message>
+        <source>Select the line spacing mode.</source>
+        <translation type="unfinished">Select the line spacing mode.</translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished">Paragraph style of currently selected text or paragraph</translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">Character style of currently selected text or paragraph</translation>
+    </message>
+    <message>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished">Remove Direct Paragraph Formatting</translation>
+    </message>
+    <message>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished">Remove Direct Character Formatting</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_XYZ</name>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;X-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Height:</translation>
+    </message>
+    <message>
+        <source>&amp;X1:</source>
+        <translation type="unfinished">&amp;X1:</translation>
+    </message>
+    <message>
+        <source>X&amp;2:</source>
+        <translation type="unfinished">X&amp;2:</translation>
+    </message>
+    <message>
+        <source>Y&amp;1:</source>
+        <translation type="unfinished">Y&amp;1:</translation>
+    </message>
+    <message>
+        <source>&amp;Y2:</source>
+        <translation type="unfinished">&amp;Y2:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Width:</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Properties</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Geometry</source>
+        <translation type="unfinished">Geometry</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotation:</translation>
+    </message>
+    <message>
+        <source>Basepoint:</source>
+        <translation type="unfinished">Basepoint:</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Level</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation type="unfinished">Name of selected object</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation type="unfinished">Horizontal position of current basepoint</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation type="unfinished">Vertical position of current basepoint</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation type="unfinished">Width</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished">Height</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation type="unfinished">Rotation of object at current basepoint</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation type="unfinished">Point from which measurements or rotation angles are referenced</translation>
+    </message>
+    <message>
+        <source>Group the selected objects</source>
+        <translation type="unfinished">Group the selected objects</translation>
+    </message>
+    <message>
+        <source>Ungroup the selected group</source>
+        <translation type="unfinished">Ungroup the selected group</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation type="unfinished">Flip Horizontal</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation type="unfinished">Flip Vertical</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation type="unfinished">Move one level up</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation type="unfinished">Move one level down</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation type="unfinished">Move to front</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation type="unfinished">Move to back</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation type="unfinished">Indicates the level the object is on, 0 means the object is at the bottom</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation type="unfinished">Lock or unlock the object</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation type="unfinished">Lock or unlock the size of the object</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished">Enable or disable exporting of the object</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation type="unfinished">Keep the aspect ratio</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_XYZBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Geometry</source>
+        <translation type="unfinished">Geometry</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;X-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Width:</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Height:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotation:</translation>
+    </message>
+    <message>
+        <source>Basepoint:</source>
+        <translation type="unfinished">Basepoint:</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Level</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation type="unfinished">270° {0?}</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Advanced</name>
+    <message>
+        <source>Word Tracking</source>
+        <translation type="unfinished">Word Tracking</translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation type="unfinished">Min:</translation>
+    </message>
+    <message>
+        <source>Norm:</source>
+        <translation type="unfinished">Norm:</translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation type="unfinished">Glyph Extension</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation type="unfinished">Max:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Offset to baseline of characters</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Manual Tracking</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Scaling width of characters</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Scaling height of characters</translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">Minimal width of spaces between words</translation>
+    </message>
+    <message>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">Normal width of spaces between words</translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">Minimal shrinkage of glyphs for justification</translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">Maximal extension of glyphs for justification</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_AdvancedBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
+    </message>
+    <message>
+        <source>Word Spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation type="unfinished">Min:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation type="unfinished">Max:</translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation type="unfinished">Glyph Extension</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Distance</name>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished">Colu&amp;mns:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished">Gap:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Width:</translation>
+    </message>
+    <message>
+        <source>To&amp;p:</source>
+        <translation type="unfinished">To&amp;p:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Bottom:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Left:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished">&amp;Right:</translation>
+    </message>
+    <message>
+        <source>T&amp;abulators...</source>
+        <translation type="unfinished">T&amp;abulators...</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">Number of columns in text frame</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">Switches between Gap or Column width</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Distance between columns</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">Distance of text from top of frame</translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">Distance of text from bottom of frame</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">Distance of text from left of frame</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">Distance of text from right of frame</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">Edit tab settings of text frame...</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_DistanceBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished">Colu&amp;mns:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished">Gap:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Width:</translation>
+    </message>
+    <message>
+        <source>To&amp;p:</source>
+        <translation type="unfinished">To&amp;p:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Bottom:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Left:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished">&amp;Right:</translation>
+    </message>
+    <message>
+        <source>T&amp;abulators...</source>
+        <translation type="unfinished">T&amp;abulators...</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Flop</name>
+    <message>
+        <source>Maximum Ascent</source>
+        <translation type="unfinished">Maximum Ascent</translation>
+    </message>
+    <message>
+        <source>Font Ascent</source>
+        <translation type="unfinished">Font Ascent</translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Line Spacing</translation>
+    </message>
+    <message>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">Set the height of the first line of the text frame to use the tallest height of the included characters</translation>
+    </message>
+    <message>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">Set the height of the first line of text frame to use the full ascent of the font(s) in use</translation>
+    </message>
+    <message>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">Set the height of the first line of the text frame to the specified line height</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_FlopBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
+    </message>
+    <message>
+        <source>Maximum Ascent</source>
+        <translation type="unfinished">Maximum Ascent</translation>
+    </message>
+    <message>
+        <source>flopGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Ascent</source>
+        <translation type="unfinished">Font Ascent</translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Line Spacing</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_OptMargins</name>
+    <message>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Both Sides</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Left Only</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Right Only</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished">Reset</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_OptMarginsBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <translation type="unfinished">Both Sides</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <translation type="unfinished">Left Only</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <translation type="unfinished">Right Only</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished">Reset</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_PathText</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished">Default</translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation type="unfinished">Stair Step</translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation type="unfinished">Skew</translation>
+    </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished">Flip Text</translation>
+    </message>
+    <message>
+        <source>Show Curve</source>
+        <translation type="unfinished">Show Curve</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Start Offset:</source>
+        <translation type="unfinished">Start Offset:</translation>
+    </message>
+    <message>
+        <source>Distance from Curve:</source>
+        <translation type="unfinished">Distance from Curve:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_PathTextBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Start Offset:</source>
+        <translation type="unfinished">Start Offset:</translation>
+    </message>
+    <message>
+        <source>Distance from Curve:</source>
+        <translation type="unfinished">Distance from Curve:</translation>
+    </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished">Flip Text</translation>
+    </message>
+    <message>
+        <source>Show Curve</source>
+        <translation type="unfinished">Show Curve</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_TextColor</name>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">Colour of selected text. If Outline text decoration is enabled, this colour will be the fill colour. If Drop Shadow Text is enabled, then this will be the top most colour.</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished">Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">Saturation of colour of text fill</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">Saturation of colour of text stroke</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished">Right to Left Writing</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_TextColorBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
     </message>
 </context>
 <context>
@@ -36795,15 +38235,15 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Edit Line Color Properties</source>
-        <translation>Edit Line Colour Properties</translation>
+        <translation type="obsolete">Edit Line Colour Properties</translation>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation>Edit Fill Colour Properties</translation>
+        <translation type="obsolete">Edit Fill Colour Properties</translation>
     </message>
     <message>
         <source>Solid</source>
-        <translation>Solid</translation>
+        <translation type="obsolete">Solid</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -36811,7 +38251,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation>Saturation of colour</translation>
+        <translation type="obsolete">Saturation of colour</translation>
     </message>
     <message>
         <source> %</source>
@@ -36819,7 +38259,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Gradient</source>
-        <translation>Gradient</translation>
+        <translation type="obsolete">Gradient</translation>
     </message>
     <message>
         <source>Linear</source>
@@ -36831,7 +38271,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</translation>
+        <translation type="obsolete">Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</translation>
     </message>
     <message>
         <source>Move Vector</source>
@@ -36839,7 +38279,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Pattern</source>
-        <translation>Pattern</translation>
+        <translation type="obsolete">Pattern</translation>
     </message>
     <message>
         <source>Pattern follows Path</source>
@@ -36887,7 +38327,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Display all colors from the document color list, or only the already used colors</source>
-        <translation>Display all colours from the document colour list, or only the already used colours</translation>
+        <translation type="obsolete">Display all colours from the document colour list, or only the already used colours</translation>
     </message>
     <message>
         <source>Display only used colors</source>
@@ -36904,6 +38344,26 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Overprint</source>
         <translation>Overprint</translation>
+    </message>
+    <message>
+        <source>Fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <source>Stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stroke Mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

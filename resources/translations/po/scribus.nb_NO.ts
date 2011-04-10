@@ -1815,6 +1815,10 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <source>Insert 3D Annotation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Paste Image from Clipboard</source>
+        <translation type="unfinished">Lim inn bilde fra utklippstavla </translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -2105,15 +2109,15 @@ UCR reduserer muligheten for overmetning med CMY-farger.</translation>
     </message>
     <message>
         <source>Moving (Preserve Size)</source>
-        <translation>Flytt (behold størrelsen)</translation>
+        <translation type="obsolete">Flytt (behold størrelsen)</translation>
     </message>
     <message>
         <source>Resizing (Preserve Opposite Side)</source>
-        <translation>Skaler (bevar motsatt side)</translation>
+        <translation type="obsolete">Skaler (bevar motsatt side)</translation>
     </message>
     <message>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Når en side av av et element blir justert: &lt;ul&gt;&lt;li&gt; Flytt alltid den andre siden også (behold bredden og høyden), eller &lt;/li&gt; &lt;li&gt;behold den andre siden fast (skaler elementet istedenfor å flytte det) hvis det er mulig &lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Når en side av av et element blir justert: &lt;ul&gt;&lt;li&gt; Flytt alltid den andre siden også (behold bredden og høyden), eller &lt;/li&gt; &lt;li&gt;behold den andre siden fast (skaler elementet istedenfor å flytte det) hvis det er mulig &lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -2265,6 +2269,18 @@ UCR reduserer muligheten for overmetning med CMY-farger.</translation>
     </message>
     <message>
         <source>Swap items to the right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation type="unfinished">Flytt</translation>
+    </message>
+    <message>
+        <source>Resize</source>
+        <translation type="unfinished">Endre størrelse</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5988,7 +6004,7 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
     </message>
     <message>
         <source>Paste Image from Clipboard</source>
-        <translation>Lim inn bilde fra utklippstavla </translation>
+        <translation type="obsolete">Lim inn bilde fra utklippstavla </translation>
     </message>
 </context>
 <context>
@@ -6217,7 +6233,7 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="obsolete">Mønster</translation>
+        <translation type="unfinished">Mønster</translation>
     </message>
     <message>
         <source>Exclusion</source>
@@ -6245,6 +6261,14 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
     </message>
     <message>
         <source>Create Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <translation type="unfinished">Heltrukken</translation>
+    </message>
+    <message>
+        <source>Gradient</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23541,27 +23565,27 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Navn</translation>
+        <translation type="obsolete">Navn</translation>
     </message>
     <message>
         <source>Geometry</source>
-        <translation>Plassering og størrelse</translation>
+        <translation type="obsolete">Plassering og størrelse</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Grunnpunkt:</translation>
+        <translation type="obsolete">Grunnpunkt:</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Lag</translation>
+        <translation type="obsolete">Lag</translation>
     </message>
     <message>
         <source>Shape:</source>
-        <translation>Form:</translation>
+        <translation type="obsolete">Form:</translation>
     </message>
     <message>
         <source>Distance of Text</source>
@@ -23569,23 +23593,23 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
-        <translation>Tekststi-egenskaper</translation>
+        <translation type="obsolete">Tekststi-egenskaper</translation>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation>Vis kurve</translation>
+        <translation type="obsolete">Vis kurve</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Start forskyvning:</translation>
+        <translation type="obsolete">Start forskyvning:</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>Avstand fra kurve:</translation>
+        <translation type="obsolete">Avstand fra kurve:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -23597,114 +23621,114 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation>Innprofil:</translation>
+        <translation type="obsolete">Innprofil:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Fargetilpasning:</translation>
+        <translation type="obsolete">Fargetilpasning:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Sansningsmessig (perseptuell)</translation>
+        <translation type="obsolete">Sansningsmessig (perseptuell)</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ fargeanalyse</translation>
+        <translation type="obsolete">Relativ fargeanalyse</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Metning</translation>
+        <translation type="obsolete">Metning</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutt fargeanalyse</translation>
+        <translation type="obsolete">Absolutt fargeanalyse</translation>
     </message>
     <message>
         <source>Left Point</source>
-        <translation>Venstre punkt</translation>
+        <translation type="obsolete">Venstre punkt</translation>
     </message>
     <message>
         <source>End Points</source>
-        <translation>Endepunkter</translation>
+        <translation type="obsolete">Endepunkter</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Kantet sammenføyning</translation>
+        <translation type="obsolete">Kantet sammenføyning</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Skrå sammenføyning</translation>
+        <translation type="obsolete">Skrå sammenføyning</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Rund sammenføyning</translation>
+        <translation type="obsolete">Rund sammenføyning</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation>Ingen stil</translation>
+        <translation type="obsolete">Ingen stil</translation>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation>Cellelinjer</translation>
+        <translation type="obsolete">Cellelinjer</translation>
     </message>
     <message>
         <source>Line at Top</source>
-        <translation>Linje øverst</translation>
+        <translation type="obsolete">Linje øverst</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation>Linje til venstre</translation>
+        <translation type="obsolete">Linje til venstre</translation>
     </message>
     <message>
         <source>Line at the Right </source>
-        <translation>Linje til høyre </translation>
+        <translation type="obsolete">Linje til høyre </translation>
     </message>
     <message>
         <source>Line at Bottom</source>
-        <translation>Linje nederst</translation>
+        <translation type="obsolete">Linje nederst</translation>
     </message>
     <message>
         <source>Name of selected object</source>
-        <translation>Det valgte objektets navn</translation>
+        <translation type="obsolete">Det valgte objektets navn</translation>
     </message>
     <message>
         <source>Horizontal position of current basepoint</source>
-        <translation>Vannrett plassering av nåværende grunnpunkt</translation>
+        <translation type="obsolete">Vannrett plassering av nåværende grunnpunkt</translation>
     </message>
     <message>
         <source>Vertical position of current basepoint</source>
-        <translation>Loddrett plassering av nåværende grunnpunkt</translation>
+        <translation type="obsolete">Loddrett plassering av nåværende grunnpunkt</translation>
     </message>
     <message>
         <source>Width</source>
-        <translation>Bredde</translation>
+        <translation type="obsolete">Bredde</translation>
     </message>
     <message>
         <source>Height</source>
-        <translation>Høyde</translation>
+        <translation type="obsolete">Høyde</translation>
     </message>
     <message>
         <source>Rotation of object at current basepoint</source>
-        <translation>Rotasjon av objektet ved nåværende grunnpunkt</translation>
+        <translation type="obsolete">Rotasjon av objektet ved nåværende grunnpunkt</translation>
     </message>
     <message>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Startpunkt for målinger og rotasjonsvinkler</translation>
+        <translation type="obsolete">Startpunkt for målinger og rotasjonsvinkler</translation>
     </message>
     <message>
         <source>Select top left for basepoint</source>
@@ -23728,39 +23752,39 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Flip Horizontal</source>
-        <translation>Speil vannrett</translation>
+        <translation type="obsolete">Speil vannrett</translation>
     </message>
     <message>
         <source>Flip Vertical</source>
-        <translation>Speil loddrett</translation>
+        <translation type="obsolete">Speil loddrett</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>Flytt et nivå opp</translation>
+        <translation type="obsolete">Flytt et nivå opp</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>Flytt et nivå ned</translation>
+        <translation type="obsolete">Flytt et nivå ned</translation>
     </message>
     <message>
         <source>Move to front</source>
-        <translation>Legg øverst</translation>
+        <translation type="obsolete">Legg øverst</translation>
     </message>
     <message>
         <source>Move to back</source>
-        <translation>Legg nederst</translation>
+        <translation type="obsolete">Legg nederst</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Viser hvilket nivået objektet ligger på, 0 betyr at objektet er på bunnen</translation>
+        <translation type="obsolete">Viser hvilket nivået objektet ligger på, 0 betyr at objektet er på bunnen</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
-        <translation>Lås eller lås opp objektet</translation>
+        <translation type="obsolete">Lås eller lås opp objektet</translation>
     </message>
     <message>
         <source>Lock or unlock the size of the object</source>
-        <translation>Lås eller lås opp objektstørrelsen</translation>
+        <translation type="obsolete">Lås eller lås opp objektstørrelsen</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
@@ -23776,11 +23800,11 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Skriftstørrelse</translation>
+        <translation type="obsolete">Skriftstørrelse</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation>Skaler tegnbredden</translation>
+        <translation type="obsolete">Skaler tegnbredden</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -23792,11 +23816,11 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Metning av tekststrekens farge</translation>
+        <translation type="obsolete">Metning av tekststrekens farge</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Metning av tekstfyllets farge</translation>
+        <translation type="obsolete">Metning av tekstfyllets farge</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
@@ -23804,7 +23828,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Linjeavstand</translation>
+        <translation type="obsolete">Linjeavstand</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
@@ -23812,115 +23836,115 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>Endre innstillingene for venstre eller endepunkter</translation>
+        <translation type="obsolete">Endre innstillingene for venstre eller endepunkter</translation>
     </message>
     <message>
         <source>Pattern of line</source>
-        <translation>Linjemønster</translation>
+        <translation type="obsolete">Linjemønster</translation>
     </message>
     <message>
         <source>Thickness of line</source>
-        <translation>Tykkelsen på linja</translation>
+        <translation type="obsolete">Tykkelsen på linja</translation>
     </message>
     <message>
         <source>Type of line joins</source>
-        <translation>Type linjesammenføyning</translation>
+        <translation type="obsolete">Type linjesammenføyning</translation>
     </message>
     <message>
         <source>Type of line end</source>
-        <translation>Type linjeavslutning</translation>
+        <translation type="obsolete">Type linjeavslutning</translation>
     </message>
     <message>
         <source>Line style of current object</source>
-        <translation>Linjestil for dette objektet</translation>
+        <translation type="obsolete">Linjestil for dette objektet</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation>Velg rammeform …</translation>
+        <translation type="obsolete">Velg rammeform …</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation>Endre rammeform …</translation>
+        <translation type="obsolete">Endre rammeform …</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
-        <translation>velg radiusen på hjørneavrundingen</translation>
+        <translation type="obsolete">velg radiusen på hjørneavrundingen</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Antall kolonner i tekstramma</translation>
+        <translation type="obsolete">Antall kolonner i tekstramma</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation>Bytt mellom mellomrom og kolonnebredde</translation>
+        <translation type="obsolete">Bytt mellom mellomrom og kolonnebredde</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation>Kolonneavstand</translation>
+        <translation type="obsolete">Kolonneavstand</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation>Avstand fra teksten til toppen av ramma</translation>
+        <translation type="obsolete">Avstand fra teksten til toppen av ramma</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation>Avstand fra teksten til bunnen av ramma</translation>
+        <translation type="obsolete">Avstand fra teksten til bunnen av ramma</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation>Avstand fra teksten til venstre side av ramma</translation>
+        <translation type="obsolete">Avstand fra teksten til venstre side av ramma</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation>Avstand fra teksten til høyre side av ramma</translation>
+        <translation type="obsolete">Avstand fra teksten til høyre side av ramma</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Rediger tabulator-innstillingene til tekstramma …</translation>
+        <translation type="obsolete">Rediger tabulator-innstillingene til tekstramma …</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Tillat bildet å ha en annen størrelse enn ramma</translation>
+        <translation type="obsolete">Tillat bildet å ha en annen størrelse enn ramma</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation>Vannrett forskyving av bildet innenfor ramma</translation>
+        <translation type="obsolete">Vannrett forskyving av bildet innenfor ramma</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation>Loddrett forskyving av bildet innenfor ramma</translation>
+        <translation type="obsolete">Loddrett forskyving av bildet innenfor ramma</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
-        <translation>Skaler bildet vannrett</translation>
+        <translation type="obsolete">Skaler bildet vannrett</translation>
     </message>
     <message>
         <source>Resize the image vertically</source>
-        <translation>Skaler bilder loddrett</translation>
+        <translation type="obsolete">Skaler bilder loddrett</translation>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
-        <translation>Behold skaleringa vannrett og loddrett</translation>
+        <translation type="obsolete">Behold skaleringa vannrett og loddrett</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
-        <translation>Behold høyde/bredde-forholdet</translation>
+        <translation type="obsolete">Behold høyde/bredde-forholdet</translation>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation>Tilpass bildestørrelsen til ramma</translation>
+        <translation type="obsolete">Tilpass bildestørrelsen til ramma</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation>Bruk bildets størrelsesforhold og ikke rammas</translation>
+        <translation type="obsolete">Bruk bildets størrelsesforhold og ikke rammas</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
-        <translation>Bildets kildeprofil</translation>
+        <translation type="obsolete">Bildets kildeprofil</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Bildets fargetilpasning</translation>
+        <translation type="obsolete">Bildets fargetilpasning</translation>
     </message>
     <message>
         <source> mm</source>
@@ -23936,11 +23960,11 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Column width</source>
-        <translation>Kolonnebredde</translation>
+        <translation type="obsolete">Kolonnebredde</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ingen</translation>
+        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -23982,23 +24006,23 @@ Du må velge et annet navn.</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;Vannrett:</translation>
+        <translation type="obsolete">&amp;Vannrett:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Loddrett:</translation>
+        <translation type="obsolete">&amp;Loddrett:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;Bredde:</translation>
+        <translation type="obsolete">&amp;Bredde:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Høyde:</translation>
+        <translation type="obsolete">&amp;Høyde:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rotasjon:</translation>
+        <translation type="obsolete">&amp;Rotasjon:</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
@@ -24007,11 +24031,11 @@ Du må velge et annet navn.</translation>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation>&amp;Runde hjørner:</translation>
+        <translation type="obsolete">&amp;Runde hjørner:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Kolonner:</translation>
+        <translation type="obsolete">&amp;Kolonner:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -24019,23 +24043,23 @@ Corners:</source>
     </message>
     <message>
         <source>To&amp;p:</source>
-        <translation>&amp;Toppen:</translation>
+        <translation type="obsolete">&amp;Toppen:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Bunnen:</translation>
+        <translation type="obsolete">&amp;Bunnen:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Venstre:</translation>
+        <translation type="obsolete">&amp;Venstre:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;Høyre:</translation>
+        <translation type="obsolete">&amp;Høyre:</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
-        <translation>&amp;Tabulatorer …</translation>
+        <translation type="obsolete">&amp;Tabulatorer …</translation>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
@@ -24043,11 +24067,11 @@ Corners:</source>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation>Bruk &amp;grenseboksen</translation>
+        <translation type="obsolete">Bruk &amp;grenseboksen</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation>Bruk &amp;konturlinjene</translation>
+        <translation type="obsolete">Bruk &amp;konturlinjene</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
@@ -24071,59 +24095,59 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;Fri skalering</translation>
+        <translation type="obsolete">&amp;Fri skalering</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation>&amp;Vannrett skalering:</translation>
+        <translation type="obsolete">&amp;Vannrett skalering:</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation>&amp;Loddrett skalering:</translation>
+        <translation type="obsolete">&amp;Loddrett skalering:</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>Skaler &amp;til rammestørrelsen</translation>
+        <translation type="obsolete">Skaler &amp;til rammestørrelsen</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
-        <translation>&amp;Behold bredde/høyde-forholdet</translation>
+        <translation type="obsolete">&amp;Behold bredde/høyde-forholdet</translation>
     </message>
     <message>
         <source>&amp;Basepoint:</source>
-        <translation>&amp;Grunnpunkt:</translation>
+        <translation type="obsolete">&amp;Grunnpunkt:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation>&amp;Linjetype:</translation>
+        <translation type="obsolete">&amp;Linjetype:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation>&amp;Linjebredde:</translation>
+        <translation type="obsolete">&amp;Linjebredde:</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
-        <translation>&amp;Kanter:</translation>
+        <translation type="obsolete">&amp;Kanter:</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
-        <translation>&amp;Endelser:</translation>
+        <translation type="obsolete">&amp;Endelser:</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
-        <translation>Vannrett &amp;1:</translation>
+        <translation type="obsolete">Vannrett &amp;1:</translation>
     </message>
     <message>
         <source>X&amp;2:</source>
-        <translation>Vannrett &amp;2:</translation>
+        <translation type="obsolete">Vannrett &amp;2:</translation>
     </message>
     <message>
         <source>Y&amp;1:</source>
-        <translation>Loddrett &amp;1:</translation>
+        <translation type="obsolete">Loddrett &amp;1:</translation>
     </message>
     <message>
         <source>&amp;Y2:</source>
-        <translation>Loddrett &amp;2:</translation>
+        <translation type="obsolete">Loddrett &amp;2:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
@@ -24139,19 +24163,19 @@ Corners:</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation>Skriv fra høyre til venstre</translation>
+        <translation type="obsolete">Skriv fra høyre til venstre</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation>Fast linjeavstand</translation>
+        <translation type="obsolete">Fast linjeavstand</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Automatisk linjeavstand</translation>
+        <translation type="obsolete">Automatisk linjeavstand</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Fest til de vannrette linjene</translation>
+        <translation type="obsolete">Fest til de vannrette linjene</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -24159,48 +24183,48 @@ Corners:</source>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation>Faktisk oppløsning, vannrett:</translation>
+        <translation type="obsolete">Faktisk oppløsning, vannrett:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation>Faktisk oppløsning, loddrett:</translation>
+        <translation type="obsolete">Faktisk oppløsning, loddrett:</translation>
     </message>
     <message>
         <source>Start Arrow:</source>
-        <translation>Startpil</translation>
+        <translation type="obsolete">Startpil</translation>
     </message>
     <message>
         <source>End Arrow:</source>
-        <translation>Sluttpil</translation>
+        <translation type="obsolete">Sluttpil</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation>Forskyv til tegnets grunnlinje</translation>
+        <translation type="obsolete">Forskyv til tegnets grunnlinje</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation>Skaler tegnhøyden</translation>
+        <translation type="obsolete">Skaler tegnhøyden</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Navnet «%1» er ikke entydig.&lt;br/&gt;Du må velge et annet navn.</translation>
+        <translation type="obsolete">Navnet «%1» er ikke entydig.&lt;br/&gt;Du må velge et annet navn.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation>Fyllregel</translation>
+        <translation type="obsolete">Fyllregel</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation>Partall–oddetall</translation>
+        <translation type="obsolete">Partall–oddetall</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation>Ikke null</translation>
+        <translation type="obsolete">Ikke null</translation>
     </message>
     <message>
         <source>Overprinting</source>
@@ -24219,51 +24243,51 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Fargen på tekststreken og/eller tekstskyggen, avhengig av hva du velger. Hvis du velger begge, får de samme farge.</translation>
+        <translation type="obsolete">Fargen på tekststreken og/eller tekstskyggen, avhengig av hva du velger. Hvis du velger begge, får de samme farge.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Fargen på den valgte teksten. Hvis omriss er på, er dette fyllfargen. Hvis tekstskygge er på, er dette den øverste fargen.</translation>
+        <translation type="obsolete">Fargen på den valgte teksten. Hvis omriss er på, er dette fyllfargen. Hvis tekstskygge er på, er dette den øverste fargen.</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Mellomrom:</translation>
+        <translation type="obsolete">Mellomrom:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Bredde:</translation>
+        <translation type="obsolete">Bredde:</translation>
     </message>
     <message>
         <source>Text &amp;Flow Around Frame</source>
-        <translation>Teksten &amp;flyter rundt ramma</translation>
+        <translation type="obsolete">Teksten &amp;flyter rundt ramma</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Ikke i bruk</translation>
+        <translation type="obsolete">Ikke i bruk</translation>
     </message>
     <message>
         <source>Use Frame &amp;Shape</source>
-        <translation>Bruk &amp;rammeformen</translation>
+        <translation type="obsolete">Bruk &amp;rammeformen</translation>
     </message>
     <message>
         <source>Image Effects</source>
-        <translation>Bildeeffekter</translation>
+        <translation type="obsolete">Bildeeffekter</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation>Utvidede bildeegenskaper</translation>
+        <translation type="obsolete">Utvidede bildeegenskaper</translation>
     </message>
     <message>
         <source>Disable text flow from lower frames around object</source>
-        <translation>Skru av tekstflyt fra lavere rammer rundt objektet</translation>
+        <translation type="obsolete">Skru av tekstflyt fra lavere rammer rundt objektet</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Bruk rammeformen til tekstflyt for tekstrammer på lavere lag.</translation>
+        <translation type="obsolete">Bruk rammeformen til tekstflyt for tekstrammer på lavere lag.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
+        <translation type="obsolete">Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
     </message>
     <message>
         <source>Transparency Settings</source>
@@ -24343,11 +24367,11 @@ Corners:</source>
     </message>
     <message>
         <source>Group the selected objects</source>
-        <translation>Grupper de valgte objektene</translation>
+        <translation type="obsolete">Grupper de valgte objektene</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation>Automatisk</translation>
+        <translation type="obsolete">Automatisk</translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
@@ -24355,217 +24379,217 @@ Corners:</source>
     </message>
     <message>
         <source>Default</source>
-        <translation>Standard</translation>
+        <translation type="obsolete">Standard</translation>
     </message>
     <message>
         <source>Stair Step</source>
-        <translation>Trappetrinn</translation>
+        <translation type="obsolete">Trappetrinn</translation>
     </message>
     <message>
         <source>Skew</source>
-        <translation>Skråstill</translation>
+        <translation type="obsolete">Skråstill</translation>
     </message>
     <message>
         <source>Flip Text</source>
-        <translation>Snu teksten</translation>
+        <translation type="obsolete">Snu teksten</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Type:</translation>
+        <translation type="obsolete">Type:</translation>
     </message>
     <message>
         <source>Use Image Clip Path</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Paragraph St&amp;yle:</source>
-        <translation>&amp;Avsnittstil:</translation>
+        <translation type="obsolete">&amp;Avsnittstil:</translation>
     </message>
     <message>
         <source>Character St&amp;yle:</source>
-        <translation>&amp;Tegnstil:</translation>
+        <translation type="obsolete">&amp;Tegnstil:</translation>
     </message>
     <message>
         <source>Word Tracking</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Min:</source>
-        <translation>Minste:</translation>
+        <translation type="obsolete">Minste:</translation>
     </message>
     <message>
         <source>Norm:</source>
-        <translation>Normal:</translation>
+        <translation type="obsolete">Normal:</translation>
     </message>
     <message>
         <source>Glyph Extension</source>
-        <translation>Glyffutvidelse</translation>
+        <translation type="obsolete">Glyffutvidelse</translation>
     </message>
     <message>
         <source>Max:</source>
-        <translation>Høyeste:</translation>
+        <translation type="obsolete">Høyeste:</translation>
     </message>
     <message>
         <source>Use the clipping path of the image</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Avsnittstil for den valgte teksten eller det valgte avsnittet</translation>
+        <translation type="obsolete">Avsnittstil for den valgte teksten eller det valgte avsnittet</translation>
     </message>
     <message>
         <source>Character style of currently selected text or paragraph</source>
-        <translation>Tegnstil for den valgte teksten eller det valgte avsnittet</translation>
+        <translation type="obsolete">Tegnstil for den valgte teksten eller det valgte avsnittet</translation>
     </message>
     <message>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Fjern direkte avsnittsformateringer</translation>
+        <translation type="obsolete">Fjern direkte avsnittsformateringer</translation>
     </message>
     <message>
         <source>Remove Direct Character Formatting</source>
-        <translation>Fjern direkte tegnformateringer</translation>
+        <translation type="obsolete">Fjern direkte tegnformateringer</translation>
     </message>
     <message>
         <source>Minimal width of spaces between words</source>
-        <translation>Minste avstand mellom ordene</translation>
+        <translation type="obsolete">Minste avstand mellom ordene</translation>
     </message>
     <message>
         <source>Normal width of spaces between words</source>
-        <translation>Vanlig avstand mellom ordene</translation>
+        <translation type="obsolete">Vanlig avstand mellom ordene</translation>
     </message>
     <message>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>Forminsk glyffene minst mulig for å få jevne marger</translation>
+        <translation type="obsolete">Forminsk glyffene minst mulig for å få jevne marger</translation>
     </message>
     <message>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>Forminsk glyffene mest mulig for å få jevne marger</translation>
+        <translation type="obsolete">Forminsk glyffene mest mulig for å få jevne marger</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation>Skru av eller på at objektet kan eksporteres</translation>
+        <translation type="obsolete">Skru av eller på at objektet kan eksporteres</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Selvvalgt</translation>
+        <translation type="obsolete">Selvvalgt</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Rediger …</translation>
+        <translation type="obsolete">&amp;Rediger …</translation>
     </message>
     <message>
         <source>First Line Offset</source>
-        <translation>Forskyvning av første linje</translation>
+        <translation type="obsolete">Forskyvning av første linje</translation>
     </message>
     <message>
         <source>Maximum Ascent</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Font Ascent</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Color &amp; Effects</source>
-        <translation>Fargeeffekter</translation>
+        <translation type="obsolete">Fargeeffekter</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation>Avanserte innstillinger</translation>
+        <translation type="obsolete">Avanserte innstillinger</translation>
     </message>
     <message>
         <source>Style Settings</source>
-        <translation>Stilinnstillinger</translation>
+        <translation type="obsolete">Stilinnstillinger</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation>Grunnline</translation>
+        <translation type="obsolete">Grunnline</translation>
     </message>
     <message>
         <source>Ungroup the selected group</source>
-        <translation>Løs opp den valgte gruppa</translation>
+        <translation type="obsolete">Løs opp den valgte gruppa</translation>
     </message>
     <message>
         <source>Select the line spacing mode.</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>&amp;Page Number:</source>
-        <translation>&amp;Sidetall:</translation>
+        <translation type="obsolete">&amp;Sidetall:</translation>
     </message>
     <message>
         <source>Columns &amp; Text Distances</source>
-        <translation>Kolonner og  tekstavstander</translation>
+        <translation type="obsolete">Kolonner og  tekstavstander</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Tilbakestill</translation>
+        <translation type="obsolete">Tilbakestill</translation>
     </message>
     <message>
         <source>Optical Margins</source>
-        <translation>Optiske marger</translation>
+        <translation type="obsolete">Optiske marger</translation>
     </message>
     <message>
         <source>Hairline</source>
-        <translation>Hårlinje</translation>
+        <translation type="obsolete">Hårlinje</translation>
     </message>
     <message>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>Ingen</translation>
+        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>Begge sidene</translation>
+        <translation type="obsolete">Begge sidene</translation>
     </message>
     <message>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>Bare til venstre</translation>
+        <translation type="obsolete">Bare til venstre</translation>
     </message>
     <message>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>Bare til høyre</translation>
+        <translation type="obsolete">Bare til høyre</translation>
     </message>
     <message>
         <source>Arrow head style for start of line</source>
-        <translation>Pilhodestil for begynnelsen av linja</translation>
+        <translation type="obsolete">Pilhodestil for begynnelsen av linja</translation>
     </message>
     <message>
         <source>Arrow head style for end of line</source>
-        <translation>Pilhodestil for slutten av linja</translation>
+        <translation type="obsolete">Pilhodestil for slutten av linja</translation>
     </message>
     <message>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -24578,15 +24602,235 @@ Corners:</source>
     </message>
     <message>
         <source>Rotation:</source>
+        <translation type="obsolete">Rotasjon:</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="obsolete">Automatisk</translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation type="obsolete">JPG med tap</translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
+        <translation type="obsolete">Tapsfri – ZIP</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation type="obsolete">Høyeste</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="obsolete">Medium</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="obsolete">Lav</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="obsolete">Laveste</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
+        <translation type="obsolete">Skala:</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Group</name>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Rediger …</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished">Teksten &amp;flyter rundt ramma</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Ikke i bruk</translation>
+    </message>
+    <message>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished">Bruk &amp;rammeformen</translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Bruk &amp;grenseboksen</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">Bruk &amp;konturlinjene</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Disable text flow from lower frames around object</source>
+        <translation type="unfinished">Skru av tekstflyt fra lavere rammer rundt objektet</translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="unfinished">Bruk rammeformen til tekstflyt for tekstrammer på lavere lag.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished">Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
+    </message>
+    <message>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_GroupBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">…</translation>
+    </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Rediger …</translation>
+    </message>
+    <message>
+        <source>Text Flow Around Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Ikke i bruk</translation>
+    </message>
+    <message>
+        <source>textFlowBtnGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Frame Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Bruk &amp;grenseboksen</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">Bruk &amp;konturlinjene</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Image</name>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatisk</translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation type="unfinished">Faktisk oppløsning, vannrett:</translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation type="unfinished">Faktisk oppløsning, loddrett:</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;Vannrett:</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Loddrett:</translation>
+    </message>
+    <message>
+        <source>X-Sc&amp;ale:</source>
+        <translation type="unfinished">&amp;Vannrett skalering:</translation>
+    </message>
+    <message>
+        <source>Y-Scal&amp;e:</source>
+        <translation type="unfinished">&amp;Loddrett skalering:</translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished">&amp;Fri skalering</translation>
+    </message>
+    <message>
+        <source>&amp;Page Number:</source>
+        <translation type="unfinished">&amp;Sidetall:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
         <translation type="unfinished">Rotasjon:</translation>
     </message>
     <message>
-        <source>PDF Compression Method:</source>
+        <source>P&amp;roportional</source>
+        <translation type="unfinished">&amp;Behold bredde/høyde-forholdet</translation>
+    </message>
+    <message>
+        <source>Image Effects</source>
+        <translation type="unfinished">Bildeeffekter</translation>
+    </message>
+    <message>
+        <source>Extended Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF Compression Quality:</source>
+        <source>Input Profile:</source>
+        <translation type="unfinished">Innprofil:</translation>
+    </message>
+    <message>
+        <source>Rendering Intent:</source>
+        <translation type="unfinished">Fargetilpasning:</translation>
+    </message>
+    <message>
+        <source>Method:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation type="unfinished">Sansningsmessig (perseptuell)</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation type="unfinished">Relativ fargeanalyse</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Metning</translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation type="unfinished">Absolutt fargeanalyse</translation>
     </message>
     <message>
         <source>Global</source>
@@ -24603,6 +24847,10 @@ Corners:</source>
     <message>
         <source>Lossless - Zip</source>
         <translation type="unfinished">Tapsfri – ZIP</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -24625,12 +24873,304 @@ Corners:</source>
         <translation type="unfinished">Laveste</translation>
     </message>
     <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation type="unfinished">Vannrett forskyving av bildet innenfor ramma</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation type="unfinished">Loddrett forskyving av bildet innenfor ramma</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation type="unfinished">Skaler bildet vannrett</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation type="unfinished">Skaler bilder loddrett</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation type="unfinished">Behold skaleringa vannrett og loddrett</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation type="unfinished">Tillat bildet å ha en annen størrelse enn ramma</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation type="unfinished">Tilpass bildestørrelsen til ramma</translation>
+    </message>
+    <message>
+        <source>Effective horizontal DPI of the image after scaling</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Effective vertical DPI of the image after scaling</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation type="unfinished">Bruk bildets størrelsesforhold og ikke rammas</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation type="unfinished">Bildets kildeprofil</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation type="unfinished">Bildets fargetilpasning</translation>
+    </message>
+    <message>
+        <source>Compression method used in PDF export for the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression quality used in PDF export for the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_ImageBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="unfinished">Vannrett:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation type="unfinished">Rotasjon:</translation>
+    </message>
+    <message>
+        <source>&amp;Page Number:</source>
+        <translation type="unfinished">&amp;Sidetall:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="unfinished">Loddrett:</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatisk</translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished">Skalering</translation>
+    </message>
+    <message>
+        <source>X-Sc&amp;ale:</source>
+        <translation type="unfinished">&amp;Vannrett skalering:</translation>
+    </message>
+    <message>
+        <source>Y-Scal&amp;e:</source>
+        <translation type="unfinished">&amp;Loddrett skalering:</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">…</translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation type="unfinished">Faktisk oppløsning, vannrett:</translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation type="unfinished">Faktisk oppløsning, loddrett:</translation>
+    </message>
+    <message>
+        <source>Free</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proportional</source>
+        <translation type="unfinished">Proporsjonal</translation>
+    </message>
+    <message>
+        <source>To Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation type="unfinished">Fargehåndtering …</translation>
+    </message>
+    <message>
+        <source>Input Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Intent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Compression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Effects</source>
+        <translation type="unfinished">Bildeeffekter</translation>
+    </message>
+    <message>
+        <source>Extended Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Line</name>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Selvvalgt</translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen stil</translation>
+    </message>
+    <message>
+        <source>Left Point</source>
+        <translation type="unfinished">Venstre punkt</translation>
+    </message>
+    <message>
+        <source>End Points</source>
+        <translation type="unfinished">Endepunkter</translation>
+    </message>
+    <message>
+        <source>&amp;Basepoint:</source>
+        <translation type="unfinished">&amp;Grunnpunkt:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype of Line:</source>
+        <translation type="unfinished">&amp;Linjetype:</translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished">Startpil</translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
+        <translation type="unfinished">Sluttpil</translation>
+    </message>
+    <message>
         <source>Scaling:</source>
         <translation type="unfinished">Skala:</translation>
     </message>
     <message>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished">&amp;Linjebredde:</translation>
+    </message>
+    <message>
+        <source>Ed&amp;ges:</source>
+        <translation type="unfinished">&amp;Kanter:</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Skrå sammenføyning</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished">Rund sammenføyning</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Endings:</source>
+        <translation type="unfinished">&amp;Endelser:</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation type="unfinished">Cellelinjer</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation type="unfinished">Linje øverst</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation type="unfinished">Linje til venstre</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation type="unfinished">Linje til høyre </translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation type="unfinished">Linje nederst</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Hairline</source>
+        <translation type="unfinished">Hårlinje</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation type="unfinished">Endre innstillingene for venstre eller endepunkter</translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation type="unfinished">Linjemønster</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation type="unfinished">Tykkelsen på linja</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation type="unfinished">Type linjesammenføyning</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation type="unfinished">Type linjeavslutning</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation type="unfinished">Linjestil for dette objektet</translation>
+    </message>
+    <message>
+        <source>Arrow head style for start of line</source>
+        <translation type="unfinished">Pilhodestil for begynnelsen av linja</translation>
+    </message>
+    <message>
+        <source>Arrow head style for end of line</source>
+        <translation type="unfinished">Pilhodestil for slutten av linja</translation>
     </message>
     <message>
         <source>Arrow head scale for start of line</source>
@@ -24640,12 +25180,901 @@ Corners:</source>
         <source>Arrow head scale for end of line</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>PropertiesPalette_LineBase</name>
     <message>
-        <source>Compression method used in PDF export for the image</source>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>&amp;Basepoint:</source>
+        <translation type="unfinished">&amp;Grunnpunkt:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype of Line:</source>
+        <translation type="unfinished">&amp;Linjetype:</translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished">Startpil</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
+        <translation type="unfinished">Skala:</translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
+        <translation type="unfinished">Sluttpil</translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished">&amp;Linjebredde:</translation>
+    </message>
+    <message>
+        <source>Hairline</source>
+        <translation type="unfinished">Hårlinje</translation>
+    </message>
+    <message>
+        <source>Ed&amp;ges:</source>
+        <translation type="unfinished">&amp;Kanter:</translation>
+    </message>
+    <message>
+        <source>&amp;Endings:</source>
+        <translation type="unfinished">&amp;Endelser:</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation type="unfinished">Cellelinjer</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation type="unfinished">Linje til venstre</translation>
+    </message>
+    <message>
+        <source>Line at the Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compression quality used in PDF export for the image</source>
+        <source>Line at the Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at the Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Shape</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Shape:</source>
+        <translation type="unfinished">Form:</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation type="unfinished">Velg rammeform …</translation>
+    </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Rediger …</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation type="unfinished">velg radiusen på hjørneavrundingen</translation>
+    </message>
+    <message>
+        <source>R&amp;ound Corners:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished">Fyllregel</translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished">Partall–oddetall</translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished">Ikke null</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished">Teksten &amp;flyter rundt ramma</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Ikke i bruk</translation>
+    </message>
+    <message>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished">Bruk &amp;rammeformen</translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Bruk &amp;grenseboksen</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">Bruk &amp;konturlinjene</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_ShapeBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">…</translation>
+    </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Rediger …</translation>
+    </message>
+    <message>
+        <source>Round Corners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Flow Around Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Ikke i bruk</translation>
+    </message>
+    <message>
+        <source>textFlowBtnGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Frame Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation type="unfinished">Bruk &amp;grenseboksen</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation type="unfinished">Bruk &amp;konturlinjene</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished">Fyllregel</translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished">Partall–oddetall</translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished">Ikke null</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Text</name>
+    <message>
+        <source>Color &amp; Effects</source>
+        <translation type="unfinished">Fargeeffekter</translation>
+    </message>
+    <message>
+        <source>First Line Offset</source>
+        <translation type="unfinished">Forskyvning av første linje</translation>
+    </message>
+    <message>
+        <source>Columns &amp; Text Distances</source>
+        <translation type="unfinished">Kolonner og  tekstavstander</translation>
+    </message>
+    <message>
+        <source>Optical Margins</source>
+        <translation type="unfinished">Optiske marger</translation>
+    </message>
+    <message>
+        <source>Advanced Settings</source>
+        <translation type="unfinished">Avanserte innstillinger</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation type="unfinished">Tekststi-egenskaper</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatisk</translation>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation type="unfinished">Grunnline</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Kolonneavstand</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation type="unfinished">Kolonnebredde</translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">&amp;Avsnittstil:</translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">&amp;Tegnstil:</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation type="unfinished">Fast linjeavstand</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation type="unfinished">Automatisk linjeavstand</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation type="unfinished">Fest til de vannrette linjene</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation type="unfinished">Skriftstørrelse</translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Linjeavstand</translation>
+    </message>
+    <message>
+        <source>Select the line spacing mode.</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished">Avsnittstil for den valgte teksten eller det valgte avsnittet</translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">Tegnstil for den valgte teksten eller det valgte avsnittet</translation>
+    </message>
+    <message>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished">Fjern direkte avsnittsformateringer</translation>
+    </message>
+    <message>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished">Fjern direkte tegnformateringer</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_XYZ</name>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;Vannrett:</translation>
+    </message>
+    <message>
+        <source>&amp;Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Loddrett:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Høyde:</translation>
+    </message>
+    <message>
+        <source>&amp;X1:</source>
+        <translation type="unfinished">Vannrett &amp;1:</translation>
+    </message>
+    <message>
+        <source>X&amp;2:</source>
+        <translation type="unfinished">Vannrett &amp;2:</translation>
+    </message>
+    <message>
+        <source>Y&amp;1:</source>
+        <translation type="unfinished">Loddrett &amp;1:</translation>
+    </message>
+    <message>
+        <source>&amp;Y2:</source>
+        <translation type="unfinished">Loddrett &amp;2:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Bredde:</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Navnet «%1» er ikke entydig.&lt;br/&gt;Du må velge et annet navn.</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Egenskaper</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Navn</translation>
+    </message>
+    <message>
+        <source>Geometry</source>
+        <translation type="unfinished">Plassering og størrelse</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotasjon:</translation>
+    </message>
+    <message>
+        <source>Basepoint:</source>
+        <translation type="unfinished">Grunnpunkt:</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Lag</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation type="unfinished">Det valgte objektets navn</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation type="unfinished">Vannrett plassering av nåværende grunnpunkt</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation type="unfinished">Loddrett plassering av nåværende grunnpunkt</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation type="unfinished">Bredde</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished">Høyde</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation type="unfinished">Rotasjon av objektet ved nåværende grunnpunkt</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation type="unfinished">Startpunkt for målinger og rotasjonsvinkler</translation>
+    </message>
+    <message>
+        <source>Group the selected objects</source>
+        <translation type="unfinished">Grupper de valgte objektene</translation>
+    </message>
+    <message>
+        <source>Ungroup the selected group</source>
+        <translation type="unfinished">Løs opp den valgte gruppa</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation type="unfinished">Speil vannrett</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation type="unfinished">Speil loddrett</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation type="unfinished">Flytt et nivå opp</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation type="unfinished">Flytt et nivå ned</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation type="unfinished">Legg øverst</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation type="unfinished">Legg nederst</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation type="unfinished">Viser hvilket nivået objektet ligger på, 0 betyr at objektet er på bunnen</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation type="unfinished">Lås eller lås opp objektet</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation type="unfinished">Lås eller lås opp objektstørrelsen</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished">Skru av eller på at objektet kan eksporteres</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation type="unfinished">Behold høyde/bredde-forholdet</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_XYZBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Navn</translation>
+    </message>
+    <message>
+        <source>Geometry</source>
+        <translation type="unfinished">Plassering og størrelse</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;Vannrett:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Bredde:</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Loddrett:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Høyde:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotasjon:</translation>
+    </message>
+    <message>
+        <source>Basepoint:</source>
+        <translation type="unfinished">Grunnpunkt:</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">…</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Lag</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation type="unfinished">100 % {0?}</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Advanced</name>
+    <message>
+        <source>Word Tracking</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation type="unfinished">Minste:</translation>
+    </message>
+    <message>
+        <source>Norm:</source>
+        <translation type="unfinished">Normal:</translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation type="unfinished">Glyffutvidelse</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Forskyv til tegnets grunnlinje</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">Minste avstand mellom ordene</translation>
+    </message>
+    <message>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">Vanlig avstand mellom ordene</translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">Forminsk glyffene minst mulig for å få jevne marger</translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">Forminsk glyffene mest mulig for å få jevne marger</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_AdvancedBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation type="unfinished">Minste:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation type="unfinished">Glyffutvidelse</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Distance</name>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished">&amp;Kolonner:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished">Mellomrom:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Bredde:</translation>
+    </message>
+    <message>
+        <source>To&amp;p:</source>
+        <translation type="unfinished">&amp;Toppen:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Venstre:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished">&amp;Høyre:</translation>
+    </message>
+    <message>
+        <source>T&amp;abulators...</source>
+        <translation type="unfinished">&amp;Tabulatorer …</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">Antall kolonner i tekstramma</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">Bytt mellom mellomrom og kolonnebredde</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Kolonneavstand</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">Avstand fra teksten til toppen av ramma</translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">Avstand fra teksten til bunnen av ramma</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">Avstand fra teksten til venstre side av ramma</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">Avstand fra teksten til høyre side av ramma</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">Rediger tabulator-innstillingene til tekstramma …</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_DistanceBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished">&amp;Kolonner:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished">Mellomrom:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Bredde:</translation>
+    </message>
+    <message>
+        <source>To&amp;p:</source>
+        <translation type="unfinished">&amp;Toppen:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Venstre:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished">&amp;Høyre:</translation>
+    </message>
+    <message>
+        <source>T&amp;abulators...</source>
+        <translation type="unfinished">&amp;Tabulatorer …</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Flop</name>
+    <message>
+        <source>Maximum Ascent</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Font Ascent</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Linjeavstand</translation>
+    </message>
+    <message>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_FlopBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Ascent</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>flopGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Ascent</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Linjeavstand</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_OptMargins</name>
+    <message>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Begge sidene</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Bare til venstre</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Bare til høyre</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished">Tilbakestill</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_OptMarginsBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <translation type="unfinished">Begge sidene</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <translation type="unfinished">Bare til venstre</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <translation type="unfinished">Bare til høyre</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished">Tilbakestill</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_PathText</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished">Standard</translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation type="unfinished">Trappetrinn</translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation type="unfinished">Skråstill</translation>
+    </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished">Snu teksten</translation>
+    </message>
+    <message>
+        <source>Show Curve</source>
+        <translation type="unfinished">Vis kurve</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Start Offset:</source>
+        <translation type="unfinished">Start forskyvning:</translation>
+    </message>
+    <message>
+        <source>Distance from Curve:</source>
+        <translation type="unfinished">Avstand fra kurve:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_PathTextBase</name>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Start Offset:</source>
+        <translation type="unfinished">Start forskyvning:</translation>
+    </message>
+    <message>
+        <source>Distance from Curve:</source>
+        <translation type="unfinished">Avstand fra kurve:</translation>
+    </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished">Snu teksten</translation>
+    </message>
+    <message>
+        <source>Show Curve</source>
+        <translation type="unfinished">Vis kurve</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_TextColor</name>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">Fargen på den valgte teksten. Hvis omriss er på, er dette fyllfargen. Hvis tekstskygge er på, er dette den øverste fargen.</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished">Fargen på tekststreken og/eller tekstskyggen, avhengig av hva du velger. Hvis du velger begge, får de samme farge.</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">Metning av tekstfyllets farge</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished">Skriv fra høyre til venstre</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_TextColorBase</name>
+    <message>
+        <source>Frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -38751,15 +40180,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Edit Line Color Properties</source>
-        <translation type="unfinished">Rediger egenskapene til linjefargen</translation>
+        <translation type="obsolete">Rediger egenskapene til linjefargen</translation>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation type="unfinished">Rediger egenskapene til fyllfargen</translation>
+        <translation type="obsolete">Rediger egenskapene til fyllfargen</translation>
     </message>
     <message>
         <source>Solid</source>
-        <translation type="unfinished">Heltrukken</translation>
+        <translation type="obsolete">Heltrukken</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -38767,15 +40196,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished">Fargemetning</translation>
+        <translation type="obsolete">Fargemetning</translation>
     </message>
     <message>
         <source> %</source>
         <translation type="unfinished"> %</translation>
-    </message>
-    <message>
-        <source>Gradient</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Linear</source>
@@ -38787,7 +40212,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="unfinished">Flytt begynnelsen av skraveringsvektoren med venstre museknapp nede og Flytt slutten av skraveringsvektoren med høyre museknapp nede.</translation>
+        <translation type="obsolete">Flytt begynnelsen av skraveringsvektoren med venstre museknapp nede og Flytt slutten av skraveringsvektoren med høyre museknapp nede.</translation>
     </message>
     <message>
         <source>Move Vector</source>
@@ -38795,7 +40220,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="unfinished">Mønster</translation>
+        <translation type="obsolete">Mønster</translation>
     </message>
     <message>
         <source>Pattern follows Path</source>
@@ -38843,7 +40268,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Display all colors from the document color list, or only the already used colors</source>
-        <translation type="unfinished">Vis alle fargene fra dokumentets fargeliste, eller bare de som allerede er i bruk</translation>
+        <translation type="obsolete">Vis alle fargene fra dokumentets fargeliste, eller bare de som allerede er i bruk</translation>
     </message>
     <message>
         <source>Display only used colors</source>
@@ -38863,6 +40288,26 @@ converting their vector data into Scribus objects.</source>
         <source>Overprint</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <source>Stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stroke Mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
