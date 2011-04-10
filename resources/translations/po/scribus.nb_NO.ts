@@ -1787,6 +1787,10 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <source>New &amp;from Template...</source>
         <translation>Ny &amp;fra mal …</translation>
     </message>
+    <message>
+        <source>Paste Image from Clipboard</source>
+        <translation type="unfinished">Lim inn bilde fra utklippstavla </translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -5753,7 +5757,7 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>Paste Image from Clipboard</source>
-        <translation>Lim inn bilde fra utklippstavla </translation>
+        <translation type="obsolete">Lim inn bilde fra utklippstavla </translation>
     </message>
 </context>
 <context>
@@ -6307,7 +6311,7 @@ Manglende bibliotekstøtte vises med *</translation>
     </message>
     <message>
         <source>Curve Files (*.scu *.scu);;All Files (*)</source>
-        <translation>Kurvefiler (*.scu *.SCU);;Alle filer (*)</translation>
+        <translation type="obsolete">Kurvefiler (*.scu *.SCU);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
