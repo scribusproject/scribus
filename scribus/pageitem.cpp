@@ -1029,104 +1029,104 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	else
 	{
-	if (!isGroupControl)
-	{
-		if (fillBlendmode() != 0)
-			p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
+		if (!isGroupControl)
+		{
+			if (fillBlendmode() != 0)
+				p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
 
-		p->setLineWidth(m_lineWidth);
-		if (GrType != 0)
-		{
-			if (GrType == 8)
+			p->setLineWidth(m_lineWidth);
+			if (GrType != 0)
 			{
-				if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
+				if (GrType == 8)
 				{
-					p->fill_gradient = VGradient(VGradient::linear);
-					if (fillColor() != CommonStrings::None)
+					if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
 					{
-						p->setBrush(fillQColor);
-						p->setFillMode(ScPainter::Solid);
+						p->fill_gradient = VGradient(VGradient::linear);
+						if (fillColor() != CommonStrings::None)
+						{
+							p->setBrush(fillQColor);
+							p->setFillMode(ScPainter::Solid);
+						}
+						else
+							p->setFillMode(ScPainter::None);
+						if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
+						{
+							GrType = 0;
+							patternVal = "";
+						}
 					}
 					else
-						p->setFillMode(ScPainter::None);
-					if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
 					{
-						GrType = 0;
-						patternVal = "";
+						p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+						p->setFillMode(ScPainter::Pattern);
 					}
 				}
 				else
 				{
-					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-					p->setFillMode(ScPainter::Pattern);
-				}
-			}
-			else
-			{
-				if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
-				{
-					if (fillColor() != CommonStrings::None)
+					if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
 					{
-						p->setBrush(fillQColor);
-						p->setFillMode(ScPainter::Solid);
+						if (fillColor() != CommonStrings::None)
+						{
+							p->setBrush(fillQColor);
+							p->setFillMode(ScPainter::Solid);
+						}
+						else
+							p->setFillMode(ScPainter::None);
 					}
 					else
-						p->setFillMode(ScPainter::None);
-				}
-				else
-				{
-					p->setFillMode(ScPainter::Gradient);
-					p->fill_gradient = fill_gradient;
-					QMatrix grm;
-					grm.rotate(Rot);
-					FPointArray gra;
-					switch (GrType)
 					{
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 6:
-							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
-							break;
-						case 5:
-						case 7:
-							gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-							p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-							break;
+						p->setFillMode(ScPainter::Gradient);
+						p->fill_gradient = fill_gradient;
+						QMatrix grm;
+						grm.rotate(Rot);
+						FPointArray gra;
+						switch (GrType)
+						{
+							case 1:
+							case 2:
+							case 3:
+							case 4:
+							case 6:
+								p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
+								break;
+							case 5:
+							case 7:
+								gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+								p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+								break;
+						}
 					}
 				}
 			}
-		}
-		else
-		{
-			p->fill_gradient = VGradient(VGradient::linear);
-			if (fillColor() != CommonStrings::None)
+			else
 			{
-				p->setBrush(fillQColor);
-				p->setFillMode(ScPainter::Solid);
+				p->fill_gradient = VGradient(VGradient::linear);
+				if (fillColor() != CommonStrings::None)
+				{
+					p->setBrush(fillQColor);
+					p->setFillMode(ScPainter::Solid);
+				}
+				else
+					p->setFillMode(ScPainter::None);
+			}
+			if (lineColor() != CommonStrings::None)
+			{
+//				if ((m_lineWidth == 0) && ! asLine())
+//					p->setLineWidth(0);
+//				else
+//				{
+					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					if (DashValues.count() != 0)
+						p->setDash(DashValues, DashOffset);
+//				}
 			}
 			else
-				p->setFillMode(ScPainter::None);
-		}
-		if (lineColor() != CommonStrings::None)
-		{
-//			if ((m_lineWidth == 0) && ! asLine())
-//				p->setLineWidth(0);
-//			else
-//			{
-				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-				if (DashValues.count() != 0)
-					p->setDash(DashValues, DashOffset);
-//			}
-		}
-		else
-			p->setLineWidth(0);
-		if (fillBlendmode() == 0)
-			p->setBrushOpacity(1.0 - fillTransparency());
-		if (lineBlendmode() == 0)
-			p->setPenOpacity(1.0 - lineTransparency());
-		p->setFillRule(fillRule);
+				p->setLineWidth(0);
+			if (fillBlendmode() == 0)
+				p->setBrushOpacity(1.0 - fillTransparency());
+			if (lineBlendmode() == 0)
+				p->setPenOpacity(1.0 - lineTransparency());
+			p->setFillRule(fillRule);
 		}
 	}
 }
