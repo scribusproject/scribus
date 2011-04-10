@@ -3126,9 +3126,11 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	ll.isPrintable = false;
 	if (Options.UseLPI)
 		PutPage("/"+HTName+" gs\n");
-	double bleedRight = 0.0;
-	double bleedLeft = 0.0;
-	double markOffs = 0.0;
+	double bleedRight  = 0.0;
+	double bleedLeft   = 0.0;
+	double bleedBottom = 0.0;
+	double bleedTop    = 0.0;
+	double markOffs    = 0.0;
 	bleedDisplacementX = 0.0;
 	bleedDisplacementY = 0.0;
 	PutPage("q\n"); // Save
@@ -3137,11 +3139,18 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	// #8773 - incorrect page position if MPageNam.isEmpty()
 	/*if (!pag->MPageNam.isEmpty())
 	{*/
-		getBleeds(ActPageP, bleedLeft, bleedRight);
+		getBleeds(ActPageP, bleedLeft, bleedRight, bleedBottom, bleedTop);
 		PutPage("1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
 		bleedDisplacementX = bleedLeft+markOffs;
 		bleedDisplacementY = Options.bleeds.Bottom+markOffs;
 	/*}*/
+	//#9385 : clip to BleedBox
+	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
+	{
+		double bbWidth  = ActPageP->width()  + bleedLeft + bleedRight;
+		double bbHeight = ActPageP->height() + bleedBottom + bleedTop;
+		PutPage( QString("%1 %2 %3 %4 re W n\n").arg(FToStr(-bleedLeft)).arg(FToStr(-bleedBottom)).arg(FToStr(bbWidth)).arg(FToStr(bbHeight)) );
+	}
 	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
 	if ( (Options.MirrorV) && (!pag->MPageNam.isEmpty()) )
