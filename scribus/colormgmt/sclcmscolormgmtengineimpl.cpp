@@ -345,8 +345,9 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& e
 		catch (lcmsException& e)
 		{
 			std::cerr << e.what() << std::endl;
-			if (transform.isNull() && hTransform)
-				cmsDeleteTransform(hTransform);
+			// #9922 : no idea why that crash in release mode
+			/*if (transform.isNull() && hTransform)
+				cmsDeleteTransform(hTransform);*/
 			transform = ScColorTransform();
 		}
 		cmsSetErrorHandler(NULL);
@@ -426,8 +427,9 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
 			catch (lcmsException& e)
 			{
 				std::cerr << e.what() << std::endl;
-				if (transform.isNull() && hTransform)
-					cmsDeleteTransform(hTransform);
+				// #9922 : no idea why that crash in release mode
+				/*if (transform.isNull() && hTransform)
+					cmsDeleteTransform(hTransform);*/
 				transform = ScColorTransform();
 			}
 			cmsSetErrorHandler(NULL);
@@ -472,8 +474,9 @@ ScColorTransform ScLcmsColorMgmtEngineImpl::createProofingTransform(ScColorMgmtE
 			catch (lcmsException& e)
 			{
 				std::cerr << e.what() << std::endl;
-				if (transform.isNull() && hTransform)
-					cmsDeleteTransform(hTransform);
+				// #9922 : no idea why that crash in release mode
+				/*if (transform.isNull() && hTransform)
+					cmsDeleteTransform(hTransform);*/
 				transform = ScColorTransform();
 			}
 			cmsSetErrorHandler(NULL);
