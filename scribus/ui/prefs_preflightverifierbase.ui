@@ -239,7 +239,7 @@
        <item>
         <widget class="QCheckBox" name="checkPartFilledImageFramesCheckBox">
          <property name="text">
-          <string>Check for part filed image frames</string>
+          <string>Check for part filled image frames</string>
          </property>
         </widget>
        </item>
