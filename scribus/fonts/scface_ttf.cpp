@@ -207,7 +207,7 @@ void KernFeature::makeCoverage()
 					}
 					else
 					{
-						for ( unsigned int gl ( Start ); gl >= End; --gl )
+						for ( int gl ( Start ); gl >= (int) End; --gl )
 							coverages[SubTable]  << gl;
 					}
 				}
