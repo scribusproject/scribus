@@ -79,10 +79,10 @@ void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 	wheelJumpSpin->setValue( prefsData->Wheelval );
 	spinTimeout->setValue(prefsData->moveTimeout);
 	recentDocs->setValue( prefsData->RecentDCount );
-	Docs->setText(QDir::convertSeparators(prefsData->DocDir));
-	ProPfad->setText(QDir::convertSeparators(prefsData->ProfileDir));
-	ScriptPfad->setText(QDir::convertSeparators(prefsData->ScriptDir));
-	DocumentTemplateDir->setText(QDir::convertSeparators(prefsData->documentTemplatesDir));
+	Docs->setText(QDir::toNativeSeparators(prefsData->DocDir));
+	ProPfad->setText(QDir::toNativeSeparators(prefsData->ProfileDir));
+	ScriptPfad->setText(QDir::toNativeSeparators(prefsData->ScriptDir));
+	DocumentTemplateDir->setText(QDir::toNativeSeparators(prefsData->documentTemplatesDir));
 	startUpDialog->setChecked(prefsData->showStartupDialog);
 	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 	useSmallWidgetsCheck->setChecked(prefsData->useSmallWidgets);
@@ -97,26 +97,26 @@ void TabGeneral::changeDocs()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), Docs->text());
 	if (!s.isEmpty())
-		Docs->setText( QDir::convertSeparators(s) );
+		Docs->setText( QDir::toNativeSeparators(s) );
 }
 
 void TabGeneral::changeProfs()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), ProPfad->text());
 	if (!s.isEmpty())
-		ProPfad->setText( QDir::convertSeparators(s) );
+		ProPfad->setText( QDir::toNativeSeparators(s) );
 }
 
 void TabGeneral::changeScripts()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), ScriptPfad->text());
 	if (!s.isEmpty())
-		ScriptPfad->setText( QDir::convertSeparators(s) );
+		ScriptPfad->setText( QDir::toNativeSeparators(s) );
 }
 
 void TabGeneral::changeDocumentTemplates()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), DocumentTemplateDir->text());
 	if (!s.isEmpty())
-		DocumentTemplateDir->setText( QDir::convertSeparators(s) );
+		DocumentTemplateDir->setText( QDir::toNativeSeparators(s) );
 }

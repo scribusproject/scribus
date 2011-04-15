@@ -89,12 +89,12 @@ const QStringList TabExternalToolsWidget::newLatexConfigs() const
 
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	psToolLineEdit->setText(QDir::convertSeparators(prefsData->gs_exe));
+	psToolLineEdit->setText(QDir::toNativeSeparators(prefsData->gs_exe));
 	psAntialiasTextCheckBox->setChecked(prefsData->gs_AntiAliasText);
 	psAntialiasGraphicsCheckBox->setChecked(prefsData->gs_AntiAliasGraphics);
 	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
-	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->imageEditorExecutable));
-	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extBrowserExecutable));
+	imageToolLineEdit->setText(QDir::toNativeSeparators(prefsData->imageEditorExecutable));
+	extBrowserToolLineEdit->setText(QDir::toNativeSeparators(prefsData->extBrowserExecutable));
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
@@ -113,7 +113,7 @@ void TabExternalToolsWidget::changePostScriptTool()
 	QFileInfo fi(psToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate Ghostscript"), fi.path());
 	if (!s.isEmpty())
-		psToolLineEdit->setText( QDir::convertSeparators(s) );
+		psToolLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void TabExternalToolsWidget::changeImageTool()
@@ -121,7 +121,7 @@ void TabExternalToolsWidget::changeImageTool()
 	QFileInfo fi(imageToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your image editor"), fi.path());
 	if (!s.isEmpty())
-		imageToolLineEdit->setText( QDir::convertSeparators(s) );
+		imageToolLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void TabExternalToolsWidget::changeExtBrowserTool()
@@ -129,7 +129,7 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 	QFileInfo fi(extBrowserToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your web browser"), fi.path());
 	if (!s.isEmpty())
-		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
+		extBrowserToolLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void TabExternalToolsWidget::changeLatexEditor()
@@ -137,7 +137,7 @@ void TabExternalToolsWidget::changeLatexEditor()
 	QFileInfo fi(latexEditorLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your editor"), fi.path());
 	if (!s.isEmpty()) {
-		s = QDir::convertSeparators(s);
+		s = QDir::toNativeSeparators(s);
 		if (s.contains(' ') && !s.contains('"'))
 			s = QString("\"%1\"").arg(s);
 		latexEditorLineEdit->setText(s);
@@ -237,7 +237,7 @@ void TabExternalToolsWidget::rescanForTools()
 	if (!fileInPath(psToolLineEdit->text()))
 	{
 		QString gsDef = getGSDefaultExeName();
-		psToolLineEdit->setText( QDir::convertSeparators(gsDef) );
+		psToolLineEdit->setText( QDir::toNativeSeparators(gsDef) );
 	}
 	
 	if (!fileInPath(imageToolLineEdit->text()))

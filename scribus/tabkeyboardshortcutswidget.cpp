@@ -264,7 +264,7 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 void TabKeyboardShortcutsWidget::resetKeySet()
 {
 	QString location=ScPaths::instance().shareDir();
-	QString defaultKeySetFileName=QDir::convertSeparators(location+"keysets/scribus13.xml");
+	QString defaultKeySetFileName=QDir::toNativeSeparators(location+"keysets/scribus13.xml");
 	importKeySet(defaultKeySetFileName);	
 }
 
@@ -272,14 +272,14 @@ QStringList TabKeyboardShortcutsWidget::scanForSets()
 {
 	keySetList.clear();
 	QString location=ScPaths::instance().shareDir();
-	QString keySetLocation=QDir::convertSeparators(location+"keysets/");
+	QString keySetLocation=QDir::toNativeSeparators(location+"keysets/");
 	QDir keySetsDir(keySetLocation, "*.xml", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((keySetsDir.exists()) && (keySetsDir.count() != 0))
 	{
 		QStringList appNames;
 		for (uint fileCounter = 0; fileCounter < keySetsDir.count(); ++fileCounter)
 		{
-			QString filename=QDir::convertSeparators(location+"keysets/"+keySetsDir[fileCounter]);
+			QString filename=QDir::toNativeSeparators(location+"keysets/"+keySetsDir[fileCounter]);
 			
 			QDomDocument doc( "keymapentries" );
 			QFile file( filename );

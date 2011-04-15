@@ -169,16 +169,16 @@ void PatternDialog::loadPatternDir()
 			{
 				mainWin->mainWindowProgressBar->setValue(dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
-					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+					loadVectors(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
 					continue;
@@ -189,7 +189,7 @@ void PatternDialog::loadPatternDir()
 					{
 						ScPattern pat = ScPattern();
 						pat.setDoc(m_doc);
-						pat.setPattern(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+						pat.setPattern(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 						dialogPatterns.insert(patNam, pat);
 						origNames.insert(patNam, patNam);
 					}

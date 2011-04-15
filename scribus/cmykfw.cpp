@@ -216,7 +216,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 		realEx.clear();
 		for (int m = 0; m < Cust.count(); ++m)
 		{
-			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() + Cust[m]);
+			QString Cpfad = QDir::toNativeSeparators( ScPaths::getApplicationDataDir() + Cust[m]);
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
@@ -609,7 +609,7 @@ void CMYKChoose::SelSwatch(int n)
 			QString listText = Swatches->itemText(n);
 			listText.replace(" ", "_");
 			listText += ".xml";
-			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir() + listText);
+			pfadC2 = QDir::toNativeSeparators(ScPaths::getApplicationDataDir() + listText);
 		}
 		if (n != 0)
 		{

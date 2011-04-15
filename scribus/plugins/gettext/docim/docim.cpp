@@ -102,7 +102,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	//connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
 #if defined(_WIN32)
 	QStringList envVar;
-	QString homeDir =  QDir::convertSeparators(ScPaths::instance().libDir() + "tools");
+	QString homeDir =  QDir::toNativeSeparators(ScPaths::instance().libDir() + "tools");
 	envVar.append( QString("HOME=%1").arg(homeDir) );
 	proc->setEnvironment(envVar);
 #endif

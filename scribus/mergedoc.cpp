@@ -155,7 +155,7 @@ void MergeDoc::changeFile()
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			if ((ret) && (count != 0))
 			{
-				fromDocData->setText( QDir::convertSeparators(fn) );
+				fromDocData->setText( QDir::toNativeSeparators(fn) );
 				importButton->setEnabled(true);
 				if (masterPages)
 				{

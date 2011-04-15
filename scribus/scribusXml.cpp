@@ -1369,21 +1369,21 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			if (!OB.Pfile.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile));
+				QString test = QDir::cleanPath(QDir::toNativeSeparators(pfi.absolutePath()+"/"+OB.Pfile));
 				QFileInfo pfi2(test);
 				OB.Pfile = pfi2.absoluteFilePath();
 			}
 			if (!OB.Pfile2.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
+				QString test = QDir::cleanPath(QDir::toNativeSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
 				QFileInfo pfi2(test);
 				OB.Pfile2 = pfi2.absoluteFilePath();
 			}
 			if (!OB.Pfile3.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
+				QString test = QDir::cleanPath(QDir::toNativeSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
 				QFileInfo pfi2(test);
 				OB.Pfile3 = pfi2.absoluteFilePath();
 			}
@@ -1671,21 +1671,21 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			if (!OB.Pfile.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile));
+				QString test = QDir::cleanPath(QDir::toNativeSeparators(pfi.absolutePath()+"/"+OB.Pfile));
 				QFileInfo pfi2(test);
 				OB.Pfile = pfi2.absoluteFilePath();
 			}
 			if (!OB.Pfile2.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
+				QString test = QDir::cleanPath(QDir::toNativeSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
 				QFileInfo pfi2(test);
 				OB.Pfile2 = pfi2.absoluteFilePath();
 			}
 			if (!OB.Pfile3.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
+				QString test = QDir::cleanPath(QDir::toNativeSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
 				QFileInfo pfi2(test);
 				OB.Pfile3 = pfi2.absoluteFilePath();
 			}

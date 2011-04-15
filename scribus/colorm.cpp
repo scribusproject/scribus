@@ -124,7 +124,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 			realEx.clear();
 			for (int m = 0; m < custColSet.count(); ++m)
 			{
-				QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + custColSet[m]);
+				QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir() + custColSet[m]);
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
@@ -154,7 +154,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 				QString Fname = docColSet;
 				Fname.replace(" ", "_");
 				Fname += ".xml";
-				pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+"swatches/"+Fname);
+				pfadC2 = QDir::toNativeSeparators(ScPaths::getApplicationDataDir()+"swatches/"+Fname);
 			}
 			QFileInfo fi(pfadC2);
 			if (fi.absolutePath() == ScPaths::getApplicationDataDir()+"swatches/locked")
@@ -219,7 +219,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 
 void ColorManager::saveDefaults()
 {
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"swatches/";
+	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"swatches/";
 	QString Name = LoadColSet->currentText();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
@@ -304,7 +304,7 @@ void ColorManager::loadDefaults(const QString &txt)
 			QString Fname = txt;
 			Fname.replace(" ", "_");
 			Fname += ".xml";
-			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+"swatches/"+Fname);
+			pfadC2 = QDir::toNativeSeparators(ScPaths::getApplicationDataDir()+"swatches/"+Fname);
 		}
 	}
 	if (txt != "Scribus Small")

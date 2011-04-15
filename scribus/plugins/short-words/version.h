@@ -19,8 +19,8 @@ or documentation
 #ifndef _SCRIBUS_SHORTVER_H_
 #define _SCRIBUS_SHORTVER_H_
 
-#define RC_PATH QDir::convertSeparators(ScPaths::instance().shareDir() + "/plugins/scribus-short-words.rc")
-#define RC_PATH_USR QDir::convertSeparators(ScPaths::getApplicationDataDir() + "/scribus-short-words.rc")
+#define RC_PATH QDir::toNativeSeparators(ScPaths::instance().shareDir() + "/plugins/scribus-short-words.rc")
+#define RC_PATH_USR QDir::toNativeSeparators(ScPaths::getApplicationDataDir() + "/scribus-short-words.rc")
 
 #define SPACE QChar(' ')
 

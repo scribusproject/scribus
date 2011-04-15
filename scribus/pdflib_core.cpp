@@ -508,7 +508,7 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 		jpgFileName = fn;
 	else
 	{
-		tmpFile  = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
+		tmpFile  = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 		if ((gray) && (!precal))
 			image.convertToGray();
 		if (image.Convert2JPG(tmpFile, Options.Quality, cmyk, gray))
@@ -6749,7 +6749,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		{
 			if (extensionIndicatesEPSorPS(ext))
 			{
-				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.pdf");
+				QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.pdf");
 				QStringList opts;
 				opts.append("-dEPSCrop");
 				if (Options.Version >= PDFOptions::PDFVersion_14)
