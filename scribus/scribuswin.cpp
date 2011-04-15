@@ -103,7 +103,7 @@ void ScribusWin::slotAutoSave()
 		{
 			//#8081 related : do not unset modified flag until user really save file
 			//m_Doc->setModified(false);
-			setWindowTitle(QDir::convertSeparators(m_Doc->DocName));
+			setWindowTitle(QDir::toNativeSeparators(m_Doc->DocName));
 			qApp->processEvents();
 			emit AutoSaved();
 		}
@@ -124,7 +124,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
-												QDir::convertSeparators(m_Doc->DocName)+"\n"+
+												QDir::toNativeSeparators(m_Doc->DocName)+"\n"+
 												tr("has been changed since the last save."),
 												QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
 												QMessageBox::Cancel);

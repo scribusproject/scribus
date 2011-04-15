@@ -52,7 +52,7 @@ void* PluginManager::loadDLL( QString plugin )
 {
 	void* lib = NULL;
 #ifdef HAVE_DLFCN_H
-	QString libpath = QDir::convertSeparators( plugin );
+	QString libpath = QDir::toNativeSeparators( plugin );
 	lib = dlopen(libpath.toLocal8Bit().data(), RTLD_LAZY | RTLD_GLOBAL);
 	if (!lib)
 	{
@@ -63,7 +63,7 @@ void* PluginManager::loadDLL( QString plugin )
 	}
 	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
-	QString libpath = QDir::convertSeparators( plugin );
+	QString libpath = QDir::toNativeSeparators( plugin );
 	HINSTANCE hdll = LoadLibraryW( (const wchar_t*) libpath.utf16() );
 	lib = (void*) hdll;
 #else

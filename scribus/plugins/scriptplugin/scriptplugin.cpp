@@ -222,7 +222,7 @@ void run()
 {
 	QString pfad = ScPaths::instance().docDir();
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
+	pfad2 = QDir::toNativeSeparators(pfad + "en/Scripter/index.html");
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScCore->primaryMainWindow()->getGuiLanguage(), "scripter");
 	dia->show();
 }

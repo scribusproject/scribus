@@ -661,17 +661,17 @@ int PPreview::RenderPreview(int Seite, int Res)
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd1 = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
+		cmd1 = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
+		cmd1 += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
 	if( !cmd1.isEmpty() )
 		args.append( cmd1 );
 	// then add any final args and call gs
 	if ((EnableCMYK->isChecked()) && HaveTiffSep)
-		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
 	else
-		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.png")) );
-	args.append( QDir::convertSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.png")) );
+	args.append( QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "-c" );
@@ -756,14 +756,14 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
+		cmd = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
+		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
 	if( !cmd.isEmpty() )
 		args1.append( cmd );
-	args1.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
+	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
 
-	args2.append( QDir::convertSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
+	args2.append( QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
 	args2.append("-c");
 	args2.append("quit");
 
@@ -781,7 +781,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	}
 	allSeps += "]";
 	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
-	QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+	QFile fx(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 	if (fx.open(QIODevice::WriteOnly))
 	{
 		QTextStream tsx(&fx);
@@ -789,14 +789,14 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		fx.close();
 	}
 	args3.append("-f");
-	args3.append(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+	args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 //	args3.append(cmd);
 
 //	args3.append("-f");
 	QString gsExe(getShortPathName(prefsManager->ghostscriptExecutable()));
 	ret = System(gsExe, args1 + args3 + args2, ScPaths::getTempFileDir()+"/sc.tif.txt" );
 
-	QFile sepInfo(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif.txt"));
+	QFile sepInfo(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
 	if (sepInfo.open(QIODevice::ReadOnly))
 	{
@@ -825,7 +825,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
-			QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+			QFile fx(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 			if (fx.open(QIODevice::WriteOnly))
 			{
 				QTextStream tsx(&fx);
@@ -833,7 +833,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 				fx.close();
 			}
 			args3.append("-f");
-			args3.append(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+			args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 	//		args3.append("-c");
 	//		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 	//		args3.append("-f");
@@ -846,7 +846,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	{
 		args3.clear();
 		args3.append("-sDEVICE=tiffsep");
-		QFile fx(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+		QFile fx(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 		if (fx.open(QIODevice::WriteOnly))
 		{
 			QTextStream tsx(&fx);
@@ -854,7 +854,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			fx.close();
 		}
 		args3.append("-f");
-		args3.append(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+		args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 	//	args3.append("-c");
 	//	args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 	//	args3.append("-f");

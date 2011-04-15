@@ -91,8 +91,8 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		if (tempBuf.startsWith("%PDF"))
 		{
 			QString tmp, cmd1, cmd2;
-			QString pdfFile = QDir::convertSeparators(fName);
-			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+			QString pdfFile = QDir::toNativeSeparators(fName);
+			QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
 			int ret = -1;
 			tmp.setNum(1);
 			QStringList args;

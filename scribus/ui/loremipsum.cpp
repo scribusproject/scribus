@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 
 QString getLoremLocation(QString fname)
 {
-	return QDir::convertSeparators(ScPaths::instance().shareDir() + "/loremipsum/" + fname);
+	return QDir::toNativeSeparators(ScPaths::instance().shareDir() + "/loremipsum/" + fname);
 }
 
 LoremParser::LoremParser(QString fname)

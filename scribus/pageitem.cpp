@@ -6045,7 +6045,7 @@ void PageItem::setExternalFile(QString val)
 		QString test = Pfile;
 		if (QDir::isRelativePath(test))
 			test = QDir::homePath()+"/"+Pfile;
-		test = QDir::cleanPath(QDir::convertSeparators(test));
+		test = QDir::cleanPath(QDir::toNativeSeparators(test));
 		QFileInfo pfi2(test);
 		Pfile = pfi2.absoluteFilePath();
 	}
@@ -6056,7 +6056,7 @@ void PageItem::setFileIconPressed(QString val)
 	Pfile2 = val;
 	if (!Pfile2.isEmpty())
 	{
-		QString test = QDir::cleanPath(QDir::convertSeparators(QDir::homePath()+"/"+Pfile2));
+		QString test = QDir::cleanPath(QDir::toNativeSeparators(QDir::homePath()+"/"+Pfile2));
 		QFileInfo pfi2(test);
 		Pfile2 = pfi2.absoluteFilePath();
 	}
@@ -6067,7 +6067,7 @@ void PageItem::setFileIconRollover(QString val)
 	Pfile3 = val;
 	if (!Pfile3.isEmpty())
 	{
-		QString test = QDir::cleanPath(QDir::convertSeparators(QDir::homePath()+"/"+Pfile3));
+		QString test = QDir::cleanPath(QDir::toNativeSeparators(QDir::homePath()+"/"+Pfile3));
 		QFileInfo pfi2(test);
 		Pfile3 = pfi2.absoluteFilePath();
 	}

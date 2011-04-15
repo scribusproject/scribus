@@ -81,9 +81,9 @@ int callGS(const QStringList& args_in, const QString device)
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
+		cmd = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
+		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
 	if( !cmd.isEmpty() )
 		args.append( cmd );
 
@@ -165,8 +165,8 @@ int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 			args.append( QString("-dLanguageLevel=%1").arg(level) );
 	}
 	args += opts;
-	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
-	args.append( QDir::convertSeparators(in) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(out)) );
+	args.append( QDir::toNativeSeparators(in) );
 	int ret = System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
 	return ret;
 }
@@ -182,8 +182,8 @@ int convertPS2PDF(QString in, QString out, const QStringList& opts)
 	args.append( "-dBATCH" );
 	args.append( "-sDEVICE=pdfwrite" );
 	args += opts;
-	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
-	args.append( QDir::convertSeparators(in) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(out)) );
+	args.append( QDir::toNativeSeparators(in) );
 	int ret = System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
 	return ret;
 }
@@ -373,8 +373,8 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey)
 QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
-	QString pdfFile = QDir::convertSeparators(fn);
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString pdfFile = QDir::toNativeSeparators(fn);
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QPixmap pm;
 	int ret = -1;
 	tmp.setNum(Page);

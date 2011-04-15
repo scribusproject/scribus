@@ -16,7 +16,7 @@ nftsettings::nftsettings(QString guilang)
 {
 	lang = guilang;
 	scribusShare = ScPaths::instance().templateDir();
-	scribusUserHome = QDir::convertSeparators(ScPaths::getApplicationDataDir());
+	scribusUserHome = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
 
 	read();
 }
@@ -40,7 +40,7 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 {
 	// Add templates from the dir itself
 	QString tmplFile = findTemplateXml(dir);
-	QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
+	QFile* tmplxml = new QFile(QDir::toNativeSeparators(tmplFile));
 	handler->setSourceDir(dir);
 	handler->setSourceFile(tmplFile);
 	if (tmplxml->exists())
@@ -61,7 +61,7 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 		for (int i = 0; i < dirs.size(); ++i)
 		{
 			tmplFile = findTemplateXml(dir + "/" + dirs[i]);
-			QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
+			QFile* tmplxml = new QFile(QDir::toNativeSeparators(tmplFile));
 			handler->setSourceDir(dir+"/"+dirs[i]);
 			handler->setSourceFile(tmplFile);
 			if (tmplxml->exists())

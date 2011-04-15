@@ -79,7 +79,7 @@ void PageItem_OSGFrame::setExternalModelFile(QString val)
 		QString test = modelFile;
 		if (QDir::isRelativePath(test))
 			test = QDir::homePath()+"/"+modelFile;
-		test = QDir::cleanPath(QDir::convertSeparators(test));
+		test = QDir::cleanPath(QDir::toNativeSeparators(test));
 		QFileInfo pfi2(test);
 		modelFile = pfi2.absoluteFilePath();
 	}

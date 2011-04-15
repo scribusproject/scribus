@@ -1227,16 +1227,16 @@ void PaintManagerDialog::loadPatternDir()
 			{
 				mainWin->mainWindowProgressBar->setValue(dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
 				if ((ext == "sce") || (!formats.contains(ext)))
-					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+					loadVectors(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
 				if ((ext == "sce") || (!formats.contains(ext)))
 					continue;
@@ -1247,7 +1247,7 @@ void PaintManagerDialog::loadPatternDir()
 					{
 						ScPattern pat = ScPattern();
 						pat.setDoc(m_doc);
-						pat.setPattern(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+						pat.setPattern(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 						dialogPatterns.insert(patNam, pat);
 						origNamesPatterns.insert(patNam, patNam);
 					}
@@ -1834,7 +1834,7 @@ void PaintManagerDialog::saveDefaults()
 
 void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 {
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
+	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
 	QString Fname = name;
 	Fname.replace(" ", "_");
 	Fname  = Cpfad + "swatches/"+ Fname;

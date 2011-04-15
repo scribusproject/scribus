@@ -132,8 +132,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	paintColorSample(ui.txtLabel, txtColor);
 	paintColorSample(ui.bgLabel, bgColor);
 
-	tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "bcode.png");
-	psFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "bcode.ps");
+	tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
+	psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
 
 	// PS engine
 	psCommand.append("%!PS-Adobe-2.0 EPSF-2.0\n");

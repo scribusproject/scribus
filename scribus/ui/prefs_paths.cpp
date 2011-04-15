@@ -56,26 +56,26 @@ void Prefs_Paths::changeDocs()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), docDirLineEdit->text());
 	if (!s.isEmpty())
-		docDirLineEdit->setText( QDir::convertSeparators(s) );
+		docDirLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_Paths::changeProfs()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), profileDirLineEdit->text());
 	if (!s.isEmpty())
-		profileDirLineEdit->setText( QDir::convertSeparators(s) );
+		profileDirLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_Paths::changeScripts()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), scriptDirLineEdit->text());
 	if (!s.isEmpty())
-		scriptDirLineEdit->setText( QDir::convertSeparators(s) );
+		scriptDirLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_Paths::changeDocumentTemplates()
 {
 	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), templateDirLineEdit->text());
 	if (!s.isEmpty())
-		templateDirLineEdit->setText( QDir::convertSeparators(s) );
+		templateDirLineEdit->setText( QDir::toNativeSeparators(s) );
 }

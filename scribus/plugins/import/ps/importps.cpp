@@ -331,7 +331,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.out";
 	QString errFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.err";
 	QString pfad = ScPaths::instance().libDir();
-	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
+	QString pfad2 = QDir::toNativeSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	
@@ -349,8 +349,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "-dSAFER" );
 	args.append( "-dDEVICEWIDTH=250000" );
 	args.append( "-dDEVICEHEIGHT=250000" );
-	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(cleanFile)) );
-	args.append( QDir::convertSeparators(fn) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(cleanFile)) );
+	args.append( QDir::toNativeSeparators(fn) );
 	System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &cancel);
 	args.clear();
 */
@@ -380,7 +380,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-x) );
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
-	args.append( QString("-sTraceFile=%1").arg(QDir::convertSeparators(tmpFile)) );
+	args.append( QString("-sTraceFile=%1").arg(QDir::toNativeSeparators(tmpFile)) );
 	QString exportPath = m_Doc->DocName + "-" + fi.baseName();
 	QFileInfo exportFi(exportPath);
 	if ( !exportFi.isWritable() ) {
@@ -394,9 +394,9 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		exportFi.setFile(docDir + "/" + exportFi.baseName());
 	}
 	//qDebug() << QString("using export path %1").arg(exportFi.absFilePath());
-	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absoluteFilePath())) );
+	args.append( QString("-sExportFiles=%1").arg(QDir::toNativeSeparators(exportFi.absoluteFilePath())) );
 	args.append( pfad2 );
-	args.append( QDir::convertSeparators(fn) );
+	args.append( QDir::toNativeSeparators(fn) );
 	args.append( "-c" );
 	args.append( "flush" );
 	args.append( "cfile" );
@@ -821,8 +821,8 @@ bool EPSPlug::Image(QString vals)
 	args.append( QString("-sDEVICE=%1").arg(device) );    
 	args.append( "-dBATCH" );
 	args.append( QString("-g%1x%2").arg(horpix).arg(verpix) );
-	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(filename)) );
-	args.append( QDir::convertSeparators(rawfile) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(filename)) );
+	args.append( QDir::toNativeSeparators(rawfile) );
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "quit" );

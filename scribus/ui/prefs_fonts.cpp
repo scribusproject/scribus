@@ -262,7 +262,7 @@ void Prefs_Fonts::readPaths()
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	pathListWidget->clear();
 	for (int i = 0; i < fontPathTable->getRowCount(); ++i)
-		pathListWidget->addItem( QDir::convertSeparators(fontPathTable->get(i,0)) );
+		pathListWidget->addItem( QDir::toNativeSeparators(fontPathTable->get(i,0)) );
 }
 
 void Prefs_Fonts::writePaths() const
@@ -296,7 +296,7 @@ void Prefs_Fonts::AddPath()
 		dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
 		if( s.endsWith("/") )
 			s.chop(1);
-		QString s2 = QDir::convertSeparators(s);
+		QString s2 = QDir::toNativeSeparators(s);
 		if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		pathListWidget->addItem(s2);
@@ -319,7 +319,7 @@ void Prefs_Fonts::ChangePath()
 	{
 		if( s.endsWith("/") )
 			s.chop(1);
-		QString s2 = QDir::convertSeparators(s);
+		QString s2 = QDir::toNativeSeparators(s);
 		if (pathListWidget->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
 		QString path = pathListWidget->currentItem()->text();

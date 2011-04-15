@@ -161,7 +161,7 @@ ExportBitmap::ExportBitmap()
 
 QString ExportBitmap::getFileName(ScribusDoc* doc, uint pageNr)
 {
-	return QDir::cleanPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.toLower())));
+	return QDir::cleanPath(QDir::toNativeSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.toLower())));
 }
 
 ExportBitmap::~ExportBitmap()
@@ -196,7 +196,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		doFileSave = false;
-		QString fn = QDir::convertSeparators(fileName);
+		QString fn = QDir::toNativeSeparators(fileName);
 //		QApplication::restoreOverrideCursor();
 		QApplication::changeOverrideCursor(Qt::ArrowCursor);
 		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),

@@ -29,7 +29,7 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 		if (!options.toFile)
 			filename = prefsManager->preferencesLocation()+"/tmp.ps";
 		bool PSfile = dd->PS_set_file(filename);
-		filename = QDir::convertSeparators(filename);
+		filename = QDir::toNativeSeparators(filename);
 		if (PSfile)
 		{
 			// Write the PS to a file

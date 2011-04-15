@@ -549,7 +549,7 @@ void HTMLReader::unSetBoldFont()
 void HTMLReader::parse(QString filename)
 {
 #if defined(_WIN32)
-	QString fname = QDir::convertSeparators(filename);
+	QString fname = QDir::toNativeSeparators(filename);
 	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
 	QByteArray fn(filename.toLocal8Bit());

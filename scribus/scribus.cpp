@@ -401,7 +401,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	csm.findUserPalettes();
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
 	QFile fc(Cpfad);
 	if (fc.exists())
 		csm.loadPalette(Cpfad, m_doc, prefsManager->appPrefs.colorPrefs.DColors, prefsManager->appPrefs.defaultGradients, prefsManager->appPrefs.defaultPatterns, false);
@@ -604,19 +604,19 @@ void ScribusMainWindow::initPalettes()
 
 void ScribusMainWindow::initScrapbook()
 {
-	QString scrapbookFileO = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrap13.scs");
+	QString scrapbookFileO = QDir::toNativeSeparators(prefsManager->preferencesLocation()+"/scrap13.scs");
 	QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
 	if (scrapbookFileInfoO.exists())
 	{
-		scrapbookPalette->readOldContents(scrapbookFileO, QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/main"));
+		scrapbookPalette->readOldContents(scrapbookFileO, QDir::toNativeSeparators(prefsManager->preferencesLocation()+"/scrapbook/main"));
 		QDir d = QDir();
-		d.rename(scrapbookFileO, QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrap13.backup"));
+		d.rename(scrapbookFileO, QDir::toNativeSeparators(prefsManager->preferencesLocation()+"/scrap13.backup"));
 	}
-	QString scrapbookTemp = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/tmp");
+	QString scrapbookTemp = QDir::toNativeSeparators(prefsManager->preferencesLocation()+"/scrapbook/tmp");
 	QFileInfo scrapbookTempInfo = QFileInfo(scrapbookTemp);
 	if (scrapbookTempInfo.exists())
 		scrapbookPalette->readTempContents(scrapbookTemp);
-	QString scrapbookFile = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/main");
+	QString scrapbookFile = QDir::toNativeSeparators(prefsManager->preferencesLocation()+"/scrapbook/main");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
@@ -1907,7 +1907,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	ColorList colorList;
 	QMap<QString, VGradient> gradientsList;
 	QMap<QString, ScPattern> patternsList;
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
 	QFile fc(Cpfad);
 	if (fc.exists())
 	{
@@ -3700,7 +3700,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	// PV - 5780: Scribus doesn't track what documents are already opened
 	// The goal of this part of code is to disallow user to open one
 	// doc multiple times.
-	QString platfName(QDir::convertSeparators(fileName));
+	QString platfName(QDir::toNativeSeparators(fileName));
 	uint windowCount = windows.count();
 	for ( uint i = 0; i < windowCount; ++i )
 	{
@@ -8084,7 +8084,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		else
 			fna = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
-	fna = QDir::convertSeparators(fna);
+	fna = QDir::toNativeSeparators(fna);
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
 	if (!prefsDocDir.isEmpty())
@@ -8230,7 +8230,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				if (doc->pdfOptions().Thumbnails)
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
 				thumbs.insert(1, pm);
-				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
+				QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -9184,7 +9184,7 @@ void ScribusMainWindow::initHyphenator()
 	//Build our list of hyphenation dictionaries we have in the install dir
 	//Grab the language abbreviation from it, get the full language text
 	//Insert the name as key and a new string list into the map
-	QString hyphDirName = QDir::convertSeparators(ScPaths::instance().dictDir());
+	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir());
 	QDir hyphDir(hyphDirName, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{
@@ -9449,7 +9449,7 @@ void ScribusMainWindow::callImageEditor()
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{
-			QString ieExe = QDir::convertSeparators(imageEditorExecutable);
+			QString ieExe = QDir::toNativeSeparators(imageEditorExecutable);
 			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>", 1, 0, 0);
 			return;
 		}
@@ -9483,7 +9483,7 @@ void ScribusMainWindow::callImageEditor()
 				QString imEditorDir = imEditor.left( index + 1 );
 				ExternalApp->setWorkingDirectory( imEditorDir );
 			}
-			cmd.append(QDir::convertSeparators(currItem->Pfile));
+			cmd.append(QDir::toNativeSeparators(currItem->Pfile));
 			ExternalApp->start(imEditor, cmd);
 			if (!ExternalApp->waitForStarted())
 			{
@@ -9644,7 +9644,7 @@ void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
 {
 	if (!HaveDoc)
 		return;
-	ActWin->setWindowTitle(QDir::convertSeparators(newCaption));
+	ActWin->setWindowTitle(QDir::toNativeSeparators(newCaption));
 }
 
 void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
@@ -10021,7 +10021,7 @@ void ScribusMainWindow::managePaints()
 			propertiesPalette->Cpal->setColors(prefsManager->colorSet());
 			prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
 			prefsManager->appPrefs.defaultPatterns = dia->dialogPatterns;
-			QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+			QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
 			const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
 			if (fmt)
 			{

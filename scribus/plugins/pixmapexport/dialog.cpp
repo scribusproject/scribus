@@ -33,7 +33,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	dirModel->setFilter(QDir::AllDirs);
 	outputDirectory->setCompleter(new QCompleter(dirModel, this));
 	
-	outputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentPath())) );
+	outputDirectory->setText( QDir::toNativeSeparators(prefs->get("wdir", QDir::currentPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
 	for (int a = 0; a < imgs.count(); a++)
 	{
@@ -80,7 +80,7 @@ void ExportForm::OutputDirectoryButton_pressed()
 	QString d = QFileDialog::getExistingDirectory(this, tr("Choose a Export Directory"), lastDir);
 	if (d.length()>0)
 	{
-		d = QDir::convertSeparators(d);
+		d = QDir::toNativeSeparators(d);
 		outputDirectory->setText(d);
 		prefs->set("wdir", d);
 	}

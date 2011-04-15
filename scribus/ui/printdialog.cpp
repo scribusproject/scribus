@@ -376,7 +376,7 @@ void PrintDialog::SelFile()
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("printdir", selectedFile.left(selectedFile.lastIndexOf("/")));
-		LineEdit1->setText( QDir::convertSeparators(selectedFile) );
+		LineEdit1->setText( QDir::toNativeSeparators(selectedFile) );
 	}
 }
 

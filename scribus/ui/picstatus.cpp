@@ -293,7 +293,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			else
 			{
 				displayName->setText(fi.fileName());
-				displayPath->setText(QDir::convertSeparators(fi.path()));
+				displayPath->setText(QDir::toNativeSeparators(fi.path()));
 				searchButton->setEnabled(true);
 			}
 			QString format = "";
@@ -349,7 +349,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			{
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				displayName->setText(fi.fileName());
-				displayPath->setText(QDir::convertSeparators(fi.path()));
+				displayPath->setText(QDir::toNativeSeparators(fi.path()));
 				searchButton->setEnabled(true);
 			}
 			else

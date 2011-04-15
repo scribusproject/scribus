@@ -254,7 +254,7 @@ QStringList ScribusQApp::getLang(QString lang)
 		langs.push_back(lang);
 
 	//add in user preferences lang, only overridden by lang command line option
-	QString Pff = QDir::convertSeparators(ScPaths::getApplicationDataDir());
+	QString Pff = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
 	{
@@ -263,7 +263,7 @@ QStringList ScribusQApp::getLang(QString lang)
 			PrefsPfad = Pff;
 		else
 			PrefsPfad = QDir::homePath();
-		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs150.xml");
+		QString prefsXMLFile=QDir::toNativeSeparators(PrefsPfad + "/prefs150.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
 		{

@@ -88,7 +88,7 @@ QString getShortPathName(const QString & longPath)
 		WCHAR shortName[MAX_PATH + 1];
 		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
 		// that volume does not support 8.3 filenames, so return longPath in this case
-		QString nativePath = QDir::convertSeparators(longPath);
+		QString nativePath = QDir::toNativeSeparators(longPath);
 		int ret = GetShortPathNameW((LPCWSTR) nativePath.utf16(), shortName, MAX_PATH);
 		if (ret != ERROR_INVALID_PARAMETER && ret < MAX_PATH)
 			shortPath = QString::fromUtf16((const ushort*) shortName);
@@ -108,7 +108,7 @@ QString getLongPathName(const QString & shortPath)
 		WCHAR longName[MAX_PATH + 1];
 		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
 		// that volume does not support long filenames, so return shortPath in this case
-		QString nativePath = QDir::convertSeparators(shortPath);
+		QString nativePath = QDir::toNativeSeparators(shortPath);
 		int ret = GetLongPathNameW((LPCWSTR) nativePath.utf16(), longName, MAX_PATH);
 		if (ret != ERROR_INVALID_PARAMETER && ret < MAX_PATH)
 			longPath = QString::fromUtf16((const ushort*) longName);
@@ -362,7 +362,7 @@ bool overwrite(QWidget *parent, QString filename)
 	QFileInfo fi(filename);
 	if (fi.exists())
 	{
-		QString fn = QDir::convertSeparators(filename);
+		QString fn = QDir::toNativeSeparators(filename);
 		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
 									 "<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(fn) +"</qt>",
 											 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);

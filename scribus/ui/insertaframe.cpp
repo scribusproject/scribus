@@ -238,7 +238,7 @@ void InsertAFrame::locateImageFile()
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	
-	sourceImageLineEdit->setText(QDir::convertSeparators(fileName));
+	sourceImageLineEdit->setText(QDir::toNativeSeparators(fileName));
 }
 
 void InsertAFrame::locateDocFile()
@@ -247,7 +247,7 @@ void InsertAFrame::locateDocFile()
 	gtGetText* gt = new gtGetText(m_Doc);
 	m_ImportSetup=gt->run();
 	if (m_ImportSetup.runDialog)
-		sourceDocLineEdit->setText(QDir::convertSeparators(m_ImportSetup.filename));
+		sourceDocLineEdit->setText(QDir::toNativeSeparators(m_ImportSetup.filename));
 	delete gt;
 }
 

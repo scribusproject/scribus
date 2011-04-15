@@ -376,7 +376,7 @@ void HelpBrowser::searchingButton_clicked()
 
 void HelpBrowser::searchingInDirectory(const QString& aDir)
 {
-	QDir dir(QDir::convertSeparators(aDir + "/"));
+	QDir dir(QDir::toNativeSeparators(aDir + "/"));
 	QStringList in;
 	in.append("*.html");
 	QStringList lst = dir.entryList(in);
@@ -410,7 +410,7 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 	QStringList dst = dir.entryList(in, QDir::Dirs);
 	for (QStringList::Iterator it = dst.begin(); it != dst.end(); ++it)
 		if ((*it)!="." && (*it)!="..")
-			searchingInDirectory(QDir::convertSeparators(aDir + QString((*it)) + "/"));
+			searchingInDirectory(QDir::toNativeSeparators(aDir + QString((*it)) + "/"));
 }
 
 void HelpBrowser::find()
@@ -452,7 +452,7 @@ void HelpBrowser::bookmarkButton_clicked()
  	if (title.isNull())
  		return;
 	//TODO: start storing full paths
- 	QString toFind(fname.remove(QDir::convertSeparators(finalBaseDir)));
+ 	QString toFind(fname.remove(QDir::toNativeSeparators(finalBaseDir)));
 	toFind=toFind.mid(1, toFind.length()-1);
 	QMapIterator<QString, QString> i(quickHelpIndex);
 	while (i.hasNext())
@@ -536,7 +536,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 			toLoad=filename;
 		else
 		{
-			toLoad = QDir::convertSeparators(ScPaths::instance().docDir() + "en/index.html");
+			toLoad = QDir::toNativeSeparators(ScPaths::instance().docDir() + "en/index.html");
 // 			language="en";
 			fi = QFileInfo(toLoad);
 			if (!fi.exists())
@@ -570,8 +570,8 @@ void HelpBrowser::loadMenu()
 {
 	QString baseHelpDir = ScPaths::instance().docDir();
 	QString altHelpDir  = ScPaths::instance().getApplicationDataDir();
-	QString baseHelpMenuFile = QDir::convertSeparators(baseHelpDir + language + "/menu.xml");
-	QString altHelpMenuFile = QDir::convertSeparators(altHelpDir + "doc/" + language + "/menu.xml");
+	QString baseHelpMenuFile = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
+	QString altHelpMenuFile = QDir::toNativeSeparators(altHelpDir + "doc/" + language + "/menu.xml");
 	QFileInfo baseFi = QFileInfo(baseHelpMenuFile);
 	QFileInfo altFi = QFileInfo(altHelpMenuFile);
 	QString toLoad = baseHelpMenuFile;
@@ -587,33 +587,33 @@ void HelpBrowser::loadMenu()
 			if (!language.isEmpty())
 			{
 				//Check if we can load, eg "de" when "de_CH" docs dont exist
-				QString baseHelpMenuFile3 = QDir::convertSeparators(baseHelpDir + language.left(2) + "/menu.xml");
-				QString altHelpMenuFile3 = QDir::convertSeparators(altHelpDir + "doc/" + language.left(2) + "/menu.xml");
+				QString baseHelpMenuFile3 = QDir::toNativeSeparators(baseHelpDir + language.left(2) + "/menu.xml");
+				QString altHelpMenuFile3 = QDir::toNativeSeparators(altHelpDir + "doc/" + language.left(2) + "/menu.xml");
 				QFileInfo fi3 = QFileInfo(baseHelpMenuFile3);
 				QFileInfo altfi3 = QFileInfo(altHelpMenuFile3);
 				if (fi3.exists())
 				{
 					language=language.left(2);
-					toLoad = QDir::convertSeparators(baseHelpMenuFile3);
+					toLoad = QDir::toNativeSeparators(baseHelpMenuFile3);
 				}
 				else
 				if (altfi3.exists())
 				{
 					language=language.left(2);
-					toLoad = QDir::convertSeparators(altHelpMenuFile3);
+					toLoad = QDir::toNativeSeparators(altHelpMenuFile3);
 				}
 				else
 				{
 					//Fall back to English
 					sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 					language="en";
-					toLoad = QDir::convertSeparators(baseHelpDir + language + "/menu.xml");
+					toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
 				}
 			}
 			else
 			{
 				language="en";
-				toLoad = QDir::convertSeparators(baseHelpDir + language + "/menu.xml");
+				toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
 			}
 			baseFi = QFileInfo(toLoad);
 		}
@@ -728,7 +728,7 @@ QString HelpBrowser::bookmarkFile()
 	QString fname(appDataDir + "doc/bookmarks.xml");
 	if (!QFile::exists(fname))
 	{
-		QDir d(QDir::convertSeparators(appDataDir));
+		QDir d(QDir::toNativeSeparators(appDataDir));
 		d.mkdir("doc");
 	}
 	return fname;
@@ -745,7 +745,7 @@ QString HelpBrowser::historyFile()
 	QString fname(appDataDir + "doc/history.xml");
 	if (!QFile::exists(fname))
 	{
-		QDir d(QDir::convertSeparators(appDataDir));
+		QDir d(QDir::toNativeSeparators(appDataDir));
 		d.mkdir("doc");
 	}
 	return fname;

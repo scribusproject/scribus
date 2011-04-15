@@ -113,7 +113,7 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 			if ( overwrite(doc.scMW()->view, selectedFile) )
 			{
 				dirs->set("winprn", selectedFile.left(selectedFile.lastIndexOf("/")));
-				fileName = QDir::convertSeparators( selectedFile );
+				fileName = QDir::toNativeSeparators( selectedFile );
 			}
 		}
 		else
@@ -314,8 +314,8 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOption
 		QString pProf = doc->prefsData().colorPrefs.DCMSset.DefaultPrinterProfile;
 		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
 		{
-			inputProfile   = QDir::convertSeparators(ScCore->InputProfiles[mProf]);
-			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]);
+			inputProfile   = QDir::toNativeSeparators(ScCore->InputProfiles[mProf]);
+			printerProfile = QDir::toNativeSeparators(ScCore->PrinterProfiles[pProf]);
 			// Avoid color transform if input and output profile are the same
 			if ( inputProfile != printerProfile )
 			{

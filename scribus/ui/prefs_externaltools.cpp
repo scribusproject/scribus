@@ -48,13 +48,13 @@ void Prefs_ExternalTools::languageChange()
 
 void Prefs_ExternalTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	psToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.gs_exe));
+	psToolLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.gs_exe));
 	psAntialiasTextCheckBox->setChecked(prefsData->extToolPrefs.gs_AntiAliasText);
 	psAntialiasGraphicsCheckBox->setChecked(prefsData->extToolPrefs.gs_AntiAliasGraphics);
 	psResolutionSpinBox->setValue(prefsData->extToolPrefs.gs_Resolution);
-	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.imageEditorExecutable));
-	webBrowserLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.extBrowserExecutable));
-	uniconvertorLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.uniconvExecutable));
+	imageToolLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.imageEditorExecutable));
+	webBrowserLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.extBrowserExecutable));
+	uniconvertorLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.uniconvExecutable));
 	latexResolutionSpinBox->setValue(prefsData->extToolPrefs.latexResolution);
 	latexEditorLineEdit->setText(prefsData->extToolPrefs.latexEditorExecutable);
 	latexForceDPICheckBox->setCheckState(prefsData->extToolPrefs.latexForceDpi?Qt::Checked:Qt::Unchecked);
@@ -65,7 +65,7 @@ void Prefs_ExternalTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	foreach (QString config, configs)
 		insertConfigItem(config);
 	latexConfigsListWidget->setCurrentRow(0);
-	pdfViewerLineEdit->setText(QDir::convertSeparators(prefsData->extToolPrefs.pdfViewerExecutable));
+	pdfViewerLineEdit->setText(QDir::toNativeSeparators(prefsData->extToolPrefs.pdfViewerExecutable));
 }
 
 void Prefs_ExternalTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -96,7 +96,7 @@ void Prefs_ExternalTools::changePostScriptTool()
 	QFileInfo fi(psToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate Ghostscript"), fi.path());
 	if (!s.isEmpty())
-		psToolLineEdit->setText( QDir::convertSeparators(s) );
+		psToolLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_ExternalTools::changeImageTool()
@@ -104,7 +104,7 @@ void Prefs_ExternalTools::changeImageTool()
 	QFileInfo fi(imageToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your image editor"), fi.path());
 	if (!s.isEmpty())
-		imageToolLineEdit->setText( QDir::convertSeparators(s) );
+		imageToolLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_ExternalTools::changeWebBrowser()
@@ -112,7 +112,7 @@ void Prefs_ExternalTools::changeWebBrowser()
 	QFileInfo fi(webBrowserLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your web browser"), fi.path());
 	if (!s.isEmpty())
-		webBrowserLineEdit->setText( QDir::convertSeparators(s) );
+		webBrowserLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_ExternalTools::changePDFViewer()
@@ -120,7 +120,7 @@ void Prefs_ExternalTools::changePDFViewer()
 	QFileInfo fi(pdfViewerLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), fi.path());
 	if (!s.isEmpty())
-		pdfViewerLineEdit->setText( QDir::convertSeparators(s) );
+		pdfViewerLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_ExternalTools::changeUniconvertor()
@@ -128,7 +128,7 @@ void Prefs_ExternalTools::changeUniconvertor()
 	QFileInfo fi(uniconvertorLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate the uniconvertor executable"), fi.path());
 	if (!s.isEmpty())
-		uniconvertorLineEdit->setText( QDir::convertSeparators(s) );
+		uniconvertorLineEdit->setText( QDir::toNativeSeparators(s) );
 }
 
 void Prefs_ExternalTools::changeLatexEditor()
@@ -137,7 +137,7 @@ void Prefs_ExternalTools::changeLatexEditor()
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your editor"), fi.path());
 	if (!s.isEmpty())
 	{
-		s = QDir::convertSeparators(s);
+		s = QDir::toNativeSeparators(s);
 		if (s.contains(' ') && !s.contains('"'))
 			s = QString("\"%1\"").arg(s);
 		latexEditorLineEdit->setText(s);
@@ -149,7 +149,7 @@ void Prefs_ExternalTools::rescanForTools()
 	if (!fileInPath(psToolLineEdit->text()))
 	{
 		QString gsDef = getGSDefaultExeName();
-		psToolLineEdit->setText( QDir::convertSeparators(gsDef) );
+		psToolLineEdit->setText( QDir::toNativeSeparators(gsDef) );
 	}
 
 	if (!fileInPath(imageToolLineEdit->text()))

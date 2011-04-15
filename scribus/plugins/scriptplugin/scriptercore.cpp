@@ -89,7 +89,7 @@ void ScripterCore::buildScribusScriptsMenu()
 {
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad);
+	pfad2 = QDir::toNativeSeparators(pfad);
 	QDir ds(pfad2, "*.py", QDir::Name | QDir::IgnoreCase, QDir::Files | QDir::NoSymLinks);
 	if ((ds.exists()) && (ds.count() != 0))
 	{
@@ -199,7 +199,7 @@ void ScripterCore::StdScript(QString basefilename)
 {
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad);
+	pfad2 = QDir::toNativeSeparators(pfad);
 	QString fn = pfad2+basefilename+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())

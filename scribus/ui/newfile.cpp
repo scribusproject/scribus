@@ -407,7 +407,7 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout->addWidget(recentDocListBox);
 	uint max = qMin(prefsManager->appPrefs.uiPrefs.recentDocCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
-		recentDocListBox->addItem( QDir::convertSeparators(recentDocList[m]) );
+		recentDocListBox->addItem( QDir::toNativeSeparators(recentDocList[m]) );
 	if (max>0)
 		recentDocListBox->setCurrentRow(0);
 }
