@@ -307,6 +307,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
 	setWindowIcon(loadIcon("AppIcon.png"));
+	setDockNestingEnabled(true);
 	scrActionGroups.clear();
 	scrActions.clear();
 	scrRecentFileActions.clear();
@@ -2013,6 +2014,9 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		else
 			w->show();
 		tempView->show();
+		// Seems to fix crash on loading
+		ActWin = NULL;
+		newActWin(w->getSubWin());
 	}
 	if (requiresGUI)
 	{
