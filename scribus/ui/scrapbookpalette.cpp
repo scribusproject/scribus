@@ -547,10 +547,13 @@ void BibView::ReadContents(QString name)
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
+Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", 0)
 {
-	resize( 230, 190 );
-	BiblioLayout = new QVBoxLayout( this );
+//	resize( 230, 190 );
+	setObjectName(QString::fromLocal8Bit("Sclib"));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	containerWidget = new QWidget(this);
+	BiblioLayout = new QVBoxLayout( containerWidget );
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );
 
@@ -612,6 +615,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	tempCount = 0;
 	actItem = 0;
 	BiblioLayout->addWidget( Frame3 );
+	setWidget( containerWidget );
 
 	languageChange();
 	prefs = PrefsManager::instance()->prefsFile->getContext("Scrapbook");
@@ -729,7 +733,7 @@ void Biblio::readTempContents(QString fileName)
 
 void Biblio::installEventFilter(QObject *filterObj)
 {
-	ScrPaletteBase::installEventFilter(filterObj);
+//	ScrPaletteBase::installEventFilter(filterObj);
 	activeBView->installEventFilter(filterObj);
 	tempBView->installEventFilter(filterObj);
 }
@@ -1772,7 +1776,7 @@ void Biblio::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void Biblio::languageChange()

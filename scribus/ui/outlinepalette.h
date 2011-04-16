@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "scdockpalette.h"
 
 class ScribusMainWindow;
 class ScribusDoc;
@@ -47,7 +47,7 @@ protected:
 	bool viewportEvent(QEvent *event);
 };
 
-class SCRIBUS_API OutlinePalette : public ScrPaletteBase
+class SCRIBUS_API OutlinePalette : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -89,6 +89,7 @@ protected:
 	void filterTree();
 	void clearPalette();
 	void createContextMenu(PageItem *currItem, double mx, double my);
+	QWidget* containerWidget;
 	OutlineWidget* reportDisplay;
 	QTreeWidgetItem* freeObjects;
 	QTreeWidgetItem* rootObject;

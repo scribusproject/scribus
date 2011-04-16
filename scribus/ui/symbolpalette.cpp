@@ -83,16 +83,14 @@ void SymbolView::dropEvent(QDropEvent *e)
 	clearSelection();
 }
 
-SymbolPalette::SymbolPalette( QWidget* parent) : ScrPaletteBase( parent, "Symb", false, 0 )
+SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette( parent, "Symb", 0)
 {
 	setMinimumSize( QSize( 220, 240 ) );
-	setMaximumSize( QSize( 800, 600 ) );
+	setObjectName(QString::fromLocal8Bit("Symb"));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	SymbolViewWidget = new SymbolView(this);
 	SymbolViewWidget->clear();
-
-	QVBoxLayout* PaletteLayout = new QVBoxLayout;
-	PaletteLayout->addWidget(SymbolViewWidget);
-	setLayout( PaletteLayout );
+	setWidget( SymbolViewWidget );
 
 	unsetDoc();
 	m_scMW  = NULL;
@@ -192,7 +190,7 @@ void SymbolPalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void SymbolPalette::languageChange()

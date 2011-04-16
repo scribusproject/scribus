@@ -154,11 +154,13 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 	return QTreeWidget::viewportEvent(event);
 }
 
-OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
+OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree", 0)
 {
 //	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
-	setMaximumSize( QSize( 800, 600 ) );
+	setObjectName(QString::fromLocal8Bit("Tree"));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	containerWidget = new QWidget(this);
  
 	filterEdit = new QLineEdit;
 	filterEdit->setToolTip( tr("Enter a keyword or regular expression to filter the outline.") );
@@ -184,7 +186,8 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
 	layout->addWidget( filterEdit, 0, 1 );
 	layout->addWidget( reportDisplay, 1, 0, 1, 2 );
 	layout->setContentsMargins( 3, 3, 3, 3);
-	setLayout( layout );
+	containerWidget->setLayout( layout );
+	setWidget( containerWidget );
 
 	unsetDoc();
 	imageIcon = loadIcon("22/insert-image.png");
@@ -241,7 +244,7 @@ void OutlinePalette::unsetDoc()
 
 void OutlinePalette::setPaletteShown(bool visible)
 {
-	ScrPaletteBase::setPaletteShown(visible);
+	ScDockPalette::setPaletteShown(visible);
 	if ((visible) && (currDoc != NULL))
 		BuildTree();
 }
@@ -860,7 +863,7 @@ void OutlinePalette::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void OutlinePalette::languageChange()

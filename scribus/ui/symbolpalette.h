@@ -40,7 +40,7 @@ class ScribusDoc;
 
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "scdockpalette.h"
 
 class SCRIBUS_API SymbolView : public QListWidget
 {
@@ -57,7 +57,7 @@ protected:
 	void startDrag(Qt::DropActions supportedActions);
 };
 
-class SCRIBUS_API SymbolPalette : public ScrPaletteBase
+class SCRIBUS_API SymbolPalette : public ScDockPalette
 {
 	Q_OBJECT
 

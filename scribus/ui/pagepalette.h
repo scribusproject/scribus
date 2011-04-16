@@ -33,7 +33,7 @@ class QEvent;
 
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "scdockpalette.h"
 
 class ScribusView;
 class ScribusMainWindow;
@@ -154,7 +154,7 @@ signals:
 	void DelMaster(QString);
 };
 
-class SCRIBUS_API PagePalette : public ScrPaletteBase
+class SCRIBUS_API PagePalette : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -191,6 +191,7 @@ signals:
 	void gotoPage(int);
 
 protected:
+	QWidget* containerWidget;
 	QVBoxLayout* PagePaletteLayout;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;

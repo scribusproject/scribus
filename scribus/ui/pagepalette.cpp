@@ -537,10 +537,13 @@ void TrashBin::dropEvent(QDropEvent * e)
 }
 
 
-PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
+PagePalette::PagePalette(QWidget* parent) : ScDockPalette( parent, "Sp", 0)
 {
 	m_scMW=(ScribusMainWindow*)parent;
-	PagePaletteLayout = new QVBoxLayout( this );
+	setObjectName(QString::fromLocal8Bit("Sp"));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	containerWidget = new QWidget(this);
+	PagePaletteLayout = new QVBoxLayout( containerWidget );
 	PagePaletteLayout->setSpacing( 5 );
 	PagePaletteLayout->setMargin( 5 );
 	Splitter1 = new QSplitter( this );
@@ -607,6 +610,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Trash->setMaximumSize(QSize(32,32));
 	Layout1->addWidget( Trash );
 	PagePaletteLayout->addLayout( Layout1 );
+	setWidget( containerWidget );
 	pix = loadIcon("32/page-simple.png");
 	currView = 0;
 	Rebuild();
@@ -923,7 +927,7 @@ void PagePalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void PagePalette::languageChange()
