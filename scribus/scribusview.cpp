@@ -125,8 +125,6 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "plugins/formatidlist.h"
 #include <tiffio.h>
-#include CMS_INC
-
 
 using namespace std;
 

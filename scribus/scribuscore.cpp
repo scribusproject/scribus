@@ -456,8 +456,8 @@ void ScribusCore::InitDefaultColorTransforms(void)
 				defaultRGBProfile, Format_RGB_16, intent, Ctf_NullTransform);
 	defaultRGBToScreenImageTrans  = ScColorMgmtEngine::createTransform(defaultRGBProfile, Format_RGBA_8,
 				defaultRGBProfile, Format_RGBA_8, intent, Ctf_NullTransform);
-	defaultCMYKToScreenImageTrans = ScColorMgmtEngine::createTransform(defaultRGBProfile, Format_CMYK_8,
-				defaultCMYKProfile, Format_RGBA_8, intent, Ctf_NullTransform);
+	defaultCMYKToScreenImageTrans = ScColorMgmtEngine::createTransform(defaultCMYKProfile, Format_CMYK_8,
+				defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
 	defaultRGBToCMYKTrans = ScColorMgmtEngine::createTransform(defaultRGBProfile, Format_RGB_16,
 				defaultCMYKProfile, Format_CMYK_16, intent, dcmsFlags);
 	defaultCMYKToRGBTrans = ScColorMgmtEngine::createTransform(defaultCMYKProfile, Format_CMYK_16,

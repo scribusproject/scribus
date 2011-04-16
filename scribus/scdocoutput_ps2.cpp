@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-#include CMS_INC
-
 ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options)
 {
 	m_doc = doc;

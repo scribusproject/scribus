@@ -126,89 +126,89 @@ ScColorProfile CMSettings::monitorProfile() const
 {
 	if (m_Doc)
 		return m_Doc->DocOutputProf;
-	return NULL;
+	return ScColorProfile();
 }
 
 ScColorProfile CMSettings::printerProfile() const
 {
 	if (m_Doc)
 		return m_Doc->DocPrinterProf;
-	return NULL;
+	return ScColorProfile();
 }
 
 ScColorTransform CMSettings::rgbColorDisplayTransform() const  // stdTransRGBMonG
 {
 	if (m_Doc)
 		return m_Doc->stdTransRGBMon;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::rgbColorProofingTransform() const  // stdProofG
 {
 	if (m_Doc)
 		return m_Doc->stdProof;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::rgbImageDisplayTransform() const   // stdTransImgG
 {
 	if (m_Doc)
 		return m_Doc->stdTransImg;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::rgbImageProofingTransform() const  // stdProofImgG
 {
 	if (m_Doc)
 		return m_Doc->stdProofImg;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::rgbToCymkColorTransform() const // stdTransCMYKG
 {
 	if (m_Doc)
 		return m_Doc->stdTransCMYK;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::rgbGamutCheckTransform() const // stdProofGCG
 {
 	if (m_Doc)
 		return m_Doc->stdProofGC;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::cmykColorDisplayTransform() const // stdTransCMYKMonG
 {
 	if (m_Doc)
 		return m_Doc->stdTransCMYKMon;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::cmykColorProofingTransform() const // stdProofCMYKG
 {
 	if (m_Doc)
 		return m_Doc->stdProofCMYK;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::cmykImageProofingTransform() const // stdProofImgCMYK
 {
 	if (m_Doc)
 		return m_Doc->stdProofImgCMYK;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::cmykToRgbColorTransform() const  // stdTransRGBG
 {
 	if (m_Doc)
 		return m_Doc->stdTransRGB;
-	return NULL;
+	return ScColorTransform();
 }
 
 ScColorTransform CMSettings::cmykGamutCheckTransform() const //stdProofCMYKGCG
 {
 	if (m_Doc)
 		return m_Doc->stdProofCMYKGC;
-	return NULL;
+	return ScColorTransform();
 }

@@ -6,15 +6,26 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <cassert>
+#include "scconfig.h"
 #include "sccolormgmtengine.h"
+
+#ifdef HAVE_LCMS21
+#include "sclcms2colormgmtengineimpl.h"
+#else
 #include "sclcmscolormgmtengineimpl.h"
+#endif
 
 QSharedPointer<ScColorMgmtEngineData> ScColorMgmtEngine::m_data;
 
 QSharedPointer<ScColorMgmtEngineData> ScColorMgmtEngine::data()
 {
+#ifdef HAVE_LCMS21
+	if (!m_data)
+		m_data = QSharedPointer<ScColorMgmtEngineData>( new ScLcms2ColorMgmtEngineImpl() );
+#else
 	if (!m_data)
 		m_data = QSharedPointer<ScColorMgmtEngineData>( new ScLcmsColorMgmtEngineImpl() );
+#endif
 	assert( !m_data.isNull() );
 	return m_data;
 }
