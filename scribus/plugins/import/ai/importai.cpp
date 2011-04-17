@@ -2981,6 +2981,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	ite->setLineJoin(JoinStyle);
 	uchar *p;
 	uint yCount = 0;
+	quint16 eTag = EXTRASAMPLE_UNASSALPHA;
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.tif");
 	ite->tempImageFile->open();
 	QString imgName = getLongPathName(ite->tempImageFile->fileName());
@@ -2993,6 +2994,8 @@ void AIPlug::processRaster(QDataStream &ts)
 		TIFFSetField(tif, TIFFTAG_IMAGELENGTH, h);
 		TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
 		TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, m_image.channels());
+		if (alpha == 1)
+			TIFFSetField(tif, TIFFTAG_EXTRASAMPLES, 1, &eTag);
 		TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
 		if (type == 4)
 			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_SEPARATED);
