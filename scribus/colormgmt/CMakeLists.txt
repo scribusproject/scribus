@@ -4,11 +4,19 @@ ${CMAKE_SOURCE_DIR}/scribus
 ${LCMS_INCLUDE_DIR}
 )
 
-SET(SCRIBUS_LCMS_IMPL_SOURCES
-	sclcmscolormgmtengineimpl.cpp
-	sclcmscolorprofileimpl.cpp
-	sclcmscolortransformimpl.cpp
-)
+IF(HAVE_LCMS21)
+	SET(SCRIBUS_LCMS_IMPL_SOURCES
+		sclcms2colormgmtengineimpl.cpp
+		sclcms2colorprofileimpl.cpp
+		sclcms2colortransformimpl.cpp
+	)
+ELSE(HAVE_LCMS21)
+	SET(SCRIBUS_LCMS_IMPL_SOURCES
+		sclcmscolormgmtengineimpl.cpp
+		sclcmscolorprofileimpl.cpp
+		sclcmscolortransformimpl.cpp
+	)
+ENDIF(HAVE_LCMS21)
 
 SET(SCRIBUS_COLORMGMT_LIB_SOURCES
 	sccolormgmtengine.cpp

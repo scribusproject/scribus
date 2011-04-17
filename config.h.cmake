@@ -17,8 +17,9 @@
 #cmakedefine DLL_USE_NATIVE_API 1
 #cmakedefine BUILD_MAC_BUNDLE
 #cmakedefine HAVE_CMS 1
+#cmakedefine HAVE_LCMS21
 #cmakedefine HAVE_XML 1
-#cmakedefine CMS_INC "lcms.h"
+#cmakedefine CMS_INC @CMS_INC@
 #cmakedefine HAVE_CAIRO 1
 #cmakedefine HAVE_CUPS 1
 #cmakedefine HAVE_TIFF 1
