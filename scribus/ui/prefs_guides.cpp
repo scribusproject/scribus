@@ -62,7 +62,7 @@ void Prefs_Guides::unitChange(int unitIndex)
 	minorGridSpacingSpinBox->setNewUnit(unitIndex);
 
 	majorGridSpacingSpinBox->setMinimum(10 * unitRatio);
-	minorGridSpacingSpinBox->setMinimum(10 * unitRatio);
+	minorGridSpacingSpinBox->setMinimum(unitRatio);
 	majorGridSpacingSpinBox->setMaximum(1000 * unitRatio);
 	minorGridSpacingSpinBox->setMaximum(1000 * unitRatio);
 }
