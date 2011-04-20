@@ -1555,7 +1555,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				PageItem * Its = m_Doc->DocItems.at(lc.key());
 				PageItem * Itn = m_Doc->DocItems.at(lc.value());
-				if (Itn->prevInChain() || Its->nextInChain()) 
+				if (!Its->testLinkCandidate(Itn))
 				{
 					qDebug() << "scribus134format: corruption in linked textframes detected";
 					continue;
@@ -1574,7 +1574,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				PageItem * Its = m_Doc->MasterItems.at(lc.key());
 				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
-				if (Itn->prevInChain() || Its->nextInChain()) 
+				if (!Its->testLinkCandidate(Itn))
 				{
 					qDebug() << "scribus134format: corruption in linked textframes detected";
 					continue;
@@ -3390,7 +3390,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				{
 					PageItem * Its = m_Doc->DocItems.at(lc.key());
 					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
-					if (Itn->prevInChain() || Its->nextInChain()) 
+					if (!Its->testLinkCandidate(Itn))
 					{
 						qDebug() << "scribus134format: corruption in linked textframes detected";
 						continue;
@@ -3411,7 +3411,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				{
 					PageItem * Its = m_Doc->MasterItems.at(lc.key());
 					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
-					if (Itn->prevInChain() || Its->nextInChain())
+					if (!Its->testLinkCandidate(Itn))
 					{
 						qDebug() << "scribus134format: corruption in linked textframes detected";
 						continue;
