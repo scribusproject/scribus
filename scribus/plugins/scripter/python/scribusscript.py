@@ -190,6 +190,7 @@ class ScribusScript(object):
                 else:
                     print >> sys.stderr, "Icon %r not found" % icon_filename
             if self.shortcut:
+                print >> sys.stdout, "Shortcut %r." % self.shortcut 
                 self.action.setShortcut(QKeySequence(self.shortcut))
 
 

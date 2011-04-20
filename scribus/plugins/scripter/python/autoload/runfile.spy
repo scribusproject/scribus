@@ -1,5 +1,6 @@
 ## title = &Run script from file
-## shortcut = Esc,r
+## shortcut = Esc,t
+## shortcut = Ctrl+r,t
 ## subroutine = run
 import os
 from PyQt4.QtCore import *
