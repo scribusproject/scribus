@@ -291,7 +291,11 @@ void SMParagraphStyle::apply()
 
 	QMap<QString, QString> replacement;
 	for (int i = 0; i < deleted_.count(); ++i)
+	{
+		if (deleted_[i].first == deleted_[i].second)
+			continue;
 		replacement[deleted_[i].first] = deleted_[i].second;
+	}
 
 	doc_->redefineStyles(tmpStyles_, false);
 	doc_->replaceStyles(replacement);
@@ -431,7 +435,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 	QList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
-		if ((*it).second == oldName)
+		if (it->second == oldName)
 		{
 			oldName = (*it).first;
 			deleted_.erase(it);
@@ -439,7 +443,8 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	deleted_.append(RemoveItem(oldName, newName));
+	if (oldName != newName)
+		deleted_.append(RemoveItem(oldName, newName));
 
 	if (!selectionIsDirty_)
 	{
@@ -1651,7 +1656,11 @@ void SMCharacterStyle::apply()
 
 	QMap<QString, QString> replacement;
 	for (int i = 0; i < deleted_.count(); ++i)
+	{
+		if (deleted_[i].first == deleted_[i].second)
+			continue;
 		replacement[deleted_[i].first] = deleted_[i].second;
+	}
 
 	doc_->redefineCharStyles(tmpStyles_, false);
 	doc_->replaceCharStyles(replacement);
@@ -1788,7 +1797,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 	QList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
-		if ((*it).second == oldName)
+		if (it->second == oldName)
 		{
 			oldName = (*it).first;
 			deleted_.erase(it);
@@ -1796,7 +1805,8 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	deleted_.append(RemoveItem(oldName, newName));
+	if (oldName != newName)
+		deleted_.append(RemoveItem(oldName, newName));
 
 	if (!selectionIsDirty_)
 	{

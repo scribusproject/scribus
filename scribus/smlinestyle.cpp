@@ -227,7 +227,11 @@ void SMLineStyle::apply()
 	doc_->MLineStyles = tmpLines;
 	QMap<QString, QString> replacement;
 	for (int i = 0; i < deleted_.count(); ++i)
+	{
+		if (deleted_[i].first == deleted_[i].second)
+			continue;
 		replacement[deleted_[i].first] = deleted_[i].second;
+	}
 
 	deleted_.clear();
 
@@ -347,7 +351,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 	QList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
-		if ((*it).second == oldName)
+		if (it->second == oldName)
 		{
 			oldName = (*it).first;
 			deleted_.erase(it);
@@ -355,7 +359,8 @@ void SMLineStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	deleted_.append(RemoveItem(oldName, newName));
+	if (oldName != newName)
+		deleted_.append(RemoveItem(oldName, newName));
 }
 
 void SMLineStyle::changeEvent(QEvent *e)
