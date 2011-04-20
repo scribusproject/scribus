@@ -1069,7 +1069,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			{
 				PageItem * Its = m_Doc->Items->at(lc.key());
 				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.value()]);
-				if (Itn->prevInChain() || Its->nextInChain()) 
+				if (!Its->testLinkCandidate(Itn))
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
 					continue;
@@ -2311,7 +2311,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				{
 					PageItem * Its = m_Doc->Items->at(lc.key());
 					PageItem * Itn = m_Doc->Items->at(itemRemap[lc.value()]);
-					if (Itn->prevInChain() || Its->nextInChain()) 
+					if (!Its->testLinkCandidate(Itn))
 					{
 						qDebug("scribus13format: corruption in linked textframes detected");
 						continue;

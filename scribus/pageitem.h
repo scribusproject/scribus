@@ -520,6 +520,8 @@ public:
 	PageItem* nextInChain() { return NextBox; }
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
+
+	bool testLinkCandidate(PageItem* nextFrame);
 	void unlink();
 	void link(PageItem* nextFrame);
 	void dropLinks();

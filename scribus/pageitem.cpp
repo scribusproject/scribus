@@ -1070,6 +1070,18 @@ int PageItem::lastInFrame() const
 #endif
 }
 
+bool PageItem::testLinkCandidate(PageItem* nxt)
+{
+	if (this->nextInChain() )
+		return false;
+	if (nxt->prevInChain() )
+		return false;
+	for (PageItem* ff=nxt; ff; ff=ff->nextInChain())
+	{
+		if (ff == this) return false;
+	}
+	return true;
+}
 
 void PageItem::link(PageItem* nxt)
 {
