@@ -118,6 +118,7 @@ public:
 	~ScribusDoc();
 	void init();
 	QList<PageItem*> getAllItems(QList<PageItem*> &items);
+	QList<PageItem*> *parentGroup(PageItem* item, QList<PageItem*> *list);
 	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
 	void setLoading(const bool);
 	bool isLoading() const;

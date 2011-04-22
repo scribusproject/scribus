@@ -307,7 +307,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
 	setWindowIcon(loadIcon("AppIcon.png"));
-	setDockNestingEnabled(true);
 	scrActionGroups.clear();
 	scrActions.clear();
 	scrRecentFileActions.clear();

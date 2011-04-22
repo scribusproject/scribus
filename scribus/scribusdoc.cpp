@@ -634,6 +634,27 @@ QList<PageItem*> ScribusDoc::getAllItems(QList<PageItem*> &items)
 	return ret;
 }
 
+QList<PageItem*> *ScribusDoc::parentGroup(PageItem* item, QList<PageItem*> *list)
+{
+	QList<PageItem*> *retList = NULL;
+	if (list->contains(item))
+		retList = list;
+	else
+	{
+		for (int a = 0; a < list->count(); ++a)
+		{
+			PageItem* embedded = list->at(a);
+			if (embedded->isGroup())
+			{
+				retList = parentGroup(item, &embedded->asGroupFrame()->groupItemList);
+				if (retList != NULL)
+					break;
+			}
+		}
+	}
+	return retList;
+}
+
 void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
 {
 	docPrefsData.docSetupPrefs.docUnitIndex=unitIndex;
@@ -12388,8 +12409,10 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		for (int b = 0; b < toDelete.count(); b++)
 		{
 			currItem = toDelete.at(b);
-			int d = Items->indexOf(currItem);
-			Items->removeAt(d);
+			QList<PageItem*> *list = Items;
+			list = parentGroup(currItem, Items);
+			int d = list->indexOf(currItem);
+			list->removeAt(d);
 			itemSelection->removeItem(currItem);
 			Selection tempSelection(this, false);
 			tempSelection.delaySignalsOn();
@@ -12398,7 +12421,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			{
 				PageItem* gItem = currItem->groupItemList.at(c);
 				gItem->setXYPos(currItem->xPos() + gItem->gXpos, currItem->yPos() + gItem->gYpos, true);
-				Items->insert(d, gItem);
+				list->insert(d, gItem);
 				itemSelection->addItem(currItem->groupItemList.at(gcount - c));
 				tempSelection.addItem(currItem->groupItemList.at(gcount - c));
 			}
