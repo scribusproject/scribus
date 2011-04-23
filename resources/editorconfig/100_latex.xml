@@ -37,10 +37,10 @@
 			</cs>
 			<de>
 				\section*{Einführung}
-				Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
-				Eigene Formel einzufügen ist sehr einfach:
-				Mit der rechten Maustaste auf diesen Frame klicken $\Rightarrow$ Source bearbeiten\\
-				Danach diesen Text durch ihren eigenen ersetzen:\\
+				Wenn Sie diesen Text lesen können, funktionieren \LaTeX-Frames bei Ihnen.
+				Eigene Formeln einzufügen ist sehr einfach:
+				Mit der rechten Maustaste auf diesen Rahmen klicken $\Rightarrow$ Quelltext bearbeiten\\
+				Danach diesen Text durch Ihren eigenen ersetzen:\\
 				Ein Beispiel:
 				Aus 
 				\begin{verbatim}
@@ -160,7 +160,7 @@
 		<comment><i18n>
 			<en>Note: You have to include \sf at the beginning of your text for Helvetica and \tt for Courier!</en>
 			<cs>Pozn.: Před text psaným Helveticou napište na začátek  \sf, pro Courier \tt!</cs>
-			<de>Hinweis: Am Anfang des Textes muss zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
+			<de>Hinweis: Am Anfang des Textes muß zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
 			<pl>Uwaga: Na początku tekstu należy dodatkowo umieścić \sf dla fontu Helvetica i \tt dla fontu Courier!</pl>
 			<ru>Примечание: необходимо включить команду \sf в начало текста для Helvetica и \tt для Courier!</ru>
 			<hu>Megjegyzés: A Helvetica a \sf, a Courier pedig a \tt paranccsal aktiválható.</hu>
