@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/specialchars.h"
 #include "util.h"
 
+#include <QDebug>
 #include <QMessageBox>
 #include <QProgressBar>
 
@@ -29,6 +30,7 @@ const QString AspellPluginImpl::kDEF_ASPELL_ENTRY =
 // Initialize members here, if any
 AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	QDialog( parent ),
+	fsuggest(0),
 	fdoc( doc ),
 	m_docIsChanged(false),
 	fpos(0),
@@ -45,6 +47,7 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	getPreferences();
 	QString text = tr( "Loaded " ) + (fentry == kDEF_ASPELL_ENTRY ? tr( "default " ) : "") + fentry + tr( " Aspell dictionary." );
 	doc->scMW()->setStatusBarInfoText( text );
+	bool dictCount=0;
 	try
 	{
 		// Deactivate GUI elements in spell-checking tab until an
@@ -59,65 +62,85 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 		// Get list of available aspell dictionaries
 		std::vector<std::string> entries;
 		fsuggest->listDicts( entries );
-		for( std::vector<std::string>::const_iterator i = entries.begin(); i != entries.end(); ++i )
+		dictCount=entries.size();
+		if (!entries.empty())
 		{
-			// FIXME: Handle encodings other than UTF-8.
-			flistDicts->addItem(i->c_str());
-// 			qDebug() << i->c_str();
+			//qDebug()<<"Listing dictionaries";
+			for( std::vector<std::string>::const_iterator i = entries.begin(); i != entries.end(); ++i )
+			{
+				// FIXME: Handle encodings other than UTF-8.
+				flistDicts->addItem(i->c_str());
+//				qDebug() << i->c_str();
+			}
 		}
 		// check the availability of any dict. If == 0 then the plugin
 		// is disabled in all GUI.
-		if (flistDicts->count() == 0)
-			m_errorMessage = tr("No available Aspell dictionaries found. Install some, please.");
-		// use dict for system local if there are no preferences set before
-		QString locale(QLocale::system().name().left(2));
-		if (fentry.isEmpty())
+		if (entries.empty() || flistDicts->count() == 0)
 		{
-			int ix = flistDicts->findText(locale, Qt::MatchStartsWith);
-			if (ix != -1)
-				flistDicts->setCurrentIndex(ix);
-			else
-			{
-				fentry = kDEF_ASPELL_ENTRY;
-				setCurrentComboItem(flistDicts, fentry);
-			}
+			//qDebug() << "Dictionaries found:"<<flistDicts->count();
+			m_errorMessage = tr("No available Aspell dictionaries found. Install some, please.");
+			qWarning()<<m_errorMessage.toUtf8().data();
 		}
 		else
-			setCurrentComboItem(flistDicts, fentry);
-		handleSpellConfig(flistDicts->currentText());
+		{
+			// use dict for system local if there are no preferences set before
+			QString locale(QLocale::system().name().left(2));
+			if (fentry.isEmpty())
+			{
+				int ix = flistDicts->findText(locale, Qt::MatchStartsWith);
+				if (ix != -1)
+					flistDicts->setCurrentIndex(ix);
+				else
+				{
+					fentry = kDEF_ASPELL_ENTRY;
+					setCurrentComboItem(flistDicts, fentry);
+				}
+			}
+			else
+				setCurrentComboItem(flistDicts, fentry);
+			handleSpellConfig(flistDicts->currentText());
+		}
 	}
 	catch( const std::invalid_argument& err )
 	{
-		QString warn = tr( "aspellplugin (AspellPluginImpl::"
-				   "AspellPluginImpl): Error in Aspell "
-				   "speller configuration." );
-		qWarning( "%s", warn.toUtf8().data() );
+		QString warn = tr( "Spell Checker Plugin Failed to Initialise.\nConfiguration invalid" );
+		qWarning()<<warn.toUtf8().data();
+		if (m_errorMessage.isEmpty())
+			m_errorMessage=warn;
 	}
 	catch( const std::runtime_error& err )
 	{
-		QString warn = tr( "aspellplugin (AspellPluginImpl::"
-				   "AspellPluginImpl): Error in creating "
-				   "Aspell speller." );
-		qWarning( "%s", warn.toUtf8().data() );
+		QString warn = tr( "Spell Checker Plugin Failed to Initialise.");
+		if (dictCount==0)
+			warn+="\n"+tr( "No Aspell dictionaries could be found." );
+		qWarning()<<warn.toUtf8().data();
+		if (m_errorMessage.isEmpty())
+			m_errorMessage=warn;
 	}
-	activateSpellGUI(true);
-	parseSelection();
+	if (m_errorMessage.isEmpty())
+	{
+		activateSpellGUI(true);
+		parseSelection();
+	}
 }
 //__________________________________________________________________________
 AspellPluginImpl::~AspellPluginImpl()
 {
-	// Destructor
-	try
+	if (m_errorMessage.isEmpty())
 	{
-		fsuggest->saveLists();
+		// Destructor
+		try
+		{
+			fsuggest->saveLists();
+		}
+		catch( const std::runtime_error& err )
+		{
+			qWarning( "aspellplugin (AspellPluginImpl::~AspellPlugin"
+				  "Impl): Error in saving aspell word lists." );
+		}
 	}
-	catch( const std::runtime_error& err )
-	{
-		qWarning( "aspellplugin (AspellPluginImpl::~AspellPlugin"
-			  "Impl): Error in saving Aspell word lists." );
-	}
-
-	delete fsuggest;
+	if (fsuggest)
+		delete fsuggest;
 }
 //__________________________________________________________________________
 void AspellPluginImpl::activateSpellGUI(bool active)
@@ -263,7 +286,8 @@ void AspellPluginImpl::on_fcloseBtn_clicked()
 {
 	// Called when the "Close" button is clicked. Makes any pending
 	// replacements and closes the spell-checking window.
-	spellCheckDone();  // Also closes spell-checking window.
+	if (m_errorMessage.isEmpty())
+		spellCheckDone();  // Also closes spell-checking window.
 }
 //__________________________________________________________________________
 void AspellPluginImpl::on_fchangeBtn_clicked()
