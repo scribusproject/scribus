@@ -2695,7 +2695,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if (hl->hasObject())
 				{
 					PS_save();
 					PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -hl->PDx, 0.0) + "\n");
@@ -3657,7 +3657,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		}
 	}
 	*/
-	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+	if (hl->hasObject())
 	{
 		QList<PageItem*> emG = hl->embedded.getGroupedItems();
 		QStack<PageItem*> groupStack;
