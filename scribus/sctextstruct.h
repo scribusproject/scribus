@@ -108,8 +108,8 @@ public:
 	InlineFrame& operator= (const InlineFrame& other);
 	virtual ~InlineFrame();
 	
-	bool hasItem();
-	bool isShared();
+	bool hasItem() const;
+	bool isShared() const;
 	PageItem* getItem();
 	QList<PageItem*> getGroupedItems();
 private:
@@ -152,6 +152,8 @@ public:
 			parstyle = new ParagraphStyle(*other.parstyle);
 	}
 	~ScText();
+
+	bool hasObject() const;
 };
 #endif
 

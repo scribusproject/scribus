@@ -75,12 +75,12 @@ InlineFrame::~InlineFrame()
 		delete d;
 }
 
-bool InlineFrame::hasItem()
+bool InlineFrame::hasItem() const
 {
 	return d->item != NULL;
 }
 
-bool InlineFrame::isShared()
+bool InlineFrame::isShared() const
 {
 	return d->refs > 1;
 }
@@ -133,4 +133,11 @@ ScText::~ScText()
 	if (parstyle)
 		delete parstyle;
 	parstyle = NULL;
+}
+
+bool ScText::hasObject() const
+{
+	if (this->ch == SpecialChars::OBJECT)
+		return this->embedded.hasItem();
+	return false;
 }
