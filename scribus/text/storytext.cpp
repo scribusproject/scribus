@@ -218,6 +218,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 		else if (other.text(i) == SpecialChars::OBJECT) {
 			insertChars(pos, SpecialChars::OBJECT);
 			item(pos)->embedded = other.item(i)->embedded;
+			applyCharStyle(pos, 1, other.charStyle(i));
 			cstyleStart = i+1;
 			pos += 1;
 		}
@@ -525,6 +526,20 @@ QString StoryText::textWithSoftHyphens(int pos, uint len) const
 	return result;
 }
 
+bool StoryText::hasObject(int pos) const
+{
+	if (pos < 0)
+		pos += length();
+
+	assert(pos >= 0);
+	assert(pos < length());
+
+	StoryText* that = const_cast<StoryText *>(this);
+	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
+		return that->d->at(pos)->embedded.hasItem();
+	return false;
+}
+
 PageItem* StoryText::object(int pos) const
 {
 	if (pos < 0)
@@ -812,7 +827,7 @@ void StoryText::getNamedResources(ResourceCollection& lists) const
 	{
 		if (text(i) == SpecialChars::PARSEP)
 			paragraphStyle(i).getNamedResources(lists);
-		else if (text(i) == SpecialChars::OBJECT)
+		else if (hasObject(i))
 			object(i)->getNamedResources(lists);
 		else
 			charStyle(i).getNamedResources(lists);
@@ -1393,13 +1408,13 @@ FRect StoryText::boundingBox(int pos, uint len) const
 				qreal xpos = ls.x;
 				for (int j = ls.firstItem; j < pos; ++j)
 				{
-					if (item(j)->ch == SpecialChars::OBJECT)
+					if (hasObject(j))
 						xpos += (object(j)->gWidth + object(j)->lineWidth()) * item(j)->glyph.scaleH;
 					else
 						xpos += item(j)->glyph.wide();
 				}
 				qreal finalw = 1;
-				if (item(pos)->ch == SpecialChars::OBJECT)
+				if (hasObject(pos))
 					finalw = (object(pos)->gWidth + object(pos)->lineWidth()) * item(pos)->glyph.scaleH;
 				else
 					finalw = item(pos)->glyph.wide();
@@ -1539,7 +1554,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			handler.begin("span", empty);
 			lastStyle.erase();
 		}
-		else if (curr == SpecialChars::OBJECT && object(i) != NULL)
+		else if (this->hasObject(i))
 		{
 			object(i)->saxx(handler);
 		}
