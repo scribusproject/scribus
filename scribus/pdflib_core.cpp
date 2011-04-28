@@ -5073,7 +5073,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 	}
 	*/
 	InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
-	if ((hl->ch == SpecialChars::OBJECT) && (embedded.hasItem()))
+	if (hl->hasObject())
 	{
 		if (!ite->asPathText())
 		{
