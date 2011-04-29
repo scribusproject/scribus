@@ -499,6 +499,13 @@ QStringList sortQStringList(QStringList aList)
 	return retList;
 }
 
+bool sortingQPairOfStrings( QPair<QString, QString> aP, QPair<QString, QString> bP)
+{
+	if (aP.first == bP.first)
+		return (aP.second < bP.second);
+	return (aP.first < bP.first);
+}
+
 QString checkFileExtension(const QString &currName, const QString &extension)
 {
 	QString newName(currName);
