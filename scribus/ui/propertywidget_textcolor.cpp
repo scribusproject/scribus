@@ -318,11 +318,7 @@ void PropertyWidget_TextColor::handleTextDirection()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool setter = revertButton->isChecked();
-	m_item->setImageFlippedH(setter);
-	m_item->setReversed(setter);
-	m_item->update();
-	//emit DocChanged();
+	m_doc->itemSelection_SetItemTextReversed(revertButton->isChecked());
 }
 
 void PropertyWidget_TextColor::handleTextFill()

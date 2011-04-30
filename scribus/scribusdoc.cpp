@@ -9071,6 +9071,22 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	changed();
 }
 
+void ScribusDoc::itemSelection_SetItemTextReversed(bool reversed)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = m_Selection->itemAt(i);
+			currItem->setImageFlippedH(reversed);
+			currItem->setReversed(reversed);
+		}
+		regionsChanged()->update(QRectF());
+		changed();
+	}
+}
+
 
 void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
 {

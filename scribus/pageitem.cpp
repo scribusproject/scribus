@@ -1036,6 +1036,12 @@ void PageItem::setImageRotation(const double newRotation)
 
 void PageItem::setReversed(bool newReversed)
 {
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipH, 0, Um::IFlipH);
+		ss->set("REVERSE_TEXT", "REVERSE_TEXT");
+		undoManager->action(this, ss);
+	}
 	Reverse=newReversed;
 }
 
