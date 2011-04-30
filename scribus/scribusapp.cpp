@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
-
 #include <iostream>
 #include <cstdlib>
 
@@ -44,6 +43,10 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "upgradechecker.h"
 
+#ifdef WITH_TESTS
+#include "tests/runtests.h"
+#endif
+
 #if defined(_WIN32)
 #include <windows.h>
 #endif
@@ -61,6 +64,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_SWAPDIABUTTONS "--swap-buttons"
 #define ARG_PREFS "--prefs"
 #define ARG_UPGRADECHECK "--upgradecheck"
+#define ARG_TESTS "--tests"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -75,6 +79,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_SWAPDIABUTTONS_SHORT "-sb"
 #define ARG_PREFS_SHORT "-pr"
 #define ARG_UPGRADECHECK_SHORT "-u"
+#define ARG_TESTS_SHORT "-T"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -118,6 +123,11 @@ void ScribusQApp::parseCommandLine()
 	bool availlangs=false;
 	bool version=false;
 	bool runUpgradeCheck=false;
+#ifdef WITH_TESTS
+	bool runtests = false;
+	char** testargsv;
+	int testargsc;
+#endif
 	showFontInfo=false;
 	showProfileInfo=false;
 	swapDialogButtonOrder=false;
@@ -136,7 +146,17 @@ void ScribusQApp::parseCommandLine()
 		} else if (arg == ARG_HELP || arg == ARG_HELP_SHORT) {
 			header=true;
 			usage=true;
-		} else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT) {
+		}
+#ifdef WITH_TESTS
+		else if (arg == ARG_TESTS || arg == ARG_TESTS_SHORT) {
+			header=true;
+			runtests=true;
+			testargsc = argc() - i;
+			testargsv = argv() + i;
+			break;
+		}
+#endif
+		else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT) {
 			header=true;
 			availlangs=true;
 		} else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT) {
@@ -155,6 +175,10 @@ void ScribusQApp::parseCommandLine()
 		showAvailLangs();
 	if (usage)
 		showUsage();
+#ifdef WITH_TESTS
+	if (runtests)
+		RunTests::runTests(testargsc, testargsv);
+#endif
 	if (runUpgradeCheck)
 	{
 		UpgradeChecker uc;
@@ -424,6 +448,11 @@ void ScribusQApp::showUsage()
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );
 #endif
+
+#if WITH_TESTS
+	printArgLine(ts, ARG_TESTS_SHORT, ARG_TESTS, tr("Run unit tests and exit") );
+#endif
+
 /* Delete me?
 	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; endl(ts);

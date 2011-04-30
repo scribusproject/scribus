@@ -38,3 +38,4 @@
 #cmakedefine COMPILE_PYTHON 1
 #cmakedefine WORDS_BIGENDIAN 1
 #cmakedefine GMAGICK_FOUND 1
+#cmakedefine WITH_TESTS 1
