@@ -4727,11 +4727,7 @@ void PropertiesPalette::DoRevert()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool setter=Revert->isChecked();
-	CurItem->setImageFlippedH(setter);
-	CurItem->setReversed(setter);
-	CurItem->update();
-	emit DocChanged();
+	doc->itemSelection_SetItemTextReversed(Revert->isChecked());
 }
 
 

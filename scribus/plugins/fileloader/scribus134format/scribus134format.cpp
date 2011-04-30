@@ -1031,7 +1031,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
-							PrefsManager* prefsManager=PrefsManager::instance();
+							//PrefsManager* prefsManager=PrefsManager::instance();
 							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
@@ -1039,7 +1039,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						else if (it.tagName() == "trail")
 						{
 							ParagraphStyle newStyle;
-							PrefsManager* prefsManager = PrefsManager::instance();
+							//PrefsManager* prefsManager = PrefsManager::instance();
 							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
@@ -1270,7 +1270,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
-							PrefsManager* prefsManager=PrefsManager::instance();
+							//PrefsManager* prefsManager=PrefsManager::instance();
 							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
@@ -1278,7 +1278,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						else if (it.tagName() == "trail")
 						{
 							ParagraphStyle newStyle;
-							PrefsManager* prefsManager = PrefsManager::instance();
+							//PrefsManager* prefsManager = PrefsManager::instance();
 							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
@@ -3048,7 +3048,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
-							PrefsManager* prefsManager=PrefsManager::instance();
+							//PrefsManager* prefsManager=PrefsManager::instance();
 							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
@@ -3056,7 +3056,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						else if (it.tagName() == "trail")
 						{
 							ParagraphStyle newStyle;
-							PrefsManager* prefsManager = PrefsManager::instance();
+							//PrefsManager* prefsManager = PrefsManager::instance();
 							readParagraphStyle(newStyle, it, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length(), newStyle);
 						}
@@ -3440,7 +3440,7 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 	bool fou(false);
 	QString tmV;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
-	PrefsManager* prefsManager=PrefsManager::instance();
+	//PrefsManager* prefsManager=PrefsManager::instance();
 	readParagraphStyle(*vg, *pg, doc);
 	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{
