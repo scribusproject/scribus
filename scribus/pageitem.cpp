@@ -5148,8 +5148,8 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	{
 		*x1 = Xpos;
 		*y1 = Ypos;
-		*x2 = Xpos + qMax(Width, m_lineWidth);
-		*y2 = Ypos + qMax(Height, m_lineWidth);
+		*x2 = Xpos + qMax(1.0, qMax(Width, m_lineWidth));
+		*y2 = Ypos + qMax(1.0, qMax(Height, m_lineWidth));
 	}
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
