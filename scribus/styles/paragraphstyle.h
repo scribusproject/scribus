@@ -57,9 +57,7 @@ public:
 		qreal tabPosition;
 		int tabType;
 		QChar tabFillChar;
-		bool operator==(const TabRecord& other) const {
-			return tabPosition==other.tabPosition && tabType==other.tabType && tabFillChar == other.tabFillChar;
-		}
+		bool operator==(const TabRecord& other) const;
 		bool operator<(const TabRecord& other)  const { return tabPosition < other.tabPosition; }
 		bool operator<=(const TabRecord& other) const { return tabPosition <= other.tabPosition; }
 		bool operator>(const TabRecord& other)  const { return tabPosition > other.tabPosition; }
