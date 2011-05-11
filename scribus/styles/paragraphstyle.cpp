@@ -21,6 +21,11 @@
 #include "desaxe/simple_actions.h"
 #include "util_math.h"
 
+bool ParagraphStyle::TabRecord::operator==(const TabRecord& other) const
+{
+	return isequiv(tabPosition, other.tabPosition) && tabType==other.tabType && tabFillChar == other.tabFillChar;
+}
+
 ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIsInh(true), cstyle()
 {
 	setParent("");
