@@ -506,14 +506,9 @@ void ScFace_ttf::unload() const
 qreal ScFace_ttf::glyphKerning ( uint gl1, uint gl2, qreal sz ) const
 {
 	if ( kernFeature->isValid() )
-	{
 		return kernFeature->getPairValue ( gl1,gl2 ) / m_uniEM * sz;
-
-	}
-	else
-		return FtFace::glyphKerning ( gl1, gl2, sz );
+	return FtFace::glyphKerning ( gl1, gl2, sz );
 }
-
 
 void ScFace_ttf::RawData(QByteArray & bb) const {
 	if (formatCode == ScFace::TTCF) {
