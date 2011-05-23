@@ -1045,6 +1045,24 @@ void PageItem::setReversed(bool newReversed)
 	Reverse=newReversed;
 }
 
+//return frame where is text end
+PageItem * PageItem::frameTextEnd()
+{
+	PageItem * LastBox = this;
+	if (frameOverflows() && NextBox)
+	{ // text ending in some next frame
+		LastBox = NextBox;
+		while (LastBox != 0 && !LastBox->frameDisplays(itemText.length()-1))
+			LastBox = LastBox->nextInChain();
+	}
+	else if (frameUnderflows() && BackBox)
+	{ //text ending in some previous frame
+		LastBox = BackBox;
+		while (LastBox != 0 && !LastBox->frameDisplays(itemText.length()-1))
+			LastBox = LastBox->prevInChain();
+	}
+	return LastBox;
+}
 
 /// returns true if text overflows
 bool PageItem::frameOverflows() const
@@ -1061,6 +1079,17 @@ bool PageItem::frameOverflows() const
 #else
 	return false; // FIXME:NLS
 #endif
+}
+
+/// returns true if text is ending before that frame
+bool PageItem::frameUnderflows() const
+{
+	if (BackBox == NULL)
+		return false;
+	//FIX ME - I have found that condition if frame is empty
+	//and has been linked with previous frame
+	//if you will find any better solution - fix that function
+	return (firstInFrame() > lastInFrame());
 }
 
 int PageItem::firstInFrame() const

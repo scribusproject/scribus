@@ -2762,6 +2762,39 @@ void PageItem_TextFrame::clearContents()
 
 void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
+	if (frameUnderflows())
+	{
+		CPos = itemText.length();
+		m_Doc->view()->Deselect(true);
+		PageItem * jumpFrame = frameTextEnd();
+		if (jumpFrame)
+		{
+			jumpFrame->CPos = CPos;
+			m_Doc->scMW()->selectItemsFromOutlines(jumpFrame);
+			m_Doc->scMW()->setTBvals(jumpFrame);
+			jumpFrame->update();
+			update();
+			switch (k->key())
+			{
+			case Qt::Key_PageDown:
+			case Qt::Key_PageUp:
+			case Qt::Key_End:
+			case Qt::Key_Home:
+			case Qt::Key_Right:
+			case Qt::Key_Left:
+			case Qt::Key_Up:
+			case Qt::Key_Down:
+			case Qt::Key_Delete:
+			case Qt::Key_Backspace:
+				break;
+			default:
+				jumpFrame->handleModeEditKey(k, keyRepeat);
+				jumpFrame->layout();
+				break;
+				}
+			return;
+		}
+	}
 	int oldPos = CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 	int kk = k->key();
 	int as = k->text()[0].unicode();
@@ -2930,7 +2963,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 							// we position the cursor at the beginning of the next frame
 							// TODO position at the right place in next frame
 							NextBox->CPos = lastInFrame() + 1;
-							view->SelectItemNr(NextBox->ItemNr);
+							m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 						}
 					}
 			}
@@ -2942,7 +2975,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						view->Deselect(true);
 						NextBox->CPos = lastInFrame()+1;
-						view->SelectItemNr(NextBox->ItemNr);
+						m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 					}
 				}
 			}
@@ -2980,7 +3013,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						view->Deselect(true);
 						// TODO position at the right place in previous frame
 						BackBox->CPos = BackBox->lastInFrame();
-						view->SelectItemNr(BackBox->ItemNr);
+						m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 					}
 			}
 			else
@@ -2990,7 +3023,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					view->Deselect(true);
 					BackBox->CPos = BackBox->lastInFrame();
-					view->SelectItemNr(BackBox->ItemNr);
+					m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 				}
 			}
 		}
@@ -2999,13 +3032,29 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_PageUp:
-		CPos = itemText.startOfFrame(CPos);
+		if (CPos == firstInFrame() && BackBox != 0)
+		{
+			view->Deselect(true);
+			BackBox->CPos = BackBox->firstInFrame();
+			m_Doc->scMW()->selectItemsFromOutlines(BackBox);
+			//currItem = currItem->BackBox;
+		}
+		else
+			CPos = itemText.startOfFrame(CPos);
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(-1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_PageDown:
-		CPos = itemText.endOfFrame(CPos);
+		if (!frameDisplays(itemText.length()-1) && CPos >= lastInFrame() && NextBox != 0)
+		{
+			view->Deselect(true);
+			NextBox->CPos = NextBox->lastInFrame();
+			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
+			//currItem = currItem->BackBox;
+		}
+		else
+			CPos = itemText.endOfFrame(CPos);
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
@@ -3035,7 +3084,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					view->Deselect(true);
 					BackBox->CPos = BackBox->lastInFrame();
-					view->SelectItemNr(BackBox->ItemNr);
+					m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 					//currItem = currItem->BackBox;
 				}
 			}
@@ -3095,7 +3144,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						view->Deselect(true);
 						NextBox->CPos = CPos;
-						view->SelectItemNr(NextBox->ItemNr);
+						m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 						//currItem = currItem->NextBox;
 					}
 				}
@@ -3162,6 +3211,17 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(CPos-1,0))));
 //			Tinput = false;
+		}
+		if (CPos < firstInFrame())
+		{
+			CPos = firstInFrame();
+			if (BackBox != 0)
+			{
+				view->Deselect(true);
+				BackBox->CPos = BackBox->lastInFrame();
+				m_Doc->scMW()->selectItemsFromOutlines(BackBox);
+				//currItem = currItem->BackBox;
+			}
 		}
 		m_Doc->scMW()->setTBvals(this);
 		update();
@@ -3234,7 +3294,16 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			view->RefreshItem(this);
 			doUpdate = true;
 		}
-		if (doUpdate) update();
+		if (doUpdate)
+			update();
+		//check if cursor need to jump to next linked frame
+		if (lastInFrame() < (itemText.length() -2) && NextBox != 0)
+		{
+			view->Deselect(true);
+			NextBox->CPos = CPos;
+			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
+			NextBox->update();
+		}
 		break;
 	}
 // 	update();

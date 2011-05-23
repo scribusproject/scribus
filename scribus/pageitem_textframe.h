@@ -82,6 +82,7 @@ protected:
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Decoration(ScPainter *p);
 	void drawOverflowMarker(ScPainter *p);
+	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
 	QRegion availableRegion(QRegion clip);
 
