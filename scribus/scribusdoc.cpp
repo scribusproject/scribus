@@ -10501,35 +10501,40 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 {
 	PageItem *bb;
-	uint StartInd = 0;
 	m_Selection->delaySignalsOn();
-	PageItem *currItem = m_Selection->itemAt(0);
-	uint EndInd = currItem->PoLine.size();
-	for (uint a = EndInd-1; a > 0; --a)
+	for (int i = 0; i < m_Selection->count(); ++i)
 	{
-		if (currItem->PoLine.point(a).x() > 900000)
+		PageItem *currItem = m_Selection->itemAt(i);
+		if (!currItem->isPolygon() || currItem->Segments.count() <= 0)
+			continue;
+		uint StartInd = 0;
+		uint EndInd = currItem->PoLine.size();
+		for (uint a = EndInd-1; a > 0; --a)
 		{
-			StartInd = a + 1;
-			bb = new PageItem_Polygon(*currItem);
-			Items->append(bb);
-			bb->ItemNr = Items->count()-1;
-			bb->convertTo(PageItem::Polygon);
-			bb->Frame = false;
-			bb->FrameType = 3;
-			bb->PoLine.resize(0);
-			bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);
-			bb->setRotation(currItem->rotation());
-			AdjustItemSize(bb);
-			bb->ContourLine = bb->PoLine.copy();
-			bb->ClipEdited = true;
-			a -= 3;
-			EndInd = StartInd - 4;
+			if (currItem->PoLine.point(a).x() > 900000)
+			{
+				StartInd = a + 1;
+				bb = new PageItem_Polygon(*currItem);
+				Items->append(bb);
+				bb->ItemNr = Items->count()-1;
+				bb->convertTo(PageItem::Polygon);
+				bb->Frame = false;
+				bb->FrameType = 3;
+				bb->PoLine.resize(0);
+				bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);
+				bb->setRotation(currItem->rotation());
+				AdjustItemSize(bb);
+				bb->ContourLine = bb->PoLine.copy();
+				bb->ClipEdited = true;
+				a -= 3;
+				EndInd = StartInd - 4;
+			}
 		}
+		currItem->PoLine.resize(StartInd-4);
+		AdjustItemSize(currItem);
+		currItem->ContourLine = currItem->PoLine.copy();
+		currItem->ClipEdited = true;
 	}
-	currItem->PoLine.resize(StartInd-4);
-	AdjustItemSize(currItem);
-	currItem->ContourLine = currItem->PoLine.copy();
-	currItem->ClipEdited = true;
 	m_Selection->delaySignalsOff();
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
