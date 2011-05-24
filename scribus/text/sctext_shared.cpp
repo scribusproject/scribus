@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(), 
 	defaultStyle(), 
 	pstyleContext(NULL),
-	refs(1), len(0), trailingStyle()
+	refs(1), len(0), cursorPosition(0), trailingStyle()
 {
 	pstyleContext.setDefaultStyle( & defaultStyle );
 	defaultStyle.setContext( pstyles );
@@ -32,7 +32,8 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(),
 ScText_Shared::ScText_Shared(const ScText_Shared& other) : QList<ScText*>(), 
 	defaultStyle(other.defaultStyle), 
 	pstyleContext(other.pstyleContext),
-	refs(1), len(0), trailingStyle(other.trailingStyle)
+	refs(1), len(0), cursorPosition(other.cursorPosition),
+	trailingStyle(other.trailingStyle)
 {
 	pstyleContext.setDefaultStyle( &defaultStyle );
 	trailingStyle.setContext( &pstyleContext );
@@ -58,15 +59,17 @@ void ScText_Shared::clear()
 	while(!this->isEmpty())
 		delete this->takeFirst(); 
 	QList<ScText*>::clear();
+	cursorPosition = 0;
 }
 
 ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other) 
 {
 	if (this != &other) 
 	{
-		defaultStyle = other.defaultStyle;
-		trailingStyle = other.trailingStyle;
-		pstyleContext = other.pstyleContext;
+		cursorPosition = other.cursorPosition;
+		defaultStyle   = other.defaultStyle;
+		trailingStyle  = other.trailingStyle;
+		pstyleContext  = other.pstyleContext;
 		pstyleContext.setDefaultStyle( &defaultStyle );
 		defaultStyle.setContext( other.defaultStyle.context() );
 		trailingStyle.setContext( &pstyleContext );

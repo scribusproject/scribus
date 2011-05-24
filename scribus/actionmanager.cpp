@@ -1403,7 +1403,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 
 	//Insert Menu
-	(*scrActions)["insertFrame"]->setTexts( tr("&Frame..."));
+	(*scrActions)["insertFrame"]->setTexts( tr("&Frames..."));
 	(*scrActions)["insertGlyph"]->setTexts( tr("&Glyph..."));
 	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text"));
 	(*scrActions)["stickyTools"]->setTexts( tr("Sticky Tools"));

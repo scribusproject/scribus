@@ -1129,8 +1129,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 						if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
 							currItem->asTextFrame()->deleteSelectedTextFromFrame();
 
-						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)), true);
-						currItem->CPos += 1;
+						currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
 //						currItem->Tinput = true;
 						currItem->update();
 					}
@@ -1138,15 +1137,14 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 					{
 						// this code is currently dead since unicodeSoftHyphen
 						// doesnt have unicodevalue == -1 any more
-						if (currItem->CPos-1>0)
+						if (currItem->itemText.cursorPosition() > 1)
 						{
 #if 0
 							StyleFlag fl = currItem->itemText.item(qMax(currItem->CPos-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
 							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
 #else
-							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN), true);
-							currItem->CPos += 1;
+							currItem->itemText.insertChars(QString(SpecialChars::SHYPHEN), true);
 #endif
 //							currItem->Tinput = true;
 							currItem->update();
@@ -4978,10 +4976,10 @@ void ScribusMainWindow::slotEditPaste()
 			if (currItem->HasSel)
 				currItem->deleteSelectedTextFromFrame();
 
-			if (currItem->CPos < 0)
+			/*if (currItem->CPos < 0)
 				currItem->CPos = 0;
 			if (currItem->CPos > currItem->itemText.length())
-				currItem->CPos = currItem->itemText.length();
+				currItem->CPos = currItem->itemText.length();*/
 
 			if (ScMimeData::clipboardHasScribusText())
 			{
@@ -4995,8 +4993,7 @@ void ScribusMainWindow::slotEditPaste()
 
 				StoryText* story = dig.result<StoryText>();
 
-				currItem->itemText.insert(currItem->CPos, *story);
-				currItem->CPos += story->length();
+				currItem->itemText.insert(*story);
 
 				delete story;
 			}
@@ -5068,8 +5065,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->maxCanvasCoordinate = maxSize;
 				if (outlinePalette->isVisible())
 					outlinePalette->BuildTree();
-				currItem->itemText.insertObject(currItem->CPos, currItem3);
-				currItem->CPos += 1;
+				currItem->itemText.insertObject(currItem3);
 				undoManager->setUndoEnabled(true);
 			}
 			else
@@ -5078,7 +5074,7 @@ void ScribusMainWindow::slotEditPaste()
 				QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
 				text = text.replace("\r\n", SpecialChars::PARSEP);
 				text = text.replace('\n', SpecialChars::PARSEP);
-				currItem->itemText.insertChars(currItem->CPos, text, true);
+				currItem->itemText.insertChars(text, true);
 			}
 			currItem->update();
 		}
@@ -6363,7 +6359,7 @@ void ScribusMainWindow::setAppMode(int mode)
 //					return;
 //				}
 				setTBvals(currItem);
-				currItem->CPos = 0;
+				currItem->itemText.setCursorPosition(0);
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			charPalette->setEnabled(true, currItem);
@@ -9405,7 +9401,7 @@ void ScribusMainWindow::SearchText()
 {
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	view->requestMode(modeEdit);
-	currItem->CPos = 0;
+	currItem->itemText.setCursorPosition(0);
 	SearchReplace* dia = new SearchReplace(this, doc, currItem);
 	connect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
 	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAlignmentValue(int)));

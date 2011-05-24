@@ -159,7 +159,6 @@ PageItem::PageItem(const PageItem & other)
 	BBoxH(other.BBoxH),
 	CurX(other.CurX),
 	CurY(other.CurY),
-	CPos(other.CPos),
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
@@ -461,7 +460,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	FrameType = 0;
 	CurX = 0;
 	CurY = 0;
-	CPos = 0;
 	Extra = m_Doc->itemToolPrefs().textDistances.Left;
 	TExtra = m_Doc->itemToolPrefs().textDistances.Top;
 	BExtra = m_Doc->itemToolPrefs().textDistances.Bottom;
@@ -1273,8 +1271,8 @@ bool PageItem::frameDisplays(int textpos) const
 /// returns the style at the current charpos
 const ParagraphStyle& PageItem::currentStyle() const
 {
-	if (frameDisplays(CPos))
-		return itemText.paragraphStyle(CPos);
+	if (frameDisplays(itemText.cursorPosition()))
+		return itemText.paragraphStyle(itemText.cursorPosition());
 	else
 		return itemText.defaultStyle();
 }
@@ -1282,8 +1280,8 @@ const ParagraphStyle& PageItem::currentStyle() const
 /// returns the style at the current charpos for changing
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
-	if (frameDisplays(CPos))
-		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(CPos));
+	if (frameDisplays(itemText.cursorPosition()))
+		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(itemText.cursorPosition()));
 	else
 		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
 }
@@ -1291,8 +1289,8 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 /// returns the style at the current charpos
 const CharStyle& PageItem::currentCharStyle() const
 {
-	if (frameDisplays(CPos))
-		return itemText.charStyle(CPos);
+	if (frameDisplays(itemText.cursorPosition()))
+		return itemText.charStyle(itemText.cursorPosition());
 	else
 		return itemText.defaultStyle().charStyle();
 }

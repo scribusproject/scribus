@@ -104,17 +104,24 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	
  	void clear();
 	StoryText copy() const;
+	void insert(const StoryText& other, bool onlySelection = false);
 	void insert(int pos, const StoryText& other, bool onlySelection = false);
 	void append(const StoryText& other) { insert(length(), other, false); }
  	void removeChars(int pos, uint len);
+	void insertChars(QString txt, bool applyNeighbourStyle = false);
  	void insertChars(int pos, QString txt, bool applyNeighbourStyle = false);
+	void insertObject(PageItem* obj);
  	void insertObject(int pos, PageItem* obj);
  	void replaceChar(int pos, QChar ch);
+
+	int  cursorPosition() const;
+	void setCursorPosition(int pos, bool relative = false);
 
 	void hyphenateWord(int pos, uint len, char* hyphens);
 	
  	int length() const;
- 	QChar text(int pos) const;
+	QChar   text() const;
+ 	QChar   text(int pos) const;
  	QString text(int pos, uint len) const;
 	QString wordAt(int pos) const;
 
@@ -130,6 +137,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int nextFramePos(int c);
 	int prevFramePos(int c);
 	
+	const CharStyle& charStyle() const;
  	const CharStyle& charStyle(int pos) const;
  	const ParagraphStyle& paragraphStyle(int pos) const;
  	const ParagraphStyle& defaultStyle() const;
@@ -147,8 +155,11 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	void replaceNamedResources(ResourceCollection& newNames);
 	
  	uint nrOfParagraphs() const;
+	int startOfParagraph() const;
  	int startOfParagraph(uint index) const;
+	int endOfParagraph() const;
  	int endOfParagraph(uint index) const;
+	uint nrOfParagraph() const;
 	uint nrOfParagraph(int pos) const;
 
  	uint nrOfRuns() const;

@@ -569,7 +569,6 @@ void SEditor::insertStyledText(const StoryText& styledText, int pos)
 
 void SEditor::saveItemText(PageItem *currItem)
 {
-	currItem->CPos = 0;
 	currItem->itemText.clear();
 	currItem->itemText.setDefaultStyle(StyledText.defaultStyle());
 	currItem->itemText.append(StyledText);
@@ -634,11 +633,11 @@ void SEditor::loadItemText(PageItem *currItem)
 	updateAll();
 	int npars = currItem->itemText.nrOfParagraphs();
 	SelParaStart = 0;
-	while (currItem->CPos >= (SelCharStart = currItem->itemText.endOfParagraph(SelParaStart))
+	while (currItem->itemText.cursorPosition() >= (SelCharStart = currItem->itemText.endOfParagraph(SelParaStart))
 		   && SelParaStart < npars)
 		++SelParaStart;
-	if (currItem->CPos < SelCharStart)
-		SelCharStart = currItem->CPos;
+	if (currItem->itemText.cursorPosition() < SelCharStart)
+		SelCharStart = currItem->itemText.cursorPosition();
 	SelCharStart -= currItem->itemText.startOfParagraph(SelParaStart);
 	StoredSel = false;
 	//qDebug() << "SE::loadItemText: cursor";

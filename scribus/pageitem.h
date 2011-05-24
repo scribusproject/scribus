@@ -504,8 +504,6 @@ public:
 	double CurX;
   /** Zeichen Y-Position */
 	double CurY;
-  /** Cursorposition */
-	int CPos;
   /** Text des Elements */
 	StoryText itemText;
   /** Flag fuer PDF-Bookmark */

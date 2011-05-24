@@ -240,8 +240,8 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 		QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
 
 		// normalize Current Position
-		textframe->CPos = qMax ( 0,qMin ( textframe->CPos, textframe->itemText.length() ) );
-		int textCursorPos ( textframe->CPos );
+		textframe->itemText.setCursorPosition( qMax ( 0, qMin( textframe->itemText.cursorPosition(), textframe->itemText.length() ) ) );
+		int textCursorPos ( textframe->itemText.cursorPosition() );
 
 		if ( textframe->lastInFrame() >= signed ( textframe->itemText.nrOfItems() )
 		        || textframe->itemText.length() == 0 )
@@ -463,7 +463,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 				if (m->modifiers() & Qt::ShiftModifier)
 				{//Double click with Ctrl+Shift in a frame to select few paragraphs
 					uint oldPar = currItem->itemText.nrOfParagraph(oldCp);
-					uint newPar = currItem->itemText.nrOfParagraph(currItem->CPos);
+					uint newPar = currItem->itemText.nrOfParagraph();
 					if (oldPar < newPar)
 					{
 						start = currItem->itemText.startOfParagraph(oldPar);
@@ -477,19 +477,19 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 				}
 				else
 				{//Double click with Ctrl in a frame to select a paragraph
-					oldCp = currItem->CPos;
+					oldCp = currItem->itemText.cursorPosition();
 					uint nrPar = currItem->itemText.nrOfParagraph(oldCp);
 					start = currItem->itemText.startOfParagraph(nrPar);
 					stop = currItem->itemText.endOfParagraph(nrPar);
 				}
 				currItem->itemText.deselectAll();
 				currItem->itemText.extendSelection(start, stop);
-				currItem->CPos = stop;
+				currItem->itemText.setCursorPosition(stop);
 			}
 			else
 			{	//Double click in a frame to select a word
-				oldCp = currItem->CPos;
-				currItem->CPos = currItem->itemText.selectWord(currItem->CPos);
+				oldCp = currItem->itemText.cursorPosition();
+				currItem->itemText.setCursorPosition(currItem->itemText.selectWord(currItem->itemText.cursorPosition()));
 			}
 			currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
 		}
@@ -570,14 +570,14 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				//Make sure we dont go here if the old cursor position was not set
 				if (oldCp!=-1 && currItem->itemText.length() > 0)
 				{
-					if (currItem->CPos < oldCp)
+					if (currItem->itemText.cursorPosition() < oldCp)
 					{
-						currItem->itemText.select(currItem->CPos, oldCp - currItem->CPos);
+						currItem->itemText.select(currItem->itemText.cursorPosition(), oldCp - currItem->itemText.cursorPosition());
 						currItem->HasSel = true;
 					}
-					if (currItem->CPos > oldCp)
+					if (currItem->itemText.cursorPosition() > oldCp)
 					{
-						currItem->itemText.select(oldCp, currItem->CPos - oldCp);
+						currItem->itemText.select(oldCp, currItem->itemText.cursorPosition() - oldCp);
 						currItem->HasSel = true;
 					}
 				}
@@ -734,7 +734,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				return;
 			}
 		}
-		oldP = currItem->CPos;
+		oldP = currItem->itemText.cursorPosition();
 		//CB Where we set the cursor for a click in text frame
 		if (currItem->asTextFrame())
 		{
@@ -757,32 +757,32 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				{
 					if (currItem->itemText.lengthOfSelection() > 0)
 					{
-						if (currItem->CPos < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
+						if (currItem->itemText.cursorPosition() < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
 						{
 							if (m->modifiers() & Qt::ControlModifier)
-								currItem->CPos = currItem->itemText.startOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
+								currItem->itemText.setCursorPosition(currItem->itemText.startOfParagraph());
 							oldP = currItem->itemText.startOfSelection();
 						}
 						else
 						{
 							if (m->modifiers() & Qt::ControlModifier)
-								currItem->CPos = currItem->itemText.endOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
+								currItem->itemText.setCursorPosition(currItem->itemText.endOfParagraph());
 							oldP = currItem->itemText.endOfSelection();
 						}
-						currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->CPos);
-						oldCp = currItem->CPos;
+						currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->itemText.cursorPosition());
+						oldCp = currItem->itemText.cursorPosition();
 					}
 					else
 					{
 						int dir=1;
-						if (oldCp > currItem->CPos)
+						if (oldCp > currItem->itemText.cursorPosition())
 							dir=-1;
 						if (m->modifiers() & Qt::ControlModifier) //no selection but Ctrl+Shift+click still select paragraphs
 						{
 							if (dir == 1)
-								currItem->CPos = currItem->itemText.endOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
+								currItem->itemText.setCursorPosition(currItem->itemText.endOfParagraph());
 							else
-								currItem->CPos = currItem->itemText.startOfParagraph(currItem->itemText.nrOfParagraph(currItem->CPos));
+								currItem->itemText.setCursorPosition(currItem->itemText.startOfParagraph());
 						}
 						currItem->asTextFrame()->ExpandSel(dir, oldP);
 						oldCp = oldP;
@@ -790,7 +790,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				}
 				else //>>CB
 				{
-					oldCp = currItem->CPos;
+					oldCp = currItem->itemText.cursorPosition();
 					currItem->itemText.deselectAll();
 					currItem->HasSel = false;
 				}

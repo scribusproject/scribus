@@ -397,7 +397,7 @@ void SearchReplace::slotDoSearch()
 	if (sText.length() > 0)
 		found = false;
 	int inde = 0;
-	uint as = Item->CPos;
+	uint as = Item->itemText.cursorPosition();
 	ReplStart = as;
 	int a;
 	if (SMode)
@@ -466,7 +466,7 @@ void SearchReplace::slotDoSearch()
 					DoReplace->setEnabled(true);
 					AllReplace->setEnabled(true);
 				}
-				Item->CPos = a+1;
+				Item->itemText.setCursorPosition(a + 1);
 				if (SText->isChecked())
 				{
 					if (inde == 0)
@@ -513,7 +513,7 @@ void SearchReplace::slotDoSearch()
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
 			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
-			Item->CPos = 0;
+			Item->itemText.setCursorPosition(0);
 			NotFound = false;
 		}
 	}
@@ -657,14 +657,14 @@ void SearchReplace::slotDoReplace()
 					for (cx = cs; cx < repl.length(); ++cx)
 						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1), true); 
 					// FIXME:NLS also replace styles!!
-					Item->CPos = ReplStart+cx;
+					Item->itemText.setCursorPosition(ReplStart + cx);
 				}
 				else
 				{
 					for (cs = 0; cs < repl.length(); ++cs)
 						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 					Item->itemText.removeChars(ReplStart+cs, sear.length() - cs);
-					Item->CPos = ReplStart+cs;
+					Item->itemText.setCursorPosition(ReplStart + cs);
 				}
 			}
 		}

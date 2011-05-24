@@ -977,7 +977,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						txt.replace(QRegExp("\r"), QChar(13));
 						txt.replace(QRegExp("\n"), QChar(13));
 						txt.replace(QRegExp("\t"), QChar(9));
-						b->itemText.insertChars(b->CPos, txt, true);
+						b->itemText.insertChars(txt, true);
 						if (Doc->docHyphenator->AutoCheck)
 							Doc->docHyphenator->slotHyphenate(b);
 						b->invalidateLayout();
@@ -1581,21 +1581,21 @@ bool ScribusView::slotSetCurs(int x, int y)
 			if(currItem->reversed())
 			{ //handle Right to Left writing
 				FPoint point(currItem->width()-(pf.x() - currItem->xPos()), pf.y() - currItem->yPos());
-				currItem->CPos = currItem->itemText.length() == 0 ? 0 :
-					currItem->itemText.screenToPosition(point);
+				currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
+					currItem->itemText.screenToPosition(point) );
 			}
 			else
 			{
 				FPoint point(pf.x() - currItem->xPos(), pf.y() - currItem->yPos());
-				currItem->CPos = currItem->itemText.length() == 0 ? 0 :
-					currItem->itemText.screenToPosition(point);
+				currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
+					currItem->itemText.screenToPosition(point) );
 			}
 
 			if (currItem->itemText.length() > 0)
 			{
-				int b=qMin(currItem->CPos-1, currItem->itemText.length());
-				if (b<0)
-					b=0;
+				int b = qMin(currItem->itemText.cursorPosition()- 1, currItem->itemText.length());
+				if (b < 0)
+					b = 0;
 				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(b);
 				emit ItemCharStyle(Doc->currentStyle.charStyle());
 				emit ItemTextEffects(Doc->currentStyle.charStyle().effects());
