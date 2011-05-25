@@ -12571,7 +12571,6 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		if (!currItem->isPolygon() || currItem->Segments.count() <= 0)
 			continue;
 		uint StartInd = 0;
-		PageItem *currItem = m_Selection->itemAt(i);
 		int currItemNr = currItem->ItemNr;
 		uint EndInd = currItem->PoLine.size();
 		for (uint a = EndInd-1; a > 0; --a)
