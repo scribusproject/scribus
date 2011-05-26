@@ -4729,30 +4729,8 @@ QString PDFLibCore::setStrokeMulti(struct SingleLine *sl)
 			putColor(sl->Color, sl->Shade, false) +
 			FToStr(sl->Width)+" w\n"
 			);
-	QString Dt = FToStr(qMax(1*sl->Width, 1.0));
-	QString Sp = FToStr(qMax(2*sl->Width, 1.0));
-	QString Da = FToStr(qMax(4*sl->Width, 1.0));
-	switch (static_cast<Qt::PenStyle>(sl->Dash))
-	{
-		case Qt::SolidLine:
-			tmp += "[] 0 d\n";
-			break;
-		case Qt::DashLine:
-			tmp += "["+Da+" "+Sp+"] 0 d\n";
-			break;
-		case Qt::DotLine:
-			tmp += "["+Dt+" "+Sp+"] 0 d\n";
-			break;
-		case Qt::DashDotLine:
-			tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
-			break;
-		case Qt::DashDotDotLine:
-			tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
-			break;
-		default:
-			tmp += "[] 0 d\n";
-			break;
-		}
+	QString Ds = getDashString(sl->Dash, sl->Width);
+	tmp += Ds.isEmpty() ? "[] 0 d\n" : QString("[%1] 0 d\n").arg(Ds);
 	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 	{
 		case Qt::FlatCap:
