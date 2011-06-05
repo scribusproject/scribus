@@ -923,7 +923,7 @@ void PageItem_TextFrame::layout()
 {
 // 	qDebug()<<"==Layout==" << itemName() ;
 // 	printBacktrace(24);
-	if (BackBox != NULL && BackBox->invalid) {
+	if (BackBox != 0 && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
@@ -943,7 +943,7 @@ void PageItem_TextFrame::layout()
 //		qDebug() << QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage);
 		return;
 	}
-	if (invalid && BackBox == NULL)
+	if (invalid && BackBox == 0)
 		firstChar = 0;
 	
 //	qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame());
@@ -2189,7 +2189,7 @@ void PageItem_TextFrame::layout()
 	MaxChars = itemText.length();
 	invalid = false;
 //	pf2.end();
-	if (NextBox != NULL) 
+	if (NextBox != 0)
 	{
 		PageItem_TextFrame* nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
 		if (nextFrame != NULL)
@@ -2820,6 +2820,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else if (kk == Qt::Key_Right) 
 			kk = Qt::Key_Left;
 	}
+	int oldLast = lastInFrame();
+	int tempCPos;
 	switch (kk)
 	{
 	case Qt::Key_Home:
@@ -3099,6 +3101,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //				view->RefreshItem(this);
 			}
 			keyRepeat = false;
+			if (oldLast != lastInFrame() && NextBox != 0)
+			{
+				tempCPos = CPos;
+				NextBox->update();
+				NextBox->layout();
+				CPos = tempCPos;
+			}
 			return;
 		}
 		if (itemText.length() == 0)
@@ -3116,7 +3125,36 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		itemTextSaxed = getItemTextSaxed(PageItem::SELECTION);
 		deleteSelectedTextFromFrame();
 		updateUndo(DELSAX);
+		invalidateLayout();
+		tempCPos = CPos;
 		update();
+		layout();
+		CPos = tempCPos;
+		if (oldLast != lastInFrame() && NextBox != 0)
+		{
+			tempCPos = CPos;
+			NextBox->update();
+			NextBox->layout();
+			CPos = tempCPos;
+		}
+		if (CPos > lastInFrame() && NextBox != 0)
+		{
+			lastUndoAction = PageItem::NOACTION;
+			view->Deselect(true);
+			NextBox->update();
+			NextBox->layout();
+			NextBox->CPos = CPos;
+			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
+		}
+		else if (CPos < firstInFrame() && BackBox != 0)
+		{
+			lastUndoAction = PageItem::NOACTION;
+			view->Deselect(true);
+			BackBox->update();
+			BackBox->layout();
+			BackBox->CPos = CPos;
+			m_Doc->scMW()->selectItemsFromOutlines(BackBox);
+		}
 //		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
@@ -3137,6 +3175,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				updateUndo(DELSAX);
 				m_Doc->scMW()->setTBvals(this);
 				update();
+			}
+			if (oldLast != lastInFrame() && NextBox != 0)
+			{
+				tempCPos =CPos;
+				NextBox->update();
+				NextBox->layout();
+				CPos = tempCPos;
 			}
 			break;
 		}
@@ -3159,6 +3204,17 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(CPos-1,0))));
 //			Tinput = false;
 		}
+		tempCPos = CPos;
+		update();
+		layout();
+		CPos = tempCPos;
+		if (oldLast != lastInFrame() && NextBox != 0)
+		{
+			tempCPos = CPos;
+			NextBox->update();
+			NextBox->layout();
+			CPos = tempCPos;
+		}
 		if (CPos < firstInFrame())
 		{
 			CPos = firstInFrame();
@@ -3166,13 +3222,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				lastUndoAction = PageItem::NOACTION;
 				view->Deselect(true);
+				BackBox->update();
+				BackBox->layout();
 				BackBox->CPos = BackBox->lastInFrame();
 				m_Doc->scMW()->selectItemsFromOutlines(BackBox);
-				//currItem = currItem->BackBox;
 			}
 		}
 		m_Doc->scMW()->setTBvals(this);
-		update();
 //		view->RefreshItem(this);
 		break;
 	default:
@@ -3260,15 +3316,32 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			doUpdate = true;
 		}
 		if (doUpdate)
+		{
+			tempCPos = CPos;
 			update();
+			layout();
+			CPos = tempCPos;
+			if (oldLast != lastInFrame() && NextBox != 0)
+			{
+				tempCPos = CPos;
+				NextBox->update();
+				NextBox->layout();
+				CPos = tempCPos;
+			}
+		}
 		//check if cursor need to jump to next linked frame
-		if (lastInFrame() < (itemText.length() -2) && NextBox != 0)
+		int Last = lastInFrame();
+		int Len = itemText.length();
+		if (CPos > lastInFrame()+1 && lastInFrame() < (itemText.length() -2) && NextBox != 0)
 		{
 			lastUndoAction = PageItem::NOACTION;
 			view->Deselect(true);
-			NextBox->CPos = CPos;
-			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
+			tempCPos = CPos;
 			NextBox->update();
+			NextBox->layout();
+			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
+			NextBox->CPos = tempCPos;
+			view->DrawNew();
 		}
 		break;
 	}
