@@ -134,7 +134,6 @@ PageItem::PageItem(const PageItem & other)
 	BBoxH(other.BBoxH),
 	CurX(other.CurX),
 	CurY(other.CurY),
-	CPos(other.CPos),
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
@@ -331,7 +330,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	FrameType = 0;
 	CurX = 0;
 	CurY = 0;
-	CPos = 0;
 	oldCPos = 0;
 	Extra = 0;
 	TExtra = 0;
@@ -942,8 +940,8 @@ bool PageItem::frameDisplays(int textpos) const
 /// returns the style at the current charpos
 const ParagraphStyle& PageItem::currentStyle() const
 {
-	if (frameDisplays(CPos))
-		return itemText.paragraphStyle(CPos);
+	if (frameDisplays(itemText.cursorPosition()))
+		return itemText.paragraphStyle();
 	else
 		return itemText.defaultStyle();
 }
@@ -951,8 +949,8 @@ const ParagraphStyle& PageItem::currentStyle() const
 /// returns the style at the current charpos for changing
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
-	if (frameDisplays(CPos))
-		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(CPos));
+	if (frameDisplays(itemText.cursorPosition()))
+		return const_cast<ParagraphStyle&>(itemText.paragraphStyle());
 	else
 		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
 }
@@ -960,8 +958,8 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 /// returns the style at the current charpos
 const CharStyle& PageItem::currentCharStyle() const
 {
-	if (frameDisplays(CPos))
-		return itemText.charStyle(CPos);
+	if (frameDisplays(itemText.cursorPosition()))
+		return itemText.charStyle();
 	else
 		return itemText.defaultStyle().charStyle();
 }
@@ -3931,7 +3929,7 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 				itemText.select(SelStart, story->length());
 				HasSel = true;
 			}
-			CPos = itemText.endOfSelection();
+			itemText.setCursorPosition( itemText.endOfSelection() );
 			delete story;
 		}
 		else { qDebug() << "UNDO buffer EMPTY";}
@@ -3969,7 +3967,6 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 		itemText.insert(pos,*story);
 		itemText.select(pos, story->length());
 		HasSel = true;
-		CPos = pos + story->length();
 		delete story;
 	}
 	else if (action == INSSAX || action == DELSAX)
@@ -3994,7 +3991,6 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 		{
 			//undo for DELSAX, redo for INSSAX
 			itemText.insert(pos, *story);
-			CPos = pos + story->length();
 		}
 		delete story;
 	}
@@ -4010,7 +4006,6 @@ void PageItem::restoreEditText(SimpleState *state, bool isUndo)
 		else
 		{
 			itemText.insertChars(pos, str, true);
-			CPos = pos + str.length();
 		}
 	}
 	// after Undo or Redo new actions should create new undoStates
@@ -4045,9 +4040,9 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 			LenOldSel = itemText.lengthOfSelection();
 			if (LenOldSel > 0)
 				StartOldSel = itemText.startOfSelection();
-			if (CPos >= itemText.length())
+			if (itemText.cursorPosition() >= itemText.length())
 				return  "";
-			itemText.select(CPos,1);
+			itemText.select(itemText.cursorPosition(), 1);
 			HasSel = true;
 		}
 		//is SELECTION

@@ -163,6 +163,27 @@ StoryText& StoryText::operator= (const StoryText & other)
 	return *this;
 }
 
+int StoryText::cursorPosition() const
+{
+	return d->cursorPosition;
+}
+
+void StoryText::setCursorPosition(int pos, bool relative)
+{
+	if (relative)
+		pos += d->cursorPosition;
+	d->cursorPosition = qMin((uint) qMax(pos, 0), d->len);
+}
+
+void StoryText::normalizeCursorPosition()
+{
+	d->cursorPosition = qMax((uint) 0, qMin(d->cursorPosition, d->len));
+}
+
+int StoryText::normalizedCursorPosition()
+{
+	return (int) qMax((uint) 0, qMin(d->cursorPosition, d->len));
+}
 
 void StoryText::clear()
 {
@@ -180,6 +201,10 @@ void StoryText::clear()
 	invalidateAll();
 }
 
+void StoryText::insert(const StoryText& other, bool onlySelection)
+{
+	insert(d->cursorPosition, other, onlySelection);
+}
 
 void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 {
@@ -313,15 +338,22 @@ void StoryText::removeChars(int pos, uint len)
 		// consistent in functions such as select()
 		if (i <= selLast) --selLast;
 		if (i < selFirst) --selFirst;
+		if ((i + 1 ) <= d->cursorPosition && d->cursorPosition > 0) d->cursorPosition -= 1;
 	}
 
 	d->len = d->count();
+	d->cursorPosition = qMin(d->cursorPosition, d->len);
 	if (selFirst > selLast)
 	{
 		selFirst =  0;
 		selLast  = -1;
 	}
 	invalidate(pos, length());
+}
+
+void StoryText::insertChars(QString txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
+{
+	insertChars(d->cursorPosition, txt, applyNeighbourStyle);
 }
 
 void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
@@ -354,6 +386,9 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 		if (item->ch == SpecialChars::PARSEP) {
 //			qDebug() << QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name());
 			insertParSep(pos + i);
+		}
+		if (d->cursorPosition >= (pos + i)) {
+			d->cursorPosition += 1;
 		}
 	}
 
@@ -409,6 +444,9 @@ void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeig
 			if (item->ch == SpecialChars::PARSEP) {
 				insertParSep(index);
 			}
+			if (d->cursorPosition >= index) {
+				d->cursorPosition += 1;
+			}
 			++inserted;
 		}
 	}
@@ -461,6 +499,11 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 	invalidate(pos, pos + len);
 }
 
+void StoryText::insertObject(PageItem* ob)
+{
+	insertObject(d->cursorPosition, ob);
+}
+
 void StoryText::insertObject(int pos, PageItem* ob)
 {
 	if (pos < 0)
@@ -475,6 +518,11 @@ void StoryText::insertObject(int pos, PageItem* ob)
 int StoryText::length() const
 {
 	return d->len;
+}
+
+QChar StoryText::text() const
+{
+	return text(d->cursorPosition);
 }
 
 QChar StoryText::text(int pos) const
@@ -553,6 +601,10 @@ PageItem* StoryText::object(int pos) const
 	return that->d->at(pos)->embedded.getItem();
 }
 
+const CharStyle & StoryText::charStyle() const
+{
+	return charStyle(d->cursorPosition);
+}
 
 const CharStyle & StoryText::charStyle(int pos) const
 {
@@ -575,6 +627,11 @@ const CharStyle & StoryText::charStyle(int pos) const
 	
 	StoryText* that = const_cast<StoryText *>(this);
 	return dynamic_cast<const CharStyle &> (*that->d->at(pos));
+}
+
+const ParagraphStyle & StoryText::paragraphStyle() const
+{
+	return paragraphStyle(d->cursorPosition);
 }
 
 const ParagraphStyle & StoryText::paragraphStyle(int pos) const
@@ -873,6 +930,10 @@ void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 	replaceNamedResources(newnames);
 }
 
+uint StoryText::nrOfParagraph() const
+{
+	return nrOfParagraph(d->cursorPosition);
+}
 
 uint StoryText::nrOfParagraph(int pos) const
 {
@@ -903,6 +964,11 @@ uint StoryText::nrOfParagraphs() const
 	return lastWasPARSEP ? result : result + 1;
 }
 
+int StoryText::startOfParagraph() const
+{
+	return startOfParagraph(nrOfParagraph());
+}
+
 int StoryText::startOfParagraph(uint index) const
 {
 	if (index == 0)
@@ -915,6 +981,11 @@ int StoryText::startOfParagraph(uint index) const
 			return i + 1;
 	}
 	return length();
+}
+
+int StoryText::endOfParagraph() const
+{
+	return endOfParagraph(nrOfParagraph());
 }
 
 int StoryText::endOfParagraph(uint index) const

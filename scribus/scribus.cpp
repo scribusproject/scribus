@@ -1115,13 +1115,12 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							currItem->asTextFrame()->deleteSelectedTextFromFrame();
 						}
 						else
-							currItem->oldCPos = currItem->CPos;
-						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)), true);
+							currItem->oldCPos = currItem->itemText.cursorPosition();
+						currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
 						if (currItem->itemTextSaxed.isEmpty())
 							currItem->asTextFrame()->updateUndo(PageItem::INS, QString(QChar(unicodevalue)));
 						else
 							currItem->asTextFrame()->updateUndo(PageItem::REPSAX, currItem->getTextSaxed(QString(QChar(unicodevalue))));
-						currItem->CPos += 1;
 //						currItem->Tinput = true;
 						currItem->update();
 					}
@@ -1129,16 +1128,15 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 					{
 						// this code is currently dead since unicodeSmartHyphen
 						// doesnt have unicodevalue == -1 any more
-						if (currItem->CPos-1>0)
+						if (currItem->itemText.cursorPosition() - 1 > 0)
 						{
 #if 0
-							StyleFlag fl = currItem->itemText.item(qMax(currItem->CPos-1,0))->effects();
+							StyleFlag fl = currItem->itemText.item(qMax(currItem->itemText.cursorPosition()-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
 							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
 #else
-							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN), true);
-							currItem->oldCPos = currItem->CPos;
-							currItem->CPos += 1;
+							currItem->oldCPos = currItem->itemText.cursorPosition() ;
+							currItem->itemText.insertChars(QString(SpecialChars::SHYPHEN), true);
 							currItem->asTextFrame()->updateUndo(PageItem::INS, QString(SpecialChars::SHYPHEN));
 #endif
 //							currItem->Tinput = true;
@@ -5152,11 +5150,8 @@ void ScribusMainWindow::slotEditPaste()
 				currItem->deleteSelectedTextFromFrame();
 			}
 
-			if (currItem->CPos < 0)
-				currItem->CPos = 0;
-			if (currItem->CPos > currItem->itemText.length())
-				currItem->CPos = currItem->itemText.length();
-			currItem->oldCPos = currItem->CPos;
+			currItem->itemText.normalizeCursorPosition();
+			currItem->oldCPos = currItem->itemText.cursorPosition();
 			if (ScMimeData::clipboardHasScribusText())
 			{
 				Serializer dig(*doc);
@@ -5169,15 +5164,14 @@ void ScribusMainWindow::slotEditPaste()
 
 				StoryText* story = dig.result<StoryText>();
 
-				currItem->itemText.insert(currItem->CPos, *story);
+				currItem->itemText.insert(*story);
 
 				//for text undo, select inserted text for saxing it
-				currItem->itemText.select(currItem->CPos,story->length());
+				currItem->itemText.select(currItem->oldCPos, story->length());
 				currItem->HasSel = true;
 				//if itemTextSaxed is not empty there was selection
 				currItem->updateUndo(currItem->itemTextSaxed.isEmpty() ? PageItem::INSSAX : PageItem::REPSAX,currItem->getItemTextSaxed(PageItem::SELECTION));
-
-				currItem->CPos += story->length();
+				currItem->itemText.deselectAll();
 
 				delete story;
 			}
@@ -5259,11 +5253,10 @@ void ScribusMainWindow::slotEditPaste()
 				doc->maxCanvasCoordinate = maxSize;
 				if (outlinePalette->isVisible())
 					outlinePalette->BuildTree();
-				currItem->itemText.insertObject(currItem->CPos, currItem3);
-				currItem->CPos += 1;
+				currItem->itemText.insertObject(currItem3);
 				undoManager->setUndoEnabled(true);
 				//for text undo, select inserted text for saxing it
-				currItem->itemText.select(currItem->oldCPos,currItem->CPos - currItem->oldCPos);
+				currItem->itemText.select(currItem->oldCPos, currItem->itemText.cursorPosition() - currItem->oldCPos);
 				currItem->HasSel = true;
 				//if itemTextSaxed is not empty there was selection
 				currItem->updateUndo(currItem->itemTextSaxed.isEmpty() ? PageItem::INSSAX : PageItem::REPSAX,currItem->getItemTextSaxed(PageItem::SELECTION));
@@ -5274,9 +5267,10 @@ void ScribusMainWindow::slotEditPaste()
 				QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
 				text = text.replace("\r\n", SpecialChars::PARSEP);
 				text = text.replace('\n', SpecialChars::PARSEP);
-				currItem->itemText.insertChars(currItem->CPos, text, true);
+				int cursorPos = currItem->itemText.cursorPosition();
+				currItem->itemText.insertChars(cursorPos, text, true);
 				//for text undo, select inserted text for saxing it
-				currItem->itemText.select(currItem->CPos,text.length());
+				currItem->itemText.select(cursorPos, text.length());
 				currItem->HasSel = true;
 				//if itemTextSaxed is not empty there was selection
 				if (currItem->itemTextSaxed.isEmpty())
@@ -6521,7 +6515,7 @@ void ScribusMainWindow::setAppMode(int mode)
 //					return;
 //				}
 				setTBvals(currItem);
-				currItem->CPos = 0;
+				currItem->itemText.setCursorPosition(0);
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			charPalette->setEnabled(true, currItem);
@@ -9244,7 +9238,7 @@ void ScribusMainWindow::SearchText()
 {
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	view->requestMode(modeEdit);
-	currItem->CPos = 0;
+	currItem->itemText.setCursorPosition(0);
 	SearchReplace* dia = new SearchReplace(this, doc, currItem);
 	connect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
 	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));

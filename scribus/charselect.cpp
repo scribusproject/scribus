@@ -120,7 +120,7 @@ void CharSelect::slot_insertSpecialChar()
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	QChar ch;
 	QString txtIns;
-	m_Item->oldCPos = m_Item->CPos;
+	m_Item->oldCPos = m_Item->itemText.cursorPosition();
 	for (int a=0; a<chToIns.length(); ++a)
 	{
 		ch = chToIns.at(a);
@@ -128,8 +128,7 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
-		m_Item->itemText.insertChars(m_Item->CPos, ch, true);
-		m_Item->CPos += 1;
+		m_Item->itemText.insertChars(ch, true);
 		txtIns.append(ch);
 	}
 	if (m_Item->itemTextSaxed.isEmpty())
@@ -159,14 +158,13 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 		ch = QChar(13);
 	if (ch == QChar(9))
 		ch = QChar(32);
-	m_Item->oldCPos = m_Item->CPos;
-	m_Item->itemText.insertChars(m_Item->CPos, ch, true);
+	m_Item->oldCPos = m_Item->itemText.cursorPosition();
+	m_Item->itemText.insertChars(ch, true);
 	if (m_Item->itemTextSaxed.isEmpty())
 		m_Item->asTextFrame()->updateUndo(PageItem::INS, QString(ch));
 	else
 		m_Item->asTextFrame()->updateUndo(PageItem::REPSAX, m_Item->getTextSaxed(QString(ch)));
 	m_doc->updateFrameItems();
-	m_Item->CPos += 1;
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 }

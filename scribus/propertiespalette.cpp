@@ -4287,8 +4287,8 @@ void PropertiesPalette::NewAlignement(int a)
 		if (doc->appMode == modeEdit)
 		{
 			//selected parapgraph(s) only
-			selStart = (itemText.lengthOfSelection() > 0) ? itemText.startOfSelection() : CurItem->CPos;
-			selEnd   = (itemText.lengthOfSelection() > 0) ? itemText.endOfSelection() : CurItem->CPos;
+			selStart = (itemText.lengthOfSelection() > 0) ? itemText.startOfSelection() : CurItem->itemText.cursorPosition();
+			selEnd   = (itemText.lengthOfSelection() > 0) ? itemText.endOfSelection() : CurItem->itemText.cursorPosition();
 			selStart = itemText.startOfParagraph( itemText.nrOfParagraph(selStart) );
 			selEnd   = itemText.endOfParagraph  ( itemText.nrOfParagraph(selEnd) );
 		}

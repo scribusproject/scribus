@@ -128,7 +128,7 @@ public:
 		}
 	}
 	
-	void changed(Page* pg)
+	void changed(Page* pg, bool /*layout*/)
 	{
 		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
 		doc->invalidateRegion(pagebox);
@@ -141,9 +141,11 @@ public:
 		m_docChangeNeeded = true;
 	}
 	
-	void changed(PageItem* it)
+	void changed(PageItem* it, bool layout)
 	{
 		it->invalidateLayout();
+		if (layout)
+			it->layout();
 		doc->regionsChanged()->update(it->getBoundingRect());
 		if (m_updateEnabled <= 0)
 		{
@@ -6022,7 +6024,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->CPos));
+					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -6076,7 +6078,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->CPos));
+					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -6140,7 +6142,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->CPos));
+					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -6195,7 +6197,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				}
 				else
 				{
-					start = qMax(currItem->firstInFrame(), currItem->CPos);
+					start = qMax(currItem->firstInFrame(), currItem->itemText.cursorPosition());
 					length = (start + 1) < currItem->itemText.length()? 1 : 0;
 				}
 			}
@@ -6254,7 +6256,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 				}
 				else
 				{
-					start = qMax(currItem->firstInFrame(), currItem->CPos);
+					start = qMax(currItem->firstInFrame(), currItem->itemText.cursorPosition());
 					length = (start + 1) < currItem->itemText.length()? 1 : 0;
 				}
 			}
@@ -6312,7 +6314,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				}
 				else
 				{
-					start = qMax(currItem->firstInFrame(), currItem->CPos);
+					start = qMax(currItem->firstInFrame(), currItem->itemText.cursorPosition());
 					length = (start + 1) < currItem->itemText.length()? 1 : 0;
 				}
 			}

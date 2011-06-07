@@ -120,10 +120,7 @@ void LegacyMode::drawControls(QPainter* p)
 void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 {
 	int x, y, y1;
-	if (textframe->CPos > textframe->itemText.length())
-	{
-		textframe->CPos = textframe->itemText.length();
-	}
+	textframe->itemText.normalizeCursorPosition();
 	if (textframe->lastInFrame() >= signed(textframe->itemText.nrOfItems()) 
 		|| textframe->itemText.length() == 0)
 	{
@@ -131,8 +128,8 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 		y = 0;
 		y1 = static_cast<int>(textframe->itemText.defaultStyle().charStyle().fontSize() / 10);
 	}
-	else if ( textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
-			  || (textframe->CPos >= textframe->itemText.length() && textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP) )
+	else if ( textframe->itemText.cursorPosition() > textframe->itemText.endOfItem(textframe->lastInFrame())
+			  || (textframe->itemText.cursorPosition() >= textframe->itemText.length() && textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP) )
 	{
 		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
 		x = static_cast<int>(bbox.x() + bbox.width());
@@ -145,11 +142,11 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 	}
 	else
 	{
-		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->CPos, textframe->itemText.length())));
+		FRect bbox = textframe->itemText.boundingBox( textframe->itemText.normalizedCursorPosition() );
 		x = static_cast<int>(bbox.x());
 		y = static_cast<int>(bbox.y());
 		if (bbox.height() <= 2) 
-			y1 = static_cast<int>(bbox.y() + textframe->itemText.charStyle(textframe->CPos).fontSize() / 30);
+			y1 = static_cast<int>(bbox.y() + textframe->itemText.charStyle().fontSize() / 30);
 		else
 			y1 = static_cast<int>(bbox.y() + bbox.height());
 	}
@@ -346,7 +343,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 					m_view->requestMode(modeNormal);
 					return;
 				}
-				int a=cItem->CPos;
+				int a = cItem->itemText.cursorPosition();
 				while(a>0)
 				{
 					if (cItem->itemText.text(a-1).isLetterOrNumber())
@@ -354,7 +351,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 					else
 						break;
 				}
-				int b=cItem->CPos;
+				int b = cItem->itemText.cursorPosition();
 				while(b<cItem->itemText.length())
 				{
 					if (cItem->itemText.text(b).isLetterOrNumber())
@@ -363,7 +360,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 						break;
 				}
 				oldCp = a;
-				cItem->CPos=b;
+				cItem->itemText.setCursorPosition(b);
 				cItem->ExpandSel(1, oldCp);
 //				m_view->slotDoCurs(true);
 			}
@@ -712,14 +709,15 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				//Make sure we dont go here if the old cursor position was not set
 				if (oldCp!=-1 && currItem->itemText.length() > 0)
 				{
-					if (currItem->CPos < oldCp)
+					int cPos = currItem->itemText.cursorPosition();
+					if (currItem->itemText.cursorPosition() < oldCp)
 					{
-						currItem->itemText.select(currItem->CPos, oldCp - currItem->CPos);
+						currItem->itemText.select(cPos, oldCp - cPos);
 						currItem->HasSel = true;
 					}
-					if (currItem->CPos > oldCp)
+					if (currItem->itemText.cursorPosition() > oldCp)
 					{
-						currItem->itemText.select(oldCp, currItem->CPos - oldCp);
+						currItem->itemText.select(oldCp, cPos - oldCp);
 						currItem->HasSel = true;
 					}
 				}
@@ -1736,7 +1734,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							return;
 						}
 					}
-					oldP = currItem->CPos;
+					oldP = currItem->itemText.cursorPosition();
 					//CB Where we set the cursor for a click in text frame
 					if (currItem->asTextFrame())
 					{
@@ -1754,14 +1752,14 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						if (m->modifiers() & Qt::ShiftModifier)
 						{
 							int dir=1;
-							if (oldCp>currItem->CPos)
+							if (oldCp > currItem->itemText.cursorPosition())
 								dir=-1;
 							currItem->asTextFrame()->ExpandSel(dir, oldP);
 							oldCp = oldP;
 						}
 						else //>>CB
 						{
-							oldCp = currItem->CPos;
+							oldCp = currItem->itemText.cursorPosition();
 							currItem->itemText.deselectAll();
 							currItem->HasSel = false;
 						}
@@ -4019,7 +4017,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem->asTextFrame())
 		{
-			if (oldCp == currItem->CPos)
+			if (oldCp == currItem->itemText.cursorPosition())
 			{
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;

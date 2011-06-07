@@ -102,19 +102,39 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
 	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 	
+	int  cursorPosition() const;
+	void setCursorPosition(int pos, bool relative = false);
+	void normalizeCursorPosition();
+	int  normalizedCursorPosition();
+
  	void clear();
 	StoryText copy() const;
+	// Insert chars from another StoryText object at current cursor position
+	void insert(const StoryText& other, bool onlySelection = false);
+	// Insert chars from another StoryText object at specific position
 	void insert(int pos, const StoryText& other, bool onlySelection = false);
+	// Append chars from another StoryText object
 	void append(const StoryText& other) { insert(length(), other, false); }
+	// Remove len chars at specific position
  	void removeChars(int pos, uint len);
+	// Insert chars at current cursor position
+	void insertChars(QString txt, bool applyNeighbourStyle = false);
+	// Insert chars ar specific position
  	void insertChars(int pos, QString txt, bool applyNeighbourStyle = false);
+	// Insert inline object at current cursor position
+	void insertObject(PageItem* obj);
+	// Insert object at specific position
  	void insertObject(int pos, PageItem* obj);
  	void replaceChar(int pos, QChar ch);
 
 	void hyphenateWord(int pos, uint len, char* hyphens);
 	
  	int length() const;
- 	QChar text(int pos) const;
+	// Get char at current cursor position
+	QChar   text() const;
+	// Get char at specific position
+ 	QChar   text(int pos) const;
+	// Get text with len chars at specific position
  	QString text(int pos, uint len) const;
 
 	bool hasObject(int pos) const;
@@ -129,7 +149,13 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int nextFramePos(int c);
 	int prevFramePos(int c);
 	
+	// Get charstyle at current cursor position
+	const CharStyle& charStyle() const;
+	// Get charstyle at specific position
  	const CharStyle& charStyle(int pos) const;
+	// Get paragraph style at current cursor position
+	const ParagraphStyle& paragraphStyle() const;
+	// Get paragraph style at specific position
  	const ParagraphStyle& paragraphStyle(int pos) const;
  	const ParagraphStyle& defaultStyle() const;
  	void setDefaultStyle(const ParagraphStyle& style);
@@ -146,8 +172,11 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	void replaceNamedResources(ResourceCollection& newNames);
 	
  	uint nrOfParagraphs() const;
- 	int startOfParagraph(uint index) const;
- 	int endOfParagraph(uint index) const;
+	int  startOfParagraph() const;
+ 	int  startOfParagraph(uint index) const;
+	int  endOfParagraph() const;
+ 	int  endOfParagraph(uint index) const;
+	uint nrOfParagraph() const;
 	uint nrOfParagraph(int pos) const;
 
  	uint nrOfRuns() const;

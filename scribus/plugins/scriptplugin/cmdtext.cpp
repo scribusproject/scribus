@@ -262,7 +262,6 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	Daten.replace(QChar('\n') , SpecialChars::PARSEP);
 	PyMem_Free(Text);
 	currItem->itemText.clear();
-	currItem->CPos = 0;
 	for (int a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
 	{
 		ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
@@ -304,7 +303,6 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	if (pos == -1)
 		pos = it->itemText.length();
 	it->itemText.insertChars(pos, Daten);
-	it->CPos = pos + Daten.length();
 	it->Dirty = true;
 	if (ScCore->primaryMainWindow()->doc->DoDrawing)
 	{
@@ -612,7 +610,6 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 	else
 	{
 		it->itemText.clear();
-		it->CPos = 0;
 		for (int a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
 		{
 			ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;

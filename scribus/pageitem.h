@@ -464,8 +464,6 @@ public:
 	double CurX;
   /** Zeichen Y-Position */
 	double CurY;
-  /** Cursorposition */
-	int CPos;
   /** Text des Elements */
 	StoryText itemText;
   // for itemText undo purpose

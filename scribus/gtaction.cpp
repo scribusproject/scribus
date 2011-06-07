@@ -94,7 +94,6 @@ void gtAction::setInfo(QString infoText)
 void gtAction::clearFrame()
 {
 	textFrame->itemText.clear();
-	textFrame->CPos = 0;
 }
 
 void gtAction::writeUnstyled(const QString& text)
@@ -109,12 +108,10 @@ void gtAction::writeUnstyled(const QString& text)
 				while (nextItem != 0)
 				{
 					nextItem->itemText.clear();
-					nextItem->CPos = 0;
 					nextItem = nextItem->nextInChain();
 				}
 			}
 			it->itemText.clear();
-			it->CPos = 0;
 		}
 	}
 
@@ -147,12 +144,10 @@ void gtAction::write(const QString& text, gtStyle *style)
 				while (nextItem != 0)
 				{
 					nextItem->itemText.clear();
-					nextItem->CPos = 0;
 					nextItem = nextItem->nextInChain();
 				}
 			}
 			it->itemText.clear();
-			it->CPos = 0;
 		}
 	}
 	int paragraphStyle = -1;
