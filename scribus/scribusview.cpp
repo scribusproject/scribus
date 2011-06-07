@@ -460,7 +460,7 @@ void ScribusView::togglePreview()
 	}
 }
 
-void ScribusView::changed(QRectF re)
+void ScribusView::changed(QRectF re, bool)
 {
 	double scale = m_canvas->scale();
 	int newCanvasWidth = qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * scale);

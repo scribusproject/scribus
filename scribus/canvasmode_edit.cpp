@@ -240,7 +240,7 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 		QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
 
 		// normalize Current Position
-		textframe->itemText.setCursorPosition( qMax ( 0, qMin( textframe->itemText.cursorPosition(), textframe->itemText.length() ) ) );
+		textframe->itemText.normalizeCursorPosition();
 		int textCursorPos ( textframe->itemText.cursorPosition() );
 
 		if ( textframe->lastInFrame() >= signed ( textframe->itemText.nrOfItems() )

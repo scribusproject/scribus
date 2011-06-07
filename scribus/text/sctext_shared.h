@@ -21,7 +21,7 @@ public:
 	StyleContextProxy pstyleContext;
 	uint refs;
 	uint len;
-	uint  cursorPosition;
+	uint cursorPosition;
 	ParagraphStyle trailingStyle;
 	ScText_Shared(const StyleContext* pstyles);	
 

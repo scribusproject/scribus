@@ -71,9 +71,11 @@ void changedData(QVariant what);
 template<class OBSERVED>
 struct Private_Memento : public UpdateMemento
 {
-	Private_Memento(OBSERVED data) : m_data(data) {};
+	Private_Memento(OBSERVED data) : m_data(data), m_layout(false) {};
+	Private_Memento(OBSERVED data, bool layout) : m_data(data), m_layout(layout) {};
 	
 	OBSERVED m_data;
+	bool     m_layout;
 };
 
 
@@ -84,7 +86,7 @@ struct Private_Memento : public UpdateMemento
 template<class OBSERVED>
 class SCRIBUS_API Observer {
 public:
-	virtual void changed(OBSERVED) = 0;
+	virtual void changed(OBSERVED, bool doLayout) = 0;
 	virtual ~Observer() {}
 };
 
@@ -124,6 +126,11 @@ public:
 	    will take care of that.
 	 */
 	virtual void update(OBSERVED what);
+
+	/**
+		Same as update, except layout will be update immediately
+	 */
+	virtual void updateLayout(OBSERVED what);
 	
 	void connectObserver(Observer<OBSERVED>* o);
 	void disconnectObserver(Observer<OBSERVED>* o);
@@ -169,6 +176,11 @@ public:
 	virtual void update() 
 	{ 
 		m_massObservable->update(dynamic_cast<OBSERVED*>(this)); 
+	}
+
+	virtual void updateLayout() 
+	{ 
+		m_massObservable->updateLayout(dynamic_cast<OBSERVED*>(this)); 
 	}
 	
 private:
@@ -239,6 +251,15 @@ inline void MassObservable<OBSERVED>::update(OBSERVED what)
 	}
 }
 
+template<class OBSERVED>
+inline void MassObservable<OBSERVED>::updateLayout(OBSERVED what)
+{
+	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what, true);
+	if (m_um == NULL || m_um->requestUpdate(this, memento))
+	{
+		updateNow(memento);
+	}
+}
 
 template<class OBSERVED>
 inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
@@ -246,7 +267,7 @@ inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
 	Private_Memento<OBSERVED>* memento = dynamic_cast<Private_Memento<OBSERVED>*>(what);
 	foreach (Observer<OBSERVED>* obs, m_observers)
 	{
-		obs->changed(memento->m_data);
+		obs->changed(memento->m_data, memento->m_layout);
 	}
 	changedSignal->emitSignal(QVariant::fromValue(memento->m_data));
 	delete memento;

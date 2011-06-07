@@ -162,6 +162,27 @@ StoryText& StoryText::operator= (const StoryText & other)
 	return *this;
 }
 
+int StoryText::cursorPosition() const
+{
+	return d->cursorPosition;
+}
+
+void StoryText::setCursorPosition(int pos, bool relative)
+{
+	if (relative)
+		pos += d->cursorPosition;
+	d->cursorPosition = qMin((uint) qMax(pos, 0), d->len);
+}
+
+void StoryText::normalizeCursorPosition()
+{
+	d->cursorPosition = qMax((uint) 0, qMin(d->cursorPosition, d->len));
+}
+
+int StoryText::normalizedCursorPosition()
+{
+	return (int) qMax((uint) 0, qMin(d->cursorPosition, d->len));
+}
 
 void StoryText::clear()
 {
@@ -316,7 +337,7 @@ void StoryText::removeChars(int pos, uint len)
 		// consistent in functions such as select()
 		if (i <= selLast) --selLast;
 		if (i < selFirst) --selFirst;
-		if ((i + 1 )<= d->cursorPosition && d->cursorPosition > 0) d->cursorPosition -= 1;
+		if ((i + 1 ) <= d->cursorPosition && d->cursorPosition > 0) d->cursorPosition -= 1;
 	}
 
 	d->len = d->count();
@@ -454,18 +475,6 @@ void StoryText::replaceChar(int pos, QChar ch)
 	}
 	
 	invalidate(pos, pos + 1);
-}
-
-int StoryText::cursorPosition() const
-{
-	return d->cursorPosition;
-}
-
-void StoryText::setCursorPosition(int pos, bool relative)
-{
-	if (relative)
-		pos += d->cursorPosition;
-	d->cursorPosition = qMin((uint) qMax(pos, 0), d->len);
 }
 
 void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
@@ -617,6 +626,11 @@ const CharStyle & StoryText::charStyle(int pos) const
 	
 	StoryText* that = const_cast<StoryText *>(this);
 	return dynamic_cast<const CharStyle &> (*that->d->at(pos));
+}
+
+const ParagraphStyle & StoryText::paragraphStyle() const
+{
+	return paragraphStyle(d->cursorPosition);
 }
 
 const ParagraphStyle & StoryText::paragraphStyle(int pos) const

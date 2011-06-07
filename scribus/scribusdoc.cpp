@@ -135,7 +135,7 @@ public:
 		}
 	}
 	
-	void changed(Page* pg)
+	void changed(Page* pg, bool /*doLayout*/)
 	{
 		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
 		doc->invalidateRegion(pagebox);
@@ -148,9 +148,11 @@ public:
 		m_docChangeNeeded = true;
 	}
 	
-	void changed(PageItem* it)
+	void changed(PageItem* it, bool doLayout)
 	{
 		it->invalidateLayout();
+		if (doLayout)
+			it->layout();
 		doc->regionsChanged()->update(it->getVisualBoundingRect());
 		if (m_updateEnabled <= 0)
 		{
@@ -6942,7 +6944,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->itemText.cursorPosition()));
+					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -6996,7 +6998,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->itemText.cursorPosition()));
+					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -7060,7 +7062,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->itemText.cursorPosition()));
+					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -7116,7 +7118,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->itemText.cursorPosition());
-					length = (start + 1) < currItem->itemText.length()? 1 : 0;
+					length = (start + 1) < currItem->itemText.length() ? 1 : 0;
 				}
 			}
 			currItem->itemText.applyCharStyle(start, qMax(0, length), newStyle);

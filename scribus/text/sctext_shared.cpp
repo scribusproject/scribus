@@ -66,7 +66,6 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 {
 	if (this != &other) 
 	{
-		cursorPosition = other.cursorPosition;
 		defaultStyle   = other.defaultStyle;
 		trailingStyle  = other.trailingStyle;
 		pstyleContext  = other.pstyleContext;
@@ -90,6 +89,7 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 			}
 		}
 		len = count();
+		cursorPosition = other.cursorPosition;
 		pstyleContext.invalidate();
 //			qDebug() << QString("StoryText::copy: %1 align=%2 %3").arg(trailingStyle.parentStyle()->name())
 //				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.context());

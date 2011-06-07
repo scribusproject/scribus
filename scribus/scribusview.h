@@ -212,7 +212,7 @@ public:
 	void setScale(const double newScale);
 	double scale() const;
 
-	virtual void changed(QRectF re);
+	virtual void changed(QRectF re, bool);
 
 	void updateCanvas(QRectF box = QRectF());
 	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }

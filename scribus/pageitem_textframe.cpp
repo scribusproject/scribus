@@ -903,7 +903,9 @@ void PageItem_TextFrame::layout()
 // 	printBacktrace(24);
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
-		invalid = false;
+		// Why that invalid = false here? Calling prevInChain->layout() does
+		// not ensure that this box will be layouted
+		// invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
 		while (prevInChain && prevInChain->invalid)
 		{
@@ -2764,10 +2766,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	if (frameUnderflows())
 	{
 		itemText.setCursorPosition( itemText.length() );
-		m_Doc->view()->Deselect(true);
 		PageItem * jumpFrame = frameTextEnd();
 		if (jumpFrame)
 		{
+			m_Doc->view()->Deselect(true);
 			m_Doc->scMW()->selectItemsFromOutlines(jumpFrame);
 			m_Doc->scMW()->setTBvals(jumpFrame);
 			jumpFrame->update();
@@ -2886,6 +2888,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else if (kk == Qt::Key_Right) 
 			kk = Qt::Key_Left;
 	}
+
+	int oldLast = lastInFrame();
 	switch (kk)
 	{
 	case Qt::Key_Home:
@@ -3007,7 +3011,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						view->Deselect(true);
 						// TODO position at the right place in previous frame
-						itemText.setCursorPosition( BackBox->lastInFrame() );
+						BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
 						m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 					}
 			}
@@ -3017,7 +3021,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				if (BackBox != 0)
 				{
 					view->Deselect(true);
-					itemText.setCursorPosition( BackBox->lastInFrame() );
+					BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
 					m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 				}
 			}
@@ -3030,7 +3034,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.cursorPosition() == firstInFrame() && BackBox != 0)
 		{
 			view->Deselect(true);
-			itemText.setCursorPosition( BackBox->firstInFrame() );
+			BackBox->itemText.setCursorPosition( BackBox->firstInFrame() );
 			m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 			//currItem = currItem->BackBox;
 		}
@@ -3065,7 +3069,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			int pos = itemText.cursorPosition();
 			itemText.setCursorPosition(-1, true);
-			if (pos > 0)
+			if ( pos > 0 )
 				ExpandSel(-1, oldPos);
 		}
 		else
@@ -3077,7 +3081,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				if (BackBox != 0)
 				{
 					view->Deselect(true);
-					itemText.setCursorPosition( BackBox->lastInFrame() );
+					BackBox->itemText.setCursorPosition( BackBox->lastInFrame() );
 					m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 					//currItem = currItem->BackBox;
 				}
@@ -3164,7 +3168,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			keyRepeat = false;
 			return;
 		}
-		cr = itemText.text(itemText.cursorPosition(), 1);
+		cr = itemText.text(1);
 		if (itemText.lengthOfSelection() == 0)
 			itemText.select(itemText.cursorPosition(), 1, true);
 		deleteSelectedTextFromFrame();
@@ -3204,12 +3208,17 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(CPos-1,0))));
 //			Tinput = false;
 		}
+		updateLayout();
+		if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+			NextBox->updateLayout();
 		if (itemText.cursorPosition() < firstInFrame())
 		{
 			itemText.setCursorPosition( firstInFrame() );
 			if (BackBox != 0)
 			{
 				view->Deselect(true);
+				if (BackBox->invalid)
+					BackBox->updateLayout();
 				itemText.setCursorPosition( BackBox->lastInFrame() );
 				m_Doc->scMW()->selectItemsFromOutlines(BackBox);
 				//currItem = currItem->BackBox;
@@ -3285,14 +3294,20 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			doUpdate = true;
 		}
 		if (doUpdate)
-			update();
+		{
+			// update layout immediately, we need MaxChars to be correct to detect 
+			// if we need to move to next frame or not
+			updateLayout();
+			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+				NextBox->updateLayout();
+		}
 		//check if cursor need to jump to next linked frame
-		if (lastInFrame() < (itemText.length() -2) && NextBox != 0)
+		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && NextBox != 0)
 		{
 			view->Deselect(true);
-			//NextBox->CPos = CPos;
-			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
+			view->Deselect(true);
 			NextBox->update();
+			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
 		}
 		break;
 	}
