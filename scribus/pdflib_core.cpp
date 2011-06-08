@@ -1911,7 +1911,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							else
 							{
 								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
+								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 							}
 						}
 						PutPage("q\n");
@@ -2005,13 +2005,15 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							if (!PDF_Gradient(tmpOut, ite))
 								return false;
 							PutPage(tmpOut);
+							PutPage(SetClipPath(ite));
+							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
 						else
 						{
 							if (ite->fillColor() != CommonStrings::None)
 							{
 								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
+								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 							}
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
@@ -2048,13 +2050,15 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								if (!PDF_Gradient(tmpOut, ite))
 									return false;
 								PutPage(tmpOut);
+								PutPage(SetClipPath(ite));
+								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 							}
 							else
 							{
 								if (ite->fillColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite));
-									PutPage("h\nf*\n");
+									PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 								}
 							}
 						}
@@ -3465,10 +3469,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				if (ite->fillColor() != CommonStrings::None)
 				{
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 			}
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
@@ -5263,10 +5264,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		QString tmp = "/Pattern cs\n";
 		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
 		tmp += SetClipPath(currItem);
-		if (currItem->fillRule)
-			tmp += "h\nf*\n";
-		else
-			tmp += "h\nf\n";
+		tmp += (currItem->fillRule ? "h\nf*\n" : "h\nf\n");
 		ResCount++;
 		output = tmp;
 		return true;
