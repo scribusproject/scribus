@@ -2067,6 +2067,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
+				fillRule = c->fillRule;
 				if (c->GrType != 0)
 					HandleGradientFillStroke(c, gcr, false);
 				else

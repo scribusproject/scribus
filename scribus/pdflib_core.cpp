@@ -2038,10 +2038,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								PutPage(tmpOut);
 							}
 							PutPage(SetClipPath(ite));
-							if (ite->fillRule)
-								PutPage("h\nf*\n");
-							else
-								PutPage("h\nf\n");
+							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
 						PutPage("q\n");
 						if (ite->imageClip.size() != 0)
@@ -2212,20 +2209,14 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							}
 							PutPage(tmpOut);
 							PutPage(SetClipPath(ite));
-							if (ite->fillRule)
-								PutPage("h\nf*\n");
-							else
-								PutPage("h\nf\n");
+							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
 						else
 						{
 							if (ite->fillColor() != CommonStrings::None)
 							{
 								PutPage(SetClipPath(ite));
-								if (ite->fillRule)
-									PutPage("h\nf*\n");
-								else
-									PutPage("h\nf\n");
+								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 							}
 						}
 						PutPage("Q\n");
@@ -2304,20 +2295,14 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								}
 								PutPage(tmpOut);
 								PutPage(SetClipPath(ite));
-								if (ite->fillRule)
-									PutPage("h\nf*\n");
-								else
-									PutPage("h\nf\n");
+								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 							}
 							else
 							{
 								if (ite->fillColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite));
-									if (ite->fillRule)
-										PutPage("h\nf*\n");
-									else
-										PutPage("h\nf\n");
+									PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 								}
 							}
 							PutPage("Q\n");
@@ -3706,18 +3691,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					}
 					tmp += tmpOut;
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 				else
 				{
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 			}
 			tmp += "q\n";
@@ -3821,18 +3800,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					}
 					tmp += tmpOut;
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 				else
 				{
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 			}
 			tmp += "q\n";
@@ -3991,20 +3964,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				}
 				tmp += tmpOut;
 				tmp += SetClipPath(ite);
-				if (ite->fillRule)
-					tmp += "h\nf*\n";
-				else
-					tmp += "h\nf\n";
+				tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 			}
 			else
 			{
 				if (ite->fillColor() != CommonStrings::None)
 				{
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 			}
 			tmp += "Q\n";
@@ -4084,20 +4051,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					}
 					tmp += tmpOut;
 					tmp += SetClipPath(ite);
-					if (ite->fillRule)
-						tmp += "h\nf*\n";
-					else
-						tmp += "h\nf\n";
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 				}
 				else
 				{
 					if (ite->fillColor() != CommonStrings::None)
 					{
 						tmp += SetClipPath(ite);
-						if (ite->fillRule)
-							tmp += "h\nf*\n";
-						else
-							tmp += "h\nf\n";
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
 					}
 				}
 				tmp += "Q\n";
