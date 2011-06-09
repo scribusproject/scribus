@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
+#include <cups/ppd.h>
 #endif
 #include "util_icon.h"
 
