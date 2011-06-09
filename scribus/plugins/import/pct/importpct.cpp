@@ -150,6 +150,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	FPoint minSize = m_Doc->minCanvasCoordinate;
 	FPoint maxSize = m_Doc->maxCanvasCoordinate;
 	FPoint cOrigin = m_Doc->view()->canvasOrigin();
+	m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
