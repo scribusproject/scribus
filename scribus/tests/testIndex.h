@@ -9,7 +9,8 @@
 
 #include <QtTest/QtTest>
 
-#include "text/index.h"
+/* Avox possibly introduced a bug here. Commenting out for now.
+ * #include "text/index.h" */
 
 class TestIndex: public QObject
 {
