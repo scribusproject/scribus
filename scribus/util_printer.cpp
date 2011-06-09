@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined( HAVE_CUPS )
  #include <cups/cups.h>
+ #include <cups/ppd.h>
 #elif defined(_WIN32)
  #include <windows.h>
  #include <winspool.h>
