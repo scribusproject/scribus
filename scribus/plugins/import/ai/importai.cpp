@@ -424,6 +424,8 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			importedColors.append(it.key());
 		}
 	}
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;

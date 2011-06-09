@@ -594,7 +594,8 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	m_Doc->view()->Deselect();
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+		m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))

@@ -224,6 +224,8 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
