@@ -2101,21 +2101,20 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 					inputProfIsEmbedded = false;
 				}
 			}
+			else if (bilevel && (reqType == CMYKData))
+				inputProf = NULL; // Workaround to map directly gray to K channel
+			else if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageRGBProfile))
+			{
+				imgInfo.profileName = cmSettings.profileName();
+				profilePath = ScCore->InputProfiles[imgInfo.profileName];
+				inputProfIsEmbedded = true;
+				inputProf = cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
+			}
 			else
 			{
-				if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageRGBProfile))
-				{
-					imgInfo.profileName = cmSettings.profileName();
-					profilePath = ScCore->InputProfiles[imgInfo.profileName];
-					inputProfIsEmbedded = true;
-					inputProf = cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
-				}
-				else
-				{
-					inputProf = cmSettings.doc()->DocInputImageRGBProf;
-					imgInfo.profileName = cmSettings.doc()->cmsSettings().DefaultImageRGBProfile;
-					inputProfIsEmbedded = false;
-				}
+				inputProf = cmSettings.doc()->DocInputImageRGBProf;
+				imgInfo.profileName = cmSettings.doc()->cmsSettings().DefaultImageRGBProfile;
+				inputProfIsEmbedded = false;
 			}
 		}
 	}
