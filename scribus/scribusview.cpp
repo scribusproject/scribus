@@ -4033,10 +4033,12 @@ void ScribusView::keyReleaseEvent(QKeyEvent *k)
 
 void ScribusView::inputMethodEvent ( QInputMethodEvent * event )
 {
-	qDebug() << "IME" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
+	//qDebug() << "IME" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
+	// #9682 : Avoid parameter type ambiguity in QKeyEvent constructor with Qt3Support enabled Qt builds
+	Qt::KeyboardModifiers modifiers = Qt::NoModifier;
 	for(int i = 0; i < event->commitString().length(); ++i)
 	{
-		QKeyEvent ev( QEvent::KeyPress, 0, Qt::NoModifier, event->commitString().mid(i,1));
+		QKeyEvent ev( QEvent::KeyPress, 0, modifiers, event->commitString().mid(i,1));
 		keyPressEvent(&ev);
 	}
 }
