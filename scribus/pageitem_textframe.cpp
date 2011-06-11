@@ -555,12 +555,16 @@ struct LineControl {
 	double getLineAscent(const StoryText& itemText)
 	{
 		double result = 0;
+		QChar  firstChar = itemText.text(line.firstItem);
+		const CharStyle& fcStyle(itemText.charStyle(line.firstItem));
 		if ((itemText.text(line.firstItem) == SpecialChars::PARSEP) || (itemText.text(line.firstItem) == SpecialChars::LINEBREAK))
-			result = itemText.charStyle(line.firstItem).font().ascent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
+			result = fcStyle.font().ascent(fcStyle.fontSize() / 10.0);
 		else if (itemText.object(line.firstItem) != 0)
-			result = qMax(result, (itemText.object(line.firstItem)->gHeight + itemText.object(line.firstItem)->lineWidth()) * (itemText.charStyle(line.firstItem).scaleV() / 1000.0));
+			result = qMax(result, (itemText.object(line.firstItem)->gHeight + itemText.object(line.firstItem)->lineWidth()) * (fcStyle.scaleV() / 1000.0));
+		else if ((firstChar == SpecialChars::PAGENUMBER) || (firstChar == SpecialChars::PAGECOUNT))
+			result = fcStyle.font().realCharAscent('8', fcStyle.fontSize() / 10.0);
 		else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
-			result = itemText.charStyle(line.firstItem).font().realCharAscent(itemText.text(line.firstItem), itemText.charStyle(line.firstItem).fontSize() / 10.0);
+			result = fcStyle.font().realCharAscent(itemText.text(line.firstItem), fcStyle.fontSize() / 10.0);
 		for (int zc = 0; zc < itemsInLine; ++zc)
 		{
 			QChar ch = itemText.text(line.firstItem + zc);
@@ -586,12 +590,16 @@ struct LineControl {
 	double getLineDescent(const StoryText& itemText)
 	{
 		double result = 0;
-		if ((itemText.text(line.firstItem) == SpecialChars::PARSEP) || (itemText.text(line.firstItem) == SpecialChars::LINEBREAK))
-			result = itemText.charStyle(line.firstItem).font().descent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
+		QChar  firstChar = itemText.text(line.firstItem);
+		const CharStyle& fcStyle(itemText.charStyle(line.firstItem));
+		if ((firstChar == SpecialChars::PARSEP) || (firstChar == SpecialChars::LINEBREAK))
+			result = fcStyle.font().descent(fcStyle.fontSize() / 10.0);
 		else if (itemText.object(line.firstItem) != 0)
 			result = 0.0;
+		else if ((firstChar == SpecialChars::PAGENUMBER) || (firstChar == SpecialChars::PAGECOUNT))
+			result = fcStyle.font().realCharDescent('8', fcStyle.fontSize() / 10.0);
 		else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
-			result = itemText.charStyle(line.firstItem).font().realCharDescent(itemText.text(line.firstItem), itemText.charStyle(line.firstItem).fontSize() / 10.0);
+			result = fcStyle.font().realCharDescent(firstChar, fcStyle.fontSize() / 10.0);
 		for (int zc = 0; zc < itemsInLine; ++zc)
 		{
 			QChar ch = itemText.text(line.firstItem + zc);
