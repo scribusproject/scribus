@@ -5294,7 +5294,23 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 
 void ScribusMainWindow::deselectAll()
 {
-	if (view!=NULL)
+	if (doc->appMode == modeEdit)
+	{
+		if (doc->m_Selection->count() <= 0)
+			return;
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->asTextFrame())
+		{
+			currItem->itemText.deselectAll();
+			doc->regionsChanged()->update(currItem->getBoundingRect());
+		}
+		else
+		{
+			doc->view()->Deselect(true);
+			doc->view()->requestMode(modeNormal);
+		}
+	}
+	else if (view != NULL)
 		view->Deselect(true);
 }
 
