@@ -920,6 +920,67 @@ bool ScribusDoc::styleExists(QString styleName)
 	return false;
 }
 
+QList<int> ScribusDoc::getSortedStyleList()
+{
+	QList<int> retList;
+	for (int ff = 0; ff < docParagraphStyles.count(); ++ff)
+	{
+		if (docParagraphStyles[ff].parent().isEmpty())
+		{
+			if (!retList.contains(ff))
+				retList.append(ff);
+			continue;
+		}
+
+		QList<int> retList2;
+		QString par = docParagraphStyles[ff].parent();
+		retList2.prepend(ff);
+		while (!par.isEmpty())
+		{
+			int pp = docParagraphStyles.find(par);
+			if ((pp >= 0) && (!retList2.contains(pp)))
+				retList2.prepend(pp);
+			par = (pp >= 0) ? docParagraphStyles[pp].parent() : QString();
+		}
+		for (int r = 0; r < retList2.count(); ++r)
+		{
+			if (!retList.contains(retList2[r]))
+				retList.append(retList2[r]);
+		}
+	}
+	return retList;
+}
+
+QList<int> ScribusDoc::getSortedCharStyleList()
+{
+	QList<int> retList;
+	for (int ff = 0; ff < docCharStyles.count(); ++ff)
+	{
+		if (docCharStyles[ff].parent().isEmpty())
+		{
+			if (!retList.contains(ff))
+				retList.append(ff);
+			continue;
+		}
+
+		QList<int> retList2;
+		QString par = docCharStyles[ff].parent();
+		retList2.prepend(ff);
+		while (!par.isEmpty())
+		{
+			int pp = docCharStyles.find(par);
+			if ((pp >= 0) && (!retList2.contains(pp)))
+				retList2.prepend(pp);
+			par = (pp >= 0) ? docCharStyles[pp].parent() : QString();
+		}
+		for (int r = 0; r < retList2.count(); ++r)
+		{
+			if (!retList.contains(retList2[r]))
+				retList.append(retList2[r]);
+		}
+	}
+	return retList;
+}
 
 void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {

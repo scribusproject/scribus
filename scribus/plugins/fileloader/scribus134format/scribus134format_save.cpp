@@ -418,11 +418,9 @@ void Scribus134Format::writeHyphenatorLists(ScXmlStreamWriter &docu)
 
 void Scribus134Format::writePStyles(ScXmlStreamWriter & docu) 
 {
-	//	if (m_Doc->docParagraphStyles.count() > 5)
-	{
-		for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
-			putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
-	}
+	QList<int> styleList = m_Doc->getSortedStyleList();
+	for (int a = 0; a < styleList.count(); ++a)
+		putPStyle(docu, m_Doc->paragraphStyles()[styleList[a]], "STYLE");
 }
 
 void Scribus134Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName)
@@ -498,10 +496,11 @@ void Scribus134Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 
 void Scribus134Format::writeCStyles(ScXmlStreamWriter & docu) 
 {
-	for (int ff = 0; ff < m_Doc->charStyles().count(); ++ff)
+	QList<int> styleList = m_Doc->getSortedCharStyleList();
+	for (int a = 0; a < styleList.count(); ++a)
 	{
 		docu.writeStartElement("CHARSTYLE");
-		putNamedCStyle(docu, m_Doc->charStyles()[ff]);
+		putNamedCStyle(docu, m_Doc->charStyles()[styleList[a]]);
 		docu.writeEndElement();
 	}
 }
