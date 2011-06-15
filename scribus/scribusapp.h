@@ -95,6 +95,9 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		QString prefsUserFile;
 		QList<QString> filesToLoad;
 		QString fileName;
+
+	protected:
+		virtual bool event(QEvent *event);
 };
 
 #endif
