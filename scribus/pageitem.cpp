@@ -6190,7 +6190,7 @@ void PageItem::updateGradientVectors()
 	//if (m_Doc->m_Selection->count()!=0 && m_Doc->m_Selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();
 	//CB Will only emit if connected, ie is first in GUI selection
-	double dur=m_Doc->unitRatio();
+	//unused double dur=m_Doc->unitRatio();
 }
 
 void PageItem::setPolyClip(int up, int down)
@@ -6268,7 +6268,7 @@ bool PageItem::connectToGUI()
 		return false;
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
-	PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
+	//unused PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
 	//connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(setCurrentItem(PageItem *)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc, SLOT(selectionChanged()));
