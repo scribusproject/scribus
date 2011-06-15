@@ -530,3 +530,26 @@ bool ScribusQApp::neverSplashExists()
 {
 	return QFileInfo(ScPaths::getApplicationDataDir() + ".neversplash").exists();
 }
+
+bool ScribusQApp::event(QEvent *event)
+{
+	switch (event->type()) 
+	{
+	case QEvent::FileOpen:
+		{
+			QString filename = static_cast<QFileOpenEvent*>(event)->file();
+			if(m_ScCore && m_ScCore->initialized())
+			{
+				ScribusMainWindow* mw = m_ScCore->primaryMainWindow();
+				mw->loadDoc(filename);
+			}
+			else
+			{
+				filesToLoad.append(filename);
+			}
+			return true;
+		}
+	default:
+		return QApplication::event(event);
+	}
+}
