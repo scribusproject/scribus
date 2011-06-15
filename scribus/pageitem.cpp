@@ -4024,39 +4024,25 @@ QString PageItem::getItemTextSaxed(EditActPlace undoItem)
 		iT.insert(0, itemText);
 	else
 	{
-		int StartOldSel = -1, LenOldSel = -1;
-		if (undoItem == PARAGRAPH)
+		int StartOldSel = 0, LenOldSel = 0;
+		if (HasSel)
 		{
-			LenOldSel = 0;
-			if (HasSel)
-			{
-				StartOldSel = itemText.startOfSelection();
-				LenOldSel = itemText.lengthOfSelection();
-			}
-			asTextFrame()->expandParaSelection(true);
-		}
-		else if (undoItem == CHAR || (undoItem == SELECTION && !HasSel))
-		{
+			StartOldSel = itemText.startOfSelection();
 			LenOldSel = itemText.lengthOfSelection();
-			if (LenOldSel > 0)
-				StartOldSel = itemText.startOfSelection();
+		}
+		if (undoItem == PARAGRAPH)
+			asTextFrame()->expandParaSelection(true);
+		else if (undoItem == CHAR || !HasSel)
+		{
 			if (itemText.cursorPosition() >= itemText.length())
 				return  "";
 			itemText.select(itemText.cursorPosition(), 1);
-			HasSel = true;
 		}
 		//is SELECTION
-		iT.insert(0, itemText, HasSel);
+		iT.insert(0, itemText, true);
+		itemText.deselectAll();
 		if (LenOldSel > 0) //restoring old selection if undoItem was PARAPGRAPH
-		{
 			itemText.select(StartOldSel, LenOldSel);
-			HasSel = true;
-		}
-		else if (LenOldSel == 0)
-		{
-			itemText.deselectAll();
-			HasSel = false;
-		}
 	}
 	//saxing text
 	std::ostringstream xmlString;
@@ -4076,23 +4062,8 @@ QString PageItem::getItemTextSaxed(int selStart, int selLength)
 	StoryText it(m_Doc);
 	it.setDefaultStyle(itemText.defaultStyle());
 
-	int oldSelStart = -1, oldSelLength = -1;
-	oldSelStart  = itemText.startOfSelection();
-	oldSelLength = itemText.lengthOfSelection();
-
 	itemText.select(selStart, selLength);
 	it.insert(0, itemText, (selLength > 0));
-	
-	if (oldSelLength > 0) //restoring old selection if undoItem was PARAPGRAPH
-	{
-		itemText.select(oldSelStart, oldSelLength);
-		HasSel = true;
-	}
-	else if (oldSelLength == 0)
-	{
-		itemText.deselectAll();
-		HasSel = false;
-	}
 
 	//saxing text
 	std::ostringstream xmlString;

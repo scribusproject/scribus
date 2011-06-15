@@ -3850,6 +3850,7 @@ void PageItem_TextFrame::updateUndo(EditAct action, QString str)
 
 void PageItem_TextFrame::restoreTextSelection(int oldSelStart, int oldSelLength)
 {
+	itemText.deselectAll();
 	if (oldSelLength > 0)
 		itemText.select(oldSelStart, oldSelLength);
 	else if (oldSelLength == 0)

@@ -2947,11 +2947,7 @@ void PropertiesPalette::setLineSpacingMode(int id)
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (CurItem->asTextFrame())
-		{
-//			CurItem->asTextFrame()->ExpandParSel();
 			CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
-//			CurItem->asTextFrame()->lastAction4Paragraph = true;
-		}
 		doc->itemSelection_SetLineSpacingMode(id);
 		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 		if (CurItem->asTextFrame())
@@ -3874,11 +3870,7 @@ void PropertiesPalette::NewLineSpacing()
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	if (CurItem->asTextFrame())
-	{
-//		CurItem->asTextFrame()->ExpandParSel();
 		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
-//		CurItem->asTextFrame()->lastAction4Paragraph = true;
-	}
 	doc->itemSelection_SetLineSpacing(LineSp->value());
 	if (CurItem->asTextFrame())
 		CurItem->asTextFrame()->updateUndo();
@@ -4276,32 +4268,10 @@ void PropertiesPalette::VChangeD()
 
 void PropertiesPalette::NewAlignement(int a)
 {
-	int selStart = 0, selEnd = 0, selLength = 0;
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	if (CurItem->asTextFrame())
-	{
-		// hack for apply left align for text with no align at all
-		//so during Undo/Redo some align will be applied
-		StoryText& itemText(CurItem->itemText);
-		if (doc->appMode == modeEdit)
-		{
-			//selected parapgraph(s) only
-			selStart = (itemText.lengthOfSelection() > 0) ? itemText.startOfSelection() : CurItem->itemText.cursorPosition();
-			selEnd   = (itemText.lengthOfSelection() > 0) ? itemText.endOfSelection() : CurItem->itemText.cursorPosition();
-			selStart = itemText.startOfParagraph( itemText.nrOfParagraph(selStart) );
-			selEnd   = itemText.endOfParagraph  ( itemText.nrOfParagraph(selEnd) );
-		}
-		else
-		{
-			//for whole frame
-			selStart = itemText.startOfParagraph( 0 );
-			selEnd   = itemText.endOfParagraph  ( itemText.nrOfParagraph(itemText.lastInFrame()) );
-		}
-		selLength = qMin(selEnd - selStart + 1, itemText.length() - selStart);
-		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(selStart, selLength);
-//		CurItem->asTextFrame()->lastAction4Paragraph = true;
-	}
+		CurItem->itemTextSaxed = CurItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::PARAGRAPH : PageItem::FRAME);
 	doc->itemSelection_SetAlignment(a);
 	if (CurItem->asTextFrame())
 		CurItem->asTextFrame()->updateUndo();
