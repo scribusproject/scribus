@@ -4655,7 +4655,8 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 		if (m_hasGUI)
 		{
 			QFileInfo fi(pageItem->Pfile);
-			ScCore->fileWatcher->addDir(fi.absolutePath());
+			//#9845, why are we tracking dir changes when we are tracking the file itself
+			//ScCore->fileWatcher->addDir(fi.absolutePath());
 			ScCore->fileWatcher->addFile(pageItem->Pfile);
 		}
 	}
@@ -7517,6 +7518,7 @@ void ScribusDoc::connectDocSignals()
 //CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
 void ScribusDoc::updatePict(QString name)
 {
+	bool updated=false;
 	QList<PageItem*> allItems;
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
@@ -7535,6 +7537,7 @@ void ScribusDoc::updatePict(QString name)
 				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
+				updated=true;
 			}
 		}
 		allItems.clear();
@@ -7556,6 +7559,7 @@ void ScribusDoc::updatePict(QString name)
 				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
+				updated=true;
 			}
 		}
 		allItems.clear();
@@ -7577,6 +7581,7 @@ void ScribusDoc::updatePict(QString name)
 				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
+				updated=true;
 			}
 		}
 		allItems.clear();
@@ -7602,6 +7607,7 @@ void ScribusDoc::updatePict(QString name)
 					loadPict(currItem->Pfile, currItem, true);
 					currItem->setImageFlippedH(fho);
 					currItem->setImageFlippedV(fvo);
+					updated=true;
 				}
 			}
 			allItems.clear();
@@ -7609,12 +7615,16 @@ void ScribusDoc::updatePict(QString name)
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
-	regionsChanged()->update(QRectF());
-	changed();
+	if (updated)
+	{
+		regionsChanged()->update(QRectF());
+		changed();
+	}
 }
 
 void ScribusDoc::updatePictDir(QString name)
 {
+	bool updated=false;
 	QList<PageItem*> allItems;
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
@@ -7641,6 +7651,7 @@ void ScribusDoc::updatePictDir(QString name)
 							currItem->setImageFlippedH(fho);
 							currItem->setImageFlippedV(fvo);
 							ScCore->fileWatcher->addFile(currItem->Pfile);
+							updated=true;
 						}
 					}
 				}
@@ -7673,6 +7684,7 @@ void ScribusDoc::updatePictDir(QString name)
 							currItem->setImageFlippedH(fho);
 							currItem->setImageFlippedV(fvo);
 							ScCore->fileWatcher->addFile(currItem->Pfile);
+							updated=true;
 						}
 					}
 				}
@@ -7705,6 +7717,7 @@ void ScribusDoc::updatePictDir(QString name)
 							currItem->setImageFlippedH(fho);
 							currItem->setImageFlippedV(fvo);
 							ScCore->fileWatcher->addFile(currItem->Pfile);
+							updated=true;
 						}
 					}
 				}
@@ -7741,6 +7754,7 @@ void ScribusDoc::updatePictDir(QString name)
 								currItem->setImageFlippedH(fho);
 								currItem->setImageFlippedV(fvo);
 								ScCore->fileWatcher->addFile(currItem->Pfile);
+								updated=true;
 							}
 						}
 					}
@@ -7751,8 +7765,11 @@ void ScribusDoc::updatePictDir(QString name)
 			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 		}
 	}
-	regionsChanged()->update(QRectF());
-	changed();
+	if (updated)
+	{
+		regionsChanged()->update(QRectF());
+		changed();
+	}
 }
 
 //CB Same as updatePict apart from the name checking, this should be able to be removed
@@ -7967,6 +7984,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 
 void ScribusDoc::removePict(QString name)
 {
+	bool updated=false;
 	QList<PageItem*> allItems;
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
@@ -7982,6 +8000,7 @@ void ScribusDoc::removePict(QString name)
 			{
 				currItem->PictureIsAvailable = false;
 				currItem->pixm = ScImage();
+				updated=true;
 			}
 		}
 		allItems.clear();
@@ -8000,6 +8019,7 @@ void ScribusDoc::removePict(QString name)
 			{
 				currItem->PictureIsAvailable = false;
 				currItem->pixm = ScImage();
+				updated=true;
 			}
 		}
 		allItems.clear();
@@ -8018,6 +8038,7 @@ void ScribusDoc::removePict(QString name)
 			{
 				currItem->PictureIsAvailable = false;
 				currItem->pixm = ScImage();
+				updated=true;
 			}
 		}
 		allItems.clear();
@@ -8040,6 +8061,7 @@ void ScribusDoc::removePict(QString name)
 				{
 					currItem->PictureIsAvailable = false;
 					currItem->pixm = ScImage();
+					updated=true;
 				}
 			}
 			allItems.clear();
@@ -8047,8 +8069,11 @@ void ScribusDoc::removePict(QString name)
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
-	regionsChanged()->update(QRectF());
-	changed();
+	if (updated)
+	{
+		regionsChanged()->update(QRectF());
+		changed();
+	}
 }
 
 

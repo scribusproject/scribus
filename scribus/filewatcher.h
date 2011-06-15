@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+#include "scribusdoc.h"
 class SCRIBUS_API FileWatcher : public QObject
 {
 	Q_OBJECT
@@ -34,7 +35,7 @@ public:
 	
 public slots:
 	//Add a file to the watch list for monitoring
-	void addFile(QString fileName, bool fast = false);
+	void addFile(QString fileName, bool fast = false, ScribusDoc* doc=0); //see struct note for doc var
 	//Remove a file from the watch list
 	void removeFile(QString fileName);
 	//Add a directory to the watch list for monitoring
@@ -58,6 +59,8 @@ private:
 		int refCount;
 		bool isDir;
 		bool fast;
+		ScribusDoc* doc; //CB Added as part of #9845 but unused for now, we could avoid scanning docs in updatePict() if we used this
+
 	};
 
 	typedef enum

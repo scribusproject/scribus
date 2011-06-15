@@ -3204,7 +3204,8 @@ void ScribusMainWindow::updateRecent(QString fn)
 	if (RecentDocs.indexOf(fn) == -1)
 	{
 		RecentDocs.prepend(fn);
-		ScCore->fileWatcher->addFile(fn);
+		//#9845, why are we tracking doc changes, see also removeRecent:
+		//ScCore->fileWatcher->addFile(fn);
 	}
 	else
 	{
@@ -3219,8 +3220,8 @@ void ScribusMainWindow::removeRecent(QString fn, bool fromFileWatcher)
 	if (RecentDocs.indexOf(fn) != -1)
 	{
 		RecentDocs.removeAll(fn);
-		if (!fromFileWatcher)
-			ScCore->fileWatcher->removeFile(fn);
+		//#9845: if (!fromFileWatcher)
+		//#9845:	ScCore->fileWatcher->removeFile(fn);
 	}
 	rebuildRecentFileMenu();
 }
