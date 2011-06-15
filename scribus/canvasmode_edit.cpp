@@ -237,7 +237,8 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 // 		qDebug()<<"==============================================================";
 		// end debug
 		double dx, dy, dy1;
-		QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
+		QPen cPen ( Qt::black, 1.5 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
+		cPen.setCosmetic(true); // #10049 : make cursor line width constant on screen
 
 		// normalize Current Position
 		textframe->itemText.normalizeCursorPosition();
