@@ -202,7 +202,7 @@ void FileWatcher::checkFiles()
 		}
 		else
 		{
-			qDebug()<<it.key();
+			//qDebug()<<it.key();
 			it.value().pending = false;
 			time = it.value().info.lastModified();
 			if (time != it.value().timeInfo)

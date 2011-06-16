@@ -466,13 +466,13 @@ void NodePalette::doExpand()
 void NodePalette::doReduce()
 {
 	if (doc != 0)
-		view->TransformPoly(8, 1, scaleDistance->value()/unitGetRatioFromIndex(doc->unitIndex()));
+		view->TransformPoly(8, 1, value2pts(scaleDistance->value(),doc->unitIndex()));
 }
 
 void NodePalette::doEnlarge()
 {
 	if (doc != 0)
-		view->TransformPoly(9, 1, scaleDistance->value()/unitGetRatioFromIndex(doc->unitIndex()));
+		view->TransformPoly(9, 1, value2pts(scaleDistance->value(),doc->unitIndex()));
 }
 
 void NodePalette::ShearR()

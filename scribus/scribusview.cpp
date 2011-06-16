@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include <QColor>
+#include <QDebug>
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
@@ -1400,10 +1401,18 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 			ma.shear(0, 0.017455);
 			break;
 		case 8:
-			ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
+			{
+				double sx=(tp.x() - tp2.x() - scaling) / (tp.x() - tp2.x());
+				double sy=(tp.y() - tp2.y() - scaling) / (tp.y() - tp2.y());
+				ma.scale(sx, sy);
+			}
 			break;
 		case 9:
-			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
+			{
+				double sx=(tp.x() - tp2.x() + scaling) / (tp.x() - tp2.x());
+				double sy=(tp.y() - tp2.y() + scaling) / (tp.y() - tp2.y());
+				ma.scale(sx, sy);
+			}
 			break;
 		//10-13 are for scaling the contour line in shape edit mode
 		case 10:
