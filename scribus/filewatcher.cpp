@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #define usleep(t) Sleep((t > 1000) ? (t / 1000) : 1)
 #endif
 
+#include <QDebug>
 #include <QStringList>
 
 #include "filewatcher.h"
@@ -55,6 +56,11 @@ int FileWatcher::timeOut() const
 
 void FileWatcher::addFile(QString fileName)
 {
+	if (fileName.isEmpty())
+	{
+		qDebug()<<"Attempt to add empty filename to filewatcher";
+		return;
+	}
 	watchTimer->stop();
 	if (!watchedFiles.contains(fileName))
 	{
@@ -175,13 +181,16 @@ void FileWatcher::checkFiles()
 			}
 		}
 		else
-		 {
+		{
+			//qDebug()<<it.key();
 			it.value().pending = false;
 			time = it.value().info.lastModified();
 			if (time != it.value().timeInfo)
 			{
+				//qDebug()<<"Times different: last modified:"<<time<<"\t recorded time:"<<it.value().timeInfo;
 				if (it.value().info.isDir())
 				{
+					//qDebug()<<"dir, ignoring"<<it.key();
 					it.value().timeInfo = time;
 					if (!(m_stateFlags & FileCheckMustStop))
 						emit dirChanged(it.key());
@@ -192,6 +201,7 @@ void FileWatcher::checkFiles()
 					usleep(100);
 					it.value().info.refresh();
 					uint sizen = it.value().info.size();
+					//qDebug()<<"Size comparison"<<sizeo<<sizen<<it.key();
 					while (sizen != sizeo)
 					{
 						sizeo = sizen;

@@ -910,7 +910,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 		if (fd.exists())
 		{
 			mw->RecentDocs.append(appPrefs.RecentDocs[m]);
-			ScCore->fileWatcher->addFile(appPrefs.RecentDocs[m]);
+			//#9845: ScCore->fileWatcher->addFile(appPrefs.RecentDocs[m]);
 		}
 	}
 	mw->rebuildRecentFileMenu();

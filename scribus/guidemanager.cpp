@@ -497,14 +497,16 @@ void GuideManager::clearRestoreHorizontalList()
 {
 	horizontalModel->setValues(currentPage->guides.horizontals(GuideManagerCore::Standard));
 	drawGuides();
-	m_Doc->changed();
+//9845: why are we setting this changed, we dont in 1.5.0
+//	m_Doc->changed();
 }
 
 void GuideManager::clearRestoreVerticalList()
 {
 	verticalModel->setValues(currentPage->guides.verticals(GuideManagerCore::Standard));
 	drawGuides();
-	m_Doc->changed();
+//9845: why are we setting this changed, we dont in 1.5.0
+//	m_Doc->changed();
 }
 
 void GuideManager::deletePageButton_clicked()
