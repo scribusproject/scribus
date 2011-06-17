@@ -257,7 +257,7 @@ Recommended packages for compiling from source on SuSE 11.x:
         boost-devel
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.3.9+ on anything older than Suse 11.2. 
+Scribus 1.3.9+ on anything older than Suse 11.3. 
 
 Please note we do provide frequently updated packages 
 on the Suse Build Server at http//software.opensuse.org
