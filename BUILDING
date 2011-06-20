@@ -31,7 +31,7 @@ Requirements:
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.4.x 
 	libtiff >= 3.6.0
-	LittleCMS (liblcms) = 1.12 (1.18+ recommended)
+	LittleCMS (liblcms) = 1.12 (1.18+ recommended) or LittleCMS 2 (liblcms2) >= 2.1
 	libjpeg (depending on how Qt is packaged)
 	libpng
 	CUPS
