@@ -26,7 +26,7 @@
 	/>
 	<UserMacro
 		Name="LCMS_DIR"
-		Value="F:\Libraries-vc9\lcms-1.16"
+		Value="F:\Libraries-vc9\lcms2-2.1"
 	/>
 	<UserMacro
 		Name="LIBJPEG_DIR"
