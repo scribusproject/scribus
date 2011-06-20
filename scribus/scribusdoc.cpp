@@ -1022,9 +1022,9 @@ bool ScribusDoc::styleExists(QString styleName)
 QList<int> ScribusDoc::getSortedStyleList()
 {
 	QList<int> retList;
-	for (int ff = 0; ff < paragraphStyles().count(); ++ff)
+	for (int ff = 0; ff < docParagraphStyles.count(); ++ff)
 	{
-		if (paragraphStyles()[ff].parent().isEmpty())
+		if (docParagraphStyles[ff].parent().isEmpty())
 		{
 			if (!retList.contains(ff))
 				retList.append(ff);
@@ -1032,17 +1032,17 @@ QList<int> ScribusDoc::getSortedStyleList()
 		else
 		{
 			QList<int> retList2;
-			QString par = paragraphStyles()[ff].parent();
+			QString par = docParagraphStyles[ff].parent();
 			retList2.prepend(ff);
 			while (!par.isEmpty())
 			{
-				for (int pp = 0; pp < paragraphStyles().count(); ++pp)
+				for (int pp = 0; pp < docParagraphStyles.count(); ++pp)
 				{
-					if (paragraphStyles()[pp].name() == par)
+					if (docParagraphStyles[pp].name() == par)
 					{
 						if (!retList2.contains(pp))
 							retList2.prepend(pp);
-						par = paragraphStyles()[pp].parent();
+						par = docParagraphStyles[pp].parent();
 					}
 				}
 			}

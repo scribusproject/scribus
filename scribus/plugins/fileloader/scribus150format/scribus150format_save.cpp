@@ -569,11 +569,8 @@ void Scribus150Format::writePStyles(ScXmlStreamWriter & docu)
 	{
 		putPStyle(docu, m_Doc->paragraphStyles()[styleList[a]], "STYLE");
 	}
-	//	if (m_Doc->docParagraphStyles.count() > 5)
-//	{
-//		for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
-//			putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
-//	}
+//	for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
+//		putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
 }
 
 void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName)

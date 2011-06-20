@@ -520,6 +520,7 @@ public:
 	void getNamedResources(ResourceCollection& lists) const;
 	void replaceNamedResources(ResourceCollection& newNames);
 	bool styleExists(QString styleName);
+	
 	QList<int> getSortedStyleList();
 	QList<int> getSortedCharStyleList();
 	
