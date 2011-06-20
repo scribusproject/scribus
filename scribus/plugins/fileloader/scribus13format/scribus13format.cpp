@@ -1089,6 +1089,26 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
 
+	// fix legacy char formatting
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->DocItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->MasterItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->FrameItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+
 	// start auto save timer if needed
 	if (m_Doc->autoSave() && ScCore->usingGUI())
 		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
@@ -2330,6 +2350,26 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
 		while (m_Doc->FirstAuto->prevInChain())
 			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
+	}
+
+	// fix legacy char formatting
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->DocItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->MasterItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->FrameItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
 	}
 	
 	return true;

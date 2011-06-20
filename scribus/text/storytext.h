@@ -169,6 +169,13 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
  	void eraseStyle(int pos, const ParagraphStyle& style);
 	void replaceStyles(QMap<QString,QString> newNameForOld);
 	void replaceCharStyles(QMap<QString,QString> newNameForOld);
+
+	// Cleanup legacy formatting for whole story, ie remove direct
+	// formatting for parameters already set at paragraph level
+	void fixLegacyFormatting();
+	
+	// Cleanup legacy formatting for paragraph at position pos
+	void fixLegacyFormatting(int pos);
 	
 	void getNamedResources(ResourceCollection& lists) const;
 	void replaceNamedResources(ResourceCollection& newNames);

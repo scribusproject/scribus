@@ -929,6 +929,51 @@ void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 	replaceNamedResources(newnames);
 }
 
+void StoryText::fixLegacyFormatting()
+{
+	if (length() == 0)
+		return;
+
+	for (int i = 0; i < length(); ++ i)
+	{
+		if (d->at(i)->ch == SpecialChars::PARSEP)
+			fixLegacyFormatting(i);
+	}
+	fixLegacyFormatting( length() );
+}
+
+void StoryText::fixLegacyFormatting(int pos)
+{
+	if (length() == 0)
+		return;
+
+	if (pos < 0)
+		pos += length();
+
+	assert(pos >= 0);
+	assert(pos <= length());
+
+	int i = pos;
+	while (i > 0 && d->at(i - 1)->ch != SpecialChars::PARSEP) {
+		--i;
+	}
+
+	const ParagraphStyle& parStyle = this->paragraphStyle(pos);
+	parStyle.validate();
+
+	if (parStyle.hasParent())
+	{
+		int start = i;
+		while ((i < length()) && (d->at(i)->ch != SpecialChars::PARSEP))
+		{
+			d->at(i)->validate();
+			d->at(i)->eraseCharStyle( parStyle.charStyle() );
+			++i;
+		}
+		invalidate(start, qMin(i + 1, length()));
+	}
+}
+
 uint StoryText::nrOfParagraph() const
 {
 	return nrOfParagraph(d->cursorPosition);

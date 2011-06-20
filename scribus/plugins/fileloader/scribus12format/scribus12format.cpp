@@ -1263,6 +1263,26 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		while (m_Doc->FirstAuto->prevInChain())
 			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
+
+	// fix legacy char formatting
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->DocItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->MasterItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+	{
+		PageItem* item = m_Doc->FrameItems.at(i);
+		if (item->prevInChain() == 0 && item->itemText.length() > 0)
+			item->itemText.fixLegacyFormatting();
+	}
 	
 	setCurrentComboItem(m_View->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
 	if (m_mwProgressBar!=0)
@@ -1996,6 +2016,26 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						Its->link(Itn);
 					}
 				}
+
+				// fix legacy char formatting
+				for (int i = 0; i < m_Doc->DocItems.count(); ++i)
+				{
+					PageItem* item = m_Doc->DocItems.at(i);
+					if (item->prevInChain() == 0 && item->itemText.length() > 0)
+						item->itemText.fixLegacyFormatting();
+				}
+				for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
+				{
+					PageItem* item = m_Doc->MasterItems.at(i);
+					if (item->prevInChain() == 0 && item->itemText.length() > 0)
+						item->itemText.fixLegacyFormatting();
+				}
+				for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+				{
+					PageItem* item = m_Doc->FrameItems.at(i);
+					if (item->prevInChain() == 0 && item->itemText.length() > 0)
+						item->itemText.fixLegacyFormatting();
+				}
 				
 				if (!Mpage)
 					m_View->reformPages();
@@ -2021,7 +2061,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							m_Doc->BookMarks.append(bok);
 						}
 					}
-				PAGE=PAGE.nextSibling();
+					PAGE=PAGE.nextSibling();
 				}
 				return true;
 			}
