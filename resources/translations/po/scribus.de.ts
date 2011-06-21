@@ -6510,7 +6510,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/about.cpp" line="275"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>Wenn eine Bibliothek nicht unterstützt wird, zeigt dies ein * an. Auch die Ghstscript-Version, die Scribus gefunden hat, wird hier angezeigt.</translation>
+        <translation>Wenn eine Bibliothek nicht unterstützt wird, zeigt dies ein * an. Auch die Ghostscript-Version, die Scribus gefunden hat, wird hier angezeigt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="276"/>
@@ -8364,7 +8364,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="110"/>
         <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Wenn eine Seite eines Objekts ausgerichtet wird entweder:&lt;ul&gt;&lt;li&gt;die andere Seite ebenfalls verschoben (die Abmessungen bleiben erhalten) oder&lt;/li&gt;&lt;li&gt;die andere Seite bleibt, soweit möglich, unverändert (das Objekt wird in der Größe angepasst)&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Wenn eine Seite eines Objekts ausgerichtet wird,  wird entweder:&lt;ul&gt;&lt;li&gt;die andere Seite ebenfalls verschoben (die Abmessungen bleiben erhalten) oder&lt;/li&gt;&lt;li&gt;die andere Seite bleibt, soweit möglich, unverändert (das Objekt wird in der Größe angepasst)&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="118"/>
@@ -8459,12 +8459,12 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="454"/>
         <source>Y: %1%2</source>
-        <translation>Y: %1 %2</translation>
+        <translation>Y: %1%2</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="462"/>
         <source>X: %1%2</source>
-        <translation>X: %1 %2</translation>
+        <translation>X: %1%2</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="114"/>
@@ -12225,7 +12225,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../../scribus/colorm.cpp" line="194"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warnzeichen an, dass die Farbe außerhalb des Farbraumes des aktuellen Druckerprofils liegt. Das bedeutet, dass die Farbe möglicherweise nicht so gedruckt werden kann, wie sie am Bildschirm aussieht. Schmuckfarben werden durch einen roten Punkt angezeigt. Registrierungsfarben werden durch eine Registrierungsfarbe gekennzeichnet. Weitere Hinweise zum Farbmanagement finden Sie in der Scribus-Hilfe.</translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warnzeichen an, dass die Farbe außerhalb des Farbraumes des aktuellen Druckerprofils liegt. Das bedeutet, dass die Farbe möglicherweise nicht so gedruckt werden kann, wie sie am Bildschirm aussieht. Schmuckfarben werden durch einen roten Punkt angezeigt. Registrierungsfarben werden durch eine Registrierungsmarke gekennzeichnet. Weitere Hinweise zum Farbmanagement finden Sie in der Scribus-Hilfe.</translation>
     </message>
     <message>
         <location filename="../../../scribus/colorm.cpp" line="365"/>
@@ -15044,7 +15044,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/dialog.cpp" line="123"/>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
-        <translation>Die Kompressionsrate für Ihre Bilddateien: 100% bedeutet keine Kompression, 0% ist die höchstmögliche Kompressionsrate. Im Zweifelsfall sollten Sie &quot;Automatisch&quot; wählen.</translation>
+        <translation>Die Kompressionsrate für Ihre Bilddateien: 100% bedeutet keine Kompression, 0% ist die höchstmögliche Kompressionsrate. Im Zweifelsfall sollten Sie &quot;Automatisch&quot; wählen</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/dialog.cpp" line="124"/>
@@ -39155,7 +39155,7 @@ Fehler:%2 in Zeile: %3, Spalte %4</translation>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="230"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation>Es sind ein oder mehrere Updates für Ihre Scribus-Version verfügbar:</translation>
+        <translation>Es sind ein oder mehrere Updates für Ihre Scribus-Version (%1) verfügbar:</translation>
     </message>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="234"/>
