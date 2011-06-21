@@ -3176,7 +3176,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			keyRepeat = false;
 			return;
 		}
-		cr = itemText.text(1);
+		cr = itemText.text();
 		if (itemText.lengthOfSelection() == 0)
 			itemText.select(itemText.cursorPosition(), 1, true);
 		deleteSelectedTextFromFrame();
