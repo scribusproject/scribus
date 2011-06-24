@@ -191,14 +191,25 @@ void PythonConsole::slot_save()
 void PythonConsole::slot_saveAs()
 {
 	QString oldFname = filename;
+	QString dirName  = QDir::homePath();
+	if (!filename.isEmpty())
+	{
+		QFileInfo fInfo(filename);
+		QDir fileDir = fInfo.absoluteDir();
+		if (fileDir.exists())
+			dirName = fileDir.absolutePath();
+	}
 	filename = QFileDialog::getSaveFileName(this,
 			tr("Save the Python Commands in File"),
-			".",
+			dirName,
 			tr("Python Scripts (*.py *.PY)"));
-	if (filename.isNull())
+	if (filename.isEmpty())
+	{
+		filename = oldFname;
 		return;
-	QFile f(filename);
-	if (f.exists())
+	}
+	// #10070 : not needed QFileDialog::getSaveFileName() will ask overwrite confirmation by itself
+	/*if (QFile::exists(filename))
 	{
 		QString fn = QDir::toNativeSeparators(filename);
 		if (ScMessageBox::warning(this, CommonStrings::trWarning,
@@ -208,27 +219,29 @@ void PythonConsole::slot_saveAs()
 			filename = oldFname;
 			return;
 		}
-	}
+	}*/
 	slot_save();
 }
 
 void PythonConsole::slot_saveOutput()
 {
+	QString dname = QDir::homePath();
 	QString fname = QFileDialog::getSaveFileName(this,
 			tr("Save Current Output"),
-			".",
+			dname,
 			tr("Text Files (*.txt)"));
-	if (fname == QString::null)
+	if (fname.isEmpty())
 		return;
 	QFile f(fname);
-	if (!f.exists())
+	// #10070 : not needed QFileDialog::getSaveFileName() will ask overwrite confirmation by itself
+	/*if (f.exists())
 	{
 		QString fn = QDir::toNativeSeparators(filename);
 		if (QMessageBox::warning(this, CommonStrings::trWarning,
 			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn).toLocal8Bit().constData()) + "</qt>",
 			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 			return;
-	}
+	}*/
 	// save
 	if (f.open(QIODevice::WriteOnly))
 	{
