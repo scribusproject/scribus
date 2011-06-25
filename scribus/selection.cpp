@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "sclimits.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "sclimits.h"
 #include <QDebug>
 
 Selection::Selection(QObject* parent)
@@ -200,10 +201,10 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 {
 	if (item==NULL)
 		return false;
-	bool listWasEmpty=m_SelList.isEmpty();
+	bool listWasEmpty = m_SelList.isEmpty();
 	if (listWasEmpty || !m_SelList.contains(item))
 	{
-		m_SelList.append(item);
+		addItemInternal(item);
 		if (m_isGUISelection)
 		{
 			item->setSelected(true);
@@ -217,6 +218,43 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	return false;
 }
 
+void Selection::addItemInternal(PageItem* item)
+{
+	if (item->Groups.count() == 0 || m_SelList.count() == 0)
+	{
+		m_SelList.append(item);
+		return;
+	}
+
+	addGroupItem(item);
+}
+
+void Selection::addGroupItem(PageItem* item)
+{
+	assert (item->Groups.count() > 0);
+
+	PageItem* selItem;
+	int itemIndex = -1;
+	for (int i = 0; i < m_SelList.count(); ++i)
+	{
+		selItem = m_SelList.at(i);
+		if (selItem->ItemNr == item->ItemNr)
+			return;
+		if (selItem->Groups.count() == 0)
+			continue;
+		if (selItem->Groups.top() != item->Groups.top())
+			continue;
+		if (selItem->ItemNr < item->ItemNr)
+			itemIndex = qMax(0, qMax(itemIndex, i + 1));
+		if (selItem->ItemNr > item->ItemNr)
+			itemIndex = qMax(0, qMin(itemIndex, i));
+	}
+
+	if (itemIndex == -1)
+		itemIndex = m_SelList.count();
+	m_SelList.insert(itemIndex, item);
+}
+
 bool Selection::prependItem(PageItem *item, bool doEmit)
 {
 	if (item==NULL)
@@ -225,7 +263,7 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 	{
 		if (m_isGUISelection && !m_SelList.isEmpty())
 			m_SelList[0]->disconnectFromGUI();
-		m_SelList.prepend(item);
+		prependItemInternal(item);
 		if (m_isGUISelection /*&& doEmit*/)
 		{
 			item->setSelected(true);
@@ -237,6 +275,17 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 		return true;
 	}
 	return false;
+}
+
+void Selection::prependItemInternal(PageItem* item)
+{
+	if (item->Groups.count() == 0 || m_SelList.count() == 0)
+	{
+		m_SelList.prepend(item);
+		return;
+	}
+
+	addGroupItem(item);
 }
 
 PageItem *Selection::itemAt_(int index)
@@ -360,6 +409,27 @@ QStringList Selection::getSelectedItemsByName() const
 	for ( ; it!=itend ; ++it)
 		names.append((*it)->itemName());
 	return names;
+}
+
+void Selection::getItemRange(int& lowest, int & highest)
+{
+	if (m_SelList.isEmpty())
+	{
+		lowest = 0;
+		highest = -1;
+		return;
+	}
+
+	int itemNr;
+	lowest  = std::numeric_limits<int>::max();
+	highest = std::numeric_limits<int>::min();
+
+	for (int i = 0; i < m_SelList.count(); ++i)
+	{
+		itemNr  = m_SelList.at(i)->ItemNr;
+		lowest  = qMin(itemNr, lowest);
+		highest = qMax(itemNr, highest);
+	}
 }
 
 double Selection::width() const

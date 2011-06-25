@@ -134,9 +134,30 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item PageItem reference
 		 */
 		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
+		/**
+		 * \brief Return item at specified index in the selection
+		 * @param index index in selection
+		 * @return Item
+		 */
 		PageItem *itemAt(int index=0) { return itemAt_(index); }
+		/**
+		 * \brief Return item at specified index in the selection
+		 * @param index index in selection
+		 * @return const Item
+		 */
 		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }
+		/**
+		 * \brief Get name of selected items
+		 */
 		QStringList getSelectedItemsByName() const;
+		/**
+		 * \brief Return range of selected items. If selection is empty, the lowest index returned
+		 *        will be strictly superior to the highest
+		 * @param lowest index of the lowest item number  in the selection
+		 * @param highest indest of the higest item number in the selection
+		 */
+		void getItemRange(int& lowest, int & highest);
+
 		bool isMultipleSelection() const { return m_hasGroupSelection; }
 		bool isGUISelection() const { return m_isGUISelection; }
 		double width() const;
@@ -177,6 +198,9 @@ class SCRIBUS_API Selection : public QObject
 		bool m_sigSelectionChanged;
 		bool m_sigSelectionIsMultiple;
 
+		void addItemInternal(PageItem* item);
+		void prependItemInternal(PageItem* item);
+		void addGroupItem(PageItem* item);
 		void sendSignals(bool guiConnect = true);
 		
 	signals:

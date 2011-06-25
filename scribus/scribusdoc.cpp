@@ -5381,7 +5381,7 @@ bool ScribusDoc::sendItemSelectionToBack()
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
+			if ((currItem->isSingleSel) && ((currItem->Groups.count() > 0) || (currItem->isTableItem)))
 				return false;
 			ObjOrder.insert(currItem->ItemNr, c);
 			int d = Items->indexOf(currItem);
@@ -5410,7 +5410,7 @@ bool ScribusDoc::bringItemSelectionToFront()
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
+			if ((currItem->isSingleSel) && ((currItem->Groups.count() > 0) || (currItem->isTableItem)))
 				return false;
 			ObjOrder.insert(currItem->ItemNr, c);
 			int d = Items->indexOf(currItem);

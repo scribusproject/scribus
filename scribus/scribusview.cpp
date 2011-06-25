@@ -1851,30 +1851,23 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		{
 			if (currItem->Groups.count() != 0)
 			{
-				if (Doc->m_Selection->count() != 0)
-				{
-					if (Doc->m_Selection->findItem(currItem) == -1)
-						Doc->m_Selection->addItem(currItem);
-				}
-				else
+				if (Doc->m_Selection->findItem(currItem) == -1)
 					Doc->m_Selection->addItem(currItem);
 
-				for (int ga=0; ga<Doc->Items->count(); ++ga)
+				for (int ga=0; ga < Doc->Items->count(); ++ga)
 				{
-					if (Doc->Items->at(ga)->Groups.count() != 0)
+					if (Doc->Items->at(ga)->Groups.count() <= 0)
+						continue;
+					if (Doc->Items->at(ga)->Groups.top() != currItem->Groups.top())
+						continue;
+					if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
 					{
-						if (Doc->Items->at(ga)->Groups.top() == currItem->Groups.top())
-						{
-							if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
-							{
-								if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
-									Doc->m_Selection->addItem(Doc->Items->at(ga));
-							}
-							if (draw)
-							{
-								updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-							}
-						}
+						if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
+							Doc->m_Selection->addItem(Doc->Items->at(ga));
+					}
+					if (draw)
+					{
+						updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 					}
 				}
 			}
@@ -2095,7 +2088,7 @@ void ScribusView::LowerItem()
 	int d;
 	QMap<int, uint> ObjOrder;
 	PageItem *currItem;
-	PageItem *b2;
+	PageItem *item2;
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
@@ -2109,20 +2102,39 @@ void ScribusView::LowerItem()
 		}
 		if (low == 0)
 			return;
-		/*bool wasGUISelection=Doc->m_Selection->isGUISelection();
-		if (wasGUISelection)
-		{
-			Doc->m_Selection->setIsGUISelection(false);
-			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}*/
 		bool wasSignalDelayed = !Doc->m_Selection->signalsDelayed();
 		Doc->m_Selection->delaySignalsOn();
 		if (!wasSignalDelayed)
 			Doc->m_Selection->disconnectAllItemsFromGUI();
 		Selection tempSelection(*Doc->m_Selection);
-		b2 = Doc->Items->at(high);
+		if (Doc->Items->at(high)->Groups.count() != 0)
+		{
+			int groupID = Doc->Items->at(high)->Groups.top();
+			while ((high + 1) < Doc->Items->count())
+			{
+				if (Doc->Items->at(high + 1)->Groups.count() == 0)
+					break;
+				if (Doc->Items->at(high + 1)->Groups.count() != groupID)
+					break;
+				high += 1;
+			}
+		}
+		item2 = Doc->Items->at(high);
 		Doc->m_Selection->clear();
-		SelectItemNr(low-1, false);
+		if (Doc->Items->at(low)->Groups.count() != 0)
+		{
+			int groupID = Doc->Items->at(low)->Groups.top();
+			while (low > 0)
+			{
+				if (Doc->Items->at(low - 1)->Groups.count() == 0)
+					break;
+				if (Doc->Items->at(low - 1)->Groups.count() != groupID)
+					break;
+				low -= 1;
+			}
+			if (low == 0) return;
+		}
+		SelectItemNr(low - 1, false);
 		for (int c = 0; c < Doc->m_Selection->count(); ++c)
 		{
 			currItem = Doc->m_Selection->itemAt(c);
@@ -2130,7 +2142,7 @@ void ScribusView::LowerItem()
 			d = Doc->Items->indexOf(currItem);
 			Doc->Items->takeAt(d);
 		}
-		d = Doc->Items->indexOf(b2);
+		d = Doc->Items->indexOf(item2);
 		QList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
@@ -2158,7 +2170,7 @@ void ScribusView::RaiseItem()
 	int d;
 	QMap<int, uint> ObjOrder;
 	PageItem *currItem;
-	PageItem *b2;
+	PageItem *item2;
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
@@ -2172,20 +2184,38 @@ void ScribusView::RaiseItem()
 		}
 		if (high == static_cast<uint>(Doc->Items->count()-1))
 			return;
-		/*bool wasGUISelection=Doc->m_Selection->isGUISelection();
-		if (wasGUISelection)
-		{
-			Doc->m_Selection->setIsGUISelection(false);
-			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}*/
 		bool wasSignalDelayed = !Doc->m_Selection->signalsDelayed();
 		Doc->m_Selection->delaySignalsOn();
 		if (!wasSignalDelayed)
 			Doc->m_Selection->disconnectAllItemsFromGUI();
 		Selection tempSelection(*Doc->m_Selection);
-		b2 = Doc->Items->at(low);
+		if (Doc->Items->at(low)->Groups.count() != 0)
+		{
+			int groupID = Doc->Items->at(low)->Groups.top();
+			while (low > 0)
+			{
+				if (Doc->Items->at(low - 1)->Groups.count() == 0)
+					break;
+				if (Doc->Items->at(low - 1)->Groups.count() != groupID)
+					break;
+				low -= 1;
+			}
+		}
+		item2 = Doc->Items->at(low);
 		Doc->m_Selection->clear();
-		SelectItemNr(high+1, false);
+		if (Doc->Items->at(high)->Groups.count() != 0)
+		{
+			int groupID = Doc->Items->at(high)->Groups.top();
+			while ((high + 1) < Doc->Items->count())
+			{
+				if (Doc->Items->at(high + 1)->Groups.count() == 0)
+					break;
+				if (Doc->Items->at(high + 1)->Groups.count() != groupID)
+					break;
+				high += 1;
+			}
+		}
+		SelectItemNr(high + 1, false);
 		for (int c = 0; c < Doc->m_Selection->count(); ++c)
 		{
 			currItem = Doc->m_Selection->itemAt(c);
@@ -2193,13 +2223,13 @@ void ScribusView::RaiseItem()
 			d = Doc->Items->indexOf(currItem);
 			Doc->Items->takeAt(d);
 		}
+		d = Doc->Items->indexOf(item2);
+		if (d == -1)
+			d = 0;
 		QList<uint> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
 		{
-			d = Doc->Items->indexOf(b2);
-			if (d==-1)
-				d=0;
-			Doc->Items->insert(d, Doc->m_Selection->itemAt(Oindex[c]));
+			Doc->Items->insert(d + c, Doc->m_Selection->itemAt(Oindex[c]));
 		}
 		Doc->m_Selection->clear();
 		Doc->renumberItemsInListOrder();
