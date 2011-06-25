@@ -1783,6 +1783,11 @@ void Scribus134Format::readCharacterStyle(CharStyle & newStyle, const QDomElemen
 		newStyle.setDefaultStyle(false);
 
 	GetCharStyle(&it, doc, newStyle);
+
+	// Check that a style is not its own parent
+	QString parentStyle = newStyle.parent();
+	if (parentStyle == newStyle.name())
+		newStyle.setParent(QString());
 }
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
@@ -1983,14 +1988,16 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 		vg.setDefaultStyle(true);
 	else
 		vg.setDefaultStyle(false);
+
 	QString parentStyle = pg.attribute("PARENT", "");
-	if (!parentStyle.isEmpty())
+	if (!parentStyle.isEmpty() && (parentStyle != vg.name()))
 	{
 		if (m_Doc->styleExists(parentStyle))
 			vg.setParent(parentStyle);
 		else
 			vg.setParent(CommonStrings::DefaultParagraphStyle);
 	}
+
 	if (pg.hasAttribute("LINESPMode"))
 		vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode").toInt()));
 	if (pg.hasAttribute("LINESP"))

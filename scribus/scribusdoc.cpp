@@ -933,9 +933,10 @@ QList<int> ScribusDoc::getSortedStyleList()
 		}
 
 		QList<int> retList2;
-		QString par = docParagraphStyles[ff].parent();
+		QString name = docParagraphStyles[ff].name();
+		QString par  = docParagraphStyles[ff].parent();
 		retList2.prepend(ff);
-		while (!par.isEmpty())
+		while ((!par.isEmpty()) && (par != name))
 		{
 			int pp = docParagraphStyles.find(par);
 			if ((pp >= 0) && (!retList2.contains(pp)))
@@ -964,9 +965,10 @@ QList<int> ScribusDoc::getSortedCharStyleList()
 		}
 
 		QList<int> retList2;
-		QString par = docCharStyles[ff].parent();
+		QString name = docCharStyles[ff].name();
+		QString par  = docCharStyles[ff].parent();
 		retList2.prepend(ff);
-		while (!par.isEmpty())
+		while ((!par.isEmpty()) && (par != name))
 		{
 			int pp = docCharStyles.find(par);
 			if ((pp >= 0) && (!retList2.contains(pp)))
