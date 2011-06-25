@@ -2014,6 +2014,11 @@ void Scribus150Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStream
 		newStyle.setDefaultStyle(false);
 
 	readCharacterStyleAttrs(doc, attrs, newStyle);
+
+	// Check that a style is not its own parent
+	QString parentStyle = newStyle.parent();
+	if (parentStyle == newStyle.name())
+		newStyle.setParent(QString());
 }
 
 void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle)
@@ -2032,7 +2037,7 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 		newStyle.setDefaultStyle(false);
 	
 	QString parentStyle = attrs.valueAsString("PARENT", "");
-	if (!parentStyle.isEmpty())
+	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 	{
 		if (m_Doc->styleExists(parentStyle))
 			newStyle.setParent(parentStyle);

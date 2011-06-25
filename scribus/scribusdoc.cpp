@@ -1028,29 +1028,24 @@ QList<int> ScribusDoc::getSortedStyleList()
 		{
 			if (!retList.contains(ff))
 				retList.append(ff);
+			continue;
 		}
-		else
+
+		QList<int> retList2;
+		QString name = docParagraphStyles[ff].name();
+		QString par  = docParagraphStyles[ff].parent();
+		retList2.prepend(ff);
+		while ((!par.isEmpty()) && (par != name))
 		{
-			QList<int> retList2;
-			QString par = docParagraphStyles[ff].parent();
-			retList2.prepend(ff);
-			while (!par.isEmpty())
-			{
-				for (int pp = 0; pp < docParagraphStyles.count(); ++pp)
-				{
-					if (docParagraphStyles[pp].name() == par)
-					{
-						if (!retList2.contains(pp))
-							retList2.prepend(pp);
-						par = docParagraphStyles[pp].parent();
-					}
-				}
-			}
-			for (int r = 0; r < retList2.count(); ++r)
-			{
-				if (!retList.contains(retList2[r]))
-					retList.append(retList2[r]);
-			}
+			int pp = docParagraphStyles.find(par);
+			if ((pp >= 0) && (!retList2.contains(pp)))
+				retList2.prepend(pp);
+			par = (pp >= 0) ? docParagraphStyles[pp].parent() : QString();
+		}
+		for (int r = 0; r < retList2.count(); ++r)
+		{
+			if (!retList.contains(retList2[r]))
+				retList.append(retList2[r]);
 		}
 	}
 	return retList;
@@ -1065,29 +1060,24 @@ QList<int> ScribusDoc::getSortedCharStyleList()
 		{
 			if (!retList.contains(ff))
 				retList.append(ff);
+			continue;
 		}
-		else
+
+		QList<int> retList2;
+		QString name = docCharStyles[ff].name();
+		QString par  = docCharStyles[ff].parent();
+		retList2.prepend(ff);
+		while ((!par.isEmpty()) && (par != name))
 		{
-			QList<int> retList2;
-			QString par = docCharStyles[ff].parent();
-			retList2.prepend(ff);
-			while (!par.isEmpty())
-			{
-				for (int pp = 0; pp < docCharStyles.count(); ++pp)
-				{
-					if (docCharStyles[pp].name() == par)
-					{
-						if (!retList2.contains(pp))
-							retList2.prepend(pp);
-						par = docCharStyles[pp].parent();
-					}
-				}
-			}
-			for (int r = 0; r < retList2.count(); ++r)
-			{
-				if (!retList.contains(retList2[r]))
-					retList.append(retList2[r]);
-			}
+			int pp = docCharStyles.find(par);
+			if ((pp >= 0) && (!retList2.contains(pp)))
+				retList2.prepend(pp);
+			par = (pp >= 0) ? docCharStyles[pp].parent() : QString();
+		}
+		for (int r = 0; r < retList2.count(); ++r)
+		{
+			if (!retList.contains(retList2[r]))
+				retList.append(retList2[r]);
 		}
 	}
 	return retList;
