@@ -263,10 +263,15 @@ public:
 	void moveImageInFrame(double newX, double newY);
 
 	ObjAttrVector* getObjectAttributes();
+
 	/*!
-	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
+	 * brief Returns a list of attributes with specified name
 	 */
-	ObjectAttribute getObjectAttribute(QString) const;
+	QList<ObjectAttribute> getObjectAttributes(QString attributeName) const;
+	/*!
+	 * brief Returns a complete ObjectAttribute struct if 1 is found. ObjectAttribute.name will be QString::null if 0 or > 1 are found
+	 */
+	ObjectAttribute getObjectAttribute(QString attributeName) const;
 	void setObjectAttributes(ObjAttrVector*);
 	
 	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
