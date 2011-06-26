@@ -275,6 +275,10 @@ public:
 
 	ObjAttrVector* getObjectAttributes();
 	/*!
+	 * brief Returns a list of attributes with specified name
+	 */
+	QList<ObjectAttribute> getObjectAttributes(QString attributeName) const;
+	/*!
 	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
 	 */
 	ObjectAttribute getObjectAttribute(QString) const;

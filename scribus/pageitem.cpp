@@ -4636,13 +4636,26 @@ ObjAttrVector* PageItem::getObjectAttributes()
 	return &pageItemAttributes;
 }
 
+QList<ObjectAttribute> PageItem::getObjectAttributes(QString attributeName) const
+{
+	QList<ObjectAttribute> attributes;
+	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
+	{
+		if (objAttrIt->name == attributeName)
+		{
+			attributes.append(*objAttrIt);
+		}
+	}
+	return attributes;
+}
+
 ObjectAttribute PageItem::getObjectAttribute(QString attributeName) const
 {
 	int countFound=0;
 	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
-	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt )
 	{
-		if ((*objAttrIt).name==attributeName)
+		if (objAttrIt->name==attributeName)
 		{
 			++countFound;
 			foundIt=objAttrIt;
@@ -4650,9 +4663,9 @@ ObjectAttribute PageItem::getObjectAttribute(QString attributeName) const
 	}
 	ObjectAttribute returnAttribute;
 	if(countFound==1)
-		returnAttribute=(*foundIt);
+		returnAttribute = (*foundIt);
 	else
-		returnAttribute.name=QString::null;
+		returnAttribute.name = QString::null;
 	return returnAttribute;
 }
 
