@@ -250,6 +250,8 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	(*fp_GetText)(filePath, encoding, textOnly, w);
 	// Destroy the writer
 	delete w;
+	// GetText is not quite up to date vs styles, clean char formatting already specified at paragraph level
+	importItem->itemText.fixLegacyFormatting();
 	// Unload the plugin.
 	PluginManager::unloadDLL(gtplugin);
 }  // void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
