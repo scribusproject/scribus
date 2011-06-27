@@ -4846,6 +4846,47 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 	}
 }
 
+void  ScribusDoc::fixItemPageOwner()
+{
+	int pageNr;
+	Page* page;
+	PageItem* currItem;
+	MarginStruct pageBleeds;
+
+	for (int i = 0; i < Items->count(); ++i)
+	{
+		currItem = Items->at(i);
+		pageNr = currItem->OwnPage;
+
+		// TODO check group owner
+		if (currItem->getItemList().count() > 0)
+			continue;
+
+		// If item has a valid page, check that
+		// specified page effectively contain the item
+		if (pageNr >= 0 && pageNr < Pages->count())
+		{
+			page = Pages->at(pageNr);
+			getBleeds(page, pageBleeds);
+			double x1 = page->xOffset() - pageBleeds.Left;
+			double y1 = page->yOffset() - pageBleeds.Top;
+			double w1 = page->width()   + pageBleeds.Left + pageBleeds.Right;
+			double h1 = page->height()  + pageBleeds.Bottom + pageBleeds.Top;
+			double x2 = currItem->BoundingX;
+			double y2 = currItem->BoundingY;
+			double w2 = currItem->BoundingW;
+			double h2 = currItem->BoundingH;
+			if (( qMax(x1, x2) <= qMin(x1 + w1, x2 + w2) && qMax(y1, y2) <= qMin(y1 + h1, y2 + h2)))
+			{
+				continue;
+			}
+		}
+
+		// If no or page owner is incorrect, recompute page owner
+		currItem->OwnPage = OnPage(currItem);
+ 	}
+}
+
 
 struct oldPageVar
 {

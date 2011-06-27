@@ -575,6 +575,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
 
+	// #9969 : Some old long doc may have page owner somewhat broken
+	m_Doc->fixItemPageOwner();
+
 	handleOldLayerBehavior(m_Doc);
 	if (m_Doc->Layers.count() == 0)
 	{
@@ -1703,6 +1706,7 @@ bool Scribus134Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 			newSection.sectionstartindex = attrs.valueAsInt("Start");
 			newSection.reversed = attrs.valueAsBool("Reversed");
 			newSection.active   = attrs.valueAsBool("Active");
+			newSection.pageNumberWidth = 0;
 			doc->sections().insert(newSection.number, newSection);
 		}
 	}

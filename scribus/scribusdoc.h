@@ -780,11 +780,11 @@ public:
 	 */
 	void canvasMinMax(FPoint&, FPoint&);
 	
-	int OnPage(double x2, double  y2);
-	int OnPage(PageItem *currItem);
+	int  OnPage(double x2, double  y2);
+	int  OnPage(PageItem *currItem);
 	void GroupOnPage(PageItem *currItem);
-	//void reformPages(double& maxX, double& maxY, bool moveObjects = true);
 	void reformPages(bool moveObjects = true);
+	void fixItemPageOwner();
 	
 	/**
 	 * @brief Return the x or y offset for a page on the canvas

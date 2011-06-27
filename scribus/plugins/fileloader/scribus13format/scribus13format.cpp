@@ -764,6 +764,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						newSection.sectionstartindex=sectionElem.attribute("Start").toInt();
 						newSection.reversed=static_cast<bool>(sectionElem.attribute("Reversed").toInt());
 						newSection.active=static_cast<bool>(sectionElem.attribute("Active").toInt());
+						newSection.pageNumberWidth = 0;
 						m_Doc->sections().insert(newSection.number, newSection);
 					}
 					Section = Section.nextSibling();
