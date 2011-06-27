@@ -1542,6 +1542,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
 
+	// Some old long doc may have page owner somewhat broken
+	m_Doc->fixItemPageOwner();
+
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
 
