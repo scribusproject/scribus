@@ -9131,14 +9131,27 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 
 void ScribusDoc::itemSelection_SetItemTextReversed(bool reversed)
 {
-	uint selectedItemCount=m_Selection->count();
+	uint selectedItemCount = m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		UndoTransaction *activeTransaction = NULL;
+		if (UndoManager::undoEnabled())
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction());
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = m_Selection->itemAt(i);
 			currItem->setImageFlippedH(reversed);
 			currItem->setReversed(reversed);
+		}
+		if (activeTransaction)
+		{
+			activeTransaction->commit(Um::Selection,
+									  Um::IGroup,
+									  Um::FlipH,
+									  0,
+									  Um::IFlipH);
+			delete activeTransaction;
+			activeTransaction = NULL;
 		}
 		regionsChanged()->update(QRectF());
 		changed();

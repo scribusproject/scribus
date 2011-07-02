@@ -1225,6 +1225,7 @@ protected:
 	void restoreImageEffects(UndoState *state, bool isUndo);
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
 	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
+	void restoreReverseText(UndoState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -1015,10 +1015,10 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 {
 	if (dX==0.0 && dY==0.0)
 		return;
-	if (dX!=0.0)
-		LocalX+=dX;
-	if (dY!=0.0)
-		LocalY+=dY;
+	if (dX != 0.0)
+		LocalX += dX;
+	if (dY != 0.0)
+		LocalY += dY;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
@@ -1034,13 +1034,15 @@ void PageItem::setImageRotation(const double newRotation)
 
 void PageItem::setReversed(bool newReversed)
 {
+	if (Reverse == newReversed)
+		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::FlipH, 0, Um::IFlipH);
-		ss->set("REVERSE_TEXT", "REVERSE_TEXT");
+		ss->set("REVERSE_TEXT", newReversed);
 		undoManager->action(this, ss);
 	}
-	Reverse=newReversed;
+	Reverse = newReversed;
 }
 
 //return frame where is text end
@@ -4131,6 +4133,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLinkTextFrame(ss,isUndo);
 		else if (ss->contains("UNLINK_TEXT_FRAME"))
 			restoreUnlinkTextFrame(ss,isUndo);
+		else if (ss->contains("REVERSE_TEXT"))
+			restoreReverseText(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -4483,6 +4487,13 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 	{
 		unlink();
 	}
+}
+
+void PageItem::restoreReverseText(UndoState *state, bool /*isUndo*/)
+{
+	if (!isTextFrame())
+		return;
+	Reverse = !Reverse;
 }
 
 void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
