@@ -11483,7 +11483,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     <message>
         <location filename="../../../scribus/fileloader.cpp" line="630"/>
         <source> was replaced by: </source>
-        <translation>a été remplacée par :</translation>
+        <translation type="unfinished"> a été remplacée par : </translation>
     </message>
 </context>
 <context>
