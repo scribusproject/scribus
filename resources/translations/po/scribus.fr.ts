@@ -11218,7 +11218,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     <message>
         <location filename="../../../scribus/fileloader.cpp" line="598"/>
         <source> was replaced by: </source>
-        <translation>a été remplacée par :</translation>
+        <translation type="unfinished"> a été remplacée par : </translation>
     </message>
 </context>
 <context>
@@ -26532,7 +26532,7 @@ Rotation : %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4092"/>
         <source> was replaced by: </source>
-        <translation>a été remplacé par :</translation>
+        <translation type="unfinished"> a été remplacé par :</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4124"/>
