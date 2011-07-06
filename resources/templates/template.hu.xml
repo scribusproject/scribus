@@ -210,7 +210,7 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács A4 fekvő</name>
 		<file>grid_br_a4_l/Brochure_Grid_A4_L.sla.gz</file>
 		<tnail>grid_br_a4_l/Brochure_Grid_A4_Ltn.png</tnail>
@@ -224,7 +224,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács A4 álló</name>
 		<file>grid_br_a4_p/Brochure_Grid_A4_P.sla.gz</file>
 		<tnail>grid_br_a4_p/Brochure_Grid_A4_Ptn.png</tnail>
@@ -238,7 +238,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 975×85 in fekvő</name>
 		<file>grid_br_975x85in_l/Brochure_Grid_975x85in_L.sla.gz</file>
 		<tnail>grid_br_975x85in_l/Brochure_Grid_975x85_in_Ltn.png</tnail>
@@ -252,7 +252,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 975×85 in álló</name>
 		<file>grid_br_975x85_p/Brochure_Grid_975x85in_P.sla.gz</file>
 		<tnail>grid_br_975x85_p/Brochure_Grid_975x85_in_Ptn.png</tnail>
@@ -266,7 +266,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 375×85 in álló</name>
 		<file>grid_br_375x85_p/Brochure_Grid_375x85in_P.sla.gz</file>
 		<tnail>grid_br_375x85_p/Brochure_Grid_375x85_in_Ptn.png</tnail>
@@ -280,7 +280,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 375×85 in fekvő</name>
 		<file>grid_br_375x85_l/Brochure_Grid_375x85in_L.sla.gz</file>
 		<tnail>grid_br_375x85_l/Brochure_Grid_375x85_in_Landscapetn.png</tnail>
@@ -294,7 +294,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 100×210 álló</name>
 		<file>grid_br_100x210_p/Brochure_Grid_100x210_P.sla.gz</file>
 		<tnail>grid_br_100x210_p/Brochure_Grid_100x210_Ptn.png</tnail>
@@ -308,7 +308,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 100×210 fekvő</name>
 		<file>grid_br_100x210_l/Brochure_Grid_100x210_L.sla.gz</file>
 		<tnail>grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscapetn.png</tnail>
@@ -322,7 +322,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 55×85 in álló</name>
 		<file>grid_br_55x86in_p/Brochure_Grid_55x85in_P.sla.gz</file>
 		<tnail>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoittn.png</tnail>
@@ -336,7 +336,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács 55×85 in fekvő</name>
 		<file>grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz</file>
 		<tnail>grid_br_55x85in_l/Brochure_Grid_55x85_in_Ltn.png</tnail>
@@ -350,7 +350,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Plakátok">
+	<template category="Rácsok">
 		<name>Plakát rács A3</name>
 		<file>grid_poster_a3/Poster_Grid_A3.sla.gz</file>
 		<tnail>grid_poster_a3/Poster_Grid_A3tn.png</tnail>
@@ -364,7 +364,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Plakátok">
+	<template category="Rácsok">
 		<name>Plakát rács A2</name>
 		<file>grid_poster_a2/Poster_Grid_A2.sla.gz</file>
 		<tnail>grid_poster_a2/Poster_Grid_A2tn.png</tnail>
@@ -378,7 +378,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Plakátok">
+	<template category="Rácsok">
 		<name>Plakát rács A1</name>
 		<file>grid_poster_a1/Poster_Grid_A1.sla.gz</file>
 		<tnail>grid_poster_a1/Poster_Grid_A1tn.png</tnail>
@@ -392,7 +392,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Plakátok">
+	<template category="Rácsok">
 		<name>Plakát rács A0</name>
 		<file>grid_poster_a0/Poster_Grid_A0.sla.gz</file>
 		<tnail>grid_poster_a0/Poster_Grid_A0tn.png</tnail>
@@ -406,7 +406,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács USL álló</name>
 		<file>grid_br_usl_p/Brochure_Grid_USL_P.sla.gz</file>
 		<tnail>grid_br_usl_p/Brochure_Grid_USL_Ptn.png</tnail>
@@ -420,7 +420,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács USL fekvő</name>
 		<file>grid_br_usl_l/Brochure_Grid_USL_L.sla.gz</file>
 		<tnail>grid_br_usl_l/Brochure_Grid_USL_Ltn.png</tnail>
@@ -434,7 +434,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács DIN LANG álló</name>
 		<file>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.sla.gz</file>
 		<tnail>grid_br_dinl_p/Brochure_Grid_DIN_LANG_Ptn.png</tnail>
@@ -448,7 +448,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács DIN LANG fekvő</name>
 		<file>grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.sla.gz</file>
 		<tnail>grid_br_dinl_l/Brochure_Grid_DIN_LANG_Ltn.png</tnail>
@@ -462,7 +462,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács A5 álló</name>
 		<file>grid_br_a5_p/Brochure_Grid_A5_P.sla.gz</file>
 		<tnail>grid_br_a5_p/Brochure_Grid_A5_Portraittn.png</tnail>
@@ -476,7 +476,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Brosúrák">
+	<template category="Rácsok">
 		<name>Brosúra rács A5 fekvő</name>
 		<file>grid_br_a5_l/Brochure_Grid_A5_L.sla.gz</file>
 		<tnail>grid_br_a5_l/Brochure_Grid_A5_Ltn.png</tnail>
