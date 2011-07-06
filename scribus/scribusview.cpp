@@ -1911,12 +1911,6 @@ void ScribusView::LowerItem()
 		}
 		if (low == 0)
 			return;
-		/*bool wasGUISelection=Doc->m_Selection->isGUISelection();
-		if (wasGUISelection)
-		{
-			Doc->m_Selection->setIsGUISelection(false);
-			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}*/
 		bool wasSignalDelayed = !Doc->m_Selection->signalsDelayed();
 		Doc->m_Selection->delaySignalsOn();
 		if (!wasSignalDelayed)
@@ -1974,12 +1968,6 @@ void ScribusView::RaiseItem()
 		}
 		if (high == static_cast<uint>(Doc->Items->count()-1))
 			return;
-		/*bool wasGUISelection=Doc->m_Selection->isGUISelection();
-		if (wasGUISelection)
-		{
-			Doc->m_Selection->setIsGUISelection(false);
-			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}*/
 		bool wasSignalDelayed = !Doc->m_Selection->signalsDelayed();
 		Doc->m_Selection->delaySignalsOn();
 		if (!wasSignalDelayed)
