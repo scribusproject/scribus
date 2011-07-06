@@ -1018,7 +1018,7 @@ void PSLib::PS_newpath()
 	PutStream("newpath\n");
 }
 
-void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades)
+void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades, bool fillRule)
 {
 	bool first = true;
 	bool oneSameSpot = false;
@@ -1031,7 +1031,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 	int kc = 0;
 	CMYKColor cmykValues;
 	PutStream( "clipsave\n" );
-	PutStream("eoclip\n");
+	PutStream( fillRule ? "eoclip\n" : "clip\n" );
 	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		oneSameSpot = false;
@@ -1198,7 +1198,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 	PutStream("cliprestore\n");
 }
 
-void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades)
+void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades, bool fillRule)
 {
 	bool first = true;
 	bool oneSameSpot = false;
@@ -1211,7 +1211,7 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 	int kc = 0;
 	CMYKColor cmykValues;
 	PutStream( "clipsave\n" );
-	PutStream("eoclip\n");
+	PutStream( fillRule ? "eoclip\n" : "clip\n");
 	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		oneSameSpot = false;
@@ -3330,10 +3330,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
-			if (fillRule)
-				PutStream("eofill\n");
-			else
-				PutStream("fill\n");
+			PutStream(fillRule ? "eofill\n" : "fill\n");
 			return;
 			break;
 	}
@@ -3367,7 +3364,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 				colorShades.prepend(cstops.at(cst)->shade);
 			}
 		}
-		PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors, colorNames, colorShades);
+		PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors, colorNames, colorShades, c->fillRule);
 	}
 	else
 	{
@@ -3394,7 +3391,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 				colorShades.append(cstops.at(cst)->shade);
 			}
 		}
-		PS_MultiLinGradient(w, -h, StopVec, Gcolors, colorNames, colorShades);
+		PS_MultiLinGradient(w, -h, StopVec, Gcolors, colorNames, colorShades, c->fillRule);
 	}
 }
 

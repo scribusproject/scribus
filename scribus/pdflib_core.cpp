@@ -2005,8 +2005,6 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							if (!PDF_Gradient(tmpOut, ite))
 								return false;
 							PutPage(tmpOut);
-							PutPage(SetClipPath(ite));
-							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
 						else
 						{
@@ -2050,8 +2048,6 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								if (!PDF_Gradient(tmpOut, ite))
 									return false;
 								PutPage(tmpOut);
-								PutPage(SetClipPath(ite));
-								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 							}
 							else
 							{
@@ -5639,7 +5635,7 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 		if ((Options.Version >= PDFOptions::PDFVersion_14) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
 			tmp += "/"+TRes+" gs\n";
 		tmp += SetClipPath(currItem);
-		tmp += "h\nW* n\n";
+		tmp += (currItem->fillRule ? "h\nW* n\n" : "h\nW n\n");
 		tmp += "/"+ShName+" sh\nQ\n";
 	}
 	return tmp;
