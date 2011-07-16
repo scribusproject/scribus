@@ -99,7 +99,7 @@ double ScCLocale::strtod ( const char * str, char ** endptr )
 		// a sade workaround
 		double result(0.0);
 		setlocale(LC_NUMERIC, "C");
-		result = strtod(str, endptr);
+		result = std::strtod(str, endptr);
 		setlocale(LC_NUMERIC, "");
 		return result;
 	}
@@ -112,7 +112,7 @@ double ScCLocale::strtod ( const char * str, char ** endptr )
 		char *oldlocale=setlocale(LC_NUMERIC, NULL);
 		double result(0.0);
 		setlocale(LC_NUMERIC, "C");
-		result = strtod(str, endptr);
+		result = std::strtod(str, endptr);
 		setlocale(LC_NUMERIC, oldlocale);
 		return result;
   #else
