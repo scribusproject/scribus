@@ -1,12 +1,19 @@
-BUILDING SCRIBUS ON MICROSOFT WINDOWS
-=====================================
+BUILDING SCRIBUS ON MICROSOFT WINDOWS WITH CMAKE
+================================================
+
+Note : the informations provided in this file are outdated and kept for 
+reference only. The preferred way to build Scribus on Windows is to use 
+Microsoft Visual Studio. Please read BUILDING_WIN32_msvc.txt for 
+instructions related to Visual Studio builds.
 
 STATUS OF WIN32 CMAKE BUILDS
 ============================
 
 Building Scribus on win32 with cmake is still rather poorly tested.
 It's getting there, but for now the Visual Studio project based builds
-maintained by Jean Ghali are much more stable.
+maintained by Jean Ghali are much more stable. For instructions related
+to building Scribus with Visual Studio, please report yourself to the 
+BUILDING_WIN32_msvc.txt file located in same directory.
 
 Known issues with this build:
 
@@ -26,10 +33,10 @@ information once the CMake-based win32 builds are better tested.
 
 You will need:
 	- Microsoft Windows XP (others may work but are untested)
-	- Microsoft Visual Studio Express Edition 8 2005
+	- Microsoft Visual C++ Express Edition 8 2005
 	- The Microsoft Platform SDK
 	- CMake 2.5.x (2.4.x WILL NOT WORK)
-	- A recent Qt 4.3 snapshot built with Visual Studio 8 2005
+	- A recent Qt 4.6 snapshot built with Visual Studio 8 2005
           (see below)
 	- cairo from cairographics.org (version >= 1.5.16)
 	- libxml2 win32 binaries from the libxml project
@@ -39,8 +46,8 @@ You will need:
 	- zlib sources from zlib.org
 	- freetype sources from freetype.org
 	- LittleCMS sources from www.littlecms.com
-	- PoDoFo 0.5.0 (and ONLY 0.5.0) sources from podofo.sourceforge.net
-	- A Python 2.5 Windows binary build.
+	- PoDoFo 0.8.0 (and ONLY 0.8.0) sources from podofo.sourceforge.net
+	- A Python 2.7 Windows binary build.
           For debug builds, you'll need a release that contains the python25_d.dll .
 
 Some more details can be found below in the section entitled GETTING DEPENDENCIES.
@@ -58,13 +65,13 @@ rem used for headers only; we get the lib from the libpng build
 set ZLIBDIR=c:\developer\lib\zlib
 rem provides both png and zlib .libs
 set PNGDIR=C:\developer\lib\lpng1220-vc\
-set QTDIR=C:\developer\Qt\qt-win-opensource-src-4.3.4
+set QTDIR=C:\developer\Qt\qt-everywhere-opensource-src-4.6.3
 set CAIRODIR=C:\developer\lib\cairo-1.6.0
 set LCMSDIR=c:\developer\lib\lcms-1.16-vc
 set JPEGDIR=c:\developer\lib\jpeg-6b-vc
 set FREETYPEDIR=c:\developer\lib\freetype-2.3.5
 set TIFFDIR=c:\developer\lib\tiff-3.8.2-vc
-set PODOFODIR=c:\developer\podofo\050-vs-inst
+set PODOFODIR=c:\developer\podofo\080-vs-inst
 set PODOFOSHARED=1
 set LIBXMLDIR=c:\developer\lib\libxml2-2.6.30.win32
 set SCRIBUSINSTALLDIR=c:\developer\scribus-bin
@@ -116,15 +123,13 @@ in its path.
 ----
 Qt:
 
-Download the latest qt 4.3 snapshot for windows and unpack it to C:\Developer .
-Don't get the "all" snapshot, it lacks configure.exe  and can't easily be built
-on Windows.
+Download the latest qt 4.6 snapshot for windows and unpack it to C:\Developer.
 
 Start a command line and import your Visual Studio environment:
 \path\to\visual\studio\VC\vcvarsall.bat
 \path\to\platform\sdk\setenv.cmd
 
-now cd to C:\Developer\Qt-win-whatever and run configure:
+now cd to C:\Developer\qt-everywhere-whatever and run configure:
 configure -debug-and-release -fast -no-qt3support -platform win32-msvc2005
 
 and nmake.
