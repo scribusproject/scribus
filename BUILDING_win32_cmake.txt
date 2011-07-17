@@ -48,7 +48,7 @@ You will need:
 	- LittleCMS sources from www.littlecms.com
 	- PoDoFo 0.8.0 (and ONLY 0.8.0) sources from podofo.sourceforge.net
 	- A Python 2.7 Windows binary build.
-          For debug builds, you'll need a release that contains the python25_d.dll .
+          For debug builds, you'll need a release that contains the python27_d.dll .
 
 Some more details can be found below in the section entitled GETTING DEPENDENCIES.
 
