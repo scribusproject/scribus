@@ -1,0 +1,300 @@
+BUILDING SCRIBUS ON MICROSOFT WINDOWS WITH MICROSOFT VISUAL STUDIO
+==================================================================
+
+HOW TO DO THE BUILD
+===================
+
+This documentation is minimal and assume you have a decent knowledge of 
+Microsoft Visual Studio. No help regarding use of Visual Studio and
+related tools will be provided.
+
+You will need:
+	- Microsoft Windows XP, Vista or 7
+	- Microsoft Visual Studio 2008 or Visual C++ Express Edition 2008
+	- A recent Qt (version >= 4.6) release built with Visual Studio 2008
+	- Cairo sources from cairographics.org (version >= 1.8.0)
+	- Pixman sources from cairographics.org (version = 0.12.0)
+	- Boost from www.boost.org (version >= 1.35.0)
+	- Libxml2 win32 binaries from the Libxml project
+	- Libjpeg win32 libs and binaries from the GnuWin32 project
+	- Libtiff win32 libs and binaries from the GnuWin32 project
+	- Freetype sources from freetype.org (version >= 2.4.0)
+	- LittleCMS sources from www.littlecms.com (version >= 2.1)
+	- PoDoFo 0.8.x (and ONLY 0.8.x) sources from podofo.sourceforge.net
+	- A Python 2.7 Windows binary build.
+      For debug builds, you'll need a release that contains the python27_d.dll .
+
+Some more details can be found below in the section entitled GETTING DEPENDENCIES.
+
+After having installed all dependencies, open Scribus-build.vsprops files located 
+in Scribus\win32\vc9 and update the dependency paths to match your system.
+
+Open the Visual Studio solution located in Scribus\win32\vc9 and start building. The *-cairo 
+configurations will build Scribus with cairo renderer. The *-arthur configurations will buid 
+Scribus using qt arthur renderer. Note : official Scribus builds use cairo as render.
+
+After building completed, you will find executables in a Scribus-builds\scribus-vc9-*\scribus
+directory located in same directory as Scribus sources. Those executables will not function yet. 
+Scribus resources must be copied from source directory to install directory first.
+
+In order to do that, create a batch script and copy/paste following lines :
+
+set SCRIBUS_SRC_PATH=.\Scribus
+set SCRIBUS_BUILD_ROOT=.\Scribus-builds
+set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-vc9-debug-cairo\scribus
+
+ copy %SCRIBUS_SRC_PATH%\AUTHORS %SCRIBUS_INSTALL_PATH%\share\doc
+ copy %SCRIBUS_SRC_PATH%\COPYING %SCRIBUS_INSTALL_PATH%\share\doc
+ copy %SCRIBUS_SRC_PATH%\LINKS %SCRIBUS_INSTALL_PATH%\share\doc
+ copy %SCRIBUS_SRC_PATH%\TRANSLATION %SCRIBUS_INSTALL_PATH%\share\doc
+xcopy %SCRIBUS_SRC_PATH%\scribus\doc %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\dicts %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\icons %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\profiles %SCRIBUS_INSTALL_PATH%\libs\profiles /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\swatches %SCRIBUS_INSTALL_PATH%\libs\swatches /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\templates %SCRIBUS_INSTALL_PATH%\share\templates /s /y /D
+ copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png %SCRIBUS_INSTALL_PATH%\share\icons\ /y
+ copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png %SCRIBUS_INSTALL_PATH%\share\icons\ /y
+xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples %SCRIBUS_INSTALL_PATH%\share\samples /s /y
+copy %SCRIBUS_SRC_PATH%\scribus\plugins\psimport\import.prolog %SCRIBUS_INSTALL_PATH%\libs\import.prolog
+copy %SCRIBUS_SRC_PATH%\scribus\plugins\barcodegenerator\barcode.ps %SCRIBUS_INSTALL_PATH%\share\plugins\barcode.ps
+copy %SCRIBUS_SRC_PATH%\scribus\unicodemap\unicodenameslist.txt %SCRIBUS_INSTALL_PATH%\share\unicodenameslist.txt
+del %SCRIBUS_BUILD_ROOT%\*CMake* /s
+del %SCRIBUS_BUILD_ROOT%\*MakeFile* /s
+
+Adjust SCRIBUS_SRC_PATH, SCRIBUS_BUILD_ROOT and SCRIBUS_INSTALL_PATH as needed and run batch script.
+
+Now copy the DLLs from the zlib, libpng, qt, lcms, freetype, libtiff, libjpeg,
+libxml, and podofo directories into the Scribus install directory (where
+scribus.exe is). Copy also the Dlls, lib and tcl directories from your python 
+install to scribus install path. Finally copy python27.dll. Scribus should now run.
+
+Crash problems at runtime? Verify that Qt, freetype, lcms, and Scribus all use
+the same runtime, and that all were built for debugging or all for release not
+a mixture of the two. Windows does not permit you to mix debug and release
+executables like other platforms do.
+
+You can use depends.exe to check that the runtimes match.
+
+GETTING DEPENDENCIES
+====================
+
+This is a quick and dirty set of notes that will be filled out once everything's
+verified as correct and working. It asssumes that you'll be building all your
+dependencies at a single root, like C:\Developer. The root *MUST* not have spaces
+in its path.
+
+----
+Qt:
+
+Download the latest qt >= 4.6 snapshot from ftp://ftp.qt.nokia.com/qt/source
+and unpack it to C:\Developer.
+
+Start a command line and import your Visual Studio environment:
+\path\to\visual\studio\VC\vcvarsall.bat
+
+now cd to C:\Developer\qt-everywhere-whatever and run configure:
+configure -debug-and-release -fast -no-qt3support -platform win32-msvc2008
+
+and nmake.
+
+----
+Boost:
+
+Download the latest boost libraries from www.boost.org. Unpack, no need to compile
+anything as Scribus only use functionnalities embedded in C++ templates.
+
+----
+Zlib and LibPNG :
+
+Zlib and LibPNG are both embedded in the QtCore library with symbols exported
+for public use . If you're using a Qt binary redist you may still need to
+download these libraries sources for their headers. In most cases your
+copy of Qt will contain a directory called  %QTDIR%\src\3rdparty\zlib
+(and one for libpng), in which case you need not worry about these libraries at
+all.
+
+---
+Cairo and Pixman
+
+Cairo and pixman sources can be downloaded from cairographics.org at following address :
+
+http://cairographics.org/releases/
+
+Follow instructions in sources packages to build pixman, then cairo.
+
+You will however probably find easier to directly download packages with Visual Studio 2008 
+solutions ready to build. You can find required file at following address :
+
+https://sourceforge.net/projects/scribus/files/scribus-libs/win32-msvc2008/
+
+Download the both scribus-pixman-* and scribus-cairo-* zip files. Unpack them.
+
+Build pixman first : open the PixManWin32 solution located in pixman-whatever\win32 
+directory and build Debug and Release configurations.
+
+Build cairo afterwards : open the CairoWin32 solution located in cairo-whatever\win32 
+directory and build Debug and Release configurations.
+
+----
+Libjpeg :
+
+While Qt also bundles libjpeg, it's not linked to the main DLL but rather a plugin.
+As such, we need to link to it directly.
+
+Get jpeg libraries from GnuWin32 project on Sourceforge :
+
+http://sourceforge.net/projects/gnuwin32/files/jpeg/6b-3/jpeg-6b-3-lib.zip/download
+
+Unpack in C:\Developer. After unpacking you directory layout must be as following :
+
+C:\Developer
+	|- libjpeg-6b-3
+		|- include
+		|- lib
+		|- manifest
+
+----
+LittleCMS :
+
+Get lcms sources (>= 2.1). Although it is possible to build Scribus with lcms 1,
+you can only do so without modifying lcms sources with lcms >= 2.1.
+We will only describe here instructions related to lcms >= 2.1.
+
+Build using VC project in Projects\VC2008 dir. Modify projects if necessary so
+as to make them use the multithreaded dll runtim libraries.
+Build the static libraries in debug and release configurations.
+
+After building you must have a lcms2_static.lib and lcms2_staticd.lib in 
+your lcms source directory. If this is not the case modify projects as necessary.
+
+----
+Libtiff
+
+While Qt also bundles libtiff, it's not linked to the main DLL but rather a plugin.
+As such, we need to link to it directly.
+
+Download libtiff libraries, binaries and dependency packages from GnuWin32 project 
+on sourceforge :
+
+http://sourceforge.net/projects/gnuwin32/files/tiff/3.8.2/
+
+Unpack them in C:\Developer. After unpacking you directory layout must be as following :
+
+C:\Developer
+	|- libtiff-3.8.2
+	    |- bin
+		|- contrib
+		|- include
+		|- lib
+		|- man
+		|- manifest
+
+----
+Freetype:
+
+Unpack freetype
+
+Open include\freetype\config\ftoption.h and replace the DLL export compilation section
+by following lines :
+
+#ifndef __GNUC__
+# define __DLL_IMPORT__  __declspec(dllimport)
+# define __DLL_EXPORT__  __declspec(dllexport)
+#else
+# define __DLL_IMPORT__  __attribute__((dllimport)) extern
+# define __DLL_EXPORT__  __attribute__((dllexport)) extern
+#endif 
+
+#if (defined __WIN32__) || (defined _WIN32)
+# ifdef BUILD_FREETYPE2_DLL
+#  define FREETYPE2_DLL_IMPEXP     __DLL_EXPORT__
+# elif defined(FREETYPE2_STATIC)
+#  define FREETYPE2_DLL_IMPEXP      
+# elif defined (USE_FREETYPE2_DLL)
+#  define FREETYPE2_DLL_IMPEXP     __DLL_IMPORT__
+# elif defined (USE_FREETYPE2_STATIC)
+#  define FREETYPE2_DLL_IMPEXP      
+# else /* assume USE_FREETYPE2_DLL */
+#  define FREETYPE2_DLL_IMPEXP     __DLL_IMPORT__
+# endif
+#else /* __WIN32__ */
+# define FREETYPE2_DLL_IMPEXP  
+#endif
+
+#define FT_EXPORT(x)	FREETYPE2_DLL_IMPEXP x
+#define FT_BASE(x)		FREETYPE2_DLL_IMPEXP x
+
+Open builds\win32\vc2008
+Build "Release Multithreaded" and "Debug Multithreaded"
+
+At the end of the process you must have those files in your freetype lib
+directory :
+- freetype.dll
+- freetype.lib
+- freetypeD.dll
+- freetypeD.lib
+
+----
+Libxml2 / iconv :
+
+Download libxml2 and icon win32 binaries from following address :
+
+ftp://ftp.zlatkovic.com/libxml/
+
+Note that these binaries do not use the same runtime
+as the rest of the binaries we're building. Feel free to
+rebuild libxml to fix this, but in practice it doesn't
+matter since we never pass a FILE* nor do we allocate memory
+to be deallocated in libxml or vice versa.
+
+Remember that iconv from the same package must be on the
+header search path too. If in doubt, just drop iconv.h
+into the libxml tree.
+
+---
+Podofo :
+
+Podofo sources can be downloaded from podofo.sourceforge.net. At the moment 
+those instructions are written, the recommended version to build Scribus on 
+Windows is one of the 0.8.x series. Podofo >= 0.9.0 will not work!!!!
+
+Follow instructions in sources packages to build Podofo.
+
+You will however probably find easier to directly download packages with Visual 
+Studio 2008 solutions ready to build. You can find required file at 
+following address :
+
+https://sourceforge.net/projects/scribus/files/scribus-libs/win32-msvc2008/
+
+Download the both scribus-podofo-* file. Unpack it.
+
+Open the podofo solution located in podofo-whatever directory and build 
+Debug and Release configurations of PoDoFoLib project.
+
+Note : freetype, libtiff and libjpeg must have been installed and if 
+necessary compiled before attempting to build podofo.
+
+---
+Python : 
+
+Download latest Python 2.7 binaries (and only 2.7, 3.x will not work).
+Unpack or install.
+Copy the python27.lib file in python 'libs' directory to python27_d.lib
+
+Open pyconfig.h in python include directory
+
+Replace those lines :
+
+#ifdef _DEBUG
+#	define Py_DEBUG
+#endif
+
+by :
+
+#ifdef _DEBUG
+#	//define Py_DEBUG
+#endif
