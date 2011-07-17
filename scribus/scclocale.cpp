@@ -11,6 +11,8 @@
 //
 
 #include "scclocale.h"
+
+#include <cstdlib>
 #include <QDebug>
 
 ScCLocale * ScCLocale::m_instance = 0;
