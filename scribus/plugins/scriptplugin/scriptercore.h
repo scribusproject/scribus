@@ -56,6 +56,7 @@ public slots:
 	bool extensionsEnabled() const;
 	void setStartupScript(const QString& newScript);
 	void setExtensionsEnabled(bool enable);
+	void updateSyntaxHighlighter();
 
 protected:
 	// Private helper functions

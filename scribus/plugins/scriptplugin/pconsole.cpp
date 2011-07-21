@@ -49,7 +49,6 @@ PythonConsole::PythonConsole( QWidget* parent)
 	commandEdit->setTabStopWidth(qRound(commandEdit->fontPointSize() * 4));
 
 	// install syntax highlighter.
-	//SyntaxHighlighter *sxHigh =
 	new SyntaxHighlighter(commandEdit);
 
 	languageChange();
@@ -81,6 +80,11 @@ PythonConsole::PythonConsole( QWidget* parent)
 
 PythonConsole::~PythonConsole()
 {
+}
+
+void PythonConsole::updateSyntaxHighlighter()
+{
+	new SyntaxHighlighter(commandEdit);
 }
 
 void PythonConsole::setFonts()
@@ -313,6 +317,9 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
+	// Apply default text color
+	setFormat(0, text.length(), colors.textColor);
+
 	foreach (HighlightingRule rule, highlightingRules)
 	{
 		QRegExp expression(rule.pattern);
@@ -375,8 +382,19 @@ SyntaxColors::SyntaxColors()
 	}
 }
 
-SyntaxColors::~SyntaxColors()
+void SyntaxColors::saveToPrefs()
 {
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	if (prefs)
+	{
+		prefs->set("syntaxerror", qcolor2named(errorColor));
+		prefs->set("syntaxcomment", qcolor2named(commentColor));
+		prefs->set("syntaxkeyword", qcolor2named(keywordColor));
+		prefs->set("syntaxsign", qcolor2named(signColor));
+		prefs->set("syntaxnumber", qcolor2named(numberColor));
+		prefs->set("syntaxstring", qcolor2named(stringColor));
+		prefs->set("syntaxtext", qcolor2named(textColor));
+	}
 }
 
 QString SyntaxColors::qcolor2named(QColor color)

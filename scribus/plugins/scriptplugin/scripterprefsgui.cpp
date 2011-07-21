@@ -20,6 +20,8 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	: PrefsPanel(parent)
 {
 	setupUi(this);
+
+	syntaxColors = new SyntaxColors();
 	
 	languageChange();
 	setupSyntaxColors();
@@ -34,13 +36,13 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	// signals and slots connections
 	connect(extensionScriptsChk, SIGNAL(toggled(bool)), startupScriptEdit, SLOT(setEnabled(bool)));
 	// colors
-	connect(textButton, SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(textButton   , SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(commentButton, SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(keywordButton, SIGNAL(clicked()), this, SLOT(setColor()));
-	connect(errorButton, SIGNAL(clicked()), this, SLOT(setColor()));
-	connect(signButton, SIGNAL(clicked()), this, SLOT(setColor()));
-	connect(stringButton, SIGNAL(clicked()), this, SLOT(setColor()));
-	connect(numberButton, SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(errorButton  , SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(signButton   , SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(stringButton , SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(numberButton , SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(startupScriptChangeButton, SIGNAL(clicked()), this, SLOT(changeStartupScript()));
 }
 
@@ -49,6 +51,7 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
  */
 ScripterPrefsGui::~ScripterPrefsGui()
 {
+	delete syntaxColors;
 }
 
 /*
@@ -74,49 +77,63 @@ void ScripterPrefsGui::apply()
 {
 	scripterCore->setExtensionsEnabled(extensionScriptsChk->isChecked());
 	scripterCore->setStartupScript(startupScriptEdit->text());
-	// colors
-	SyntaxColors *syntax = new SyntaxColors();
-	syntax->textColor = textButton->palette().color(QPalette::Window);
-	syntax->commentColor = commentButton->palette().color(QPalette::Window);
-	syntax->keywordColor = keywordButton->palette().color(QPalette::Window);
-	syntax->errorColor = errorButton->palette().color(QPalette::Window);
-	syntax->signColor = signButton->palette().color(QPalette::Window);
-	syntax->stringColor = stringButton->palette().color(QPalette::Window);
-	syntax->numberColor = numberButton->palette().color(QPalette::Window);
-	delete(syntax);
+	syntaxColors->saveToPrefs();
+
+	// Necessary to update console syntax highlighter
+	emit prefsChanged();
 }
 
 void ScripterPrefsGui::setColor()
 {
-	QPalette palette;
-	QPushButton* button = (QPushButton*)sender();
-	QColor color = QColorDialog::getColor(button->palette().color(QPalette::Window), this);
+	QPushButton* button = (QPushButton*) sender();
+
+	QColor oldColor;
+	if (button == textButton)    oldColor = syntaxColors->textColor;
+	if (button == commentButton) oldColor = syntaxColors->commentColor;
+ 	if (button == keywordButton) oldColor = syntaxColors->keywordColor;
+ 	if (button == errorButton)   oldColor = syntaxColors->errorColor;
+ 	if (button == signButton)    oldColor = syntaxColors->signColor;
+ 	if (button == stringButton)  oldColor = syntaxColors->stringColor;
+ 	if (button == numberButton)  oldColor = syntaxColors->numberColor;
+
+	QColor color = QColorDialog::getColor(color, this);
 	if (color.isValid())
 	{
-		palette.setColor(button->backgroundRole(), color);
- 		button->setPalette(palette);
+		setButtonIcon(button, color);
+
+		if (button == textButton)    syntaxColors->textColor = color;
+		if (button == commentButton) syntaxColors->commentColor = color;
+ 		if (button == keywordButton) syntaxColors->keywordColor = color;
+ 		if (button == errorButton)   syntaxColors->errorColor = color;
+ 		if (button == signButton)    syntaxColors->signColor = color;
+ 		if (button == stringButton)  syntaxColors->stringColor = color;
+ 		if (button == numberButton)  syntaxColors->numberColor = color;
 	}
+}
+
+void ScripterPrefsGui::setButtonIcon(QPushButton* button, QColor color)
+{
+	QSize  iconSize   = button->iconSize();
+	double iconWidth  = qMax(iconSize.width() , button->width() / 3);
+	double iconHeight = qMin(iconSize.height(), button->height() / 3);
+	QSize  newIconSize(iconWidth, iconHeight);
+	if (iconSize != newIconSize)
+		button->setIconSize(newIconSize);
+	QPixmap icon(button->iconSize());
+	icon.fill(color);
+	button->setIcon(icon);
 }
 
 void ScripterPrefsGui::setupSyntaxColors()
 {
-	QPalette palette;
-	SyntaxColors *syntax = new SyntaxColors();
-	palette.setColor(textButton->backgroundRole(), syntax->textColor);
- 	textButton->setPalette(palette);
-	palette.setColor(commentButton->backgroundRole(), syntax->commentColor);
- 	commentButton->setPalette(palette);
-	palette.setColor(keywordButton->backgroundRole(), syntax->keywordColor);
- 	keywordButton->setPalette(palette);
-	palette.setColor(errorButton->backgroundRole(), syntax->errorColor);
- 	errorButton->setPalette(palette);
-	palette.setColor(signButton->backgroundRole(), syntax->signColor);
- 	signButton->setPalette(palette);
-	palette.setColor(stringButton->backgroundRole(), syntax->stringColor);
- 	stringButton->setPalette(palette);
-	palette.setColor(numberButton->backgroundRole(), syntax->numberColor);
- 	numberButton->setPalette(palette);
-	delete(syntax);
+	SyntaxColors syntax;
+	setButtonIcon(textButton   , syntax.textColor);
+	setButtonIcon(commentButton, syntax.commentColor);
+ 	setButtonIcon(keywordButton, syntax.keywordColor);
+ 	setButtonIcon(errorButton  , syntax.errorColor);
+ 	setButtonIcon(signButton   , syntax.signColor);
+ 	setButtonIcon(stringButton ,syntax.stringColor);
+ 	setButtonIcon(numberButton , syntax.numberColor);
 }
 
 void ScripterPrefsGui::changeStartupScript()

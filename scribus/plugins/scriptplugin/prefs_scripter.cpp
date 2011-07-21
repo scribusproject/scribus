@@ -78,13 +78,25 @@ void Prefs_Scripter::apply()
 		prefs->set("syntaxnumber", numberColor.name());
 		prefs->set("syntaxstring", stringColor.name());
 		prefs->set("syntaxtext", textColor.name());
+
+		emit prefsChanged();
 	}
 }
 
 void Prefs_Scripter::setColor()
 {
-	QPushButton* button = (QPushButton*)sender();
-	QColor color = QColorDialog::getColor(button->palette().color(QPalette::Window), this);
+	QPushButton* button = (QPushButton*) sender();
+
+	QColor oldColor;
+	if (button == textButton)    oldColor = textColor;
+	if (button == commentButton) oldColor = commentColor;
+ 	if (button == keywordButton) oldColor = keywordColor;
+ 	if (button == errorButton)   oldColor = errorColor;
+ 	if (button == signButton)    oldColor = signColor;
+ 	if (button == stringButton)  oldColor = stringColor;
+ 	if (button == numberButton)  oldColor = numberColor;
+
+	QColor color = QColorDialog::getColor(oldColor, this);
 	if (color.isValid() && button)
 	{
 		QPixmap pm(54, 14);
