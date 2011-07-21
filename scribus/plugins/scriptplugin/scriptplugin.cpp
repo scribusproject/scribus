@@ -196,6 +196,7 @@ bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent,
 {
 	panel = new ScripterPrefsGui(parent);
 	Q_CHECK_PTR(panel);
+	connect(panel, SIGNAL(prefsChanged()), scripterCore, SLOT(updateSyntaxHighlighter()));
 	caption = tr("Scripter");
 	icon = loadIcon("python.png");
 	return true;

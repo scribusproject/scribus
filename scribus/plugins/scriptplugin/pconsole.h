@@ -43,6 +43,8 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		//! \brief Close event for turning the action off
 		void closeEvent(QCloseEvent *);
 
+		void updateSyntaxHighlighter();
+
 	public slots:
 		//! menu operations
 		virtual void slot_runScript();
@@ -86,7 +88,7 @@ class SyntaxColors
 {
 	public:
 		SyntaxColors();
-		~SyntaxColors();
+
 		QColor errorColor;
 		QColor commentColor;
 		QColor keywordColor;
@@ -94,6 +96,9 @@ class SyntaxColors
 		QColor numberColor;
 		QColor stringColor;
 		QColor textColor;
+
+		void saveToPrefs();
+
 	private:
 		/*! \brief Converts QColor into #rrggbb string.
 		\param color a QColor to convert. */
@@ -113,7 +118,7 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 		SyntaxHighlighter(QTextEdit *textEdit);
 
 	protected:
-		void highlightBlock(const QString &text);
+		virtual void highlightBlock(const QString &text);
 
 		struct HighlightingRule
 		{

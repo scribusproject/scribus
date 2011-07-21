@@ -610,6 +610,11 @@ void ScripterCore::setExtensionsEnabled(bool enable)
 	m_enableExtPython = enable;
 }
 
+void ScripterCore::updateSyntaxHighlighter()
+{
+	pcon->updateSyntaxHighlighter();
+}
+
 const QString & ScripterCore::startupScript() const
 {
 	return m_startupScript;
