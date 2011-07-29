@@ -26,7 +26,7 @@ protected:
 
 	void resetData(void);
 
-	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
+	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 
 	/*! \brief Print selected pages to a printer or a file
 	\param doc the document whose pages are to be printer
@@ -48,7 +48,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
+	bool printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Print a page to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
 	\param doc the document whose page is to be printed
@@ -59,7 +59,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
+	bool printPage_PS  ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Print a page separations to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
 	\param doc the document whose page is to be printed
@@ -70,7 +70,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_PS_Sep  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
+	bool printPage_PS_Sep  ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
 	\param filePath the Postscript file path
@@ -136,7 +136,7 @@ public:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, PrintOptions& options, double scale = 1.0 );
+	bool gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* image, PrintOptions& options, double scale = 1.0 );
 
 	/*! \brief Get the default printer name
 	\retval QString the default printer name on success or an empty string 

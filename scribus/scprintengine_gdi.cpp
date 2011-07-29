@@ -24,26 +24,25 @@ using namespace ::std;
 #include <icm.h>
 #endif
 
-#include "util.h"
-#include "util_ghostscript.h"
+
+#include "commonstrings.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scprintengine_gdi.h"
 #include "scpainterex_cairo.h"
-
+#include "scpage.h"
 #include "scpageoutput.h"
+#include "scpaths.h"
+#include "pslib.h"
 #include "scribusview.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
-#include "page.h"
-
-#include "prefsfile.h"
-#include "prefscontext.h"
-#include "prefsmanager.h"
+#include "util.h"
+#include "util_ghostscript.h"
 #include "ui/customfdialog.h"
-#include "commonstrings.h"
 #include "ui/multiprogressdialog.h"
-#include "scpaths.h"
-#include "pslib.h"
 
 #include <cairo.h>
 #include <cairo-win32.h>
@@ -139,7 +138,7 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 	return success;
 }
 
-bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, PrintOptions& options, double scale )
+bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* image, PrintOptions& options, double scale )
 {
 	bool success = true;
 	HCOLORSPACE hColorSpace  = NULL;
@@ -210,7 +209,7 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 	bool  success = true;
 	WCHAR docName[512];
 	DOCINFOW docInfo;
-	Page* docPage;
+	ScPage* docPage;
 
 	// Test printer for PostScript support and
 	// choose appropriate page printing function
@@ -287,7 +286,7 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context )
+bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context )
 {
 	int logPixelsX;
 	int logPixelsY;
@@ -424,7 +423,7 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOption
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/ )
+bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/ )
 {
 	bool succeed = false;
 	ColorList usedColors;
@@ -479,7 +478,7 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 	return succeed;
 }
 
-bool ScPrintEngine_GDI::printPage_PS_Sep( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context )
+bool ScPrintEngine_GDI::printPage_PS_Sep( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context )
 {
 	bool succeed = true;
 	QStringList separations;

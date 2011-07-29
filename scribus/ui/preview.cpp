@@ -551,7 +551,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if ( !postscriptPreview )
 	{
 		QImage image;
-		Page* page;
+		ScPage* page;
 		ScPrintEngine_GDI winPrint;
 		PrintOptions options;
 		page = doc->Pages->at( Seite );

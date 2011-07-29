@@ -989,10 +989,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\page.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\pageitem.cpp"
 				>
 			</File>
@@ -1513,6 +1509,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\sclistwidgetdelegate.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\sclockedfile.cpp"
 				>
 			</File>
@@ -1530,6 +1530,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\scmwmenumanager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpage.cpp"
 				>
 			</File>
 			<File
@@ -4356,10 +4360,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\scribus\page.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\scribus\pageitem.h"
 				>
 				<FileConfiguration
@@ -6234,6 +6234,24 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\sclistwidgetdelegate.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\sclockedfile.h"
 				>
 			</File>
@@ -6294,6 +6312,10 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scpage.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scpageoutput.h"
@@ -8933,6 +8955,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_scinputdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_sclistwidgetdelegate.cpp"
 				>
 			</File>
 			<File
