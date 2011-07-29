@@ -18,7 +18,6 @@ IF (WANT_DESIGNER)
 ENDIF (WANT_DESIGNER)
 ADD_SUBDIRECTORY(third_party)
 
-
 IF(HAVE_OSG)
   SET(SCRIBUS_OSG_UI_SRC
   ui/osgeditor.ui
@@ -373,6 +372,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/scdockpalette.h
   ui/scfilewidget.h
   ui/scinputdialog.h
+  ui/sclistwidgetdelegate.h
   ui/scmenu.h
   ui/scmessagebox.h
   ui/scrapbookpalette.h
@@ -510,7 +510,6 @@ SET(SCRIBUS_SOURCES
   nftrcreader.cpp
   nftsettings.cpp
   nfttemplate.cpp
-  page.cpp
   pageitem.cpp
   pageitem_arc.cpp
   pageitem_group.cpp
@@ -572,6 +571,7 @@ SET(SCRIBUS_SOURCES
   sclayer.cpp
   sclockedfile.cpp
   scmimedata.cpp
+  scpage.cpp
   scpageoutput.cpp
   scpageoutput_ps2.cpp
   scpainter.cpp
@@ -770,6 +770,7 @@ SET(SCRIBUS_SOURCES
   ui/scdockpalette.cpp
   ui/scfilewidget.cpp
   ui/scinputdialog.cpp
+  ui/sclistwidgetdelegate.cpp
   ui/scmenu.cpp
   ui/scmessagebox.cpp
   ui/scrapbookpalette.cpp

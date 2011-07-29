@@ -79,7 +79,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "hyphenator.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
@@ -1026,7 +1026,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 										for (int i = 0; i < Doc->m_Selection->count(); ++i)
 										{
 											PageItem* newItem = Doc->m_Selection->itemAt(i);
-											ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
+											ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
 											is->set("CREATE_ITEM", "create_item");
 											is->setItem(newItem);
 											//Undo target rests with the Page for object specific undo
@@ -2281,9 +2281,9 @@ void ScribusView::setRulerPos(int x, int y)
 
 //CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 //does NOT create a page anymore.
-Page* ScribusView::addPage(int nr, bool mov)
+ScPage* ScribusView::addPage(int nr, bool mov)
 {
-	Page* fe=Doc->Pages->at(nr);
+	ScPage* fe=Doc->Pages->at(nr);
 	Q_ASSERT(fe!=0);
 	if (fe==0)
 		return 0;
@@ -2764,7 +2764,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		double cx = Doc->minCanvasCoordinate.x();
 		double cy = Doc->minCanvasCoordinate.y();
 		Doc->minCanvasCoordinate = FPoint(0, 0);
-		Page* act = Doc->currentPage();
+		ScPage* act = Doc->currentPage();
 		bool mMode = Doc->masterPageMode();
 		Doc->setMasterPageMode(true);
 		Doc->setCurrentPage(Doc->MasterPages.at(Nr));
@@ -2840,7 +2840,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			m_canvas->setScale(sc);
 			m_canvas->m_viewMode.previewMode = true;
 			m_canvas->m_viewMode.forceRedraw = true;
-			Page* act = Doc->currentPage();
+			ScPage* act = Doc->currentPage();
 			bool mMode = Doc->masterPageMode();
 			Doc->setMasterPageMode(false);
 			Doc->setLoading(true);
@@ -2859,7 +2859,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			painter->setZoomFactor(m_canvas->scale());
 
 			QList<QPair<PageItem*, int> > changedList;
-			Page* page = Doc->DocPages.at(Nr);
+			ScPage* page = Doc->DocPages.at(Nr);
 			PageItem* currItem;
 			if (page->FromMaster.count() != 0)
 			{

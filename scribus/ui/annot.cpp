@@ -53,7 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util.h"
 
-Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
+ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent )
 {
 	ScribusDoc* doc = Farben.document();
@@ -1196,10 +1196,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	resize( minimumSizeHint() );
 }
 
-Annot::~Annot()
+ScAnnot::~ScAnnot()
 {}
 
-void Annot::NewName()
+void ScAnnot::NewName()
 {
 	QString NameNew = Name->text();
 	if (NameNew.isEmpty())
@@ -1234,7 +1234,7 @@ void Annot::NewName()
 	}
 }
 
-void Annot::IPlace()
+void ScAnnot::IPlace()
 {
 	ButtonIcon* dia = new ButtonIcon(this, item);
 	if (dia->exec())
@@ -1268,7 +1268,7 @@ void Annot::IPlace()
 	delete dia;
 }
 
-void Annot::RemoveNIcon()
+void ScAnnot::RemoveNIcon()
 {
 	NiconPrev->clear();
 	item->Pfile = "";
@@ -1276,21 +1276,21 @@ void Annot::RemoveNIcon()
 	IconNR->setEnabled(false);
 }
 
-void Annot::RemovePIcon()
+void ScAnnot::RemovePIcon()
 {
 	PiconPrev->clear();
 	item->Pfile2 = "";
 	IconPR->setEnabled(false);
 }
 
-void Annot::RemoveRIcon()
+void ScAnnot::RemoveRIcon()
 {
 	RiconPrev->clear();
 	item->Pfile3 = "";
 	IconRR->setEnabled(false);
 }
 
-void Annot::IconsEin()
+void ScAnnot::IconsEin()
 {
 	bool setter = !UseIcons->isChecked() ? false : true;
 	IconN->setEnabled(setter);
@@ -1307,7 +1307,7 @@ void Annot::IconsEin()
 	item->annotation().setUseIcons(UseIcons->isChecked());
 }
 
-void Annot::GetNIcon()
+void ScAnnot::GetNIcon()
 {
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
@@ -1339,7 +1339,7 @@ void Annot::GetNIcon()
 	}
 }
 
-void Annot::GetPIcon()
+void ScAnnot::GetPIcon()
 {
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
@@ -1364,7 +1364,7 @@ void Annot::GetPIcon()
 	}
 }
 
-void Annot::GetRIcon()
+void ScAnnot::GetRIcon()
 {
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
@@ -1389,7 +1389,7 @@ void Annot::GetRIcon()
 	}
 }
 
-void Annot::SelectFelder()
+void ScAnnot::SelectFelder()
 {
 	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), view->Doc, 3);
 	if (dia->exec())
@@ -1397,7 +1397,7 @@ void Annot::SelectFelder()
 	delete dia;
 }
 
-void Annot::editKeySc()
+void ScAnnot::editKeySc()
 {
 	Editor* dia = new Editor(this, item->annotation().K_act(), view);
 	if (dia->exec())
@@ -1408,7 +1408,7 @@ void Annot::editKeySc()
 	delete dia;
 }
 
-void Annot::editFormatSc()
+void ScAnnot::editFormatSc()
 {
 	Editor* dia = new Editor(this, item->annotation().F_act(), view);
 	if (dia->exec())
@@ -1419,7 +1419,7 @@ void Annot::editFormatSc()
 	delete dia;
 }
 
-void Annot::editValidSc()
+void ScAnnot::editValidSc()
 {
 	Editor* dia = new Editor(this, item->annotation().V_act(), view);
 	if (dia->exec())
@@ -1430,7 +1430,7 @@ void Annot::editValidSc()
 	delete dia;
 }
 
-void Annot::editCalcSc()
+void ScAnnot::editCalcSc()
 {
 	Editor* dia = new Editor(this, item->annotation().C_act(), view);
 	if (dia->exec())
@@ -1441,7 +1441,7 @@ void Annot::editCalcSc()
 	delete dia;
 }
 
-void Annot::editJavaSc()
+void ScAnnot::editJavaSc()
 {
 	Editor* dia = new Editor(this, EditJava->toPlainText(), view);
 	if (dia->exec())
@@ -1449,7 +1449,7 @@ void Annot::editJavaSc()
 	delete dia;
 }
 
-void Annot::setDateSample(const QString& ds)
+void ScAnnot::setDateSample(const QString& ds)
 {
 	QDateTime dt = QDateTime::currentDateTime();
 	QString tmp = "";
@@ -1490,7 +1490,7 @@ void Annot::setDateSample(const QString& ds)
 	TextDa1->setText( tr("Example:")+" "+dt.toString(tmp));
 }
 
-void Annot::DecodeVali()
+void ScAnnot::DecodeVali()
 {
 	QString pfor = item->annotation().V_act();
 	int ss = pfor.indexOf("(");
@@ -1501,7 +1501,7 @@ void Annot::DecodeVali()
 	MaxValid->setText(pfol[3].simplified());
 }
 
-void Annot::DecodeCalc()
+void ScAnnot::DecodeCalc()
 {
 	QString tm = "";
 	QString tm2;
@@ -1534,7 +1534,7 @@ void Annot::DecodeCalc()
 	}
 }
 
-void Annot::DecodeNum()
+void ScAnnot::DecodeNum()
 {
 	QString pfor = item->annotation().F_act();
 	int ss = pfor.indexOf("(");
@@ -1636,7 +1636,7 @@ void Annot::DecodeNum()
 		}
 }
 
-void Annot::SetFormNum()
+void ScAnnot::SetFormNum()
 {
 	switch (item->annotation().Format())
 	{
@@ -1673,7 +1673,7 @@ void Annot::SetFormNum()
 	}
 }
 
-void Annot::HandleVali()
+void ScAnnot::HandleVali()
 {
 	bool setter = SimpleValid->isChecked() ? true : false;
 	MaxValid->setEnabled(setter);
@@ -1683,7 +1683,7 @@ void Annot::HandleVali()
 		EditValScript->setEnabled(true);
 }
 
-void Annot::SetVali()
+void ScAnnot::SetVali()
 {
 	MaxValid->setEnabled(false);
 	MinValid->setEnabled(false);
@@ -1709,7 +1709,7 @@ void Annot::SetVali()
 	}
 }
 
-void Annot::HandleCalc()
+void ScAnnot::HandleCalc()
 {
 	bool setter = SimpleCalc->isChecked() ? true : false;
 	CalcFields->setEnabled(setter);
@@ -1720,7 +1720,7 @@ void Annot::HandleCalc()
 		EditCalc->setEnabled(true);
 }
 
-void Annot::SetCalc()
+void ScAnnot::SetCalc()
 {
 	CalcFields->setEnabled(false);
 	CalcArt->setEnabled(false);
@@ -1747,14 +1747,14 @@ void Annot::SetCalc()
 	}
 }
 
-void Annot::SetCurr()
+void ScAnnot::SetCurr()
 {
 	bool setter = UseCurr->isChecked() ? true : false;
 	CurSym->setEnabled(setter);
 	PreCurr->setEnabled(setter);
 }
 
-void Annot::SetFoScript(int it)
+void ScAnnot::SetFoScript(int it)
 {
 	if (it >= 0 && it <=5)
 		FoFram->setCurrentIndex(it);
@@ -1772,13 +1772,13 @@ void Annot::SetFoScript(int it)
 	item->annotation().setFormat(it);
 }
 
-void Annot::SetCoords(double x, double y)
+void ScAnnot::SetCoords(double x, double y)
 {
 	SpinBox21->setValue(static_cast<int>(x*Width));
 	SpinBox31->setValue(static_cast<int>(y*Height));
 }
 
-void Annot::SetPage(int v)
+void ScAnnot::SetPage(int v)
 {
 	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
@@ -1805,7 +1805,7 @@ void Annot::SetPage(int v)
 	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 }
 
-void Annot::SetCross()
+void ScAnnot::SetCross()
 {
 	int x,y;
 	disconnect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
@@ -1815,7 +1815,7 @@ void Annot::SetCross()
 	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 }
 
-void Annot::SetValues()
+void ScAnnot::SetValues()
 {
 	QString tmp, tmp2;
 	QString Nfo("");
@@ -2048,7 +2048,7 @@ void Annot::SetValues()
 	accept();
 }
 
-void Annot::SetAnnotationType(int it)
+void ScAnnot::SetAnnotationType(int it)
 {
 	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
@@ -2143,12 +2143,12 @@ void Annot::SetAnnotationType(int it)
 	connect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 }
 
-void Annot::SetLimit()
+void ScAnnot::SetLimit()
 {
 	Limit->isChecked() ? MaxChars->setEnabled(true) :MaxChars->setEnabled(false);
 }
 
-void Annot::SetExternLink()
+void ScAnnot::SetExternLink()
 {
 	disconnect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternLink()));
 	bool enable;
@@ -2188,7 +2188,7 @@ void Annot::SetExternLink()
 	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternLink()));
 }
 
-void Annot::SetActionType(int it)
+void ScAnnot::SetActionType(int it)
 {
 	bool setter;
 	switch (it)
@@ -2220,7 +2220,7 @@ void Annot::SetActionType(int it)
 	}
 }
 
-void Annot::SetActionScript(int it)
+void ScAnnot::SetActionScript(int it)
 {
 	switch (ScrEdited)
 	{
@@ -2273,7 +2273,7 @@ void Annot::SetActionScript(int it)
 	ScrEdited = it;
 }
 
-void Annot::GetFile()
+void ScAnnot::GetFile()
 {
 	QString fn;
 	QString wdir = dirs->get("annot_getfile", ".");

@@ -584,7 +584,7 @@ void PSLib::PS_TemplateEnd()
 	PutStream("} bind def\n");
 }
 
-void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
+void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 {
 	double bleedRight = 0.0;
 	double bleedLeft = 0.0;
@@ -1623,7 +1623,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		if (usingGUI)
 			ScQApp->processEvents();
 		a = pageNs[aa]-1;
-		Page* page = Doc->Pages->at(a);
+		ScPage* page = Doc->Pages->at(a);
 		if ((!psExport) && (Doc->m_Selection->count() != 0))
 		{
 			MarginStruct Ma;
@@ -1705,7 +1705,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	return 0; 
 }
 
-bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded, bool useTemplate)
+bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded, bool useTemplate)
 {
 	double tsz;
 	int h, s, v, k;
@@ -2660,7 +2660,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	return true;
 }
 
-void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	int b;
 	int h, s, v, k;
@@ -2794,12 +2794,12 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	}
 }
 
-bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	bool success = true;
 	int h, s, v, k;
 	QVector<double> dum;
-	Page* mPage = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
+	ScPage* mPage = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 	if (layer.isPrintable)
 	{
 		for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
@@ -2967,7 +2967,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, 
 	return success;
 }
 
-bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	bool success = true;
 	int b, h, s, v, k;
@@ -3092,7 +3092,7 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, Page* page, ScLayer& layer, uint P
 }
 
 
-void PSLib::HandleBrushPattern(PageItem *c, QPainterPath &path, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master)
+void PSLib::HandleBrushPattern(PageItem *c, QPainterPath &path, ScPage* a, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master)
 {
 	ScPattern pat = m_Doc->docPatterns[c->strokePattern()];
 	double pLen = path.length() - ((pat.width / 2.0) * (c->patternStrokeScaleX / 100.0));
@@ -3295,6 +3295,167 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 			PutStream(ToStr(mp3.gridPoint.x())+" "+ToStr(-mp3.gridPoint.y())+" "+ToStr(mp3.controlLeft.x())+" "+ToStr(-mp3.controlLeft.y())+" "+ToStr(mp4.controlRight.x())+" "+ToStr(-mp4.controlRight.y())+"\n");
 			PutStream(colorValues[colInd4]+" "+colorValues[colInd1]+" "+colorValues[colInd2]+" "+colorValues[colInd3]+"\n");
 		}
+	}
+	PutStream("]\n");
+	PutStream(">>\n");
+	PutStream(">>\n");
+	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
+	if (fillRule)
+		PutStream("eofill\n");
+	else
+		PutStream("fill\n");
+	return;
+}
+
+void PSLib::HandlePatchMeshGradient(PageItem* c, bool gcr)
+{
+	QString GCol;
+	QString hs,ss,vs,ks;
+	int ch,cs,cv,ck;
+	QStringList cols;
+	QStringList colorValues;
+	QStringList spotColorSet;
+	QList<int> colsSh;
+	for (int col = 0; col < c->meshGradientPatches.count(); col++)
+	{
+		meshGradientPatch patch = c->meshGradientPatches[col];
+		meshPoint mp1 = patch.TL;
+		cols.append(mp1.colorName);
+		colsSh.append(mp1.shade);
+		if (spotMap.contains(mp1.colorName))
+		{
+			if (!spotColorSet.contains(mp1.colorName))
+				spotColorSet.append(mp1.colorName);
+		}
+		meshPoint mp2 = patch.TR;
+		cols.append(mp2.colorName);
+		colsSh.append(mp2.shade);
+		if (spotMap.contains(mp2.colorName))
+		{
+			if (!spotColorSet.contains(mp2.colorName))
+				spotColorSet.append(mp2.colorName);
+		}
+		meshPoint mp3 = patch.BR;
+		cols.append(mp3.colorName);
+		colsSh.append(mp3.shade);
+		if (spotMap.contains(mp3.colorName))
+		{
+			if (!spotColorSet.contains(mp3.colorName))
+				spotColorSet.append(mp3.colorName);
+		}
+		meshPoint mp4 = patch.BL;
+		cols.append(mp4.colorName);
+		colsSh.append(mp4.shade);
+		if (spotMap.contains(mp4.colorName))
+		{
+			if (!spotColorSet.contains(mp4.colorName))
+				spotColorSet.append(mp4.colorName);
+		}
+	}
+	for (int ac = 0; ac < cols.count(); ac++)
+	{
+		QString colorVal = "";
+		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		{
+			if (spotColorSet.contains(cols.at(ac)))
+			{
+				colorVal = "0 0 0 0";
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					if (spotColorSet.at(sc) == cols.at(ac))
+						colorVal += " "+ToStr(colsSh[ac] / 100.0);
+					else
+						colorVal += " 0";
+				}
+			}
+			else
+			{
+				SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck, gcr);
+				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				for (int sc = 0; sc < spotColorSet.count(); sc++)
+				{
+					colorVal += " 0";
+				}
+			}
+			colorValues.append(colorVal);
+		}
+		else
+		{
+			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck, gcr);
+			if (GraySc)
+				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+			else
+				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			if (DoSep)
+			{
+				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
+				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
+			}
+			colorValues.append(colorVal);
+		}
+	}
+	PutStream("<<\n");
+	PutStream("/PatternType 2\n");
+	PutStream("/Shading\n");
+	PutStream("<<\n");
+	PutStream("/ShadingType 6\n");
+	if ((DoSep) || (GraySc))
+		PutStream("/ColorSpace /DeviceGray\n");
+	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+	{
+		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutStream(" ("+spotColorSet.at(sc)+")");
+		}
+		PutStream("]\n");
+		PutStream("/DeviceCMYK\n");
+		PutStream("{\n");
+		int maxSp = spotColorSet.count() - 1;
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			int cc = 0;
+			int mc = 0;
+			int yc = 0;
+			int kc = 0;
+			CMYKColor cmykValues;
+			ScColorEngine::getCMYKValues(m_Doc->PageColors[spotColorSet.at(maxSp - sc)], m_Doc, cmykValues);
+			cmykValues.getValues(cc, mc, yc, kc);
+			if (sc == 0)
+				PutStream("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+			else
+				PutStream(IToStr(sc*4 + 1)+" -1 roll dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul ");
+			PutStream("exch dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul ");
+			PutStream("exch dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul ");
+			PutStream("exch "+ToStr(static_cast<double>(kc) / 255.0)+" mul\n");
+		}
+		for (int sc = 0; sc < spotColorSet.count(); sc++)
+		{
+			PutStream("8 -1 roll 5 -1 roll add 7 -1 roll 5 -1 roll add 6 -1 roll 5 -1 roll add 5 -1 roll 5 -1 roll add\n");
+		}
+		PutStream("} ]\n");
+	}
+	else
+		PutStream("/ColorSpace /DeviceCMYK\n");
+	PutStream("/DataSource [\n");
+	for (int col = 0; col < c->meshGradientPatches.count(); col++)
+	{
+		meshGradientPatch patch = c->meshGradientPatches[col];
+		meshPoint mp1 = patch.TL;
+		meshPoint mp2 = patch.TR;
+		meshPoint mp3 = patch.BR;
+		meshPoint mp4 = patch.BL;
+		int colInd1 = 4 * col;
+		int colInd2 = 4 * col + 1;
+		int colInd3 = 4 * col + 2;
+		int colInd4 = 4 * col + 3;
+		PutStream("0\n");
+		PutStream(ToStr(mp4.gridPoint.x())+" "+ToStr(-mp4.gridPoint.y())+" "+ToStr(mp4.controlTop.x())+" "+ToStr(-mp4.controlTop.y())+" "+ToStr(mp1.controlBottom.x())+" "+ToStr(-mp1.controlBottom.y())+"\n");
+		PutStream(ToStr(mp1.gridPoint.x())+" "+ToStr(-mp1.gridPoint.y())+" "+ToStr(mp1.controlRight.x())+" "+ToStr(-mp1.controlRight.y())+" "+ToStr(mp2.controlLeft.x())+" "+ToStr(-mp2.controlLeft.y())+"\n");
+		PutStream(ToStr(mp2.gridPoint.x())+" "+ToStr(-mp2.gridPoint.y())+" "+ToStr(mp2.controlBottom.x())+" "+ToStr(-mp2.controlBottom.y())+" "+ToStr(mp3.controlTop.x())+" "+ToStr(-mp3.controlTop.y())+"\n");
+		PutStream(ToStr(mp3.gridPoint.x())+" "+ToStr(-mp3.gridPoint.y())+" "+ToStr(mp3.controlLeft.x())+" "+ToStr(-mp3.controlLeft.y())+" "+ToStr(mp4.controlRight.x())+" "+ToStr(-mp4.controlRight.y())+"\n");
+		PutStream(colorValues[colInd4]+" "+colorValues[colInd1]+" "+colorValues[colInd2]+" "+colorValues[colInd3]+"\n");
 	}
 	PutStream("]\n");
 	PutStream(">>\n");
@@ -3702,6 +3863,11 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			HandleMeshGradient(c, gcr);
 			return;
 		}
+		else if (GType == 12)
+		{
+			HandlePatchMeshGradient(c, gcr);
+			return;
+		}
 	}
 	QList<VColorStop*> cstops = gradient.colorStops();
 	PutStream("<<\n");
@@ -4084,7 +4250,7 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 	}
 }
 
-void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page* pg, bool sep, bool farb, bool ic, bool master)
+void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, ScPage* pg, bool sep, bool farb, bool ic, bool master)
 {
 //	qDebug() << QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage);
 	int tabCc = 0;
@@ -4208,7 +4374,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 #endif
 }
 
-void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint argh, uint doh, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master)
+void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint argh, uint doh, ScText *hl, const ParagraphStyle& pstyle, ScPage* pg, bool sep, bool farb, bool ic, bool master)
 {
 	const CharStyle & cstyle(*hl);
 	const GlyphLayout & glyphs(hl->glyph);
@@ -4619,7 +4785,7 @@ void PSLib::putColorNoDraw(const QString& colorName, double shade, bool gcr)
 	}
 }
 
-void PSLib::GetBleeds(Page* page, double& left, double& right)
+void PSLib::GetBleeds(ScPage* page, double& left, double& right)
 {
 	MarginStruct values;
 	m_Doc->getBleeds(page, Options.bleeds, values);
@@ -4627,7 +4793,7 @@ void PSLib::GetBleeds(Page* page, double& left, double& right)
 	right  = values.Right;
 }
 
-void PSLib::GetBleeds(Page* page, double& left, double& right, double& bottom, double& top)
+void PSLib::GetBleeds(ScPage* page, double& left, double& right, double& bottom, double& top)
 {
 	MarginStruct values;
 	m_Doc->getBleeds(page, Options.bleeds, values);

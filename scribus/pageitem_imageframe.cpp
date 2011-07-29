@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 
 #include "filewatcher.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "prefsmanager.h"

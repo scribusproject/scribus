@@ -40,7 +40,29 @@ SymbolView::SymbolView(QWidget* parent) : QListWidget(parent)
 	setResizeMode(QListView::Adjust);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	setContextMenuPolicy(Qt::CustomContextMenu);
+	delegate = new ScListWidgetDelegate(this, this);
+	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
+	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
+}
+
+void SymbolView::HandleContextMenu(QPoint)
+{
+	QMenu *pmenu = new QMenu();
+	QAction* viewAct;
+	viewAct = pmenu->addAction( tr("Display Icons only"));
+	viewAct->setCheckable(true);
+	viewAct->setChecked(delegate->iconOnly());
+	connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
+	pmenu->exec(QCursor::pos());
+	delete pmenu;
+}
+
+void SymbolView::changeDisplay()
+{
+	reset();
+	delegate->setIconOnly(!delegate->iconOnly());
+	repaint();
 }
 
 void SymbolView::dragEnterEvent(QDragEnterEvent *e)
@@ -69,6 +91,41 @@ void SymbolView::dropEvent(QDropEvent *e)
 	}
 	else
 		e->ignore();
+}
+
+bool SymbolView::viewportEvent(QEvent *event)
+{
+	if (event != NULL)
+	{
+		if (event->type() == QEvent::ToolTip)
+		{
+			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+			QListWidgetItem* it = itemAt(helpEvent->pos());
+			if (it != NULL)
+			{
+				event->accept();
+				QString tipText = it->text();
+				QToolTip::showText(helpEvent->globalPos(), tipText, this);
+				return true;
+			}
+		}
+		else if (event->type() == QEvent::MouseButtonPress)
+		{
+			QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+			if (mouseEvent->button() == Qt::RightButton)
+				return true;
+		}
+		else if (event->type() == QEvent::MouseButtonRelease)
+		{
+			QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+			if (mouseEvent->button() == Qt::RightButton)
+			{
+				emit customContextMenuRequested(mouseEvent->pos());
+				return true;
+			}
+		}
+	}
+	return QListWidget::viewportEvent(event);
 }
 
  void SymbolView::startDrag(Qt::DropActions supportedActions)

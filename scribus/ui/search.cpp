@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "fontcombo.h"
 #include "scrspinbox.h"
-#include "page.h"
+#include "scpage.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

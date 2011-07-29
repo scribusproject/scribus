@@ -133,6 +133,11 @@
                  <string>Mesh</string>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string>Patch Mesh</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item>

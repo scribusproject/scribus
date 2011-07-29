@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 
 #include "nodeeditpalette.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -530,7 +530,7 @@ void NodePalette::ResetContour()
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (UndoManager::undoEnabled())
 		{
-			ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
+			ScItemState<FPointArray> *is = new ScItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
 			is->set("RESET_CONTOUR", "reset_contour");
 			is->setItem(doc->m_Selection->itemAt(0)->ContourLine);
 			UndoManager::instance()->action(currItem, is);

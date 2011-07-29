@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QPushButton>
 
-#include "page.h"
+#include "scpage.h"
 #include "pagestructs.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"

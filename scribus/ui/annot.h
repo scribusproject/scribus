@@ -34,13 +34,13 @@ class ColorCombo;
 class ScribusView;
 class PrefsContext;
 
-class SCRIBUS_API Annot : public QDialog
+class SCRIBUS_API ScAnnot : public QDialog
 {
 	Q_OBJECT
 
 public:
-	Annot ( QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie );
-	~Annot();
+	ScAnnot ( QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie );
+	~ScAnnot();
 	void DecodeNum();
 	void DecodeVali();
 	void DecodeCalc();

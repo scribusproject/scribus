@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef PAGE_H
-#define PAGE_H
+#ifndef SCPAGE_H
+#define SCPAGE_H
 
 #include <utility>
 
@@ -43,11 +43,11 @@ class ScribusDoc;
 /**
   *@author Franz Schmid
   */
-class SCRIBUS_API Page : public UndoObject, public SingleObservable<Page>
+class SCRIBUS_API ScPage : public UndoObject, public SingleObservable<ScPage>
 {
 public:
-	Page(const double x, const double y, const double b, const double h);
-	~Page();
+	ScPage(const double x, const double y, const double b, const double h);
+	~ScPage();
 	double xOffset() const { return m_xOffset; }
 	double yOffset() const { return m_yOffset; }
 	double width() const { return m_width; }
@@ -62,7 +62,7 @@ public:
 	void setInitialWidth(const double);
 	void setInitialHeight(const double);
 	void setOrientation(int);
-	void copySizingProperties(Page *sourcePage, const MarginStruct& pageMargins);
+	void copySizingProperties(ScPage *sourcePage, const MarginStruct& pageMargins);
 	MarginStruct Margins;
 	MarginStruct initialMargins;
   /** Nummer der Seite */
@@ -94,9 +94,9 @@ public:
 
 protected:
 	UndoManager * const undoManager;
-	void restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo);
-	void restorePageItemDeletion(ItemState< QList<PageItem*> > *state, bool isUndo);
-	void restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
+	void restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo);
+	void restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, bool isUndo);
+	void restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
 	
 	double m_xOffset;
 	double m_yOffset;
@@ -112,6 +112,6 @@ protected:
 	QString m_pageSectionNumber;
 };
 
-Q_DECLARE_METATYPE(Page*);
+Q_DECLARE_METATYPE(ScPage*);
 
 #endif

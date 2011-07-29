@@ -17,7 +17,7 @@ class ScLayer;
 class ScribusDoc;
 class ScribusMainWindow;
 class PageItem;
-class Page;
+class ScPage;
 class ScText;
 
 struct SVGOptions
@@ -78,7 +78,7 @@ private:
 	\brief Process a page to export to SVG format
 	\param Seite Page *
 	*/
-	void ProcessPageLayer(Page *page, ScLayer& layer);
+	void ProcessPageLayer(ScPage *page, ScLayer& layer);
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	QDomElement processSymbolStroke(PageItem *Item, QString trans);
 	QDomElement processSymbolItem(PageItem *Item, QString trans);

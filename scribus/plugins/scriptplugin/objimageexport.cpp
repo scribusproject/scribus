@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "objimageexport.h"
 #include "cmdutil.h"
-#include "page.h"
+#include "scpage.h"
 
 #include <QImageWriter>
 #include <structmember.h>

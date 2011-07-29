@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <cassert>
 
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "prefsmanager.h"
 #include "scpaths.h"

@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "contextmenu.h"
 #include "outlinepalette.h"
-#include "page.h"
+#include "scpage.h"
 #include "propertiespalette.h"
 #include "scribus.h"
 #include "selection.h"

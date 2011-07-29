@@ -76,6 +76,7 @@ public:
 	virtual void set4ColorColors(QColor col1, QColor col2, QColor col3, QColor col4);
 	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray);
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches);
 
 	virtual void setClipPath();
 
@@ -191,6 +192,7 @@ private:
 	QColor gradPatchColor3;
 	QColor gradPatchColor4;
 	QList<QList<meshPoint> > meshGradientArray;
+	QList<meshGradientPatch> meshGradientPatches;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

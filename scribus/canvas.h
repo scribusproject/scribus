@@ -38,7 +38,7 @@ scribusview.h  -  description
 #include "pageitempointer.h"
 
 
-class Page;
+class ScPage;
 class PageItem;
 class ScLayer;
 class ScPainter;
@@ -187,7 +187,7 @@ public:
 	int previewVisual() const { return m_viewMode.previewVisual; }
 	void setPreviewVisual(int mode);
 	
-	void DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRect clip);
+	void DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, QRect clip);
 	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip);
 	virtual void paintEvent ( QPaintEvent * p );
 	void displayXYHUD(QPoint m);
@@ -201,7 +201,7 @@ public:
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
 private:
-	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
+	void DrawPageMarks(ScPainter *p, ScPage* page, QRect clip);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	void PaintSizeRect(QRect neu);
 	void PaintSizeRect(QPolygon neu);

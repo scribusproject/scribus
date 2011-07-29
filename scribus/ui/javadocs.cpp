@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "editor.h"
 #include "ui/scmessagebox.h"
 #include "scribusdoc.h"
-#include "page.h"
+#include "scpage.h"
 #include "commonstrings.h"
 #include "query.h"
 #include "util_icon.h"

@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanagercore.h"
 #include "ui/scrpalettebase.h"
 #include "scribusstructs.h"
-#include "page.h"
+#include "scpage.h"
 
 class GuidesModel;
 class ScribusDoc;
@@ -76,7 +76,7 @@ private:
 
 	ScribusDoc* m_Doc;
 	//! \brief a reference to the current pages
-	Page * currentPage;
+	ScPage * currentPage;
 	//! \brief A flag to prevent guides drawing when it's not needed
 	bool m_drawGuides;
 
@@ -97,7 +97,7 @@ private:
 	/*! \brief Save needed (Auto) values into GuideManagerCore.
 	To be restored on the page return.
 	\param page A reference to the page to store values. */
-	void storePageValues(Page * page);
+	void storePageValues(ScPage * page);
 
 	/*! \brief Overriden QDialog method to operate selection related widgets.
 	Auto guides tab. It disables the "selection" radio buttons when there
@@ -108,13 +108,13 @@ private:
 	Calculates positions of the guides.
 	\param p a Page for what should be calculation performed
 	*/
-	Guides getAutoHorizontals(Page * p);
+	Guides getAutoHorizontals(ScPage * p);
 
 	/*! \brief Create automatic vertical guides.
 	Calculates positions of the guides.
 	\param p a Page for what should be calculation performed
 	*/
-	Guides getAutoVerticals(Page * p);
+	Guides getAutoVerticals(ScPage * p);
 
 	/*! \brief Recalculate the selection position and measurements for the current page.
 	It's used for automatic guides position. It's called for every

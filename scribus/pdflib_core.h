@@ -24,7 +24,7 @@ class PageItem;
 class BookMItem;
 class BookMView;
 class ScribusDoc;
-class Page;
+class ScPage;
 class PDFOptions;
 class PrefsContext;
 class MultiProgressDialog;
@@ -82,12 +82,12 @@ private:
 	};
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
-	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
+	void PDF_Begin_Page(const ScPage* pag, QPixmap pm = 0);
 	void PDF_End_Page(int physPage);
-	bool PDF_TemplatePage(const Page* pag, bool clip = false);
-	bool PDF_ProcessPage(const Page* pag, uint PNr, bool clip = false);
-	bool PDF_ProcessMasterElements(const ScLayer& layer, const Page* page, uint PNr);
-	bool PDF_ProcessPageElements(const ScLayer& layer, const Page* page, uint PNr);
+	bool PDF_TemplatePage(const ScPage* pag, bool clip = false);
+	bool PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip = false);
+	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);
+	bool PDF_ProcessPageElements(const ScLayer& layer, const ScPage* page, uint PNr);
 	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	bool closeAndCleanup();
 
@@ -123,10 +123,10 @@ private:
 	QString putColor(const QString& color, double Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem = 0);
-	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
-	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
-	void    getBleeds(const Page* page, double &left, double &right);
-	void    getBleeds(const Page* page, double &left, double &right, double &bottom, double& top);
+	QString setTextSt(PageItem *ite, uint PNr, const ScPage* pag);
+	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const ScPage* pag);
+	void    getBleeds(const ScPage* page, double &left, double &right);
+	void    getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top);
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
@@ -148,9 +148,9 @@ private:
 	QByteArray ComputeMD5(const QString& in);
 	QByteArray ComputeRC4Key(int ObjNum);
 
-	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
-	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
-	QString HandleBrushPattern(PageItem* ite, QPainterPath &path, const Page* pag, uint PNr);
+	bool    PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
+	QString PDF_ProcessTableItem(PageItem* ite, const ScPage* pag);
+	QString HandleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr);
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool    PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind = 0, bool forArrow = false);
@@ -158,6 +158,7 @@ private:
 	quint16 encode16dVal(double val);
 	void    encodeColor(QDataStream &vs, QString colName, int colShade, QStringList &spotColorSet, bool spotMode);
 	bool    PDF_MeshGradientFill(QString& output, PageItem *currItem);
+	bool	PDF_PatchMeshGradientFill(QString& output, PageItem *c);
 	bool    PDF_DiamondGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_TensorGradientFill(QString& output, PageItem *currItem);
 	bool    PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke = false, bool forArrow = false);
@@ -183,7 +184,7 @@ private:
 	QString Content;
 	QString ErrorMessage;
 	ScribusDoc & doc;
-	const Page * ActPageP;
+	const ScPage * ActPageP;
 	const PDFOptions & Options;
 	BookMView* Bvie;
 	QFile Spool;

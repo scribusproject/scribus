@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "guidemanager.h"
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "scinputdialog.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -188,7 +188,7 @@ void GuideManager::setupGui()
 // 	drawGuides(); let Canvas::DrawPageMarks take care of it and avoid a costly ScribusView::DrawNew()
 }
 
-void GuideManager::storePageValues(Page *page)
+void GuideManager::storePageValues(ScPage *page)
 {
 	if (!page || !m_Doc)
 		return;
@@ -355,8 +355,8 @@ void GuideManager::lockCheck_stateChanged( int )
 
 void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 {
-	QListIterator<Page*> it(*m_Doc->Pages);
-	Page *tmpPage;
+	QListIterator<ScPage*> it(*m_Doc->Pages);
+	ScPage *tmpPage;
 	while (it.hasNext())
 	{
 		tmpPage=it.next();
@@ -567,7 +567,7 @@ void GuideManager::windowActivationChange(bool oldActive)
 	QDialog::windowActivationChange( oldActive );
 }
 
-Guides GuideManager::getAutoVerticals(Page * page)
+Guides GuideManager::getAutoVerticals(ScPage * page)
 {
 	GuideManagerCore guides;
 
@@ -588,7 +588,7 @@ Guides GuideManager::getAutoVerticals(Page * page)
 	return guides.getAutoVerticals(page);
 }
 
-Guides GuideManager::getAutoHorizontals(Page * page)
+Guides GuideManager::getAutoHorizontals(ScPage * page)
 {
 	GuideManagerCore guides;
 

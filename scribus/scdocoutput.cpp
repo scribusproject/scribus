@@ -12,7 +12,7 @@ using namespace std;
 bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 {
 	bool  done = true;
-	Page* page;
+	ScPage* page;
 
 	begin();
 

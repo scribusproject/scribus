@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "documentchecker.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pdf_analyzer.h"
 #include "sccolor.h"
@@ -141,6 +141,21 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
 								itemError.insert(Transparency, 0);
 						}
+					}
+				}
+				else if (currItem->GrType == 12)
+				{
+					for (int grow = 0; grow < currItem->meshGradientPatches.count(); grow++)
+					{
+						meshGradientPatch patch = currItem->meshGradientPatches[grow];
+						if (currItem->meshGradientPatches[grow].TL.transparency != 1.0)
+							itemError.insert(Transparency, 0);
+						if (currItem->meshGradientPatches[grow].TR.transparency != 1.0)
+							itemError.insert(Transparency, 0);
+						if (currItem->meshGradientPatches[grow].BR.transparency != 1.0)
+							itemError.insert(Transparency, 0);
+						if (currItem->meshGradientPatches[grow].BL.transparency != 1.0)
+							itemError.insert(Transparency, 0);
 					}
 				}
 				else
@@ -410,6 +425,21 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
 								itemError.insert(Transparency, 0);
 						}
+					}
+				}
+				else if (currItem->GrType == 12)
+				{
+					for (int grow = 0; grow < currItem->meshGradientPatches.count(); grow++)
+					{
+						meshGradientPatch patch = currItem->meshGradientPatches[grow];
+						if (currItem->meshGradientPatches[grow].TL.transparency != 1.0)
+							itemError.insert(Transparency, 0);
+						if (currItem->meshGradientPatches[grow].TR.transparency != 1.0)
+							itemError.insert(Transparency, 0);
+						if (currItem->meshGradientPatches[grow].BR.transparency != 1.0)
+							itemError.insert(Transparency, 0);
+						if (currItem->meshGradientPatches[grow].BL.transparency != 1.0)
+							itemError.insert(Transparency, 0);
 					}
 				}
 				else

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QPushButton>
 #include "scribusdoc.h"
-#include "page.h"
+#include "scpage.h"
 #include "units.h"
 #include "scrspinbox.h"
 #include "pagesize.h"

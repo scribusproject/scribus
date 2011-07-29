@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "ui/guidemanager.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
@@ -113,6 +113,7 @@ PageItem::PageItem(const PageItem & other)
 	GrCol2Shade(other.GrCol2Shade),
 	GrCol3Shade(other.GrCol3Shade),
 	GrCol4Shade(other.GrCol4Shade),
+	meshGradientPatches(other.meshGradientPatches),
 	meshGradientArray(other.meshGradientArray),
 	selectedMeshPointX(other.selectedMeshPointX),
 	selectedMeshPointY(other.selectedMeshPointY),
@@ -414,6 +415,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrCol2Shade = 100;
 	GrCol3Shade = 100;
 	GrCol4Shade = 100;
+	meshGradientPatches.clear();
 	meshGradientArray.clear();
 	selectedMeshPointX = -1;
 	selectedMeshPointY = -1;
@@ -1163,7 +1165,7 @@ void PageItem::link(PageItem* nxt)
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >(UndoManager::LinkTextFrame);
+		ScItemState<std::pair<PageItem*, PageItem*> > *is = new ScItemState<std::pair<PageItem*, PageItem*> >(UndoManager::LinkTextFrame);
 		is->set("LINK_TEXT_FRAME", "linkTextFrame");
 		is->setItem(std::pair<PageItem*, PageItem*>(this, NextBox));
 		undoManager->action(this, is);
@@ -1214,7 +1216,7 @@ void PageItem::unlink()
 		NextBox = NULL;
 		if (UndoManager::undoEnabled())
 		{
-			ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >(UndoManager::UnlinkTextFrame);
+			ScItemState<std::pair<PageItem*, PageItem*> > *is = new ScItemState<std::pair<PageItem*, PageItem*> >(UndoManager::UnlinkTextFrame);
 			is->set("UNLINK_TEXT_FRAME", "unlinkTextFrame");
 			is->setItem(std::pair<PageItem*, PageItem*>(this, undoNextBox));
 			undoManager->action(this, is);
@@ -1486,6 +1488,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 								case 11:
 									p->setFillMode(ScPainter::Gradient);
 									p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientArray);
+									break;
+								case 12:
+									p->setFillMode(ScPainter::Gradient);
+									p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientPatches);
 									break;
 							}
 						}
@@ -4016,7 +4022,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!OnMasterPage.isEmpty());
-	Page *oldCurrentPage = m_Doc->currentPage();
+	ScPage *oldCurrentPage = m_Doc->currentPage();
 	if (!OnMasterPage.isEmpty())
 	{
 		oldCurrentPage = m_Doc->currentPage();
@@ -4469,7 +4475,7 @@ void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
 	}
 	else
 	{
-		ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(state);
+		ScItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(state);
 		asTextFrame()->link(is->getItem().second->asTextFrame());
 	}
 }
@@ -4480,7 +4486,7 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 		return;
 	if (isUndo)
 	{
-		ItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(state);
+		ScItemState<std::pair<PageItem*, PageItem*> > *is = dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(state);
 		asTextFrame()->link(is->getItem().second->asTextFrame());
 	}
 	else
@@ -4522,7 +4528,7 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 
 void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 {
-	ItemState<FPointArray> *is = dynamic_cast<ItemState<FPointArray>*>(state);
+	ScItemState<FPointArray> *is = dynamic_cast<ScItemState<FPointArray>*>(state);
 	if (is)
 	{
 		if (isUndo)
@@ -4540,7 +4546,7 @@ void PageItem::restoreShapeType(SimpleState *state, bool isUndo)
 	// OLD_FRAME_TYPE - original frame type
 	// NEW_FRAME_TYPE - change of frame type
 	// binary QPair<FPointArray, FPointArray> - .first original shape, .second new shape
-	ItemState<QPair<FPointArray,FPointArray> > *is = dynamic_cast<ItemState<QPair<FPointArray,FPointArray> >*>(state);
+	ScItemState<QPair<FPointArray,FPointArray> > *is = dynamic_cast<ScItemState<QPair<FPointArray,FPointArray> >*>(state);
 	if (is)
 	{
 		if (isUndo)
@@ -4582,8 +4588,8 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 
 void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 {
-	ItemState<QPair<FPointArray,FPointArray> > *istate =
-			dynamic_cast<ItemState<QPair<FPointArray,FPointArray> >*>(state);
+	ScItemState<QPair<FPointArray,FPointArray> > *istate =
+			dynamic_cast<ScItemState<QPair<FPointArray,FPointArray> >*>(state);
 	if (istate)
 	{
 		FPointArray oldClip = istate->getItem().first;
@@ -4621,8 +4627,8 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 
 void PageItem::restoreImageEffects(UndoState *state, bool isUndo)
 {
-	ItemState<QPair<ScImageEffectList, ScImageEffectList> > *istate =
-	dynamic_cast<ItemState<QPair<ScImageEffectList,ScImageEffectList> >*>(state);
+	ScItemState<QPair<ScImageEffectList, ScImageEffectList> > *istate =
+	dynamic_cast<ScItemState<QPair<ScImageEffectList,ScImageEffectList> >*>(state);
 	if (istate)
 	{
 		if (isUndo)
@@ -4781,7 +4787,21 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 				meshGradientArray[grow][gcol].colorName = *it;
 		}
 	}
-
+	for (int col = 0; col < meshGradientPatches.count(); col++)
+	{
+		it = newNames.colors().find(meshGradientPatches[col].TL.colorName);
+		if (it != newNames.colors().end())
+			meshGradientPatches[col].TL.colorName = *it;
+		it = newNames.colors().find(meshGradientPatches[col].TR.colorName);
+		if (it != newNames.colors().end())
+			meshGradientPatches[col].TR.colorName = *it;
+		it = newNames.colors().find(meshGradientPatches[col].BL.colorName);
+		if (it != newNames.colors().end())
+			meshGradientPatches[col].BL.colorName = *it;
+		it = newNames.colors().find(meshGradientPatches[col].BR.colorName);
+		if (it != newNames.colors().end())
+			meshGradientPatches[col].BR.colorName = *it;
+	}
 	cstops = stroke_gradient.colorStops();
 	for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
 	{
@@ -4992,6 +5012,16 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			{
 				lists.collectColor(meshGradientArray[grow][gcol].colorName);
 			}
+		}
+	}
+	else if (GrType == 12)
+	{
+		for (int col = 0; col < meshGradientPatches.count(); col++)
+		{
+			lists.collectColor(meshGradientPatches[col].TL.colorName);
+			lists.collectColor(meshGradientPatches[col].TR.colorName);
+			lists.collectColor(meshGradientPatches[col].BL.colorName);
+			lists.collectColor(meshGradientPatches[col].BR.colorName);
 		}
 	}
 	if (GrTypeStroke == 0)
@@ -6493,6 +6523,13 @@ void PageItem::updateClip()
 						meshGradientArray[grow][gcol].transform(ma);
 					}
 				}
+				for (int col = 0; col < meshGradientPatches.count(); col++)
+				{
+					meshGradientPatches[col].TL.transform(ma);
+					meshGradientPatches[col].TR.transform(ma);
+					meshGradientPatches[col].BL.transform(ma);
+					meshGradientPatches[col].BR.transform(ma);
+				}
 				GrStartX = gr.point(0).x();
 				GrStartY = gr.point(0).y();
 				GrEndX = gr.point(1).x();
@@ -6586,6 +6623,13 @@ void PageItem::updateClip()
 				{
 					meshGradientArray[grow][gcol].transform(ma);
 				}
+			}
+			for (int col = 0; col < meshGradientPatches.count(); col++)
+			{
+				meshGradientPatches[col].TL.transform(ma);
+				meshGradientPatches[col].TR.transform(ma);
+				meshGradientPatches[col].BL.transform(ma);
+				meshGradientPatches[col].BR.transform(ma);
 			}
 			GrStartX = gr.point(0).x();
 			GrStartY = gr.point(0).y();

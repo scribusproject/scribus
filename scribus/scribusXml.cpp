@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_latexframe.h"
 #ifdef HAVE_OSG

@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusdoc.h"
 #include "fontcombo.h"
-#include "page.h"
+#include "scpage.h"
 #include "prefsmanager.h"
 #include "util_icon.h"
 #include "util.h"

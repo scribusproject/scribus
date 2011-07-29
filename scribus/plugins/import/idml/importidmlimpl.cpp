@@ -803,7 +803,7 @@ void ImportIdmlImpl::addPage(ScribusDoc *doc, QDomNode node)
 	pageNumber = pageNumber+1;
 	QDomElement elem = node.toElement();
 	QString appliedMaster;
-	Page* newPage;
+	ScPage* newPage;
 	if(!elem.isNull())
 	{
 		appliedMaster = elem.attribute("AppliedMaster","");

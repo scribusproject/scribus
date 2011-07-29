@@ -180,7 +180,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QList<PageItem*> TableItemsF;
 	int a;
 	PageItem *Neu;
-	Page* Apage;
+	ScPage* Apage;
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -1939,7 +1939,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
-	Page* Apage = NULL;
+	ScPage* Apage = NULL;
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;

@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -191,7 +191,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	Options = Opts;
 	QFileInfo fiBase(fName);
 	baseDir = fiBase.absolutePath();
-	Page *page;
+	ScPage *page;
 	GradCount = 0;
 	ClipCount = 0;
 	PattCount = 0;
@@ -274,12 +274,12 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	return true;
 }
 
-void SVGExPlug::ProcessPageLayer(Page *page, ScLayer& layer)
+void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 {
 	QDomElement layerGroup;
 	PageItem *Item;
 	QList<PageItem*> Items;
-	Page* SavedAct = m_Doc->currentPage();
+	ScPage* SavedAct = m_Doc->currentPage();
 	if (page->pageName().isEmpty())
 		Items = m_Doc->DocItems;
 	else

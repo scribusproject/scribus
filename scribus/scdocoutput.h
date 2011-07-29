@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "page.h"
+#include "scpage.h"
 #include "scpainterexbase.h"
 #include "scpageoutput.h"
 

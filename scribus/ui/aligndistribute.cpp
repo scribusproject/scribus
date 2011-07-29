@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVariant>
 
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "ui/scmessagebox.h"
 #include "scribusdoc.h"
 #include "ui/scrspinbox.h"

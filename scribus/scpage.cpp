@@ -26,16 +26,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui/guidemanager.h"
 #include "ui/nodeeditpalette.h"
-#include "page.h"
+#include "scpage.h"
 #include "scribus.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util_icon.h"
 
-Page::Page(const double x, const double y, const double b, const double h) :
+ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	UndoObject(QObject::tr("Page")),
-	SingleObservable<Page>(NULL),
+	SingleObservable<ScPage>(NULL),
 	Margins(40,40,40,40),
 	initialMargins(40,40,40,40),
 	LeftPg(0),
@@ -55,7 +55,7 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	marginPreset = 0;
 }
 
-Page::~Page()
+ScPage::~ScPage()
 {
 	// Clean up any modified template items (unused)
 //	for (PageItem *currItem = FromMaster.first(); currItem; currItem = FromMaster.next())
@@ -69,13 +69,13 @@ Page::~Page()
 	FromMaster.clear();
 }
 
-void Page::setDocument(ScribusDoc *doc)
+void ScPage::setDocument(ScribusDoc *doc)
 {
 	m_Doc=doc;
 	setMassObservable(doc? doc->pagesChanged() : NULL);
 }
 
-void Page::setPageNr(int pageNr)
+void ScPage::setPageNr(int pageNr)
 {
 	m_pageNr = pageNr;
 	if (m_PageName.isEmpty())
@@ -84,14 +84,14 @@ void Page::setPageNr(int pageNr)
 		setUName(m_PageName);
 }
 
-void Page::setPageName(const QString& newName)
+void ScPage::setPageName(const QString& newName)
 {
 	m_PageName = newName;
 	if (!newName.isEmpty())
 		setUName(QObject::tr("Master Page ") + newName);
 }
 
-void Page::restore(UndoState* state, bool isUndo)
+void ScPage::restore(UndoState* state, bool isUndo)
 {
 	SimpleState* ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
@@ -199,15 +199,15 @@ void Page::restore(UndoState* state, bool isUndo)
 			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("CREATE_ITEM"))
-			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
+			restorePageItemCreation(dynamic_cast<ScItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
-			restorePageItemDeletion(dynamic_cast<ItemState< QList<PageItem*> >*>(ss), isUndo);
+			restorePageItemDeletion(dynamic_cast<ScItemState< QList<PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM"))
-			restorePageItemConversion(dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
+			restorePageItemConversion(dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
 	}
 }
 
-void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
+void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
@@ -248,7 +248,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	m_Doc->m_Selection->delaySignalsOff();
 }
 
-void Page::restorePageItemDeletion(ItemState< QList<PageItem*> > *state, bool isUndo)
+void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, bool isUndo)
 {
 	if (!state)
 		return;
@@ -292,7 +292,7 @@ void Page::restorePageItemDeletion(ItemState< QList<PageItem*> > *state, bool is
 	m_Doc->setMasterPageMode(oldMPMode);
 }
 
-void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)
+void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)
 {
 	if (!state)
 		return;
@@ -314,47 +314,47 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	m_Doc->setMasterPageMode(oldMPMode);
 }
 
-void Page::setXOffset(const double newCanvasXOffset)
+void ScPage::setXOffset(const double newCanvasXOffset)
 {
 	m_xOffset = newCanvasXOffset;
 }
 
-void Page::setYOffset(const double newCanvasYOffset)
+void ScPage::setYOffset(const double newCanvasYOffset)
 {
 	m_yOffset = newCanvasYOffset;
 }
 
-void Page::setWidth(const double newWidth)
+void ScPage::setWidth(const double newWidth)
 {
 	m_width = newWidth;
 }
 
-void Page::setHeight(const double newHeight)
+void ScPage::setHeight(const double newHeight)
 {
 	m_height = newHeight;
 }
 
-void Page::setInitialWidth(const double newInitialWidth)
+void ScPage::setInitialWidth(const double newInitialWidth)
 {
 	m_initialWidth = newInitialWidth;
 }
 
-void Page::setInitialHeight(const double newInitialHeight)
+void ScPage::setInitialHeight(const double newInitialHeight)
 {
 	m_initialHeight = newInitialHeight;
 }
 
-void Page::setOrientation(int ori)
+void ScPage::setOrientation(int ori)
 {
 	m_orientation = ori;
 }
 
-void Page::setPageSectionNumber(const QString& newPageSectionNumber)
+void ScPage::setPageSectionNumber(const QString& newPageSectionNumber)
 {
 	m_pageSectionNumber=newPageSectionNumber;
 }
 
-void Page::copySizingProperties(Page* sourcePage, const MarginStruct& pageMargins)
+void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMargins)
 {
 	if (sourcePage==NULL)
 		return;

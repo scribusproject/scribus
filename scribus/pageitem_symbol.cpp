@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_symbol.h"
 #include "prefsmanager.h"
@@ -90,7 +90,9 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					p->setMaskMode(0);
 				else
 				{
-					p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX + xPos(), patternMaskOffsetY + yPos(), patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+					double scw = Width / groupWidth;
+					double sch = Height / groupHeight;
+					p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
 					if (maskType() == 3)
 						p->setMaskMode(2);
 					else

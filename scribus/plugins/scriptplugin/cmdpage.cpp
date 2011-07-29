@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdpage.h"
 #include "cmdutil.h"
-#include "page.h"
+#include "scpage.h"
 #include "scribuscore.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"

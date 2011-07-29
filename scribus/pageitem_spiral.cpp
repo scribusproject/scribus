@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_spiral.h"
 #include "prefsmanager.h"

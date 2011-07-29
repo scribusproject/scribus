@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "pagelayout.h"
 #include "pagepalette.h"
 #include "sccombobox.h"

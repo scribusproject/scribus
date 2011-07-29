@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
-#include "page.h"
+#include "scpage.h"
 
 using namespace std;
 

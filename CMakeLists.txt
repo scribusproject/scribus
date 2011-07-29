@@ -660,6 +660,10 @@ ENDIF(LIBXML2_FOUND)
 
 #<<LittleCMS
 SET(LCMS_DIR ${CMAKE_MODULE_PATH})
+  FIND_PACKAGE(LCMS)
+  IF(LCMS_FOUND)
+    SET(HAVE_LCMS1 1)
+  ENDIF(LCMS_FOUND)
 FIND_PACKAGE(LCMS2)
 IF(LCMS2_FOUND)
   SET(HAVE_LCMS2 1)
@@ -670,6 +674,7 @@ ELSE(LCMS2_FOUND)
   FIND_PACKAGE(LCMS REQUIRED)
   IF(LCMS_FOUND)
     SET(HAVE_CMS 1)
+    SET(HAVE_LCMS1 1)
     SET(CMS_INC "\"lcms.h\"")
     MESSAGE("LittleCMS Library Found OK")
   ELSE(LCMS_FOUND)
@@ -746,6 +751,23 @@ ELSE (WANT_GRAPHICSMAGICK)
 ENDIF (WANT_GRAPHICSMAGICK)
 #>>GraphicksMagick for image import
 
+#<<Poppler for PDF import
+FIND_PACKAGE(POPPLER)
+IF (POPPLER_FOUND)
+	IF (FREETYPE_FOUND)
+		SET( HAVE_POPPLER 1 )
+		MESSAGE(STATUS "Found poppler")
+		MESSAGE(STATUS "Found poppler libs: ${POPPLER_LIBRARY}")
+		MESSAGE(STATUS "Found poppler includes: ${POPPLER_INCLUDE_DIR}")
+	ELSE (FREETYPE_FOUND)
+		MESSAGE("Poppler NOT found - Disabling support for native PDF import")
+	ENDIF (FREETYPE_FOUND)
+ELSE (POPPLER_FOUND)
+	MESSAGE("Poppler NOT found - Disabling support for native PDF import")
+ENDIF (POPPLER_FOUND)
+#>>Poppler for PDF import
+
+
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
 
@@ -803,6 +825,7 @@ INCLUDE_DIRECTORIES(
   ${OPENGL_INCLUDE_DIR}
   ${OSG_INCLUDE_DIR}
   ${GSL_INCLUDE_DIR}
+  ${POPPLER_INCLUDE_DIR}
 )
 
 ##############################################################################################################

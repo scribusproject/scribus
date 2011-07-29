@@ -22,7 +22,7 @@ class QEvent;
 class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
-class Page;
+class ScPage;
 
 class SCRIBUS_API OutlineTreeItem : public QTreeWidgetItem
 {
@@ -31,7 +31,7 @@ public:
 	OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after);
 	~OutlineTreeItem() {};
 	PageItem *PageItemObject;
-	Page *PageObject;
+	ScPage *PageObject;
 	int type;
 };
 

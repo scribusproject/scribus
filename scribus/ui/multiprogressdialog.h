@@ -94,6 +94,12 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 */
 		bool setLabel(const QString &barName, const QString & newLabel);
 		/**
+		 * Sets a user defined progress bar to a busy bar
+		 * @param barName
+		 * @return Success
+		 */
+		bool setBusyIndicator(const QString &barName);
+		/**
 		 * Set the total steps for a user defined progress bar
 		 * @param barName 
 		 * @param totalSteps 

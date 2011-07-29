@@ -23,7 +23,7 @@
 
 #include "canvas.h"
 #include "canvasmode.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
 #include "prefsmanager.h"
@@ -416,7 +416,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	// look for masterpage items first
 	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
 	{
-		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
+		ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
 		// if itemAbove is given, we expect to find it among the masterpage items of this page
 		int currNr = itemAbove? m_doc->currentPage()->FromMaster.indexOf(itemAbove)-1 : m_doc->currentPage()->FromMaster.count()-1;
 		if (currNr < 0)
@@ -1305,7 +1305,7 @@ void Canvas::drawControlsFreehandLine(QPainter* pp)
 /**
   draws masterpage items of a specific layer
  */
-void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRect clip)
+void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, QRect clip)
 {
 	if ((m_viewMode.previewMode) && (!layer.isPrintable))
 		return;
@@ -1323,7 +1323,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, ScLayer& layer, QRe
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
-	Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
+	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
 	uint layerCount = m_doc->layerCount();
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
@@ -1622,7 +1622,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		painter->setAntialiasing(false);
 //		painter->beginLayer(1.0, 0);
 		painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		Page *actPg;
+		ScPage *actPg;
 		MarginStruct pageBleeds;
 		for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 		{
@@ -1663,7 +1663,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		painter->setAntialiasing(true);
 	}
 	painter->setFillMode(ScPainter::Solid);
-	Page *actPg;
+	ScPage *actPg;
 	MarginStruct pageBleeds;
 	for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 	{
@@ -1721,7 +1721,7 @@ void Canvas::getClipPathForPages(FPointArray* PoLine)
 	PoLine->resize(0);
 	uint docPagesCount=m_doc->Pages->count();
 	bool first = true;
-	Page *actPg;
+	ScPage *actPg;
 	for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 	{
 		if (!first)
@@ -1747,7 +1747,7 @@ void Canvas::getClipPathForPages(FPointArray* PoLine)
 void Canvas::drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
 	uint docPagesCount=m_doc->Pages->count();
-	Page *actPg;
+	ScPage *actPg;
 	for (uint a = 0; a < docPagesCount; ++a)
 	{
 		actPg = m_doc->Pages->at(a);
@@ -1766,7 +1766,7 @@ void Canvas::drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int
 /**
   draws guides, margins, grid and baseline grid
  */
-void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
+void Canvas::DrawPageMarks(ScPainter *p, ScPage *page, QRect clip)
 {
 	p->save();
 	p->setAntialiasing(false);

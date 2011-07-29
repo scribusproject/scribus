@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QListView>
 
-#include "page.h"
+#include "scpage.h"
 #include "util.h"
 
 ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)

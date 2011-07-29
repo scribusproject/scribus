@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_tableofcontents.h"
 #include "pagestructs.h"
 #include "prefsstructs.h"
-#include "page.h"
+#include "scpage.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
 #include "util.h"

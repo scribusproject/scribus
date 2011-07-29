@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 #include "guidemanagercore.h"
 #include "scpainter.h"
-#include "page.h"
+#include "scpage.h"
 #include "fpoint.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -38,7 +38,7 @@ GuideManagerCore::GuideManagerCore():
 	horizontalAutoG.clear();
 }
 
-GuideManagerCore::GuideManagerCore(Page *parentPage):
+GuideManagerCore::GuideManagerCore(ScPage *parentPage):
 	undoManager(UndoManager::instance()),
 	m_page(parentPage),
 	m_horizontalAutoGap(0.0),
@@ -58,7 +58,7 @@ GuideManagerCore::~GuideManagerCore()
 {
 }
 
-void GuideManagerCore::setPage(Page *p)
+void GuideManagerCore::setPage(ScPage *p)
 {
 	m_page = p;
 }
@@ -236,7 +236,7 @@ double GuideManagerCore::vertical(uint ix, GuideType type)
 	return -1.0; // just for compiler warning
 }
 
-Guides GuideManagerCore::getAutoHorizontals(Page* page)
+Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 {
 	Guides guides;
 	double rowSize;
@@ -286,7 +286,7 @@ Guides GuideManagerCore::getAutoHorizontals(Page* page)
 	return guides;
 }
 
-Guides GuideManagerCore::getAutoVerticals(Page* page)
+Guides GuideManagerCore::getAutoVerticals(ScPage* page)
 {
 	Guides guides;
 	double columnSize;
@@ -690,7 +690,7 @@ double GuideManagerCore::closestVertRight(double x)// const
 }
 
 
-void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
+void GuideManagerIO::readVerticalGuides(const QString guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
 	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
@@ -699,7 +699,7 @@ void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, G
 			page->guides.addVertical(ScCLocale::toDoubleC((*it)), type);
 }
 
-void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
+void GuideManagerIO::readHorizontalGuides(const QString guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
 	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
@@ -708,7 +708,7 @@ void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page,
 			page->guides.addHorizontal(ScCLocale::toDoubleC((*it)), type);
 }
 
-QString GuideManagerIO::writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type)
+QString GuideManagerIO::writeHorizontalGuides(ScPage *page, GuideManagerCore::GuideType type)
 {
 	Guides::iterator it;
 	QString retval;
@@ -722,7 +722,7 @@ QString GuideManagerIO::writeHorizontalGuides(Page *page, GuideManagerCore::Guid
 	return retval;
 }
 
-QString GuideManagerIO::writeVerticalGuides(Page *page, GuideManagerCore::GuideType type)
+QString GuideManagerIO::writeVerticalGuides(ScPage *page, GuideManagerCore::GuideType type)
 {
 	Guides::iterator it;
 	QString retval;
@@ -736,12 +736,12 @@ QString GuideManagerIO::writeVerticalGuides(Page *page, GuideManagerCore::GuideT
 	return retval;
 }
 
-QString GuideManagerIO::writeSelection(Page *page)
+QString GuideManagerIO::writeSelection(ScPage *page)
 {
 	return QString("%1 %2 %3 %4").arg(page->guides.gx).arg(page->guides.gy).arg(page->guides.gw).arg(page->guides.gh);
 }
 
-void GuideManagerIO::readSelection(const QString guideString, Page *page)
+void GuideManagerIO::readSelection(const QString guideString, ScPage *page)
 {
 	// TODO: examine this check in 134vs.134qt4 - PV
 	if (guideString.isNull() || guideString.isEmpty())

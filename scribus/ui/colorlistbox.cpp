@@ -446,7 +446,9 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 
 bool ColorListBox::viewportEvent(QEvent *event)
 {
-	/* commented out because of random crashes in the colorcombobox of the gradient editor
+	if (event != NULL)
+	{
+	/* commented out because of random crashes in the colorcombobox of the gradient editor */
 	if (event->type() == QEvent::ToolTip)
 	{
 		if (cList != NULL)
@@ -478,7 +480,7 @@ bool ColorListBox::viewportEvent(QEvent *event)
 			}
 		}
 	}
-	else */
+	else
 	if (event->type() == QEvent::MouseButtonPress)
 	{
 		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
@@ -493,6 +495,7 @@ bool ColorListBox::viewportEvent(QEvent *event)
 			emit showContextMenue();
 			return true;
 		}
+	}
 	}
 	return QListWidget::viewportEvent(event);
 }

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
-#include "page.h"
+#include "scpage.h"
 #include "colorcombo.h"
 #include "prefsmanager.h"
 

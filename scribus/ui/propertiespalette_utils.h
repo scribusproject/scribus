@@ -33,7 +33,7 @@ class QWidget;
 #include "scribusapi.h"
 #include "scrspinbox.h"
 #include "pageitem.h"
-#include "page.h"
+#include "scpage.h"
 #include "linkbutton.h"
 #include "linecombo.h"
 #include "sclistboxpixmap.h"

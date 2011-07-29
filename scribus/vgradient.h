@@ -86,7 +86,8 @@ public:
 	    radial = 1,
 	    fourcolor  = 2,
 	    diamond = 3,
-	    mesh = 4
+		mesh = 4,
+		freemesh = 5
 	};
 
 	enum VGradientRepeatMethod

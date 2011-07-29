@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "scimage.h"
 #include "scpageoutput_ps2.h"
@@ -49,7 +49,7 @@ void ScPageOutput_Ps2::begin(void)
 	}
 }
 
-void ScPageOutput_Ps2::drawPage(Page* page)
+void ScPageOutput_Ps2::drawPage(ScPage* page)
 {
 	// Get page position
 	int clipx = static_cast<int>(page->xOffset());

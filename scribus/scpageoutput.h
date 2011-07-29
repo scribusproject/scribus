@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 class CharStyle;
 struct GlyphLayout;
-class Page;
+class ScPage;
 class PageItem;
 class PageItem_ImageFrame;
 class PageItem_Line;
@@ -59,8 +59,8 @@ protected:
 	virtual void fillPath( PageItem* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void strokePath( PageItem* item, ScPainterExBase* painter, const QRect& clip );
 
-	virtual void drawMasterItems( ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip);
-	virtual void drawPageItems( ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip);
+	virtual void drawMasterItems( ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip);
+	virtual void drawPageItems( ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip);
 
 	virtual void drawItem( PageItem* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Pre( PageItem* item, ScPainterExBase* painter );
@@ -78,7 +78,7 @@ protected:
 	virtual void drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip );
 
 	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex);
-	virtual void drawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options );
+	virtual void drawMarks( ScPage* page, ScPainterExBase* painter, const MarksOptions& options );
 	virtual void drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset );
 	virtual void drawRegistrationCross( ScPainterExBase* painter );
 
@@ -90,8 +90,8 @@ public:
 	ScPageOutput(ScribusDoc* doc, bool reloadImages = false, int resolution = 72, bool useProfiles = false);
 
 	virtual void begin(void) {};
-	virtual void drawPage( Page* page ) {};
-	virtual void drawPage( Page* page, ScPainterExBase* painter);
+	virtual void drawPage( ScPage* page ) {};
+	virtual void drawPage( ScPage* page, ScPainterExBase* painter);
 	virtual void end(void) {};
 
 	void setMarksOptions(const MarksOptions& opt) { m_marksOptions = opt; }

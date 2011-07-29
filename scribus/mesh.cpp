@@ -62,3 +62,12 @@ void meshPoint::transform(QTransform t)
 	controlLeft = gr.point(3);
 	controlRight = gr.point(4);
 }
+
+void meshPoint::resetTo(FPoint p)
+{
+	gridPoint = p;
+	controlLeft = gridPoint;
+	controlRight = gridPoint;
+	controlTop = gridPoint;
+	controlBottom = gridPoint;
+}

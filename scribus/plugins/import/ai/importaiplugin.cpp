@@ -9,10 +9,11 @@ for which a new license (GPL+exception) is in place.
 #include "importai.h"
 #include "importaiplugin.h"
 #include "ui/scmwmenumanager.h"
-#include "page.h"
+#include "scpage.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scconfig.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "undomanager.h"
@@ -151,6 +152,52 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+#ifdef HAVE_POPPLER
+	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+	{
+/* Check if the file is an old style AI or one of the newer PDF wrapped ones */
+		QFile fT(fileName);
+		if (fT.open(QIODevice::ReadOnly))
+		{
+			QByteArray tempBuf(9, ' ');
+			fT.read(tempBuf.data(), 8);
+			fT.close();
+			if (tempBuf.startsWith("%PDF"))
+			{
+				QMessageBox msgBox(ScCore->primaryMainWindow());
+				msgBox.setText( tr("This file contains 2 versions of the data."));
+				msgBox.setInformativeText( tr("Choose which one should be imported"));
+				msgBox.setIcon(QMessageBox::Question);
+				QPushButton *pdfButton = msgBox.addButton( tr("Use the pdf part"), QMessageBox::ActionRole);
+				msgBox.addButton( tr("Use the ai part"), QMessageBox::ActionRole);
+				msgBox.setDefaultButton(pdfButton);
+				msgBox.exec();
+				if ((QPushButton *)msgBox.clickedButton() == pdfButton)
+				{
+					//Import PDF
+					const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_PDFIMPORT);
+					if (!fmt)
+					{
+						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The PDF Import plugin could not be found"), 1, 0, 0);
+						return false;
+					}
+					bool success = fmt->loadFile(fileName, flags);
+					if (activeTransaction)
+					{
+						activeTransaction->commit();
+						delete activeTransaction;
+						activeTransaction = NULL;
+					}
+					if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
+						UndoManager::instance()->setUndoEnabled(true);
+					if (!success)
+						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+					return success;
+				}
+			}
+		}
+	}
+#endif
 	AIPlug *dia = new AIPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	bool success = dia->import(fileName, trSettings, flags);

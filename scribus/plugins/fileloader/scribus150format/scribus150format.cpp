@@ -2522,7 +2522,7 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 		return true;
 	}
 	m_Doc->setMasterPageMode(!pageName.isEmpty());
-	Page* newPage = pageName.isEmpty() ? doc->addPage(pageNum) : doc->addMasterPage(pageNum, pageName);
+	ScPage* newPage = pageName.isEmpty() ? doc->addPage(pageNum) : doc->addMasterPage(pageNum, pageName);
 
 	newPage->LeftPg   = attrs.valueAsInt("LEFT", 0);
 	QString mpName    = attrs.valueAsString("MNAM", "Normal");
@@ -2690,6 +2690,34 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			newItem->meshGradientArray[mGArrayRows][mGArrayCols] = mp;
 			mGArrayCols++;
 			if (mGArrayCols == newItem->meshGradientArray[mGArrayRows].count())
+			{
+				mGArrayCols = 0;
+				mGArrayRows++;
+			}
+		}
+		if (tName == "PMPoint")
+		{
+			meshPoint mp;
+			mp.colorName     = tAtt.valueAsString("NAME");
+			mp.shade         = tAtt.valueAsInt("SHADE", 100);
+			mp.transparency  = tAtt.valueAsDouble("TRANS", 1.0);
+			mp.gridPoint     = FPoint(tAtt.valueAsDouble("GX", 0.0), tAtt.valueAsDouble("GY", 0.0));
+			mp.controlTop    = FPoint(tAtt.valueAsDouble("CTX", 0.0), tAtt.valueAsDouble("CTY", 0.0));
+			mp.controlBottom = FPoint(tAtt.valueAsDouble("CBX", 0.0), tAtt.valueAsDouble("CBY", 0.0));
+			mp.controlLeft   = FPoint(tAtt.valueAsDouble("CLX", 0.0), tAtt.valueAsDouble("CLY", 0.0));
+			mp.controlRight  = FPoint(tAtt.valueAsDouble("CRX", 0.0), tAtt.valueAsDouble("CRY", 0.0));
+			mp.color         = SetColor(doc, mp.colorName, mp.shade);
+			mp.color.setAlphaF(mp.transparency);
+			if (mGArrayCols == 0)
+				newItem->meshGradientPatches[mGArrayRows].TL = mp;
+			else if (mGArrayCols == 1)
+				newItem->meshGradientPatches[mGArrayRows].TR = mp;
+			else if (mGArrayCols == 2)
+				newItem->meshGradientPatches[mGArrayRows].BR = mp;
+			else if (mGArrayCols == 3)
+				newItem->meshGradientPatches[mGArrayRows].BL = mp;
+			mGArrayCols++;
+			if (mGArrayCols == 4)
 			{
 				mGArrayCols = 0;
 				mGArrayRows++;
@@ -3786,6 +3814,16 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->meshGradientArray.append(ml);
 			}
 		}
+		else if (currItem->GrType == 12)
+		{
+			currItem->meshGradientPatches.clear();
+			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
+			for (int mgr = 0; mgr < mGArrayRows; mgr++)
+			{
+				meshGradientPatch patchM;
+				currItem->meshGradientPatches.append(patchM);
+			}
+		}
 		else
 		{
 			currItem->GrStartX = attrs.valueAsDouble("GRSTARTX", 0.0);
@@ -3974,7 +4012,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
-	Page* newPage = NULL;
+	ScPage* newPage = NULL;
 	
 	QString tmp;
 	QMap<int,int> TableID;

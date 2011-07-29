@@ -107,6 +107,17 @@ bool MultiProgressDialog::setLabel(const QString &barName, const QString & newLa
 	return false;
 }
 
+bool MultiProgressDialog::setBusyIndicator(const QString &barName)
+{
+	if (progressBars.contains(barName))
+	{
+		progressBars[barName]->setMaximum(0);
+		progressBars[barName]->setMinimum(0);
+		return true;
+	}
+	return false;
+}
+
 bool MultiProgressDialog::setTotalSteps(const QString &barName, int totalSteps)
 {
 	if (progressBars.contains(barName))

@@ -1283,7 +1283,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 		}
 	}
-	const Page* page = doc->Pages->at(Seite);
+	const ScPage* page = doc->Pages->at(Seite);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
 		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
 	if (AliasTr->isChecked())

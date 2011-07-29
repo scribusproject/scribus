@@ -37,6 +37,7 @@ public:
 	void moveRel(double dx, double dy);
 	void moveAbs(double x, double y);
 	void transform(QTransform t);
+	void resetTo(FPoint p);
 	FPoint gridPoint;
 	FPoint controlTop;
 	FPoint controlBottom;
@@ -46,6 +47,14 @@ public:
 	int    shade;
 	QString colorName;
 	QColor  color;
+};
+
+struct meshGradientPatch
+{
+	meshPoint TL;
+	meshPoint TR;
+	meshPoint BL;
+	meshPoint BR;
 };
 
 #endif

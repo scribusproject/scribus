@@ -401,6 +401,7 @@ public:
 	int GrCol2Shade;
 	int GrCol3Shade;
 	int GrCol4Shade;
+	QList<meshGradientPatch> meshGradientPatches;
 	QList<QList<meshPoint> > meshGradientArray;
 	int selectedMeshPointX;
 	int selectedMeshPointY;

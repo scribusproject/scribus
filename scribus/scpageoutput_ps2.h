@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainterex_ps2.h"
 
 class ScribusDoc;
-class Page;
+class ScPage;
 class QIODevice;
 
 class SCRIBUS_API ScPageOutput_Ps2 : public ScPageOutput
@@ -38,7 +38,7 @@ public:
 	virtual ~ScPageOutput_Ps2();
 
 	virtual void begin(void);
-	virtual void drawPage(Page* page);
+	virtual void drawPage(ScPage* page);
 	virtual void end(void);
 
 	const QRect clip(void);

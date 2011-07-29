@@ -44,7 +44,6 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "ui/guidemanager.h"
 #include "hyphenator.h"
-#include "page.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
@@ -73,6 +72,7 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "scpainter.h"
 #include "sclimits.h"
+#include "scpage.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -87,7 +87,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/storyeditor.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
-#include "undostate.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
@@ -102,7 +101,7 @@ for which a new license (GPL+exception) is in place.
  This class forwards change events for pages and pageitems to 
  the region occupied by this page or pageitem.
  */
-class DocUpdater : public Observer<Page*>, public Observer<PageItem*> 
+class DocUpdater : public Observer<ScPage*>, public Observer<PageItem*>
 {
 	ScribusDoc* doc;
 	int  m_updateEnabled;
@@ -135,7 +134,7 @@ public:
 		}
 	}
 	
-	void changed(Page* pg, bool /*doLayout*/)
+	void changed(ScPage* pg, bool /*doLayout*/)
 	{
 		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
 		doc->invalidateRegion(pagebox);
@@ -1840,10 +1839,10 @@ void ScribusDoc::addSymbols()
 }
 
 
-Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
+ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	assert(masterPageMode()==false);
-	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
+	ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = docPrefsData.docSetupPrefs.margins.Top;
@@ -1871,11 +1870,11 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 }
 
 
-Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
+ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 {
 	//CB We dont create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
-	Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
+	ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins = docPrefsData.docSetupPrefs.margins;
@@ -1907,7 +1906,7 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 		Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
 		MasterPages.at(number)->setPageName(newPageName);
 		//Update any pages that were linking to our old name
-		Page* docPage=NULL;
+		ScPage* docPage=NULL;
 		for (int i=0; i < DocPages.count(); ++i )
 		{
 			docPage=DocPages[i];
@@ -1933,7 +1932,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	assert(masterPageMode());
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	setCurrentPage(Pages->at(0));
-	Page* page = Pages->takeAt(pageNumber);
+	ScPage* page = Pages->takeAt(pageNumber);
 	QString oldPageName(page->pageName());
 	delete page;
 	// remove the master page from the master page name list
@@ -1966,8 +1965,8 @@ void ScribusDoc::replaceMasterPage(const QString& oldMasterPage)
 {
 	uint pageIndex = 0;
 	QMap<QString,int>::Iterator it = MasterNames.begin();
-	QListIterator<Page *> dpIt(DocPages);
-	Page* docPage=NULL;
+	QListIterator<ScPage *> dpIt(DocPages);
+	ScPage* docPage=NULL;
 	while(dpIt.hasNext())
 	//for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
 	{
@@ -2013,7 +2012,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	//#5561: If we are going to delete the first page, do not set the current page to it
 	setCurrentPage(Pages->at(pageNumber!=0?0:1));
-	Page* page = Pages->takeAt(pageNumber);
+	ScPage* page = Pages->takeAt(pageNumber);
 	delete page;
 	changed();
 }
@@ -2021,7 +2020,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 
 void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
 {
-	QList<Page*> Buf;
+	QList<ScPage*> Buf;
 	int zz = ziel;
 	Buf.clear();
 	for (int a = from; a < to; ++a)
@@ -2054,7 +2053,7 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 {
 	if (!automaticTextFrames)
 		return -1;
-	Page *addToPage=DocPages.at(pageNumber);
+	ScPage *addToPage=DocPages.at(pageNumber);
 	if ((!masterPageMode()) && (usesAutomaticTextFrames()))// && (!isLoading()))
 	{
 		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified,
@@ -3727,10 +3726,10 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 // 		mna = CommonStrings::masterPageNormal;
 // 	if (!MasterNames.contains(mna))
 // 		mna = CommonStrings::masterPageNormal;
-	Page* Ap = DocPages.at(pageNumber);
+	ScPage* Ap = DocPages.at(pageNumber);
 	Ap->MPageNam = pageName;
 	const int MpNr = MasterNames[pageName];
-	Page* Mp = MasterPages.at(MpNr);
+	ScPage* Mp = MasterPages.at(MpNr);
 	PageItem *currItem;
 
 // 	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
@@ -4049,12 +4048,12 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	if (masterPageMode())
 		return false;
 	int GrMax = GroupCounter;
-	Page* sourcePage = Pages->at(pageNumber);
+	ScPage* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
-	Page* targetPage=addMasterPage(nr, masterPageName);
+	ScPage* targetPage=addMasterPage(nr, masterPageName);
 	assert(targetPage!=NULL);
 	//Backup currentpage, and dont use sourcepage here as we might convert a non current page
-	Page* oldCurrentPage = currentPage();
+	ScPage* oldCurrentPage = currentPage();
 	//Must set current page for pasteitem to work properly
 	setLoading(true);
 	targetPage->copySizingProperties(sourcePage, sourcePage->Margins);
@@ -4080,7 +4079,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	{
 		if (!sourcePage->MPageNam.isEmpty() && MasterNames.contains(sourcePage->MPageNam))
 		{
-			Page* pageMaster=NULL;
+			ScPage* pageMaster=NULL;
 			for (int i=0; i < MasterPages.count(); ++i )
 			{
 				pageMaster=MasterPages[i];
@@ -4245,7 +4244,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	itemAddDetails(itemType, frameType, newItem->ItemNr);
 	if (UndoManager::undoEnabled())
 	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
+		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setItem(newItem);
 		//Undo target rests with the Page for object specific undo
@@ -4290,7 +4289,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	}
 	else
 		parsePagesString(iafData.pageList, &pageNs, DocPages.count());
-	Page* oldCurrentPage = currentPage();
+	ScPage* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
 	if (iafData.linkToExistingFrame && iafData.linkToExistingFramePtr!=NULL && 
@@ -4302,7 +4301,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 															  Um::InsertFrame, "", Um::ICreate));
 	for (uint i=0;i<pageNs.size();++i)
 	{
-		Page* targetPage=Pages->at(pageNs[i]-1);
+		ScPage* targetPage=Pages->at(pageNs[i]-1);
 		//We need this for the itemAdd, FIXME later
 		setCurrentPage(targetPage);
 		
@@ -4705,7 +4704,7 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	}
 	else
 	{
-		Page* Seite;
+		ScPage* Seite;
 		uint docPageCount=Pages->count();
 		MarginStruct pageBleeds;
 		for (uint a = 0; a < docPageCount; ++a)
@@ -4849,7 +4848,7 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 void  ScribusDoc::fixItemPageOwner()
 {
 	int pageNr;
-	Page* page;
+	ScPage* page;
 	PageItem* currItem;
 	MarginStruct pageBleeds;
 
@@ -4910,7 +4909,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	currentXPos += (docPrefsData.docSetupPrefs.pageWidth+docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
-	Page* Seite;
+	ScPage* Seite;
 	uint docPageCount=Pages->count();
 	for (uint a = 0; a < docPageCount; ++a)
 	{
@@ -5068,12 +5067,12 @@ void ScribusDoc::getBleeds(int pageNumber, MarginStruct &bleedData)
 		qCritical() << "Attempting to get bleeds for non-existant page";
 }
 
-void ScribusDoc::getBleeds(const Page* page, MarginStruct& bleedData)
+void ScribusDoc::getBleeds(const ScPage* page, MarginStruct& bleedData)
 {
 	getBleeds(page, docPrefsData.docSetupPrefs.bleeds, bleedData);
 }
 
-void ScribusDoc::getBleeds(const Page* page, const MarginStruct& baseValues, MarginStruct& bleedData)
+void ScribusDoc::getBleeds(const ScPage* page, const MarginStruct& baseValues, MarginStruct& bleedData)
 {
 	bleedData.Bottom = baseValues.Bottom;
 	bleedData.Top    = baseValues.Top;
@@ -5300,7 +5299,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
 	{
-		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >("Convert Item");
+		ScItemState<std::pair<PageItem*, PageItem*> > *is = new ScItemState<std::pair<PageItem*, PageItem*> >("Convert Item");
 		is->set("CONVERT_ITEM", "convert_item");
 		is->setItem(std::pair<PageItem*, PageItem*>(oldItem, newItem));
 		//Undo target rests with the Page for object specific undo
@@ -5367,7 +5366,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 	{
 		ScPattern pa = docPatterns[symbolName];
 		currentEditedSymbol = symbolName;
-		Page* addedPage = new Page(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pa.width, pa.height);
+		ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pa.width, pa.height);
 		addedPage->setDocument(this);
 		addedPage->Margins.Top = 0;
 		addedPage->Margins.Bottom = 0;
@@ -5399,7 +5398,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 	else
 	{
 		PageItem* currItem = Items->at(0);
-		Page* addedPage = TempPages.at(0);
+		ScPage* addedPage = TempPages.at(0);
 		if (Items->count() > 1)
 		{
 			if ((!currItem->isGroup()) && (Items->count() > 1))
@@ -5688,8 +5687,8 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	//CB Should we really be disabling auto text frames here?
 	bool autoText = usesAutomaticTextFrames();
 	setUsesAutomaticTextFrames(false);
-	Page* from = DocPages.at(pageNumberToCopy);
-	Page* lastDest = NULL;
+	ScPage* from = DocPages.at(pageNumberToCopy);
+	ScPage* lastDest = NULL;
 
 	uint oldItems = Items->count();
 	QList<QString> itemBuffer;
@@ -5735,7 +5734,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			--destLocation;
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
-		Page* destination = new Page(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
+		ScPage* destination = new ScPage(docPrefsData.displayPrefs.scratch.Left, DocPages.count()*(docPrefsData.docSetupPrefs.pageHeight+docPrefsData.displayPrefs.scratch.Bottom+docPrefsData.displayPrefs.scratch.Top)+docPrefsData.displayPrefs.scratch.Top, docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 		destination->setDocument(this);
 		destination->setPageNr(destLocation);
 		lastDest = destination;
@@ -5823,13 +5822,13 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	int setcol=pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns;
 	if (setcol==1)
 	{
-		Page* pageToAdjust=DocPages.at(pageIndex);
+		ScPage* pageToAdjust=DocPages.at(pageIndex);
 		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
 		return;
 	}
 
-	Page* pageToAdjust=DocPages.at(pageIndex);
+	ScPage* pageToAdjust=DocPages.at(pageIndex);
 	PageLocation pageLoc=locationOfPage(pageIndex);
 	if (pageLoc==LeftPage) //Left hand page
 	{
@@ -8880,7 +8879,7 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 		// OLD_FRAME_TYPE - original frame type
 		// NEW_FRAME_TYPE - change of frame type
 		// binary QPair<FPointArray, FPointArray> - .first original shape, .second new shape
-		ItemState<QPair<FPointArray,FPointArray> > *is = new ItemState<QPair<FPointArray,FPointArray> >(Um::ChangeShapeType, "", Um::IBorder);
+		ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ChangeShapeType, "", Um::IBorder);
 		is->set("CHANGE_SHAPE_TYPE", "change_shape_type");
 		is->set("OLD_FRAME_TYPE", item->FrameType);
 		is->set("NEW_FRAME_TYPE", frameType);
@@ -9089,7 +9088,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	}
 	if (UndoManager::undoEnabled() && (selectedItemCount > 0) && !forceDeletion)
 	{
-		ItemState< QList<PageItem*> > *is = new ItemState< QList<PageItem*> >(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
+		ScItemState< QList<PageItem*> > *is = new ScItemState< QList<PageItem*> >(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
 		is->setItem(delItems);
 		is->set("DELETE_ITEM", "delete_item");
 		undoManager->action(Pages->at(0), is, currItem->getUPixmap());
@@ -11012,13 +11011,13 @@ void ScribusDoc::invalidateRegion(QRectF region)
 }
 
 
-Page* ScribusDoc::currentPage()
+ScPage* ScribusDoc::currentPage()
 {
 	return m_currentPage;
 }
 
 
-void ScribusDoc::setCurrentPage(Page *newPage)
+void ScribusDoc::setCurrentPage(ScPage *newPage)
 {
 	if (newPage==NULL)
 		return;
@@ -11203,8 +11202,8 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 		updatePic();
 		
 		// this messy part is for the undo action
-		ItemState<QPair<ScImageEffectList, ScImageEffectList> > *state = 
-		new ItemState<QPair<ScImageEffectList, ScImageEffectList> >(
+		ScItemState<QPair<ScImageEffectList, ScImageEffectList> > *state =
+		new ScItemState<QPair<ScImageEffectList, ScImageEffectList> >(
 				Um::ImageEffects, "", currItem->getUPixmap());
 		state->set("APPLY_IMAGE_EFFECTS", "apply_image_effects");
 		state->setItem(QPair<ScImageEffectList, ScImageEffectList>(oldEffects, currItem->effectsInUse));
@@ -11300,7 +11299,7 @@ void ScribusDoc::createDefaultMasterPages()
 	}
 	else if (setcol == 2)
 	{
-		Page *lp = addMasterPage(0, CommonStrings::trMasterPageNormalLeft);
+		ScPage *lp = addMasterPage(0, CommonStrings::trMasterPageNormalLeft);
 		lp->LeftPg = 1;
 		lp->Margins.Left = lp->initialMargins.Right;
 		lp->Margins.Right = lp->initialMargins.Left;
@@ -11311,7 +11310,7 @@ void ScribusDoc::createDefaultMasterPages()
 	}
 	else if ((setcol == 3) || (setcol == 4))
 	{
-		Page *lp = addMasterPage(0, CommonStrings::trMasterPageNormalLeft);
+		ScPage *lp = addMasterPage(0, CommonStrings::trMasterPageNormalLeft);
 		lp->LeftPg = 1;
 		lp->Margins.Left = lp->initialMargins.Right;
 		lp->Margins.Right = lp->initialMargins.Left;
@@ -11363,11 +11362,11 @@ void ScribusDoc::createNewDocPages(int pageCount)
 }
 
 
-void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, Page* refPage)
+void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage)
 {
 	*GxM = -1;
 	*GyM = -1;
-	Page* page = (refPage == NULL) ? currentPage() : refPage;
+	ScPage* page = (refPage == NULL) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
 	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;
@@ -11431,7 +11430,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 	double xout, yout;
 	if (pg == -1)
 		return;
-	Page* page = Pages->at(pg);
+	ScPage* page = Pages->at(pg);
 	int GxM, GyM;
 	
 	//FIXME: stop using m_View
@@ -11486,7 +11485,7 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 	int pg = OnPage(*x, *y);
 	if (pg == -1)
 		return ret;
-	Page* page = Pages->at(pg);
+	ScPage* page = Pages->at(pg);
 	int GxM, GyM;
 
 	//	if ((SnapGuides) && (m_SnapCounter > 1))
@@ -12878,8 +12877,8 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 		if (*oldClip != newClip)
 		{
 			QString name = Doc->nodeEdit.isContourLine ? Um::EditContour : Um::EditShape;
-			ItemState<QPair<FPointArray, FPointArray> > *state =
-				new ItemState<QPair<FPointArray, FPointArray> >(name);
+			ScItemState<QPair<FPointArray, FPointArray> > *state =
+				new ScItemState<QPair<FPointArray, FPointArray> >(name);
 			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 			state->set("IS_CONTOUR", Doc->nodeEdit.isContourLine);
 			state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
@@ -12904,11 +12903,11 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 /**
   first part: create a new UndoState or cancel the current transaction
  */
-ItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransaction1(PageItem* currItem)
+ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransaction1(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
 	UndoManager* undoManager = UndoManager::instance();
-	ItemState<QPair<FPointArray, FPointArray> >* state = NULL;
+	ScItemState<QPair<FPointArray, FPointArray> >* state = NULL;
 	
 	if (nodeTransaction) // is there the old clip stored for the undo action
 	{
@@ -12916,7 +12915,7 @@ ItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransaction1
 		if (*oldClip != newClip)
 		{
 			QString name = Doc->nodeEdit.isContourLine ? Um::EditContour : Um::EditShape;
-			state = new ItemState<QPair<FPointArray, FPointArray> >(name);
+			state = new ScItemState<QPair<FPointArray, FPointArray> >(name);
 			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 			state->set("IS_CONTOUR", Doc->nodeEdit.isContourLine);
 			state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
@@ -12937,7 +12936,7 @@ ItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransaction1
 /**
   second part: take the UndoState returned from finishTransaction1() and commit it
 */
-void NodeEditContext::finishTransaction2(PageItem* currItem, ItemState<QPair<FPointArray, FPointArray> >* state)
+void NodeEditContext::finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state)
 {
 	UndoManager* undoManager = UndoManager::instance();
 	
@@ -13170,8 +13169,8 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	FPointArray newClip(Doc->nodeEdit.isContourLine ? currItem->ContourLine : currItem->PoLine);
 	if (*oldClip != newClip)
 	{
-		ItemState<QPair<FPointArray, FPointArray> > *state =
-		new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
+		ScItemState<QPair<FPointArray, FPointArray> > *state =
+		new ScItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
 														currItem->getUPixmap());
 		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 		state->set("IS_CONTOUR", Doc->nodeEdit.isContourLine);
@@ -13268,8 +13267,8 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	FPointArray newClip(Doc->nodeEdit.isContourLine ? currItem->ContourLine : currItem->PoLine);
 	if (*oldClip != newClip)
 	{
-		ItemState<QPair<FPointArray, FPointArray> > *state =
-		new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
+		ScItemState<QPair<FPointArray, FPointArray> > *state =
+		new ScItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
 														currItem->getUPixmap());
 		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 		state->set("IS_CONTOUR", Doc->nodeEdit.isContourLine);
@@ -13549,7 +13548,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 {
 	for (int p = 0; p < Pages->count(); ++p)
 	{
-		Page *pp = Pages->at(p);
+		ScPage *pp = Pages->at(p);
 		if (resizePages)
 		{
 			pp->setInitialWidth(pageWidth());
@@ -13571,7 +13570,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 			//check if *pp's margins are the same as the *mp's current margins
 			//apply new margins if same
 			const int masterPageNumber = MasterNames[pp->MPageNam];
-			const Page* mp = MasterPages.at(masterPageNumber);
+			const ScPage* mp = MasterPages.at(masterPageNumber);
 			if (pp->initialMargins.Left == mp->initialMargins.Left &&
 				pp->initialMargins.Right == mp->initialMargins.Right &&
 				pp->initialMargins.Top == mp->initialMargins.Top &&
@@ -13584,7 +13583,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 	}
 	for (int p = 0; p < MasterPages.count(); ++p)
 	{
-		Page *pp = MasterPages.at(p);
+		ScPage *pp = MasterPages.at(p);
 		if (resizeMasterPages)
 		{
 			pp->setInitialWidth(pageWidth());

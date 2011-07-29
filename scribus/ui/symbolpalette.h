@@ -41,6 +41,7 @@ class ScribusDoc;
 
 #include "scribusapi.h"
 #include "scdockpalette.h"
+#include "sclistwidgetdelegate.h"
 
 class SCRIBUS_API SymbolView : public QListWidget
 {
@@ -50,11 +51,19 @@ public:
 	SymbolView( QWidget* parent);
 	~SymbolView() {};
 
+public slots:
+	void HandleContextMenu(QPoint);
+	void changeDisplay();
+
 protected:
+	bool viewportEvent(QEvent *event);
 	void dragEnterEvent(QDragEnterEvent *e);
 	void dragMoveEvent(QDragMoveEvent *e);
 	void dropEvent(QDropEvent *e);
 	void startDrag(Qt::DropActions supportedActions);
+
+private:
+	ScListWidgetDelegate* delegate;
 };
 
 class SCRIBUS_API SymbolPalette : public ScDockPalette

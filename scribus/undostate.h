@@ -283,12 +283,12 @@ private:
 /*** ItemState ***************************************************************************/
 
 template<class C>
-class ItemState : public SimpleState
+class ScItemState : public SimpleState
 {
 public:
-	ItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
+	ScItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
 	: SimpleState(name, description, pixmap) {}
-	~ItemState() {}
+	~ScItemState() {}
 	void setItem(const C &c) { item_ = c; }
 	C getItem() const { return item_; }
 private:

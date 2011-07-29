@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "importpct.h"
 #include "importpctplugin.h"
 #include "ui/scmwmenumanager.h"
-#include "page.h"
+#include "scpage.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

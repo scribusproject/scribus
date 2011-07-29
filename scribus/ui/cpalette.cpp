@@ -51,11 +51,12 @@ for which a new license (GPL+exception) is in place.
 #include "gradienteditor.h"
 #include "insertTable.h"
 #include "units.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "util_icon.h"
 #include "commonstrings.h"
 #include "sccolorengine.h"
+#include "sclistwidgetdelegate.h"
 #include "scpainter.h"
 #include "scpattern.h"
 #include "scribus.h"
@@ -78,6 +79,14 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	strokeModeCombo->addItem( tr("Solid") );
 	strokeModeCombo->addItem( tr("Gradient") );
 
+/*  Setting a delegate to dispaly only icons for the patterns */
+/*	ScListWidgetDelegate* delegateF = new ScListWidgetDelegate(patternBox, patternBox);
+	delegateF->setIconOnly(true);
+	patternBox->setItemDelegate(delegateF);
+	ScListWidgetDelegate* delegateS = new ScListWidgetDelegate(patternBoxStroke, patternBoxStroke);
+	delegateS->setIconOnly(true);
+	patternBoxStroke->setItemDelegate(delegateS);
+*/
 	gradEdit->layout()->setAlignment(Qt::AlignTop);
 	gradEditStroke->layout()->setAlignment(Qt::AlignTop);
 	gradientTypeStroke->setCurrentIndex(0);
@@ -860,7 +869,7 @@ void Cpalette::displayGradient(int number)
 	}
 	if (number == 0)
 		fillModeCombo->setCurrentIndex(0);
-	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10) || (number == 11))
+	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10) || (number == 11) || (number == 12))
 	{
 		if ((number == 5) || (number == 7))
 		{
@@ -912,6 +921,11 @@ void Cpalette::displayGradient(int number)
 				transparencyMeshPoint->setValue(mp.transparency * 100);
 			}
 			gradientType->setCurrentIndex(4);
+		}
+		else if (number == 12)
+		{
+			stackedWidget_2->setCurrentIndex(2);
+			gradientType->setCurrentIndex(5);
 		}
 		else
 		{
@@ -1009,6 +1023,11 @@ void Cpalette::slotGrad(int number)
 			}
 			emit NewGradient(11);
 		}
+		else if (gradientType->currentIndex() == 5)
+		{
+			stackedWidget_2->setCurrentIndex(2);
+			emit NewGradient(12);
+		}
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 		connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 		connect(gradEdit, SIGNAL(gradientChanged()) , this, SLOT(handleFillGradient()));
@@ -1077,6 +1096,11 @@ void Cpalette::slotGradType(int type)
 			transparencyMeshPoint->setValue(mp.transparency * 100);
 		}
 		emit NewGradient(11);
+	}
+	else if (type == 5)
+	{
+		stackedWidget_2->setCurrentIndex(2);
+		emit NewGradient(12);
 	}
 }
 

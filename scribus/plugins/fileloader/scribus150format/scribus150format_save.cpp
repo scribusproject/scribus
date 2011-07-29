@@ -1051,7 +1051,7 @@ void Scribus150Format::writeContent(ScXmlStreamWriter & docu, const QString& bas
 void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
-	Page *page;
+	ScPage *page;
 	uint pages;
 	QString tmp;
 	if (master)
@@ -1355,6 +1355,10 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("GMAY", item->meshGradientArray[0].count());
 					docu.writeAttribute("GMAX", item->meshGradientArray.count());
 				}
+				else if (item->GrType == 12)
+				{
+					docu.writeAttribute("GMAX", item->meshGradientPatches.count());
+				}
 				else
 				{
 					docu.writeAttribute("GRSTARTX", item->GrStartX);
@@ -1563,6 +1567,40 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				{
 					meshPoint mp = item->meshGradientArray[grow][gcol];
 					docu.writeStartElement("MPoint");
+					docu.writeAttribute("GX", mp.gridPoint.x());
+					docu.writeAttribute("GY", mp.gridPoint.y());
+					docu.writeAttribute("CTX", mp.controlTop.x());
+					docu.writeAttribute("CTY", mp.controlTop.y());
+					docu.writeAttribute("CBX", mp.controlBottom.x());
+					docu.writeAttribute("CBY", mp.controlBottom.y());
+					docu.writeAttribute("CLX", mp.controlLeft.x());
+					docu.writeAttribute("CLY", mp.controlLeft.y());
+					docu.writeAttribute("CRX", mp.controlRight.x());
+					docu.writeAttribute("CRY", mp.controlRight.y());
+					docu.writeAttribute("NAME", mp.colorName);
+					docu.writeAttribute("SHADE", mp.shade);
+					docu.writeAttribute("TRANS", mp.transparency);
+					docu.writeEndElement();
+				}
+			}
+		}
+		if (item->GrType == 12)
+		{
+			for (int grow = 0; grow < item->meshGradientPatches.count(); grow++)
+			{
+				meshGradientPatch patch = item->meshGradientPatches[grow];
+				for (int gcol = 0; gcol < 4; gcol++)
+				{
+					meshPoint mp;
+					if (gcol == 0)
+						mp = patch.TL;
+					else if (gcol == 1)
+						mp = patch.TR;
+					else if (gcol == 2)
+						mp = patch.BR;
+					else if (gcol == 3)
+						mp = patch.BL;
+					docu.writeStartElement("PMPoint");
 					docu.writeAttribute("GX", mp.gridPoint.x());
 					docu.writeAttribute("GY", mp.gridPoint.y());
 					docu.writeAttribute("CTX", mp.controlTop.x());

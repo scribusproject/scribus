@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "colormgmt/sccolormgmtengine.h"
 #include "documentinformation.h"
 #include "observable.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pagestructs.h"
 #include "prefsstructs.h"
@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "sclayer.h"
 #include "styles/styleset.h"
 #include "undoobject.h"
+#include "undostate.h"
 #include "updatemanager.h"
 #include "usertaskstructs.h"
 
@@ -57,7 +58,7 @@ for which a new license (GPL+exception) is in place.
 
 class DocUpdater;
 class UndoManager;
-class UndoState;
+// class UndoState;
 class PDFOptions;
 class Hyphenator;
 class Selection;
@@ -100,8 +101,8 @@ struct SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 	void resetControl(PageItem* currItem);
 	FPointArray beginTransaction(PageItem* currItem);
 	void finishTransaction(PageItem* currItem);
-	ItemState<QPair<FPointArray, FPointArray> >* finishTransaction1(PageItem* currItem);
-	void finishTransaction2(PageItem* currItem, ItemState<QPair<FPointArray, FPointArray> >* state);
+	ScItemState<QPair<FPointArray, FPointArray> >* finishTransaction1(PageItem* currItem);
+	void finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state);
 	void moveClipPoint(PageItem *currItem, FPoint ip);
 };
 
@@ -142,7 +143,7 @@ public:
 	
 	UpdateManager* updateManager() { return &m_updateManager; }
 	MassObservable<PageItem*> * itemsChanged() { return &m_itemsChanged; }
-	MassObservable<Page*>     * pagesChanged() { return &m_pagesChanged; }
+	MassObservable<ScPage*>     * pagesChanged() { return &m_pagesChanged; }
 	MassObservable<QRectF>    * regionsChanged() { return &m_regionsChanged; }
 	
 	void invalidateAll();
@@ -230,10 +231,10 @@ public:
 
 	// Add, delete and move pages
 	
-	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
+	ScPage* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
 	void deletePage(const int);
 	//! @brief Add a master page with this function, do not use addPage
-	Page* addMasterPage(const int, const QString&);
+	ScPage* addMasterPage(const int, const QString&);
 	void deleteMasterPage(const int);
 	//! @brief Rebuild master name list
 	void rebuildMasterNames(void);
@@ -794,8 +795,8 @@ public:
 	double getXOffsetForPage(const int);
 	double getYOffsetForPage(const int);
 	void getBleeds(int pageNumber, MarginStruct& bleedData);
-	void getBleeds(const Page* page, MarginStruct& bleedData);
-	void getBleeds(const Page* page, const MarginStruct& baseValues, MarginStruct& bleedData);
+	void getBleeds(const ScPage* page, MarginStruct& bleedData);
+	void getBleeds(const ScPage* page, const MarginStruct& baseValues, MarginStruct& bleedData);
 	
 	/**
 	 * @brief Item type conversion functions
@@ -989,10 +990,10 @@ public:
 	void changed();
 	/*! \brief Get pointer to the current page
 	\retval Page* current page object */
-	Page* currentPage();
+	ScPage* currentPage();
 	/*! \brief Set new current page
 	\param newPage New current page */
-	void setCurrentPage(Page *newPage);
+	void setCurrentPage(ScPage *newPage);
 	bool hasGUI() const {return m_hasGUI;}
 	/*! \brief Apply grid to a QPoint, from ScribusView */
 	QPoint ApplyGrid(const QPoint& in);
@@ -1001,7 +1002,7 @@ public:
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
 	bool hasTOCSetup() { return !docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 	//! \brief Get the closest guide to the given point
-	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, Page* refPage = NULL);
+	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = NULL);
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y);
@@ -1071,13 +1072,13 @@ public: // Public attributes
 	double rulerXoffset;
 	double rulerYoffset;
 	/** \brief List of Pages */
-	QList<Page*>* Pages;
+	QList<ScPage*>* Pages;
 	/** \brief List of Master Pages */
-	QList<Page*> MasterPages;
+	QList<ScPage*> MasterPages;
 	/** \brief List of Document Pages */
-	QList<Page*> DocPages;
+	QList<ScPage*> DocPages;
 	/** \brief List for temporary Pages */
-	QList<Page*> TempPages;
+	QList<ScPage*> TempPages;
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */
@@ -1181,7 +1182,7 @@ public:
 	struct OpenNodesList
 	{
 		int type;
-		Page *page;
+		ScPage *page;
 		PageItem *item;
 	};
 	QList<OpenNodesList> OpenNodes;
@@ -1201,10 +1202,10 @@ private:
 	UndoTransaction* m_itemCreationTransaction;
 	UndoTransaction* m_alignTransaction;
 
-	Page* m_currentPage;
+	ScPage* m_currentPage;
 	UpdateManager m_updateManager;
 	MassObservable<PageItem*> m_itemsChanged;
-	MassObservable<Page*> m_pagesChanged;
+	MassObservable<ScPage*> m_pagesChanged;
 	MassObservable<QRectF> m_regionsChanged;
 	DocUpdater* m_docUpdater;
 	

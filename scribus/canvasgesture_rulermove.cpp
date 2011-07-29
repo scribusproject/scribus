@@ -27,7 +27,7 @@
 
 void RulerGesture::drawControls(QPainter* p)
 {
-	Page* page = m_doc->currentPage();
+	ScPage* page = m_doc->currentPage();
 	if (m_haveGuide)
 		page = m_doc->Pages->at(m_page);
 	QColor color(m_doc->guidesPrefs().guideColor);

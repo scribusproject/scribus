@@ -29,7 +29,7 @@ or documentation
 #include "swdialog.h"
 #include "configuration.h"
 #include "parse.h"
-#include "page.h"
+#include "scpage.h"
 #include "swprefsgui.h"
 #include "prefs_shortwords.h"
 #include "scpaths.h"

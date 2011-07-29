@@ -176,7 +176,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 
 	if (!doc->Pages->at(pageNr))
 		return false;
-	Page* page = doc->Pages->at(pageNr);
+	ScPage* page = doc->Pages->at(pageNr);
 
 	/* a little magic here - I need to compute the "maxGr" value...
 	* We need to know the right size of the page for landscape,

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "page.h"
+#include "scpage.h"
 
 class QCheckBox;
 class QComboBox;

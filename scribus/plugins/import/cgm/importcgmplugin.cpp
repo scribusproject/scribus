@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "importcgm.h"
 #include "importcgmplugin.h"
 #include "ui/scmwmenumanager.h"
-#include "page.h"
+#include "scpage.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

@@ -99,7 +99,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h"
 #include "hyphenator.h"
 #include "langmgr.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_textframe.h"
@@ -5541,7 +5541,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		wot=doc->Pages->count();
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	view->updatesOn(false);
-	Page* currentPage = doc->currentPage();
+	ScPage* currentPage = doc->currentPage();
 	for (cc = 0; cc < numPages; ++cc)
 	{
 		slotNewPage(wot, base[(wot+doc->pageSets()[doc->pagePositioning()].FirstPage) % doc->pageSets()[doc->pagePositioning()].Columns], mov); //Avoid the master page application with QString::null
@@ -6725,7 +6725,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 				tmpSelection.addItem(ite);
 			}
 		}
-		Page *page = doc->Pages->at(a); // need to remove guides too to get their undo/redo actions working
+		ScPage *page = doc->Pages->at(a); // need to remove guides too to get their undo/redo actions working
 		page->guides.clearHorizontals(GuideManagerCore::Standard);
 		page->guides.clearHorizontals(GuideManagerCore::Auto);
 		page->guides.clearVerticals(GuideManagerCore::Standard);
@@ -9078,7 +9078,7 @@ void ScribusMainWindow::ModifyAnnot()
 		}
 		else
 		{
-			Annot *dia = new Annot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), doc->PageColors, view);
+			ScAnnot *dia = new ScAnnot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), doc->PageColors, view);
 			if (dia->exec())
 				slotDocCh();
 			delete dia;

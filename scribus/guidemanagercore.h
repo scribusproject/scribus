@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 class QColor;
-class Page;
+class ScPage;
 class ScPainter;
 class UndoManager;
 class ScribusDoc;
@@ -37,7 +37,7 @@ class SCRIBUS_API GuideManagerCore
 {
 public:
 	GuideManagerCore();
-	GuideManagerCore(Page* parentPage);
+	GuideManagerCore(ScPage* parentPage);
 	~GuideManagerCore();
 
 	typedef enum {Standard, Auto} GuideType;
@@ -56,8 +56,8 @@ public:
 	double horizontal(uint ix, GuideType type);
 	double vertical(uint ix, GuideType type);
 
-	Guides getAutoHorizontals(Page* page = NULL);
-	Guides getAutoVerticals(Page* page = NULL);
+	Guides getAutoHorizontals(ScPage* page = NULL);
+	Guides getAutoVerticals(ScPage* page = NULL);
 
 	void clearHorizontals(GuideType type);
 	void clearVerticals(GuideType type);
@@ -70,7 +70,7 @@ public:
 	int isMouseOnHorizontal(double low, double high, GuideType type);
 	int isMouseOnVertical(double low, double high, GuideType type);
 
-	void setPage(Page *p);
+	void setPage(ScPage *p);
 
 	QPair<double, double> topLeft(double x, double y);// const;
 	QPair<double, double> topRight(double x, double y);// const;
@@ -110,7 +110,7 @@ public:
 
 private:
 	UndoManager * const undoManager;
-	Page* m_page;
+	ScPage* m_page;
 	Guides horizontalStdG;
 	Guides verticalStdG;
 	Guides horizontalAutoG;
@@ -150,7 +150,7 @@ class SCRIBUS_API GuideManagerIO
 		in the ancient times. So when is the obsolete XML attribute found in reading document
 		the old reading method is used. All guides are saved in new format then. */
 		static void readHorizontalGuides(const QString guideString,
-										 Page *page,
+										 ScPage *page,
 										 GuideManagerCore::GuideType type,
 										 bool useOldGuides=false);
 
@@ -164,15 +164,15 @@ class SCRIBUS_API GuideManagerIO
 		in the ancient times. So when is the obsolete XML attribute found in reading document
 		the old reading method is used. All guides are saved in new format then. */
 		static void readVerticalGuides(const QString guideString,
-									   Page *page,
+									   ScPage *page,
 									   GuideManagerCore::GuideType type,
 									   bool useOldGuides=false);
 
-		static QString writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type);
-		static QString writeVerticalGuides(Page *page, GuideManagerCore::GuideType type);
+		static QString writeHorizontalGuides(ScPage *page, GuideManagerCore::GuideType type);
+		static QString writeVerticalGuides(ScPage *page, GuideManagerCore::GuideType type);
 
-		static void readSelection(const QString guideString, Page *page);
-		static QString writeSelection(Page *page);
+		static void readSelection(const QString guideString, ScPage *page);
+		static QString writeSelection(ScPage *page);
 };
 
 #endif

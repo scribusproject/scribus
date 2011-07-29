@@ -1751,7 +1751,7 @@ bool Scribus134Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 		return true;
 	}
 	m_Doc->setMasterPageMode(!pageName.isEmpty());
-	Page* newPage = pageName.isEmpty() ? doc->addPage(pageNum) : doc->addMasterPage(pageNum, pageName);
+	ScPage* newPage = pageName.isEmpty() ? doc->addPage(pageNum) : doc->addMasterPage(pageNum, pageName);
 
 	newPage->LeftPg   = attrs.valueAsInt("LEFT", 0);
 	QString mpName    = attrs.valueAsString("MNAM", "Normal");
@@ -1884,7 +1884,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		{
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PARSEP);
 			ParagraphStyle newStyle;
-			PrefsManager* prefsManager = PrefsManager::instance();
+//			PrefsManager* prefsManager = PrefsManager::instance();
 			readParagraphStyle(doc, reader, newStyle);
 			newItem->itemText.setStyle(newItem->itemText.length()-1, newStyle);
 			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle->Style);
@@ -1892,7 +1892,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		else if (tName == "trail")
 		{
 			ParagraphStyle newStyle;
-			PrefsManager* prefsManager = PrefsManager::instance();
+//			PrefsManager* prefsManager = PrefsManager::instance();
 			readParagraphStyle(doc, reader, newStyle);
 			newItem->itemText.setStyle(newItem->itemText.length(), newStyle);
 		}
@@ -3020,7 +3020,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
-	Page* newPage = NULL;
+	ScPage* newPage = NULL;
 	
 	QString tmp;
 	QMap<int,int> TableID;
@@ -3378,7 +3378,7 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 	bool fou(false);
 	QString tmpf, tmV;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
-	PrefsManager* prefsManager = PrefsManager::instance();
+//	PrefsManager* prefsManager = PrefsManager::instance();
 	readParagraphStyle(doc, reader, style);
 	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{

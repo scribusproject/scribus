@@ -574,7 +574,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		double xposOrig = currItem->xPos();
 		double yposOrig = currItem->yPos();
 
-		ItemState<QPair<FPointArray, FPointArray> > *state = NULL;
+		ScItemState<QPair<FPointArray, FPointArray> > *state = NULL;
 		
 		state = m_doc->nodeEdit.finishTransaction1(currItem);
 		xposOrig = currItem->xPos();

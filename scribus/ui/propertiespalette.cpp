@@ -491,7 +491,7 @@ void  PropertiesPalette::handleSelectionChanged()
 	int currentTab = TabStack->currentIndex();
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 
-	qDebug() << "PropertiesPalette::handleSelectionChanged()";
+//	qDebug() << "PropertiesPalette::handleSelectionChanged()";
 
 	/*xyzPal->handleSelectionChanged();
 	shapePal->handleSelectionChanged();

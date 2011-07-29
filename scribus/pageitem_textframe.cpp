@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "ui/guidemanager.h"
 #include "hyphenator.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
@@ -125,8 +125,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 	{
 		int LayerLev = m_Doc->layerLevelFromID(LayerID);
 		uint docItemsCount=m_Doc->Items->count();
-		Page* Mp=0;
-		Page* Dp=0;
+		ScPage* Mp=0;
+		ScPage* Dp=0;
 		PageItem* docItem=0;
 		int LayerLevItem;
 		if (!OnMasterPage.isEmpty())

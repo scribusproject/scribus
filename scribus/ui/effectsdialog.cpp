@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "colorcombo.h"
 #include "curvewidget.h"
-#include "page.h"
+#include "scpage.h"
 #include "sccombobox.h"
 #include "scclocale.h"
 #include "scribusdoc.h"

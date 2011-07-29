@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
@@ -81,7 +81,7 @@ ScImage::RequestType ScPageOutput::translateImageModeToRequest( ScPainterExBase:
 	return value;
 }
 
-void ScPageOutput::drawPage( Page* page, ScPainterExBase* painter)
+void ScPageOutput::drawPage( ScPage* page, ScPainterExBase* painter)
 {
 	int clipx = static_cast<int>(page->xOffset());
 	int clipy = static_cast<int>(page->yOffset());
@@ -99,7 +99,7 @@ void ScPageOutput::drawPage( Page* page, ScPainterExBase* painter)
 	drawMarks(page, painter, m_marksOptions);
 }
 
-void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip)
+void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip)
 {
 	PageItem* currItem;
 	if (page->MPageNam.isEmpty())
@@ -108,7 +108,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
-	Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
+	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
 	uint pageFromMasterCount = page->FromMaster.count();
 	for (uint a = 0; a < pageFromMasterCount; ++a)
 	{
@@ -203,7 +203,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, ScLayer
 	}
 }
 
-void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, ScLayer& layer, const QRect& clip)
+void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip)
 {
 	PageItem *currItem;
 	if (m_doc->Items->count() <= 0)
@@ -1371,7 +1371,7 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 	}
 }
 
-void ScPageOutput::drawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options )
+void ScPageOutput::drawMarks( ScPage* page, ScPainterExBase* painter, const MarksOptions& options )
 {
 	double markOffs  = options.markOffset;
 	double bleedLeft = 0.0, bleedRight = 0.0;

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "mergedoc.h"
 #include "newtemp.h"
-#include "page.h"
+#include "scpage.h"
 #include "pagestructs.h"
 #include "selection.h"
 #include "prefsmanager.h"
@@ -208,8 +208,8 @@ void MasterPagesPalette::duplicateMasterPage()
 		PrefsManager* prefsManager = PrefsManager::instance();
 		int inde = currentDoc->MasterNames[sMuster];
 		int nr = currentDoc->Pages->count();
-		Page* from = currentDoc->Pages->at(inde);
-		Page* destination = currentDoc->addMasterPage(nr, MasterPageName);
+		ScPage* from = currentDoc->Pages->at(inde);
+		ScPage* destination = currentDoc->addMasterPage(nr, MasterPageName);
 		if (currentDoc->pagePositioning() != singlePage)
 		{
 			int lp = dia->Links->currentIndex();

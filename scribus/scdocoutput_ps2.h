@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scdocoutput.h"
 
 class ScribusDoc;
-class Page;
+class ScPage;
 
 class SCRIBUS_API ScDocOutput_Ps2 : public ScDocOutput
 {

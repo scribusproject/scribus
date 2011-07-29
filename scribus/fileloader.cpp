@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/fontreplacedialog.h"
 #include "hyphenator.h"
 #include "ui/missing.h"
-#include "page.h"
+#include "scpage.h"
 #include "pluginmanager.h"
 #include "plugins/formatidlist.h"
 #include "pagestructs.h"
@@ -88,11 +88,13 @@ const QString FileLoader::getLoadFilterString()
 		int s = fmt.indexOf("(");
 		int e = fmt.lastIndexOf(")");
 		QString f = fmt.mid(s+1, e-s-1);
+#ifndef HAVE_POPPLER
 		if (f.contains("pdf"))	// for removing PDF from the list
 		{
 			ind = a;
 			continue;
 		}
+#endif
 		fmtString += f + " ";
 	}
 	fmtString += ");;";

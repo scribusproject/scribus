@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
-#include "page.h"
+#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_regularpolygon.h"
 #include "prefsmanager.h"

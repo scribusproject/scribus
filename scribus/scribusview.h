@@ -71,7 +71,7 @@ class CanvasMode;
 class CanvasGesture;
 class Hruler;
 class Vruler;
-class Page;
+class ScPage;
 class RulerMover;
 class PageItem;
 class PageSelector;
@@ -172,7 +172,7 @@ public:
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
-	Page* addPage(int nr, bool mov = true);
+	ScPage* addPage(int nr, bool mov = true);
 
 	void reformPages(bool moveObjects = true);
 	void updateLayerMenu();

@@ -949,7 +949,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			uint docCurrPageNo=m_doc->currentPageNumber();
 			for (uint i = 0; i < docPagesCount; ++i)
 			{
-				Page*  page = m_doc->Pages->at(i);
+				ScPage*  page = m_doc->Pages->at(i);
 				QRectF pageRect(page->xOffset(), page->yOffset(), page->width(), page->height());
 				if (pageRect.intersects(canvasSele))
 				{
