@@ -2724,6 +2724,7 @@ void ScribusView::showSymbolPage(QString symbolName)
 	Doc->setSymbolEditMode(true, symbolName);
 	Doc->setCurrentPage(Doc->Pages->at(0));
 	pageSelector->setEnabled(false);
+	layerMenu->setEnabled(false);
 	updateOn = false;
 	zoom();
 	oldX = qRound(Doc->currentPage()->xOffset()- 10);
@@ -2743,6 +2744,7 @@ void ScribusView::hideSymbolPage()
 	updatesOn(true);
 	Doc->setCurrentPage(Doc->Pages->at(0));
 	pageSelector->setEnabled(true);
+	layerMenu->setEnabled(true);
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 

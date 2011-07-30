@@ -1050,6 +1050,9 @@ protected:
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
 	bool m_symbolEditMode;
+	int  m_storedLayerID;
+	bool m_storedLayerLock;
+	bool m_storedLayerVis;
 	QMap<QString, double> m_constants;
 	ScribusMainWindow* m_ScMW;
 	ScribusView* m_View;

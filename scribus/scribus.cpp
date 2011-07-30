@@ -8511,6 +8511,7 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
 		pagePalette->enablePalette(false);
+		layerPalette->setEnabled(false);
 		patternsDependingOnThis.clear();
 		QStringList mainPatterns = doc->docPatterns.keys();
 		for (int a = 0; a < mainPatterns.count(); a++)
@@ -8579,6 +8580,7 @@ void ScribusMainWindow::editSymbolEnd()
 	pagePalette->Rebuild();
 	propertiesPalette->updateColorList();
 	symbolPalette->editingFinished();
+	layerPalette->setEnabled(true);
 	updateActiveWindowCaption(doc->DocName);
 }
 

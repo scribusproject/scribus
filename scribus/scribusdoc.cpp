@@ -2961,6 +2961,12 @@ bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 		name += "("+tmp.setNum(docPatterns.count())+")";
 //		name = tr("Copy_of_")+name;
 	docPatterns.insert(name, pattern);
+	QList<PageItem*> allItems = getAllItems(pattern.items);
+	for (int ii = 0; ii < allItems.count(); ii++)
+	{
+		PageItem* currItem = allItems.at(ii);
+		currItem->setLayer(0);
+	}
 	return true;
 }
 
@@ -5364,6 +5370,12 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 	m_symbolEditMode = mode;
 	if (mode)
 	{
+		m_storedLayerID = activeLayer();
+		m_storedLayerLock = layerLocked(0);
+		m_storedLayerVis = layerVisible(0);
+		setActiveLayer(0);
+		setLayerVisible(0, true);
+		setLayerLocked(0, false);
 		ScPattern pa = docPatterns[symbolName];
 		currentEditedSymbol = symbolName;
 		ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pa.width, pa.height);
@@ -5393,6 +5405,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		moveGroup(-sR.x() + addedPage->xOffset(), -sR.y() + addedPage->yOffset());
 		m_Selection->clear();
 		m_Selection->delaySignalsOff();
+		m_ScMW->changeLayer(0);
 		changed();
 	}
 	else
@@ -5469,6 +5482,10 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			Items = &DocItems;
 		}
 		delete addedPage;
+		setActiveLayer(m_storedLayerID);
+		setLayerVisible(0, m_storedLayerVis);
+		setLayerLocked(0, m_storedLayerLock);
+		m_ScMW->changeLayer(m_storedLayerID);
 	}
 }
 
