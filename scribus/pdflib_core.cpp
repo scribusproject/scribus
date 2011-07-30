@@ -3418,6 +3418,51 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	else
 		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
+	{
+		PutDoc("/XObject <<\n");
+		QMap<QString,int>::Iterator it;
+		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
+			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
+		QMap<QString,int>::Iterator iti;
+		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
+			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Seite.FObjects.count() != 0)
+	{
+		PutDoc("/Font << \n");
+		QMap<QString,int>::Iterator it2;
+		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
+			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Shadings.count() != 0)
+	{
+		PutDoc("/Shading << \n");
+		QMap<QString,int>::Iterator it3;
+		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+			PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Patterns.count() != 0)
+	{
+		PutDoc("/Pattern << \n");
+		QMap<QString,int>::Iterator it3p;
+		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+			PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Transpar.count() != 0)
+	{
+		PutDoc("/ExtGState << \n");
+		QMap<QString,int>::Iterator it3t;
+		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
+			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	PutDoc(">>\n");
 	if (Options.Compress)
 		data = CompressStr(&data);
 	PutDoc("/Length "+QString::number(data.length()+1));
@@ -6021,7 +6066,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = "/"+GXName+" gs\n";
 	}
-	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6))
+	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6) || (currItem->GrMask == 7) || (currItem->GrMask == 8))
 	{
 		QString tmpOut = "";
 		PDF_PatternFillStroke(tmpOut, currItem, 2);
@@ -6058,19 +6103,24 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
 			PutDoc(">>\n");
 		}
+		if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
+		{
+			PutDoc("/XObject <<\n");
+			QMap<QString,int>::Iterator it;
+			for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
+				PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
+			QMap<QString,int>::Iterator iti;
+			for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
+				PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
+			PutDoc(">>\n");
+		}
 		PutDoc(">>\n");
 		QString stre = "q\n";
-		if (currItem->isGroup())
-		{
-			QTransform mpa;
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-			mpa.rotate(-currItem->rotation());
-			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
-		}
-		else if (currItem->itemType() == PageItem::Symbol)
+		if ((currItem->isGroup()) || (currItem->itemType() == PageItem::Symbol))
 		{
 			QTransform mpa;
 			mpa.translate(0, currItem->height() * scaleY);
+			mpa.rotate(-currItem->rotation());
 			mpa.scale(scaleX, scaleY);
 			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
 		}
@@ -6090,8 +6140,12 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		ResCount++;
 		if (currItem->GrMask == 6)
 			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		else
+		else if (currItem->GrMask == 7)
+			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
+		else if (currItem->GrMask == 3)
 			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		else if (currItem->GrMask == 8)
+			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+QString::number(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = "/"+GXName+" gs\n";
 	}
 	else
@@ -6275,12 +6329,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	}
 	else if (kind == 2)
 	{
-		if (currItem->isGroup())
-		{
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-			mpa.rotate(-currItem->rotation());
-		}
-		else if (currItem->itemType() == PageItem::Symbol)
+		if ((currItem->isGroup()) || (currItem->itemType() == PageItem::Symbol))
 		{
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);

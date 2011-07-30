@@ -331,25 +331,25 @@ bool PdfPlug::convert(QString fn)
 							Object obj;
 							GooString *s1;
 							Dict *infoDict = info.getDict();
-							if (infoDict->lookup("Title", &obj )->isString())
+							if (infoDict->lookup((char*)"Title", &obj )->isString())
 							{
 								s1 = obj.getString();
 								m_Doc->documentInfo().setTitle(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
-							if (infoDict->lookup("Author", &obj )->isString())
+							if (infoDict->lookup((char*)"Author", &obj )->isString())
 							{
 								s1 = obj.getString();
 								m_Doc->documentInfo().setAuthor(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
-							if (infoDict->lookup("Subject", &obj )->isString())
+							if (infoDict->lookup((char*)"Subject", &obj )->isString())
 							{
 								s1 = obj.getString();
 								m_Doc->documentInfo().setSubject(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
-							if (infoDict->lookup("Keywords", &obj )->isString())
+							if (infoDict->lookup((char*)"Keywords", &obj )->isString())
 							{
 								s1 = obj.getString();
 								m_Doc->documentInfo().setKeywords(UnicodeParsedString(obj.getString()));

@@ -162,6 +162,8 @@ private:
 	QString getColor(GfxColorSpace *color_space, GfxColor *color);
 	QString convertPath(GfxPath *path);
 	int getBlendMode(GfxState *state);
+	void applyMask(PageItem *ite);
+	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	bool pathIsClosed;
 	bool firstLayer;
 	QString CurrColorFill;
@@ -184,6 +186,7 @@ private:
 		GBool forSoftMask;
 		GBool alpha;
 		QString maskName;
+		bool inverted;
 	};
 	QStack<groupEntry> m_groupStack;
 	QString m_currentMask;

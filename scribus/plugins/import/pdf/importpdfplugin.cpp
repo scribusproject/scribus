@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_formats.h"
 #include "util.h"
+#include <QApplication>
 #include <QMessageBox>
 
 
@@ -207,7 +208,9 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		}
 		else
 		{
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The Import plugin cannot handle Postscript files"), 1, 0, 0);
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			return false;
 		}
 	}

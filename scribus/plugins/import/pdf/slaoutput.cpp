@@ -13,11 +13,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_doc = doc;
 	m_Elements = Elements;
 	m_groupStack.clear();
-	groupEntry gElements;
-	gElements.forSoftMask = gFalse;
-	gElements.alpha = gFalse;
-	gElements.maskName = "";
-	m_groupStack.push(gElements);
+	pushGroup();
 	m_clipStack.clear();
 	m_currentMask = "";
 	m_importedColors = importedColors;
@@ -139,11 +135,7 @@ void SlaOutputDev::updateFillColor(GfxState *state)
 void SlaOutputDev::beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool /*isolated*/, GBool /*knockout*/, GBool forSoftMask)
 {
 //	qDebug() << "Start Group";
-	groupEntry gElements;
-	gElements.forSoftMask = forSoftMask;
-	gElements.alpha = gFalse;
-	gElements.maskName = "";
-	m_groupStack.push(gElements);
+	pushGroup("", forSoftMask);
 }
 
 void SlaOutputDev::endTransparencyGroup(GfxState *state)
@@ -190,16 +182,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 				}
 			}
 			if (m_groupStack.count() != 0)
-			{
-				if (!m_groupStack.top().maskName.isEmpty())
-				{
-					ite->setPatternMask(m_groupStack.top().maskName);
-					if (m_groupStack.top().alpha)
-						ite->setMaskType(3);
-					else
-						ite->setMaskType(6);
-				}
-			}
+				applyMask(ite);
 		}
 		if (m_groupStack.count() != 0)
 		{
@@ -212,10 +195,21 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	}
 }
 
-void SlaOutputDev::setSoftMask(GfxState * /*state*/, double * /*bbox*/, GBool alpha, Function * /*transferFunc*/, GfxColor * /*backdropColor*/)
+void SlaOutputDev::setSoftMask(GfxState * /*state*/, double * /*bbox*/, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
 {
 	if (m_groupStack.count() != 0)
 	{
+		double lum = 0;
+		double lum2 = 0;
+		if (transferFunc)
+			transferFunc->transform(&lum, &lum2);
+		else
+			lum2 = lum;
+		if (lum == lum2)
+			m_groupStack.top().inverted = false;
+		else
+			m_groupStack.top().inverted = true;
+//		qDebug() << "Inverted Softmask" << m_groupStack.top().inverted;
 		m_groupStack.top().maskName = m_currentMask;
 		m_groupStack.top().alpha = alpha;
 	}
@@ -258,14 +252,7 @@ void SlaOutputDev::clip(GfxState *state)
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	clipEntry clp;
 	clp.ClipCoords = out.copy();
@@ -273,11 +260,7 @@ void SlaOutputDev::clip(GfxState *state)
 	clp.grStackDepth = grStackDepth;
 	m_clipStack.push(clp);
 	m_doc->GroupCounter++;
-	groupEntry gElements;
-	gElements.forSoftMask = gFalse;
-	gElements.alpha = gFalse;
-	gElements.maskName = "";
-	m_groupStack.push(gElements);
+	pushGroup();
 }
 
 void SlaOutputDev::eoClip(GfxState *state)
@@ -309,14 +292,7 @@ void SlaOutputDev::eoClip(GfxState *state)
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	clipEntry clp;
 	clp.ClipCoords = out.copy();
@@ -324,11 +300,7 @@ void SlaOutputDev::eoClip(GfxState *state)
 	clp.grStackDepth = grStackDepth;
 	m_clipStack.push(clp);
 	m_doc->GroupCounter++;
-	groupEntry gElements;
-	gElements.forSoftMask = gFalse;
-	gElements.alpha = gFalse;
-	gElements.maskName = "";
-	m_groupStack.push(gElements);
+	pushGroup();
 }
 
 void SlaOutputDev::stroke(GfxState *state)
@@ -417,9 +389,7 @@ void SlaOutputDev::fill(GfxState *state)
 		ite->setLineShade(100);
 		ite->setFillEvenOdd(false);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
-		ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
-		ite->setLineBlendmode(getBlendMode(state));
 		ite->setLineEnd(PLineEnd);
 		ite->setLineJoin(PLineJoin);
 		ite->setWidthHeight(wh.x(),wh.y());
@@ -429,14 +399,7 @@ void SlaOutputDev::fill(GfxState *state)
 		if (m_groupStack.count() != 0)
 		{
 			m_groupStack.top().Items.append(ite);
-			if (!m_groupStack.top().maskName.isEmpty())
-			{
-				ite->setPatternMask(m_groupStack.top().maskName);
-				if (m_groupStack.top().alpha)
-					ite->setMaskType(3);
-				else
-					ite->setMaskType(6);
-			}
+			applyMask(ite);
 		}
 	}
 }
@@ -471,9 +434,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 		ite->setLineShade(100);
 		ite->setFillEvenOdd(true);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
-		ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
-		ite->setLineBlendmode(getBlendMode(state));
 		ite->setLineEnd(PLineEnd);
 		ite->setLineJoin(PLineJoin);
 		ite->setWidthHeight(wh.x(),wh.y());
@@ -483,14 +444,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 		if (m_groupStack.count() != 0)
 		{
 			m_groupStack.top().Items.append(ite);
-			if (!m_groupStack.top().maskName.isEmpty())
-			{
-				ite->setPatternMask(m_groupStack.top().maskName);
-				if (m_groupStack.top().alpha)
-					ite->setMaskType(3);
-				else
-					ite->setMaskType(6);
-			}
+			applyMask(ite);
 		}
 	}
 }
@@ -576,9 +530,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -590,14 +542,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	return gTrue;
 }
@@ -691,9 +636,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -705,14 +648,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	return gTrue;
 }
@@ -747,9 +683,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -758,14 +692,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 //	qDebug() << "Mesh of" << shading->getNPatches() << "Patches";
 	for (int i = 0; i < shading->getNPatches(); i++)
@@ -889,6 +816,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Catalog *cat, Object *str
 	groupEntry gElements;
 	gElements.forSoftMask = gFalse;
 	gElements.alpha = gFalse;
+	gElements.inverted = false;
 	gElements.maskName = "";
 	gElements.Items.clear();
 	m_groupStack.push(gElements);
@@ -906,11 +834,6 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Catalog *cat, Object *str
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QTransform mm = QTransform(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
-//	qDebug() << "Pattern Fill";
-//	qDebug() << "mat" << mat[0] << mat[1] << mat[2] << mat[3] << mat[4] << mat[5];
-//	qDebug() << "pmat" << pmat[0] << pmat[1] << pmat[2] << pmat[3] << pmat[4] << pmat[5];
-//	qDebug() << "ctm" << ctm[0] << ctm[1] << ctm[2] << ctm[3] << ctm[4] << ctm[5];
-//	qDebug() << "cumulated ctm" << mmx;
 	gfx = new Gfx(xref, this, resDict, catalog, &box, NULL);
 	gfx->display(str);
 	gElements = m_groupStack.pop();
@@ -955,8 +878,6 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Catalog *cat, Object *str
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
 	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
-//	qDebug() << "Crect" << crect;
-//	qDebug() << "Xoffs" << crect.x() - (pmat[4] / fabs(pmat[0])) << "Yoffs" << crect.y() - (m_doc->currentPage()->height() - (pmat[5] / fabs(pmat[3])));
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(crect.height());
@@ -973,29 +894,19 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Catalog *cat, Object *str
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 8;
 	ite->setPattern(id);
 	ite->setPatternTransform(fabs(pmat[0]) * 100, fabs(pmat[3]) * 100, mmx.dx() - ctm[4], mmx.dy() - ctm[5], 0, -1 * pmat[1], pmat[2]);
-//	ite->setPatternTransform(fabs(pmat[0]) * 100, fabs(pmat[3]) * 100, pmat[4], -1 * pmat[5], 0, -1 * pmat[1], pmat[2]);
 	m_doc->AdjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	delete gfx;
 	return gTrue;
@@ -1074,7 +985,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		yCoor = yCoor + ctm[5] - (fabs(sy) * height);
 	else
 		yCoor = yCoor + ctm[5];
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor , yCoor, fabs(sx) * width, fabs(sy) * height, 0, CurrColorFill, CurrColorStroke, true);
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor , yCoor, fabs(sx) * width, fabs(sy) * height, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
 	m_doc->setRedrawBounding(ite);
@@ -1084,9 +995,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineBlendmode(getBlendMode(state));
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	ite->tempImageFile->open();
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
@@ -1104,14 +1013,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	delete imgStr;
 	delete[] buffer;
@@ -1182,7 +1084,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		yCoor = yCoor + ctm[5] - (fabs(sy) * height);
 	else
 		yCoor = yCoor + ctm[5];
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor , yCoor, fabs(sx) * width, fabs(sy) * height, 0, CurrColorFill, CurrColorStroke, true);
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor , yCoor, fabs(sx) * width, fabs(sy) * height, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
 	m_doc->setRedrawBounding(ite);
@@ -1192,9 +1094,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineBlendmode(getBlendMode(state));
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	ite->tempImageFile->open();
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
@@ -1212,14 +1112,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	if (m_groupStack.count() != 0)
 	{
 		m_groupStack.top().Items.append(ite);
-		if (!m_groupStack.top().maskName.isEmpty())
-		{
-			ite->setPatternMask(m_groupStack.top().maskName);
-			if (m_groupStack.top().alpha)
-				ite->setMaskType(3);
-			else
-				ite->setMaskType(6);
-		}
+		applyMask(ite);
 	}
 	delete imgStr;
 	delete[] buffer;
@@ -1581,14 +1474,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				if (m_groupStack.count() != 0)
 				{
 					m_groupStack.top().Items.append(ite);
-					if (!m_groupStack.top().maskName.isEmpty())
-					{
-						ite->setPatternMask(m_groupStack.top().maskName);
-						if (m_groupStack.top().alpha)
-							ite->setMaskType(3);
-						else
-							ite->setMaskType(6);
-					}
+					applyMask(ite);
 				}
 				delete fontPath;
 			}
@@ -1599,11 +1485,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 void SlaOutputDev::beginTextObject(GfxState *state)
 {
 //	qDebug() << "Begin Text Object";
-	groupEntry gElements;
-	gElements.forSoftMask = gFalse;
-	gElements.alpha = gFalse;
-	gElements.maskName = "";
-	m_groupStack.push(gElements);
+	pushGroup();
 }
 
 void SlaOutputDev::endTextObject(GfxState *state)
@@ -1628,16 +1510,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 				m_Elements->append(tmpSel->itemAt(as));
 			}
 			if (m_groupStack.count() != 0)
-			{
-				if (!m_groupStack.top().maskName.isEmpty())
-				{
-					ite->setPatternMask(m_groupStack.top().maskName);
-					if (m_groupStack.top().alpha)
-						ite->setMaskType(3);
-					else
-						ite->setMaskType(6);
-				}
-			}
+				applyMask(ite);
 		}
 		if (m_groupStack.count() != 0)
 		{
@@ -1851,3 +1724,37 @@ int SlaOutputDev::getBlendMode(GfxState *state)
 	return mode;
 }
 
+void SlaOutputDev::applyMask(PageItem *ite)
+{
+	if (m_groupStack.count() != 0)
+	{
+		if (!m_groupStack.top().maskName.isEmpty())
+		{
+			ite->setPatternMask(m_groupStack.top().maskName);
+			if (m_groupStack.top().alpha)
+			{
+				if (m_groupStack.top().inverted)
+					ite->setMaskType(8);
+				else
+					ite->setMaskType(3);
+			}
+			else
+			{
+				if (m_groupStack.top().inverted)
+					ite->setMaskType(7);
+				else
+					ite->setMaskType(6);
+			}
+		}
+	}
+}
+
+void SlaOutputDev::pushGroup(QString maskName, GBool forSoftMask, GBool alpha, bool inverted)
+{
+	groupEntry gElements;
+	gElements.forSoftMask = forSoftMask;
+	gElements.alpha = alpha;
+	gElements.inverted = inverted;
+	gElements.maskName = maskName;
+	m_groupStack.push(gElements);
+}

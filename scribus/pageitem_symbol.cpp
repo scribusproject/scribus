@@ -84,7 +84,7 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				else
 					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 			}
-			else if ((maskType() == 3) || (maskType() == 6))
+			else if ((maskType() == 3) || (maskType() == 6) || (maskType() == 7) || (maskType() == 8))
 			{
 				if ((patternMask().isEmpty()) || (!m_Doc->docPatterns.contains(patternMask())))
 					p->setMaskMode(0);
@@ -95,8 +95,12 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
 					if (maskType() == 3)
 						p->setMaskMode(2);
-					else
+					else if (maskType() == 6)
 						p->setMaskMode(4);
+					else if (maskType() == 7)
+						p->setMaskMode(5);
+					else
+						p->setMaskMode(6);
 				}
 			}
 			else

@@ -1543,7 +1543,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 				else
 					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 			}
-			else if ((GrMask == 3) || (GrMask == 6))
+			else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
 			{
 				if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
 					p->setMaskMode(0);
@@ -1552,8 +1552,12 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
 					if (GrMask == 3)
 						p->setMaskMode(2);
-					else
+					else if (GrMask == 6)
 						p->setMaskMode(4);
+					else if (GrMask == 7)
+						p->setMaskMode(5);
+					else
+						p->setMaskMode(6);
 				}
 			}
 			else
@@ -2033,6 +2037,8 @@ QImage PageItem::DrawObj_toImage(double maxSize)
 
 QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 {
+	bool savedFlag = m_Doc->guidesPrefs().framesShown;
+	m_Doc->guidesPrefs().framesShown = false;
 	QImage retImg = QImage(qRound(gWidth * scaling), qRound(gHeight * scaling), QImage::Format_ARGB32_Premultiplied);
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
@@ -2080,6 +2086,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 	}
 	painter->end();
 	delete painter;
+	m_Doc->guidesPrefs().framesShown = savedFlag;
 	return retImg;
 }
 

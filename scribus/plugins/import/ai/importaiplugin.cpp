@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_formats.h"
 
+#include <QApplication>
 #include <QMessageBox>
 
 int importai_getPluginAPIVersion()
@@ -164,6 +165,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 			fT.close();
 			if (tempBuf.startsWith("%PDF"))
 			{
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QMessageBox msgBox(ScCore->primaryMainWindow());
 				msgBox.setText( tr("This file contains 2 versions of the data."));
 				msgBox.setInformativeText( tr("Choose which one should be imported"));
@@ -181,6 +183,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The PDF Import plugin could not be found"), 1, 0, 0);
 						return false;
 					}
+					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 					bool success = fmt->loadFile(fileName, flags);
 					if (activeTransaction)
 					{
@@ -194,6 +197,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
 					return success;
 				}
+				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			}
 		}
 	}

@@ -59,6 +59,7 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	connect(editPatternProps, SIGNAL(clicked()), this, SLOT(changePatternProps()));
 	connect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
 	connect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 }
 
 void Tpalette::setCurrentItem(PageItem* item)
@@ -139,6 +140,7 @@ void Tpalette::updateFromItem()
 	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	disconnect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
 	disconnect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+	disconnect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 	gradEdit->setGradient(currentItem->mask_gradient);
 	if (!currentItem->gradientMask().isEmpty())
 	{
@@ -162,10 +164,13 @@ void Tpalette::updateFromItem()
 		tabWidget->setTabEnabled(2, true);
 	transpCalcGradient->setChecked(false);
 	transpCalcPattern->setChecked(false);
+	usePatternInverted->setChecked(false);
 	if ((currentItem->GrMask == 4) || (currentItem->GrMask == 5))
 		transpCalcGradient->setChecked(true);
-	if (currentItem->GrMask == 6)
+	if ((currentItem->GrMask == 6) || (currentItem->GrMask == 7))
 		transpCalcPattern->setChecked(true);
+	if ((currentItem->GrMask == 7) || (currentItem->GrMask == 8))
+		usePatternInverted->setChecked(true);
 	if ((currentItem->GrMask == 1) || (currentItem->GrMask == 4))
 		gradientType->setCurrentIndex(0);
 	else if ((currentItem->GrMask == 2) || (currentItem->GrMask == 5))
@@ -183,6 +188,7 @@ void Tpalette::updateFromItem()
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
 	connect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 }
 
 void Tpalette::updateCList()
@@ -269,9 +275,19 @@ void Tpalette::slotGrad(int number)
 	else if (number == 2)
 	{
 		if (transpCalcPattern->isChecked())
-			emit NewGradient(6);
+		{
+			if (usePatternInverted->isChecked())
+				emit NewGradient(7);
+			else
+				emit NewGradient(6);
+		}
 		else
-			emit NewGradient(3);
+		{
+			if (usePatternInverted->isChecked())
+				emit NewGradient(8);
+			else
+				emit NewGradient(3);
+		}
 	}
 	else
 		emit NewGradient(0);
@@ -346,10 +362,19 @@ void Tpalette::switchGradientMode()
 void Tpalette::switchPatternMode()
 {
 	if (transpCalcPattern->isChecked())
-		emit NewGradient(6);
+	{
+		if (usePatternInverted->isChecked())
+			emit NewGradient(7);
+		else
+			emit NewGradient(6);
+	}
 	else
-		emit NewGradient(3);
-
+	{
+		if (usePatternInverted->isChecked())
+			emit NewGradient(8);
+		else
+			emit NewGradient(3);
+	}
 }
 
 void Tpalette::editGradientVector()

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>236</width>
-    <height>363</height>
+    <height>373</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -362,12 +362,6 @@
            <string>Pattern</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout">
-           <property name="spacing">
-            <number>2</number>
-           </property>
-           <property name="margin">
-            <number>5</number>
-           </property>
            <item>
             <widget class="QListWidget" name="patternBox">
              <property name="movement">
@@ -421,6 +415,13 @@
             <widget class="QCheckBox" name="transpCalcPattern">
              <property name="text">
               <string>Use Luminosity as Alpha</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="usePatternInverted">
+             <property name="text">
+              <string>Use inverted Pattern</string>
              </property>
             </widget>
            </item>

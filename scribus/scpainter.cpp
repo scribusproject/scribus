@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <cairo.h>
 
 #include <math.h>
+#include <QDebug>
 
 ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
 {
@@ -132,7 +133,7 @@ void ScPainter::endLayer()
 			cairo_pattern_t *patM = getMaskPattern();
 			setRasterOp(m_blendMode);
 			cairo_mask(m_cr, patM);
-			if ((maskMode == 2) || (maskMode == 4))
+			if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 				cairo_surface_destroy(imageMask);
 			cairo_pattern_destroy(patM);
 		}
@@ -370,7 +371,7 @@ void ScPainter::endLayer()
 			{
 				cairo_pattern_t *patM = getMaskPattern();
 				cairo_mask(m_cr, patM);
-				if ((maskMode == 2) || (maskMode == 4))
+				if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 					cairo_surface_destroy(imageMask);
 				cairo_pattern_destroy(patM);
 			}
@@ -383,7 +384,7 @@ void ScPainter::endLayer()
 			{
 				cairo_pattern_t *patM = getMaskPattern();
 				cairo_mask(m_cr, patM);
-				if ((maskMode == 2) || (maskMode == 4))
+				if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 					cairo_surface_destroy(imageMask);
 				cairo_pattern_destroy(patM);
 			}
@@ -858,9 +859,11 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 	}
 	else
 	{
-		if (maskMode == 4)
+		if ((maskMode == 4) || (maskMode == 5))
 		{
 			imageQ = m_maskPattern->pattern.copy();
+			if (maskMode == 5)
+				imageQ.invertPixels();
 			int h = imageQ.height();
 			int w = imageQ.width();
 			int k;
@@ -883,7 +886,12 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			imageMask = cairo_image_surface_create_for_data ((uchar*)imageQ.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 		}
 		else
-			imageMask = cairo_image_surface_create_for_data ((uchar*)m_maskPattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width()*4);
+		{
+			imageQ = m_maskPattern->pattern.copy();
+			if (maskMode == 6)
+				imageQ.invertPixels(QImage::InvertRgba);
+			imageMask = cairo_image_surface_create_for_data ((uchar*)imageQ.bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width()*4);
+		}
 		pat = cairo_pattern_create_for_surface(imageMask);
 		cairo_pattern_set_extend(pat, CAIRO_EXTEND_REPEAT);
 		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
@@ -929,7 +937,7 @@ void ScPainter::drawVPath( int mode )
 #endif
 				cairo_clip_preserve(m_cr);
 				cairo_mask(m_cr, pat);
-				if ((maskMode == 2) || (maskMode == 4))
+				if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 					cairo_surface_destroy(imageMask);
 				cairo_pattern_destroy(pat);
 			}
@@ -1486,7 +1494,7 @@ void ScPainter::drawVPath( int mode )
 				setRasterOp(m_blendModeFill);
 #endif
 				cairo_mask(m_cr, patM);
-				if ((maskMode == 2) || (maskMode == 4))
+				if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 					cairo_surface_destroy(imageMask);
 				cairo_pattern_destroy (patM);
 			}
@@ -1544,7 +1552,7 @@ void ScPainter::drawVPath( int mode )
 				setRasterOp(m_blendModeFill);
 #endif
 				cairo_mask(m_cr, patM);
-				if ((maskMode == 2) || (maskMode == 4))
+				if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 					cairo_surface_destroy(imageMask);
 				cairo_pattern_destroy (patM);
 			}
@@ -1734,7 +1742,7 @@ void ScPainter::drawImage( QImage *image)
 	{
 		cairo_pattern_t *patM = getMaskPattern();
 		cairo_mask(m_cr, patM);
-		if ((maskMode == 2) || (maskMode == 4))
+		if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 			cairo_surface_destroy(imageMask);
 		cairo_pattern_destroy(patM);
 	}
