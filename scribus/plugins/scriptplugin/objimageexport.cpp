@@ -5,13 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "objimageexport.h"
-#include "cmdutil.h"
-#include "scpage.h"
 
 #include <QImageWriter>
 #include <structmember.h>
 #include <QFileInfo>
 #include <vector>
+
+#include "cmdutil.h"
+#include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 

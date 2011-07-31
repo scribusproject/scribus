@@ -56,13 +56,8 @@ for which a new license (GPL+exception) is in place.
 #include <QtXml>
 #include <QUuid>
 
-
-#include "ui/bookmwin.h"
-#include "ui/bookmarkpalette.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "ui/multiprogressdialog.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
@@ -72,6 +67,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 #include "sccolorengine.h"
 #include "scfonts.h"
+#include "scpage.h"
 #include "scpaths.h"
 #include "scpattern.h"
 #include "scribus.h"
@@ -85,9 +81,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 #include "util_ghostscript.h"
+
 #ifdef HAVE_OSG
 	#include "third_party/prc/exportPRC.h"
 #endif
+
+#include "ui/bookmwin.h"
+#include "ui/bookmarkpalette.h"
+#include "ui/multiprogressdialog.h"
 
 using namespace std;
 

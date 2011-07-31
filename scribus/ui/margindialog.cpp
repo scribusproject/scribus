@@ -14,15 +14,15 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QCheckBox>
 
+#include "commonstrings.h"
 #include "margindialog.h"
 #include "marginwidget.h"
+#include "pagesize.h"
 #include "pagestructs.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "units.h"
 #include "scrspinbox.h"
-#include "pagesize.h"
-#include "commonstrings.h"
+#include "units.h"
 #include "util_icon.h"
 
 MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent)

@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "scimage.h"
+#include "scpage.h"
 #include "scpageoutput_ps2.h"
 #include "scpainterex_ps2.h"
 #include "scribus.h"

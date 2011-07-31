@@ -40,16 +40,17 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "commonstrings.h"
-#include "ui/guidemanager.h"
-#include "scpage.h"
+
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
+
 #include "resourcecollection.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scimagecacheproxy.h"
+#include "sclimits.h"
+#include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scpattern.h"
@@ -61,17 +62,19 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "sctextstream.h"
 #include "selection.h"
-#include "sclimits.h"
 #include "text/nlsconfig.h"
 #include "text/storytext.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
+#include "util_file.h"
 #include "util_formats.h"
+#include "util_icon.h"
 #include "util_math.h"
 #include "util_text.h"
-#include "util_file.h"
-#include "util_icon.h"
+
+#include "ui/guidemanager.h"
+#include "ui/propertiespalette.h"
 
 #include <cairo.h>
 

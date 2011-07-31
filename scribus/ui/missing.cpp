@@ -13,13 +13,13 @@ for which a new license (GPL+exception) is in place.
 #include <QImage>
 #include <QPixmap>
 
-#include "fontcombo.h"
-#include "scribusdoc.h"
-#include "scpage.h"
-#include "prefsmanager.h"
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "fontcombo.h"
+#include "prefsmanager.h"
+#include "scpage.h"
+#include "scribusdoc.h"
 #include "util.h"
+#include "util_icon.h"
 
 static const char* const image100_data[] =
     {

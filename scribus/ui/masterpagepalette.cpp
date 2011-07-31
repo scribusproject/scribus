@@ -23,14 +23,14 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "mergedoc.h"
 #include "newtemp.h"
-#include "scpage.h"
 #include "pagestructs.h"
-#include "selection.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "scribusXml.h"
+#include "selection.h"
 #include "util_icon.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)

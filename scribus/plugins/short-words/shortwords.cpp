@@ -25,13 +25,15 @@ or documentation
 #include <QPixmap>
 
 #include "shortwords.h"
-#include "version.h"
-#include "swdialog.h"
+
 #include "configuration.h"
 #include "parse.h"
-#include "scpage.h"
-#include "swprefsgui.h"
 #include "prefs_shortwords.h"
+#include "swdialog.h"
+#include "swprefsgui.h"
+#include "version.h"
+
+#include "scpage.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusdoc.h"

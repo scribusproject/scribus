@@ -14,12 +14,11 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "commonstrings.h"
-#include "scribusdoc.h"
-#include "scpage.h"
 #include "colorcombo.h"
-#include "prefsmanager.h"
-
 #include "dcolor.h"
+#include "prefsmanager.h"
+#include "scpage.h"
+#include "scribusdoc.h"
 #include "util_icon.h"
 
 DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc) : QDialog( parent )

@@ -22,12 +22,12 @@ class QWidget;
 #include "scguardedptr.h"
 #include "scrspinbox.h"
 #include "pageitem.h"
-#include "scpage.h"
 #include "linkbutton.h"
 #include "linecombo.h"
-#include "spalette.h"
-#include "sclistboxpixmap.h"
 #include "scguardedptr.h"
+#include "sclistboxpixmap.h"
+#include "scpage.h"
+#include "spalette.h"
 #include "sctreewidget.h"
 
 class ColorCombo;

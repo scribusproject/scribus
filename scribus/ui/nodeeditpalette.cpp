@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 
 #include "nodeeditpalette.h"
-#include "scpage.h"
 #include "pageitem.h"
+#include "scpage.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"

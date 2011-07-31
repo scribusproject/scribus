@@ -12,19 +12,20 @@ for which a new license (GPL+exception) is in place.
     email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+
 #include "importdrw.h"
 #include "importdrwplugin.h"
-#include "ui/scmwmenumanager.h"
-#include "scpage.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "undomanager.h"
 #include "util_formats.h"
 
+#include "ui/customfdialog.h"
+#include "ui/scmwmenumanager.h"
 
 int importdrw_getPluginAPIVersion()
 {

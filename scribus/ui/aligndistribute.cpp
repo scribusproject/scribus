@@ -35,15 +35,17 @@ for which a new license (GPL+exception) is in place.
 #include <QVariant>
 
 #include "commonstrings.h"
-#include "scpage.h"
-#include "ui/scmessagebox.h"
+
+
 #include "scribusdoc.h"
-#include "ui/scrspinbox.h"
 #include "selection.h"
 #include "undomanager.h"
+#include "scpage.h"
+#include "scribusstructs.h"
 #include "units.h"
 #include "util_icon.h"
-#include "scribusstructs.h"
+#include "ui/scmessagebox.h"
+#include "ui/scrspinbox.h"
 
 //TODO Distribute with 
 

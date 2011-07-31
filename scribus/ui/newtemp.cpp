@@ -15,10 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QPushButton>
 
-#include "scpage.h"
-#include "pagestructs.h"
-#include "scribusdoc.h"
 #include "commonstrings.h"
+#include "pagestructs.h"
+#include "scpage.h"
+#include "scribusdoc.h"
 #include "util_icon.h"
 
 NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, const QString& answerText)

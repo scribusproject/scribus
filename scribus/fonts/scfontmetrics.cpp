@@ -15,9 +15,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "scpage.h"
 #include "scfontmetrics.h"
 #include "scfonts.h"
+#include "scpage.h"
 #include "scpainter.h"
 #include "scribusdoc.h"
 #include "style.h"

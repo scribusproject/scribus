@@ -27,10 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_regularpolygon.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scraction.h"

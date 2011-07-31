@@ -7,20 +7,20 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPen>
 #include <QTabWidget>
+
 #include "guidemanagercore.h"
-#include "scpainter.h"
-#include "scpage.h"
+
 #include "fpoint.h"
-#include "undomanager.h"
-#include "undostate.h"
-#include "ui/guidemanager.h"
 #include "scclocale.h"
+#include "scpage.h"
+#include "scpainter.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "pagestructs.h"
 #include "selection.h"
-
-
+#include "undomanager.h"
+#include "undostate.h"
+#include "ui/guidemanager.h"
 
 GuideManagerCore::GuideManagerCore():
 	undoManager(UndoManager::instance()),

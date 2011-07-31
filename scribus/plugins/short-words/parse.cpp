@@ -24,12 +24,12 @@ or documentation
 #include "version.h"
 #include "configuration.h"
 
+#include "langmgr.h"
+#include "pageitem.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scpage.h"
-#include "pageitem.h"
 #include "selection.h"
-#include "langmgr.h"
 
 SWParse::SWParse()
 {

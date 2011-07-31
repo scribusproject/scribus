@@ -13,12 +13,13 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QCheckBox>
 #include <QPushButton>
-#include "scribusdoc.h"
+
+#include "commonstrings.h"
 #include "scpage.h"
-#include "units.h"
+#include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "pagesize.h"
-#include "commonstrings.h"
+#include "units.h"
 #include "util_icon.h"
 #include "util.h"
 

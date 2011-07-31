@@ -30,11 +30,11 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 
 #include "filewatcher.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "prefsmanager.h"
 #include "scraction.h"
+#include "scpage.h"
 #include "scpaths.h"
 #include "scpainter.h"
 #include "scribus.h"

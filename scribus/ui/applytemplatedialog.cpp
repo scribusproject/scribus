@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "commonstrings.h"
-#include "scribusdoc.h"
 #include "scpage.h"
+#include "scribusdoc.h"
 #include "util_icon.h"
 
 enum {

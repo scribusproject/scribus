@@ -27,10 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 
 #include "commonstrings.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_symbol.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scraction.h"

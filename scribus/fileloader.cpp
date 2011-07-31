@@ -21,24 +21,28 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <QTextStream>
 
+#include "scconfig.h"
+
 #include "commonstrings.h"
 #include "fileloader.h"
-#include "ui/fontreplacedialog.h"
 #include "hyphenator.h"
-#include "ui/missing.h"
-#include "scpage.h"
-#include "pluginmanager.h"
-#include "plugins/formatidlist.h"
+#include "loadsaveplugin.h"
 #include "pagestructs.h"
+#include "pluginmanager.h"
+#include "prefsmanager.h"
 #include "resourcecollection.h"
-#include "scconfig.h"
 #include "scclocale.h"
+#include "scpage.h"
 #include "scribuscore.h"
 #include "scribusXml.h"
 #include "units.h"
-#include "loadsaveplugin.h"
-#include "ui/guidemanager.h"
+#include "util.h"
+
+#include "plugins/formatidlist.h"
 #include "text/nlsconfig.h"
+#include "ui/guidemanager.h"
+#include "ui/fontreplacedialog.h"
+#include "ui/missing.h"
 
 // We need to include the headers for the plugins we support until we start
 // using LoadSavePlugin to pick them for us. We only use these headers to
@@ -46,10 +50,7 @@ for which a new license (GPL+exception) is in place.
 // #include "plugins/svgimplugin/svgplugin.h"
 // #include "plugins/psimport/importpsplugin.h"
 // #include "plugins/fileloader/oodraw/oodrawimp.h"
-
 #include <zlib.h>
-#include "util.h"
-#include "prefsmanager.h"
 
 /*!
  \author Franz Schmid

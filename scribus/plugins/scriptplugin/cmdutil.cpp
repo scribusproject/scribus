@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cmdutil.h"
-#include "units.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "units.h"
 
 ScribusMainWindow* Carrier;
 ScribusDoc* doc;

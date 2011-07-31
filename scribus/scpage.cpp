@@ -24,14 +24,15 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPixmap>
 
-#include "ui/guidemanager.h"
-#include "ui/nodeeditpalette.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util_icon.h"
+
+#include "ui/guidemanager.h"
+#include "ui/nodeeditpalette.h"
 
 ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	UndoObject(QObject::tr("Page")),

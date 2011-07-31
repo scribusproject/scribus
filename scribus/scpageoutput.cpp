@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
@@ -24,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scfonts.h"
 #include "scimage.h"
+#include "scpage.h"
 #include "scpattern.h"
 #include "scribus.h"
 #include "scribusdoc.h"

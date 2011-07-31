@@ -29,12 +29,11 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QStringList>
 
-#include "sccombobox.h"
-
-#include "scribusdoc.h"
 #include "fontcombo.h"
-#include "scpage.h"
 #include "prefsmanager.h"
+#include "sccombobox.h"
+#include "scpage.h"
+#include "scribusdoc.h"
 #include "util_icon.h"
 #include "util.h"
 

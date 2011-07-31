@@ -4,24 +4,26 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QApplication>
+#include <QMessageBox>
+
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+
 #include "importpdf.h"
 #include "importpdfplugin.h"
-#include "ui/scmwmenumanager.h"
-#include "scpage.h"
-#include "scpaths.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scpage.h"
+#include "scpaths.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "undomanager.h"
 #include "util_formats.h"
 #include "util.h"
-#include <QApplication>
-#include <QMessageBox>
 
+#include "ui/customfdialog.h"
+#include "ui/scmwmenumanager.h"
 
 int importpdf_getPluginAPIVersion()
 {

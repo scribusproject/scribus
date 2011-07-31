@@ -27,20 +27,20 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
-#include "scpage.h"
+#include "scconfig.h"
+
+#include "commonstrings.h"
 #include "pageitem.h"
 #include "pageitem_polyline.h"
 #include "prefsmanager.h"
 #include "scpainter.h"
+#include "scpage.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-#include "commonstrings.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "scconfig.h"
-
 #include "util.h"
 
 using namespace std;

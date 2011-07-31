@@ -26,9 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"
 #include "gtwriter.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pagestructs.h"
+#include "scpage.h"
 #include "scribusdoc.h"
 
 TOCGenerator::TOCGenerator(QObject *parent, ScribusDoc *doc) : QObject(parent)

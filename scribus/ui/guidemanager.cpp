@@ -23,17 +23,18 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "guidemanager.h"
+
 #include "commonstrings.h"
-#include "scpage.h"
+#include "guidesdelegate.h"
+#include "guidesmodel.h"
 #include "scinputdialog.h"
+#include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "guidesmodel.h"
-#include "guidesdelegate.h"
 
 
 GuideManager::GuideManager(QWidget* parent) :

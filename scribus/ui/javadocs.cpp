@@ -13,13 +13,15 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QRegExp>
 #include <QToolTip>
-#include "editor.h"
-#include "ui/scmessagebox.h"
-#include "scribusdoc.h"
-#include "scpage.h"
+
 #include "commonstrings.h"
+#include "editor.h"
 #include "query.h"
+#include "scpage.h"
+#include "scribusdoc.h"
+#include "ui/scmessagebox.h"
 #include "util_icon.h"
+
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog( parent )
 {

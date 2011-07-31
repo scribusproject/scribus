@@ -30,16 +30,15 @@ for which a new license (GPL+exception) is in place.
 #include <QRegion>
 #include <cassert>
 
+#include "scconfig.h"
 
 #include "canvas.h"
 #include "commonstrings.h"
-#include "ui/guidemanager.h"
 #include "hyphenator.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
-#include "scconfig.h"
+#include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scraction.h"
@@ -52,6 +51,9 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "util.h"
 #include "util_math.h"
+
+#include "ui/guidemanager.h"
+
 #include <cairo.h>
 
 using namespace std;
@@ -3515,49 +3517,30 @@ double PageItem_TextFrame::columnWidth()
 
 void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 {
-	/*CB Old large corner indicator.
-	double scp1 = 1.0/qMax(ScMW->view->getScale(), 1);
-	double scp16 = 16.0*scp1;
-	double scp14 = 14.0*scp1;
-	double scp3 = 3.0*scp1;
-	double scm_lineWidth16 = Width - scp16;
-	double scpheight16 = Height - scp16;
-	double scm_lineWidth3 = Width - scp3;
-	double scpheight3 = Height - scp3;
-	p->setPen(Qt::black, scp1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	p->setBrush(white);
-	p->drawRect(scm_lineWidth16, scpheight16, scp14, scp14);
-	p->drawLine(FPoint(scm_lineWidth16, scpheight16), FPoint(scm_lineWidth3, scpheight3));
-	p->drawLine(FPoint(scm_lineWidth16, scpheight3), FPoint(scm_lineWidth3, scpheight16));
-	*/
-	//TODO: CB clean
-	double scp1 = p->zoomFactor() ;// / ScMW->view->scale();
-	double ofwh = 8 * scp1;
-	//CB moved down while locked marker disabled
-	//double ofx = Width - ofwh/2;
-	//double ofy = Height - ofwh*3.0;
-	double ofx = Width - ofwh/2;
-	double ofy = Height - ofwh*1.5;
-	double lx1= ofx;
-	double ly1= ofy;
-	double lx2= ofx+ofwh;
-	double ly2= ofy+ofwh;
-	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	qreal sideLength = 10 / qMax(p->zoomFactor(), 1.0);
+	qreal left  = Width  - sideLength / 2;
+	qreal right = left   + sideLength;
+	qreal top   = Height - sideLength * 1.5;
+	qreal bottom = top   + sideLength;
+
+	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
 	if ((isBookmark) || (m_isAnnotation))
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		color = PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor;
 	if ((BackBox != 0) || (NextBox != 0))
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor;
 	if (m_Locked)
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor;
 	if (m_Doc->m_Selection->containsItem(this))
-		p->setPen(Qt::red, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		color = Qt::red;
+
+	p->setPen(color, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
 	p->setFillMode(ScPainter::Solid);
-	p->drawRect(ofx, ofy, ofwh, ofwh);
-	p->drawLine(FPoint(lx1, ly1), FPoint(lx2, ly2));
-	p->drawLine(FPoint(lx1, ly2), FPoint(lx2, ly1));
+	p->drawRect(left, top, sideLength, sideLength);
+	p->drawLine(FPoint(left, top), FPoint(right, bottom));
+	p->drawLine(FPoint(left, bottom), FPoint(right, top));
 }
 
 void PageItem_TextFrame::drawColumnBorders(ScPainter *p)

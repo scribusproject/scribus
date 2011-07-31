@@ -20,14 +20,13 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 
 #include "commonstrings.h"
-#include "scpage.h"
 #include "pagelayout.h"
 #include "pagepalette.h"
 #include "sccombobox.h"
+#include "scpage.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "util_icon.h"
-
 
 /* IconItems Code */
 SeItem::SeItem(QString text, uint nr, const QPixmap& Pix) : QTableWidgetItem(QIcon(Pix), "", 1002)

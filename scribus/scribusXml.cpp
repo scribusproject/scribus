@@ -31,7 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "commonstrings.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pageitem_latexframe.h"
 #ifdef HAVE_OSG
@@ -39,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "prefsmanager.h"
 #include "scclocale.h"
+#include "scpage.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "text/nlsconfig.h"

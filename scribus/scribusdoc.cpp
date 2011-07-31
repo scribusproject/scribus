@@ -66,13 +66,11 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
-#include "sccolorengine.h"
-#include "ui/scmessagebox.h"
-#include "colormgmt/sccolormgmtenginefactory.h"
 #include "scclocale.h"
-#include "scpainter.h"
 #include "sclimits.h"
+#include "sccolorengine.h"
 #include "scpage.h"
+#include "scpainter.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -82,9 +80,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
-#include "ui/hruler.h"
-#include "ui/layers.h"
-#include "ui/storyeditor.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "units.h"
@@ -92,6 +87,11 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 
+#include "colormgmt/sccolormgmtenginefactory.h"
+#include "ui/hruler.h"
+#include "ui/layers.h"
+#include "ui/scmessagebox.h"
+#include "ui/storyeditor.h"
 
 // static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
 

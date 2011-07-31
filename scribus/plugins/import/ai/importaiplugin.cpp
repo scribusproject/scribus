@@ -5,19 +5,22 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+
 #include "importai.h"
 #include "importaiplugin.h"
-#include "ui/scmwmenumanager.h"
-#include "scpage.h"
+
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
+#include "scpage.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "undomanager.h"
 #include "util_formats.h"
+
+#include "ui/customfdialog.h"
+#include "ui/scmwmenumanager.h"
 
 #include <QApplication>
 #include <QMessageBox>

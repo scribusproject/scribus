@@ -6,11 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "scdocoutput_ps2.h"
+
+#include "commonstrings.h"
+#include "scpage.h"
 #include "scpageoutput_ps2.h"
 #include "scribuscore.h"
-#include "commonstrings.h"
 #include "scribusdoc.h"
-#include "scpage.h"
 
 using namespace std;
 

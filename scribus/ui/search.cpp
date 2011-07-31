@@ -19,19 +19,19 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QMessageBox>
 
+#include "colorcombo.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
-#include "colorcombo.h"
 #include "fontcombo.h"
-#include "scrspinbox.h"
-#include "scpage.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scribus.h"
+#include "scrspinbox.h"
 #include "shadebutton.h"
-#include "ui/storyeditor.h"
 #include "styleselect.h"
+#include "ui/storyeditor.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_text.h"

@@ -23,11 +23,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "documentchecker.h"
-#include "scpage.h"
 #include "pageitem.h"
 #include "pdf_analyzer.h"
 #include "sccolor.h"
 #include "sclayer.h"
+#include "scpage.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "text/nlsconfig.h"
