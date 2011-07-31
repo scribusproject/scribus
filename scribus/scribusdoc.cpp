@@ -5403,6 +5403,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		}
 		QRectF sR = m_Selection->getGroupRect();
 		moveGroup(-sR.x() + addedPage->xOffset(), -sR.y() + addedPage->yOffset());
+		if (Items->at(0)->isGroup())
+			Items->at(0)->asGroupFrame()->adjustXYPosition();
 		m_Selection->clear();
 		m_Selection->delaySignalsOff();
 		m_ScMW->changeLayer(0);
@@ -5418,6 +5420,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			{
 				itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 				PageItem *groupItem = Items->takeLast();
+				groupItem->setLayer(0);
 				Items->insert(0, groupItem);
 				double minx =  std::numeric_limits<double>::max();
 				double miny =  std::numeric_limits<double>::max();
@@ -5434,6 +5437,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 					maxx = qMax(maxx, x2);
 					maxy = qMax(maxy, y2);
 				}
+				Items->clear();
+				Items->append(groupItem);
 				for (int em = 0; em < groupItem->groupItemList.count(); ++em)
 				{
 					PageItem* currItem = groupItem->groupItemList.at(em);
@@ -5446,6 +5451,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 				groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
 				groupItem->groupWidth = maxx - minx;
 				groupItem->groupHeight = maxy - miny;
+				groupItem->gWidth = maxx - minx;
+				groupItem->gHeight = maxy - miny;
 				groupItem->SetRectFrame();
 				groupItem->ClipEdited = true;
 				groupItem->FrameType = 3;
@@ -5453,6 +5460,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 				groupItem->AutoName = false;
 				groupItem->setFillTransparency(0);
 				groupItem->setLineTransparency(0);
+				groupItem->asGroupFrame()->adjustXYPosition();
 				GroupCounter++;
 				renumberItemsInListOrder();
 			}
@@ -12278,6 +12286,7 @@ PageItem* ScribusDoc::groupObjectsSelection(Selection* customSelection)
 		int d = Items->indexOf(currItem);
 		groupItem->groupItemList.append(Items->takeAt(d));
 	}
+	groupItem->asGroupFrame()->adjustXYPosition();
 	renumberItemsInListOrder();
 	itemSelection->clear();
 	itemSelection->addItem(groupItem);
@@ -12333,6 +12342,7 @@ PageItem* ScribusDoc::groupObjectsList(QList<PageItem*> &itemList)
 		currItem->gHeight = maxy - miny;
 	}
 	renumberItemsInListOrder();
+	groupItem->asGroupFrame()->adjustXYPosition();
 	GroupCounter++;
 	itemList.clear();
 	itemList.append(groupItem);
@@ -12373,6 +12383,7 @@ void ScribusDoc::groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemL
 	}
 	renumberItemsInListOrder();
 	GroupCounter++;
+	groupItem->asGroupFrame()->adjustXYPosition();
 	itemList.clear();
 	itemList.append(groupItem);
 }
@@ -12444,7 +12455,7 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		}
+	}
 	double gx = minx;
 	double gy = miny;
 	double gw = maxx - minx;
@@ -12467,6 +12478,7 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 		groupItem->groupItemList.append(Items->takeAt(d));
 	}
 	renumberItemsInListOrder();
+	groupItem->asGroupFrame()->adjustXYPosition();
 	itemSelection->clear();
 	itemSelection->addItem(groupItem);
 	selectedItemCount = itemSelection->count();

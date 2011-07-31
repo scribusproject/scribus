@@ -7423,8 +7423,11 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 		view->requestMode(submodeEndNodeEdit);
 	activateWindow();
 	view->Deselect(true);
-	if ((ite->OwnPage != -1) && (ite->OwnPage != static_cast<int>(doc->currentPage()->pageNr())))
-		view->GotoPage(ite->OwnPage);
+	if (!doc->symbolEditMode())
+	{
+		if ((ite->OwnPage != -1) && (ite->OwnPage != static_cast<int>(doc->currentPage()->pageNr())))
+			view->GotoPage(ite->OwnPage);
+	}
 	doc->m_Selection->delaySignalsOn();
 	view->SelectItem(ite, true, single);
 	doc->m_Selection->delaySignalsOff();
@@ -8528,6 +8531,8 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		symbolPalette->editingStart(patternsDependingOnThis);
 		propertiesPalette->Cpal->hideEditedPatterns(patternsDependingOnThis);
 		propertiesPalette->Tpal->hideEditedPatterns(patternsDependingOnThis);
+		if (outlinePalette->isVisible())
+			outlinePalette->BuildTree(false);
 		updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
 	}
 }
@@ -8581,6 +8586,8 @@ void ScribusMainWindow::editSymbolEnd()
 	propertiesPalette->updateColorList();
 	symbolPalette->editingFinished();
 	layerPalette->setEnabled(true);
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree(false);
 	updateActiveWindowCaption(doc->DocName);
 }
 

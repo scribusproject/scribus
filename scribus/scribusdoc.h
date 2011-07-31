@@ -832,6 +832,9 @@ public:
 	/*** Is the document in symbol edit mode? */
 	bool symbolEditMode() const { return m_symbolEditMode; }
 	
+	/*** get the name of the symbol currently in editing */
+	QString getEditedSymbol() const { return currentEditedSymbol; }
+
 	/**
 	 * @brief Add a section to the document sections list
 	 * Set number to -1 to add in the default section if the map is empty

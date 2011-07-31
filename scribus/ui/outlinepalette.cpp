@@ -637,9 +637,12 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 				emit selectElementByItem(pgItem, true);
 			break;
 		case 2:
-			pg = item->PageObject->pageNr();
-			m_MainWindow->closeActiveWindowMasterPageEditor();
-			emit selectPage(pg);
+			if (!currDoc->symbolEditMode())
+			{
+				pg = item->PageObject->pageNr();
+				m_MainWindow->closeActiveWindowMasterPageEditor();
+				emit selectPage(pg);
+			}
 			break;
 		case 3:
 		case 4:
@@ -678,117 +681,151 @@ void OutlinePalette::BuildTree(bool storeVals)
 	freeObjects = 0;
 	PageItem* pgItem;
 	QString tmp;
-	for (int a = 0; a < static_cast<int>(currDoc->MasterPages.count()); ++a)
+	if (currDoc->symbolEditMode())
 	{
 		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
-		page->PageObject = currDoc->MasterPages.at(a);
-		page->type = 0;
-		QString pageNam = currDoc->MasterPages.at(a)->pageName();
-		pagep = page;
-		for (int b = 0; b < currDoc->MasterItems.count(); ++b)
-		{
-			pgItem = currDoc->MasterItems.at(b);
-			if (((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam)))
-			{
-				if (!pgItem->isGroup())
-				{
-					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-					object->PageItemObject = pgItem;
-					object->type = 1;
-					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem);
-					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				}
-				else
-				{
-					OutlineTreeItem * object = new OutlineTreeItem( page, 0 );
-					object->PageItemObject = pgItem;
-					object->type = 1;
-					object->setText(0, pgItem->itemName());
-					object->setIcon( 0, groupIcon );
-					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					parseSubGroup(object, &pgItem->groupItemList, 1);
-				}
-			}
-		}
-		page->setText(0, currDoc->MasterPages.at(a)->pageName());
-	}
-	for (int a = 0; a < static_cast<int>(currDoc->DocPages.count()); ++a)
-	{
-		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
-		page->PageObject = currDoc->DocPages.at(a);
+		page->PageObject = currDoc->Pages->at(0);
 		page->type = 2;
 		pagep = page;
-		for (int b = 0; b < currDoc->DocItems.count(); ++b)
+		for (int b = 0; b < currDoc->Items->count(); ++b)
 		{
-			pgItem = currDoc->DocItems.at(b);
-			if (pgItem->OwnPage == a)
+			pgItem = currDoc->Items->at(b);
+			if (!pgItem->isGroup())
 			{
-				if (!pgItem->isGroup())
-				{
-					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-					object->PageItemObject = pgItem;
-					object->type = 3;
-					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem);
-					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				}
-				else
-				{
-					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-					object->PageItemObject = pgItem;
-					object->type = 3;
-					object->setText(0, pgItem->itemName());
-					object->setIcon( 0, groupIcon );
-					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					parseSubGroup(object, &pgItem->groupItemList, 3);
-				}
+				OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+				object->PageItemObject = pgItem;
+				object->type = 3;
+				object->setText(0, pgItem->itemName());
+				setItemIcon(object, pgItem);
+				object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+			}
+			else
+			{
+				OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+				object->PageItemObject = pgItem;
+				object->type = 3;
+				object->setText(0, pgItem->itemName());
+				object->setIcon( 0, groupIcon );
+				object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+				parseSubGroup(object, &pgItem->groupItemList, 3);
 			}
 		}
-		page->setText(0, tr("Page ")+tmp.setNum(a+1));
+		page->setText(0, currDoc->getEditedSymbol());
 	}
-	bool hasfreeItems = false;
-	for (int b = 0; b < currDoc->DocItems.count(); ++b)
+	else
 	{
-		if (currDoc->DocItems.at(b)->OwnPage == -1)
+		for (int a = 0; a < static_cast<int>(currDoc->MasterPages.count()); ++a)
 		{
-			hasfreeItems = true;
-			break;
-		}
-	}
-	if (hasfreeItems)
-	{
-		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
-		pagep = page;
-		freeObjects = page;
-		page->type = -3;
-		for (int b = 0; b < currDoc->DocItems.count(); ++b)
-		{
-			pgItem = currDoc->DocItems.at(b);
-			if (pgItem->OwnPage == -1)
+			OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
+			page->PageObject = currDoc->MasterPages.at(a);
+			page->type = 0;
+			QString pageNam = currDoc->MasterPages.at(a)->pageName();
+			pagep = page;
+			for (int b = 0; b < currDoc->MasterItems.count(); ++b)
 			{
-				if (!pgItem->isGroup())
+				pgItem = currDoc->MasterItems.at(b);
+				if (((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam)))
 				{
-					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-					object->PageItemObject = pgItem;
-					object->type = 4;
-					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem);
-					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				}
-				else
-				{
-					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-					object->PageItemObject = pgItem;
-					object->type = 4;
-					object->setText(0, pgItem->itemName());
-					object->setIcon( 0, groupIcon );
-					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-					parseSubGroup(object, &pgItem->groupItemList, 4);
+					if (!pgItem->isGroup())
+					{
+						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+						object->PageItemObject = pgItem;
+						object->type = 1;
+						object->setText(0, pgItem->itemName());
+						setItemIcon(object, pgItem);
+						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+					}
+					else
+					{
+						OutlineTreeItem * object = new OutlineTreeItem( page, 0 );
+						object->PageItemObject = pgItem;
+						object->type = 1;
+						object->setText(0, pgItem->itemName());
+						object->setIcon( 0, groupIcon );
+						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						parseSubGroup(object, &pgItem->groupItemList, 1);
+					}
 				}
 			}
+			page->setText(0, currDoc->MasterPages.at(a)->pageName());
 		}
-		page->setText(0, tr("Free Objects"));
+		for (int a = 0; a < static_cast<int>(currDoc->DocPages.count()); ++a)
+		{
+			OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
+			page->PageObject = currDoc->DocPages.at(a);
+			page->type = 2;
+			pagep = page;
+			for (int b = 0; b < currDoc->DocItems.count(); ++b)
+			{
+				pgItem = currDoc->DocItems.at(b);
+				if (pgItem->OwnPage == a)
+				{
+					if (!pgItem->isGroup())
+					{
+						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+						object->PageItemObject = pgItem;
+						object->type = 3;
+						object->setText(0, pgItem->itemName());
+						setItemIcon(object, pgItem);
+						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+					}
+					else
+					{
+						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+						object->PageItemObject = pgItem;
+						object->type = 3;
+						object->setText(0, pgItem->itemName());
+						object->setIcon( 0, groupIcon );
+						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						parseSubGroup(object, &pgItem->groupItemList, 3);
+					}
+				}
+			}
+			page->setText(0, tr("Page ")+tmp.setNum(a+1));
+		}
+		bool hasfreeItems = false;
+		for (int b = 0; b < currDoc->DocItems.count(); ++b)
+		{
+			if (currDoc->DocItems.at(b)->OwnPage == -1)
+			{
+				hasfreeItems = true;
+				break;
+			}
+		}
+		if (hasfreeItems)
+		{
+			OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
+			pagep = page;
+			freeObjects = page;
+			page->type = -3;
+			for (int b = 0; b < currDoc->DocItems.count(); ++b)
+			{
+				pgItem = currDoc->DocItems.at(b);
+				if (pgItem->OwnPage == -1)
+				{
+					if (!pgItem->isGroup())
+					{
+						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+						object->PageItemObject = pgItem;
+						object->type = 4;
+						object->setText(0, pgItem->itemName());
+						setItemIcon(object, pgItem);
+						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+					}
+					else
+					{
+						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+						object->PageItemObject = pgItem;
+						object->type = 4;
+						object->setText(0, pgItem->itemName());
+						object->setIcon( 0, groupIcon );
+						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						parseSubGroup(object, &pgItem->groupItemList, 4);
+					}
+				}
+			}
+			page->setText(0, tr("Free Objects"));
+		}
 	}
 	if (storeVals)
 		reopenTree();
