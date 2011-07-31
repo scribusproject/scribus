@@ -1587,18 +1587,19 @@ bool ScribusView::slotSetCurs(int x, int y)
 			// #9592 : layout must be valid here, or screenToPosition() may crash
 			if (currItem->invalid)
 				currItem->layout();
-			if(currItem->reversed())
-			{ //handle Right to Left writing
-				FPoint point(currItem->width()-(pf.x() - currItem->xPos()), pf.y() - currItem->yPos());
-				currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
-					currItem->itemText.screenToPosition(point) );
-			}
-			else
+
+			QTransform transform = currItem->getTransform();
+			FPoint point(pf.x() - currItem->xPos(), pf.y() - currItem->yPos());
+			if (transform.isInvertible() && currItem->itemText.length() > 0)
 			{
-				FPoint point(pf.x() - currItem->xPos(), pf.y() - currItem->yPos());
-				currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
-					currItem->itemText.screenToPosition(point) );
+				double tx = 0, ty = 0;
+				transform.inverted().map(pf.x(), pf.y(), &tx, &ty);
+				point.setXY(tx, ty);
 			}
+			if (currItem->reversed())
+				point.setX(currItem->width() - point.x());
+			currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
+				currItem->itemText.screenToPosition(point) );
 
 			if (currItem->itemText.length() > 0)
 			{
