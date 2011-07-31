@@ -1075,7 +1075,7 @@ public:
 	* Set the layer for the item
 	* @param layerId layer where this item is moved
 	*/
-	void setLayer(int layerId);
+	virtual void setLayer(int layerId);
 
 	/**
 	 * @brief Check the changes to the item and add undo actions for them.

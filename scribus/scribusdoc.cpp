@@ -8212,29 +8212,19 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	if (tmpSelection.count() != 0)
 		itemSelection_DeleteItem(&tmpSelection);
 	tmpSelection.clear();
-	QList<PageItem*> allItems;
 	for (int b = 0; b < DocItems.count(); ++b)
 	{
 		PageItem* currItem = DocItems.at(b);
-		if (currItem->isGroup())
-			allItems = currItem->getItemList();
-		else
-			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		if (currItem->LayerID == l)
 		{
-			currItem = allItems.at(ii);
-			if (currItem->LayerID == l)
+			if (dl)
 			{
-				if (dl)
-				{
-					tmpSelection.addItem(currItem);
-					currItem->setLocked(false);
-				}
-				else
-					currItem->setLayer(newLayerID);
+				tmpSelection.addItem(currItem);
+				currItem->setLocked(false);
 			}
+			else
+				currItem->setLayer(newLayerID);
 		}
-		allItems.clear();
 	}
 	if (tmpSelection.count() != 0)
 		itemSelection_DeleteItem(&tmpSelection);

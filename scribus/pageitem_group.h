@@ -43,12 +43,13 @@ public:
 	virtual PageItem_Group * asGroupFrame() { return this; }
 	virtual bool isGroup() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::Group; }
+	void adjustXYPosition();
 	virtual QList<PageItem*> getItemList();
+	virtual void setLayer(int layerId);
 	virtual void getNamedResources(ResourceCollection& lists) const;
 	virtual void replaceNamedResources(ResourceCollection& newNames);
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
-	void adjustXYPosition();
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);

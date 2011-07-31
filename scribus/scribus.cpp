@@ -391,8 +391,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecentFromWatcher(QString)));
-	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
-	connect(this, SIGNAL(TextEffects(int)), propertiesPalette, SLOT(setStil(int)));
+//	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
+//	connect(this, SIGNAL(TextEffects(int)), propertiesPalette, SLOT(setStil(int)));
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 //	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);

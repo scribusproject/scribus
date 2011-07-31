@@ -82,6 +82,16 @@ QList<PageItem*> PageItem_Group::getItemList()
 	return ret;
 }
 
+void PageItem_Group::setLayer(int newLayerID)
+{
+	for (int em = 0; em < groupItemList.count(); ++em)
+	{
+		PageItem* embedded = groupItemList.at(em);
+		embedded->setLayer(newLayerID);
+	}
+	LayerID = newLayerID;
+}
+
 void PageItem_Group::replaceNamedResources(ResourceCollection& newNames)
 {
 	for (int em = 0; em < groupItemList.count(); ++em)
