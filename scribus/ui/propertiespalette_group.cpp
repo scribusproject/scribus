@@ -96,6 +96,8 @@ PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(par
 
 	connect(customShape  , SIGNAL(FormSel(int, int, qreal *)), this, SLOT(handleNewShape(int, int, qreal *)));
 	connect(editShape, SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
+	connect(evenOdd    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
+	connect(nonZero    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
 	connect(transPalWidget , SIGNAL(editGradient())            , this, SLOT(handleGradientEdit()));
 	connect(transPalWidget , SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(handleSpecialGradient(double, double, double, double, double, double, double, double )));
 }
@@ -283,6 +285,8 @@ void PropertiesPalette_Group::setCurrentItem(PageItem *item)
 	m_item->patternFlip(mirrorX, mirrorY);
 
 	transPalWidget->setCurrentItem(m_item);
+	nonZero->setChecked(!m_item->fillRule);
+	evenOdd->setChecked(m_item->fillRule);
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
@@ -551,6 +555,15 @@ void PropertiesPalette_Group::handleSpecialGradient(double x1, double y1, double
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		emit DocChanged();
 	}
+}
+
+void PropertiesPalette_Group::handleFillRule()
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	m_item->fillRule = evenOdd->isChecked();
+	m_item->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette_Group::handleShapeEdit()

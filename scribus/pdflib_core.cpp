@@ -2477,7 +2477,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							ScPattern pat = doc.docPatterns[ite->pattern()];
 							PutPage("q\n");
 							PutPage(SetClipPath(ite));
-							PutPage("h W* n\n");
+							PutPage(ite->fillRule ? "h W* n\n" : "h W n\n");
 							if (ite->imageFlippedH())
 								PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
 							if (ite->imageFlippedV())
@@ -2523,7 +2523,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							QString tmpD = "";
 							PutPage("q\n");
 							PutPage(SetClipPath(ite));
-							PutPage("h W* n\n");
+							PutPage(ite->fillRule ? "h W* n\n" : "h W n\n");
 							if (ite->imageFlippedH())
 								PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
 							if (ite->imageFlippedV())
@@ -4279,7 +4279,10 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				ScPattern pat = doc.docPatterns[ite->pattern()];
 				tmp += "q\n";
 				tmp += SetClipPath(ite);
-				tmp += "h W* n\n";
+				if (ite->fillRule)
+					tmp += "h W* n\n";
+				else
+					tmp += "h W n\n";
 				if (ite->imageFlippedH())
 					tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
 				if (ite->imageFlippedV())
@@ -4325,7 +4328,10 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				QString tmpD = "";
 				tmp += "q\n";
 				tmp += SetClipPath(ite);
-				tmp += "h W* n\n";
+				if (ite->fillRule)
+					tmp += "h W* n\n";
+				else
+					tmp += "h W n\n";
 				if (ite->imageFlippedH())
 					tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
 				if (ite->imageFlippedV())

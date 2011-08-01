@@ -142,6 +142,7 @@ private:
 		ScPattern *maskPattern;
 		FPointArray groupClip;
 		bool pushed;
+		bool fillRule;
 	};
 	cairo_pattern_t *getMaskPattern();
 	cairo_surface_t *imageMask;

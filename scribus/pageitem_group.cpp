@@ -164,6 +164,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			}
 			else
 				p->setMaskMode(0);
+			p->setFillRule(fillRule);
 			p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
 			p->setMaskMode(0);
 			p->scale(Width / groupWidth, Height / groupHeight);

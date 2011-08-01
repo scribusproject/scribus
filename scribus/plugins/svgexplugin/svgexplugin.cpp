@@ -429,6 +429,10 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 				obc.appendChild(cl);
 				globalDefs.appendChild(obc);
 				ob.setAttribute("clip-path", "url(#Clip"+IToStr(ClipCount)+")");
+				if (Item->fillRule)
+					ob.setAttribute("clip-rule", "evenodd");
+				else
+					ob.setAttribute("clip-rule", "nonzero");
 				ClipCount++;
 				for (int em = 0; em < Item->groupItemList.count(); ++em)
 				{

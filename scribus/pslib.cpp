@@ -2600,7 +2600,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_save();
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				PS_clip(true);
+				PS_clip(c->fillRule);
 				if (c->imageFlippedH())
 				{
 					PS_translate(c->width(), 0);
@@ -2629,7 +2629,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			PS_save();
 			SetClipPath(&c->PoLine);
 			PS_closepath();
-			PS_clip(true);
+			PS_clip(c->fillRule);
 			if (c->imageFlippedH())
 			{
 				PS_translate(c->width(), 0);

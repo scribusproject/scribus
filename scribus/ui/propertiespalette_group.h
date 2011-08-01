@@ -76,6 +76,7 @@ private slots:
 	void handleTextFlow();
 	void handleNewShape(int f, int c, qreal *vals);
 
+	void handleFillRule();
 	void handleShapeEdit();
 	void handleShapeEditEnded();
 

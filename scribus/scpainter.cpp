@@ -88,6 +88,7 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	if (clipArray != NULL)
 		la.groupClip = *clipArray;
 	la.data = cairo_get_group_target(m_cr);
+	la.fillRule = m_fillRule;
 	cairo_push_group(m_cr);
 /*	if (clipArray != NULL)
 	{
@@ -119,11 +120,16 @@ void ScPainter::endLayer()
 	mask_gradientSkew = la.mask_gradientSkew;
 	mask_gradient = la.mask_gradient;
 	m_maskPattern = la.maskPattern;
+	m_fillRule = la.fillRule;
 	if (la.pushed)
 	{
 		cairo_pop_group_to_source (m_cr);
 		if (la.groupClip.size() != 0)
 		{
+			if( m_fillRule )
+				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+			else
+				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
 			setupPolygon(&la.groupClip);
 			setClipPath();
 		}
@@ -169,6 +175,7 @@ void ScPainter::endLayer()
 	mask_gradientSkew = la.mask_gradientSkew;
 	mask_gradient = la.mask_gradient;
 	m_maskPattern = la.maskPattern;
+	m_fillRule = la.fillRule;
 	if (la.pushed)
 	{
 		if ((m_blendMode != 0) && (Layers.count() != 0))
@@ -361,6 +368,10 @@ void ScPainter::endLayer()
 		cairo_pop_group_to_source (m_cr);
 		if (la.groupClip.size() != 0)
 		{
+			if( m_fillRule )
+				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+			else
+				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
 			setupPolygon(&la.groupClip);
 			setClipPath();
 		}

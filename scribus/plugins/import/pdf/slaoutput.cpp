@@ -244,6 +244,7 @@ void SlaOutputDev::clip(GfxState *state)
 	ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
+	ite->setFillEvenOdd(false);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->ContourLine = ite->PoLine.copy();
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -284,6 +285,7 @@ void SlaOutputDev::eoClip(GfxState *state)
 	ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
+	ite->setFillEvenOdd(true);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->ContourLine = ite->PoLine.copy();
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);

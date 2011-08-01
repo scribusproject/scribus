@@ -778,11 +778,11 @@ void Canvas::paintEvent ( QPaintEvent * p )
 {
 // 	qDebug()<<"Canvas::paintEvent"<<p->rect()<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 // 	printBacktrace(62);
-	QTime t;
 	if (m_doc->isLoading())
 		return;
 // #define SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+	QTime t;
 	QString dmode("");
 	int t1,t2,t3,t4,t5,t6;
 	t1 = t2=t3=t4=t5 =t6= 0;
