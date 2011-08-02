@@ -99,7 +99,7 @@ public:
 	virtual GBool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading) { return (shading->getExtend0() == shading->getExtend1()); }
 	virtual GBool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax);
 	virtual GBool radialShadedSupportExtend(GfxState *state, GfxRadialShading *shading) { return (shading->getExtend0() == shading->getExtend1()); }
-	virtual GBool gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangleShading *shading) { qDebug() << "triangle shaded fill"; return gTrue; }
+	virtual GBool gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangleShading *shading);
 	virtual GBool patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *shading);
 	//----- path clipping
 	virtual void clip(GfxState *state);

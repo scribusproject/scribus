@@ -655,6 +655,86 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	return gTrue;
 }
 
+GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangleShading *shading)
+{
+	double xCoor = m_doc->currentPage()->xOffset();
+	double yCoor = m_doc->currentPage()->yOffset();
+	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor());
+	double xmin, ymin, xmax, ymax;
+	// get the clip region bbox
+	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
+	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
+	crect = crect.normalized();
+	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
+	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
+	output += QString("L %1 %2").arg(crect.width()).arg(crect.height());
+	output += QString("L %1 %2").arg(0.0).arg(crect.height());
+	output += QString("L %1 %2").arg(0.0).arg(0.0);
+	output += QString("Z");
+	pathIsClosed = true;
+	Coords = output;
+	double *ctm;
+	ctm = state->getCTM();
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
+	PageItem* ite = m_doc->Items->at(z);
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	ite->setFillShade(100);
+	ite->setLineShade(100);
+	ite->setFillEvenOdd(false);
+	ite->setFillTransparency(1.0 - state->getFillOpacity());
+	ite->setFillBlendmode(getBlendMode(state));
+	ite->setLineEnd(PLineEnd);
+	ite->setLineJoin(PLineJoin);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	m_doc->AdjustItemSize(ite);
+	m_Elements->append(ite);
+	if (m_groupStack.count() != 0)
+	{
+		m_groupStack.top().Items.append(ite);
+		applyMask(ite);
+	}
+	GfxColor color[3];
+	double x0, y0, x1, y1, x2, y2;
+	for (int i = 0; i < shading->getNTriangles(); i++)
+	{
+		meshGradientPatch patchM;
+		shading->getTriangle(i, &x0, &y0, &color[0],  &x1, &y1, &color[1],  &x2, &y2, &color[2]);
+		patchM.BL.resetTo(FPoint(x0, y0));
+		patchM.BL.shade = 100;
+		patchM.BL.transparency = 1.0;
+		patchM.BL.colorName = getColor(shading->getColorSpace(), &color[0]);
+		patchM.BL.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.BL.colorName], m_doc, 100);
+		patchM.TL.resetTo(FPoint(x1, y1));
+		patchM.TL.shade = 100;
+		patchM.TL.transparency = 1.0;
+		patchM.TL.colorName = getColor(shading->getColorSpace(), &color[1]);
+		patchM.TL.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.TL.colorName], m_doc, 100);
+		patchM.TR.resetTo(FPoint(x2, y2));
+		patchM.TR.shade = 100;
+		patchM.TR.transparency = 1.0;
+		patchM.TR.colorName = getColor(shading->getColorSpace(), &color[2]);
+		patchM.TR.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.TR.colorName], m_doc, 100);
+		patchM.BR.resetTo(FPoint(x0, y0));
+		patchM.BR.shade = 100;
+		patchM.BR.transparency = 1.0;
+		patchM.BR.colorName = getColor(shading->getColorSpace(), &color[0]);
+		patchM.BR.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.BR.colorName], m_doc, 100);
+		patchM.TL.transform(m_ctm);
+		patchM.TL.moveRel(-crect.x(), -crect.y());
+		patchM.TR.transform(m_ctm);
+		patchM.TR.moveRel(-crect.x(), -crect.y());
+		patchM.BR.transform(m_ctm);
+		patchM.BR.moveRel(-crect.x(), -crect.y());
+		patchM.BL.transform(m_ctm);
+		patchM.BL.moveRel(-crect.x(), -crect.y());
+		ite->meshGradientPatches.append(patchM);
+	}
+	ite->GrType = 12;
+	return gTrue;
+}
+
 GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *shading)
 {
 //	qDebug() << "mesh shaded fill";
@@ -702,10 +782,6 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		GfxPatch *patch = shading->getPatch(i);
 		GfxColor color;
 		meshGradientPatch patchM;
-		meshPoint mp1;
-		meshPoint mp2;
-		meshPoint mp3;
-		meshPoint mp4;
 		int u, v;
 		patchM.BL.resetTo(FPoint(patch->x[0][0], patch->y[0][0]));
 		patchM.BL.controlTop = FPoint(patch->x[0][1], patch->y[0][1]);
@@ -726,8 +802,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.BL.colorName = getColor(shading->getColorSpace(), &color);
 		patchM.BL.shade = 100;
 		patchM.BL.transparency = 1.0;
-		const ScColor& col1 = m_doc->PageColors[patchM.BL.colorName];
-		patchM.BL.color = ScColorEngine::getShadeColorProof(col1, m_doc, 100);
+		patchM.BL.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.BL.colorName], m_doc, 100);
 
 		u = 0;
 		v = 1;
@@ -748,8 +823,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.TL.colorName = getColor(shading->getColorSpace(), &color);
 		patchM.TL.shade = 100;
 		patchM.TL.transparency = 1.0;
-		const ScColor& col2 = m_doc->PageColors[patchM.TL.colorName];
-		patchM.TL.color = ScColorEngine::getShadeColorProof(col2, m_doc, 100);
+		patchM.TL.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.TL.colorName], m_doc, 100);
 
 		u = 1;
 		v = 1;
@@ -770,8 +844,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.TR.colorName = getColor(shading->getColorSpace(), &color);
 		patchM.TR.shade = 100;
 		patchM.TR.transparency = 1.0;
-		const ScColor& col4 = m_doc->PageColors[patchM.TR.colorName];
-		patchM.TR.color = ScColorEngine::getShadeColorProof(col4, m_doc, 100);
+		patchM.TR.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.TR.colorName], m_doc, 100);
 
 		u = 1;
 		v = 0;
@@ -792,8 +865,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.BR.colorName = getColor(shading->getColorSpace(), &color);
 		patchM.BR.shade = 100;
 		patchM.BR.transparency = 1.0;
-		const ScColor& col3 = m_doc->PageColors[patchM.BR.colorName];
-		patchM.BR.color = ScColorEngine::getShadeColorProof(col3, m_doc, 100);
+		patchM.BR.color = ScColorEngine::getShadeColorProof(m_doc->PageColors[patchM.BR.colorName], m_doc, 100);
 
 		patchM.TL.transform(m_ctm);
 		patchM.TL.moveRel(-crect.x(), -crect.y());
