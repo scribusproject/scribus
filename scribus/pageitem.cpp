@@ -5364,8 +5364,13 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	double extraSpace = 0.0;
 	if (NamedLStyle.isEmpty())
 	{
-		if (((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0)) && (PLineEnd != Qt::FlatCap))
-			extraSpace = m_lineWidth / 2.0;
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+		{
+			if (isLine() && (PLineEnd == Qt::FlatCap))
+				extraSpace = 0.0;
+			else
+				extraSpace = m_lineWidth / 2.0;
+		}
 		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
 		{
 			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
