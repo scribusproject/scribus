@@ -4847,7 +4847,12 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	if (NamedLStyle.isEmpty())
 	{
 		if (lineColor() != CommonStrings::None)
-			extraSpace = m_lineWidth / 2.0;
+		{
+			if ((itemType() == Line) && (PLineEnd == Qt::FlatCap))
+				extraSpace = 0.0;
+			else
+				extraSpace = m_lineWidth / 2.0;
+		}
 	}
 	else
 	{
