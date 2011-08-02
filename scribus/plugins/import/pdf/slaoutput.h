@@ -159,7 +159,7 @@ public:
 
 private:
 	void getPenState(GfxState *state);
-	QString getColor(GfxColorSpace *color_space, GfxColor *color);
+	QString getColor(GfxColorSpace *color_space, GfxColor *color, int *shade);
 	QString convertPath(GfxPath *path);
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
