@@ -126,9 +126,7 @@ public:
 	virtual void beginMarkedContent(char *name, Dict *properties);
 	virtual void endMarkedContent(GfxState *state);
 	//----- image drawing
-	virtual void drawImageMask(GfxState *state, Object *ref, Stream *str,
-				 int width, int height, GBool invert, GBool interpolate,
-				 GBool inlineImg)  { qDebug() << "Draw Image Mask"; }
+	virtual void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg);
 	virtual void drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int *maskColors, GBool inlineImg);
 	virtual void drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str,
 				   int width, int height,

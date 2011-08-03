@@ -988,12 +988,140 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Catalog *cat, Object *str
 	return gTrue;
 }
 
+void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg)
+{
+//	qDebug() << "Draw Image Mask";
+	QImage * image = 0;
+	int invert_bit;
+	int row_stride;
+	int x, y, i, bit;
+	unsigned char *dest = 0;
+	unsigned char *buffer;
+	Guchar *pix;
+	ImageStream * imgStr = new ImageStream(str, width, 1, 1);
+	imgStr->reset();
+#ifdef WORDS_BIGENDIAN
+	image = new QImage(width, height, QImage::Format_Mono);
+#else
+	image = new QImage(width, height, QImage::Format_MonoLSB);
+#endif
+	invert_bit = invert ? 1 : 0;
+	buffer = image->bits();
+	row_stride = image->bytesPerLine();
+	for (y = 0; y < height; y++)
+	{
+		pix = imgStr->getLine();
+		dest = buffer + y * row_stride;
+		i = 0;
+		bit = 0;
+		for (x = 0; x < width; x++)
+		{
+			if (bit == 0)
+				dest[i] = 0;
+			if (!(pix[x] ^ invert_bit))
+			{
+#ifdef WORDS_BIGENDIAN
+				dest[i] |= (1 << (7 - bit));
+#else
+				dest[i] |= (1 << bit);
+#endif
+			}
+			bit++;
+			if (bit > 7)
+			{
+				bit = 0;
+				i++;
+			}
+		}
+	}
+	QImage res = image->convertToFormat(QImage::Format_ARGB32);
+	double *ctm;
+	ctm = state->getCTM();
+	double xCoor = m_doc->currentPage()->xOffset();
+	double yCoor = m_doc->currentPage()->yOffset();
+	QRectF crect = QRectF(0, 0, width, height);
+	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
+	QLineF cline = QLineF(0, 0, width, 0);
+	QLineF tline = m_ctm.map(cline);
+	QRectF trect = m_ctm.mapRect(crect);
+	double sx = m_ctm.m11();
+	double sy = m_ctm.m22();
+	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
+	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
+	{
+		mm.reset();
+		mm.rotate(-tline.angle());
+	}
+	else
+	{
+		mm.reset();
+		if (sx < 0)
+			mm.scale(-1, 1);
+		if (sy < 0)
+			mm.scale(1, -1);
+	}
+	QImage img = res.transformed(mm);
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem* ite = m_doc->Items->at(z);
+	ite->SetRectFrame();
+	m_doc->setRedrawBounding(ite);
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	ite->setFillShade(100);
+	ite->setLineShade(100);
+	ite->setFillEvenOdd(false);
+	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+	ite->tempImageFile->open();
+	QString fileName = getLongPathName(ite->tempImageFile->fileName());
+	ite->tempImageFile->close();
+	ite->isInlineImage = true;
+	img.save(fileName, "PNG");
+	m_doc->LoadPict(fileName, z);
+	ite->setImageScalingMode(false, true);
+	m_doc->AdjustItemSize(ite);
+	// Now creating patttern out of the image;
+	ScPattern pat = ScPattern();
+	pat.setDoc(m_doc);
+	m_doc->DoDrawing = true;
+	pat.pattern = ite->DrawObj_toImage(qMax(ite->width(), ite->height()));
+	pat.xoffset = 0;
+	pat.yoffset = 0;
+	m_doc->DoDrawing = false;
+	pat.width = pat.pattern.width();
+	pat.height = pat.pattern.height();
+	pat.items.append(ite);
+	m_doc->Items->removeAll(ite);
+	QString id = QString("Pattern_from_PDF_%1M").arg(m_doc->docPatterns.count() + 1);
+	m_doc->addPattern(id, pat);
+	// create the real item
+	int shade = 100;
+	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CurrColorFill, CommonStrings::None, true);
+	ite = m_doc->Items->at(z);
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	ite->setFillShade(shade);
+	ite->setLineShade(100);
+	ite->setFillEvenOdd(false);
+	ite->setFillTransparency(1.0 - state->getFillOpacity());
+	ite->setFillBlendmode(getBlendMode(state));
+	ite->setLineEnd(PLineEnd);
+	ite->setLineJoin(PLineJoin);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	ite->setPatternMask(id);
+	ite->setMaskTransform(ite->width() / pat.width * 100, ite->height() / pat.height * 100, 0, 0, 0, 0, 0);
+	ite->setMaskType(6);
+	m_Elements->append(ite);
+	if (m_groupStack.count() != 0)
+		m_groupStack.top().Items.append(ite);
+	imgStr->close();
+	delete imgStr;
+	delete image;
+}
+
 void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight,
 				   GfxImageColorMap *maskColorMap, GBool maskInterpolate)
 {
-	double *ctm;
-	ctm = state->getCTM();
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = 0;
@@ -1049,19 +1177,33 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
+	double *ctm;
+	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	double sx = ctm[0] / width;
-	double sy = ctm[3] / height;
-	if (sx < 0)
-		xCoor = xCoor + ctm[4] - (fabs(sx) * width);
+	QRectF crect = QRectF(0, 0, width, height);
+	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
+	QLineF cline = QLineF(0, 0, width, 0);
+	QLineF tline = m_ctm.map(cline);
+	QRectF trect = m_ctm.mapRect(crect);
+	double sx = m_ctm.m11();
+	double sy = m_ctm.m22();
+	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
+	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
+	{
+		mm.reset();
+		mm.rotate(-tline.angle());
+	}
 	else
-		xCoor = xCoor + ctm[4];
-	if (sy < 0)
-		yCoor = yCoor + ctm[5] - (fabs(sy) * height);
-	else
-		yCoor = yCoor + ctm[5];
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor , yCoor, fabs(sx) * width, fabs(sy) * height, 0, CommonStrings::None, CommonStrings::None, true);
+	{
+		mm.reset();
+		if (sx < 0)
+			mm.scale(-1, 1);
+		if (sy < 0)
+			mm.scale(1, -1);
+	}
+	QImage img = res.transformed(mm);
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
 	m_doc->setRedrawBounding(ite);
@@ -1077,13 +1219,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
 	ite->tempImageFile->close();
 	ite->isInlineImage = true;
-	res.save(fileName, "PNG");
+	img.save(fileName, "PNG");
 	m_doc->LoadPict(fileName, z);
 	ite->setImageScalingMode(false, true);
-	if (sx < 0)
-		ite->setImageFlippedH(true);
-	if (sy > 0)
-		ite->setImageFlippedV(true);
 	m_doc->AdjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
@@ -1100,9 +1238,6 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int *maskColors, GBool inlineImg)
 {
-	double *ctm;
-	ctm = state->getCTM();
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = 0;
@@ -1148,19 +1283,33 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		delete image;
 		return;
 	}
+	double *ctm;
+	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	double sx = ctm[0] / width;
-	double sy = ctm[3] / height;
-	if (sx < 0)
-		xCoor = xCoor + ctm[4] - (fabs(sx) * width);
+	QRectF crect = QRectF(0, 0, width, height);
+	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
+	QLineF cline = QLineF(0, 0, width, 0);
+	QLineF tline = m_ctm.map(cline);
+	QRectF trect = m_ctm.mapRect(crect);
+	double sx = m_ctm.m11();
+	double sy = m_ctm.m22();
+	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
+	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
+	{
+		mm.reset();
+		mm.rotate(-tline.angle());
+	}
 	else
-		xCoor = xCoor + ctm[4];
-	if (sy < 0)
-		yCoor = yCoor + ctm[5] - (fabs(sy) * height);
-	else
-		yCoor = yCoor + ctm[5];
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor , yCoor, fabs(sx) * width, fabs(sy) * height, 0, CommonStrings::None, CommonStrings::None, true);
+	{
+		mm.reset();
+		if (sx < 0)
+			mm.scale(-1, 1);
+		if (sy < 0)
+			mm.scale(1, -1);
+	}
+	QImage img = image->transformed(mm);
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
 	m_doc->setRedrawBounding(ite);
@@ -1176,13 +1325,9 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
 	ite->tempImageFile->close();
 	ite->isInlineImage = true;
-	image->save(fileName, "PNG");
+	img.save(fileName, "PNG");
 	m_doc->LoadPict(fileName, z);
 	ite->setImageScalingMode(false, true);
-	if (sx < 0)
-		ite->setImageFlippedH(true);
-	if (sy > 0)
-		ite->setImageFlippedV(true);
 	m_doc->AdjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
