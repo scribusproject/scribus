@@ -11106,7 +11106,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	DoDrawing = false;
 	view()->updatesOn(false);
 	m_Selection->delaySignalsOn();
-	m_ScMW->setScriptRunning(true);
+//	m_ScMW->setScriptRunning(true);
 	if (mdData.type==0) // Copy and offset or set a gap
 	{
 		double dH = mdData.copyShiftGapH / docUnitRatio;
@@ -11127,6 +11127,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		m_View->Deselect(true);
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
+			m_View->Deselect(true);
 			m_ScMW->slotEditPaste();
 			for (int b=0; b<m_Selection->count(); ++b)
 			{
@@ -11196,7 +11197,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	DoDrawing = true;
 	m_Selection->delaySignalsOff();
 	view()->updatesOn(true);
-	m_ScMW->setScriptRunning(false);
+//	m_ScMW->setScriptRunning(false);
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
 	view()->DrawNew();
