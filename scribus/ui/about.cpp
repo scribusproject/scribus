@@ -112,8 +112,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "31";
-	QString BUILD_MONTH = CommonStrings::july;
+	QString BUILD_DAY = "4";
+	QString BUILD_MONTH = CommonStrings::august;
 	QString BUILD_YEAR = "2011";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -331,7 +331,7 @@ QString About::trTranslationTitle(QString title)
 		result = tr("Previous Translation Contributors:");
 	else
 	{
-		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
+		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trTranslationTitle()" << std::endl;
 		result = title;
 	}
 	return result;
