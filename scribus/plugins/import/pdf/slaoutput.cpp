@@ -126,13 +126,13 @@ void SlaOutputDev::restoreState(GfxState *state)
 		}
 	}
 }
-
+/*
 void SlaOutputDev::updateFillColor(GfxState *state)
 {
 	int shade = 100;
 	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 }
-
+*/
 void SlaOutputDev::beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool /*isolated*/, GBool /*knockout*/, GBool forSoftMask)
 {
 //	qDebug() << "Start Group";
@@ -1005,6 +1005,12 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 #else
 	image = new QImage(width, height, QImage::Format_MonoLSB);
 #endif
+	if (image == NULL || image->isNull())
+	{
+		delete imgStr;
+		delete image;
+		return;
+	}
 	invert_bit = invert ? 1 : 0;
 	buffer = image->bits();
 	row_stride = image->bytesPerLine();
@@ -1034,7 +1040,28 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			}
 		}
 	}
-	QImage res = image->convertToFormat(QImage::Format_ARGB32);
+	int shade = 100;
+	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	QColor backColor = ScColorEngine::getShadeColorProof(m_doc->PageColors[CurrColorFill], m_doc, shade);
+	QImage res = QImage(width, height, QImage::Format_ARGB32);
+	res.fill(backColor.rgb());
+	unsigned char cc, cm, cy, ck;
+	for( int yi = 0; yi < res.height(); ++yi )
+	{
+		QRgb *t = (QRgb*)(res.scanLine( yi ));
+		for(int xi = 0; xi < res.width(); ++xi )
+		{
+			cc = qRed(*t);
+			cm = qGreen(*t);
+			cy = qBlue(*t);
+			ck = image->pixel(xi, yi);
+			if (ck == 0)
+				(*t) = qRgba(cc, cm, cy, 0);
+			else
+				(*t) = qRgba(cc, cm, cy, 255);
+			t++;
+		}
+	}
 	double *ctm;
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
@@ -1060,7 +1087,13 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 		if (sy < 0)
 			mm.scale(1, -1);
 	}
-	QImage img = res.transformed(mm);
+	res = res.transformed(mm);
+	if (res.isNull())
+	{
+		delete imgStr;
+		delete image;
+		return;
+	}
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
@@ -1075,45 +1108,16 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
 	ite->tempImageFile->close();
 	ite->isInlineImage = true;
-	img.save(fileName, "PNG");
+	res.save(fileName, "PNG");
 	m_doc->LoadPict(fileName, z);
 	ite->setImageScalingMode(false, true);
 	m_doc->AdjustItemSize(ite);
-	// Now creating patttern out of the image;
-	ScPattern pat = ScPattern();
-	pat.setDoc(m_doc);
-	m_doc->DoDrawing = true;
-	pat.pattern = ite->DrawObj_toImage(qMax(ite->width(), ite->height()));
-	pat.xoffset = 0;
-	pat.yoffset = 0;
-	m_doc->DoDrawing = false;
-	pat.width = pat.pattern.width();
-	pat.height = pat.pattern.height();
-	pat.items.append(ite);
-	m_doc->Items->removeAll(ite);
-	QString id = QString("Pattern_from_PDF_%1M").arg(m_doc->docPatterns.count() + 1);
-	m_doc->addPattern(id, pat);
-	// create the real item
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-	z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CurrColorFill, CommonStrings::None, true);
-	ite = m_doc->Items->at(z);
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	ite->setFillShade(shade);
-	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
-	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineEnd(PLineEnd);
-	ite->setLineJoin(PLineJoin);
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->setPatternMask(id);
-	ite->setMaskTransform(ite->width() / pat.width * 100, ite->height() / pat.height * 100, 0, 0, 0, 0, 0);
-	ite->setMaskType(6);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
+	{
 		m_groupStack.top().Items.append(ite);
+		applyMask(ite);
+	}
 	imgStr->close();
 	delete imgStr;
 	delete image;
@@ -1202,7 +1206,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		if (sy < 0)
 			mm.scale(1, -1);
 	}
-	QImage img = res.transformed(mm);
+	res = res.transformed(mm);
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
@@ -1219,7 +1223,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	QString fileName = getLongPathName(ite->tempImageFile->fileName());
 	ite->tempImageFile->close();
 	ite->isInlineImage = true;
-	img.save(fileName, "PNG");
+	res.save(fileName, "PNG");
 	m_doc->LoadPict(fileName, z);
 	ite->setImageScalingMode(false, true);
 	m_doc->AdjustItemSize(ite);

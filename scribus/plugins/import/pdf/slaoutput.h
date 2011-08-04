@@ -112,13 +112,17 @@ public:
 
   // If current colorspace is pattern,
   // does this device support text in pattern colorspace?
-	virtual GBool supportTextCSPattern(GfxState *state) {
-	  return state->getFillColorSpace()->getMode() == csPattern; }
+	virtual GBool supportTextCSPattern(GfxState *state)
+	{
+		return state->getFillColorSpace()->getMode() == csPattern;
+	}
 
   // If current colorspace is pattern,
   // need this device special handling for masks in pattern colorspace?
-	virtual GBool fillMaskCSPattern(GfxState * state) {
-	  return state->getFillColorSpace()->getMode() == csPattern; }
+	virtual GBool fillMaskCSPattern(GfxState * state)
+	{
+		return state->getFillColorSpace()->getMode() == csPattern;
+	}
 
 	virtual void endMaskClip(GfxState *state) { qDebug() << "End Mask Clip"; }
 
@@ -152,7 +156,7 @@ public:
 	virtual void setSoftMask(GfxState * /*state*/, double * /*bbox*/, GBool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/);
 	virtual void clearSoftMask(GfxState * /*state*/);
 
-	virtual void updateFillColor(GfxState *state);
+//	virtual void updateFillColor(GfxState *state);
 	virtual void updateFont(GfxState *state);
 
 private:
