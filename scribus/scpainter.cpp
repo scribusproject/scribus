@@ -1798,7 +1798,7 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 {
 	bool nPath = true;
 	bool first = true;
-	FPoint np, np1, np2, np3, np4;
+	FPoint np, np1, np2, np3, np4, firstP;
 	if (points->size() > 3)
 	{
 		newPath();
@@ -1812,9 +1812,10 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			if (nPath)
 			{
 				np = points->point(poi);
-				if ((!first) && (closed))
+				if ((!first) && (closed) && (np4 == firstP))
 					cairo_close_path( m_cr );
     			cairo_move_to( m_cr, np.x(), np.y());
+				firstP = np;
 				nPath = false;
 				first = false;
 				np4 = np;

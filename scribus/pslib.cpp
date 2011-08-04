@@ -4805,24 +4805,28 @@ void PSLib::GetBleeds(ScPage* page, double& left, double& right, double& bottom,
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)
 {
-	FPoint np, np1, np2, np3;
+	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
+	bool first = true;
 	if (c->size() > 3)
 	{
 		for (uint poi=0; poi<c->size()-3; poi += 4)
 		{
 			if (c->point(poi).x() > 900000)
 			{
-				if (poly)
-					PS_closepath();
 				nPath = true;
 				continue;
 			}
 			if (nPath)
 			{
 				np = c->point(poi);
+				if ((!first) && (poly) && (np4 == firstP))
+					PS_closepath();
 				PS_moveto(np.x(), -np.y());
 				nPath = false;
+				first = false;
+				firstP = np;
+				np4 = np;
 			}
 			np = c->point(poi);
 			np1 = c->point(poi+1);
@@ -4832,10 +4836,7 @@ void PSLib::SetClipPath(FPointArray *c, bool poly)
 				PS_lineto(np3.x(), -np3.y());
 			else
 				PS_curve(np1.x(), -np1.y(), np2.x(), -np2.y(), np3.x(), -np3.y());
-/*			np = c->point(poi+1);
-			np1 = c->point(poi+3);
-			np2 = c->point(poi+2);
-			PS_curve(np.x(), -np.y(), np1.x(), -np1.y(), np2.x(), -np2.y()); */
+			np4 = np3;
 		}
 	}
 }

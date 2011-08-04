@@ -472,7 +472,7 @@ struct SVGState
 QString FPointArray::svgPath(bool closed) const
 {
 	QString tmp = "";
-	FPoint np, np1, np2, np3;
+	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
 	if (size() > 3)
@@ -481,18 +481,19 @@ QString FPointArray::svgPath(bool closed) const
 		{
 			if (point(poi).x() > 900000)
 			{
-//				tmp += "Z ";
 				nPath = true;
 				continue;
 			}
 			if (nPath)
 			{
 				np = point(poi);
-				if ((!first) && (closed))
+				if ((!first) && (closed) && (np4 == firstP))
 					tmp += "Z ";
 				tmp += "M"+QString::number(np.x())+" "+QString::number(np.y())+" ";
 				nPath = false;
 				first = false;
+				firstP = np;
+				np4 = np;
 			}
 			np = point(poi);
 			np1 = point(poi+1);
@@ -502,6 +503,7 @@ QString FPointArray::svgPath(bool closed) const
 				tmp += QString("L%1 %2 ").arg(np3.x()).arg(np3.y());
 			else
 				tmp += QString("C%1 %2 %3 %4 %5 %6 ").arg(np1.x()).arg(np1.y()).arg(np2.x()).arg(np2.y()).arg(np3.x()).arg(np3.y());
+			np4 = np3;
 		}
 		if (closed)
 			tmp += "Z";
@@ -514,7 +516,7 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 	QPainterPath m_path = QPainterPath();
 	bool nPath = true;
 	bool first = true;
-	FPoint np, np1, np2, np3;
+	FPoint np, np1, np2, np3, np4, firstP;
 	if (size() > 3)
 	{
 		for (uint poi = 0; poi < size()-3; poi += 4)
@@ -527,11 +529,13 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 			if (nPath)
 			{
 				np = point(poi);
-				if ((!first) && (closed))
+				if ((!first) && (closed) && (np4 == firstP))
 					m_path.closeSubpath();
 				m_path.moveTo(np.x(), np.y());
 				nPath = false;
 				first = false;
+				firstP = np;
+				np4 = np;
 			}
 			np = point(poi);
 			np1 = point(poi+1);
@@ -541,6 +545,7 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 				m_path.lineTo(np3.x(), np3.y());
 			else
 				m_path.cubicTo(np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
+			np4 = np3;
 		}
 		if (closed)
 			m_path.closeSubpath();

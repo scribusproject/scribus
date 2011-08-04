@@ -2176,23 +2176,28 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 QString SVGExPlug::SetClipPath(FPointArray *ite, bool closed)
 {
 	QString tmp = "";
-	FPoint np, np1, np2, np3;
+	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
+	bool first = true;
 	if (ite->size() > 3)
 	{
 		for (uint poi=0; poi<ite->size()-3; poi += 4)
 		{
 			if (ite->point(poi).x() > 900000)
 			{
-				tmp += "Z ";
 				nPath = true;
 				continue;
 			}
 			if (nPath)
 			{
 				np = ite->point(poi);
+				if ((!first) && (closed) && (np4 == firstP))
+					tmp += "Z ";
 				tmp += QString("M%1 %2 ").arg(np.x()).arg(np.y());
 				nPath = false;
+				first = false;
+				firstP = np;
+				np4 = np;
 			}
 			np = ite->point(poi);
 			np1 = ite->point(poi+1);
@@ -2202,6 +2207,7 @@ QString SVGExPlug::SetClipPath(FPointArray *ite, bool closed)
 				tmp += QString("L%1 %2 ").arg(np3.x()).arg(np3.y());
 			else
 				tmp += QString("C%1 %2 %3 %4 %5 %6 ").arg(np1.x()).arg(np1.y()).arg(np2.x()).arg(np2.y()).arg(np3.x()).arg(np3.y());
+			np4 = np3;
 		}
 	}
 	if (closed)

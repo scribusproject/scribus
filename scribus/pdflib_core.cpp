@@ -5760,24 +5760,28 @@ QString PDFLibCore::SetClipPathImage(PageItem *ite)
 QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 {
 	QString tmp("");
+	FPoint np, np1, np2, np3, np4, firstP;
+	bool nPath = true;
+	bool first = true;
 	if (ite->PoLine.size() > 3)
 	{
-		bool nPath = true;
 		for (uint poi=0; poi<ite->PoLine.size()-3; poi += 4)
 		{
 			if (ite->PoLine.point(poi).x() > 900000)
 			{
-				if (poly)
-					tmp += "h\n";
 				nPath = true;
 				continue;
 			}
-			FPoint np, np1, np2, np3;
 			if (nPath)
 			{
 				np = ite->PoLine.point(poi);
+				if ((!first) && (poly) && (np4 == firstP))
+					tmp += "h\n";
 				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
 				nPath = false;
+				first = false;
+				firstP = np;
+				np4 = np;
 			}
 			np = ite->PoLine.point(poi);
 			np1 = ite->PoLine.point(poi+1);
@@ -5791,6 +5795,7 @@ QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 				tmp += FToStr(np2.x())+" "+FToStr(-np2.y())+" ";
 				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" c\n";
 			}
+			np4 = np3;
 		}
 	}
 	return tmp;
@@ -5799,24 +5804,28 @@ QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 {
 	QString tmp("");
+	FPoint np, np1, np2, np3, np4, firstP;
+	bool nPath = true;
+	bool first = true;
 	if (ite->size() > 3)
 	{
-		bool nPath = true;
 		for (uint poi=0; poi<ite->size()-3; poi += 4)
 		{
 			if (ite->point(poi).x() > 900000)
 			{
-				if (poly)
-					tmp += "h\n";
 				nPath = true;
 				continue;
 			}
-			FPoint np, np1, np2, np3;
 			if (nPath)
 			{
 				np = ite->point(poi);
+				if ((!first) && (poly) && (np4 == firstP))
+					tmp += "h\n";
 				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
 				nPath = false;
+				first = false;
+				firstP = np;
+				np4 = np;
 			}
 			np = ite->point(poi);
 			np1 = ite->point(poi+1);
@@ -5830,6 +5839,7 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 				tmp += FToStr(np2.x())+" "+FToStr(-np2.y())+" ";
 				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" c\n";
 			}
+			np4 = np3;
 		}
 	}
 	return tmp;
