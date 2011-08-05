@@ -205,9 +205,15 @@ private:
 	{
 		QTransform ctm;
 		QString glyphRef;
+		bool colored;
 	};
 	QStack<F3Entry> m_F3Stack;
-	QMap<QString, QString> m_Font_Pattern_Map;
+	struct F3GlyphEntry
+	{
+		QString pattern;
+		bool colored;
+	};
+	QMap<QString, F3GlyphEntry> m_Font_Pattern_Map;
 	int grStackDepth;
 	int layerNum;
 	int currentLayer;
