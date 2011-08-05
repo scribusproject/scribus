@@ -89,6 +89,7 @@ protected:
 	QLabel *fontStyleLabel;
 	PrefsManager* prefsManager;
 	ScribusDoc *currDoc;
+	bool isForAnnotation, isForSubstitute;
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;

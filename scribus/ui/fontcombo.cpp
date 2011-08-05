@@ -106,7 +106,6 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	substFont = loadIcon("font_subst16.png");
-	currDoc = 0;
 	fontComboLayout = new QGridLayout(this);
 	fontComboLayout->setMargin(0);
 	fontComboLayout->setSpacing(0);
@@ -124,6 +123,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	fontComboLayout->addWidget(fontFamily,0,col);
 	fontStyle = new ScComboBox(this);
 	fontComboLayout->addWidget(fontStyle,1,col);
+	isForAnnotation = true;  // this is merely to ensure that the list is rebuilt
 	RebuildList(0);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
@@ -192,10 +192,13 @@ QString FontComboH::currentFont()
 
 void FontComboH::setCurrentFont(QString f)
 {
-	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
-	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString family = prefsManager->appPrefs.fontPrefs.AvailFonts[f].family();
 	QString style = prefsManager->appPrefs.fontPrefs.AvailFonts[f].style();
+	// If we already have the correct font+style, nothing to do
+	if ((fontFamily->currentText() == family) && (fontStyle->currentText() == style))
+		return;
+	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
+	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	setCurrentComboItem(fontFamily, family);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
@@ -225,7 +228,12 @@ void FontComboH::setCurrentFont(QString f)
 
 void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
 {
+	// if we already have the proper fonts loaded, we need to do nothing
+	if ((currDoc == currentDoc) && (forAnnotation == isForAnnotation) && (isForSubstitute == forSubstitute))
+		return;
 	currDoc = currentDoc;
+	isForAnnotation = forAnnotation;
+	isForSubstitute = forSubstitute;
 	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	fontFamily->clear();
