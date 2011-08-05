@@ -104,11 +104,7 @@ public:
 	//----- path clipping
 	virtual void clip(GfxState *state);
 	virtual void eoClip(GfxState *state);
-	//----- text drawing
-	virtual void beginTextObject(GfxState *state);
 	virtual GBool deviceHasTextClip(GfxState *state) { return gFalse; }
-	virtual void endTextObject(GfxState *state);
-	virtual void drawChar(GfxState *state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, Unicode * /*u*/, int /*uLen*/);
 
   // If current colorspace is pattern,
   // does this device support text in pattern colorspace?
@@ -158,6 +154,14 @@ public:
 
 //	virtual void updateFillColor(GfxState *state);
 	virtual void updateFont(GfxState *state);
+	//----- text drawing
+	virtual void beginTextObject(GfxState *state);
+	virtual void endTextObject(GfxState *state);
+	virtual void drawChar(GfxState *state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, Unicode * /*u*/, int /*uLen*/);
+	virtual GBool beginType3Char(GfxState * /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, Unicode * /*u*/, int /*uLen*/);
+	virtual void endType3Char(GfxState * /*state*/);
+	virtual void type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/);
+	virtual void type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/);
 
 private:
 	void getPenState(GfxState *state);
@@ -197,6 +201,13 @@ private:
 	QList<PageItem*> *m_Elements;
 	QStringList *m_importedColors;
 	QTransform m_ctm;
+	struct F3Entry
+	{
+		QTransform ctm;
+		QString glyphRef;
+	};
+	QStack<F3Entry> m_F3Stack;
+	QMap<QString, QString> m_Font_Pattern_Map;
 	int grStackDepth;
 	int layerNum;
 	int currentLayer;
