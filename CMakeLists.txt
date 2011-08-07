@@ -825,8 +825,13 @@ INCLUDE_DIRECTORIES(
   ${OPENGL_INCLUDE_DIR}
   ${OSG_INCLUDE_DIR}
   ${GSL_INCLUDE_DIR}
-  ${POPPLER_INCLUDE_DIR}
 )
+
+IF (HAVE_POPPLER)
+  INCLUDE_DIRECTORIES(
+	${POPPLER_INCLUDE_DIR}
+  )
+ENDIF (HAVE_POPPLER)
 
 ##############################################################################################################
 ########## Uninstall Setup                                                                          ##########
