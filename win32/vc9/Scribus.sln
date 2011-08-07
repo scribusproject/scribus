@@ -32,11 +32,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pixmapexport", "pixmapexpor
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "psimport", "psimport\psimport.vcproj", "{6E8FF91A-DD16-4FAB-ACA5-8243453613F3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "saveastemplate", "saveastemplate\saveastemplate.vcproj", "{F8CF727B-EF70-43DD-97F3-EDE68E0942D4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
@@ -260,6 +255,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smoothpath", "smoothpath\sm
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdfimport", "pdfimport\pdfimport.vcproj", "{F58AF6DE-330F-48F5-97BB-ED2F30401712}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-cairo|Win32 = Debug-cairo|Win32
@@ -290,10 +290,6 @@ Global
 		{BCDD9765-B310-44EB-890A-1704A1D18619}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{BCDD9765-B310-44EB-890A-1704A1D18619}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{BCDD9765-B310-44EB-890A-1704A1D18619}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
-		{6E8FF91A-DD16-4FAB-ACA5-8243453613F3}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
-		{6E8FF91A-DD16-4FAB-ACA5-8243453613F3}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
-		{6E8FF91A-DD16-4FAB-ACA5-8243453613F3}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{6E8FF91A-DD16-4FAB-ACA5-8243453613F3}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 		{F8CF727B-EF70-43DD-97F3-EDE68E0942D4}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
 		{F8CF727B-EF70-43DD-97F3-EDE68E0942D4}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{F8CF727B-EF70-43DD-97F3-EDE68E0942D4}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
@@ -482,6 +478,10 @@ Global
 		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{F3471C52-C0FF-4690-B9BF-9A97A6F2BA2F}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{F58AF6DE-330F-48F5-97BB-ED2F30401712}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{F58AF6DE-330F-48F5-97BB-ED2F30401712}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{F58AF6DE-330F-48F5-97BB-ED2F30401712}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{F58AF6DE-330F-48F5-97BB-ED2F30401712}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

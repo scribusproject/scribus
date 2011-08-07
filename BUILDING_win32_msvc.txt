@@ -13,14 +13,16 @@ You will need:
 	- Microsoft Visual Studio 2008 or Visual C++ Express Edition 2008
 	- A recent Qt (version >= 4.6) release built with Visual Studio 2008
 	- Cairo sources from cairographics.org (version >= 1.8.0)
-	- Pixman sources from cairographics.org (version = 0.12.0)
+	- Pixman sources from cairographics.org (version >= 0.18.0)
 	- Boost from www.boost.org (version >= 1.35.0)
 	- Libxml2 win32 binaries from the Libxml project
 	- Libjpeg win32 libs and binaries from the GnuWin32 project
 	- Libtiff win32 libs and binaries from the GnuWin32 project
 	- Freetype sources from freetype.org (version >= 2.4.0)
 	- LittleCMS sources from www.littlecms.com (version >= 2.1)
-	- PoDoFo 0.8.x (and ONLY 0.8.x) sources from podofo.sourceforge.net
+	- PoDoFo sources (version >= 0.8.0) from podofo.sourceforge.net
+	- Poppler sources (version >= 0.17.1) from poppler.freedesktop.org
+	- Poppler data (version >= 0.4.4) from poppler.freedesktop.org
 	- A Python 2.7 Windows binary build.
       For debug builds, you'll need a release that contains the python27_d.dll .
 
@@ -66,6 +68,9 @@ del %SCRIBUS_BUILD_ROOT%\*CMake* /s
 del %SCRIBUS_BUILD_ROOT%\*MakeFile* /s
 
 Adjust SCRIBUS_SRC_PATH, SCRIBUS_BUILD_ROOT and SCRIBUS_INSTALL_PATH as needed and run batch script.
+
+Download poppler data package on poppler.freedesktop.org. Copy content of archive 
+in %SCRIBUS_INSTALL_PATH%\share\poppler.
 
 Now copy the DLLs from the zlib, libpng, qt, lcms, freetype, libtiff, libjpeg,
 libxml, and podofo directories into the Scribus install directory (where
@@ -260,23 +265,46 @@ Podofo :
 
 Podofo sources can be downloaded from podofo.sourceforge.net. At the moment 
 those instructions are written, the recommended version to build Scribus on 
-Windows is one of the 0.8.x series. Podofo >= 0.9.0 will not work!!!!
+Windows is one of the 0.8.x series.
 
 Follow instructions in sources packages to build Podofo.
 
-You will however probably find easier to directly download packages with Visual 
-Studio 2008 solutions ready to build. You can find required file at 
+You will however probably find easier to directly download packages with a 
+Visual Studio 2008 solution ready to build. You can find required file at 
 following address :
 
 https://sourceforge.net/projects/scribus/files/scribus-libs/win32-msvc2008/
 
-Download the both scribus-podofo-* file. Unpack it.
+Download the scribus-podofo-*.zip archive. Unpack it.
 
-Open the podofo solution located in podofo-whatever directory and build 
-Debug and Release configurations of PoDoFoLib project.
+If present, open the PoDoFoLib-build.vsprops file located in podofo-whatever 
+directory and set all build variables according to your system. Then open the 
+podofo solution located in same directory and build Debug and Release configurations 
+of PoDoFoLib project.
 
 Note : freetype, libtiff and libjpeg must have been installed and if 
 necessary compiled before attempting to build podofo.
+
+---
+Poppler :
+
+Poppler sources can be downloaded http://poppler.freedesktop.org. At the moment
+those instruction are written, the only version known to work with scribus is 0.17.1.
+
+As Poppler is a bit tricky to build on Windows, you will however probably find easier 
+to directly download a ready to build package for Visual Studio 2008. You can find 
+required file at following address :
+
+https://sourceforge.net/projects/scribus/files/scribus-libs/win32-msvc2008/
+
+Download the scribus-poppler-*.zip archive. Unpack it.
+
+Open the poppler-build.vsprops file located in poppler-whatever\win32 directory and set
+all build variables according to your system. Then open the poppler.sln solution and 
+buid Debug-static and Release-static configurations.
+
+Note : freetype, libtiff and libjpeg must have been installed and if 
+necessary compiled before attempting to build poppler.
 
 ---
 Python : 

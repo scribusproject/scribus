@@ -25,9 +25,6 @@
 /* Can we use unicode functions (Windows) */
 #define HAVE_UNICODE 1
 
-/* Define if you have the CoreAudio API */
-#undef HAVE_COREAUDIO
-
 /* Define to 1 if you have the <crt_externs.h> header file. */
 #undef HAVE_CRT_EXTERNS_H
 
@@ -70,11 +67,14 @@
 /* Define if your system needs _NSGetEnviron to set up the environment */
 #undef HAVE_NSGETENVIRON
 
-/* Define if you have the development files for python */
-#define HAVE_PYTHON 1
-
 /* Define if you have the development files for podofo */
 #define HAVE_PODOFO 1
+
+/* Define if you have the development files for podofo */
+#define HVAE_POPPLER 1
+
+/* Define if you have the development files for python */
+#define HAVE_PYTHON 1
 
 /* Python */
 #undef HAVE_PYTHON_23
@@ -136,27 +136,6 @@
 
 /* Defines if your system has the libxml2 library6 */
 #define HAVE_XML26 1
-
-/* Suffix for lib directories */
-#undef KDELIBSUFF
-
-/* Name of package */
-#undef PACKAGE
-
-/* Define to the address where bug reports for this package should be sent. */
-#undef PACKAGE_BUGREPORT
-
-/* Define to the full name of this package. */
-#undef PACKAGE_NAME
-
-/* Define to the full name and version of this package. */
-#undef PACKAGE_STRING
-
-/* Define to the one symbol short name of this package. */
-#undef PACKAGE_TARNAME
-
-/* Define to the version of this package. */
-#undef PACKAGE_VERSION
 
 /* The size of a `char *', as computed by sizeof. */
 #define SIZEOF_CHAR_P 4
