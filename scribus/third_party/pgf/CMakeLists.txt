@@ -7,7 +7,7 @@ SET(SCRIBUS_PGF_LIB_SOURCES
         Decoder.cpp
         Encoder.cpp
         PGFimage.cpp
-        Stream.cpp
+        PGFstream.cpp
         Subband.cpp
         WaveletTransform.cpp
        )
