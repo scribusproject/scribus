@@ -954,11 +954,11 @@ void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
-	if( radioFlop == 0)
+	if( radioFlop == PropertyWidget_Flop::RealHeightID)
 		m_item->setFirstLineOffset(FLOPRealGlyphHeight);
-	else if( radioFlop == 1)
+	else if( radioFlop == PropertyWidget_Flop::FontAscentID)
 		m_item->setFirstLineOffset(FLOPFontAscent);
-	else if( radioFlop == 2)
+	else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
 		m_item->setFirstLineOffset(FLOPLineSpacing);
 	m_item->update();
 	emit DocChanged();

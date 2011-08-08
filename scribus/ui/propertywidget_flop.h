@@ -18,6 +18,14 @@ class PropertyWidget_Flop : public QFrame, public Ui::PropertyWidget_FlopBase
 	Q_OBJECT
 
 public:
+
+	enum FlopButtonID
+    {
+        RealHeightID  = 0,
+        FontAscentID  = 1,
+        LineSpacingID = 2
+    };
+
 	PropertyWidget_Flop(QWidget* parent);
 	~PropertyWidget_Flop() {};
 
