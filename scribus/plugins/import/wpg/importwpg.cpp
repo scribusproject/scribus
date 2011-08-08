@@ -422,6 +422,7 @@ WpgPlug::WpgPlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 QImage WpgPlug::readThumbnail(QString fName)

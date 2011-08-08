@@ -54,6 +54,7 @@ SmlPlug::SmlPlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 QImage SmlPlug::readThumbnail(QString fName)

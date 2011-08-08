@@ -57,6 +57,7 @@ PctPlug::PctPlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 QImage PctPlug::readThumbnail(QString fName)

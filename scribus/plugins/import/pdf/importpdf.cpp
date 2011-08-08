@@ -57,6 +57,7 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 QImage PdfPlug::readThumbnail(QString fName)
@@ -317,6 +318,16 @@ bool PdfPlug::convert(QString fn)
 					GBool printing = gFalse;
 					dev->startDoc(pdfDoc->getXRef(), pdfDoc->getCatalog());
 					int rotate = pdfDoc->getPageRotate(firstPage);
+				/*	PDFRectangle *rect = pdfDoc->getPage(firstPage)->getMediaBox();
+					qDebug() << "Media Box" << rect->x1 << rect->y1 << rect->x2 << rect->y2;
+					rect = pdfDoc->getPage(firstPage)->getCropBox();
+					qDebug() << "Crop Box " << rect->x1 << rect->y1 << rect->x2 << rect->y2;
+					rect = pdfDoc->getPage(firstPage)->getBleedBox();
+					qDebug() << "Bleed Box" << rect->x1 << rect->y1 << rect->x2 << rect->y2;
+					rect = pdfDoc->getPage(firstPage)->getTrimBox();
+					qDebug() << "Trim Box " << rect->x1 << rect->y1 << rect->x2 << rect->y2;
+					rect = pdfDoc->getPage(firstPage)->getArtBox();
+					qDebug() << "Art Box  " << rect->x1 << rect->y1 << rect->x2 << rect->y2; */
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
 						m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(firstPage));

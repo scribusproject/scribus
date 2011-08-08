@@ -1805,7 +1805,61 @@ void AIPlug::processData(QString data)
 		else if (command == "Xy")
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
-			ts2 >> blendMode >> Opacity;
+			int mode = 0;
+			ts2 >> mode >> Opacity;
+			// Adjusting blendmodes, taken from the PDF importer
+			switch (mode)
+			{
+				default:
+				case 0:
+					blendMode = 0;
+					break;
+				case 4:
+					blendMode = 1;
+					break;
+				case 5:
+					blendMode = 2;
+					break;
+				case 1:
+					blendMode = 3;
+					break;
+				case 2:
+					blendMode = 4;
+					break;
+				case 3:
+					blendMode = 5;
+					break;
+				case 8:
+					blendMode = 6;
+					break;
+				case 9:
+					blendMode = 7;
+					break;
+				case 10:
+					blendMode = 8;
+					break;
+				case 11:
+					blendMode = 9;
+					break;
+				case 6:
+					blendMode = 10;
+					break;
+				case 7:
+					blendMode = 11;
+					break;
+				case 12:
+					blendMode = 12;
+					break;
+				case 13:
+					blendMode = 13;
+					break;
+				case 14:
+					blendMode = 14;
+					break;
+				case 15:
+					blendMode = 15;
+					break;
+			}
 		}
 		else if (command == "XR")
 		{

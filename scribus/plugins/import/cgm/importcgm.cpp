@@ -61,6 +61,7 @@ CgmPlug::CgmPlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 QImage CgmPlug::readThumbnail(QString fName)
