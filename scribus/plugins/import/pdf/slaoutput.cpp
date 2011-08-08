@@ -1,5 +1,6 @@
 #include "slaoutput.h"
 #include <GlobalParams.h>
+#include <QApplication>
 #include <QFile>
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
@@ -32,6 +33,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_font = 0;
 	firstPage = true;
 	pagecount = 1;
+	updateGUICounter = 0;
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -49,6 +51,7 @@ void SlaOutputDev::startDoc(XRef *xrefA, Catalog *catA)
 	catalog = catA;
 	firstPage = true;
 	pagecount = 1;
+	updateGUICounter = 0;
 	m_fontEngine = new SplashFontEngine(
 #if HAVE_T1LIB_H
 	globalParams->getEnableT1lib(),
@@ -1104,20 +1107,29 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	ite->tempImageFile->open();
-	QString fileName = getLongPathName(ite->tempImageFile->fileName());
-	ite->tempImageFile->close();
-	ite->isInlineImage = true;
-	res.save(fileName, "PNG");
-	m_doc->LoadPict(fileName, z);
-	ite->setImageScalingMode(false, true);
-	m_doc->AdjustItemSize(ite);
-	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (ite->tempImageFile->open())
 	{
-		m_groupStack.top().Items.append(ite);
-		applyMask(ite);
+		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		if (!fileName.isEmpty())
+		{
+			ite->tempImageFile->close();
+			ite->isInlineImage = true;
+			res.save(fileName, "PNG");
+			m_doc->LoadPict(fileName, z);
+			ite->setImageScalingMode(false, true);
+			m_doc->AdjustItemSize(ite);
+			m_Elements->append(ite);
+			if (m_groupStack.count() != 0)
+			{
+				m_groupStack.top().Items.append(ite);
+				applyMask(ite);
+			}
+		}
+		else
+			m_doc->Items->removeAll(ite);
 	}
+	else
+		m_doc->Items->removeAll(ite);
 	imgStr->close();
 	delete imgStr;
 	delete image;
@@ -1219,20 +1231,29 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	ite->tempImageFile->open();
-	QString fileName = getLongPathName(ite->tempImageFile->fileName());
-	ite->tempImageFile->close();
-	ite->isInlineImage = true;
-	res.save(fileName, "PNG");
-	m_doc->LoadPict(fileName, z);
-	ite->setImageScalingMode(false, true);
-	m_doc->AdjustItemSize(ite);
-	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (ite->tempImageFile->open())
 	{
-		m_groupStack.top().Items.append(ite);
-		applyMask(ite);
+		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		if (!fileName.isEmpty())
+		{
+			ite->tempImageFile->close();
+			ite->isInlineImage = true;
+			res.save(fileName, "PNG");
+			m_doc->LoadPict(fileName, z);
+			ite->setImageScalingMode(false, true);
+			m_doc->AdjustItemSize(ite);
+			m_Elements->append(ite);
+			if (m_groupStack.count() != 0)
+			{
+				m_groupStack.top().Items.append(ite);
+				applyMask(ite);
+			}
+		}
+		else
+			m_doc->Items->removeAll(ite);
 	}
+	else
+		m_doc->Items->removeAll(ite);
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -1325,20 +1346,29 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	ite->tempImageFile->open();
-	QString fileName = getLongPathName(ite->tempImageFile->fileName());
-	ite->tempImageFile->close();
-	ite->isInlineImage = true;
-	img.save(fileName, "PNG");
-	m_doc->LoadPict(fileName, z);
-	ite->setImageScalingMode(false, true);
-	m_doc->AdjustItemSize(ite);
-	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (ite->tempImageFile->open())
 	{
-		m_groupStack.top().Items.append(ite);
-		applyMask(ite);
+		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		if (!fileName.isEmpty())
+		{
+			ite->tempImageFile->close();
+			ite->isInlineImage = true;
+			img.save(fileName, "PNG");
+			m_doc->LoadPict(fileName, z);
+			ite->setImageScalingMode(false, true);
+			m_doc->AdjustItemSize(ite);
+			m_Elements->append(ite);
+			if (m_groupStack.count() != 0)
+			{
+				m_groupStack.top().Items.append(ite);
+				applyMask(ite);
+			}
+		}
+		else
+			m_doc->Items->removeAll(ite);
 	}
+	else
+		m_doc->Items->removeAll(ite);
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2157,6 +2187,14 @@ void SlaOutputDev::applyMask(PageItem *ite)
 					ite->setMaskType(6);
 			}
 		}
+	}
+	// Code for updating our Progressbar, needs to be called this way, as we have no
+	// possibility to get the current fileposition.
+	updateGUICounter++;
+	if (updateGUICounter > 20)
+	{
+		qApp->processEvents();
+		updateGUICounter = 0;
 	}
 }
 

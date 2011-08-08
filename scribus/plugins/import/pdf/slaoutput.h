@@ -220,6 +220,7 @@ private:
 	int importerFlags;
 	bool firstPage;
 	int pagecount;
+	int updateGUICounter;
 	XRef *xref;		// xref table for current document
 	Catalog *catalog;
 	SplashFontEngine *m_fontEngine;
