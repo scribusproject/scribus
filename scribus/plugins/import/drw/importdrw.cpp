@@ -63,6 +63,7 @@ DrwPlug::DrwPlug(ScribusDoc* doc, int flags)
 	m_Doc=doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 QImage DrwPlug::readThumbnail(QString fName)
@@ -1221,12 +1222,18 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						popped.groupItem->groupItemList.append(item);
 						item->gXpos = item->xPos() - popped.groupItem->xPos();
 						item->gYpos = item->yPos() - popped.groupItem->yPos();
+						if (groupStack.count() > 0)
+							groupStack.top().GElements.removeAll(tmpSel->itemAt(i));
+						Elements.removeAll(tmpSel->itemAt(i));
+						m_Doc->Items->removeAll(tmpSel->itemAt(i));
 					}
 					if (popped.itemGroupName.isEmpty())
 						popped.groupItem->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 					else
 						popped.groupItem->setItemName(popped.itemGroupName);
 					popped.groupItem->AutoName = false;
+					popped.groupItem->groupWidth = tmpSel->width();
+					popped.groupItem->groupHeight = tmpSel->height();
 				}
 				m_Doc->GroupCounter++;
 				tmpSel->clear();

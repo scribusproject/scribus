@@ -12275,7 +12275,10 @@ PageItem* ScribusDoc::groupObjectsSelection(Selection* customSelection)
 	{
 		currItem = itemSelection->itemAt(c);
 		int d = Items->indexOf(currItem);
-		groupItem->groupItemList.append(Items->takeAt(d));
+		if (d >= 0)
+			groupItem->groupItemList.append(Items->takeAt(d));
+		else
+			groupItem->groupItemList.append(currItem);
 	}
 	groupItem->asGroupFrame()->adjustXYPosition();
 	renumberItemsInListOrder();
@@ -12326,7 +12329,10 @@ PageItem* ScribusDoc::groupObjectsList(QList<PageItem*> &itemList)
 	{
 		currItem = itemList.at(c);
 		int d = Items->indexOf(currItem);
-		groupItem->groupItemList.append(Items->takeAt(d));
+		if (d >= 0)
+			groupItem->groupItemList.append(Items->takeAt(d));
+		else
+			groupItem->groupItemList.append(currItem);
 		currItem->gXpos = currItem->xPos() - minx;
 		currItem->gYpos = currItem->yPos() - miny;
 		currItem->gWidth = maxx - minx;
@@ -12366,7 +12372,10 @@ void ScribusDoc::groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemL
 	{
 		currItem = itemList.at(c);
 		int d = Items->indexOf(currItem);
-		groupItem->groupItemList.append(Items->takeAt(d));
+		if (d >= 0)
+			groupItem->groupItemList.append(Items->takeAt(d));
+		else
+			groupItem->groupItemList.append(currItem);
 		currItem->gXpos = currItem->xPos() - groupItem->xPos();
 		currItem->gYpos = currItem->yPos() - groupItem->yPos();
 		currItem->gWidth = maxx - minx;
