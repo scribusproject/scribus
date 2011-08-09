@@ -1835,8 +1835,10 @@ void StoryEditor::buildGUI()
 	FillTools->setAllowedAreas(Qt::TopToolBarArea);
 	
 	addToolBar(FileTools);
+	addToolBarBreak();
 	addToolBar(FontTools);
 	addToolBar(AlignTools);
+	addToolBarBreak();
 	addToolBar(StyleTools);
 	addToolBar(StrokeTools);
 	addToolBar(FillTools);
