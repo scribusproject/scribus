@@ -198,7 +198,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\third_party\pgf\Stream.cpp"
+				RelativePath="..\..\..\scribus\third_party\pgf\PGFstream.cpp"
 				>
 			</File>
 			<File
@@ -236,11 +236,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\third_party\pgf\PGFtypes.h"
+				RelativePath="..\..\..\scribus\third_party\pgf\PGFstream.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\third_party\pgf\Stream.h"
+				RelativePath="..\..\..\scribus\third_party\pgf\PGFtypes.h"
 				>
 			</File>
 			<File
