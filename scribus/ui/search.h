@@ -48,11 +48,13 @@ public:
 	QCheckBox* SSize;
 	QCheckBox* SFont;
 	QCheckBox* SStyle;
+	QCheckBox* SAlign;
 	QCheckBox* SText;
 	QCheckBox* SEffect;
 	QCheckBox* REffect;
 	QLineEdit* STextVal;
 	QComboBox* SStyleVal;
+	QComboBox* SAlignVal;
 	FontCombo* SFontVal;
 	ScrSpinBox* SSizeVal;
 	ColorCombo* SFillVal;
@@ -67,9 +69,11 @@ public:
 	QCheckBox* RSize;
 	QCheckBox* RFont;
 	QCheckBox* RStyle;
+	QCheckBox* RAlign;
 	QCheckBox* RText;
 	QLineEdit* RTextVal;
 	QComboBox* RStyleVal;
+	QComboBox* RAlignVal;
 	FontCombo* RFontVal;
 	ScrSpinBox* RSizeVal;
 	ColorCombo* RFillVal;
@@ -98,6 +102,7 @@ public slots:
 	virtual void slotReplaceAll();
 	virtual void enableTxSearch();
 	virtual void enableStyleSearch();
+	virtual void enableAlignSearch();
 	virtual void enableFontSearch();
 	virtual void enableSizeSearch();
 	virtual void enableEffSearch();
@@ -107,6 +112,7 @@ public slots:
 	virtual void enableStrokeSSearch();
 	virtual void enableTxReplace();
 	virtual void enableStyleReplace();
+	virtual void enableAlignReplace();
 	virtual void enableFontReplace();
 	virtual void enableSizeReplace();
 	virtual void enableEffReplace();

@@ -391,6 +391,7 @@ public:
 	bool activFromApp;
 
 public slots:
+	void newStyle(const QString&);
 	void newAlign(int st);
 	void newTxFill(int c, int s);
 	void newTxStroke(int c, int s);
@@ -436,7 +437,6 @@ protected slots:
 	void updateProps(QTextCursor &cur);
 	void updateProps(int p, int ch);
 
-	void newStyle(const QString&);
 	void changeStyleSB(int pa, const QString&);
 	void changeStyle();
 	void updateStatus();
