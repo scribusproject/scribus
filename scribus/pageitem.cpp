@@ -3077,6 +3077,14 @@ void PageItem::createConicalMesh()
 	path = mr.map(path);
 	arcPath.fromQPainterPath(path);
 	arcPath.translate(GrStartX, GrStartY);
+	QPointF foc = QPointF(GrFocalX, GrFocalY);
+	QTransform qmatrix;
+	qmatrix.translate(GrStartX, GrStartY);
+	qmatrix.rotate(-startAngle);
+	qmatrix.translate(0, GrStartY * (1.0 - GrScale));
+	qmatrix.translate(-GrStartX, -GrStartY);
+	qmatrix.scale(1, GrScale);
+	foc = qmatrix.map(foc);
 	mgP1.resetTo(arcPath.point(0));
 	mgP1.controlRight = arcPath.point(1);
 	mgP1.transparency = rstops.at(0)->opacity;
@@ -3094,7 +3102,7 @@ void PageItem::createConicalMesh()
 	mgP2.color = rstops.at(1)->color;
 	mgP2.color.setAlphaF(mgP2.transparency);
 
-	mgP3.resetTo(FPoint(GrFocalX, GrFocalY));
+	mgP3.resetTo(FPoint(foc.x(), foc.y()));
 	mgP3.transparency = rstops.at(0)->opacity;
 	mgP3.shade = rstops.at(0)->shade;
 	mgP3.colorName = rstops.at(0)->name;
