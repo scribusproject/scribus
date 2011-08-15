@@ -103,6 +103,16 @@ void GradientVectorDialog::selectLinear()
 void GradientVectorDialog::selectRadial()
 {
 	stackedWidget->setCurrentIndex(1);
+	label_7->show();
+	gSk_2->show();
+	resize(minimumSizeHint());
+}
+
+void GradientVectorDialog::selectConical()
+{
+	stackedWidget->setCurrentIndex(1);
+	label_7->hide();
+	gSk_2->hide();
 	resize(minimumSizeHint());
 }
 

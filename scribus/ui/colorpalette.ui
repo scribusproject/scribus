@@ -120,6 +120,11 @@
                </item>
                <item>
                 <property name="text">
+                 <string>Conical</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>4 Colors</string>
                 </property>
                </item>

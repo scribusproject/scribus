@@ -748,6 +748,8 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 				m_item->GrFocalX = m_item->GrStartX;
 				m_item->GrFocalY = m_item->GrStartY;
 			}
+			if (m_item->GrType == 13)
+				m_item->createConicalMesh();
 			m_item->update();
 			upRect = QRectF(QPointF(m_item->GrStartX, m_item->GrStartY), QPointF(m_item->GrEndX, m_item->GrEndY));
 			double radEnd = distance(m_item->GrEndX - m_item->GrStartX, m_item->GrEndY - m_item->GrStartY);

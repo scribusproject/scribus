@@ -2916,6 +2916,12 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs().shapeFillColor, 100);
 		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
+	if (newItem->GrType == 13)
+	{
+		if (!newItem->gradient().isEmpty())
+			newItem->fill_gradient = doc->docGradients[newItem->gradient()];
+		newItem->createConicalMesh();
+	}
 
 	if (newItem->asPathText())
 	{

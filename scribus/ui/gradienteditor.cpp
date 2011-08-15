@@ -41,6 +41,7 @@ GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));
 	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
 	connect(Preview, SIGNAL(currStep(double)), this, SIGNAL(gradientChanged()));
+	connect(Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 }
 
 void GradientEditor::setGradient(VGradient grad)

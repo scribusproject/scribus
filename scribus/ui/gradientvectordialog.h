@@ -47,6 +47,7 @@ public:
 	virtual void changeEvent(QEvent *e);
 	void selectLinear();
 	void selectRadial();
+	void selectConical();
 	void selectFourColor();
 	void selectDiamond();
 	void selectMesh();

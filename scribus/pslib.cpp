@@ -3174,6 +3174,8 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 	QStringList cols;
 	QStringList colorValues;
 	QStringList spotColorSet;
+	QStringList tmpAddedColors;
+	tmpAddedColors.clear();
 	QList<int> colsSh;
 	for (int grow = 0; grow < c->meshGradientArray.count(); grow++)
 	{
@@ -3181,6 +3183,18 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 		{
 			meshPoint mp1 = c->meshGradientArray[grow][gcol];
 			cols.append(mp1.colorName);
+			if (!m_Doc->PageColors.contains(mp1.colorName))
+			{
+				if (!tmpAddedColors.contains(mp1.colorName))
+				{
+					tmpAddedColors.append(mp1.colorName);
+					ScColor tmp;
+					tmp.setSpotColor(false);
+					tmp.setRegistrationColor(false);
+					tmp.fromQColor(mp1.color);
+					m_Doc->PageColors.insert(mp1.colorName, tmp);
+				}
+			}
 			colsSh.append(mp1.shade);
 			if (spotMap.contains(mp1.colorName))
 			{
@@ -3304,6 +3318,13 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 		PutStream("eofill\n");
 	else
 		PutStream("fill\n");
+	if (tmpAddedColors.count() != 0)
+	{
+		for (int cd = 0; cd < tmpAddedColors.count(); cd++)
+		{
+			m_Doc->PageColors.remove(tmpAddedColors[cd]);
+		}
+	}
 	return;
 }
 
@@ -3858,7 +3879,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			HandleDiamondGradient(c, gcr);
 			return;
 		}
-		else if (GType == 11)
+		else if ((GType == 11) || (GType == 13))
 		{
 			HandleMeshGradient(c, gcr);
 			return;

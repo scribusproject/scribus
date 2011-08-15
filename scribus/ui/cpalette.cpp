@@ -681,13 +681,15 @@ void Cpalette::setNamedGradient(const QString &name)
 	else if (gradientType->currentIndex() == 1)
 		emit NewGradient(7);
 	else if (gradientType->currentIndex() == 2)
+		emit NewGradient(13);
+	else if (gradientType->currentIndex() == 3)
 	{
 		setGradientColors();
 		emit NewGradient(9);
 	}
-	else if (gradientType->currentIndex() == 3)
-		emit NewGradient(10);
 	else if (gradientType->currentIndex() == 4)
+		emit NewGradient(10);
+	else if (gradientType->currentIndex() == 5)
 		emit NewGradient(11);
 }
 
@@ -869,17 +871,20 @@ void Cpalette::displayGradient(int number)
 	}
 	if (number == 0)
 		fillModeCombo->setCurrentIndex(0);
-	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10) || (number == 11) || (number == 12))
+	else if (((number > 0) && (number < 8)) || (number == 9) || (number == 10) || (number == 11) || (number == 12) || (number == 13))
 	{
-		if ((number == 5) || (number == 7))
+		if ((number == 5) || (number == 7) || (number == 13))
 		{
 			stackedWidget_2->setCurrentIndex(0);
-			gradientType->setCurrentIndex(1);
+			if ((number == 5) || (number == 7))
+				gradientType->setCurrentIndex(1);
+			if (number == 13)
+				gradientType->setCurrentIndex(2);
 		}
 		else if (number == 9)
 		{
 			stackedWidget_2->setCurrentIndex(1);
-			gradientType->setCurrentIndex(2);
+			gradientType->setCurrentIndex(3);
 			if ((currentItem->GrColorP1 != CommonStrings::None) && (!currentItem->GrColorP1.isEmpty()))
 				setCurrentComboItem(colorPoint1, currentItem->GrColorP1);
 			else
@@ -908,7 +913,7 @@ void Cpalette::displayGradient(int number)
 		else if (number == 10)
 		{
 			stackedWidget_2->setCurrentIndex(0);
-			gradientType->setCurrentIndex(3);
+			gradientType->setCurrentIndex(4);
 		}
 		else if (number == 11)
 		{
@@ -920,12 +925,12 @@ void Cpalette::displayGradient(int number)
 				shadeMeshPoint->setValue(mp.shade);
 				transparencyMeshPoint->setValue(mp.transparency * 100);
 			}
-			gradientType->setCurrentIndex(4);
+			gradientType->setCurrentIndex(5);
 		}
 		else if (number == 12)
 		{
 			stackedWidget_2->setCurrentIndex(2);
-			gradientType->setCurrentIndex(5);
+			gradientType->setCurrentIndex(6);
 		}
 		else
 		{
@@ -979,6 +984,11 @@ void Cpalette::slotGrad(int number)
 		}
 		else if (gradientType->currentIndex() == 2)
 		{
+			stackedWidget_2->setCurrentIndex(0);
+			emit NewGradient(13);
+		}
+		else if (gradientType->currentIndex() == 3)
+		{
 			stackedWidget_2->setCurrentIndex(1);
 			if ((currentItem->GrColorP1 != CommonStrings::None) && (!currentItem->GrColorP1.isEmpty()))
 				setCurrentComboItem(colorPoint1, currentItem->GrColorP1);
@@ -1006,12 +1016,12 @@ void Cpalette::slotGrad(int number)
 			color4Shade->setValue(currentItem->GrCol4Shade);
 			emit NewGradient(9);
 		}
-		else if (gradientType->currentIndex() == 3)
+		else if (gradientType->currentIndex() == 4)
 		{
 			stackedWidget_2->setCurrentIndex(0);
 			emit NewGradient(10);
 		}
-		else if (gradientType->currentIndex() == 4)
+		else if (gradientType->currentIndex() == 5)
 		{
 			stackedWidget_2->setCurrentIndex(2);
 			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
@@ -1023,7 +1033,7 @@ void Cpalette::slotGrad(int number)
 			}
 			emit NewGradient(11);
 		}
-		else if (gradientType->currentIndex() == 5)
+		else if (gradientType->currentIndex() == 6)
 		{
 			stackedWidget_2->setCurrentIndex(2);
 			emit NewGradient(12);
@@ -1053,6 +1063,11 @@ void Cpalette::slotGradType(int type)
 	}
 	else if (type == 2)
 	{
+		stackedWidget_2->setCurrentIndex(0);
+		emit NewGradient(13);
+	}
+	else if (type == 3)
+	{
 		stackedWidget_2->setCurrentIndex(1);
 		if ((currentItem->GrColorP1 != CommonStrings::None) && (!currentItem->GrColorP1.isEmpty()))
 			setCurrentComboItem(colorPoint1, currentItem->GrColorP1);
@@ -1080,12 +1095,12 @@ void Cpalette::slotGradType(int type)
 		color4Shade->setValue(currentItem->GrCol4Shade);
 		emit NewGradient(9);
 	}
-	else if (type == 3)
+	else if (type == 4)
 	{
 		stackedWidget_2->setCurrentIndex(0);
 		emit NewGradient(10);
 	}
-	else if (type == 4)
+	else if (type == 5)
 	{
 		stackedWidget_2->setCurrentIndex(2);
 		if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
@@ -1097,7 +1112,7 @@ void Cpalette::slotGradType(int type)
 		}
 		emit NewGradient(11);
 	}
-	else if (type == 5)
+	else if (type == 6)
 	{
 		stackedWidget_2->setCurrentIndex(2);
 		emit NewGradient(12);
@@ -1215,6 +1230,8 @@ void Cpalette::editGradientVector()
 			CGradDia->selectMesh();
 			editMeshColors->setEnabled(false);
 		}
+		else if (currentItem->GrType == 13)
+			CGradDia->selectConical();
 		CGradDia->show();
 	}
 	else

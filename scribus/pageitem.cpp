@@ -1489,6 +1489,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 									p->setDiamondGeometry(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
 									break;
 								case 11:
+								case 13:
 									p->setFillMode(ScPainter::Gradient);
 									p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientArray);
 									break;
@@ -2979,6 +2980,187 @@ void PageItem::meshToShape()
 		}
 	}
 	ContourLine = PoLine.copy();
+}
+
+void PageItem::createConicalMesh()
+{
+	VGradient gradient;
+	gradient.clearStops();
+	QList<VColorStop*> cstops = fill_gradient.colorStops();
+	double lastStop = -1.0;
+	double actualStop = 0.0;
+	bool   isFirst = true;
+	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+	{
+		actualStop = cstops.at(cst)->rampPoint;
+		if ((actualStop == lastStop) && (!isFirst))
+			continue;
+		if (isFirst)
+		{
+			if (actualStop != 0)
+			{
+				gradient.addStop(cstops.at(cst)->color, 0, 0, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+				if (actualStop <= 0.25)
+					gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+				else
+				{
+					double actDist = 0.25;
+					do
+					{
+						gradient.addStop(cstops.at(cst)->color, actDist, actDist, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+						actDist += 0.25;
+					}
+					while (actualStop > actDist);
+					gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+				}
+			}
+			else
+				gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+			isFirst = false;
+			lastStop = actualStop;
+			continue;
+		}
+		isFirst = false;
+		if (actualStop - lastStop <= 0.25)
+			gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+		else
+		{
+			double actDist = lastStop + 0.25;
+			do
+			{
+				gradient.addStop(computeInBetweenStop(cstops.at(cst-1), cstops.at(cst), actDist));
+				actDist += 0.25;
+			}
+			while (actualStop > actDist);
+			gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+		}
+		if ((cst == fill_gradient.Stops()-1) && (actualStop < 1.0))
+		{
+			double distToGo = 1.0 - actualStop;
+			if (distToGo <= 0.25)
+				gradient.addStop(cstops.at(cst)->color, 1.0, 1.0, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+			else
+			{
+				do
+				{
+					double actDist = actualStop + 0.25;
+					gradient.addStop(cstops.at(cst)->color, actDist, actDist, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+					distToGo -= 0.25;
+					actDist += 0.25;
+				}
+				while (distToGo >= 0.25);
+				gradient.addStop(cstops.at(cst)->color, 1.0, 1.0, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
+			}
+			break;
+		}
+		lastStop = actualStop;
+	}
+	meshGradientArray.clear();
+	QList<meshPoint> mgList1;
+	QList<meshPoint> mgList2;
+	meshPoint mgP1, mgP2, mgP3, mgP4;
+	QPainterPath path;
+	FPointArray arcPath;
+	QLineF angLin = QLineF(QPointF(GrStartX, GrStartY), QPointF(GrEndX, GrEndY));
+	double startAngle = angLin.angle();
+	double radius = angLin.length();
+	double radius2 = radius * 2.0;
+	QList<VColorStop*> rstops = gradient.colorStops();
+	double stepAngle = 360 * rstops.at(1)->rampPoint;
+	path.arcMoveTo(-radius, -radius, radius2, radius2, 0);
+	path.arcTo(-radius, -radius, radius2, radius2, 0, -stepAngle);
+	QTransform mm;
+	mm.rotate(-startAngle);
+	path = mm.map(path);
+	QTransform mr;
+	mr.scale(1.0, GrScale);
+	path = mr.map(path);
+	arcPath.fromQPainterPath(path);
+	arcPath.translate(GrStartX, GrStartY);
+	mgP1.resetTo(arcPath.point(0));
+	mgP1.controlRight = arcPath.point(1);
+	mgP1.transparency = rstops.at(0)->opacity;
+	mgP1.shade = rstops.at(0)->shade;
+	mgP1.colorName = rstops.at(0)->name;
+	mgP1.color = rstops.at(0)->color;
+	mgP1.color.setAlphaF(mgP1.transparency);
+	mgList1.append(mgP1);
+
+	mgP2.resetTo(arcPath.point(2));
+	mgP2.controlLeft = arcPath.point(3);
+	mgP2.transparency = rstops.at(1)->opacity;
+	mgP2.shade = rstops.at(1)->shade;
+	mgP2.colorName = rstops.at(1)->name;
+	mgP2.color = rstops.at(1)->color;
+	mgP2.color.setAlphaF(mgP2.transparency);
+
+	mgP3.resetTo(FPoint(GrFocalX, GrFocalY));
+	mgP3.transparency = rstops.at(0)->opacity;
+	mgP3.shade = rstops.at(0)->shade;
+	mgP3.colorName = rstops.at(0)->name;
+	mgP3.color = rstops.at(0)->color;
+	mgP3.color.setAlphaF(mgP3.transparency);
+
+	mgList2.append(mgP3);
+	mgP3.transparency = rstops.at(1)->opacity;
+	mgP3.shade = rstops.at(1)->shade;
+	mgP3.colorName = rstops.at(1)->name;
+	mgP3.color = rstops.at(1)->color;
+	mgP3.color.setAlphaF(mgP3.transparency);
+	mgList2.append(mgP3);
+	startAngle -= stepAngle;
+	for (uint rst = 2; rst < gradient.Stops(); ++rst)
+	{
+		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst-1)->rampPoint);
+		path = QPainterPath();
+		arcPath.resize(0);
+		path.arcMoveTo(-radius, -radius, radius2, radius2, 0);
+		path.arcTo(-radius, -radius, radius2, radius2, 0, -stepAngle);
+		QTransform mm;
+		mm.rotate(-startAngle);
+		QTransform mr;
+		mr.scale(1.0, GrScale);
+		path = mm.map(path);
+		path = mr.map(path);
+		arcPath.fromQPainterPath(path);
+		arcPath.translate(GrStartX, GrStartY);
+		mgP2.controlRight = arcPath.point(1);
+		mgList1.append(mgP2);
+
+		mgP2.resetTo(arcPath.point(2));
+		mgP2.controlLeft = arcPath.point(3);
+		mgP2.transparency = rstops.at(rst)->opacity;
+		mgP2.shade = rstops.at(rst)->shade;
+		mgP2.colorName = rstops.at(rst)->name;
+		mgP2.color = rstops.at(rst)->color;
+		mgP2.color.setAlphaF(mgP2.transparency);
+
+		mgP3.transparency = rstops.at(rst)->opacity;
+		mgP3.shade = rstops.at(rst)->shade;
+		mgP3.colorName = rstops.at(rst)->name;
+		mgP3.color = rstops.at(rst)->color;
+		mgP3.color.setAlphaF(mgP3.transparency);
+		mgList2.append(mgP3);
+		startAngle -= stepAngle;
+	}
+	mgList1.append(mgP2);
+	meshGradientArray.append(mgList1);
+	meshGradientArray.append(mgList2);
+}
+
+VColorStop PageItem::computeInBetweenStop(VColorStop* last, VColorStop* actual, double t)
+{
+	double dist = actual->rampPoint - last->rampPoint;
+	double perc = (t - last->rampPoint) / dist;
+	double Rn = ((actual->color.redF() - last->color.redF()) * perc) + last->color.redF();
+	double Gn = ((actual->color.greenF() - last->color.greenF()) * perc) + last->color.greenF();
+	double Bn = ((actual->color.blueF() - last->color.blueF()) * perc) + last->color.blueF();
+	QColor color;
+	color.setRgbF(Rn, Gn, Bn);
+	double opacity = ((actual->opacity - last->opacity) * perc) + last->opacity;
+	int shade = qRound(((actual->shade - last->shade) * perc) + last->shade);
+	QString name = last->name + actual->name + QString("%1").arg(perc);
+	return VColorStop(t, t, color, opacity, name, shade);
 }
 
 void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
@@ -5020,7 +5202,8 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		{
 			for (int gcol = 0; gcol < meshGradientArray[grow].count(); gcol++)
 			{
-				lists.collectColor(meshGradientArray[grow][gcol].colorName);
+				if (m_Doc->PageColors.contains(meshGradientArray[grow][gcol].colorName))
+					lists.collectColor(meshGradientArray[grow][gcol].colorName);
 			}
 		}
 	}

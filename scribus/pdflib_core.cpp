@@ -6512,6 +6512,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 	QStringList colorNames;
 	QList<int> colorShades;
 	QStringList spotColorSet;
+	QStringList tmpAddedColors;
 	bool spotMode = false;
 	bool transparencyFound = false;
 	StopVec.clear();
@@ -6519,12 +6520,25 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 	Gcolors.clear();
 	colorNames.clear();
 	colorShades.clear();
+	tmpAddedColors.clear();
 	for (int grow = 0; grow < c->meshGradientArray.count(); grow++)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
 		{
 			meshPoint mp1 = c->meshGradientArray[grow][gcol];
 			colorNames.append(mp1.colorName);
+			if (!doc.PageColors.contains(mp1.colorName))
+			{
+				if (!tmpAddedColors.contains(mp1.colorName))
+				{
+					tmpAddedColors.append(mp1.colorName);
+					ScColor tmp;
+					tmp.setSpotColor(false);
+					tmp.setRegistrationColor(false);
+					tmp.fromQColor(mp1.color);
+					doc.PageColors.insert(mp1.colorName, tmp);
+				}
+			}
 			colorShades.append(mp1.shade);
 			TransVec.append(mp1.transparency);
 			if (mp1.transparency != 1.0)
@@ -6569,10 +6583,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 				vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
 				vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
 				vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
-				encodeColor(vst, colorNames[colInd4], colorShades[colInd4], spotColorSet, spotMode);
-				encodeColor(vst, colorNames[colInd1], colorShades[colInd1], spotColorSet, spotMode);
-				encodeColor(vst, colorNames[colInd2], colorShades[colInd2], spotColorSet, spotMode);
-				encodeColor(vst, colorNames[colInd3], colorShades[colInd3], spotColorSet, spotMode);
+				vst << encode16dVal(TransVec[colInd4]) << encode16dVal(TransVec[colInd1]) << encode16dVal(TransVec[colInd2]) << encode16dVal(TransVec[colInd3]);
 			}
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
@@ -6780,6 +6791,13 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 	tmp += "/Pattern cs\n";
 	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
 	output = tmp;
+	if (tmpAddedColors.count() != 0)
+	{
+		for (int cd = 0; cd < tmpAddedColors.count(); cd++)
+		{
+			doc.PageColors.remove(tmpAddedColors[cd]);
+		}
+	}
 	return true;
 }
 
@@ -6881,10 +6899,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 			vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
 			vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
 			vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
-			encodeColor(vst, colorNames[colInd4], colorShades[colInd4], spotColorSet, spotMode);
-			encodeColor(vst, colorNames[colInd1], colorShades[colInd1], spotColorSet, spotMode);
-			encodeColor(vst, colorNames[colInd2], colorShades[colInd2], spotColorSet, spotMode);
-			encodeColor(vst, colorNames[colInd3], colorShades[colInd3], spotColorSet, spotMode);
+			vst << encode16dVal(TransVec[colInd4]) << encode16dVal(TransVec[colInd1]) << encode16dVal(TransVec[colInd2]) << encode16dVal(TransVec[colInd3]);
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
 		QString dat = "";
@@ -7863,7 +7878,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			return PDF_TensorGradientFill(output, currItem);
 		else if (GType == 10)
 			return PDF_DiamondGradientFill(output, currItem);
-		else if (GType == 11)
+		else if ((GType == 11) || (GType == 13))
 			return PDF_MeshGradientFill(output, currItem);
 		else if (GType == 12)
 			return PDF_PatchMeshGradientFill(output, currItem);

@@ -183,22 +183,25 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		QTransform qmatrix;
 		qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
 		qmatrix.rotate(rotEnd);
-		double mask_gradientSkew = 0.0;
-		if (currItem->GrSkew == 90)
-			mask_gradientSkew = 1;
-		else if (currItem->GrSkew == 180)
-			mask_gradientSkew = 0;
-		else if (currItem->GrSkew == 270)
-			mask_gradientSkew = -1;
-		else if (currItem->GrSkew == 390)
-			mask_gradientSkew = 0;
-		else
-			mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
-		qmatrix.shear(mask_gradientSkew, 0);
+		if (currItem->GrType != 13)
+		{
+			double mask_gradientSkew = 0.0;
+			if (currItem->GrSkew == 90)
+				mask_gradientSkew = 1;
+			else if (currItem->GrSkew == 180)
+				mask_gradientSkew = 0;
+			else if (currItem->GrSkew == 270)
+				mask_gradientSkew = -1;
+			else if (currItem->GrSkew == 390)
+				mask_gradientSkew = 0;
+			else
+				mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
+			qmatrix.shear(mask_gradientSkew, 0);
+		}
 		qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
 		qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
 		qmatrix.scale(1, currItem->GrScale);
-		if (currItem->GrType == 7)
+		if ((currItem->GrType == 7) || (currItem->GrType == 13))
 			psx->drawPoint(qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY)));
 		QTransform m;
 		m.translate(currItem->GrStartX, currItem->GrStartY);
@@ -522,7 +525,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrStartY -= np.y();
 				currItem->GrFocalX -= np.x();
 				currItem->GrFocalY -= np.y();
-				if (currItem->GrType == 7)
+				if ((currItem->GrType == 7) || (currItem->GrType == 13))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
@@ -541,18 +544,21 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QTransform qmatrix;
 				qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
 				qmatrix.rotate(rotEnd);
-				double mask_gradientSkew = 0.0;
-				if (currItem->GrSkew == 90)
-					mask_gradientSkew = 1;
-				else if (currItem->GrSkew == 180)
-					mask_gradientSkew = 0;
-				else if (currItem->GrSkew == 270)
-					mask_gradientSkew = -1;
-				else if (currItem->GrSkew == 390)
-					mask_gradientSkew = 0;
-				else
-					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
-				qmatrix.shear(mask_gradientSkew, 0);
+				if (currItem->GrType != 13)
+				{
+					double mask_gradientSkew = 0.0;
+					if (currItem->GrSkew == 90)
+						mask_gradientSkew = 1;
+					else if (currItem->GrSkew == 180)
+						mask_gradientSkew = 0;
+					else if (currItem->GrSkew == 270)
+						mask_gradientSkew = -1;
+					else if (currItem->GrSkew == 390)
+						mask_gradientSkew = 0;
+					else
+						mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
+					qmatrix.shear(mask_gradientSkew, 0);
+				}
 				qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
 				qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
 				qmatrix.scale(1, currItem->GrScale);
@@ -561,7 +567,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QPointF shRe = m.map(shR - np);
 				currItem->GrFocalX = shRe.x();
 				currItem->GrFocalY = shRe.y();
-				if (currItem->GrType == 7)
+				if ((currItem->GrType == 7) || (currItem->GrType == 13))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
@@ -582,13 +588,17 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				m.translate(currItem->GrStartX, currItem->GrStartY);
 				m.rotate(rotEnd);
 				m.rotate(-90);
-				m.rotate(currItem->GrSkew);
+				if (currItem->GrType != 13)
+					m.rotate(currItem->GrSkew);
 				m.translate(radEnd * currItem->GrScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
 				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY) + 90;
-				currItem->GrSkew = rotNew - rotEnd;
+				if (currItem->GrType != 13)
+					currItem->GrSkew = rotNew - rotEnd;
+				else
+					currItem->GrSkew = 0;
 				double newScale = radNew / radEnd;
 				if ((newScale > 0) && (newScale <= 1))
 					currItem->GrScale = newScale;
@@ -597,7 +607,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrEndX -= np.x();
 				currItem->GrEndY -= np.y();
-				if (currItem->GrType == 7)
+				if ((currItem->GrType == 7) || (currItem->GrType == 13))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
@@ -695,6 +705,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			upRect = QRectF(QPointF(-currItem->width(), -currItem->height()), QPointF(currItem->width() * 2, currItem->height() * 2)).normalized();
 		}
 		upRect.translate(currItem->xPos(), currItem->yPos());
+		if (currItem->GrType == 13)
+			currItem->createConicalMesh();
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 	}
 }
@@ -808,18 +820,21 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		QTransform qmatrix;
 		qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
 		qmatrix.rotate(rotEnd);
-		double mask_gradientSkew = 0.0;
-		if (currItem->GrSkew == 90)
-			mask_gradientSkew = 1;
-		else if (currItem->GrSkew == 180)
-			mask_gradientSkew = 0;
-		else if (currItem->GrSkew == 270)
-			mask_gradientSkew = -1;
-		else if (currItem->GrSkew == 390)
-			mask_gradientSkew = 0;
-		else
-			mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
-		qmatrix.shear(mask_gradientSkew, 0);
+		if (currItem->GrType != 13)
+		{
+			double mask_gradientSkew = 0.0;
+			if (currItem->GrSkew == 90)
+				mask_gradientSkew = 1;
+			else if (currItem->GrSkew == 180)
+				mask_gradientSkew = 0;
+			else if (currItem->GrSkew == 270)
+				mask_gradientSkew = -1;
+			else if (currItem->GrSkew == 390)
+				mask_gradientSkew = 0;
+			else
+				mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
+			qmatrix.shear(mask_gradientSkew, 0);
+		}
 		qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
 		qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
 		qmatrix.scale(1, currItem->GrScale);

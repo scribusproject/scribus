@@ -3984,6 +3984,8 @@ void ScribusDoc::recalculateColors()
 		cstops = ite->mask_gradient.colorStops();
 		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		if (ite->GrType == 13)
+			ite->createConicalMesh();
 	}
 	uint masterItemsCount=MasterItems.count();
 	for (uint c=0; c<masterItemsCount; ++c)
@@ -3998,6 +4000,8 @@ void ScribusDoc::recalculateColors()
 		cstops = ite->mask_gradient.colorStops();
 		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		if (ite->GrType == 13)
+			ite->createConicalMesh();
 	}
 	uint frameItemsCount=FrameItems.count();
 	for (uint c=0; c<frameItemsCount; ++c)
@@ -4012,6 +4016,8 @@ void ScribusDoc::recalculateColors()
 		cstops = ite->mask_gradient.colorStops();
 		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		if (ite->GrType == 13)
+			ite->createConicalMesh();
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -4031,6 +4037,8 @@ void ScribusDoc::recalculateColors()
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->asImageFrame())
 				loadPict(ite->Pfile, ite, true, false);
+			if (ite->GrType == 13)
+				ite->createConicalMesh();
 		}
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
@@ -6721,6 +6729,8 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 			}
 			if ((typ > 0) && (typ < 8))
 				currItem->updateGradientVectors();
+			if (currItem->GrType == 13)
+				currItem->createConicalMesh();
 			currItem->update();
 		}
 		m_updateManager.setUpdatesEnabled();
@@ -9276,6 +9286,8 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
 		currItem->fill_gradient = newGradient;
+		if (currItem->GrType == 13)
+			currItem->createConicalMesh();
 		currItem->update();
 	}
 	m_updateManager.setUpdatesEnabled();

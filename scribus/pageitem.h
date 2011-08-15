@@ -661,6 +661,8 @@ public:
 	void createGradientMesh(int rows, int cols);
 	void resetGradientMesh();
 	void meshToShape();
+	void createConicalMesh();
+	VColorStop computeInBetweenStop(VColorStop* last, VColorStop* actual, double t);
 	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 

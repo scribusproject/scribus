@@ -448,7 +448,7 @@ bool ColorListBox::viewportEvent(QEvent *event)
 {
 	if (event != NULL)
 	{
-	/* commented out because of random crashes in the colorcombobox of the gradient editor */
+	/* commented out because of random crashes in the colorcombobox of the gradient editor
 	if (event->type() == QEvent::ToolTip)
 	{
 		if (cList != NULL)
@@ -480,7 +480,7 @@ bool ColorListBox::viewportEvent(QEvent *event)
 			}
 		}
 	}
-	else
+	else */
 	if (event->type() == QEvent::MouseButtonPress)
 	{
 		QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);

@@ -421,12 +421,17 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
-		double newX = mousePointDoc.x();
-		double newY = mousePointDoc.y();
+		FPoint npfN;
+		double nx = mousePointDoc.x();
+		double ny = mousePointDoc.y();
+		if (!m_doc->ApplyGuides(&nx, &ny))
+			npfN = m_doc->ApplyGridF(FPoint(nx, ny));
+		else
+			npfN = FPoint(nx, ny);
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		FPoint npf = FPoint(mousePointDoc.x(), mousePointDoc.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+		FPoint npf = FPoint(npfN.x(), npfN.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 		m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
-		FPoint npx(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
+		FPoint npx(Mxp - npfN.x(), Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
 		if (selectedMeshPoints.count() > 0)
 		{
 			if (m_view->editStrokeGradient == 5)
@@ -455,8 +460,8 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 			upRect.translate(currItem->xPos(), currItem->yPos());
 			m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
 		}
-		Mxp = newX;
-		Myp = newY;
+		Mxp = npfN.x();
+		Myp = npfN.y();
 	}
 }
 
