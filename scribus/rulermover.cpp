@@ -91,6 +91,8 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 				pmen2->addAction( tr("Origin at Bottom Left"), this, SLOT(moveRulerBottomLeft()));
 				pmen2->addAction( tr("Origin at Bottom Right"), this, SLOT(moveRulerBottomRight()));
 				pmen2->addAction( tr("Origin at Center"), this, SLOT(moveRulerCenter()));
+				pmen2->addAction( tr("Origin at Top Center"), this, SLOT(moveRulerTopCenter()));
+				pmen2->addAction( tr("Origin at Bottom Center"), this, SLOT(moveRulerBottomCenter()));
 				pmen->addMenu(pmen2);
 			}
 		}
@@ -143,3 +145,18 @@ void RulerMover::moveRulerCenter()
 	currView->Doc->rulerYoffset = currView->Doc->currentPage()->height() / 2.0;
 	currView->DrawNew();
 }
+
+void RulerMover::moveRulerTopCenter()
+{
+	currView->Doc->rulerXoffset = currView->Doc->currentPage()->width() / 2.0;
+	currView->Doc->rulerYoffset = 0;
+	currView->DrawNew();
+}
+
+void RulerMover::moveRulerBottomCenter()
+{
+	currView->Doc->rulerXoffset = currView->Doc->currentPage()->width() / 2.0;
+	currView->Doc->rulerYoffset = currView->Doc->currentPage()->height();
+	currView->DrawNew();
+}
+
