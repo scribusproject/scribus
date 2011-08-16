@@ -50,6 +50,9 @@ private slots:
 	void moveRulerBottomLeft();
 	void moveRulerBottomRight();
 	void moveRulerCenter();
+	void moveRulerTopCenter();
+	void moveRulerBottomCenter();
+
 private: // Private attributes
 	ScribusView *currView;
 	RulerGesture* rulerGesture;
