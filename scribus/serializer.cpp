@@ -415,7 +415,9 @@ Selection Serializer::importCollection()
 		for (int i=0; i < objects->count(); ++i)
 		{
 			PageItem* currItem = objects->at(i);
-			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+			// #10172: Duplicated line's outline not drawn while moving
+			// currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+			currItem->updateClip();
 			currItem->setFillQColor();
 			currItem->setLineQColor();
 			result.addItem(currItem);
