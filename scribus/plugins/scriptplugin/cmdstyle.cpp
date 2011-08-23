@@ -38,8 +38,10 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("charstyle"),
 			NULL};
 	char *Name = const_cast<char*>(""), *CharStyle = const_cast<char*>("");
-	int LineSpacingMode = 0, LineSpacing = 15, Alignment = 0, LeftMargin = 0, RightMargin = 0, GapBefore = 0, GapAfter = 0, FirstIndent = 0, DropCapLines = 2, DropCapOffset = 0, HasDropCap = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|iiiiiiiiiiies",
+	int LineSpacingMode = 0, Alignment = 0, DropCapLines = 2, HasDropCap = 0;
+	double LineSpacing = 15.0, LeftMargin = 0.0, RightMargin = 0.0;
+	double GapBefore = 0.0, GapAfter = 0.0, FirstIndent = 0.0, DropCapOffset = 0;
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiides",
 		 keywordargs, "utf-8", &Name, &LineSpacingMode, &LineSpacing, &Alignment,
 		&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
 		&HasDropCap, &DropCapLines, &DropCapOffset, "utf-8", &CharStyle))
