@@ -135,7 +135,7 @@
         <location filename="../../../scribus/ui/about.cpp" line="123"/>
         <source>%1 %2 %3</source>
         <translatorcomment>data lietuviškai</translatorcomment>
-        <translation>%3 %2 %1 d. </translation>
+        <translation>%3 %2 %1 d.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/about.cpp" line="131"/>
@@ -581,7 +581,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1364"/>
         <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;Daug kopijų</translation>
+        <translation>&amp;Daugybinis kopijavimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1365"/>
@@ -6078,7 +6078,7 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
     <name>Cpalette</name>
     <message>
         <source>Shade:</source>
-        <translation type="obsolete">Šešėlis:</translation>
+        <translation type="obsolete">Atspalvis:</translation>
     </message>
     <message>
         <source> %</source>
@@ -7487,7 +7487,7 @@ importuoti nepavyko!
     <message>
         <location filename="../../../scribus/ui/effectsdialog.cpp" line="111"/>
         <source>Shade:</source>
-        <translation>Šešėlis:</translation>
+        <translation>Atspalvis:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/effectsdialog.cpp" line="127"/>
@@ -8702,7 +8702,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../../scribus/ui/gradienteditor.ui" line="113"/>
         <source>Shade:</source>
-        <translation>Šešėlis:</translation>
+        <translation>Atspalvis:</translation>
     </message>
 </context>
 <context>
@@ -8853,7 +8853,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.ui" line="32"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="226"/>
         <source>&amp;Single</source>
-        <translation>&amp;Viengubas</translation>
+        <translation>&amp;Atskiros</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="40"/>
@@ -8861,7 +8861,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.cpp" line="229"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="237"/>
         <source>Horizontals</source>
-        <translation>Horizontalūs</translation>
+        <translation>Horizontalios</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="56"/>
@@ -8896,7 +8896,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.cpp" line="230"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="238"/>
         <source>Verticals</source>
-        <translation>Vertikalūs</translation>
+        <translation>Vertikalios</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="95"/>
@@ -8945,7 +8945,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.ui" line="141"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="227"/>
         <source>&amp;Column/Row</source>
-        <translation>&amp;Stulpelis/Eilutė</translation>
+        <translation>&amp;Skiltys</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="153"/>
@@ -8970,7 +8970,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.cpp" line="245"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="248"/>
         <source>&amp;Page</source>
-        <translation>&amp;Puslapis</translation>
+        <translation>&amp;Puslapio kraštus</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="198"/>
@@ -8985,7 +8985,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.cpp" line="246"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="249"/>
         <source>M&amp;argins</source>
-        <translation>P&amp;araštės</translation>
+        <translation>P&amp;araštes</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="218"/>
@@ -9016,7 +9016,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.ui" line="332"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="228"/>
         <source>&amp;Misc</source>
-        <translation>&amp;Įvairūs</translation>
+        <translation>&amp;Įvairūs veiksmai</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="338"/>
@@ -9147,7 +9147,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../../scribus/ui/guidemanager.cpp" line="243"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="244"/>
         <source>Refer to</source>
-        <translation>Nukreipia į</translation>
+        <translation>Atsižvelgiantf į</translation>
     </message>
 </context>
 <context>
@@ -10097,7 +10097,8 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/inspage.cpp" line="46"/>
         <source>Page(s)</source>
-        <translation>Puslapis(-iai)</translation>
+        <translatorcomment>galimi įvairūs linksniai...</translatorcomment>
+        <translation>psl.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/inspage.cpp" line="50"/>
@@ -10126,7 +10127,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/ui/inspage.cpp" line="42"/>
         <location filename="../../../scribus/ui/inspage.cpp" line="63"/>
         <source>&amp;Insert</source>
-        <translation>Į&amp;terpimas</translation>
+        <translation>Į&amp;terpti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/inspage.cpp" line="67"/>
@@ -11610,7 +11611,7 @@ p, li { white-space: pre-wrap; }
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation type="obsolete">Daug kopijų</translation>
+        <translation type="obsolete">Daugybinis kopijavimas</translation>
     </message>
 </context>
 <context>
@@ -12040,7 +12041,7 @@ Jei nėra pažymėtų rankenėlių, į pradinę padėtį bus grąžinos visos.</
     <message>
         <location filename="../../../scribus/ui/multipleduplicate.ui" line="14"/>
         <source>Multiple Duplicate</source>
-        <translation>Daug dublikatų</translation>
+        <translation>Daugybinis kopijavimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/multipleduplicate.ui" line="33"/>
@@ -12117,7 +12118,7 @@ Jei nėra pažymėtų rankenėlių, į pradinę padėtį bus grąžinos visos.</
     <name>MultipleDuplicateBase</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation type="obsolete">Daug kopijų</translation>
+        <translation type="obsolete">Daugybinis kopijavimas</translation>
     </message>
 </context>
 <context>
@@ -22984,11 +22985,11 @@ kampus:</translation>
     </message>
     <message>
         <source>Knockout</source>
-        <translation type="obsolete">Išgaubtas</translation>
+        <translation type="obsolete">Eliminuoti</translation>
     </message>
     <message>
         <source>Overprint</source>
-        <translation type="obsolete">Užspausdinamasis</translation>
+        <translation type="obsolete">Spausdinti ant viršaus</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
@@ -23036,7 +23037,7 @@ kampus:</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="obsolete">Naudoti aprėpos stačiakampį tekstui apgaubti (vietoje objektų rėmelių formos).Tekstui apgaubti naudoti apybrėžos stačiakampį (vietoje objektų formos apybrėžos).</translation>
+        <translation type="obsolete">Visuomet naudoti stačiakampį (vietoje objektų rėmelių formos).</translation>
     </message>
     <message>
         <source>Transparency Settings</source>
@@ -23121,7 +23122,7 @@ kampus:</translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation type="obsolete">Pažymėta figūros apybrėža gali būti keičiama figūrų redagavimo priemone (mygtukas „Taisyti figūrą...“ aukščiau esančioje paletėje). Taisant figūrų paletės priemonėmis sukuriama antra papildoma apybrėža figūros pagrindu tekstui, skirtam blokui po objektu esančiuose teksiniuose rėmeliuose, apgaubti.</translation>
+        <translation type="obsolete">Pažymėta figūros apybrėža gali būti keičiama figūrų redagavimo priemone (spragtelėk aukščiau esantį mygtuką „Taisyti...“). Taisant figūrų priemonėmis, figūros pagrindu sukuriama papildoma apybrėža, naudojama po objektams, esantiems po teksto rėmeliu, apgaubti.</translation>
     </message>
     <message>
         <source>Default</source>
@@ -23353,7 +23354,7 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_group.cpp" line="606"/>
         <source>Use Frame &amp;Shape</source>
-        <translation>Naudoti kontūro &amp;formą</translation>
+        <translation>Naudoti rėmelio &amp;formą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_group.cpp" line="607"/>
@@ -23383,7 +23384,7 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_group.cpp" line="613"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Naudoti aprėpos stačiakampį tekstui apgaubti (vietoje objektų rėmelių formos).Tekstui apgaubti naudoti apybrėžos stačiakampį (vietoje objektų formos apybrėžos).</translation>
+        <translation>Visuomet naudoti stačiakampį (vietoje objektų rėmelių formos).</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_group.cpp" line="614"/>
@@ -24146,7 +24147,7 @@ kampus:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_shape.cpp" line="544"/>
         <source>Use Frame &amp;Shape</source>
-        <translation>Naudoti kontūro &amp;formą</translation>
+        <translation>Naudoti rėmelio &amp;formą</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_shape.cpp" line="545"/>
@@ -25819,7 +25820,7 @@ Patikrinkite, ar teisingai nurodyta jo laikymo vieta ir pavadinimas.</translatio
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="124"/>
         <source>Sh&amp;ade</source>
-        <translation>&amp;Šešėlis</translation>
+        <translation>&amp;Atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="125"/>
@@ -26955,7 +26956,7 @@ External Links
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="286"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Užpildo šešėlis nepatenka į rėžius; jis gali būti nuo 0 iki 100.</translation>
+        <translation>Užpildo Atspalvis nepatenka į rėžius; jis gali būti nuo 0 iki 100.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="378"/>
@@ -28364,7 +28365,7 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="101"/>
         <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Pabaigos šešėlis nepatenka į leidžiamus rėžius: turi būti nuo 0 iki 100.</translation>
+        <translation>Pabaigos Atspalvis nepatenka į leidžiamus rėžius: turi būti nuo 0 iki 100.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="106"/>
@@ -28906,7 +28907,7 @@ Prašome parinkti kitą.</translation>
     <name>SMCStylePage</name>
     <message>
         <source>Shade</source>
-        <translation type="obsolete">Šešėlis</translation>
+        <translation type="obsolete">Atspalvis</translation>
     </message>
 </context>
 <context>
@@ -28937,7 +28938,7 @@ Prašome parinkti kitą.</translation>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="466"/>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="484"/>
         <source>Shade</source>
-        <translation>Šešėlis</translation>
+        <translation>Atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.ui" line="49"/>
@@ -29012,7 +29013,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="93"/>
         <source>Fill Shade</source>
-        <translation>Užpildo šešėlis</translation>
+        <translation>Užpildo atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="94"/>
@@ -29022,7 +29023,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="95"/>
         <source>Stroke Shade</source>
-        <translation>Apvado šešėlis</translation>
+        <translation>Apvado atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="229"/>
@@ -29235,7 +29236,7 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/smlinestylewidget.cpp" line="69"/>
         <source>Line shade</source>
-        <translation>Linijos šešėlis</translation>
+        <translation>Linijos atspalvis</translation>
     </message>
     <message>
         <source> pt</source>
@@ -29310,12 +29311,12 @@ Prašome parinkti kitą.</translation>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="265"/>
         <source>&amp;Lines:</source>
-        <translation>&amp;Linijos:</translation>
+        <translation>Ei&amp;lutės:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="289"/>
         <source>Distance from Text:</source>
-        <translation>Atstumas nuo teksto:</translation>
+        <translation>Atstumas iki teksto:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="96"/>
@@ -30450,7 +30451,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
     </message>
     <message>
         <source>Multiple Duplicate</source>
-        <translation type="obsolete">Daug kopijų</translation>
+        <translation type="obsolete">Daugybinis kopijavimas</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -30626,7 +30627,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
     </message>
     <message>
         <source>Shade</source>
-        <translation type="obsolete">Šešėlis</translation>
+        <translation type="obsolete">Atspalvis</translation>
     </message>
     <message>
         <source>Open</source>
@@ -31725,7 +31726,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="358"/>
         <source>Zoom to 100%</source>
-        <translation>Padidinti iki 100%</translation>
+        <translation>Rodyti 100% dydžio</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="359"/>
@@ -32112,7 +32113,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <location filename="../../../scribus/ui/search.cpp" line="83"/>
         <location filename="../../../scribus/ui/search.cpp" line="172"/>
         <source>Fill Shade</source>
-        <translation>Užpildo šešėlis</translation>
+        <translation>Užpildo atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/search.cpp" line="86"/>
@@ -32124,7 +32125,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <location filename="../../../scribus/ui/search.cpp" line="89"/>
         <location filename="../../../scribus/ui/search.cpp" line="178"/>
         <source>Stroke Shade</source>
-        <translation>Apvado šešėlis</translation>
+        <translation>Apvado atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/search.cpp" line="96"/>
@@ -37321,7 +37322,7 @@ iki %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Multiple duplicate</source>
-        <translation>Daug kopijų</translation>
+        <translation>Daugybinis kopijavimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="833"/>
@@ -37994,7 +37995,7 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../../scribus/ui/colorpalette.ui" line="427"/>
         <location filename="../../../scribus/ui/colorpalette.ui" line="643"/>
         <source>Shade:</source>
-        <translation>Šešėlis:</translation>
+        <translation>Atspalvis:</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -38094,7 +38095,7 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="192"/>
         <source>Shade</source>
-        <translation>Šešėlis</translation>
+        <translation>Atspalvis</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="199"/>
@@ -38144,7 +38145,7 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="809"/>
         <source>Knockout</source>
-        <translation>Išgaubtas</translation>
+        <translation>Eliminuoti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="814"/>
