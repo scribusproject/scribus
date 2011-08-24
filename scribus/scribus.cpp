@@ -5507,7 +5507,18 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	undoManager->setUndoEnabled(false);
 
 	QStringList base;
-	if (basedOn == NULL)
+	if (basedOn != NULL)
+	{
+		base = *basedOn;
+		// #10211 case when restoring page deletion, basedOn contains only masterpage name
+		if (base.count() == 1)
+		{
+			int setcol = doc->pageSets()[doc->pagePositioning()].Columns;
+			while (base.count() < setcol)
+				base.append (base.at(0));
+		}
+	}
+	if (base.empty())
 	{
 		int setcol = doc->pageSets()[doc->pagePositioning()].Columns;
 		if (setcol == 1)
@@ -5531,8 +5542,6 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 			base.append( CommonStrings::trMasterPageNormalRight);
 		}
 	}
-	else
-		base = *basedOn;
 	int cc;
 	int wot = wo;
 	if (where==0)
