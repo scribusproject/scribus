@@ -17,8 +17,24 @@
 		Value="F:\Libraries-vc9\cairo-1.8.8"
 	/>
 	<UserMacro
+		Name="CAIRO_DEBUG_LIB"
+		Value="cairo2d.lib"
+	/>
+	<UserMacro
+		Name="CAIRO_RELEASE_LIB"
+		Value="cairo2.lib"
+	/>
+	<UserMacro
 		Name="FREETYPE_DIR"
 		Value="F:\Libraries-vc9\freetype-2.4.6"
+	/>
+	<UserMacro
+		Name="FREETYPE_DEBUG_LIB"
+		Value="freetypeD.lib"
+	/>
+	<UserMacro
+		Name="FREETYPE_RELEASE_LIB"
+		Value="freetype.lib"
 	/>
 	<UserMacro
 		Name="ICONV_DIR"
@@ -29,31 +45,95 @@
 		Value="F:\Libraries-vc9\lcms2-2.2"
 	/>
 	<UserMacro
+		Name="LCMS_DEBUG_LIB"
+		Value="lcms2_staticd.lib"
+	/>
+	<UserMacro
+		Name="LCMS_RELEASE_LIB"
+		Value="lcms2_static.lib"
+	/>
+	<UserMacro
 		Name="LIBJPEG_DIR"
 		Value="F:\Libraries-vc9\libjpeg-6b-3"
+	/>
+	<UserMacro
+		Name="LIBJPEG_DEBUG_LIB"
+		Value="libjpeg.a"
+	/>
+	<UserMacro
+		Name="LIBJPEG_RELEASE_LIB"
+		Value="libjpeg.a"
 	/>
 	<UserMacro
 		Name="LIBTIFF_DIR"
 		Value="F:\Libraries-vc9\libtiff-3.8.2"
 	/>
 	<UserMacro
+		Name="LIBTIFF_DEBUG_LIB"
+		Value="libtiff.lib"
+	/>
+	<UserMacro
+		Name="LIBTIFF_RELEASE_LIB"
+		Value="libtiff.lib"
+	/>
+	<UserMacro
 		Name="PIXMAN_DIR"
 		Value="F:\Libraries-vc9\pixman-0.18.0"
+	/>
+	<UserMacro
+		Name="PIXMAN_DEBUG_LIB"
+		Value="pixman_d.lib"
+	/>
+	<UserMacro
+		Name="PIXMAN_RELEASE_LIB"
+		Value="pixman.lib"
 	/>
 	<UserMacro
 		Name="PODOFO_DIR"
 		Value="F:\Libraries-vc9\podofo-0.9.1"
 	/>
 	<UserMacro
+		Name="PODOFO_DEBUG_LIB"
+		Value="PoDoFoLibD.lib"
+	/>
+	<UserMacro
+		Name="PODOFO_RELEASE_LIB"
+		Value="PoDoFoLib.lib"
+	/>
+	<UserMacro
 		Name="LIBXML2_DIR"
 		Value="F:\Libraries-vc9\libxml2-2.6.32+"
+	/>
+	<UserMacro
+		Name="LIBXML2_DEBUG_LIB"
+		Value="libxml2.lib"
+	/>
+	<UserMacro
+		Name="LIBXML2_RELEASE_LIB"
+		Value="libxml2.lib"
 	/>
 	<UserMacro
 		Name="PYTHON_DIR"
 		Value="F:\Libraries-vc9\Python-2.7.1"
 	/>
 	<UserMacro
+		Name="PYTHON_DEBUG_LIB"
+		Value="python27_d.lib"
+	/>
+	<UserMacro
+		Name="PYTHON_RELEASE_LIB"
+		Value="python27.lib"
+	/>
+	<UserMacro
 		Name="POPPLER_DIR"
 		Value="F:\Libraries-vc9\poppler-0.17.1"
+	/>
+	<UserMacro
+		Name="POPPLER_DEBUG_LIB"
+		Value="poppler_staticD.lib"
+	/>
+	<UserMacro
+		Name="POPPLER_RELEASE_LIB"
+		Value="poppler_static.lib"
 	/>
 </VisualStudioPropertySheet>

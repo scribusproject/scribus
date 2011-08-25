@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pixman_d.lib msimg32.lib"
+				AdditionalDependencies="$(PIXMAN_DEBUG_LIB) msimg32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(PIXMAN_DIR)\lib&quot;"
@@ -153,7 +153,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pixman.lib msimg32.lib"
+				AdditionalDependencies="$(PIXMAN_RELEASE_LIB) msimg32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(PIXMAN_DIR)\lib&quot;"

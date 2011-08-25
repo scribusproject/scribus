@@ -80,7 +80,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib QtWebKitd4.lib freetypeD.lib libjpeg.a libtiff.lib lcms2_staticd.lib python27_d.lib scribus-api.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib QtWebKitd4.lib $(FREETYPE_DEBUG_LIB) $(LIBJPEG_DEBUG_LIB) $(LIBTIFF_DEBUG_LIB) $(LCMS_DEBUG_LIB) $(PYTHON_DEBUG_LIB) scribus-api.lib"
 				OutputFile="$(OutDir)\scriptplugin.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PYTHON_DIR)\libs&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
@@ -177,7 +177,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit4.lib freetype.lib libjpeg.a libtiff.lib lcms2_static.lib python27.lib scribus-api.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib QtWebKit4.lib $(FREETYPE_RELEASE_LIB) $(LIBJPEG_RELEASE_LIB) $(LIBTIFF_RELEASE_LIB) $(LCMS_RELEASE_LIB) $(PYTHON_RELEASE_LIB) scribus-api.lib"
 				OutputFile="$(OutDir)\scriptplugin.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PYTHON_DIR)\libs&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..&quot;"
