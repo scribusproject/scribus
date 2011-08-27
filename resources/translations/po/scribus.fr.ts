@@ -2860,7 +2860,7 @@ Si le chargement est réussi, la sélection contient l&apos;ODG importé
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished">Coller l’image qui est dans le presse-papier</translation>
+        <translation>Coller l’image à partir du presse-papier</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
@@ -11218,7 +11218,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     <message>
         <location filename="../../../scribus/fileloader.cpp" line="598"/>
         <source> was replaced by: </source>
-        <translation type="unfinished"> a été remplacée par : </translation>
+        <translation> a été remplacée par : </translation>
     </message>
 </context>
 <context>
@@ -11879,7 +11879,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
         <location filename="../../../scribus/guidemanager.ui" line="117"/>
         <location filename="../../../scribus/guidemanager.cpp" line="233"/>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Repères fixes</translation>
+        <translation>&amp;Repères verrouillés</translation>
     </message>
     <message>
         <location filename="../../../scribus/guidemanager.ui" line="127"/>
@@ -26532,7 +26532,7 @@ Rotation : %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4092"/>
         <source> was replaced by: </source>
-        <translation type="unfinished"> a été remplacé par :</translation>
+        <translation> a été remplacé par : </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4124"/>
