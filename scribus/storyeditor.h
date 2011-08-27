@@ -93,7 +93,7 @@ public:
 	void updateSel(const CharStyle& style);
 	void updateSel(const ParagraphStyle& style);
 	void deleteSel();
-	void setStyle(int Csty);
+	void setEffects(int Csty);
 	void setColor(bool marker);
 
 	void insertChars(const QString& text);
@@ -106,7 +106,7 @@ public:
 	bool wasMod;
 	bool ready;
 	int unicodeInputCount;
-	StyleFlag CurrentStyle;
+	StyleFlag CurrentEffects;
 	QString currentParaStyle;
 	int CurrAlign;
 	double CurrFontSize;

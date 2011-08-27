@@ -759,7 +759,7 @@ void SearchReplace::slotDoReplace()
 				se->Editor->textCursor().setPosition(SelStart);
 				se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
 				se->Editor->textCursor().removeSelectedText();
-//FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
+//FIXME				se->Editor->setEffects(se->Editor->CurrentEffects);
 				QString newText = RTextVal->text();
 				se->Editor->insertPlainText(newText);
 				if (newText.length() > 0)
