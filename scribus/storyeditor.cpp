@@ -124,20 +124,18 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	QPoint viewPos   = editor->viewport()->mapFromGlobal(globalPos);
 	int p = editor->cursorForPosition(QPoint(2, viewPos.y())).position();
 	CurrentPar = editor->StyledText.nrOfParagraph(p);
-	int pos = editor->StyledText.startOfParagraph(p);
+	int pos = editor->StyledText.startOfParagraph( editor->StyledText.nrOfParagraph(p) );
 
+	QString styleName = "";
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
 	paraStyleCombo->setDoc(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
 		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar);
 		if (len > 0)
-			paraStyleCombo->setFormat(editor->StyledText.paragraphStyle(pos).displayName());
-		else
-			paraStyleCombo->setFormat("");
+			styleName = editor->StyledText.paragraphStyle(pos).parent(); //FIXME ParaStyleComboBox and use localized style name
 	}
-	else
-		paraStyleCombo->setFormat("");
+	paraStyleCombo->setFormat(styleName);
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
 	pmen->clear();
 	paraStyleAct = new QWidgetAction(this);
@@ -2463,7 +2461,7 @@ void StoryEditor::updateProps(int p, int ch)
 	}
 	int parStart = Editor->StyledText.startOfParagraph(p);
 	const ParagraphStyle& parStyle(Editor->StyledText.paragraphStyle(parStart));
-	Editor->currentParaStyle = parStyle.parent();
+	Editor->currentParaStyle = parStyle.parent(); //FIXME ParaStyleComboBox and use localized style name
 	if (Editor->StyledText.endOfParagraph(p) <= parStart)
 	{
 		Editor->prevFont = Editor->CurrFont;
