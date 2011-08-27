@@ -12330,7 +12330,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
         <location filename="../../../scribus/ui/guidemanager.ui" line="120"/>
         <location filename="../../../scribus/ui/guidemanager.cpp" line="235"/>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Repères fixes</translation>
+        <translation>&amp;Repères verrouillés</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/guidemanager.ui" line="130"/>
