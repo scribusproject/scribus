@@ -684,7 +684,7 @@ void SEditor::insertUpdate(int position, int len)
 	int cSty = StyledText.charStyle(position).effects();
 	int pAli = StyledText.paragraphStyle(position).alignment();
 	setAlign(pAli);
-	setStyle(cSty);
+	setEffects(cSty);
 	for (int pos = position; pos < end; ++pos)
 	{
 		const CharStyle& cstyle(StyledText.charStyle(pos));
@@ -695,7 +695,7 @@ void SEditor::insertUpdate(int position, int len)
 			const ParagraphStyle& pstyle(StyledText.paragraphStyle(pos));
 			pAli = pstyle.alignment();
 			setAlign(pAli);
-			setStyle(cSty);
+			setEffects(cSty);
 			insertPlainText(text);
 			cSty = cstyle.effects();
 			text = "";
@@ -712,7 +712,7 @@ void SEditor::insertUpdate(int position, int len)
 				ch == SpecialChars::LINEBREAK)
 		{
 			setAlign(pAli);
-			setStyle(cSty);
+			setEffects(cSty);
 			insertPlainText(text);
 			cSty = cstyle.effects();
 			text = "";
@@ -773,7 +773,7 @@ void SEditor::insertUpdate(int position, int len)
 		const ParagraphStyle& pstyle(StyledText.paragraphStyle(end - 1));
 		setAlign(pstyle.alignment());
 	}
-	setStyle(cSty);
+	setEffects(cSty);
 	insertPlainText(text);
 	QTextCursor tCursor = textCursor();
 	tCursor.setPosition(cursorPos);
@@ -808,7 +808,7 @@ void SEditor::updateFromChars(int pa)
 		{
 			textCursor().setPosition(SelStart);
 			textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-			setStyle(Csty);
+			setEffects(Csty);
 			textCursor().clearSelection();
 			Csty = StyledText.charStyle(a).effects();
 			SelStart = SelEnd;
@@ -817,7 +817,7 @@ void SEditor::updateFromChars(int pa)
 	}
 	textCursor().setPosition(SelStart);
 	textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-	setStyle(Csty);
+	setEffects(Csty);
 	textCursor().clearSelection();
 	setAlign(StyledText.paragraphStyle(start).alignment());
 	setUpdatesEnabled(true);
@@ -872,7 +872,7 @@ void SEditor::deleteSel()
 	StoredSel = false;
 }
 
-void SEditor::setStyle(int Csty)
+void SEditor::setEffects(int Csty)
 {
 	++blockContentsChangeHook;
 	QTextCharFormat charF;
@@ -2273,11 +2273,11 @@ void StoryEditor::newTxSize(double s)
 
 void StoryEditor::newTxStyle(int s)
 {
-	Editor->CurrentStyle = static_cast<StyleFlag>(s);
+	Editor->CurrentEffects = static_cast<StyleFlag>(s);
 	CharStyle charStyle;
-	charStyle.setFeatures(Editor->CurrentStyle.featureList());
+	charStyle.setFeatures(Editor->CurrentEffects.featureList());
 	Editor->updateSel(charStyle);
-	Editor->setStyle(s);
+	Editor->setEffects(s);
 	bool setter=((s & ScStyle_Outline) || (s & ScStyle_Shadowed));
 	StrokeTools->TxStroke->setEnabled(setter);
 	StrokeTools->PM1->setEnabled(setter);
@@ -2391,6 +2391,7 @@ void StoryEditor::updateProps(int p, int ch)
 		{
 			const CharStyle& curstyle(pos < Editor->StyledText.length()? currItem->itemText.charStyle(pos) : currItem->itemText.defaultStyle().charStyle());
 			const ParagraphStyle parStyle(pos < Editor->StyledText.length()? currItem->itemText.paragraphStyle(pos) : currItem->itemText.defaultStyle());
+			Editor->currentParaStyle = parStyle.parent();
 			Editor->CurrAlign = parStyle.alignment();
 			Editor->CurrTextFill = curstyle.fillColor();
 			Editor->CurrTextFillSh = curstyle.fillShade();
@@ -2399,8 +2400,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->prevFont = Editor->CurrFont;
 			Editor->CurrFont = curstyle.font().scName();
 			Editor->CurrFontSize = curstyle.fontSize();
-			Editor->CurrentStyle = curstyle.effects();
-			Editor->currentParaStyle = curstyle.parent();
+			Editor->CurrentEffects = curstyle.effects();
 			Editor->CurrTextKern = curstyle.tracking();
 			Editor->CurrTextScale = curstyle.scaleH();
 			Editor->CurrTextScaleV = curstyle.scaleV();
@@ -2443,7 +2443,7 @@ void StoryEditor::updateProps(int p, int ch)
 			AlignTools->SetAlign(Editor->CurrAlign);
 			AlignTools->SetParaStyle(Editor->currentParaStyle);
 			StyleTools->SetKern(Editor->CurrTextKern);
-			StyleTools->SetStyle(Editor->CurrentStyle);
+			StyleTools->SetStyle(Editor->CurrentEffects);
 			StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
 			StyleTools->setOutline(Editor->CurrTextOutline);
 			StyleTools->setUnderline(Editor->CurrTextUnderPos, Editor->CurrTextUnderWidth);
@@ -2453,7 +2453,7 @@ void StoryEditor::updateProps(int p, int ch)
 			FontTools->SetScale(Editor->CurrTextScale);
 			FontTools->SetScaleV(Editor->CurrTextScaleV);
 		}
-		if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
+		if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
@@ -2463,21 +2463,21 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		Editor->setStyle(Editor->CurrentStyle);
+		Editor->setEffects(Editor->CurrentEffects);
 		firstSet = true;
 		updateUnicodeActions();
 		return;
 	}
 	int parStart = Editor->StyledText.startOfParagraph(p);
 	const ParagraphStyle& parStyle(Editor->StyledText.paragraphStyle(parStart));
-	Editor->currentParaStyle = parStyle.displayName();
+	Editor->currentParaStyle = parStyle.parent();
 	if (Editor->StyledText.endOfParagraph(p) <= parStart)
 	{
 		Editor->prevFont = Editor->CurrFont;
 		Editor->CurrFont = parStyle.charStyle().font().scName();
 		Editor->CurrFontSize = parStyle.charStyle().fontSize();
-		Editor->CurrentStyle = parStyle.charStyle().effects();
-		Editor->CurrTextFill = parStyle.charStyle().fillColor();
+		Editor->CurrentEffects = parStyle.charStyle().effects();
+		Editor->CurrTextFill   = parStyle.charStyle().fillColor();
 		Editor->CurrTextFillSh = parStyle.charStyle().fillShade();
 		Editor->CurrTextStroke = parStyle.charStyle().strokeColor();
 		Editor->CurrTextStrokeSh = parStyle.charStyle().strokeShade();
@@ -2489,7 +2489,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextStrikePos = parStyle.charStyle().strikethruOffset();
 		Editor->CurrTextStrikeWidth = parStyle.charStyle().strikethruWidth();
 		Editor->setAlign(Editor->CurrAlign);
-		Editor->setStyle(Editor->CurrentStyle);
+		Editor->setEffects(Editor->CurrentEffects);
 	}
 	else
 	{
@@ -2521,11 +2521,11 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->prevFont = Editor->CurrFont;
 		Editor->CurrFont = charStyle.font().scName();
 		Editor->CurrFontSize = charStyle.fontSize();
-		Editor->CurrentStyle = charStyle.effects() & static_cast<StyleFlag>(1919);
-		Editor->CurrTextKern = charStyle.tracking();
-		Editor->CurrTextScale = charStyle.scaleH();
+		Editor->CurrentEffects = charStyle.effects() & static_cast<StyleFlag>(1919);
+		Editor->CurrTextKern   = charStyle.tracking();
+		Editor->CurrTextScale  = charStyle.scaleH();
 		Editor->CurrTextScaleV = charStyle.scaleV();
-		Editor->CurrTextBase = charStyle.baselineOffset();
+		Editor->CurrTextBase   = charStyle.baselineOffset();
 		Editor->CurrTextShadowX = charStyle.shadowXOffset();
 		Editor->CurrTextShadowY = charStyle.shadowYOffset();
 		Editor->CurrTextOutline = charStyle.outlineWidth();
@@ -2561,7 +2561,7 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 	}
 	StrokeTools->SetColor(c);
-	if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
+	if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
 	{
 		StrokeTools->TxStroke->setEnabled(true);
 		StrokeTools->PM1->setEnabled(true);
@@ -2572,7 +2572,7 @@ void StoryEditor::updateProps(int p, int ch)
 		StrokeTools->PM1->setEnabled(false);
 	}
 	StyleTools->SetKern(Editor->CurrTextKern);
-	StyleTools->SetStyle(Editor->CurrentStyle);
+	StyleTools->SetStyle(Editor->CurrentEffects);
 	StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
 	StyleTools->setOutline(Editor->CurrTextOutline);
 	StyleTools->setUnderline(Editor->CurrTextUnderPos, Editor->CurrTextUnderWidth);
@@ -3001,9 +3001,9 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 	{
 		Editor->prevFont = Editor->CurrFont;
 		Editor->CurrFont = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().font().scName();
-		Editor->CurrFontSize = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
-		Editor->CurrentStyle = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
-		Editor->CurrTextFill = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
+		Editor->CurrFontSize   = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
+		Editor->CurrentEffects = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
+		Editor->CurrTextFill   = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
 		Editor->CurrTextFillSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillShade();
 		Editor->CurrTextStroke = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeColor();
 		Editor->CurrTextStrokeSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeShade();
@@ -3015,8 +3015,8 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 		Editor->CurrTextStrikePos = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruOffset();
 		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruWidth();
 
-		Editor->setStyle(Editor->CurrentStyle);
-		if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
+		Editor->setEffects(Editor->CurrentEffects);
+		if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
@@ -3089,9 +3089,9 @@ void StoryEditor::changeStyle()
 	{
 		Editor->prevFont = Editor->CurrFont;
 		Editor->CurrFont = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().font().scName();
-		Editor->CurrFontSize = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
-		Editor->CurrentStyle = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
-		Editor->CurrTextFill = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
+		Editor->CurrFontSize   = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
+		Editor->CurrentEffects = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
+		Editor->CurrTextFill   = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
 		Editor->CurrTextFillSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillShade();
 		Editor->CurrTextStroke = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeColor();
 		Editor->CurrTextStrokeSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeShade();
@@ -3103,8 +3103,8 @@ void StoryEditor::changeStyle()
 		Editor->CurrTextStrikePos = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruOffset();
 		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruWidth();
 
-		Editor->setStyle(Editor->CurrentStyle);
-		if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
+		Editor->setEffects(Editor->CurrentEffects);
+		if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
