@@ -1394,16 +1394,17 @@ void ScPainter::drawVPath( int mode )
 				double r, g, b, a;
 				for (int col = 0; col < meshGradientPatches.count(); col++)
 				{
+					meshGradientPatch patch = meshGradientPatches[col];
 					meshPoint mp1 = patch.TL;
 					meshPoint mp2 = patch.TR;
 					meshPoint mp3 = patch.BR;
 					meshPoint mp4 = patch.BL;
 					cairo_new_path( cr );
-					cairo_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
-					cairo_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
-					cairo_curve_to(mpat, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
-					cairo_curve_to(mpat, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
-					cairo_curve_to(mpat, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+					cairo_move_to(cr, mp1.gridPoint.x(), mp1.gridPoint.y());
+					cairo_curve_to(cr, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+					cairo_curve_to(cr, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+					cairo_curve_to(cr, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+					cairo_curve_to(cr, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
 					cairo_close_path( cr );
 					double acr = 0.0;
 					double acg = 0.0;
