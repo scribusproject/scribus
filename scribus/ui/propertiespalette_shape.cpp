@@ -298,10 +298,7 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 			break;
 		}
 	}
-	if (currItem)
-	{
-		setCurrentItem(currItem);
-	}
+	setCurrentItem(currItem);
 	updateGeometry();
 	repaint();
 }
@@ -325,11 +322,13 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	//if (m_item == i)
 	//	return;
 
-	if (!m_doc)
+	if (item && !m_doc)
 		setDoc(item->doc());
 
 	m_haveItem = false;
 	m_item = item;
+
+	if (!m_item) return;
 
 	if (m_item->FrameType == 0)
 		customShape->setIcon(customShape->getIconPixmap(0));

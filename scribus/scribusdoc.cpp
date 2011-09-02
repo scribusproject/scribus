@@ -12472,7 +12472,6 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 	double gy = miny;
 	double gw = maxx - minx;
 	double gh = maxy - miny;
-	bool wasUndo = UndoManager::undoEnabled();
 	undoManager->setUndoEnabled(false);
 	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *groupItem = Items->takeAt(z);
@@ -12482,7 +12481,7 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 	groupItem->groupWidth = gw;
 	groupItem->groupHeight = gh;
 	groupItem->LayerID = objectsLayer;
-	undoManager->setUndoEnabled(wasUndo);
+	undoManager->setUndoEnabled(true);
 	for (uint c = 0; c < selectedItemCount; ++c)
 	{
 		currItem = itemSelection->itemAt(c);
@@ -12493,14 +12492,15 @@ const PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lo
 	groupItem->asGroupFrame()->adjustXYPosition();
 	itemSelection->clear();
 	itemSelection->addItem(groupItem);
-	selectedItemCount = itemSelection->count();
+	selectedItemCount = groupItem->groupItemList.count();
 	SimpleState *ss = new SimpleState(Um::Group, tooltip);
 	ss->set("GROUP", "group");
-	ss->set("itemcount", selectedItemCount);
-	for (uint a=0; a<selectedItemCount; ++a)
+	ss->set("itemcount", selectedItemCount + 1);
+	ss->set(QString("item%1").arg(0), groupItem->uniqueNr);
+	for (uint a = 0; a < groupItem->groupItemList.count(); ++a)
 	{
-		currItem = itemSelection->itemAt(a);
-		ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+		currItem = groupItem->groupItemList.at(a);
+		ss->set(QString("item%1").arg(a + 1), currItem->uniqueNr);
 	}
 	GroupCounter++;
 	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));

@@ -392,7 +392,16 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 
 	m_createTransaction = new UndoTransaction(Um::instance()->beginTransaction("creating"));
 	currItem = doCreateNewObject();
-	if (m_createTransaction && currItem)
+	if (m_createTransaction && currItem && currItem->isGroup())
+	{
+		// We created a table, just commit transaction
+		m_view->resetMousePressed();
+		m_createTransaction->commit();
+		m_doc->changed();
+		delete m_createTransaction;
+		m_createTransaction = NULL;	
+	}
+	else if (m_createTransaction && currItem)
 	{
 		m_view->resetMousePressed();
 		currItem->checkChanges(true);
@@ -758,7 +767,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 			canvasCurrCoord.setXY(qRound(Tw), qRound(Th));
 			Tw = Tw - Tx;
 			Th = Th - Ty;
-			int z;
 			int Cols, Rows;
 			double deltaX, deltaY, offX, offY;
 			if ((Th < 6) || (Tw < 6))
@@ -785,10 +793,10 @@ PageItem* CreateMode::doCreateNewObject(void)
 			offY = 0.0;
 			m_doc->m_Selection->clear();
 			if (UndoManager::undoEnabled())
-				activeTransaction = new UndoTransaction(m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
-																						  Um::ITable, Um::CreateTable,
-																						  QString(Um::RowsCols).arg(Rows).arg(Cols),
-																						  Um::ICreate));
+				activeTransaction = new UndoTransaction(Um::instance()->beginTransaction(m_doc->currentPage()->getUName(),
+																						 Um::ITable, Um::CreateTable,
+																						 QString(Um::RowsCols).arg(Rows).arg(Cols),
+																						 Um::ICreate));
 			m_doc->m_Selection->delaySignalsOn();
 			for (int rc = 0; rc < Rows; ++rc)
 			{
@@ -828,6 +836,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 				}
 			}
 			m_doc->itemSelection_GroupObjects(false, false);
+			z = m_doc->Items->count() - 1;
 			if (activeTransaction)
 			{
 				activeTransaction->commit();
