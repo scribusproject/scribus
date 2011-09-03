@@ -33194,7 +33194,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation>X-Offset (ENGB)</translation>
+        <translation>X-Offset</translation>
     </message>
     <message>
         <source>Y-Offset</source>
