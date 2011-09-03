@@ -29413,7 +29413,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="124"/>
         <source>X-Offset</source>
-        <translation>X-Offset (ENGB)</translation>
+        <translation>X-Offset</translation>
     </message>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="126"/>
