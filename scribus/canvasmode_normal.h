@@ -63,10 +63,9 @@ private:
 	FPoint m_objectDeltaPos;
 
 	bool shiftSelItems;
-	bool MoveGX, MoveGY;
 	int  frameResizeHandle;
 	int  dragConstrainInitPtX, dragConstrainInitPtY;
-	int  GxM, GyM;
+
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;
 	LineMove* lineMoveGesture;

@@ -67,8 +67,6 @@
 
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	GxM = GyM = -1;
-	MoveGX = MoveGY = false;
 	frameResizeHandle = -1;
 	shiftSelItems = false;
 	resizeGesture = NULL;
@@ -130,8 +128,6 @@ void CanvasMode_Normal::activate(bool fromGesture)
 	m_mouseCurrentPoint.setXY(0, 0);
 	m_mouseSavedPoint.setXY(0, 0);
 	m_objectDeltaPos.setXY(0,0 );
-	GxM = GyM = -1;
-	MoveGX = MoveGY = false;
 	frameResizeHandle = -1;
 	shiftSelItems = false;
 	setModeCursor();
@@ -596,7 +592,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
@@ -625,7 +621,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-	MoveGX = MoveGY = false;
+
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
@@ -1299,57 +1295,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 // 			m_view->startGesture(guideMoveGesture);
 			guideMoveGesture->mouseSelectGuide(m);
 		}
-/*		GxM = -1;
-		GyM = -1;
-		QMap<double, uint> tmpGuidesSel;
-		Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
-		Guides::iterator it;
-		uint yg = 0;
-		uint xg = 0;
-		double lowX = ((m->x() - m_doc->guidesSettings.grabRad) / m_canvas->scale()) + 0*m_doc->minCanvasCoordinate.x();
-		double highX = ((m->x() + m_doc->guidesSettings.grabRad) / m_canvas->scale()) + 0*m_doc->minCanvasCoordinate.x();
-		double lowY = ((m->y() - m_doc->guidesSettings.grabRad) / m_canvas->scale()) + 0*m_doc->minCanvasCoordinate.y();
-		double highY = ((m->y() + m_doc->guidesSettings.grabRad) / m_canvas->scale()) + 0*m_doc->minCanvasCoordinate.y();
-		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
-		{
-			if (((*it) + m_doc->currentPage()->yOffset() < highY) && ((*it)+m_doc->currentPage()->yOffset() > lowY))
-				tmpGuidesSel.insert(fabs(((*it)+m_doc->currentPage()->yOffset()) - MypS), yg);
-		}
-		if (tmpGuidesSel.count() != 0)
-		{
-			GyM = tmpGuidesSel.begin().value();
-			QPoint py = m_view->viewport()->mapFromGlobal(m->globalPos());
-			m_view->DrHY = py.y();
-		}
-		tmpGuidesSel.clear();
-		tmpGuides = m_doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
-		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
-		{
-			if (((*it) + m_doc->currentPage()->xOffset() < highX) && ((*it)+m_doc->currentPage()->xOffset() > lowX))
-				tmpGuidesSel.insert(fabs(((*it)+m_doc->currentPage()->xOffset()) - MypS), xg);
-		}
-		if (tmpGuidesSel.count() != 0)
-		{
-			GxM = tmpGuidesSel.begin().value();
-			QPoint py = m_view->viewport()->mapFromGlobal(m->globalPos());
-			m_view->DrVX = py.x();
-		}
-		if (GxM!=-1 || GyM!=-1)
-		{
-			if (GxM==-1)
-			{
-				// Horizontal Guide
-				MoveGY = true;
-//FIXME:av				emit signalGuideInformation(0, qRound(m_doc->currentPage()->guides.horizontal(GyM, GuideManagerCore::Standard) * 10000.0) / 10000.0);
-			}
-			else
-			{
-				// Vertical Guide
-				MoveGX = true;
-//FIXME:av				emit signalGuideInformation(1, qRound(m_doc->currentPage()->guides.vertical(GxM, GuideManagerCore::Standard) * 10000.0) / 10000.0);
-			}
-		}
-		*/
 	}
 	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();

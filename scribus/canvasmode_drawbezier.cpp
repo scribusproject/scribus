@@ -61,13 +61,9 @@
 
 BezierMode::BezierMode(ScribusView* view) : CanvasMode(view) 
 {
-	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
-	RotMode = 0;
 	inItemCreation = false;
 	shiftSelItems = false;
 	FirstPoly = true;
@@ -142,13 +138,9 @@ void BezierMode::leaveEvent(QEvent *e)
 void BezierMode::activate(bool flag)
 {
 //	qDebug() << "DrawBezierMode::activate" << flag;
-	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
-	RotMode = 0;
 	inItemCreation = false;
 	shiftSelItems = false;
 	FirstPoly = true;
@@ -250,7 +242,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 		}
 		else
 		{
-			if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+			if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 			{
 				newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());

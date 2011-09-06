@@ -62,16 +62,12 @@
 
 FreehandMode::FreehandMode(ScribusView* view) : CanvasMode(view) 
 {
-	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
 	frameResizeHandle = -1;
-	RotMode = 0;
 	inItemCreation = false;
 	shiftSelItems = false;
-	FirstPoly = true;
 }
 
 
@@ -111,16 +107,12 @@ void FreehandMode::leaveEvent(QEvent *e)
 void FreehandMode::activate(bool flag)
 {
 //	qDebug() << "FreehandMode::activate" << flag;
-	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
 	frameResizeHandle = -1;
-	RotMode = 0;
 	inItemCreation = false;
 	shiftSelItems = false;
-	FirstPoly = true;
 	setModeCursor();
 }
 
@@ -227,7 +219,7 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
