@@ -191,7 +191,7 @@ different.</p>
 <h1>Configuration</h1>
 <p>To make Render Frames work, you need to have the required programs
 installed on your computer. By default, Scribus supports five
-programs, namely LaTeX, Lilypond, gnuplot, dot/Graphviz and Lilypond. On Linux,
+programs, namely LaTeX, Lilypond, gnuplot, dot/Graphviz and POV-Ray. On Linux,
 your package manager will take care about the installation and the
 dependencies of the software. On other platforms you might need to
 install the programs separately and edit some configuration files.</p>
@@ -205,7 +205,7 @@ at the bottom of the dialog:</p>
 <p><code>&lt;editorsettings description="Gnuplot" icon="gnuplot.png"&gt;</code> This line sets the description of the program, as well as the icon for the drop-down list in the Render Frame Editor. It must be stored in the same directory as the XML file. You can use  PNG, XPM and SVG icons.</p>
 <p><code>&lt;executable command="gnuplot"&gt;</code> This is the command-line call of the program. You can only use software that can work on the command-line. Also, the program needs to be able to create output in either PNG, PDF or EPS format. By default, Scribus uses the command-line options for Linux/UNIX systems.</p>
 <p><code>&lt;imagefile extension=".png"/&gt;</code> Here you tell the editor which file format it has to expect from the external program.</p>
-<p><code>&lt;highlighter&gt; &lt;/highlighter&gt;</code> This part is mainly interesting for programmers, as it allows for the creation of indvidual syntax highlighting schemes by using Regular Expressions. For further information see: <a href="http://docs.kde.org/kde3/en/kdeutils/KRegExpEditor/index.html">http://docs.kde.org/kde3/en/kdeutils/KRegExpEditor/index.html</a> and <a href="http://doc.trolltech.com/4.4/qregexp.html">http://doc.trolltech.com/4.4/qregexp.html</a>.</p>
+<p><code>&lt;highlighter&gt; &lt;/highlighter&gt;</code> This part is mainly interesting for programmers, as it allows for the creation of indvidual syntax highlighting schemes by using Regular Expressions.</p>
 <p><code>&lt;empty-frame-text&gt;</code> Here you can enter sample text in the
 markup language of the program you want to use, for instance:</p>
 <p><code>plot sin(x), (cos(x))**2</code></p>
@@ -242,7 +242,7 @@ executable file in the text field "External Editor." The external editor won't o
 you save your markup from the external editor, Scribus "intercepts"
 the data and renders the output into the frame or will display error messages in the "Program Messages" field. The interception also
 means that any change to the markup text won't be saved anywhere but
-in your Scribus file. If you haven't specified an external editor in <i>Preferences &lt; Tools</i>, Scribus will display an error message:</p>
+in your Scribus file. If you haven't specified an external editor in <i>Preferences &gt; External Tools</i>, Scribus will display an error message:</p>
 <br></br>
 <table width="100%"><tr><td align="center"><img src="images/rf-error3.png"/></td></tr></table>
 <br></br>
