@@ -73,8 +73,6 @@ private:
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
-	bool m_cursorVisible;
-	bool m_lastPosWasOverGuide;
 	QPointF startPoint;
 	QPointF endPoint;
 	QPointF centerPoint;

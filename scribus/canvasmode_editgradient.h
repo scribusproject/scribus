@@ -69,8 +69,6 @@ private:
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
-	bool m_cursorVisible;
-	bool m_lastPosWasOverGuide;
 	eGradientPoint m_gradientPoint;
 };
 

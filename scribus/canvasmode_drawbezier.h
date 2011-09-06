@@ -52,14 +52,9 @@ private:
 	void selectPage(QMouseEvent *m);
 
 	UndoTransaction* m_createTransaction;
-	int Cp, oldCp;
 	bool inItemCreation, shiftSelItems, FirstPoly;
 	bool m_MouseButtonPressed;
-	int frameResizeHandle;
-	int RotMode;
-	int dragConstrainInitPtX, dragConstrainInitPtY;
 	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM;
 	double SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;

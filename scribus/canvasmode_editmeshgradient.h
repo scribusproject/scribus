@@ -69,10 +69,6 @@ private:
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
-	bool m_cursorVisible;
-	bool m_lastPosWasOverGuide;
-	int arrayX;
-	int arrayY;
 	eMGradientPoint m_gradientPoint;
 	QList<QPair<int, int> > selectedMeshPoints;
 };
