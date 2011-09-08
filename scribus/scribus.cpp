@@ -5663,31 +5663,33 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 {
 	double finalZoomFactor;
 	//Zoom to Fit
-	if (zoomFactor==-100.0)
+	if (zoomFactor == -100.0)
 	{
-		double dx = (view->width()-50) / (doc->currentPage()->width()+30);
-		double dy = (view->height()-70) / (doc->currentPage()->height()+30);
-		finalZoomFactor = (dx > dy) ? dy : dx;
+		finalZoomFactor = (view->height()-70) / (doc->currentPage()->height()+30);
 	}
-	else if (zoomFactor==-200.0)
+	else if (zoomFactor == -200.0)
 	{
-		double dx = (view->width()-50) / (doc->currentPage()->width()+30);
-		double dy = (view->height()-70) / (doc->currentPage()->height()+30);
-		finalZoomFactor = (dx < dy) ? dy : dx;
+		finalZoomFactor = (view->width()-50) / (doc->currentPage()->width()+30);
 	}
 	//Zoom to %
 	else
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
+
 	if (finalZoomFactor == view->scale())
 		return;
+
 	int x = qRound(qMax(view->contentsX() / view->scale(), 0.0));
 	int y = qRound(qMax(view->contentsY() / view->scale(), 0.0));
 	int w = qRound(qMin(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
 	int h = qRound(qMin(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
-	if (zoomFactor==-200.0)
-		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
+
+	if (zoomFactor == -200.0)
+		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), h / 2 + y);
+	else if(zoomFactor == -100.0)
+		view->rememberOldZoomLocation(w / 2 + x, qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
 	else
-		view->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
+		view->rememberOldZoomLocation(w / 2 + x, h / 2 + y);
+
 	view->zoom(finalZoomFactor);
 }
 
