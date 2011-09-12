@@ -41,7 +41,7 @@ RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
 	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
 	palette.setBrush(backgroundRole(), QBrush(loadIcon("mover.png")));
 	setPalette(palette);
 	currView = pa;

@@ -55,7 +55,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
 	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
 	setPalette(palette);
 	currDoc = doc;
 	currView = pa;
@@ -112,13 +112,13 @@ void Vruler::paintEvent(QPaintEvent *e)
 	double xl, frac;
 	double sc = currView->scale();
 	QFont ff = font();
-	ff.setPointSize(8);
+	ff.setPointSize(6);
 	setFont(ff);
 	QPainter p;
 	p.begin(this);
 	p.save();
 	p.setClipRect(e->rect());
-	p.drawLine(16, 0, 16, height());
+//	p.drawLine(16, 0, 16, height());
 	p.setBrush(Qt::black);
 	p.setPen(Qt::black);
 	p.setFont(font());
@@ -126,14 +126,14 @@ void Vruler::paintEvent(QPaintEvent *e)
 	double firstMark = ceil(offs / iter) * iter - offs;
 	while (firstMark < cc)
 	{
-		p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
+		p.drawLine(13, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		firstMark += iter;
 	}
 	firstMark = ceil(offs / iter2) * iter2 - offs;
 	int markC = static_cast<int>(ceil(offs / iter2));
 	while (firstMark < cc)
 	{
-		p.drawLine(3, qRound(firstMark * sc), 16, qRound(firstMark * sc));
+		p.drawLine(8, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		int textY = qRound(firstMark * sc)+10;
 		switch (currDoc->unitIndex())
 		{
@@ -253,7 +253,7 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 		p->drawPixmap(1*SCALE, (textY+bbox.top())*SCALE, pix, 0, 0, bbox.width()*SCALE, bbox.height()*SCALE);
 		p->scale(SCALE,SCALE);
 #endif
-		textY += 11;
+		textY += 8;
 	}
 }
 

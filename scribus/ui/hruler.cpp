@@ -81,7 +81,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
 	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
 	setPalette(palette);
 	currDoc = doc;
 	currView = pa;
@@ -510,7 +510,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 	double sc = currView->scale();
 	Scaling = sc;
 	QFont ff = font();
-	ff.setPointSize(8);
+	ff.setPointSize(6);
 	setFont(ff);
 	QPainter p;
 	p.begin(this);
@@ -699,13 +699,13 @@ void Hruler::drawMarks(QPainter& p)
 {
 	p.setBrush(Qt::black);
 	p.setPen(Qt::black);
-	p.drawLine(0, 16, width(), 16);
+	//p.drawLine(0, 16, width(), 16);
 	double sc = Scaling;
 	double cc = width() / sc;
 	double firstMark = ceil(offs / iter) * iter - offs;
 	while (firstMark < cc)
 	{
-		p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
+		p.drawLine(qRound(firstMark * sc), 13, qRound(firstMark * sc), 16);
 		firstMark += iter;
 	}
 	firstMark = ceil(offs / iter2) * iter2 - offs;
@@ -715,7 +715,7 @@ void Hruler::drawMarks(QPainter& p)
 	double xl, frac;
 	while (firstMark < cc)
 	{
-		p.drawLine(qRound(firstMark * sc), topline, qRound(firstMark * sc), 16);
+		p.drawLine(qRound(firstMark * sc), topline + 5, qRound(firstMark * sc), 16);
 		switch (currDoc->unitIndex())
 		{
 			case SC_MM:
