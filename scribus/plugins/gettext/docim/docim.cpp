@@ -75,37 +75,37 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 	delete dim;
 }
 
-DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) : QObject()
+DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) : QObject(), textBuffer(this), errorBuffer(this)
 {
 	filename = fname;
 	encoding = enc;
 	writer = w;
 	textOnly = textO;
 	failed = false;
-	QTextCodec *codec;
-	if (encoding.isEmpty())
-		codec = QTextCodec::codecForLocale();
-	else
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
-	QTextCodec::setCodecForCStrings(codec);
-	text = "";
-	error = "";
+
+	textBuffer.open(QIODevice::WriteOnly);
+	errorBuffer.open(QIODevice::WriteOnly);
+
 	proc = new QProcess();
 	QString exename("antiword");
-#if defined(_WIN32)
+#if defined(Q_OS_WIN32)
 	exename = ScPaths::instance().libDir() + "tools/antiword/antiword.exe";
-	proc->setWorkingDirectory( ScPaths::instance().libDir() + "tools/antiword/" ); 
+	QString homeDir =  QDir::toNativeSeparators(ScPaths::instance().libDir() + "tools");
+	proc->setWorkingDirectory( ScPaths::instance().libDir() + "tools/antiword/" );
+	proc->setEnvironment( QStringList() << QString("HOME=%1").arg(homeDir));
 #endif
+
 	QStringList args;
-	args << "-t" << "-w 0" << QDir::toNativeSeparators(filename);
+	args << "-t" << "-w 0";
+#if defined(Q_OS_WIN32)
+	// #10258 : use UTF-8 whenever possible
+	if (QFile::exists(ScPaths::instance().libDir() + "tools/antiword/UTF-8.txt"))
+		args << "-m" << "UTF-8.txt";
+#endif
+	args  << QDir::toNativeSeparators(filename);
+
 	//connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
 	//connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
-#if defined(_WIN32)
-	QStringList envVar;
-	QString homeDir =  QDir::toNativeSeparators(ScPaths::instance().libDir() + "tools");
-	envVar.append( QString("HOME=%1").arg(homeDir) );
-	proc->setEnvironment(envVar);
-#endif
 	proc->start(exename, args);
 	if (!proc->waitForStarted())
 	{
@@ -124,7 +124,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 		{
 			QByteArray bo = proc->readAllStandardOutput();
 			if (bo.size() > 0)
-				text += QString(bo);
+				textBuffer.write(bo);
 		}
 		else
 		{
@@ -133,7 +133,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 			{
 				QByteArray be = proc->readAllStandardError();
 				if (be.size() > 0)
-					error += QString(be);
+					errorBuffer.write(be);
 			}
 			else
 			{
@@ -142,39 +142,49 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 		}
 	}
 
-	if (proc->exitStatus()==QProcess::NormalExit)
+	errorBuffer.close();
+	textBuffer.close();
+
+	if (proc->exitStatus() != QProcess::NormalExit)
 	{
-		toUnicode();
-		write();
-	} 
-	else
 		failed = true;
+		return;
+	}
+
+	write();
 }
 
 bool DocIm::isRunning()
 {
-	return proc->state()==QProcess::Running;
+	return proc->state() == QProcess::Running;
 }
 
 void DocIm::write()
 {
-	if (!failed)
-		writer->appendUnstyled(text);
-	else
+	QTextCodec *codec = 0;
+
+#if defined(Q_OS_WIN32)
+	// #10258 : use UTF-8 whenever possible
+	if (QFile::exists(ScPaths::instance().libDir() + "tools/antiword/UTF-8.txt"))
+		codec = QTextCodec::codecForName("UTF-8");
+#endif
+
+	if (encoding.isEmpty() && !codec)
+		codec = QTextCodec::codecForLocale();
+	else if (!codec)
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+
+	if (failed)
+	{
+		QString error = codec->toUnicode( errorBuffer.data() ); 
 		QMessageBox::information(0, tr("Importing failed"),
 		                         tr("Importing Word document failed \n%1").arg(error),
 		                         QMessageBox::Ok);
-}
+		return;
+	}
 
-void DocIm::toUnicode()
-{
-	QTextCodec *codec;
-	if (encoding.isEmpty())
-		codec = QTextCodec::codecForLocale();
-	else
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
-	QString dec = codec->toUnicode( text.toLocal8Bit() );
-	text = dec;
+	QString text = codec->toUnicode( textBuffer.data() );
+	writer->appendUnstyled(text);
 }
 
 DocIm::~DocIm()
