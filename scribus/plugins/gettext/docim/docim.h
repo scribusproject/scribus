@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "pluginapi.h"
+#include <QBuffer>
 #include <QObject>
 #include <QStringList>
 
@@ -36,13 +37,12 @@ public:
 private:
 	QString filename;
 	QString encoding;
-	QString text;
-	QString error;
+	QBuffer textBuffer;
+	QBuffer errorBuffer;
 	gtWriter *writer;
 	QProcess *proc;
 	bool failed;
 	bool textOnly;
-	void toUnicode();
 };
 
 #endif // DOCIM_H
