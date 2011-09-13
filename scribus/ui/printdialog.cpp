@@ -200,54 +200,47 @@ void PrintDialog::getOptions()
 	QMap<QString,CupsOptions::OpData>::Iterator it;
 	for (it = cdia->KeyToText.begin(); it != cdia->KeyToText.end(); ++it)
 	{
-		if (cdia->KeyToDefault[it.key()] != cdia->FlagsOpt.at(it.value().Cnum)->currentText())
+		if (cdia->KeyToDefault[it.key()] == cdia->FlagsOpt.at(it.value().Cnum)->currentText())
+			continue;
+
+		if (it.value().KeyW == "mirror")
+			PrinterOpts += " -o mirror";
+		else if (it.value().KeyW == "page-set")
 		{
-			if (it.value().KeyW == "mirror")
-				PrinterOpts += " -o mirror";
+			PrinterOpts += " -o " + it.value().KeyW + "=";
+			if (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex() == 1)
+				PrinterOpts += "even";
 			else
+				PrinterOpts += "odd";
+		}
+		else if (it.value().KeyW == "number-up")
+		{
+			PrinterOpts += " -o " + it.value().KeyW + "=";
+			switch (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex())
 			{
-				if (it.value().KeyW == "page-set")
-				{
-					PrinterOpts += " -o "+it.value().KeyW+"=";
-					if (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex() == 1)
-						PrinterOpts += "even";
-					else
-						PrinterOpts += "odd";
-				}
-				else
-				{
-					if (it.value().KeyW == "number-up")
-					{
-						PrinterOpts += " -o "+it.value().KeyW+"=";
-						switch (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex())
-						{
-							case 1:
-								PrinterOpts += "2";
-								break;
-							case 2:
-								PrinterOpts += "4";
-								break;
-							case 3:
-								PrinterOpts += "6";
-								break;
-							case 4:
-								PrinterOpts += "9";
-								break;
-							case 5:
-								PrinterOpts += "16";
-								break;
-						}
-					}
-					else
-					{
-						if (it.value().KeyW == "orientation")
-							PrinterOpts += " -o landscape";
-						else
-							PrinterOpts += " -o " +
-									it.value().KeyW+"="+cdia->FlagsOpt.at(it.value().Cnum)->currentText();
-					}
-				}
+				case 1:
+					PrinterOpts += "2";
+					break;
+				case 2:
+					PrinterOpts += "4";
+					break;
+				case 3:
+					PrinterOpts += "6";
+					break;
+				case 4:
+					PrinterOpts += "9";
+					break;
+				case 5:
+					PrinterOpts += "16";
+					break;
 			}
+		}
+		else if (it.value().KeyW == "orientation")
+			PrinterOpts += " -o landscape";
+		else
+		{
+			PrinterOpts += " -o " +
+				it.value().KeyW+"="+cdia->FlagsOpt.at(it.value().Cnum)->currentText();
 		}
 	}
 #endif
