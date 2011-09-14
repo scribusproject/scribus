@@ -154,9 +154,6 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
-	int precision = unitGetPrecisionFromIndex(m_unitIndex);
-	double maxXYWHVal =  16777215 * m_unitRatio;
-	double minXYVal   = -16777215 * m_unitRatio;
 
 	m_haveDoc  = true;
 	m_haveItem = false;

@@ -281,12 +281,9 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	Tpal->setDocument(m_doc);
 	Tpal->setCurrentItem(NULL);
 
-	m_unitRatio=m_doc->unitRatio();
-	m_unitIndex=m_doc->unitIndex();
-	int precision = unitGetPrecisionFromIndex(m_unitIndex);
+	m_unitRatio = m_doc->unitRatio();
+	m_unitIndex = m_doc->unitIndex();
 //qt4 FIXME here
-	double maxXYWHVal= 16777215 * m_unitRatio;
-	double minXYVal= -16777215 * m_unitRatio;
 	m_haveDoc = true;
 	m_haveItem = false;
 
