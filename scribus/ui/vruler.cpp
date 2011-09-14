@@ -227,32 +227,7 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 	for (int a = 0; a < num.length(); ++a)
 	{
 		QString txt = num.mid(a, 1);
-#ifndef Q_WS_MAC
 		p->drawText(1, textY, txt);
-#else
-		static const int SCALE = 16;
-		QFontMetrics fm = p->fontMetrics();
-		QRect bbox = fm.boundingRect(txt);
-		static QPixmap pix;
-		if (pix.width() < bbox.width()*SCALE || pix.height() < bbox.height()*SCALE)
-			pix = QPixmap(bbox.width()*SCALE, bbox.height()*SCALE);
-		QFont fnt = p->font();
-		QPainter p2;
-		pix.fill();
-		p2.begin( &pix );
-		if (fnt.pointSize() > 0)
-			fnt.setPointSize(SCALE*fnt.pointSize()-SCALE/2);
-		else if (fnt.pixelSize() > 0)
-			fnt.setPixelSize(SCALE*fnt.pixelSize()-SCALE/2);
-		else
-			fnt.setPixelSize(SCALE);
-		p2.setFont(fnt);
-		p2.drawText(-bbox.x()*SCALE, -bbox.y()*SCALE, txt);
-		p2.end();
-		p->scale(1.0/SCALE,1.0/SCALE);
-		p->drawPixmap(1*SCALE, (textY+bbox.top())*SCALE, pix, 0, 0, bbox.width()*SCALE, bbox.height()*SCALE);
-		p->scale(SCALE,SCALE);
-#endif
 		textY += 8;
 	}
 }

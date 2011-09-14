@@ -860,33 +860,7 @@ void Hruler::drawTextMarks(double Pos, double EndPos, QPainter& p)
 void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 {
 	const int y = y0 - 3 + topline;
-#ifndef Q_WS_MAC
 	p.drawText(x,y,txt);
-#else
-	static const int SCALE = 16;
-	QFontMetrics fm = p.fontMetrics();
-	QRect bbox = fm.boundingRect(txt);
-	static QPixmap pix;
-	if (pix.width() < bbox.width()*SCALE || pix.height() < bbox.height()*SCALE)
-		pix = QPixmap(bbox.width()*SCALE, bbox.height()*SCALE);
-	QFont fnt = p.font();
-	QPainter p2;
-	pix.fill();
-	p2.begin( &pix );
-	if (fnt.pointSize() > 0)
-		fnt.setPointSize(SCALE*fnt.pointSize()-SCALE/2);
-	else if (fnt.pixelSize() > 0)
-		fnt.setPixelSize(SCALE*fnt.pixelSize()-SCALE/2);
-	else
-		fnt.setPixelSize(SCALE);
-	p2.setFont(fnt);
-	p2.setBrush(p.brush());
-	p2.drawText(-bbox.x()*SCALE, -bbox.y()*SCALE, txt);
-	p2.end();
-	p.scale(1.0/SCALE,1.0/SCALE);
-	p.drawPixmap(x*SCALE, (y+bbox.top())*SCALE, pix, 0, 0, bbox.width()*SCALE, bbox.height()*SCALE);
-	p.scale(SCALE,SCALE);
-#endif
 }
 
 double Hruler::ruleSpacing() {
