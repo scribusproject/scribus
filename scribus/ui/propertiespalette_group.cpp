@@ -151,9 +151,6 @@ void PropertiesPalette_Group::setDoc(ScribusDoc *d)
 	m_item = NULL;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
-	int precision = unitGetPrecisionFromIndex(m_unitIndex);
-	double maxXYWHVal =  16777215 * m_unitRatio;
-	double minXYVal   = -16777215 * m_unitRatio;
 
 	transPalWidget->setDocument(m_doc);
 	transPalWidget->setCurrentItem(NULL);

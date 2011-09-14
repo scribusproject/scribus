@@ -546,7 +546,6 @@ void PropertiesPalette_XYZ::unitChange()
 		return;
 	bool tmp = m_haveItem;
 	m_haveItem = false;
-	double oldRatio = m_unitRatio;
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 	xposSpin->setNewUnit( m_unitIndex );

@@ -105,7 +105,6 @@ void PropertiesPalette_Shape::setDoc(ScribusDoc *d)
 	m_item = NULL;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
-	int precision = unitGetPrecisionFromIndex(m_unitIndex);
 
 	m_haveDoc  = true;
 	m_haveItem = false;
@@ -551,7 +550,6 @@ void PropertiesPalette_Shape::unitChange()
 	if (!m_doc)
 		return;
 
-	double oldRatio = m_unitRatio;
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 

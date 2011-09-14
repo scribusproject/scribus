@@ -64,7 +64,6 @@ void PropertyWidget_PathText::unitChange()
 	if (!m_doc)
 		return;
 
-	double oldRatio = m_unitRatio;
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 

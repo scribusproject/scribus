@@ -128,7 +128,7 @@ ScJpegEncodeFilter::ScJpegEncodeFilter(QDataStream* stream, unsigned int imgWidt
 
 ScJpegEncodeFilter::ScJpegEncodeFilter(ScStreamFilter* filter, unsigned int imgWidth, unsigned int imgHeight, 
 					ScJpegEncodeFilter::Color color) : ScStreamFilter(filter), m_width(imgWidth), m_height(imgHeight),
-					m_color(color), m_quality(75)
+					m_quality(75), m_color(color)
 {
 	m_filterData = NULL;
 	m_openedFilter = false;
