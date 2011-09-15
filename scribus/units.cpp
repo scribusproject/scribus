@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <cmath>
 #include <QString>
 #include <QObject>
 #include "units.h"
@@ -364,12 +365,26 @@ double value2value(double unitValue, int primaryUnit, int secondaryUnit)
 QString value2String(double unitValue, int unitIndex, bool round2Precision, bool appendSuffix)
 {
 	QString s;
-	if (round2Precision)
-		s=QString::number(pts2value(unitValue, unitIndex), 'f', unitGetPrecisionFromIndex(unitIndex));
+
+	if (unitIndex==SC_PICAS)
+	{
+		int a=(static_cast<int>(unitValue))/12;
+		double b=fabs(fmod(unitValue, 12));
+		QString prefix((a==0 && unitValue < 0.0) ? "-" : "");
+//		if (round2Precision)
+//			s=QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(unitIndex)).arg(QString::number(b, 'f', unitGetPrecisionFromIndex(unitIndex)));
+//		else
+			s=QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(unitIndex)).arg(b);
+	}
 	else
-		s=QString::number(pts2value(unitValue, unitIndex));
-	if (appendSuffix)
-		s += " "+unitGetStrFromIndex(unitIndex);
+	{
+		if (round2Precision)
+			s=QString::number(pts2value(unitValue, unitIndex), 'f', unitGetPrecisionFromIndex(unitIndex));
+		else
+			s=QString::number(pts2value(unitValue, unitIndex));
+		if (appendSuffix)
+			s += " "+unitGetStrFromIndex(unitIndex);
+	}
 	return s;
 }
 
