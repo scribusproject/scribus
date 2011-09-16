@@ -363,6 +363,8 @@ public:
 	ParagraphStyle& changeCurrentStyle();
 	/// returns the style at the current charpos
 	const CharStyle& currentCharStyle() const;
+	/// Return current text properties (current char + paragraph properties)
+	void currentTextProps(ParagraphStyle& parStyle) const;
 	// deprecated:
 	double layoutGlyphs(const CharStyle& style, const QString& chars, GlyphLayout& layout);
 	void SetQColor(QColor *tmp, QString farbe, double shad);

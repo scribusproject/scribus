@@ -1302,6 +1302,19 @@ const CharStyle& PageItem::currentCharStyle() const
 		return itemText.defaultStyle().charStyle();
 }
 
+void PageItem::currentTextProps(ParagraphStyle& parStyle) const
+{
+	parStyle = this->currentStyle();
+	int position = itemText.cursorPosition();
+	if (itemText.lengthOfSelection() > 0)
+		position = qMin(qMax(itemText.endOfSelection() - 1, 0), qMax(position, itemText.startOfSelection()));
+
+	if (frameDisplays(position))
+		parStyle.charStyle().setStyle( itemText.charStyle(position) );
+	else
+		parStyle.charStyle().setStyle( itemText.defaultStyle().charStyle() );
+}
+
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
 	Extra=newLeft;
