@@ -62,7 +62,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 		masterPageNameData = new ScComboBox(this);
 		masterPageNameData->setEnabled(false);
 		importPageLabel->setBuddy( masterPageNameData );
-		fromInfoLayout->addWidget( masterPageNameData, 1, 1 );
+		fromInfoLayout->addWidget( masterPageNameData, 1, 1, 1, 2);
 	}
 	else
 	{
