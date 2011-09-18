@@ -288,7 +288,21 @@ public:
 			lastFrameItem = qMax(lastFrameItem, ls.lastItem);
 		}
 	}
-	
+
+	// Remove the last line from the list. Used when we need to backtrack on the layouting.
+	void removeLastLine ()
+	{
+		if (m_lines.isEmpty()) return;
+		LineSpec last = m_lines.takeLast ();
+		if (m_lines.isEmpty()) {
+			clearLines();
+			return;
+		}
+		// fix lastFrameItem
+		if (lastFrameItem != last.lastItem) return;
+		lastFrameItem = m_lines.last().lastItem;
+	}
+
 	void clearLines() 
 	{ 
 		m_lines.clear(); 

@@ -4811,7 +4811,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 				const QChar ch = hl->ch;
 				const CharStyle& chstyle(ite->itemText.charStyle(d));
 				const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
-				if ((ch == SpecialChars::PARSEP) || (ch == QChar(10)) || (ch == SpecialChars::LINEBREAK) || (ch == SpecialChars::FRAMEBREAK) || (ch == SpecialChars::COLBREAK))
+				if (SpecialChars::isBreak(ch, true) || (ch == QChar(10)))
 					continue;
 				if (chstyle.effects() & ScStyle_SuppressSpace)
 					continue;
@@ -4921,7 +4921,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 			const QChar ch = hl->ch;
 			const CharStyle& chstyle(ite->itemText.charStyle(d));
 			const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
-			if ((ch == SpecialChars::PARSEP) || (ch == QChar(10)) || (ch == SpecialChars::LINEBREAK) || (ch == SpecialChars::FRAMEBREAK) || (ch == SpecialChars::COLBREAK))
+			if (SpecialChars::isBreak(ch, true) || (ch == QChar(10)))
 				continue;
 			if (chstyle.effects() & ScStyle_SuppressSpace)
 				continue;

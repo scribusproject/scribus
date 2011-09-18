@@ -516,6 +516,11 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
 
+	connect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
+	connect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
+	connect(pwidget_->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
+	connect(pwidget_->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
+
 	connect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
 	connect(pwidget_->tabList_, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
 	connect(pwidget_->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
@@ -590,6 +595,11 @@ void SMParagraphStyle::removeConnections()
 
 	disconnect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));
+
+	disconnect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
+	disconnect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
+	disconnect(pwidget_->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
+	disconnect(pwidget_->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 
 	disconnect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
 	disconnect(pwidget_->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
@@ -892,6 +902,82 @@ void SMParagraphStyle::slotDropCapOffset()
 		value = value / unitRatio_;
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setDropCapOffset(value);
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::handleKeepLinesStart()
+{
+	if (pwidget_->keepLinesStart->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetKeepLinesStart();
+	else 
+	{
+		int value = pwidget_->keepLinesStart->value();
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setKeepLinesStart (value);
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::handleKeepLinesEnd()
+{
+	if (pwidget_->keepLinesEnd->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetKeepLinesEnd();
+	else 
+	{
+		int value = pwidget_->keepLinesEnd->value();
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setKeepLinesEnd (value);
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::handleKeepTogether()
+{
+	if (pwidget_->keepTogether->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetKeepTogether();
+	else 
+	{
+		bool value = pwidget_->keepTogether->isChecked();
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setKeepTogether (value);
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::handleKeepWithNext()
+{
+	if (pwidget_->keepWithNext->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetKeepWithNext();
+	else 
+	{
+		bool value = pwidget_->keepWithNext->isChecked();
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setKeepWithNext (value);
 	}
 	
 	if (!selectionIsDirty_)

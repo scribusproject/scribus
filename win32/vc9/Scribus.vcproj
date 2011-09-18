@@ -1317,6 +1317,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\propertywidget_orphans.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\propertywidget_pathtext.cpp"
 				>
 			</File>
@@ -5750,6 +5754,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\propertywidget_orphans.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\propertywidget_pathtext.h"
 				>
 				<FileConfiguration
@@ -8073,6 +8095,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_propertywidget_orphansbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_propertywidget_pathtextbase.h"
 				>
 			</File>
@@ -8894,6 +8920,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_propertywidget_orphans.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_propertywidget_pathtext.cpp"
 				>
 			</File>
@@ -9516,6 +9546,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\propertywidget_optmarginsbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertywidget_orphansbase.ui"
 				>
 			</File>
 			<File

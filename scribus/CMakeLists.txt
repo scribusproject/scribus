@@ -132,6 +132,7 @@ SET(SCRIBUS_UI_SRC
   ui/propertywidget_distancebase.ui
   ui/propertywidget_flopbase.ui
   ui/propertywidget_optmarginsbase.ui
+  ui/propertywidget_orphansbase.ui
   ui/propertywidget_pathtextbase.ui
   ui/propertywidget_textcolorbase.ui
   ui/replacecolors.ui
@@ -363,6 +364,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/propertywidget_distance.h
   ui/propertywidget_flop.h
   ui/propertywidget_optmargins.h
+  ui/propertywidget_orphans.h
   ui/propertywidget_pathtext.h
   ui/propertywidget_textcolor.h
   ui/query.h
@@ -759,6 +761,7 @@ SET(SCRIBUS_SOURCES
   ui/propertywidget_distance.cpp
   ui/propertywidget_flop.cpp
   ui/propertywidget_optmargins.cpp
+  ui/propertywidget_orphans.cpp
   ui/propertywidget_pathtext.cpp
   ui/propertywidget_textcolor.cpp
   ui/propertywidgetbase.cpp

@@ -619,6 +619,14 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("MinGlyphShrink", style.minGlyphExtension());
 	if ( ! style.isInhMaxGlyphExtension())
 		docu.writeAttribute("MaxGlyphExtend", style.maxGlyphExtension());
+	if ( ! style.isInhKeepLinesStart())
+		docu.writeAttribute("KeepLinesStart", style.keepLinesStart());
+	if ( ! style.isInhKeepLinesEnd())
+		docu.writeAttribute("KeepLinesEnd", style.keepLinesEnd());
+	if ( ! style.isInhKeepWithNext())
+		docu.writeAttribute("KeepWithNext", style.keepWithNext());
+	if ( ! style.isInhKeepTogether())
+		docu.writeAttribute("KeepTogether", style.keepTogether());
 
 	if ( ! style.shortcut().isEmpty() )
 		docu.writeAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
@@ -1850,64 +1858,73 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("PICART", item->imageShown() ? 1 : 0);
 		docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 		docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhFillColor())
-			docu.writeAttribute("TXTFILL",item->itemText.defaultStyle().charStyle().fillColor());
-		if ( ! item->itemText.defaultStyle().charStyle().isInhStrokeColor())
-			docu.writeAttribute("TXTSTROKE",item->itemText.defaultStyle().charStyle().strokeColor());
-		if ( ! item->itemText.defaultStyle().charStyle().isInhStrokeShade())
-			docu.writeAttribute("TXTSTRSH",item->itemText.defaultStyle().charStyle().strokeShade());
-		if ( ! item->itemText.defaultStyle().charStyle().isInhFillShade())
-			docu.writeAttribute("TXTFILLSH",item->itemText.defaultStyle().charStyle().fillShade());
-		if ( ! item->itemText.defaultStyle().charStyle().isInhScaleH())
-			docu.writeAttribute("TXTSCALE",item->itemText.defaultStyle().charStyle().scaleH() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhScaleV())
-			docu.writeAttribute("TXTSCALEV",item->itemText.defaultStyle().charStyle().scaleV() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhBaselineOffset())
-			docu.writeAttribute("TXTBASE",item->itemText.defaultStyle().charStyle().baselineOffset() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhShadowXOffset())
-			docu.writeAttribute("TXTSHX",item->itemText.defaultStyle().charStyle().shadowXOffset() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhShadowYOffset())
-			docu.writeAttribute("TXTSHY",item->itemText.defaultStyle().charStyle().shadowYOffset() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhOutlineWidth())
-			docu.writeAttribute("TXTOUT",item->itemText.defaultStyle().charStyle().outlineWidth() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhUnderlineOffset())
-			docu.writeAttribute("TXTULP",item->itemText.defaultStyle().charStyle().underlineOffset() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhUnderlineWidth())
-			docu.writeAttribute("TXTULW",item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhStrikethruOffset())
-			docu.writeAttribute("TXTSTP",item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhStrikethruWidth())
-			docu.writeAttribute("TXTSTW",item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhTracking())
-			docu.writeAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking() / 10.0);
-		if ( ! item->itemText.defaultStyle().charStyle().isInhWordTracking())
-			docu.writeAttribute("wordTrack",item->itemText.defaultStyle().charStyle().wordTracking());
-		if ( ! item->itemText.defaultStyle().isInhMinWordTracking())
-			docu.writeAttribute("MinWordTrack", item->itemText.defaultStyle().minWordTracking());
-		if ( ! item->itemText.defaultStyle().isInhMinGlyphExtension())
-			docu.writeAttribute("MinGlyphShrink", item->itemText.defaultStyle().minGlyphExtension());
-		if ( ! item->itemText.defaultStyle().isInhMaxGlyphExtension())
-			docu.writeAttribute("MaxGlyphExtend", item->itemText.defaultStyle().maxGlyphExtension());
-		if ( ! item->itemText.defaultStyle().isInhOpticalMargins())
-			docu.writeAttribute("OpticalMargins", item->itemText.defaultStyle().opticalMargins());
-		if ( ! item->itemText.defaultStyle().isInhHyphenationMode())
-			docu.writeAttribute("HyphenationMode", item->itemText.defaultStyle().hyphenationMode());
-		if ( ! item->itemText.defaultStyle().isInhLeftMargin() )
-			docu.writeAttribute("leftMargin", item->itemText.defaultStyle().leftMargin());
-		if ( ! item->itemText.defaultStyle().isInhRightMargin())
-			docu.writeAttribute("rightMargin", item->itemText.defaultStyle().rightMargin());
-		if ( ! item->itemText.defaultStyle().isInhFirstIndent())
-			docu.writeAttribute("firstIndent", item->itemText.defaultStyle().firstIndent());
-		if ( ! item->itemText.defaultStyle().isInhLineSpacing())
-			docu.writeAttribute("LINESP",item->itemText.defaultStyle().lineSpacing());
-		if ( ! item->itemText.defaultStyle().isInhLineSpacingMode())
-			docu.writeAttribute("LINESPMode", item->itemText.defaultStyle().lineSpacingMode());
-		if ( ! item->itemText.defaultStyle().charStyle().isInhFont())
-			docu.writeAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());
-		if ( ! item->itemText.defaultStyle().charStyle().isInhFontSize())
-			docu.writeAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
-		if ( ! item->itemText.defaultStyle().charStyle().isInhLanguage())
-			docu.writeAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
+		const ParagraphStyle& dStyle(item->itemText.defaultStyle());
+		if ( ! dStyle.charStyle().isInhFillColor())
+			docu.writeAttribute("TXTFILL", dStyle.charStyle().fillColor());
+		if ( ! dStyle.charStyle().isInhStrokeColor())
+			docu.writeAttribute("TXTSTROKE", dStyle.charStyle().strokeColor());
+		if ( ! dStyle.charStyle().isInhStrokeShade())
+			docu.writeAttribute("TXTSTRSH", dStyle.charStyle().strokeShade());
+		if ( ! dStyle.charStyle().isInhFillShade())
+			docu.writeAttribute("TXTFILLSH", dStyle.charStyle().fillShade());
+		if ( ! dStyle.charStyle().isInhScaleH())
+			docu.writeAttribute("TXTSCALE", dStyle.charStyle().scaleH() / 10.0);
+		if ( ! dStyle.charStyle().isInhScaleV())
+			docu.writeAttribute("TXTSCALEV", dStyle.charStyle().scaleV() / 10.0);
+		if ( ! dStyle.charStyle().isInhBaselineOffset())
+			docu.writeAttribute("TXTBASE", dStyle.charStyle().baselineOffset() / 10.0);
+		if ( ! dStyle.charStyle().isInhShadowXOffset())
+			docu.writeAttribute("TXTSHX", dStyle.charStyle().shadowXOffset() / 10.0);
+		if ( ! dStyle.charStyle().isInhShadowYOffset())
+			docu.writeAttribute("TXTSHY", dStyle.charStyle().shadowYOffset() / 10.0);
+		if ( ! dStyle.charStyle().isInhOutlineWidth())
+			docu.writeAttribute("TXTOUT", dStyle.charStyle().outlineWidth() / 10.0);
+		if ( ! dStyle.charStyle().isInhUnderlineOffset())
+			docu.writeAttribute("TXTULP", dStyle.charStyle().underlineOffset() / 10.0);
+		if ( ! dStyle.charStyle().isInhUnderlineWidth())
+			docu.writeAttribute("TXTULW", dStyle.charStyle().underlineWidth() / 10.0);
+		if ( ! dStyle.charStyle().isInhStrikethruOffset())
+			docu.writeAttribute("TXTSTP", dStyle.charStyle().strikethruOffset() / 10.0);
+		if ( ! dStyle.charStyle().isInhStrikethruWidth())
+			docu.writeAttribute("TXTSTW", dStyle.charStyle().strikethruWidth() / 10.0);
+		if ( ! dStyle.charStyle().isInhTracking())
+			docu.writeAttribute("TXTKERN", dStyle.charStyle().tracking() / 10.0);
+		if ( ! dStyle.charStyle().isInhWordTracking())
+			docu.writeAttribute("wordTrack", dStyle.charStyle().wordTracking());
+		if ( ! dStyle.isInhMinWordTracking())
+			docu.writeAttribute("MinWordTrack", dStyle.minWordTracking());
+		if ( ! dStyle.isInhMinGlyphExtension())
+			docu.writeAttribute("MinGlyphShrink", dStyle.minGlyphExtension());
+		if ( ! dStyle.isInhMaxGlyphExtension())
+			docu.writeAttribute("MaxGlyphExtend", dStyle.maxGlyphExtension());
+		if ( ! dStyle.isInhOpticalMargins())
+			docu.writeAttribute("OpticalMargins", dStyle.opticalMargins());
+		if ( ! dStyle.isInhHyphenationMode())
+			docu.writeAttribute("HyphenationMode", dStyle.hyphenationMode());
+		if ( ! dStyle.isInhLeftMargin() )
+			docu.writeAttribute("leftMargin", dStyle.leftMargin());
+		if ( ! dStyle.isInhRightMargin())
+			docu.writeAttribute("rightMargin", dStyle.rightMargin());
+		if ( ! dStyle.isInhFirstIndent())
+			docu.writeAttribute("firstIndent", dStyle.firstIndent());
+		if ( ! dStyle.isInhLineSpacing())
+			docu.writeAttribute("LINESP", dStyle.lineSpacing());
+		if ( ! dStyle.isInhLineSpacingMode())
+			docu.writeAttribute("LINESPMode", dStyle.lineSpacingMode());
+		if ( ! dStyle.isInhKeepLinesStart())
+			docu.writeAttribute("KeepLinesStart", dStyle.keepLinesStart());
+		if ( ! dStyle.isInhKeepLinesEnd())
+			docu.writeAttribute("KeepLinesEnd", dStyle.keepLinesEnd());
+		if ( ! dStyle.isInhKeepWithNext())
+			docu.writeAttribute("KeepWithNext", dStyle.keepWithNext());
+		if ( ! dStyle.isInhKeepTogether())
+			docu.writeAttribute("KeepTogether", dStyle.keepTogether());
+		if ( ! dStyle.charStyle().isInhFont())
+			docu.writeAttribute("IFONT", dStyle.charStyle().font().scName());
+		if ( ! dStyle.charStyle().isInhFontSize())
+			docu.writeAttribute("ISIZE", dStyle.charStyle().fontSize() / 10.0 );
+		if ( ! dStyle.charStyle().isInhLanguage())
+			docu.writeAttribute("LANGUAGE", dStyle.charStyle().language());
 	}
 	if (item->asTextFrame() || item->asPathText())
 	{

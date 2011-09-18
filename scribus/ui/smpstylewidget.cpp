@@ -106,7 +106,14 @@ void SMPStyleWidget::languageChange()
 	minGlyphExtLabel->setToolTip(minGlyphExtSpin->toolTip());
 	maxGlyphExtSpin->setToolTip(tr("Maximum extension of glyphs"));
 	maxGlyphExtLabel->setToolTip(maxGlyphExtSpin->toolTip());
-	
+
+	keepLinesStart->setToolTip ("<qt>" + tr ("Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
+	keepLinesEnd->setToolTip ("<qt>" + tr ("Ensure that last lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
+	keepLabelStart->setToolTip (keepLinesStart->toolTip());
+	keepLabelEnd->setToolTip (keepLinesEnd->toolTip());
+	keepTogether->setToolTip ("<qt>" + tr ("If checked, ensures that the paragraph won't be split across multiple pages or columns") + "</qt>");
+	keepWithNext->setToolTip ("<qt>" + tr ("If checked, automatically moves the paragraph to the next column or page if the next paragraph isn't on the same page or column") + "</qt>");
+
 
 /***********************************/
 /*      End Tooltips               */
@@ -140,6 +147,13 @@ void SMPStyleWidget::languageChange()
 	glyphExtensionLabel->setText(tr("Glyph Extension"));
 	minGlyphExtLabel->setText(tr("Min:", "Glyph Extension"));
 	maxGlyphExtLabel->setText(tr("Max:", "Glyph Extension"));
+
+	keepLabelStart->setText (tr ("Don't separate first"));
+	keepLabelEnd->setText (tr ("Don't separate last"));
+	keepLinesStart->setSuffix (tr (" lines"));
+	keepLinesEnd->setSuffix (tr (" lines"));
+	keepTogether->setText (tr ("Do not split paragraph"));
+	keepWithNext->setText (tr ("Keep with next paragraph"));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
@@ -236,6 +250,15 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 
 		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio, pstyle->isInhRightMargin());
 		tabList_->setParentRightIndent(parent->rightMargin() * unitRatio);
+
+		keepLinesStart->setValue (pstyle->keepLinesStart(), pstyle->isInhKeepLinesStart());
+		keepLinesEnd->setValue (pstyle->keepLinesEnd(), pstyle->isInhKeepLinesEnd());
+		keepTogether->setChecked (pstyle->keepTogether(), pstyle->isInhKeepTogether());
+		keepWithNext->setChecked (pstyle->keepWithNext(), pstyle->isInhKeepWithNext());
+		keepLinesStart->setParentValue (parent->keepLinesStart());
+		keepLinesEnd->setParentValue (parent->keepLinesEnd());
+		keepTogether->setParentValue (parent->keepTogether());
+		keepWithNext->setParentValue (parent->keepWithNext());
 	}
 	else
 	{
@@ -260,7 +283,11 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
 		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio);
 		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio);
-		
+
+		keepLinesStart->setValue (pstyle->keepLinesStart());
+		keepLinesEnd->setValue (pstyle->keepLinesEnd());
+		keepTogether->setChecked (pstyle->keepTogether());
+		keepWithNext->setChecked (pstyle->keepWithNext());
 	}
 
 	lineSpacing_->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);

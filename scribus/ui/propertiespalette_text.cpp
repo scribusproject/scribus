@@ -20,8 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_advanced.h"
 #include "propertywidget_distance.h"
 #include "propertywidget_flop.h"
-#include "propertywidget_pathtext.h"
 #include "propertywidget_optmargins.h"
+#include "propertywidget_orphans.h"
+#include "propertywidget_pathtext.h"
 #include "propertywidget_textcolor.h"
 #include "sccombobox.h"
 #include "scfonts.h"
@@ -70,6 +71,9 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 
 	flopBox = new PropertyWidget_Flop(textTree);
 	flopItem = textTree->addWidget( tr("First Line Offset"), flopBox);
+
+	orphanBox = new PropertyWidget_Orphans(textTree);
+	orphanItem = textTree->addWidget( tr("Orphans and Widows"), orphanBox);
 
 	distanceWidgets = new PropertyWidget_Distance(textTree);
     distanceItem = textTree->addWidget( tr("Columns & Text Distances"), distanceWidgets);
@@ -166,6 +170,7 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	distanceWidgets->setDoc(m_doc);
 	flopBox->setDoc(m_doc);
 	optMargins->setDoc(m_doc);
+	orphanBox->setDoc(m_doc);
 	pathTextWidgets->setDoc(m_doc);
 
 	fonts->RebuildList(m_doc);
@@ -197,6 +202,7 @@ void PropertiesPalette_Text::unsetDoc()
 	distanceWidgets->setDoc(0);
 	flopBox->setDoc(0);
 	optMargins->setDoc(0);
+	orphanBox->setDoc(0);
 
 	m_haveItem = false;
 
@@ -363,6 +369,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	{
 		flopItem->setHidden(true);
 		distanceItem->setHidden(true);
+		orphanItem->setHidden(true);
 		pathTextItem->setHidden(false);
 		pathTextWidgets->pathTextType->setCurrentIndex(m_item->textPathType);
 		pathTextWidgets->flippedPathText->setChecked(m_item->textPathFlipped);
@@ -374,12 +381,14 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	{
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
+		orphanItem->setHidden(false);
 		pathTextItem->setHidden(true);
 	}
 	else
 	{
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
+		orphanItem->setHidden(false);
 		pathTextItem->setHidden(true);
 	}
 
@@ -565,6 +574,7 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 
 	advancedWidgets->updateStyle(newCurrent);
 	colorWidgets->updateStyle(newCurrent);
+	orphanBox->updateStyle (newCurrent);
 
 	displayFontFace(charStyle.font().scName());
 	displayFontSize(charStyle.fontSize());
@@ -917,6 +927,7 @@ void PropertiesPalette_Text::languageChange()
 	flopItem->setText(0, tr("First Line Offset"));
     distanceItem->setText(0, tr("Columns & Text Distances"));
 	optMarginsItem->setText(0, tr("Optical Margins"));
+	orphanItem->setText(0, tr("Orphans and Widows"));
 	pathTextItem->setText(0, tr("Path Text Properties"));
 	
 
@@ -936,6 +947,7 @@ void PropertiesPalette_Text::languageChange()
 	distanceWidgets->languageChange();
 	flopBox->languageChange();
 	optMargins->languageChange();
+	orphanBox->languageChange();
 	pathTextWidgets->languageChange();
 
 	textAlignment->languageChange();

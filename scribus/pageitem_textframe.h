@@ -98,9 +98,17 @@ protected:
 	virtual bool createInfoGroup(QFrame *, QGridLayout *);
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
-	
+	// Move incomplete lines from the previous frame if needed.
+	bool moveLinesFromPreviousFrame ();
+	void adjustParagraphEndings ();
+
 private:
 	bool cursorBiasBackward;
+	// If the last paragraph had to be split, this is how many lines of the paragraph are in this frame.
+	// Used for orphan/widow control
+	int incompleteLines;
+	// This holds the line splitting positions
+	QList<int> incompletePositions;
 
 	void setShadow();
 	QString currentShadow;

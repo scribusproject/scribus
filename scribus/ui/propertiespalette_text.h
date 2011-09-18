@@ -27,6 +27,7 @@ class PropertyWidget_Advanced;
 class PropertyWidget_Distance;
 class PropertyWidget_Flop;
 class PropertyWidget_OptMargins;
+class PropertyWidget_Orphans;
 class PropertyWidget_PathText;
 class PropertyWidget_TextColor;
 class ScComboBox;
@@ -150,6 +151,9 @@ protected:
 
 	PropertyWidget_Flop* flopBox;
 	QTreeWidgetItem* flopItem;
+
+	PropertyWidget_Orphans* orphanBox;
+	QTreeWidgetItem* orphanItem;
 	
 	PropertyWidget_PathText* pathTextWidgets;
 	QTreeWidgetItem* pathTextItem;

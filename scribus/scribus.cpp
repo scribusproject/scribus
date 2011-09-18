@@ -1107,7 +1107,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		doc->currentStyle.charStyle().setStyle( currItem->currentCharStyle() );
 		emit TextStyle(doc->currentStyle);
 		// to go: (av)
-		propertiesPalette->textPal->updateCharStyle(doc->currentStyle.charStyle());
+		propertiesPalette->textPal->updateStyle(doc->currentStyle);
 	}
 }
 
@@ -2843,7 +2843,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			propertiesPalette->textPal->displayCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
-			propertiesPalette->textPal->updateCharStyle(doc->currentStyle.charStyle());
+			propertiesPalette->textPal->updateStyle(doc->currentStyle);
 			setStyleEffects(doc->currentStyle.charStyle().effects());
 		}
 
@@ -2909,7 +2909,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			propertiesPalette->textPal->displayCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
-			propertiesPalette->textPal->updateCharStyle(doc->currentStyle.charStyle());
+			propertiesPalette->textPal->updateStyle(doc->currentStyle);
 			setStyleEffects(doc->currentStyle.charStyle().effects());
 		}
 		break;

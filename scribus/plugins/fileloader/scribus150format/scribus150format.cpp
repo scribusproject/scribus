@@ -2117,6 +2117,22 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(MaxGlyphExtend))
 		newStyle.setMaxGlyphExtension(attrs.valueAsDouble(MaxGlyphExtend));
 	
+	static const QString KeepLinesStart("KeepLinesStart");
+	if (attrs.hasAttribute(KeepLinesStart))
+		newStyle.setKeepLinesStart(attrs.valueAsInt(KeepLinesStart));
+
+	static const QString KeepLinesEnd("KeepLinesEnd");
+	if (attrs.hasAttribute(KeepLinesEnd))
+		newStyle.setKeepLinesEnd(attrs.valueAsInt(KeepLinesEnd));
+
+	static const QString KeepWithNext("KeepWithNext");
+	if (attrs.hasAttribute(KeepWithNext))
+		newStyle.setKeepWithNext(attrs.valueAsInt(KeepWithNext));
+
+	static const QString KeepTogether("KeepTogether");
+	if (attrs.hasAttribute(KeepTogether))
+		newStyle.setKeepTogether(attrs.valueAsInt(KeepTogether));
+
 	readCharacterStyleAttrs( doc, attrs, newStyle.charStyle());
 
 	//	newStyle.tabValues().clear();
@@ -3532,6 +3548,14 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		pstyle.setRightMargin(attrs.valueAsDouble("rightMargin"));
 	if (attrs.hasAttribute("firstIndent"))
 		pstyle.setFirstIndent(attrs.valueAsDouble("firstIndent"));
+	if (attrs.hasAttribute("keepLinesStart"))
+		pstyle.setKeepLinesStart(attrs.valueAsInt("keepLinesStart"));
+	if (attrs.hasAttribute("keepLinesEnd"))
+		pstyle.setKeepLinesEnd(attrs.valueAsInt("keepLinesEnd"));
+	if (attrs.hasAttribute("keepWithNext"))
+		pstyle.setKeepWithNext(attrs.valueAsBool("keepWithNext"));
+	if (attrs.hasAttribute("keepTogether"))
+		pstyle.setKeepTogether(attrs.valueAsBool("keepTogether"));
 	currItem->itemText.setDefaultStyle(pstyle);
 
 	if (attrs.hasAttribute("PSTYLE"))

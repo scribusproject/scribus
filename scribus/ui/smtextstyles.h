@@ -84,6 +84,10 @@ private slots:
 	void slotMinSpace();
 	void slotMinGlyphExt();
 	void slotMaxGlyphExt();
+	void handleKeepLinesStart();
+	void handleKeepLinesEnd();
+	void handleKeepTogether();
+	void handleKeepWithNext();
 	void slotTabRuler();
 	void slotLeftIndent();
 	void slotRightIndent();

@@ -35,5 +35,8 @@ ATTRDEF(int, dropCapLines, DropCapLines, 0)
 ATTRDEF(bool, hasDropCap, HasDropCap, false)
 ATTRDEF(double, dropCapOffset, DropCapOffset, 0.0)
 ATTRDEF(bool, useBaselineGrid, UseBaselineGrid, false)
-
+ATTRDEF(int, keepLinesStart, KeepLinesStart, 0)
+ATTRDEF(int, keepLinesEnd, KeepLinesEnd, 0)
+ATTRDEF(bool, keepWithNext, KeepWithNext, false)
+ATTRDEF(bool, keepTogether, KeepTogether, false)
 
