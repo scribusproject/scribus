@@ -8,6 +8,21 @@
 			<submenuitem text="About the team" file="about1.html"/>
 			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
+		<submenuitem text="Installation" file="install.html">
+			<submenuitem text="Scribus Source &amp; SVN" file="install1.html"/>
+			<submenuitem text="Requirements" file="install2.html"/>
+			<submenuitem text="Compiling using CMake" file="install4.html"/>
+			<submenuitem text="Compiling using CMake on OS X" file="install5.html"/>                     
+			<submenuitem text="Parallel Install" file="parallel-install.html"/>
+			<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
+		</submenuitem>
+		<submenuitem text="Cross Platform" file="cross-platform.html">
+			<submenuitem text="Mac OSX Readme" file="readme-macosx.html"/>
+			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
+			<submenuitem text="Mac OSX/Fink &amp; SVN" file="machints2.html"/>
+			<submenuitem text="OS/2 Readme" file="readme-os2.html"/>
+			<submenuitem text="Windows Readme" file="readme-win32.html"/>
+		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
 			<submenuitem text="Configuring Scribus" file="settings1.html"/>
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
@@ -15,11 +30,6 @@
 			<submenuitem text="Hyphenation" file="hyphenator.html"/>
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
-			<submenuitem text="GS Fonts" file="gsfont.html"/>
-			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
-			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
-			<submenuitem text="Basic Font Tests 2" file="fonts5.html"/>
-			<submenuitem text="Fonts Setup Win32" file="fonts-win32.html"/>
 		</submenuitem>
 		<submenuitem text="Scribus Basics" file="about2.html" >
 			<submenuitem file="qsg.html" text="Quick Start Guide" />
@@ -31,8 +41,8 @@
 			<submenuitem file="WwImages.html" text="Working with Images" />
 			<submenuitem file="WwRenderframes.html" text="Working with Render Frames" />
 			<submenuitem file="WwShapes.html" text="Working with Shapes" />
-			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
 			<submenuitem file="multiple_transform.html" text="Multiple Duplicate and Transform" />
+			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
 			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
 			<submenuitem file="WwFill.html" text="Working with Fill: Colors, Gradients and Patterns" />
 			<submenuitem text="Working with Layers" file="layers.html" />
@@ -76,32 +86,29 @@
 		</submenuitem>
 		<submenuitem text="DTP ToolBox" file="toolbox.html">
 			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
-			<submenuitem text="Other PDF Viewers" file="toolbox2.html"/>
-			<submenuitem text="Batik" file="toolbox3.html"/>
-			<submenuitem text="GIMP" file="toolbox4.html"/>
+			<submenuitem text="PDF/PostScript Tools" file="toolbox2.html"/>
 			<submenuitem text="Ghostscript" file="toolbox5.html"/>
 			<submenuitem text="GSview" file="toolbox6.html"/>
 			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
+			<submenuitem text="GIMP" file="toolbox4.html"/>
+			<submenuitem text="Krita" file="toolbox15.html"/>
+			<submenuitem text="XnView" file="toolbox13.html"/>
 			<submenuitem text="ImageMagick" file="toolbox8.html"/>
 			<submenuitem text="Inkscape" file="toolbox9.html"/>
-			<submenuitem text="KSnapshot" file="toolbox10.html"/>
-			<submenuitem text="Tracing Tools" file="toolbox11.html"/>
-			<submenuitem text="WINE" file="toolbox12.html"/>
-			<submenuitem text="XnView" file="toolbox13.html"/>
+			<submenuitem text="Squiggle" file="toolbox3.html"/>
 			<submenuitem text="LProf" file="toolbox14.html"/>
-			<submenuitem text="Krita" file="toolbox15.html"/>
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
 			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
 		</submenuitem>
 		<submenuitem text="Hints &amp; FAQs" file="topten.html">
 			<submenuitem text="Help" file="faq1.html"/>
 			<submenuitem text="Development" file="faq3.html"/>
-			<submenuitem text="Problems with Document Files" file="fileproblems.html"/>
 		</submenuitem>
 	</area>
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
 	</area>
 	<area text="For Developers" file="developers.html">
+		<submenuitem text="Scribus Document Format" file="scribusfileformat.html"/>
 		<submenuitem text="Scripter" file="scripter1.html"/>
 		<submenuitem text="Scripter FAQ" file="scripter-faq.html"/>
 		<submenuitem text="Scripter API" file="scripterapi.html">
@@ -124,6 +131,11 @@
 			<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
 			<submenuitem text="Scripter Extensions API" file="scripterapi-extensions.html"/>
 		</submenuitem>
+		<submenuitem text="Plugin Howto" file="plugin_howto.html"/>
+		<submenuitem text="GetText Howto" file="gettexthowto.html"/>
+		<submenuitem text="Coding Standards" file="codingstandards.html"/>
+		<submenuitem text="Translation Howto" file="translation_howto.html"/>
+		<submenuitem text="Lorem ipsum Howto" file="lipsum.html"/>
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
@@ -131,6 +143,7 @@
 		<submenuitem text="Mailing Lists" file="mailing_lists.html"/>
 		<submenuitem file="irc.html" text="IRC"/>
 		<submenuitem text="Printers" file="scprinters.html"/>
+		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Release History" file="releases.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>

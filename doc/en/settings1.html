@@ -18,7 +18,7 @@ Under the <em>File</em> heading on the menu bar, you will find two related selec
 <li><a href="#7"><strong>Fonts</strong></a></li>
 </ul></td>
 <td width="300" valign="top"><ul>
-<li><a href="#8"><strong>Preflight Verifier</strong></a></li>
+</li>
 <li><a href="#9"><strong>Color Management</strong></a></li>
 <li><a href="#10"><strong>PDF Export</strong></a></li>
 <li><a href="#11"><strong>Document Item Attributes</strong></a></li>
@@ -42,7 +42,7 @@ Under the <em>File</em> heading on the menu bar, you will find two related selec
 <p>The various Paths are the default locations Scribus will use for these operations. The path for Scripts is where Scribus looks when you choose <em>Scripts > Execute Script</em> from the menu.
 <table width="90%"><tr><td align="center"><img src="images/prefs_general.png" align="center" alt="Preferences: General" title="General Preferences" width="680"/></td></tr></table>
 <h3><a name="2"></a>Document</h3>
-In Preferences, the various settings here will be those that you see when you open a new document (<em>File > New</em>). In Document Settings, they will change the current document. The <strong>Page Size</strong> section should be easily understandable, with a large selection of standard sizes to choose from, in addition to <em>Custom</em>. The <strong>Document Layout</strong> choices have been the source of confusion for some. These simply apply to the relative placement of pages on your screen, and each will have the size as indicated, not some subdivision of it. <em>Double Sided</em> would typically be chosen for a book-like layout, and thus the First Page selector at the bottom allows the initial page to be Right or Left. This helps you use the appropriate Master Page layout (covered elsewhere).
+In Preferences, the various settings here will be those that you see when you open a new document (<em>File > New</em>). In Document Settings, they will change the current document. The <strong>Page Size</strong> section should be easily understandable, with a large selection of standard sizes to choose from, in addition to <em>Custom</em>. The <strong>Document Layout</strong> choices have been the source of confusion for some. These simply apply to the relative placement of pages on your screen, and each will have the size as indicated, not some subdivision of it. <em>Double Sided</em> would typically be chosen for a book-like layout, and thus the First Page selector at the bottom allows the initial page to be Right or Left. This helps you use the appropriate <a href="pagetemplate1.html">Master Page</a> layout.
 <table width="90%"><tr><td align="center"><img src="images/prefs_document.png" align="center" alt="Default Document Settings" title="Default Document Settings"  width="680" /></td><td width="275"><img src="images/prefs_document1.png" width="250"><p>Here is an example of Double Sided, Right Page as the first (also happens to be two-column). If you print these on a local printer, they will print as individual pages.</td></tr></table>
 <p><strong>Preset Layouts</strong> will be available for anything other than Single Page layout. What these represent are some time-honored ways to set the margins of the page, many based on some mathematical approach related to the dimensions of the page. Below we see the contrast of these various methods &ndash; these are all right pages of a double-sided layout.
 <p><table cellpadding="3"><tr>
@@ -98,7 +98,7 @@ Preflight verification (checking for errors) is automatic when exporting to PDF,
 <p>Remember that the settings here simply change the default values for PDF Export. You can still override any settings with the PDF Export dialog. For more info on PDF look at <a href="pdfexport1.html">PDF Export Options</a> and <a href="pdfx3.html">PDF/X-3 and Scribus</a>.</p>
 
 <table width="90%" cellpadding="5"><tr><td align="center"><img src="images/prefs_pdfexport.png" alt="PDF Export Preferences" title="PDF Export Preferences" width="680"/></td></tr>
-<tr><td>New to 1.3.5+ versions is the inclusion of the ability to create bleeds, crop marks, and other printer marks as you export to PDF. Any bleed width is added to the page dimensions you selected when you created your document.
+<tr><td>New to Scribus 1.4.x is the inclusion of the ability to create bleeds, crop marks, and other printer marks as you export to PDF. Any bleed width is added to the page dimensions you selected when you created your document.
 <p>Note here an example of what you see when you do not have ICC profiles installed &ndash; <strong>PDF/X-3 Output Intent</strong> is not available.</td></tr>
 <tr><td align="center"><img src="images/prefs_pdfexport1.png" alt="PDF Export Preferences" title="PDF Export Preferences"/></td></tr></table>
 
@@ -110,7 +110,7 @@ Preflight verification (checking for errors) is automatic when exporting to PDF,
 
 <table width="90%"><tr><td align="center"><img src="images/prefs_keyboard.png" alt="Setting the Keyboard Shortcuts  for Scribus" title="Setting the Keyboard Shortcuts for Scribus"/></td></tr></table>
 
-<p>Here you see the various default keyboard shortcuts, which are editable, and many others can be assigned. These are stored in the <tt>.scribus/scribus135.rc</tt> file. Moreover, once customized, you can export them into a separate XML file which can be exported and saved separately, along with making it portable to other machines. The default file suffix is .ksxml. The XML is a unicode file and should not have issues being transported across platforms, with the only caveat that Macs have an option and command meta key, where Linux and Windows share common keyboards.</p>
+<p>Here you see the various default keyboard shortcuts, which are editable, and many others can be assigned. These are stored in the <tt>.scribus/scribus14.rc</tt> file. Moreover, once customized, you can export them into a separate XML file which can be exported and saved separately, along with making it portable to other machines. The default file suffix is .ksxml. The XML is a unicode file and should not have issues being transported across platforms, with the only caveat that Macs have an option and command meta key, where Linux and Windows share common keyboards.</p>
 
 <h3><a name="13"></a>Scrapbook</h3>
 <p>With scrapbooks, you can <em>right button</em> drag and drop frequently used items, including pictures, images and text files for quick placement. Scrapbooks can be saved with a file or independently of a document, as a separate scrapbook which can be loaded use with many different Documents. Separate scrapbooks are kept with a <code>.scs</code> designation. This panel sets the defaults for the thumbnail size in the scrapbook palette and if scrapbooks should be saved automatically when changed.</p>
@@ -149,11 +149,22 @@ There are a number of informational elements which can be saved with your file. 
 <h4>Where Are the Preferences Files ?</h4>
 <p>Scribus' preferences are kept in a hidden directory <code>.scribus</code>. The location of which is as follows:
 <ul>
-<li><strong>Linux:</strong> Under your $home directory, %username/.scribus</li>
-<li><strong>MacOSX:</strong> Under User/%username/.scribus</li>
-<li><strong>Windows:</strong> Documents and Settings/%username/.scribus</li>
+<li><strong>Linux/UNIX:</strong> <code>/home/username/.scribus</code></li>
+<li><strong>MacOSX:</strong> <code>User/username/.scribus</code></li>
+<li><strong>Windows:</strong> <code>Documents and Settings/username/.scribus</code></li>
 </ul>
- Within the directory is a <code>.scribus13.rc</code> file, a <code>scribusfont.rc</code> file which preserves your font preferences and a <code>prefs13.xml</code>. These files are stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts. There might also be several directories, which are configuration or history files. If you are troubleshooting starting Scribus, <strong>rename</strong>, do not delete these files and directories. If you rename the directory, on re-starting Scribus, the launch time will be somewhat longer, as Scribus creates a cache of installed fonts. On the second re-start of Scribus, it will be much quicker. </p>
+ Within the directory is a <code>.scribus14.rc</code> file, a <code>scribusfont.rc</code> file which preserves your font preferences and a <code>prefs14.xml</code>. These files are stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts. There might also be several directories, which are configuration or history files. If you are troubleshooting starting Scribus, <strong>rename</strong>, do not delete these files and directories. If you rename the directory, on re-starting Scribus, the launch time will be somewhat longer, as Scribus creates a cache of installed fonts. On the second re-start of Scribus, it will be much quicker. </p>
 
+<hr>
+<p>See also</p>
+<ul>
+<li><a href="fonts1.html">Font Setup</a></li>
+<li><a href="hyphenator.html">Hyphenation</a></li>
+<li><a href="docinfo.html">Document Information</a></li>
+<li><a href="short-words.html">Short Words Plug-in</a></li>
+<li><a href="color2.html">Managing Colors</a></li>
+<li><a href="WwRenderframes.html">Working with Render Frames</a></li>
+</ul>
+</p>
 </body>
 </html>

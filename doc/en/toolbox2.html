@@ -1,12 +1,26 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>Other PDF/PS Viewers</title>
+<title>PDF/PostScript Tools</title>
 </head>
 <body>
-<h2>Other PDF Viewers</h2>
-<p>Another useful PDF viewer to use with Scribus is GSview which is a graphical viewer/front end to Ghostscript. The latest version (4.9) with Ghostscript 8.5+ work very nicely together allow you to convert PS to PDF, as well as view and convert EPS, PS and PDF files among other tools. GSview runs natively on Linux/Unix. OS/2 and Windows. More details are in <a href="gsview.html">GSview and Scribus</a>.</p>
-<p><strong>Kpdf 3.5+ / <a href="http://www.foolabs.com/xpdf/">Xpdf</a> </strong> The most recent Kpdf in KDE 3.4 shows me the the developers "get it". Based on Xpdf 3.x it has many nice touches and seems to be a pretty fast renderer. I say this not as a KDE fanboy, but based on using quite a bit in comparison to the larger Adobe Readers. One other note, look through Settings and enable "aggressive" in the performance options. If you have the required memory, enabling this makes a big difference in loading larger or complex documents.  You still might want Xpdf 3.02+ from Foolabs, as it includes some command line tools for converting PDFs to PS. To display properly embedded fonts with Xpdf in all PDFs, not just Scribus ones, you should read the Xpdf man page about setting up the fonts paths correctly via the .xpdfrc file. Otherwise, embedded fonts may not display properly. One known limitation is the inability to display transparency in Scribus generated PDFs.</p>
-<p>In KDE 4, <a href="http://okular.kde.org/">Okular</a>, the sucessor to KPDF is a versatile PDF viewer which also can view a number of different image formats like Tiff and PSD. </p>
+<h2>PDF/PostScript Tools</h2>
+<h3>PDF and PostScript Viewers</h3>
+<p>While <a href="toolbox1.html">Adobe Reader</a> is the most reliable PDF viewer, it is rightfully known as a resource hog, and it can&rsquo;t display anything but PDF files. For a quick preview of PDF files some people may prefer a faster viewing program, and while there are many alternative PDF viewers, only two of them are recommended by the Scribus Team:</p>
+<ul>
+<li><a href="http://okular.kde.org/">Okular</a> has become the default document viewer in KDE 4. In terms of PDF feature support, Okular is suprisingly close to Adobe Reader, although it cannot handle color-managed CMYK PDFs reliably yet. What makes Okular even more interesting than its PDF support is the long list of file formats that can be opened and converted: PDF, PostScript, EPS, DjVu, DVI, G3 Fax, as well as many image formats.</li>
+<li>Another reliable viewer and converter is GSview, whose features will be described in a <a href="toolbox6.html">separate chapter</a></li>
+</ul>
+<h3>PDF Editors</h3>
+<p>PDF was and is designed as some kind of &ldquo;electronic paper&rdquo;, which means a PDF is not meant to be editable. But the more ubiquitous the PDF format became, the more use cases appeared, in which it made sense to edit &ldquo;non-editable&rdquo; files, e.g., last-minute corrections of spelling errors or the re-ordering of pages in a print workflow. The inventor of PDF, Adobe, took the lead and devoloped Acrobat, which is still the leading PDF editing program. However, since the PDF specification is open, others started to tinker as well, and today there are countless tools, closed source or open, that allow for editing PDF files. Below is a list of recommended FLOSS programs for PDF editing.</p>
+<ul>
+<li><a href="http://multivalent.sourceforge.net">Multivalent</a> and the <a href="http://www.accesspdf.com/pdftk">PDF Toolkit (pdftk)</a> are both Java-based commandline utilities with countless options to manipulate PDFs.</li>
+<li><a href="http://pdfedit.petricek.net/index_e.html">PDF Edit</a> is a collection of Qt scipts to manipulate PDFs, but the scripts are hidden behind a graphical user interface, so editing PDFs works in a WYSIWIG (&ldquo;What you see is what you get&rdquo;) mode. PDF Edit allows for many direct changes to the content of a PDF file, including changes to text or colors, as well as removing content. The program is based on Qt3, but as of this writing, the developers are working on a port to Qt4.</li>
+<li><a href="http://jpdftweak.sourceforge.net">jPDF Tweak</a>, a Java program, has rightfully been called a Swiss army knife for PDFs. It uses the highly reliable iText library for PDF editing.</li><br>
+<table width="100%"><tr><td align="center"><img src="images/tb-jpdf.png" alt="jPDF Tweak" title="jPDF Tweak" /></td></tr></table><br>
+<li><a href="http://www.pdfsam.org">PDF Split and Merge (PDF SaM)</a> is an even more powerful tool than jPDF Tweak and has a proven track record in pre-press environments. PDF SaM is rather a tool for professionals, whereas beginners will probably be overwhelmed by its many options. Like jPDF Tweak, PDF SaM is a Java program, but in contrast to all other Java programs in this list, the language of the graphical user interface can be changed. and there are many translations available.</li>
+<li><a href="http://www.quantumelephant.co.uk/bookbinder/bookbinder.html">Bookbinder</a> is a PDF editor for beginners and simple tasks. Its main purpose is to re-order (and re-scale, if necessary) pages in a PDF file for booklet printing and similar tasks. Bookbinder is also written in Java.</li><br>
+<table width="100%"><tr><td align="center"><img src="images/tb-bookbinder.png" alt="Bookbinder" title="Bookbinder" /></td></tr></table>
+</ul>
 </body>
 </html>

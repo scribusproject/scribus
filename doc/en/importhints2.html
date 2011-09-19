@@ -8,7 +8,7 @@
 <h3>Supported formats</h3>
 <p>Here&rsquo;s a short description of the vector formats currently supported by Scribus:</p>
 <ul>
-<li><b>AI (Adobe Illustrator)</b>: The native format of Illustrator, or, more precisely, formats. Older versions of AI are basically EPS files that contain some additional features only used by Illustrator. As of Illustrator 9, AI is based on PDF, and, like its predecessor, adds some Illustrator-only information. AI import is still experimental but works very well in most cases. One of the major advantages of the AI import filter (and the EPS filter as well) is that Scribus will load spot colors in AI and EPS files correctly. If PDF-based AI files are opened directly (via <i>File > Open</i>), Scribus will also import AI/PDF layers.</li>
+<li><b>AI (Adobe Illustrator)</b>: The native format of Illustrator, or, more precisely, formats. Older versions of AI are basically EPS files that contain some additional features only used by Illustrator. As of Illustrator 9, AI is based on PDF, and, like its predecessor, adds some Illustrator-only information. AI import is still experimental but works very well in most cases. One of the major advantages of the AI import filter (and the EPS filter as well) is that Scribus will load spot colors in AI and EPS files correctly. If PDF-based AI files are opened directly (via <i>File > Open</i>), Scribus will also import <a href="layers.html">AI/PDF layers</a>.</li>
 <li><b>EPS (Encapsulated PostScript)</b>: Probably the most wide-spread graphics format in pre-press and a subset of the PostScript standard. See the section about <a href="importhints1.html">EPS import</a> for more information.</li>
 <li><b>PS (PostScript)</b>: A page description language created by Adobe Systems and the foundation of almost all modern print workflows. The PDF format is also derived from PostScript. Since PostScript files can contain more than one page, import may not deliver the expected result.</li>
 <li><b>FIG (Xfig)</b>: This is the native format of the UNIX drawing veteran Xfig. While rarely used by designers, it&rsquo;s ubiquitous in scientific environments like universities for technical drawings or diagrams. The format is well-documented, and import into Scribus works flawlessly.</li>
@@ -61,6 +61,17 @@
 <p>If you delete an imported drawing, its colors won&rsquo;t disappear from the color list automatically, as it&rsquo;s difficult to determine whether they have been &ldquo;mapped&rdquo; or are being used by other objects. This is not a problem, because after deleting the drawing, you can open the color manager (<i>Edit > Colors</i>) and click &ldquo;Remove Unused&rdquo;, which will remove all colors that aren&rsquo;t used by any item in your document.</p>
 <p>An example for the usefulness of the color import is the &ldquo;Replace Colors&rdquo; feature. Imagine you are working with a vector logo that is supposed to appear in different colors in different documents. By using &ldquo;Replace Colors&rdquo;, you can work with one single source file. Import the logo into your document and replace one or more logo colors just as your specific document requires. And speaking of logos: These are often required to use a spot color. If you created or edited the logo in a program that doesn&rsquo;t support spot colors, you can load the graphic into Scribus and use &ldquo;Replace Colors&rdquo; to replace a CMYK or RGB color with a spot color:</p><br>
 <table width="100%"><tr><td align="center"><img src="images/new5.png" title="Replacing colors" alt="Replacing colors"/></td></tr></table><br>
-
+<hr>
+<p>See also</p>
+<ul>
+<li><a href="WwShapes.html">Working with Shapes</a></li>
+<li><a href="EditingShapes.html">Editing Shapes</a></li>
+<li><a href="WwLines.html">Working with Lines and Line Styles</a></li>
+<li><a href="color1.html">Editing Colors</a></li>
+<li><a href="importhints1.html">Importing EPS</a></li>
+<li><a href="scribus-svg.html">Importing SVG</a></li>
+<li><a href="importhints3.html">Importing OpenOffice.org and ODF Files</a></li>
+</ul>
+</p>
 </body>
 </html>
