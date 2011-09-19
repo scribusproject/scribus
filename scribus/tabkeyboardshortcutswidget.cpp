@@ -264,7 +264,7 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 void TabKeyboardShortcutsWidget::resetKeySet()
 {
 	QString location=ScPaths::instance().shareDir();
-	QString defaultKeySetFileName=QDir::toNativeSeparators(location+"keysets/scribus13.xml");
+	QString defaultKeySetFileName=QDir::toNativeSeparators(location+"keysets/scribus14.xml");
 	importKeySet(defaultKeySetFileName);	
 }
 
