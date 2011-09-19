@@ -103,10 +103,10 @@ void SWDialog::savePrefs()
 void SWDialog::languageChange()
 {
 	setWindowTitle( tr("Short Words", "short words plugin"));
-	buttonGroup->setTitle( tr("Apply unbreakable space on:", "short words plugin"));
-	frameRadio->setText( tr("&Selected frames", "short words plugin"));
-	pageRadio->setText( tr("Active &page", "short words plugin"));
-	allRadio->setText( tr("&All items", "short words plugin"));
+	buttonGroup->setTitle( tr("Apply Unbreakable Space To:", "short words plugin"));
+	frameRadio->setText( tr("&Selected Frames", "short words plugin"));
+	pageRadio->setText( tr("Active &Page", "short words plugin"));
+	allRadio->setText( tr("&All Items", "short words plugin"));
 // 	okButton->setText(CommonStrings::tr_OK);
 // 	cancelButton->setText(CommonStrings::tr_Cancel);
 	frameRadio->setToolTip( tr("Only selected frames processed.", "short words plugin"));
