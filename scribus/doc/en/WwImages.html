@@ -4,13 +4,13 @@
 	<title>Working with Images</title>
 </head>
 
-<body>
+<p>
 <h2>Working with Images</h2>
 
 See <a href="WwFrames.html">Working with Frames</a> to learn about Image Frame frame creation and manipulation.  Note that the image frame shows as a red border with small square handles at the corners and at the midpoints of each side. Diagonals in black are drawn to indicate that it is an image frame. Note that these small square handles disappear when the frame is locked.
 
 <p>The quickest way to load an image into the frame is to right-click on the frame, and select <b>Get Image</b> from the Context menu. Pressing Ctrl+D or menu <i>File > Import > Get Image</i> will also work. A file dialog will appear, showing the image types that Scribus can import, which include bitmap formats TIFF, PNG, JPG and GIF as well as vector format PS (PostScript) and PDF files, which will be converted to bitmaps. Note that after import the image may only partly show. We'll see below in <i>Properties: Image</i> how to adjust scaling and positioning of the image in the frame.
-<p><i>Descriptions, advantages and disadvantages of various file formats will be discussed elsewhere.</i>
+</p>
 
 
 
@@ -46,21 +46,30 @@ See <a href="WwFrames.html">Working with Frames</a> to learn about Image Frame f
 </table>
 <h3>Properties: Image</h3>
 <table cellpadding=3><tr>
-<td>When an Image is first loaded, the default is for it to have Free Scaling or as is set in <i>File > Preferences > Tools > Image</i>.
+<td>When an Image is first loaded, the default is for it to have Free Scaling, and will be imported at its "native" size, at 72 DPI (your monitor's resolution).
 
 <p>Under Free Scaling the spinboxes are:
 <ul>
 <li><b>X-Pos</b> and <b>Y-Pos</b> - Relative position of the left upper corner of the image to the left upper corner of the frame.</li>
-<li><b>X-Scale</b> and <b>Y-Scale</b> - Magnification of the image, compared to its native DPI.</li>
+<li><b>X-Scale</b> and <b>Y-Scale</b> - Magnification of the image, compared to when it is at 72 DPI.</li>
 <li><b>Actual X-DPI</b> and <b>Actual Y-DPI</b> - These of course are inversely related to magnification. Your monitor will still likely be showing the image at no better than 72 PPI, but this refers to the final resolution to be exported to the PDF.</li>
 </ul>
 <p>In many cases, we may have a more or less set frame size we wish to squeeze an entire image into, in which case choosing <b>Scale to Frame Size</b> (or <b>Adjust Image to Frame</b> from the Context menu) makes sense. Without checking <b>Proportional</b>, the image is simply stretched to fit the frame and may be quite distorted. You should find the combination of scaling to frame size (proportional) and then <b>Adjust Frame to Image</b> from the Context menu very useful for making a frame exactly the right size for your image.
-<p><b>Image Effects</b> will be discussed elsewhere.</td>
+<p></td>
 <td><img src="images/Image_Properties.png" ALT="Properties: Image"></td>
 </tr>
 </table>
 <h3>Edit Contents Mode</h3>
 Enter Edit Contents mode by clicking the icon on the toolbar, or pressing <b>E</b> from the keyboard. Go back to Select Item mode by pressing <b>Esc</b>, or clicking outside, then inside the frame. You will need to have checked <b>Free Scaling</b> in order for this to be operational.
-<p>With image frames, Edit Contents mode allows you to click-drag with the mouse to shift the image relative to the frame, i.e., the same as adjusting the X-Pos and Y-Pos in the Image tab.
+<p>With image frames, Edit Contents mode allows you to click-drag with the mouse to shift the image relative to the frame, i.e., the same as adjusting the X-Pos and Y-Pos in the Image tab.</p>
+<hr>
+<p>See also:
+<ul>
+<li><a href="WwFrames.html">Working with Frames</a></li>
+<li><a href="importhints.html">Importing</a></li>
+<li><a href="importhints1.html">Importing EPS</a></li>
+<li><a href="psd.html">Importing PSD</a></li>
+</ul>
+</p>
 </body>
 </html>

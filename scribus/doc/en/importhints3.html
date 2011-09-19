@@ -11,7 +11,7 @@
 <br>
 The clear documentation and specs have helped the Scribus Team to create some useful import features, which will be enhanced in the future.</p>
 <h4>Importing OpenOffice.org Writer and OpenDocument files</h4>
-<p>The importer for Writer (SXW) and ODT documents works per text frame and imports <i>only</i> the text contained in your document. Images and drawings need to be saved separately outside of the Writer document and then each drawing or image can be imported individually. Thus, a compound Writer document with tables or charts will not import the latter. Tables, charts or other embedded objects, need to be placed into their own Draw file and exported as described below.</p>
+<p>The importer for Writer (SXW) and ODT documents works per text frame and imports <i>only</i> the text contained in your document. Images and drawings need to be saved separately outside of the Writer document and then each drawing or image can be imported individually. Thus, a compound Writer document with tables or charts will not import the latter. Tables, charts or other embedded objects need to be placed into their own Draw file and exported as described below.</p>
 <p>The single most important issue to take into consideration for hassle-free SXW/ODT import is well chosen usage of styles in Writer or any other ODT-compliant word processor. Doing so will greatly reduce the amount of time needed within Scribus to format and style text. Any special paragraph styles in your Writer or ODT file will automatically be imported into your existing Scribus document.</p>
 
 <h4>SXW/ODT import step by step</h4>
@@ -22,7 +22,7 @@ The clear documentation and specs have helped the Scribus Team to create some us
 </ol>
 
 <p>This will import <i>all</i> the text from the source document, so ensure there is enough space in your frame or link extra text frames to the one you are importing into. You can comfortably import 10, 20 or even 50 pages of text in one go. However, the practical limit is probably not more than a chapter&rsquo;s (15&ndash;30 pages) worth of text for performance reasons.</p>
-<h4>Let Scribus create text frames for you</h4>
+<h4><a name="1">Let Scribus create text frames for you</h4>
 <p>If you have an idea how many text frames you will need for the imported text, you can use an advanced import option. You can find it in the &ldquo;Insert&rdquo; menu, and it&rsquo;s called <i>Frame&nbsp;...</i>.</p>
 <p>The &ldquo;Insert Frame&rdquo; dialog consists of four tabs. In the first one you have to select &ldquo;Text Frame&rdquo; in this context. In the second tab, &ldquo;Location&rdquo;, you can determine the pages, on which the new frames will be placed, as well as their position on a page.</p>
 
@@ -43,15 +43,15 @@ The clear documentation and specs have helped the Scribus Team to create some us
 
 <h4>SXW/ODT import options</h4>
 
-<p> When importing text from OO.org there are three important options which need to be carefully considered:</p>
+<p> When importing text from OO.org there are four important options which need to be carefully considered:</p>
 
 <table width="100%"><tr><td align="center"><img src="images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for SXW and ODT files." /></td></tr></table>
 
 <ul>
-   <li><b>Overwrite Paragraph Styles</b> This option will tell Scribus to change the formatting of any created styles in your Scribus document to follow those in the imported document. </li>
-   <li><b>Merge Paragraph Styles</b> This option looks at the actual attributes (fonts, size) of the imported document and merges styles which have identical attributes. This can help to eliminate differently named, but otherwise identical styles.</li>
-   <li><b>Use Document Name as a prefix for paragraph styles</b> is self-explanatory. This can be useful for sorting styles when importing from several documents. </li>
-<li><b>Do Not Ask Again</b>  Caution! This last option will make your choices above permanent. The only way to undo this is to open the file <code>prefs135.xml</code> in the hidden folder <code>./scribus</code> in your home directory with a text editor, then search for the text string <code>attribute key"=ask-Again" value=0</code> and replace the 0 with 1.</li>
+   <li><b>Overwrite Paragraph Styles</b>; This option will tell Scribus to change the formatting of any created styles in your Scribus document to follow those in the imported document. </li>
+   <li><b>Merge Paragraph Styles</b>: This option looks at the actual attributes (fonts, size) of the imported document and merges styles which have identical attributes. This can help to eliminate differently named, but otherwise identical styles.</li>
+   <li><b>Use Document Name as a prefix for paragraph styles</b>: is self-explanatory. This can be useful for sorting styles when importing from several documents. </li>
+<li><b>Do Not Ask Again</b>: Caution! This last option will make your choices above permanent. The only way to undo this is to open the file <code>prefs14.xml</code> in the hidden folder <code>./scribus</code> in your home directory with a text editor, then search for the text string <code>attribute key"=ask-Again" value=0</code> and replace the 0 with 1.</li>
  </ul>
 
 
@@ -83,5 +83,14 @@ The clear documentation and specs have helped the Scribus Team to create some us
 
 <h4>Importing SXM and ODF formulas</h4>
 <p>The most reliable way is to create a formula In OpenOffice.org Math and save it as SXM or ODF. Then open OpenOffice.org Draw and create a new file. Use <i>Insert Object > Formula</i>. You will have a tiny embedded square on Draw&rsquo;s canvas. Next, open <i>Edit Object</i> from the context menu. Draw will now launch Math. In Math, select <i>Tools > Import Formula</i>, browse to your saved formula and save to close the file. The embedded formula is now editable as a vector object. Save this Draw file, then export as EPS and import into Scribus. The formulas and text will import as scalable vector items. This will result in formulas which will print with <b>very</b> high quality and no worries when exported as PDF. Saving the Draw file and attempting to import the Draw file with embedded objects will fail, as Scribus cannot access those objects directly.</p>
+
+<hr>
+<p>See also</p>
+<ul>
+<li><a href="WwText.html">Working with Text</a></li>
+<li><a href="WwStyles.html">Working with Styles</a></li>
+<li><a href="importhints2.html">Importing Vector Drawings</a></li>
+</ul>
+</p>
 </body>
 </html>
