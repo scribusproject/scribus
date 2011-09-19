@@ -2678,7 +2678,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 
 		//Draw the overflow icon
 		if (frameOverflows())
-		{//CB && added here for jghali prior to commit access
+		{
 			if ((!m_Doc->drawAsPreview))
 				drawOverflowMarker(p);
 		}
@@ -3469,9 +3469,9 @@ double PageItem_TextFrame::columnWidth()
 void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 {
 	qreal sideLength = 10 / qMax(p->zoomFactor(), 1.0);
-	qreal left  = Width  - sideLength / 2;
+	qreal left  = Width  - sideLength;// / 2;
 	qreal right = left   + sideLength;
-	qreal top   = Height - sideLength * 1.5;
+	qreal top   = Height - sideLength;// * 1.5;
 	qreal bottom = top   + sideLength;
 
 	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);

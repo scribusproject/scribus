@@ -159,7 +159,8 @@ public:
 //	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
-	QRect exposedRect()const;
+	QRect exposedRect() const;
+	bool cursorOverTextFrameControl(QPoint globalPos, PageItem* frame);
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */
 	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* frame) const;
 	FrameHandle frameHitTest(QPointF point, QRectF frame) const;

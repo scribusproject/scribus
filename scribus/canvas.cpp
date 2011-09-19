@@ -496,6 +496,19 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	return NULL;
 }
 
+bool Canvas::cursorOverTextFrameControl(QPoint globalPos, PageItem* frame)
+{
+	FPoint mp=globalToCanvas(globalPos);
+	qreal sideLength = 10 / qMax(m_viewMode.scale, 1.0);
+	qreal left  = frame->xPos() + frame->width() - sideLength;// / 2;
+	qreal right = left + sideLength;
+	qreal top   = frame->yPos() + frame->height() - sideLength;// * 1.5;
+	qreal bottom = top + sideLength;
+	if(mp.x()>left && mp.x()<right && mp.y()>top && mp.y()<bottom)
+		return true;
+	return false;
+}
+
 PageItem* Canvas::itemInGroup(PageItem* group, QTransform itemPos, QRectF mouseArea) const
 {
 	int currNr = group->groupItemList.count() - 1;

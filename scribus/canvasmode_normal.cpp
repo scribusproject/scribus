@@ -27,6 +27,7 @@
 #include <QPoint>
 #include <QRect>
 #include <QTimer>
+#include <QToolTip>
 #include <QWidgetAction>
 #include <QDebug>
 
@@ -332,6 +333,32 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
+	//<<#10116 Show overflow counter HUD
+	if (!movingOrResizing && mouseIsOnPage)
+	{
+		PageItem* hoveredItem=NULL;
+		hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
+		if (hoveredItem)
+		{
+			if (hoveredItem->asTextFrame() && hoveredItem->frameOverflows())
+			{
+				if (m_canvas->cursorOverTextFrameControl(m->globalPos(), hoveredItem))
+				{
+					QToolTip::showText(m->globalPos() + QPoint(5, 5), tr("Overflow Characters: %1").arg(hoveredItem->frameOverflowCount()), m_canvas);
+				}
+			}
+			else
+				if (QToolTip::isVisible())
+					QToolTip::hideText();
+		}
+		else
+		{
+			if (QToolTip::isVisible())
+				QToolTip::hideText();
+		}
+	}
+	//>>#10116
+
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -812,6 +839,21 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
+	//<<#10116: Click on overflow icon to get into link frame mode
+	PageItem* clickedItem=NULL;
+	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
+	if (clickedItem && clickedItem->asTextFrame())
+	{
+		if (clickedItem->frameOverflows())
+		{
+			if (m_canvas->cursorOverTextFrameControl(m->globalPos(), clickedItem))
+			{
+				m_view->requestMode(modeLinkFrames);
+				return;
+			}
+		}
+	}
+	//>>#10116
 	if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 	{
 //		m_view->stopDragTimer();
