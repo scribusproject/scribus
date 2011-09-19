@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shortcutset name="Scribus 1.3.8">
+<shortcutset name="Scribus 1.4">
     <function shortcut="F7" name="AspellPlugin"/>
     <function shortcut="" name="Barcode Generator"/>
     <function shortcut="" name="ColorWheel"/>
@@ -39,6 +39,7 @@
     <function shortcut="Ctrl+V" name="editPaste"/>
     <function shortcut="Ctrl+Shift+V" name="editPasteContents"/>
     <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs"/>
+    <function shortcut="" name="editPasteImageFromClipboard"/>
     <function shortcut="" name="editPatterns"/>
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction"/>
     <function shortcut="" name="editReplaceColors"/>
@@ -120,7 +121,7 @@
     <function shortcut="Ctrl+Shift+L" name="itemLockSize"/>
     <function shortcut="Ctrl+↘" name="itemLower"/>
     <function shortcut="↘" name="itemLowerToBottom"/>
-    <function shortcut="" name="itemMulDuplicate"/>
+    <function shortcut="Ctrl+Shift+D" name="itemMulDuplicate"/>
     <function shortcut="" name="itemPDFAnnotationProps"/>
     <function shortcut="" name="itemPDFFieldProps"/>
     <function shortcut="" name="itemPDFIsAnnotation"/>
@@ -132,7 +133,6 @@
     <function shortcut="Ctrl+↖" name="itemRaise"/>
     <function shortcut="↖" name="itemRaiseToTop"/>
     <function shortcut="" name="itemSendToPattern"/>
-    <function shortcut="" name="itemSendToScrapbook"/>
     <function shortcut="" name="itemShapeEdit"/>
     <function shortcut="" name="itemSplitPolygons"/>
     <function shortcut="Ctrl+Shift+G" name="itemUngroup"/>
