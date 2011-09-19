@@ -3,6 +3,6 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
-scribus13.xml
+scribus14.xml
   DESTINATION ${SHAREDIR}keysets
 )
