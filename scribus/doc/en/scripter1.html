@@ -6,26 +6,23 @@
 <body>
 <h2>Scripting Scribus with Python</h2>
 
-<h4>Overview</h4>
-<p>This is the description how to use the Scripting Plugin for Scribus. The scripter allows you to use the powerful Python Language as a scripting language in Scribus. This can allow you to automate otherwise repetitive tasks among other features. </p>
+<h3>Overview</h3>
+<p>This is the description how to use the scripting plug-in for Scribus. The Scripter allows you to use the powerful Python programming language as a scripting language in Scribus. This can help you to automate otherwise repetitive tasks or add new features.</p>
 
-<p>This manual is the first version, by no means complete or fully accurate. Addtions to the scripter are made frequently, so a short note to the mailing list is in order ifyou have questions.</p>
+<p>Note that additions to the Scripter are being made frequently, which means that the available documentation may be incomplete.</p>
 
-<p>There are some simple example scripts in the samples subdirectory where Scribus is installed. If you have created scripts which would be useful for other users, please feel free to upload it to www.scribus.net or mail mrdocs at scribus.info with an attachment. We hope to add a plug-in gallery to the main website in the future. </p>
 
-<h3>Using the Plugin</h3>
+<h3>Using the Plug-in</h3>
+<p>Scribus is being shipped with some &ldquo;hard-wired&rdquo; scripts, which are available via <i>Scripter&nbsp;&gt; Scribus Scripts</i>:</p>
 
 <table width="100%"><tr><td align="center"><img src="images/Scripter.png" align="center" alt="Running a script" title="Running a script" /></td></tr></table>
 
-<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below that, there is a menu item "Recent Scripts" where the most recently run scripts are listed. The number listed depends on your preferences setting. </p> 
+<p>There are some simple example scripts in the subdirectory &ldquo;samples.&rdquo; Its location depends on the operating system you use, e.g. <code>/usr/local/share/scribus</code> or <code>/usr/share/scribus</code> on Linux. If you have created a script which you think could be useful for others, please feel free to add it to the <a href="http://wiki.scribus.net/">Scribus Wiki</a> or paste it into an email and send it to the <a href="http://lists.scribus.info/mailman/listinfo/scribus/">Scribus mailing list</a>.</p>
 
-<p>You can use many Python modules with this Plugin. The only exception are scripts who expect parameters from the command Line. They won't work because the plugin gives the Python interpreter an empty command line.</p>
+<p>To execute an external Python script, you have to use <i>Script&nbsp;&gt; Execute Script</i>. Scribus will open a file dialog, which allows you to select a Python script (file extension: *.py). <i>Script&nbsp;&gt; Recent Scripts</i> shows a list of recently executed scripts.</p> 
 
-<p>The menu item "Show Console" gives you an interactive Python console, where you can execute commands directly. There is no need to do a "from scribus import *", this has already been done. You can use all the following commands in the Scripter API section directly without any prefix.</p>
+<p>You can use many Python modules with this plug-in, the only exception being scripts that expect parameters from the command Line. These won&rsquo;t work because the plug-in gives the Python interpreter an empty command line.</p>
 
-<p>You can findsome useful information about any script calling "Script-&gt;About Script...".</p>
-
-<p>You can display the full Scripter reference manual when you select "Help-&gt;Scripter Manual...".</p>
-
+<p>The menu entry <i>Script&nbsp;&gt; Show Console</i> will launch an interactive Python console, where you can execute commands directly. There is no need to use &ldquo;<code>from scribus import *</code>&rdquo;, as this has already been done. You can use all the commands listed in the following pages of the Scripter API documentation directly without any prefix.</p>
 </body>
 </html>

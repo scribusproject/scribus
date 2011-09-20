@@ -6,25 +6,19 @@
 <body>
 <h2>Installation of Scribus</h2>
 
-<p>The installation process of Scribus depends on the distribution of Linux/Unix that you are using. This is the case just like it is for any program you may wish to install. The following are examples for how to install Scribus on various distributions:</p>
-<table border="1">
-	<tr bgcolor="#dddddd"><td>Linux Distribution</td><td>Install Method</td></tr>
-	<tr bgcolor="#eeeeee"><td>Debian</td><td><code>apt-get install scribus</code> or preferably use one of the graphical front-ends such as &#034;Synaptic&#034; that handle &#034;Recommends&#034; correctly. For further information please read <a href="install-dpkg.html">How to use the Scribus Debian Repository</a></td></tr>
-	<tr bgcolor="#eeeeee"><td>Fedora</td><td><code>yum install scribus</code></td></tr>
-	<tr bgcolor="#eeeeee"><td>Gentoo</td><td><code>emerge scribus</code></td></tr>
-	<tr bgcolor="#eeeeee"><td>PLD</td><td><code>poldek -i scribus</code></td></tr>
-	<tr bgcolor="#eeeeee"><td>RedHat</td><td><code>rpm -Uvh ./scribus-1.x.rpm</code></td></tr>
-	<tr bgcolor="#eeeeee"><td>Slackware</td><td>Install from source, until 1.2 is part of Slackware</td></tr>
-	<tr bgcolor="#eeeeee"><td>SuSE</td><td>Use Yast2 for installation, OR, <code>rpm -Uvh ./scribus-1.x.rpm</code></td></tr>	
-	<tr bgcolor="#dddddd"><td>Other OS</td><td>Install Method</td></tr>
-	<tr bgcolor="#eeeeee"><td>FreeBSD</td><td><code>cd /usr/ports/print/scribus; make install</code></td></tr>
-	<tr bgcolor="#eeeeee"><td>Mac OSX</td><td>Please refer to the <a href="cross-platform.html">Cross Platform</a> section</td></tr>
-	<tr bgcolor="#eeeeee"><td>Windows&#8482;</td><td>Please refer to the <a href="cross-platform.html">Cross Platform</a> section</td></tr>
-</table>
+<p>The installation process of Scribus depends on the operating system/distribution that you are using. This is, of course, true for any program you may wish to install. </p>
+<p><b>Linux:</b> On Linux, the easiest way to install Scribus is using a package manager like Yum, YaST or APT, as this method will resolve all dependencies automatically. If there are no pre-built Scribus packages for your Linux version available, you can either try installing an RPM oder DEB package by using the <code>alien</code> command or you have to <a href="install1.html">build from source</a>.</p>
+<p><b>Other UNIX systems:</b> There <i>may</i> be packages for OpenSolaris or any of the BSD Unices available, but experience has shown that these are often quite old, and it&rsquo;s probable that you will have to build Scribus from source.</p>
+<p><b>Mac OS X:</b> DMGs for Mac&nbsp;OS&nbsp;X 10.5 and later versions are available from our <a href="http://sourceforge.net/projects/scribus/files/">Sourceforge repository</a>. If your OS&nbsp;X version is older, you can try to install Scribus via Fink or try to <a href="install5.html">build it from source</a>.</p>
+<p><b>Windows:</b> Installing Scribus on Windows works as with most Windows programs: There is one file with the extension *.exe that contains everything you need (except <a href="toolbox5.html">Ghostscript</a>). See the <a href="readme-win32.html">Windows README</a> for more information.</p>
+<p><b>OS/2 and eComStation:</b> The OS/2 port does not come with an installer. All files are packaged in a ZIP file, which you need to extract. Before you can run Scribus, you need to install several dependencies. See the <a href="readme-os2.html">OS/2 README</a> for more information.</p>
 
-<p>Depending on the version of your distribution, there is the possiblity that you may need to upgrade various dependencies of Scribus and the above commands should make sure the required packages are installed.</p>
-<p>For example, to access the font files you want to use in Scribus, Scribus relies on FreeType. For getting the best results we recommend using FreeType version 2.1.9 or later. Without having certain levels of software, we cannot guarantee correct operation of Scribus, or guarantee you achieve the  results you are trying to get. If the above commands do not upgrade all the dependencies on your system, please refer to the <a href="install2.html">Requirements</a> page to make sure you have them.</p>
-<p>For those who wish to install a more recent version of Scribus than that is included in their distribution, please check you have all the <a href="install2.html">Requirements</a> and continue into the <a href="install1.html">Scribus Source</a> section.</p>
+<h2>A Note on Upgrades</h2>
+
+<p>Unlike some other programs, Scribus doesn&rsquo;t have an upgrade mechanism. When a new version of Scribus has been released, you need to wait until your distribution has made it available in its repositories. If you are running Scribus on Mac&nbsp;OS&nbsp;X, Windows, OS/2 or eComStation, you need to wait until the installers, DMGs or ZIP archives have been made available. As a rule of thumb, versions for Windows and Mac&nbsp;OS&nbsp;X are available immediately after the announcement of a new release. The same goes for RPM and DEB packages for all major Linux distributions either via the <a href="http://download.opensuse.org/repositories/home:/mrdocs">OpenSUSE build service</a> or our own <a href="install-dpkg.html">Debian repository</a>. An updated ZIP archive for OS/2 and eComStation is usually available a few days or weeks later.</p>
+
+<p>While Scribus doesn&rsquo;t have an update mechanism, it does have an &ldquo;Upgrade Checker,&rdquo; which is avialable via <i>Help > Check for Upgrades</i>. This will only check whether a new Scribus version for your operating system is available. It will <b>not</b> download or install anything to your computer.</p>
+<p>If you are eager to always use the latest version with new features and bugfixes, even between official releases, you can <a href="install1.html">check out SVN</a> to get the source code and compile it yourself.</p>
 
 </body>
 </html>
