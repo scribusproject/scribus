@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Requirements</title>
+</head>
+<body>
+<h2>Requirements</h2>
+<p>The programs you will need to compile Scribus 1.4 are:</p>
+<ol>
+	<li><strong>For Scribus 1.4.x GCC 3.x+ is required, GCC 3.3+ is strongly recommended</strong>. The Scribus Team has tested compiling with GCC 4.1+. We recommend the newest stable GCC 4.x release for the performance benefits.</li>
+	<li>CMake</li>
+	<li>GNU make</li>
+</ol>
+The dependencies for compilation, and also to run Scribus are:
+<ol>
+<li>Qt 4.6.0+, both the runtime libraries and development libraries.</li>
+<li>Python and Python-devel libraries 2.3+. Python 2.2 is not supported.</li>
+<li>Freetype2 2.1.7+. Due to various freetype2 bugs, we recommend, if your distribution/OS allows, to use 2.3.x</li>
+<li>Cairo 1.4.x. We recommend 1.4.10 or later for performance reasons.</li>
+<li>libxml2 2.6+.</li>
+<li>Ghostscript 8.60+ is highly recommended.</li>
+<li>littleCMS &ndash; also known as lcms in some distributions. The minimum is 1.12, whereas 1.17+ is recommended. lcms 1.12+ has support for black point compensation.</li>
+<li>libtiff 3.6.0+</li>
+<li>libjpeg</li>
+<li>CUPS development libraries &ndash; Scribus directly supports printing with CUPS. (Linux/UNIX/Mac&nbsp;OS&nbsp;X only).</li>
+<li>tkinter &ndash; for the Font Sampler and Calendar Wizard scripts.</li>
+<li>Python-imaging libaries for some scripting features.</li>
+<li>openssl-devel (Some Linux distributions enable ssl support for CUPS, notably OpenSUSE)</li>
+<li>fontconfig-devel &ndash; for auto discovery of fonts on Linux, Mac&nbsp;OS&nbsp;X and UNIX. Not needed on Windows, OS/2 and eComStation.</li>
+<li>Podofo 0.6 or later &ndash; used to enhance the Adobe Illustrator importer.</li>
+</ol>
+<h3>Optionally:</h3>
+<ul>
+<li>antiword &ndash; this is not needed at compile time for MS Word import. Scribus will detect this at run time however.</li>
+<li>To use <a href="WwRenderframes.html">Render Frames</a>, you need additional programs, like LaTeX or Lilypond.</li>
+</ul>
+<p>Scribus will run under almost any window manager and does not require KDE. However, drag and drop functionality will be lost without KDE.</p>
+<p>If color management does not work, you also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus. Scribus installs one RGB and one CMYK profile simply to enable color management, but some distributions, notably Debian, provide ICC profiles in separate packages, due to their licensing policy. </p>
+<p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very beneficial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see: 
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>man gcc</pre>
+</td></tr></table></blockquote></p>
+<p>There are detailed notes in the BUILDING file, and packagers should look at the PACKAGING file in the sources for more details.</p>
+<h4>Using CMake</h4>
+<p>In 1.3.3.6+, we added support for CMake as an alternative to the traditional autotools. Since 1.3.5 it is mandatory, and autotools are no longer supported. Currently, building on Linux, UNIX and Mac&nbsp;OS&nbsp;X is working reliably. Please see the <a href="install4.html">CMake instructions</a> for more details.</p>
+<p>The default location for the Scribus executable is located in <code>/usr/local/bin</code>. Documentation is located in <code>/usr/local/lib/scribus/doc</code></p>
+<p>In addition for Linux/UNIX desktops, there is a <code>desktop.config</code> file named <code>scribus.desktop</code> which can be used for a menu shortcut or desktop shortcut. Simply copy this from the base directory of the installation source directory to your KDE desktop and this will launch Scribus. After dragging the file to the desktop, right click and make sure the &ldquo;execute&rdquo; check box is checked. This file conforms to the latest <a href="http://www.freedesktop.org">www.freedesktop.org</a> specifications.</p>
+</body>
+</html>

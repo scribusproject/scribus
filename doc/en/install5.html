@@ -1,0 +1,79 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <title>Compiling and Installing Scribus 1.4+ on Mac&nbsp;OS&nbsp;X</title>
+</head>
+
+<body>
+  <h2>Compiling and Installing Scribus 1.4+ on Mac&nbsp;OS&nbsp;X</h2>
+
+  <p>This document outlines the build process for Scribus 1.4 or higher from SVN on Mac&nbsp;OS&nbsp;X. This does not currently outline the processs for packaging and bundling Scribus (yet).</p>
+
+  <h3>What you need:</h3>
+
+  <ul>
+    <li>MacPorts installer (renamed from darwinports in versions since 1.5)</li>
+
+    <li>Qt 4.4.x from Trolltech</li>
+
+    <li>XCode from Apple, either from the OS X install DVD or downloaded from http://www.apple.com</li>
+
+    <li>Scribus SVN</li>
+  </ul>
+
+  <h3>Building and Installing</h3>
+
+  <p>Steps to build and install Scribus 1.4 on OS X/Aqua</p>
+
+  <ul>
+    <li>Install X11 (available on the OS X CDs or from the Apple site)</li>
+
+    <li>Install <a href="http://developer.apple.com/tools/xcode/">XCode</a> (available on the OS X CDs or from the Apple developer site)</li>
+
+    <li>Install MacPorts (downloadable from <a href="http://www.macports.org">www.macports.org</a>)</li>
+
+    <li>Install Qt 4.4.0+ for OS X (downloadable from <a href="http://www.trolltech.com">www.trolltech.com</a>)</li>
+  </ul>
+
+  <p>Install a few ports from MacPorts. Any other required dependencies will be installed automatically if they are not already. If you have already installed MacPorts for other software, then you should run <code>sudo port selfupdate</code> and <code>sudo port upgrade installed</code> in order that the newest versions of your current ports and libaries are installed.</p>
+
+  <ul>
+    <li>Install CMake (<code>sudo port install cmake</code> ) </li>
+
+    <li>Install freetype2 (<code>sudo port install freetype</code>) The one included with OS X is not as good as the one available from MacPorts.</li>
+
+    <li>Install lcms (<code>sudo port install lcms</code>). This will also install libjpeg, zlib, and libtiff.</li>
+
+    <li>Install Cairo (<code>sudo port install cairo</code>). This will install fontconfig too.</li>
+
+    <li>Install libxml2 (<code>sudo port install libxml2</code>).</li>
+
+    <li>Install Subversion (<code>sudo port install subversion</code>) OR optionally install subversion from another source.</li>
+
+    <li>Optionally (recommended) <code>sudo port install ghostscript</code></li>
+
+    <li>Make a directory where you want to download to (eg, in Terminal, <code>mkdir -p ~/scribus/14</code>)</li>
+
+    <li>Change to this directory (<code>cd ~/scribus/14</code>)</li>
+  </ul>
+
+  <p>Check out Scribus from SVN</p>
+
+  <ul>
+    <li><code>svn co svn://scribus.info/Scribus/branches/Version140</code></li>
+
+    <li>Make a build directory <code>mkdir builddir</code></li>
+
+    <li>Change to the build directory (<code>cd builddir</code>)</li>
+
+    <li>Run the cmake command: <code>cmake -DBUILD_OSX_BUNDLE=1 -DWANT_CAIRO=1 -DCMAKE_INSTALL_PREFIX:PATH=/Users/username/Applications/Scribus.App/Contents/ ../trunk/Scribus/</code></li>
+
+    <li><code>make</code></li>
+
+    <li><code>make install</code></li>
+  </ul>
+
+  <p>Now you can run Scribus 1.4 on OS X if all has gone well.</p>
+</body>
+</html>

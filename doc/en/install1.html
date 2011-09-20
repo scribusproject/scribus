@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>How to obtain the Scribus Source Code</title>
+</head>
+<body>
+<h2>How to Obtain the Scribus Source Code</h2>
+<p>You can get a tarball of the most recent release of Scribus from Sourceforge: <a href="http://sourceforge.net/projects/scribus/files/"> http://sourceforge.net/projects/scribus/files/</a>.</p>
+
+<p>Thanks to <a href="http://Anduin.net">Anduin.net</a> there is also an anonymous SVN repository, which is updated hourly. Use of this code is only recommended for those who want to stay on the bleeding edge. Instructions for getting the latest source code via SVN: </p>
+
+<p><strong>Scribus 1.4 branch</strong>. This branch is the code for the stable release (1.4.x).</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/branches/Version140
+</pre>
+or for those with closed SVN ports on their firewalls:
+<pre>
+svn co http://scribus.info/svn/Scribus/branches/Version140
+</pre>
+</td></tr></table></blockquote>
+
+<p><strong>Scribus 1.5svn - Development</strong>. This branch is the code for the experimental version (1.5svn). This code may be highly unstable or may not even work or compile at all!</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/trunk
+</pre>
+or, once again, for those with closed SVN ports on their firewalls:
+<pre>
+svn co http://scribus.info/svn/Scribus/trunk
+</pre>
+</td></tr></table></blockquote>
+
+<p>From here, continue with the <a href="install4.html">Compiling and Installing using CMake</a> instructions.</p>
+
+</body>
+</html>

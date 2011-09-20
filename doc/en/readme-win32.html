@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus on Windows</title>
+</head>
+<body>
+<h3>Scribus on Windows</h3>
+
+<h3>Hardware/Software Minimum Requirements:</h3>
+<p>
+<ul>
+<li>Windows 2000 SP4, Windows XP, Vista or 7 are supported. Windows 98 and ME are <b>not supported</b>. </li>
+<li>512 MB RAM or more is strongly recommended &ndash; the more, the better. </li>
+<li>Pentium III or better &ndash; 750 MHz or better.</li>
+<li>Scribus is only available in 32-bit versions for Windows. This has not been shown to be an issue on any 64-bit system, and requires no special preparation or after-installation adjustments.</li>
+<li><i>It is strongly recommended to disable any custom desktop themes. If you encounter any strange behaviour, like no document appearing on screen, use the &ldquo;Windows Classic&ldquo; theme. There is a known Qt issue with custom themes causing document loading problems. This is especially true with third party themes.</i></li>
+</ul>
+</p>
+<h3>Before Installing Scribus</h3>
+<p>Install <a href="http://ghostscript.com/releases/">Ghostscript for Windows</a> &ndash; Ghostscript 8.7+ or later is recommended. This is important for EPS import. <br>Note: After installing there are two Ghostscript *.exe files available on your system. The correct *.exe name to use in the <a href="settings1.html#15">Scribus Preferences</a> (under <i>External Tools</i>) for Ghostscript is <code>gswin32c.exe</code>, <b>not</b> <code>gswin32.exe</code>. In the large majority of cases <b>if</b> Ghostscript is properly installed before installing Scribus, Scribus will automatically detect the location of Ghostscript for you. This having been said, Ghostscript is not essential to the use of Scribus for most purposes. If you have not installed Ghostscript, when you run Scribus you will get a warning and a link to help you get it, but you can choose not to add this external tool.</p>
+<h3>During the Installation</h3>
+<p>When you select the &ldquo;Extra Fonts&rdquo; Option in the installer, this will install two sets of high-quality, freely distributable fonts. One set is the the URW fonts from Ghostscript. This includes 45 typefaces which are compatible with those included with most PostScript printers. The second is the Bitstream Vera font family, widely used on Linux and by some of the included templates.</p>
+<h3>After the Installation</h3>
+<p>The first launch of Scribus or when a new user launches Scribus can be much longer than usual. This is because Scribus is creating a cache file of your fonts. Later re-starts will be much quicker.</p>
+
+<h3>Console Mode for Diagnostics</h3>
+<p>In the <i>Start > Program Files</i> menu there is a second shortcut <strong>Scribus -console</strong>. This mode merely opens a Windows command prompt, but will show line by line, each font and its full path being loaded by Scribus. This will also show any rejected fonts and duplicate fonts Scribus finds, along with other diagnostic info in some cases. Duplicates are not loaded, even if they have different names.</p>
+</body>
+</html>
