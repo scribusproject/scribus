@@ -2767,15 +2767,10 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 		if (freeScale != ScaleType)
 		{
 			ss->set("SCALE_TYPE", freeScale);
- 			if (!freeScale)
-			{
-				//if switching from free scaling to frame size
-				//in undo must be offset and scale saved
-				ss->set("OLD_IMAGEXOFFSET", LocalX);
-				ss->set("OLD_IMAGEYOFFSET", LocalY);
-				ss->set("OLD_IMAGEXSCALE", LocalScX);
-				ss->set("OLD_IMAGEYSCALE", LocalScY);
-			}
+			ss->set("OLD_IMAGEXOFFSET", LocalX);
+			ss->set("OLD_IMAGEYOFFSET", LocalY);
+			ss->set("OLD_IMAGEXSCALE", LocalScX);
+			ss->set("OLD_IMAGEYSCALE", LocalScY);
 		}
 		if (keepRatio != AspectRatio)
 			ss->set("ASPECT_RATIO", keepRatio);
