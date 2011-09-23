@@ -29,7 +29,8 @@ class ScribusView;
 class CanvasMode_CopyProperties :  public CanvasMode
 {
 public:
-	CanvasMode_CopyProperties(ScribusView* view);
+	explicit CanvasMode_CopyProperties(ScribusView* view);
+	virtual ~CanvasMode_CopyProperties() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

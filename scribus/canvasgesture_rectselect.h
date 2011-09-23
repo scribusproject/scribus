@@ -48,7 +48,8 @@ class QRubberBand;
 class SCRIBUS_API RectSelect : public CanvasGesture
 {
 public:
-	RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_rectangle(0) {};
+	explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_rectangle(0) {};
+	virtual ~RectSelect() {}
 	
 	void prepare(QPoint globalStartPos);
 	void clear();

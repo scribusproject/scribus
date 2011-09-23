@@ -173,7 +173,7 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			SeRx = newX;
 			SeRy = newY;
-			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable || m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
 			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 			if (!m_view->redrawMarker->isVisible())
 				m_view->redrawMarker->show();

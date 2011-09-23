@@ -81,6 +81,8 @@ SET(SCRIBUS_UI_SRC
   ui/gtfiledialog.ui
   ui/guidemanager.ui
   ui/insertaframe.ui
+  ui/inserttablecolumnsdialog.ui
+  ui/inserttablerowsdialog.ui
   ui/latexeditor.ui
   ui/newmarginwidgetbase.ui
   ui/measurementsbase.ui
@@ -126,6 +128,7 @@ SET(SCRIBUS_UI_SRC
   ui/propertiespalette_imagebase.ui
   ui/propertiespalette_linebase.ui
   ui/propertiespalette_shapebase.ui
+  ui/propertiespalette_tablebase.ui
   ui/propertiespalette_textbase.ui
   ui/propertiespalette_xyzbase.ui
   ui/propertywidget_advancedbase.ui
@@ -139,14 +142,18 @@ SET(SCRIBUS_UI_SRC
   ui/replaceonecolor.ui
   ui/selectobjects.ui
   ui/shortcutwidget.ui
+  ui/smcellstylewidget.ui
   ui/smcstylewidget.ui
   ui/smlinestylewidget.ui
+  ui/smtablestylewidget.ui
   ui/smpstylewidget.ui
   ui/smreplacedia.ui
   ui/smstyleimport.ui
   ui/spiralvectorbase.ui
   ui/spiralwidgetbase.ui
   ui/stylemanager.ui
+  ui/tablecolumnwidthsdialog.ui
+  ui/tablerowheightsdialog.ui
   ui/transformdialogbase.ui
   ui/transparencypalette.ui
   ui/copypagetomasterpage.ui
@@ -162,12 +169,18 @@ SET(SCRIBUS_UI_SRC
 SET(SCRIBUS_MOC_CLASSES
   actionmanager.h
   canvas.h
+  canvasgesture_cellselect.h
+  canvasgesture_columnresize.h
+  canvasgesture_rowresize.h
   canvasgesture_rulermove.h
+  canvasgesture_table.h
+  canvasgesture_tableresize.h
   canvasmode.h
   canvasmode_edit.h
   canvasmode_editarc.h
   canvasmode_editpolygon.h
   canvasmode_editspiral.h
+  canvasmode_edittable.h
   canvasmode_measurements.h
   canvasmode_normal.h
   chartablemodel.h
@@ -202,6 +215,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_regularpolygon.h
   pageitem_spiral.h
   pageitem_symbol.h
+  pageitem_table.h
   pageitem_textframe.h
   pageitempointer.h
   pdf_analyzer.h
@@ -286,6 +300,8 @@ SET(SCRIBUS_MOC_CLASSES
   ui/imageinfodialog.h
   ui/insertTable.h
   ui/insertaframe.h
+  ui/inserttablecolumnsdialog.h
+  ui/inserttablerowsdialog.h
   ui/inspage.h
   ui/javadocs.h
   ui/latexeditor.h
@@ -357,6 +373,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/propertiespalette_image.h
   ui/propertiespalette_line.h
   ui/propertiespalette_shape.h
+  ui/propertiespalette_table.h
   ui/propertiespalette_text.h
   ui/propertiespalette_utils.h
   ui/propertiespalette_xyz.h
@@ -391,9 +408,12 @@ SET(SCRIBUS_MOC_CLASSES
   ui/shadebutton.h
   ui/shortcutwidget.h
   ui/smalignselect.h
+  ui/smcellstylewidget.h
+  ui/smcellstyle.h
   ui/smcheckbox.h
   ui/smcolorcombo.h
   ui/smcstylewidget.h
+  ui/smtablestylewidget.h
   ui/smfontcomboh.h
   ui/smlinestyle.h
   ui/smlinestylewidget.h
@@ -405,6 +425,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/smspinbox.h
   ui/smstyleimport.h
   ui/smstyleselect.h
+  ui/smtablestyle.h
   ui/smtabruler.h
   ui/smtextstyles.h
   ui/spalette.h
@@ -416,6 +437,9 @@ SET(SCRIBUS_MOC_CLASSES
   ui/styleview.h
   ui/swatchcombo.h
   ui/symbolpalette.h
+  ui/tablecolumnwidthsdialog.h
+  ui/tablesideselector.h
+  ui/tablerowheightsdialog.h
   ui/tabmanager.h
   ui/tabpdfoptions.h
   ui/tabruler.h
@@ -438,11 +462,16 @@ SET(SCRIBUS_MOC_CLASSES
 SET(SCRIBUS_SOURCES
   actionmanager.cpp
   canvas.cpp
+  canvasgesture_cellselect.cpp
+  canvasgesture_columnresize.cpp
   canvasgesture_linemove.cpp
   canvasgesture_pan.cpp
   canvasgesture_rectselect.cpp
   canvasgesture_resize.cpp
+  canvasgesture_rowresize.cpp
   canvasgesture_rulermove.cpp
+  canvasgesture_table.cpp
+  canvasgesture_tableresize.cpp
   canvasmode.cpp
   canvasmode_copyproperties.cpp
   canvasmode_create.cpp
@@ -457,6 +486,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_editmeshgradient.cpp
   canvasmode_editpolygon.cpp
   canvasmode_editspiral.cpp
+  canvasmode_edittable.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
@@ -464,10 +494,12 @@ SET(SCRIBUS_SOURCES
   canvasmode_objimport.cpp
   canvasmode_panning.cpp
   canvasmode_rotate.cpp
+  cellarea.cpp
   chartablemodel.cpp
   chartableview.cpp
   cmserrorhandling.cpp
   cmsettings.cpp
+  collapsedtablepainter.cpp
   collect4output.cpp
   colorblind.cpp
   colorsetmanager.cpp
@@ -524,6 +556,7 @@ SET(SCRIBUS_SOURCES
   pageitem_regularpolygon.cpp
   pageitem_spiral.cpp
   pageitem_symbol.cpp
+  pageitem_table.cpp
   pageitem_textframe.cpp
   pageitempointer.cpp
   pagesize.cpp
@@ -604,6 +637,9 @@ SET(SCRIBUS_SOURCES
   selection.cpp
   serializer.cpp
   styleitem.cpp
+  tableborder.cpp
+  tablecell.cpp
+  tableutils.cpp
   textwriter.cpp
   tocgenerator.cpp
   transaction.cpp
@@ -682,6 +718,8 @@ SET(SCRIBUS_SOURCES
   ui/imageinfodialog.cpp
   ui/insertTable.cpp
   ui/insertaframe.cpp
+  ui/inserttablecolumnsdialog.cpp
+  ui/inserttablerowsdialog.cpp
   ui/inspage.cpp
   ui/javadocs.cpp
   ui/latexeditor.cpp
@@ -754,6 +792,7 @@ SET(SCRIBUS_SOURCES
   ui/propertiespalette_group.cpp
   ui/propertiespalette_line.cpp
   ui/propertiespalette_shape.cpp
+  ui/propertiespalette_table.cpp
   ui/propertiespalette_text.cpp
   ui/propertiespalette_utils.cpp
   ui/propertiespalette_xyz.cpp
@@ -791,6 +830,8 @@ SET(SCRIBUS_SOURCES
   ui/shadebutton.cpp
   ui/shortcutwidget.cpp
   ui/smalignselect.cpp
+  ui/smcellstylewidget.cpp
+  ui/smcellstyle.cpp
   ui/smcheckbox.cpp
   ui/smcolorcombo.cpp
   ui/smcstylewidget.cpp
@@ -806,6 +847,8 @@ SET(SCRIBUS_SOURCES
   ui/smspinbox.cpp
   ui/smstyleimport.cpp
   ui/smstyleselect.cpp
+  ui/smtablestylewidget.cpp
+  ui/smtablestyle.cpp
   ui/smtabruler.cpp
   ui/smtextstyles.cpp
   ui/spalette.cpp
@@ -818,6 +861,9 @@ SET(SCRIBUS_SOURCES
   ui/styleview.cpp
   ui/swatchcombo.cpp
   ui/symbolpalette.cpp
+  ui/tablecolumnwidthsdialog.cpp
+  ui/tablerowheightsdialog.cpp
+  ui/tablesideselector.cpp
   ui/tabmanager.cpp
   ui/tabpdfoptions.cpp
   ui/tabruler.cpp

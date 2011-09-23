@@ -47,7 +47,8 @@ class UndoTransaction;
 class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
 public:
-	ResizeGesture (CanvasMode* parent);
+	explicit ResizeGesture (CanvasMode* parent);
+	virtual ~ResizeGesture() {}
 	
 	/**
 		Prepares the gesture for resizing the selection

@@ -35,7 +35,8 @@ class ScribusView;
 class CanvasMode_EditGradient :  public CanvasMode
 {	
 public:
-	CanvasMode_EditGradient(ScribusView* view);
+	explicit CanvasMode_EditGradient(ScribusView* view);
+	virtual ~CanvasMode_EditGradient() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

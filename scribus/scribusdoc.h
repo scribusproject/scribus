@@ -48,6 +48,8 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "sclayer.h"
 #include "styles/styleset.h"
+#include "styles/tablestyle.h"
+#include "styles/cellstyle.h"
 #include "undoobject.h"
 #include "undostate.h"
 #include "updatemanager.h"
@@ -57,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include FT_FREETYPE_H
 
 class DocUpdater;
+class FPoint;
 class UndoManager;
 // class UndoState;
 class PDFOptions;
@@ -517,6 +520,56 @@ public:
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return docCharStyles.isDefault(c); }
 // 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
+
+	/**
+	 * Returns the table style named @a name.
+	 */
+	const TableStyle& tableStyle(QString name) { return docTableStyles.get(name); }
+	/**
+	 * Returns the set of table styles in the document.
+	 */
+	const StyleSet<TableStyle>& tableStyles()   { return docTableStyles; }
+	/**
+	 * Returns <code>true</code> if @a style is the default table style.
+	 */
+	bool isDefaultStyle(const TableStyle& style) const { return docTableStyles.isDefault(style); }
+	/**
+	 * Redefines the set of table styles in the document using styles in @a newStyles.
+	 * Removes unused table styles if @a removeUnused is <code>true</code>.
+	 */
+	void redefineTableStyles(const StyleSet<TableStyle>& newStyles, bool removeUnused = false);
+	/**
+	 * Remove any reference to old table styles and replace with new name.
+	 * This needs to be called when a style was removed. New name may be "".
+	 * @a newNameForOld is a map which maps the name of any style to remove
+	 * to a new table style name
+	 */
+	void replaceTableStyles(const QMap<QString, QString>& newNameForOld);
+
+	/**
+	 * Returns the table cell style named @a name.
+	 */
+	const CellStyle& cellStyle(QString name) { return docCellStyles.get(name); }
+	/**
+	 * Returns the set of table cell styles in the document.
+	 */
+	const StyleSet<CellStyle>& cellStyles()   { return docCellStyles; }
+	/**
+	 * Returns <code>true</code> if @a style is the default table cell style.
+	 */
+	bool isDefaultStyle(const CellStyle& style) const { return docCellStyles.isDefault(style); }
+	/**
+	 * Redefines the set of table cell styles in the document using styles in @a newStyles.
+	 * Removes unused table cell styles if @a removeUnused is <code>true</code>.
+	 */
+	void redefineCellStyles(const StyleSet<CellStyle>& newStyles, bool removeUnused = false);
+	/**
+	 * Remove any reference to old table cell styles and replace with new name.
+	 * This needs to be called when a style was removed. New name may be "".
+	 * @a newNameForOld is a map which maps the name of any style to remove
+	 * to a new table cell style name
+	 */
+	void replaceCellStyles(const QMap<QString, QString>& newNameForOld);
 
 	void getNamedResources(ResourceCollection& lists) const;
 	void replaceNamedResources(ResourceCollection& newNames);
@@ -1009,6 +1062,7 @@ public:
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y);
+	bool ApplyGuides(FPoint* point);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
@@ -1128,6 +1182,8 @@ public: // Public attributes
 private:
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	StyleSet<CharStyle> docCharStyles;
+	StyleSet<TableStyle> docTableStyles;
+	StyleSet<CellStyle> docCellStyles;
 public:
 	ScLayers Layers;
 	//bool marginColored;
@@ -1340,6 +1396,129 @@ public slots:
 	void itemSelection_SetItemStrokePatternType(bool type);
 	void itemSelection_SetItemPatternMask(QString pattern);
 	void itemSelection_SetItemPatternMaskProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+
+	// Table related slots.
+
+	/**
+	 * Inserts rows in a table.
+	 *
+	 * The user will be prompted by a dialog for the number of rows and where they should
+	 * be inserted. If in table edit mode, rows may be inserted before or after the active
+	 * cell. If in normal mode, rows may be inserted at the beginning or end of the selected
+	 * table.
+	 *
+	 * If no table is selected, then this slot does nothing.
+	 */
+	void itemSelection_InsertTableRows();
+
+	/**
+	 * Inserts columns in a table.
+	 *
+	 * The user will be prompted by a dialog for the number of columns and where they should
+	 * be inserted. If in table edit mode, columns may be inserted before or after the active
+	 * cell. If in normal mode, columns may be inserted at the beginning or end of the selected
+	 * table.
+	 *
+	 * If no table is selected, then this slot does nothing.
+	 */
+	void itemSelection_InsertTableColumns();
+
+	/**
+	 * Deletes rows in a table.
+	 *
+	 * If the there is a cell selection, all rows spanned by the selection will be deleted.
+	 * If there is no cell selection, the rows spanned by the active cell will be deleted.
+	 *
+	 * If no table is selected, or if the application is not in table edit mode, then this slot
+	 * does nothing.
+	 */
+	void itemSelection_DeleteTableRows();
+
+	/**
+	 * Deletes columns in a table.
+	 *
+	 * If the there is a cell selection, all columns spanned by the selection will be deleted.
+	 * If there is no cell selection, the columns spanned by the active cell will be deleted.
+	 *
+	 * If no table is selected, or if the application is not in table edit mode, then this slot
+	 * does nothing.
+	 */
+	void itemSelection_DeleteTableColumns();
+
+	/**
+	 * Merges the selected cells in a table.
+	 *
+	 * The merged area will span from the top left to the bottom right of the selected cells.
+	 *
+	 * If no table is selected, or if the application is not in table edit mode, or if less
+	 * than two cells is selected, then this slot does nothing.
+	 */
+	void itemSelection_MergeTableCells();
+
+	/**
+	 * Splits cells in a table.
+	 *
+	 * TODO: Implement this.
+	 */
+	void itemSelection_SplitTableCells() {}
+
+	/**
+	 * Sets the height of rows in a table.
+	 *
+	 * The user will be prompted by a dialog for entering a row height. If in table editing
+	 * mode, all rows of the table will get their height set. If the there is a cell selection,
+	 * all rows spanned by the selection will get their height set. If there is no cell
+	 * selection, the rows spanned by the active cell will get their height set.
+	 *
+	 * If no table is selected, then this slot does nothing.
+	 */
+	void itemSelection_SetTableRowHeights();
+
+	/**
+	 * Sets the width of columns in a table.
+	 *
+	 * The user will be prompted by a dialog for entering a column width. If in table editing
+	 * mode, all columns of the table will get their width set. If the there is a cell selection,
+	 * all columns spanned by the selection will get their width set. If there is no cell
+	 * selection, the columns spanned by the active cell will get their width set.
+	 *
+	 * If no table is selected, then this slot does nothing.
+	 */
+	void itemSelection_SetTableColumnWidths();
+
+	/**
+	 * Distributes rows in a table evenly.
+	 *
+	 * If in table edit mode and there is a cell selection, each contigous range of selected rows
+	 * is distributed. If there is no cell selection, all rows in the table are distributed.
+	 *
+	 * If there is no table selected, then this slot does nothing.
+	 */
+	void itemSelection_DistributeTableRowsEvenly();
+
+	/**
+	 * Distributes columns in a table evenly.
+	 *
+	 * If in table edit mode and there is a cell selection, each contigous range of selected columns
+	 * is distributed. If there is no cell selection, all columns in the table are distributed.
+	 *
+	 * If there is no table selected, then this slot does nothing.
+	 */
+	void itemSelection_DistributeTableColumnsEvenly();
+
+	/**
+	 * Adjusts the size of the frames of any selected tables to fit the size of the tables they contain.
+	 *
+	 * If there are no tables in the current selection, then this slot does nothing.
+	 */
+	void itemSelection_AdjustFrameToTable();
+
+	/**
+	 * Adjusts the size of any selected tables to fit the size of their frames.
+	 *
+	 * If there are no tables in the current selection, then this slot does nothing.
+	 */
+	void itemSelection_AdjustTableToFrame();
 
 	void undoRedoBegin();
 	void undoRedoDone();

@@ -32,7 +32,8 @@ class ScribusView;
 class CalligraphicMode : public CanvasMode
 {
 public:
-	CalligraphicMode(ScribusView* view);
+	explicit CalligraphicMode(ScribusView* view);
+	virtual ~CalligraphicMode() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

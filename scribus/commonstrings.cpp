@@ -104,9 +104,13 @@ QString CommonStrings::trPenStyle_DashDotDotLine = "";
 QString CommonStrings::DefaultParagraphStyle     ="";
 QString CommonStrings::DefaultCharacterStyle     ="";
 QString CommonStrings::DefaultLineStyle          ="";
+QString CommonStrings::DefaultTableStyle         ="";
+QString CommonStrings::DefaultCellStyle          ="";
 QString CommonStrings::trDefaultParagraphStyle   ="";
 QString CommonStrings::trDefaultCharacterStyle   ="";
 QString CommonStrings::trDefaultLineStyle        ="";
+QString CommonStrings::trDefaultTableStyle       ="";
+QString CommonStrings::trDefaultCellStyle        ="";
 
 
 QString CommonStrings::monday="", CommonStrings::tuesday="", CommonStrings::wednesday="";

@@ -47,10 +47,11 @@ class  ScribusView;
 class SCRIBUS_API CanvasGesture : public CanvasMode
 {
 protected:
-	CanvasGesture (CanvasMode* parent) : CanvasMode(parent->view()), m_delegate(parent) {};
-	CanvasGesture (ScribusView* view) : CanvasMode(view), m_delegate(NULL) {};
+	explicit CanvasGesture (CanvasMode* parent) : CanvasMode(parent->view()), m_delegate(parent) {};
+	explicit CanvasGesture (ScribusView* view) : CanvasMode(view), m_delegate(NULL) {};
 	
-public:	
+public:
+	virtual ~CanvasGesture() {}
 	virtual void enterEvent(QEvent * e) { m_delegate->enterEvent(e); }
 	virtual void leaveEvent(QEvent * e) { m_delegate->leaveEvent(e); }
 

@@ -32,7 +32,7 @@ class ScribusMainWindow;
 class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 {
 public:
-	CanvasMode_NodeEdit (ScribusView* view);
+	explicit CanvasMode_NodeEdit (ScribusView* view);
 	
 	virtual void activate(bool fromgesture);
 	virtual void deactivate(bool forGesture);

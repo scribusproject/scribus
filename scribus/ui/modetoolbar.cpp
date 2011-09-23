@@ -51,6 +51,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertImageFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertRenderFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertTableFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertTable"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
 //	insertShapeButtonMenu = new QMenu();

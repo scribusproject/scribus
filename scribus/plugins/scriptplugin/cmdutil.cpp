@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "tableborder.h"
 #include "units.h"
 
 ScribusMainWindow* Carrier;
@@ -230,3 +231,51 @@ bool setSelectedItemsByName(QStringList& itemNames)
 	}
 	return true;
 }
+
+TableBorder parseBorder(PyObject* borderLines, bool* ok)
+{
+	TableBorder border;
+
+	if (!PyList_Check(borderLines))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
+		*ok = false;
+		return border;
+	}
+
+	// Get the sequence of border lines.
+	PyObject* borderLinesList = PySequence_List(borderLines);
+	if (borderLinesList == NULL)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
+		*ok = false;
+		return border;
+	}
+
+	// Parse each tuple decribing a border line and append it to the border.
+	int nBorderLines = PyList_Size(borderLinesList);
+	for (int i = 0; i < nBorderLines; i++) {
+		double width = 0.0;
+		int style;
+		char* color;
+		PyObject* props = PyList_GET_ITEM(borderLinesList, i);
+		if (!PyArg_ParseTuple(props, "dies", &width, &style, "utf-8", &color))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color) tuples", "python error").toLocal8Bit().constData());
+			*ok = false;
+			return border;
+		}
+		if (width <= 0.0)
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border line width must be > 0.0", "python error").toLocal8Bit().constData());
+			*ok = false;
+			return border;
+		}
+		border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), QString::fromUtf8(color)));
+	}
+	Py_DECREF(borderLinesList);
+
+	*ok = true;
+	return border;
+}
+

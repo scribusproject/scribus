@@ -37,7 +37,8 @@ class CanvasMode_Edit :  public CanvasMode
 	Q_OBJECT
 	
 public:
-	CanvasMode_Edit(ScribusView* view);
+	explicit CanvasMode_Edit(ScribusView* view);
+	virtual ~CanvasMode_Edit() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

@@ -1788,6 +1788,8 @@ void Canvas::DrawPageMarks(ScPainter *p, ScPage *page, QRect clip)
 	double pageHeight=page->height();
 	double pageWidth=page->width();
 	p->setFillMode(ScPainter::None);
+	p->setStrokeMode(ScPainter::Solid);
+
 	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->drawRect(0, 0, pageWidth, pageHeight);
 	//Draw the margins
@@ -2235,6 +2237,13 @@ void Canvas::displayRealRotHUD(QPoint m, double rot)
 	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
 		return;
 	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)), this);
+}
+
+void Canvas::displayDoubleHUD(QPoint point, const QString& label, double value)
+{
+	if (!PrefsManager::instance()->appPrefs.displayPrefs.showMouseCoordinates)
+		return;
+	QToolTip::showText(point + QPoint(5, 5), QString("%1: %2").arg(label, value2String(value, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)

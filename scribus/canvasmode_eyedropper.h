@@ -27,7 +27,8 @@ class ScribusView;
 class CanvasMode_EyeDropper :  public CanvasMode
 {
 public:
-	CanvasMode_EyeDropper(ScribusView* view);
+	explicit CanvasMode_EyeDropper(ScribusView* view);
+	virtual ~CanvasMode_EyeDropper() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

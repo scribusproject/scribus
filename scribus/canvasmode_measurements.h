@@ -35,7 +35,8 @@ class MeasurementsMode : public CanvasMode
 	Q_OBJECT
 	
 public:
-	MeasurementsMode(ScribusView* view);
+	explicit MeasurementsMode(ScribusView* view);
+	virtual ~MeasurementsMode() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

@@ -32,11 +32,13 @@
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
+#include "text/frect.h"
 #include "ui/hruler.h"
 #include "ui/vruler.h"
 #include "hyphenator.h"
 #include "ui/insertTable.h"
 #include "ui/oneclick.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "ui/pageselector.h"
 #include "prefscontext.h"
@@ -369,9 +371,12 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 
 	switch (m_doc->appMode)
 	{
-	case modeDrawTable:
-		m_view->Deselect(false);
-		break;
+		case modeDrawTable:
+			m_view->Deselect(false);
+			break;
+		case modeDrawTable2:
+			m_view->Deselect(false);
+			break;
 	}
 
 	inItemCreation = true;
@@ -392,16 +397,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 
 	m_createTransaction = new UndoTransaction(Um::instance()->beginTransaction("creating"));
 	currItem = doCreateNewObject();
-	if (m_createTransaction && currItem && currItem->isGroup())
-	{
-		// We created a table, just commit transaction
-		m_view->resetMousePressed();
-		m_createTransaction->commit();
-		m_doc->changed();
-		delete m_createTransaction;
-		m_createTransaction = NULL;	
-	}
-	else if (m_createTransaction && currItem)
+	if (m_createTransaction && currItem)
 	{
 		m_view->resetMousePressed();
 		currItem->checkChanges(true);
@@ -563,6 +559,10 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 		itemType  = (int) PageItem::TextFrame;
 		frameType = (int) PageItem::Unspecified;
 		break;
+	case modeDrawTable2:
+		itemType  = (int) PageItem::Table;
+		frameType = (int) PageItem::Unspecified;
+		break;
 #ifdef HAVE_OSG
 	case modeInsertPDF3DAnnotation:
 		itemType  = (int) PageItem::OSGFrame;
@@ -580,7 +580,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 	double wSize = canvasCurrCoord.x() - createObjectPos.x();
 	double hSize = canvasCurrCoord.y() - createObjectPos.y();
 	bool   skipOneClick = (modifiers == Qt::ShiftModifier);
-	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable) ||
+	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable) || (createObjectMode == modeDrawTable2) ||
 		(createObjectMode == modeInsertPDFButton) || (createObjectMode == modeInsertPDFTextfield) ||
 		(createObjectMode == modeInsertPDFTextfield) || (createObjectMode == modeInsertPDFCheckbox) ||
 		(createObjectMode == modeInsertPDFCombobox) || (createObjectMode == modeInsertPDFListbox) ||
@@ -846,6 +846,51 @@ PageItem* CreateMode::doCreateNewObject(void)
 			m_doc->m_Selection->delaySignalsOff();
 		}
 		break;
+	case modeDrawTable2:
+		// TODO: Figure out what these conditions actually do.
+		if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
+		{
+			m_view->HaveSelRect = false;
+			// Calculate table rectangle.
+			FRect tableRect = adjustedRect(canvasPressCoord, canvasCurrCoord);
+			if (tableRect.width() < 6 || tableRect.height() < 6)
+			{
+				// Ignore tiny tables.
+				m_view->requestMode(submodePaintingDone);
+				break;
+			}
+			// Show table insert dialog.
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			InsertTable *dia = new InsertTable(m_view, static_cast<int>(tableRect.height()/6), static_cast<int>(tableRect.width()/6));
+			if (!dia->exec())
+			{
+				m_view->requestMode(submodePaintingDone);
+				delete dia;
+				dia = 0;
+				break;
+			}
+			int numRows = dia->Rows->value();
+			int numColumns = dia->Cols->value();
+			delete dia;
+			dia = 0;
+			// Add the table item.
+			// TODO: This should be done in an undo transaction.
+			z = m_doc->itemAdd(PageItem::Table, PageItem::Unspecified,
+						   tableRect.x(),
+						   tableRect.y(),
+						   tableRect.width(),
+						   tableRect.height(),
+						   0,                   // Unused.
+						   CommonStrings::None, // Unused.
+						   CommonStrings::None, // Unused.
+						   true);
+			PageItem_Table *table = m_doc->Items->at(z)->asTable();
+			table->insertRows(0, numRows - 1);
+			table->insertColumns(0, numColumns - 1);
+			table->adjustTableToFrame();
+			table->adjustFrameToTable();
+		}
+		break;
 	case modeInsertPDF3DAnnotation:
 		if (modifiers == Qt::ShiftModifier)
 		{
@@ -968,6 +1013,27 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 	}
 	delete dia;
 	return doCreate;
+}
+
+FRect CreateMode::adjustedRect(FPoint &firstPoint, FPoint &secondPoint)
+{
+	// Lock to grid.
+	FPoint first = m_doc->ApplyGridF(firstPoint);
+	FPoint second = m_doc->ApplyGridF(secondPoint);
+
+	// Lock to guides.
+	double firstX = first.x();
+	double firstY = first.y();
+	m_doc->ApplyGuides(&firstX, &firstY);
+
+	double secondX = second.x();
+	double secondY = second.y();
+	m_doc->ApplyGuides(&secondX, &secondY);
+
+	// Return normalized rectangle.
+	FRect rect(firstX, firstY, secondX - firstX, secondY - firstY);
+
+	return rect.normalize();
 }
 
 // void CreateMode::setResizeCursor(int how)

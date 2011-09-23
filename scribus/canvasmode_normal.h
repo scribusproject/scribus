@@ -39,7 +39,8 @@ class CanvasMode_Normal :  public CanvasMode
 	Q_OBJECT
 	
 public:
-	CanvasMode_Normal(ScribusView* view);
+	explicit CanvasMode_Normal(ScribusView* view);
+	virtual ~CanvasMode_Normal() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

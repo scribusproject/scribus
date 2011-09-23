@@ -37,6 +37,7 @@ class PropertiesPalette_Group;
 class PropertiesPalette_Image;
 class PropertiesPalette_Line;
 class PropertiesPalette_Shape;
+class PropertiesPalette_Table;
 class PropertiesPalette_Text;
 class PropertiesPalette_XYZ;
 class ScComboBox;
@@ -74,6 +75,7 @@ public:
 	PropertiesPalette_Image* imagePal;
 	PropertiesPalette_Line*  linePal;
 	PropertiesPalette_Shape* shapePal;
+	PropertiesPalette_Table* tablePal;
 	PropertiesPalette_Text*  textPal;
 	PropertiesPalette_XYZ*   xyzPal;
 	Cpalette *Cpal;
@@ -124,6 +126,7 @@ protected:
 	QVBoxLayout* pageLayout_5;
 	QVBoxLayout* pageLayout_6;
 	QVBoxLayout* pageLayout_7;
+	QVBoxLayout* pageLayout_8;
 
 	QVBoxLayout* page_group_layout;
 	
@@ -134,6 +137,7 @@ protected:
 	QWidget* page_5;
 	QWidget* page_6;
 	QWidget* page_7;
+	QWidget* page_8;
 	QWidget* page_group;
 
 	QToolBox* TabStack;
@@ -149,6 +153,7 @@ protected:
 	
 	int idXYZItem;
 	int idShapeItem;
+	int idTableItem;
 	int idTextItem;
 	int idImageItem;
 	int idLineItem;

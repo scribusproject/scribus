@@ -70,6 +70,7 @@ class PageItem_OSGFrame;
 class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_RegularPolygon;
+class PageItem_Table;
 class PageItem_TextFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
@@ -172,6 +173,7 @@ public:
 		RegularPolygon	= 13,
 		Arc				= 14,
 		Spiral			= 15,
+		Table			= 16,
 		Multiple		= 99
 	};
 
@@ -202,6 +204,7 @@ public:
 	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; }
 	virtual PageItem_Arc * asArc() { return NULL; }
 	virtual PageItem_Spiral * asSpiral() { return NULL; }
+	virtual PageItem_Table * asTable() { return NULL; }
 
 	virtual bool isImageFrame()		const { return false; }
 	virtual bool isLine()			const { return false; }
@@ -216,6 +219,7 @@ public:
 	virtual bool isRegularPolygon()	const { return false; }
 	virtual bool isArc()			const { return false; }
 	virtual bool isSpiral()			const { return false; }
+	virtual bool isTable()			const { return false; }
 
 	/** @brief Frame Type
 	 *
@@ -352,6 +356,8 @@ public:
 	bool frameOverflows() const;
 	bool frameUnderflows() const;
 	int frameOverflowCount() const;
+	/// Draws the overflow marker.
+	void drawOverflowMarker(ScPainter *p);
 	/// returns index of first char displayed in this frame, used to be 0
 	int firstInFrame() const;
 	/// returns index of last char displayed in this frame, used to be MaxChars-1

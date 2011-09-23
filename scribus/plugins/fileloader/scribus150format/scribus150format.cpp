@@ -3399,6 +3399,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
+	case PageItem::Table:
+		// TODO: Actually handle pasting of tables properly.
+		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, true);
+		currItem = doc->Items->at(z);
+		if (pagenr > -2)
+			currItem->OwnPage = pagenr;
+		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
 		currItem = doc->Items->at(z);

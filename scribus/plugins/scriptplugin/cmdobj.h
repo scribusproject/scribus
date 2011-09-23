@@ -77,6 +77,22 @@ May raise NameExistsError if you explicitly pass a name that's already used.\n\
 PyObject *scribus_newtext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_newtable__doc__,
+QT_TR_NOOP("createTable(x, y, width, height, numRows, numColumns, [\"name\"]) -> string\n\
+\n\
+Creates a new table with the given number of rows and columns on the actual page\n\
+and returns its name. The coordinates are given in the actual measurement unit of\n\
+the document (see UNIT constants). \"name\" should be a unique identifier for\n\
+the object because you need this name for further referencing of that object. If\n\
+\"name\" is not given Scribus will create one for you.\n\
+\n\
+May raise NameExistsError if you explicitly pass a name that's already used.\n\
+May raise ValueError if an insufficient number of rows or columns is passed.\n\
+"));
+/** Creates a table - x, y, width, height, numRows, numColumns and opt. name. */
+PyObject *scribus_newtable(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_newline__doc__,
 QT_TR_NOOP("createLine(x1, y1, x2, y2, [\"name\"]) -> string\n\
 \n\

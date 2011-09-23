@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QRegion>
 #include <QPoint>
+#include <QPointF>
 #include <QFileInfo>
 #include <qdrawutil.h>
 #include <QRegExp>
@@ -570,6 +571,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = tr("Spiral");
 		setUPixmap(Um::IPolygon);
 		break;
+	case Table:
+		AnName = tr("Table");
+		//setUPixmap(Um::IPolygon); // TODO: Fix this.
+		break;
 	default:
 		AnName = "Item";
 		break;
@@ -1104,6 +1109,39 @@ bool PageItem::frameUnderflows() const
 	return (firstInFrame() > lastInFrame());
 }
 
+void PageItem::drawOverflowMarker(ScPainter *p)
+{
+	qreal sideLength = 10 / qMax(p->zoomFactor(), 1.0);
+	qreal offset = 1 / qMax(p->zoomFactor(), 1.0);
+	qreal left = Width - sideLength-offset;// / 2;
+	qreal right = left + sideLength;
+	qreal top = Height - sideLength-offset;// * 1.5;
+	qreal bottom = top + sideLength;
+
+	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
+	if ((isBookmark) || (m_isAnnotation))
+		color = PrefsManager::instance()->appPrefs.displayPrefs.frameAnnotationColor;
+	if ((BackBox != 0) || (NextBox != 0))
+		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLinkColor;
+	if (m_Locked)
+		color = PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor;
+	if (m_Doc->m_Selection->containsItem(this))
+		color = Qt::red;
+
+	p->save();
+
+	p->setPen(color, 0.5 / p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPenOpacity(1.0);
+	p->setBrush(Qt::white);
+	p->setBrushOpacity(1.0);
+	p->setFillMode(ScPainter::Solid);
+	p->drawRect(left, top, sideLength, sideLength);
+	p->drawLine(QPointF(left, top), QPointF(right, bottom));
+	p->drawLine(QPointF(left, bottom), QPointF(right, top));
+
+	p->restore();
+}
+
 int PageItem::firstInFrame() const
 {
 	return firstChar;
@@ -1635,7 +1673,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setBlendModeFill(0);
 	#endif
 			p->setMaskMode(0);
-			if (itemType()==PathText || itemType()==PolyLine || itemType()==Spiral || itemType()==Line || itemType()==Symbol || itemType()==Group)
+			// TODO: Investigate whether itemType()==Table should really be here. I got artifacts without it so keeping it here for now. /estan
+			if (itemType()==PathText || itemType()==PolyLine || itemType()==Spiral || itemType()==Line || itemType()==Symbol || itemType()==Group || itemType()==Table)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{

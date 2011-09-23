@@ -49,8 +49,8 @@ class PageItem_Line;
 class SCRIBUS_API LineMove : public CanvasGesture
 {
 public:
-	LineMove (CanvasMode* parent): CanvasGesture(parent), m_haveLineItem(false), m_bounds(0,0,0,0) {};
-	~LineMove() {}
+	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_haveLineItem(false), m_bounds(0,0,0,0) {}
+	virtual ~LineMove() {}
 	
 	/**
 		Prepare a LineMove without attached PageItem

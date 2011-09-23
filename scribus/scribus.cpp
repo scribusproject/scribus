@@ -101,6 +101,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "pagesize.h"
 #include "pdflib.h"
@@ -201,7 +202,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmwmenumanager.h"
 #include "ui/selectobjects.h"
 #include "ui/search.h"
+#include "ui/smcellstyle.h"
 #include "ui/smlinestyle.h"
+#include "ui/smtablestyle.h"
 #include "ui/smtextstyles.h"
 #include "ui/splash.h"
 #include "ui/storyeditor.h"
@@ -571,6 +574,8 @@ void ScribusMainWindow::initPalettes()
 	SMCharacterStyle *tmpCS = new SMCharacterStyle();
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
+	styleManager->addStyle(new SMTableStyle());
+	styleManager->addStyle(new SMCellStyle());
 	connect( scrActions["editStyles"], SIGNAL(toggled(bool)), styleManager, SLOT(setPaletteShown(bool)) );
 	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setChecked(bool)));
 	styleManager->installEventFilter(this);
@@ -763,6 +768,27 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuToMenu("itemSendToScrapbook", "Item");
 //	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemSendToPattern"], "Item", false);
+	// Table submenu.
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->createMenu("ItemTable", tr("Table"));
+	scrMenuMgr->addMenuToMenu("ItemTable", "Item");
+	scrMenuMgr->addMenuItem(scrActions["tableInsertRows"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableInsertColumns"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDeleteRows"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDeleteColumns"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("ItemTable");
+	scrMenuMgr->addMenuItem(scrActions["tableMergeCells"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableSplitCells"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("ItemTable");
+	scrMenuMgr->addMenuItem(scrActions["tableSetRowHeights"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableSetColumnWidths"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDistributeRowsEvenly"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDistributeColumnsEvenly"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("ItemTable");
+	scrMenuMgr->addMenuItem(scrActions["tableAdjustFrameToTable"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableAdjustTableToFrame"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("Item");
+	// End Table submenu.
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Item", false);
@@ -812,6 +838,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertImageFrame"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertRenderFrame"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTableFrame"], "Insert", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertTable"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertShape"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertPolygon"], "Insert", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertArc"], "Insert", false);
@@ -2465,6 +2492,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsInsertTextFrame"]->setEnabled(true);
 	scrActions["toolsInsertImageFrame"]->setEnabled(true);
 	scrActions["toolsInsertTableFrame"]->setEnabled(true);
+	scrActions["toolsInsertTable"]->setEnabled(true);
 	scrActions["toolsInsertShape"]->setEnabled(true);
 	scrActions["toolsInsertLine"]->setEnabled(true);
 	scrActions["toolsInsertBezier"]->setEnabled(true);
@@ -3155,6 +3183,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 				pluginAction->setEnabled(ixplug->handleSelection(doc, SelectedType));
 		}
 	}
+	updateTableMenuActions();
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
@@ -4660,6 +4689,9 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homePath() );
 	}
+
+	updateTableMenuActions();
+
 	return true;
 }
 
@@ -6110,6 +6142,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsInsertTextFrame"]->setEnabled(false);
 		scrActions["toolsInsertImageFrame"]->setEnabled(false);
 		scrActions["toolsInsertTableFrame"]->setEnabled(false);
+		scrActions["toolsInsertTable"]->setEnabled(false);
 		scrActions["toolsInsertShape"]->setEnabled(false);
 		scrActions["toolsInsertLine"]->setEnabled(false);
 		scrActions["toolsInsertBezier"]->setEnabled(false);
@@ -6193,6 +6226,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsInsertTextFrame"]->setEnabled(true);
 	scrActions["toolsInsertImageFrame"]->setEnabled(true);
 	scrActions["toolsInsertTableFrame"]->setEnabled(true);
+	scrActions["toolsInsertTable"]->setEnabled(true);
 	scrActions["toolsInsertShape"]->setEnabled(true);
 	scrActions["toolsInsertLine"]->setEnabled(true);
 	scrActions["toolsInsertBezier"]->setEnabled(true);
@@ -6288,6 +6322,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsInsertTextFrame"]->setChecked(mode==modeDrawText);
 	scrActions["toolsInsertImageFrame"]->setChecked(mode==modeDrawImage);
 	scrActions["toolsInsertTableFrame"]->setChecked(mode==modeDrawTable);
+	scrActions["toolsInsertTable"]->setChecked(mode==modeDrawTable2);
 	scrActions["toolsInsertShape"]->setChecked(mode==modeDrawShapes);
 	scrActions["toolsInsertPolygon"]->setChecked(mode==modeDrawRegularPolygon);
 	scrActions["toolsInsertArc"]->setChecked(mode==modeDrawArc);
@@ -6337,11 +6372,20 @@ void ScribusMainWindow::setAppMode(int mode)
 			delete doc->CurTimer;
 			doc->CurTimer = NULL;
 		} */
+
+		// Restore/save action shortcuts when entering/leaving edit mode.
 		if (mode!=modeEdit && oldMode==modeEdit)
 			actionManager->restoreActionShortcutsPostEditMode();
 		else
 		if (mode==modeEdit && oldMode!=modeEdit)
 			actionManager->saveActionShortcutsPreEditMode();
+
+		// Restore/save action shortcuts when entering/leaving table edit mode.
+		if (mode != modeEditTable && oldMode == modeEditTable)
+			actionManager->restoreActionShortcutsPostEditMode();
+		else if (mode == modeEditTable && oldMode != modeEditTable)
+			actionManager->saveActionShortcutsPreEditMode();
+
 		if (oldMode == modeEdit)
 		{
 			view->zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
@@ -6477,6 +6521,11 @@ void ScribusMainWindow::setAppMode(int mode)
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
 				break;
 			case modeDrawTable:
+				if (docSelectionCount!=0)
+					view->Deselect(true);
+				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
+				break;
+			case modeDrawTable2:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
@@ -9165,6 +9214,7 @@ void ScribusMainWindow::changeLayer(int )
 	scrActions["toolsInsertTextFrame"]->setEnabled(setter);
 	scrActions["toolsInsertImageFrame"]->setEnabled(setter);
 	scrActions["toolsInsertTableFrame"]->setEnabled(setter);
+	scrActions["toolsInsertTable"]->setEnabled(setter);
 	scrActions["toolsInsertShape"]->setEnabled(setter);
 	scrActions["toolsInsertLine"]->setEnabled(setter);
 	scrActions["toolsInsertBezier"]->setEnabled(setter);
@@ -10119,3 +10169,34 @@ void ScribusMainWindow::enableTextActions(QMap<QString, QPointer<ScrAction> > *a
 	scrMenuMgr->setMenuEnabled("InsertSpace", enabled);
 	scrMenuMgr->setMenuEnabled("InsertLigature", enabled);
 }
+
+void ScribusMainWindow::updateTableMenuActions()
+{
+	// Determine state.
+	PageItem* item = doc ? doc->m_Selection->itemAt(0) : 0;
+	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : 0;
+	const bool tableEdited = table && doc->appMode == modeEditTable;
+	const int tableRows = table ? table->rows() : 0;
+	const int tableColumns = table ? table->columns() : 0;
+	const int selectedRows = tableEdited ? table->selectedRows().size() : 0;
+	const int selectedColumns = tableEdited ? table->selectedColumns().size() : 0;
+	const int selectedCells = tableEdited ? table->selectedCells().size() : 0;
+
+	// Enable/disable menu actions.
+	scrMenuMgr->setMenuEnabled("ItemTable", table);
+	scrActions["tableInsertRows"]->setEnabled(table || (tableEdited && selectedCells < 1));
+	scrActions["tableInsertColumns"]->setEnabled(table || (tableEdited && selectedCells < 1));
+	scrActions["tableDeleteRows"]->setEnabled(tableEdited &&
+		((selectedRows < 1 && tableRows > 1) || (selectedRows > 0 && selectedRows < tableRows)));
+	scrActions["tableDeleteColumns"]->setEnabled(tableEdited &&
+		((selectedColumns < 1 && tableColumns > 1) || (selectedColumns > 0 && selectedColumns < tableColumns)));
+	scrActions["tableMergeCells"]->setEnabled(selectedCells > 1);
+	scrActions["tableSplitCells"]->setEnabled(false); // Not implemented.
+	scrActions["tableSetRowHeights"]->setEnabled(tableEdited);
+	scrActions["tableSetColumnWidths"]->setEnabled(tableEdited);
+	scrActions["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
+	scrActions["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
+	scrActions["tableAdjustFrameToTable"]->setEnabled(table);
+	scrActions["tableAdjustTableToFrame"]->setEnabled(table);
+}
+

@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QTransform>
 #include <QPoint>
+#include <QPointF>
 #include "scribusapi.h"
 /**
   *@author Franz Schmid
@@ -61,6 +62,8 @@ public:
 	//Transform an existing point, return a new one
 	FPoint transformPoint(const QTransform& m, const bool invert) const;
 	FPoint transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert) const;
+	/// Returns a copy of the point as a QPointF.
+	QPointF toQPointF() const { return QPointF(xp, yp); }
 	friend class FPointArray;
 
 private:

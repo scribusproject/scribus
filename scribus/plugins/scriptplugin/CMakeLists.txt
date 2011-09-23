@@ -23,6 +23,7 @@ SET(SCRIPTER_PLUGIN_MOC_CLASSES
 )
 
 SET(SCRIPTER_PLUGIN_SOURCES
+  cmdcell.cpp
   cmdcolor.cpp
   cmddialog.cpp
   cmddoc.cpp
@@ -34,6 +35,7 @@ SET(SCRIPTER_PLUGIN_SOURCES
   cmdpage.cpp
   cmdsetprop.cpp
   cmdstyle.cpp
+  cmdtable.cpp
   cmdtext.cpp
   cmdutil.cpp
   guiapp.cpp

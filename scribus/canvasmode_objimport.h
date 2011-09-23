@@ -35,8 +35,8 @@ class TransactionSettings;
 class CanvasMode_ObjImport :  public CanvasMode
 {
 public:
-	CanvasMode_ObjImport(ScribusView* view);
-	~CanvasMode_ObjImport(void);
+	explicit CanvasMode_ObjImport(ScribusView* view);
+	virtual ~CanvasMode_ObjImport();
 
 	void setMimeData(QMimeData* mimeData);
 	void setTransactionSettings(TransactionSettings* settings);

@@ -84,6 +84,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
 #include "prefscontext.h"
@@ -1570,56 +1571,65 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 
 bool ScribusView::slotSetCurs(int x, int y)
 {
-	PageItem *currItemGeneric;
-	if (GetItem(&currItemGeneric))
+	PageItem *item;
+	if (!GetItem(&item))
+		return false;
+
+	PageItem_TextFrame *textFrame;
+	QPointF canvasPoint;
+	if (item->isTextFrame())
 	{
-		if (!((currItemGeneric->asTextFrame()) || (currItemGeneric->asImageFrame())))
-			return false;
-		if (currItemGeneric->asImageFrame())
-			return true;
-		PageItem_TextFrame *currItem=currItemGeneric->asTextFrame();
-		if (currItem==0)
-			return false;
-		
-		FPoint pf(m_canvas->globalToCanvas(QPoint(x,y)));
-		if( m_canvas->frameHitTest(QPointF(pf.x(),pf.y()), currItem) == Canvas::INSIDE )
+		textFrame = item->asTextFrame();
+		canvasPoint = m_canvas->globalToCanvas(QPoint(x,y)).toQPointF();
+	}
+	else if (item->isTable())
+	{
+		// Move to cell under cursor and position the text cursor.
+		PageItem_Table *table = item->asTable();
+		table->moveTo(table->cellAt(m_canvas->globalToCanvas(QPoint(x,y)).toQPointF()));
+		textFrame = table->activeCell().textFrame();
+		canvasPoint = table->getTransform().inverted().map(m_canvas->globalToCanvas(QPoint(x, y)).toQPointF()) - table->gridOffset();
+	}
+	else if (item->isImageFrame())
+		return true;
+	else
+		return false;
+
+
+	if (m_canvas->frameHitTest(canvasPoint, textFrame) == Canvas::INSIDE)
+	{
+		// #9592 : layout must be valid here, or screenToPosition() may crash
+		if (textFrame->invalid)
+			textFrame->layout();
+		if(textFrame->reversed())
+		{ //handle Right to Left writing
+			FPoint point(textFrame->width() - (canvasPoint.x() - textFrame->xPos()), canvasPoint.y() - textFrame->yPos());
+			textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
+				textFrame->itemText.screenToPosition(point));
+		}
+		else
 		{
-			// #9592 : layout must be valid here, or screenToPosition() may crash
-			if (currItem->invalid)
-				currItem->layout();
+			FPoint point(canvasPoint.x() - textFrame->xPos(), canvasPoint.y() - textFrame->yPos());
+			textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
+				textFrame->itemText.screenToPosition(point));
+		}
 
-			QTransform transform = currItem->getTransform();
-			FPoint point(pf.x() - currItem->xPos(), pf.y() - currItem->yPos());
-			if (transform.isInvertible() && currItem->itemText.length() > 0)
-			{
-				double tx = 0, ty = 0;
-				transform.inverted().map(pf.x(), pf.y(), &tx, &ty);
-				point.setXY(tx, ty);
-			}
-			if (currItem->reversed())
-				point.setX(currItem->width() - point.x());
-			currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
-				currItem->itemText.screenToPosition(point) );
-
-			if (currItem->itemText.length() > 0)
-			{
-				int b = qMin(currItem->itemText.cursorPosition()- 1, currItem->itemText.length());
-				if (b < 0)
-					b = 0;
-				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(b);
-				emit ItemCharStyle(Doc->currentStyle.charStyle());
-				emit ItemTextEffects(Doc->currentStyle.charStyle().effects());
-				emit ItemTextAlign(currItem->itemText.paragraphStyle(b).alignment());
-				return true;
-			}
-			else
-			{
-				Doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
-				emit ItemCharStyle(currItem->itemText.defaultStyle().charStyle());
-				emit ItemTextEffects(currItem->itemText.defaultStyle().charStyle().effects());
-				emit ItemTextAlign( 0 );
-				return true;
-			}
+		if (textFrame->itemText.length() > 0)
+		{
+			int pos = qMax(qMin(textFrame->itemText.cursorPosition() - 1, textFrame->itemText.length()), 0);
+			Doc->currentStyle.charStyle() = textFrame->itemText.charStyle(pos);
+			emit ItemCharStyle(Doc->currentStyle.charStyle());
+			emit ItemTextEffects(Doc->currentStyle.charStyle().effects());
+			emit ItemTextAlign(textFrame->itemText.paragraphStyle(pos).alignment());
+			return true;
+		}
+		else
+		{
+			Doc->currentStyle.charStyle() = textFrame->itemText.defaultStyle().charStyle();
+			emit ItemCharStyle(textFrame->itemText.defaultStyle().charStyle());
+			emit ItemTextEffects(textFrame->itemText.defaultStyle().charStyle().effects());
+			emit ItemTextAlign(0);
+			return true;
 		}
 	}
 	return false;

@@ -32,7 +32,8 @@ class ScribusView;
 class FreehandMode : public CanvasMode
 {
 public:
-	FreehandMode(ScribusView* view);
+	explicit FreehandMode(ScribusView* view);
+	virtual ~FreehandMode() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

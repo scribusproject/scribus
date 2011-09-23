@@ -35,7 +35,8 @@ class PageItem;
 class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 {
 public:
-	CanvasMode_Rotate(ScribusView* view);
+	explicit CanvasMode_Rotate(ScribusView* view);
+	virtual ~CanvasMode_Rotate() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

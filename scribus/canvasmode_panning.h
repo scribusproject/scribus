@@ -34,7 +34,8 @@ class ScribusView;
 class CanvasMode_Panning :  public CanvasMode
 {
 public:
-	CanvasMode_Panning(ScribusView* view);
+	explicit CanvasMode_Panning(ScribusView* view);
+	virtual ~CanvasMode_Panning() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

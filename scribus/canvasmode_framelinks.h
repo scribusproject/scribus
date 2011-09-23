@@ -38,7 +38,8 @@ class ScribusView;
 class CanvasMode_FrameLinks :  public CanvasMode
 {
 public:
-	CanvasMode_FrameLinks(ScribusView* view);
+	explicit CanvasMode_FrameLinks(ScribusView* view);
+	virtual ~CanvasMode_FrameLinks() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

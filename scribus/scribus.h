@@ -558,6 +558,14 @@ public slots:
 	//! \brief allow SE to get the SM for edit stlyes
 	StyleManager *styleMgr() const {return styleManager;};
 
+	/**
+	 * Enables/disables the actions in the "Table" menu.
+	 *
+	 * This has a functions of its own, since it needs to be called from the table edit
+	 * canvas modes/gestures.
+	 */
+	void updateTableMenuActions();
+
 signals:
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)

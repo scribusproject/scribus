@@ -26,8 +26,8 @@
 class SCRIBUS_API PanGesture : public CanvasGesture
 {
 public:
-	PanGesture (CanvasMode* parent);
-	~PanGesture() {}
+	explicit PanGesture (CanvasMode* parent);
+	virtual ~PanGesture() {}
 	
 	virtual void activate(bool);
 	virtual void deactivate(bool);

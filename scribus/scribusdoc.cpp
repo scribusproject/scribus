@@ -26,13 +26,16 @@ for which a new license (GPL+exception) is in place.
 #include <sstream>
 
 #include <QByteArray>
- #include <QDebug>
+#include <QDebug>
+#include <QDialog>
 #include <QEventLoop>
 #include <QFile>
 #include <QList>
+#include <QtAlgorithms>
 #include <QTime>
 #include <QPainter>
 #include <QPixmap>
+#include <QPointer>
 #include <QProgressBar>
 
 #include "canvas.h"
@@ -42,8 +45,11 @@ for which a new license (GPL+exception) is in place.
 //#include "desaxe/saxXML.h"
 #include "fileloader.h"
 #include "filewatcher.h"
+#include "fpoint.h"
 #include "ui/guidemanager.h"
 #include "hyphenator.h"
+#include "ui/inserttablecolumnsdialog.h"
+#include "ui/inserttablerowsdialog.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
@@ -51,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
@@ -80,6 +87,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
+#include "tableborder.h"
+#include "ui/tablecolumnwidthsdialog.h"
+#include "ui/tablerowheightsdialog.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "units.h"
@@ -212,6 +222,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	DragElements(),
 	docParagraphStyles(),
 	docCharStyles(),
+	docTableStyles(),
+	docCellStyles(),
 	Layers(),
 	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
@@ -301,6 +313,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	DragElements(),
 	docParagraphStyles(),
 	docCharStyles(),
+	docTableStyles(),
+	docCellStyles(),
 	Layers(),
 	GroupCounter(1),
 	colorEngine(ScCore->defaultEngine),
@@ -466,6 +480,34 @@ void ScribusDoc::init()
 //	docParagraphStyles[0].charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
 
 	currentStyle = pstyle;
+
+	// Create default table style.
+	// TODO: We should have preferences for the default values.
+	TableStyle defaultTableStyle;
+	defaultTableStyle.setName(CommonStrings::DefaultTableStyle);
+	defaultTableStyle.setFillColor(CommonStrings::None);
+	defaultTableStyle.setLeftBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultTableStyle.setRightBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultTableStyle.setTopBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultTableStyle.setBottomBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	docTableStyles.create(defaultTableStyle);
+	docTableStyles.makeDefault(&(docTableStyles[0]));
+
+	// Create default table cell style.
+	// TODO: We should have preferences for the default values.
+	CellStyle defaultCellStyle;
+	defaultCellStyle.setName(CommonStrings::DefaultCellStyle);
+	defaultCellStyle.setFillColor(CommonStrings::None);
+	defaultCellStyle.setLeftBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultCellStyle.setRightBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultCellStyle.setTopBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultCellStyle.setBottomBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultCellStyle.setLeftPadding(1.0);
+	defaultCellStyle.setRightPadding(1.0);
+	defaultCellStyle.setTopPadding(1.0);
+	defaultCellStyle.setBottomPadding(1.0);
+	docCellStyles.create(defaultCellStyle);
+	docCellStyles.makeDefault(&(docCellStyles[0]));
 	
 	Layers.addLayer( tr("Background") );
 	// FIXME: Check PDF version input
@@ -985,6 +1027,10 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 		docParagraphStyles[i].getNamedResources(lists);
 	for (int i = 0; i < docCharStyles.count(); ++i)
 		docCharStyles[i].getNamedResources(lists);
+	for (int i = 0; i < docTableStyles.count(); ++i)
+		docTableStyles[i].getNamedResources(lists);
+	for (int i = 0; i < docCellStyles.count(); ++i)
+		docCellStyles[i].getNamedResources(lists);
 //	for (uint i = 0; i < docLineStyles.count(); ++i)
 //		docLineStyles[i].getNamedResources(lists);
 	
@@ -1125,6 +1171,20 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		else
 			docCharStyles[i].replaceNamedResources(newNames);
 	}
+	for (int i = docTableStyles.count() - 1; i >= 0; --i)
+	{
+		if (newNames.tableStyles().contains(docTableStyles[i].name()))
+			docTableStyles.remove(i);
+		else
+			docTableStyles[i].replaceNamedResources(newNames);
+	}
+	for (int i = docCellStyles.count() - 1; i >= 0; --i)
+	{
+		if (newNames.cellStyles().contains(docCellStyles[i].name()))
+			docCellStyles.remove(i);
+		else
+			docCellStyles[i].replaceNamedResources(newNames);
+	}
 
 	QMap<QString,ScPattern>::Iterator it;
 	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
@@ -1165,17 +1225,24 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 	if (newNames.colors().count() > 0 || newNames.fonts().count() > 0)
 	{
 		docCharStyles.invalidate();
-		docParagraphStyles.invalidate();	
+		docParagraphStyles.invalidate();
+		docTableStyles.invalidate();
+		docCellStyles.invalidate();
 	}
 	else
 	{
 		if (newNames.charStyles().count() > 0)
 			docCharStyles.invalidate();
 		if (newNames.styles().count() > 0)
-			docParagraphStyles.invalidate();	
+			docParagraphStyles.invalidate();
+		if (newNames.tableStyles().count() > 0)
+			docTableStyles.invalidate();
+		if (newNames.cellStyles().count() > 0)
+			docCellStyles.invalidate();
 	}
 	if (!isLoading() && !(newNames.colors().isEmpty() && newNames.fonts().isEmpty() && newNames.patterns().isEmpty() 
-						  && newNames.styles().isEmpty() && newNames.charStyles().isEmpty() && newNames.lineStyles().isEmpty()) )
+			&& newNames.styles().isEmpty() && newNames.charStyles().isEmpty() && newNames.lineStyles().isEmpty()
+			&& newNames.tableStyles().isEmpty() && newNames.cellStyles().isEmpty()))
 		changed();
 }
 
@@ -1225,6 +1292,19 @@ void ScribusDoc::replaceCharStyles(const QMap<QString,QString>& newNameForOld)
 	*/
 }
 
+void ScribusDoc::replaceTableStyles(const QMap<QString, QString>& newNameForOld)
+{
+	ResourceCollection newNames;
+	newNames.mapTableStyles(newNameForOld);
+	replaceNamedResources(newNames);
+}
+
+void ScribusDoc::replaceCellStyles(const QMap<QString, QString>& newNameForOld)
+{
+	ResourceCollection newNames;
+	newNames.mapCellStyles(newNameForOld);
+	replaceNamedResources(newNames);
+}
 
 void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused)
 {
@@ -1280,6 +1360,47 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
 	docCharStyles.invalidate();
 }
 
+void ScribusDoc::redefineTableStyles(const StyleSet<TableStyle>& newStyles, bool removeUnused)
+{
+	docTableStyles.redefine(newStyles, false);
+	if (removeUnused)
+	{
+		QMap<QString, QString> deletion;
+		QString deflt("");
+		for (int i = 0; i < docTableStyles.count(); ++i)
+		{
+			const QString& nam(docTableStyles[i].name());
+			if (newStyles.find(nam) < 0)
+			{
+				deletion[nam] = deflt;
+			}
+		}
+		if (deletion.count() > 0)
+			replaceTableStyles(deletion);
+	}
+	docTableStyles.invalidate();
+}
+
+void ScribusDoc::redefineCellStyles(const StyleSet<CellStyle>& newStyles, bool removeUnused)
+{
+	docCellStyles.redefine(newStyles, false);
+	if (removeUnused)
+	{
+		QMap<QString, QString> deletion;
+		QString deflt("");
+		for (int i = 0; i < docCellStyles.count(); ++i)
+		{
+			const QString& nam(docCellStyles[i].name());
+			if (newStyles.find(nam) < 0)
+			{
+				deletion[nam] = deflt;
+			}
+		}
+		if (deletion.count() > 0)
+			replaceCellStyles(deletion);
+	}
+	docCellStyles.invalidate();
+}
 
 /*
  * Split out from loadStyles in editFormats.cpp so it's callable from anywhere,
@@ -4202,6 +4323,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 				Q_ASSERT(frameType==PageItem::Unspecified);
 			}
 			break;
+		case PageItem::Table:
+			newItem = new PageItem_Table(this, x, y, b, h, w, fill, outline);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+			break;
 		case PageItem::Polygon:
 			newItem = new PageItem_Polygon(this, x, y, b, h, w, fill, outline);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
@@ -4485,7 +4610,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			break;
 	}
 
-	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame || itemType==PageItem::Symbol || itemType==PageItem::Group)
+	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame || itemType==PageItem::Symbol || itemType==PageItem::Group || itemType==PageItem::Table)
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScCore->usingGUI())
@@ -6865,6 +6990,395 @@ void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, doubl
 		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
+}
+
+void ScribusDoc::itemSelection_InsertTableRows()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	QPointer<InsertTableRowsDialog> dialog = new InsertTableRowsDialog(appMode, m_ScMW);
+	if (dialog->exec() == QDialog::Accepted)
+	{
+		/*
+		 * In table edit mode we insert either before or after the active
+		 * cell, otherwise we insert at beginning or end of table.
+		 */
+		int index = 0;
+		const TableCell cell = table->activeCell();
+		if (dialog->position() == InsertTableRowsDialog::Before)
+			index = appMode == modeEditTable ? cell.row() : 0;
+		else
+			index = appMode == modeEditTable ? cell.row() + cell.rowSpan() : table->rows();
+
+		// Insert the rows.
+		table->insertRows(index, dialog->numberOfRows());
+		table->clearSelection();
+		table->update();
+
+		m_ScMW->updateTableMenuActions();
+		changed();
+	}
+
+	delete dialog;
+}
+
+void ScribusDoc::itemSelection_InsertTableColumns()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	QPointer<InsertTableColumnsDialog> dialog = new InsertTableColumnsDialog(appMode, m_ScMW);
+	if (dialog->exec() == QDialog::Accepted)
+	{
+		/*
+		 * In table edit mode we insert either before or after the active
+		 * cell, otherwise we insert at beginning or end of table.
+		 */
+		int index = 0;
+		const TableCell cell = table->activeCell();
+		if (dialog->position() == InsertTableColumnsDialog::Before)
+			index = appMode == modeEditTable ? cell.column() : 0;
+		else
+			index = appMode == modeEditTable ? cell.column() + cell.columnSpan() : table->columns();
+
+		// Insert the columns.
+		table->insertColumns(index, dialog->numberOfColumns());
+		table->clearSelection();
+		table->update();
+
+		m_ScMW->updateTableMenuActions();
+		changed();
+	}
+
+	delete dialog;
+}
+
+void ScribusDoc::itemSelection_DeleteTableRows()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	if (appMode != modeEditTable)
+		return;
+
+	if (table->selectedRows().size() >= table->rows())
+		return;
+
+	if (table->selectedRows().isEmpty())
+	{
+		// Remove rows spanned by active cell.
+	TableCell activeCell = table->activeCell();
+		table->removeRows(activeCell.row(), activeCell.rowSpan());
+	}
+	else
+	{
+		// Remove selected row(s).
+		QList<int> selectedRows = table->selectedRows().toList();
+		qSort(selectedRows.begin(), selectedRows.end(), qGreater<int>());
+
+		int index = 0;
+		int numRows = 1;
+		for (int i = 0; i < selectedRows.size() - 1; ++i)
+		{
+			index = selectedRows[i];
+			if (selectedRows[i] - 1 == selectedRows[i + 1])
+			{
+				index = selectedRows[i + 1];
+				numRows++;
+			}
+			else
+			{
+				table->removeRows(index, numRows);
+				numRows = 1;
+			}
+		}
+		table->removeRows(index, numRows);
+	}
+
+	m_View->stopGesture(); // FIXME: Don't use m_View.
+	table->update();
+
+	m_ScMW->updateTableMenuActions();
+	changed();
+}
+
+void ScribusDoc::itemSelection_DeleteTableColumns()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	if (appMode != modeEditTable)
+		return;
+
+	if (table->selectedColumns().size() >= table->columns())
+		return;
+
+	if (table->selectedColumns().isEmpty())
+	{
+		// Remove columns spanned by active cell.
+		TableCell activeCell = table->activeCell();
+		table->removeColumns(activeCell.column(), activeCell.columnSpan());
+	}
+	else
+	{
+		// Remove selected column(s).
+		QList<int> selectedColumns = table->selectedColumns().toList();
+		qSort(selectedColumns.begin(), selectedColumns.end(), qGreater<int>());
+
+		int index = 0;
+		int numColumns = 1;
+		for (int i = 0; i < selectedColumns.size() - 1; ++i)
+		{
+			index = selectedColumns[i];
+			if (selectedColumns[i] - 1 == selectedColumns[i + 1])
+			{
+				index = selectedColumns[i + 1];
+				numColumns++;
+			}
+			else
+			{
+				table->removeColumns(index, numColumns);
+				numColumns = 1;
+			}
+		}
+		table->removeColumns(index, numColumns);
+	}
+
+	m_View->stopGesture(); // FIXME: Don't use m_View.
+	table->update();
+
+	m_ScMW->updateTableMenuActions();
+	changed();
+}
+
+void ScribusDoc::itemSelection_MergeTableCells()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	if (appMode != modeEditTable)
+		return;
+
+	if (table->selectedCells().size() < 2)
+		return;
+
+	QList<int> selectedRows = table->selectedRows().toList();
+	QList<int> selectedColumns = table->selectedColumns().toList();
+	qSort(selectedRows);
+	qSort(selectedColumns);
+
+	const int row = selectedRows.first();
+	const int column = selectedColumns.first();
+	const int numRows = selectedRows.last() - row + 1;
+	const int numColumns = selectedColumns.last() - column + 1;
+
+	table->mergeCells(row, column, numRows, numColumns);
+
+	m_View->stopGesture(); // FIXME: Don't use m_View.
+	table->update();
+
+	m_ScMW->updateTableMenuActions();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetTableRowHeights()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	QPointer<TableRowHeightsDialog> dialog = new TableRowHeightsDialog(this, m_ScMW);
+	if (dialog->exec() == QDialog::Rejected)
+		return;
+
+	const qreal rowHeight = dialog->rowHeight();
+	if (appMode == modeEditTable)
+	{
+		if (table->selectedCells().isEmpty())
+		{
+			// Set height of rows spanned by active cell.
+			TableCell activeCell = table->activeCell();
+			int startRow = activeCell.row();
+			int endRow = startRow + activeCell.rowSpan() - 1;
+			for (int row = startRow; row <= endRow; ++row)
+				table->resizeRow(row, rowHeight / unitRatio());
+		}
+		else
+		{
+			// Set height of selected rows.
+			foreach (const int row, table->selectedRows())
+				table->resizeRow(row, rowHeight / unitRatio());
+		}
+	}
+	else
+	{
+		// Set height of all rows in table.
+		for (int row = 0; row < table->rows(); ++row)
+			table->resizeRow(row, rowHeight / unitRatio());
+	}
+
+	delete dialog;
+
+	table->update();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetTableColumnWidths()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	QPointer<TableColumnWidthsDialog> dialog = new TableColumnWidthsDialog(this, m_ScMW);
+	if (dialog->exec() == QDialog::Rejected)
+		return;
+
+	const qreal columnWidth = dialog->columnWidth();
+	if (appMode == modeEditTable)
+	{
+		if (table->selectedCells().isEmpty())
+		{
+			// Set width of columns spanned by active cell.
+			TableCell activeCell = table->activeCell();
+			int startColumn = activeCell.column();
+			int endColumn = startColumn + activeCell.columnSpan() - 1;
+			for (int column = startColumn; column <= endColumn; ++column)
+				table->resizeColumn(column, columnWidth / unitRatio());
+		}
+		else
+		{
+			// Set width of selected columns.
+			foreach (const int column, table->selectedColumns())
+				table->resizeColumn(column, columnWidth / unitRatio());
+		}
+	}
+	else
+	{
+		// Set width of all columns in table.
+		for (int column = 0; column < table->columns(); ++column)
+			table->resizeColumn(column, columnWidth / unitRatio());
+	}
+
+	delete dialog;
+
+	table->update();
+	changed();
+}
+
+void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	if (appMode == modeEditTable && !table->selectedRows().isEmpty())
+	{
+		// Distribute each contigous range of selected rows.
+		QList<int> selectedRows = table->selectedRows().toList();
+		qSort(selectedRows);
+		int startRow = selectedRows.first();
+		int endRow = startRow;
+		for (int i = 0; i < selectedRows.size() - 1; ++i)
+		{
+			if (selectedRows[i + 1] == endRow + 1)
+				endRow++; // Extend range.
+			else
+			{
+				table->distributeRows(startRow, endRow);
+				// Move range.
+				startRow = selectedRows[i + 1];
+				endRow = startRow;
+			}
+		}
+		table->distributeRows(startRow, endRow);
+	}
+	else
+	{
+		// Distribute all rows in the table.
+		table->distributeRows(0, table->rows() - 1);
+	}
+
+	table->update();
+	changed();
+}
+
+void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
+{
+	PageItem* item = m_Selection->itemAt(0);
+	if (!item || !item->isTable())
+		return;
+
+	PageItem_Table* table = item->asTable();
+	if (!table)
+		return;
+
+	if (appMode == modeEditTable && !table->selectedColumns().isEmpty())
+	{
+		// Distribute each contigous range of selected columns.
+		QList<int> selectedColumns = table->selectedColumns().toList();
+		qSort(selectedColumns);
+		int startColumn = selectedColumns.first();
+		int endColumn = startColumn;
+		for (int i = 0; i < selectedColumns.size() - 1; ++i)
+		{
+			if (selectedColumns[i + 1] == endColumn + 1)
+				endColumn++; // Extend range.
+			else
+			{
+				table->distributeColumns(startColumn, endColumn);
+				// Move range.
+				startColumn = selectedColumns[i + 1];
+				endColumn = startColumn;
+			}
+		}
+		table->distributeColumns(startColumn, endColumn);
+	}
+	else
+	{
+		// Distribute all columns in the table.
+		table->distributeColumns(0, table->columns() - 1);
+	}
+
+	table->update();
+	changed();
 }
 
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
@@ -11558,6 +12072,16 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 	return ret;
 }
 
+bool ScribusDoc::ApplyGuides(FPoint* point)
+{
+	double newX = point->x();
+	double newY = point->y();
+	bool ret = ApplyGuides(&newX, &newY);
+	point->setX(newX);
+	point->setY(newY);
+
+	return ret;
+}
 
 bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fromMP)
 {
@@ -12841,7 +13365,43 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 	}
 }
 
+void ScribusDoc::itemSelection_AdjustFrameToTable()
+{
+	// TODO: Do this in an undo transaction?
+	int selectedItemCount = m_Selection->count();
 
+	if (selectedItemCount < 1)
+		return;
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *item = m_Selection->itemAt(i);
+		if (item && item->isTable())
+			item->asTable()->adjustFrameToTable();
+	}
+
+	regionsChanged()->update(QRectF());
+	changed();
+}
+
+void ScribusDoc::itemSelection_AdjustTableToFrame()
+{
+	// TODO: Do this in an undo transaction?
+	int selectedItemCount = m_Selection->count();
+
+	if (selectedItemCount < 1)
+		return;
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *item = m_Selection->itemAt(i);
+		if (item && item->isTable())
+			item->asTable()->adjustTableToFrame();
+	}
+
+	regionsChanged()->update(QRectF());
+	changed();
+}
 
 NodeEditContext::NodeEditContext() 
 : submode(MOVE_POINT), isContourLine(false), oldClip(NULL), nodeTransaction(NULL),

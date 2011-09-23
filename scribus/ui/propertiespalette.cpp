@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette_image.h"
 #include "propertiespalette_line.h"
 #include "propertiespalette_shape.h"
+#include "propertiespalette_table.h"
 #include "propertiespalette_text.h"
 #include "propertiespalette_utils.h"
 #include "propertiespalette_xyz.h"
@@ -175,6 +176,14 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	pageLayout_7->addWidget( Tpal );
 	idTransparencyItem = TabStack->addItem(page_7, "&Transparency" );
 
+	page_8 = new QWidget(TabStack);
+	pageLayout_8 = new QVBoxLayout(page_8);
+	pageLayout_8->setSpacing(5);
+	pageLayout_8->setMargin(0);
+	tablePal = new PropertiesPalette_Table(page_8);
+	pageLayout_8->addWidget(tablePal);
+	idTableItem = TabStack->addItem(page_8, "T&able" );
+
 //	MpalLayout->addWidget( TabStack );
 
 	setWidget( TabStack );
@@ -194,7 +203,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	connect(Tpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
 
 	m_haveItem = false;
-	for (int ws = 1; ws < 8; ++ws)
+	for (int ws = 1; ws < 9; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->setCurrentIndex(0);
 	TabStack->widget(0)->setEnabled(false);
@@ -232,6 +241,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	this->imagePal->setMainWindow(mw);
 	this->linePal->setMainWindow(mw);
 	this->textPal->setMainWindow(mw);
+	this->tablePal->setMainWindow(mw);
 
 	connect(this, SIGNAL(DocChanged()), m_ScMW, SLOT(slotDocCh()));
 	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
@@ -293,6 +303,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	imagePal->setDoc(m_doc);
 	linePal->setDoc(m_doc);
 	textPal->setDoc(m_doc);
+	tablePal->setDocument(m_doc);
 
 	updateColorList();
 
@@ -325,6 +336,8 @@ void PropertiesPalette::unsetDoc()
 	linePal->unsetDoc();
 	textPal->unsetItem();
 	textPal->unsetDoc();
+	tablePal->unsetItem();
+	tablePal->unsetDocument();
 
 	Cpal->setCurrentItem(NULL);
 	Cpal->setDocument(NULL);
@@ -332,7 +345,7 @@ void PropertiesPalette::unsetDoc()
 	Tpal->setDocument(NULL);
 
 	m_haveItem = false;
-	for (int ws = 1; ws < 8; ++ws)
+	for (int ws = 1; ws < 9; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->widget(0)->setEnabled(false);
 	TabStack->setItemEnabled(idXYZItem, false);
@@ -455,6 +468,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 	imagePal->handleSelectionChanged();
 	linePal->handleSelectionChanged();
 	textPal->handleSelectionChanged();
+	tablePal->handleSelectionChanged();
 
 	if (m_item->asOSGFrame())
 	{
@@ -463,6 +477,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		TabStack->setItemEnabled(idGroupItem, false);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
+		TabStack->setItemEnabled(idTableItem, false);
 		TabStack->setItemEnabled(idTransparencyItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
@@ -500,13 +515,14 @@ void  PropertiesPalette::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
 	{
-		for (int ws = 1; ws < 8; ++ws)
+		for (int ws = 1; ws < 9; ++ws)
 			TabStack->setItemEnabled(ws, false);
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, true);
 		TabStack->setItemEnabled(idTransparencyItem, true);
+		TabStack->setItemEnabled(idTableItem, false); // At least not for now.
 		if (m_haveItem && m_item)
 		{
 			if ((m_item->isGroup()) && (!m_item->isSingleSel))
@@ -527,7 +543,7 @@ void  PropertiesPalette::handleSelectionChanged()
 		{
 		case -1:
 			m_haveItem = false;
-			for (int ws = 1; ws < 8; ++ws)
+			for (int ws = 1; ws < 9; ++ws)
 				TabStack->setItemEnabled(ws, false);
 			TabStack->widget(0)->setEnabled(false);
 			TabStack->setItemEnabled(idXYZItem, false);
@@ -544,6 +560,7 @@ void  PropertiesPalette::handleSelectionChanged()
 				TabStack->setItemEnabled(idLineItem, false);
 				TabStack->setItemEnabled(idColorsItem, true);
 				TabStack->setItemEnabled(idTransparencyItem, false);
+				TabStack->setItemEnabled(idTableItem, false);
 				TabStack->setItemEnabled(idTextItem, false);
 				TabStack->setItemEnabled(idImageItem, false);
 			}
@@ -597,6 +614,16 @@ void  PropertiesPalette::handleSelectionChanged()
 			TabStack->setItemEnabled(idImageItem, false);
 			TabStack->setItemEnabled(idLineItem, false);
 			TabStack->setItemEnabled(idGroupItem, true);
+			TabStack->setItemEnabled(idColorsItem, false);
+			TabStack->setItemEnabled(idTransparencyItem, false);
+			break;
+		case PageItem::Table:
+			TabStack->setItemEnabled(idTableItem, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, false);
+			TabStack->setItemEnabled(idGroupItem, false);
 			TabStack->setItemEnabled(idColorsItem, false);
 			TabStack->setItemEnabled(idTransparencyItem, false);
 			break;
@@ -861,7 +888,7 @@ void PropertiesPalette::updateColorList()
 
 	groupPal->updateColorList();
 	textPal->updateColorList();
-
+	tablePal->updateColorList();
 	Cpal->updateColorList();
 	Tpal->updateColorList();
 
@@ -898,6 +925,7 @@ void PropertiesPalette::languageChange()
 	TabStack->setItemText(idColorsItem, tr("&Colors"));
 	TabStack->setItemText(idGroupItem, tr("&Group"));
 	TabStack->setItemText(idTransparencyItem, tr("&Transparency"));
+	TabStack->setItemText(idTableItem, tr("T&able"));
 
 	xyzPal->languageChange();
 	shapePal->languageChange();
@@ -905,6 +933,7 @@ void PropertiesPalette::languageChange()
 	imagePal->languageChange();
 	linePal->languageChange();
 	textPal->languageChange();
+	tablePal->languageChange();
 }
 
 const VGradient PropertiesPalette::getMaskGradient()

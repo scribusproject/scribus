@@ -429,6 +429,30 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemUpdateImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="tableInsertRows";
+	scrActions->insert(name, new ScrAction(loadIcon("16/insert-table-rows.png"), loadIcon("22/insert-table-rows.png"), "", defaultKey(name), mainWindow));
+	name="tableInsertColumns";
+	scrActions->insert(name, new ScrAction(loadIcon("16/insert-table-columns.png"), loadIcon("22/insert-table-columns.png"), "", defaultKey(name), mainWindow));
+	name="tableDeleteRows";
+	scrActions->insert(name, new ScrAction(loadIcon("16/delete-table-rows.png"), loadIcon("22/delete-table-rows.png"), "", defaultKey(name), mainWindow));
+	name="tableDeleteColumns";
+	scrActions->insert(name, new ScrAction(loadIcon("16/delete-table-columns.png"), loadIcon("22/delete-table-columns.png"), "", defaultKey(name), mainWindow));
+	name="tableMergeCells";
+	scrActions->insert(name, new ScrAction(loadIcon("16/merge-table-cells.png"), loadIcon("22/merge-table-cells.png"), "", defaultKey(name), mainWindow));
+	name="tableSplitCells";
+	scrActions->insert(name, new ScrAction(loadIcon("16/split-table-cells.png"), loadIcon("22/split-table-cells.png"), "", defaultKey(name), mainWindow));
+	name="tableSetRowHeights";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="tableSetColumnWidths";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="tableDistributeRowsEvenly";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="tableDistributeColumnsEvenly";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="tableAdjustFrameToTable";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "tableAdjustTableToFrame";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemAdjustFrameToImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "itemAdjustImageToFrame";
@@ -705,6 +729,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-renderframe.png"), loadIcon("22/insert-renderframe.png"), "", defaultKey(name), mainWindow, modeDrawLatex));
 	name="toolsInsertTableFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-table.png"), loadIcon("22/insert-table.png"), "", defaultKey(name), mainWindow, modeDrawTable));
+	name="toolsInsertTable";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-table.png"), loadIcon("22/insert-table.png"), "", defaultKey(name), mainWindow, modeDrawTable2));
 	name="toolsInsertShape";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, modeDrawShapes));
 	name="toolsInsertPolygon";
@@ -787,7 +813,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 
-	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
+	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame" << "toolsInsertTable";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
@@ -1058,6 +1084,18 @@ void ActionManager::connectModeActions()
 
 void ActionManager::disconnectNewDocActions()
 {
+	disconnect( (*scrActions)["tableInsertRows"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableInsertColumns"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableDeleteRows"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableDeleteColumns"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableMergeCells"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableSplitCells"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableSetRowHeights"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableSetColumnWidths"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableDistributeRowsEvenly"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableDistributeColumnsEvenly"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableAdjustFrameToTable"], 0, 0, 0 );
+	disconnect( (*scrActions)["tableAdjustTableToFrame"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemAdjustImageToFrame"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
@@ -1089,6 +1127,18 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoHyphenate()) );
 	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
 	connect( (*scrActions)["itemDelete"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteItem()) );
+	connect( (*scrActions)["tableInsertRows"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_InsertTableRows()));
+	connect( (*scrActions)["tableInsertColumns"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_InsertTableColumns()));
+	connect( (*scrActions)["tableDeleteRows"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteTableRows()));
+	connect( (*scrActions)["tableDeleteColumns"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteTableColumns()));
+	connect( (*scrActions)["tableMergeCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_MergeTableCells()));
+	connect( (*scrActions)["tableSplitCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SplitTableCells()));
+	connect( (*scrActions)["tableSetRowHeights"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SetTableRowHeights()));
+	connect( (*scrActions)["tableSetColumnWidths"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SetTableColumnWidths()));
+	connect( (*scrActions)["tableDistributeRowsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableRowsEvenly()));
+	connect( (*scrActions)["tableDistributeColumnsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableColumnsEvenly()));
+	connect( (*scrActions)["tableAdjustFrameToTable"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrameToTable()));
+	connect( (*scrActions)["tableAdjustTableToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustTableToFrame()));
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrametoImageSize()) );
 	connect( (*scrActions)["itemAdjustImageToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustImagetoFrameSize()) );
 }
@@ -1380,6 +1430,18 @@ void ActionManager::languageChange()
 	(*scrActions)["itemImageInfo"]->setTexts( tr("More Info..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));
 	(*scrActions)["itemUpdateImage"]->setTexts( tr("&Update Image"));
+	(*scrActions)["tableInsertRows"]->setTexts(tr("Insert Rows..."));
+	(*scrActions)["tableInsertColumns"]->setTexts(tr("Insert Columns..."));
+	(*scrActions)["tableDeleteRows"]->setTexts(tr("Delete Rows"));
+	(*scrActions)["tableDeleteColumns"]->setTexts(tr("Delete Columns"));
+	(*scrActions)["tableMergeCells"]->setTexts(tr("Merge Cells"));
+	(*scrActions)["tableSplitCells"]->setTexts(tr("Split Cells..."));
+	(*scrActions)["tableSetRowHeights"]->setTexts(tr("Set Row Heights..."));
+	(*scrActions)["tableSetColumnWidths"]->setTexts(tr("Set Column Widths..."));
+	(*scrActions)["tableDistributeRowsEvenly"]->setTexts(tr("Distribute Rows Evenly"));
+	(*scrActions)["tableDistributeColumnsEvenly"]->setTexts(tr("Distribute Columns Evenly"));
+	(*scrActions)["tableAdjustFrameToTable"]->setTexts(tr("Adjust Frame to Table"));
+	(*scrActions)["tableAdjustTableToFrame"]->setTexts(tr("Adjust Table to Frame"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
 	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
 	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Embed Image"));
@@ -1478,6 +1540,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
 	(*scrActions)["toolsInsertRenderFrame"]->setText( tr("Insert &Render Frame"));
 	(*scrActions)["toolsInsertTableFrame"]->setText( tr("Insert T&able"));
+	(*scrActions)["toolsInsertTable"]->setText( tr("Insert Table 2"));
 	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
 	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
 	(*scrActions)["toolsInsertArc"]->setText( tr("Insert Arc"));
@@ -1838,6 +1901,18 @@ void ActionManager::createDefaultMenus()
 		<< "itemLockSize" 
 		<< "itemImageIsVisible" 
 		<< "itemUpdateImage" 
+		<< "tableInsertRows"
+		<< "tableInsertColumns"
+		<< "tableDeleteRows"
+		<< "tableDeleteColumns"
+		<< "tableMergeCells"
+		<< "tableSplitCells"
+		<< "tableSetRowHeights"
+		<< "tableSetColumnWidths"
+		<< "tableDistributeRowsEvenly"
+		<< "tableDistributeColumnsEvenly"
+		<< "tableAdjustFrameToTable"
+		<< "tableAdjustTableToFrame"
 		<< "itemAdjustFrameToImage" 
 		<< "itemAdjustImageToFrame" 
 		<< "itemToggleInlineImage" 
@@ -1872,6 +1947,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsInsertTextFrame"
 		<< "toolsInsertImageFrame"
 		<< "toolsInsertTableFrame"
+		<< "toolsInsertTable"
 		<< "toolsInsertShape"
 		<< "toolsInsertPolygon"
 		<< "toolsInsertArc"

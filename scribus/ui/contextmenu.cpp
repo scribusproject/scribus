@@ -191,6 +191,32 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["itemAdjustFrameToImage"]);
 		if (m_actionList.contains("itemAdjustImageToFrame"))
 			addAction(m_AP->scrActions["itemAdjustImageToFrame"]);
+
+		if (m_actionList.contains("tableInsertRows"))
+			addAction(m_AP->scrActions["tableInsertRows"]);
+		if (m_actionList.contains("tableInsertColumns"))
+			addAction(m_AP->scrActions["tableInsertColumns"]);
+		if (m_actionList.contains("tableDeleteRows"))
+			addAction(m_AP->scrActions["tableDeleteRows"]);
+		if (m_actionList.contains("tableDeleteColumns"))
+			addAction(m_AP->scrActions["tableDeleteColumns"]);
+		if (m_actionList.contains("tableMergeCells"))
+			addAction(m_AP->scrActions["tableMergeCells"]);
+		if (m_actionList.contains("tableSplitCells"))
+			addAction(m_AP->scrActions["tableSplitCells"]);
+		if (m_actionList.contains("tableSetRowHeights"))
+			addAction(m_AP->scrActions["tableSetRowHeights"]);
+		if (m_actionList.contains("tableSetColumnWidths"))
+			addAction(m_AP->scrActions["tableSetColumnWidths"]);
+		if (m_actionList.contains("tableDistributeRowsEvenly"))
+			addAction(m_AP->scrActions["tableDistributeRowsEvenly"]);
+		if (m_actionList.contains("tableDistributeColumnsEvenly"))
+			addAction(m_AP->scrActions["tableDistributeColumnsEvenly"]);
+		if (m_actionList.contains("tableAdjustFrameToTable"))
+			addAction(m_AP->scrActions["tableAdjustFrameToTable"]);
+		if (m_actionList.contains("tableAdjustTableToFrame"))
+			addAction(m_AP->scrActions["tableAdjustTableToFrame"]);
+
 		if (m_actionList.contains("itemExtendedImageProperties"))
 			addAction(m_AP->scrActions["itemExtendedImageProperties"]);
 		if (m_actionList.contains("itemAdjustFrameToImage"))

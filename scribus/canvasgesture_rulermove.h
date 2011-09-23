@@ -48,6 +48,7 @@ public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
 	RulerGesture (ScribusView* view, Mode mode) : 
 		CanvasGesture(view), m_ScMW(m_view->m_ScMW), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
+	virtual ~RulerGesture() {}
 
 	/**
 		Prepares the gesture for 'mode' without using an existing guide. If 'mode' is HORIZONTAL

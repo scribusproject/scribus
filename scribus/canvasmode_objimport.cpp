@@ -48,7 +48,7 @@ CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) : CanvasMode(view)
 	m_trSettings = NULL;
 }
 
-CanvasMode_ObjImport::~CanvasMode_ObjImport(void)
+CanvasMode_ObjImport::~CanvasMode_ObjImport()
 {
 	if (m_mimeData)
 		delete m_mimeData;

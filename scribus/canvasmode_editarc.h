@@ -41,7 +41,8 @@ class CanvasMode_EditArc :  public CanvasMode
 {	
 	Q_OBJECT
 public:
-	CanvasMode_EditArc(ScribusView* view);
+	explicit CanvasMode_EditArc(ScribusView* view);
+	virtual ~CanvasMode_EditArc() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

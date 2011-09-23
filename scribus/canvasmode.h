@@ -22,6 +22,7 @@
 
 #include <QMap>
 #include <QPen>
+#include <QPointF>
 #include <QBrush>
 
 class QDragEnterEvent;
@@ -43,6 +44,7 @@ class  ScribusView;
 class  ScribusMainWindow;
 class  PageItem;
 class  PageItemPreview;
+class  PageItem_TextFrame;
 
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode
@@ -67,7 +69,7 @@ class SCRIBUS_API CanvasMode : public QObject
 {
 	Q_OBJECT
 protected:
-	CanvasMode (ScribusView* view);
+	explicit CanvasMode (ScribusView* view);
 	
 public:
 	static CanvasMode* createForAppMode(ScribusView* view, int appMode);
@@ -144,7 +146,8 @@ protected:
 	void setResizeCursor(int how, double rot = 0.0);
 	bool commonMouseMove(QMouseEvent *m);
 	void commonDrawControls(QPainter* p, bool drawHandles);
-
+	/// Draws the text cursor for @a textframe, offset by @a offset.
+	void commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe, const QPointF& offset);
 	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
 	void commonkeyReleaseEvent(QKeyEvent *e);
 	

@@ -67,16 +67,22 @@ public:
 	StyleSet() : styles(), m_context(NULL), m_default(NULL) {}
 	
 	~StyleSet() { 
-		clear(); 
+		clear(false);
 	}
 	
-	void clear() { 
+	/**
+	 * Deletes all styles in the style set.
+	 *
+	 * If @a invalid is <code>true</code>, this function also invalidates the style set.
+	 */
+	void clear(bool invalid = true) {
 		while(styles.count()>0) 
 		{ 
 			delete styles.front(); 
 			styles.pop_front(); 
 		}
-		invalidate();
+		if (invalid)
+			invalidate();
 	}
 
 	void setContext(const StyleContext* context) {

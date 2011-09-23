@@ -41,7 +41,8 @@ class CanvasMode_EditSpiral :  public CanvasMode
 {	
 	Q_OBJECT
 public:
-	CanvasMode_EditSpiral(ScribusView* view);
+	explicit CanvasMode_EditSpiral(ScribusView* view);
+	virtual ~CanvasMode_EditSpiral() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

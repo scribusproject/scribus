@@ -22,7 +22,7 @@ void TestStoryText::initST()
 void TestStoryText::addText()
 {
 	StoryText story;
-	story.insertChars(0, "Hallo Welt");
+	story.insertChars(0, QString("Hallo Welt"));
 	QCOMPARE(story.length(), 10);
 	QCOMPARE(story.text(0, story.length()), QString("Hallo Welt"));
 	story.insertChars(5, " schöne neue");
@@ -32,7 +32,7 @@ void TestStoryText::addText()
 void TestStoryText::removeText()
 {
 	StoryText story;
-	story.insertChars(0, "Hallo Welt");
+	story.insertChars(0, QString("Hallo Welt"));
 	story.removeChars(5, 5);
 	QCOMPARE(story.text(0, story.length()), QString("Hallo"));	
 }
@@ -40,7 +40,7 @@ void TestStoryText::removeText()
 void TestStoryText::copy()
 {
 	StoryText story1;
-	story1.insertChars(0, "Hallo Welt");
+	story1.insertChars(0, QString("Hallo Welt"));
 	StoryText story2;
 	story2.insert(0, story1);
 	QCOMPARE(story2.text(0, story2.length()), QString("Hallo Welt"));

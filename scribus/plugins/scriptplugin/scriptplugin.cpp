@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 // include cmdvar.h first, as it pulls in <Python.h>
 #include "cmdvar.h"
+#include "cmdcell.h"
 #include "cmdcolor.h"
 #include "cmddialog.h"
 #include "cmddoc.h"
@@ -33,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdobj.h"
 #include "cmdpage.h"
 #include "cmdsetprop.h"
+#include "cmdtable.h"
 #include "cmdtext.h"
 #include "cmdutil.h"
 #include "cmdstyle.h"
@@ -314,6 +316,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("createPolyLine"), scribus_polyline, METH_VARARGS, tr(scribus_polyline__doc__)},
 	{const_cast<char*>("createRect"), scribus_newrect, METH_VARARGS, tr(scribus_newrect__doc__)},
 	{const_cast<char*>("createText"), scribus_newtext, METH_VARARGS, tr(scribus_newtext__doc__)},
+	{const_cast<char*>("createTable"), scribus_newtable, METH_VARARGS, tr(scribus_newtable__doc__)},
 	{const_cast<char*>("createParagraphStyle"), (PyCFunction)scribus_createparagraphstyle, METH_KEYWORDS, tr(scribus_createparagraphstyle__doc__)},
 	{const_cast<char*>("createCharStyle"), (PyCFunction)scribus_createcharstyle, METH_KEYWORDS, tr(scribus_createcharstyle__doc__)},
 	{const_cast<char*>("currentPage"), (PyCFunction)scribus_actualpage, METH_NOARGS, tr(scribus_actualpage__doc__)},
@@ -336,6 +339,10 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getAllObjects"), scribus_getallobj, METH_VARARGS, tr(scribus_getallobj__doc__)},
 	{const_cast<char*>("getAllStyles"), (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)},
 	{const_cast<char*>("getAllText"), scribus_gettext, METH_VARARGS, tr(scribus_gettext__doc__)},
+	{const_cast<char*>("getCellStyle"), scribus_getcellstyle, METH_VARARGS, tr(scribus_getcellstyle__doc__)},
+	{const_cast<char*>("getCellColumnSpan"), scribus_getcellcolumnspan, METH_VARARGS, tr(scribus_getcellcolumnspan__doc__)},
+	{const_cast<char*>("getCellRowSpan"), scribus_getcellrowspan, METH_VARARGS, tr(scribus_getcellrowspan__doc__)},
+	{const_cast<char*>("getCellFillColor"), scribus_getcellfillcolor, METH_VARARGS, tr(scribus_getcellfillcolor__doc__)},
 	{const_cast<char*>("getColorNames"), (PyCFunction)scribus_colornames, METH_NOARGS, tr(scribus_colornames__doc__)},
 	{const_cast<char*>("getColor"), scribus_getcolor, METH_VARARGS, tr(scribus_getcolor__doc__)},
 	{const_cast<char*>("getColorAsRGB"), scribus_getcolorasrgb, METH_VARARGS, tr(scribus_getcolorasrgb__doc__)},
@@ -380,6 +387,12 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getObjectType"), scribus_getobjecttype, METH_VARARGS, tr(scribus_getobjecttype__doc__)},
 	{const_cast<char*>("getSelectedObject"), scribus_getselobjnam, METH_VARARGS, tr(scribus_getselobjnam__doc__)},
 	{const_cast<char*>("getSize"), scribus_getsize, METH_VARARGS, tr(scribus_getsize__doc__)},
+	{const_cast<char*>("getTableRows"), scribus_gettablerows, METH_VARARGS, tr(scribus_gettablerows__doc__)},
+	{const_cast<char*>("getTableRowHeight"), scribus_gettablerowheight, METH_VARARGS, tr(scribus_gettablerowheight__doc__)},
+	{const_cast<char*>("getTableColumns"), scribus_gettablecolumns, METH_VARARGS, tr(scribus_gettablecolumns__doc__)},
+	{const_cast<char*>("getTableColumnWidth"), scribus_gettablecolumnwidth, METH_VARARGS, tr(scribus_gettablecolumnwidth__doc__)},
+	{const_cast<char*>("getTableStyle"), scribus_gettablestyle, METH_VARARGS, tr(scribus_gettablestyle__doc__)},
+	{const_cast<char*>("getTableFillColor"), scribus_gettablefillcolor, METH_VARARGS, tr(scribus_gettablefillcolor__doc__)},
 	{const_cast<char*>("getTextColor"), scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
 	{const_cast<char*>("getTextLength"), scribus_gettextsize, METH_VARARGS, tr(scribus_gettextsize__doc__)},
 	{const_cast<char*>("getTextLines"), scribus_gettextlines, METH_VARARGS, tr(scribus_gettextlines__doc__)},
@@ -396,6 +409,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("placeEPS"), scribus_placevec, METH_VARARGS, tr(scribus_placeeps__doc__)},
 	{const_cast<char*>("placeSXD"), scribus_placevec, METH_VARARGS, tr(scribus_placesxd__doc__)},
 	{const_cast<char*>("placeODG"), scribus_placevec, METH_VARARGS, tr(scribus_placeodg__doc__)},
+	{const_cast<char*>("insertTableRows"), scribus_inserttablerows, METH_VARARGS, tr(scribus_inserttablerows__doc__)},
+	{const_cast<char*>("insertTableColumns"), scribus_inserttablecolumns, METH_VARARGS, tr(scribus_inserttablecolumns__doc__)},
 	{const_cast<char*>("insertText"), scribus_inserttext, METH_VARARGS, tr(scribus_inserttext__doc__)},
 	{const_cast<char*>("isLayerPrintable"), scribus_glayerprint, METH_VARARGS, tr(scribus_glayerprint__doc__)},
 	{const_cast<char*>("isLayerVisible"), scribus_glayervisib, METH_VARARGS, tr(scribus_glayervisib__doc__)},
@@ -408,6 +423,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("loadStylesFromFile"), scribus_loadstylesfromfile, METH_VARARGS, tr(scribus_loadstylesfromfile__doc__)},
 	{const_cast<char*>("lockObject"), scribus_lockobject, METH_VARARGS, tr(scribus_lockobject__doc__)},
 	{const_cast<char*>("masterPageNames"), (PyCFunction)scribus_masterpagenames, METH_NOARGS, tr(scribus_masterpagenames__doc__)},
+	{const_cast<char*>("mergeTableCells"), scribus_mergetablecells, METH_VARARGS, tr(scribus_mergetablecells__doc__)},
 	{const_cast<char*>("messagebarText"), scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
 	{const_cast<char*>("messageBox"), (PyCFunction)scribus_messdia, METH_VARARGS|METH_KEYWORDS, tr(scribus_messdia__doc__)},
 	{const_cast<char*>("moveObjectAbs"), scribus_moveobjabs, METH_VARARGS, tr(scribus_moveobjabs__doc__)},
@@ -425,8 +441,12 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("progressSet"), scribus_progresssetprogress, METH_VARARGS, tr(scribus_progresssetprogress__doc__)},
 	{const_cast<char*>("progressTotal"), scribus_progresssettotalsteps, METH_VARARGS, tr(scribus_progresssettotalsteps__doc__)},
 	{const_cast<char*>("redrawAll"), (PyCFunction)scribus_redraw, METH_NOARGS, tr(scribus_redraw__doc__)},
+	{const_cast<char*>("removeTableRows"), scribus_removetablerows, METH_VARARGS, tr(scribus_removetablerows__doc__)},
+	{const_cast<char*>("removeTableColumns"), scribus_removetablecolumns, METH_VARARGS, tr(scribus_removetablecolumns__doc__)},
 	{const_cast<char*>("renderFont"), (PyCFunction)scribus_renderfont, METH_KEYWORDS, tr(scribus_renderfont__doc__)},
 	{const_cast<char*>("replaceColor"), scribus_replcolor, METH_VARARGS, tr(scribus_replcolor__doc__)},
+	{const_cast<char*>("resizeTableColumn"), scribus_resizetablecolumn, METH_VARARGS, tr(scribus_resizetablecolumn__doc__)},
+	{const_cast<char*>("resizeTableRow"), scribus_resizetablerow, METH_VARARGS, tr(scribus_resizetablerow__doc__)},
 	{const_cast<char*>("rotateObjectAbs"), scribus_rotobjabs, METH_VARARGS, tr(scribus_rotobjabs__doc__)},
 	{const_cast<char*>("rotateObject"), scribus_rotobjrel, METH_VARARGS, tr(scribus_rotobjrel__doc__)},
 	{const_cast<char*>("getDocName"), (PyCFunction)scribus_getdocname, METH_NOARGS, tr(scribus_getdocname__doc__)},
@@ -447,6 +467,17 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setPDFBookmark"), scribus_setpdfbookmark, METH_VARARGS, tr(scribus_setpdfbookmark__doc__)},
 	{const_cast<char*>("isPDFBookmark"), scribus_ispdfbookmark, METH_VARARGS, tr(scribus_ispdfbookmark__doc__)},
 	{const_cast<char*>("setTextDistances"), scribus_settextdistances, METH_VARARGS, tr(scribus_settextdistances__doc__)},
+	{const_cast<char*>("setCellStyle"), scribus_setcellstyle, METH_VARARGS, tr(scribus_setcellstyle__doc__)},
+	{const_cast<char*>("setCellText"), scribus_setcelltext, METH_VARARGS, tr(scribus_setcelltext__doc__)},
+	{const_cast<char*>("setCellFillColor"), scribus_setcellfillcolor, METH_VARARGS, tr(scribus_setcellfillcolor__doc__)},
+	{const_cast<char*>("setCellLeftBorder"), scribus_setcellleftborder, METH_VARARGS, tr(scribus_setcellleftborder__doc__)},
+	{const_cast<char*>("setCellLeftPadding"), scribus_setcellleftpadding, METH_VARARGS, tr(scribus_setcellleftpadding__doc__)},
+	{const_cast<char*>("setCellRightBorder"), scribus_setcellrightborder, METH_VARARGS, tr(scribus_setcellrightborder__doc__)},
+	{const_cast<char*>("setCellRightPadding"), scribus_setcellrightpadding, METH_VARARGS, tr(scribus_setcellrightpadding__doc__)},
+	{const_cast<char*>("setCellTopBorder"), scribus_setcelltopborder, METH_VARARGS, tr(scribus_setcelltopborder__doc__)},
+	{const_cast<char*>("setCellTopPadding"), scribus_setcelltoppadding, METH_VARARGS, tr(scribus_setcelltoppadding__doc__)},
+	{const_cast<char*>("setCellBottomBorder"), scribus_setcellbottomborder, METH_VARARGS, tr(scribus_setcellbottomborder__doc__)},
+	{const_cast<char*>("setCellBottomPadding"), scribus_setcellbottompadding, METH_VARARGS, tr(scribus_setcellbottompadding__doc__)},
 	{const_cast<char*>("setColumnGap"), scribus_setcolumngap, METH_VARARGS, tr(scribus_setcolumngap__doc__)},
 	{const_cast<char*>("setColumns"), scribus_setcolumns, METH_VARARGS, tr(scribus_setcolumns__doc__)},
 	{const_cast<char*>("setCornerRadius"), scribus_setcornerrad, METH_VARARGS, tr(scribus_setcornerrad__doc__)},
@@ -489,6 +520,12 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("dehyphenateText"), scribus_dehyphenatetext, METH_VARARGS, tr(scribus_dehyphenatetext__doc__)},
 	{const_cast<char*>("setScaleImageToFrame"), (PyCFunction)scribus_setscaleimagetoframe, METH_KEYWORDS, tr(scribus_setscaleimagetoframe__doc__)},
 	{const_cast<char*>("setStyle"), scribus_setstyle, METH_VARARGS, tr(scribus_setstyle__doc__)},
+	{const_cast<char*>("setTableStyle"), scribus_settablestyle, METH_VARARGS, tr(scribus_settablestyle__doc__)},
+	{const_cast<char*>("setTableLeftBorder"), scribus_settableleftborder, METH_VARARGS, tr(scribus_settableleftborder__doc__)},
+	{const_cast<char*>("setTableRightBorder"), scribus_settablerightborder, METH_VARARGS, tr(scribus_settablerightborder__doc__)},
+	{const_cast<char*>("setTableTopBorder"), scribus_settabletopborder, METH_VARARGS, tr(scribus_settabletopborder__doc__)},
+	{const_cast<char*>("setTableBottomBorder"), scribus_settablebottomborder, METH_VARARGS, tr(scribus_settablebottomborder__doc__)},
+	{const_cast<char*>("setTableFillColor"), scribus_settablefillcolor, METH_VARARGS, tr(scribus_settablefillcolor__doc__)},
 	{const_cast<char*>("setTextAlignment"), scribus_setalign, METH_VARARGS, tr(scribus_setalign__doc__)},
 	{const_cast<char*>("setTextColor"), scribus_settextfill, METH_VARARGS, tr(scribus_settextfill__doc__)},
 	{const_cast<char*>("setText"), scribus_setboxtext, METH_VARARGS, tr(scribus_setboxtext__doc__)},

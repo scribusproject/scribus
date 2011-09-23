@@ -1,7 +1,7 @@
 
 #include <QTest>
 //#include "testGlyphStore.h"
-#include "testIndex.h"
+//#include "testIndex.h"
 #include "testStoryText.h"
 #include "runtests.h"
 

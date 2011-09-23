@@ -32,7 +32,8 @@ class UndoTransaction;
 class BezierMode : public CanvasMode
 {
 public:
-	BezierMode(ScribusView* view);
+	explicit BezierMode(ScribusView* view);
+	virtual ~BezierMode() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

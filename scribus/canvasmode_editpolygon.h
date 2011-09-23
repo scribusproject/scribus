@@ -41,7 +41,8 @@ class CanvasMode_EditPolygon :  public CanvasMode
 {
 	Q_OBJECT
 public:
-	CanvasMode_EditPolygon(ScribusView* view);
+	explicit CanvasMode_EditPolygon(ScribusView* view);
+	virtual ~CanvasMode_EditPolygon() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);

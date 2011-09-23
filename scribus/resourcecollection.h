@@ -22,6 +22,9 @@
 #include <QString>
 #include "vgradient.h"
 
+class ColorList;
+class SCFonts;
+
 /** 
 *   A simple structure which holds the names of all resources & styles used in a doc or part of a document.
 *   Also holds pointers to the doc's fontset and colorset.
@@ -45,6 +48,8 @@ public:
 	void collectStyle(const QString& name)     { if (!name.isEmpty()) m_pstyles.insert(name,name); }
 	void collectCharStyle(const QString& name) { if (!name.isEmpty()) m_cstyles.insert(name,name); }
 	void collectLineStyle(const QString& name) { if (!name.isEmpty()) m_linestyles.insert(name,name); }
+	void collectTableStyle(const QString& name) { if (!name.isEmpty()) m_tableStyles.insert(name,name); }
+	void collectCellStyle(const QString& name) { if (!name.isEmpty()) m_cellStyles.insert(name,name); }
 	
 	void mapFont(const QString& oldname, const QString& newname)      { m_fonts.insert(oldname, newname); }
 	void mapPattern(const QString& oldname, const QString& newname)   { m_patterns.insert(oldname, newname); }
@@ -53,6 +58,8 @@ public:
 	void mapStyle(const QString& oldname, const QString& newname)     { m_pstyles.insert(oldname, newname); }
 	void mapCharStyle(const QString& oldname, const QString& newname) { m_cstyles.insert(oldname, newname); }
 	void mapLineStyle(const QString& oldname, const QString& newname) { m_linestyles.insert(oldname, newname); }
+	void mapTableStyle(const QString& oldname, const QString& newname) { m_tableStyles.insert(oldname, newname); }
+	void mapCellStyle(const QString& oldname, const QString& newname) { m_cellStyles.insert(oldname, newname); }
 	
 	void mapFonts(const QMap<QString,QString>& newnames)      { m_fonts = newnames; }
 	void mapPatterns(const QMap<QString,QString>& newnames)   { m_patterns = newnames; }
@@ -61,6 +68,8 @@ public:
 	void mapStyles(const QMap<QString,QString>& newnames)     { m_pstyles = newnames; }
 	void mapCharStyles(const QMap<QString,QString>& newnames) { m_cstyles = newnames; }
 	void mapLineStyles(const QMap<QString,QString>& newnames) { m_linestyles = newnames; }
+	void mapTableStyles(const QMap<QString,QString>& newnames) { m_tableStyles = newnames; }
+	void mapCellStyles(const QMap<QString,QString>& newnames) { m_cellStyles = newnames; }
 	
 	const QMap<QString, QString>& fonts()      { return m_fonts; }
 	const QMap<QString, QString>& patterns()   { return m_patterns; }
@@ -69,6 +78,8 @@ public:
 	const QMap<QString, QString>& styles()     { return m_pstyles; }
 	const QMap<QString, QString>& charStyles() { return m_cstyles; }
 	const QMap<QString, QString>& lineStyles() { return m_linestyles; }
+	const QMap<QString, QString>& tableStyles() { return m_tableStyles; }
+	const QMap<QString, QString>& cellStyles() { return m_cellStyles; }
 	
 	QList<QString> fontNames() const      { return m_fonts.keys(); }
 	QList<QString> patternNames() const   { return m_patterns.keys(); }
@@ -77,6 +88,8 @@ public:
 	QList<QString> styleNames() const     { return m_pstyles.keys(); }
 	QList<QString> charStyleNames() const { return m_cstyles.keys(); }
 	QList<QString> lineStyleNames() const { return m_linestyles.keys(); }
+	QList<QString> tableStyleNames() const { return m_tableStyles.keys(); }
+	QList<QString> cellStyleNames() const { return m_cellStyles.keys(); }
 
 	// modifies newNames so that forall x in both newNames.key() and in existingNames, newNames[x] will map to a new unique name
 	static void makeUnique(QMap<QString,QString>& newNames, const QList<QString> existingNames);
@@ -94,6 +107,8 @@ private:
 	QMap<QString,QString> m_pstyles;
 	QMap<QString,QString> m_cstyles;
 	QMap<QString,QString> m_linestyles;
+	QMap<QString,QString> m_tableStyles;
+	QMap<QString,QString> m_cellStyles;
 };
 
 

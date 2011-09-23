@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "pageitem_table.h"
 
 PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {
@@ -116,6 +117,43 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
+}
+
+PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
+{
+	double x, y, w, h;
+	int numRows, numColumns;
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "ddddii|es", &x, &y, &w, &h, &numRows, &numColumns, "utf-8", &Name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	if (numRows < 1 || numColumns < 1)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Both numRows and numColumns must be greater than 0.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Table, PageItem::Unspecified,
+								pageUnitXToDocX(x),
+								pageUnitYToDocY(y),
+								ValueToPoint(w),
+								ValueToPoint(h),
+								0,                    // Unused.
+								CommonStrings::None,  // Unused.
+								CommonStrings::None,  // Unused.
+								true);
+	PageItem_Table *table = ScCore->primaryMainWindow()->doc->Items->at(i)->asTable();
+	table->insertRows(0, numRows - 1);
+	table->insertColumns(0, numColumns - 1);
+	table->adjustTableToFrame();
+	table->adjustFrameToTable();
+	if (Name != EMPTY_STRING)
+	{
+		QString objName = QString::fromUtf8(Name);
+		if (!ItemExists(objName))
+			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
+	}
+	return PyString_FromString(table->itemName().toUtf8());
 }
 
 PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
@@ -663,5 +701,5 @@ PV */
 void cmdobjdocwarnings()
 {
     QStringList s;
-    s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_duplicateobject__doc__;
+	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_duplicateobject__doc__;
 }

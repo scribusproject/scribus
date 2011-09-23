@@ -68,4 +68,8 @@ QStringList getSelectedItemsByName();
  */
 bool setSelectedItemsByName(QStringList& itemNames);
 
+/// Helper method to parse a border from a list of tuples.
+TableBorder parseBorder(PyObject* borderLines, bool* ok);
+
+
 #endif

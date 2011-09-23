@@ -37,7 +37,8 @@ class ScribusView;
 class CanvasMode_Magnifier :  public CanvasMode
 {
 public:
-	CanvasMode_Magnifier(ScribusView* view);
+	explicit CanvasMode_Magnifier(ScribusView* view);
+	virtual ~CanvasMode_Magnifier() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
