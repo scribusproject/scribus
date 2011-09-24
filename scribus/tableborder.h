@@ -13,10 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <QPen>
 #include <QString>
 
+#include "scribusapi.h"
+
 /**
  * The TableBorderLine class represents a single line in a table border.
  */
-class TableBorderLine
+class SCRIBUS_API TableBorderLine
 {
 public:
 	/// Creates a new solid black 0 width table border line.
@@ -73,7 +75,7 @@ Q_DECLARE_TYPEINFO(TableBorderLine, Q_MOVABLE_TYPE);
  *
  * It consists of a list of table border lines kept in descending order by width.
  */
-class TableBorder
+class SCRIBUS_API TableBorder
 {
 public:
 	/// Creates a new null table border. Null borders are used to indicate the absence of a border.

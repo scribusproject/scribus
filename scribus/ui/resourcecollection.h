@@ -21,6 +21,9 @@
 #include <QMap>
 #include <QString>
 
+class ColorList;
+class SCFonts;
+
 /** 
 *   A simple structure which holds the names of all resources & styles used in a doc or part of a document.
 *   Also holds pointers to the doc's fontset and colorset.

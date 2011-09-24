@@ -222,6 +222,10 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdcell.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdcolor.cpp"
 				>
 			</File>
@@ -263,6 +267,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdstyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdtable.cpp"
 				>
 			</File>
 			<File
@@ -327,6 +335,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdcell.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdcolor.h"
 				>
 			</File>
@@ -368,6 +380,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdstyle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\scriptplugin\cmdtable.h"
 				>
 			</File>
 			<File

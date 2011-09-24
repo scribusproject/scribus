@@ -16,6 +16,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSharedData>
 #include <QString>
 
+#include "scribusapi.h"
+
 #include "commonstrings.h"
 #include "pageitem_textframe.h"
 #include "styles/cellstyle.h"
@@ -92,7 +94,7 @@ public:
  * for any cell paddings and borders. It may be queried using the <code>contentRect()</code>
  * function.
  */
-class TableCell
+class SCRIBUS_API TableCell
 {
 public:
 	/**

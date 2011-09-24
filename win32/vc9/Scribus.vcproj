@@ -389,6 +389,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasgesture_cellselect.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasgesture_columnresize.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasgesture_linemove.cpp"
 				>
 			</File>
@@ -405,7 +413,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasgesture_rowresize.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasgesture_rulermove.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasgesture_table.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasgesture_tableresize.cpp"
 				>
 			</File>
 			<File
@@ -457,6 +477,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_edittable.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_eyedropper.cpp"
 				>
 			</File>
@@ -490,6 +514,14 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_rotate.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\cellarea.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\styles\cellstyle.cpp"
 				>
 			</File>
 			<File
@@ -534,6 +566,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\cmykfw.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\collapsedtablepainter.cpp"
 				>
 			</File>
 			<File
@@ -825,6 +861,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\inserttablecolumnsdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\inserttablerowsdialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\inspage.cpp"
 				>
 			</File>
@@ -1034,6 +1078,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_symbol.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_table.cpp"
 				>
 			</File>
 			<File
@@ -1286,6 +1334,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\propertiespalette_shape.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_table.cpp"
 				>
 			</File>
 			<File
@@ -1725,6 +1777,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\smcellstyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\smcellstylewidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\smcheckbox.cpp"
 				>
 			</File>
@@ -1782,6 +1842,14 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smstyleselect.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\smtablestyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\smtablestylewidget.cpp"
 				>
 			</File>
 			<File
@@ -1854,6 +1922,34 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\symbolpalette.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tableborder.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tablecell.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablecolumnwidthsdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablerowheightsdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablesideselector.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\styles\tablestyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tableutils.cpp"
 				>
 			</File>
 			<File
@@ -2352,6 +2448,42 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasgesture_cellselect.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasgesture_columnresize.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasgesture_linemove.h"
 				>
 			</File>
@@ -2368,7 +2500,61 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasgesture_rowresize.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasgesture_rulermove.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasgesture_table.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasgesture_tableresize.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -2504,6 +2690,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_edittable.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_eyedropper.h"
 				>
 			</File>
@@ -2565,6 +2769,14 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_rotate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\cellarea.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\styles\cellstyle.h"
 				>
 			</File>
 			<File
@@ -2722,6 +2934,10 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\collapsedtablepainter.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\collect4output.h"
@@ -3784,6 +4000,42 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\inserttablecolumnsdialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\inserttablerowsdialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\inspage.h"
 				>
 				<FileConfiguration
@@ -4563,6 +4815,24 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\pageitem_symbol.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitem_table.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -5611,6 +5881,24 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\propertiespalette_shape.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_table.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -6896,6 +7184,42 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\smcellstyle.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\smcellstylewidget.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\smcheckbox.h"
 				>
 				<FileConfiguration
@@ -7149,6 +7473,42 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\smstyleselect.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\smtablestyle.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\smtablestylewidget.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -7422,6 +7782,84 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tableborder.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tablecell.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablecolumnwidthsdialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tablehandle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tablepainter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablerowheightsdialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablesideselector.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\styles\tablestyle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\tableutils.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\tabmanager.h"
@@ -7887,6 +8325,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_inserttablecolumnsdialog.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_inserttablerowsdialog.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui_lensdialogbase.h"
 				>
 			</File>
@@ -8067,6 +8513,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_propertiespalette_tablebase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_propertiespalette_textbase.h"
 				>
 			</File>
@@ -8123,6 +8573,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_smcellstylewidget.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_smcstylewidget.h"
 				>
 			</File>
@@ -8139,6 +8593,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\ui_smtablestylewidget.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\ui_spiralvectorbase.h"
 				>
 			</File>
@@ -8148,6 +8606,14 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\ui_stylemanager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_tablecolumnwidthsdialog.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\ui_tablerowheightsdialog.h"
 				>
 			</File>
 			<File
@@ -8248,7 +8714,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\moc_canvasgesture_cellselect.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasgesture_columnresize.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasgesture_rowresize.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\moc_canvasgesture_rulermove.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasgesture_table.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasgesture_tableresize.cpp"
 				>
 			</File>
 			<File
@@ -8269,6 +8755,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_canvasmode_editspiral.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasmode_edittable.cpp"
 				>
 			</File>
 			<File
@@ -8504,6 +8994,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_inserttablecolumnsdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_inserttablerowsdialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_inspage.cpp"
 				>
 			</File>
@@ -8665,6 +9163,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_pageitem_symbol.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pageitem_table.cpp"
 				>
 			</File>
 			<File
@@ -8892,6 +9394,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_propertiespalette_table.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_propertiespalette_text.cpp"
 				>
 			</File>
@@ -9096,6 +9602,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_smcellstyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_smcellstylewidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_smcheckbox.cpp"
 				>
 			</File>
@@ -9152,6 +9666,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\moc_smtablestyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_smtablestylewidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\moc_smtabruler.cpp"
 				>
 			</File>
@@ -9201,6 +9723,18 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\moc_symbolpalette.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_tablecolumnwidthsdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_tablerowheightsdialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\moc_tablesideselector.cpp"
 				>
 			</File>
 			<File
@@ -9334,6 +9868,14 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\insertaframe.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\inserttablecolumnsdialog.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\inserttablerowsdialog.ui"
 				>
 			</File>
 			<File
@@ -9525,6 +10067,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\propertiespalette_tablebase.ui"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\propertiespalette_textbase.ui"
 				>
 			</File>
@@ -9581,6 +10127,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\smcellstylewidget.ui"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\smcstylewidget.ui"
 				>
 			</File>
@@ -9601,6 +10151,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\ui\smtablestylewidget.ui"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\ui\spiralvectorbase.ui"
 				>
 			</File>
@@ -9610,6 +10164,14 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\ui\stylemanager.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablecolumnwidthsdialog.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\ui\tablerowheightsdialog.ui"
 				>
 			</File>
 			<File
