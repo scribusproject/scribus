@@ -440,7 +440,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished">Kép beillesztése vágólapról</translation>
+        <translation>Kép beillesztése vágólapról</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1313"/>
@@ -525,7 +525,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1342"/>
         <source>&amp;Image Effects</source>
-        <translation>Kép effekt&amp;usok</translation>
+        <translation>Képeffekt&amp;usok</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1343"/>
@@ -614,7 +614,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1368"/>
         <source>Extended Image Properties</source>
-        <translation>Bővített kép tulajdonságok</translation>
+        <translation>Bővített képtulajdonságok</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1369"/>
@@ -744,7 +744,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1402"/>
         <source>Manage Page Properties...</source>
-        <translation>Oldal tulajdonságok kezelése...</translation>
+        <translation>Oldaltulajdonságok kezelése...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1407"/>
@@ -904,7 +904,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1452"/>
         <source>Edit Text...</source>
-        <translation>Szöveg szerkesztése...</translation>
+        <translation>Szövegszerkesztő...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1453"/>
@@ -1221,7 +1221,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1469"/>
         <source>Insert PDF Text Field</source>
-        <translation>PDF szöveg mező beszúrása</translation>
+        <translation>PDF szövegmező beszúrása</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1470"/>
@@ -3216,7 +3216,7 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="78"/>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation>Változó számú számjegy. Az ITF-14 14 karakterből áll és nincs ellenőrző összege</translation>
+        <translation>Változó számú számjegy. Az ITF-14 14 karakterből áll és nincs ellenőrzőösszege</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="74"/>
@@ -3297,7 +3297,7 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="62"/>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation>Nyíl elhelyezése a kód után az üres hely biztosítása miatt</translation>
+        <translation>Nyíl elhelyezése a kód után a helykihagyás biztosítása miatt</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="156"/>
@@ -3372,7 +3372,7 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="49"/>
         <source>Generate and include a checksum in barcode</source>
-        <translation>Ellenőrző összeget állít elő és szúr be a vonalkódba</translation>
+        <translation>Ellenőrzőösszeget állít elő és szúr be a vonalkódba</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="42"/>
@@ -3382,7 +3382,7 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="36"/>
         <source>Include the checksum digit in the barcode text</source>
-        <translation>Beemeli az ellenőrző összeget a vonalkód szövegébe</translation>
+        <translation>Beemeli az ellenőrzőösszeget a vonalkód szövegébe</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
@@ -3397,17 +3397,17 @@
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="39"/>
         <source>Incl&amp;ude Checksum Digit</source>
-        <translation>&amp;Ellenőrző összeg számjegyei</translation>
+        <translation>&amp;Ellenőrzőösszeg számjegyei</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="52"/>
         <source>I&amp;nclude Checksum</source>
-        <translation>Elle&amp;nőrző összeg</translation>
+        <translation>Elle&amp;nőrzőösszeg</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="65"/>
         <source>&amp;Guard Whitespace</source>
-        <translation>&amp;Üres hely biztosítása</translation>
+        <translation>&amp;Helykihagyás biztosítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="78"/>
@@ -5731,7 +5731,7 @@ További információkért lásd a dokumentáció Színek szerkesztése fejezet�
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1041"/>
         <source>Edit Line Color Properties</source>
-        <translation>Vonal szín tulajdonságainak szerkesztése</translation>
+        <translation>Vonalszín tulajdonságainak szerkesztése</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1042"/>
@@ -6918,7 +6918,7 @@ failed!</source>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="45"/>
         <source>Image Effects</source>
-        <translation>Kép effektusok</translation>
+        <translation>Képeffektusok</translation>
     </message>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="82"/>
@@ -7187,7 +7187,7 @@ failed!</source>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/exportform.ui" line="153"/>
         <source>&amp;Export to Directory:</source>
-        <translation>&amp;Exportálás könyvtárba:</translation>
+        <translation>&amp;Exportálási könyvtár:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/exportform.ui" line="166"/>
@@ -7202,7 +7202,7 @@ failed!</source>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/exportform.ui" line="54"/>
         <source>Image &amp;Type:</source>
-        <translation>Kép &amp;típusa:</translation>
+        <translation>Kép&amp;típus:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/exportform.ui" line="64"/>
@@ -7327,7 +7327,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/extimageprops.cpp" line="39"/>
         <source>Extended Image Properties</source>
-        <translation>Bővített kép tulajdonságok</translation>
+        <translation>Bővített képtulajdonságok</translation>
     </message>
     <message>
         <location filename="../../../scribus/extimageprops.cpp" line="50"/>
@@ -9078,7 +9078,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="625"/>
         <source>Columns:</source>
-        <translation>Oszlopok:</translation>
+        <translation>Hasábok:</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="611"/>
@@ -9088,7 +9088,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="697"/>
         <source>Source Document:</source>
-        <translation>Forrás dokumentum:</translation>
+        <translation>Forrásdokumentum:</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="172"/>
@@ -9113,7 +9113,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.cpp" line="137"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, and posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation>&lt;b&gt;Képkeret beszúrása&lt;/b&gt;&lt;br/&gt;A képkeret lehetővé teszi egy kép elhelyezését a lapon. Számos kép effektus alkalmazható vagy kombinálható a képen, mint például az átlátszóság, fényerő, poszter, amelyek lehetővé teszik a képek retusálását, vagy érdekes látvány létrehozását. A kép méretezése és alakítása a Tulajdonságok palettán végezhető el.</translation>
+        <translation>&lt;b&gt;Képkeret beszúrása&lt;/b&gt;&lt;br/&gt;A képkeret lehetővé teszi egy kép elhelyezését a lapon. Számos képeffektus alkalmazható vagy kombinálható a képen, mint például az átlátszóság, fényerő, poszter, amelyek lehetővé teszik a képek retusálását, vagy érdekes látvány létrehozását. A kép méretezése és alakítása a Tulajdonságok palettán végezhető el.</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="72"/>
@@ -9799,22 +9799,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
         <source>Lens Effects...</source>
-        <translation>Lencse effektus...</translation>
+        <translation>Lencseeffektus...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="90"/>
         <source>Lens Effects</source>
-        <translation>Lencse effektus</translation>
+        <translation>Lencseeffektus</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="91"/>
         <source>Apply fancy lens effects</source>
-        <translation>Különleges lencse effektus alkalmazása</translation>
+        <translation>Különleges lencseeffektus alkalmazása</translation>
     </message>
 </context>
 <context>
@@ -9910,7 +9910,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="31"/>
         <source>Manage Page Properties</source>
-        <translation>Oldal tulajdonságok kezelése</translation>
+        <translation>Oldaltulajdonságok kezelése</translation>
     </message>
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="39"/>
@@ -10458,7 +10458,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="73"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp" line="94"/>
@@ -12245,7 +12245,7 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="73"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="96"/>
@@ -12319,7 +12319,7 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="69"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="91"/>
@@ -12337,7 +12337,7 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="76"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathcut/pathcut.cpp" line="99"/>
@@ -12583,7 +12583,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="478"/>
         <source>Stroke Color</source>
-        <translation>Körvonal színe</translation>
+        <translation>Körvonalszín</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="498"/>
@@ -12619,7 +12619,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="78"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="103"/>
@@ -12653,7 +12653,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="75"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="97"/>
@@ -13057,7 +13057,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="633"/>
         <source>Image Effects...</source>
-        <translation>Kép effektusok...</translation>
+        <translation>Képeffektusok...</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="613"/>
@@ -13067,7 +13067,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="600"/>
         <source>Extended Image Properties...</source>
-        <translation>Bővített kép tulajdonságok...</translation>
+        <translation>Bővített képtulajdonságok...</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.cpp" line="228"/>
@@ -13107,7 +13107,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="240"/>
         <source>Type of the image</source>
-        <translation>Kép típusa</translation>
+        <translation>Képtípus</translation>
     </message>
     <message>
         <location filename="../../../scribus/picstatus.ui" line="253"/>
@@ -13917,7 +13917,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="364"/>
         <source>Set Media Size</source>
-        <translation>Média méret beállítása</translation>
+        <translation>Médiaméret beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="381"/>
@@ -14376,7 +14376,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5442"/>
         <source>T&amp;ype of Line:</source>
-        <translation>&amp;Vonal típusa:</translation>
+        <translation>&amp;Vonaltípus:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5454"/>
@@ -14847,12 +14847,12 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5410"/>
         <source>Image Effects</source>
-        <translation>Kép effektusok</translation>
+        <translation>Képeffektusok</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5411"/>
         <source>Extended Image Properties</source>
-        <translation>Bővített kép tulajdonságok</translation>
+        <translation>Bővített képtulajdonságok</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5642"/>
@@ -14981,7 +14981,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5629"/>
         <source>Group the selected objects</source>
-        <translation>A kijelölt objektumok csoportosítása</translation>
+        <translation>Kijelölt objektumok csoportosítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="1269"/>
@@ -15169,7 +15169,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5630"/>
         <source>Ungroup the selected group</source>
-        <translation>A kijelölt objektumok csoportosításának megszüntetése</translation>
+        <translation>Kijelölt objektumok csoportosításának megszüntetése</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5666"/>
@@ -16529,13 +16529,13 @@ Külső hivatkozások
         <location filename="../../../scribus/plugins/scriptplugin/objimageexport.cpp" line="98"/>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation>Nem törölhetők a kép típus beállítások.</translation>
+        <translation>Nem törölhetők a képtípus beállítások.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/objimageexport.cpp" line="102"/>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation>A kép típusa karaktersorozat kell legyen.</translation>
+        <translation>A képtípus karaktersorozat kell legyen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/objimageexport.cpp" line="127"/>
@@ -18774,7 +18774,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="94"/>
         <source>Stroke Color</source>
-        <translation>Körvonal színe</translation>
+        <translation>Körvonalszín</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="95"/>
@@ -18987,7 +18987,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="68"/>
         <source>Line color</source>
-        <translation>Vonal színe</translation>
+        <translation>Vonalszín</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="69"/>
@@ -19660,7 +19660,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="56"/>
         <source>&amp;Use Language from Style Definition</source>
-        <translation>Nyelv a &amp;stílus definícióból</translation>
+        <translation>Nyelv a &amp;stílusdefinícióból</translation>
     </message>
 </context>
 <context>
@@ -21161,7 +21161,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <location filename="../../../scribus/search.cpp" line="86"/>
         <location filename="../../../scribus/search.cpp" line="175"/>
         <source>Stroke Color</source>
-        <translation>Körvonal színe</translation>
+        <translation>Körvonalszín</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="89"/>
@@ -21917,7 +21917,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <location filename="../../../scribus/stylemanager.ui" line="23"/>
         <location filename="../../../scribus/stylemanager.cpp" line="99"/>
         <source>Style Manager</source>
-        <translation>Stílus kezelő</translation>
+        <translation>Stíluskezelő</translation>
     </message>
 </context>
 <context>
@@ -21979,7 +21979,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation>Útvonal eszközök</translation>
+        <translation>Útvonaleszközök</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/subdivide/subdivide.cpp" line="87"/>
@@ -24789,7 +24789,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="83"/>
         <source>Set Media Size</source>
-        <translation>Média méret beállítása</translation>
+        <translation>Médiaméret beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="112"/>
@@ -25034,7 +25034,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="178"/>
         <source>Stroke Color:</source>
-        <translation>Körvonal színe:</translation>
+        <translation>Körvonalszín:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="208"/>
@@ -25059,7 +25059,7 @@ Wesselényinél mázol Quitóban</translation>
         <location filename="../../../scribus/tabtools.cpp" line="236"/>
         <location filename="../../../scribus/tabtools.cpp" line="291"/>
         <source>&amp;Line Color:</source>
-        <translation>&amp;Vonal színe:</translation>
+        <translation>&amp;Vonalszín:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="136"/>
@@ -25250,7 +25250,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="545"/>
         <source>Saturation of color of lines</source>
-        <translation>Vonal színének telítettsége</translation>
+        <translation>Vonalszín telítettsége</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="546"/>
@@ -26406,7 +26406,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="938"/>
         <source>Change page properties</source>
-        <translation>Oldal tulajdonságok beállítása</translation>
+        <translation>Oldaltulajdonságok beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="949"/>
@@ -26441,7 +26441,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="974"/>
         <source>Edit text</source>
-        <translation>Szöveg szerkesztése</translation>
+        <translation>Szövegszerkesztő</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="975"/>
@@ -27652,7 +27652,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="170"/>
         <source>Line Color</source>
-        <translation>Vonal szín</translation>
+        <translation>Vonalszín</translation>
     </message>
     <message>
         <location filename="../../../scribus/selectobjects.ui" line="187"/>
