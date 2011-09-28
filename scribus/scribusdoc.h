@@ -577,6 +577,8 @@ public:
 	
 	QList<int> getSortedStyleList();
 	QList<int> getSortedCharStyleList();
+	QList<int> getSortedTableStyleList();
+	QList<int> getSortedCellStyleList();
 	
 	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
 	/**

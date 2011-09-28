@@ -1128,6 +1128,70 @@ QList<int> ScribusDoc::getSortedCharStyleList()
 	return retList;
 }
 
+QList<int> ScribusDoc::getSortedTableStyleList()
+{
+	QList<int> retList;
+	for (int ff = 0; ff < docTableStyles.count(); ++ff)
+	{
+		if (docTableStyles[ff].parent().isEmpty())
+		{
+			if (!retList.contains(ff))
+				retList.append(ff);
+			continue;
+		}
+
+		QList<int> retList2;
+		QString name = docTableStyles[ff].name();
+		QString par  = docTableStyles[ff].parent();
+		retList2.prepend(ff);
+		while ((!par.isEmpty()) && (par != name))
+		{
+			int pp = docTableStyles.find(par);
+			if ((pp >= 0) && (!retList2.contains(pp)))
+				retList2.prepend(pp);
+			par = (pp >= 0) ? docTableStyles[pp].parent() : QString();
+		}
+		for (int r = 0; r < retList2.count(); ++r)
+		{
+			if (!retList.contains(retList2[r]))
+				retList.append(retList2[r]);
+		}
+	}
+	return retList;
+}
+
+QList<int> ScribusDoc::getSortedCellStyleList()
+{
+	QList<int> retList;
+	for (int ff = 0; ff < docCellStyles.count(); ++ff)
+	{
+		if (docCellStyles[ff].parent().isEmpty())
+		{
+			if (!retList.contains(ff))
+				retList.append(ff);
+			continue;
+		}
+
+		QList<int> retList2;
+		QString name = docCellStyles[ff].name();
+		QString par  = docCellStyles[ff].parent();
+		retList2.prepend(ff);
+		while ((!par.isEmpty()) && (par != name))
+		{
+			int pp = docCellStyles.find(par);
+			if ((pp >= 0) && (!retList2.contains(pp)))
+				retList2.prepend(pp);
+			par = (pp >= 0) ? docCellStyles[pp].parent() : QString();
+		}
+		for (int r = 0; r < retList2.count(); ++r)
+		{
+			if (!retList.contains(retList2[r]))
+				retList.append(retList2[r]);
+		}
+	}
+	return retList;
+}
+
 void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {
 	ResourceCollection newNames;

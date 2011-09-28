@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
+#include "pageitem_table.h"
 
 #include "units.h"
 #include "util.h"
@@ -353,6 +354,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeHyphenatorLists(docu);
 	writePStyles(docu);
 	writeCStyles(docu);
+	writeTableStyles(docu);
+	writeCellStyles(docu);
 	writeLinestyles(docu);
 	writeLayers(docu);
 	writePrintOptions(docu);
@@ -562,7 +565,7 @@ void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter &docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writePStyles(ScXmlStreamWriter & docu) 
+void Scribus150Format::writePStyles(ScXmlStreamWriter & docu)
 {
 	QList<int> styleList = m_Doc->getSortedStyleList();
 	for (int a = 0; a < styleList.count(); ++a)
@@ -751,6 +754,36 @@ void Scribus150Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle &
 	if ( style.hasName() && style.isDefaultStyle())
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
 	putCStyle(docu, style);
+}
+
+void Scribus150Format::writeTableStyles(ScXmlStreamWriter& docu)
+{
+	QList<int> styleList = m_Doc->getSortedTableStyleList();
+	for (int i = 0; i < styleList.count(); ++i)
+	{
+		docu.writeStartElement("TableStyle");
+		putTableStyle(docu, m_Doc->tableStyles()[styleList[i]]);
+		docu.writeEndElement();
+	}
+}
+
+void Scribus150Format::writeCellStyles(ScXmlStreamWriter& docu)
+{
+	QList<int> styleList = m_Doc->getSortedCellStyleList();
+	for (int i = 0; i < styleList.count(); ++i)
+	{
+		docu.writeStartElement("CellStyle");
+		putCellStyle(docu, m_Doc->cellStyles()[styleList[i]]);
+		docu.writeEndElement();
+	}
+}
+
+void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &style)
+{
+}
+
+void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style)
+{
 }
 
 void Scribus150Format::writeLayers(ScXmlStreamWriter & docu) 
@@ -2045,6 +2078,43 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("BottomLINK", -1);
 		docu.writeAttribute("OwnLINK", item->ItemNr);
 	}
+
+	if (item->isTable())
+	{
+		//PTYPE == PageItem::Table or 16 (pageitem.h)
+		PageItem_Table* tableItem=item->asTable();
+		docu.writeAttribute("Rows", tableItem->rows());
+		docu.writeAttribute("Columns",tableItem->columns());
+
+		QString outputData;
+		//Row Positions
+		foreach(qreal value, tableItem->rowPositions())
+			outputData += tmp.setNum(value) + " ";
+		docu.writeAttribute("RowPositions", outputData.simplified());
+		outputData.clear();
+
+		//Row Heights
+		foreach(qreal value, tableItem->rowHeights())
+			outputData += tmp.setNum(value) + " ";
+		docu.writeAttribute("RowHeights", outputData.simplified());
+		outputData.clear();
+		//Column Positions
+		foreach(qreal value, tableItem->columnPositions())
+			outputData += tmp.setNum(value) + " ";
+		docu.writeAttribute("ColumnPositions", outputData.simplified());
+		outputData.clear();
+		//Column Widths
+		foreach(qreal value, tableItem->columnWidths())
+			outputData += tmp.setNum(value) + " ";
+		docu.writeAttribute("ColumnWidths", outputData.simplified());
+		outputData.clear();
+		//Cell Areas
+		foreach(CellArea ca, tableItem->cellAreas())
+			outputData += tmp.setNum(ca.row()) + " " + tmp.setNum(ca.column()) + " " + tmp.setNum(ca.height()) + " " + tmp.setNum(ca.width()) + " ";
+		docu.writeAttribute("CellAreas", outputData.simplified());
+		outputData.clear();
+	}
+
 	if (item->isGroup())
 	{
 		docu.writeAttribute("groupWidth", item->groupWidth);

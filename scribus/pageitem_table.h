@@ -454,6 +454,9 @@ public:
 	/// Returns a textual description of this item.
 	virtual QString infoDescription() { return QString(); }
 
+	// Returns the Cell Areas from this table
+	QList<CellArea> cellAreas() const { return m_cellAreas; }
+
 signals:
 	/// This signal is emitted whenever the table changes.
 	void changed();
@@ -535,6 +538,7 @@ private:
 	void assertValid() const;
 
 private:
+	//<<Data we need to save
 	/// List of rows of cells in the table.
 	QList<QList<TableCell> > m_cellRows;
 
@@ -556,11 +560,13 @@ private:
 	/// List of areas of merged cells.
 	QList<CellArea> m_cellAreas;
 
-	/// Set of selected cells.
-	QSet<TableCell> m_selection;
-
 	/// Style of the table.
 	TableStyle m_style;
+	//>>End of data we need to save
+	//-----------------------------
+	//<<Live working variables/data
+	/// Set of selected cells.
+	QSet<TableCell> m_selection;
 
 	/// The table painter to paint the table with.
 	TablePainter* m_tablePainter;
@@ -595,6 +601,7 @@ private:
 
 	/// The logical active column.
 	int m_activeColumn;
+	//>>End of live working variables/data
 };
 
 #endif // PAGEITEM_TABLE_H
