@@ -202,6 +202,30 @@ ColorListBox::ColorListBox(QWidget * parent)
 	connect(this, SIGNAL(showContextMenue()), this, SLOT(slotRightClick()));
 }
 
+void ColorListBox::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+		return;
+	}
+	QListWidget::changeEvent(e);
+}
+
+void ColorListBox::languageChange()
+{
+	if (this->count() > 0)
+	{
+		QModelIndexList result;
+		QModelIndex start = model()->index(0, 0, this->rootIndex());
+		result =  model()->match(start, Qt::UserRole, CommonStrings::None, 1, Qt::MatchExactly | Qt::MatchCaseSensitive);
+		if (result.isEmpty())
+			return;
+		int index = result.first().row();
+		QListWidgetItem* item = this->item(index);
+		item->setText(CommonStrings::tr_NoneColor);
+	}
+}
 
 QString ColorListBox::currentColor() const
 {
@@ -292,6 +316,11 @@ void ColorListBox::addItem(ColorPixmapItem* item)
 void ColorListBox::addItem(QString text)
 {
 	QListWidget::addItem(text);
+	if (text == CommonStrings::None || text == CommonStrings::tr_NoneColor)
+	{
+		QListWidgetItem* item = this->item(count() - 1);
+		item->setData(Qt::UserRole, CommonStrings::None);
+	}
 }
 
 void ColorListBox::insertSmallPixmapItems(ColorList& list)

@@ -54,7 +54,10 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 	{
 		clb->clear();
 		if ( insertNone )
+		{
 			clb->addItem(CommonStrings::tr_NoneColor);
+			clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
+		}
 		if ( pixType == ColorCombo::fancyPixmaps )
 			clb->insertItems(list, ColorListBox::fancyPixmap);
 		else if ( pixType == ColorCombo::widePixmaps )
@@ -102,7 +105,7 @@ void ColorCombo::insertFancyItem( const ScColor& col, ScribusDoc* doc, const QSt
 void ColorCombo::initColorList(ColorList *colorList, ScribusDoc *doc, QString colorValue)
 {
 	clear();
-	addItem(CommonStrings::tr_NoneColor);
+	addItem(CommonStrings::tr_NoneColor, CommonStrings::None);
 	if (colorValue == CommonStrings::None)
 		setCurrentIndex(count()-1);
 	ColorList::Iterator endOfColorList(colorList->end());
