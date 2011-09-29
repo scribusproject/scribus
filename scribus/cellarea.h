@@ -9,6 +9,8 @@
 #ifndef CELLAREA_H
 #define CELLAREA_H
 
+#include "scribusapi.h"
+
 /**
  * The CellArea class is a simple representation of a rectangular area of table cells.
  *
@@ -17,7 +19,7 @@
  * purposes. The class is used during table layout when keeping track of areas of merged
  * table cells.
  */
-class CellArea
+class SCRIBUS_API CellArea
 {
 public:
 	/// Constructs a new invalid area.
