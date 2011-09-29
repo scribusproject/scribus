@@ -41,10 +41,9 @@ ColorCombo::ColorCombo( bool rw, QWidget* parent ) : QComboBox(parent)
 	setView( lb );
 }
 
-
 QString ColorCombo::currentColor() const
 {
-		return currentText();
+	return currentText();
 }
 
 void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , bool insertNone)
@@ -54,7 +53,10 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 	{
 		clb->clear();
 		if ( insertNone )
+		{
 			clb->addItem(CommonStrings::tr_NoneColor);
+			clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
+		}
 		if ( pixType == ColorCombo::fancyPixmaps )
 			clb->insertItems(list, ColorListBox::fancyPixmap);
 		else if ( pixType == ColorCombo::widePixmaps )

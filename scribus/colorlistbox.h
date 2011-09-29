@@ -81,6 +81,8 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		Just there are initialized pixmaps for icon drawing. */
 		ColorListBox(QWidget * parent = 0);
 
+		virtual void changeEvent(QEvent *e);
+
 		QString currentColor() const; 
 
 		/*! \brief Fill the list box with values taken from list.
@@ -116,8 +118,9 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		ColorList *cList;
 protected:
 		bool event(QEvent *event);
-		
-		int m_selectedRow;
+
+protected slots:
+		virtual void languageChange();
 };
 
 #endif
