@@ -1737,6 +1737,14 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			WriteObjects(m_Doc, docu, baseDir, 0, 0, ItemSelectionGroup, &item->groupItemList);
 		}
 
+		if (item->isTable())
+		{
+			//PTYPE == PageItem::Table or 16 (pageitem.h)
+			PageItem_Table* tableItem=item->asTable();
+			docu.writeStartElement("TableData");
+			docu.writeEndDocument();
+		}
+
 		//CB PageItemAttributes
 		ObjAttrVector *attributes=item->getObjectAttributes();
 		if (attributes->count() > 0)

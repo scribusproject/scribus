@@ -4522,7 +4522,7 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 	bool fou(false);
 	QString tmpf, tmV;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
-	PrefsManager* prefsManager = PrefsManager::instance();
+	//UNUSED: PrefsManager* prefsManager = PrefsManager::instance();
 	readParagraphStyle(doc, reader, style);
 	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{
