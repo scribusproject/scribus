@@ -454,8 +454,11 @@ public:
 	/// Returns a textual description of this item.
 	virtual QString infoDescription() { return QString(); }
 
-	// Returns the Cell Areas from this table
+	/// Returns the Cell Areas from this table
 	QList<CellArea> cellAreas() const { return m_cellAreas; }
+
+	/// Returns the rows of the table for writing to SLA
+	QList<QList<TableCell> > cellRows() const { return m_cellRows; }
 
 signals:
 	/// This signal is emitted whenever the table changes.

@@ -1736,12 +1736,89 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		{
 			WriteObjects(m_Doc, docu, baseDir, 0, 0, ItemSelectionGroup, &item->groupItemList);
 		}
-
+		//Write all the cells and their data to the document, as sub-elements of the pageitem.
 		if (item->isTable())
 		{
 			//PTYPE == PageItem::Table or 16 (pageitem.h)
 			PageItem_Table* tableItem=item->asTable();
 			docu.writeStartElement("TableData");
+			//for each cell, write it to the doc
+			foreach (QList<TableCell> cellRow, tableItem->cellRows())
+			{
+				docu.writeStartElement("Row");
+				foreach(TableCell cell, cellRow)
+				{
+					docu.writeStartElement("Cell");
+					docu.writeAttribute("Row", cell.row());
+					docu.writeAttribute("Column",cell.column());
+					docu.writeAttribute("RowSpan", cell.rowSpan());
+					docu.writeAttribute("ColSpan",cell.columnSpan());
+					docu.writeAttribute("Style",cell.style());
+					//TODO
+					//BoundRect?
+					//ContentRect?
+					docu.writeAttribute("FillColor", cell.fillColor());
+					docu.writeAttribute("LeftPadding",cell.leftPadding());
+					docu.writeAttribute("RightPadding", cell.rightPadding());
+					docu.writeAttribute("TopPadding",cell.topPadding());
+					docu.writeAttribute("BottomPadding", cell.bottomPadding());
+
+					TableBorder tbLeft=cell.leftBorder();
+					docu.writeStartElement("TableBorderLeft");
+					docu.writeAttribute("Width", tbLeft.width());
+					foreach (TableBorderLine tbl, tbLeft.borderLines())
+					{
+						docu.writeStartElement("TableBorderLine");
+						docu.writeAttribute("Width", tbl.width());
+						docu.writeAttribute("PenStyle", tbl.style());
+						docu.writeAttribute("Color", tbl.color());
+						docu.writeEndElement();
+					}
+					docu.writeEndElement();
+
+					TableBorder tbRight=cell.rightBorder();
+					docu.writeStartElement("TableBorderRight");
+					docu.writeAttribute("Width", tbRight.width());
+					foreach (TableBorderLine tbl, tbRight.borderLines())
+					{
+						docu.writeStartElement("TableBorderLine");
+						docu.writeAttribute("Width", tbl.width());
+						docu.writeAttribute("PenStyle", tbl.style());
+						docu.writeAttribute("Color", tbl.color());
+						docu.writeEndElement();
+					}
+					docu.writeEndElement();
+
+					TableBorder tbTop=cell.topBorder();
+					docu.writeStartElement("TableBorderTop");
+					docu.writeAttribute("Width", tbTop.width());
+					foreach (TableBorderLine tbl, tbTop.borderLines())
+					{
+						docu.writeStartElement("TableBorderLine");
+						docu.writeAttribute("Width", tbl.width());
+						docu.writeAttribute("PenStyle", tbl.style());
+						docu.writeAttribute("Color", tbl.color());
+						docu.writeEndElement();
+					}
+					docu.writeEndElement();
+
+					TableBorder tbBottom=cell.bottomBorder();
+					docu.writeStartElement("TableBorderBottom");
+					docu.writeAttribute("Width", tbBottom.width());
+					foreach (TableBorderLine tbl, tbBottom.borderLines())
+					{
+						docu.writeStartElement("TableBorderLine");
+						docu.writeAttribute("Width", tbl.width());
+						docu.writeAttribute("PenStyle", tbl.style());
+						docu.writeAttribute("Color", tbl.color());
+						docu.writeEndElement();
+					}
+					docu.writeEndElement();
+					//End Cell
+					docu.writeEndElement();
+				}
+				docu.writeEndElement();
+			}
 			docu.writeEndElement();
 		}
 
