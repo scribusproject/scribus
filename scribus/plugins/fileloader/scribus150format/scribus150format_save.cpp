@@ -1742,7 +1742,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			//PTYPE == PageItem::Table or 16 (pageitem.h)
 			PageItem_Table* tableItem=item->asTable();
 			docu.writeStartElement("TableData");
-			docu.writeEndDocument();
+			docu.writeEndElement();
 		}
 
 		//CB PageItemAttributes
