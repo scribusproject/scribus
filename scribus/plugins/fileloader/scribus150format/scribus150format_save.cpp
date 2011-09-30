@@ -2092,7 +2092,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			outputData += tmp.setNum(value) + " ";
 		docu.writeAttribute("RowPositions", outputData.simplified());
 		outputData.clear();
-
 		//Row Heights
 		foreach(qreal value, tableItem->rowHeights())
 			outputData += tmp.setNum(value) + " ";
@@ -2109,10 +2108,14 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("ColumnWidths", outputData.simplified());
 		outputData.clear();
 		//Cell Areas
+		//TODO Is this the best format to write these out?
+		QString tmp1,tmp2,tmp3,tmp4;
 		foreach(CellArea ca, tableItem->cellAreas())
-			outputData += tmp.setNum(ca.row()) + " " + tmp.setNum(ca.column()) + " " + tmp.setNum(ca.height()) + " " + tmp.setNum(ca.width()) + " ";
+			outputData += tmp1.setNum(ca.row()) + " " + tmp2.setNum(ca.column()) + " " + tmp3.setNum(ca.height()) + " " + tmp4.setNum(ca.width()) + " ";
 		docu.writeAttribute("CellAreas", outputData.simplified());
 		outputData.clear();
+
+		docu.writeAttribute("TableStyle",tableItem->style());
 	}
 
 	if (item->isGroup())

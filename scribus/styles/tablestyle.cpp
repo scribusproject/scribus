@@ -8,6 +8,7 @@
  */
 
 #include "commonstrings.h"
+#include "desaxe/saxiohelper.h"
 #include "util_math.h"
 #include "tableborder.h"
 #include "tablestyle.h"
@@ -77,3 +78,41 @@ void TableStyle::replaceNamedResources(ResourceCollection& newNames)
 
 	// TODO: Do we need to do something else? E.g. CharStyle calls its updateFeatures().
 }
+
+void TableStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
+{
+	/*
+	Xml_attr att;
+	Style::saxxAttributes(att);
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	if (!inh_##attr_NAME) \
+		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
+#include "tablestyle.attrdefs.cxx"
+#undef ATTRDEF
+	if (!name().isEmpty())
+		att["id"] = mkXMLName(elemtag + name());
+	handler.begin(elemtag, att);
+//	if (hasParent() && parentStyle())
+//		parentStyle()->saxx(handler);
+	handler.end(elemtag);
+	*/
+}
+
+using namespace desaxe;
+
+const Xml_string TableStyle::saxxDefaultElem("tablestyle");
+
+void TableStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
+{
+	/*
+	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
+	ruleset.addRule(stylePrefix, Factory<TableStyle>());
+	ruleset.addRule(stylePrefix, IdRef<TableStyle>());
+	Style::desaxeRules<TableStyle>(prefixPattern, ruleset, elemtag);
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	ruleset.addRule(stylePrefix, SetAttributeWithConversion<TableStyle, attr_TYPE> ( & TableStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
+#include "tablestyle.attrdefs.cxx"
+#undef ATTRDEF
+*/
+}
+

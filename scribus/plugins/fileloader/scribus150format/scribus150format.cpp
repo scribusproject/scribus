@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif
+#include "pageitem_table.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
@@ -3399,13 +3400,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
-	case PageItem::Table:
-		// TODO: Actually handle pasting of tables properly.
-		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, true);
-		currItem = doc->Items->at(z);
-		if (pagenr > -2)
-			currItem->OwnPage = pagenr;
-		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
 		currItem = doc->Items->at(z);
@@ -3456,6 +3450,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
+			currItem->OwnPage = pagenr;
+		break;
+	case PageItem::Table:
+		// TODO: Actually handle pasting of tables properly.
+		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, true);
+		currItem = doc->Items->at(z);
+		if (pagenr > -2)
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Multiple:
@@ -3659,6 +3660,57 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
 		}
 		UndoManager::instance()->setUndoEnabled(true);
+	}
+
+	if (currItem->asTable())
+	{
+		PageItem_Table *tableitem = currItem->asTable();
+		int rows=attrs.valueAsInt("Rows",1);
+		int cols=attrs.valueAsInt("Columns",1);
+		tableitem->insertRows(1,rows-1);
+		tableitem->insertColumns(1,cols-1);
+		tableitem->setStyle(attrs.valueAsString("TableStyle"));
+//		QString rowPositions(attrs.valueAsString("RowPositions"));
+//		QStringList slRowPositions=rowPositions.split(" ");
+//		qDebug()<<"RowCount"<<rows<<"row positions"<<slRowPositions.count();
+
+		QString rowHeights(attrs.valueAsString("RowHeights",""));
+		if(!rowHeights.isEmpty())
+		{
+			QStringList slRowHeights=rowHeights.split(" ");
+			int i=0;
+			foreach(QString pos, slRowHeights)
+			{
+				tableitem->resizeRow(i++, pos.toDouble());
+			}
+		}
+//		QString colPositions(attrs.valueAsString("ColumnPositions"));
+//		QStringList slColPositions=colPositions.split(" ");
+		QString colWidths(attrs.valueAsString("ColumnWidths",""));
+		if(!colWidths.isEmpty())
+		{
+			QStringList slColWidths=colWidths.split(" ");
+			int j=0;
+			foreach(QString pos, slColWidths)
+			{
+				tableitem->resizeColumn(j++, pos.toDouble());
+			}
+		}
+		QString cellAreas(attrs.valueAsString("CellAreas"));
+		if(!cellAreas.isEmpty())
+		{
+			QStringList slCellAreas=cellAreas.split(" ");
+			if (slCellAreas.count()%4!=0)
+				qDebug()<<"Cell Area Count on load ! % 4";
+			for (int i = 0; i < slCellAreas.size(); i+=4)
+			{
+				int rows=slCellAreas.at(i).toInt();
+				int columns=slCellAreas.at(i+1).toInt();
+				int height=slCellAreas.at(i+2).toInt();
+				int width=slCellAreas.at(i+3).toInt();
+				tableitem->mergeCells(rows,columns,height,width);
+			}
+		}
 	}
 
 	currItem->TopLine      = attrs.valueAsBool("TopLine", false);

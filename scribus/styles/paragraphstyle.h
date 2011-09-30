@@ -73,7 +73,7 @@ public:
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
 	
 	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+	virtual void saxx(SaxHandler& handler) const { saxx(handler, saxxDefaultElem); }
 	
 
 	void getNamedResources(ResourceCollection& lists) const;
