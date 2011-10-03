@@ -3175,6 +3175,7 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 	QStringList colorValues;
 	QStringList spotColorSet;
 	QStringList tmpAddedColors;
+	QString entx = "";
 	tmpAddedColors.clear();
 	QList<int> colsSh;
 	for (int grow = 0; grow < c->meshGradientArray.count(); grow++)
@@ -3250,15 +3251,19 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 	PutStream("/PatternType 2\n");
 	PutStream("/Shading\n");
 	PutStream("<<\n");
-	PutStream("/ShadingType 6\n");
+        PutStream("/ShadingType 7\n");
 	if ((DoSep) || (GraySc))
+	{
 		PutStream("/ColorSpace /DeviceGray\n");
+		entx = "0 1";
+	}
 	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 	{
 		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
 			PutStream(" ("+spotColorSet.at(sc)+")");
+			entx += " 0 1";
 		}
 		PutStream("]\n");
 		PutStream("/DeviceCMYK\n");
@@ -3288,8 +3293,22 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 		PutStream("} ]\n");
 	}
 	else
+	{
 		PutStream("/ColorSpace /DeviceCMYK\n");
-	PutStream("/DataSource [\n");
+		entx = "0 1 0 1 0 1 0 1";
+	}
+	PutStream("/BitsPerCoordinate 32\n");
+	PutStream("/BitsPerComponent 16\n");
+	PutStream("/BitsPerFlag 8\n");
+	PutStream("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
+	PutStream("/DataSource currentfile /ASCII85Decode filter /FlateDecode filter\n");
+	PutStream(">>\n");
+	PutStream(">>\n");
+	PutStream("[1 0 0 1 0 0] makepattern\n");
+	QByteArray vertStream;
+	QDataStream vst(&vertStream, QIODevice::WriteOnly);
+	vst.setByteOrder(QDataStream::BigEndian);
+	quint8 flg = 0;
 	for (int grow = 0; grow < c->meshGradientArray.count()-1; grow++)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count()-1; gcol++)
@@ -3302,18 +3321,23 @@ void PSLib::HandleMeshGradient(PageItem* c, bool gcr)
 			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
 			int colInd4 = (grow + 1) * c->meshGradientArray[grow].count() + gcol;
-			PutStream("0\n");
-			PutStream(ToStr(mp4.gridPoint.x())+" "+ToStr(-mp4.gridPoint.y())+" "+ToStr(mp4.controlTop.x())+" "+ToStr(-mp4.controlTop.y())+" "+ToStr(mp1.controlBottom.x())+" "+ToStr(-mp1.controlBottom.y())+"\n");
-			PutStream(ToStr(mp1.gridPoint.x())+" "+ToStr(-mp1.gridPoint.y())+" "+ToStr(mp1.controlRight.x())+" "+ToStr(-mp1.controlRight.y())+" "+ToStr(mp2.controlLeft.x())+" "+ToStr(-mp2.controlLeft.y())+"\n");
-			PutStream(ToStr(mp2.gridPoint.x())+" "+ToStr(-mp2.gridPoint.y())+" "+ToStr(mp2.controlBottom.x())+" "+ToStr(-mp2.controlBottom.y())+" "+ToStr(mp3.controlTop.x())+" "+ToStr(-mp3.controlTop.y())+"\n");
-			PutStream(ToStr(mp3.gridPoint.x())+" "+ToStr(-mp3.gridPoint.y())+" "+ToStr(mp3.controlLeft.x())+" "+ToStr(-mp3.controlLeft.y())+" "+ToStr(mp4.controlRight.x())+" "+ToStr(-mp4.controlRight.y())+"\n");
-			PutStream(colorValues[colInd4]+" "+colorValues[colInd1]+" "+colorValues[colInd2]+" "+colorValues[colInd3]+"\n");
+			vst << flg;
+			vst << encode32dVal(mp4.gridPoint.x()) << encode32dVal(-mp4.gridPoint.y()) << encode32dVal(mp4.controlTop.x()) << encode32dVal(-mp4.controlTop.y()) << encode32dVal(mp1.controlBottom.x()) << encode32dVal(-mp1.controlBottom.y());
+			vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
+			vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
+			vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+			vst << encode32dVal(mp4.controlColor.x()) << encode32dVal(-mp4.controlColor.y());
+			vst << encode32dVal(mp1.controlColor.x()) << encode32dVal(-mp1.controlColor.y());
+			vst << encode32dVal(mp2.controlColor.x()) << encode32dVal(-mp2.controlColor.y());
+			vst << encode32dVal(mp3.controlColor.x()) << encode32dVal(-mp3.controlColor.y());
+			encodeColor(vst, colorValues[colInd4]);
+			encodeColor(vst, colorValues[colInd1]);
+			encodeColor(vst, colorValues[colInd2]);
+			encodeColor(vst, colorValues[colInd3]);
 		}
 	}
-	PutStream("]\n");
-	PutStream(">>\n");
-	PutStream(">>\n");
-	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
+	PutImageDataToStream(vertStream);
+	PutStream("setpattern\n");
 	if (fillRule)
 		PutStream("eofill\n");
 	else
@@ -3337,6 +3361,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c, bool gcr)
 	QStringList colorValues;
 	QStringList spotColorSet;
 	QList<int> colsSh;
+	QString entx = "";
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
@@ -3420,15 +3445,20 @@ void PSLib::HandlePatchMeshGradient(PageItem* c, bool gcr)
 	PutStream("/PatternType 2\n");
 	PutStream("/Shading\n");
 	PutStream("<<\n");
-	PutStream("/ShadingType 6\n");
+	PutStream("/ShadingType 7\n");
 	if ((DoSep) || (GraySc))
+	{
 		PutStream("/ColorSpace /DeviceGray\n");
+		entx = "0 1";
+	}
 	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 	{
+		entx = "0 1 0 1 0 1 0 1";
 		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
 		{
 			PutStream(" ("+spotColorSet.at(sc)+")");
+			entx += " 0 1";
 		}
 		PutStream("]\n");
 		PutStream("/DeviceCMYK\n");
@@ -3458,8 +3488,22 @@ void PSLib::HandlePatchMeshGradient(PageItem* c, bool gcr)
 		PutStream("} ]\n");
 	}
 	else
+	{
 		PutStream("/ColorSpace /DeviceCMYK\n");
-	PutStream("/DataSource [\n");
+		entx = "0 1 0 1 0 1 0 1";
+	}
+	PutStream("/BitsPerCoordinate 32\n");
+	PutStream("/BitsPerComponent 16\n");
+	PutStream("/BitsPerFlag 8\n");
+	PutStream("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
+	PutStream("/DataSource currentfile /ASCII85Decode filter /FlateDecode filter\n");
+	PutStream(">>\n");
+	PutStream(">>\n");
+	PutStream("[1 0 0 1 0 0] makepattern\n");
+	QByteArray vertStream;
+	QDataStream vst(&vertStream, QIODevice::WriteOnly);
+	vst.setByteOrder(QDataStream::BigEndian);
+	quint8 flg = 0;
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
@@ -3471,22 +3515,49 @@ void PSLib::HandlePatchMeshGradient(PageItem* c, bool gcr)
 		int colInd2 = 4 * col + 1;
 		int colInd3 = 4 * col + 2;
 		int colInd4 = 4 * col + 3;
-		PutStream("0\n");
-		PutStream(ToStr(mp4.gridPoint.x())+" "+ToStr(-mp4.gridPoint.y())+" "+ToStr(mp4.controlTop.x())+" "+ToStr(-mp4.controlTop.y())+" "+ToStr(mp1.controlBottom.x())+" "+ToStr(-mp1.controlBottom.y())+"\n");
-		PutStream(ToStr(mp1.gridPoint.x())+" "+ToStr(-mp1.gridPoint.y())+" "+ToStr(mp1.controlRight.x())+" "+ToStr(-mp1.controlRight.y())+" "+ToStr(mp2.controlLeft.x())+" "+ToStr(-mp2.controlLeft.y())+"\n");
-		PutStream(ToStr(mp2.gridPoint.x())+" "+ToStr(-mp2.gridPoint.y())+" "+ToStr(mp2.controlBottom.x())+" "+ToStr(-mp2.controlBottom.y())+" "+ToStr(mp3.controlTop.x())+" "+ToStr(-mp3.controlTop.y())+"\n");
-		PutStream(ToStr(mp3.gridPoint.x())+" "+ToStr(-mp3.gridPoint.y())+" "+ToStr(mp3.controlLeft.x())+" "+ToStr(-mp3.controlLeft.y())+" "+ToStr(mp4.controlRight.x())+" "+ToStr(-mp4.controlRight.y())+"\n");
-		PutStream(colorValues[colInd4]+" "+colorValues[colInd1]+" "+colorValues[colInd2]+" "+colorValues[colInd3]+"\n");
+		vst << flg;
+		vst << encode32dVal(mp4.gridPoint.x()) << encode32dVal(-mp4.gridPoint.y()) << encode32dVal(mp4.controlTop.x()) << encode32dVal(-mp4.controlTop.y()) << encode32dVal(mp1.controlBottom.x()) << encode32dVal(-mp1.controlBottom.y());
+		vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
+		vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
+		vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+		vst << encode32dVal(mp4.controlColor.x()) << encode32dVal(-mp4.controlColor.y());
+		vst << encode32dVal(mp1.controlColor.x()) << encode32dVal(-mp1.controlColor.y());
+		vst << encode32dVal(mp2.controlColor.x()) << encode32dVal(-mp2.controlColor.y());
+		vst << encode32dVal(mp3.controlColor.x()) << encode32dVal(-mp3.controlColor.y());
+		encodeColor(vst, colorValues[colInd4]);
+		encodeColor(vst, colorValues[colInd1]);
+		encodeColor(vst, colorValues[colInd2]);
+		encodeColor(vst, colorValues[colInd3]);
 	}
-	PutStream("]\n");
-	PutStream(">>\n");
-	PutStream(">>\n");
-	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
+	PutImageDataToStream(vertStream);
+	PutStream("setpattern\n");
 	if (fillRule)
 		PutStream("eofill\n");
 	else
 		PutStream("fill\n");
 	return;
+}
+
+
+quint32 PSLib::encode32dVal(double val)
+{
+	quint32 res = static_cast<quint32>(((val - (-40000.0)) / 80000.0) * 0xFFFFFFFF);
+	return res;
+}
+
+quint16 PSLib::encode16dVal(double val)
+{
+	quint16 m = val * 0xFFFF;
+	return m;
+}
+
+void PSLib::encodeColor(QDataStream &vs, QString col)
+{
+	QStringList gcol = col.split(" ");
+	for (int gcs = 0; gcs < gcol.count(); gcs++)
+	{
+		vs << encode16dVal(gcol[gcs].toDouble());
+	}
 }
 
 void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)

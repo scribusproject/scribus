@@ -13,15 +13,15 @@
 *                                                                         *
 ***************************************************************************/
 /***************************************************************************
-                 canvasmode_editmeshgradient.h  -  description
-                             -------------------
-    begin                : Sat Apr 24 2010
-    copyright            : (C) 2010 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+				 canvasmode_editmeshpatch.h  -  description
+							 -------------------
+	begin                : Sun Sep 25 2011
+	copyright            : (C) 2011 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
-#ifndef CANVAS_MODE_EDITMESHGRADIENT_H
-#define CANVAS_MODE_EDITMESHGRADIENT_H
+#ifndef CANVASMODE_EDITMESHPATCH_H
+#define CANVASMODE_EDITMESHPATCH_H
 
 #include <QObject>
 #include <QTime>
@@ -29,6 +29,7 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 
+class meshPoint;
 class PageItem;
 class PageItem_TextFrame;
 class ScribusMainWindow;
@@ -37,15 +38,15 @@ class ScribusView;
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
 
-class CanvasMode_EditMeshGradient :  public CanvasMode
-{	
+class CanvasMode_EditMeshPatch :  public CanvasMode
+{
 public:
-	explicit CanvasMode_EditMeshGradient(ScribusView* view);
-	virtual ~CanvasMode_EditMeshGradient() {}
+	explicit CanvasMode_EditMeshPatch(ScribusView* view);
+	virtual ~CanvasMode_EditMeshPatch() {}
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
-	
+
 	virtual void activate(bool);
 	virtual void deactivate(bool);
 	virtual void mouseDoubleClickEvent(QMouseEvent *m);
@@ -55,27 +56,38 @@ public:
 	virtual void keyPressEvent(QKeyEvent *e);
 	virtual bool handleKeyEvents() { return true; }
 	virtual void drawControls(QPainter* p);
-	void drawControlsMeshGradient(QPainter* pp, PageItem* currItem);
+	void drawControlsMeshPoint(QPainter* psx, meshPoint mp, bool isSelected);
+	void drawControlsMeshPatch(QPainter* pp, PageItem* currItem);
 
 private:
 
-	typedef enum 
+	typedef enum
 	{
 		noPointDefined,
+		useTL,
+		useTR,
+		useBR,
+		useBL
+	} eMPatchPoint;
+
+	typedef enum
+	{
+		noControlPointDefined,
 		useControlT,
 		useControlB,
 		useControlL,
-		useControlR
+		useControlR,
+		useControlC
 	} eMGradientPoint;
 
 	inline bool GetItem(PageItem** pi);
 
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
+	eMPatchPoint m_patchPoint;
 	eMGradientPoint m_gradientPoint;
-	QList<QPair<int, int> > selectedMeshPoints;
+	int selectedMeshPatch;
 	bool m_keyRepeat;
 };
-
 
 #endif

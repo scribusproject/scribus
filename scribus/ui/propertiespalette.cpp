@@ -816,6 +816,8 @@ void PropertiesPalette::toggleGradientEdit(int stroke)
 			{
 				if ((stroke == 5) || (stroke == 6) || (stroke == 7))
 					m_ScMW->view->requestMode(modeEditMeshGradient);
+				else if ((stroke == 8) || (stroke == 9) || (stroke == 10))
+					m_ScMW->view->requestMode(modeEditMeshPatch);
 				else
 					m_ScMW->view->requestMode(modeEditGradientVectors);
 			}
@@ -976,6 +978,8 @@ void PropertiesPalette::updateColorSpecialGradient()
 			Cpal->setMeshPoint();
 		else if (m_ScMW->view->editStrokeGradient == 7)
 			Cpal->setMeshControlPoint();
+		else if (m_ScMW->view->editStrokeGradient == 8)
+			Cpal->setMeshPatchPoint();
 		else if (!currItem->isGroup())
 			Tpal->setSpecialGradient(currItem->GrMaskStartX * dur, currItem->GrMaskStartY * dur, currItem->GrMaskEndX * dur, currItem->GrMaskEndY * dur, currItem->GrMaskFocalX * dur, currItem->GrMaskFocalY * dur, currItem->GrMaskScale, currItem->GrMaskSkew);
 	}

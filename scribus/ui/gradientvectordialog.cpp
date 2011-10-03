@@ -71,6 +71,10 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(buttonPoLIne, SIGNAL(clicked()), this, SIGNAL(meshToShape()));
 	connect(resetControlPoint, SIGNAL(clicked()), this, SIGNAL(reset1Control()));
 	connect(resetAllControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
+	connect(editPPoint, SIGNAL(clicked()), this, SLOT(handlePEditButton()));
+	connect(editPControlPoints, SIGNAL(clicked()), this, SLOT(handlePEditControlButton()));
+	connect(resetPControlPoint, SIGNAL(clicked()), this, SIGNAL(reset1Control()));
+	connect(resetAllPControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	QSize iconSize = QSize(22, 22);
 	editPoints->setIcon(QIcon(loadIcon("MoveNode.png")));
 	editPoints->setIconSize(iconSize);
@@ -80,6 +84,14 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	resetControlPoint->setIconSize(iconSize);
 	resetAllControlPoints->setIcon(QIcon(loadIcon("ResetNode.png")));
 	resetAllControlPoints->setIconSize(iconSize);
+	editPPoint->setIcon(QIcon(loadIcon("MoveNode.png")));
+	editPPoint->setIconSize(iconSize);
+	editPControlPoints->setIcon(QIcon(loadIcon("MoveKontrol.png")));
+	editPControlPoints->setIconSize(iconSize);
+	resetPControlPoint->setIcon(QIcon(loadIcon("Reset1Node.png")));
+	resetPControlPoint->setIconSize(iconSize);
+	resetAllPControlPoints->setIcon(QIcon(loadIcon("ResetNode.png")));
+	resetAllPControlPoints->setIconSize(iconSize);
 	languageChange();
 	selectLinear();
 }
@@ -135,6 +147,13 @@ void GradientVectorDialog::selectMesh()
 	resize(minimumSizeHint());
 }
 
+void GradientVectorDialog::selectPatchMesh()
+{
+	stackedWidget->setCurrentIndex(5);
+	editPPoint->setChecked(true);
+	resize(minimumSizeHint());
+}
+
 void GradientVectorDialog::languageChange()
 {
 	retranslateUi(this);
@@ -158,6 +177,26 @@ void GradientVectorDialog::handleEditControlButton()
 		resetAllControlPoints->setEnabled(true);
 		resetControlPoint->setEnabled(true);
 		emit editGradient(7);
+	}
+}
+
+void GradientVectorDialog::handlePEditButton()
+{
+	if (editPPoint->isChecked())
+	{
+		resetAllPControlPoints->setEnabled(false);
+		resetPControlPoint->setEnabled(false);
+		emit editGradient(9);
+	}
+}
+
+void GradientVectorDialog::handlePEditControlButton()
+{
+	if (editPControlPoints->isChecked())
+	{
+		resetAllPControlPoints->setEnabled(true);
+		resetPControlPoint->setEnabled(true);
+		emit editGradient(10);
 	}
 }
 

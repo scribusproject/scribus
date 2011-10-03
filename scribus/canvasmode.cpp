@@ -27,6 +27,7 @@
 #include "canvasmode_editarc.h"
 #include "canvasmode_editgradient.h"
 #include "canvasmode_editmeshgradient.h"
+#include "canvasmode_editmeshpatch.h"
 #include "canvasmode_editpolygon.h"
 #include "canvasmode_editspiral.h"
 #include "canvasmode_edittable.h"
@@ -126,6 +127,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeEditMeshGradient:
 			result = new CanvasMode_EditMeshGradient(view);
+			break;
+		case modeEditMeshPatch:
+			result = new CanvasMode_EditMeshPatch(view);
 			break;
 		case modeDrawBezierLine:
 			result = new BezierMode(view);

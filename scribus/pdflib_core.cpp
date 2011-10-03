@@ -6557,7 +6557,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 		uint shadeObjectT = newObject();
 		StartObj(shadeObjectT);
 		PutDoc("<<\n");
-		PutDoc("/ShadingType 6\n");
+		PutDoc("/ShadingType 7\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
 		PutDoc("/BitsPerCoordinate 32\n");
 		PutDoc("/BitsPerComponent 16\n");
@@ -6583,6 +6583,10 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 				vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
 				vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
 				vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+				vst << encode32dVal(mp4.controlColor.x()) << encode32dVal(-mp4.controlColor.y());
+				vst << encode32dVal(mp1.controlColor.x()) << encode32dVal(-mp1.controlColor.y());
+				vst << encode32dVal(mp2.controlColor.x()) << encode32dVal(-mp2.controlColor.y());
+				vst << encode32dVal(mp3.controlColor.x()) << encode32dVal(-mp3.controlColor.y());
 				vst << encode16dVal(TransVec[colInd4]) << encode16dVal(TransVec[colInd1]) << encode16dVal(TransVec[colInd2]) << encode16dVal(TransVec[colInd3]);
 			}
 		}
@@ -6645,7 +6649,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 	uint shadeObject = newObject();
 	StartObj(shadeObject);
 	PutDoc("<<\n");
-	PutDoc("/ShadingType 6\n");
+	PutDoc("/ShadingType 7\n");
 	if (Options.UseRGB)
 	{
 		PutDoc("/ColorSpace /DeviceRGB\n");
@@ -6706,6 +6710,10 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 			vs << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
 			vs << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
 			vs << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+			vs << encode32dVal(mp4.controlColor.x()) << encode32dVal(-mp4.controlColor.y());
+			vs << encode32dVal(mp1.controlColor.x()) << encode32dVal(-mp1.controlColor.y());
+			vs << encode32dVal(mp2.controlColor.x()) << encode32dVal(-mp2.controlColor.y());
+			vs << encode32dVal(mp3.controlColor.x()) << encode32dVal(-mp3.controlColor.y());
 			encodeColor(vs, colorNames[colInd4], colorShades[colInd4], spotColorSet, spotMode);
 			encodeColor(vs, colorNames[colInd1], colorShades[colInd1], spotColorSet, spotMode);
 			encodeColor(vs, colorNames[colInd2], colorShades[colInd2], spotColorSet, spotMode);
@@ -6874,7 +6882,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 		uint shadeObjectT = newObject();
 		StartObj(shadeObjectT);
 		PutDoc("<<\n");
-		PutDoc("/ShadingType 6\n");
+		PutDoc("/ShadingType 7\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
 		PutDoc("/BitsPerCoordinate 32\n");
 		PutDoc("/BitsPerComponent 16\n");
@@ -6899,6 +6907,10 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 			vst << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
 			vst << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
 			vst << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+			vst << encode32dVal(mp4.controlColor.x()) << encode32dVal(-mp4.controlColor.y());
+			vst << encode32dVal(mp1.controlColor.x()) << encode32dVal(-mp1.controlColor.y());
+			vst << encode32dVal(mp2.controlColor.x()) << encode32dVal(-mp2.controlColor.y());
+			vst << encode32dVal(mp3.controlColor.x()) << encode32dVal(-mp3.controlColor.y());
 			vst << encode16dVal(TransVec[colInd4]) << encode16dVal(TransVec[colInd1]) << encode16dVal(TransVec[colInd2]) << encode16dVal(TransVec[colInd3]);
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
@@ -6960,7 +6972,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 	uint shadeObject = newObject();
 	StartObj(shadeObject);
 	PutDoc("<<\n");
-	PutDoc("/ShadingType 6\n");
+	PutDoc("/ShadingType 7\n");
 	if (Options.UseRGB)
 	{
 		PutDoc("/ColorSpace /DeviceRGB\n");
@@ -7020,6 +7032,10 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 		vs << encode32dVal(mp1.gridPoint.x()) << encode32dVal(-mp1.gridPoint.y()) << encode32dVal(mp1.controlRight.x()) << encode32dVal(-mp1.controlRight.y()) << encode32dVal(mp2.controlLeft.x()) << encode32dVal(-mp2.controlLeft.y());
 		vs << encode32dVal(mp2.gridPoint.x()) << encode32dVal(-mp2.gridPoint.y()) << encode32dVal(mp2.controlBottom.x()) << encode32dVal(-mp2.controlBottom.y()) << encode32dVal(mp3.controlTop.x()) << encode32dVal(-mp3.controlTop.y());
 		vs << encode32dVal(mp3.gridPoint.x()) << encode32dVal(-mp3.gridPoint.y()) << encode32dVal(mp3.controlLeft.x()) << encode32dVal(-mp3.controlLeft.y()) << encode32dVal(mp4.controlRight.x()) << encode32dVal(-mp4.controlRight.y());
+		vs << encode32dVal(mp4.controlColor.x()) << encode32dVal(-mp4.controlColor.y());
+		vs << encode32dVal(mp1.controlColor.x()) << encode32dVal(-mp1.controlColor.y());
+		vs << encode32dVal(mp2.controlColor.x()) << encode32dVal(-mp2.controlColor.y());
+		vs << encode32dVal(mp3.controlColor.x()) << encode32dVal(-mp3.controlColor.y());
 		encodeColor(vs, colorNames[colInd4], colorShades[colInd4], spotColorSet, spotMode);
 		encodeColor(vs, colorNames[colInd1], colorShades[colInd1], spotColorSet, spotMode);
 		encodeColor(vs, colorNames[colInd2], colorShades[colInd2], spotColorSet, spotMode);

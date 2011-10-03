@@ -1618,6 +1618,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("CLY", mp.controlLeft.y());
 					docu.writeAttribute("CRX", mp.controlRight.x());
 					docu.writeAttribute("CRY", mp.controlRight.y());
+					docu.writeAttribute("CCX", mp.controlColor.x());
+					docu.writeAttribute("CCY", mp.controlColor.y());
 					docu.writeAttribute("NAME", mp.colorName);
 					docu.writeAttribute("SHADE", mp.shade);
 					docu.writeAttribute("TRANS", mp.transparency);
@@ -1652,6 +1654,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("CLY", mp.controlLeft.y());
 					docu.writeAttribute("CRX", mp.controlRight.x());
 					docu.writeAttribute("CRY", mp.controlRight.y());
+					docu.writeAttribute("CCX", mp.controlColor.x());
+					docu.writeAttribute("CCY", mp.controlColor.y());
 					docu.writeAttribute("NAME", mp.colorName);
 					docu.writeAttribute("SHADE", mp.shade);
 					docu.writeAttribute("TRANS", mp.transparency);

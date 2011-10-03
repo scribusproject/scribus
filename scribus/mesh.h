@@ -43,6 +43,7 @@ public:
 	FPoint controlBottom;
 	FPoint controlLeft;
 	FPoint controlRight;
+	FPoint controlColor;
 	double transparency;
 	int    shade;
 	QString colorName;

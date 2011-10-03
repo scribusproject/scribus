@@ -93,6 +93,7 @@ public:
 	friend class CanvasMode_EditArc;
 	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_EditMeshGradient;
+	friend class CanvasMode_EditMeshPatch;
 	friend class CanvasMode_EditPolygon;
 	friend class CanvasMode_EditSpiral;
 	friend class CanvasMode_EditTable;
@@ -160,6 +161,7 @@ public:
 //	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
+	bool hitsCanvasPoint(FPoint globalPoint, QPointF canvasPoint) const;
 	QRect exposedRect() const;
 	bool cursorOverTextFrameControl(QPoint globalPos, PageItem* frame);
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */

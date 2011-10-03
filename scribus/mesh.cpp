@@ -35,6 +35,7 @@ void meshPoint::moveRel(double dx, double dy)
 	controlBottom += FPoint(dx, dy);
 	controlLeft += FPoint(dx, dy);
 	controlRight += FPoint(dx, dy);
+	controlColor += FPoint(dx, dy);
 }
 
 void meshPoint::moveAbs(double x, double y)
@@ -45,6 +46,7 @@ void meshPoint::moveAbs(double x, double y)
 	controlBottom -= delta;
 	controlLeft -= delta;
 	controlRight -= delta;
+	controlColor -= delta;
 }
 
 void meshPoint::transform(QTransform t)
@@ -55,12 +57,14 @@ void meshPoint::transform(QTransform t)
 	gr.addPoint(controlBottom);
 	gr.addPoint(controlLeft);
 	gr.addPoint(controlRight);
+	gr.addPoint(controlColor);
 	gr.map(t);
 	gridPoint = gr.point(0);
 	controlTop = gr.point(1);
 	controlBottom = gr.point(2);
 	controlLeft = gr.point(3);
 	controlRight = gr.point(4);
+	controlColor = gr.point(5);
 }
 
 void meshPoint::resetTo(FPoint p)
@@ -70,4 +74,5 @@ void meshPoint::resetTo(FPoint p)
 	controlRight = gridPoint;
 	controlTop = gridPoint;
 	controlBottom = gridPoint;
+	controlColor = gridPoint;
 }

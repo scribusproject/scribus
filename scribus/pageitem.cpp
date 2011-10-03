@@ -747,69 +747,39 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 
 	QList<meshPoint> mgList;
 	meshPoint mgP;
-	mgP.gridPoint = FPoint(0.0, 0.0);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
+	meshGradientPatch patch;
+	mgP.resetTo(FPoint(0.0, 0.0));
 	mgP.transparency = 1.0;
 	mgP.shade = 100;
 	mgP.colorName = "Black";
 	mgP.color = qcol;
 	mgList.append(mgP);
-	mgP.gridPoint = FPoint(Width / 2.0, 0.0);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
+	patch.TL = mgP;
+	mgP.resetTo(FPoint(Width / 2.0, 0.0));
 	mgList.append(mgP);
-	mgP.gridPoint = FPoint(Width, 0.0);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
+	mgP.resetTo(FPoint(Width, 0.0));
+	mgList.append(mgP);
+	patch.TR = mgP;
+	meshGradientArray.append(mgList);
+	mgList.clear();
+	mgP.resetTo(FPoint(0.0, Height / 2.0));
+	mgList.append(mgP);
+	mgP.resetTo(FPoint(Width / 2.0, Height / 2.0));
+	mgList.append(mgP);
+	mgP.resetTo(FPoint(Width, Height / 2.0));
 	mgList.append(mgP);
 	meshGradientArray.append(mgList);
 	mgList.clear();
-	mgP.gridPoint = FPoint(0.0, Height / 2.0);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
+	mgP.resetTo(FPoint(0.0, Height));
 	mgList.append(mgP);
-	mgP.gridPoint = FPoint(Width / 2.0, Height / 2.0);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
+	patch.BL = mgP;
+	mgP.resetTo(FPoint(Width / 2.0, Height));
 	mgList.append(mgP);
-	mgP.gridPoint = FPoint(Width, Height / 2.0);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
+	mgP.resetTo(FPoint(Width, Height));
 	mgList.append(mgP);
+	patch.BR = mgP;
 	meshGradientArray.append(mgList);
-	mgList.clear();
-	mgP.gridPoint = FPoint(0.0, Height);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
-	mgList.append(mgP);
-	mgP.gridPoint = FPoint(Width / 2.0, Height);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
-	mgList.append(mgP);
-	mgP.gridPoint = FPoint(Width, Height);
-	mgP.controlTop = mgP.gridPoint;
-	mgP.controlBottom = mgP.gridPoint;
-	mgP.controlLeft = mgP.gridPoint;
-	mgP.controlRight = mgP.gridPoint;
-	mgList.append(mgP);
-	meshGradientArray.append(mgList);
+	meshGradientPatches.append(patch);
 
 	firstLineOffsetP = FLOPRealGlyphHeight;
 	Cols = m_Doc->itemToolPrefs().textColumns;
@@ -2846,7 +2816,7 @@ void PageItem::get4ColorColors(QString &col1, QString &col2, QString &col3, QStr
 	col4 = GrColorP4;
 }
 
-void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double transparency)
+void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double transparency, bool forPatch)
 {
 	QString MColor = color;
 	QColor MQColor;
@@ -2887,12 +2857,48 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 		VisionDefectColor defect;
 		MQColor = defect.convertDefect(MQColor, m_Doc->previewVisual);
 	}
-	if ((x > -1) && (y > -1))
+	if (forPatch)
 	{
-		meshGradientArray[x][y].colorName = MColor;
-		meshGradientArray[x][y].color = MQColor;
-		meshGradientArray[x][y].shade = shade;
-		meshGradientArray[x][y].transparency = transparency;
+		meshGradientPatch patch = meshGradientPatches[x];
+		meshPoint mp;
+		switch (y)
+		{
+			case 1:
+				meshGradientPatches[x].TL.colorName = MColor;
+				meshGradientPatches[x].TL.color = MQColor;
+				meshGradientPatches[x].TL.shade = shade;
+				meshGradientPatches[x].TL.transparency = transparency;
+				break;
+			case 2:
+				meshGradientPatches[x].TR.colorName = MColor;
+				meshGradientPatches[x].TR.color = MQColor;
+				meshGradientPatches[x].TR.shade = shade;
+				meshGradientPatches[x].TR.transparency = transparency;
+				break;
+			case 3:
+				meshGradientPatches[x].BR.colorName = MColor;
+				meshGradientPatches[x].BR.color = MQColor;
+				meshGradientPatches[x].BR.shade = shade;
+				meshGradientPatches[x].BR.transparency = transparency;
+				break;
+			case 4:
+				meshGradientPatches[x].BL.colorName = MColor;
+				meshGradientPatches[x].BL.color = MQColor;
+				meshGradientPatches[x].BL.shade = shade;
+				meshGradientPatches[x].BL.transparency = transparency;
+				break;
+		}
+
+	}
+	else
+	{
+		if ((x > -1) && (y > -1))
+		{
+			meshGradientArray[x][y].colorName = MColor;
+			meshGradientArray[x][y].color = MQColor;
+			meshGradientArray[x][y].shade = shade;
+			meshGradientArray[x][y].transparency = transparency;
+		}
 	}
 }
 
@@ -2951,6 +2957,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 			mgP.controlBottom = mgP.gridPoint;
 			mgP.controlLeft = mgP.gridPoint;
 			mgP.controlRight = mgP.gridPoint;
+			mgP.controlColor = mgP.gridPoint;
 			mgP.transparency = 1.0;
 			mgP.shade = 100;
 			mgP.colorName = MColor;
@@ -2976,6 +2983,7 @@ void PageItem::resetGradientMesh()
 			meshGradientArray[x][y].controlBottom = meshGradientArray[x][y].gridPoint;
 			meshGradientArray[x][y].controlLeft = meshGradientArray[x][y].gridPoint;
 			meshGradientArray[x][y].controlRight = meshGradientArray[x][y].gridPoint;
+			meshGradientArray[x][y].controlColor = meshGradientArray[x][y].gridPoint;
 		}
 	}
 }

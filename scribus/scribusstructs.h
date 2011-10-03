@@ -318,7 +318,8 @@ enum AppMode
 	modeEditPolygon,
 	modeDrawSpiral,
 	modeEditSpiral,
-	modeEditTable
+	modeEditTable,
+	modeEditMeshPatch
 };
 
 struct AlignObjs

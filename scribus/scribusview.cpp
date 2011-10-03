@@ -2534,7 +2534,15 @@ void ScribusView::slotZoomIn(int mx,int my)
 	else
 		rememberOldZoomLocation(mx,my);
 	double newScale = m_canvas->scale() * static_cast<double>(Doc->opToolPrefs().magStep)/100.0;
-	zoom(oldX, oldY, newScale, true);
+	if (Doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
+		double zPointX = currItem->xPos() + currItem->width() / 2.0;
+		double zPointY = currItem->yPos() + currItem->height() / 2.0;
+		zoom( qRound(zPointX), qRound(zPointY), newScale, false);
+	}
+	else
+		zoom(oldX, oldY, newScale, true);
 }
 
 /** Verkleinert die Ansicht */
@@ -2552,7 +2560,15 @@ void ScribusView::slotZoomOut(int mx,int my)
 	else
 		rememberOldZoomLocation(mx,my);
 	double newScale = m_canvas->scale() / (static_cast<double>(Doc->opToolPrefs().magStep)/100.0);
-	zoom(oldX, oldY, newScale, true);
+	if (Doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
+		double zPointX = currItem->xPos() + currItem->width() / 2.0;
+		double zPointY = currItem->yPos() + currItem->height() / 2.0;
+		zoom( qRound(zPointX), qRound(zPointY), newScale, false);
+	}
+	else
+		zoom(oldX, oldY, newScale, true);
 }
 
 #if 0

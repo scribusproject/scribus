@@ -164,7 +164,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
  
 	filterEdit = new QLineEdit;
 	filterEdit->setToolTip( tr("Enter a keyword or regular expression to filter the outline.") );
-	QShortcut* filterShortcut = new QShortcut( QKeySequence( tr( "Ctrl+F", "Filter the Outline using a keyword" ) ), this );
+//	QShortcut* filterShortcut = new QShortcut( QKeySequence( tr( "Ctrl+F", "Filter the Outline using a keyword" ) ), this );
 	filterLabel = new QLabel( tr("Filter:") );
 	filterLabel->setBuddy( filterEdit );
 
@@ -216,7 +216,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 	connect(filterEdit, SIGNAL(textChanged(const QString&)), this, SLOT(filterTree(const QString&)));
-	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
+//	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
 }
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)

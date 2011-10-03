@@ -781,6 +781,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		applyMask(ite);
 	}
 //	qDebug() << "Mesh of" << shading->getNPatches() << "Patches";
+	ite->meshGradientPatches.clear();
 	for (int i = 0; i < shading->getNPatches(); i++)
 	{
 		GfxPatch *patch = shading->getPatch(i);
@@ -790,6 +791,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.BL.resetTo(FPoint(patch->x[0][0], patch->y[0][0]));
 		patchM.BL.controlTop = FPoint(patch->x[0][1], patch->y[0][1]);
 		patchM.BL.controlRight = FPoint(patch->x[1][0], patch->y[1][0]);
+		patchM.BL.controlColor = FPoint(patch->x[1][1], patch->y[1][1]);
 		u = 0;
 		v = 0;
 		if (shading->isParameterized())
@@ -813,6 +815,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.TL.resetTo(FPoint(patch->x[0][3], patch->y[0][3]));
 		patchM.TL.controlRight = FPoint(patch->x[1][3], patch->y[1][3]);
 		patchM.TL.controlBottom = FPoint(patch->x[0][2], patch->y[0][2]);
+		patchM.TL.controlColor = FPoint(patch->x[1][2], patch->y[1][2]);
 		if (shading->isParameterized())
 		{
 			shading->getParameterizedColor (patch->color[u][v].c[0], &color);
@@ -834,6 +837,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.TR.resetTo(FPoint(patch->x[3][3], patch->y[3][3]));
 		patchM.TR.controlBottom = FPoint(patch->x[3][2], patch->y[3][2]);
 		patchM.TR.controlLeft = FPoint(patch->x[2][3], patch->y[2][3]);
+		patchM.TR.controlColor = FPoint(patch->x[2][2], patch->y[2][2]);
 		if (shading->isParameterized())
 		{
 			shading->getParameterizedColor (patch->color[u][v].c[0], &color);
@@ -855,6 +859,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		patchM.BR.resetTo(FPoint(patch->x[3][0], patch->y[3][0]));
 		patchM.BR.controlLeft = FPoint(patch->x[2][0], patch->y[2][0]);
 		patchM.BR.controlTop = FPoint(patch->x[3][1], patch->y[3][1]);
+		patchM.BR.controlColor = FPoint(patch->x[2][1], patch->y[2][1]);
 		if (shading->isParameterized())
 		{
 			shading->getParameterizedColor (patch->color[u][v].c[0], &color);

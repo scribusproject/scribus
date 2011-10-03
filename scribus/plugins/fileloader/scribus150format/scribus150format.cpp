@@ -2702,6 +2702,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			mp.controlBottom = FPoint(tAtt.valueAsDouble("CBX", 0.0), tAtt.valueAsDouble("CBY", 0.0));
 			mp.controlLeft   = FPoint(tAtt.valueAsDouble("CLX", 0.0), tAtt.valueAsDouble("CLY", 0.0));
 			mp.controlRight  = FPoint(tAtt.valueAsDouble("CRX", 0.0), tAtt.valueAsDouble("CRY", 0.0));
+			mp.controlColor  = FPoint(tAtt.valueAsDouble("CCX", mp.gridPoint.x()), tAtt.valueAsDouble("CCY", mp.gridPoint.y()));
 			mp.color         = SetColor(doc, mp.colorName, mp.shade);
 			mp.color.setAlphaF(mp.transparency);
 			newItem->meshGradientArray[mGArrayRows][mGArrayCols] = mp;
@@ -2723,6 +2724,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			mp.controlBottom = FPoint(tAtt.valueAsDouble("CBX", 0.0), tAtt.valueAsDouble("CBY", 0.0));
 			mp.controlLeft   = FPoint(tAtt.valueAsDouble("CLX", 0.0), tAtt.valueAsDouble("CLY", 0.0));
 			mp.controlRight  = FPoint(tAtt.valueAsDouble("CRX", 0.0), tAtt.valueAsDouble("CRY", 0.0));
+			mp.controlColor  = FPoint(tAtt.valueAsDouble("CCX", mp.gridPoint.x()), tAtt.valueAsDouble("CCY", mp.gridPoint.y()));
 			mp.color         = SetColor(doc, mp.colorName, mp.shade);
 			mp.color.setAlphaF(mp.transparency);
 			if (mGArrayCols == 0)

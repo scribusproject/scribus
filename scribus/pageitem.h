@@ -666,7 +666,7 @@ public:
 	void setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
 	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4);
 	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
-	void setMeshPointColor(int x, int y, QString color, int shade, double transparency);
+	void setMeshPointColor(int x, int y, QString color, int shade, double transparency, bool forPatch = false);
 	void createGradientMesh(int rows, int cols);
 	void resetGradientMesh();
 	void meshToShape();

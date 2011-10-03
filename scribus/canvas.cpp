@@ -276,6 +276,13 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
 
+bool Canvas::hitsCanvasPoint(FPoint globalPoint, QPointF canvasPoint) const
+{
+	double radius = m_doc->guidesPrefs().grabRadius;
+	return qAbs(globalPoint.x() - canvasPoint.x()) < radius
+		&& qAbs(globalPoint.y() - canvasPoint.y()) < radius;
+}
+
 QRect Canvas::exposedRect() const
 {
 	int ex ( -(x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x() );

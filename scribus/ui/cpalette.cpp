@@ -299,7 +299,10 @@ void Cpalette::updateFromItem()
 		strokeModeCombo->setCurrentIndex(1);
 	else
 		strokeModeCombo->setCurrentIndex(0);
-	setMeshPoint();
+	if (currentItem->GrType == 12)
+		setMeshPatchPoint();
+	else
+		setMeshPoint();
 	editMeshColors->setEnabled(!CGradDia->isVisible());
 	gradEditButton->setEnabled(true);
 
@@ -1133,6 +1136,8 @@ void Cpalette::editMeshPointColor()
 	{
 		if (currentItem->GrType == 11)
 			editStrokeGradient = 6;
+		else if (currentItem->GrType == 12)
+			editStrokeGradient = 8;
 		else
 			editStrokeGradient = 0;
 		gradEditButton->setEnabled(false);
@@ -1177,16 +1182,51 @@ void Cpalette::resetOneControlPoint()
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
 	int cont = currentItem->selectedMeshControlPoint;
-	if ((grow == -1) || (gcol == -1))
-		return;
-	if (cont == 1)
-		currentItem->meshGradientArray[grow][gcol].controlTop    = currentItem->meshGradientArray[grow][gcol].gridPoint;
-	else if (cont == 2)
-		currentItem->meshGradientArray[grow][gcol].controlBottom = currentItem->meshGradientArray[grow][gcol].gridPoint;
-	else if (cont == 3)
-		currentItem->meshGradientArray[grow][gcol].controlLeft   = currentItem->meshGradientArray[grow][gcol].gridPoint;
-	else if (cont == 4)
-		currentItem->meshGradientArray[grow][gcol].controlRight  = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	if (currentItem->GrType == 12)
+	{
+		if ((grow == -1) || (gcol == 0))
+			return;
+		switch (gcol)
+		{
+			case 1:
+				if (cont == 2)
+					currentItem->meshGradientPatches[grow].TL.controlBottom    = currentItem->meshGradientPatches[grow].TL.gridPoint;
+				if (cont == 4)
+					currentItem->meshGradientPatches[grow].TL.controlRight  = currentItem->meshGradientPatches[grow].TL.gridPoint;
+				break;
+			case 2:
+				if (cont == 2)
+					currentItem->meshGradientPatches[grow].TR.controlBottom = currentItem->meshGradientPatches[grow].TR.gridPoint;
+				if (cont == 3)
+					currentItem->meshGradientPatches[grow].TR.controlLeft   = currentItem->meshGradientPatches[grow].TR.gridPoint;
+				break;
+			case 3:
+				if (cont == 1)
+					currentItem->meshGradientPatches[grow].BR.controlTop    = currentItem->meshGradientPatches[grow].BR.gridPoint;
+				if (cont == 3)
+					currentItem->meshGradientPatches[grow].BR.controlLeft   = currentItem->meshGradientPatches[grow].BR.gridPoint;
+				break;
+			case 4:
+				if (cont == 1)
+					currentItem->meshGradientPatches[grow].BL.controlTop    = currentItem->meshGradientPatches[grow].BL.gridPoint;
+				if (cont == 4)
+					currentItem->meshGradientPatches[grow].BL.controlRight  = currentItem->meshGradientPatches[grow].BL.gridPoint;
+				break;
+		}
+	}
+	else
+	{
+		if ((grow == -1) || (gcol == -1))
+			return;
+		if (cont == 1)
+			currentItem->meshGradientArray[grow][gcol].controlTop    = currentItem->meshGradientArray[grow][gcol].gridPoint;
+		else if (cont == 2)
+			currentItem->meshGradientArray[grow][gcol].controlBottom = currentItem->meshGradientArray[grow][gcol].gridPoint;
+		else if (cont == 3)
+			currentItem->meshGradientArray[grow][gcol].controlLeft   = currentItem->meshGradientArray[grow][gcol].gridPoint;
+		else if (cont == 4)
+			currentItem->meshGradientArray[grow][gcol].controlRight  = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	}
 	currentItem->update();
 	currentDoc->regionsChanged()->update(QRect());
 }
@@ -1195,12 +1235,47 @@ void Cpalette::resetAllControlPoints()
 {
 	int grow = currentItem->selectedMeshPointX;
 	int gcol = currentItem->selectedMeshPointY;
-	if ((grow == -1) || (gcol == -1))
-		return;
-	currentItem->meshGradientArray[grow][gcol].controlTop    = currentItem->meshGradientArray[grow][gcol].gridPoint;
-	currentItem->meshGradientArray[grow][gcol].controlLeft   = currentItem->meshGradientArray[grow][gcol].gridPoint;
-	currentItem->meshGradientArray[grow][gcol].controlRight  = currentItem->meshGradientArray[grow][gcol].gridPoint;
-	currentItem->meshGradientArray[grow][gcol].controlBottom = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	if (currentItem->GrType == 12)
+	{
+		if ((grow == -1) || (gcol == 0))
+			return;
+		switch (gcol)
+		{
+			case 1:
+				currentItem->meshGradientPatches[grow].TL.controlTop    = currentItem->meshGradientPatches[grow].TL.gridPoint;
+				currentItem->meshGradientPatches[grow].TL.controlLeft   = currentItem->meshGradientPatches[grow].TL.gridPoint;
+				currentItem->meshGradientPatches[grow].TL.controlRight  = currentItem->meshGradientPatches[grow].TL.gridPoint;
+				currentItem->meshGradientPatches[grow].TL.controlBottom = currentItem->meshGradientPatches[grow].TL.gridPoint;
+				break;
+			case 2:
+				currentItem->meshGradientPatches[grow].TR.controlTop    = currentItem->meshGradientPatches[grow].TR.gridPoint;
+				currentItem->meshGradientPatches[grow].TR.controlLeft   = currentItem->meshGradientPatches[grow].TR.gridPoint;
+				currentItem->meshGradientPatches[grow].TR.controlRight  = currentItem->meshGradientPatches[grow].TR.gridPoint;
+				currentItem->meshGradientPatches[grow].TR.controlBottom = currentItem->meshGradientPatches[grow].TR.gridPoint;
+				break;
+			case 3:
+				currentItem->meshGradientPatches[grow].BR.controlTop    = currentItem->meshGradientPatches[grow].BR.gridPoint;
+				currentItem->meshGradientPatches[grow].BR.controlLeft   = currentItem->meshGradientPatches[grow].BR.gridPoint;
+				currentItem->meshGradientPatches[grow].BR.controlRight  = currentItem->meshGradientPatches[grow].BR.gridPoint;
+				currentItem->meshGradientPatches[grow].BR.controlBottom = currentItem->meshGradientPatches[grow].BR.gridPoint;
+				break;
+			case 4:
+				currentItem->meshGradientPatches[grow].BL.controlTop    = currentItem->meshGradientPatches[grow].BL.gridPoint;
+				currentItem->meshGradientPatches[grow].BL.controlLeft   = currentItem->meshGradientPatches[grow].BL.gridPoint;
+				currentItem->meshGradientPatches[grow].BL.controlRight  = currentItem->meshGradientPatches[grow].BL.gridPoint;
+				currentItem->meshGradientPatches[grow].BL.controlBottom = currentItem->meshGradientPatches[grow].BL.gridPoint;
+				break;
+		}
+	}
+	else
+	{
+		if ((grow == -1) || (gcol == -1))
+			return;
+		currentItem->meshGradientArray[grow][gcol].controlTop    = currentItem->meshGradientArray[grow][gcol].gridPoint;
+		currentItem->meshGradientArray[grow][gcol].controlLeft   = currentItem->meshGradientArray[grow][gcol].gridPoint;
+		currentItem->meshGradientArray[grow][gcol].controlRight  = currentItem->meshGradientArray[grow][gcol].gridPoint;
+		currentItem->meshGradientArray[grow][gcol].controlBottom = currentItem->meshGradientArray[grow][gcol].gridPoint;
+	}
 	currentItem->update();
 	currentDoc->regionsChanged()->update(QRect());
 }
@@ -1230,6 +1305,11 @@ void Cpalette::editGradientVector()
 			CGradDia->selectMesh();
 			editMeshColors->setEnabled(false);
 		}
+		else if (currentItem->GrType == 12)
+		{
+			CGradDia->selectPatchMesh();
+			editMeshColors->setEnabled(false);
+		}
 		else if (currentItem->GrType == 13)
 			CGradDia->selectConical();
 		CGradDia->show();
@@ -1245,6 +1325,8 @@ void Cpalette::editGradientVector()
 		editStrokeGradient = 4;
 	else if (currentItem->GrType == 11)
 		editStrokeGradient = 5;
+	else if (currentItem->GrType == 12)
+		editStrokeGradient = 9;
 	else
 		editStrokeGradient = 0;
 	emit editGradient(editStrokeGradient);
@@ -1291,7 +1373,7 @@ void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, do
 
 void Cpalette::setMeshPoint()
 {
-	if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+	if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1))
 	{
 		colorMeshPoint->setEnabled(true);
 		shadeMeshPoint->setEnabled(true);
@@ -1319,8 +1401,44 @@ void Cpalette::updateMeshPoint()
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
 	double t = transparencyMeshPoint->value() / 100.0;
-	currentItem->setMeshPointColor(currentItem->selectedMeshPointX, currentItem->selectedMeshPointY, color, shadeMeshPoint->value(), t);
+	currentItem->setMeshPointColor(currentItem->selectedMeshPointX, currentItem->selectedMeshPointY, color, shadeMeshPoint->value(), t, currentDoc->view()->editStrokeGradient == 8);
 	currentItem->update();
+}
+
+void Cpalette::setMeshPatchPoint()
+{
+	if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > 0))
+	{
+		colorMeshPoint->setEnabled(true);
+		shadeMeshPoint->setEnabled(true);
+		transparencyMeshPoint->setEnabled(true);
+		meshGradientPatch patch = currentItem->meshGradientPatches[currentItem->selectedMeshPointX];
+		meshPoint mp;
+		switch (currentItem->selectedMeshPointY)
+		{
+			case 1:
+				mp = patch.TL;
+				break;
+			case 2:
+				mp = patch.TR;
+				break;
+			case 3:
+				mp = patch.BR;
+				break;
+			case 4:
+				mp = patch.BL;
+				break;
+		}
+		setCurrentComboItem(colorMeshPoint, mp.colorName);
+		shadeMeshPoint->setValue(mp.shade);
+		transparencyMeshPoint->setValue(mp.transparency * 100);
+	}
+	else
+	{
+		colorMeshPoint->setEnabled(false);
+		shadeMeshPoint->setEnabled(false);
+		transparencyMeshPoint->setEnabled(false);
+	}
 }
 
 void Cpalette::changePatternProps()

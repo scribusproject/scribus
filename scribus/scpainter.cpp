@@ -1272,6 +1272,10 @@ void ScPainter::drawVPath( int mode )
 						cairo_pattern_mesh_curve_to(mpat, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
 						cairo_pattern_mesh_curve_to(mpat, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
 						cairo_pattern_mesh_curve_to(mpat, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+						cairo_pattern_mesh_set_control_point(mpat, 0, mp1.controlColor.x(),  mp1.controlColor.y());
+						cairo_pattern_mesh_set_control_point(mpat, 1, mp2.controlColor.x(),  mp2.controlColor.y());
+						cairo_pattern_mesh_set_control_point(mpat, 2, mp3.controlColor.x(),  mp3.controlColor.y());
+						cairo_pattern_mesh_set_control_point(mpat, 3, mp4.controlColor.x(),  mp4.controlColor.y());
 						mp1.color.getRgbF(&r, &g, &b, &a);
 						cairo_pattern_mesh_set_corner_color_rgba(mpat, 0, r, g, b, a);
 						mp2.color.getRgbF(&r, &g, &b, &a);
@@ -1372,6 +1376,10 @@ void ScPainter::drawVPath( int mode )
 					cairo_pattern_mesh_curve_to(mpat, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
 					cairo_pattern_mesh_curve_to(mpat, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
 					cairo_pattern_mesh_curve_to(mpat, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+					cairo_pattern_mesh_set_control_point(mpat, 0, mp1.controlColor.x(),  mp1.controlColor.y());
+					cairo_pattern_mesh_set_control_point(mpat, 1, mp2.controlColor.x(),  mp2.controlColor.y());
+					cairo_pattern_mesh_set_control_point(mpat, 2, mp3.controlColor.x(),  mp3.controlColor.y());
+					cairo_pattern_mesh_set_control_point(mpat, 3, mp4.controlColor.x(),  mp4.controlColor.y());
 					mp1.color.getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					mp2.color.getRgbF(&r, &g, &b, &a);

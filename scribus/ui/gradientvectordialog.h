@@ -51,11 +51,14 @@ public:
 	void selectFourColor();
 	void selectDiamond();
 	void selectMesh();
+	void selectPatchMesh();
 
 public slots:
 	void languageChange();
 	void handleEditButton();
 	void handleEditControlButton();
+	void handlePEditButton();
+	void handlePEditControlButton();
 	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void changeSpecialL();
 	void changeSpecialR();
