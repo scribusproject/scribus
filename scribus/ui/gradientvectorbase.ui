@@ -876,10 +876,13 @@
          <item>
           <widget class="QPushButton" name="buttonAddPatch">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>Add Patch</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

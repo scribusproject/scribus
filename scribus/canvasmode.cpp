@@ -651,6 +651,7 @@ void CanvasMode::setModeCursor()
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
 		case modeEditMeshGradient:
+		case modeEditMeshPatch:
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:

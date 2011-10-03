@@ -59,6 +59,9 @@ public slots:
 	void handleEditControlButton();
 	void handlePEditButton();
 	void handlePEditControlButton();
+	void handlePAddButton();
+	void endPAddButton();
+	void changebuttonRemovePatch(bool val);
 	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void changeSpecialL();
 	void changeSpecialR();
@@ -74,6 +77,7 @@ signals:
 	void meshToShape();
 	void reset1Control();
 	void resetAllControl();
+	void removePatch();
 
 };
 #endif

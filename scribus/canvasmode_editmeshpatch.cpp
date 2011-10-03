@@ -49,6 +49,7 @@
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "ui/propertiespalette.h"
+#include "sccolorengine.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -62,9 +63,10 @@
 
 CanvasMode_EditMeshPatch::CanvasMode_EditMeshPatch(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
-	Mxp = Myp = selectedMeshPatch = -1;
+	Mxp = Myp = -1;
 	m_patchPoint = noPointDefined;
 	m_gradientPoint = noControlPointDefined;
+	m_click_count = 0;
 }
 
 inline bool CanvasMode_EditMeshPatch::GetItem(PageItem** pi)
@@ -143,7 +145,7 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 		meshPoint mp2 = patch.TR;
 		meshPoint mp3 = patch.BR;
 		meshPoint mp4 = patch.BL;
-		if (col != selectedMeshPatch)
+		if (col != currItem->selectedMeshPointX)
 		{
 			QPainterPath Bez;
 			Bez.moveTo(mp1.gridPoint.x(), mp1.gridPoint.y());
@@ -155,9 +157,9 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 			psx->drawPath(Bez);
 		}
 	}
-	if (selectedMeshPatch >= 0)
+	if (currItem->selectedMeshPointX >= 0)
 	{
-		meshGradientPatch patch = currItem->meshGradientPatches[selectedMeshPatch];
+		meshGradientPatch patch = currItem->meshGradientPatches[currItem->selectedMeshPointX];
 		meshPoint mp1 = patch.TL;
 		meshPoint mp2 = patch.TR;
 		meshPoint mp3 = patch.BR;
@@ -242,6 +244,26 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 			}
 		}
 	}
+	if (m_view->editStrokeGradient == 11)
+	{
+		if (m_clickPointPolygon.size() > 1)
+		{
+			psx->setPen(p1b);
+			psx->drawPolyline(m_clickPointPolygon);
+		}
+		psx->setPen(p8r);
+		for (int col = 0; col < m_clickPointPolygon.size(); col++)
+		{
+			psx->drawPoint(m_clickPointPolygon.value(col));
+		}
+		if (m_clickPointPolygon.size() > 0)
+		{
+			psx->setPen(p1bd);
+			psx->drawLine(m_clickPointPolygon.value(m_clickPointPolygon.count() - 1), m_currentPoint);
+		}
+		psx->setPen(p8r);
+		psx->drawPoint(m_currentPoint);
+	}
 }
 
 void CanvasMode_EditMeshPatch::enterEvent(QEvent *)
@@ -269,7 +291,9 @@ void CanvasMode_EditMeshPatch::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	m_keyRepeat = false;
-	Mxp = Myp = selectedMeshPatch = -1;
+	currItem = m_doc->m_Selection->itemAt(0);
+	Mxp = Myp = currItem->selectedMeshPointX = -1;
+	m_click_count = 0;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -280,11 +304,10 @@ void CanvasMode_EditMeshPatch::activate(bool fromGesture)
 void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
 {
 	m_view->redrawMarker->hide();
-	selectedMeshPatch = -1;
 	m_patchPoint = noPointDefined;
 	m_gradientPoint = noControlPointDefined;
-	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	currItem->selectedMeshPointX = selectedMeshPatch;
+	m_click_count = 0;
+	currItem->selectedMeshPointX = -1;
 	currItem->selectedMeshPointY = m_patchPoint;
 	currItem->selectedMeshControlPoint = m_gradientPoint;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
@@ -292,7 +315,7 @@ void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
 
 void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 {
-	if (selectedMeshPatch < 0)
+	if (currItem->selectedMeshPointX < 0)
 		return;
 	int kk = e->key();
 	if (m_keyRepeat)
@@ -384,13 +407,13 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 					if (m_view->editStrokeGradient == 8)
 					{
 						if (m_patchPoint == useTL)
-							currItem->meshGradientPatches[selectedMeshPatch].TL.controlColor = currItem->meshGradientPatches[selectedMeshPatch].TL.gridPoint;
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlColor = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint;
 						if (m_patchPoint == useTR)
-							currItem->meshGradientPatches[selectedMeshPatch].TR.controlColor = currItem->meshGradientPatches[selectedMeshPatch].TR.gridPoint;
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlColor = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint;
 						if (m_patchPoint == useBR)
-							currItem->meshGradientPatches[selectedMeshPatch].BR.controlColor = currItem->meshGradientPatches[selectedMeshPatch].BR.gridPoint;
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlColor = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint;
 						if (m_patchPoint == useBL)
-							currItem->meshGradientPatches[selectedMeshPatch].BL.controlColor = currItem->meshGradientPatches[selectedMeshPatch].BL.gridPoint;
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlColor = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint;
 						doUpdate = true;
 					}
 					else if (m_view->editStrokeGradient == 10)
@@ -398,30 +421,30 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 						if (m_patchPoint == useTL)
 						{
 							if (m_gradientPoint == useControlB)
-								currItem->meshGradientPatches[selectedMeshPatch].TL.controlBottom = currItem->meshGradientPatches[selectedMeshPatch].TL.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlBottom = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint;
 							else if (m_gradientPoint == useControlR)
-								currItem->meshGradientPatches[selectedMeshPatch].TL.controlRight = currItem->meshGradientPatches[selectedMeshPatch].TL.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlRight = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint;
 						}
 						else if (m_patchPoint == useTR)
 						{
 							if (m_gradientPoint == useControlB)
-								currItem->meshGradientPatches[selectedMeshPatch].TR.controlBottom = currItem->meshGradientPatches[selectedMeshPatch].TR.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlBottom = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint;
 							else if (m_gradientPoint == useControlL)
-								currItem->meshGradientPatches[selectedMeshPatch].TR.controlLeft = currItem->meshGradientPatches[selectedMeshPatch].TR.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlLeft = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint;
 						}
 						else if (m_patchPoint == useBR)
 						{
 							if (m_gradientPoint == useControlT)
-								currItem->meshGradientPatches[selectedMeshPatch].BR.controlTop = currItem->meshGradientPatches[selectedMeshPatch].BR.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlTop = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint;
 							else if (m_gradientPoint == useControlL)
-								currItem->meshGradientPatches[selectedMeshPatch].BR.controlLeft = currItem->meshGradientPatches[selectedMeshPatch].BR.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlLeft = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint;
 						}
 						else if (m_patchPoint == useBL)
 						{
 							if (m_gradientPoint == useControlT)
-								currItem->meshGradientPatches[selectedMeshPatch].BL.controlTop = currItem->meshGradientPatches[selectedMeshPatch].BL.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlTop = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint;
 							else if (m_gradientPoint == useControlR)
-								currItem->meshGradientPatches[selectedMeshPatch].BL.controlRight = currItem->meshGradientPatches[selectedMeshPatch].BL.gridPoint;
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlRight = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint;
 						}
 						doUpdate = true;
 					}
@@ -434,54 +457,54 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 					if (m_view->editStrokeGradient == 8)
 					{
 						if (m_patchPoint == useTL)
-							currItem->meshGradientPatches[selectedMeshPatch].TL.controlColor += FPoint(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlColor += FPoint(moveX, moveY);
 						if (m_patchPoint == useTR)
-							currItem->meshGradientPatches[selectedMeshPatch].TR.controlColor += FPoint(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlColor += FPoint(moveX, moveY);
 						if (m_patchPoint == useBR)
-							currItem->meshGradientPatches[selectedMeshPatch].BR.controlColor += FPoint(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlColor += FPoint(moveX, moveY);
 						if (m_patchPoint == useBL)
-							currItem->meshGradientPatches[selectedMeshPatch].BL.controlColor += FPoint(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlColor += FPoint(moveX, moveY);
 					}
 					else if (m_view->editStrokeGradient == 9)
 					{
 						if (m_patchPoint == useTL)
-							currItem->meshGradientPatches[selectedMeshPatch].TL.moveRel(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.moveRel(moveX, moveY);
 						if (m_patchPoint == useTR)
-							currItem->meshGradientPatches[selectedMeshPatch].TR.moveRel(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.moveRel(moveX, moveY);
 						if (m_patchPoint == useBR)
-							currItem->meshGradientPatches[selectedMeshPatch].BR.moveRel(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.moveRel(moveX, moveY);
 						if (m_patchPoint == useBL)
-							currItem->meshGradientPatches[selectedMeshPatch].BL.moveRel(moveX, moveY);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.moveRel(moveX, moveY);
 					}
 					else if (m_view->editStrokeGradient == 10)
 					{
 						if (m_patchPoint == useTL)
 						{
 							if (m_gradientPoint == useControlB)
-								currItem->meshGradientPatches[selectedMeshPatch].TL.controlBottom += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlBottom += FPoint(moveX, moveY);
 							else if (m_gradientPoint == useControlR)
-								currItem->meshGradientPatches[selectedMeshPatch].TL.controlRight += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlRight += FPoint(moveX, moveY);
 						}
 						else if (m_patchPoint == useTR)
 						{
 							if (m_gradientPoint == useControlB)
-								currItem->meshGradientPatches[selectedMeshPatch].TR.controlBottom += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlBottom += FPoint(moveX, moveY);
 							else if (m_gradientPoint == useControlL)
-								currItem->meshGradientPatches[selectedMeshPatch].TR.controlLeft += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlLeft += FPoint(moveX, moveY);
 						}
 						else if (m_patchPoint == useBR)
 						{
 							if (m_gradientPoint == useControlT)
-								currItem->meshGradientPatches[selectedMeshPatch].BR.controlTop += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlTop += FPoint(moveX, moveY);
 							else if (m_gradientPoint == useControlL)
-								currItem->meshGradientPatches[selectedMeshPatch].BR.controlLeft += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlLeft += FPoint(moveX, moveY);
 						}
 						else if (m_patchPoint == useBL)
 						{
 							if (m_gradientPoint == useControlT)
-								currItem->meshGradientPatches[selectedMeshPatch].BL.controlTop += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlTop += FPoint(moveX, moveY);
 							else if (m_gradientPoint == useControlR)
-								currItem->meshGradientPatches[selectedMeshPatch].BL.controlRight += FPoint(moveX, moveY);
+								currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlRight += FPoint(moveX, moveY);
 						}
 					}
 				}
@@ -504,7 +527,6 @@ void CanvasMode_EditMeshPatch::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	PageItem *currItem = 0;
 	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
 	{
 		if ((m_doc->m_Selection->isMultipleSelection()) && (m_doc->appMode == modeNormal))
@@ -541,111 +563,122 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m->accept();
-	if (selectedMeshPatch < 0)
-		return;
+	FPoint npfN;
+	double nx = mousePointDoc.x();
+	double ny = mousePointDoc.y();
+	if (!m_doc->ApplyGuides(&nx, &ny))
+		npfN = m_doc->ApplyGridF(FPoint(nx, ny));
+	else
+		npfN = FPoint(nx, ny);
+	currItem = m_doc->m_Selection->itemAt(0);
+	FPoint npf = FPoint(npfN.x(), npfN.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+	FPoint npx(Mxp - npfN.x(), Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
+	if (m_view->editStrokeGradient == 11)
+	{
+		m_currentPoint = QPointF(npf.x(), npf.y());
+		m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+		currItem->update();
+		QRectF upRect;
+		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
+		upRect.translate(currItem->xPos(), currItem->yPos());
+		m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	}
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
-		FPoint npfN;
-		double nx = mousePointDoc.x();
-		double ny = mousePointDoc.y();
-		if (!m_doc->ApplyGuides(&nx, &ny))
-			npfN = m_doc->ApplyGridF(FPoint(nx, ny));
-		else
-			npfN = FPoint(nx, ny);
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		FPoint npf = FPoint(npfN.x(), npfN.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
-		FPoint npx(Mxp - npfN.x(), Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
-		if (m_patchPoint != noPointDefined)
+		if (currItem->selectedMeshPointX >= 0)
 		{
-			if (m_view->editStrokeGradient == 8)
+			if (m_patchPoint != noPointDefined)
 			{
-				FPoint cP;
-				FPoint gP;
-				if (m_patchPoint == useTL)
+				if (m_view->editStrokeGradient == 8)
 				{
-					cP = currItem->meshGradientPatches[selectedMeshPatch].TL.controlColor;
-					gP = currItem->meshGradientPatches[selectedMeshPatch].TL.gridPoint;
+					FPoint cP;
+					FPoint gP;
+					if (m_patchPoint == useTL)
+					{
+						cP = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlColor;
+						gP = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint;
+					}
+					if (m_patchPoint == useTR)
+					{
+						cP = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlColor;
+						gP = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint;
+					}
+					if (m_patchPoint == useBR)
+					{
+						cP = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlColor;
+						gP = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint;
+					}
+					if (m_patchPoint == useBL)
+					{
+						cP = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlColor;
+						gP = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint;
+					}
+					m_canvas->displayXYHUD(m->globalPos(), cP.x() - gP.x(), cP.y() - gP.y());
+					if (m_patchPoint == useTL)
+						currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlColor -= npx;
+					if (m_patchPoint == useTR)
+						currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlColor -= npx;
+					if (m_patchPoint == useBR)
+						currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlColor -= npx;
+					if (m_patchPoint == useBL)
+						currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlColor -= npx;
 				}
-				if (m_patchPoint == useTR)
+				else if (m_view->editStrokeGradient == 9)
 				{
-					cP = currItem->meshGradientPatches[selectedMeshPatch].TR.controlColor;
-					gP = currItem->meshGradientPatches[selectedMeshPatch].TR.gridPoint;
+					m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+					if (m_view->editStrokeGradient == 9)
+					{
+						if (m_patchPoint == useTL)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.moveRel(-npx.x(), -npx.y());
+						if (m_patchPoint == useTR)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.moveRel(-npx.x(), -npx.y());
+						if (m_patchPoint == useBR)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.moveRel(-npx.x(), -npx.y());
+						if (m_patchPoint == useBL)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.moveRel(-npx.x(), -npx.y());
+					}
 				}
-				if (m_patchPoint == useBR)
-				{
-					cP = currItem->meshGradientPatches[selectedMeshPatch].BR.controlColor;
-					gP = currItem->meshGradientPatches[selectedMeshPatch].BR.gridPoint;
-				}
-				if (m_patchPoint == useBL)
-				{
-					cP = currItem->meshGradientPatches[selectedMeshPatch].BL.controlColor;
-					gP = currItem->meshGradientPatches[selectedMeshPatch].BL.gridPoint;
-				}
-				m_canvas->displayXYHUD(m->globalPos(), cP.x() - gP.x(), cP.y() - gP.y());
-				if (m_patchPoint == useTL)
-					currItem->meshGradientPatches[selectedMeshPatch].TL.controlColor -= npx;
-				if (m_patchPoint == useTR)
-					currItem->meshGradientPatches[selectedMeshPatch].TR.controlColor -= npx;
-				if (m_patchPoint == useBR)
-					currItem->meshGradientPatches[selectedMeshPatch].BR.controlColor -= npx;
-				if (m_patchPoint == useBL)
-					currItem->meshGradientPatches[selectedMeshPatch].BL.controlColor -= npx;
-			}
-			else if (m_view->editStrokeGradient == 9)
-			{
-				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
-				if (m_view->editStrokeGradient == 9)
+				else if (m_view->editStrokeGradient == 10)
 				{
 					if (m_patchPoint == useTL)
-						currItem->meshGradientPatches[selectedMeshPatch].TL.moveRel(-npx.x(), -npx.y());
-					if (m_patchPoint == useTR)
-						currItem->meshGradientPatches[selectedMeshPatch].TR.moveRel(-npx.x(), -npx.y());
-					if (m_patchPoint == useBR)
-						currItem->meshGradientPatches[selectedMeshPatch].BR.moveRel(-npx.x(), -npx.y());
-					if (m_patchPoint == useBL)
-						currItem->meshGradientPatches[selectedMeshPatch].BL.moveRel(-npx.x(), -npx.y());
+					{
+						if (m_gradientPoint == useControlB)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlBottom -= npx;
+						else if (m_gradientPoint == useControlR)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlRight -= npx;
+					}
+					else if (m_patchPoint == useTR)
+					{
+						if (m_gradientPoint == useControlB)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlBottom -= npx;
+						else if (m_gradientPoint == useControlL)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.controlLeft -= npx;
+					}
+					else if (m_patchPoint == useBR)
+					{
+						if (m_gradientPoint == useControlT)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlTop -= npx;
+						else if (m_gradientPoint == useControlL)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.controlLeft -= npx;
+					}
+					else if (m_patchPoint == useBL)
+					{
+						if (m_gradientPoint == useControlT)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlTop -= npx;
+						else if (m_gradientPoint == useControlR)
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlRight -= npx;
+					}
 				}
+				currItem->update();
+				QRectF upRect;
+				upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
+				upRect.translate(currItem->xPos(), currItem->yPos());
+				m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
 			}
-			else if (m_view->editStrokeGradient == 10)
-			{
-				if (m_patchPoint == useTL)
-				{
-					if (m_gradientPoint == useControlB)
-						currItem->meshGradientPatches[selectedMeshPatch].TL.controlBottom -= npx;
-					else if (m_gradientPoint == useControlR)
-						currItem->meshGradientPatches[selectedMeshPatch].TL.controlRight -= npx;
-				}
-				else if (m_patchPoint == useTR)
-				{
-					if (m_gradientPoint == useControlB)
-						currItem->meshGradientPatches[selectedMeshPatch].TR.controlBottom -= npx;
-					else if (m_gradientPoint == useControlL)
-						currItem->meshGradientPatches[selectedMeshPatch].TR.controlLeft -= npx;
-				}
-				else if (m_patchPoint == useBR)
-				{
-					if (m_gradientPoint == useControlT)
-						currItem->meshGradientPatches[selectedMeshPatch].BR.controlTop -= npx;
-					else if (m_gradientPoint == useControlL)
-						currItem->meshGradientPatches[selectedMeshPatch].BR.controlLeft -= npx;
-				}
-				else if (m_patchPoint == useBL)
-				{
-					if (m_gradientPoint == useControlT)
-						currItem->meshGradientPatches[selectedMeshPatch].BL.controlTop -= npx;
-					else if (m_gradientPoint == useControlR)
-						currItem->meshGradientPatches[selectedMeshPatch].BL.controlRight -= npx;
-				}
-			}
-			currItem->update();
-			QRectF upRect;
-			upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-			upRect.translate(currItem->xPos(), currItem->yPos());
-			m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
 		}
-		Mxp = npfN.x();
-		Myp = npfN.y();
 	}
+	Mxp = npfN.x();
+	Myp = npfN.y();
 }
 
 void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
@@ -670,90 +703,157 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 		return;
 	}
 	QTransform itemMatrix;
-	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	currItem = m_doc->m_Selection->itemAt(0);
 	itemMatrix.translate(currItem->xPos(), currItem->yPos());
 	itemMatrix.rotate(currItem->rotation());
 	bool found = false;
-	if (selectedMeshPatch >= 0)
+	if (m_view->editStrokeGradient == 11)
 	{
-		if (m_view->editStrokeGradient == 8)
+		m_gradientPoint = noControlPointDefined;
+		m_patchPoint = noPointDefined;
+		if (m_click_count == 0)
+			m_clickPointPolygon.clear();
+		currItem->selectedMeshPointX = -1;
+		QTransform invItemMatrix = itemMatrix.inverted();
+		QPointF clickPoint = invItemMatrix.map(QPointF(mousePointDoc.x(), mousePointDoc.y()));
+		m_clickPointPolygon.append(clickPoint);
+		m_click_count++;
+		if (m_click_count > 3)
 		{
-			meshGradientPatch patch = currItem->meshGradientPatches[selectedMeshPatch];
-			meshPoint mp1 = patch.TL;
-			meshPoint mp2 = patch.TR;
-			meshPoint mp3 = patch.BR;
-			meshPoint mp4 = patch.BL;
-			if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlColor.x(), mp1.controlColor.y())))))
-				m_patchPoint = useTL;
-			else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlColor.x(), mp2.controlColor.y())))))
-				m_patchPoint = useTR;
-			else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlColor.x(), mp3.controlColor.y())))))
-				m_patchPoint = useBR;
-			else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlColor.x(), mp4.controlColor.y())))))
-				m_patchPoint = useBL;
-			else
-				m_patchPoint = noPointDefined;
+			const ScColor& col = m_doc->PageColors["Black"];
+			QColor qcol = ScColorEngine::getRGBColor(col, m_doc);
+			meshPoint mgP;
+			meshGradientPatch patch;
+			mgP.resetTo(FPoint(m_clickPointPolygon.value(0).x(), m_clickPointPolygon.value(0).y()));
+			mgP.transparency = 1.0;
+			mgP.shade = 100;
+			mgP.colorName = "Black";
+			mgP.color = qcol;
+			patch.TL = mgP;
+			mgP.resetTo(FPoint(m_clickPointPolygon.value(1).x(), m_clickPointPolygon.value(1).y()));
+			patch.TR = mgP;
+			mgP.resetTo(FPoint(m_clickPointPolygon.value(2).x(), m_clickPointPolygon.value(2).y()));
+			patch.BR = mgP;
+			mgP.resetTo(FPoint(m_clickPointPolygon.value(3).x(), m_clickPointPolygon.value(3).y()));
+			patch.BL = mgP;
+			currItem->meshGradientPatches.append(patch);
+			currItem->selectedMeshPointX = currItem->meshGradientPatches.count() - 1;
+			m_view->editStrokeGradient = 9;
+			m_click_count = 0;
+			m_clickPointPolygon.clear();
+			m_ScMW->propertiesPalette->endPatchAdd();
 		}
-		else if (m_view->editStrokeGradient == 9)
+	}
+	else
+	{
+		if (currItem->selectedMeshPointX >= 0)
 		{
-			meshGradientPatch patch = currItem->meshGradientPatches[selectedMeshPatch];
-			meshPoint mp1 = patch.TL;
-			meshPoint mp2 = patch.TR;
-			meshPoint mp3 = patch.BR;
-			meshPoint mp4 = patch.BL;
-			if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()))))
-				m_patchPoint = useTL;
-			else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()))))
-				m_patchPoint = useTR;
-			else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()))))
-				m_patchPoint = useBR;
-			else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()))))
-				m_patchPoint = useBL;
-			else
-				m_patchPoint = noPointDefined;
-		}
-		else if (m_view->editStrokeGradient == 10)
-		{
-			if (m_patchPoint != noPointDefined)
+			if (m_view->editStrokeGradient == 8)
 			{
-				meshGradientPatch patch = currItem->meshGradientPatches[selectedMeshPatch];
+				meshGradientPatch patch = currItem->meshGradientPatches[currItem->selectedMeshPointX];
 				meshPoint mp1 = patch.TL;
 				meshPoint mp2 = patch.TR;
 				meshPoint mp3 = patch.BR;
 				meshPoint mp4 = patch.BL;
-				if (m_patchPoint == useTL)
-				{
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()))))
-						m_gradientPoint = useControlB;
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlRight.x(), mp1.controlRight.y()))))
-						m_gradientPoint = useControlR;
-				}
-				else if (m_patchPoint == useTR)
-				{
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlBottom.x(), mp2.controlBottom.y()))))
-						m_gradientPoint = useControlB;
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlLeft.x(), mp2.controlLeft.y()))))
-						m_gradientPoint = useControlL;
-				}
-				else if (m_patchPoint == useBR)
-				{
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlTop.x(), mp3.controlTop.y()))))
-						m_gradientPoint = useControlT;
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlLeft.x(), mp3.controlLeft.y()))))
-						m_gradientPoint = useControlL;
-				}
-				else if (m_patchPoint == useBL)
-				{
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlTop.x(), mp4.controlTop.y()))))
-						m_gradientPoint = useControlT;
-					if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlRight.x(), mp4.controlRight.y()))))
-						m_gradientPoint = useControlR;
-				}
+				if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlColor.x(), mp1.controlColor.y())))))
+					m_patchPoint = useTL;
+				else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlColor.x(), mp2.controlColor.y())))))
+					m_patchPoint = useTR;
+				else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlColor.x(), mp3.controlColor.y())))))
+					m_patchPoint = useBR;
+				else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlColor.x(), mp4.controlColor.y())))))
+					m_patchPoint = useBL;
 				else
-					m_gradientPoint = noControlPointDefined;
+					m_patchPoint = noPointDefined;
+			}
+			else if (m_view->editStrokeGradient == 9)
+			{
+				meshGradientPatch patch = currItem->meshGradientPatches[currItem->selectedMeshPointX];
+				meshPoint mp1 = patch.TL;
+				meshPoint mp2 = patch.TR;
+				meshPoint mp3 = patch.BR;
+				meshPoint mp4 = patch.BL;
+				if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()))))
+					m_patchPoint = useTL;
+				else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()))))
+					m_patchPoint = useTR;
+				else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()))))
+					m_patchPoint = useBR;
+				else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()))))
+					m_patchPoint = useBL;
+				else
+					m_patchPoint = noPointDefined;
+			}
+			else if (m_view->editStrokeGradient == 10)
+			{
+				if (m_patchPoint != noPointDefined)
+				{
+					meshGradientPatch patch = currItem->meshGradientPatches[currItem->selectedMeshPointX];
+					meshPoint mp1 = patch.TL;
+					meshPoint mp2 = patch.TR;
+					meshPoint mp3 = patch.BR;
+					meshPoint mp4 = patch.BL;
+					if (m_patchPoint == useTL)
+					{
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()))))
+							m_gradientPoint = useControlB;
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlRight.x(), mp1.controlRight.y()))))
+							m_gradientPoint = useControlR;
+					}
+					else if (m_patchPoint == useTR)
+					{
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlBottom.x(), mp2.controlBottom.y()))))
+							m_gradientPoint = useControlB;
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlLeft.x(), mp2.controlLeft.y()))))
+							m_gradientPoint = useControlL;
+					}
+					else if (m_patchPoint == useBR)
+					{
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlTop.x(), mp3.controlTop.y()))))
+							m_gradientPoint = useControlT;
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlLeft.x(), mp3.controlLeft.y()))))
+							m_gradientPoint = useControlL;
+					}
+					else if (m_patchPoint == useBL)
+					{
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlTop.x(), mp4.controlTop.y()))))
+							m_gradientPoint = useControlT;
+						if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlRight.x(), mp4.controlRight.y()))))
+							m_gradientPoint = useControlR;
+					}
+					else
+						m_gradientPoint = noControlPointDefined;
+				}
+			}
+			if (m_patchPoint == noPointDefined)
+			{
+				for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
+				{
+					meshGradientPatch patch = currItem->meshGradientPatches[col];
+					meshPoint mp1 = patch.TL;
+					meshPoint mp2 = patch.TR;
+					meshPoint mp3 = patch.BR;
+					meshPoint mp4 = patch.BL;
+					QPainterPath Bez;
+					Bez.moveTo(mp1.gridPoint.x(), mp1.gridPoint.y());
+					Bez.cubicTo(mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+					Bez.cubicTo(mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+					Bez.cubicTo(mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+					Bez.cubicTo(mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+					QPainterPath pat = itemMatrix.map(Bez);
+					if (pat.contains(QPointF(mousePointDoc.x(), mousePointDoc.y())))
+					{
+						currItem->selectedMeshPointX = col;
+						found = true;
+						break;
+					}
+				}
+				m_gradientPoint = noControlPointDefined;
+				if (!found)
+					currItem->selectedMeshPointX = -1;
 			}
 		}
-		if (m_patchPoint == noPointDefined)
+		else
 		{
 			for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
 			{
@@ -771,47 +871,19 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 				QPainterPath pat = itemMatrix.map(Bez);
 				if (pat.contains(QPointF(mousePointDoc.x(), mousePointDoc.y())))
 				{
-					selectedMeshPatch = col;
+					currItem->selectedMeshPointX = col;
 					found = true;
 					break;
 				}
 			}
+			m_patchPoint = noPointDefined;
 			m_gradientPoint = noControlPointDefined;
 			if (!found)
-				selectedMeshPatch = -1;
+				currItem->selectedMeshPointX = -1;
 		}
+		currItem->selectedMeshPointY = m_patchPoint;
+		currItem->selectedMeshControlPoint = m_gradientPoint;
 	}
-	else
-	{
-		for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
-		{
-			meshGradientPatch patch = currItem->meshGradientPatches[col];
-			meshPoint mp1 = patch.TL;
-			meshPoint mp2 = patch.TR;
-			meshPoint mp3 = patch.BR;
-			meshPoint mp4 = patch.BL;
-			QPainterPath Bez;
-			Bez.moveTo(mp1.gridPoint.x(), mp1.gridPoint.y());
-			Bez.cubicTo(mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
-			Bez.cubicTo(mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
-			Bez.cubicTo(mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
-			Bez.cubicTo(mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
-			QPainterPath pat = itemMatrix.map(Bez);
-			if (pat.contains(QPointF(mousePointDoc.x(), mousePointDoc.y())))
-			{
-				selectedMeshPatch = col;
-				found = true;
-				break;
-			}
-		}
-		m_patchPoint = noPointDefined;
-		m_gradientPoint = noControlPointDefined;
-		if (!found)
-			selectedMeshPatch = -1;
-	}
-	currItem->selectedMeshPointX = selectedMeshPatch;
-	currItem->selectedMeshPointY = m_patchPoint;
-	currItem->selectedMeshControlPoint = m_gradientPoint;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
@@ -827,7 +899,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	currItem = m_doc->m_Selection->itemAt(0);
 	currItem->update();
 	QRectF upRect;
 	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();

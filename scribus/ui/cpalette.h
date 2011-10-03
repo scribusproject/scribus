@@ -118,7 +118,9 @@ public slots:
 	void setActiveGradDia(bool active);
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void setMeshPoint();
-	void setMeshControlPoint();
+	void endPatchAdd();
+	void handleRemovePatch();
+	void setMeshPatch();
 	void setMeshPatchPoint();
 	void updateMeshPoint();
 	void changePatternProps();

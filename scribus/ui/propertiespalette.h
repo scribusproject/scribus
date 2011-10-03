@@ -56,7 +56,8 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 	virtual void closeEvent(QCloseEvent *closeEvent);
-	
+
+	void endPatchAdd();
 	void updateColorSpecialGradient();
 	const VGradient getMaskGradient();
 	const VGradient getMaskGradientGroup();

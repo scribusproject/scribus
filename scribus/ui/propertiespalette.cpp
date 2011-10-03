@@ -816,7 +816,7 @@ void PropertiesPalette::toggleGradientEdit(int stroke)
 			{
 				if ((stroke == 5) || (stroke == 6) || (stroke == 7))
 					m_ScMW->view->requestMode(modeEditMeshGradient);
-				else if ((stroke == 8) || (stroke == 9) || (stroke == 10))
+				else if ((stroke == 8) || (stroke == 9) || (stroke == 10) || (stroke == 11))
 					m_ScMW->view->requestMode(modeEditMeshPatch);
 				else
 					m_ScMW->view->requestMode(modeEditGradientVectors);
@@ -953,6 +953,11 @@ void PropertiesPalette::setGradientEditMode(bool on)
 	Cpal->gradEditButton->setChecked(on);
 }
 
+void PropertiesPalette::endPatchAdd()
+{
+	Cpal->endPatchAdd();
+}
+
 void PropertiesPalette::updateColorSpecialGradient()
 {
 	if (!m_haveDoc)
@@ -976,10 +981,10 @@ void PropertiesPalette::updateColorSpecialGradient()
 			Cpal->setSpecialGradient(currItem->GrControl1.x() * dur, currItem->GrControl1.y() * dur, currItem->GrControl2.x() * dur, currItem->GrControl2.y() * dur, currItem->GrControl3.x() * dur, currItem->GrControl3.y() * dur, currItem->GrControl4.x() * dur, currItem->GrControl4.y() * dur, currItem->GrControl5.x(), currItem->GrControl5.y());
 		else if ((m_ScMW->view->editStrokeGradient == 5) || (m_ScMW->view->editStrokeGradient == 6))
 			Cpal->setMeshPoint();
-		else if (m_ScMW->view->editStrokeGradient == 7)
-			Cpal->setMeshControlPoint();
 		else if (m_ScMW->view->editStrokeGradient == 8)
 			Cpal->setMeshPatchPoint();
+		else if (m_ScMW->view->editStrokeGradient == 9)
+			Cpal->setMeshPatch();
 		else if (!currItem->isGroup())
 			Tpal->setSpecialGradient(currItem->GrMaskStartX * dur, currItem->GrMaskStartY * dur, currItem->GrMaskEndX * dur, currItem->GrMaskEndY * dur, currItem->GrMaskFocalX * dur, currItem->GrMaskFocalY * dur, currItem->GrMaskScale, currItem->GrMaskSkew);
 	}

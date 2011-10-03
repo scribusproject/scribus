@@ -25,6 +25,7 @@
 
 #include <QObject>
 #include <QTime>
+#include <QPolygonF>
 
 #include "canvasmode.h"
 #include "fpointarray.h"
@@ -86,8 +87,11 @@ private:
 	ScribusMainWindow* m_ScMW;
 	eMPatchPoint m_patchPoint;
 	eMGradientPoint m_gradientPoint;
-	int selectedMeshPatch;
 	bool m_keyRepeat;
+	int m_click_count;
+	QPolygonF m_clickPointPolygon;
+	QPointF m_currentPoint;
+	PageItem *currItem;
 };
 
 #endif

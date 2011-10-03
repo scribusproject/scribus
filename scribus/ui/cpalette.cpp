@@ -112,6 +112,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(CGradDia, SIGNAL(meshToShape()), this, SLOT(meshGradientToShape()));
 	connect(CGradDia, SIGNAL(reset1Control()), this, SLOT(resetOneControlPoint()));
 	connect(CGradDia, SIGNAL(resetAllControl()), this, SLOT(resetAllControlPoints()));
+	connect(CGradDia, SIGNAL(removePatch()), this, SLOT(handleRemovePatch()));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradEdit, SIGNAL(gradientChanged()) , this, SLOT(handleFillGradient()));
 	connect(editPatternProps, SIGNAL(clicked()) , this, SLOT(changePatternProps()));
@@ -1391,8 +1392,23 @@ void Cpalette::setMeshPoint()
 	}
 }
 
-void Cpalette::setMeshControlPoint()
+void Cpalette::endPatchAdd()
 {
+	CGradDia->endPAddButton();
+}
+
+void Cpalette::handleRemovePatch()
+{
+	if ((currentItem->selectedMeshPointX > -1) && (currentItem->meshGradientPatches.count() > 1))
+	{
+		currentItem->meshGradientPatches.removeAt(currentItem->selectedMeshPointX);
+		currentItem->selectedMeshPointX = -1;
+		CGradDia->changebuttonRemovePatch((currentItem->selectedMeshPointX > -1) && (currentItem->meshGradientPatches.count() > 1));
+		currentItem->update();
+		currentDoc->regionsChanged()->update(QRect());
+		editStrokeGradient = 9;
+		emit editGradient(editStrokeGradient);
+	}
 }
 
 void Cpalette::updateMeshPoint()
@@ -1439,6 +1455,11 @@ void Cpalette::setMeshPatchPoint()
 		shadeMeshPoint->setEnabled(false);
 		transparencyMeshPoint->setEnabled(false);
 	}
+}
+
+void Cpalette::setMeshPatch()
+{
+	CGradDia->changebuttonRemovePatch((currentItem->selectedMeshPointX > -1) && (currentItem->meshGradientPatches.count() > 1));
 }
 
 void Cpalette::changePatternProps()

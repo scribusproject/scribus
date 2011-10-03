@@ -73,6 +73,8 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(resetAllControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	connect(editPPoint, SIGNAL(clicked()), this, SLOT(handlePEditButton()));
 	connect(editPControlPoints, SIGNAL(clicked()), this, SLOT(handlePEditControlButton()));
+	connect(buttonAddPatch, SIGNAL(clicked()), this, SLOT(handlePAddButton()));
+	connect(buttonRemovePatch, SIGNAL(clicked()), this, SIGNAL(removePatch()));
 	connect(resetPControlPoint, SIGNAL(clicked()), this, SIGNAL(reset1Control()));
 	connect(resetAllPControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	QSize iconSize = QSize(22, 22);
@@ -198,6 +200,33 @@ void GradientVectorDialog::handlePEditControlButton()
 		resetPControlPoint->setEnabled(true);
 		emit editGradient(10);
 	}
+}
+
+void GradientVectorDialog::handlePAddButton()
+{
+	editPPoint->setChecked(true);
+	editPPoint->setEnabled(false);
+	editPControlPoints->setEnabled(false);
+	resetAllPControlPoints->setEnabled(false);
+	resetPControlPoint->setEnabled(false);
+	buttonAddPatch->setEnabled(false);
+	emit editGradient(11);
+}
+
+void GradientVectorDialog::endPAddButton()
+{
+	editPPoint->setChecked(true);
+	editPPoint->setEnabled(true);
+	editPControlPoints->setEnabled(true);
+	resetAllPControlPoints->setEnabled(false);
+	resetPControlPoint->setEnabled(false);
+	buttonAddPatch->setChecked(false);
+	buttonAddPatch->setEnabled(true);
+}
+
+void GradientVectorDialog::changebuttonRemovePatch(bool val)
+{
+	buttonRemovePatch->setEnabled(val);
 }
 
 void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
