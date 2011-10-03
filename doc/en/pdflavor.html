@@ -1,30 +1,46 @@
-<qt>
-
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>PDF Flavors</title>
-<h2>PDF Flavor - Which one is best for you ?</h2>
+</head>
+<body>
+<h2>PDF Flavors</h2>
 
-<p>Answering that question, brings up many questions and bears some discussion of what are the differences. A higher version does not presume a "better" PDF and in some cases works against you.</p>
-<h4>What is the difference between versions PDF 1.2 to PDF 1.7 ?</h4>
-<p>Each version roughly parallels the release of a major version of Adobe Acrobat. The short overly simple answers:
-</p>
+<p>Given the number of PDF &ldquo;flavors&rdquo; and the technical background, some may be tempted to call PDF merely a collective noun for a number of separate file formats, all of which are derivatives another format called PostScript. We cannot provide a complete technical overview over the PDF specification(s) and their relations to PostScript here, but a few notes may help to guide you through the jungle of versions and subsets.</p>
+
+<h3>PDF and PostScript</h3>
+<p>While it&rsquo;s true that PDF is based on <a href="importhints1.html">PostScript</a>, it needs to be said that PDF, other than PostScript, is not a programming language. PDF and PostScript describe pages and their content using the same technology (&ldquo;Adobe imaging model&rdquo;), so conversion of the <i>visual</i> content between both formats works flawlessly. However, the PDF specification adds other layers of content that go beyond mere representation of graphical data on a printed page, like interactive features or scripting, which are not available in PostScript.</p>
+
+<h3>What is The Difference Between PDF Versions 1.0 to PDF 1.7?</h3>
+
+<p>Answering that question brings up many questions, but the most important thing you should be aware of is that a higher version is not necessarily a &ldquo;better&rdquo; PDF and in some cases can work against you.</p>
+<p>Each version parallels the release of a major version of Adobe Acrobat. Here&rsquo;s a short overview:</p>
 <ul>
-<li>PDF 1.2 = Acrobat 3.0 - relatively obsolete now
-</li>
-<li>PDF 1.3 = Acrobat 4.0 - The first version of PDF which truly had all the needed features to support "press-ready" PDF's including color management, ICC profiles etc. It also added javascript, interactive and multimedia capabilities. This standard is probably the safest to send if you are unsure of the capabilities of the receiver of your file. PDF/X-3 and a number of commercial print work flows are based on PDF 1.3.</li>
-<li>PDF 1.4 = Acrobat 5.0 - Actually, introduced with Illustrator 9. The main difference to concern Scribus users is both transparency and alpha transparency capabilites. This makes a major difference in where a PDF with these features can be printed. It takes either the latest commercial RIPs or certain Level 3 PostScript printers to use these features properly. Moreover, not all Level 3 PostScript printers will handle transparency. The latest versions of Ghostscript support the advanced PDF 1.4 features Scribus can create when exporting PDF.<strong>The most distinguishing feature of PDF 1.4 for Scribus is the ability to export true transparency in PDF. </strong>Note: Often, the only way you will be able to print exactly  the transparency features viewed on-screen is to export PDF 1.4 and print from Acrobat Reader 5.x or newer. </li>
-<li>PDF 1.5 = Acrobat 6.0 - Among the most interesting for Scribus users: many improvements for "press-ready" PDF, the capability to have true layering within the PDF, PDF-X "pre-flight" capability, more security and interactive features, like the ability to add comments which are separate from the original doc. Scribus can support many PDF 1.5 features in the 1.3.x development version. PDF 1.5 can also support more sophisticated compression options for images using JPEG 2000. </li>
-<li>PDF 1.6 = Acrobat 7.0 - Refinements of the 1.5 features and more extensive use of PKI and digital signing for document control, as well as, extended commenting for group collaboration. Where it concerns Scribus, nothing of importance, except the release of Adobe Reader 7.0 for Linux. </li>
-<li>PDF 1.7 = Acrobat 8.x - Added 3D capabilities</li>
+<li><b>PDF 1.0:</b> Acrobat 1.0 &ndash; obsolete now. Not supported by Scribus.</li>
+<li><b>PDF 1.1:</b> Acrobat 2.0 &ndash; obsolete now. Not supported by Scribus.</li>
+<li><b>PDF 1.2:</b> Acrobat 3.0 &ndash; obsolete now. Not supported by Scribus.</li>
+<li><b>PDF 1.3:</b> Acrobat 4.0 &ndash; The first version of PDF which truly had all the needed features to create &ldquo;press-ready&rdquo; files, including color management, ICC profiles etc. It also added JavaScript, interactive and multimedia capabilities. This standard is probably the safest to use if you are unsure of the capabilities of the receiver of your file. PDF/X-3 and a number of commercial print work flows are based on PDF 1.3.</li>
+<li><b>PDF 1.4:</b> Acrobat 5.0 &ndash; The main difference to concern Scribus users is both transparency and alpha transparency capabilites. This makes a major difference in where a PDF with these features can be printed. It takes either modern commercial RIPs or certain Level 3 PostScript printers to use these features properly. Moreover, not all Level 3 PostScript printers will handle transparency. The latest versions of Ghostscript support the advanced PDF 1.4 features Scribus can create when exporting PDF. <i>Note: Often, the only way you will be able to print the transparency features viewed on-screen is to export PDF 1.4 and print from Adobe Reader 5.x or later.</i></li>
+<li><b>PDF 1.5:</b> Acrobat 6.0 &ndash; Improvements to font handling, the capability to have true layering within the PDF, more security and interactive features, like the ability to add comments which are separate from the original document. Scribus 1.4 already supports many PDF 1.5 features. PDF 1.5 can support more sophisticated compression options for images using JPEG 2000 (not supported by Scribus yet). It also added initial support for embedding multimedia files.</li>
+<li><b>PDF 1.6:</b> Acrobat 7.0 &ndash; Refinements of the 1.5 features, more extensive use of the Public Key Infrastructre (PKIX) and digital signing for document control, as well as extended commenting for group collaboration. It also added initial support for embedding 3D objects. Where it concerns Scribus, nothing of importance, except the release of Adobe Reader 7.0 for Linux. </li>
+<li><b>PDF 1.7:</b> Acrobat 8.0 &ndash; Refinements and enhancements to 3D embedding, interactive and other features, mostly unrelated to Scribus and/or commercial printing.</li>
 </ul>
+
+<h3>What about other kinds of PDF, like PDF-X and PDF-A?</h3>
+<p>The PDF format&rsquo;s feature set continues to grow with every version, but not every feature is acceptable in all use-cases. Thus, workgroups at the International Standardization Organization (ISO) defined subsets of the PDF feature set, among them PDF/A or PDF/X. The purpose of PDF/A is long-term storage and accessibility of documents, i.e. the content of PDF/A files needs to be read or extracted in years, decades, perhaps centuries to come. This is, of course, different from PDF files created for commercial printing, whose main purpose is to reliably store visually important data like colors and typgraphically refined text. Below you can see the PDF export dialog in LibreOffice, an application suite which produces all kinds of &ldquo;office&rdquo; documents that are not suited for commercial printing:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfx1a-lo.png" alt="PDF/X-1a Export in LibreOffice" title="PDF/X-1a Export in LibreOffice" /></a></td></tr></table>
+<p>While there are some similarities in terms of features, there are also major differences, especially in the &ldquo;General&rdquo; tab. As you can see, the first option here is &ldquo;PDF/A-1a,&rdquo; an option that&rsquo;s not available in Scribus, because creating documents for long-term storage is none of its major purposes (yet). You can also see that selecting &ldquo;PDF/A-1a&rdquo; enables or disables other features automatically (&ldquo;Tagged PDF&rdquo; and &ldquo;Embed standard fonts&rdquo; enabled, &ldquo;Create PDF form&rdquo; disabled). Similarly, Scribus will enable/disable some export features when you choose <a href="pdfx3.html">PDF/X-3</a> as output destination.</p>
+<p>In addition to PDF/A and PDF/X, several other PDF subsets are being developed as international standards, for instance PDF/E for engineering documents (including the embedding of 3D objects) or PDF/UA (=&nbsp;universal access) for visually impaired users. See the website of <a href="http://www.aiim.org/">the Association for Information and Image Management, International</a> for more information.</p>
+
+<h3>Which PDF Version Will Work Best for You?</h3>
+
 <p>In deciding which version you choose for export, you need to consider the following: </p>
 <ul>
-<li><strong>Where am I ultimately printing ?</strong> - If you are planning to have your files printed commercially, always try to ask the printer first.</li>
-<li><strong>Does my document have transparency features ?</strong> - See above and ensure the rest of your equipment or workflow can support PDF 1.4. </li>
-<li><strong>I am exporting PDF forms. How do I know end receivers of my file can use it ?</strong> - Do you know the version of Acro Reader your users will have ? The safest is to use PDF 1.3 or 1.4.</li>
-<li><strong>Do I need layers ?</strong> - Only PDF 1.5 supports this and only in the 1.3.x version of Scribus. Be aware support for PDF 1.5 is not complete in most open source viewers. Ghostscript 8.5x does support some, but not all PDF 1.5 features. </li>
+<li><i>Where will you be ultimately printing?</i> If you are planning to have your files printed commercially, always try to ask the printer first.</li>
+<li><i>Does my document have transparency features?</i> See above and ensure the rest of your equipment or workflow can support PDF 1.4+. </li>
+<li><i>I am exporting PDF forms. How do I know whether receivers of my file can use it?</i> Do you know the version of Adobe Reader your users have? The safest is to use PDF 1.3 or 1.4.</li>
+<li><i>Do I need layers?</i> Only PDF 1.5+ supports this feature. Be aware that support for PDF layers is not complete in most Open Source PDF viewers.</li>
 </ul>
 <p></p>
-<h4>What about other kinds of PDF I have read about, like PDF-X and PDF-A ?</h4>
-<p>PDF marked as any of the following: PDF/X-1:2001, X-1a:2001 and 2003; X-2:2003; X-3:2002 and 2003 are all different flavors of PDF-X, which is a way of creating a PDF with certain criteria for pre-press. Scribus supports the latest PDF-X-2:2003. Support for other versions of PDF/X is planned. </p>
-<p>PDF-A is an ISO standard based on PDF 1.4 for long term storage of public documents in an open format.</p>
+
 </qt>

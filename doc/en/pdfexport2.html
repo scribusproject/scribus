@@ -1,26 +1,26 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>PDF Exporting from Scribus</title>
+	<title>PDF Export Targets</title>
 </head>
 <body>
-<h2>PDF Exporting from Scribus</h2>
-<h3>Scribus PDF Export Workflow</h3>
+<h2>PDF Export Targets</h2>
 
-<p>Aside from interactive PDF creation explained later, for a given document, there are basically four paths to follow in creating your PDF:</p>
+<p>There are basically four kinds of PDF export targets. It&rsquo;s important that you consider the hints below <i>before</i> you start creating your documents.</p>
 <ol>
 <li>
-<p><strong>Web download - Screen Reading - Interactive Forms</strong> - Follow this work flow when you want the smallest file size and high resolution printing is not required.</p>
+<p><strong>Press Optimized:</strong> All <a href="importhints.html">bitmap images</a> brought into to Scribus as placed images should have a minimum resolution of 200&nbsp;dpi and preferably 300&nbsp;dpi or more for photos or TIFFs. For line art or vector graphics converted to a bitmap image, an even higher resolution may be necessary for best results. Most vector files can be <a href="importhints2.html">imported directly</a> as native Scribus objects, which is recommended if possible. Output target in the PDF Export dialog: &ldquo;Printer,&rdquo; unless you export to <a href="pdfx3.html">PDF/X-3</a>.</p>
 </li>
 <li>
-<p><strong>Presentation Effects</strong> - the recommended settings are down-sample all images to 72, 96 or 120 dpi, depending on the resolution of the display screen. Embed all fonts and landscape page layouts will give you maximum image area on the screen if you plan on using a display projector. More hints on Presentation PDFs further on.</p>
+<p><strong>Print Optimized:</strong> This would mean targeting the PDF for printing on an office laser-jet or ink-jet. Recommended settings: Down-sample all images to 300&nbsp;dpi or less, embed fonts and keep your page margins with enough tolerance for margin limits on desktop and common office printers (approx. 6/10th of an inch or 1.5&nbsp;cm). <b>Do not choose &ldquo;Printer&rdquo; as an output target, but use &ldquo;Screen/Web&rdquo; instead, as ink-jet and laser-jet printers expect RGB input.</b></p>
 </li>
 <li>
-<p><strong>Press Optimized</strong> - Clear all down-sampling or compression of images where image quality is of utmost importance. All images brought into to Scribus as placed images should be a minimum of 200 dpi and preferably 300 dpi or more for photos or TIFFs. Line art or vector graphics converted to an EPS in a program like Illustrator should have a minimum of 800 dpi for best results. Most vector EPS can be imported directly as native Scribus objects and recommended where possible. <strong>If your printer supports color managed PDF/X-3, This is the recommended method for optimal results. However, only the latest printing technology can support PDF/X-3. You should only enable this when your printer advises. </strong>.</p>
+<p><strong>Web download, screen reading, interactive forms:</strong> See the section on <a href="pdfexport3.html">Screen/Web export</a>.</p>
 </li>
 <li>
-<p><strong>Print Optimized</strong> - This would mean targeting the PDF for printing on an office laser jet or ink jet. Recommended settings: down-sample all images to 300 dpi or less, embed fonts and keep your page margins with enough tolerance for margin limits on desktop and common office laser printers (approx. 6/10th of an inch or 1.5 cm.)</p>
+<p><strong>Presentation Effects:</strong> See the section on <a href="pdfexport4.html">PDF presentations</a>.</p>
 </li>
+
 </ol>
 </body>
 </html>
