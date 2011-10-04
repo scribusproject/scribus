@@ -695,7 +695,67 @@ private:
 	double lineCorr;
 };
 
+static int checkCJK(QChar ch) {
+	unsigned int code = ch.unicode();
+	if (	(0x2E80 < code && code < 0x2EFF) ||   // CJK Radicals Supplement
+		(0x3000 < code && code < 0x303F) ||   // CJK Symbols and Punctuation
+		(0x31C0 < code && code < 0x31EF) ||   // CJK Strokes
+		(0x3200 < code && code < 0x32FF) ||   // Enclosed CJK Letters and Months
+		(0x3300 < code && code < 0x33FF) ||   // CJK Compatibility
+		(0x3400 < code && code < 0x4DBF) ||   // CJK Unified Ideographs Extension A
+		(0x4E00 < code && code < 0x9FFF) ||   // CJK Unified Ideographs
+		(0xF900 < code && code < 0xFAFF) ||   // CJK Compatibility Ideographs
+		(0xFE30 < code && code < 0xFE4F) ||   // CJK Compatibility Forms
+		(0x20000 < code && code < 0x2A6DF) || // CJK Unified Ideographs Extension B
+		(0x2A700 < code && code < 0x2B73F) || // CJK Unified Ideographs Extension C
+		(0x2B740 < code && code < 0x2B81F) || // CJK Unified Ideographs Extension D
+		(0x2F800 < code && code < 0x2FA1F) || // CJK Compatibility Ideographs Supplement
+		(0xFF01 < code && code < 0xFF0F) ||
+		(0xFF1A < code && code < 0xFF20) ||
+		(0xFF58 < code && code < 0xFFDC) ||
+		(code == 0x3000) ||
+		(code == 0x3002) ||
+		(code == 0x201C) ||
+		(code == 0x201D))
+		return 1;
+	else
+		return 0;
+}
 
+static int checkCJKBreakAfter(QChar ch) {
+	unsigned int code[] = {0x201C, 0xFF08, 0xFF3B, 0xFF5B, 0xFF5F, 0xFF62, 0xFF0D, 0};
+	for (int i = 0; code[i]; ++i)
+		if (code[i] == ch.unicode())
+			return 0;
+	return 1;
+}
+
+static int checkCJKBreakBefore(QChar ch) {
+	unsigned int code[] =
+	 {0x201D, 0x3002, 0xFF01, 0xFF09, 0xFF0C, 0xFF0E, 0xFF1A,
+	  0xFF1B, 0xFF1F, 0xFF3D, 0xFF5D, 0xFF60, 0xFF63, 0xFF64, 0};
+	for (int i = 0; code[i]; ++i)
+		if (code[i] == ch.unicode())
+			return 0;
+	return 1;
+}
+
+static int implicitSpace(ScText *f, ScText *s) {
+	if (checkCJK(f->ch) && checkCJK(s->ch))
+		return 1;
+	else
+		return 0;
+}
+
+static int implicitBreak(ScText *f, ScText *s) {
+	if (checkCJK(f->ch) && checkCJK(s->ch)) {
+		if (!checkCJKBreakAfter(f->ch)
+		 || !checkCJKBreakBefore(s->ch))
+			return 0;
+		return 1;
+	} else
+		return 0;
+}
 
 /// called when line length is known and line is to be justified
 static void justifyLine(StoryText& itemText, LineSpec& line)
@@ -705,6 +765,8 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 	double spaceNatural = 0;
 	double glyphExtension;
 	double spaceExtension;
+	int spaceInsertion = 0;
+	double imSpace = -1;
 
 	const ParagraphStyle& style(itemText.paragraphStyle(line.firstItem));
 
@@ -718,28 +780,53 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 		else if ( (itemText.item(sof)->effects() & ScStyle_SuppressSpace) == 0)
 		{
 			spaceNatural += itemText.item(sof)->glyph.wide();
+			if (imSpace < 0.0 || imSpace > itemText.item(sof)->glyph.wide())
+				imSpace = itemText.item(sof)->glyph.wide();
+		}
+		if (sof != line.firstItem && implicitSpace(itemText.item(sof - 1), itemText.item(sof))) {
+			spaceInsertion += 1;
 		}
 	}
 
-	// decision: prio 1: stretch glyph;  prio 2: stretch spaces
+	imSpace /= 2;
+
+	// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
 	
 	if (line.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
 	{
 		glyphExtension = style.minGlyphExtension() - 1;
 		spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+		imSpace = 0;
 	}
 	else if (line.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
 	{
 		spaceExtension = 0;
 		glyphExtension = (line.width - spaceNatural) / glyphNatural  - 1;
+		imSpace = 0;
 	}
 	else
 	{
 		glyphExtension = style.maxGlyphExtension() - 1;
-		if (spaceNatural > 0)
-			spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
-		else
-			spaceExtension = 0;
+		if (spaceInsertion) {
+			double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+			if (imSpace > 0) {
+				if (remaining / spaceInsertion < imSpace) {
+					imSpace = remaining / spaceInsertion;
+					spaceExtension = 0;
+				} else {
+					spaceExtension = (remaining + spaceNatural) / (spaceNatural + spaceInsertion * imSpace) - 1;
+					imSpace *= spaceExtension + 1;
+				}
+			} else {
+				imSpace = remaining / spaceInsertion;
+				spaceExtension = 0;
+			}
+		} else {
+			if (spaceNatural > 0)
+				spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+			else
+				spaceExtension = 0;
+		}
 	}
 	
 	double glyphScale = 1 + glyphExtension;
@@ -772,6 +859,9 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 		else if ((itemText.item(yof)->effects() & ScStyle_SuppressSpace) == 0)
 		{
 			itemText.item(yof)->glyph.last()->xadvance += wide * spaceExtension;
+		}
+		if (yof != line.firstItem && implicitSpace(itemText.item(yof - 1), itemText.item(yof))) {
+			itemText.item(yof - 1)->glyph.last()->xadvance += imSpace;
 		}
 	}
 }
@@ -1913,6 +2003,9 @@ void PageItem_TextFrame::layout()
 				goNoRoom = true;
 			if ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
+
+			if (a != firstInFrame() && implicitBreak(itemText.item(a - 1), itemText.item(a)))
+				current.rememberBreak(a - 1, breakPos);
 
 			++current.itemsInLine;
 			
