@@ -19,7 +19,10 @@
 	<li>Embed the color profiles properly in image editing applications. Nowadays, not only closed source graphics software supports color management, but also all major Open Source programs, like GIMP, Krita, digiKam, Inkscape, or sK1.</li>
 </ol>
 
-<p>The color management system within Scribus is currently designed for enabling color managed &ldquo;soft proofs&rdquo; of your documents. Scribus can also show &ldquo;out of gamut&rdquo; warnings for colors which may not be accurately reproduced by a commercial printing device. (Most printers have a narrower range of printable colors, when compared to most monitors.) It does not embed or alter the profiles embedded in your images. (Some image formats, like EPS, JPEG, PNG or TIFF, can have an ICM or ICC profile embedded.)</p>
+<p>The color management system within Scribus is currently designed for enabling color managed &ldquo;soft proofs&rdquo; of your documents. Scribus can also show &ldquo;out of gamut&rdquo; warnings for colors which may not be accurately reproduced by a commercial printing device, as most printers have a narrower range of printable colors (CMYK), when compared to most monitors (RGB). It does not embed or alter the profiles embedded in your images. (Some image formats, like EPS, JPEG, PNG or TIFF, can have an ICM or ICC profile embedded.)</p>
+
+<table width="100%"><tr><td align="center"><img src="images/rgb-cmyk.png"/></td></tr>
+    <tr><td><div align="center"><i>The RGB model (left) has a much wider range of colors (gamut) than the CMYK model (right).</td></tr></table>
 
 <p><strong>What are color or device profiles?</strong></p>
 
@@ -40,8 +43,9 @@
 <ul>
 <li><b>Linux/UNIX:</b> <code>/usr/share/color/icc</code> (system) and <code>/home/username/.color/icc</code> (user).</li>
 <li><b>Mac OS X:</b> <code>/Library/ColorSync/Profiles</code>.</li>
-<li><b>Windows:</b>: <code>C:\WINNT\system32\spool\drivers\color</code> (Windows 2000) and <code>C:\Windows\system32\spool\drivers\color</code> (Windows XP, Vista, 7).</li>
-<i><b>OS/2 and eComStation:</b> <code>X:\scribus\lib\scribus\profiles</code>. <br>
+<li><b>Windows:</b>: <code>C:\WINNT\system32\spool\drivers\color</code> (Windows 2000) and <code>C:\Windows\system32\spool\drivers\color</code> (Windows XP, Vista, 7).<br>
+<i>Note that on 64-bit Windows systems, some 32-bit programs may not find the profiles under the <code>system32</code> directory because they are searching for them under <code>C:\Windows\SysWOW64</code>, which is a folder that contains files needed for compatibility of 32-bit programs (This is not a typo: the folder with a &ldquo;32&rdquo; in its name is for 64-bit files, the one with &ldquo;64&rdquo; in it is for 32-bit files!). If you are running a 32-bit program on a 64-bit version of Windows and your color profiles aren&rsquo;t available, you should also copy them to <code>C:\Windows\SysWOW64\spool\drivers\color</code></i>.</li>
+<li><b>OS/2 and eComStation:</b> <code>X:\scribus\lib\scribus\profiles</code>. <br>
 <i>Note that there is no system-wide color management available on OS/2 and eComStation, so every program that uses color management, like Scribus or GIMP, needs the profiles in its own directory. However, it&rsquo;s possible to create a single directory that comprises all profiles and then set this directory as an additional source for profiles, e.g.</i> <code>X:\ICC</code>. <i>In Scribus you can add this path in the &ldquo;General&rdquo; tab of the <a href="settings1.html#1">Preferences</a>.</i></li>
 </ul>
 

@@ -5,28 +5,21 @@
 	</area>
 	<area text="Documentation" file="intro.html">
 		<submenuitem text="Introduction" file="documentation.html">
-			<submenuitem text="About the team" file="about1.html"/>
+			<submenuitem text="About the Team" file="about1.html"/>
 			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
 		<submenuitem text="Installation" file="install.html">
-			<submenuitem text="Scribus Source &amp; SVN" file="install1.html"/>
+			<submenuitem text="Debian" file="install-dpkg.html"/>
+			<submenuitem text="Mac OS X" file="readme-macosx.html"/>
+			<submenuitem text="OS/2 and eComStation" file="readme-os2.html"/>
+			<submenuitem text="Windows" file="readme-win32.html"/>
+			<submenuitem text="Scribus Source and SVN" file="install1.html"/>
 			<submenuitem text="Requirements" file="install2.html"/>
 			<submenuitem text="Compiling using CMake" file="install4.html"/>
 			<submenuitem text="Compiling using CMake on OS X" file="install5.html"/>                     
-			<submenuitem text="Parallel Install" file="parallel-install.html"/>
-			<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
-		</submenuitem>
-		<submenuitem text="Cross Platform" file="cross-platform.html">
-			<submenuitem text="Mac OSX Readme" file="readme-macosx.html"/>
-			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
-			<submenuitem text="Mac OSX/Fink &amp; SVN" file="machints2.html"/>
-			<submenuitem text="OS/2 Readme" file="readme-os2.html"/>
-			<submenuitem text="Windows Readme" file="readme-win32.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
 			<submenuitem text="Configuring Scribus" file="settings1.html"/>
-			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
-			<submenuitem text="Mouse Shortcuts" file="mouse.html"/>
 			<submenuitem text="Hyphenation" file="hyphenator.html"/>
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
@@ -34,6 +27,8 @@
 		<submenuitem text="Scribus Basics" file="about2.html" >
 			<submenuitem file="qsg.html" text="Quick Start Guide" />
 			<submenuitem file="cli.html" text="Command Line Reference" />
+			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
+			<submenuitem text="Mouse Shortcuts" file="mouse.html"/>
 			<submenuitem file="docinfo.html" text="Document Information" />
 			<submenuitem file="WwFrames.html" text="Working with Frames" />
 			<submenuitem file="WwText.html" text="Working with Text" />
@@ -53,24 +48,24 @@
 			<submenuitem text="Managing Colors" file="color2.html" />
 			<submenuitem text="Open Source Color Sets" file="color3.html" />
 			<submenuitem text="National Color Standards" file="color4.html" />
+			<submenuitem text="Resene Color Sets" file="color5.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
+			<submenuitem text="Importing Photoshop Files" file="psd.html" />
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
 			<submenuitem text="Importing EPS" file="importhints1.html"/>
-			<submenuitem file="scribus-svg.html" text="Importing SVG" />
-			<submenuitem file="importhints3.html" text="Importing OpenOffice.org and ODF Files" />
-			<submenuitem file="importhints4.html" text="Importing HTML" />
-			<submenuitem file="psd.html" text="Importing PSD" />
+			<submenuitem text="Importing SVG" file="scribus-svg.html" />
+			<submenuitem text="Importing HTML" file="importhints4.html" />
+			<submenuitem text="Importing OpenOffice.org and ODF Files" file="importhints3.html" />
 		</submenuitem>
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
-			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
 			<submenuitem text="PDF Flavors" file="pdflavor.html"/>
-			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
-			<submenuitem text="PDF Forms" file="pdfexport3.html"/>
-			<submenuitem text="PDF and JavaScript" file="javascriptpdf.html"/>
-			<submenuitem text="PDF Forms and PHP" file="pdf_form.html"/>
+			<submenuitem text="PDF Export Targets" file="pdfexport2.html"/>
+			<submenuitem text="PDF Export for Screen/Web" file="pdfexport3.html"/>
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
+			<submenuitem text="PDF Forms" file="pdf_form.html"/>
+			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 		</submenuitem>
 		<submenuitem text="Printing" file="print1.html">
 			<submenuitem text="Print Preview" file="print2.html"/>
@@ -79,9 +74,8 @@
 			<submenuitem text="Pre-Press" file="prepress.html"/>
 		</submenuitem>
 		<submenuitem text="Color Management" file="cms.html">
-			<submenuitem text="Part 2 " file="cms2.html"/>
-			<submenuitem text="Part 3 " file="cms3.html"/>
-			<submenuitem text="Part 4 " file="cms4.html"/>
+			<submenuitem text="Color Management Setup" file="cms2.html"/>
+			<submenuitem text="Rendering Intents" file="cms3.html"/>
 			<submenuitem text="Monitor Profiling" file="moncal.html"/>
 		</submenuitem>
 		<submenuitem text="DTP ToolBox" file="toolbox.html">
@@ -99,10 +93,7 @@
 			<submenuitem text="LProf" file="toolbox14.html"/>
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
 			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
-		</submenuitem>
-		<submenuitem text="Hints &amp; FAQs" file="topten.html">
-			<submenuitem text="Help" file="faq1.html"/>
-			<submenuitem text="Development" file="faq3.html"/>
+			<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
 		</submenuitem>
 	</area>
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
@@ -127,7 +118,7 @@
 			<submenuitem text="PDF Export" file="scripterapi-PDFfile.html"/>
 			<submenuitem text="Printing" file="scripterapi-Printer.html"/>
 			<submenuitem text="Image Export" file="scripterapi-ImageExport.html"/>
-			<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
+			<submenuitem text="Pre-defined Constants" file="scripterapi-constants.html"/>
 			<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
 			<submenuitem text="Scripter Extensions API" file="scripterapi-extensions.html"/>
 		</submenuitem>
@@ -141,10 +132,9 @@
 		<submenuitem text="Community" file="resources.html"/>
 		<submenuitem text="Bug Reports" file="bugreport.html"/>
 		<submenuitem text="Mailing Lists" file="mailing_lists.html"/>
-		<submenuitem file="irc.html" text="IRC"/>
+		<submenuitem text="IRC" file="irc.html"/>
 		<submenuitem text="Printers" file="scprinters.html"/>
 		<submenuitem text="Download" file="download.html"/>
-		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Release History" file="releases.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
