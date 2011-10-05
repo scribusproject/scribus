@@ -160,8 +160,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Mxp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
@@ -335,8 +335,8 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	m_doc->nodeEdit.deselect();
 	if (!m_doc->masterPageMode())
 	{

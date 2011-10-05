@@ -235,8 +235,6 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 {
 // 	qDebug()<<"CanvasMode_Normal::mouseMoveEvent";
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m_lastPosWasOverGuide = false;
@@ -245,8 +243,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	bool erf = false;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
 	if (commonMouseMove(m))
 		return;
@@ -524,12 +520,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
-//				QRect mpo = QRect(qRound(m->x()/m_canvas->scale())-m_doc->guidesSettings.grabRad, qRound(m->y()/m_canvas->scale())-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
-//				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 				if (how >= 0)
 				{
 					if (how > 0)
@@ -555,7 +548,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				QMatrix p;
 				m_canvas->Transform(currItem, p);
 				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
 				{
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
@@ -625,8 +618,6 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -1039,10 +1030,9 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_mouseCurrentPoint  = mousePointDoc;
 	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
-//	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 
 	if(!m_doc->guidesSettings.before) // guides are on foreground and want to be processed first

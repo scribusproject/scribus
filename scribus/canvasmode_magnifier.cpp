@@ -153,8 +153,8 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Mxp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();

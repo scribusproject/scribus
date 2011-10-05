@@ -591,16 +591,11 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
 	bool inText;
 	double Rxp = 0;
 	double Ryp = 0;
-// 	Not used said gcc
-// 	double Rxpd = 0;
-// 	double Rypd = 0;
 	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
@@ -610,13 +605,10 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-//	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-// 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	Ryp = Myp;
 	Rxp = Mxp;
 	SeRx = Mxp;
@@ -1022,15 +1014,13 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
-//	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-// 	int a;
 	if (!m_doc->masterPageMode())
 	{
 		int pgNum = -1;

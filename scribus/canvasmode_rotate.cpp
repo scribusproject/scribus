@@ -65,8 +65,6 @@ void CanvasMode_Rotate::drawItemOutlines(QPainter* p)
 	double itemRotation;
 
 	p->save();
-	/*p->scale(m_canvas->scale(), m_canvas->scale());
-	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());*/
 
 	QColor  drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
 	p->setRenderHint(QPainter::Antialiasing);

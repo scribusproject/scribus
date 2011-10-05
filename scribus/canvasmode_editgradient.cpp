@@ -163,13 +163,9 @@ void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
 	if (m_gradientPoint == noPointDefined)
 		return;

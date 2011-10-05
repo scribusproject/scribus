@@ -1087,8 +1087,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		*/
 		Mxp = m->x();
 		Myp = m->y();
-		Dxp = qRound(m->x()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
-		Dyp = qRound(m->y()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
+		Dxp = qRound(m->x()/m_canvas->scale());
+		Dyp = qRound(m->y()/m_canvas->scale());
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
 		m_rectangleSelect->prepare(m->globalPos());
