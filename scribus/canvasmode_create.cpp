@@ -226,8 +226,6 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	QRect tx;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
 	if (commonMouseMove(m))
 		return;
@@ -314,11 +312,9 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	inItemCreation = false;
-//	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	canvasPressCoord = mousePointDoc;
 	createObjectMode = m_doc->appMode;
 	createObjectSubMode = m_doc->SubMode;
@@ -425,7 +421,6 @@ void CreateMode::selectPage(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	canvasPressCoord     = mousePointDoc;
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
