@@ -1,5 +1,66 @@
-Scribus - 1.4.0.rc4
-======================================
+Scribus - 1.4.0.rc6
+- 0010251: [Story Editor / Text Frames] [PATCH] wrong text formatting issues (jghali) - resolved.
+- 0009436: [Story Editor / Text Frames] wrong text formating - text extend margins or columns (jghali) - resolved.
+- 0010174: [General] the return of the brownish color (jghali) - resolved.
+- 0005891: [Story Editor / Text Frames] Various settings of work tracking and glyph extension make text overlap in column gap (jghali) - resolved.
+- 0009932: [Story Editor / Text Frames] First text line does not flow around objects (jghali) - resolved.
+- 0010298: [Translation] update of Czech translation for Scribus 1.4.0 (cbradney) - closed.
+- 0009519: [Documentation] Required documentation updates for 1.4 (christoph_s) - closed.
+- 0010252: [General] Status bar displays X and Y positions in points even when picas are the document unit (cbradney) - closed.
+- 0010276: [Undo/Redo] Undo/Redo with imagescaling breaks screen-rendering (jghali) - closed.
+- 0010284: [Translation] Hungarian translation update for 1.4 (rc6) (jghali) - closed.
+- 0010263: [User Interface] [patch] Better Masterpage Import (cbradney) - closed.
+- 0010144: [Shape Drawing] Shapes are sometimes cutfed off after grouping (fschmid) - closed.
+- 0010163: [Story Editor / Text Frames] put the story editor's icons on three lines (jghali) - closed.
+- 0010173: [Story Editor / Text Frames] Crash on search/replace with text alignment change (jghali) - closed.
+- 0010189: [Language Tools] missing Slovak (sk_SK) definition in langmg.cpp (cbradney) - closed.
+- 0010190: [User Interface] Add options for transfering page origin to Top Center and Bottom Center positions (cbradney) - closed.
+- 0010172: [Usability] Duplicated line's outline not drawn while moving (jghali) - closed.
+- 0010208: [Scripter] createParagraphStyle linespacing parameter don't accept floats (jghali) - closed.
+- 0010211: [General] Undoing last page deletion crashes Scribus (jghali) - closed.
+- 0010222: [Story Editor / Text Frames] Current paragraph style not displayed in story editor (jghali) - closed.
+- 0010101: [Translation] "Lock guides" is translated as "Repères fixes" instead of "Repères verrouillés" (jghali) - closed.
+- 0010234: [Undo/Redo] new table is not added to undo history...which leads to crash (jghali) - closed.
+- 0010041: [Translation] View -> page width and page heigth mixed up (jghali) - closed.
+- 0010258: [Import / Export] incorrect characters in imported word file (jghali) - closed.
+- 0010240: [Translation] Typo in en_GB translation (jghali) - closed.
+- 0010266: [User Interface] Tweak ruler presentation to be more pleasant on eyes (cbradney) - closed.
+- 0006462: [Shape Drawing] Text flow around Bounding Box does not work (cbradney) - closed.
+- 0010242: [Documentation] some corrections in the docs pointed out by A Levati (jghali) - closed.
+- 0010250: [Translation] Italian UI translation update for 1.4.0 (jghali) - closed.
+- 0010165: [General] Typo in Italian sample text (jghali) - closed.
+- 0010157: [User Interface] mistakes in "About Scribus" panel (cbradney) - closed.
+- 0010141: [Scripter] Console syntax highlighting options do not work (jghali) - closed.
+- 0010131: [Documentation] New paragraph for online help in Other information > Community > Français (jghali) - closed.
+- 0010138: [Documentation] documentation updates (cbradney) - closed.
+- 0010137: [General] Infinite recursion in ScrSpinBox on FreeBSD (jghali) - closed.
+- 0009983: [Story Editor / Text Frames] text added to an empty linked frame is put at the beginning of the first frame (jghali) - closed.
+- 0010037: [Build System] can't be built with cups 1.5 (cbradney) - closed.
+- 0009829: [PDF] [FIX] patch for always exporting greyscale images as greyscale in PDF (jghali) - closed.
+- 0010036: [Scripter] placeEPS() will move already selected objects (jghali) - closed.
+- 0005761: [Story Editor / Text Frames] Text vertically misaligned if first character is page number (jghali) - closed.
+- 0006577: [Story Editor / Text Frames] Deselecting all text doesn't work. (jghali) - closed.
+- 0010052: [-] incorrect style hierarchy caused by use of forward references on save (jghali) - closed.
+- 0010074: [Canvas] name of template file not visible (jghali) - closed.
+- 0010064: [Story Editor / Text Frames] table of contents with identical attributes for a single frame (jghali) - closed.
+- 0010078: [Styles] Changing styles imported with text from ODT documents doesn't work properly (jghali) - closed.
+- 0009969: [General] Table of Contents generates incorrect page numbers (jghali) - closed.
+- 0010070: [Scripter] Save ... in Scripter Console uses wrong save directory, other errors (jghali) - closed.
+- 0010048: [Story Editor / Text Frames] Updating Linespacing Changes Text Selection (jghali) - closed.
+- 0010049: [Story Editor / Text Frames] Zoom affect cursor line width (jghali) - closed.
+- 0008252: [Mac OS] cannot open a file through double click in OSX Finder (jghali) - closed.
+- 0010012: [Styles] Many duplicates of paragraph styles "Copy of Style (nnn)" (cbradney) - closed.
+- 0010065: [General] changing item level in a group causes havoc! (jghali) - closed.
+- 0009845: [General] Document is always marked as changed (cbradney) - closed.
+- 0009182: [General] Inserting pages lets Scribus jump to the wrong page in a document (jghali) - closed.
+- 0009903: [General] The "dirty flag" seems to get set unnecessarily (cbradney) - closed.
+- 0009894: [Undo/Redo] [BUG] undoing reversing write direction (jghali) - closed.
+- 0010098: [Shape Drawing] incorrect pdf export of gradients on master page (jghali) - closed.
+- 0010072: [General] Loop on file save caused by broken style hierarchy (jghali) - closed.
+- 0010053: [Styles] Style change not reflected in frame when working on legacy docs (jghali) - closed.
+- 0010062: [Story Editor / Text Frames] Deleting last text character causes crash. (jghali) - closed.
+
+Scribus - 1.4.0.rc5
 - 0009392: [Graphics / Image Frames] contour line growth does not match the measurement defined (cbradney) - resolved.
 - 0009903: [General] The "dirty flag" seems to get set unnecessarily (cbradney) - resolved.
 - 0009845: [General] Document is always marked as changed (cbradney) - resolved.
@@ -23,6 +84,8 @@ Scribus - 1.4.0.rc4
 - 0010034: [PDF] "fill rule" setting not correctly exported to PDF (jghali) - closed.
 - 0010017: [Story Editor / Text Frames] Can't type in text frames (cbradney) - closed.
 - 0010005: [PDF] Line style with dotted line exports as solid line in PDF (jghali) - closed.
+
+Scribus - 1.4.rc4
 - 0009912: [Story Editor / Text Frames] [FIX] make cursor jumps between frame on moving (cbradney) - closed.
 - 0009985: [Styles] Styles using tabs duplicate when copying object (jghali) - closed.
 - 0009994: [Graphics / Image Frames] Crash when executing "Split Polygons" under item menu (jghali) - closed.
