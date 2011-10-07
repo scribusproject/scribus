@@ -34,6 +34,7 @@ public:
 
 	void setCustomShapeIcon(int submode);
 	void setLocked(bool isLocked);
+	void setSizeLocked(bool isLocked);
 	void setRoundRectEnabled(bool enabled);
 	void displayTextFlowMode(PageItem::TextFlowMode mode);
 

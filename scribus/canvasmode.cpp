@@ -1198,20 +1198,15 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if(m_doc->nodeEdit.isContourLine)
 							m_view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
-						else
+						else if (!currItem->sizeLocked())
 						{
-							if (resizingsmaller)
-							{
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr);
-							}
-							else
+							if (!resizingsmaller)
 							{
 								m_doc->MoveItem(-resizeBy, 0, currItem, false);
-								currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr);
+								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
+							currItem->Sizing = false;
+							m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr);
 						}
 					}
 					currItem->update();
@@ -1265,20 +1260,15 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if(m_doc->nodeEdit.isContourLine)
 							m_view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
-						else
+						else if (!currItem->sizeLocked())
 						{
 							if (resizingsmaller)
 							{
 								m_doc->MoveItem(-resizeBy, 0, currItem, false);
-								currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr);
+								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
-							else
-							{
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr);
-							}
+							currItem->Sizing = false;
+							m_doc->SizeItem(currItem->width() + resizeBy, currItem->height(), currItem->ItemNr);
 						}
 					}
 					currItem->update();
@@ -1334,18 +1324,13 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
-							if (resizingsmaller)
-							{
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr);
-							}
-							else
+							if (!resizingsmaller)
 							{
 								m_doc->MoveItem(0, -resizeBy, currItem, false);
-								currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr);
+								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
+							currItem->Sizing = false;
+							m_doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem->ItemNr);
 						}
 					}
 					currItem->update();
@@ -1399,20 +1384,15 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if(m_doc->nodeEdit.isContourLine)
 							m_view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
-						else
+						else if (!currItem->sizeLocked())
 						{
 							if (resizingsmaller)
 							{
 								m_doc->MoveItem(0, -resizeBy, currItem, false);
-								currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr);
+								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
-							else
-							{
-								currItem->Sizing = false;
-								m_doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr);
-							}
+							currItem->Sizing = false;
+							m_doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem->ItemNr);
 						}
 					}
 					currItem->update();

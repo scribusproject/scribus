@@ -171,7 +171,11 @@ void PropertiesPalette_Shape::setLocked(bool isLocked)
 	if (isLocked)
 		pal.setCurrentColorGroup(QPalette::Disabled);
 
-	editShape->setEnabled(!isLocked);
+	bool shapeEditLocked = isLocked;
+	if (m_haveItem)
+		shapeEditLocked |=  m_item->sizeLocked();
+	editShape->setEnabled(!shapeEditLocked);
+
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		enableCustomShape();
@@ -180,6 +184,14 @@ void PropertiesPalette_Shape::setLocked(bool isLocked)
 		else
 			roundRect->setEnabled(false);
 	}
+}
+
+void PropertiesPalette_Shape::setSizeLocked(bool isLocked)
+{
+	bool shapeEditLocked = isLocked;
+	if (m_haveItem)
+		shapeEditLocked |=  m_item->locked();
+	editShape->setEnabled(!shapeEditLocked);
 }
 
 void PropertiesPalette_Shape::setRoundRectEnabled(bool enabled)
@@ -221,7 +233,7 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 		m_haveItem = (itemType != -1);
 		if (itemType != -1)
 		{
-			editShape->setEnabled(!currItem->locked());
+			editShape->setEnabled(!currItem->locked() && !currItem->sizeLocked());
 			enableCustomShape();
 		}
 		else
@@ -354,6 +366,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	}
 
 	setLocked(m_item->locked());
+	setSizeLocked(m_item->sizeLocked());
 	nonZero->setChecked(!m_item->fillRule);
 	evenOdd->setChecked(m_item->fillRule);
 
