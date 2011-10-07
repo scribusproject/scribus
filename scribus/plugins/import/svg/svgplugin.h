@@ -273,6 +273,7 @@ public:
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	QString parseIccColor( const QString &s );
+	QString parseTagName( const QDomElement &e );
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);

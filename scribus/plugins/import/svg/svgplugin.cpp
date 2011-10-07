@@ -967,7 +967,7 @@ void SVGPlug::parseDefs(const QDomElement &e)
 		parseStyle( &svgStyle, b );
 		if ( !svgStyle.Display) 
 			continue;
-		QString STag2 = b.tagName();
+		QString STag2 = parseTagName(b);
 		if ( STag2 == "g" )
 		{
 			QString id = b.attribute("id", "");
@@ -1263,53 +1263,55 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 	QList<PageItem*> GElements;
 	if (e.hasAttribute("id"))
 		m_nodeMap.insert(e.attribute("id"), e);
-	QString STag = e.tagName();
-	if( STag == "g" )
+	QString STag = parseTagName(e);
+	if (STag.startsWith("svg:"))
+		STag = STag.mid(4, - 1);
+	if (STag == "g" )
 	{
 		GElements = parseGroup( e );
 		return GElements;
 	}
-	if( STag == "defs" )
+	if (STag == "defs")
 		parseDefs(e);
-	else if ( STag == "a" )
+	else if (STag == "a")
 		GElements = parseA(e);
-	else if( STag == "switch" )
+	else if ( STag == "switch")
 		GElements = parseSwitch(e);
-	else if( STag == "symbol" )
+	else if ( STag == "symbol")
 		GElements = parseSymbol(e);
-	else if( STag == "use" )
+	else if ( STag == "use")
 		GElements = parseUse(e);
-	else if( STag == "linearGradient" || STag == "radialGradient" )
+	else if ( STag == "linearGradient" || STag == "radialGradient")
 		parseGradient( e );
-	else if( STag == "rect" )
+	else if (STag == "rect")
 		GElements = parseRect(e);
-	else if( STag == "ellipse" )
+	else if (STag == "ellipse")
 		GElements = parseEllipse(e);
-	else if( STag == "circle" )
+	else if (STag == "circle")
 		GElements = parseCircle(e);
-	else if( STag == "line" )
+	else if (STag == "line")
 		GElements = parseLine(e);
-	else if( STag == "path" )
+	else if (STag == "path")
 		GElements = parsePath(e);
-	else if( STag == "polyline" || e.tagName() == "polygon" )
+	else if (STag == "polyline" || STag == "polygon")
 		GElements = parsePolyline(e);
-	else if( STag == "text" )
+	else if (STag == "text")
 		GElements = parseText(e);
-	else if( STag == "clipPath" )
+	else if (STag == "clipPath")
 		parseClipPath(e);
-	else if( STag == "desc" )
+	else if (STag == "desc")
 	{
 		if (groupLevel == 1)
 			docDesc = e.text();
 	}
-	else if( STag == "title" )
+	else if (STag == "title")
 	{
 		if (groupLevel == 1)
 			docTitle = e.text();
 	}
-	else if( STag == "image" )
+	else if (STag == "image")
 		GElements = parseImage(e);
-/*	else if( STag == "i:pgf" )
+/*	else if (STag == "i:pgf")
 	{
 		QByteArray cdat;
 		QByteArray ddat;
@@ -1382,7 +1384,7 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 /*	else if( STag == "image" )
 		GElements = parseImage(e);
 	} */
-	else if(!isIgnorableNodeName(STag) )
+	else if (!isIgnorableNodeName(STag))
 	{
 		// warn if unsupported SVG feature are encountered
 		if (!m_unsupportedFeatures.contains(STag))
@@ -1556,10 +1558,10 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 	QString points = e.attribute( "points" );
 	if (!points.isEmpty())
 	{
-		QString STag = e.tagName();
+		QString STag = parseTagName(e);
 		points = points.simplified().replace(',', " ");
 		QStringList pointList = points.split( ' ', QString::SkipEmptyParts );
-		if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
+		if ((STag == "polygon" ) && (pointList.count() > 4))
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
@@ -1640,7 +1642,7 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 		getTextChunkWidth(e, chunkWidth);
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		if (n.isElement() && (n.toElement().tagName() == "tspan"))
+		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
 		{
 			QList<PageItem*> el = parseTextSpan(n.toElement(), currentPos, chunkWidth);
 			for (int ec = 0; ec < el.count(); ++ec)
@@ -1670,7 +1672,7 @@ QList<PageItem*> SVGPlug::parseTextSpan(const QDomElement& e, FPoint& currentPos
 	}
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		if (n.isElement() && (n.toElement().tagName() == "tspan"))
+		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
 		{
 			QList<PageItem*> el = parseTextSpan(n.toElement(), currentPos, chunkW);
 			for (int ec = 0; ec < el.count(); ++ec)
@@ -1735,7 +1737,7 @@ QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement de = n.toElement();
-		QString STag = de.tagName();
+		QString STag = parseTagName(de);
 		if (STag == "foreignObject")
 		{
 			if (de.hasAttribute("xlink:href"))
@@ -1798,7 +1800,7 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 	if (it != m_nodeMap.end())
 	{
 		QDomElement elem = it.value().toElement();
-		if( elem.tagName() == "symbol" )
+		if (parseTagName(elem) == "symbol")
 			UElements = parseGroup(elem);
 		else
 			UElements = parseElement(elem);
@@ -1916,7 +1918,7 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 	QDomNode c = e.firstChild();
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		if (n.isElement() && (n.toElement().tagName() == "tspan"))
+		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
 		{
 			QDomElement elem = n.toElement();
 			if (elem.hasAttribute("x") || elem.hasAttribute("y"))
@@ -2659,7 +2661,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	{
 		opa = 1.0;
 		QDomElement stop = n.toElement();
-		if(stop.tagName() == "stop")
+		if (parseTagName(stop) == "stop")
 		{
 			QString temp = stop.attribute( "offset" );
 			if( temp.contains( '%' ) )
@@ -2813,7 +2815,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	}
 	QString id = e.attribute("id", "");
 	QString origName = id;
-	if (e.tagName() == "linearGradient")
+	if (parseTagName(e) == "linearGradient")
 	{
 		if (e.hasAttribute("x1"))
 		{
@@ -2910,6 +2912,14 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	if (m_Doc->addGradient(id, gradhelper.gradient))
 		importedGradients.append(id);
 	importedGradTrans.insert(origName, id);
+}
+
+QString SVGPlug::parseTagName(const QDomElement& element)
+{
+	QString tagName(element.tagName());
+	if (tagName.startsWith("svg:"))
+		return tagName.mid(4, -1);
+	return tagName;
 }
 
 SVGPlug::~SVGPlug()
