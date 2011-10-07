@@ -2485,7 +2485,7 @@ void PropertiesPalette::NewSel(int nr)
 		{
 			i=doc->m_Selection->itemAt(0);
 			HaveItem=true;
-			EditShape->setEnabled(!i->locked());
+			EditShape->setEnabled(!i->locked() && !i->sizeLocked());
 			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && !i->locked());
 		}
 		else
@@ -5761,7 +5761,11 @@ void PropertiesPalette::setLocked(bool isLocked)
 	Height->setPalette(pal);
 	Rotation->setPalette(pal);
 
-	EditShape->setEnabled(!isLocked);
+	bool shapeEditLocked = isLocked;
+	if (HaveItem)
+		shapeEditLocked |=  CurItem->sizeLocked();
+	EditShape->setEnabled(!shapeEditLocked);
+
 	LayerGroup->setEnabled(!isLocked);
 	Locked->setChecked(isLocked);
 	if ((HaveDoc) && (HaveItem))
@@ -5776,9 +5780,9 @@ void PropertiesPalette::setLocked(bool isLocked)
 
 void PropertiesPalette::setSizeLocked(bool isSizeLocked)
 {
-	bool b=isSizeLocked;
+	bool b = isSizeLocked;
 	if (HaveItem && CurItem->locked())
-		b=true;
+		b = true;
 	Width->setReadOnly(b);
 	Height->setReadOnly(b);
 	QPalette pal(qApp->palette());
@@ -5789,6 +5793,11 @@ void PropertiesPalette::setSizeLocked(bool isSizeLocked)
 	Width->setPalette(pal);
 	Height->setPalette(pal);
 	NoResize->setChecked(isSizeLocked);
+
+	bool shapeEditLocked = isSizeLocked;
+	if (HaveItem)
+		shapeEditLocked |=  CurItem->locked();
+	EditShape->setEnabled(!shapeEditLocked);
 }
 
 void PropertiesPalette::setPrintingEnabled(bool isPrintingEnabled)
