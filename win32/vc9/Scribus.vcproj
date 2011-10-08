@@ -469,6 +469,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_editmeshpatch.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_editpolygon.cpp"
 				>
 			</File>
@@ -2651,6 +2655,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_editmeshgradient.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_editmeshpatch.h"
 				>
 			</File>
 			<File
