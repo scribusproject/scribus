@@ -60,6 +60,7 @@ public slots:
 	void handlePEditButton();
 	void handlePEditControlButton();
 	void handlePAddButton();
+	void handleSnapToGridBox();
 	void endPAddButton();
 	void changebuttonRemovePatch(bool val);
 	void setValues(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
@@ -78,6 +79,7 @@ signals:
 	void reset1Control();
 	void resetAllControl();
 	void removePatch();
+	void snapToMGrid(bool);
 
 };
 #endif

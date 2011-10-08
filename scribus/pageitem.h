@@ -415,6 +415,7 @@ public:
 	int selectedMeshPointX;
 	int selectedMeshPointY;
 	int selectedMeshControlPoint;
+	bool snapToPatchGrid;
 	int Cols;
 	double ColGap;
 	double gridOffset_;

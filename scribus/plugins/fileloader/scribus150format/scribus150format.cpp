@@ -2720,10 +2720,10 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			mp.shade         = tAtt.valueAsInt("SHADE", 100);
 			mp.transparency  = tAtt.valueAsDouble("TRANS", 1.0);
 			mp.gridPoint     = FPoint(tAtt.valueAsDouble("GX", 0.0), tAtt.valueAsDouble("GY", 0.0));
-			mp.controlTop    = FPoint(tAtt.valueAsDouble("CTX", 0.0), tAtt.valueAsDouble("CTY", 0.0));
-			mp.controlBottom = FPoint(tAtt.valueAsDouble("CBX", 0.0), tAtt.valueAsDouble("CBY", 0.0));
-			mp.controlLeft   = FPoint(tAtt.valueAsDouble("CLX", 0.0), tAtt.valueAsDouble("CLY", 0.0));
-			mp.controlRight  = FPoint(tAtt.valueAsDouble("CRX", 0.0), tAtt.valueAsDouble("CRY", 0.0));
+			mp.controlTop    = FPoint(tAtt.valueAsDouble("CTX", mp.gridPoint.x()), tAtt.valueAsDouble("CTY", mp.gridPoint.y()));
+			mp.controlBottom = FPoint(tAtt.valueAsDouble("CBX", mp.gridPoint.x()), tAtt.valueAsDouble("CBY", mp.gridPoint.y()));
+			mp.controlLeft   = FPoint(tAtt.valueAsDouble("CLX", mp.gridPoint.x()), tAtt.valueAsDouble("CLY", mp.gridPoint.y()));
+			mp.controlRight  = FPoint(tAtt.valueAsDouble("CRX", mp.gridPoint.x()), tAtt.valueAsDouble("CRY", mp.gridPoint.y()));
 			mp.controlColor  = FPoint(tAtt.valueAsDouble("CCX", mp.gridPoint.x()), tAtt.valueAsDouble("CCY", mp.gridPoint.y()));
 			mp.color         = SetColor(doc, mp.colorName, mp.shade);
 			mp.color.setAlphaF(mp.transparency);

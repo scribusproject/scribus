@@ -61,7 +61,7 @@ public:
 	void drawControlsMeshPatch(QPainter* pp, PageItem* currItem);
 
 private:
-
+	void snapToOtherPatch(double &x, double &y);
 	typedef enum
 	{
 		noPointDefined,

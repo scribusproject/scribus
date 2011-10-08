@@ -122,6 +122,7 @@ PageItem::PageItem(const PageItem & other)
 	selectedMeshPointX(other.selectedMeshPointX),
 	selectedMeshPointY(other.selectedMeshPointY),
 	selectedMeshControlPoint(other.selectedMeshControlPoint),
+	snapToPatchGrid(other.snapToPatchGrid),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
 	PLineArt(other.PLineArt),
@@ -2864,29 +2865,68 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 		switch (y)
 		{
 			case 1:
+				mp = meshGradientPatches[x].TL;
 				meshGradientPatches[x].TL.colorName = MColor;
 				meshGradientPatches[x].TL.color = MQColor;
 				meshGradientPatches[x].TL.shade = shade;
 				meshGradientPatches[x].TL.transparency = transparency;
 				break;
 			case 2:
+				mp = meshGradientPatches[x].TR;
 				meshGradientPatches[x].TR.colorName = MColor;
 				meshGradientPatches[x].TR.color = MQColor;
 				meshGradientPatches[x].TR.shade = shade;
 				meshGradientPatches[x].TR.transparency = transparency;
 				break;
 			case 3:
+				mp = meshGradientPatches[x].BR;
 				meshGradientPatches[x].BR.colorName = MColor;
 				meshGradientPatches[x].BR.color = MQColor;
 				meshGradientPatches[x].BR.shade = shade;
 				meshGradientPatches[x].BR.transparency = transparency;
 				break;
 			case 4:
+				mp = meshGradientPatches[x].BL;
 				meshGradientPatches[x].BL.colorName = MColor;
 				meshGradientPatches[x].BL.color = MQColor;
 				meshGradientPatches[x].BL.shade = shade;
 				meshGradientPatches[x].BL.transparency = transparency;
 				break;
+		}
+		FPoint xx = mp.gridPoint;
+		for (int col = 0; col < meshGradientPatches.count(); col++)
+		{
+			if (col != x)
+			{
+				if (meshGradientPatches[col].TL.gridPoint == xx)
+				{
+					meshGradientPatches[col].TL.colorName = MColor;
+					meshGradientPatches[col].TL.color = MQColor;
+					meshGradientPatches[col].TL.shade = shade;
+					meshGradientPatches[col].TL.transparency = transparency;
+				}
+				if (meshGradientPatches[col].TR.gridPoint == xx)
+				{
+					meshGradientPatches[col].TR.colorName = MColor;
+					meshGradientPatches[col].TR.color = MQColor;
+					meshGradientPatches[col].TR.shade = shade;
+					meshGradientPatches[col].TR.transparency = transparency;
+				}
+				if (meshGradientPatches[col].BR.gridPoint == xx)
+				{
+					meshGradientPatches[col].BR.colorName = MColor;
+					meshGradientPatches[col].BR.color = MQColor;
+					meshGradientPatches[col].BR.shade = shade;
+					meshGradientPatches[col].BR.transparency = transparency;
+				}
+				if (meshGradientPatches[col].BL.gridPoint == xx)
+				{
+					meshGradientPatches[col].BL.colorName = MColor;
+					meshGradientPatches[col].BL.color = MQColor;
+					meshGradientPatches[col].BL.shade = shade;
+					meshGradientPatches[col].BL.transparency = transparency;
+				}
+			}
 		}
 
 	}

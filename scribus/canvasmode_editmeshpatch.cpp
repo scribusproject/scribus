@@ -260,6 +260,8 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 		{
 			psx->setPen(p1bd);
 			psx->drawLine(m_clickPointPolygon.value(m_clickPointPolygon.count() - 1), m_currentPoint);
+			if (m_clickPointPolygon.size() == 3)
+				psx->drawLine(m_clickPointPolygon.value(0), m_currentPoint);
 		}
 		psx->setPen(p8r);
 		psx->drawPoint(m_currentPoint);
@@ -299,6 +301,7 @@ void CanvasMode_EditMeshPatch::activate(bool fromGesture)
 	{
 		m_view->update();
 	}
+	currItem->snapToPatchGrid = false;
 }
 
 void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
@@ -311,6 +314,7 @@ void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
 	currItem->selectedMeshPointY = m_patchPoint;
 	currItem->selectedMeshControlPoint = m_gradientPoint;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
+	currItem->snapToPatchGrid = false;
 }
 
 void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
@@ -629,13 +633,41 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 					if (m_view->editStrokeGradient == 9)
 					{
 						if (m_patchPoint == useTL)
-							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.moveRel(-npx.x(), -npx.y());
+						{
+							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint - npx;
+							double xx = mp.x();
+							double yy = mp.y();
+							if (currItem->snapToPatchGrid)
+								snapToOtherPatch(xx, yy);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.moveAbs(xx, yy);
+						}
 						if (m_patchPoint == useTR)
-							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.moveRel(-npx.x(), -npx.y());
+						{
+							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint - npx;
+							double xx = mp.x();
+							double yy = mp.y();
+							if (currItem->snapToPatchGrid)
+								snapToOtherPatch(xx, yy);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.moveAbs(xx, yy);
+						}
 						if (m_patchPoint == useBR)
-							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.moveRel(-npx.x(), -npx.y());
+						{
+							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint - npx;
+							double xx = mp.x();
+							double yy = mp.y();
+							if (currItem->snapToPatchGrid)
+								snapToOtherPatch(xx, yy);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.moveAbs(xx, yy);
+						}
 						if (m_patchPoint == useBL)
-							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.moveRel(-npx.x(), -npx.y());
+						{
+							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint - npx;
+							double xx = mp.x();
+							double yy = mp.y();
+							if (currItem->snapToPatchGrid)
+								snapToOtherPatch(xx, yy);
+							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.moveAbs(xx, yy);
+						}
 					}
 				}
 				else if (m_view->editStrokeGradient == 10)
@@ -905,4 +937,44 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
 	upRect.translate(currItem->xPos(), currItem->yPos());
 	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+}
+
+void CanvasMode_EditMeshPatch::snapToOtherPatch(double &x, double &y)
+{
+	int radius = m_doc->guidesPrefs().grabRadius;
+	for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
+	{
+		if (col != currItem->selectedMeshPointX)
+		{
+			meshGradientPatch patch = currItem->meshGradientPatches[col];
+			QPointF mp1 = QPointF(patch.TL.gridPoint.x(), patch.TL.gridPoint.y());
+			QPointF mp2 = QPointF(patch.TR.gridPoint.x(), patch.TR.gridPoint.y());
+			QPointF mp3 = QPointF(patch.BR.gridPoint.x(), patch.BR.gridPoint.y());
+			QPointF mp4 = QPointF(patch.BL.gridPoint.x(), patch.BL.gridPoint.y());
+			if (qAbs(mp1.x() - x) < radius && qAbs(mp1.y() - y) < radius)
+			{
+				x = mp1.x();
+				y = mp1.y();
+				return;
+			}
+			if (qAbs(mp2.x() - x) < radius && qAbs(mp2.y() - y) < radius)
+			{
+				x = mp2.x();
+				y = mp2.y();
+				return;
+			}
+			if (qAbs(mp3.x() - x) < radius && qAbs(mp3.y() - y) < radius)
+			{
+				x = mp3.x();
+				y = mp3.y();
+				return;
+			}
+			if (qAbs(mp4.x() - x) < radius && qAbs(mp4.y() - y) < radius)
+			{
+				x = mp4.x();
+				y = mp4.y();
+				return;
+			}
+		}
+	}
 }

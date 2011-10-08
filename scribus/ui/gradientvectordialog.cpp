@@ -77,6 +77,7 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(buttonRemovePatch, SIGNAL(clicked()), this, SIGNAL(removePatch()));
 	connect(resetPControlPoint, SIGNAL(clicked()), this, SIGNAL(reset1Control()));
 	connect(resetAllPControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
+	connect(snapToGrid, SIGNAL(clicked()), this, SLOT(handleSnapToGridBox()));
 	QSize iconSize = QSize(22, 22);
 	editPoints->setIcon(QIcon(loadIcon("MoveNode.png")));
 	editPoints->setIconSize(iconSize);
@@ -153,6 +154,8 @@ void GradientVectorDialog::selectPatchMesh()
 {
 	stackedWidget->setCurrentIndex(5);
 	editPPoint->setChecked(true);
+	snapToGrid->setChecked(false);
+	snapToGrid->setEnabled(true);
 	resize(minimumSizeHint());
 }
 
@@ -186,6 +189,7 @@ void GradientVectorDialog::handlePEditButton()
 {
 	if (editPPoint->isChecked())
 	{
+		snapToGrid->setEnabled(true);
 		resetAllPControlPoints->setEnabled(false);
 		resetPControlPoint->setEnabled(false);
 		emit editGradient(9);
@@ -196,10 +200,16 @@ void GradientVectorDialog::handlePEditControlButton()
 {
 	if (editPControlPoints->isChecked())
 	{
+		snapToGrid->setEnabled(false);
 		resetAllPControlPoints->setEnabled(true);
 		resetPControlPoint->setEnabled(true);
 		emit editGradient(10);
 	}
+}
+
+void GradientVectorDialog::handleSnapToGridBox()
+{
+	emit snapToMGrid(snapToGrid->isChecked());
 }
 
 void GradientVectorDialog::handlePAddButton()

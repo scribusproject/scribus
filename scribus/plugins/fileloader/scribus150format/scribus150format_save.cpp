@@ -1635,25 +1635,41 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				for (int gcol = 0; gcol < 4; gcol++)
 				{
 					meshPoint mp;
-					if (gcol == 0)
-						mp = patch.TL;
-					else if (gcol == 1)
-						mp = patch.TR;
-					else if (gcol == 2)
-						mp = patch.BR;
-					else if (gcol == 3)
-						mp = patch.BL;
 					docu.writeStartElement("PMPoint");
+					if (gcol == 0)
+					{
+						mp = patch.TL;
+						docu.writeAttribute("CBX", mp.controlBottom.x());
+						docu.writeAttribute("CBY", mp.controlBottom.y());
+						docu.writeAttribute("CRX", mp.controlRight.x());
+						docu.writeAttribute("CRY", mp.controlRight.y());
+					}
+					else if (gcol == 1)
+					{
+						mp = patch.TR;
+						docu.writeAttribute("CBX", mp.controlBottom.x());
+						docu.writeAttribute("CBY", mp.controlBottom.y());
+						docu.writeAttribute("CLX", mp.controlLeft.x());
+						docu.writeAttribute("CLY", mp.controlLeft.y());
+					}
+					else if (gcol == 2)
+					{
+						mp = patch.BR;
+						docu.writeAttribute("CTX", mp.controlTop.x());
+						docu.writeAttribute("CTY", mp.controlTop.y());
+						docu.writeAttribute("CLX", mp.controlLeft.x());
+						docu.writeAttribute("CLY", mp.controlLeft.y());
+					}
+					else if (gcol == 3)
+					{
+						mp = patch.BL;
+						docu.writeAttribute("CTX", mp.controlTop.x());
+						docu.writeAttribute("CTY", mp.controlTop.y());
+						docu.writeAttribute("CRX", mp.controlRight.x());
+						docu.writeAttribute("CRY", mp.controlRight.y());
+					}
 					docu.writeAttribute("GX", mp.gridPoint.x());
 					docu.writeAttribute("GY", mp.gridPoint.y());
-					docu.writeAttribute("CTX", mp.controlTop.x());
-					docu.writeAttribute("CTY", mp.controlTop.y());
-					docu.writeAttribute("CBX", mp.controlBottom.x());
-					docu.writeAttribute("CBY", mp.controlBottom.y());
-					docu.writeAttribute("CLX", mp.controlLeft.x());
-					docu.writeAttribute("CLY", mp.controlLeft.y());
-					docu.writeAttribute("CRX", mp.controlRight.x());
-					docu.writeAttribute("CRY", mp.controlRight.y());
 					docu.writeAttribute("CCX", mp.controlColor.x());
 					docu.writeAttribute("CCY", mp.controlColor.y());
 					docu.writeAttribute("NAME", mp.colorName);

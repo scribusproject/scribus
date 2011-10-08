@@ -119,6 +119,7 @@ public slots:
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void setMeshPoint();
 	void endPatchAdd();
+	void snapToPatchGrid(bool val);
 	void handleRemovePatch();
 	void setMeshPatch();
 	void setMeshPatchPoint();
