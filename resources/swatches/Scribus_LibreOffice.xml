@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="LibreOffice">
+ <COLOR CMYK="#000000ff" NAME="Black" />
+ <COLOR CMYK="#00000000" NAME="White" />
+ <COLOR RGB="#106802" NAME="Libre Green 0" />
+ <COLOR RGB="#18a303" NAME="Libre Green 1" />
+ <COLOR RGB="#43c330" NAME="Libre Green 2" />
+ <COLOR RGB="#92e285" NAME="Libre Green 3" />
+ <COLOR RGB="#ccf4c6" NAME="Libre Green 4" />
+ <COLOR RGB="#023f62" NAME="Libre Blue 0" />
+ <COLOR RGB="#0369a3" NAME="Libre Blue 1" />
+ <COLOR RGB="#1c99e0" NAME="Libre Blue 2" />
+ <COLOR RGB="#63bbee" NAME="Libre Blue 3" />
+ <COLOR RGB="#aadcf7" NAME="Libre Blue 4" />
+ <COLOR RGB="#622502" NAME="Libre Orange 0" />
+ <COLOR RGB="#a33e03" NAME="Libre Orange 1" />
+ <COLOR RGB="#d36118" NAME="Libre Orange 2" />
+ <COLOR RGB="#f09e6f" NAME="Libre Orange 3" />
+ <COLOR RGB="#f9cfb5" NAME="Libre Orange 4" />
+ <COLOR RGB="#530260" NAME="Libre Purple 0" />
+ <COLOR RGB="#8e03a3" NAME="Libre Purple 1" />
+ <COLOR RGB="#c254d2" NAME="Libre Purple 2" />
+ <COLOR RGB="#dc85e9" NAME="Libre Purple 3" />
+ <COLOR RGB="#f2cbf8" NAME="Libre Purple 4" />
+ <COLOR RGB="#876900" NAME="Libre Yellow 0" />
+ <COLOR RGB="#c99c00" NAME="Libre Yellow 1" />
+ <COLOR RGB="#e9b913" NAME="Libre Yellow 2" />
+ <COLOR RGB="#f5cd53" NAME="Libre Yellow 3" />
+ <COLOR RGB="#fde9a9" NAME="Libre Yellow 4" />
+ <COLOR RGB="#2cee0e" NAME="Green Accent" />
+ <COLOR RGB="#00a0fc" NAME="Blue Accent" />
+ <COLOR RGB="#fc5c00" NAME="Orange Accent" />
+ <COLOR RGB="#e327ff" NAME="Purple Accent" />
+ <COLOR RGB="#ffd74c" NAME="Yellow Accent" />
+</SCRIBUSCOLORS>
+<!--The LibreOffice color palette has been retrieved from LibreOffice 3.3.1, which has been distributed under the Lesser General Public License, v.3 -->
