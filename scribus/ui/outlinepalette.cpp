@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVariant>
 #include <QWidgetAction>
+#include <QSignalMapper>
 #include <QShortcut>
 
 #include "actionmanager.h"
@@ -29,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribus.h"
 #include "selection.h"
+#include "layers.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_color.h"
@@ -40,14 +42,18 @@ OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after
 {
 	PageObject = NULL;
 	PageItemObject = NULL;
+	DocObject = NULL;
 	type = -1;
+	LayerID = -1;
 }
 
 OutlineTreeItem::OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
 	PageObject = NULL;
 	PageItemObject = NULL;
+	DocObject = NULL;
 	type = -1;
+	LayerID = -1;
 }
 
 OutlineWidget::OutlineWidget(QWidget* parent) : QTreeWidget(parent)
@@ -80,7 +86,23 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  			if (item != NULL)
  			{
  				QString tipText("");
- 				if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+				if (item->type == 5)
+				{
+					tipText += "<b>" + tr("Layer is:") + "</b><br><br>";
+					if (item->DocObject->activeLayer() == item->LayerID)
+						tipText += tr("active") + "<br>";
+					if (item->DocObject->layerVisible(item->LayerID))
+						tipText += tr("visible") + "<br>";
+					else
+						tipText += tr("invisible") + "<br>";
+					if (item->DocObject->layerPrintable(item->LayerID))
+						tipText += tr("printing");
+					else
+						tipText += tr("non printing");
+					if (item->DocObject->layerLocked(item->LayerID))
+						tipText += "<br>" + tr("locked");
+				}
+				else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
  				{
  					PageItem *pgItem = item->PageItemObject;
  					switch (pgItem->itemType())
@@ -128,13 +150,19 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 							tipText = CommonStrings::itemType_Line;
  							break;
  						case PageItem::Arc:
+							tipText = CommonStrings::itemType_Arc;
+							break;
  						case PageItem::Polygon:
-						case PageItem::RegularPolygon:
 							tipText = CommonStrings::itemType_Polygon;
+							break;
+						case PageItem::RegularPolygon:
+							tipText = CommonStrings::itemType_RegularPolygon;
  							break;
  						case PageItem::PolyLine:
-						case PageItem::Spiral:
 							tipText = CommonStrings::itemType_Polyline;
+							break;
+						case PageItem::Spiral:
+							tipText = CommonStrings::itemType_Spiral;
  							break;
  						case PageItem::PathText:
 							tipText = CommonStrings::itemType_PathText;
@@ -142,12 +170,18 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  						case PageItem::Symbol:
 							tipText = CommonStrings::itemType_Symbol;
  							break;
+						case PageItem::Group:
+							tipText = CommonStrings::itemType_Group;
+							break;
+						case PageItem::Table:
+							tipText = CommonStrings::itemType_Table;
+							break;
  						default:
  							break;
- 					}
-					QToolTip::showText(helpEvent->globalPos(), tipText, this);
-					return true;
+					}
 				}
+				QToolTip::showText(helpEvent->globalPos(), tipText, this);
+				return true;
 			}
 		}
 	}
@@ -196,6 +230,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	textIcon = loadIcon("22/insert-text-frame.png");
 	polylineIcon = loadIcon("22/draw-path.png");
 	polygonIcon = loadIcon("22/draw-polygon.png");
+	tableIcon = loadIcon("22/insert-table.png");
 	groupIcon = loadIcon("u_group.png");
 	buttonIcon = loadIcon("22/insert-button.png");
 	textFieldIcon = loadIcon("22/text-field.png");
@@ -273,7 +308,76 @@ void OutlinePalette::slotRightClick(QPoint point)
 				createContextMenu(currItem, point.x(), point.y());
 			}
 		}
+		else if (item->type == 5)
+		{
+			QMenu *pmenu = new QMenu();
+			QAction *actVis;
+			QAction *actPrint;
+			QAction *actLock;
+			if (item->DocObject->activeLayer() != item->LayerID)
+			{
+				QAction *actActive;
+				QSignalMapper *signalMapper = new QSignalMapper(this);
+				actActive = pmenu->addAction( tr("Active"));
+				actActive->setCheckable(true);
+				actActive->setChecked(false);
+				signalMapper->setMapping(actActive, item->LayerID);
+				connect(actActive, SIGNAL(triggered()), signalMapper, SLOT(map()));
+				connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(setActiveLayer(int)));
+			}
+			QSignalMapper *signalMapper2 = new QSignalMapper(this);
+			actVis = pmenu->addAction( tr("Visible"));
+			actVis->setCheckable(true);
+			actVis->setChecked(item->DocObject->layerVisible(item->LayerID));
+			signalMapper2->setMapping(actVis, item->LayerID);
+			connect(actVis, SIGNAL(triggered()), signalMapper2, SLOT(map()));
+			connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(setLayerVisible(int)));
+
+			QSignalMapper *signalMapper3 = new QSignalMapper(this);
+			actPrint = pmenu->addAction( tr("Printing"));
+			actPrint->setCheckable(true);
+			actPrint->setChecked(item->DocObject->layerPrintable(item->LayerID));
+			signalMapper3->setMapping(actPrint, item->LayerID);
+			connect(actPrint, SIGNAL(triggered()), signalMapper3, SLOT(map()));
+			connect(signalMapper3, SIGNAL(mapped(int)), this, SLOT(setLayerPrintable(int)));
+
+			QSignalMapper *signalMapper4 = new QSignalMapper(this);
+			actLock = pmenu->addAction( tr("Locked"));
+			actLock->setCheckable(true);
+			actLock->setChecked(item->DocObject->layerLocked(item->LayerID));
+			signalMapper4->setMapping(actLock, item->LayerID);
+			connect(actLock, SIGNAL(triggered()), signalMapper4, SLOT(map()));
+			connect(signalMapper4, SIGNAL(mapped(int)), this, SLOT(setLayerLocked(int)));
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			pmenu->exec(QCursor::pos());
+			delete pmenu;
+		}
 	}
+}
+
+void OutlinePalette::setActiveLayer(int layerID)
+{
+	currDoc->setActiveLayer(layerID);
+	currDoc->scMW()->changeLayer(currDoc->activeLayer());
+}
+
+void OutlinePalette::setLayerVisible(int layerID)
+{
+	currDoc->setLayerVisible(layerID, !currDoc->layerVisible(layerID));
+	currDoc->scMW()->showLayer();
+	currDoc->scMW()->layerPalette->rebuildList();
+}
+
+void OutlinePalette::setLayerLocked(int layerID)
+{
+	currDoc->setLayerLocked(layerID, !currDoc->layerLocked(layerID));
+	currDoc->scMW()->layerPalette->rebuildList();
+}
+
+void OutlinePalette::setLayerPrintable(int layerID)
+{
+	currDoc->setLayerPrintable(layerID, !currDoc->layerPrintable(layerID));
+	currDoc->scMW()->layerPalette->rebuildList();
 }
 
 void OutlinePalette::slotRenameItem()
@@ -507,6 +611,9 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 	case PageItem::Symbol:
 		item->setIcon( 0, polygonIcon );
 		break;
+	case PageItem::Table:
+		item->setIcon( 0, tableIcon );
+		break;
 	default:
 		break;
 	}
@@ -592,6 +699,7 @@ void OutlinePalette::slotMultiSelect()
 				case 0:
 				case 1:
 				case 2:
+				case 5:
 					ite->setSelected(false);
 					break;
 				case 3:
@@ -602,6 +710,8 @@ void OutlinePalette::slotMultiSelect()
 						m_MainWindow->closeActiveWindowMasterPageEditor();
 						currDoc->view()->SelectItemNr(pgItem->ItemNr, false, false);
 					}
+					break;
+				default:
 					break;
 			}
 		}
@@ -749,48 +859,94 @@ void OutlinePalette::BuildTree(bool storeVals)
 			}
 			page->setText(0, currDoc->MasterPages.at(a)->pageName());
 		}
+		bool hasfreeItems = false;
 		for (int a = 0; a < static_cast<int>(currDoc->DocPages.count()); ++a)
 		{
 			OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
 			page->PageObject = currDoc->DocPages.at(a);
 			page->type = 2;
 			pagep = page;
-			for (int b = 0; b < currDoc->DocItems.count(); ++b)
+			int layerCount = currDoc->layerCount();
+			if (layerCount > 1)
 			{
-				pgItem = currDoc->DocItems.at(b);
-				if (pgItem->OwnPage == a)
+				QList<PageItem*> pgItems;
+				for (int b = 0; b < currDoc->DocItems.count(); ++b)
 				{
-					if (!pgItem->isGroup())
+					pgItem = currDoc->DocItems.at(b);
+					if (pgItem->OwnPage == -1)
+						hasfreeItems = true;
+					if (pgItem->OwnPage == a)
+						pgItems.append(pgItem);
+				}
+				ScLayer layer;
+				layer.ID = 0;
+				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+				{
+					currDoc->Layers.levelToLayer(layer, layerLevel);
+					OutlineTreeItem *ObjLayer = new OutlineTreeItem( page, 0 );
+					ObjLayer->type = 5;
+					ObjLayer->LayerID = layer.ID;
+					ObjLayer->DocObject = currDoc;
+					ObjLayer->setText(0, tr("Layer: \"") + layer.Name + "\"");
+					for (int it = 0; it < pgItems.count(); ++it)
 					{
-						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-						object->PageItemObject = pgItem;
-						object->type = 3;
-						object->setText(0, pgItem->itemName());
-						setItemIcon(object, pgItem);
-						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						pgItem = pgItems.at(it);
+						if (pgItem->LayerID != layer.ID)
+							continue;
+						if (!pgItem->isGroup())
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 3;
+							object->setText(0, pgItem->itemName());
+							setItemIcon(object, pgItem);
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						}
+						else
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 3;
+							object->setText(0, pgItem->itemName());
+							object->setIcon( 0, groupIcon );
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							parseSubGroup(object, &pgItem->groupItemList, 3);
+						}
 					}
-					else
+				}
+			}
+			else
+			{
+				for (int b = 0; b < currDoc->DocItems.count(); ++b)
+				{
+					pgItem = currDoc->DocItems.at(b);
+					if (pgItem->OwnPage == -1)
+						hasfreeItems = true;
+					if (pgItem->OwnPage == a)
 					{
-						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-						object->PageItemObject = pgItem;
-						object->type = 3;
-						object->setText(0, pgItem->itemName());
-						object->setIcon( 0, groupIcon );
-						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-						parseSubGroup(object, &pgItem->groupItemList, 3);
+						if (!pgItem->isGroup())
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 3;
+							object->setText(0, pgItem->itemName());
+							setItemIcon(object, pgItem);
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						}
+						else
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 3;
+							object->setText(0, pgItem->itemName());
+							object->setIcon( 0, groupIcon );
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							parseSubGroup(object, &pgItem->groupItemList, 3);
+						}
 					}
 				}
 			}
 			page->setText(0, tr("Page ")+tmp.setNum(a+1));
-		}
-		bool hasfreeItems = false;
-		for (int b = 0; b < currDoc->DocItems.count(); ++b)
-		{
-			if (currDoc->DocItems.at(b)->OwnPage == -1)
-			{
-				hasfreeItems = true;
-				break;
-			}
 		}
 		if (hasfreeItems)
 		{
@@ -798,29 +954,79 @@ void OutlinePalette::BuildTree(bool storeVals)
 			pagep = page;
 			freeObjects = page;
 			page->type = -3;
-			for (int b = 0; b < currDoc->DocItems.count(); ++b)
+			int layerCount = currDoc->layerCount();
+			if (layerCount > 1)
 			{
-				pgItem = currDoc->DocItems.at(b);
-				if (pgItem->OwnPage == -1)
+				QList<PageItem*> pgItems;
+				for (int b = 0; b < currDoc->DocItems.count(); ++b)
 				{
-					if (!pgItem->isGroup())
+					pgItem = currDoc->DocItems.at(b);
+					if (pgItem->OwnPage == -1)
+						pgItems.append(pgItem);
+				}
+				ScLayer layer;
+				layer.ID = 0;
+				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+				{
+					currDoc->Layers.levelToLayer(layer, layerLevel);
+					OutlineTreeItem *ObjLayer = new OutlineTreeItem( page, 0 );
+					ObjLayer->type = 5;
+					ObjLayer->LayerID = layer.ID;
+					ObjLayer->DocObject = currDoc;
+					ObjLayer->setText(0, tr("Layer: \"") + layer.Name + "\"");
+					for (int it = 0; it < pgItems.count(); ++it)
 					{
-						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-						object->PageItemObject = pgItem;
-						object->type = 4;
-						object->setText(0, pgItem->itemName());
-						setItemIcon(object, pgItem);
-						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						pgItem = pgItems.at(it);
+						if (pgItem->LayerID != layer.ID)
+							continue;
+						if (!pgItem->isGroup())
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 3;
+							object->setText(0, pgItem->itemName());
+							setItemIcon(object, pgItem);
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						}
+						else
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 3;
+							object->setText(0, pgItem->itemName());
+							object->setIcon( 0, groupIcon );
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							parseSubGroup(object, &pgItem->groupItemList, 4);
+						}
 					}
-					else
+				}
+			}
+			else
+			{
+				for (int b = 0; b < currDoc->DocItems.count(); ++b)
+				{
+					pgItem = currDoc->DocItems.at(b);
+					if (pgItem->OwnPage == -1)
 					{
-						OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
-						object->PageItemObject = pgItem;
-						object->type = 4;
-						object->setText(0, pgItem->itemName());
-						object->setIcon( 0, groupIcon );
-						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-						parseSubGroup(object, &pgItem->groupItemList, 4);
+						if (!pgItem->isGroup())
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 4;
+							object->setText(0, pgItem->itemName());
+							setItemIcon(object, pgItem);
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						}
+						else
+						{
+							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
+							object->PageItemObject = pgItem;
+							object->type = 4;
+							object->setText(0, pgItem->itemName());
+							object->setIcon( 0, groupIcon );
+							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							parseSubGroup(object, &pgItem->groupItemList, 4);
+						}
 					}
 				}
 			}

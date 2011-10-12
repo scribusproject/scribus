@@ -1408,7 +1408,7 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 	DrawObj_Pre(p);
 	if (m_Doc->layerOutline(LayerID))
 	{
-		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine))
+		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine /*|| itemType()==Group || itemType()==Symbol*/))
 			DrawObj_Item(p, cullingArea);
 	}
 	else
@@ -1602,47 +1602,47 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
-	if (!isGroup())
+	if (m_Doc->layerOutline(LayerID))
 	{
-		if (m_Doc->layerOutline(LayerID))
+		if (itemType()!=Line)
 		{
-			if (itemType()!=Line)
+			p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setFillMode(ScPainter::None);
+			p->setBrushOpacity(1.0);
+			p->setPenOpacity(1.0);
+			if (itemType()==PolyLine)
+				p->setupPolygon(&PoLine, false);
+			else if (itemType() == PathText)
 			{
-				p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				p->setFillMode(ScPainter::None);
-				p->setBrushOpacity(1.0);
-				p->setPenOpacity(1.0);
-				if (itemType()==PolyLine)
+				if (PoShow)
 					p->setupPolygon(&PoLine, false);
-				else if (itemType() == PathText)
-				{
-					if (PoShow)
-						p->setupPolygon(&PoLine, false);
-					else
-						doStroke = false;
-				}
 				else
-					p->setupPolygon(&PoLine);
-				if (doStroke)
-					p->strokePath();
-				if (itemType()==ImageFrame)
+					doStroke = false;
+			}
+			else
+				p->setupPolygon(&PoLine);
+			if (doStroke)
+				p->strokePath();
+			if (itemType()==ImageFrame)
+			{
+				if (imageClip.size() != 0)
 				{
-					if (imageClip.size() != 0)
-					{
-						p->setupPolygon(&imageClip);
-						p->strokePath();
-					}
+					p->setupPolygon(&imageClip);
+					p->strokePath();
 				}
 			}
 		}
-		else
+	}
+	else
+	{
+		if (!isGroup())
 		{
-	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
+#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 			if (fillBlendmode() != 0)
 				p->endLayer();
-	#else
+#else
 			p->setBlendModeFill(0);
-	#endif
+#endif
 			p->setMaskMode(0);
 			// TODO: Investigate whether itemType()==Table should really be here. I got artifacts without it so keeping it here for now. /estan
 			if (itemType()==PathText || itemType()==PolyLine || itemType()==Spiral || itemType()==Line || itemType()==Symbol || itemType()==Group || itemType()==Table)

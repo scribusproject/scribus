@@ -32,6 +32,8 @@ public:
 	~OutlineTreeItem() {};
 	PageItem *PageItemObject;
 	ScPage *PageObject;
+	ScribusDoc *DocObject;
+	int LayerID;
 	int type;
 };
 
@@ -73,6 +75,10 @@ public slots:
 	void slotShowSelect(uint SNr, int Nr);
 	void setPaletteShown(bool);
 	void slotRightClick(QPoint point);
+	void setActiveLayer(int layerID);
+	void setLayerVisible(int layerID);
+	void setLayerLocked(int layerID);
+	void setLayerPrintable(int layerID);
 
 signals:
 	void ToggleAllPalettes();
@@ -104,6 +110,7 @@ protected:
 	QPixmap polygonIcon;
 	QPixmap polylineIcon;
 	QPixmap groupIcon;
+	QPixmap tableIcon;
 	QPixmap buttonIcon;
 	QPixmap textFieldIcon;
 	QPixmap checkBoxIcon;

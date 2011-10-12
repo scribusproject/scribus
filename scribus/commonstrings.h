@@ -116,6 +116,11 @@ public:
 	static QString itemType_LatexFrame;
 	static QString itemType_OSGFrame;
 	static QString itemType_Symbol;
+	static QString itemType_Group;
+	static QString itemType_RegularPolygon;
+	static QString itemType_Arc;
+	static QString itemType_Spiral;
+	static QString itemType_Table;
 	static QString itemType_Multiple;
 
 	static QString itemSubType_PDF_PushButton;
