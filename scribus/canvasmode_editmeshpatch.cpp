@@ -632,41 +632,64 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 					m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 					if (m_view->editStrokeGradient == 9)
 					{
+						FPoint mp, mp_orig;
+						double xx, yy;
 						if (m_patchPoint == useTL)
 						{
-							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint - npx;
-							double xx = mp.x();
-							double yy = mp.y();
+							mp_orig = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint;
+							mp = mp_orig - npx;
+							xx = mp.x();
+							yy = mp.y();
 							if (currItem->snapToPatchGrid)
 								snapToOtherPatch(xx, yy);
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.moveAbs(xx, yy);
 						}
 						if (m_patchPoint == useTR)
 						{
-							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint - npx;
-							double xx = mp.x();
-							double yy = mp.y();
+							mp_orig = currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.gridPoint;
+							mp = mp_orig - npx;
+							xx = mp.x();
+							yy = mp.y();
 							if (currItem->snapToPatchGrid)
 								snapToOtherPatch(xx, yy);
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].TR.moveAbs(xx, yy);
 						}
 						if (m_patchPoint == useBR)
 						{
-							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint - npx;
-							double xx = mp.x();
-							double yy = mp.y();
+							mp_orig = currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.gridPoint;
+							mp = mp_orig - npx;
+							xx = mp.x();
+							yy = mp.y();
 							if (currItem->snapToPatchGrid)
 								snapToOtherPatch(xx, yy);
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].BR.moveAbs(xx, yy);
 						}
 						if (m_patchPoint == useBL)
 						{
-							FPoint mp = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint - npx;
-							double xx = mp.x();
-							double yy = mp.y();
+							mp_orig = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint;
+							mp = mp_orig - npx;
+							xx = mp.x();
+							yy = mp.y();
 							if (currItem->snapToPatchGrid)
 								snapToOtherPatch(xx, yy);
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.moveAbs(xx, yy);
+						}
+						if (m->modifiers() & Qt::ShiftModifier)
+						{
+							for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
+							{
+								if (col != currItem->selectedMeshPointX)
+								{
+									if (currItem->meshGradientPatches[col].TL.gridPoint == mp_orig)
+										currItem->meshGradientPatches[col].TL.moveAbs(xx, yy);
+									if (currItem->meshGradientPatches[col].TR.gridPoint == mp_orig)
+										currItem->meshGradientPatches[col].TR.moveAbs(xx, yy);
+									if (currItem->meshGradientPatches[col].BR.gridPoint == mp_orig)
+										currItem->meshGradientPatches[col].BR.moveAbs(xx, yy);
+									if (currItem->meshGradientPatches[col].BL.gridPoint == mp_orig)
+										currItem->meshGradientPatches[col].BL.moveAbs(xx, yy);
+								}
+							}
 						}
 					}
 				}
