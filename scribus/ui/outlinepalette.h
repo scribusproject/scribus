@@ -65,7 +65,7 @@ public:
 	void reopenTree();
 	QTreeWidgetItem* getListItem(int SNr, int Nr);
 	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
-	void parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType);
+	void parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType, ScPage *a);
 	void buildReopenVals();
 
 public slots:

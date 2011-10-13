@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QBuffer>
 #include <QEvent>
 #include <QHeaderView>
 #include <QHelpEvent>
@@ -32,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "layers.h"
 #include "undomanager.h"
+#include "units.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
@@ -105,80 +107,98 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 				else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
  				{
  					PageItem *pgItem = item->PageItemObject;
+					QImage thumb = pgItem->DrawObj_toImage(80);
+					QBuffer buffer;
+					buffer.open(QIODevice::WriteOnly);
+					thumb.save(&buffer, "PNG");
+					QByteArray ba = buffer.buffer().toBase64();
+					buffer.close();
+					tipText = "<p align=}\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p><p>";
  					switch (pgItem->itemType())
  					{
  						case PageItem::ImageFrame:
  							if (pgItem->asLatexFrame())
-								tipText = CommonStrings::itemType_LatexFrame;
+								tipText += CommonStrings::itemType_LatexFrame;
 #ifdef HAVE_OSG
  							else if (pgItem->asOSGFrame())
-								tipText = CommonStrings::itemType_OSGFrame;
+								tipText += CommonStrings::itemType_OSGFrame;
 #endif
  							else
-								tipText = CommonStrings::itemType_ImageFrame;
+								tipText += CommonStrings::itemType_ImageFrame;
  							break;
  						case PageItem::TextFrame:
  							switch (pgItem->annotation().Type())
  							{
  								case 2:
-									tipText = CommonStrings::itemSubType_PDF_PushButton;
+									tipText += CommonStrings::itemSubType_PDF_PushButton;
  									break;
  								case 3:
-									tipText = CommonStrings::itemSubType_PDF_TextField;
+									tipText += CommonStrings::itemSubType_PDF_TextField;
  									break;
  								case 4:
-									tipText = CommonStrings::itemSubType_PDF_CheckBox;
+									tipText += CommonStrings::itemSubType_PDF_CheckBox;
  									break;
  								case 5:
-									tipText = CommonStrings::itemSubType_PDF_ComboBox;
+									tipText += CommonStrings::itemSubType_PDF_ComboBox;
  									break;
  								case 6:
-									tipText = CommonStrings::itemSubType_PDF_ListBox;
+									tipText += CommonStrings::itemSubType_PDF_ListBox;
  									break;
  								case 10:
-									tipText = CommonStrings::itemSubType_PDF_TextAnnotation;
+									tipText += CommonStrings::itemSubType_PDF_TextAnnotation;
  									break;
  								case 11:
-									tipText = CommonStrings::itemSubType_PDF_LinkAnnotation;
+									tipText += CommonStrings::itemSubType_PDF_LinkAnnotation;
  									break;
  								default:
-									tipText = CommonStrings::itemType_TextFrame;
+									tipText += CommonStrings::itemType_TextFrame;
  									break;
  							}
  							break;
  						case PageItem::Line:
-							tipText = CommonStrings::itemType_Line;
+							tipText += CommonStrings::itemType_Line;
  							break;
  						case PageItem::Arc:
-							tipText = CommonStrings::itemType_Arc;
+							tipText += CommonStrings::itemType_Arc;
 							break;
  						case PageItem::Polygon:
-							tipText = CommonStrings::itemType_Polygon;
+							tipText += CommonStrings::itemType_Polygon;
 							break;
 						case PageItem::RegularPolygon:
-							tipText = CommonStrings::itemType_RegularPolygon;
+							tipText += CommonStrings::itemType_RegularPolygon;
  							break;
  						case PageItem::PolyLine:
-							tipText = CommonStrings::itemType_Polyline;
+							tipText += CommonStrings::itemType_Polyline;
 							break;
 						case PageItem::Spiral:
-							tipText = CommonStrings::itemType_Spiral;
+							tipText += CommonStrings::itemType_Spiral;
  							break;
  						case PageItem::PathText:
-							tipText = CommonStrings::itemType_PathText;
+							tipText += CommonStrings::itemType_PathText;
  							break;
  						case PageItem::Symbol:
-							tipText = CommonStrings::itemType_Symbol;
+							tipText += CommonStrings::itemType_Symbol;
  							break;
 						case PageItem::Group:
-							tipText = CommonStrings::itemType_Group;
+							tipText += CommonStrings::itemType_Group;
 							break;
 						case PageItem::Table:
-							tipText = CommonStrings::itemType_Table;
+							tipText += CommonStrings::itemType_Table;
 							break;
  						default:
  							break;
 					}
+					tipText +="<br>" + tr("X-Pos:") + " ";
+					if (pgItem->OwnPage != -1)
+						tipText += value2String(pgItem->xPos() - item->PageObject->xOffset(), item->DocObject->unitIndex(), true, true);
+					else
+						tipText += value2String(pgItem->xPos(), item->DocObject->unitIndex(), true, true);
+					tipText +="<br>" + tr("Y-Pos:") + " ";
+					if (pgItem->OwnPage != -1)
+						tipText += value2String(pgItem->yPos() - item->PageObject->yOffset(), item->DocObject->unitIndex(), true, true);
+					else
+						tipText += value2String(pgItem->yPos(), item->DocObject->unitIndex(), true, true);
+					tipText += "</p>";
 				}
 				QToolTip::showText(helpEvent->globalPos(), tipText, this);
 				return true;
@@ -817,7 +837,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 				object->setText(0, pgItem->itemName());
 				object->setIcon( 0, groupIcon );
 				object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-				parseSubGroup(object, &pgItem->groupItemList, 3);
+				parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->Pages->at(0));
 			}
 		}
 		page->setText(0, currDoc->getEditedSymbol());
@@ -853,7 +873,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						object->setText(0, pgItem->itemName());
 						object->setIcon( 0, groupIcon );
 						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-						parseSubGroup(object, &pgItem->groupItemList, 1);
+						parseSubGroup(object, &pgItem->groupItemList, 1, currDoc->MasterPages.at(a));
 					}
 				}
 			}
@@ -897,6 +917,8 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = currDoc->DocPages.at(a);
+							object->DocObject = currDoc;
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
@@ -906,11 +928,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = currDoc->DocPages.at(a);
+							object->DocObject = currDoc;
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
 							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							parseSubGroup(object, &pgItem->groupItemList, 3);
+							parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->DocPages.at(a));
 						}
 					}
 				}
@@ -928,6 +952,8 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = currDoc->DocPages.at(a);
+							object->DocObject = currDoc;
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
@@ -937,11 +963,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = currDoc->DocPages.at(a);
+							object->DocObject = currDoc;
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
 							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							parseSubGroup(object, &pgItem->groupItemList, 3);
+							parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->DocPages.at(a));
 						}
 					}
 				}
@@ -983,6 +1011,8 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = NULL;
+							object->DocObject = currDoc;
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
@@ -992,11 +1022,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( ObjLayer, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = NULL;
+							object->DocObject = currDoc;
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
 							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							parseSubGroup(object, &pgItem->groupItemList, 4);
+							parseSubGroup(object, &pgItem->groupItemList, 4, NULL);
 						}
 					}
 				}
@@ -1012,6 +1044,8 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = NULL;
+							object->DocObject = currDoc;
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
@@ -1021,11 +1055,13 @@ void OutlinePalette::BuildTree(bool storeVals)
 						{
 							OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 							object->PageItemObject = pgItem;
+							object->PageObject = NULL;
+							object->DocObject = currDoc;
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
 							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							parseSubGroup(object, &pgItem->groupItemList, 4);
+							parseSubGroup(object, &pgItem->groupItemList, 4, NULL);
 						}
 					}
 				}
@@ -1073,7 +1109,7 @@ void OutlinePalette::filterTree()
 		filterTree( filterEdit->text() );
 }
 
-void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
+void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType, ScPage *a)
 {
 	PageItem *pgItem;
 	for (int b = 0; b < subGroupList->count(); ++b)
@@ -1083,6 +1119,8 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 		{
 			OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
 			grp->PageItemObject = pgItem;
+			grp->PageObject = a;
+			grp->DocObject = currDoc;
 			grp->type = itemType;
 			grp->setText(0, pgItem->itemName());
 			setItemIcon(grp, pgItem);
@@ -1092,11 +1130,13 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 		{
 			OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
 			grp->PageItemObject = pgItem;
+			grp->PageObject = a;
+			grp->DocObject = currDoc;
 			grp->type = itemType;
 			grp->setText(0, pgItem->itemName());
 			grp->setIcon( 0, groupIcon );
 			grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-			parseSubGroup(grp, &pgItem->groupItemList, itemType);
+			parseSubGroup(grp, &pgItem->groupItemList, itemType, a);
 		}
 	}
 }
