@@ -1408,7 +1408,7 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 	DrawObj_Pre(p);
 	if (m_Doc->layerOutline(LayerID))
 	{
-		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine /*|| itemType()==Group || itemType()==Symbol*/))
+		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine || itemType()==Group || itemType()==Symbol))
 			DrawObj_Item(p, cullingArea);
 	}
 	else
