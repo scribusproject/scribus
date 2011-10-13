@@ -1679,11 +1679,14 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "*U")
 		{
-			WasU = false;
-			ite = m_Doc->Items->at(m_Doc->Items->count()-1);
-			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->setWidthHeight(wh.x(),wh.y());
-			m_Doc->AdjustItemSize(ite);
+			if (m_Doc->Items->count() > 0)
+			{
+				WasU = false;
+				ite = m_Doc->Items->at(m_Doc->Items->count()-1);
+				FPoint wh = getMaxClipF(&ite->PoLine);
+				ite->setWidthHeight(wh.x(),wh.y());
+				m_Doc->AdjustItemSize(ite);
+			}
 		}
 		else if ((command == "u") || (command == "q"))
 		{
