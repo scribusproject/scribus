@@ -629,7 +629,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1385"/>
         <source>Embed Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像を埋め込む</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1386"/>
@@ -889,7 +889,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
         <source>Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">シンボル</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1461"/>
@@ -5335,7 +5335,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="279"/>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">シンボル</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="291"/>
@@ -13264,7 +13264,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="158"/>
         <source>3D Model</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">3Dモデル</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_osgframe.cpp" line="160"/>
@@ -13405,27 +13405,27 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <location filename="../../../scribus/ui/pageselector.cpp" line="267"/>
         <source>Go to the first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最初のページへ移動</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pageselector.cpp" line="268"/>
         <source>Go to the previous page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">前のページへ移動</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pageselector.cpp" line="269"/>
         <source>Go to the next page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">次のページへ移動</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pageselector.cpp" line="270"/>
         <source>Go to the last page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最後のページへ移動</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pageselector.cpp" line="271"/>
         <source>Select the current page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在のページを選択</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pageselector.cpp" line="272"/>
@@ -13599,7 +13599,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/paintmanager.cpp" line="315"/>
         <source>Sort by Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">色でソート</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/paintmanager.cpp" line="316"/>
@@ -13625,7 +13625,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/ui/paintmanager.cpp" line="382"/>
         <location filename="../../../scribus/ui/paintmanager.cpp" line="393"/>
         <source>Load File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルの読み込み</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/paintmanager.cpp" line="383"/>
@@ -13677,7 +13677,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/paintmanager.cpp" line="873"/>
         <source>Do you really want to clear all your patterns?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">すべてのパターンをクリアしますか?</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/paintmanager.cpp" line="1000"/>
@@ -14385,7 +14385,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="13"/>
         <source>Confirm to run unsafe script</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">安全でないスクリプトの実行に同意する</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="29"/>
@@ -14425,7 +14425,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="105"/>
         <source>&amp;Allow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">許可</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/permitdlg.ui" line="112"/>
@@ -14913,22 +14913,22 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="138"/>
         <source>Create new category</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新規カテゴリの生成</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="160"/>
         <source>New collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新規コレクション</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="182"/>
         <source>Delete selected collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">選択されたコレクションの削除</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="204"/>
         <source>Edit selected collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">選択されたコレクションの編集</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="239"/>
@@ -14938,7 +14938,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="261"/>
         <source>Remove selected images from current collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在のコレクションから選択されたイメージw削除する</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="283"/>
@@ -14948,12 +14948,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="318"/>
         <source>Import collection/collectionset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コレクション/コレクションセットのインポート</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="340"/>
         <source>Export collection/collectionset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コレクション/コレクションセットのエクスポート</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="360"/>
@@ -14978,12 +14978,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="540"/>
         <source>Sort by Date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">日付でソート</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="545"/>
         <source>Sort by Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サイズでソート</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="550"/>
@@ -15008,7 +15008,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="446"/>
         <source>Go to Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ページへ行く</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="669"/>
@@ -15033,7 +15033,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="706"/>
         <source>Add to Collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コレクションに追加</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="726"/>
@@ -15125,7 +15125,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="991"/>
         <source>Layers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レイヤ:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1005"/>
@@ -15145,7 +15145,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1051"/>
         <source>Filters:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フィルタ:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1070"/>
@@ -15175,7 +15175,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1164"/>
         <source>&lt;&lt; Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;&lt; 追加</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1172"/>
@@ -15216,27 +15216,27 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1241"/>
         <source>Newer than</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">より新しい</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1246"/>
         <source>Older than</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">より古い</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1265"/>
         <source>Smaller than</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">より小さい</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1270"/>
         <source>Bigger than</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">より大きい</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1278"/>
         <source> KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> KB</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1314"/>
@@ -15246,7 +15246,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1334"/>
         <source>Apply Filters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フィルタの適用</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1347"/>
@@ -15256,7 +15256,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1355"/>
         <source>Insert Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イメージの挿入</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1367"/>
@@ -15266,7 +15266,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1379"/>
         <source>Page(s):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ページ:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1398"/>
@@ -15340,12 +15340,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1596"/>
         <source>0 Page(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">0 ページ</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1609"/>
         <source>0 Frame(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">0 フレーム</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1622"/>
@@ -15370,7 +15370,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1679"/>
         <source>Add New Tag</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しいタグの追加</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1686"/>
