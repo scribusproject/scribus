@@ -1550,6 +1550,8 @@ void PageItem_TextFrame::layout()
 			}
 			else
 				maxYAsc = static_cast<int>(floor(current.yPos - qMax(realAsce, asce)));
+			//fix for glyphs with negative realAsce value
+			maxYAsc = qMax(maxYAsc, 0);
 			maxYDesc = static_cast<int>(ceil(current.yPos + qMax(realDesc, desc)));
 
 			if (current.itemsInLine == 0 && !current.afterOverflow)
