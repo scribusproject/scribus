@@ -1,4 +1,11 @@
 Scribus - 1.4.0.rc6
+- 0010288: [Canvas] resizing a frame with keyboard is not blocked when resizing is off (jghali) - resolved.
+- 0010251: [Story Editor / Text Frames] [PATCH] wrong text formatting issues (jghali) - closed.
+- 0009902: [Graphics / Image Frames] Font letters spoiled when using text flow around frame (cbradney) - closed.
+- 0005891: [Story Editor / Text Frames] Various settings of work tracking and glyph extension make text overlap in column gap (jghali) - closed.
+- 0010174: [General] the return of the brownish color (jghali) - closed.
+- 0009436: [Story Editor / Text Frames] wrong text formating - text extend margins or columns (jghali) - closed.
+- 0009932: [Story Editor / Text Frames] First text line does not flow around objects (jghali) - closed.
 - 0010204: [Translation] Update of Slovak translation (cbradney) - resolved.
 - 0010251: [Story Editor / Text Frames] [PATCH] wrong text formatting issues (jghali) - resolved.
 - 0009436: [Story Editor / Text Frames] wrong text formating - text extend margins or columns (jghali) - resolved.
