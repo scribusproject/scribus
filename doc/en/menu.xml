@@ -52,6 +52,7 @@
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
+			<submenuitem text="Importing Bitmap Files" file="importbitmap1.html" />
 			<submenuitem text="Importing Photoshop Files" file="psd.html" />
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
 			<submenuitem text="Importing EPS" file="importhints1.html"/>
