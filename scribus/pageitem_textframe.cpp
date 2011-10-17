@@ -810,7 +810,7 @@ static void indentLine(StoryText& itemText, LineSpec& line, double leftIndent)
 	}
 }
 
-//definied but not used
+//defined but not used
 ///// calculate how much the first char should stick out to the left
 //static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 //{
@@ -953,7 +953,7 @@ void PageItem_TextFrame::layout()
 	tTabValues.clear();
 	
 	bool DropCmode = false;
-	double desc=0, asce=0,  realAsce=0, realDesc = 0;
+	double desc=0, asce=0, realAsce=0, realDesc = 0;
 	double maxDY=0, maxDX=0;
 	double DropCapDrop = 0;
 	int    DropLines = 0;
@@ -1051,7 +1051,7 @@ void PageItem_TextFrame::layout()
 		else // empty itemText:
 		{
 			desc = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
-			current.yPos = itemText.defaultStyle().lineSpacing() + extra.Top+lineCorr-desc;
+			current.yPos = itemText.defaultStyle().lineSpacing() + extra.Top + lineCorr - desc;
 		}
 		current.startLine(firstInFrame());
 
@@ -1081,7 +1081,7 @@ void PageItem_TextFrame::layout()
 			
 			const CharStyle& charStyle =  (hl->ch != SpecialChars::PARSEP? itemText.charStyle(a) : itemText.paragraphStyle(a).charStyle());
 			chstr = ExpandToken(a);
-			double hlcsize10=charStyle.fontSize() / 10.0;
+			double hlcsize10 = charStyle.fontSize() / 10.0;
 			double scaleV = charStyle.scaleV() / 1000.0;
 			double scaleH = charStyle.scaleH() / 1000.0;
 			double offset = hlcsize10 * (charStyle.baselineOffset() / 1000.0);
@@ -1399,6 +1399,8 @@ void PageItem_TextFrame::layout()
 			}
 			else
 				maxYAsc = static_cast<int>(floor(current.yPos - qMax(realAsce, asce)));
+			//fix for glyphs with negative realAsce value
+			maxYAsc = qMax(maxYAsc, 0);
 			maxYDesc = static_cast<int>(ceil(current.yPos + qMax(realDesc, desc)));
 
 			if (current.itemsInLine == 0 && !current.afterOverflow)
@@ -2048,7 +2050,7 @@ void PageItem_TextFrame::layout()
 
 				//line break or end of column
 				if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK)
-				&& current.hasDropCap)
+				    && current.hasDropCap)
 				{
 					current.hasDropCap = false;
 					if (current.yPos < maxDY)
@@ -2205,10 +2207,10 @@ void PageItem_TextFrame::layout()
 			goto NoRoom;
 		}
 // end of itemText
-		if (current.itemsInLine >0)
+		if (current.itemsInLine > 0)
 		{
 			int a = itemText.length()-1;
-			hl = a >=0 ? itemText.item(a) : NULL;
+			hl = (a >= 0) ? itemText.item(a) : NULL;
 			current.breakLine(itemText, style, firstLineOffset(), a);
 
 			int maxYAsc = 0, maxYDesc = 0;
