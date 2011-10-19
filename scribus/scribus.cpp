@@ -99,6 +99,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h"
 #include "hyphenator.h"
 #include "langmgr.h"
+#include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_table.h"
@@ -2139,7 +2140,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 		{
 			PageItem *currItem = doc->Items->at(i);
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->asGroupFrame()->getItemList();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)
@@ -2728,7 +2729,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		//CB 061005 moved to cpalette choosegrad
 		//propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
-		outlinePalette->slotShowSelect(doc->currentPageNumber(), -1);
+		outlinePalette->slotShowSelect(doc->currentPageNumber(), NULL);
 		propertiesPalette->setGradientEditMode(false);
 		break;
 	case PageItem::ImageFrame: //Image Frame
@@ -3155,7 +3156,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	if (SelectedType != -1)
 	{
 		//propertiesPalette->setCurrentItem(currItem);
-		outlinePalette->slotShowSelect(currItem->OwnPage, currItem->ItemNr);
+		outlinePalette->slotShowSelect(currItem->OwnPage, currItem);
 		actionManager->connectNewSelectionActions(view, doc);
 // 		propertiesPalette->handleSelectionChanged();
 	}
@@ -5850,7 +5851,7 @@ void ScribusMainWindow::TogglePics()
 		{
 			PageItem *currItem = doc->Items->at(a);
 			if (currItem->isGroup())
-				allItems = currItem->getItemList();
+				allItems = currItem->asGroupFrame()->getItemList();
 			else
 				allItems.append(currItem);
 			for (int ii = 0; ii < allItems.count(); ii++)

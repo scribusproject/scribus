@@ -46,6 +46,7 @@ public:
 	void selectItems(QList<QTreeWidgetItem*> items);
 
 protected:
+	void dropEvent(QDropEvent *e);
 	bool viewportEvent(QEvent *event);
 };
 
@@ -63,7 +64,7 @@ public:
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
 	void reopenTree();
-	QTreeWidgetItem* getListItem(int SNr, int Nr);
+	QTreeWidgetItem* getListItem(int SNr, PageItem *Nr);
 	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
 	void parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType, ScPage *a);
 	void buildReopenVals();
@@ -72,7 +73,7 @@ public slots:
 	void BuildTree(bool storeVals = true);
 	void filterTree(const QString& keyword);
 	void languageChange();
-	void slotShowSelect(uint SNr, int Nr);
+	void slotShowSelect(uint SNr, PageItem *Nr);
 	void setPaletteShown(bool);
 	void slotRightClick(QPoint point);
 	void setActiveLayer(int layerID);
