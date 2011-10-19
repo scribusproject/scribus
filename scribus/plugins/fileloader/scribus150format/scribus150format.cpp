@@ -1872,7 +1872,11 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
 	QString name = attrs.valueAsString("NAME", color.name());
-	colors.tryAddColor(name, color);
+	// #10323 : break loading of doc which contain colors with different names
+	// and same definition
+	// colors.tryAddColor(name, color);
+	if (name.length() > 0 && !colors.contains(name))
+		colors.insert(name, color);
 	return true;
 }
 
