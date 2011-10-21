@@ -3949,11 +3949,7 @@
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -3971,39 +3967,13 @@
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\helpnavigation.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\hnjalloc.h"
@@ -4023,11 +3993,7 @@
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -4045,11 +4011,7 @@
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -4238,22 +4200,14 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6410,22 +6364,14 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6650,22 +6596,14 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6826,22 +6764,14 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.exe"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc.exe"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7016,28 +6946,6 @@
 			<File
 				RelativePath="..\..\..\scribus\scribusXml.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\scrpalettebase.h"
@@ -8118,28 +8026,6 @@
 			<File
 				RelativePath="..\..\..\scribus\tt\simpletreemodel\treeitem.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\tt\simpletreemodel\treemodel.h"
