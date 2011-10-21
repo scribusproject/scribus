@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-main", "Scribus.vcproj", "{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-main", "scribus-main\Scribus.vcproj", "{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AAA3586D-6218-4CDB-BDD2-BC0198946661} = {AAA3586D-6218-4CDB-BDD2-BC0198946661}
 		{50C264A1-2CE7-46A3-8C79-CBC714C49510} = {50C264A1-2CE7-46A3-8C79-CBC714C49510}
