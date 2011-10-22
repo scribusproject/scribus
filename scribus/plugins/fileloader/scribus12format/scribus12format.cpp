@@ -1398,10 +1398,11 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->PLineJoin=Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
 	OB->LineSp=ScCLocale::toDoubleC(obj->attribute("LINESP"));
 	OB->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
-	OB->LocalScX=ScCLocale::toDoubleC(obj->attribute("LOCALSCX"));
-	OB->LocalScY=ScCLocale::toDoubleC(obj->attribute("LOCALSCY"));
-	OB->LocalX=ScCLocale::toDoubleC(obj->attribute("LOCALX"));
-	OB->LocalY=ScCLocale::toDoubleC(obj->attribute("LOCALY"));
+	OB->LocalScX   = ScCLocale::toDoubleC(obj->attribute("LOCALSCX"));
+	OB->LocalScY   = ScCLocale::toDoubleC(obj->attribute("LOCALSCY"));
+	OB->LocalX     = ScCLocale::toDoubleC(obj->attribute("LOCALX"));
+	OB->LocalY     = ScCLocale::toDoubleC(obj->attribute("LOCALY"));
+	OB->LocalRot   = 0.0;
 	OB->PicArt=obj->attribute("PICART").toInt();
 	OB->flippedH = obj->attribute("FLIPPEDH").toInt() % 2;
 	OB->flippedV = obj->attribute("FLIPPEDV").toInt() % 2;
