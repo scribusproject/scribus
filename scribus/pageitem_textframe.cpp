@@ -502,23 +502,24 @@ struct LineControl {
 		double StartX = floor(qMax(line.x, qMin(maxX,breakXPos-maxShrink-1))-1);
 		int xPos  = static_cast<int>(ceil(maxX));
 
-		QPoint pt12 (xPos, Yasc);
-		QPoint pt22 (xPos, Ydesc);
-		QRect pt(pt12,pt22);
+		QPoint  pt12 (xPos, Yasc);
+		QPoint  pt22 (xPos, Ydesc);
+		QRect   pt(pt12,pt22);
+		QRegion region;
 
 		double EndX2 = StartX;
 		double Interval = 0.25;
 		do {
 			int xP = static_cast<int>(ceil(EndX2 + morespace));
 			pt.moveTopLeft(QPoint(xP, Yasc));
-			if (!QRegion(pf2.mapToPolygon(pt)).subtracted(shape).isEmpty())
+			region = QRegion(pf2.mapToPolygon(pt)).subtracted(shape);
+			if (!region.isEmpty())
 				break;
 			EndX2 += Interval;
-		} while ((EndX2 < maxX) && QRegion(pf2.mapToPolygon(pt)).subtracted(shape).isEmpty());
+		} while ((EndX2 < maxX) && region.isEmpty());
 
 		return qMin(EndX2, maxX);
 	}
-	
 	
 	double getLineAscent(const StoryText& itemText)
 	{
