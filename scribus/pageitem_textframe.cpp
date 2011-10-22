@@ -492,8 +492,8 @@ struct LineControl {
 		return res;
 	}
 	
-	/// find x position where this line must end
-	double endOfLine(const QRegion& shape, const QTransform& pf2, double morespace, int Yasc, int Ydesc)
+	/// Keep old endOfLine code for reference
+	/*double endOfLine_old(const QRegion& shape, const QTransform& pf2, double morespace, int Yasc, int Ydesc)
 	{
 		// if we aren't restricted further, we'll end at this maxX:
 		double maxX = colRight - morespace;
@@ -505,7 +505,7 @@ struct LineControl {
 		QPoint  pt12 (xPos, Yasc);
 		QPoint  pt22 (xPos, Ydesc);
 		QRect   pt(pt12,pt22);
-		QRegion region;
+		QRegion region; 
 
 		double EndX2 = StartX;
 		double Interval = 0.25;
@@ -517,6 +517,66 @@ struct LineControl {
 				break;
 			EndX2 += Interval;
 		} while ((EndX2 < maxX) && region.isEmpty());
+
+		return qMin(EndX2, maxX);
+	}*/
+
+	/// find x position where this line must end
+	double endOfLine(const QRegion& shape, const QTransform& pf2, double morespace, int yAsc, int yDesc)
+	{
+		// if we aren't restricted further, we'll end at this maxX:
+		double maxX = colRight - morespace;
+		if (legacy) maxX -= lineCorr;
+
+		double StartX = floor(qMax(line.x, qMin(maxX,breakXPos-maxShrink-1))-1);
+		int xPos  = static_cast<int>(ceil(maxX));
+
+		QPoint  pt12 (xPos, yAsc);
+		QPoint  pt22 (xPos, yDesc);
+
+		QPolygon p;
+		p.append (pf2.map (QPoint (StartX, yAsc)));
+		p.append (pf2.map (QPoint (StartX, yDesc)));
+		p.append (pf2.map (pt12));
+		p.append (pf2.map (pt22));
+		// check if something gets in the way
+		QRegion lineI = shape.intersected (p.boundingRect());
+		// if the intersection only has 1 rectangle, then nothing gets in the way
+		if (lineI.numRects() == 1)
+		{
+			int   cPos = static_cast<int>(ceil(StartX + morespace));
+			QRect cRect (QPoint(cPos, yAsc), QPoint(cPos, yDesc));
+			if (QRegion(pf2.mapToPolygon(cRect)).subtracted(shape).isEmpty())
+			{
+				QRect rect = lineI.rects().at(0);
+				double  mx = qMax(rect.left(), rect.right()) - pf2.dx(); 
+				int steps = static_cast<int>((mx - StartX - morespace - 2) / 0.25);
+				if (steps > 0)
+				{
+					StartX += steps * 0.25;
+				}
+			}
+		}
+
+		QRect   pt(pt12, pt22);
+		QRegion region;
+
+		double EndX2 = StartX;
+		double Interval = 0.25;
+		do {
+			int xP = static_cast<int>(ceil(EndX2 + morespace));
+			pt.moveTopLeft(QPoint(xP, yAsc));
+			region = QRegion(pf2.mapToPolygon(pt)).subtracted(shape);
+			if (!region.isEmpty())
+				break;
+			EndX2 += Interval;
+		} while ((EndX2 < maxX) && region.isEmpty());
+
+		/*double oldEndX2 = endOfLine_old(shape, pf2, morespace, yAsc, yDesc);
+		if (oldEndX2 != qMin(EndX2, maxX))
+		{
+			qDebug() << "Different EndX : " << oldEndX2 << " (old) " << EndX2 << " (new) ";
+		}*/
 
 		return qMin(EndX2, maxX);
 	}
