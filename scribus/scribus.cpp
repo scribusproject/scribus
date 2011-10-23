@@ -830,6 +830,8 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["itemPrintingEnabled"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 
+	scrMenuMgr->addMenuItem(scrActions["itemsUnWeld"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["itemWeld"], "Item", false);
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
@@ -3031,8 +3033,17 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	}
 	doc->CurrentSel = SelectedType;
 	propertiesPalette->xyzPal->basePointWidget->setCheckedId(doc->RotMode());
+	if (docSelectionCount == 1)
+	{
+		PageItem* bx = doc->m_Selection->itemAt(0);
+		if (bx->isWelded())
+			scrActions["itemsUnWeld"]->setEnabled(true);
+		else
+			scrActions["itemsUnWeld"]->setEnabled(false);
+	}
 	if (docSelectionCount > 1)
 	{
+//		scrMenuMgr->setMenuEnabled("ItemWeld", true);
 		if (!doc->m_Selection->itemsAreSameType())
 		{
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
@@ -3058,6 +3069,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
 		if (docSelectionCount == 2)
 		{
+			scrActions["itemWeld"]->setEnabled(true);
 			//CB swap bx around if currItem is not at 0 index from the lastItem loop at start of havenewsel
 			PageItem* bx=doc->m_Selection->itemAt(1);
 			if (currItem==bx)
@@ -3070,9 +3082,12 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			}
 
 		}
+		else
+			scrActions["itemWeld"]->setEnabled(false);
 	}
 	else
 	{
+		scrActions["itemWeld"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemCombinePolygons"]->setEnabled(false);

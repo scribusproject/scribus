@@ -31,6 +31,7 @@
 #include "canvasmode_editpolygon.h"
 #include "canvasmode_editspiral.h"
 #include "canvasmode_edittable.h"
+#include "canvasmode_editweldpoint.h"
 #include "canvasmode_eyedropper.h"
 #include "canvasmode_framelinks.h"
 #include "canvasmode_magnifier.h"
@@ -130,6 +131,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeEditMeshPatch:
 			result = new CanvasMode_EditMeshPatch(view);
+			break;
+		case modeEditWeldPoint:
+			result = new CanvasMode_EditWeldPoint(view);
 			break;
 		case modeDrawBezierLine:
 			result = new BezierMode(view);
@@ -368,6 +372,29 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
 					psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
 				}
+			}
+			if (currItem->isWelded())
+			{
+				psx->setPen(QPen(Qt::yellow, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				for (int i = 0 ; i <  currItem->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf =  currItem->weldList.at(i);
+					psx->drawPoint(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()));
+				}
+				//draw marker for weld point
+			/*	psx->setBrush(m_brush["outline"]);
+				psx->setPen(m_pen["outline"]);
+				double weldX = x, weldY = y;
+				if (currItem->myWeldPoint == topCenter || currItem->myWeldPoint == centerCenter || currItem->myWeldPoint == bottomCenter)
+					weldX += w /2 - halfMarkWidth;
+				else if (currItem->myWeldPoint == topRight  || currItem->myWeldPoint == centerRight || currItem->myWeldPoint == bottomRight)
+					weldX += w - markWidth;
+
+				if (currItem->myWeldPoint == centerLeft  || currItem->myWeldPoint == centerCenter || currItem->myWeldPoint == centerRight)
+					weldY += h/2 - halfMarkWidth;
+				else if (currItem->myWeldPoint == bottomLeft  || currItem->myWeldPoint == bottomCenter || currItem->myWeldPoint == bottomRight)
+					weldY += h - markWidth;
+				psx->drawRect(QRectF(weldX, weldY, markWidth, markWidth));*/
 			}
 			
 			psx->restore();
@@ -652,6 +679,7 @@ void CanvasMode::setModeCursor()
 		case modeEditGradientVectors:
 		case modeEditMeshGradient:
 		case modeEditMeshPatch:
+		case modeEditWeldPoint:
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:

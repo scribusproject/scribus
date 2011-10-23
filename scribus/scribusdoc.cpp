@@ -4742,6 +4742,16 @@ uint ScribusDoc::getItemNrfromUniqueID(uint unique)
 	return ret;
 }
 
+PageItem* ScribusDoc::getItemFromName(QString name)
+{
+	PageItem* ret = NULL;
+	for (int a = 0; a < Items->count(); ++a)
+	{
+		if (Items->at(a)->itemName() == name)
+			return Items->at(a);
+	}
+	return ret;
+}
 
 void ScribusDoc::updateFrameItems()
 {
@@ -9682,6 +9692,8 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			}
 			*/
 		}
+		if (currItem->isWelded())
+			currItem->unWeld();
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);
 			m_ScMW->DelBookMark(currItem);
@@ -12531,7 +12543,7 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 	double Scale = 1; //FIXME:av should all be in doc coordinates
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	if (x == 0.0 && y == 0.0)
@@ -12545,10 +12557,16 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 	//in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	//QPoint out = in;//contentsToViewport(in);
 	QRectF OldRect = QRectF(gx, gy, gw, gh); //out.x(), out.y(), qRound(gw*Scale), qRound(gh*Scale));
+	QList<PageItem*> weldL;
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		currItem = itemSelection->itemAt(a);
-		MoveItem(x, y, currItem, fromMP);
+		if (!weldL.contains(currItem))
+		{
+			if (currItem->isWelded())
+				weldL.append(currItem->itemsWeldedTo());
+			MoveItem(x, y, currItem, fromMP);
+		}
 	}
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -14267,5 +14285,31 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 		pp->setXOffset(scratch()->Left);
 		pp->setYOffset(scratch()->Top);
 	}
+}
+
+void ScribusDoc::itemSelection_UnWeld()
+{
+	PageItem *currItem;
+	for (int a = 0; a < m_Selection->count(); ++a)
+	{
+		currItem = m_Selection->itemAt(a);
+		if (currItem->isWelded())
+		{
+			currItem->unWeld();
+			changed();
+		}
+	}
+	regionsChanged()->update(QRectF());
+}
+
+void ScribusDoc::itemSelection_Weld()
+{
+	if (m_Selection->count() != 2)
+		return;
+	PageItem * master = m_Selection->itemAt(1);
+	PageItem * selItem = m_Selection->itemAt(0);
+	selItem->weldTo(master);
+	changed();
+	regionsChanged()->update(QRectF());
 }
 

@@ -68,18 +68,20 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 			ItemSelectionFrame  = 2,
 			ItemSelectionPattern= 3,
 			ItemSelectionGroup  = 4,
-			ItemSelectionElements = 5,
+			ItemSelectionElements = 5
 		};
 
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void) { groupLastItem = nextItem = ownLink = 0; item = NULL; isGroupFlag = false; };
+			ItemInfo(void) { groupLastItem = nextItem = ownLink = ownWeld = 0; item = NULL; isGroupFlag = isWeldFlag = false; };
 			PageItem* item;
 			int groupLastItem;
 			int nextItem;
 			int ownLink;
+			int ownWeld;
 			bool isGroupFlag;
+			bool isWeldFlag;
 		};
 
 		void registerFormats();
@@ -159,6 +161,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		QMap<int, int> itemNextF;
 		QMap<int, int> itemRemapM;
 		QMap<int, int> itemNextM;
+		QMap<PageItem*, QString> itemsWeld;  //item* and master name
 
 		int itemCount;
 		int itemCountM;

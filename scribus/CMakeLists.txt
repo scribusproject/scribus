@@ -488,6 +488,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_editpolygon.cpp
   canvasmode_editspiral.cpp
   canvasmode_edittable.cpp
+  canvasmode_editweldpoint.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp

@@ -1860,7 +1860,20 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 			docu.writeEndElement();
 		}
-
+		//write weld parameter
+		if (item->isWelded())
+		{
+			docu.writeAttribute("isWeldItem", 1);
+			docu.writeAttribute("WeldSource", item->ItemNr);
+			for (int i = 0 ; i <  item->weldList.count(); i++)
+			{
+				PageItem::weldingInfo wInf = item->weldList.at(i);
+				docu.writeEmptyElement("WeldEntry");
+				docu.writeAttribute("Target", wInf.weldItem->ItemNr);
+				docu.writeAttribute("WX", wInf.weldPoint.x());
+				docu.writeAttribute("WY", wInf.weldPoint.y());
+			}
+		}
 		docu.writeEndElement();
 	}
 }

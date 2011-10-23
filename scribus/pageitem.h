@@ -76,7 +76,6 @@ class PageItem_PathText;
 class PageItem_LatexFrame;
 class PageItem_Spiral;
 class PageItem_Symbol;
-
 /**
   *@author Franz Schmid
   */
@@ -242,9 +241,13 @@ public:
 	{
 		if (tempImageFile != NULL)
 			delete tempImageFile;
+//		if (isWeld())
+//			unWeldFromMaster(true);
+//		if (isWelded())
+//			unWeldChild();
 	}
 
-	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {};
+	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {}
 	void saxx(SaxHandler& handler) const {}
 	
 	/**
@@ -252,7 +255,7 @@ public:
 	 * WARNING: Currently *they* do not check if the user wants this.
 	 * The view does when these are called.
 	 */	
-	virtual void clearContents() {};
+	virtual void clearContents() {}
 	
 	/**
 	 * @brief Adjust the picture scale, moved from the view, no view code here
@@ -1563,8 +1566,25 @@ signals:
 	//void textSize(double);
 	//void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
 	//FIXME: columns, grid ?
+	
+	//items welding (item follows while item moves which they are connected with)
+public:
+	struct weldingInfo
+	{
+		PageItem *weldItem;
+		FPoint weldPoint;
+		int weldID;
+	};
+	QList<weldingInfo> weldList;
+	bool isWelded()  {return !weldList.isEmpty(); }  //true if to this item some other items are welded (weldList is list of these items)
+	void weldTo(PageItem* pIt);
+	QList<PageItem*> itemsWeldedTo(PageItem* except = NULL);
+	void unWeld();
+	void addWelded(PageItem* iPt);
+	void moveWelded(double DX, double DY, int weld);
+	void moveWelded(double DX, double DY, PageItem* except = NULL);
 };
 
-Q_DECLARE_METATYPE(PageItem*);
+Q_DECLARE_METATYPE(PageItem*)
 
 #endif

@@ -354,6 +354,7 @@ PageItem::PageItem(const PageItem & other)
 		tempImageFile = NULL;
 		isInlineImage = false;
 	}
+	unWeld();
 }
 
 
@@ -519,6 +520,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_PrintEnabled = true;
 	isBookmark = false;
 	m_isAnnotation = false;
+	weldList.clear();
 	
 	switch (m_ItemType)
 	{
@@ -865,6 +867,7 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
+	moveWelded(dX, dY);
 }
 
 void PageItem::setWidth(const double newWidth)
@@ -6885,6 +6888,19 @@ void PageItem::updateClip()
 					else
 						Clip = FlattenPath(PoLine, Segments);
 				}
+				for (int i = 0 ; i < weldList.count(); i++)
+				{
+					weldingInfo wInf = weldList.at(i);
+					FPointArray gr4;
+					FPoint wp = wInf.weldPoint;
+					gr4.addPoint(wp);
+					gr4.map(ma);
+					double dx = gr4.point(0).x() - wp.x();
+					double dy = gr4.point(0).y() - wp.y();
+					moveWelded(dx, dy, i);
+					wInf.weldPoint = gr4.point(0);
+					weldList[i] = wInf;
+				}
 			}
 			OldB2 = width();
 			OldH2 = height();
@@ -6985,6 +7001,19 @@ void PageItem::updateClip()
 				Clip = FlattenPath(PoLine, Segments);
 			OldB2 = width();
 			OldH2 = height();
+			for (int i = 0 ; i < weldList.count(); i++)
+			{
+				weldingInfo wInf = weldList.at(i);
+				FPointArray gr4;
+				FPoint wp = wInf.weldPoint;
+				gr4.addPoint(wp);
+				gr4.map(ma);
+				double dx = gr4.point(0).x() - wp.x();
+				double dy = gr4.point(0).y() - wp.y();
+				moveWelded(dx, dy, i);
+				wInf.weldPoint = gr4.point(0);
+				weldList[i] = wInf;
+			}
 		}
 		break;
 	}
@@ -7061,4 +7090,96 @@ void PageItem::makeImageExternal(QString path)
 		delete tempImageFile;
 		tempImageFile = NULL;
 	}
+}
+
+void PageItem::addWelded(PageItem* iPt)
+{
+	FPoint centerI = FPoint(xPos() + (width() / 2.0), yPos() + (height() / 2.0));
+	FPoint centerP = FPoint(iPt->xPos() + (iPt->width() / 2.0), iPt->yPos() + (iPt->height() / 2.0));
+	weldingInfo wInf;
+	wInf.weldItem = iPt;
+	wInf.weldPoint = FPoint((width() / 2.0) + ((centerP.x() - centerI.x()) / 2.0), (height() / 2.0) + ((centerP.y() - centerI.y()) / 2.0));
+	weldList.append(wInf);
+}
+
+//welded frames
+void PageItem::weldTo(PageItem* pIt)
+{
+	for (int i = 0 ; i <  weldList.count(); i++)
+	{
+		PageItem::weldingInfo wInf = weldList.at(i);
+		if (wInf.weldItem == pIt)
+			return;
+	}
+	QList<PageItem*> ret = pIt->itemsWeldedTo();
+	if (ret.contains(this))
+		return;
+	addWelded(pIt);
+	pIt->addWelded(this);
+	update();
+	pIt->update();
+}
+
+void PageItem::moveWelded(double DX, double DY, int weld)
+{
+	weldingInfo wInf = weldList.at(weld);
+	PageItem *pIt = wInf.weldItem;
+	pIt->setXPos(pIt->xPos() + DX);
+	pIt->setYPos(pIt->yPos() + DY);
+	pIt->update();
+	pIt->moveWelded(DX, DY, this);
+}
+
+void PageItem::moveWelded(double DX, double DY, PageItem* except)
+{
+	for (int i = 0 ; i < weldList.count(); i++)
+	{
+		weldingInfo wInf = weldList.at(i);
+		PageItem *pIt = wInf.weldItem;
+		if (pIt != except)
+		{
+			pIt->setXPos(pIt->xPos() + DX);
+			pIt->setYPos(pIt->yPos() + DY);
+			pIt->update();
+			pIt->moveWelded(DX, DY, this);
+		}
+	}
+}
+
+QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
+{
+	QList<PageItem*> ret;
+	ret.clear();
+	for (int i = 0 ; i < weldList.count(); i++)
+	{
+		weldingInfo wInf = weldList.at(i);
+		PageItem *pIt = wInf.weldItem;
+		if (pIt != except)
+		{
+			ret.append(pIt);
+			if (pIt->isWelded())
+				ret.append(pIt->itemsWeldedTo(this));
+		}
+	}
+	return ret;
+}
+
+void PageItem::unWeld()
+{
+	for (int a = 0 ; a < weldList.count(); a++)
+	{
+		weldingInfo wInf = weldList.at(a);
+		PageItem *pIt = wInf.weldItem;
+		for (int b = 0 ; b < pIt->weldList.count(); b++)
+		{
+			weldingInfo wInf2 = pIt->weldList.at(b);
+			PageItem *pIt2 = wInf2.weldItem;
+			if (pIt2 == this)
+			{
+				pIt->weldList.removeAt(b);
+				break;
+			}
+		}
+	}
+	weldList.clear();
 }

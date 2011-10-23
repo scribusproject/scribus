@@ -774,6 +774,8 @@ public:
 	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber);
 
 	uint getItemNrfromUniqueID(uint unique);
+	//return pointer to item
+	PageItem* getItemFromName(QString name);
 	//itemDelete
 	//itemBlah...
 	
@@ -1529,6 +1531,10 @@ public slots:
 	void updatePict(QString name);
 	void updatePictDir(QString name);
 	void removePict(QString name);
+//welding two items
+public slots:
+	void itemSelection_UnWeld();
+	void itemSelection_Weld();
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);
