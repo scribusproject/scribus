@@ -491,6 +491,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\canvasmode_editweldpoint.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\canvasmode_eyedropper.cpp"
 				>
 			</File>
@@ -2840,6 +2844,10 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\canvasmode_editweldpoint.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\canvasmode_eyedropper.h"
