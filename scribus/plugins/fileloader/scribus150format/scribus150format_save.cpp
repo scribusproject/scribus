@@ -1864,12 +1864,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->isWelded())
 		{
 			docu.writeAttribute("isWeldItem", 1);
-			docu.writeAttribute("WeldSource", item->ItemNr);
+			docu.writeAttribute("WeldSource", item->uniqueNr);
 			for (int i = 0 ; i <  item->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = item->weldList.at(i);
 				docu.writeEmptyElement("WeldEntry");
-				docu.writeAttribute("Target", wInf.weldItem->ItemNr);
+				docu.writeAttribute("Target", wInf.weldItem->uniqueNr);
 				docu.writeAttribute("WX", wInf.weldPoint.x());
 				docu.writeAttribute("WY", wInf.weldPoint.y());
 			}

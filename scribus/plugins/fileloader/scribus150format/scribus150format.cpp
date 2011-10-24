@@ -192,12 +192,8 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<int,int> WeldID;
-	QMap<int,int> WeldIDM;
-	QMap<int,int> WeldIDF;
+	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
-	QList<PageItem*> WeldItemsM;
-	QList<PageItem*> WeldItemsF;
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
@@ -223,10 +219,6 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	TableIDF.clear();
 	WeldItems.clear();
 	WeldID.clear();
-	WeldItemsM.clear();
-	WeldIDM.clear();
-	WeldItemsF.clear();
-	WeldIDF.clear();
 
 	bool firstElement = true;
 	bool success = true;
@@ -332,7 +324,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				if (tagName == "ITEM")
 				{
 					WeldItems.append(itemInfo.item);
-					WeldID.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
+					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 				}
 			}
 			if (groupStack.count() > 0)
@@ -441,40 +433,13 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	}
 	if (WeldItems.count() != 0)
 	{
-//		QList<PageItem*> docList = m_Doc->getAllItems(*m_Doc->Items);
 		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
 		{
 			PageItem* ta = WeldItems.at(ttc);
 			for (int i = 0 ; i < ta->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->Items->at(WeldID[wInf.weldID]);
-			}
-		}
-	}
-	if (WeldItemsM.count() != 0)
-	{
-//		QList<PageItem*> docList = m_Doc->getAllItems(m_Doc->MasterItems);
-		for (int ttc = 0; ttc < WeldItemsM.count(); ++ttc)
-		{
-			PageItem* ta = WeldItemsM.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
-			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->MasterItems.at(WeldIDM[wInf.weldID]);
-			}
-		}
-	}
-	if (WeldItemsF.count() != 0)
-	{
-//		QList<PageItem*> docList = m_Doc->getAllItems(m_Doc->FrameItems);
-		for (int ttc = 0; ttc < WeldItemsF.count(); ++ttc)
-		{
-			PageItem* ta = WeldItemsF.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
-			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->FrameItems.at(WeldIDF[wInf.weldID]);
+				ta->weldList[i].weldItem = WeldID[wInf.weldID];
 			}
 		}
 	}
@@ -595,12 +560,12 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<int,int> WeldID;
-	QMap<int,int> WeldIDM;
-	QMap<int,int> WeldIDF;
+	QMap<int,PageItem*> WeldID;
+//	QMap<int,PageItem*> WeldIDM;
+//	QMap<int,PageItem*> WeldIDF;
 	QList<PageItem*> WeldItems;
-	QList<PageItem*> WeldItemsM;
-	QList<PageItem*> WeldItemsF;
+//	QList<PageItem*> WeldItemsM;
+//	QList<PageItem*> WeldItemsF;
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
@@ -641,10 +606,10 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	TableIDF.clear();
 	WeldItems.clear();
 	WeldID.clear();
-	WeldItemsM.clear();
-	WeldIDM.clear();
-	WeldItemsF.clear();
-	WeldIDF.clear();
+//	WeldItemsM.clear();
+//	WeldIDM.clear();
+//	WeldItemsF.clear();
+//	WeldIDF.clear();
 
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = 0;
@@ -761,21 +726,8 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			}
 			if (itemInfo.isWeldFlag)
 			{
-				if (tagName == "PAGEOBJECT")
-				{
-					WeldItems.append(itemInfo.item);
-					WeldID.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
-				}
-				else if (tagName == "FRAMEOBJECT")
-				{
-					WeldItemsF.append(itemInfo.item);
-					WeldIDF.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
-				}
-				else
-				{
-					WeldItemsM.append(itemInfo.item);
-					WeldIDM.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
-				}
+				WeldItems.append(itemInfo.item);
+				WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 			}
 			if (groupStack.count() > 0)
 			{
@@ -884,40 +836,13 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	}
 	if (WeldItems.count() != 0)
 	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(*m_Doc->Items);
 		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
 		{
 			PageItem* ta = WeldItems.at(ttc);
 			for (int i = 0 ; i < ta->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->Items->at(WeldID[wInf.weldID]);
-			}
-		}
-	}
-	if (WeldItemsM.count() != 0)
-	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(m_Doc->MasterItems);
-		for (int ttc = 0; ttc < WeldItemsM.count(); ++ttc)
-		{
-			PageItem* ta = WeldItemsM.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
-			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->MasterItems.at(WeldIDM[wInf.weldID]);
-			}
-		}
-	}
-	if (WeldItemsF.count() != 0)
-	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(m_Doc->FrameItems);
-		for (int ttc = 0; ttc < WeldItemsF.count(); ++ttc)
-		{
-			PageItem* ta = WeldItemsF.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
-			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->FrameItems.at(WeldIDF[wInf.weldID]);
+				ta->weldList[i].weldItem = WeldID[wInf.weldID];
 			}
 		}
 	}
@@ -1068,12 +993,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<int,int> WeldID;
-	QMap<int,int> WeldIDM;
-	QMap<int,int> WeldIDF;
+	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
-	QList<PageItem*> WeldItemsM;
-	QList<PageItem*> WeldItemsF;
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
@@ -1117,10 +1038,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	TableIDF.clear();
 	WeldItems.clear();
 	WeldID.clear();
-	WeldItemsM.clear();
-	WeldIDM.clear();
-	WeldItemsF.clear();
-	WeldIDF.clear();
 
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = 0;
@@ -1343,21 +1260,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 			if (itemInfo.isWeldFlag)
 			{
-				if (tagName == "PAGEOBJECT")
-				{
-					WeldItems.append(itemInfo.item);
-					WeldID.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
-				}
-				else if (tagName == "FRAMEOBJECT")
-				{
-					WeldItemsF.append(itemInfo.item);
-					WeldIDF.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
-				}
-				else
-				{
-					WeldItemsM.append(itemInfo.item);
-					WeldIDM.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
-				}
+				WeldItems.append(itemInfo.item);
+				WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 			}
 			if (groupStack.count() > 0)
 			{
@@ -1480,40 +1384,13 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	if (WeldItems.count() != 0)
 	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(*m_Doc->Items);
 		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
 		{
 			PageItem* ta = WeldItems.at(ttc);
 			for (int i = 0 ; i < ta->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->Items->at(WeldID[wInf.weldID]);
-			}
-		}
-	}
-	if (WeldItemsM.count() != 0)
-	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(m_Doc->MasterItems);
-		for (int ttc = 0; ttc < WeldItemsM.count(); ++ttc)
-		{
-			PageItem* ta = WeldItemsM.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
-			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->MasterItems.at(WeldIDM[wInf.weldID]);
-			}
-		}
-	}
-	if (WeldItemsF.count() != 0)
-	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(m_Doc->FrameItems);
-		for (int ttc = 0; ttc < WeldItemsF.count(); ++ttc)
-		{
-			PageItem* ta = WeldItemsF.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
-			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->FrameItems.at(WeldIDF[wInf.weldID]);
+				ta->weldList[i].weldItem = WeldID[wInf.weldID];
 			}
 		}
 	}
@@ -3204,7 +3081,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	QStack<int> groupStack2;
 	QMap<int,int> TableID2;
 	QList<PageItem*> TableItems2;
-	QMap<int,int> WeldID;
+	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 
 	pat.setDoc(doc);
@@ -3251,7 +3128,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		if (itemInfo.isWeldFlag)
 		{
 			WeldItems.append(itemInfo.item);
-			WeldID.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
+			WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 		}
 		if (groupStack.count() > 0)
 		{
@@ -3304,14 +3181,13 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	}
 	if (WeldItems.count() != 0)
 	{
-	//	QList<PageItem*> docList = m_Doc->getAllItems(*m_Doc->Items);
 		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
 		{
 			PageItem* ta = WeldItems.at(ttc);
 			for (int i = 0 ; i < ta->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->Items->at(WeldID[wInf.weldID]);
+				ta->weldList[i].weldItem = WeldID[wInf.weldID];
 			}
 		}
 	}
@@ -4337,7 +4213,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QString tmp;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
-	QMap<int,int> WeldID;
+	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackF;
@@ -4576,7 +4452,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				if (itemInfo.isWeldFlag)
 				{
 					WeldItems.append(itemInfo.item);
-					WeldID.insert(itemInfo.ownWeld, itemInfo.item->ItemNr);
+					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 				}
 				if (tagName == "FRAMEOBJECT")
 				{
@@ -4660,7 +4536,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			for (int i = 0 ; i < ta->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = m_Doc->Items->at(WeldID[wInf.weldID]);
+				ta->weldList[i].weldItem = WeldID[wInf.weldID];
 			}
 		}
 	}
