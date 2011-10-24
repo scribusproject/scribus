@@ -2354,6 +2354,42 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	m_view->horizRuler->update();
 }
 
+//Canvas rebuild
 
+qreal Canvas::scaledLineWidth() const
+{
+	return 1.0 / m_viewMode.scale;
+}
 
+QSizeF Canvas::scaledQSizeF(QSizeF size) const
+{
+	return size*m_viewMode.scale;
+}
 
+qreal Canvas::scaledGrabRadius() const
+{
+	return m_doc->guidesSettings.grabRad / m_viewMode.scale;
+}
+
+qreal Canvas::scaledGuideRadius() const
+{
+	return m_doc->guidesSettings.guideRad / m_viewMode.scale;
+}
+
+void Canvas::scaleAndTranslateQPainter(QPainter *p)
+{
+	p->scale(m_viewMode.scale, m_viewMode.scale);
+	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+}
+
+void Canvas::mouseMoveScrollDeltas(qreal* dx, qreal *dy, QPointF& referencePoint, QMouseEvent* m)
+{
+	FPoint canvasPoint(globalToCanvas(m->globalPos()));
+	*dx = (referencePoint.x() - canvasPoint.x()) * m_viewMode.scale;
+	*dy = (referencePoint.y() - canvasPoint.y()) * m_viewMode.scale;
+}
+
+qreal Canvas::zoomLevel() const
+{
+	return 100.0*m_viewMode.scale/PrefsManager::instance()->appPrefs.DisScale;
+}

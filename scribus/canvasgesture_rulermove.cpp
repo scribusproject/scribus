@@ -33,19 +33,20 @@ void RulerGesture::drawControls(QPainter* p)
 	QColor color(m_doc->guidesSettings.guideColor);
 	p->save();
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
-	QSize pageSize = (QSizeF(page->width(), page->height()) * m_canvas->scale()).toSize();
+	//QSize pageSize = (QSizeF(page->width(), page->height()) * m_canvas->scale()).toSize();
+	QSize pageSize = m_canvas->scaledQSizeF(QSizeF(page->width(), page->height())).toSize();
 	switch (m_mode)
 	{
 		case HORIZONTAL:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, m_canvas->scaledLineWidth(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(pageOrigin.x(), m_xy.y()), QPoint(pageOrigin.x() + pageSize.width(), m_xy.y()));
 			break;
 		case VERTICAL:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, m_canvas->scaledLineWidth(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(m_xy.x(), pageOrigin.y()), QPoint(m_xy.x(), pageOrigin.y() + pageSize.height()));
 			break;
 		case ORIGIN:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, m_canvas->scaledLineWidth(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(m_xy.x(), 0), QPoint(m_xy.x(), m_canvas->height()));
 			p->drawLine(QPoint(0, m_xy.y()), QPoint(m_canvas->width(), m_xy.y()));
 			break;
@@ -107,7 +108,8 @@ bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
 	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && page >= 0)
 	{
-		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		//double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		double grabRadScale = m_canvas->scaledGrabRadius();
 		int index = m_doc->Pages->at(page)->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
 		if (index >= 0)
 		{
@@ -139,7 +141,8 @@ void RulerGesture::mouseSelectGuide(QMouseEvent *m)
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
 	if ((m_doc->guidesSettings.guidesShown) && page >= 0)
 	{
-		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		//double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		double grabRadScale = m_canvas->scaledGrabRadius();
 		int index = m_doc->Pages->at(page)->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
 		if (index >= 0)
 		{

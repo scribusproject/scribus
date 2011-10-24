@@ -98,7 +98,8 @@ void LegacyMode::blinkTextCursor()
 	{
 		QRectF brect = currItem->getBoundingRect();
 //		qDebug() << "update cursor" << brect;
-		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
+//		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
+		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), m_canvas->scaledQSizeF(brect.size())).toRect());
 	}
 }
 
@@ -432,8 +433,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		newX = mousePointDoc.x(); //m->x();
 		newY = mousePointDoc.y(); //m->y();
-		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
-		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
+		double dx = fabs(Mxp - newX) + 5.0 * m_canvas->scaledLineWidth();
+		double dy = fabs(Myp - newY) + 5.0 * m_canvas->scaledLineWidth();
 		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
 //		np = np * (1.0 / m_canvas->scale());
 		if (m->buttons() & Qt::LeftButton)
@@ -448,7 +449,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		}
 		Mxp = newX;
 		Myp = newY;
-		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
+		m_view->RefreshGradient(currItem, dx / m_canvas->scaledLineWidth(), dy / m_canvas->scaledLineWidth());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		currItem->update();
 		return;
@@ -1056,7 +1057,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									gy = npw.y() - gh;
 								else
 									gy = npx.y();
-								if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()))
+								if ((fabs(gx - gxo) < (m_canvas->scaledGuideRadius() / 2.0)) && (fabs(gy - gyo) < (m_canvas->scaledGuideRadius() / 2.0)))
 									m_doc->moveGroup(gx-gxo, gy-gyo, false);
 							}
 						}
@@ -1118,7 +1119,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 							gy = npw.y() - gh;
 						else
 							gy = npx.y();
-						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()))
+						if ((fabs(gx - gxo) < (m_canvas->scaledGuideRadius() / 2.0)) && (fabs(gy - gyo) < (m_canvas->scaledGuideRadius() / 2.0)))
 							m_doc->moveGroup(gx-gxo, gy-gyo, false);
 						m_doc->m_Selection->setGroupRect();
 					}
@@ -4261,11 +4262,11 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
+	double grabRadius = m_canvas->scaledGrabRadius();
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();

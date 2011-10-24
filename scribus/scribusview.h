@@ -236,9 +236,13 @@ public:
 	virtual void changed(QRectF re, bool);
 
 	void updateCanvas(QRectF box = QRectF());
+	void updateCanvasItem(PageItem* item);
 	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }
 	void setCanvasOrigin(double x, double y);
+	void setCanvasOrigin(FPoint p) { setCanvasOrigin(p.x(), p.y()); }
 	void setCanvasCenter(double x, double y);
+	void ensureVisible ( int x, int y, int xmargin = 50, int ymargin = 50 );
+	void ensureCanvasVisible(QRectF box);
 	void scrollCanvasBy(double deltaX, double deltaY);
 	FPoint canvasOrigin() const;
 	QRectF visibleCanvas() const;

@@ -1334,7 +1334,7 @@ void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 {
 	QMatrix matrix;
-	QRect rect = currItem->getRedrawBounding(m_canvas->scale());
+	QRect rect = m_canvas->canvasToLocal(currItem->getCurrentBoundingRect(5));
 	m_canvas->Transform(currItem, matrix);
 	FPointArray fpNew;
 	fpNew.setPoints(2, currItem->GrStartX, currItem->GrStartY, currItem->GrEndX, currItem->GrEndY);
@@ -1346,7 +1346,9 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 	int grb = (int) ceil ( qMax(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
 	int grt = (int) floor( qMin(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
 	rect |= QRect(grl, grt, grr-grl, grb-grt);
-	updateContents(rect);
+	m_canvas->update(rect);
+	//or ?
+	//updateCanvas(rect);
 }
 
 
@@ -1484,7 +1486,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
 		updateContents();
 		currItem->FrameOnly = true;
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		updateCanvasItem(currItem);
 		if (UndoManager::undoEnabled())
 		{
 			undoManager->setUndoEnabled(false);
@@ -1846,7 +1848,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		{
 			Doc->m_Selection->addItem(currItem);
 			currItem->isSingleSel = true;
-			updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+			updateCanvasItem(currItem);
 		}
 		else
 		{
@@ -1867,18 +1869,14 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 							Doc->m_Selection->addItem(Doc->Items->at(ga));
 					}
 					if (draw)
-					{
-						updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-					}
+						updateCanvasItem(currItem);
 				}
 			}
 			else
 			{
 				Doc->m_Selection->addItem(currItem);
 				if (draw)
-				{
-					updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-				}
+					updateCanvasItem(currItem);
 			}
 			//CB FIXME/TODO We are surely prepending here and we have turned off
 			//emitting in prepend below so do it here.
@@ -1948,7 +1946,6 @@ void ScribusView::Deselect(bool prop)
 {
 	if (!Doc->m_Selection->isEmpty())
 	{
-		const double scale = m_canvas->scale();
 		PageItem* currItem=NULL;
 		for (int a = 0; a < Doc->m_Selection->count(); ++a)
 		{
@@ -1961,7 +1958,8 @@ void ScribusView::Deselect(bool prop)
 			double x, y, w, h;
 			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			Doc->m_Selection->clear();
-			updateCanvas(x - 5/scale, y - 5/scale, w + 10/scale, h + 10/scale);
+			double scaled5=5*m_canvas->scaledLineWidth();
+			updateCanvas(x - scaled5, y - scaled5, w + 2*scaled5, h + 2*scaled5);
 		}
 		else
 		{
@@ -1973,7 +1971,8 @@ void ScribusView::Deselect(bool prop)
 			}
 			Doc->m_Selection->clear();
 			if (currItem != NULL)
-				updateContents(currItem->getRedrawBounding(scale));
+//				updateContents(currItem->getRedrawBounding(scale));
+				updateCanvasItem(currItem);
 		}
 	}
 	if (prop && !Doc->m_Selection->signalsDelayed())
@@ -2482,13 +2481,13 @@ void ScribusView::setRulerPos(int x, int y)
 		return;
 	if (Doc->guidesSettings.rulerMode)
 	{
-		horizRuler->shift(x / m_canvas->scale() - Doc->currentPage()->xOffset());
-		vertRuler->shift(y / m_canvas->scale() - Doc->currentPage()->yOffset());
+		horizRuler->shift(x * m_canvas->scaledLineWidth() - Doc->currentPage()->xOffset());
+		vertRuler->shift(y * m_canvas->scaledLineWidth() - Doc->currentPage()->yOffset());
 	}
 	else
 	{
-		horizRuler->shift(x / m_canvas->scale());
-		vertRuler->shift(y / m_canvas->scale());
+		horizRuler->shift(x * m_canvas->scaledLineWidth());
+		vertRuler->shift(y * m_canvas->scaledLineWidth());
 	}
 //	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
 //	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
@@ -2505,10 +2504,10 @@ void ScribusView::setRulerPos(int x, int y)
 		uint docPageCount=Doc->Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			int xs = static_cast<int>(Doc->Pages->at(a)->xOffset() * m_canvas->scale());
-			int ys = static_cast<int>(Doc->Pages->at(a)->yOffset() * m_canvas->scale());
-			int ws = static_cast<int>(Doc->Pages->at(a)->width() * m_canvas->scale());
-			int hs = static_cast<int>(Doc->Pages->at(a)->height() * m_canvas->scale());
+			int xs = static_cast<int>(Doc->Pages->at(a)->xOffset() / m_canvas->scaledLineWidth());
+			int ys = static_cast<int>(Doc->Pages->at(a)->yOffset() / m_canvas->scaledLineWidth());
+			int ws = static_cast<int>(Doc->Pages->at(a)->width() / m_canvas->scaledLineWidth());
+			int hs = static_cast<int>(Doc->Pages->at(a)->height() / m_canvas->scaledLineWidth());
 			QRect drawRect = QRect(x, y, visibleWidth(), visibleHeight());
 //			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
@@ -2554,7 +2553,7 @@ void ScribusView::reformPages(bool moveObjects)
 {
 	Doc->reformPages(moveObjects);
 	if (!m_ScMW->scriptIsRunning())
-		setContentsPos(qRound((Doc->currentPage()->xOffset()-10 - 0*Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->currentPage()->yOffset()-10 - 0*Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
+		setContentsPos(qRound((Doc->currentPage()->xOffset()-10 - 0*Doc->minCanvasCoordinate.x()) / m_canvas->scaledLineWidth()), qRound((Doc->currentPage()->yOffset()-10 - 0*Doc->minCanvasCoordinate.y()) / m_canvas->scaledLineWidth()));
 	if (!Doc->isLoading())
 	{
 		setRulerPos(contentsX(), contentsY());
@@ -2621,21 +2620,24 @@ void ScribusView::updateCanvas(QRectF box)
 	}
 }
 
+void ScribusView::updateCanvasItem(PageItem* item)
+{
+	m_canvas->update(m_canvas->canvasToLocal(item->getCurrentBoundingRect(5)));
+}
 
 /*!
   Scrolls the canvas so (x,y) becomes the origin
  */
 void ScribusView::setCanvasOrigin(double x, double y)
 {
-	double scale = m_canvas->scale();
-	horizontalScrollBar()->setValue(qRound(x * scale));
-	verticalScrollBar()->setValue(qRound(y * scale));
+	horizontalScrollBar()->setValue(qRound(x / m_canvas->scaledLineWidth()));
+	verticalScrollBar()->setValue(qRound(y / m_canvas->scaledLineWidth()));
 	// fix ranges
 	QSize maxViewport = maximumViewportSize();
-	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale),
-									qRound(Doc->maxCanvasCoordinate.x() * scale) - maxViewport.width());
-	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale),
-								  qRound(Doc->maxCanvasCoordinate.y() * scale) - maxViewport.height());
+	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() / m_canvas->scaledLineWidth()),
+									qRound(Doc->maxCanvasCoordinate.x() / m_canvas->scaledLineWidth()) - maxViewport.width());
+	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() / m_canvas->scaledLineWidth()),
+								  qRound(Doc->maxCanvasCoordinate.y() / m_canvas->scaledLineWidth()) - maxViewport.height());
 }
 
 
@@ -2659,6 +2661,29 @@ void ScribusView::scrollCanvasBy(double deltaX, double deltaY)
 	verticalScrollBar()->setValue(qRound(verticalScrollBar()->value() + deltaX * scale));
 }
 
+void ScribusView::ensureVisible ( int x, int y, int xmargin, int ymargin)
+{
+	double marginScale = 2 / scale();
+	FPoint tl = m_canvas->localToCanvas(QPoint(x-xmargin, y-ymargin));
+	ensureCanvasVisible(QRectF(tl.x(), tl.y(), xmargin*marginScale, ymargin*marginScale));
+}
+
+void ScribusView::ensureCanvasVisible(QRectF box)
+{
+	QRectF vis = visibleCanvas();
+	QPointF og = vis.topLeft();
+	if (box.contains(vis))
+		return;
+	if (box.left() < vis.left())
+		og.setX(box.left());
+	else if (box.right() > vis.right())
+		og.setX(box.right() - vis.width());
+	if (box.top() < vis.top())
+		og.setY(box.top());
+	else if (box.bottom() > vis.bottom())
+		og.setY(box.bottom() - vis.height());
+	setCanvasOrigin(og.x(), og.y());
+}
 
 /*!
   returns the canvas's origin in canvas coordinates.
@@ -3395,8 +3420,9 @@ void ScribusView::SetFrameRect()
 	if (GetItem(&currItem))
 	{
 		currItem->SetRectFrame();
-		Doc->setRedrawBounding(currItem);
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+//		Doc->setRedrawBounding(currItem);
+//		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		updateCanvasItem(currItem);
 	}
 }
 
@@ -3413,8 +3439,9 @@ void ScribusView::SetFrameRounded()
 			return;
 		}
 		currItem->SetFrameRound();
-		Doc->setRedrawBounding(currItem);
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+//		Doc->setRedrawBounding(currItem);
+//		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		updateCanvasItem(currItem);
 	}
 }
 
@@ -3426,8 +3453,9 @@ void ScribusView::SetFrameOval()
 	if (GetItem(&currItem))
 	{
 		currItem->SetOvalFrame();
-		Doc->setRedrawBounding(currItem);
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+//		Doc->setRedrawBounding(currItem);
+//		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		updateCanvasItem(currItem);
 	}
 }
 
@@ -4790,7 +4818,7 @@ void ScribusView::setScale(const double newScale)
 	m_canvas->setScale(Scale);
 
 	zoomSpinBox->blockSignals(true);
-	zoomSpinBox->setValue(m_canvas->scale()/Prefs->DisScale*100);
+	zoomSpinBox->setValue(m_canvas->zoomLevel());
 	zoomSpinBox->blockSignals(false);
 
 	unitChange();

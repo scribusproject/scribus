@@ -138,7 +138,7 @@ public:
 	void setRenderModeFillBuffer() { m_renderMode = RENDER_BUFFERED; }
 	void setRenderModeUseBuffer(bool use) { m_renderMode = (use ? RENDER_BUFFERED : RENDER_NORMAL) ; }
 
-	double scale() const { return m_viewMode.scale; }
+//	double scale() const { return m_viewMode.scale; }
 	void setScale(double scale) { if (m_viewMode.scale != scale) { m_viewMode.scale = scale; clearBuffers(); update(); } }
 	QPoint canvasToLocal(FPoint p) const;
 	QPoint canvasToGlobal(FPoint p) const;
@@ -193,8 +193,17 @@ public:
 	void displayRotHUD(QPoint m, double rot);
 	
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
+	//Canvas rebuild
+	qreal scaledLineWidth() const;
+	qreal scaledGrabRadius() const;
+	qreal scaledGuideRadius() const;
+	QSizeF scaledQSizeF(QSizeF size) const;
+	void scaleAndTranslateQPainter(QPainter *p);
+	void mouseMoveScrollDeltas(qreal* dx, qreal *dx, QPointF& referencePoint, QMouseEvent* m);
+	qreal zoomLevel() const;
 	
 private:
+	//double scale() const { return m_viewMode.scale; }
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	void PaintSizeRect(QRect neu);

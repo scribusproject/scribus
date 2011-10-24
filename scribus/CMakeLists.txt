@@ -88,7 +88,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasgesture_rulermove.h
   canvasmode.h
   canvasmode_edit.h
-  canvasmode_legacy.h
+  #canvasmode_legacy.h
   canvasmode_measurements.h
   canvasmode_normal.h
   charselect.h
@@ -324,7 +324,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_framelinks.cpp
   canvasmode_edit.cpp
   canvasmode_editgradient.cpp
-  canvasmode_legacy.cpp
+  #canvasmode_legacy.cpp
   canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp

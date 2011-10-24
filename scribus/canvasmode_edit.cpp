@@ -84,11 +84,15 @@ void CanvasMode_Edit::blinkTextCursor()
 {
 	PageItem* currItem;
 	if (m_doc->appMode == modeEdit && GetItem(&currItem))
+		m_view->updateCanvasItem(currItem);
+	/*
 	{
 		QRectF brect = currItem->getBoundingRect();
 //		qDebug() << "update cursor" << brect;
-		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
+//		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
+		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), m_canvas->scaledQSizeF(QSizeF(brect.width(),brect.height()))).toRect());
 	}
+	*/
 }
 
 void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
@@ -146,7 +150,7 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 				p->save();
 				p->translate(currItem->xPos(), currItem->yPos());
 				p->rotate(currItem->rotation());
-				p->setPen(QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::blue, m_canvas->scaledLineWidth(), Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setClipRect(QRectF(0.0, 0.0, currItem->width(), currItem->height()));
 				p->setBrush(Qt::NoBrush);
 				p->setRenderHint(QPainter::Antialiasing);
@@ -528,8 +532,11 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					if((refStartSel != currItem->asTextFrame()->itemText.startOfSelection())
 						|| (refEndSel != currItem->asTextFrame()->itemText.endOfSelection()))
 					{
-						QRectF br(currItem->getBoundingRect());
-						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), br.size() * m_canvas->scale()).toRect());
+
+//						QRectF br(currItem->getBoundingRect());
+////						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), br.size() * m_canvas->scale()).toRect());
+//						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), m_canvas->scaledQSizeF(br.size())).toRect());
+						m_view->updateCanvasItem(currItem);
 					}
 				}
 				else
@@ -1016,7 +1023,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x();
 	Myp = mousePointDoc.y();
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+	double grabRadius = m_canvas->scaledGrabRadius();
 	int MxpS = static_cast<int>(mousePointDoc.x());
 	int MypS = static_cast<int>(mousePointDoc.y());
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);

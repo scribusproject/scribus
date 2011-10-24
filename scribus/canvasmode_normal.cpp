@@ -373,7 +373,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					if ((currItem->asImageFrame()) && (m->modifiers() & Qt::ControlModifier) && (m->modifiers() & Qt::AltModifier))
 					{
 						currItem->moveImageInFrame(dX/currItem->imageXScale(),dY/currItem->imageYScale());
-						m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+						m_view->updateCanvasItem(currItem);
 					}
 					else
 					{
@@ -426,7 +426,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 									gy = npw.y() - gh;
 								else
 									gy = npx.y();
-								if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()))
+								if ((fabs(gx - gxo) < m_canvas->scaledGuideRadius()) && (fabs(gy - gyo) < m_canvas->scaledGuideRadius()))
 									m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 							}
 						}
@@ -482,7 +482,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							gy = npw.y() - gh;
 						else
 							gy = npx.y();
-						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()))
+						if ((fabs(gx - gxo) < m_canvas->scaledGuideRadius()) && (fabs(gy - gyo) < m_canvas->scaledGuideRadius()))
 							m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 					}
 				}
@@ -497,8 +497,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					m_doc->adjustCanvas(FPoint(gx,gy), FPoint(gx+gw, gy+gh));
 					QPoint selectionCenter = m_canvas->canvasToLocal(QPointF(gx+gw/2, gy+gh/2));
 					QPoint localMousePos = m_canvas->canvasToLocal(mousePointDoc);
-					int localwidth = static_cast<int>(gw * m_canvas->scale());
-					int localheight = static_cast<int>(gh * m_canvas->scale());
+					int localwidth = static_cast<int>(gw / m_canvas->scaledLineWidth());
+					int localheight = static_cast<int>(gh / m_canvas->scaledLineWidth());
 					if (localwidth > 200)
 					{
 						localwidth = 0;
@@ -865,7 +865,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 							gy = npw.y() - gh;
 						else
 							gy = npx.y();
-						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()))
+						if ((fabs(gx - gxo) < m_canvas->scaledGuideRadius()) && (fabs(gy - gyo) < m_canvas->scaledGuideRadius()))
 						{
 							nx += (gx - gxo);
 							ny += (gy - gyo);
@@ -1029,9 +1029,9 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_mouseCurrentPoint  = mousePointDoc;
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x());
 	int MypS = static_cast<int>(mousePointDoc.y());
+	double grabRadius = m_canvas->scaledGrabRadius();
 	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
 	m_doc->nodeEdit.deselect();
 

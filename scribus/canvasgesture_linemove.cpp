@@ -113,10 +113,11 @@ void LineMove::deactivate(bool flag)
 void LineMove::drawControls(QPainter* p) 
 { 
 	p->save();
-	p->scale(m_canvas->scale(), m_canvas->scale());
-	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	m_canvas->scaleAndTranslateQPainter(p);
+//	p->scale(m_canvas->scale(), m_canvas->scale());
+//	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	p->setBrush(Qt::NoBrush);
-	p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+	p->setPen(QPen(Qt::black, m_canvas->scaledLineWidth(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	p->drawLine(m_bounds.topLeft(), m_bounds.bottomRight());
 	p->restore();
 }

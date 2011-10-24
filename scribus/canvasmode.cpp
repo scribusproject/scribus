@@ -26,7 +26,7 @@
 #include "canvasmode_editgradient.h"
 #include "canvasmode_eyedropper.h"
 #include "canvasmode_framelinks.h"
-#include "canvasmode_legacy.h"
+//#include "canvasmode_legacy.h"
 #include "canvasmode_magnifier.h"
 #include "canvasmode_measurements.h"
 #include "canvasmode_nodeedit.h"
@@ -147,7 +147,8 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			// more modes as they are defined...
 			
 		default:
-			result = new LegacyMode(view);
+			result = new CanvasMode_Normal(view);
+			//result = new LegacyMode(view);
 			break;
 	}
 	return result;
@@ -169,8 +170,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 //	int tg(0);
 //	QStringList tu;
 	QString ds;
-	psx->scale(m_canvas->scale(), m_canvas->scale());
-	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	m_canvas->scaleAndTranslateQPainter(psx);
+	//psx->scale(m_canvas->scale(), m_canvas->scale());
+	//psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	
 	psx->setClipping(true);
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
@@ -189,12 +191,12 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		psx->save();
 		psx->setPen(m_pen["selection-group"]);
 		psx->setBrush(m_brush["selection-group"]);
-		double lineAdjust(psx->pen().width()/m_canvas->scale());
+		double lineAdjust(psx->pen().width()*m_canvas->scaledLineWidth());
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
-		const double markWidth = 4 / m_canvas->scale();
-		const double halfMarkWidth = 2 / m_canvas->scale();
+		const double markWidth = 4 * m_canvas->scaledLineWidth();
+		const double halfMarkWidth = 2 * m_canvas->scaledLineWidth();
 		
 		psx->translate(x,y);
 		x = -lineAdjust;
@@ -239,7 +241,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				psx->save();
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
-				double lineAdjust(psx->pen().width()/m_canvas->scale());
+				double lineAdjust(psx->pen().width() * m_canvas->scaledLineWidth());
 				double x, y, w, h;
 				w = currItem->visualWidth() ;
 				h = currItem->visualHeight() ;
@@ -267,8 +269,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	else if (m_doc->m_Selection->count() != 0)
 	{
 // 		ds = "S" + QString::number(m_doc->m_Selection->count())+" ";
-		const double markWidth = 4 / m_canvas->scale();
-		const double halfMarkWidth = 2 / m_canvas->scale();
+		const double markWidth = 4 * m_canvas->scaledLineWidth();
+		const double halfMarkWidth = 2 * m_canvas->scaledLineWidth();
 
 		uint docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
@@ -283,7 +285,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->save();
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
-			double lineAdjust(psx->pen().width()/m_canvas->scale());
+			double lineAdjust(psx->pen().width() * m_canvas->scaledLineWidth());
 			double x, y, w, h;
 			w = currItem->visualWidth();
 			h = currItem->visualHeight();
@@ -342,8 +344,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double deltax, double deltay)
 {
 	p->save();
-	p->scale(m_canvas->scale(), m_canvas->scale());
-	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	m_canvas->scaleAndTranslateQPainter(p);
+	//p->scale(m_canvas->scale(), m_canvas->scale());
+	//p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	
 			
 	if (m_doc->m_Selection->count() == 1)

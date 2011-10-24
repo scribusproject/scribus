@@ -175,22 +175,22 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		double newX = mousePointDoc.x(); //m->x();
 		double newY = mousePointDoc.y(); //m->y();
-		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
-		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
+		double dx = fabs(Mxp - newX) + 5.0 * m_canvas->scaledLineWidth();
+		double dy = fabs(Myp - newY) + 5.0 * m_canvas->scaledLineWidth();
 		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
 		if (m_gradientPoint == useGradientStart)
 		{
-			currItem->GrStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-			currItem->GrStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			currItem->GrStartX -= np.x();
+			currItem->GrStartY -= np.y();
 		}
 		if (m_gradientPoint == useGradientEnd)
 		{
-			currItem->GrEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-			currItem->GrEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+			currItem->GrEndX -= np.x();
+			currItem->GrEndY -= np.y();
 		}
 		Mxp = newX;
 		Myp = newY;
-		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
+		m_view->RefreshGradient(currItem, dx / m_canvas->scaledLineWidth(), dy / m_canvas->scaledLineWidth());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		currItem->update();
 	}

@@ -62,8 +62,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	FPointArray cli;
 	
 	p->save();
-	p->scale(m_canvas->scale(), m_canvas->scale());
-	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	m_canvas->scaleAndTranslateQPainter(p);
 	p->translate(currItem->xPos(), currItem->yPos());
 	p->rotate(currItem->rotation());			
 	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
@@ -261,7 +260,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 	PageItem *currItem;
 	QPoint np, np2, mop;
 	FPoint npf, npf2;
-	double sc = m_canvas->scale();
+	//double sc = m_canvas->scale();
 	m->accept();
 	npf = m_canvas->globalToCanvas(m->globalPos());
 #ifdef MODEDEBUG
@@ -314,6 +313,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 //			qDebug() << "node edit drag 9:" << (m->buttons() & Qt::LeftButton);
 
 	}
+	/*
 	else // shouldnt be in nodeedit mode now, should it??
 	{
 		npf = m_canvas->globalToCanvas(m->globalPos());
@@ -373,6 +373,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
+	*/
 }
 
 void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
@@ -760,7 +761,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					{
 						seg = poi;
 						double sp = 0.0;
-						double spadd = 1.0 / (Clip.lenPathSeg(seg) * m_canvas->scale());
+						double spadd = m_canvas->scaledLineWidth() / Clip.lenPathSeg(seg);
 						while (sp < 1.0)
 						{
 							Clip.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
@@ -1008,7 +1009,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				{
 					seg = poi;
 					double sp = 0.0;
-					double spadd = 1.0 / (Clip.lenPathSeg(seg) * m_canvas->scale());
+					double spadd = m_canvas->scaledLineWidth() / Clip.lenPathSeg(seg);
 					while (sp < 1.0)
 					{
 						Clip.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
@@ -1087,8 +1088,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		*/
 		Mxp = m->x();
 		Myp = m->y();
-		Dxp = qRound(m->x()/m_canvas->scale());
-		Dyp = qRound(m->y()/m_canvas->scale());
+		Dxp = qRound(m->x()*m_canvas->scaledLineWidth());
+		Dyp = qRound(m->y()*m_canvas->scaledLineWidth());
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
 		m_rectangleSelect->prepare(m->globalPos());
@@ -1215,7 +1216,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	int newX = m->x();
 	int newY = m->y();
 	FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
-	np = np * (1.0 / m_canvas->scale());
+	np = np * m_canvas->scaledLineWidth();
 	m_canvas->m_viewMode.operItemMoving = true;
 	currItem = m_doc->m_Selection->itemAt(0);
 	if ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1))
