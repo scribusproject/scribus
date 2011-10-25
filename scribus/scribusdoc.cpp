@@ -12249,7 +12249,9 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		double y = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 		bool oldS = currItem->Sizing;
 		currItem->Sizing = true;
-		MoveItem(x - currItem->xPos(), y - currItem->yPos(), currItem);
+		currItem->moveBy(x - currItem->xPos(), y - currItem->yPos(), true);
+		setRedrawBounding(currItem);
+		currItem->OwnPage = OnPage(currItem);
 		currItem->Sizing = oldS;
 	}
 	else

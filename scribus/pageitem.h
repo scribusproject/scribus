@@ -1583,6 +1583,7 @@ public:
 	void addWelded(PageItem* iPt);
 	void moveWelded(double DX, double DY, int weld);
 	void moveWelded(double DX, double DY, PageItem* except = NULL);
+	void rotateWelded(double dR);
 };
 
 Q_DECLARE_METATYPE(PageItem*)

@@ -924,10 +924,12 @@ void PageItem::resizeBy(const double dH, const double dW)
 
 void PageItem::setRotation(const double newRotation, bool drawingOnly)
 {
-	Rot=newRotation;
+	double dR = newRotation - Rot;
+	Rot = newRotation;
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
+	rotateWelded(dR);
 }
 
 void PageItem::rotateBy(const double dR)
@@ -7143,6 +7145,39 @@ void PageItem::moveWelded(double DX, double DY, PageItem* except)
 			pIt->update();
 			pIt->moveWelded(DX, DY, this);
 		}
+	}
+}
+
+void PageItem::rotateWelded(double dR)
+{
+	QTransform ma;
+	ma.translate(xPos(), yPos());
+	ma.scale(1, 1);
+	ma.rotate(rotation());
+	switch (m_Doc->RotMode())
+	{
+		case 2:
+			ma.translate(width()/2.0, height()/2.0);
+			break;
+		case 4:
+			ma.translate(width(), height());
+			break;
+		case 3:
+			ma.translate(0, height());
+			break;
+		case 1:
+			ma.translate(width(), 0);
+			break;
+	}
+	QPointF rotCenter = ma.map(QPointF(0,0));
+	QList<PageItem*> itemList = itemsWeldedTo(this);
+	for (int a = 0; a < itemList.count(); a++)
+	{
+		PageItem *pIt = itemList.at(a);
+		QLineF lin = QLineF(rotCenter, QPointF(pIt->xPos(), pIt->yPos()));
+		lin.setAngle(lin.angle() - dR);
+		pIt->setXYPos(lin.p2().x(), lin.p2().y());
+		pIt->rotateBy(dR);
 	}
 }
 
