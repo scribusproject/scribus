@@ -925,11 +925,12 @@ void PageItem::resizeBy(const double dH, const double dW)
 void PageItem::setRotation(const double newRotation, bool drawingOnly)
 {
 	double dR = newRotation - Rot;
+	double oldRot = Rot;
 	Rot = newRotation;
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
-	rotateWelded(dR);
+	rotateWelded(dR, oldRot);
 }
 
 void PageItem::rotateBy(const double dR)
@@ -7148,12 +7149,12 @@ void PageItem::moveWelded(double DX, double DY, PageItem* except)
 	}
 }
 
-void PageItem::rotateWelded(double dR)
+void PageItem::rotateWelded(double dR, double oldRot)
 {
 	QTransform ma;
 	ma.translate(xPos(), yPos());
 	ma.scale(1, 1);
-	ma.rotate(rotation());
+	ma.rotate(oldRot);
 	switch (m_Doc->RotMode())
 	{
 		case 2:
