@@ -47,6 +47,9 @@ HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly)
 	inH1 = false;
 	inH2 = false;
 	inH3 = false;
+	inH4 = false;
+	inH5 = false;
+	inH6 = false;
 	inA = false;
 	inCode = false;
 	inBody = false;
@@ -79,6 +82,18 @@ void HTMLReader::initPStyles()
 	pstyleli->setName("HTML_li_level-0");
 	listStyles.push_back(pstyleli);
 	nextItemNumbers.push_back(1);
+	pstyleh6 = new gtParagraphStyle(*pstyle);
+	pstyleh6->getFont()->setSize(pstyle->getFont()->getSize() + 2.5);
+	pstyleh6->getFont()->setWeight(BOLD);
+	pstyleh6->setSpaceAbove(2.5);
+	pstyleh6->setSpaceBelow(1.25);
+	pstyleh6->setName("HTML_h6");
+	pstyleh5 = new gtParagraphStyle(*pstyle);
+	pstyleh5->getFont()->setSize(pstyle->getFont()->getSize() + 5);
+	pstyleh5->getFont()->setWeight(BOLD);
+	pstyleh5->setSpaceAbove(5.0);
+	pstyleh5->setSpaceBelow(2.5);
+	pstyleh5->setName("HTML_h5");
 	pstyleh4 = new gtParagraphStyle(*pstyle);
 	pstyleh4->getFont()->setSize(pstyle->getFont()->getSize() + 10);
 	pstyleh4->getFont()->setWeight(BOLD);
@@ -182,6 +197,10 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		inH3 = true;
 	else if (name == "h4")
 		inH4 = true;
+	else if (name == "h5")
+		inH5 = true;
+	else if (name == "h6")
+		inH6 = true;
 	else if ((name == "b") || (name == "strong"))
 		setBoldFont();
 	else if ((name == "i") || (name == "em"))
@@ -287,6 +306,10 @@ bool HTMLReader::characters(const QString &ch)
 			writer->append(tmp, pstyleh3);
 		else if (inH4)
 			writer->append(tmp, pstyleh4);
+		else if (inH5)
+			writer->append(tmp, pstyleh5);
+		else if (inH6)
+			writer->append(tmp, pstyleh6);
 		else if (inCenter)
 			writer->append(tmp, pstylec);
 		else if (inCode)
@@ -406,22 +429,32 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "h1")
 	{
 		inH1 = false;
-		writer->append("\n");
+		writer->append("\n", pstyleh1);
 	}
 	else if (name == "h2")
 	{
 		inH2 = false;
-		writer->append("\n");
+		writer->append("\n", pstyleh2);
 	}
 	else if (name == "h3")
 	{
 		inH3 = false;
-		writer->append("\n");
+		writer->append("\n", pstyleh3);
 	}
 	else if (name == "h4")
 	{
 		inH4 = false;
-		writer->append("\n");
+		writer->append("\n", pstyleh4);
+	}
+	else if (name == "h5")
+	{
+		inH5 = false;
+		writer->append("\n", pstyleh5);
+	}
+	else if (name == "h6")
+	{
+		inH6 = false;
+		writer->append("\n", pstyleh6);
 	}
 	else if ((name == "b") || (name == "strong"))
 		unSetBoldFont();
@@ -459,6 +492,8 @@ void HTMLReader::toggleEffect(FontEffect e)
 	pstyleh2->getFont()->toggleEffect(e);
 	pstyleh3->getFont()->toggleEffect(e);
 	pstyleh4->getFont()->toggleEffect(e);
+	pstyleh5->getFont()->toggleEffect(e);
+	pstyleh6->getFont()->toggleEffect(e);
 	pstylecode->getFont()->toggleEffect(e);
 	pstylep->getFont()->toggleEffect(e);
 	pstylepre->getFont()->toggleEffect(e);
@@ -474,6 +509,8 @@ void HTMLReader::setItalicFont()
 	pstyleh2->getFont()->setSlant(ITALIC);
 	pstyleh3->getFont()->setSlant(ITALIC);
 	pstyleh4->getFont()->setSlant(ITALIC);
+	pstyleh5->getFont()->setSlant(ITALIC);
+	pstyleh6->getFont()->setSlant(ITALIC);
 	pstylecode->getFont()->setSlant(ITALIC);
 	pstylep->getFont()->setSlant(ITALIC);
 	pstylepre->getFont()->setSlant(ITALIC);
@@ -489,6 +526,8 @@ void HTMLReader::unsetItalicFont()
 	pstyleh2->getFont()->setSlant(defaultSlant);
 	pstyleh3->getFont()->setSlant(defaultSlant);
 	pstyleh4->getFont()->setSlant(defaultSlant);
+	pstyleh5->getFont()->setSlant(defaultSlant);
+	pstyleh6->getFont()->setSlant(defaultSlant);
 	pstylecode->getFont()->setSlant(defaultSlant);
 	pstylep->getFont()->setSlant(defaultSlant);
 	pstylepre->getFont()->setSlant(defaultSlant);
@@ -504,6 +543,8 @@ void HTMLReader::setBlueFont()
 	pstyleh2->getFont()->setColor("Blue");
 	pstyleh3->getFont()->setColor("Blue");
 	pstyleh4->getFont()->setColor("Blue");
+	pstyleh5->getFont()->setColor("Blue");
+	pstyleh6->getFont()->setColor("Blue");
 	pstylecode->getFont()->setColor("Blue");
 	pstylep->getFont()->setColor("Blue");
 	pstylepre->getFont()->setColor("Blue");
@@ -519,6 +560,8 @@ void HTMLReader::setDefaultColor()
 	pstyleh2->getFont()->setColor(defaultColor);
 	pstyleh3->getFont()->setColor(defaultColor);
 	pstyleh4->getFont()->setColor(defaultColor);
+	pstyleh5->getFont()->setColor(defaultColor);
+	pstyleh6->getFont()->setColor(defaultColor);
 	pstylecode->getFont()->setColor(defaultColor);
 	pstylep->getFont()->setColor(defaultColor);
 	pstylepre->getFont()->setColor(defaultColor);
@@ -623,6 +666,8 @@ HTMLReader::~HTMLReader()
 	delete pstyleh2;
 	delete pstyleh3;
 	delete pstyleh4;
+	delete pstyleh5;
+	delete pstyleh6;
 	delete pstylecode;
 	delete pstylep;
 	delete pstylepre;

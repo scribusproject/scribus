@@ -77,7 +77,7 @@ gtFont::gtFont()
 	slant       = "";
 	width       = "";
 	append      = "";
-	size        = 12;
+	size        = 120;
 	color       = "Black";
 	shade       = 100;
 	strokeColor = "Black";

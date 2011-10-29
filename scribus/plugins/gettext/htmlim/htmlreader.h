@@ -64,6 +64,8 @@ private:
 	gtParagraphStyle *pstyleh2;
 	gtParagraphStyle *pstyleh3;
 	gtParagraphStyle *pstyleh4;
+	gtParagraphStyle *pstyleh5;
+	gtParagraphStyle *pstyleh6;
 	gtParagraphStyle *pstylecode;
 	gtParagraphStyle *pstylep;
 	gtParagraphStyle *pstylepre;
@@ -77,6 +79,8 @@ private:
 	bool inH2;
 	bool inH3;
 	bool inH4;
+	bool inH5;
+	bool inH6;
 	bool inA;
 	bool inCenter;
 	bool inCode;
