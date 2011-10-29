@@ -187,7 +187,8 @@ void CreateMode::activate(bool fromGesture)
 		canvasPressCoord.setXY(-1.0, -1.0);
 		mouseGlobalCoord.setXY(-1.0, -1.0);
 		inItemCreation = false;
-	}		
+	}
+	haveCurrCoord = false;
 	setModeCursor();
 }
 
@@ -276,7 +277,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				newY = /*qRound(*/ny/*)*/;
 			//}
 			canvasCurrCoord.setXY(newX, newY);
-			m_view->HaveSelRect = true;
+			haveCurrCoord = true;
 
 			double wSize = canvasCurrCoord.x() - createObjectPos.x();
 			double hSize = canvasCurrCoord.y() - createObjectPos.y();
@@ -308,7 +309,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	
 	double Rxp = 0, Ryp = 0;
 	m_MouseButtonPressed = true;
-	m_view->HaveSelRect = false;
+	haveCurrCoord = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	inItemCreation = false;
@@ -754,10 +755,10 @@ PageItem* CreateMode::doCreateNewObject(void)
 		m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
 		m_view->redrawMarker->show();*/
 
-		if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
+		if ((m_doc->m_Selection->count() == 0) && (haveCurrCoord) && (!m_view->MidButt))
 		{
 			UndoTransaction * activeTransaction = NULL;
-			m_view->HaveSelRect = false;
+			haveCurrCoord = false;
 			double Tx, Ty, Tw, Th;
 			FPoint np2 = m_doc->ApplyGridF(canvasPressCoord);
 			Tx = np2.x();

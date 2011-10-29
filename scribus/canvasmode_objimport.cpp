@@ -114,7 +114,6 @@ void CanvasMode_ObjImport::deactivate(bool forGesture)
 //	qDebug() << "CanvasMode_ObjImport::deactivate" << forGesture;
 	setMimeData(NULL);
 	setTransactionSettings(NULL);
-	m_view->redrawMarker->hide();
 }
 
 void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)
@@ -145,7 +144,6 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 //	oldClip = 0;

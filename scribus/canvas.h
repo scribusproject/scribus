@@ -29,6 +29,7 @@ scribusview.h  -  description
 #include <QPolygon>
 #include <QRect>
 #include <QWidget>
+#include <QRubberBand>
 
 #include "scribusapi.h"
 
@@ -48,7 +49,7 @@ struct CanvasViewMode
 {
 	void init();
 	
-	double scale;
+	double m_scale;
 
 	bool previewMode;
 	bool viewAsPreview;
@@ -87,20 +88,19 @@ public:
 	
 	friend class ScribusView; // for now...
 	friend class CanvasMode;
-	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
-	friend class CanvasMode_Edit;
-	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_EyeDropper;
 	friend class CanvasMode_FrameLinks;
+	friend class FreehandMode;
+	friend class CanvasMode_Edit;
+	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_ObjImport;
 	friend class CanvasMode_Panning;
 	friend class CanvasMode_Normal;
 	friend class CanvasMode_Rotate;
-	friend class FreehandMode;
-	
+
 	/* Dont rely on these codes!
 	 * 283
 	 * 7 6
@@ -138,8 +138,8 @@ public:
 	void setRenderModeFillBuffer() { m_renderMode = RENDER_BUFFERED; }
 	void setRenderModeUseBuffer(bool use) { m_renderMode = (use ? RENDER_BUFFERED : RENDER_NORMAL) ; }
 
-//	double scale() const { return m_viewMode.scale; }
-	void setScale(double scale) { if (m_viewMode.scale != scale) { m_viewMode.scale = scale; clearBuffers(); update(); } }
+public:
+	void setScale(double scale) { if (m_viewMode.m_scale != scale) { m_viewMode.m_scale = scale; clearBuffers(); update(); } }
 	QPoint canvasToLocal(FPoint p) const;
 	QPoint canvasToGlobal(FPoint p) const;
 	QPoint canvasToLocal(QPointF p) const;
@@ -191,6 +191,10 @@ public:
 	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	void displayRotHUD(QPoint m, double rot);
+	void displayRectangleSelection(QPoint start, QPoint end);
+	void hideRectangleSelection();
+	bool haveRectangleSelection() const;
+	QRect getRectangleSelection() const;
 	
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	//Canvas rebuild
@@ -203,7 +207,7 @@ public:
 	qreal zoomLevel() const;
 	
 private:
-	//double scale() const { return m_viewMode.scale; }
+	double scale() const { return m_viewMode.m_scale; }
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	void PaintSizeRect(QRect neu);
@@ -249,6 +253,10 @@ private:
 	QPixmap m_selectionBuffer;
 	QRect   m_selectionRect;
 	QPoint  m_oldMinCanvasCoordinate;
+	
+	QRubberBand *m_rectangleSelection;
+	bool m_haveRectangleSelection;
+
 };
 
 

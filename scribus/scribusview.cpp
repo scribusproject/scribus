@@ -142,7 +142,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	oldW(-1), // oldCp(-1),
 	RotMode(0),
 	DrHY(-1), DrVX(-1),
-	HaveSelRect(false),
+//	HaveSelRect(false),
 	DraggedGroup(false),
 	DraggedGroupFirst(false),
 	MidButt(false),
@@ -295,10 +295,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	shiftSelItems = false;
 //	inItemCreation = false;
 	m_previousMode = -1;
-	redrawMode = 0;
-	redrawCount = 0;
-	redrawMarker = new QRubberBand(QRubberBand::Rectangle);
-	redrawMarker->hide();
+//	redrawMode = 0;
+//	redrawCount = 0;
+//	redrawMarker = new QRubberBand(QRubberBand::Rectangle);
+//	redrawMarker->hide();
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
 	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
@@ -861,7 +861,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	UndoTransaction* activeTransaction = NULL;
 	bool img = false;
 	m_canvas->resetRenderMode();
-	redrawMode = 0;
+//	redrawMode = 0;
 //	redrawMarker->hide();
 //	struct ScText *hg;
 //	uint a;
@@ -2537,7 +2537,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	Doc->leaveDrag = false;
 	m_canvas->m_viewMode.operItemMoving = false;
 	MidButt = false;
-	HaveSelRect = false;
+//	HaveSelRect = false;
 	Magnify = false;
 	FirstPoly = true;
 	Doc->nodeEdit.EdPoints = true;
@@ -4994,6 +4994,7 @@ void ScribusView::scrollBy(int x, int y) // deprecated
 	setContentsPos(horizontalScrollBar()->value() + x, verticalScrollBar()->value() + y);
 }
 
+
 void ScribusView::zoom(double scale)
 {
 	double zPointX = oldX, zPointY = oldY;
@@ -5007,6 +5008,13 @@ void ScribusView::zoom(double scale)
 	}
 	zoom( qRound(zPointX), qRound(zPointY), scale, false);
 }
+
+
+void ScribusView::zoomRelative(int canvasX, int canvasY, double scaleR, bool preservePoint)
+{
+	zoom(canvasX, canvasY, scaleR * m_canvas->scale(), preservePoint);
+}
+
 
 void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)
 {

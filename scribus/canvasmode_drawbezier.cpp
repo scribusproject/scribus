@@ -172,7 +172,7 @@ void BezierMode::deactivate(bool flag)
 		delete m_createTransaction;
 		m_createTransaction = NULL;
 	}
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 }
 
 void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
@@ -255,10 +255,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 					m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
 				*/
 				QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-				m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-				if (!m_view->redrawMarker->isVisible())
-					m_view->redrawMarker->show();
-				m_view->HaveSelRect = true;
+				m_canvas->displayRectangleSelection(startP, m->globalPos());
 				return;
 			}
 		}
@@ -280,7 +277,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	QRect tx;
 	QMatrix pm;
 	m_MouseButtonPressed = true;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	MoveGX = MoveGY = false;

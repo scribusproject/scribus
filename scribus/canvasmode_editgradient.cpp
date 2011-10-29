@@ -118,7 +118,6 @@ void CanvasMode_EditGradient::activate(bool fromGesture)
 void CanvasMode_EditGradient::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_EditGradient::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
 }
 
 void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
@@ -203,7 +202,6 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();

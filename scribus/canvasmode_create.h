@@ -65,6 +65,7 @@ private:
 	FPoint mouseGlobalCoord;
 	FPoint canvasPressCoord;
 	FPoint canvasCurrCoord;
+	bool   haveCurrCoord;
 	FPoint createObjectPos;
 	int    createObjectMode;
 	int    createObjectSubMode;

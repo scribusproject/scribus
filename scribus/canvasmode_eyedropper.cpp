@@ -100,7 +100,6 @@ void CanvasMode_EyeDropper::activate(bool fromGesture)
 void CanvasMode_EyeDropper::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_EyeDropper::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
 	releaseMouse();
 }
 
@@ -124,7 +123,6 @@ void CanvasMode_EyeDropper::mousePressEvent(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();

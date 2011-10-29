@@ -119,7 +119,7 @@ void FreehandMode::activate(bool flag)
 void FreehandMode::deactivate(bool flag)
 {
 //	qDebug() << "FreehandMode::deactivate" << flag;
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 }
 
 void FreehandMode::mouseDoubleClickEvent(QMouseEvent *m)
@@ -232,10 +232,7 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 				m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
 			*/
 			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
-			m_view->HaveSelRect = true;
+			m_canvas->displayRectangleSelection(startP, m->globalPos());
 			return;
 		}
 	}
@@ -253,7 +250,7 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	QRect tx;
 	QMatrix pm;
 	m_MouseButtonPressed = true;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	MoveGX = MoveGY = false;
@@ -839,7 +836,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		//CB Drag selection performed here
-		if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
+		if (((m_doc->m_Selection->count() == 0) && (m_canvas->haveRectangleSelection()) && (!m_view->MidButt)) || ((shiftSelItems) && (m_canvas->haveRectangleSelection()) && (!m_view->MidButt)))
 		{
 			QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
 			if (!m_doc->masterPageMode())
@@ -899,9 +896,8 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 //					emit HaveSel(m_doc->m_Selection->itemAt(0)->itemType());
 			}*/
 			
-			m_view->HaveSelRect = false;
+			m_canvas->hideRectangleSelection();
 			shiftSelItems = false;
-			m_view->redrawMarker->hide();
 			m_view->updateCanvas();
 		}
 		if (m_doc->appMode != modeEdit)

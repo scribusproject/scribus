@@ -45,7 +45,7 @@ static QPoint contentsToViewport(QPoint p)
 
 void CanvasViewMode::init()
 {	
-	scale = 1;
+	m_scale = 1;
 	
 	previewMode = false;
 	viewAsPreview = false;
@@ -66,7 +66,7 @@ void CanvasViewMode::init()
 
 QDataStream &operator<< ( QDataStream & ds, const CanvasViewMode & vm )
 {
-	ds << vm.scale
+	ds << vm.m_scale
 	<< vm.previewMode
 	<< vm.viewAsPreview
 	<< vm.previewVisual
@@ -84,7 +84,7 @@ QDataStream &operator<< ( QDataStream & ds, const CanvasViewMode & vm )
 
 QDataStream &operator>> ( QDataStream & ds, CanvasViewMode & vm )
 {
-	ds >> vm.scale
+	ds >> vm.m_scale
 	>> vm.previewMode
 	>> vm.viewAsPreview
 	>> vm.previewVisual
@@ -111,6 +111,7 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 	m_viewMode.init();
 	m_renderMode = RENDER_NORMAL;
 	m_oldMinCanvasCoordinate = canvasToLocal(QPointF(0.0, 0.0));
+	m_rectangleSelection = new QRubberBand(QRubberBand::Rectangle, parent);
 }
 
 
@@ -143,7 +144,7 @@ FPoint Canvas::localToCanvas(QPoint p) const
 	double xsp = m_doc->view()->horizRuler->ruleSpacing();
 	double ysp = m_doc->view()->vertRuler->ruleSpacing();
 
-	double sc = m_viewMode.scale;
+	double sc = m_viewMode.m_scale;
 
 // number of ruler divisions from ruler origin to ruler mark closest to the
 // selected mouse coordinate
@@ -170,32 +171,32 @@ FPoint Canvas::localToCanvas(QPoint p) const
 /*
 FPoint Canvas::localToCanvas(QPointF p) const
 {
-	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
-				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
+	return FPoint(p.x() / m_viewMode.m_scale + m_doc->minCanvasCoordinate.x() , 
+				  p.y() / m_viewMode.m_scale + m_doc->minCanvasCoordinate.y());	
 }
 */
 
 
 QPoint Canvas::canvasToLocal(FPoint p) const
 {
-	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
+	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.m_scale),
+				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.m_scale));
 }
 
 
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
-	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
+	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.m_scale),
+				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.m_scale));
 }
 
 
 QRect Canvas::canvasToLocal(QRectF p) const
 {
-	return 	QRect(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				  qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
-				  qRound(p.width() * m_viewMode.scale), 
-				  qRound(p.height() * m_viewMode.scale));
+	return 	QRect(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.m_scale),
+				  qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.m_scale),
+				  qRound(p.width() * m_viewMode.m_scale), 
+				  qRound(p.height() * m_viewMode.m_scale));
 }
 
 
@@ -214,7 +215,7 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 QRect Canvas::canvasToGlobal(QRectF p) const
 {
 	return QRect(mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
-				 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)));
+				 QSize(qRound(p.width() * m_viewMode.m_scale), qRound(p.height() * m_viewMode.m_scale)));
 }
 
 
@@ -235,7 +236,7 @@ FPoint Canvas::globalToCanvas(QPointF p) const
 QRectF Canvas::globalToCanvas(QRect p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
-	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
+	return QRectF(org.x(), org.y(), p.width() / m_viewMode.m_scale, p.height() / m_viewMode.m_scale);
 }
 
 
@@ -243,9 +244,50 @@ QRectF Canvas::globalToCanvas(QRect p) const
 QRectF Canvas::globalToCanvas(QRectF p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
-	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
+	return QRectF(org.x(), org.y(), p.width() / m_viewMode.m_scale, p.height() / m_viewMode.m_scale);
 }
 */
+
+
+//Canvas rebuild
+
+qreal Canvas::scaledLineWidth() const
+{
+	return 1.0 / m_viewMode.m_scale;
+}
+
+QSizeF Canvas::scaledQSizeF(QSizeF size) const
+{
+	return size*m_viewMode.m_scale;
+}
+
+qreal Canvas::scaledGrabRadius() const
+{
+	return m_doc->guidesSettings.grabRad / m_viewMode.m_scale;
+}
+
+qreal Canvas::scaledGuideRadius() const
+{
+	return m_doc->guidesSettings.guideRad / m_viewMode.m_scale;
+}
+
+void Canvas::scaleAndTranslateQPainter(QPainter *p)
+{
+	p->scale(m_viewMode.m_scale, m_viewMode.m_scale);
+	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+}
+
+void Canvas::mouseMoveScrollDeltas(qreal* dx, qreal *dy, QPointF& referencePoint, QMouseEvent* m)
+{
+	FPoint canvasPoint(globalToCanvas(m->globalPos()));
+	*dx = (referencePoint.x() - canvasPoint.x()) * m_viewMode.m_scale;
+	*dy = (referencePoint.y() - canvasPoint.y()) * m_viewMode.m_scale;
+}
+
+qreal Canvas::zoomLevel() const
+{
+	return 100.0*m_viewMode.m_scale/PrefsManager::instance()->appPrefs.DisScale;
+}
 
 
 // ________________________
@@ -273,10 +315,10 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 
 QRect Canvas::exposedRect() const
 {
-	int ex ( -(x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x() );
-	int ey ( -(y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y() );
-	int ew ( (m_view->visibleWidth() * 1.2) / m_viewMode.scale );
-	int eh ( (m_view->visibleHeight() * 1.2) / m_viewMode.scale );
+	int ex ( -(x() / m_viewMode.m_scale) + m_doc->minCanvasCoordinate.x() );
+	int ey ( -(y() / m_viewMode.m_scale) + m_doc->minCanvasCoordinate.y() );
+	int ew ( (m_view->visibleWidth() * 1.2) / m_viewMode.m_scale );
+	int eh ( (m_view->visibleHeight() * 1.2) / m_viewMode.m_scale );
 	
 	return QRect( ex, ey, ew, eh );
 }
@@ -318,7 +360,7 @@ static double length2(const QPointF& p)
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) const
 {
 	FrameHandle result = INSIDE;
-	const double radius = m_doc->guidesSettings.grabRad / m_viewMode.scale;
+	const double radius = m_doc->guidesSettings.grabRad / m_viewMode.m_scale;
 	const double radius2 = radius * radius;
 	double resultDistance = radius2 * 10.0; // far off
 	
@@ -824,8 +866,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			if (m_doc->appMode != modeNormal)
 			{
 				qp.save();
-				qp.scale(m_viewMode.scale, m_viewMode.scale);
-				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+				qp.scale(m_viewMode.m_scale, m_viewMode.m_scale);
+				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale);
 				drawControls( &qp );
 				qp.restore();
 			}	
@@ -878,7 +920,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 				if (m_doc->appMode != modeNormal)
 				{
 					qp.save();
-					qp.scale(m_viewMode.scale, m_viewMode.scale);
+					qp.scale(m_viewMode.m_scale, m_viewMode.m_scale);
 					qp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 					drawControls( &qp );
 					qp.restore();
@@ -936,7 +978,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->closePath();
 	painter->setClipPath();
 	painter->translate(-clipx, -clipy);
-	painter->setZoomFactor(m_viewMode.scale);
+	painter->setZoomFactor(m_viewMode.m_scale);
 	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
@@ -981,12 +1023,12 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		painter->endLayer();
 //		Tcontents = tim.elapsed();
 		
-		double x = m_doc->scratch.Left * m_viewMode.scale;
-		double y = m_doc->scratch.Top * m_viewMode.scale;
-		double w = m_doc->currentPage()->width() * m_viewMode.scale;
-		double h = m_doc->currentPage()->height() * m_viewMode.scale;
+		double x = m_doc->scratch.Left * m_viewMode.m_scale;
+		double y = m_doc->scratch.Top * m_viewMode.m_scale;
+		double w = m_doc->currentPage()->width() * m_viewMode.m_scale;
+		double h = m_doc->currentPage()->height() * m_viewMode.m_scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
-		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale);
 		if ((!m_doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 	}
@@ -1092,13 +1134,13 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 //				pp->resetMatrix();
 //				QPoint out = contentsToViewport(QPoint(0, 0));
 //				pp->translate(out.x(), out.y());
-//				pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
+//				pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.m_scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.m_scale));
 				pp->save();
 //				Transform(currItem, pp);
 				pp->translate(currItem->xPos(), currItem->yPos());
 				pp->rotate(currItem->rotation());							
 				pp->setBrush(Qt::NoBrush);
-				pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				if (selectedItemCount < moveWithFullOutlinesThreshold)
 				{
 					if (!(currItem->asLine()))
@@ -1146,8 +1188,8 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 			QPoint out = contentsToViewport(QPoint(0, 0));
 //			pp->resetMatrix();
 //			pp->translate(out.x(), out.y());
-//			pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-//			pp->scale(m_viewMode.scale, m_viewMode.scale);
+//			pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.m_scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.m_scale));
+//			pp->scale(m_viewMode.m_scale, m_viewMode.m_scale);
 			pp->translate(gx, gy);
 			pp->drawRect(QRectF(0.0, 0.0, gw, gh));
 		}
@@ -1165,7 +1207,7 @@ void Canvas::drawControlsHighlightRect(QPainter* pp)
 //	pp->resetMatrix();
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	pp->translate(out.x(), out.y());
-//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
+//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.m_scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.m_scale));
 	pp->setBrush(drawColor);
 	pp->drawPolygon(m_viewMode.redrawPolygon);
 	m_viewMode.redrawPolygon.clear();
@@ -1180,14 +1222,14 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 //	psx->resetMatrix();
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	psx->translate(out.x(), out.y());
-//	psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
+//	psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.m_scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.m_scale));
 	//Transform(currItem, psx);
 	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
 	psx->rotate(currItem->rotation());
-	psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.m_scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	psx->setBrush(Qt::NoBrush);
 	psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
-	psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+	psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.m_scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 	psx->drawPoint(QPointF(currItem->GrStartX, currItem->GrStartY));
 	psx->drawPoint(QPointF(currItem->GrEndX, currItem->GrEndY));
 }
@@ -1199,7 +1241,7 @@ void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 void Canvas::drawControlsBezierCurve(QPainter* pp, PageItem* currItem)
 {
 	pp->setBrush(Qt::NoBrush);
-	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	pp->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
 	pp->rotate(currItem->rotation());
 	QPainterPath Bez;
@@ -1263,10 +1305,10 @@ void Canvas::drawControlsDrawLine(QPainter* pp)
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	pp->resetMatrix();
 //	pp->translate(out.x(), out.y());
-//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-//	pp->scale(m_viewMode.scale, m_viewMode.scale);
+//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.m_scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.m_scale));
+//	pp->scale(m_viewMode.m_scale, m_viewMode.m_scale);
 	pp->setBrush(Qt::NoBrush);
-	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	pp->drawPolyline(m_viewMode.redrawPolygon);
 	m_viewMode.redrawPolygon.clear();
 }
@@ -1280,10 +1322,10 @@ void Canvas::drawControlsFreehandLine(QPainter* pp)
 //	pp->resetMatrix();
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	pp->translate(out.x(), out.y());
-//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-//	pp->scale(m_viewMode.scale, m_viewMode.scale);
+//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.m_scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.m_scale));
+//	pp->scale(m_viewMode.m_scale, m_viewMode.m_scale);
 	pp->setBrush(Qt::NoBrush);
-	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	pp->drawPolyline(m_viewMode.redrawPolygon);
 	m_viewMode.redrawPolygon.clear();
 }
@@ -1296,7 +1338,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
-							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
+							  qRound(clip.width() / m_viewMode.m_scale + 0.5), qRound(clip.height() / m_viewMode.m_scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
 	if (!page->MPageNam.isEmpty())
@@ -1505,7 +1547,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 	m_viewMode.linkedFramesToShow.clear();
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
-							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
+							  qRound(clip.width() / m_viewMode.m_scale + 0.5), qRound(clip.height() / m_viewMode.m_scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
 	if (m_doc->Items->count() != 0)
@@ -1668,10 +1710,10 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
  */
 void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
-	double x = m_doc->scratch.Left * m_viewMode.scale;
-	double y = m_doc->scratch.Top * m_viewMode.scale;
-	double w = m_doc->currentPage()->width() * m_viewMode.scale;
-	double h = m_doc->currentPage()->height() * m_viewMode.scale;
+	double x = m_doc->scratch.Left * m_viewMode.m_scale;
+	double y = m_doc->scratch.Top * m_viewMode.m_scale;
+	double w = m_doc->currentPage()->width() * m_viewMode.m_scale;
+	double h = m_doc->currentPage()->height() * m_viewMode.m_scale;
 	QRectF drawRect = QRectF(x, y, w+5, h+5);
 	drawRect.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
@@ -1682,10 +1724,10 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		m_doc->getBleeds(m_doc->currentPage(), pageBleeds);
 //		painter->beginLayer(1.0, 0);
 		painter->setAntialiasing(false);
-		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->setPen(Qt::black, 1 / m_viewMode.m_scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
 		{
-//			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
+//			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.m_scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.m_scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
 			if (PrefsManager::instance()->appPrefs.showPageShadow)
 				painter->drawRect(m_doc->scratch.Left - pageBleeds.Left+5, m_doc->scratch.Top - pageBleeds.Top+5, m_doc->currentPage()->width() + pageBleeds.Left + pageBleeds.Right, m_doc->currentPage()->height() + pageBleeds.Bottom + pageBleeds.Top);
 			painter->setBrush(m_doc->papColor);
@@ -1693,7 +1735,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		}
 		else
 		{
-//			painter->drawRect(m_doc->scratch.Left+5 / m_viewMode.scale, m_doc->scratch.Top+5 / m_viewMode.scale, m_doc->currentPage()->width(), m_doc->currentPage()->height());
+//			painter->drawRect(m_doc->scratch.Left+5 / m_viewMode.m_scale, m_doc->scratch.Top+5 / m_viewMode.m_scale, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			if (PrefsManager::instance()->appPrefs.showPageShadow)
 				painter->drawRect(m_doc->scratch.Left+5, m_doc->scratch.Top+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			painter->setBrush(m_doc->papColor);
@@ -1720,20 +1762,20 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		painter->setBrush(QColor(128,128,128));
 		painter->setAntialiasing(false);
 //		painter->beginLayer(1.0, 0);
-		painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->setPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		Page *actPg;
 		MarginStruct pageBleeds;
 		for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 		{
 			actPg = m_doc->Pages->at(a);
 			m_doc->getBleeds(actPg, pageBleeds);
-			double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.scale;
-			double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.scale;
-			double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.scale;
-			double blh = (actPg->height() + pageBleeds.Bottom + pageBleeds.Top) * m_viewMode.scale;
+			double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.m_scale;
+			double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.m_scale;
+			double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.m_scale;
+			double blh = (actPg->height() + pageBleeds.Bottom + pageBleeds.Top) * m_viewMode.m_scale;
 			
 			QRectF drawRect = QRectF(blx-1, bly-1, blw+6, blh+6);
-			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale);
 			if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 			{
 				painter->setFillMode(ScPainter::Solid);
@@ -1748,13 +1790,13 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 					blw2 += pageBleeds.Left + pageBleeds.Right;
 					blh2 += pageBleeds.Bottom + pageBleeds.Top;
 				}
-//				painter->drawRect(blx2 + 5 /* m_viewMode.scale */, bly2 + 5 /* m_viewMode.scale */, blw2, blh2);
+//				painter->drawRect(blx2 + 5 /* m_viewMode.m_scale */, bly2 + 5 /* m_viewMode.m_scale */, blw2, blh2);
 				painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
 				if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
 				{
 					painter->setFillMode(ScPainter::None);
-					painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					painter->drawRect(blx2 - 1 / m_viewMode.scale, bly2 - 1 / m_viewMode.scale, blw2 + 2 / m_viewMode.scale, blh2 + 2 / m_viewMode.scale);
+					painter->setPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					painter->drawRect(blx2 - 1 / m_viewMode.m_scale, bly2 - 1 / m_viewMode.m_scale, blw2 + 2 / m_viewMode.m_scale, blh2 + 2 / m_viewMode.m_scale);
 				}
 			}
 		}
@@ -1779,13 +1821,13 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		}
 		else
 			pageBleeds.resetToZero();
-		double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.scale;
-		double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.scale;
-		double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.scale;
-		double blh = (actPg->height() + pageBleeds.Bottom + pageBleeds.Top) * m_viewMode.scale;
+		double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.m_scale;
+		double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.m_scale;
+		double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.m_scale;
+		double blh = (actPg->height() + pageBleeds.Bottom + pageBleeds.Top) * m_viewMode.m_scale;
 		
 		QRectF drawRect = QRectF(blx, bly, blw+5, blh+5);
-		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale);
 		if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 		{
 			painter->setFillMode(ScPainter::Solid);
@@ -1850,12 +1892,12 @@ void Canvas::drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int
 	for (uint a = 0; a < docPagesCount; ++a)
 	{
 		actPg = m_doc->Pages->at(a);
-		double x = actPg->xOffset() * m_viewMode.scale;
-		double y = actPg->yOffset() * m_viewMode.scale;
-		double w = actPg->width() * m_viewMode.scale;
-		double h = actPg->height() * m_viewMode.scale;
+		double x = actPg->xOffset() * m_viewMode.m_scale;
+		double y = actPg->yOffset() * m_viewMode.m_scale;
+		double w = actPg->width() * m_viewMode.m_scale;
+		double h = actPg->height() * m_viewMode.m_scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
-		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale);
 		if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 			DrawPageMarks(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 	}				
@@ -1870,7 +1912,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	p->save();
 	p->setAntialiasing(false);
 	p->translate(page->xOffset(), page->yOffset());
-	double lineWidth = 1.0 / m_viewMode.scale;
+	double lineWidth = 1.0 / m_viewMode.m_scale;
 	double pageHeight=page->height();
 	double pageWidth=page->width();
 	p->setFillMode(ScPainter::None);
@@ -1908,11 +1950,11 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	//Draw the grid lines
 	if (m_doc->guidesSettings.gridShown)
 	{
-		double lowerBx = qMax(clip.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() - page->xOffset(), 0.0);
-		double lowerBy = qMax(clip.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y() - page->yOffset(), 0.0);
-		double highBx = qMin(lowerBx + clip.width() / m_viewMode.scale, pageWidth);
-		double highBy = qMin(lowerBy + clip.height() / m_viewMode.scale, pageHeight);
-		if (m_viewMode.scale > 0.49)
+		double lowerBx = qMax(clip.x() / m_viewMode.m_scale + m_doc->minCanvasCoordinate.x() - page->xOffset(), 0.0);
+		double lowerBy = qMax(clip.y() / m_viewMode.m_scale + m_doc->minCanvasCoordinate.y() - page->yOffset(), 0.0);
+		double highBx = qMin(lowerBx + clip.width() / m_viewMode.m_scale, pageWidth);
+		double highBy = qMin(lowerBy + clip.height() / m_viewMode.m_scale, pageHeight);
+		if (m_viewMode.m_scale > 0.49)
 		{
 			double i,start;
 			i = m_doc->guidesSettings.majorGrid;
@@ -1950,7 +1992,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		page->guides.drawPage(p, m_doc, lineWidth);
 	if (m_doc->currentPage() == page)
 	{
-		p->setPen(PrefsManager::instance()->appPrefs.DPageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(PrefsManager::instance()->appPrefs.DPageBorderColor, 1 / m_viewMode.m_scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawRect(0, 0, pageWidth, pageHeight);
 	}
 	p->setAntialiasing(true);
@@ -2033,14 +2075,14 @@ void Canvas::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
 {
 	//CB FIXME Add some checking that the painter is setup?
 	Q_ASSERT(painter!=NULL);
-	painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	painter->setPen(Qt::black, 1.0 / m_viewMode.m_scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	painter->setPenOpacity(1.0);
 	painter->drawLine(start, end);
 	QMatrix arrowTrans;
 	arrowTrans.translate(end.x(), end.y());
 	double r = atan2(end.y()-start.y(), end.x()-start.x())*(180.0/M_PI);
 	arrowTrans.rotate(r);
-	double sc = 0.8 / m_viewMode.scale;
+	double sc = 0.8 / m_viewMode.m_scale;
 	arrowTrans.scale(sc, sc);
 	FPointArray arrow;
 	arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
@@ -2084,9 +2126,9 @@ void Canvas::PaintSizeRect(QPolygon newRect)
 	{
 		if (!oldRect.isNull())
 			newR.unite(oldRect);
-//		newR.moveBy(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
+//		newR.moveBy(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale));
 		m_viewMode.redrawPolygon = newRect;
-//		m_viewMode.redrawPolygon.translate(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
+//		m_viewMode.redrawPolygon.translate(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale));
 		repaint(newR.adjusted(-20, -20, 40, 40));
 	}
 	oldRect = newR;
@@ -2096,27 +2138,27 @@ void Canvas::getGroupRectScreen(double *x, double *y, double *w, double *h)
 {
 	double gx, gy, gh, gw;
 	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-	QPoint in(qRound(gx* m_viewMode.scale), qRound(gy* m_viewMode.scale));
-//	in -= QPoint(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
+	QPoint in(qRound(gx* m_viewMode.m_scale), qRound(gy* m_viewMode.m_scale));
+//	in -= QPoint(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.m_scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.m_scale));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
-	*w = gw* m_viewMode.scale;
-	*h = gh* m_viewMode.scale;
+	*w = gw* m_viewMode.m_scale;
+	*h = gh* m_viewMode.m_scale;
 }
 
 
 void Canvas::Transform(PageItem *currItem, QPainter *p)
 {
-	p->translate(currItem->xPos()*m_viewMode.scale, currItem->yPos()*m_viewMode.scale);
-	p->scale(m_viewMode.scale, m_viewMode.scale);
+	p->translate(currItem->xPos()*m_viewMode.m_scale, currItem->yPos()*m_viewMode.m_scale);
+	p->scale(m_viewMode.m_scale, m_viewMode.m_scale);
 	p->rotate(currItem->rotation());
 }
 
 void Canvas::Transform(PageItem *currItem, QMatrix& m)
 {
-	m.translate(currItem->xPos()*m_viewMode.scale, currItem->yPos()*m_viewMode.scale);
-	m.scale(m_viewMode.scale, m_viewMode.scale);
+	m.translate(currItem->xPos()*m_viewMode.m_scale, currItem->yPos()*m_viewMode.m_scale);
+	m.scale(m_viewMode.m_scale, m_viewMode.m_scale);
 	m.rotate(currItem->rotation());
 }
 
@@ -2316,6 +2358,34 @@ void Canvas::displayRotHUD(QPoint m, double rot)
 	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)), this);
 }
 
+
+void Canvas::displayRectangleSelection(QPoint start, QPoint end)
+{
+	m_rectangleSelection->setGeometry(QRect(start, end).normalized());
+	if (!m_rectangleSelection->isVisible())
+		m_rectangleSelection->show();
+	m_haveRectangleSelection = true;
+}
+
+
+void Canvas::hideRectangleSelection()
+{
+	m_rectangleSelection->hide();
+	m_haveRectangleSelection = false;
+}
+
+
+bool Canvas::haveRectangleSelection() const
+{
+	return m_haveRectangleSelection;
+}
+
+
+QRect Canvas::getRectangleSelection() const
+{
+	return m_rectangleSelection->geometry().normalized();
+}
+
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 {
 	static QString rulerItemRef;
@@ -2354,42 +2424,3 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	m_view->horizRuler->update();
 }
 
-//Canvas rebuild
-
-qreal Canvas::scaledLineWidth() const
-{
-	return 1.0 / m_viewMode.scale;
-}
-
-QSizeF Canvas::scaledQSizeF(QSizeF size) const
-{
-	return size*m_viewMode.scale;
-}
-
-qreal Canvas::scaledGrabRadius() const
-{
-	return m_doc->guidesSettings.grabRad / m_viewMode.scale;
-}
-
-qreal Canvas::scaledGuideRadius() const
-{
-	return m_doc->guidesSettings.guideRad / m_viewMode.scale;
-}
-
-void Canvas::scaleAndTranslateQPainter(QPainter *p)
-{
-	p->scale(m_viewMode.scale, m_viewMode.scale);
-	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-}
-
-void Canvas::mouseMoveScrollDeltas(qreal* dx, qreal *dy, QPointF& referencePoint, QMouseEvent* m)
-{
-	FPoint canvasPoint(globalToCanvas(m->globalPos()));
-	*dx = (referencePoint.x() - canvasPoint.x()) * m_viewMode.scale;
-	*dy = (referencePoint.y() - canvasPoint.y()) * m_viewMode.scale;
-}
-
-qreal Canvas::zoomLevel() const
-{
-	return 100.0*m_viewMode.scale/PrefsManager::instance()->appPrefs.DisScale;
-}

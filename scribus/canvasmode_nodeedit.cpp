@@ -65,7 +65,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	m_canvas->scaleAndTranslateQPainter(p);
 	p->translate(currItem->xPos(), currItem->yPos());
 	p->rotate(currItem->rotation());			
-	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p->setPen(QPen(Qt::blue, m_canvas->scaledLineWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
 
 	if ((m_doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
@@ -73,8 +73,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	else
 		cli = currItem->PoLine;
 	// draw curve
-	const double scale = m_canvas->m_viewMode.scale;
-	const double onePerScale = 1 / scale;
+	//const double scale = m_canvas->m_viewMode.scale;
+	const double onePerScale = m_canvas->scaledLineWidth();
 	if (cli.size() > 3)
 	{
 		for (uint poi=0; poi<cli.size()-3; poi += 4)
@@ -103,30 +103,30 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 		if (m_doc->nodeEdit.EdPoints)
 		{
 			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::red, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
-				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::magenta, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(a+1, &x, &y);
 			p->drawPoint(QPointF(x, y));
 			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::red, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
-				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::blue, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(a, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 		else
 		{
 			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::red, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
-				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::blue, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(a, &x, &y);
 			p->drawPoint(QPointF(x, y));
 			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::red, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			else
-				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+				p->setPen(QPen(Qt::magenta, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(a+1, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
@@ -134,7 +134,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	
 	if (m_doc->nodeEdit.ClRe != -1)
 	{
-		p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		p->setPen(QPen(Qt::red, 8 * onePerScale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		cli.point(m_doc->nodeEdit.ClRe, &x, &y);
 		p->drawPoint(QPointF(x, y));
 		QList<int>::Iterator itm;

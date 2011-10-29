@@ -169,7 +169,7 @@ void CanvasMode_Rotate::activate(bool fromGesture)
 
 void CanvasMode_Rotate::deactivate(bool)
 {
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 	m_inItemRotation = false;
 }
 
@@ -200,7 +200,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	QMatrix pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
@@ -455,10 +455,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			QPoint startP = m_canvas->canvasToGlobal(m_canvasPressCoord);
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
-			m_view->HaveSelRect = true;
+			m_canvas->displayRectangleSelection(startP, m->globalPos());
 			return;
 		}
 	}

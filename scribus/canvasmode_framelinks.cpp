@@ -107,7 +107,7 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 void CanvasMode_FrameLinks::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_FrameLinks::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 }
 
 void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
@@ -134,10 +134,7 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
 		*/
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
-		m_view->HaveSelRect = true;
+		m_canvas->displayRectangleSelection(startP, m->globalPos());
 		return;
 	}
 }
@@ -154,7 +151,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 //	oldClip = 0;

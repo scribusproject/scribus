@@ -140,7 +140,7 @@ void CanvasMode_Normal::activate(bool fromGesture)
 void CanvasMode_Normal::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_Normal::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 }
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
@@ -591,10 +591,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			m_mouseSavedPoint.setXY(newX, newY);
 			QPoint startP = m_canvas->canvasToGlobal(m_mousePressPoint);
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
-			m_view->HaveSelRect = true;
+			m_canvas->displayRectangleSelection(startP, m->globalPos());
 			return;
 		}
 	}
@@ -611,7 +608,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	m_mouseSavedPoint = mousePointDoc;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 
@@ -723,8 +720,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		if (m_doc->m_Selection->count() == 0)
 		{
 			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
-			m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
-			m_view->redrawMarker->show();
+			m_canvas->displayRectangleSelection(m->globalPos(), m->globalPos() + QPoint(1,1));
 		}
 		else
 		{
@@ -764,7 +760,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
@@ -901,7 +897,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	//CB Drag selection performed here
-	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
+	if ((m_canvas->haveRectangleSelection()) && (!m_view->MidButt) &&
+		( (m_doc->m_Selection->count() == 0) || (shiftSelItems)))
 	{
 		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
@@ -952,9 +949,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				m_view->getGroupRectScreen(&x, &y, &w, &h);
 			}
 		}
-		m_view->HaveSelRect = false;
+		m_canvas->hideRectangleSelection();
 		shiftSelItems = false;
-//		m_view->redrawMarker->hide();
 		m_view->updateContents();
 	}
 	if (m_doc->appMode != modeEdit)

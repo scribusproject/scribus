@@ -146,7 +146,6 @@ public:
 	int RotMode;
 	int DrHY;
 	int DrVX;
-	bool HaveSelRect;
 	//bool GroupSel;
 	bool DraggedGroup;
 	bool DraggedGroupFirst;
@@ -156,10 +155,9 @@ public:
 	bool Magnify;
 	bool storedFramesShown;
 	bool storedShowControls;
-	int redrawMode;
-	int redrawCount;
-	PageItem *redrawItem;
-	QRubberBand *redrawMarker;
+//	int redrawMode;
+//	int redrawCount;
+//	PageItem *redrawItem;
 	FPoint RCenter;
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
@@ -266,6 +264,7 @@ public: // for now
 	void stopAllDrags();
 	void scrollBy(int x, int y);
 	void zoom(double scale = 0.0);
+	void zoomRelative(int canvasX, int canvasY, double scaleR, bool preservePoint);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
 public slots: // Public slots

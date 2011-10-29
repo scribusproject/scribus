@@ -1,3 +1,4 @@
+
 /*
  For general Scribus (>=1.3.2) copyright and licensing information please refer
  to the COPYING file provided with the program. Following this notice may exist
@@ -92,7 +93,7 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 void CanvasMode_CopyProperties::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_CopyProperties::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 }
 
 void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
@@ -112,10 +113,7 @@ void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
-		m_view->HaveSelRect = true;
+		m_canvas->displayRectangleSelection(startP, m->globalPos());
 		return;
 	}
 }
@@ -131,7 +129,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();

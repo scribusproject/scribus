@@ -100,7 +100,7 @@ void CanvasMode_Magnifier::activate(bool fromGesture)
 void CanvasMode_Magnifier::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_Magnifier::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_canvas->hideRectangleSelection();
 }
 
 void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)
@@ -133,10 +133,7 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
 		*/
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
-		m_view->HaveSelRect = true;
+		m_canvas->displayRectangleSelection(startP, m->globalPos());
 	}
 }
 
@@ -148,7 +145,7 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->HaveSelRect = false;
+	m_canvas->hideRectangleSelection();
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
@@ -183,7 +180,7 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	Myp = mousePointDoc.y(); //m->globalPos().y();
 	SeRx = Mxp;
 	SeRy = Myp;
-	m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
+	m_canvas->displayRectangleSelection(m->globalPos(), m->globalPos() + QPoint(1, 1));
 }
 
 
@@ -200,39 +197,32 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 //	m_view->stopDragTimer();
 	if (m_doc->appMode == modeMagnifier)
 	{
-		double sc = m_canvas->scale();
-		if (m_view->HaveSelRect)
+		if (m_canvas->haveRectangleSelection())
 		{
-			QRect geom = m_view->redrawMarker->geometry().normalized();
+			QRect geom = m_canvas->getRectangleSelection();
 			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
 			double scaleAdjust = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
-			m_view->zoom(nx.x(), nx.y(), m_canvas->scale() * scaleAdjust, false);
-			if (sc == m_canvas->scale())
+			m_view->zoomRelative(nx.x(), nx.y(), scaleAdjust, false);
+			m_canvas->hideRectangleSelection();
+			if (qAbs(scaleAdjust - 1) < 0.001)
 			{
-				m_view->HaveSelRect = false;
-				m_view->redrawMarker->hide();
 				m_view->requestMode(submodePaintingDone);
 			}
-			m_view->redrawMarker->hide();
 		}
 		else
 		{
 			FPoint nx = mousePointDoc;
 			int mx = qRound(nx.x());
 			int my = qRound(nx.y());
-			m_view->Magnify ? m_view->slotZoomIn(mx,my) : m_view->slotZoomOut(mx,my);
-			if (sc == m_canvas->scale())
-			{
-				m_view->HaveSelRect = false;
-				m_view->requestMode(submodePaintingDone);
-			}
+			if (m_view->Magnify)
+				m_view->slotZoomIn(mx,my);
 			else
-			{
-				if (m->modifiers() & Qt::ShiftModifier)
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
-				else
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
-			}
+				m_view->slotZoomOut(mx,my);
+			
+			if (m->modifiers() & Qt::ShiftModifier)
+				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+			else
+				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
 		}
 	}
 	m_canvas->setRenderModeUseBuffer(false);
