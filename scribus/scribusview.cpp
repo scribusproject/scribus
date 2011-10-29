@@ -1219,6 +1219,8 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 				}
 			}
+			if ((Doc->m_Selection->count() > 0) && (Doc->appMode != modeNormal))
+				this->requestMode(modeNormal);
 			updateContents();
 		}
 		if (!Doc->masterPageMode())
