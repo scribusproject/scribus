@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Welcome" file="index.html">
-		<submenuitem text="Readme First" file="readme.html"/>
+		<submenuitem text="New in Scribus 1.4" file="readme.html"/>
+		<submenuitem text="Specifications" file="specs.html"/>
 	</area>
 	<area text="Documentation" file="intro.html">
 		<submenuitem text="Introduction" file="documentation.html">
+			<submenuitem text="Editorial Notes" file="editorial.html"/>
 			<submenuitem text="About the Team" file="about1.html"/>
-			<submenuitem text="Specifications" file="specs.html"/>
 		</submenuitem>
 		<submenuitem text="Installation" file="install.html">
 			<submenuitem text="Debian" file="install-dpkg.html"/>
@@ -49,6 +50,7 @@
 			<submenuitem text="Open Source Color Sets" file="color3.html" />
 			<submenuitem text="National Color Standards" file="color4.html" />
 			<submenuitem text="Resene Color Sets" file="color5.html" />
+			<submenuitem text="dtp studio Color Sets" file="color6.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">

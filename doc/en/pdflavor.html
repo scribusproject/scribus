@@ -6,14 +6,14 @@
 <body>
 <h2>PDF Flavors</h2>
 
-<p>Given the number of PDF &ldquo;flavors&rdquo; and the technical background, some may be tempted to call PDF merely a collective noun for a number of separate file formats, all of which are derivatives another format called PostScript. We cannot provide a complete technical overview over the PDF specification(s) and their relations to PostScript here, but a few notes may help to guide you through the jungle of versions and subsets.</p>
+<p>Given the number of PDF &ldquo;flavors&rdquo; and the technical background, some may be tempted to call PDF merely a collective noun for a number of separate file formats, all of which are derivatives of another format called PostScript. We cannot provide a complete technical overview over the PDF specification(s) and their relations to PostScript here, but a few notes may help to guide you through the jungle of versions and subsets.</p>
 
 <h3>PDF and PostScript</h3>
-<p>While it&rsquo;s true that PDF is based on <a href="importhints1.html">PostScript</a>, it needs to be said that PDF, other than PostScript, is not a programming language. PDF and PostScript describe pages and their content using the same technology (&ldquo;Adobe imaging model&rdquo;), so conversion of the <i>visual</i> content between both formats works flawlessly. However, the PDF specification adds other layers of content that go beyond mere representation of graphical data on a printed page, like interactive features or scripting, which are not available in PostScript.</p>
+<p>While it&rsquo;s true that PDF is based on <a href="importhints1.html">PostScript</a>, it needs to be said that PDF, other than PostScript, is not a programming language. PDF and PostScript describe pages and their content using the same technology (&ldquo;Adobe imaging model&rdquo;), so conversion of the <i>visual</i> content between both formats works flawlessly. However, the PDF specification adds other layers of content that go beyond mere representation of graphical data on a printed page, like interactive features or scripting, none of which are available in PostScript.</p>
 
 <h3>What is The Difference Between PDF Versions 1.0 to PDF 1.7?</h3>
 
-<p>Answering that question brings up many questions, but the most important thing you should be aware of is that a higher version is not necessarily a &ldquo;better&rdquo; PDF and in some cases can work against you.</p>
+<p>Answering that question brings up many new questions, but the most important thing you should be aware of is that a higher version is not necessarily a &ldquo;better&rdquo; PDF and in some cases can work against you.</p>
 <p>Each version parallels the release of a major version of Adobe Acrobat. Here&rsquo;s a short overview:</p>
 <ul>
 <li><b>PDF 1.0:</b> Acrobat 1.0 &ndash; obsolete now. Not supported by Scribus.</li>
@@ -26,9 +26,9 @@
 <li><b>PDF 1.7:</b> Acrobat 8.0 &ndash; Refinements and enhancements to 3D embedding, interactive and other features, mostly unrelated to Scribus and/or commercial printing.</li>
 </ul>
 
-<h3>What about other kinds of PDF, like PDF-X and PDF-A?</h3>
+<h3>What about other kinds of PDF, like PDF-X or PDF-A?</h3>
 <p>The PDF format&rsquo;s feature set continues to grow with every version, but not every feature is acceptable in all use-cases. Thus, workgroups at the International Standardization Organization (ISO) defined subsets of the PDF feature set, among them PDF/A or PDF/X. The purpose of PDF/A is long-term storage and accessibility of documents, i.e. the content of PDF/A files needs to be read or extracted in years, decades, perhaps centuries to come. This is, of course, different from PDF files created for commercial printing, whose main purpose is to reliably store visually important data like colors and typgraphically refined text. Below you can see the PDF export dialog in LibreOffice, an application suite which produces all kinds of &ldquo;office&rdquo; documents that are not suited for commercial printing:</p>
-<table width="100%"><tr><td align="center"><img src="images/pdfx1a-lo.png" alt="PDF/X-1a Export in LibreOffice" title="PDF/X-1a Export in LibreOffice" /></a></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/pdfx1a-lo.png" alt="PDF/X-1a Export in LibreOffice" title="PDF/X-1a Export in LibreOffice" /></td></tr></table>
 <p>While there are some similarities in terms of features, there are also major differences, especially in the &ldquo;General&rdquo; tab. As you can see, the first option here is &ldquo;PDF/A-1a,&rdquo; an option that&rsquo;s not available in Scribus, because creating documents for long-term storage is none of its major purposes (yet). You can also see that selecting &ldquo;PDF/A-1a&rdquo; enables or disables other features automatically (&ldquo;Tagged PDF&rdquo; and &ldquo;Embed standard fonts&rdquo; enabled, &ldquo;Create PDF form&rdquo; disabled). Similarly, Scribus will enable/disable some export features when you choose <a href="pdfx3.html">PDF/X-3</a> as output destination.</p>
 <p>In addition to PDF/A and PDF/X, several other PDF subsets are being developed as international standards, for instance PDF/E for engineering documents (including the embedding of 3D objects) or PDF/UA (=&nbsp;universal access) for visually impaired users. See the website of <a href="http://www.aiim.org/">the Association for Information and Image Management, International</a> for more information.</p>
 
