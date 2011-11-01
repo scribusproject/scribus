@@ -5,8 +5,13 @@
 </head>
 <body>
 <h2>Document Settings and Preferences</h2>
-Under the <em>File</em> heading on the menu bar, you will find two related selections, <strong>Document Setup</strong> and <strong>Preferences</strong>. Each of these produces a dialog used for changing various default settings and other behavior in Scribus. <strong>Document Setup</strong> will refer to the document being edited, and changes made for that document will be saved with the document and apply when it is reopened. If you have no document open, you cannot select this dialog.
-<p><strong>Preferences</strong> in general changes settings for any future documents. It will be available whether or not you have any documents open. The following descriptions will primarily apply to Preferences, but we will point out differences compared with Document Setup as we go.
+<p>Under the <em>File</em> heading on the menu bar, you will find two related entries, <strong>Document Setup</strong> and <strong>Preferences</strong>. Each of these brings up a dialog used for changing various default settings and other behavior in Scribus:</p>
+<ul>
+<li><strong>Document Setup</strong> will refer to the document being edited, and changes made for that document will be saved with the document and apply when it is re-opened. If you have no document open, you cannot select this dialog.</li>
+<li><strong>Preferences</strong> in general changes settings for any future documents. It will be available whether or not you have any documents open. The following descriptions will primarily apply to Preferences, but we will point out differences compared with Document Setup as we go.</li>
+</ul>
+<br>
+<br>
 <table cellpadding="5">
 <tr><td width="200" valign="top"><ul>
 <li><a href="#1"><strong>General</strong></a></li>
@@ -37,32 +42,32 @@ Under the <em>File</em> heading on the menu bar, you will find two related selec
 </ul></td></tr>
 </table>
 <h3><a name="1"></a>General (not present in Document Setup)</h3>
-<p>You may have started up Scribus in a particular <strong>Language</strong> &ndash; here we expect to see the system default language, but you can override that setting, which will remain on future startups until you change again. 
-<p>The <strong>Theme</strong> will be whatever your main system theme is when none is selected, but otherwise your choices depend on your operating system and its themes. You can also change Scribus fonts as seen here. The various other settings are straightforward, and experimentation will be your guide.
-<p>The various Paths are the default locations Scribus will use for these operations. The path for Scripts is where Scribus looks when you choose <em>Scripts > Execute Script</em> from the menu.
+<p>You may have started up Scribus in a particular <strong>Language</strong> &ndash; here we expect to see the system default language, but you can override that setting, which will remain on future startups until you change again.</p>
+<p>The <strong>Theme</strong> will be whatever your main system theme is when none is selected, but otherwise your choices depend on your operating system or desktop environment and its available themes (if any). You can also change the size of the font used in the user interface. The various other settings are straightforward, and experimentation will be your guide.</p>
+<p>The various &ldquo;paths&rdquo; are the default locations Scribus will use. The path for scripts is where Scribus looks when you choose <em>Scripts > Execute Script</em> from the menu bar.</p>
 <table width="90%"><tr><td align="center"><img src="images/prefs_general.png" align="center" alt="Preferences: General" title="General Preferences" width="680"/></td></tr></table>
 <h3><a name="2"></a>Document</h3>
-In Preferences, the various settings here will be those that you see when you open a new document (<em>File > New</em>). In Document Settings, they will change the current document. The <strong>Page Size</strong> section should be easily understandable, with a large selection of standard sizes to choose from, in addition to <em>Custom</em>. The <strong>Document Layout</strong> choices have been the source of confusion for some. These simply apply to the relative placement of pages on your screen, and each will have the size as indicated, not some subdivision of it. <em>Double Sided</em> would typically be chosen for a book-like layout, and thus the First Page selector at the bottom allows the initial page to be Right or Left. This helps you use the appropriate <a href="pagetemplate1.html">Master Page</a> layout.
+<p>In Preferences, the various settings here will be those that you see when you create a new document (<em>File > New</em>). In the Document Setup, they will change the current document. The <strong>Page Size</strong> section should be easily understandable, with a large selection of standard sizes to choose from, in addition to <em>Custom</em>. The <strong>Document Layout</strong> choices have been the source of confusion for some. These simply apply to the relative placement of pages on your screen, and each will have the size as indicated, not some subdivision of it. <em>Double Sided</em> would typically be chosen for a book-like layout, and thus the First Page selector at the bottom allows the initial page to be Right or Left. This helps you use the appropriate <a href="pagetemplate1.html">Master Page</a> layout.</p>
 <table width="90%"><tr><td align="center"><img src="images/prefs_document.png" align="center" alt="Default Document Settings" title="Default Document Settings"  width="680" /></td><td width="275"><img src="images/prefs_document1.png" width="250"><p>Here is an example of Double Sided, Right Page as the first (also happens to be two-column). If you print these on a local printer, they will print as individual pages.</td></tr></table>
-<p><strong>Preset Layouts</strong> will be available for anything other than Single Page layout. What these represent are some time-honored ways to set the margins of the page, many based on some mathematical approach related to the dimensions of the page. Below we see the contrast of these various methods &ndash; these are all right pages of a double-sided layout.
+<p><strong>Preset Layouts</strong> will be available for anything other than Single Page layout. What these represent are some time-honored ways to set the margins of the page, many based on some mathematical approach related to the dimensions of the page. Below we see the contrast of these various methods &ndash; these are all right pages of a double-sided layout.</p>
 <p><table cellpadding="3"><tr>
 <td align="center"><img src="images/prefs_gutenberg.png"><p>Gutenberg</td><td align="center"><img src="images/prefs_magazine.png"><p>Magazine</td><td align="center"><img src="images/prefs_fibonacci.png"><p>Fibonacci</td><td align="center"><img src="images/prefs_goldenmean.png"><p>Golden Mean</td><td align="center"><img src="images/prefs_9parts.png"><p>Nine Parts</td>
 </tr></table>
 <h3><a name="3"></a>Guides</h3>
-<p>Although labeled <strong>Guides</strong>, there are many other settings here, mostly related. Guides can either show above or below your content. <strong>Snapping: Snap Distance</strong> applies when <em>Page > Snap to Guides</em> or <em>Page > Snap to Grid</em> has been selected. <strong>Grab Radius</strong> has to do with the size of the virtual space for grabbing and dragging a frame's handles. As the tooltips indicate, you must shut down and restart Scribus for these to take effect when they are changed.
-This panel sets the default distances and colors, as well as the snap to settings. <strong>Baseline Grids</strong> is the set of horizontal guides which forces text in multiple columns to align horizontally, as shown below. Settings for the distances for baselines are in Paragraph Styles, as well as the next panel <strong>Typography</strong></p>
+<p>Although labeled <strong>Guides</strong>, there are many other settings here, mostly related. Guides can either show above or below your content. <strong>Snapping: Snap Distance</strong> applies when <em>Page > Snap to Guides</em> or <em>Page > Snap to Grid</em> has been selected. <strong>Grab Radius</strong> has to do with the size of the virtual space for grabbing and dragging a frame&rsquo;s handles. As the tooltips indicate, you must shut down and restart Scribus for these to take effect when they are changed.</p>
+<p>This panel sets the default distances and colors, as well as the snap to settings. <strong>Baseline Grids</strong> is the set of horizontal guides which forces text in multiple columns to align horizontally, as shown below. Settings for the distances for baselines are in Paragraph Styles, as well as the next panel <strong>Typography</strong></p>
 
 <table width="90%"><tr><td align="center"><img src="images/prefs_guides.png" alt="Guides and Baseline Grid Settings" align="middle" title="Guides and Baseline Grid Settings" /></td></tr></table>
 <table width="80%"><tr><td valign="top">By default, Guides and Margins will show, but can be changed here, along with the color of each. Major and Minor Grids do not show by default &ndash; here we have changed the default colors so you can easily see the difference in the screenshot to the right, with page edges shown in red, margins in blue, major grid light green, and minor grid in light magenta.
-<p>Finally, at the bottom of the dialog we can choose to show the Baseline Grid by default, and adjust its default settings.
+<p>Finally, at the bottom of the dialog we can choose to show the baseline grid by default, and adjust its default settings.</p>
 <p>Find out more about the baseline grid in <a href="WwText.html#10">Working with Text</a>.</td>
 <td><img src="images/prefs_guides1.png"></td>
 </tr>
 </table>
 
 <h3><a name="4"></a>Typography</h3>
-<p>Here are the default settings for various typographic features &ndash; subscript, superscript, automatic line spacing and scaling of small capitals.
-<p>In addition, the amount of automatic linespacing can be adjusted relative to the size of the font. <em>Note that the 20% is in addition to the space required for the next line of text, so that the total space from one baseline to the next would be 120% of the font size.</em>
+<p>Here are the default settings for various typographic features &ndash; subscript, superscript, automatic line spacing and scaling of small capitals.</p>
+<p>In addition, the amount of automatic linespacing can be adjusted relative to the size of the font. <em>Note that the 20% is in addition to the space required for the next line of text, so that the total space from one baseline to the next would be 120% of the font size.</em></p>
 <p><table width="90%"><tr><td align="center"><img src="images/prefs_typog.png" align="center" alt="Typography Tab Panel"/></td></tr></table>
 
 <h3><a name="5"></a>Tools</h3>
@@ -82,15 +87,15 @@ This panel sets the default distances and colors, as well as the snap to setting
 <p>Hyphenation details are described here: <a href="hyphenator.html">Hyphenation in Scribus</a>.</p>
 
 <h3><a name="7"></a>Fonts</h3>
-<p>Selecting and installing fonts correctly is one of the most important configuration items with Scribus and an extensive set of notes is here: <a href="fonts1.html">Fonts and Scribus</a>. If there is one part of the documentation you really must read, it is this one.</p>
+<p>Selecting and installing fonts correctly is one of the most important configuration items with Scribus, and an extensive set of notes is here: <a href="fonts1.html">Fonts and Scribus</a>. If there is one part of the documentation you really must read, it is this one.</p>
 
 <h3><a name="8"></a>Preflight Verifier</h3>
-Preflight verification (checking for errors) is automatic when exporting to PDF, and also can be chosen separately from the toolbar. Here are the default settings for various items you wish to have checked. You would be ill-advised to check <em>Ignore all errors</em> &ndash; an error discovered after commercial printing could prove to be costly.
+<p>Preflight verification (checking for errors) is automatic when exporting to PDF, and also can be chosen separately from the toolbar. Here are the default settings for various items you wish to have checked. You would be ill-advised to check <em>Ignore all errors</em> &ndash; an error discovered after commercial printing could prove to be costly.</p>
 <p><table width="90%"><tr><td align="center"><img src="images/prefs_preflight.png"></td></tr>
 </table>
 
 <h3><a name="9"></a>Color Management</h3>
-<p>There are detailed notes on <a href="cms.html"> Color Management under Scribus</a> and <a href="moncal.html">Creating a Monitor Profile with Littlecms</a>. MacOSX and Windows users can use commercially available tools like Monaco's Color Tools,  Eye-One, Adobe Gamma and Scribus can use them along side other color savvy applications. MacOSX users can use any of the profiles available to Color Sync. Scribus will automatically discover any system profiles installed.</p>
+<p>There are detailed notes on <a href="cms.html"> Color Management under Scribus</a> and <a href="moncal.html">Creating a Monitor Profile with Littlecms</a>. Mac&nbsp;OS&nbsp;X and Windows users can use commercially available tools like Monaco&rsquo;s Color Tools or  Eye-One, and Scribus can use them alongside other color savvy applications.</p>
 <table width="90%"><tr><td align="center"><img src="images/prefs_colormgmt.png" alt="Color Management Preferences" title="Color Management Preferences" width="680" /></td></tr></table>
 <p><em>Note: You will not be able to export to PDF/X-3 if color management is not enabled, and the Preferences settings for this format will likewise not be available.</em></p>
 
@@ -103,6 +108,7 @@ Preflight verification (checking for errors) is automatic when exporting to PDF,
 <tr><td align="center"><img src="images/prefs_pdfexport1.png" alt="PDF Export Preferences" title="PDF Export Preferences"/></td></tr></table>
 
 <h3><a name="11"></a>Documents Item Attributes</h3>
+<p>Aside from storing additional information about a given item, this feature is currently most useful in connection with the creation of a table of contents.</p>
 <h3>Table of Contents and Indexes</h3>
 <p>These two subdialogs relate to each other. One use of these features is explained here: <a href="http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents">http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents</a></p>
 
@@ -110,50 +116,57 @@ Preflight verification (checking for errors) is automatic when exporting to PDF,
 
 <table width="90%"><tr><td align="center"><img src="images/prefs_keyboard.png" alt="Setting the Keyboard Shortcuts  for Scribus" title="Setting the Keyboard Shortcuts for Scribus"/></td></tr></table>
 
-<p>Here you see the various default keyboard shortcuts, which are editable, and many others can be assigned. These are stored in the <tt>.scribus/scribus14.rc</tt> file. Moreover, once customized, you can export them into a separate XML file which can be exported and saved separately, along with making it portable to other machines. The default file suffix is .ksxml. The XML is a unicode file and should not have issues being transported across platforms, with the only caveat that Macs have an option and command meta key, where Linux and Windows share common keyboards.</p>
+<p>Here you see the various default keyboard shortcuts, which are editable, and many others can be assigned. Moreover, once customized, you can export them into a separate XML file that can be exported and saved separately, along with making it portable to other machines. The default file suffix is .ksxml. This is a Unicode file and should not have issues being transported across platforms, with the only caveat that Macs have an option and command meta key, where Linux, UNIX, OS/2, eComStation and Windows share common keyboards.</p>
 
 <h3><a name="13"></a>Scrapbook</h3>
-<p>With scrapbooks, you can <em>right button</em> drag and drop frequently used items, including pictures, images and text files for quick placement. Scrapbooks can be saved with a file or independently of a document, as a separate scrapbook which can be loaded use with many different Documents. Separate scrapbooks are kept with a <code>.scs</code> designation. This panel sets the defaults for the thumbnail size in the scrapbook palette and if scrapbooks should be saved automatically when changed.</p>
-<h3><a name="14"></a>Display (not all of these available in Document Settings)</h3>
+<p>With Scrapbooks, you can <em>right button</em> drag and drop frequently used items, including pictures, images and text files for quick placement. Scrapbooks can be saved with a file or independently of a document, as a separate Scrapbook which can be loaded use with many different Documents. Separate Scrapbooks are kept with a <code>.scs</code> designation. This panel sets the defaults for the thumbnail preview size of items in the Scrapbook palette and whether Scrapbooks should be saved automatically when changed.</p>
+<h3><a name="14"></a>Display (not all of these are available in Document Settings)</h3>
 <p>Most of these are pretty straightforward. Depending on the size of your screen, you can use this to adjust the rescale and rearrange your workspace. If you have plenty of space, you may want to adjust the display to accurately reflect your document size by default. Remember, you can adjust the magnification settings in <em>Tools > Zoom</em>.</p>
 
 <table width="90%"><tr><td align="center"><img src="images/prefs_display.png" alt="Display Settings" title="Display Settings" /></td></tr></table>
 
-<p>The Colors tab allows for customization of the colors used for various screen features, such as marking the margins, grids, and guides. In Document Settings only Fill Color is available. It's also worth mentioning here that the Fill Color only has to do with the <em>appearance</em> of the document background and is not printed or exported to PDF.
+<p>The Colors tab allows for customization of the colors used for various screen features, such as marking the margins, grids, and guides. In Document Settings only Fill Color is available. It&rsquo;s also worth mentioning here that the Fill Color only has to do with the <em>appearance</em> of the document background and is not printed or exported to PDF.
 <h3><a name="15"></a>External Tools</h3>
-<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. If you have installed Ghostscript on Windows before installing Scribus, it is usually automatically detected.If you receive an error message on Windows indicating EPS files cannot be used. This is where the settings can be changed to allow Scribus to find the correct location of Ghostscript.</p>
-<p><strong>On Linux and Windows:</strong></p>
+<p>This panel enables you to change the default settings for the location of Ghostscript and other external programs. If you have installed Ghostscript before installing Scribus, it is usually detected automatically. If you receive an error message indicating that EPS files cannot be used, this is where the settings can be changed to allow Scribus to find the correct location of Ghostscript.</p>
+<h4>Ghostscript</h4>
+<p><strong>Linux, UNIX, OS/2, eComStation and Windows:</strong></p>
 <table width="90%"><tr><td align="center"><img src="images/prefs_exttools.png" alt="External Tools Settings" title="External Tools Settings" width="680" /></td></tr></table>
-<p>This particular screenshot comes from Linux, but Windows will have all of these same settings. If you do need to search for Ghostscript in Windows, the particular executable you need (for 32-bit) is named <tt>gswin32c.exe</tt> <em>not</em> <tt>gswin32.exe</tt>. Some additional information about Ghostscript can be found in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a></p>
-<p>You are not restricted to using Gimp for image editing, and could use any available image editor such as Cinepaint, Krita, or even Photoshop. 
-<p>Although it was formerly necessary to close Gimp after editing, this is no longer necessary. If Gimp is already running, you will either need to close it to have the image file automatically loaded to Gimp, or get the file using Gimp's Open dialog.
-<p><strong>On MacOSX</strong></p>
+<p>This particular screenshot comes from Linux and is also applicable to other UNIX systems. See the <a href="readme-win32.html">Windows</a>, <a href="readme-os2.html">OS/2 and eComStation</a> specific information for these operating systems. Some additional information about Ghostscript can be found in <a href="toolbox7.html">Advanced Ghostscript.</a></p>
+<p><strong>Mac OS X</strong></p>
 <table width="100%"><tr><td align="center"><img src="images/prefs-mac-1.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
-<p>Above are the recommended settings, provided you are using GIMP and/or if you have installed the Ghostscript.framework from <a href="http://aqua.scribus.net">http://aqua.scribus.net</a>.</p>
+<p>Above are the recommended settings, provided you have correctly installed the <a href="readme-macosx.html">Ghostscript framework</a>.</p>
+<h4>Other External Tools</h4>
+<p><strong>Image Processing Tool</strong></p>
+<p>You are not restricted to using GIMP for image editing, and could use any available image editor such as Krita, or even Photoshop. However, GIMP is set as the default application, as it&rsquo;s the most popular Open Source image editing software.
+<p><strong>Web Browser</strong></p>
+<p>Here you can set the path to the executable file of the browser that will be used if you click an external link in the Help Browser or select an external source from the <i>Help</i> menu.</p>
+<p><strong>Render Frames</strong></p>
+<p>See <a href="WwRenderframes.html">Working with Render Frames</a>.</p>
 
 
 <h3><a name="16"></a>Miscellaneous</h3>
 <table width="80%"><tr><td align="center"><img src="images/prefs_misc.png" title="Miscellaneous Settings"></td></tr></table>
 <h3><a name="17"></a>Plugins</h3>
-<p>This is an informational display about the various plugins you have at your disposal, how to activate them, and where their libraries are located.
+<p>This is an informational display about the various plug-ins you have at your disposal, how to use them, and where their libraries are located.
 
 <h3><a name="18"></a>Short Words</h3>
 <img src="images/prefs_shortwords.png">
-<p>Short Words is a plug-in to assist adding non breaking spaces to short words like Mr. and measurements like km. It may not be immediately obvious, but there to two kinds of these spaces, placed either before (for something like kg) or after (for something like Mr.). Directly edit in this panel and save.  Details on configuration and use are here: <a href="short-words.html">Short Words in Scribus</a>. </p>
+<p>Short Words is a plug-in to assist with adding non-breaking spaces to abbreviations like Mr. and measurements like km. Details on configuration and use are here: <a href="short-words.html">Short Words in Scribus</a>. </p>
 
 <h3><a name="19"></a>Scripter</h3>
-If the Scripter plugin is activated at startup, you will not need to make any changes here to use the included Python scripts.
-<p>Scripter Extensions are special scripter module or scripts which are loaded at startup to modify the abilities of the python scripter plug-in within Scribus. Details are here: <a href="scripter-extensions.html">Scripter Extensions Howto</a>. The console tab is for choosing syntax highlighting colors within the scripter console.</p>
+<p>If the <a href="scripter1.html">Scripter plug-in</a> is activated at startup, you will not need to make any changes here to use the included Python scripts.</p>
+<p>Scripter Extensions are special Scripter module or scripts which are loaded at startup to modify the abilities of the Python Scripter plug-in within Scribus. Details are <a href="scripter-extensions.html">here</a>. The Console tab is for choosing syntax highlighting colors within the Scripter Console.</p>
 <h3><a name="20"></a>Document Information (available in Document Settings but not in Preferences)</h3>
-There are a number of informational elements which can be saved with your file. Those that will be accessible and display in Properties in Adobe Reader (9.x) are Title, Author, and Keywords.
-<h4>Where Are the Preferences Files ?</h4>
-<p>Scribus' preferences are kept in a hidden directory <code>.scribus</code>. The location of which is as follows:
+See the section on <a href="docinfo.html">Document Information</a>.
+<h3>Where Are the Preferences Files?</h3>
+<p>Scribus&rsquo; preferences are kept in a hidden directory <code>.scribus</code>, the location of which is as follows:
 <ul>
 <li><strong>Linux/UNIX:</strong> <code>/home/username/.scribus</code></li>
-<li><strong>MacOSX:</strong> <code>User/username/.scribus</code></li>
-<li><strong>Windows:</strong> <code>Documents and Settings/username/.scribus</code></li>
+<li><strong>Mac OS X:</strong> <code>User/username/.scribus</code></li>
+<li><strong>OS/2 and eComStation</strong>: <code>X:\SCRIBUS-1.4.x-OS2-date\scribus\.scribus</code></li>
+<li><strong>Windows:</strong> <code>C:\Documents and Settings/username/.scribus</code></li>
 </ul>
- Within the directory is a <code>.scribus14.rc</code> file, a <code>scribusfont.rc</code> file which preserves your font preferences and a <code>prefs14.xml</code>. These files are stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts. There might also be several directories, which are configuration or history files. If you are troubleshooting starting Scribus, <strong>rename</strong>, do not delete these files and directories. If you rename the directory, on re-starting Scribus, the launch time will be somewhat longer, as Scribus creates a cache of installed fonts. On the second re-start of Scribus, it will be much quicker. </p>
+<p>Within the directory are a <code>.scribus14.rc</code> file, a <code>scribusfont.rc</code> file (which preserves your font preferences) and a <code>prefs14.xml</code> file. These files are stored in XML format, so you can inspect and edit their contents with a text editor. If you have installed Python, there will also be a <code>scripter.rc</code> file that lists most recently used scripts. There are also several other directories, most which are comprised of configuration or history files. If you are encountering any issues with a previously working Scribus installation, <strong>renaming</strong>, not deleting, the <code>.scribus</code> directory may be a good idea. </p>
 
 <hr>
 <p>See also</p>
@@ -165,6 +178,5 @@ There are a number of informational elements which can be saved with your file. 
 <li><a href="color2.html">Managing Colors</a></li>
 <li><a href="WwRenderframes.html">Working with Render Frames</a></li>
 </ul>
-</p>
 </body>
 </html>

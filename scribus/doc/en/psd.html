@@ -7,7 +7,7 @@
 <h2>Working with Photoshop&#174; Files</h2>
 
 <h3>Overview</h3>
-<p>Adobe Photoshop is one of the world&rsquo;s best known software applications and widely used in professional graphics, both in print and for web graphics. While there are some great open source graphics applications like GIMP or Krita, sometimes Photoshop is still the only application that can be used in certain cases &ndash; especially in the pre-press world.</p>
+<p>Adobe Photoshop is one of the world&rsquo;s best known software applications and widely used in professional graphics, both in print and for web graphics. While there are some great Open Source bitmap editing applications like GIMP or Krita, sometimes Photoshop is still the only application that can be used in certain cases &ndash; especially in the pre-press world.</p>
 
 <p>One of the sources of its power is the native PSD file format. A PSD file can not only hold image data, but is more of a large container which can include metadata, camera info, text, vector artwork, and more. Most other programs and formats only handle a small subset of its capabilities. </p>
 <h3>PSD Import</h3>
@@ -21,7 +21,7 @@
 <li>Alpha transparency is supported.</li>
 <li>Scribus will import PSD files with normal layers and will display the individual layers in the <i>Extended Image Properties</i> dialog, which is avialable from the Context Menu.</li> 
 <li>Clipping paths in PSD files will be recognized and can be used for text flow.</li>
-<li>Blending modes which are in the image file can be used to affect the way the image displays and prints. It&rsquo; also possible to modify blending or to apply other modes between PSD layers. This won&rsquo;t affect the original file.</li>
+<li>Blending modes in the PSD file can be used to affect the way the image displays and prints. It&rsquo;s also possible to modify blending or to apply other modes between PSD layers. This won&rsquo;t affect the original file.</li>
 <li>In almost all cases Scribus will automatically detect the file encoding, whether it is ASCII, Binary or Binary with JPEG.</li>
 <!--<li>Scribus will handle both PSD and TIFF files, no matter what byte order is used &ndash; PPC Mac/SPARC or PC. If Scribus is run from the command line, you may see harmless error messages about tags in wrong order. Ignore them. </li>-->
 </ul>
@@ -32,8 +32,13 @@
 </ul>
 <h3>Specialties</h3>
 <ul>
-<li>DCS (Desktop Color Separations) 1.x/2.0 files are a special flavor of EPS saved in Photoshop and are imported natively &ndash; much like a PSD file &ndash; and complete with ICC profile support. Image quality should be close to or equivalent to the native PSD file. Vector masks are also detected and can be used to control the display within <i>Extended Image Properties</i>. DCS files can also be saved from QuarkXPress&#174;, but this flavor will be imported using Ghostscript as a filter for the time being. This is partly because the way QuarkXPress&#174; exports them does not conform to the DCS specifications properly.</li>
-<li>Scribus can detect Duotones, Tritones and Quadtones in PSD and Photoshop EPS files and import them. The difference between both formats is that you need to import the spot colors from the EPS separately via <i>Edit &#062; Colors &#062; Import</i>. If you import a PSD file, you can directly manipulate each of the spot colors within it via the <i>Image Effects</i> dialog, which is available from the Context Menu. In most cases, Scribus will detect the image as Duo-, Tri- or Quadtone and automatically import the colors from the PSD file.</li></ul><br>
+<li>DCS (Desktop Color Separations) 1.0/2.0 files are a special flavor of <a href="importhints1.html">EPS</a> saved in Photoshop and are imported natively &ndash; much like a PSD file &ndash; and complete with ICC profile support. Image quality should be close to or equivalent to the native PSD file. Vector masks are also detected and can be used to control the display within <i>Extended Image Properties</i>. DCS files can also be saved from QuarkXPress&#174;, but this flavor will be imported using Ghostscript as a filter for the time being. This is partly because the way QuarkXPress&#174; exports them does not conform to the DCS specifications properly.<br>
+<i>Additional Hints for DCS Import:</i></li>
+<ol>
+<li><i>Image Effects cannot be applied to DCS files for technical reasons.</i></li>
+<li><i>Before importing a DCS, make sure that the DCS &ldquo;master file&rdquo; (file extension *.eps) and the files for each separation (file extension *.C, *.M, *.Y, *.K respectively, plus one file for every spot color) are located in the <b>same</b> directory. Otherwise, Scribus cannot import the image correctly, and color shifts will occur.</i></li>
+</ol>
+<li>Scribus can detect Duotones, Tritones and Quadtones in PSD and Photoshop EPS files and import them. The difference between both formats is that you need to import the spot colors from the EPS separately via <i>Edit &#062; Colors &#062; Import</i>. If you import a PSD file, you can directly manipulate each of the spot colors within it via the <i>Image Effects</i> dialog, which is available from the Context Menu. In most cases, Scribus will detect the image as Duo-, Tri- or Quadtone and automatically import spot colors from the PSD file.</li></ul><br>
 <table width="100%">
 <tr><td align="center"><img src="images/duotone-imp.png" /></td></tr>
 <tr><td align="center"><img src="images/duotone-imp2.png" /></td></tr>
@@ -43,9 +48,9 @@
 <h3>Recommendations</h3>
 <ul>
 <li>If you do have the original PSD file of an image, by all means use it.</li>
-<li>Enable embedding the correct ICC profile within Photoshop. This is done via <i>Image &#062; Mode &#062; Convert to Profile </i>.</li>
+<li>Enable embedding the correct ICC profile within Photoshop. This is done via <i>Image &#062; Mode &#062; Convert to Profile</i>.</li>
 <li>Avoid using text layers. Scribus has very powerful text effect tools of its own and will export them as vectors, not as a bitmap, resulting in higher print quality. This advice is good for any bitmap editing application.</li>
-<li>Similarly, avoid vector artwork in bitmap files. Scribus has versatile vector drawing tools and will give you more reliable results in printing.</li>
+<li>Similarly, avoid vector artwork in PSD files. Scribus has versatile vector drawing tools and will give you more reliable results in printing.</li>
 <li>Scribus <i>can</i> handle CMYK JPEGs from Photoshop, complete with ICC profile support, but in general, it is preferable to use PSD or TIFF, as few other applications understand CMYK JPEG.</li>
 <li>Likewise, Scribus supports clipping paths in JPEGs stored by Photoshop.</li>
 <li>If you are using adjustment layers or effects layers, save a copy of your PSD and flatten the layers before importing the file into Scribus. This will not only shrink the file, but ensure that there are no issues with import into Scribus. </li>

@@ -3,27 +3,26 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>PDF Export for Screen/Web</title>
 </head>
-<ul>
 <h2>PDF Export for Screen/Web</h2>
 
-<p>Recommended settings and hints:</p>
+<b>Recommended settings and hints:</b>
 
 <ul>
 <li>Down-sample all images to 72&ndash;96&nbsp;dpi.</li>
 <li>Reduce the number of font faces to the minimum needed (see below).</li>
 <li>Choose the lowest quality setting for compression that has acceptable on-screen viewing results (you may have to experiment to see what&rsquo;s acceptable for you).</li>
 <li>You can often substitute Arial for Helvetica, as some viewers may have this as an included font.</li>
-<li>Avoid importing EPS or PDFs into your document &ndash; instead, convert them to a low-resolution PNG with GSview, Inkscape or GIMP, then place them in your Scribus document. Why? They will render faster on your screen and often make for a smaller file size.</li>
+<li>Avoid importing EPS bitmap files or PDFs into your document &ndash; instead, convert them to a low-resolution PNG with GSview, Inkscape or GIMP, then place them in your Scribus document. Why? They will render faster on your screen and often make for a smaller file size.</li>
 <li>If possible, replace bitmap images with vector artwork. Vector artwork is far more compact in terms of size in PDF.</li>
 <li>Avoid using the Nimbus fonts. Adobe Reader does a poor job of substituting them by using its included fonts.</li>
 <li>Unless transparency in artwork is needed, select PDF 1.3 output for the greatest compatibility with other users.</li>
-<li>Always use &ldquo;Screen/Web&rdquo; as your output target in the PDF Export dialog. The exception is files with only black/white or greyscale content. In such a case you can also choose &ldquo;Greyscale,&rdquo; which will reduce the file size even further.</li>
+<li><b>Always</b> use &ldquo;Screen/Web&rdquo; as your output target in the PDF Export dialog. The exception is files with only black/white or grayscale content. In such a case you can also choose &ldquo;Grayscale,&rdquo; which will reduce the file size even further.</li>
 </ul>
 <p>When addressing PDF optimization for websites, there are two issues:</p>
 <ul>
 <li>If space is really an issue, it will help not to embed fonts and to use only the &ldquo;standard 14 fonts,&rdquo; which all PDF readers should be able to display reliably. These fonts include regular, bold, italic and bold italic variants of Courier, Helvetica, and Times, as well as &ldquo;Symbol&rdquo; and &ldquo;Zapf Dingbats&rdquo; (or equivalents).</li>
 </br>
-<li>The second is the perceived download time when the PDF is visible in the viewer or a browser plug-in. Ghostscript has a command line utility called <strong> pdfopt</strong>,  which can &ldquo;linearize&rdquo; a PDF and allow a PDF reader to display the first page of the PDF while loading subsequent pages in the background. This is very useful for longer documents. Note that this tool does not shrink the PDF, but actually may increase the size, as it undoes the non-linear way objects are stored in a PDF file. See the <a href="toolbox5.html">Ghostscript</a> documentation for details.</li>
+<li>The second is the perceived download time when the PDF is visible in the viewer or a browser plug-in. Ghostscript has a command line utility called <code> pdfopt</code>,  which can &ldquo;linearize&rdquo; a PDF and allow a PDF reader to display the first page of the PDF while loading subsequent pages in the background. This is very useful for longer documents. Note that this tool does not shrink the PDF, but actually may increase the size, as it undoes the non-linear way objects are stored in a PDF file. See the <a href="toolbox5.html">Ghostscript</a> documentation for details.</li>
 </ul>
 </body>
 </html>

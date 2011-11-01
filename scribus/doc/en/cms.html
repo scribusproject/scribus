@@ -27,8 +27,8 @@
 <p><strong>What are color or device profiles?</strong></p>
 
 <p><strong>ICC</strong> or <strong>ICM</strong> profiles are a special type of file which describes the color characteristic of a device like a scanner, monitor or printer &ndash; basically any device which can create, display or manipulate the color of a digital image, hence the name <b>device profiles</b>.</p>
-<p>There also color profiles which are known as <strong>device independent</strong> or <strong>working space</strong> profiles. These special files can be thought of as translators which are used to convert from one type of color profile to another.</p>
-<p>An ICC or ICM file is a set of tables which describes the mathematical values by which devices measure and describe color. Fortunately, these are set by <a href="http://www.color.org ">open international standards</a> and work the same way on Mac&nbsp;OS&nbsp;X, OS/2, eCS, Windows, Linux or UNIX.</p>
+<p>There are also color profiles which are known as <strong>device independent</strong> or <strong>working space</strong> profiles. These special files can be thought of as &ldquo;translators&rdquo; who convert color data from one type of color profile to another.</p>
+<p>An ICC or ICM file is a set of tables that contain the mathematical values by which devices measure and describe color. Fortunately, these profiles follow an <a href="http://www.color.org ">open and international standard</a> and work the same way on Mac&nbsp;OS&nbsp;X, OS/2, eCS, Windows, Linux or UNIX.</p>
 
 
 <h3>Activating Color Management</h3>
@@ -44,8 +44,8 @@
 <li><b>Linux/UNIX:</b> <code>/usr/share/color/icc</code> (system) and <code>/home/username/.color/icc</code> (user).</li>
 <li><b>Mac OS X:</b> <code>/Library/ColorSync/Profiles</code>.</li>
 <li><b>Windows:</b>: <code>C:\WINNT\system32\spool\drivers\color</code> (Windows 2000) and <code>C:\Windows\system32\spool\drivers\color</code> (Windows XP, Vista, 7).<br>
-<i>Note that on 64-bit Windows systems, some 32-bit programs may not find the profiles under the <code>system32</code> directory because they are searching for them under <code>C:\Windows\SysWOW64</code>, which is a folder that contains files needed for compatibility of 32-bit programs (This is not a typo: the folder with a &ldquo;32&rdquo; in its name is for 64-bit files, the one with &ldquo;64&rdquo; in it is for 32-bit files!). If you are running a 32-bit program on a 64-bit version of Windows and your color profiles aren&rsquo;t available, you should also copy them to <code>C:\Windows\SysWOW64\spool\drivers\color</code></i>.</li>
-<li><b>OS/2 and eComStation:</b> <code>X:\scribus\lib\scribus\profiles</code>. <br>
+<i>Note that on 64-bit Windows systems, some 32-bit programs may not find the profiles in the <code>system32</code> directory because they are searching for them under <code>C:\Windows\SysWOW64</code>, which is a folder that contains files needed for compatibility of 32-bit programs (This is not a typo: the folder with a &ldquo;32&rdquo; in its name is for 64-bit files, the one with &ldquo;64&rdquo; in it is for 32-bit files!). If you are running a 32-bit program on a 64-bit version of Windows and your color profiles aren&rsquo;t available, you should also copy them to <code>C:\Windows\SysWOW64\spool\drivers\color</code></i>.</li>
+<li><b>OS/2 and eComStation:</b> <code>X:\scribus-directory\lib\scribus\profiles</code>. <br>
 <i>Note that there is no system-wide color management available on OS/2 and eComStation, so every program that uses color management, like Scribus or GIMP, needs the profiles in its own directory. However, it&rsquo;s possible to create a single directory that comprises all profiles and then set this directory as an additional source for profiles, e.g.</i> <code>X:\ICC</code>. <i>In Scribus you can add this path in the &ldquo;General&rdquo; tab of the <a href="settings1.html#1">Preferences</a>.</i></li>
 </ul>
 
