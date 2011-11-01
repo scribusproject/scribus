@@ -163,12 +163,13 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 
 void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 {
+	QRect insideRect = QRect(10, 43, width()-20, 13);
 	if (isEditable)
 	{
 		QRect fpo;
 		if (m->button() == Qt::LeftButton)
 		{
-			if ((Mpressed) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (outside || m->y() > 60))
+			if ((Mpressed) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (outside || !insideRect.contains(m->pos())))
 			{
 				onlyselect = false;
 				fill_gradient.removeStop(ActStop);
@@ -233,6 +234,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 
 void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 {
+	QRect insideRect = QRect(10, 43, width()-20, 13);
 	if (isEditable)
 	{
 		QRect fpo;
@@ -274,7 +276,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 				onlyselect = false;
 				repaint();
 			}
-			if ((Mpressed) && (outside || m->y() > 60) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
+			if ((Mpressed) && (outside || !insideRect.contains(m->pos())) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
 				qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
 		}
 	}
