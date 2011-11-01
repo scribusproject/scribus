@@ -162,6 +162,7 @@ SET(SCRIBUS_UI_SRC
   ui/helpbrowsernavigation.ui
   ui/unicodesearch.ui
   ui/useprintermarginsdialog.ui
+  ui/weldeditbase.ui
 #  ${SCRIBUS_ITEMSETTERS_UI_SRC}
   ${SCRIBUS_OSG_UI_SRC}
 )
@@ -181,6 +182,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasmode_editpolygon.h
   canvasmode_editspiral.h
   canvasmode_edittable.h
+  canvasmode_editweldpoint.h
   canvasmode_measurements.h
   canvasmode_normal.h
   chartablemodel.h
@@ -455,6 +457,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/unicodesearch.h
   ui/useprintermarginsdialog.h
   ui/vruler.h
+  ui/weldedit.h
 #  ${SCRIBUS_ITEMSETTERS_CLASS}
   ${SCRIBUS_OSG_CLASS}
 )
@@ -883,6 +886,7 @@ SET(SCRIBUS_SOURCES
   ui/unicodesearch.cpp
   ui/vruler.cpp
   ui/useprintermarginsdialog.cpp
+  ui/weldedit.cpp
 #  ${SCRIBUS_ITEMSETTERS_SRC}
   ${SCRIBUS_OSG_SRC}
   ${SCRIBUS_GMAGICK_SRC}

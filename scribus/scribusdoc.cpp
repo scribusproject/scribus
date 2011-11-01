@@ -14276,3 +14276,7 @@ void ScribusDoc::itemSelection_Weld()
 	regionsChanged()->update(QRectF());
 }
 
+void ScribusDoc::itemSelection_EditWeld()
+{
+	m_ScMW->view->requestMode(modeEditWeldPoint);
+}

@@ -832,6 +832,7 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->addMenuItem(scrActions["itemsUnWeld"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemWeld"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["itemEditWeld"], "Item", false);
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
@@ -3036,14 +3037,11 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	if (docSelectionCount == 1)
 	{
 		PageItem* bx = doc->m_Selection->itemAt(0);
-		if (bx->isWelded())
-			scrActions["itemsUnWeld"]->setEnabled(true);
-		else
-			scrActions["itemsUnWeld"]->setEnabled(false);
+		scrActions["itemsUnWeld"]->setEnabled(bx->isWelded());
+		scrActions["itemEditWeld"]->setEnabled(bx->isWelded());
 	}
 	if (docSelectionCount > 1)
 	{
-//		scrMenuMgr->setMenuEnabled("ItemWeld", true);
 		if (!doc->m_Selection->itemsAreSameType())
 		{
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);

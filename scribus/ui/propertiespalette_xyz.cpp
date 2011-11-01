@@ -134,7 +134,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(noResize , SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	connect(doGroup  , SIGNAL(clicked()), this, SLOT(handleGrouping()) );
 	connect(doUnGroup, SIGNAL(clicked()), this, SLOT(handleUngrouping()) );
-	connect(buttonEditWeldPoint, SIGNAL(clicked()), this, SLOT(handleEditWeldPoint()));
 
 	m_haveItem = false;
 	xposSpin->showValue(0);
@@ -142,7 +141,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	widthSpin->showValue(0);
 	heightSpin->showValue(0);
 	rotationSpin->showValue(0);
-	buttonEditWeldPoint->setEnabled(false);
 }
 
 void PropertiesPalette_XYZ::setMainWindow(ScribusMainWindow* mw)
@@ -411,7 +409,6 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 		setEnabled(true);
 	}
 	updateSpinBoxConstants();
-	buttonEditWeldPoint->setEnabled(m_item->isWelded());
 }
 
 void PropertiesPalette_XYZ::handleSelectionChanged()
@@ -517,7 +514,6 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 			heightSpin->showValue(0);
 			rotationSpin->showValue(0);
 			levelLabel->setText("  ");
-			buttonEditWeldPoint->setEnabled(false);
 			setEnabled(false);
 			break;
 		case PageItem::ImageFrame:
@@ -1417,7 +1413,6 @@ void PropertiesPalette_XYZ::languageChange()
 	doLock->setToolTip( tr("Lock or unlock the object"));
 	noResize->setToolTip( tr("Lock or unlock the size of the object"));
 	noPrint->setToolTip( tr("Enable or disable exporting of the object"));
-	buttonEditWeldPoint->setToolTip( tr("Edit the welding point of the object"));
 
 	keepFrameWHRatioButton->setToolTip( tr("Keep the aspect ratio"));
 }
@@ -1501,13 +1496,4 @@ void PropertiesPalette_XYZ::handleGrouping()
 void PropertiesPalette_XYZ::handleUngrouping()
 {
 	m_ScMW->UnGroupObj();
-}
-
-
-void PropertiesPalette_XYZ::handleEditWeldPoint()
-{
-	if (buttonEditWeldPoint->isChecked())
-		m_ScMW->view->requestMode(modeEditWeldPoint);
-	else
-		m_ScMW->view->requestMode(modeNormal);
 }

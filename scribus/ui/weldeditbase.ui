@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>weldEditBase</class>
+ <widget class="ScrPaletteBase" name="weldEditBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>129</width>
+    <height>95</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QRadioButton" name="moveWeldPoint">
+     <property name="text">
+      <string>Move weld Point</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="moveObject">
+     <property name="text">
+      <string>Move Object</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="buttonEndEdit">
+     <property name="text">
+      <string>End Edit</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrPaletteBase</class>
+   <extends>QWidget</extends>
+   <header>ui/scrpalettebase.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <includes>
+  <include location="local">ui/scrpalettebase.h</include>
+ </includes>
+ <resources/>
+ <connections/>
+</ui>

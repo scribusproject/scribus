@@ -28,6 +28,7 @@
 
 #include "canvasmode.h"
 #include "fpointarray.h"
+#include "ui/weldedit.h"
 
 class PageItem;
 class PageItem_TextFrame;
@@ -39,6 +40,7 @@ class ScribusView;
 
 class CanvasMode_EditWeldPoint :  public CanvasMode
 {
+	Q_OBJECT
 public:
 	explicit CanvasMode_EditWeldPoint(ScribusView* view);
 	virtual ~CanvasMode_EditWeldPoint() {}
@@ -69,6 +71,13 @@ private:
 	bool m_keyRepeat;
 	PageItem *currItem;
 	QList<PageItem*> weldToList;
+	WeldEditDialog* ModeDialog;
+	bool editWeldMode;
+private slots:
+	void endEditing(bool active);
+	void endEditing();
+	void setWeldMode();
+	void setObjectMode();
 };
 
 #endif

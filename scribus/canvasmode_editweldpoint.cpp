@@ -66,6 +66,7 @@ CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMo
 {
 	Mxp = Myp = -1;
 	selectedPoint = -1;
+	editWeldMode = true;
 }
 
 inline bool CanvasMode_EditWeldPoint::GetItem(PageItem** pi)
@@ -143,6 +144,12 @@ void CanvasMode_EditWeldPoint::activate(bool fromGesture)
 	{
 		m_view->update();
 	}
+	ModeDialog = new WeldEditDialog(m_ScMW);
+	ModeDialog->show();
+	connect(ModeDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
+	connect(ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	connect(ModeDialog, SIGNAL(modeMoveWeld()), this, SLOT(setWeldMode()));
+	connect(ModeDialog, SIGNAL(modeMoveObject()), this, SLOT(setObjectMode()));
 }
 
 void CanvasMode_EditWeldPoint::deactivate(bool forGesture)
@@ -150,6 +157,30 @@ void CanvasMode_EditWeldPoint::deactivate(bool forGesture)
 	m_view->redrawMarker->hide();
 	selectedPoint = -1;
 	weldToList.clear();
+	disconnect(ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	ModeDialog->close();
+	delete ModeDialog;
+}
+
+void CanvasMode_EditWeldPoint::endEditing(bool active)
+{
+	if (!active)
+		endEditing();
+}
+
+void CanvasMode_EditWeldPoint::endEditing()
+{
+	m_view->requestMode(modeNormal);
+}
+
+void CanvasMode_EditWeldPoint::setWeldMode()
+{
+	editWeldMode = true;
+}
+
+void CanvasMode_EditWeldPoint::setObjectMode()
+{
+	editWeldMode = false;
 }
 
 void CanvasMode_EditWeldPoint::keyPressEvent(QKeyEvent *e)
@@ -245,8 +276,16 @@ void CanvasMode_EditWeldPoint::keyPressEvent(QKeyEvent *e)
 			}
 			if (isMoving)
 			{
-				currItem->weldList[selectedPoint].weldPoint += FPoint(moveX, moveY);
-				currItem->moveWelded(moveX, moveY, selectedPoint);
+				if (editWeldMode)
+				{
+					currItem->weldList[selectedPoint].weldPoint += FPoint(moveX, moveY);
+				}
+				else
+				{
+					currItem->setXYPos(currItem->xPos() + moveX, currItem->yPos() + moveY, true);
+					currItem->setRedrawBounding();
+					currItem->OwnPage = m_doc->OnPage(currItem);
+				}
 			}
 			if (doUpdate)
 			{
@@ -312,19 +351,25 @@ void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 	m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
-		if (selectedPoint != -1)
+		if (editWeldMode)
 		{
-			m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
-			FPoint mp, mp_orig;
-			mp_orig = currItem->weldList[selectedPoint].weldPoint;
-			mp = mp_orig - npx;
-			double xx = mp.x();
-			double yy = mp.y();
-			snapToEdgePoints(xx, yy);
-			currItem->weldList[selectedPoint].weldPoint = FPoint(xx, yy);
-			xx = mp_orig.x() - xx;
-			yy = mp_orig.y() - yy;
-			currItem->moveWelded(-npx.x(), -npx.y(), selectedPoint);
+			if (selectedPoint != -1)
+			{
+				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+				FPoint mp, mp_orig;
+				mp_orig = currItem->weldList[selectedPoint].weldPoint;
+				mp = mp_orig - npx;
+				double xx = mp.x();
+				double yy = mp.y();
+				snapToEdgePoints(xx, yy);
+				currItem->weldList[selectedPoint].weldPoint = FPoint(xx, yy);
+			}
+		}
+		else
+		{
+			currItem->setXYPos(currItem->xPos() - npx.x(), currItem->yPos() - npx.y(), true);
+			currItem->setRedrawBounding();
+			currItem->OwnPage = m_doc->OnPage(currItem);
 		}
 		m_doc->regionsChanged()->update(getUpdateRect());
 	}

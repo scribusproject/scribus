@@ -510,6 +510,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemWeld";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="itemEditWeld";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
 	connect( (*scrActions)["itemDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(duplicateItem()) );
 	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(duplicateItemMulti()) );
@@ -1116,6 +1118,7 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["extrasDeHyphenateText"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemsUnWeld"], 0, 0, 0);
 	disconnect( (*scrActions)["itemWeld"], 0, 0, 0);
+	disconnect( (*scrActions)["itemEditWeld"], 0, 0, 0);
 
 
 }
@@ -1151,6 +1154,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemAdjustImageToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustImagetoFrameSize()) );
 	connect( (*scrActions)["itemsUnWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnWeld()) );
 	connect( (*scrActions)["itemWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_Weld()) );
+	connect( (*scrActions)["itemEditWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_EditWeld()) );
 
 }
 
@@ -1476,6 +1480,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 	(*scrActions)["itemsUnWeld"]->setTexts( tr("Unweld items"));
 	(*scrActions)["itemWeld"]->setTexts( tr("Weld items"));
+	(*scrActions)["itemEditWeld"]->setTexts( tr("Edit weld item"));
 
 	//Insert Menu
 	(*scrActions)["insertFrame"]->setTexts( tr("&Frames..."));
@@ -1954,7 +1959,8 @@ void ActionManager::createDefaultMenus()
 		<< "itemCombinePolygons" 
 		<< "itemSplitPolygons"
 		<< "itemsUnWeld"
-		<< "itemWeld";
+		<< "itemWeld"
+		<< "itemEditWeld";
 	//Insert
 	++itmenu;
 	itmenu->second

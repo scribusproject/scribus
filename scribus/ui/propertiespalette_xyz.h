@@ -87,7 +87,6 @@ private slots:
 	void handleNewName();
 	void handleGrouping();
 	void handleUngrouping();
-	void handleEditWeldPoint();
 
 protected slots:
 	//virtual void reject();

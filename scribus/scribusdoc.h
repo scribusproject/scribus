@@ -1523,6 +1523,7 @@ public slots:
 public slots:
 	void itemSelection_UnWeld();
 	void itemSelection_Weld();
+	void itemSelection_EditWeld();
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);
