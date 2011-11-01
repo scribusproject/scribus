@@ -387,7 +387,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				m_doc->DraggedElem = currItem;
 				m_doc->DragElements.clear();
 				for (int dre=0; dre<m_doc->m_Selection->count(); ++dre)
-					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre)->ItemNr);
+					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre));
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
 				md->setScribusElem(ss->WriteElem(m_doc, m_doc->m_Selection));
@@ -1088,7 +1088,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->itemAt(0)!=NULL)
 	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	m_view->zoomSpinBox->clearFocus();

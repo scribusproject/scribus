@@ -243,7 +243,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						currDoc->Items->append(newItem);
 					}
 					first = false;
-					newItem->ItemNr = currDoc->Items->count()-1;
 					newItem->setLineStyle(Qt::SolidLine);
 					newItem->setFillColor(ml[it].Color);
 					newItem->setFillShade(ml[it].Shade);
@@ -284,7 +283,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						arrow.map(arrowTrans);
 						PageItem* newItem = new PageItem_Polygon(*currItem);
 						currDoc->Items->append(newItem);
-						newItem->ItemNr = currDoc->Items->count()-1;
 						newItem->setLineWidth(0);
 						newItem->setLineStyle(Qt::SolidLine);
 						newItem->setCustomLineStyle("");
@@ -325,7 +323,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						arrow.map(arrowTrans);
 						PageItem* newItem = new PageItem_Polygon(*currItem);
 						currDoc->Items->append(newItem);
-						newItem->ItemNr = currDoc->Items->count()-1;
 						newItem->setLineWidth(0);
 						newItem->setLineStyle(Qt::SolidLine);
 						newItem->setCustomLineStyle("");

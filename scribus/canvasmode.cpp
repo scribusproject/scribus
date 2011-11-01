@@ -944,7 +944,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			if (m_doc->SubMode != -1)
 			{
 				m_view->Deselect(false);
-				m_doc->Items->removeAt(currItem->ItemNr);
+				m_doc->Items->removeOne(currItem);
 			}
 			else
 				m_view->Deselect(false);
@@ -1234,7 +1234,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
 							currItem->Sizing = false;
-							m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr);
+							m_doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem);
 						}
 					}
 					currItem->update();
@@ -1296,7 +1296,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
 							currItem->Sizing = false;
-							m_doc->SizeItem(currItem->width() + resizeBy, currItem->height(), currItem->ItemNr);
+							m_doc->SizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
 						}
 					}
 					currItem->update();
@@ -1358,7 +1358,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
 							currItem->Sizing = false;
-							m_doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem->ItemNr);
+							m_doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
 						}
 					}
 					currItem->update();
@@ -1420,7 +1420,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
 							currItem->Sizing = false;
-							m_doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem->ItemNr);
+							m_doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
 						}
 					}
 					currItem->update();

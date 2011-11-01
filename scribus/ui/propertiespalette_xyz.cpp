@@ -296,7 +296,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 
 	nameEdit->setText(m_item->itemName());
 	QString tm;
-	levelLabel->setText(tm.setNum(m_item->ItemNr + 1));
+	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
 
 	connect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
 

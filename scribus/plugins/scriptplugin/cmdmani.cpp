@@ -30,7 +30,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	ScCore->primaryMainWindow()->doc->LoadPict(QString::fromUtf8(Image), item->ItemNr);
+	ScCore->primaryMainWindow()->doc->loadPict(QString::fromUtf8(Image), item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -62,7 +62,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 
 	// scale
 	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
@@ -104,7 +104,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 
 	// scale
 	double newScaleX = x / item->pixm.imgInfo.xres * 72.0;
@@ -147,7 +147,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 
 	// offset
 	double newOffsetX = x / ((item->imageXScale() != 0.0) ? item->imageXScale() : 1);
@@ -244,7 +244,7 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 	// Move the item, or items
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
 	{
@@ -281,7 +281,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 	// Move the item, or items
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
 	{
@@ -312,7 +312,7 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - x, item->ItemNr);
+	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - x, item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -329,7 +329,7 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->doc->RotateItem(x * -1.0, item->ItemNr);
+	ScCore->primaryMainWindow()->doc->RotateItem(x * -1.0, item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -346,7 +346,7 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(x), ValueToPoint(y), item->ItemNr);
+	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(x), ValueToPoint(y), item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -418,7 +418,7 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->view->Deselect();
-	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(i);
 	ScCore->primaryMainWindow()->UnGroupObj();
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -442,7 +442,7 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->view->Deselect();
-	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(i);
 //	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
 //	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
 	ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Resize, "", Um::IResize);
@@ -485,7 +485,7 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(i);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -593,7 +593,7 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 
 	// flip
 	if (h == 1) {

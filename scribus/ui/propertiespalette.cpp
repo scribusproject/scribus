@@ -374,20 +374,21 @@ PageItem* PropertiesPalette::currentItemFromSelection()
 
 	if (m_doc)
 	{
-		if (m_doc->m_Selection->count() > 1)
+		currentItem = m_doc->m_Selection->itemAt(0);
+	/*	if (m_doc->m_Selection->count() > 1)
 		{
-			uint lowestItem = 999999;
+			int lowestItem = 999999;
 			for (int a=0; a<m_doc->m_Selection->count(); ++a)
 			{
 				currentItem = m_doc->m_Selection->itemAt(a);
-				lowestItem = qMin(lowestItem, currentItem->ItemNr);
+				lowestItem = qMin(lowestItem, m_doc->Items->indexOf(currentItem));
 			}
 			currentItem = m_doc->Items->at(lowestItem);
 		}
 		else if (m_doc->m_Selection->count() == 1)
 		{
 			currentItem = m_doc->m_Selection->itemAt(0);
-		}
+		} */
 	}
 
 	return currentItem;
@@ -534,7 +535,7 @@ void  PropertiesPalette::handleSelectionChanged()
 		int itemType = currItem ? (int) currItem->itemType() : -1;
 		m_haveItem   = (itemType != -1);
 
-		int visID = TabStack->currentIndex();
+//		int visID = TabStack->currentIndex();
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);

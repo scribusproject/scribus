@@ -150,7 +150,6 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 							item->PageItemObject->OwnPage = item->DocObject->OnPage(item->PageItemObject);
 							item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true);
 						}
-						item->DocObject->renumberItemsInListOrder();
 						QList<QTreeWidgetItem*> selList;
 						selList.append(it);
 						selectItems(selList);
@@ -182,7 +181,6 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 								item->PageItemObject->OwnPage = item->DocObject->OnPage(item->PageItemObject);
 								item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true);
 							}
-							item->DocObject->renumberItemsInListOrder();
 							QList<QTreeWidgetItem*> selList;
 							selList.append(it);
 							selectItems(selList);
@@ -878,7 +876,7 @@ void OutlinePalette::slotMultiSelect()
 					if (!pgItem->isSelected())
 					{
 						m_MainWindow->closeActiveWindowMasterPageEditor();
-						currDoc->view()->SelectItemNr(pgItem->ItemNr, false, false);
+						currDoc->view()->SelectItem(pgItem, false, false);
 					}
 					break;
 				default:
@@ -1291,6 +1289,7 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 			grp->setText(0, pgItem->itemName());
 			setItemIcon(grp, pgItem);
 			grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+//			grp->setFlags(Qt::ItemIsEnabled);
 		}
 		else
 		{
@@ -1302,6 +1301,7 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 			grp->setText(0, pgItem->itemName());
 			grp->setIcon( 0, groupIcon );
 			grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+//			grp->setFlags(Qt::ItemIsEnabled);
 			parseSubGroup(grp, &pgItem->groupItemList, itemType, a);
 		}
 	}

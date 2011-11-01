@@ -925,25 +925,24 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					m_Doc->LastAuto = Neu;
 				if (pg.tagName()=="FRAMEOBJECT")
 				{
-					m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
-					Neu->ItemNr = m_Doc->FrameItems.count()-1;
+					m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
 				}
 				if (Neu->isTableItem)
 				{
 					if (pg.tagName()=="PAGEOBJECT")
 					{
 						TableItems.append(Neu);
-						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->DocItems.indexOf(Neu));
 					}
 					else if (pg.tagName()=="FRAMEOBJECT")
 					{
 						TableItemsF.append(Neu);
-						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->FrameItems.indexOf(Neu));
 					}
 					else
 					{
 						TableItemsM.append(Neu);
-						TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->MasterItems.indexOf(Neu));
 					}
 				}
 				m_Doc->setMasterPageMode(false);
@@ -1742,7 +1741,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
-			doc->LoadPict(currItem->Pfile, z);
+			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageShown(obj->attribute("PICART").toInt());
 /*			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
@@ -2259,12 +2258,11 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
-						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->Items->indexOf(Neu));
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
-						Neu->ItemNr = m_Doc->FrameItems.count()-1;
+						m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
 					}
 				}
 				counter++;

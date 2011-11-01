@@ -508,7 +508,6 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
-				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 				tmpSel->addItem(Elements.at(dre), true);
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
@@ -1151,10 +1150,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			Selection tmpSelection(m_Doc, false);
 			tmpSelection.addItem(neu);
 			m_Doc->itemSelection_DeleteItem(&tmpSelection);
-			for (int a = 0; a < m_Doc->Items->count(); ++a)
-			{
-				m_Doc->Items->at(a)->ItemNr = a;
-			}
 			for (int gr = 0; gr < gElements.count(); ++gr)
 			{
 				GElements.append(gElements.at(gr));
@@ -1212,13 +1207,13 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 					currItem->gYpos = currItem->yPos() - gy;
 					currItem->gWidth = gw;
 					currItem->gHeight = gh;
+					currItem->Parent = neu;
 					neu->groupItemList.append(currItem);
 					m_Doc->Items->removeAll(currItem);
 				}
 				neu->setRedrawBounding();
 				neu->setTextFlowMode(PageItem::TextFlowDisabled);
 				m_Doc->GroupCounter++;
-				m_Doc->renumberItemsInListOrder();
 			}
 			else
 			{
@@ -1231,7 +1226,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 					tmpSelection.addItem(gElements.at(gr));
 				}
 				m_Doc->itemSelection_DeleteItem(&tmpSelection);
-				m_Doc->renumberItemsInListOrder();
 			}
 		}
 		delete( m_gc.pop() );
@@ -1462,7 +1456,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	if (!fname.isEmpty())
 	{
 		if (!fname.startsWith("data:"))
-			m_Doc->LoadPict(fname, z);
+			m_Doc->loadPict(fname, ite);
 		else
 		{
 			int startData = fname.indexOf(",");
@@ -1480,7 +1474,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 			QImage img;
 			img.loadFromData(ba);
 			img.save(fileName, "PNG");
-			m_Doc->LoadPict(fileName, z);
+			m_Doc->loadPict(fileName, ite);
 		}
 	}
 	if (clipPath.size() != 0)

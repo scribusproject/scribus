@@ -125,7 +125,6 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(32);
 		m_Item->itemText.insertChars(ch, true);
 	}
-	m_doc->updateFrameItems();
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 // 	delEdit();
@@ -145,7 +144,6 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 	if (ch == QChar(9))
 		ch = QChar(32);
 	m_Item->itemText.insertChars(ch, true);
-	m_doc->updateFrameItems();
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 }

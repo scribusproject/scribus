@@ -615,7 +615,6 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
-				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 				tmpSel->addItem(Elements.at(dre), true);
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
@@ -676,12 +675,6 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 	}
 	if (cElements.count() < 2)
 	{
-//		m_Doc->Items->takeAt(zn);
-//		delete neu;
-		for (int a = 0; a < m_Doc->Items->count(); ++a)
-		{
-			m_Doc->Items->at(a)->ItemNr = a;
-		}
 		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
 			elements.append(cElements.at(gr));

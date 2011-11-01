@@ -189,9 +189,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	bool newVersion = false;
 
-	QMap<int,int> TableID;
-	QMap<int,int> TableIDM;
-	QMap<int,int> TableIDF;
+	QMap<int,PageItem*> TableID;
+	QMap<int,PageItem*> TableIDM;
+	QMap<int,PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
@@ -231,8 +231,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	itemRemapM.clear();
 	itemNextM.clear();
 	itemCountM = 0;
-	itemRemapF.clear();
-	itemNextF.clear();
 
 	TableItems.clear();
 	TableID.clear();
@@ -415,12 +413,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (tagName == "PAGEOBJECT")
 			{
 				if (itemInfo.nextItem != -1)
-					itemNext[itemInfo.item->ItemNr] = itemInfo.nextItem;
+					itemNext[m_Doc->DocItems.count()] = itemInfo.nextItem;
 			}
 			else if (tagName == "MASTEROBJECT")
 			{
 				if (itemInfo.nextItem != -1)
-					itemNextM[itemInfo.item->ItemNr] = itemInfo.nextItem;
+					itemNextM[m_Doc->MasterItems.count()] = itemInfo.nextItem;
 			}
 			/* not sure if we want that...
 			else if (tagName == "FRAMEOBJECT")
@@ -434,23 +432,23 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				if (tagName == "PAGEOBJECT")
 				{
 					TableItems.append(itemInfo.item);
-					TableID.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					TableID.insert(itemInfo.ownLink, itemInfo.item);
 				}
 				else if (tagName == "FRAMEOBJECT")
 				{
 					TableItemsF.append(itemInfo.item);
-					TableIDF.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					TableIDF.insert(itemInfo.ownLink, itemInfo.item);
 				}
 				else
 				{
 					TableItemsM.append(itemInfo.item);
-					TableIDM.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					TableIDM.insert(itemInfo.ownLink, itemInfo.item);
 				}
 			}
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 				{
 					if (tagName == "PAGEOBJECT")
 						groupStackP.push(groupStack.pop());
@@ -468,7 +466,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
 				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 			}
 		}
 		if (tagName == "Pattern")
@@ -502,19 +500,19 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			PageItem* ta = TableItemsF.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
+				ta->TopLink = TableIDF[ta->TopLinkID];
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
+				ta->LeftLink = TableIDF[ta->LeftLinkID];
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
+				ta->RightLink = TableIDF[ta->RightLinkID];
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
+				ta->BottomLink = TableIDF[ta->BottomLinkID];
 			else
 				ta->BottomLink = 0;
 		}
@@ -525,19 +523,19 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			PageItem* ta = TableItemsM.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
+				ta->TopLink = TableIDM[ta->TopLinkID];
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
+				ta->LeftLink = TableIDM[ta->LeftLinkID];
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
+				ta->RightLink = TableIDM[ta->RightLinkID];
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
+				ta->BottomLink = TableIDM[ta->BottomLinkID];
 			else
 				ta->BottomLink = 0;
 		}
@@ -548,19 +546,19 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
+				ta->TopLink = TableID[ta->TopLinkID];
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = TableID[ta->LeftLinkID];
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
+				ta->RightLink = TableID[ta->RightLinkID];
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = TableID[ta->BottomLinkID];
 			else
 				ta->BottomLink = 0;
 		}
@@ -636,6 +634,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -661,6 +660,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -686,6 +686,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -700,7 +701,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 	
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -1842,14 +1842,14 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (tagName == "FRAMEOBJECT")
 	{
-		doc->FrameItems.append(doc->Items->takeAt(newItem->ItemNr));
-		newItem->ItemNr = doc->FrameItems.count()-1;
+		doc->FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
 	}
 
 	info.item     = newItem;
 	info.nextItem = attrs.valueAsInt("NEXTITEM", -1);
 	info.ownLink  = newItem->isTableItem ? attrs.valueAsInt("OwnLINK", 0) : 0;
 	info.groupLastItem = 0;
+	info.ownNr = doc->Items->indexOf(newItem);
 
 	info.isGroupFlag = attrs.valueAsBool("isGroupControl", 0);
 	if (info.isGroupFlag)
@@ -2033,7 +2033,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
-	QMap<int,int> TableID2;
+	QMap<int,PageItem*> TableID2;
 	QList<PageItem*> TableItems2;
 
 	pat.setDoc(doc);
@@ -2075,12 +2075,12 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		if (itemInfo.item->isTableItem)
 		{
 			TableItems2.append(itemInfo.item);
-			TableID2.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+			TableID2.insert(itemInfo.ownLink, itemInfo.item);
 		}
 		if (groupStack.count() > 0)
 		{
 			groupStack.top().append(itemInfo.item);
-			while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+			while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 			{
 				groupStackP.push(groupStack.pop());
 				groupStack2.pop();
@@ -2093,7 +2093,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			QList<PageItem*> GroupItems;
 			GroupItems.append(itemInfo.item);
 			groupStack.push(GroupItems);
-			groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+			groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 		}
 	}
 
@@ -2110,19 +2110,19 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		{
 			PageItem* ta = TableItems2.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID2[ta->TopLinkID]);
+				ta->TopLink = TableID2[ta->TopLinkID];
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID2[ta->LeftLinkID]);
+				ta->LeftLink = TableID2[ta->LeftLinkID];
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID2[ta->RightLinkID]);
+				ta->RightLink = TableID2[ta->RightLinkID];
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID2[ta->BottomLinkID]);
+				ta->BottomLink = TableID2[ta->BottomLinkID];
 			else
 				ta->BottomLink = 0;
 		}
@@ -2138,6 +2138,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -2152,7 +2153,6 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 
 	uint itemCount2 = m_Doc->Items->count();
 	if (itemCount2 > itemCount1)
@@ -2166,7 +2166,6 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			newItem->moveBy(pat.xoffset, pat.yoffset, true);
 			newItem->gXpos += pat.xoffset;
 			newItem->gYpos += pat.yoffset;
-			newItem->ItemNr = pat.items.count();
 			pat.items.append(newItem);
 		}
 	}
@@ -2749,7 +2748,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->EmProfile   = attrs.valueAsString("EPROF", "");
 			currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
-			doc->LoadPict(currItem->Pfile, z);
+			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageShown( attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
@@ -3023,7 +3022,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	ScPage* newPage = NULL;
 	
 	QString tmp;
-	QMap<int,int> TableID;
+	QMap<int,PageItem*> TableID;
 	QList<PageItem*> TableItems;
 	QMap<PageItem*, int> groupID;
 	double pageX = 0, pageY = 0;
@@ -3047,8 +3046,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	itemRemapM.clear();
 	itemNextM.clear();
 	itemCountM = 0;
-	itemRemapF.clear();
-	itemNextF.clear();
 
 	DoVorl.clear();
 	DoVorl[0] = "0";
@@ -3263,12 +3260,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				if (newItem->isTableItem)
 				{
 					TableItems.append(newItem);
-					TableID.insert(itemInfo.ownLink, newItem->ItemNr);
+					TableID.insert(itemInfo.ownLink, newItem);
 				}
 				if (tagName == "FRAMEOBJECT")
 				{
-					m_Doc->FrameItems.append(m_Doc->Items->takeAt(newItem->ItemNr));
-					newItem->ItemNr = m_Doc->FrameItems.count()-1;
+					m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 				}
 			}
 		}
@@ -3298,19 +3294,19 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
+				ta->TopLink = TableID[ta->TopLinkID];
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = TableID[ta->LeftLinkID];
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
+				ta->RightLink = TableID[ta->RightLinkID];
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = TableID[ta->BottomLinkID];
 			else
 				ta->BottomLink = 0;
 		}

@@ -557,7 +557,8 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 	int indice = qMin(index, m_doc->Items->count());
 	if (index < 0 || indice < 0)
 		return NULL;
-	
+
+	int itemid = m_doc->Items->indexOf(item);
 	QRectF baseRect(item->getBoundingRect());
 	int itemLevel = m_doc->layerLevelFromID(item->LayerID);
 	if (itemLevel < 0)
@@ -566,10 +567,11 @@ PageItem * Canvas::itemUnderItem(PageItem * item, int& index) const
 	for(index = indice - 1; index >= 0; --index)
 	{
 		PageItem* item1 = m_doc->Items->at(index);
+		int item1id = m_doc->Items->indexOf(item1);
 		int level = m_doc->layerLevelFromID(item1->LayerID);
 		if ((item != item1) && (level >= 0) && (level <= itemLevel))
 		{
-			if ((level == itemLevel) && (item1->ItemNr > item->ItemNr))
+			if ((level == itemLevel) && (item1id > itemid))
 				continue;
 			QRectF uRect(item1->getBoundingRect());
 			if(baseRect.intersects(uRect))

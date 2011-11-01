@@ -263,10 +263,6 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	Daten.replace(QChar('\n') , SpecialChars::PARSEP);
 	PyMem_Free(Text);
 	currItem->itemText.clear();
-	for (int a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
-	{
-		ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
-	}
 	currItem->itemText.insertChars(0, Daten);
 	currItem->invalidateLayout();
 	currItem->Dirty = false;
@@ -644,10 +640,6 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 	else
 	{
 		it->itemText.clear();
-		for (int a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
-		{
-			ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
-		}
 	}
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -962,7 +954,7 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 	if (item->invalid)
 		item->layout();
 	ScCore->primaryMainWindow()->view->Deselect(true);
-	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(item);
 	ScCore->primaryMainWindow()->view->TextToPath();
 //	Py_INCREF(Py_None);
 //	return Py_None;

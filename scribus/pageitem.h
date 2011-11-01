@@ -465,8 +465,6 @@ public:
 	bool ClipEdited;
 	// Don't know exactly what this is, but it's not the same as itemType
 	int FrameType;
-  /** Interne Item-Nummer */
-	uint ItemNr;
   /** Internal unique Item-Number, used for the undo system */
 	uint uniqueNr;
   /** Hat Element Rahmen? FIXME: still used? - in DrawObject_Post */
@@ -539,6 +537,7 @@ public:
 	PageItem* nextInChain() { return NextBox; }
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
+	PageItem *Parent;
 
 	bool testLinkCandidate(PageItem* nextFrame);
 	void unlink();

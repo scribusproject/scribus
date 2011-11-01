@@ -282,7 +282,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->doc->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
+	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
 	if (Name != EMPTY_STRING)
 	{
@@ -364,7 +364,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->doc->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
+	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
 	if (Name != EMPTY_STRING)
 	{
@@ -455,7 +455,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScCore->primaryMainWindow()->doc->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
+	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
 	if (Name != EMPTY_STRING)
 	{
@@ -486,26 +486,25 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 //	}
 	//FIXME: Why use GetItem not GetUniqueItem? Maybe use GetUniqueItem and use the exceptions
 	// its sets for us?
-	int i = GetItem(QString::fromUtf8(TextB));
-	int ii = GetItem(QString::fromUtf8(PolyB));
-	if ((i == -1) || (ii == -1))
+	PageItem *i = GetItem(QString::fromUtf8(TextB));
+	PageItem *ii = GetItem(QString::fromUtf8(PolyB));
+	if ((i == NULL) || (ii == NULL))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(ScCore->primaryMainWindow()->doc->Items->at(i));
-	ScCore->primaryMainWindow()->doc->m_Selection->addItem(ScCore->primaryMainWindow()->doc->Items->at(ii));
-	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(i);
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(ii);
 	ScCore->primaryMainWindow()->view->ToPathText();
-	ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
+	ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - i->xPos(), pageUnitYToDocY(y) - i->yPos(), i);
 	if (Name != EMPTY_STRING)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
-			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
+			i->setItemName(objName);
 	}
-	return PyString_FromString(it->itemName().toUtf8());
+	return PyString_FromString(i->itemName().toUtf8());
 }
 
 

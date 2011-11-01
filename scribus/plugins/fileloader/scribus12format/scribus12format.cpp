@@ -189,6 +189,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	double h = Buffer->Height;
 	double pw = Buffer->Pwidth;
 	int z = 0;
+	PageItem *currItem = NULL;
 	switch (Buffer->PType)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -199,21 +200,22 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	case PageItem::ImageFrame:
 		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None, true);
 //		undoManager->setUndoEnabled(false);
-		m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		m_Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
-		m_Doc->Items->at(z)->setImageRotation(Buffer->LocalRot);
-		m_Doc->Items->at(z)->Pfile = Buffer->Pfile;
-		m_Doc->Items->at(z)->IProfile = Buffer->IProfile;
-		m_Doc->Items->at(z)->EmProfile = Buffer->EmProfile;
-		m_Doc->Items->at(z)->IRender = Buffer->IRender;
-		m_Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
-		if (!m_Doc->Items->at(z)->Pfile.isEmpty())
-			m_Doc->LoadPict(m_Doc->Items->at(z)->Pfile, z);
-		m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		m_Doc->Items->at(z)->setImageShown(Buffer->PicArt);
-		m_Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
-		m_Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
-		m_Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
+		currItem = m_Doc->Items->at(z);
+		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		currItem->setImageRotation(Buffer->LocalRot);
+		currItem->Pfile = Buffer->Pfile;
+		currItem->IProfile = Buffer->IProfile;
+		currItem->EmProfile = Buffer->EmProfile;
+		currItem->IRender = Buffer->IRender;
+		currItem->UseEmbedded = Buffer->UseEmbedded;
+		if (!currItem->Pfile.isEmpty())
+			m_Doc->loadPict(currItem->Pfile, currItem);
+		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		currItem->setImageShown(Buffer->PicArt);
+		currItem->ScaleType = Buffer->ScaleType;
+		currItem->AspectRatio = Buffer->AspectRatio;
+		currItem->setLineWidth(Buffer->Pwidth);
 //		undoManager->setUndoEnabled(true);
 		break;
 	// OBSOLETE CR 2005-02-06
@@ -229,21 +231,22 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		else
 			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
 //		undoManager->setUndoEnabled(false);
+		currItem = m_Doc->Items->at(z);
 		if ((Buffer->m_isAnnotation) && (Buffer->m_annotation.UseIcons()))
 		{
-			m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-			m_Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
-			m_Doc->Items->at(z)->setImageRotation(Buffer->LocalRot);
-			m_Doc->Items->at(z)->Pfile = Buffer->Pfile;
-			m_Doc->Items->at(z)->Pfile2 = Buffer->Pfile2;
-			m_Doc->Items->at(z)->Pfile3 = Buffer->Pfile3;
-			m_Doc->Items->at(z)->IProfile = Buffer->IProfile;
-			m_Doc->Items->at(z)->EmProfile = Buffer->EmProfile;
-			m_Doc->Items->at(z)->IRender = Buffer->IRender;
-			m_Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
-			m_Doc->LoadPict(m_Doc->Items->at(z)->Pfile, z);
-			m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-			m_Doc->Items->at(z)->setImageShown(Buffer->PicArt);
+			currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+			currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+			currItem->setImageRotation(Buffer->LocalRot);
+			currItem->Pfile = Buffer->Pfile;
+			currItem->Pfile2 = Buffer->Pfile2;
+			currItem->Pfile3 = Buffer->Pfile3;
+			currItem->IProfile = Buffer->IProfile;
+			currItem->EmProfile = Buffer->EmProfile;
+			currItem->IRender = Buffer->IRender;
+			currItem->UseEmbedded = Buffer->UseEmbedded;
+			m_Doc->loadPict(currItem->Pfile, currItem);
+			currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+			currItem->setImageShown(Buffer->PicArt);
 		}
 		if (!Buffer->itemText.isEmpty())
 		{
@@ -308,15 +311,15 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 				nstyle.setStrikethruOffset(it == wt.end() ? -1 : (*it).toInt());
 				it++;
 				nstyle.setStrikethruWidth(it == wt.end() ? -1 : (*it).toInt());
-				uint pos = m_Doc->Items->at(z)->itemText.length();
-				m_Doc->Items->at(z)->itemText.insertChars(pos, ch);
+				uint pos = currItem->itemText.length();
+				currItem->itemText.insertChars(pos, ch);
 				if (ch == SpecialChars::PARSEP && cab > 0) {
 					ParagraphStyle pstyle;
 					pstyle.setParent(m_Doc->paragraphStyles()[cab].name());
-					m_Doc->Items->at(z)->itemText.applyStyle(pos, pstyle);
+					currItem->itemText.applyStyle(pos, pstyle);
 				}
 				else {
-					m_Doc->Items->at(z)->itemText.applyCharStyle(pos, 1, nstyle);
+					currItem->itemText.applyCharStyle(pos, 1, nstyle);
 				}
 			}
 		}
@@ -345,7 +348,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			pstyle.charStyle().setUnderlineWidth(Buffer->TxtUnderWidth);
 			pstyle.charStyle().setStrikethruOffset(Buffer->TxtStrikePos);
 			pstyle.charStyle().setStrikethruWidth(Buffer->TxtStrikeWidth);
-			m_Doc->Items->at(z)->itemText.setDefaultStyle(pstyle);
+			currItem->itemText.setDefaultStyle(pstyle);
 		}
 //		undoManager->setUndoEnabled(true);
 #endif
@@ -378,22 +381,23 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		{
 		z = m_Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None, true);
 //		undoManager->setUndoEnabled(false);
-		m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		m_Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
-		m_Doc->Items->at(z)->setImageRotation(Buffer->LocalRot);
-		m_Doc->Items->at(z)->Pfile = Buffer->Pfile;
-		m_Doc->Items->at(z)->IProfile = Buffer->IProfile;
-		m_Doc->Items->at(z)->EmProfile = Buffer->EmProfile;
-		m_Doc->Items->at(z)->IRender = Buffer->IRender;
-		m_Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
-		if (!m_Doc->Items->at(z)->Pfile.isEmpty())
-			m_Doc->LoadPict(m_Doc->Items->at(z)->Pfile, z);
-		m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		m_Doc->Items->at(z)->setImageShown(Buffer->PicArt);
-		m_Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
-		m_Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
-		m_Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
-		PageItem_LatexFrame *latexframe = m_Doc->Items->at(z)->asLatexFrame();
+		currItem = m_Doc->Items->at(z);
+		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		currItem->setImageRotation(Buffer->LocalRot);
+		currItem->Pfile = Buffer->Pfile;
+		currItem->IProfile = Buffer->IProfile;
+		currItem->EmProfile = Buffer->EmProfile;
+		currItem->IRender = Buffer->IRender;
+		currItem->UseEmbedded = Buffer->UseEmbedded;
+		if (!currItem->Pfile.isEmpty())
+			m_Doc->loadPict(currItem->Pfile, currItem);
+		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		currItem->setImageShown(Buffer->PicArt);
+		currItem->ScaleType = Buffer->ScaleType;
+		currItem->AspectRatio = Buffer->AspectRatio;
+		currItem->setLineWidth(Buffer->Pwidth);
+		PageItem_LatexFrame *latexframe = currItem->asLatexFrame();
 		latexframe->setFormula(Buffer->itemText); //itemText seems to be a good choice...
 //		undoManager->setUndoEnabled(true);
 		break;
@@ -402,26 +406,27 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 #ifdef HAVE_OSG
 		z = m_Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None, true);
 //		undoManager->setUndoEnabled(false);
-		m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		m_Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
-		m_Doc->Items->at(z)->setImageRotation(Buffer->LocalRot);
-		m_Doc->Items->at(z)->Pfile = Buffer->Pfile;
-		m_Doc->Items->at(z)->IProfile = Buffer->IProfile;
-		m_Doc->Items->at(z)->EmProfile = Buffer->EmProfile;
-		m_Doc->Items->at(z)->IRender = Buffer->IRender;
-		m_Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
-		if (!m_Doc->Items->at(z)->Pfile.isEmpty())
-			m_Doc->LoadPict(m_Doc->Items->at(z)->Pfile, z);
-		m_Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		m_Doc->Items->at(z)->setImageShown(Buffer->PicArt);
-		m_Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
-		m_Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
-		m_Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
+		currItem = m_Doc->Items->at(z);
+		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		currItem->setImageRotation(Buffer->LocalRot);
+		currItem->Pfile = Buffer->Pfile;
+		currItem->IProfile = Buffer->IProfile;
+		currItem->EmProfile = Buffer->EmProfile;
+		currItem->IRender = Buffer->IRender;
+		currItem->UseEmbedded = Buffer->UseEmbedded;
+		if (!currItem->Pfile.isEmpty())
+			m_Doc->loadPict(currItem->Pfile, currItem);
+		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		currItem->setImageShown(Buffer->PicArt);
+		currItem->ScaleType = Buffer->ScaleType;
+		currItem->AspectRatio = Buffer->AspectRatio;
+		currItem->setLineWidth(Buffer->Pwidth);
 //		undoManager->setUndoEnabled(true);
 #endif
 		break;
 	}
-	PageItem *currItem = m_Doc->Items->at(z);
+	currItem = m_Doc->Items->at(z);
 //	undoManager->setUndoEnabled(false);
 /*FIXME
 	currItem->setLineSpacingMode(Buffer->LineSpMode);
@@ -1075,7 +1080,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
-						TableID.insert(obj.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						TableID.insert(obj.attribute("OwnLINK", "0").toInt(), last);
 					}
 					counter++;
 					OBJ=OBJ.nextSibling();
@@ -1971,7 +1976,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
-						TableID.insert(obj.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						TableID.insert(obj.attribute("OwnLINK", "0").toInt(), counter);
 					}
 					counter++;
 					OBJ=OBJ.nextSibling();

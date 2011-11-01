@@ -54,22 +54,22 @@ double docUnitYToPageY(double pageUnitY)
 	return PointToValue(pageUnitY - ScCore->primaryMainWindow()->doc->currentPage()->yOffset());
 }
 
-int GetItem(QString Name)
+PageItem *GetItem(QString Name)
 {
 	if (!Name.isEmpty())
 	{
 		for (int a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
 		{
 			if (ScCore->primaryMainWindow()->doc->Items->at(a)->itemName() == Name)
-				return static_cast<int>(a);
+				return ScCore->primaryMainWindow()->doc->Items->at(a);
 		}
 	}
 	else
 	{
 		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
-			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0)->ItemNr;
+			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 	}
-	return -1;
+	return NULL;
 }
 
 void ReplaceColor(QString col, QString rep)
@@ -227,7 +227,7 @@ bool setSelectedItemsByName(QStringList& itemNames)
 		if (!item)
 			return false;
 		// and select it
-		ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+		ScCore->primaryMainWindow()->view->SelectItem(item);
 	}
 	return true;
 }

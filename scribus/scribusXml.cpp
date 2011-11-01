@@ -167,7 +167,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	emG.clear();
 	for (int cor = 0; cor < selection->count(); ++cor)
 	{
-		emMap.insert(selection->itemAt(cor)->ItemNr, selection->itemAt(cor));
+		emMap.insert(doc->Items->indexOf(selection->itemAt(cor)), selection->itemAt(cor));
 	}
 	emG = emMap.values();
 	double selectionWidth = 0;

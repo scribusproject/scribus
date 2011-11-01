@@ -1829,7 +1829,6 @@ public:
 				items->removeAll(obj);
 		}
 		obj->doc()->FrameItems.append(obj);
-		obj->ItemNr = obj->doc()->FrameItems.count() - 1;
 		story->insertObject(-1, obj);
 	}
 };

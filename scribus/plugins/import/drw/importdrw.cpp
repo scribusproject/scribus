@@ -274,7 +274,6 @@ bool DrwPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -1222,6 +1221,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 						popped.groupItem->groupItemList.append(item);
 						item->gXpos = item->xPos() - popped.groupItem->xPos();
 						item->gYpos = item->yPos() - popped.groupItem->yPos();
+						item->Parent = popped.groupItem;
 						if (groupStack.count() > 0)
 							groupStack.top().GElements.removeAll(tmpSel->itemAt(i));
 						Elements.removeAll(tmpSel->itemAt(i));
@@ -1902,7 +1902,6 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 					newItem->gWidth = pat.pattern.width();
 					newItem->gHeight = pat.pattern.height();
 					pat.items.append(newItem);
-					newItem->ItemNr = pat.items.count();
 				}
 				patternName = "Pattern_"+newItem->itemName();
 				patternName = patternName.trimmed().simplified().replace(" ", "_");

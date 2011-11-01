@@ -912,7 +912,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->itemAt(0)!=NULL)
 	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	m_view->zoomSpinBox->clearFocus();

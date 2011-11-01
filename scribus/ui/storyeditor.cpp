@@ -2902,7 +2902,6 @@ void StoryEditor::updateTextFrame()
 	}
 	FrameItemsDel.clear();
 #endif
-	currDoc->updateFrameItems();
 #if 0
 	if (currItem->asTextFrame())
 	{

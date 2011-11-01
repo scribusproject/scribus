@@ -659,7 +659,6 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
-				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 				m_tmpSel->addItem(Elements.at(dre), true);
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();

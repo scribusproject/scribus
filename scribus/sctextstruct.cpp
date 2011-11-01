@@ -36,7 +36,6 @@ struct InlineFrameData
 		if (refs == 0 && item != NULL)
 		{
 			item->doc()->FrameItems.removeAll(item);
-			item->doc()->updateFrameItems();
 			delete item;
 			item = NULL;
 		}

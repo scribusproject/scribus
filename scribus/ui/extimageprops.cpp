@@ -305,7 +305,7 @@ void ExtImageProps::leaveOK()
 	doPreview = false;
 	if (originalInfo.layerInfo.count() != 0)
 		changedLayer();
-	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
 	if (pathList->count() != 0)
 	{
 		QList<QListWidgetItem *>sel = pathList->selectedItems();
@@ -332,7 +332,7 @@ void ExtImageProps::leaveOK()
 void ExtImageProps::leaveCancel()
 {
 	currentItem->pixm.imgInfo = originalInfo;
-	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
 	currentItem->imageClip = originalImageClip.copy();
 	currentItem->update();
 	reject();
@@ -345,7 +345,7 @@ void ExtImageProps::changePreview()
 	{
 		if (originalInfo.layerInfo.count() != 0)
 			changedLayer();
-		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
 		if (pathList->count() != 0)
 		{
 			QList<QListWidgetItem *>sel = pathList->selectedItems();
@@ -370,7 +370,7 @@ void ExtImageProps::changePreview()
 	else
 	{
 		currentItem->pixm.imgInfo = originalInfo;
-		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
 		currentItem->imageClip = originalImageClip.copy();
 		currentItem->update();
 	}
@@ -401,7 +401,7 @@ void ExtImageProps::changedLayer()
 	}
 	if (doPreview)
 	{
-		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
 		currentItem->update();
 	}
 }

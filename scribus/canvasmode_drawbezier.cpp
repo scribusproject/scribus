@@ -86,13 +86,13 @@ void BezierMode::finalizeItem(PageItem* currItem)
 	if (currItem->PoLine.size() < 4)
 	{
 //		emit DelObj(m_doc->currentPage->pageNr(), currItem->ItemNr);
-		m_doc->Items->removeAt(currItem->ItemNr);
+		m_doc->Items->removeOne(currItem);
 		m_doc->m_Selection->removeFirst();
 		//emit HaveSel(-1);
 	}
 	else
 	{
-		m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
+		m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
 //		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
 		m_doc->AdjustItemSize(currItem);
 		currItem->ContourLine = currItem->PoLine.copy();
@@ -338,7 +338,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 		currItem->PoLine.translate(0, -npf2.y());
 		m_doc->MoveItem(0, npf2.y(), currItem);
 	}
-	m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
+	m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
 	currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 	m_canvas->newRedrawPolygon();
 }
@@ -397,7 +397,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
+			m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
 			m_doc->AdjustItemSize(currItem);
 			currItem->Sizing = ssiz;
 			currItem->ContourLine = currItem->PoLine.copy();

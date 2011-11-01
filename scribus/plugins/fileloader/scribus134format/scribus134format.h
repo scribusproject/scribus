@@ -67,11 +67,12 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void) { groupLastItem = nextItem = ownLink = 0; item = NULL; isGroupFlag = false; };
+			ItemInfo(void) { groupLastItem = nextItem = ownLink = ownNr = 0; item = NULL; isGroupFlag = false; };
 			PageItem* item;
 			int groupLastItem;
 			int nextItem;
 			int ownLink;
+			int ownNr;
 			bool isGroupFlag;
 		};
 
@@ -143,8 +144,6 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
-		QMap<int, int> itemRemapF;
-		QMap<int, int> itemNextF;
 		QMap<int, int> itemRemapM;
 		QMap<int, int> itemNextM;
 

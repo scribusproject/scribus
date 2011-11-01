@@ -421,7 +421,7 @@ bool PicStatus::loadPict(const QString & newFilePath)
 	bool oldMasterPageMode = m_Doc->masterPageMode();
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(masterPageMode);
-	m_Doc->LoadPict(newFilePath, currItem->ItemNr, true);
+	m_Doc->loadPict(newFilePath, currItem, true);
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(oldMasterPageMode);
 	return currItem->PictureIsAvailable;

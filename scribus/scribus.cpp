@@ -1326,7 +1326,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (doc->SubMode != -1)
 					{
 						view->Deselect(false);
-						doc->Items->removeAt(currItem->ItemNr);
+						doc->Items->removeOne(currItem);
 					}
 					else
 						view->Deselect(false);
@@ -1352,11 +1352,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (currItem->PoLine.size() < 4)
 					{
 						view->Deselect(false);
-						doc->Items->removeAt(currItem->ItemNr);
+						doc->Items->removeOne(currItem);
 					}
 					else
 					{
-						doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
+						doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
 						currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
 						doc->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
@@ -1370,7 +1370,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (currItem->Sizing)
 					{
 						view->Deselect(false);
-						doc->Items->removeAt(currItem->ItemNr);
+						doc->Items->removeOne(currItem);
 					}
 					break;
 			}
@@ -2606,24 +2606,24 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	if (SelectedType != -1)
 	{
 		if (docSelectionCount != 0)
-		{
-			PageItem *lowestItem = doc->m_Selection->itemAt(0);
-			for (uint a=0; a < docSelectionCount; ++a)
-			{
-				currItem = doc->m_Selection->itemAt(a);
-				if (currItem->ItemNr < lowestItem->ItemNr)
-					lowestItem = currItem;
-			}
-			currItem = lowestItem;
-			if ((docSelectionCount == 1) && currItem && currItem->asImageFrame())
-				isRaster = currItem->isRaster;
+			currItem = doc->m_Selection->itemAt(0);
+	//	{
+	//		int lowestItem = 999999;
+	//		for (int a = 0; a < doc->m_Selection->count(); ++a)
+	//		{
+	//			currItem = doc->m_Selection->itemAt(a);
+	//			lowestItem = qMin(lowestItem, doc->Items->indexOf(currItem));
+	//		}
+	//		currItem = doc->Items->at(lowestItem);
+	//		if ((docSelectionCount == 1) && currItem && currItem->asImageFrame())
+	//			isRaster = currItem->isRaster;
 //			doc->m_Selection->removeItem(currItem);
 //			doc->m_Selection->prependItem(currItem);
 //			currItem = doc->m_Selection->itemAt(0);
-			assert(currItem);
+	//		assert(currItem);
 //			if (!currItem)
 //				SelectedType=-1;
-		}
+	//	}
 		else
 			SelectedType = -1;
 	}
@@ -3374,7 +3374,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 			PageItem *b = doc->Items->at(z);
 			b->LayerID = doc->activeLayer();
-			doc->LoadPict(data, b->ItemNr);
+			doc->loadPict(data, b);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
 			b->OldB2 = b->width();
@@ -4152,7 +4152,7 @@ void ScribusMainWindow::slotGetContent()
 				currItem->IRender = doc->cmsSettings().DefaultIntentImages;
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				doc->LoadPict(fileName, currItem->ItemNr, false, true);
+				doc->loadPict(fileName, currItem, false, true);
 				propertiesPalette->imagePal->displayScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				view->DrawNew();
@@ -4240,7 +4240,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 					currItem->isInlineImage = true;
 					currItem->Pfile = fileName;
 					img.save(fileName, "PNG");
-					doc->LoadPict(fileName, currItem->ItemNr, false, true);
+					doc->loadPict(fileName, currItem, false, true);
 					propertiesPalette->imagePal->displayScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					view->DrawNew();
@@ -5097,7 +5097,6 @@ void ScribusMainWindow::slotEditPaste()
 					currItem2->gYpos = currItem2->yPos() - gy;
 					currItem2->gWidth = gw;
 					currItem2->gHeight = gh;
-					currItem2->ItemNr = doc->FrameItems.count();
 					doc->FrameItems.append(currItem2);
 				}
 				int acc = doc->Items->count();

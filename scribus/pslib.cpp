@@ -1601,7 +1601,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 							if (errorOccured) break;
 						}
-						PS_TemplateStart(QString("mp_obj_%1_%2").arg(ap).arg(it->ItemNr));
+						PS_TemplateStart(QString("mp_obj_%1_%2").arg(ap).arg(qHash(it)));
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
 						PS_TemplateEnd();
 					}
@@ -2813,7 +2813,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 			if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
 			{
 				int mpIndex = Doc->MasterNames[page->MPageNam];
-				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(ite->ItemNr));
+				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(qHash(ite)));
 			}
 			else if (ite->asImageFrame())
 			{

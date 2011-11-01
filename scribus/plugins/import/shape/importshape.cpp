@@ -260,7 +260,6 @@ bool ShapePlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -611,7 +610,6 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 				Selection tmpSelection(m_Doc, false);
 				tmpSelection.addItem(neu);
 				m_Doc->itemSelection_DeleteItem(&tmpSelection);
-				m_Doc->renumberItemsInListOrder();
 			}
 			else
 			{
@@ -651,6 +649,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 					currItem->gYpos = currItem->yPos() - gy;
 					currItem->gWidth = gw;
 					currItem->gHeight = gh;
+					currItem->Parent = neu;
 					neu->groupItemList.append(currItem);
 					m_Doc->Items->removeAll(currItem);
 					Elements.removeAll(currItem);
@@ -658,7 +657,6 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 				neu->setRedrawBounding();
 				neu->setTextFlowMode(PageItem::TextFlowDisabled);
 				m_Doc->GroupCounter++;
-				m_Doc->renumberItemsInListOrder();
 			}
 		}
 		DOC = DOC.nextSibling();

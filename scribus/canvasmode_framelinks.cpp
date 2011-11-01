@@ -192,13 +192,14 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				if (currItem->nextInChain() == 0 && bb->prevInChain() == 0 && currItem != bblast)
 				{
 					currItem->link(bb);
+					int cid = m_doc->Items->indexOf(currItem);
+					int bid = m_doc->Items->indexOf(bb);
 					// CB We need to do this because we draw in the order of the item list
 					// Which is also item number list.. but #3488: we must also renumber the items
-					if (bb->ItemNr < currItem->ItemNr)
+					if (bid < cid)
 					{
-						m_doc->Items->insert(currItem->ItemNr+1, bb);
-						bb = m_doc->Items->takeAt(bb->ItemNr);
-						m_doc->renumberItemsInListOrder();
+						m_doc->Items->insert(cid+1, bb);
+						bb = m_doc->Items->takeAt(bid);
 					}
 					// m_view->updateContents();
 					// link calls PageItem::update	

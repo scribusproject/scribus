@@ -644,7 +644,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->itemAt(0)!=NULL)
 	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	m_view->zoomSpinBox->clearFocus();
@@ -882,7 +882,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					{
 						cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
 						int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
-						PageItem* bb = m_doc->Items->at(z);
+						PageItem* bb = m_doc->Items->takeAt(z);
 						if (m_doc->nodeEdit.isContourLine)
 							bb->ContourLine.resize(0);
 						else
@@ -908,10 +908,9 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 								bb->PoLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
 						}
 						bb->setRotation(currItem->rotation());
-						m_doc->AdjustItemSize(bb);
 						bb->ClipEdited = true;
-						PageItem *bx = m_doc->Items->takeAt(bb->ItemNr);
-						m_doc->Items->insert(bb->ItemNr-1, bx);
+						m_doc->Items->insert(m_doc->Items->indexOf(currItem), bb);
+						m_doc->AdjustItemSize(bb);
 					}
 					currItem->PoLine = cli.copy();
 				}

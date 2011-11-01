@@ -1120,7 +1120,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			ite->tempImageFile->close();
 			ite->isInlineImage = true;
 			res.save(fileName, "PNG");
-			m_doc->LoadPict(fileName, z);
+			m_doc->loadPict(fileName, ite);
 			ite->setImageScalingMode(false, true);
 			m_doc->AdjustItemSize(ite);
 			m_Elements->append(ite);
@@ -1244,7 +1244,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			ite->tempImageFile->close();
 			ite->isInlineImage = true;
 			res.save(fileName, "PNG");
-			m_doc->LoadPict(fileName, z);
+			m_doc->loadPict(fileName, ite);
 			ite->setImageScalingMode(false, true);
 			m_doc->AdjustItemSize(ite);
 			m_Elements->append(ite);
@@ -1359,7 +1359,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 			ite->tempImageFile->close();
 			ite->isInlineImage = true;
 			img.save(fileName, "PNG");
-			m_doc->LoadPict(fileName, z);
+			m_doc->loadPict(fileName, ite);
 			ite->setImageScalingMode(false, true);
 			m_doc->AdjustItemSize(ite);
 			m_Elements->append(ite);

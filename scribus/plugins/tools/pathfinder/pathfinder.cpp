@@ -147,13 +147,13 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				{
 					newItem = new PageItem_Polygon(*Item2);
 					newItem->setSelected(false);
-					currDoc->Items->insert(Item2->ItemNr, newItem);
+					currDoc->Items->insert(currDoc->Items->indexOf(Item2), newItem);
 				}
 				else
 				{
 					newItem = new PageItem_Polygon(*Item1);
 					newItem->setSelected(false);
-					currDoc->Items->insert(Item1->ItemNr, newItem);
+					currDoc->Items->insert(currDoc->Items->indexOf(Item1), newItem);
 				}
 			}
 			if (dia->keepItem2)
@@ -163,17 +163,15 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				{
 					newItem = new PageItem_Polygon(*Item1);
 					newItem->setSelected(false);
-					currDoc->Items->insert(Item1->ItemNr, newItem);
+					currDoc->Items->insert(currDoc->Items->indexOf(Item1), newItem);
 				}
 				else
 				{
 					newItem = new PageItem_Polygon(*Item2);
 					newItem->setSelected(false);
-					currDoc->Items->insert(Item2->ItemNr, newItem);
+					currDoc->Items->insert(currDoc->Items->indexOf(Item2), newItem);
 				}
 			}
-			if (dia->keepItem1 || dia->keepItem2)
-				currDoc->renumberItemsInListOrder();
 			if (dia->opMode != 4)
 			{
 				PageItem *currItem;
@@ -270,7 +268,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 						newItem->setRotation(0.0);
 					}
 					currDoc->Items->append(newItem);
-					newItem->ItemNr = currDoc->Items->count()-1;
 					newItem->setSelected(false);
 					points.fromQPainterPath(path);
 					newItem->PoLine = points;

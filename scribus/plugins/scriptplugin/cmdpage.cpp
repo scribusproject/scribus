@@ -245,7 +245,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 			row = Py_BuildValue((char*)"(sii)",
 			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8().constData(),
 			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemType(),
-			                    ScCore->primaryMainWindow()->doc->Items->at(i)->ItemNr
+								ScCore->primaryMainWindow()->doc->Items->at(i)->uniqueNr
 			                   );
 			PyList_SetItem(l, counter, row);
 			counter++;

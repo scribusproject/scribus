@@ -488,7 +488,7 @@ void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu)
 		docu.writeAttribute("Text",(*itbm).Text);
 		docu.writeAttribute("Aktion",(*itbm).Aktion);
 		docu.writeAttribute("ItemNr", (*itbm).ItemNr);
-		docu.writeAttribute("Element", (*itbm).PageObject->ItemNr);
+		docu.writeAttribute("Element", qHash((*itbm).PageObject));
 		docu.writeAttribute("First", (*itbm).First);
 		docu.writeAttribute("Last", (*itbm).Last);
 		docu.writeAttribute("Prev", (*itbm).Prev);
@@ -1219,7 +1219,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 				putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);
-			docu.writeAttribute("COBJ", item->itemText.object(k)->ItemNr);		
+			docu.writeAttribute("COBJ", qHash(item->itemText.object(k)));
 		}
 		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
 			putPStyle(docu, item->itemText.paragraphStyle(k), "para");
@@ -1516,12 +1516,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->asTextFrame() || item->asPathText() || item->asImageFrame())
 		{
 			if (item->nextInChain() != 0)
-				docu.writeAttribute("NEXTITEM", item->nextInChain()->ItemNr);
+				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()));
 			else
 				docu.writeAttribute("NEXTITEM", -1);
 			
 			if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
-				docu.writeAttribute("BACKITEM", item->prevInChain()->ItemNr);
+				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()));
 			else
 			{
 				docu.writeAttribute("BACKITEM", -1);
@@ -1864,12 +1864,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->isWelded())
 		{
 			docu.writeAttribute("isWeldItem", 1);
-			docu.writeAttribute("WeldSource", item->uniqueNr);
+			docu.writeAttribute("WeldSource", qHash(item));
 			for (int i = 0 ; i <  item->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = item->weldList.at(i);
 				docu.writeEmptyElement("WeldEntry");
-				docu.writeAttribute("Target", wInf.weldItem->uniqueNr);
+				docu.writeAttribute("Target", qHash(wInf.weldItem));
 				docu.writeAttribute("WX", wInf.weldPoint.x());
 				docu.writeAttribute("WY", wInf.weldPoint.y());
 			}
@@ -1884,6 +1884,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	QString tmp, tmpy;
 	if (newFormat)
 		docu.writeAttribute("OwnPage", item->OwnPage);
+	docu.writeAttribute("ItemID", qHash(item));
 	docu.writeAttribute("PTYPE",item->realItemType());
 	docu.writeAttribute("WIDTH",item->width());
 	docu.writeAttribute("HEIGHT",item->height());
@@ -2179,22 +2180,22 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("RightLine", static_cast<int>(item->RightLine));
 		docu.writeAttribute("BottomLine", static_cast<int>(item->BottomLine));
 		if (item->TopLink != 0)
-			docu.writeAttribute("TopLINK", item->TopLink->ItemNr);
+			docu.writeAttribute("TopLINK", qHash(item->TopLink));
 		else
 			docu.writeAttribute("TopLINK", -1);
 		if (item->LeftLink != 0)
-			docu.writeAttribute("LeftLINK", item->LeftLink->ItemNr);
+			docu.writeAttribute("LeftLINK", qHash(item->LeftLink));
 		else
 			docu.writeAttribute("LeftLINK", -1);
 		if (item->RightLink != 0)
-			docu.writeAttribute("RightLINK", item->RightLink->ItemNr);
+			docu.writeAttribute("RightLINK", qHash(item->RightLink));
 		else
 			docu.writeAttribute("RightLINK", -1);
 		if (item->BottomLink != 0)
-			docu.writeAttribute("BottomLINK", item->BottomLink->ItemNr);
+			docu.writeAttribute("BottomLINK", qHash(item->BottomLink));
 		else
 			docu.writeAttribute("BottomLINK", -1);
-		docu.writeAttribute("OwnLINK", item->ItemNr);
+		docu.writeAttribute("OwnLINK", qHash(item));
 	}
 
 	if (item->isTable())

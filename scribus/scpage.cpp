@@ -241,7 +241,6 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 		if ((stateCode == 0) || (stateCode == 1))
 			m_Doc->view()->Deselect(true);
 		m_Doc->Items->append(ite);
-		ite->ItemNr = m_Doc->Items->count()-1;
 		if ((stateCode == 0) || (stateCode == 2))
 			update();
 	}
@@ -254,6 +253,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 	if (!state)
 		return;
 	QList<PageItem*> itemList = state->getItem();
+	int id = state->getInt("ITEMID");
 	if (itemList.count() <= 0) 
 		return;
 	m_Doc->view()->Deselect(true);
@@ -268,9 +268,8 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 		for (int i = 0; i < itemList.count(); ++i)
 		{
 			PageItem* ite = itemList.at(i);
-			m_Doc->Items->insert(ite->ItemNr, ite);
+			m_Doc->Items->insert(id, ite);
 		}
-		m_Doc->renumberItemsInListOrder();
  		update();
 	}
 	else
@@ -304,13 +303,13 @@ void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem
 	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		m_Doc->Items->replace(newItem->ItemNr, oldItem);
+		m_Doc->Items->replace(m_Doc->Items->indexOf(newItem), oldItem);
 		oldItem->updatePolyClip();
 		m_Doc->AdjustItemSize(oldItem);
 	}
 	else
 	{
-		m_Doc->Items->replace(oldItem->ItemNr, newItem);
+		m_Doc->Items->replace(m_Doc->Items->indexOf(oldItem), newItem);
 	}
 	m_Doc->setMasterPageMode(oldMPMode);
 }

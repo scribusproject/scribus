@@ -258,7 +258,6 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();

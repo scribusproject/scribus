@@ -946,7 +946,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
-			Doc->LoadPict(url.toLocalFile(), b->ItemNr);
+			Doc->loadPict(url.toLocalFile(), b);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
 			b->OldB2 = b->width();
@@ -964,7 +964,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			if (b->itemType() == PageItem::ImageFrame)
 			{
 				if ((fi.exists()) && (img))
-					Doc->LoadPict(url.toLocalFile(), b->ItemNr);
+					Doc->loadPict(url.toLocalFile(), b);
 			}
 			else if (b->itemType() == PageItem::TextFrame)
 			{
@@ -1081,7 +1081,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						pmen->addAction( tr("Cancel"));
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							if (Doc->Items->at(Doc->DragElements[dre])->locked())
+							if (Doc->DragElements[dre]->locked())
 							{
 								mov->setEnabled(false);
 								break;
@@ -1110,7 +1110,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						tmpSelection.copy(*Doc->m_Selection, true);
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							tmpSelection.addItem(Doc->Items->at(Doc->DragElements[dre]), true);
+							tmpSelection.addItem(Doc->DragElements[dre], true);
 						}
 						Doc->m_Selection->copy(tmpSelection, false);
 						PageItem* bb;
@@ -1895,7 +1895,7 @@ void ScribusView::ToFront()
 	if (Doc->bringItemSelectionToFront())
 	{
 //		m_ScMW->outlinePalette->BuildTree();
-		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
+//		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
@@ -1919,8 +1919,9 @@ void ScribusView::LowerItem()
 			currItem = Doc->m_Selection->itemAt(c);
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
-			low = qMin(currItem->ItemNr, low);
-			high = qMax(currItem->ItemNr, high);
+			uint id = Doc->Items->indexOf(currItem);
+			low = qMin(id, low);
+			high = qMax(id, high);
 		}
 		if (low == 0)
 			return;
@@ -1935,8 +1936,8 @@ void ScribusView::LowerItem()
 		for (int c = 0; c < Doc->m_Selection->count(); ++c)
 		{
 			currItem = Doc->m_Selection->itemAt(c);
-			ObjOrder.insert(currItem->ItemNr, c);
 			d = Doc->Items->indexOf(currItem);
+			ObjOrder.insert(d, c);
 			Doc->Items->takeAt(d);
 		}
 		d = Doc->Items->indexOf(b2);
@@ -1946,13 +1947,12 @@ void ScribusView::LowerItem()
 			Doc->Items->insert(d+1, Doc->m_Selection->itemAt(Oindex[c]));
 		}
 		Doc->m_Selection->clear();
-		Doc->renumberItemsInListOrder();
 //		m_ScMW->outlinePalette->BuildTree();
 		/*if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);*/
 		*Doc->m_Selection=tempSelection;
 		Doc->m_Selection->delaySignalsOff();
-		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
+//		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
@@ -1976,8 +1976,9 @@ void ScribusView::RaiseItem()
 			currItem = Doc->m_Selection->itemAt(c);
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
-			low = qMin(currItem->ItemNr, low);
-			high = qMax(currItem->ItemNr, high);
+			uint id = Doc->Items->indexOf(currItem);
+			low = qMin(id, low);
+			high = qMax(id, high);
 		}
 		if (high == static_cast<uint>(Doc->Items->count()-1))
 			return;
@@ -1992,8 +1993,8 @@ void ScribusView::RaiseItem()
 		for (int c = 0; c < Doc->m_Selection->count(); ++c)
 		{
 			currItem = Doc->m_Selection->itemAt(c);
-			ObjOrder.insert(currItem->ItemNr, c);
 			d = Doc->Items->indexOf(currItem);
+			ObjOrder.insert(d, c);
 			Doc->Items->takeAt(d);
 		}
 		QList<uint> Oindex = ObjOrder.values();
@@ -2005,13 +2006,12 @@ void ScribusView::RaiseItem()
 			Doc->Items->insert(d, Doc->m_Selection->itemAt(Oindex[c]));
 		}
 		Doc->m_Selection->clear();
-		Doc->renumberItemsInListOrder();
 //		m_ScMW->outlinePalette->BuildTree();
 		/*if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);*/
 		*Doc->m_Selection=tempSelection;
 		Doc->m_Selection->delaySignalsOff();
-		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
+//		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
@@ -4019,20 +4019,19 @@ void ScribusView::TextToPath()
 			delItems.append(tmpSelection.takeItem(offset));
 		}
 		tmpSelection.clear();
+		int ind = Doc->Items->indexOf(currItem);
 		if (newGroupedItems.count() > 1)
 		{
 			for (int ag = 0; ag < newGroupedItems.count(); ++ag)
 			{
-				Doc->Items->insert(currItem->ItemNr+1+ag, newGroupedItems.at(ag));
+				Doc->Items->insert(ind+1+ag, newGroupedItems.at(ag));
 				tmpSelection.addItem(newGroupedItems.at(ag));
 			}
-			Doc->renumberItemsInListOrder();
 			Doc->itemSelection_GroupObjects(true, false, &tmpSelection);
 		}
 		else if (newGroupedItems.count() > 0)
 		{
-			Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(0));
-			Doc->renumberItemsInListOrder();
+			Doc->Items->insert(ind+1, newGroupedItems.at(0));
 		}
 		int toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)

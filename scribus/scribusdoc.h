@@ -765,32 +765,20 @@ public:
 	 * Only called from ScribusView. Note the undo target is the page, so the undo code remains their for now.
 	 * @return If an item was committed and the view must emit its signal, which needs removing from here, TODO.
 	 */
-	bool itemAddCommit(const int itemNumber);
+	bool itemAddCommit(PageItem* item);
 	
 	/**
 	 * @brief Finalise item creation. Simply split off code from itemAdd
 	 * Only to be called from itemAdd()
 	 */
-	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber);
+	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem);
 
 	uint getItemNrfromUniqueID(uint unique);
 	//return pointer to item
 	PageItem* getItemFromName(QString name);
 	//itemDelete
 	//itemBlah...
-	
-	/**
-	 * @brief Run this common frame item update code
-	 */
-	void updateFrameItems();
-	/**
-	 * @brief Renumbers the items into the order they are stored in in the lists.
-	 * Utility function used in various places, basically handles keeping items numbered in the way
-	 * they are layered. When layer is a property and not a fuction of storage, this should be removed.
-	 * Depends on the Items pointer pointing to the correct item list (doc, master, etc).
-	 * @sa updateFrameItems();
-	 */
-	void renumberItemsInListOrder();
+
 	/**
 	 * @brief Rebuild item lists taking into account layer order.
 	 * Utility function used in various places, basically handles keeping items numbered in the way
@@ -808,7 +796,7 @@ public:
 	 * @brief Load images into an image frame, moved from the view
 	 * @retval Return false on failure
 	 */
-	bool LoadPict(QString fn, int ItNr, bool reload = false, bool showMsg = false);
+//	bool LoadPict(QString fn, int ItNr, bool reload = false, bool showMsg = false);
 	/**
 	 * 
 	 * @param fn 
@@ -1068,12 +1056,12 @@ public:
 	bool ApplyGuides(double *x, double *y);
 	bool ApplyGuides(FPoint* point);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	void RotateItem(double win, int ite);
+//	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
-	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
+//	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
+//	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void AdjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
@@ -1182,7 +1170,7 @@ public: // Public attributes
 	bool leaveDrag;
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
-	QList<uint> DragElements;
+	QList<PageItem*> DragElements;
 private:
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	StyleSet<CharStyle> docCharStyles;

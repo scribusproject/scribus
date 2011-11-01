@@ -104,7 +104,7 @@ void PageItem_OSGFrame::setImage(QImage &image)
 	if (PictureIsAvailable)
 	{
 		image.save(Pfile, "PNG");
-		m_Doc->LoadPict(Pfile, ItemNr, true);
+		m_Doc->loadPict(Pfile, this, true);
 	}
 	else
 	{
@@ -113,7 +113,7 @@ void PageItem_OSGFrame::setImage(QImage &image)
 		QString imgName = getLongPathName(tempImageFile->fileName());
 		tempImageFile->close();
 		image.save(imgName, "PNG");
-		m_Doc->LoadPict(imgName, ItemNr);
+		m_Doc->loadPict(imgName, this);
 	}
 	setImageScalingMode(false, true);
 }

@@ -260,7 +260,6 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -947,7 +946,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						image.save(fileName, "PNG");
 						ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						finishItem(ite);
-						m_Doc->LoadPict(fileName, z);
+						m_Doc->loadPict(fileName, ite);
 						ite->setImageScalingMode(false, false);
 					}
 //					qDebug() << "End of Pict";
@@ -1770,7 +1769,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		image.save(fileName, "PNG");
 		ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
-		m_Doc->LoadPict(fileName, z);
+		m_Doc->loadPict(fileName, ite);
 		ite->setImageScalingMode(false, false);
 		skipOpcode = false;
 	}
@@ -2122,7 +2121,6 @@ void PctPlug::setFillPattern(PageItem* ite)
 			newItem->gWidth = pat.pattern.width();
 			newItem->gHeight = pat.pattern.height();
 			pat.items.append(newItem);
-			newItem->ItemNr = pat.items.count();
 		}
 		patternName = "Pattern_"+newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");

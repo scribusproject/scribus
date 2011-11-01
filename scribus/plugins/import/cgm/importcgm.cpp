@@ -260,7 +260,6 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -1259,7 +1258,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ite->tempImageFile->close();
 		ite->isInlineImage = true;
 		image.save(fileName, "PNG");
-		m_Doc->LoadPict(fileName, z);
+		m_Doc->loadPict(fileName, ite);
 		ite->setImageScalingMode(false, false);
 	}
 	else if (elemID == 10)

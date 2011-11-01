@@ -206,11 +206,11 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItem(i);
 	bool found = false;
 	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
-		ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+		ScCore->primaryMainWindow()->view->SelectItem(i);
 		for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 			if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Layer))
 			{

@@ -141,7 +141,6 @@ PageItem::PageItem(const PageItem & other)
 	textPathFlipped(other.textPathFlipped),
 	ClipEdited(other.ClipEdited),
 	FrameType(other.FrameType),
-	ItemNr(other.ItemNr),
 	Frame(other.Frame),
 	OwnPage(other.OwnPage),
 	oldOwnPage(other.oldOwnPage),
@@ -354,6 +353,7 @@ PageItem::PageItem(const PageItem & other)
 		tempImageFile = NULL;
 		isInlineImage = false;
 	}
+	Parent = NULL;
 	unWeld();
 }
 
@@ -380,6 +380,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_SizeLocked(false),
 	textFlowModeVal(TextFlowDisabled)
 {
+	Parent = NULL;
 	m_Doc = pa;
 	QString tmp;
 	BackBox = 0;
@@ -4052,11 +4053,10 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 	{
 		QRectF baseRect(getBoundingRect());
 		QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
-		for(int idx = items->count()-1; idx >= 0 ; --idx)
+		if (!allItems)
 		{
-			if ((items->at(idx) == this) && (!allItems))
-				break;
-			if(idx != static_cast<int>(ItemNr)) // avoids itself
+			int ids = items->indexOf(this) - 1;
+			for(int idx = ids; idx >= 0 ; --idx)
 			{
 				if(items->at(idx)->asTextFrame()) // do not bother with no text frames
 				{
@@ -4064,6 +4064,23 @@ void PageItem::checkTextFlowInteractions(bool allItems)
 					if(baseRect.intersects(uRect))
 					{
 						items->at(idx)->update();
+					}
+				}
+			}
+		}
+		else
+		{
+			for(int idx = items->count() - 1; idx >= 0 ; --idx)
+			{
+				if(items->at(idx) != this) // avoids itself
+				{
+					if(items->at(idx)->asTextFrame()) // do not bother with no text frames
+					{
+						QRectF uRect(items->at(idx)->getBoundingRect());
+						if(baseRect.intersects(uRect))
+						{
+							items->at(idx)->update();
+						}
 					}
 				}
 			}
@@ -4713,7 +4730,8 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 		textFlowModeVal = newMode;
 	
 	QList<PageItem*> pList;
-	for(int idx = ItemNr-1; idx >= 0 ; --idx)
+	int id = m_Doc->Items->indexOf(this) - 1;
+	for(int idx = id; idx >= 0 ; --idx)
 	{
 		pList << m_Doc->Items->at(idx);
 	}

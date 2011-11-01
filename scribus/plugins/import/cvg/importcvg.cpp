@@ -257,7 +257,6 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -334,7 +333,7 @@ void CvgPlug::parseHeader(QString fName, double &b, double &h)
 bool CvgPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "White";
+	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
@@ -418,6 +417,7 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 	ts >> obX >> obY >> obW >> obH;
 	ts >> colorFill >> colorLine;
 	ts >> fillFlag >> lineWidth;
+	fillFlag = fillFlag & 0x0FFF;
 	qreal scX = obW / 16384.0;
 	qreal scY = obH / 16384.0;
 	parseColor(colorFill, colorLine, color, fillFlag);

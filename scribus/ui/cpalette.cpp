@@ -349,11 +349,11 @@ PageItem* Cpalette::currentItemFromSelection()
 	{
 		if (currentDoc->m_Selection->count() > 1)
 		{
-			uint lowestItem = 999999;
+			int lowestItem = 999999;
 			for (int a=0; a < currentDoc->m_Selection->count(); ++a)
 			{
 				currentItem = currentDoc->m_Selection->itemAt(a);
-				lowestItem = qMin(lowestItem, currentItem->ItemNr);
+				lowestItem = qMin(lowestItem, currentDoc->Items->indexOf(currentItem));
 			}
 			currentItem = currentDoc->Items->at(lowestItem);
 		}

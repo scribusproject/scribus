@@ -395,7 +395,6 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -1585,7 +1584,6 @@ void XfigPlug::resortItems()
 			PageItem* ite = itemList.at(elems.at(i));
 			Elements.append(ite);
 			m_Doc->Items->append(ite);
-			ite->ItemNr = m_Doc->Items->count()-1;
 			if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
 				ite->LayerID = currentLayer;
 		}

@@ -2647,7 +2647,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(Content, templateObject)+"\nendstream\nendobj\n");
 				int pIndex   = doc.MasterPages.indexOf((ScPage* const) pag) + 1;
-				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(ite->ItemNr);
+				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(qHash(ite));
 				Seite.XObjects[name] = templateObject;
 			}
 			if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
@@ -3195,7 +3195,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 				continue;
 			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
-			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
+			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(qHash(ite));
 			if (! ite->asTextFrame())
 				PutPage(name+" Do\n");
 			else

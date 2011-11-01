@@ -403,7 +403,7 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	image.setDotsPerMeterX ((int) (hres / 0.0254));
 	image.setDotsPerMeterY ((int) (vres / 0.0254));
 	image.save(fileName, "PNG");
-	m_Doc->LoadPict(fileName, z);
+	m_Doc->loadPict(fileName, ite);
 	ite->setImageScalingMode(false, false);
 	ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
@@ -620,7 +620,6 @@ bool WpgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();

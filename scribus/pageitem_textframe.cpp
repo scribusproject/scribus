@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "hyphenator.h"
 #include "pageitem.h"
+#include "pageitem_group.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scpage.h"
@@ -131,17 +132,24 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 		ScPage* Dp=0;
 		PageItem* docItem=0;
 		int LayerLevItem;
+		QList<PageItem*> thisList;
 		if (!OnMasterPage.isEmpty())
 		{
 			if ((savedOwnPage == -1) || (savedOwnPage >= signed(m_Doc->Pages->count())))
 				return result;
 			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Dp = m_Doc->Pages->at(savedOwnPage);
+			if (Parent != NULL)
+				thisList = this->asGroupFrame()->groupItemList;
+			else
+				thisList = m_Doc->MasterItems;
+			int thisid = thisList.indexOf(this);
 			for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
 				docItem = m_Doc->MasterItems.at(a);
+				int did = m_Doc->MasterItems.indexOf(docItem);
 				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->textFlowAroundObject())
 						result = result.subtracted(itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
@@ -165,11 +173,17 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 		} // if (!OnMasterPage.isEmpty())
 		else
 		{
+			int thisid = 0;
+			if (Parent != NULL)
+				thisid = this->asGroupFrame()->groupItemList.indexOf(this);
+			else
+				thisid = m_Doc->Items->indexOf(this);
 			for (uint a = 0; a < docItemsCount; ++a)
 			{
 				docItem = m_Doc->Items->at(a);
+				int did = m_Doc->Items->indexOf(docItem);
 				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->textFlowAroundObject())
 						result = result.subtracted(itemShape(docItem, 0, 0));

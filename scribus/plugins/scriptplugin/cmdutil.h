@@ -27,7 +27,7 @@ double pageUnitYToDocY(double pageUnitY);
 /// \brief Doc units -> page-relative units
 double docUnitYToPageY(double pageUnitY);
 
-int GetItem(QString Name);
+PageItem *GetItem(QString Name);
 void ReplaceColor(QString col, QString rep);
 /*!
  * @brief Returns named PageItem, or selection if name '', or exception and NULL if no item.

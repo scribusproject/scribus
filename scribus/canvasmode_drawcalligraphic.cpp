@@ -272,7 +272,7 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			currItem->setXYPos(tp2.x(), tp2.y(), true);
 			currItem->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp(getMaxClipF(&currItem->PoLine));
-			m_doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
+			m_doc->SizeItem(tp.x(), tp.y(), currItem, false, false, false);
 			m_doc->AdjustItemSize(currItem);
 			m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
@@ -320,7 +320,7 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->itemAt(0)!=NULL)
 	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	m_view->zoomSpinBox->clearFocus();

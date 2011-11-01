@@ -180,15 +180,16 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 {
 	ParagraphStyle vg;
 	bool newVersion = false;
+	isNewFormat = false;
 	LayerToPaste = toLayer;
 	Xp = Xp_in;
 	Yp = Yp_in;
 //	GrX = 0.0;
 //	GrY = 0.0;
 
-	QMap<int,int> TableID;
-	QMap<int,int> TableIDM;
-	QMap<int,int> TableIDF;
+	QMap<int,PageItem*> TableID;
+	QMap<int,PageItem*> TableIDM;
+	QMap<int,PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
@@ -305,32 +306,44 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 			success = readObject(m_Doc, reader, itemInfo, fileDir, true);
 			if (!success)
 				break;
-			// first of linked chain?
-			if (tagName == "ITEM")
+			if (isNewFormat)
 			{
 				if (itemInfo.nextItem != -1)
-					itemNext[itemInfo.item->ItemNr] = itemInfo.nextItem;
-			}
-			if (itemInfo.item->isTableItem)
-			{
-				if (tagName == "ITEM")
-				{
+					itemNext[itemInfo.itemID] = itemInfo.nextItem;
+				if (itemInfo.item->isTableItem)
 					TableItems.append(itemInfo.item);
-					TableID.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
-				}
+				if (itemInfo.isWeldFlag)
+					WeldItems.append(itemInfo.item);
 			}
-			if (itemInfo.isWeldFlag)
+			else
 			{
+			// first of linked chain?
 				if (tagName == "ITEM")
 				{
-					WeldItems.append(itemInfo.item);
-					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+					if (itemInfo.nextItem != -1)
+						itemNext[itemInfo.ownNr] = itemInfo.nextItem;
+				}
+				if (itemInfo.item->isTableItem)
+				{
+					if (tagName == "ITEM")
+					{
+						TableItems.append(itemInfo.item);
+						TableID.insert(itemInfo.ownLink, itemInfo.item);
+					}
+				}
+				if (itemInfo.isWeldFlag)
+				{
+					if (tagName == "ITEM")
+					{
+						WeldItems.append(itemInfo.item);
+						WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+					}
 				}
 			}
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 				{
 					if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
 						groupStackP.push(groupStack.pop());
@@ -348,7 +361,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
 				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 			}
 		}
 		if (tagName == "Pattern")
@@ -362,103 +375,162 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
 		return false;
 	}
-	if (TableItemsF.count() != 0)
+	if (isNewFormat)
 	{
-		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		if (TableItems.count() != 0)
 		{
-			PageItem* ta = TableItemsF.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (TableItemsM.count() != 0)
-	{
-		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
-		{
-			PageItem* ta = TableItemsM.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (TableItems.count() != 0)
-	{
-		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
-		{
-			PageItem* ta = TableItems.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (WeldItems.count() != 0)
-	{
-		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
-		{
-			PageItem* ta = WeldItems.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = LinkID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = LinkID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = LinkID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = LinkID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = LinkID[wInf.weldID];
+				}
+			}
+		}
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = LinkID[lc.key()];
+					PageItem * Itn = LinkID[lc.value()];
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
 			}
 		}
 	}
-	// reestablish textframe links
-	if (itemNext.count() != 0)
+	else
 	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		if (TableItemsF.count() != 0)
 		{
-			if (lc.value() >= 0)
+			for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
 			{
-				PageItem * Its = m_Doc->DocItems.at(lc.key());
-				PageItem * Itn = m_Doc->DocItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
+				PageItem* ta = TableItemsF.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableIDF[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableIDF[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableIDF[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableIDF[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (TableItemsM.count() != 0)
+		{
+			for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
+			{
+				PageItem* ta = TableItemsM.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableIDM[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableIDM[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableIDM[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableIDM[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
 				{
-					qDebug() << "scribus150format: corruption in linked textframes detected";
-					continue;
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = WeldID[wInf.weldID];
 				}
-				Its->link(Itn);
+			}
+		}
+		// reestablish textframe links
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = m_Doc->DocItems.at(lc.key());
+					PageItem * Itn = m_Doc->DocItems.at(lc.value());
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
 			}
 		}
 	}
@@ -473,6 +545,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -498,6 +571,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -523,6 +597,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -537,7 +612,6 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 	return true;
 }
 
@@ -553,19 +627,16 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	Yp = 0.0;
 	GrX = 0.0;
 	GrY = 0.0;
+	isNewFormat = false;
 
-	QMap<int,int> TableID;
-	QMap<int,int> TableIDM;
-	QMap<int,int> TableIDF;
+	QMap<int,PageItem*> TableID;
+	QMap<int,PageItem*> TableIDM;
+	QMap<int,PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
 	QMap<int,PageItem*> WeldID;
-//	QMap<int,PageItem*> WeldIDM;
-//	QMap<int,PageItem*> WeldIDF;
 	QList<PageItem*> WeldItems;
-//	QList<PageItem*> WeldItemsM;
-//	QList<PageItem*> WeldItemsF;
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
@@ -605,11 +676,6 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	TableItemsF.clear();
 	TableIDF.clear();
 	WeldItems.clear();
-	WeldID.clear();
-//	WeldItemsM.clear();
-//	WeldIDM.clear();
-//	WeldItemsF.clear();
-//	WeldIDF.clear();
 
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = 0;
@@ -688,51 +754,56 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			success = readObject(m_Doc, reader, itemInfo, fileDir, false);
 			if (!success) break;
 
-			// first of linked chain?
-			if (tagName == "PAGEOBJECT")
+			if (isNewFormat)
 			{
 				if (itemInfo.nextItem != -1)
-					itemNext[itemInfo.item->ItemNr] = itemInfo.nextItem;
+					itemNext[itemInfo.itemID] = itemInfo.nextItem;
+				if (itemInfo.item->isTableItem)
+					TableItems.append(itemInfo.item);
+				if (itemInfo.isWeldFlag)
+					WeldItems.append(itemInfo.item);
 			}
-			else if (tagName == "MASTEROBJECT")
+			else
 			{
-				if (itemInfo.nextItem != -1)
-					itemNextM[itemInfo.item->ItemNr] = itemInfo.nextItem;
-			}
-			/* not sure if we want that...
-			else if (tagName == "FRAMEOBJECT")
-			{
-				if (itemInfo.nextItem != -1)
-					itemNextF[itemInfo.item->ItemNr] = itemInfo.nextItem;
-			}*/
-
-			if (itemInfo.item->isTableItem)
-			{
+				// first of linked chain?
 				if (tagName == "PAGEOBJECT")
 				{
-					TableItems.append(itemInfo.item);
-					TableID.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					if (itemInfo.nextItem != -1)
+						itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 				}
-				else if (tagName == "FRAMEOBJECT")
+				else if (tagName == "MASTEROBJECT")
 				{
-					TableItemsF.append(itemInfo.item);
-					TableIDF.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					if (itemInfo.nextItem != -1)
+						itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
 				}
-				else
+				if (itemInfo.item->isTableItem)
 				{
-					TableItemsM.append(itemInfo.item);
-					TableIDM.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					if (tagName == "PAGEOBJECT")
+					{
+						TableItems.append(itemInfo.item);
+						TableID.insert(itemInfo.ownLink, itemInfo.item);
+					}
+					else if (tagName == "FRAMEOBJECT")
+					{
+						TableItemsF.append(itemInfo.item);
+						TableIDF.insert(itemInfo.ownLink, itemInfo.item);
+					}
+					else
+					{
+						TableItemsM.append(itemInfo.item);
+						TableIDM.insert(itemInfo.ownLink, itemInfo.item);
+					}
 				}
-			}
-			if (itemInfo.isWeldFlag)
-			{
-				WeldItems.append(itemInfo.item);
-				WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+				if (itemInfo.isWeldFlag)
+				{
+					WeldItems.append(itemInfo.item);
+					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+				}
 			}
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 				{
 					if (tagName == "PAGEOBJECT")
 						groupStackP.push(groupStack.pop());
@@ -750,7 +821,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
 				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 			}
 		}
 		if (tagName == "Pattern")
@@ -765,121 +836,180 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
 		return false;
 	}
-	if (TableItemsF.count() != 0)
+	if (isNewFormat)
 	{
-		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		if (TableItems.count() != 0)
 		{
-			PageItem* ta = TableItemsF.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (TableItemsM.count() != 0)
-	{
-		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
-		{
-			PageItem* ta = TableItemsM.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (TableItems.count() != 0)
-	{
-		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
-		{
-			PageItem* ta = TableItems.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (WeldItems.count() != 0)
-	{
-		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
-		{
-			PageItem* ta = WeldItems.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = LinkID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = LinkID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = LinkID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = LinkID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = LinkID[wInf.weldID];
+				}
+			}
+		}
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = LinkID[lc.key()];
+					PageItem * Itn = LinkID[lc.value()];
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
 			}
 		}
 	}
-	// reestablish textframe links
-	if (itemNext.count() != 0)
+	else
 	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		if (TableItemsF.count() != 0)
 		{
-			if (lc.value() >= 0)
+			for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
 			{
-				PageItem * Its = m_Doc->DocItems.at(lc.key());
-				PageItem * Itn = m_Doc->DocItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
-				{
-					qDebug() << "scribus150format: corruption in linked textframes detected";
-					continue;
-				}
-				Its->link(Itn);
+				PageItem* ta = TableItemsF.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableIDF[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableIDF[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableIDF[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableIDF[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
 			}
 		}
-	}
-	if (itemNextM.count() != 0)
-	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+		if (TableItemsM.count() != 0)
 		{
-			if (lc.value() >= 0)
+			for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
 			{
-				PageItem * Its = m_Doc->MasterItems.at(lc.key());
-				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
+				PageItem* ta = TableItemsM.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableIDM[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableIDM[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableIDM[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableIDM[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
 				{
-					qDebug() << "scribus150format: corruption in linked textframes detected";
-					continue;
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = WeldID[wInf.weldID];
 				}
-				Its->link(Itn);
+			}
+		}
+		// reestablish textframe links
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = m_Doc->DocItems.at(lc.key());
+					PageItem * Itn = m_Doc->DocItems.at(lc.value());
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
+			}
+		}
+		if (itemNextM.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = m_Doc->MasterItems.at(lc.key());
+					PageItem * Itn = m_Doc->MasterItems.at(lc.value());
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
 			}
 		}
 	}
@@ -894,6 +1024,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -919,6 +1050,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -944,6 +1076,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -958,7 +1091,6 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
@@ -986,10 +1118,11 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
 	bool newVersion = false;
+	isNewFormat = false;
 
-	QMap<int,int> TableID;
-	QMap<int,int> TableIDM;
-	QMap<int,int> TableIDF;
+	QMap<int,PageItem*> TableID;
+	QMap<int,PageItem*> TableIDM;
+	QMap<int,PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
@@ -1038,6 +1171,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	TableIDF.clear();
 	WeldItems.clear();
 	WeldID.clear();
+	LinkID.clear();
 
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = 0;
@@ -1223,50 +1357,56 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				break;
 
 			// first of linked chain?
-			if (tagName == "PAGEOBJECT")
+			if (isNewFormat)
 			{
 				if (itemInfo.nextItem != -1)
-					itemNext[itemInfo.item->ItemNr] = itemInfo.nextItem;
+					itemNext[itemInfo.itemID] = itemInfo.nextItem;
+				if (itemInfo.item->isTableItem)
+					TableItems.append(itemInfo.item);
+				if (itemInfo.isWeldFlag)
+					WeldItems.append(itemInfo.item);
 			}
-			else if (tagName == "MASTEROBJECT")
-			{
-				if (itemInfo.nextItem != -1)
-					itemNextM[itemInfo.item->ItemNr] = itemInfo.nextItem;
-			}
-			/* not sure if we want that...
-			else if (tagName == "FRAMEOBJECT")
-			{
-				if (itemInfo.nextItem != -1)
-					itemNextF[itemInfo.item->ItemNr] = itemInfo.nextItem;
-			}*/
-
-			if (itemInfo.item->isTableItem)
+			else
 			{
 				if (tagName == "PAGEOBJECT")
 				{
-					TableItems.append(itemInfo.item);
-					TableID.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					if (itemInfo.nextItem != -1)
+						itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 				}
-				else if (tagName == "FRAMEOBJECT")
+				else if (tagName == "MASTEROBJECT")
 				{
-					TableItemsF.append(itemInfo.item);
-					TableIDF.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					if (itemInfo.nextItem != -1)
+						itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
 				}
-				else
+				if (itemInfo.item->isTableItem)
 				{
-					TableItemsM.append(itemInfo.item);
-					TableIDM.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+					if (tagName == "PAGEOBJECT")
+					{
+						TableItems.append(itemInfo.item);
+						TableID.insert(itemInfo.ownLink, itemInfo.item);
+					}
+					else if (tagName == "FRAMEOBJECT")
+					{
+						TableItemsF.append(itemInfo.item);
+						TableIDF.insert(itemInfo.ownLink, itemInfo.item);
+					}
+					else
+					{
+						TableItemsM.append(itemInfo.item);
+						TableIDM.insert(itemInfo.ownLink, itemInfo.item);
+					}
 				}
-			}
-			if (itemInfo.isWeldFlag)
-			{
-				WeldItems.append(itemInfo.item);
-				WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+
+				if (itemInfo.isWeldFlag)
+				{
+					WeldItems.append(itemInfo.item);
+					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+				}
 			}
 			if (groupStack.count() > 0)
 			{
 				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 				{
 					if (tagName == "PAGEOBJECT")
 						groupStackP.push(groupStack.pop());
@@ -1284,7 +1424,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				QList<PageItem*> GroupItems;
 				GroupItems.append(itemInfo.item);
 				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 			}
 		}
 		if (tagName == "Pattern")
@@ -1313,84 +1453,179 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 	}
 
-	if (TableItemsF.count() != 0)
+	if (isNewFormat)
 	{
-		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		if (TableItems.count() != 0)
 		{
-			PageItem* ta = TableItemsF.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (TableItemsM.count() != 0)
-	{
-		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
-		{
-			PageItem* ta = TableItemsM.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (TableItems.count() != 0)
-	{
-		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
-		{
-			PageItem* ta = TableItems.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (WeldItems.count() != 0)
-	{
-		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
-		{
-			PageItem* ta = WeldItems.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = LinkID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = LinkID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = LinkID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = LinkID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = LinkID[wInf.weldID];
+				}
+			}
+		}
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = LinkID[lc.key()];
+					PageItem * Itn = LinkID[lc.value()];
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
+			}
+		}
+	}
+	else
+	{
+		if (TableItemsF.count() != 0)
+		{
+			for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
+			{
+				PageItem* ta = TableItemsF.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableIDF[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableIDF[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableIDF[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableIDF[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (TableItemsM.count() != 0)
+		{
+			for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
+			{
+				PageItem* ta = TableItemsM.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableIDM[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableIDM[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableIDM[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableIDM[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				}
+			}
+		}
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = m_Doc->DocItems.at(lc.key());
+					PageItem * Itn = m_Doc->DocItems.at(lc.value());
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
+			}
+		}
+		if (itemNextM.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = m_Doc->MasterItems.at(lc.key());
+					PageItem * Itn = m_Doc->MasterItems.at(lc.value());
+					if (!Its->testLinkCandidate(Itn))
+					{
+						qDebug() << "scribus150format: corruption in linked textframes detected";
+						continue;
+					}
+					Its->link(Itn);
+				}
 			}
 		}
 	}
@@ -1411,43 +1646,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
 
-	// reestablish textframe links
-	if (itemNext.count() != 0)
-	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
-		{
-			if (lc.value() >= 0)
-			{
-				PageItem * Its = m_Doc->DocItems.at(lc.key());
-				PageItem * Itn = m_Doc->DocItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
-				{
-					qDebug() << "scribus150format: corruption in linked textframes detected";
-					continue;
-				}
-				Its->link(Itn);
-			}
-		}
-	}
-	if (itemNextM.count() != 0)
-	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
-		{
-			if (lc.value() >= 0)
-			{
-				PageItem * Its = m_Doc->MasterItems.at(lc.key());
-				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
-				{
-					qDebug() << "scribus150format: corruption in linked textframes detected";
-					continue;
-				}
-				Its->link(Itn);
-			}
-		}
-	}
 	if (groupStackP.count() > 0)
 	{
 		while (groupStackP.count() > 0)
@@ -1459,6 +1657,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -1484,6 +1683,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -1509,6 +1709,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -1523,7 +1724,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 	
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -2715,11 +2915,16 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (tagName == "FRAMEOBJECT")
 	{
-		doc->FrameItems.append(doc->Items->takeAt(newItem->ItemNr));
-		newItem->ItemNr = doc->FrameItems.count()-1;
+		doc->FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
 	}
 
 	info.item     = newItem;
+	isNewFormat = attrs.hasAttribute("ItemID");
+	if (isNewFormat)
+	{
+		LinkID.insert(attrs.valueAsInt("ItemID", 0), newItem);
+		info.itemID = attrs.valueAsInt("ItemID", 0);
+	}
 	info.nextItem = attrs.valueAsInt("NEXTITEM", -1);
 	info.ownLink  = newItem->isTableItem ? attrs.valueAsInt("OwnLINK", 0) : 0;
 	info.groupLastItem = 0;
@@ -2728,6 +2933,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		info.groupLastItem = attrs.valueAsInt("groupsLastItem", 0);
 	info.isWeldFlag = attrs.valueAsBool("isWeldItem", 0);
 	info.ownWeld = attrs.valueAsInt("WeldSource", 0);
+	info.ownNr = doc->Items->indexOf(newItem);
 
 	struct ImageLoadRequest loadingInfo;
 #ifdef HAVE_OSG
@@ -2976,6 +3182,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				{
 					PageItem* currItem = GroupItems.at(as);
 					newItem->groupItemList.append(currItem);
+					currItem->Parent = newItem;
 				}
 				doc->Items = DItems;
 			}
@@ -3069,6 +3276,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	QString patternName = attrs.valueAsString("Name");
 	bool success = true;
+	isNewFormat = false;
 
 	if (patternName.isEmpty())
 	{
@@ -3079,7 +3287,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
-	QMap<int,int> TableID2;
+	QMap<int,PageItem*> TableID2;
 	QList<PageItem*> TableItems2;
 	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
@@ -3119,21 +3327,30 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 
 		itemInfo.item->OwnPage = ownPage;
 		itemInfo.item->OnMasterPage = "";
-
-		if (itemInfo.item->isTableItem)
+		if (isNewFormat)
 		{
-			TableItems2.append(itemInfo.item);
-			TableID2.insert(itemInfo.ownLink, itemInfo.item->ItemNr);
+			if (itemInfo.item->isTableItem)
+				TableItems2.append(itemInfo.item);
+			if (itemInfo.isWeldFlag)
+				WeldItems.append(itemInfo.item);
 		}
-		if (itemInfo.isWeldFlag)
+		else
 		{
-			WeldItems.append(itemInfo.item);
-			WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+			if (itemInfo.item->isTableItem)
+			{
+				TableItems2.append(itemInfo.item);
+				TableID2.insert(itemInfo.ownLink, itemInfo.item);
+			}
+			if (itemInfo.isWeldFlag)
+			{
+				WeldItems.append(itemInfo.item);
+				WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+			}
 		}
 		if (groupStack.count() > 0)
 		{
 			groupStack.top().append(itemInfo.item);
-			while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+			while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 			{
 				groupStackP.push(groupStack.pop());
 				groupStack2.pop();
@@ -3146,7 +3363,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			QList<PageItem*> GroupItems;
 			GroupItems.append(itemInfo.item);
 			groupStack.push(GroupItems);
-			groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+			groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 		}
 	}
 
@@ -3156,38 +3373,79 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	{
 		return false;
 	}
-	if (TableItems2.count() != 0)
+	if (isNewFormat)
 	{
-		for (int ttc = 0; ttc < TableItems2.count(); ++ttc)
+		if (TableItems2.count() != 0)
 		{
-			PageItem* ta = TableItems2.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID2[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID2[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID2[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID2[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
+			for (int ttc = 0; ttc < TableItems2.count(); ++ttc)
+			{
+				PageItem* ta = TableItems2.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = LinkID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = LinkID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = LinkID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = LinkID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = LinkID[wInf.weldID];
+				}
+			}
 		}
 	}
-	if (WeldItems.count() != 0)
+	else
 	{
-		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+		if (TableItems2.count() != 0)
 		{
-			PageItem* ta = WeldItems.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
+			for (int ttc = 0; ttc < TableItems2.count(); ++ttc)
 			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				PageItem* ta = TableItems2.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableID2[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableID2[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableID2[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableID2[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
+				{
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				}
 			}
 		}
 	}
@@ -3202,6 +3460,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -3216,7 +3475,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 
 	uint itemCount2 = m_Doc->Items->count();
 	if (itemCount2 > itemCount1)
@@ -3230,7 +3488,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			newItem->moveBy(pat.xoffset, pat.yoffset, true);
 			newItem->gXpos += pat.xoffset;
 			newItem->gYpos += pat.yoffset;
-			newItem->ItemNr = pat.items.count();
 			pat.items.append(newItem);
 		}
 	}
@@ -3284,7 +3541,7 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		if (ch == SpecialChars::OBJECT) {
 			if (iobj >= 0) {
 				if (iobj < doc->FrameItems.count())
-					obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
+					obj->itemText.insertObject(pos, LinkID[iobj]);
 				else
 					qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
 			}
@@ -3760,7 +4017,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->EmProfile   = attrs.valueAsString("EPROF", "");
 			currItem->IRender     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
-			doc->LoadPict(currItem->Pfile, z);
+			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageShown( attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
@@ -4211,7 +4468,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	ScPage* newPage = NULL;
 	
 	QString tmp;
-	QMap<int,int> TableID;
+	QMap<int,PageItem*> TableID;
 	QList<PageItem*> TableItems;
 	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
@@ -4254,6 +4511,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 	bool firstElement = true;
 	bool success = true;
+	isNewFormat = false;
 	
 	ScXmlStreamReader reader(f);
 	ScXmlStreamAttributes attrs;
@@ -4419,19 +4677,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 			else
 			{
-				// first of linked chain?
-				if (tagName == "PAGEOBJECT")
-				{
-					itemRemap[itemCount++] = m_Doc->DocItems.count();
-					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
-						itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
-				}
-				else if (tagName == "MASTEROBJECT")
-				{
-					itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
-					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
-						itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
-				}
 
 				ItemInfo itemInfo;
 				success = readObject(m_Doc, reader, itemInfo, fileDir, true);
@@ -4443,26 +4688,49 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				if (tagName == "PAGEOBJECT")
 					newItem->OnMasterPage = "";
 				newItem->LayerID = layerTrans.value(newItem->LayerID, newItem->LayerID);
-
-				if (newItem->isTableItem)
+				if (isNewFormat)
 				{
-					TableItems.append(newItem);
-					TableID.insert(itemInfo.ownLink, newItem->ItemNr);
+					if (itemInfo.nextItem != -1)
+						itemNext[itemInfo.itemID] = itemInfo.nextItem;
+					if (itemInfo.item->isTableItem)
+						TableItems.append(itemInfo.item);
+					if (itemInfo.isWeldFlag)
+						WeldItems.append(itemInfo.item);
 				}
-				if (itemInfo.isWeldFlag)
+				else
 				{
-					WeldItems.append(itemInfo.item);
-					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+					// first of linked chain?
+					if (tagName == "PAGEOBJECT")
+					{
+						itemRemap[itemCount++] = m_Doc->DocItems.count();
+						if (attrs.valueAsInt("NEXTITEM", -1) != -1)
+							itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
+					}
+					else if (tagName == "MASTEROBJECT")
+					{
+						itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
+						if (attrs.valueAsInt("NEXTITEM", -1) != -1)
+							itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
+					}
+					if (newItem->isTableItem)
+					{
+						TableItems.append(newItem);
+						TableID.insert(itemInfo.ownLink, newItem);
+					}
+					if (itemInfo.isWeldFlag)
+					{
+						WeldItems.append(itemInfo.item);
+						WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+					}
 				}
 				if (tagName == "FRAMEOBJECT")
 				{
-					m_Doc->FrameItems.append(m_Doc->Items->takeAt(newItem->ItemNr));
-					newItem->ItemNr = m_Doc->FrameItems.count()-1;
+					m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 				}
 				if (groupStack.count() > 0)
 				{
 					groupStack.top().append(itemInfo.item);
-					while (static_cast<int>(itemInfo.item->ItemNr) == groupStack2.top())
+					while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
 					{
 						if (tagName == "PAGEOBJECT")
 							groupStackP.push(groupStack.pop());
@@ -4480,7 +4748,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 					QList<PageItem*> GroupItems;
 					GroupItems.append(itemInfo.item);
 					groupStack.push(GroupItems);
-					groupStack2.push(itemInfo.groupLastItem + itemInfo.item->ItemNr);
+					groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
 			}
 		}
@@ -4499,59 +4767,57 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		if (elem < m_Doc->Items->count())
 		{
 			ScribusDoc::BookMa bookmark = it.value();
-			bookmark.PageObject = m_Doc->Items->at(elem);
+			bookmark.PageObject = LinkID[elem];
 			m_Doc->BookMarks.append( bookmark );
 		}
 	}
 
-	if (TableItems.count() != 0)
+	if (isNewFormat)
 	{
-		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
+		if (TableItems.count() != 0)
 		{
-			PageItem* ta = TableItems.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->Items->at(TableID[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->Items->at(TableID[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->Items->at(TableID[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	}
-	if (WeldItems.count() != 0)
-	{
-//		QList<PageItem*> docList = m_Doc->getAllItems(*m_Doc->Items);
-		for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
-		{
-			PageItem* ta = WeldItems.at(ttc);
-			for (int i = 0 ; i < ta->weldList.count(); i++)
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 			{
-				PageItem::weldingInfo wInf = ta->weldList.at(i);
-				ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = LinkID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = LinkID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = LinkID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = LinkID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
 			}
 		}
-	}
-	// reestablish textframe links
-	if (itemNext.count() != 0 && !Mpage)
-	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		if (WeldItems.count() != 0)
 		{
-			if (itemRemap[lc.value()] >= 0)
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
 			{
-				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.value()] < m_Doc->Items->count()))
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
 				{
-					PageItem * Its = m_Doc->DocItems.at(lc.key());
-					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = LinkID[wInf.weldID];
+				}
+			}
+		}
+		if (itemNext.count() != 0)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (lc.value() >= 0)
+				{
+					PageItem * Its = LinkID[lc.key()];
+					PageItem * Itn = LinkID[lc.value()];
 					if (!Its->testLinkCandidate(Itn))
 					{
 						qDebug() << "scribus150format: corruption in linked textframes detected";
@@ -4562,23 +4828,83 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 		}
 	}
-	else if (itemNextM.count() != 0 && Mpage)
+	else
 	{
-		QMap<int,int>::Iterator lc;
-		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+		if (TableItems.count() != 0)
 		{
-			if (itemRemapM[lc.value()] >= 0)
+			for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 			{
-				if ((lc.key() < m_Doc->MasterItems.count()) && (itemRemapM[lc.value()] < m_Doc->MasterItems.count()))
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = TableID[ta->TopLinkID];
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = TableID[ta->LeftLinkID];
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = TableID[ta->RightLinkID];
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = TableID[ta->BottomLinkID];
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		if (WeldItems.count() != 0)
+		{
+			for (int ttc = 0; ttc < WeldItems.count(); ++ttc)
+			{
+				PageItem* ta = WeldItems.at(ttc);
+				for (int i = 0 ; i < ta->weldList.count(); i++)
 				{
-					PageItem * Its = m_Doc->MasterItems.at(lc.key());
-					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
-					if (!Its->testLinkCandidate(Itn))
+					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					ta->weldList[i].weldItem = WeldID[wInf.weldID];
+				}
+			}
+		}
+		// reestablish textframe links
+		if (itemNext.count() != 0 && !Mpage)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			{
+				if (itemRemap[lc.value()] >= 0)
+				{
+					if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.value()] < m_Doc->Items->count()))
 					{
-						qDebug() << "scribus150format: corruption in linked textframes detected";
-						continue;
+						PageItem * Its = m_Doc->DocItems.at(lc.key());
+						PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
+						if (!Its->testLinkCandidate(Itn))
+						{
+							qDebug() << "scribus150format: corruption in linked textframes detected";
+							continue;
+						}
+						Its->link(Itn);
 					}
-					Its->link(Itn);
+				}
+			}
+		}
+		else if (itemNextM.count() != 0 && Mpage)
+		{
+			QMap<int,int>::Iterator lc;
+			for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+			{
+				if (itemRemapM[lc.value()] >= 0)
+				{
+					if ((lc.key() < m_Doc->MasterItems.count()) && (itemRemapM[lc.value()] < m_Doc->MasterItems.count()))
+					{
+						PageItem * Its = m_Doc->MasterItems.at(lc.key());
+						PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
+						if (!Its->testLinkCandidate(Itn))
+						{
+							qDebug() << "scribus150format: corruption in linked textframes detected";
+							continue;
+						}
+						Its->link(Itn);
+					}
 				}
 			}
 		}
@@ -4594,6 +4920,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -4619,6 +4946,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				PageItem* cItem = gpL.at(id);
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
+				cItem->Parent = gItem;
 				if (gItem->rotation() != 0)
 				{
 					QTransform ma;
@@ -4633,7 +4961,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			gItem->groupItemList = gpL;
 		}
 	}
-	m_Doc->renumberItemsInListOrder();
 	
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;

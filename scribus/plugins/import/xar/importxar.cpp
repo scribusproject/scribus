@@ -365,7 +365,6 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -1860,7 +1859,6 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 			newItem->gWidth = pat.pattern.width();
 			newItem->gHeight = pat.pattern.height();
 			pat.items.append(newItem);
-			newItem->ItemNr = pat.items.count();
 		}
 		QString patternName = patternRef[bref]+"_"+newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
@@ -2624,7 +2622,6 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 			newItem->gWidth = pat.pattern.width();
 			newItem->gHeight = pat.pattern.height();
 			pat.items.append(newItem);
-			newItem->ItemNr = pat.items.count();
 		}
 		QString patternName = patternRef[bref]+"_"+newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
@@ -2695,7 +2692,7 @@ void XarPlug::handleBitmap(QDataStream &ts)
 		ite->tempImageFile->close();
 		ite->isInlineImage = true;
 		image.save(fileName, "PNG");
-		m_Doc->LoadPict(fileName, z);
+		m_Doc->loadPict(fileName, ite);
 		ite->setImageScalingMode(false, false);
 	}
 }
@@ -2776,7 +2773,6 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 			newItem->gWidth = pat.pattern.width();
 			newItem->gHeight = pat.pattern.height();
 			pat.items.append(newItem);
-			newItem->ItemNr = pat.items.count();
 		}
 		QString patternName = "Pattern_"+newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
@@ -3485,6 +3481,7 @@ void XarPlug::popGraphicContext()
 				{
 					PageItem* currItem = Elements.at(a);
 					groupItem->groupItemList.append(currItem);
+					currItem->Parent = groupItem;
 					double x1, x2, y1, y2;
 					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 					minx = qMin(minx, x1);
@@ -3537,10 +3534,10 @@ void XarPlug::popGraphicContext()
 					PageItem* currItem = groupItem->groupItemList.at(a);
 					currItem->gXpos = currItem->xPos() - groupItem->xPos();
 					currItem->gYpos = currItem->yPos() - groupItem->yPos();
+					currItem->Parent = groupItem;
 					m_Doc->Items->removeAll(currItem);
 					Elements.removeAll(currItem);
 				}
-				m_Doc->renumberItemsInListOrder();
 			}
 		}
 	}

@@ -497,7 +497,6 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 				m_Doc->m_Selection->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
@@ -1439,7 +1438,7 @@ void AIPlug::processData(QString data)
 					QString imgName = getLongPathName(ite->tempImageFile->fileName());
 					ite->tempImageFile->close();
 					ite->isInlineImage = true;
-					m_Doc->LoadPict(imgName, z);
+					m_Doc->loadPict(imgName, ite);
 					if (ite->PictureIsAvailable)
 						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					ite->setImageFlippedV(true);
@@ -3092,7 +3091,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		}
 		TIFFClose(tif);
 	}
-	m_Doc->LoadPict(imgName, z);
+	m_Doc->loadPict(imgName, ite);
 	if (ite->PictureIsAvailable)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
