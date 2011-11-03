@@ -942,75 +942,100 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	size_t ar = sizeof(tmpf) / sizeof(*tmpf);
 	for (uint ax = 0; ax < ar; ++ax)
 		ind2PDFabr[ax] = tmpf[ax];
+	QList<PageItem*> allItems;
 	for (int c = 0; c < doc.FrameItems.count(); ++c)
 	{
 		pgit = doc.FrameItems.at(c);
-		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
+		if (pgit->isGroup())
+			allItems = pgit->asGroupFrame()->getItemList();
+		else
+			allItems.append(pgit);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if (pgit->isAnnotation())
+			pgit = allItems.at(ii);
+			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
-				int annotType  = pgit->annotation().Type();
-				bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
-				if (pgit->annotation().Type() == 4)
-					StdFonts.insert("/ZapfDingbats", "");
-				if (pgit->itemText.length() > 0 || mustEmbed)
+				if (pgit->isAnnotation())
 				{
-					if (Options.Version < PDFOptions::PDFVersion_14)
-						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					int annotType  = pgit->annotation().Type();
+					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					if (pgit->annotation().Type() == 4)
+						StdFonts.insert("/ZapfDingbats", "");
+					if (pgit->itemText.length() > 0 || mustEmbed)
+					{
+						if (Options.Version < PDFOptions::PDFVersion_14)
+							StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					}
 				}
-			}
-			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
-			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				{
+					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+				}
 			}
 		}
 	}
 	for (int c = 0; c < doc.MasterItems.count(); ++c)
 	{
 		pgit = doc.MasterItems.at(c);
-		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
+		if (pgit->isGroup())
+			allItems = pgit->asGroupFrame()->getItemList();
+		else
+			allItems.append(pgit);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if (pgit->isAnnotation())
+			pgit = allItems.at(ii);
+			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
-				int annotType  = pgit->annotation().Type();
-				bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
-				if (pgit->annotation().Type() == 4)
-					StdFonts.insert("/ZapfDingbats", "");
-				if (pgit->itemText.length() > 0 || mustEmbed)
+				if (pgit->isAnnotation())
 				{
-					if (Options.Version < PDFOptions::PDFVersion_14)
-						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					int annotType  = pgit->annotation().Type();
+					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					if (pgit->annotation().Type() == 4)
+						StdFonts.insert("/ZapfDingbats", "");
+					if (pgit->itemText.length() > 0 || mustEmbed)
+					{
+						if (Options.Version < PDFOptions::PDFVersion_14)
+							StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					}
 				}
-			}
-			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
-			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				{
+					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+				}
 			}
 		}
 	}
 	for (int d = 0; d < doc.Items->count(); ++d)
 	{
 		pgit = doc.Items->at(d);
-		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
+		if (pgit->isGroup())
+			allItems = pgit->asGroupFrame()->getItemList();
+		else
+			allItems.append(pgit);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if (pgit->isAnnotation())
+			pgit = allItems.at(ii);
+			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
-				int annotType  = pgit->annotation().Type();
-				bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
-				if (pgit->annotation().Type() == 4)
-					StdFonts.insert("/ZapfDingbats", "");
-				if (pgit->itemText.length() > 0 || mustEmbed)
+				if (pgit->isAnnotation())
 				{
-					if (Options.Version < PDFOptions::PDFVersion_14)
-						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					int annotType  = pgit->annotation().Type();
+					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					if (pgit->annotation().Type() == 4)
+						StdFonts.insert("/ZapfDingbats", "");
+					if (pgit->itemText.length() > 0 || mustEmbed)
+					{
+						if (Options.Version < PDFOptions::PDFVersion_14)
+							StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					}
 				}
-			}
-			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
-			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				{
+					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+				}
 			}
 		}
 	}
@@ -1025,22 +1050,30 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			pgit = pa.items.at(o);
-			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
+			if (pgit->isGroup())
+				allItems = pgit->asGroupFrame()->getItemList();
+			else
+				allItems.append(pgit);
+			for (int ii = 0; ii < allItems.count(); ii++)
 			{
-				if (pgit->isAnnotation())
+				pgit = allItems.at(ii);
+				if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 				{
-					if (pgit->annotation().Type() == 4)
-						StdFonts.insert("/ZapfDingbats", "");
-					if (pgit->itemText.length() > 0)
+					if (pgit->isAnnotation())
 					{
-						if (Options.Version < PDFOptions::PDFVersion_14)
-							StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+						if (pgit->annotation().Type() == 4)
+							StdFonts.insert("/ZapfDingbats", "");
+						if (pgit->itemText.length() > 0)
+						{
+							if (Options.Version < PDFOptions::PDFVersion_14)
+								StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+							ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+						}
 					}
-				}
-				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
-				{
-					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+					for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+					{
+						ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
+					}
 				}
 			}
 		}
@@ -3461,6 +3494,23 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 		QMap<QString,int>::Iterator it3t;
 		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
 			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
+	{
+		PutDoc("/ColorSpace << \n");
+		QMap<QString,ICCD>::Iterator it3c;
+		if (ICCProfiles.count() != 0)
+		{
+			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+				PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
+		}
+		QMap<QString,SpotC>::Iterator it3sc;
+		if (spotMap.count() != 0)
+		{
+			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
+		}
 		PutDoc(">>\n");
 	}
 	PutDoc(">>\n");
