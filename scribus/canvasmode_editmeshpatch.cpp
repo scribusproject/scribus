@@ -326,6 +326,14 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 		return;
 	m_keyRepeat = true;
 	e->accept();
+
+	if (e->key() == Qt::Key_Escape)
+	{
+		// Go back to normal mode.
+		m_view->requestMode(modeNormal);
+		return;
+	}
+
 	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
 	if ((!m_view->zoomSpinBox->hasFocus()) && (!m_view->pageSelector->hasFocus()))
 	{
