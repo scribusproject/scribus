@@ -148,7 +148,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	{
 		QByteArray tempBuf(9, ' ');
 		f.read(tempBuf.data(), 8);
-		if (getDouble(QString(tempBuf.mid(0, 4)), true) == 0xC5D0D3C6)
+		if (getDouble(tempBuf.mid(0, 4), true) == 0xC5D0D3C6)
 		{
 			startPos = getDouble(tempBuf.mid(4, 4), false);
 			if (doThumbnail)

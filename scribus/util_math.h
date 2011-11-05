@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <vector>
 
-#include <QString>
+#include <QByteArray>
 #include <QPolygon>
 #include <QList>
 #include <QPainterPath>
@@ -36,7 +36,7 @@ QPolygon SCRIBUS_API FlattenPath(const FPointArray& ina, QList<uint> &Segs);
 QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 QPainterPath SCRIBUS_API RegularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
 QPainterPath SCRIBUS_API SpiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);
-uint SCRIBUS_API getDouble(QString in, bool raw);
+uint SCRIBUS_API getDouble(const QByteArray in, bool raw);
 inline double SCRIBUS_API sind(double);
 inline double SCRIBUS_API cosd(double);
 inline double SCRIBUS_API square(double);

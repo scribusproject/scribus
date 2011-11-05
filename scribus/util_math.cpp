@@ -31,7 +31,7 @@ using namespace std;
 
 
 
-uint getDouble(QString in, bool raw)
+uint getDouble(const QByteArray in, bool raw)
 {
 	QByteArray bb(4, ' ');
 	if (raw)
@@ -41,10 +41,10 @@ uint getDouble(QString in, bool raw)
 		bb[2] = static_cast<uchar>(QChar(in.at(1)));
 		bb[1] = static_cast<uchar>(QChar(in.at(2)));
 		bb[0] = static_cast<uchar>(QChar(in.at(3)));*/
-		bb = bb.insert(3, in.at(0));
-		bb = bb.insert(2, in.at(1));
-		bb = bb.insert(1, in.at(2));
-		bb = bb.insert(0, in.at(3));
+		bb[3] = in.at(0);
+		bb[2] = in.at(1);
+		bb[1] = in.at(2);
+		bb[0] = in.at(3);
 	}
 	else
 	{
@@ -53,10 +53,10 @@ uint getDouble(QString in, bool raw)
 // 		bb[1] = static_cast<uchar>(QChar(in.at(1)));
 // 		bb[2] = static_cast<uchar>(QChar(in.at(2)));
 // 		bb[3] = static_cast<uchar>(QChar(in.at(3)));
-		bb = bb.insert(0, in.at(0));
-		bb = bb.insert(1, in.at(1));
-		bb = bb.insert(2, in.at(2));
-		bb = bb.insert(3, in.at(3));
+		bb[0] = in.at(0);
+		bb[1] = in.at(1);
+		bb[2] = in.at(2);
+		bb[3] = in.at(3);
 	}
 	uint ret;
 	ret = bb[0] & 0xff;

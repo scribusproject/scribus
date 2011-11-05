@@ -1056,11 +1056,11 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 		{
 			PutStream("currentfile 1 (%ENDEPSDATA) /SubFileDecode filter /ReusableStreamDecode filter\n");
 			PutStream("%%BeginDocument: " + fi.fileName() + "\n");
-			if (getDouble(QString(tmp.mid(0, 4)), true) == 0xC5D0D3C6)
+			if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
 			{
 				char* data = tmp.data();
-				uint startPos = getDouble(QString(tmp.mid(4, 4)), false);
-				uint length = getDouble(QString(tmp.mid(8, 4)), false);
+				uint startPos = getDouble(tmp.mid(4, 4), false);
+				uint length = getDouble(tmp.mid(8, 4), false);
 				PutStream(data+startPos, length, false);
 			}
 			else
@@ -1150,7 +1150,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			else
 			{
       				PutStream("%%BeginDocument: " + fi.fileName() + "\n");
-					if (getDouble(QString(tmp.mid(0, 4)), true) == 0xC5D0D3C6)
+					if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
 					{
 						char* data = tmp.data();
 						uint startPos = getDouble(tmp.mid(4, 4), false);
