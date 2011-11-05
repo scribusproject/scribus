@@ -320,81 +320,81 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		
 		// FIXME when more than 1 item is selected, first Rect is drew normally (<10ms here)
 		// but followings are damn long - pm 
-		for (uint a=0; a<docSelectionCount; ++a)
+		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			currItem = m_doc->m_Selection->itemAt(a);
-// 			qDebug()<<"It"<<currItem->xPos()<< currItem->yPos();
-			
 			psx->save();
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
 			double lineAdjust(psx->pen().width()/m_canvas->scale());
 			double x, y, w, h;
-			w = currItem->visualWidth();
-			h = currItem->visualHeight();
-			if (currItem->rotation() != 0)
+			if (currItem->Parent != NULL)
 			{
-				psx->setRenderHint(QPainter::Antialiasing);
-				psx->translate(currItem->xPos(), currItem->yPos());
-				psx->rotate(currItem->rotation());
-				x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
-				y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
+				QTransform t = currItem->getCombinedTransform();
+				psx->setTransform(t, true);
+				w = currItem->visualWidth();
+				h = currItem->visualHeight();
+			//	x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
+			//	y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
+			//	w = currItem->width();
+			//	h = currItem->height();
+				x = -lineAdjust;
+				y = -lineAdjust;
+				psx->setPen(m_pen["selection-group-inside"]);
+				psx->setBrush(m_brush["selection-group-inside"]);
+				psx->drawRect(QRectF(x, y, w, h));
 			}
 			else
 			{
-				psx->translate(currItem->visualXPos(), currItem->visualYPos());
-				x = currItem->asLine() ? 0 : -lineAdjust;
-				y = currItem->asLine() ? 0 : -lineAdjust;
-			}
-			
-//			tt.start();
-			psx->drawRect(QRectF(x, y, w, h));
-//			tu << QString::number(tt.elapsed());
-			if(drawHandles && !currItem->locked())
-			{
-				psx->setBrush(m_brush["handle"]);
-				psx->setPen(m_pen["handle"]);
-				if(currItem->asLine())
+				if (currItem->rotation() != 0)
 				{
 					psx->setRenderHint(QPainter::Antialiasing);
-					psx->drawEllipse(QRectF(x+w-markWidth, y+h/2.0-markWidth, 2* markWidth,2* markWidth));
-// 					psx->setBrush(Qt::blue); // sometimes we forget which is what :)
-					psx->drawEllipse(QRectF(x-markWidth, y+h/2.0-markWidth, 2* markWidth, 2* markWidth));
+					psx->translate(currItem->xPos(), currItem->yPos());
+					psx->rotate(currItem->rotation());
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
 				}
 				else
 				{
-					psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-					psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-					psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-					psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
-					psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
-					psx->drawRect(QRectF(x, y, markWidth, markWidth));
-					psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
-					psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+					psx->translate(currItem->visualXPos(), currItem->visualYPos());
+					x = currItem->asLine() ? 0 : -lineAdjust;
+					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
-			}
-			if (currItem->isWelded())
-			{
-				psx->setPen(QPen(Qt::yellow, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-				for (int i = 0 ; i <  currItem->weldList.count(); i++)
+				w = currItem->visualWidth();
+				h = currItem->visualHeight();
+				psx->drawRect(QRectF(x, y, w, h));
+				if(drawHandles && !currItem->locked())
 				{
-					PageItem::weldingInfo wInf =  currItem->weldList.at(i);
-					psx->drawPoint(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()));
+					psx->setBrush(m_brush["handle"]);
+					psx->setPen(m_pen["handle"]);
+					if(currItem->asLine())
+					{
+						psx->setRenderHint(QPainter::Antialiasing);
+						psx->drawEllipse(QRectF(x+w-markWidth, y+h/2.0-markWidth, 2* markWidth,2* markWidth));
+	// 					psx->setBrush(Qt::blue); // sometimes we forget which is what :)
+						psx->drawEllipse(QRectF(x-markWidth, y+h/2.0-markWidth, 2* markWidth, 2* markWidth));
+					}
+					else
+					{
+						psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+						psx->drawRect(QRectF(x, y, markWidth, markWidth));
+						psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+					}
 				}
-				//draw marker for weld point
-			/*	psx->setBrush(m_brush["outline"]);
-				psx->setPen(m_pen["outline"]);
-				double weldX = x, weldY = y;
-				if (currItem->myWeldPoint == topCenter || currItem->myWeldPoint == centerCenter || currItem->myWeldPoint == bottomCenter)
-					weldX += w /2 - halfMarkWidth;
-				else if (currItem->myWeldPoint == topRight  || currItem->myWeldPoint == centerRight || currItem->myWeldPoint == bottomRight)
-					weldX += w - markWidth;
-
-				if (currItem->myWeldPoint == centerLeft  || currItem->myWeldPoint == centerCenter || currItem->myWeldPoint == centerRight)
-					weldY += h/2 - halfMarkWidth;
-				else if (currItem->myWeldPoint == bottomLeft  || currItem->myWeldPoint == bottomCenter || currItem->myWeldPoint == bottomRight)
-					weldY += h - markWidth;
-				psx->drawRect(QRectF(weldX, weldY, markWidth, markWidth));*/
+				if (currItem->isWelded())
+				{
+					psx->setPen(QPen(Qt::yellow, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+					for (int i = 0 ; i <  currItem->weldList.count(); i++)
+					{
+						PageItem::weldingInfo wInf =  currItem->weldList.at(i);
+						psx->drawPoint(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()));
+					}
+				}
 			}
 			
 			psx->restore();

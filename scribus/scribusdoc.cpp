@@ -5510,13 +5510,23 @@ int ScribusDoc::currentPageNumber()
 bool ScribusDoc::itemNameExists(const QString checkItemName)
 {
 	bool found = false;
-	uint docItemCount=Items->count();
+	QList<PageItem*> allItems;
+	uint docItemCount = Items->count();
 	for (uint i = 0; i < docItemCount; ++i)
 	{
-		if (checkItemName == Items->at(i)->itemName())
+		PageItem *currItem = DocItems.at(i);
+		if (currItem->isGroup())
+			allItems = currItem->asGroupFrame()->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			found = true;
-			break;
+			if (checkItemName == allItems.at(ii)->itemName())
+			{
+				found = true;
+				break;
+			}
+
 		}
 	}
 	return found;
@@ -13138,6 +13148,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 				rItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
 				rItem->rotateBy(currItem->rotation());
 				setRedrawBounding(rItem);
+				rItem->OwnPage = OnPage(rItem);
 			}
 			tempSelection.clear();
 			tempSelection.delaySignalsOff();

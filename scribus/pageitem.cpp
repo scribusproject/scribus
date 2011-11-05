@@ -179,7 +179,7 @@ PageItem::PageItem(const PageItem & other)
 	OldB2(other.OldB2),
 	OldH2(other.OldH2),
 	Sizing(other.Sizing),
-	toPixmap(other.toPixmap),
+//	toPixmap(other.toPixmap),
 	LayerID(other.LayerID),
 	ScaleType(other.ScaleType),
 	AspectRatio(other.AspectRatio),
@@ -594,7 +594,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	inPdfArticle = false;
 	isRaster = false;
 	Sizing = false;
-	toPixmap = false;
+//	toPixmap = false;
 	UseEmbedded = true;
 	IRender = Intent_Relative_Colorimetric;
 	EmProfile = "";
@@ -2055,8 +2055,6 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 
 QImage PageItem::DrawObj_toImage(double maxSize)
 {
-	QList<PageItem*> emG;
-	emG.clear();
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
@@ -2067,13 +2065,55 @@ QImage PageItem::DrawObj_toImage(double maxSize)
 	miny = qMin(miny, y1);
 	maxx = qMax(maxx, x2);
 	maxy = qMax(maxy, y2);
-	gXpos = xPos() - minx;
-	gYpos = yPos() - miny;
-	gWidth = maxx - minx;
-	gHeight = maxy - miny;
-	double sc = maxSize / qMax(gWidth, gHeight);
-	emG.append(this);
-	return DrawObj_toImage(emG, sc);
+	double igXpos = xPos() - minx;
+	double igYpos = yPos() - miny;
+	double igWidth = maxx - minx;
+	double igHeight = maxy - miny;
+	double sc = maxSize / qMax(igWidth, igHeight);
+	bool savedFlag = m_Doc->guidesPrefs().framesShown;
+	m_Doc->guidesPrefs().framesShown = false;
+	QImage retImg = QImage(qRound(igWidth * sc), qRound(igHeight * sc), QImage::Format_ARGB32_Premultiplied);
+	retImg.fill( qRgba(0, 0, 0, 0) );
+	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
+	painter->setZoomFactor(sc);
+	painter->save();
+	painter->translate(igXpos, igYpos);
+	isEmbedded = true;
+	invalid = true;
+	DrawObj(painter, QRectF());
+	isEmbedded = false;
+	painter->restore();
+	if (isTableItem)
+	{
+		painter->save();
+		painter->translate(igXpos, igYpos);
+		painter->rotate(rotation());
+		isEmbedded = true;
+		invalid = true;
+		if ((lineColor() != CommonStrings::None) && (lineWidth() != 0.0))
+		{
+			QColor tmp;
+			SetQColor(&tmp, lineColor(), lineShade());
+			if ((TopLine) || (RightLine) || (BottomLine) || (LeftLine))
+			{
+				painter->setPen(tmp, lineWidth(), PLineArt, Qt::SquareCap, PLineJoin);
+				if (TopLine)
+					painter->drawLine(FPoint(0.0, 0.0), FPoint(width(), 0.0));
+				if (RightLine)
+					painter->drawLine(FPoint(width(), 0.0), FPoint(width(), height()));
+				if (BottomLine)
+					painter->drawLine(FPoint(width(), height()), FPoint(0.0, height()));
+				if (LeftLine)
+					painter->drawLine(FPoint(0.0, height()), FPoint(0.0, 0.0));
+			}
+		}
+		isEmbedded = false;
+		painter->restore();
+	}
+	painter->end();
+	delete painter;
+	m_Doc->guidesPrefs().framesShown = savedFlag;
+	return retImg;
 }
 
 QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
@@ -5507,6 +5547,39 @@ QTransform PageItem::getTransform() const
 	return result;
 }
 
+QTransform PageItem::getCombinedTransform()
+{
+	QTransform result;
+	if (Parent != NULL)
+	{
+		QList<PageItem*> itList;
+		PageItem* ite = this;
+		while (ite->Parent != NULL)
+		{
+			itList.prepend(ite);
+			ite = ite->Parent;
+		}
+		result.translate(ite->xPos(), ite->yPos());
+		result.rotate(ite->rotation());
+		if (ite->isGroup())
+			result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
+		for (int aa = 0; aa < itList.count(); aa++)
+		{
+			ite = itList.at(aa);
+			result.translate(ite->gXpos, ite->gYpos);
+			result.rotate(ite->rotation());
+			if (ite->isGroup())
+				result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
+		}
+	}
+	else
+	{
+		result.translate(Xpos, Ypos);
+		result.rotate(Rot);
+	}
+	return result;
+}
+
 QRectF PageItem::getBoundingRect() const
 {
 	double x,y,x2,y2;
@@ -6515,7 +6588,9 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 	int y = qRound(floor(BoundingY - Oldm_lineWidth / 2.0 - 5) * viewScale);
 	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
 	int h = qRound(ceil(BoundingH + Oldm_lineWidth + 10) * viewScale);
-	QRect ret = QRect(x, y, w, h);
+	QRect ret = QRect(0, 0, w - x, h - y);
+	QTransform t = getCombinedTransform();
+	ret = t.mapRect(ret);
 	ret.translate(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
 	return ret;
 }

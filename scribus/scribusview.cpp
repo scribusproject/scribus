@@ -1721,7 +1721,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		{
 			Doc->m_Selection->addItem(currItem);
 			currItem->isSingleSel = true;
-			updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+			updateContents();
+//			updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 		}
 		else
 		{
@@ -1743,7 +1744,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			double x, y, w, h;
 			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			getGroupRectScreen(&x, &y, &w, &h);
-			updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			updateContents();
+	//		updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			//CB move in here as the emitAllToGUI will do it otherwise
 			emit ItemGeom();
 			emit HaveSel(currItem->itemType());

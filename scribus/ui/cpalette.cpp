@@ -344,25 +344,8 @@ void Cpalette::updateFromItem()
 PageItem* Cpalette::currentItemFromSelection()
 {
 	PageItem *currentItem = NULL;
-
 	if (currentDoc)
-	{
-		if (currentDoc->m_Selection->count() > 1)
-		{
-			int lowestItem = 999999;
-			for (int a=0; a < currentDoc->m_Selection->count(); ++a)
-			{
-				currentItem = currentDoc->m_Selection->itemAt(a);
-				lowestItem = qMin(lowestItem, currentDoc->Items->indexOf(currentItem));
-			}
-			currentItem = currentDoc->Items->at(lowestItem);
-		}
-		else if (currentDoc->m_Selection->count() == 1)
-		{
-			currentItem = currentDoc->m_Selection->itemAt(0);
-		}
-	}
-
+		currentItem = currentDoc->m_Selection->itemAt(0);
 	return currentItem;
 }
 

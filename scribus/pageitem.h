@@ -329,6 +329,7 @@ public:
 	QTransform getGroupTransform() const;
 	void getTransform(QTransform& mat) const;
 	QTransform getTransform() const;
+	QTransform getCombinedTransform();
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
 	 * No coordinates transformation is performed
@@ -557,7 +558,7 @@ public:
 	double OldB2;
 	double OldH2;
 	bool Sizing;
-	bool toPixmap;
+//	bool toPixmap;
 	int  LayerID;
 	bool ScaleType;
 	bool AspectRatio;
