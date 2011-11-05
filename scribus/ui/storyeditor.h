@@ -84,7 +84,7 @@ public:
 	SEditor (QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE);
 	~SEditor() {};
 	void setCurrentDocument(ScribusDoc *docc);
-	void setAlign(int style);
+	void setAlign(int align);
 	void saveItemText(PageItem *currItem);
 	void loadItemText(PageItem *currItem);
 	void loadText(QString tx, PageItem *currItem);
@@ -93,7 +93,7 @@ public:
 	void updateSel(const CharStyle& style);
 	void updateSel(const ParagraphStyle& style);
 	void deleteSel();
-	void setEffects(int Csty);
+	void setEffects(int effects);
 	void setColor(bool marker);
 
 	void insertChars(const QString& text);
@@ -144,6 +144,9 @@ protected:
 
 	void insertUpdate(int position, int len);
 
+	void setAlign(QTextCursor& tCursor, int style);
+	void setEffects(QTextCursor& tCursor, int effects);
+
 	int  blockContentsChangeHook;
 	void keyPressEvent(QKeyEvent *k);
 	void inputMethodEvent(QInputMethodEvent *event);
@@ -153,7 +156,6 @@ protected:
 	virtual bool canInsertFromMimeData( const QMimeData * source ) const;
 	virtual QMimeData * createMimeDataFromSelection () const;
 	virtual void insertFromMimeData ( const QMimeData * source );
-//	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 
 protected slots:

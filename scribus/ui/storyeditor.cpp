@@ -599,25 +599,33 @@ void SEditor::saveItemText(PageItem *currItem)
 
 void SEditor::setAlign(int align)
 {
+	QTextCursor tCursor = this->textCursor();
+	setAlign(tCursor, align);
+}
+
+void SEditor::setAlign(QTextCursor& tCursor, int align)
+{
 	++blockContentsChangeHook;
+	QTextBlockFormat blockFormat;
 	switch (align)
 	{
 	case 0:
-		setAlignment(Qt::AlignLeft);
+		blockFormat.setAlignment(Qt::AlignLeft);
 		break;
 	case 1:
-		setAlignment(Qt::AlignCenter);
+		blockFormat.setAlignment(Qt::AlignCenter);
 		break;
 	case 2:
-		setAlignment(Qt::AlignRight);
+		blockFormat.setAlignment(Qt::AlignRight);
 		break;
 	case 3:
 	case 4:
-		setAlignment(Qt::AlignJustify);
+		blockFormat.setAlignment(Qt::AlignJustify);
 		break;
 	default:
 		break;
 	}
+	tCursor.setBlockFormat(blockFormat);
 	--blockContentsChangeHook;
 }
 
@@ -789,37 +797,38 @@ void SEditor::insertUpdate(int position, int len)
 void SEditor::updateFromChars(int pa)
 {
 	int start = StyledText.startOfParagraph(pa);
-	int end = StyledText.endOfParagraph(pa);
+	int end   = StyledText.endOfParagraph(pa);
 	if (start >= end)
 		return;
 	setUpdatesEnabled(false);
 	int SelStart = start;
-	int SelEnd = 0;
+	int SelEnd   = start;
 	int pos = textCursor().position();
 	textCursor().clearSelection();
-	int Csty = StyledText.charStyle(start).effects();
+	int effects = StyledText.charStyle(start).effects();
 	for (int a = start; a < end; ++a)
 	{
-		if (Csty == StyledText.charStyle(a).effects())
+		if (effects == StyledText.charStyle(a).effects())
 			SelEnd++;
 		else
 		{
 			textCursor().setPosition(SelStart);
 			textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-			setEffects(Csty);
+			setEffects(effects);
 			textCursor().clearSelection();
-			Csty = StyledText.charStyle(a).effects();
+			effects = StyledText.charStyle(a).effects();
 			SelStart = SelEnd;
 			SelEnd++;
 		}
 	}
-	textCursor().setPosition(SelStart);
-	textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-	setEffects(Csty);
-	textCursor().clearSelection();
-	setAlign(StyledText.paragraphStyle(start).alignment());
-	setUpdatesEnabled(true);
 	QTextCursor tCursor = textCursor();
+	tCursor.setPosition(SelStart);
+	tCursor.setPosition(SelEnd, QTextCursor::KeepAnchor);
+	setEffects(tCursor, effects);
+	setAlign(tCursor, StyledText.paragraphStyle(start).alignment());
+	tCursor.clearSelection();
+	setUpdatesEnabled(true);
+	tCursor = textCursor();
 	tCursor.setPosition(pos);
 	setTextCursor(tCursor);
 }
@@ -870,27 +879,32 @@ void SEditor::deleteSel()
 	StoredSel = false;
 }
 
-void SEditor::setEffects(int Csty)
+void SEditor::setEffects(int effects)
+{
+	QTextCursor tCursor = textCursor();
+	setEffects(tCursor, effects);
+	//setTextCursor(tCursor);
+}
+
+void SEditor::setEffects(QTextCursor& tCursor, int effects)
 {
 	++blockContentsChangeHook;
 	QTextCharFormat charF;
-	if (Csty & 8)
+	if (effects & 8)
 		charF.setFontUnderline(true);
 	else
 		charF.setFontUnderline(false);
-	if (Csty & 16)
+	if (effects & 16)
 		charF.setFontStrikeOut(true);
 	else
 		charF.setFontStrikeOut(false);
-	if (Csty & 1)
+	if (effects & 1)
 		charF.setVerticalAlignment(QTextCharFormat::AlignSuperScript);
-	else if (Csty & 2)
+	else if (effects & 2)
 		charF.setVerticalAlignment(QTextCharFormat::AlignSubScript);
 	else
 		charF.setVerticalAlignment(QTextCharFormat::AlignNormal);
-	QTextCursor tCursor = textCursor();
 	tCursor.setCharFormat(charF);
-	setTextCursor(tCursor);
 	--blockContentsChangeHook;
 }
 
@@ -1017,17 +1031,6 @@ void SEditor::insertFromMimeData ( const QMimeData * source )
 	paste();
 }
 
-/*
-Q_3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
-{
-	Q_3PopupMenu *p = Q_3TextEdit::createPopupMenu(pos);
-	p->removeItemAt(0);
-	p->removeItemAt(0);
-	p->removeItemAt(0);
-	p->removeItemAt(3);
-	return p;
-}
-*/
 void SEditor::SelClipChange()
 {
 	emit PasteAvail();
