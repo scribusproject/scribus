@@ -11475,7 +11475,7 @@
 			Name="Win-config"
 			>
 			<File
-				RelativePath="win-config.h"
+				RelativePath="..\win-config.h"
 				>
 			</File>
 		</Filter>
