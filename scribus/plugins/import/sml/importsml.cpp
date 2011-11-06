@@ -452,6 +452,17 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
 		finishItem(elem, m_Doc->Items->at(z));
 	}
+	else if (typ == "RoundRectangle")
+	{
+		double x = ScCLocale::toDoubleC(elem.attribute("x"));
+		double y = ScCLocale::toDoubleC(elem.attribute("y"));
+		double w = ScCLocale::toDoubleC(elem.attribute("w"));
+		double h = ScCLocale::toDoubleC(elem.attribute("h"));
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		m_Doc->Items->at(z)->setCornerRadius(qMax(ScCLocale::toDoubleC(elem.attribute("r1")), ScCLocale::toDoubleC(elem.attribute("r2"))));
+		m_Doc->Items->at(z)->SetFrameRound();
+		finishItem(elem, m_Doc->Items->at(z));
+	}
 	else if (typ == "Ellipse")
 	{
 		double x = ScCLocale::toDoubleC(elem.attribute("x"));
@@ -463,13 +474,19 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 	}
 	else if ((typ == "Polygon") || (typ == "ClosedPath"))
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		int z;
+		FPoint s = Coords.point(0);
+		FPoint e = Coords.point(Coords.count() - 1);
+		if (s == e)
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		else
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
 		m_Doc->Items->at(z)->PoLine = Coords.copy();
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 	else if ((typ == "Bezier") || (typ == "OpenPath") || (typ == "LineArray") || (typ == "Polyline"))
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		int	z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
 		m_Doc->Items->at(z)->PoLine = Coords.copy();
 		finishItem(elem, m_Doc->Items->at(z));
 	}
