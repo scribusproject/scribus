@@ -4946,12 +4946,6 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	int retw = -1;
 	if (masterPageMode())
 	{
-/*		int x = static_cast<int>(currentPage()->xOffset());
-		int y = static_cast<int>(currentPage()->yOffset());
-		int w = static_cast<int>(currentPage()->width());
-		int h = static_cast<int>(currentPage()->height());
-		QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
-		if (QRect(x, y, w, h).intersects(itemRect)) */
 		double x = currentPage()->xOffset() - docPrefsData.docSetupPrefs.bleeds.Left;
 		double y = currentPage()->yOffset() - docPrefsData.docSetupPrefs.bleeds.Top;
 		double w = currentPage()->width() + docPrefsData.docSetupPrefs.bleeds.Left + docPrefsData.docSetupPrefs.bleeds.Right;
@@ -4960,6 +4954,10 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		double y2 = currItem->BoundingY;
 		double w2 = currItem->BoundingW;
 		double h2 = currItem->BoundingH;
+		QRectF ret = QRectF(0, 0, w2 - x2, h2 - y2);
+		QTransform t = currItem->getCombinedTransform();
+		ret = t.mapRect(ret);
+		ret.getCoords(&x2, &y2, &w2, &h2);
 		if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			retw = currentPage()->pageNr();
 	}
@@ -4978,21 +4976,15 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			double y2 = currItem->BoundingY;
 			double w2 = currItem->BoundingW;
 			double h2 = currItem->BoundingH;
+			QRectF ret = QRectF(0, 0, w2 - x2, h2 - y2);
+			QTransform t = currItem->getCombinedTransform();
+			ret = t.mapRect(ret);
+			ret.getCoords(&x2, &y2, &w2, &h2);
 			if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			{
 				retw = static_cast<int>(a);
 				break;
 			}
-/*			int x = static_cast<int>(Pages->at(a)->xOffset());
-			int y = static_cast<int>(Pages->at(a)->yOffset());
-			int w = static_cast<int>(Pages->at(a)->width());
-			int h = static_cast<int>(Pages->at(a)->height());
-			QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
-			if (QRect(x, y, w, h).intersects(itemRect))
-			{
-				retw = static_cast<int>(a);
-				break;
-			} */
 		}
 	}
 	if ((retw == -1) && (currItem->isBookmark))
@@ -5059,6 +5051,10 @@ void  ScribusDoc::fixItemPageOwner()
 			double y2 = currItem->BoundingY;
 			double w2 = currItem->BoundingW;
 			double h2 = currItem->BoundingH;
+			QRectF ret = QRectF(0, 0, w2 - x2, h2 - y2);
+			QTransform t = currItem->getCombinedTransform();
+			ret = t.mapRect(ret);
+			ret.getCoords(&x2, &y2, &w2, &h2);
 			if (( qMax(x1, x2) <= qMin(x1 + w1, x2 + w2) && qMax(y1, y2) <= qMin(y1 + h1, y2 + h2)))
 			{
 				continue;

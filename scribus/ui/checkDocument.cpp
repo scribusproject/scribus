@@ -502,11 +502,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		// FREE ITEMS **********************************************8888
 		QMap<PageItem*, errorCodes>::Iterator freeItemsErrorsIt;
 		bool hasfreeItems = false;
-		for (freeItemsErrorsIt = doc->docItemErrors.begin();
-			 freeItemsErrorsIt != doc->docItemErrors.end();
-			 ++freeItemsErrorsIt)
+		for (freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
 		{
-			if (freeItemsErrorsIt.key()->OwnPage == -1)
+			if (doc->OnPage(freeItemsErrorsIt.key()) == -1)
+		//	if (freeItemsErrorsIt.key()->OwnPage == -1)
 			{
 				hasfreeItems = true;
 				break;
@@ -518,11 +517,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			bool pageGraveError = false;
 			QTreeWidgetItem * freeItem = new QTreeWidgetItem( reportDisplay);//, pagep );
 // 			pagep = page;
-			for (freeItemsErrorsIt = doc->docItemErrors.begin();
-				 freeItemsErrorsIt != doc->docItemErrors.end();
-				 ++freeItemsErrorsIt)
+			for (freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
 			{
-				if (freeItemsErrorsIt.key()->OwnPage == -1)
+				if (doc->OnPage(freeItemsErrorsIt.key()) == -1)
+			//	if (freeItemsErrorsIt.key()->OwnPage == -1)
 				{
 					hasError = true;
 					QTreeWidgetItem * object = new QTreeWidgetItem(freeItem);
