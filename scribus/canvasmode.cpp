@@ -675,6 +675,9 @@ void CanvasMode::setModeCursor()
 		case modeEyeDropper:
 			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
 			break;
+		case modeLinkFrames:
+			qApp->changeOverrideCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 32));
+			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
 		case modeEditMeshGradient:
