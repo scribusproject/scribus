@@ -2226,6 +2226,10 @@
 				RelativePath="..\..\..\scribus\ui\vruler.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\weldedit.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -2848,6 +2852,20 @@
 			<File
 				RelativePath="..\..\..\scribus\canvasmode_editweldpoint.h"
 				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\canvasmode_eyedropper.h"
@@ -8255,6 +8273,24 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\weldedit.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -8791,6 +8827,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\moc_canvasmode_edittable.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\moc_canvasmode_editweldpoint.cpp"
 				>
 			</File>
 			<File
@@ -9825,6 +9865,10 @@
 				RelativePath="..\..\..\scribus\ui\moc_vruler.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_weldedit.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Form Files"
@@ -10222,12 +10266,16 @@
 				RelativePath="..\..\..\scribus\ui\useprintermarginsdialog.ui"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\weldeditbase.ui"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Win-config"
 			>
 			<File
-				RelativePath="win-config.h"
+				RelativePath="..\win-config.h"
 				>
 			</File>
 		</Filter>
