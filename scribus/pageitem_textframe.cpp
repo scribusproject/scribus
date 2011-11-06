@@ -2119,12 +2119,6 @@ void PageItem_TextFrame::layout()
 						current.yPos = maxDY;
 					maxDX = 0;
 				}
-				if ( SpecialChars::isBreak(hl->ch) )
-				{
-					if (hl->ch == SpecialChars::PARSEP)
-						current.yPos += style.gapAfter();
-					current.hyphenCount = 0;
-				}
 				if (current.isEndOfCol(desc))
 				{
 					//check if realy line extends bottom margin
@@ -2199,6 +2193,12 @@ void PageItem_TextFrame::layout()
 					lastLineY = current.rowDesc;
 					current.mustLineEnd = current.colRight;
 					current.restartRowIndex = current.restartIndex;
+				}
+				if ( SpecialChars::isBreak(hl->ch) )
+				{
+					if (hl->ch == SpecialChars::PARSEP)
+						current.yPos += style.gapAfter();
+					current.hyphenCount = 0;
 				}
 				if (inOverflow)
 				{
