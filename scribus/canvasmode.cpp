@@ -658,7 +658,7 @@ void CanvasMode::setModeCursor()
 			break;
 		case modeDrawFreehandLine:
 		case modeDrawCalligraphicLine:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 31));
 			break;
 		case modeImportObject:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
@@ -673,10 +673,10 @@ void CanvasMode::setModeCursor()
 			qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
 			break;
 		case modeEyeDropper:
-			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 31));
 			break;
 		case modeLinkFrames:
-			qApp->changeOverrideCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 32));
+			qApp->changeOverrideCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 31));
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
