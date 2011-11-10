@@ -607,6 +607,20 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 				npf = FPoint(nx, ny);
 //			npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
 			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+			if (currItem->imageFlippedH())
+			{
+				QTransform p;
+				p.translate(currItem->width(), 0);
+				p.scale(-1, 1);
+				npf = npf.transformPoint(p, false);
+			}
+			if (currItem->imageFlippedV())
+			{
+				QTransform p;
+				p.translate(0, currItem->height());
+				p.scale(1, -1);
+				npf = npf.transformPoint(p, false);
+			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		}
 
@@ -1298,6 +1312,20 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				else
 					npf = FPoint(nx, ny);
 				npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+				if (currItem->imageFlippedH())
+				{
+					QTransform p;
+					p.translate(currItem->width(), 0);
+					p.scale(-1, 1);
+					npf = npf.transformPoint(p, false);
+				}
+				if (currItem->imageFlippedV())
+				{
+					QTransform p;
+					p.translate(0, currItem->height());
+					p.scale(1, -1);
+					npf = npf.transformPoint(p, false);
+				}
 				m_doc->nodeEdit.moveClipPoint(currItem, npf);
 				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 			}
