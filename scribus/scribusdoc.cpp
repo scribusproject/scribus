@@ -5647,16 +5647,34 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			}
 		}
 		currItem = Items->at(0);
-		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMax(currItem->gWidth, currItem->gHeight));
-		docPatterns[currentEditedSymbol].width = currItem->gWidth;
-		docPatterns[currentEditedSymbol].height = currItem->gHeight;
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		currItem->setXYPos(0, 0, true);
+		currItem->gXpos = currItem->xPos();
+		currItem->gYpos = currItem->yPos();
+		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+		docPatterns[currentEditedSymbol].width = maxx - minx;
+		docPatterns[currentEditedSymbol].height = maxy - miny;
 		if (m_ScMW->patternsDependingOnThis.count() > 1)
 		{
 			for (int a = 1; a < m_ScMW->patternsDependingOnThis.count(); a++)
 			{
 				Items = &docPatterns[m_ScMW->patternsDependingOnThis[a]].items;
 				currItem = Items->at(0);
-				docPatterns[m_ScMW->patternsDependingOnThis[a]].pattern = currItem->DrawObj_toImage(qMax(currItem->gWidth, currItem->gHeight));
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+				docPatterns[m_ScMW->patternsDependingOnThis[a]].pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 			}
 		}
 		if (masterPageMode())

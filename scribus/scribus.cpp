@@ -10022,8 +10022,8 @@ void ScribusMainWindow::PutToPatterns()
 	maxx = qMax(maxx, x2);
 	maxy = qMax(maxy, y2);
 	pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
-	pat.width = currItem->gWidth;
-	pat.height = currItem->gHeight;
+	pat.width = maxx - minx;
+	pat.height = maxy - miny;
 	pat.items.append(currItem);
 	if (doc->docPatterns.contains(patternName))
 		doc->docPatterns.remove(patternName);
@@ -10032,6 +10032,9 @@ void ScribusMainWindow::PutToPatterns()
 	double y = currItem->yPos();
 	double w = currItem->width();
 	double h = currItem->height();
+	currItem->setXYPos(0, 0, true);
+	currItem->gXpos = currItem->xPos();
+	currItem->gYpos = currItem->yPos();
 	int d = doc->Items->indexOf(currItem);
 	z = doc->itemAdd(PageItem::Symbol, PageItem::Rectangle, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* groupItem = doc->Items->takeAt(z);
