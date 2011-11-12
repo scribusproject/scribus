@@ -2745,8 +2745,8 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			pat.xoffset = xOrg;
 			pat.yoffset = yOrg;
 			m_Doc->DoDrawing = false;
-			pat.width = qMin(currItem->gWidth, wpat);
-			pat.height = qMin(currItem->gHeight, hpat);
+			pat.width = wpat;
+			pat.height = hpat;
 			pat.items.append(currItem);
 			m_Doc->Items->removeAll(currItem);
 			m_Doc->addPattern(id, pat);

@@ -12480,6 +12480,12 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 	currItem->Sizing = false;
 	if ((!(currItem->isGroup() || currItem->isSymbol())) || includeGroup)
 	{
+		double oldX = currItem->xPos();
+		double oldY = currItem->yPos();
+		double oldW = currItem->width();
+		double oldH = currItem->height();
+		double oldgW = currItem->groupWidth;
+		double oldgH = currItem->groupHeight;
 		FPointArray Clip;
 		Clip = currItem->PoLine;
 		FPoint tp2(getMinClipF(&Clip));
@@ -12503,12 +12509,30 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 			currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
 		SizeItem(tp.x(), tp.y(), currItem, true, false);
 		currItem->PoLine = Clip.copy();
-		if (currItem->isGroup() && includeGroup && moveInGroup)
+		if ((currItem->isGroup() || currItem->isSymbol()) && includeGroup)
 		{
+			currItem->groupWidth = oldgW * (currItem->width() / oldW);
+			currItem->groupHeight = oldgH * (currItem->height() / oldH);
+			double dx = (currItem->xPos() - oldX) / (currItem->width() / currItem->groupWidth);
+			double dy = (currItem->yPos() - oldY) / (currItem->height() / currItem->groupHeight);
 			for (int em = 0; em < currItem->groupItemList.count(); ++em)
 			{
 				PageItem* embedded = currItem->groupItemList.at(em);
-				MoveItem(-tp2.x(), -tp2.y(), embedded, true);
+				MoveItem(-dx, -dy, embedded, true);
+			}
+			if (currItem->imageFlippedH())
+			{
+				if (oldX - currItem->xPos() == 0)
+					MoveItem(oldW - currItem->width(), 0, currItem, true);
+				else
+					MoveItem((oldX - currItem->xPos()), 0, currItem, true);
+			}
+			if (currItem->imageFlippedV())
+			{
+				if (oldY- currItem->yPos() == 0)
+					MoveItem(0, oldH - currItem->height(), currItem, true);
+				else
+					MoveItem(0, oldY - currItem->yPos(), currItem, true);
 			}
 		}
 	}
@@ -13833,8 +13857,8 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	else
 	{
 		currItem->PoLine.setPoint(Doc->nodeEdit.ClRe, np);
-		if (!(currItem->isGroup() || currItem->isSymbol()))
-			Doc->AdjustItemSize(currItem);
+	//	if (!(currItem->isGroup() || currItem->isSymbol()))
+			Doc->AdjustItemSize(currItem, true, true);
 		Doc->regionsChanged()->update(QRectF());
 	}
 	undoManager->setUndoEnabled(true);
@@ -13924,8 +13948,8 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	if (!Doc->nodeEdit.isContourLine)
 	{
 		currItem->PoLine = Clip.copy();
-		if (!(currItem->isGroup() || currItem->isSymbol()))
-			Doc->AdjustItemSize(currItem);
+	//	if (!(currItem->isGroup() || currItem->isSymbol()))
+			Doc->AdjustItemSize(currItem, true, true);
 		Doc->regionsChanged()->update(QRectF());
 	}
 	else

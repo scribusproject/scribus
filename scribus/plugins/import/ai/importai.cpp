@@ -2754,10 +2754,7 @@ void AIPlug::processPattern(QDataStream &ts)
 								p.drawImage(0, 0, tmpImg);
 							p.end();
 							pat.pattern = retImg;
-		//					pat.pattern = currItem->DrawObj_toImage();
 							m_Doc->DoDrawing = false;
-							//			pat.width = currItem->gWidth;
-							//			pat.height = currItem->gHeight;
 							pat.width = patternX2 - patternX1;
 							pat.height = patternY2 - patternY1;
 							pat.xoffset = -patternX1;
@@ -2891,8 +2888,8 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 					pat.pattern = currItem->DrawObj_toImage(qMax(tmpSel->width(), tmpSel->height()));
 					if (!pat.pattern.isNull())
 					{
-						pat.width = currItem->gWidth;
-						pat.height = currItem->gHeight;
+						pat.width = tmpSel->width();
+						pat.height = tmpSel->height();
 						m_Doc->DoDrawing = false;
 						for (int as = 0; as < tmpSel->count(); ++as)
 						{

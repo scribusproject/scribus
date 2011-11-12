@@ -64,7 +64,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	p->translate(currItem->xPos(), currItem->yPos());
 	p->rotate(currItem->rotation());
-	if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
+	if (currItem->isSymbol() || currItem->isGroup())
 	{
 		if (currItem->imageFlippedH())
 		{
@@ -607,24 +607,27 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 				npf = FPoint(nx, ny);
 //			npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
 			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
-			if (currItem->imageFlippedH())
+			if (currItem->isSymbol() || currItem->isGroup())
 			{
-				QTransform p;
-				p.translate(currItem->width(), 0);
-				p.scale(-1, 1);
-				npf = npf.transformPoint(p, false);
-			}
-			if (currItem->imageFlippedV())
-			{
-				QTransform p;
-				p.translate(0, currItem->height());
-				p.scale(1, -1);
-				npf = npf.transformPoint(p, false);
+				if (currItem->imageFlippedH())
+				{
+					QTransform p;
+					p.translate(currItem->width(), 0);
+					p.scale(-1, 1);
+					npf = npf.transformPoint(p, false);
+				}
+				if (currItem->imageFlippedV())
+				{
+					QTransform p;
+					p.translate(0, currItem->height());
+					p.scale(1, -1);
+					npf = npf.transformPoint(p, false);
+				}
 			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		}
 
-		m_doc->AdjustItemSize(currItem);
+		m_doc->AdjustItemSize(currItem, true, true);
 		if (!m_doc->nodeEdit.isContourLine)
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 //		currItem->update();
@@ -668,11 +671,6 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
-	else
-	{
-		//delete oldClip;
-		//oldClip = 0;
-	}
 }
 
 void CanvasMode_NodeEdit::keyPressEvent(QKeyEvent *e)
@@ -699,7 +697,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 //	npf2 = FPoint(m->pos() * pm.inverted());
 	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, true);
 	QTransform pm2 = currItem->getTransform();
-	if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
+	if (currItem->isSymbol() || currItem->isGroup())
 	{
 		if (currItem->imageFlippedH())
 		{
@@ -924,7 +922,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 						bb->setRotation(currItem->rotation());
 						bb->ClipEdited = true;
 						m_doc->Items->insert(m_doc->Items->indexOf(currItem), bb);
-						m_doc->AdjustItemSize(bb);
+						m_doc->AdjustItemSize(bb, true, true);
 					}
 					currItem->PoLine = cli.copy();
 				}
@@ -951,7 +949,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 						else
 							bb->PoLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
 						bb->setRotation(currItem->rotation());
-						m_doc->AdjustItemSize(bb);
+						m_doc->AdjustItemSize(bb, true, true);
 						bb->ClipEdited = true;
 						bb->setFrameType(currItem->frameType());
 						cli.resize(0);
@@ -1126,7 +1124,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		yp = currItem->yPos();
 		w = currItem->width();
 		h = currItem->height();
-		m_doc->AdjustItemSize(currItem);
+		m_doc->AdjustItemSize(currItem, true, true);
 		xp2 = currItem->xPos();
 		yp2 = currItem->yPos();
 		w2 = currItem->width();
@@ -1134,6 +1132,11 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		currItem->update();
 		if ((xp != xp2) || (yp != yp2) || (w != w2) || (h != h2))
 			m_view->DrawNew();
+	}
+	else
+	{
+		currItem->update();
+		m_view->DrawNew();
 	}
 	if ((m_doc->nodeEdit.SelNode.count() != 0) || ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.EdPoints)))
 	{
@@ -1164,6 +1167,19 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, QTransform)
 {
 	QTransform itemPos = currItem->getTransform();
+	if (currItem->isSymbol() || currItem->isGroup())
+	{
+		if (currItem->imageFlippedH())
+		{
+			itemPos.translate(currItem->width(), 0);
+			itemPos.scale(-1, 1);
+		}
+		if (currItem->imageFlippedV())
+		{
+			itemPos.translate(0, currItem->height());
+			itemPos.scale(1, -1);
+		}
+	}
 	FPointArray Clip;
 	m_doc->nodeEdit.ClRe2 = -1;
 	m_doc->nodeEdit.SegP1 = -1;
@@ -1282,6 +1298,13 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	currItem = m_doc->m_Selection->itemAt(0);
 	if ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1))
 	{
+		if (currItem->isSymbol() || currItem->isGroup())
+		{
+			if (currItem->imageFlippedH())
+				np.setX(np.x() * -1);
+			if (currItem->imageFlippedV())
+				np.setY(np.y() * -1);
+		}
 		if (m_doc->nodeEdit.isContourLine)
 			npf = currItem->ContourLine.point(m_doc->nodeEdit.SegP2) + np;
 		else
@@ -1312,19 +1335,22 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				else
 					npf = FPoint(nx, ny);
 				npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
-				if (currItem->imageFlippedH())
+				if (currItem->isSymbol() || currItem->isGroup())
 				{
-					QTransform p;
-					p.translate(currItem->width(), 0);
-					p.scale(-1, 1);
-					npf = npf.transformPoint(p, false);
-				}
-				if (currItem->imageFlippedV())
-				{
-					QTransform p;
-					p.translate(0, currItem->height());
-					p.scale(1, -1);
-					npf = npf.transformPoint(p, false);
+					if (currItem->imageFlippedH())
+					{
+						QTransform p;
+						p.translate(currItem->width(), 0);
+						p.scale(-1, 1);
+						npf = npf.transformPoint(p, false);
+					}
+					if (currItem->imageFlippedV())
+					{
+						QTransform p;
+						p.translate(0, currItem->height());
+						p.scale(1, -1);
+						npf = npf.transformPoint(p, false);
+					}
 				}
 				m_doc->nodeEdit.moveClipPoint(currItem, npf);
 				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());

@@ -587,7 +587,7 @@ void NodePalette::MovePoint()
 			np -= zp;
 		}
 		doc->nodeEdit.moveClipPoint(currItem, np);
-		doc->AdjustItemSize(currItem);
+		doc->AdjustItemSize(currItem, true, true);
 		doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}

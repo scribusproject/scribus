@@ -1192,6 +1192,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								if ((currItem->imageFlippedH()) && (currItem->isSymbol() || currItem->isGroup()))
+									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
 									FPoint np;
@@ -1203,6 +1205,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np - FPoint(moveBy, 0);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
+									m_doc->regionsChanged()->update(QRectF());
 								}
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
@@ -1254,6 +1257,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								if ((currItem->imageFlippedH()) && (currItem->isSymbol() || currItem->isGroup()))
+									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
 									FPoint np;
@@ -1265,6 +1270,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np + FPoint(moveBy, 0);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
+									m_doc->regionsChanged()->update(QRectF());
 								}
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
@@ -1316,6 +1322,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								if ((currItem->imageFlippedV()) && (currItem->isSymbol() || currItem->isGroup()))
+									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
 									FPoint np;
@@ -1327,6 +1335,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np - FPoint(0, moveBy);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
+									m_doc->regionsChanged()->update(QRectF());
 								}
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
@@ -1378,6 +1387,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								if ((currItem->imageFlippedV()) && (currItem->isSymbol() || currItem->isGroup()))
+									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
 									FPoint np;
@@ -1389,6 +1400,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np - FPoint(0, -moveBy);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
+									m_doc->regionsChanged()->update(QRectF());
 								}
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
@@ -1470,10 +1482,11 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 					PageItem *currItem = m_doc->m_Selection->itemAt(0);
 					double xposOrig = currItem->xPos();
 					double yposOrig = currItem->yPos();
-					m_doc->AdjustItemSize(currItem);
+					m_doc->AdjustItemSize(currItem, true, true);
 					if (!m_doc->nodeEdit.isContourLine)
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					currItem->update();
+					m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 				}
 				for (int i = 0; i < docSelectionCount; ++i)
 					m_doc->m_Selection->itemAt(i)->checkChanges(true);

@@ -1331,8 +1331,8 @@ void PaintManagerDialog::loadVectors(QString data)
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
 		pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
-		pat.width = currItem->gWidth;
-		pat.height = currItem->gHeight;
+		pat.width = maxx - minx;
+		pat.height = maxy - miny;
 		for (uint as = ac; as < ae; ++as)
 		{
 			pat.items.append(m_doc->Items->takeAt(ac));
