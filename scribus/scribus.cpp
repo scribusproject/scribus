@@ -1572,6 +1572,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								int storedClRe = doc->nodeEdit.ClRe;
 								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
+									QPolygonF poly;
 									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
@@ -1583,7 +1584,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 										doc->nodeEdit.ClRe = clRe;
 										np = np - FPoint(moveBy, 0);
 										doc->nodeEdit.moveClipPoint(currItem, np);
+										poly.append(QPointF(np.x(), np.y()));
 									}
+									QMatrix m = currItem->getTransform();
+									poly = m.map(poly);
+									QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+									QRectF newR(currItem->getBoundingRect());
+									doc->regionsChanged()->update(newR.unite(oldR));
 								}
 								doc->nodeEdit.ClRe = storedClRe;
 							}
@@ -1634,6 +1641,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								int storedClRe = doc->nodeEdit.ClRe;
 								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
+									QPolygonF poly;
 									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
@@ -1645,7 +1653,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 										doc->nodeEdit.ClRe = clRe;
 										np = np + FPoint(moveBy, 0);
 										doc->nodeEdit.moveClipPoint(currItem, np);
+										poly.append(QPointF(np.x(), np.y()));
 									}
+									QMatrix m = currItem->getTransform();
+									poly = m.map(poly);
+									QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+									QRectF newR(currItem->getBoundingRect());
+									doc->regionsChanged()->update(newR.unite(oldR));
 								}
 								doc->nodeEdit.ClRe = storedClRe;
 							}
@@ -1696,6 +1710,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								int storedClRe = doc->nodeEdit.ClRe;
 								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
+									QPolygonF poly;
 									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
@@ -1707,7 +1722,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 										doc->nodeEdit.ClRe = clRe;
 										np = np - FPoint(0, moveBy);
 										doc->nodeEdit.moveClipPoint(currItem, np);
+										poly.append(QPointF(np.x(), np.y()));
 									}
+									QMatrix m = currItem->getTransform();
+									poly = m.map(poly);
+									QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+									QRectF newR(currItem->getBoundingRect());
+									doc->regionsChanged()->update(newR.unite(oldR));
 								}
 								doc->nodeEdit.ClRe = storedClRe;
 							}
@@ -1758,6 +1779,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								int storedClRe = doc->nodeEdit.ClRe;
 								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
+									QPolygonF poly;
 									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
@@ -1769,7 +1791,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 										doc->nodeEdit.ClRe = clRe;
 										np = np - FPoint(0, -moveBy);
 										doc->nodeEdit.moveClipPoint(currItem, np);
+										poly.append(QPointF(np.x(), np.y()));
 									}
+									QMatrix m = currItem->getTransform();
+									poly = m.map(poly);
+									QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+									QRectF newR(currItem->getBoundingRect());
+									doc->regionsChanged()->update(newR.unite(oldR));
 								}
 								doc->nodeEdit.ClRe = storedClRe;
 							}
