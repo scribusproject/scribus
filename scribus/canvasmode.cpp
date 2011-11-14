@@ -1192,6 +1192,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								QPolygonF poly;
 								if ((currItem->imageFlippedH()) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
@@ -1205,8 +1206,13 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np - FPoint(moveBy, 0);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
-									m_doc->regionsChanged()->update(QRectF());
+									poly.append(np.toQPointF());
 								}
+								QTransform m = currItem->getTransform();
+								poly = m.map(poly);
+								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+								QRectF newR(currItem->getBoundingRect());
+								m_doc->regionsChanged()->update(newR.unite(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}
@@ -1257,6 +1263,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								QPolygonF poly;
 								if ((currItem->imageFlippedH()) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
@@ -1270,8 +1277,13 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np + FPoint(moveBy, 0);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
-									m_doc->regionsChanged()->update(QRectF());
+									poly.append(np.toQPointF());
 								}
+								QTransform m = currItem->getTransform();
+								poly = m.map(poly);
+								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+								QRectF newR(currItem->getBoundingRect());
+								m_doc->regionsChanged()->update(newR.unite(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}
@@ -1322,6 +1334,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								QPolygonF poly;
 								if ((currItem->imageFlippedV()) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
@@ -1335,8 +1348,13 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np - FPoint(0, moveBy);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
-									m_doc->regionsChanged()->update(QRectF());
+									poly.append(np.toQPointF());
 								}
+								QTransform m = currItem->getTransform();
+								poly = m.map(poly);
+								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+								QRectF newR(currItem->getBoundingRect());
+								m_doc->regionsChanged()->update(newR.unite(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}
@@ -1387,6 +1405,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							int storedClRe = m_doc->nodeEdit.ClRe;
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
+								QPolygonF poly;
 								if ((currItem->imageFlippedV()) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
@@ -1400,8 +1419,13 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 									m_doc->nodeEdit.ClRe = clRe;
 									np = np - FPoint(0, -moveBy);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
-									m_doc->regionsChanged()->update(QRectF());
+									poly.append(np.toQPointF());
 								}
+								QTransform m = currItem->getTransform();
+								poly = m.map(poly);
+								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
+								QRectF newR(currItem->getBoundingRect());
+								m_doc->regionsChanged()->update(newR.unite(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}

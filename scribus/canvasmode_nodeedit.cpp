@@ -182,12 +182,26 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 			Clip = currItem->ContourLine;
 		else
 			Clip = currItem->PoLine;
+		QTransform pm2 = currItem->getTransform();
+		if (currItem->isSymbol() || currItem->isGroup())
+		{
+			if (currItem->imageFlippedH())
+			{
+				pm2.translate(currItem->width(), 0);
+				pm2.scale(-1, 1);
+			}
+			if (currItem->imageFlippedV())
+			{
+				pm2.translate(0, currItem->height());
+				pm2.scale(1, -1);
+			}
+		}
 		for (uint a = 0; a < Clip.size(); ++a)
 		{
 			if (Clip.point(a).x() > 900000)
 				continue;
 			FPoint np = Clip.point(a);
-			FPoint npf2 = np.transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, false);
+			FPoint npf2 = np.transformPoint(pm2, false);
 			if ((Sele.contains(npf2.x(), npf2.y())) && ((a == 0) || (((a-2) % 4) == 0)))
 			{
 				if (a == 0)
