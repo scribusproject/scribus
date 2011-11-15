@@ -3113,7 +3113,15 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLockSize"]->setEnabled(true);
 		scrActions["itemPrintingEnabled"]->setEnabled(true);
 		if (currItem->isGroup())
-			scrActions["itemUngroup"]->setEnabled(true);
+		{
+			if (doc->appMode == modeEdit)
+			{
+				propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
+				scrActions["itemUngroup"]->setEnabled(false);
+			}
+			else
+				scrActions["itemUngroup"]->setEnabled(true);
+		}
 		else
 		{
 			scrActions["itemUngroup"]->setEnabled(false);

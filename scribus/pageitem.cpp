@@ -5542,18 +5542,18 @@ void PageItem::getTransform(QTransform& mat) const
 
 QTransform PageItem::getTransform() const
 {
-	QTransform result;
-	getTransform(result);
-	return result;
+//	QTransform result;
+//	getTransform(result);
+	return getCombinedTransform();
 }
 
-QTransform PageItem::getCombinedTransform()
+QTransform PageItem::getCombinedTransform() const
 {
 	QTransform result;
 	if (Parent != NULL)
 	{
-		QList<PageItem*> itList;
-		PageItem* ite = this;
+		QList<const PageItem*> itList;
+		const PageItem* ite = this;
 		while (ite->Parent != NULL)
 		{
 			itList.prepend(ite);

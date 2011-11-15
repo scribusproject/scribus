@@ -47,6 +47,7 @@
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
+#include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -65,6 +66,7 @@
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_line.h"
 #include "ui/propertiespalette_text.h"
+#include "ui/propertiespalette_xyz.h"
 #include "plugins/formatidlist.h"
 
 
@@ -213,7 +215,11 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
  				m_view->requestMode(modeEdit);
 			}
 			else
+			{
 				m_view->requestMode(modeEditClip);
+				m_ScMW->scrActions["itemUngroup"]->setEnabled(false);
+				m_ScMW->propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
+			}
 		}
 		else if (currItem->itemType() == PageItem::TextFrame)
 		{

@@ -60,7 +60,9 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "ui/autoform.h"
 #include "ui/nodeeditpalette.h"
+#include "ui/propertiespalette.h"
 #include "ui/propertiespalette_utils.h"
+#include "ui/propertiespalette_xyz.h"
 #include "ui/transparencypalette.h"
 
 PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(parent)
@@ -576,6 +578,8 @@ void PropertiesPalette_Group::handleShapeEdit()
 		m_item->isSingleSel = true;
 		m_item->update();
 		m_ScMW->view->requestMode(modeEditClip);
+		m_ScMW->scrActions["itemUngroup"]->setEnabled(false);
+		m_ScMW->propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
 		connect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
 		emit shapeEditStarted();
 	}
@@ -592,6 +596,9 @@ void PropertiesPalette_Group::handleShapeEditEnded()
 			m_doc->m_Selection->connectItemToGUI();
 		}
 		m_tmpSelection->clear();
+//		m_ScMW->propertiesPalette->setCurrentItem(m_doc->m_Selection->itemAt(0));
+//		m_ScMW->scrActions["itemGroup"]->setEnabled(true);
+//		m_ScMW->propertiesPalette->xyzPal->doUnGroup->setEnabled(true);
 	}
 }
 

@@ -101,3 +101,8 @@ void RectSelect::mouseMoveEvent(QMouseEvent *m)
 	setEnd(m->globalPos());
 	m->accept();
 }
+
+void RectSelect::drawControls(QPainter* p)
+{
+	m_delegate->drawControls(p);
+}

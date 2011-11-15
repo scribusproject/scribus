@@ -329,7 +329,7 @@ public:
 	QTransform getGroupTransform() const;
 	void getTransform(QTransform& mat) const;
 	QTransform getTransform() const;
-	QTransform getCombinedTransform();
+	QTransform getCombinedTransform() const;
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
 	 * No coordinates transformation is performed

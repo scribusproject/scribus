@@ -65,6 +65,7 @@ public:
 		Prepares rectangle select for the position from 'm'
 	 */
 	virtual void mousePressEvent(QMouseEvent *m);
+	virtual void drawControls(QPainter*);
 
 	QRectF result() const ;
 private:
