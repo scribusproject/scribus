@@ -1735,7 +1735,7 @@ void PageItem_TextFrame::layout()
 			{
 				double diff = 0;
 				if (current.startOfCol || DropCmode)
-					diff = realAsce * scaleV + offset - (current.yPos - lastLineY);
+					diff = realAsce - (current.yPos - lastLineY);
 				else
 					diff = charStyle.font().realCharAscent(QChar('l'), hlcsize10) * scaleV + offset - (current.yPos - lastLineY);
 				if (diff >= 1 || (!DropCmode && diff > 0))
