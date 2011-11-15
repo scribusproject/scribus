@@ -3659,6 +3659,16 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 	QChar chstr;
 	if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 	{
+		/* May be needed for fixing #10371 completely
+		if (it->isAnnotation())
+		{
+			int annotType  = it->annotation().Type();
+			bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+			if (mustEmbed && (!Really.contains(it->itemText.defaultStyle().charStyle().font().replacementName())))
+			{
+				Really.insert(it->itemText.defaultStyle().charStyle().font().replacementName(), QMap<uint, FPointArray>());
+			}
+		}*/
 		for (int e = 0; e < it->itemText.length(); ++e)
 		{
 			if (! Really.contains(it->itemText.charStyle(e).font().replacementName()) )

@@ -1071,8 +1071,13 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				{
+					int annotType  = pgit->annotation().Type();
+					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					if (pgit->itemText.length() > 0 || mustEmbed)
+						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+				}
 			}
 			allItems.clear();
 		}
@@ -1086,8 +1091,13 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				{
+					int annotType  = pgit->annotation().Type();
+					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					if (pgit->itemText.length() > 0 || mustEmbed)
+						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+				}
 			}
 			allItems.clear();
 		}
@@ -1101,8 +1111,13 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				{
+					int annotType  = pgit->annotation().Type();
+					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					if (pgit->itemText.length() > 0 || mustEmbed)
+						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+				}
 			}
 			allItems.clear();
 		}
