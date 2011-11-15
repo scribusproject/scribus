@@ -5510,7 +5510,7 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 	uint docItemCount = Items->count();
 	for (uint i = 0; i < docItemCount; ++i)
 	{
-		PageItem *currItem = DocItems.at(i);
+		PageItem *currItem = Items->at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
