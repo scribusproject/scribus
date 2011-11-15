@@ -186,7 +186,7 @@ void PolygonWidget::updatePreview()
 {
 	if (editMode)
 	{
-		emit NewVectors(cornersSpinBox->value(), PFactor, applyConvexGroupBox->isChecked(), rotationSpinBox->value(), curvatureSpinBox->value() / 100.0, innerRotationspinBox->value(), OuterCurvatureSpinBox->value() / 100.0);
+		emit NewVectors(cornersSpinBox->value(), GetFactor(), applyConvexGroupBox->isChecked(), rotationSpinBox->value(), curvatureSpinBox->value() / 100.0, innerRotationspinBox->value(), OuterCurvatureSpinBox->value() / 100.0);
 		return;
 	}
 	double roundness = curvatureSpinBox->value() / 100.0;

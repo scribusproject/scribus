@@ -100,8 +100,7 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 	QPen p8m = QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-	psx->rotate(currItem->rotation());
+	psx->setTransform(currItem->getTransform(), true);
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
 	for (int grow = 0; grow < currItem->meshGradientArray.count()-1; grow++)
@@ -587,7 +586,8 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		else
 			npfN = FPoint(nx, ny);
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		FPoint npf = FPoint(npfN.x(), npfN.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+		QTransform pp = currItem->getTransform();
+		FPoint npf = npfN.transformPoint(pp, true);
 		if (m_view->editStrokeGradient == 6)
 		{
 			if (selectedMeshPoints.count() > 0)
@@ -629,10 +629,8 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 					currItem->meshGradientArray[selP.first][selP.second].controlRight -= npx;
 			}
 			currItem->update();
-			QRectF upRect;
-			upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-			upRect.translate(currItem->xPos(), currItem->yPos());
-			m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+			QTransform itemMatrix = currItem->getTransform();
+			m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 		}
 		Mxp = npfN.x();
 		Myp = npfN.y();
@@ -660,10 +658,8 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
+	QTransform itemMatrix = currItem->getTransform();
 	bool found = false;
 	QPair<int, int> selPoint;
 	if (m_view->editStrokeGradient == 5)
@@ -969,10 +965,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
 void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
@@ -983,8 +976,6 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	currItem->update();
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }

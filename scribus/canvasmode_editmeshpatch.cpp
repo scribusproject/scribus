@@ -133,8 +133,7 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 	QPen p8m = QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-	psx->rotate(currItem->rotation());
+	psx->setTransform(currItem->getTransform(), true);
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
 
@@ -524,10 +523,8 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 			if (doUpdate)
 			{
 				currItem->update();
-				QRectF upRect;
-				upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-				upRect.translate(currItem->xPos(), currItem->yPos());
-				m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+				QTransform itemMatrix = currItem->getTransform();
+				m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 			}
 		}
 	}
@@ -583,7 +580,8 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 	else
 		npfN = FPoint(nx, ny);
 	currItem = m_doc->m_Selection->itemAt(0);
-	FPoint npf = FPoint(npfN.x(), npfN.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+	QTransform pp = currItem->getTransform();
+	FPoint npf = npfN.transformPoint(pp, true);
 	FPoint npx(Mxp - npfN.x(), Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
 	if (m_view->editStrokeGradient == 11)
 	{
@@ -733,10 +731,8 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 					}
 				}
 				currItem->update();
-				QRectF upRect;
-				upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-				upRect.translate(currItem->xPos(), currItem->yPos());
-				m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+				QTransform itemMatrix = currItem->getTransform();
+				m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 			}
 		}
 	}
@@ -765,10 +761,8 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix;
 	currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
+	QTransform itemMatrix = currItem->getTransform();
 	bool found = false;
 	if (m_view->editStrokeGradient == 11)
 	{
@@ -950,10 +944,8 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
+
 }
 
 void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
@@ -964,10 +956,8 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	currItem = m_doc->m_Selection->itemAt(0);
 	currItem->update();
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
 void CanvasMode_EditMeshPatch::snapToOtherPatch(double &x, double &y)

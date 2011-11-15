@@ -83,13 +83,7 @@ void CanvasMode_EditGradient::drawControls(QPainter* p)
 
 void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 {
-//	psx->resetMatrix();
-//	QPoint out = contentsToViewport(QPoint(0, 0));
-//	psx->translate(out.x(), out.y());
-//	psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-	//Transform(currItem, psx);
-	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-	psx->rotate(currItem->rotation());
+	psx->setTransform(currItem->getTransform(), true);
 	psx->setPen(QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	psx->setBrush(Qt::NoBrush);
 	if (m_view->editStrokeGradient == 1)
@@ -704,7 +698,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		{
 			upRect = QRectF(QPointF(-currItem->width(), -currItem->height()), QPointF(currItem->width() * 2, currItem->height() * 2)).normalized();
 		}
-		upRect.translate(currItem->xPos(), currItem->yPos());
+		QTransform itemMatrix = currItem->getTransform();
+		upRect = itemMatrix.mapRect(upRect);
 		if (currItem->GrType == 13)
 			currItem->createConicalMesh();
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
@@ -733,10 +728,8 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
+	QTransform itemMatrix = currItem->getTransform();
 	QPointF gradientStart, gradientEnd, gradientFocal, gradientScale, gradientCenter;
 	if (m_view->editStrokeGradient == 1)
 	{

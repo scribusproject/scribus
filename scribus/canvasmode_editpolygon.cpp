@@ -90,8 +90,7 @@ void CanvasMode_EditPolygon::drawControlsPolygon(QPainter* psx, PageItem* currIt
 	QPen p1bd = QPen(Qt::red, 1.0 / m_canvas->m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-	psx->rotate(currItem->rotation());
+	psx->setTransform(currItem->getTransform(), true);
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
 	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
@@ -256,9 +255,9 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 	item->polyOuterCurvature = polyOuterCurvature;
 	item->recalcPath();
 	updateFromItem();
-	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	QPainterPath path = itemMatrix.map(RegularPolygonPath(item->width(), item->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
+	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 }
 
 double CanvasMode_EditPolygon::getUserValFromFactor(double factor)
@@ -306,9 +305,7 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		QTransform itemMatrix;
-		itemMatrix.translate(currItem->xPos(), currItem->yPos());
-		itemMatrix.rotate(currItem->rotation());
+		QTransform itemMatrix = currItem->getTransform();
 		QPointF cPoint = itemMatrix.map(centerPoint);
 		QLineF stLinA = QLineF(cPoint, QPointF(newX, newY));
 		
@@ -362,10 +359,8 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 		blockUpdateFromItem(true);
 		currItem->update();
 		blockUpdateFromItem(false);
-		QRectF upRect;
-		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-		upRect.translate(currItem->xPos(), currItem->yPos());
-		m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+		path = itemMatrix.map(path);
+		m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 	}
 	Mxp = newX;
 	Myp = newY;
@@ -392,10 +387,8 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
+	QTransform itemMatrix = currItem->getTransform();
 	QPointF stPoint = startPoint;
 	stPoint = itemMatrix.map(stPoint);
 	QPointF swPoint = endPoint;
@@ -439,10 +432,8 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	else
 		m_polygonPoint = noPointDefined;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QPainterPath path = itemMatrix.map(RegularPolygonPath(currItem->width(), currItem->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
+	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 }
 
 void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
@@ -453,13 +444,11 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
+	QTransform itemMatrix = currItem->getTransform();
 	if ((m_polygonPoint == useControlInner) || (m_polygonPoint == useControlOuter) || (m_polygonPoint == useControlInnerCurve) || (m_polygonPoint == useControlOuterCurve))
 	{
 		double newX = mousePointDoc.x();
 		double newY = mousePointDoc.y();
-		QTransform itemMatrix;
-		itemMatrix.translate(currItem->xPos(), currItem->yPos());
-		itemMatrix.rotate(currItem->rotation());
 		QPointF cPoint = itemMatrix.map(centerPoint);
 		QLineF stLinA = QLineF(cPoint, QPointF(newX, newY));
 		uint cx = polyUseFactor ? polyCorners * 2 : polyCorners;
@@ -494,7 +483,6 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 		item->recalcPath();
 		VectorDialog->setValues(polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
 	}
-	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QPainterPath path = itemMatrix.map(RegularPolygonPath(item->width(), item->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
+	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 }

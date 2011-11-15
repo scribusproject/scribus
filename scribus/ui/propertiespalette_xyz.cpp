@@ -316,8 +316,8 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	double selH = m_item->height();
 	if (m_doc->m_Selection->count() > 1)
 		m_doc->m_Selection->getGroupRect(&selX, &selY, &selW, &selH);
-	displayXY(selX, selY);
-	displayWH(selW, selH);
+//	displayXY(selX, selY);
+//	displayWH(selW, selH);
 	
 	bool checkableFlip = (i->isImageFrame() || i->isTextFrame() || i->isLatexFrame() || i->isOSGFrame() || i->isSymbol() || i->isGroup() || i->isSpiral());
 	flipH->setCheckable(checkableFlip);

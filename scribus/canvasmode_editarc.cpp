@@ -97,8 +97,7 @@ void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 	QPen p1bd = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-	psx->rotate(currItem->rotation());
+	psx->setTransform(currItem->getTransform(), true);
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
 	QPainterPath pp;
@@ -255,7 +254,8 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	centerPoint = currItem->PoLine.pointQF(0);
 	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
 	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
 void CanvasMode_EditArc::deactivate(bool forGesture)
@@ -286,9 +286,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		QTransform itemMatrix;
-		itemMatrix.translate(currItem->xPos(), currItem->yPos());
-		itemMatrix.rotate(currItem->rotation());
+		QTransform itemMatrix = currItem->getTransform();
 		QPointF sPoint = currItem->PoLine.pointQF(0);
 		QPointF smPoint = itemMatrix.map(sPoint);
 		QLineF stLinA = QLineF(smPoint, QPointF(Mxp, Myp));
@@ -331,10 +329,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		blockUpdateFromItem(true);
 		currItem->update();
 		blockUpdateFromItem(false);
-		QRectF upRect;
-		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-		upRect.translate(currItem->xPos(), currItem->yPos());
-		m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+		m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 	}
 	Mxp = newX;
 	Myp = newY;
@@ -361,10 +356,8 @@ void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
+	QTransform itemMatrix = currItem->getTransform();
 	QPointF stPoint = startPoint;
 	stPoint = itemMatrix.map(stPoint);
 	QPointF swPoint = endPoint;
@@ -385,10 +378,7 @@ void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 		m_arcPoint = noPointDefined;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
 void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
@@ -400,10 +390,6 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Arc* item = currItem->asArc();
 	QPointF mPoint = item->PoLine.pointQF(0);
-	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	QRectF upRect2 = QRectF(mPoint.x() - item->arcWidth / 2.0, mPoint.y() - item->arcHeight / 2.0, item->arcWidth, item->arcHeight);
-	upRect = upRect2.united(upRect);
-	upRect.translate(currItem->xPos(), currItem->yPos());
 	if ((m_arcPoint == useControlStart) || (m_arcPoint == useControlSweep) || (m_arcPoint == useControlHeight) || (m_arcPoint == useControlWidth))
 	{
 		double nWidth = mPoint.x() - widthPoint.x();
@@ -429,5 +415,6 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 		startAngle = item->arcStartAngle;
 		endAngle = startAngle + item->arcSweepAngle;
 	}
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }

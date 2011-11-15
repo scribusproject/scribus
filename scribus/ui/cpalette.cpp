@@ -1408,6 +1408,7 @@ void Cpalette::updateMeshPoint()
 	double t = transparencyMeshPoint->value() / 100.0;
 	currentItem->setMeshPointColor(currentItem->selectedMeshPointX, currentItem->selectedMeshPointY, color, shadeMeshPoint->value(), t, currentDoc->view()->editStrokeGradient == 8);
 	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
 }
 
 void Cpalette::setMeshPatchPoint()

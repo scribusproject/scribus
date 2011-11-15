@@ -79,8 +79,7 @@ void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, PageItem* currItem
 {
 	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-	psx->rotate(currItem->rotation());
+	psx->setTransform(currItem->getTransform(), true);
 	psx->setBrush(Qt::NoBrush);
 	psx->setPen(p8b);
 	if (m_arcPoint == useControlStart)
@@ -230,8 +229,6 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Spiral *item = currItem->asSpiral();
 	QPointF mPoint = item->PoLine.pointQF(0);
-	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
 	item->spiralStartAngle = computeRealAngle(start, true);
 	item->spiralEndAngle = computeRealAngle(end, true);
 	item->spiralFactor = factor;
@@ -240,7 +237,8 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
 	startAngle = item->spiralStartAngle;
 	endAngle = item->spiralEndAngle;
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 }
 
 void CanvasMode_EditSpiral::deactivate(bool forGesture)
@@ -271,10 +269,8 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed() && (m_arcPoint != noPointDefined))
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
+		QTransform itemMatrix = currItem->getTransform();
 		PageItem_Spiral *item = currItem->asSpiral();
-		QTransform itemMatrix;
-		itemMatrix.translate(currItem->xPos(), currItem->yPos());
-		itemMatrix.rotate(currItem->rotation());
 		QPointF sPoint;
 		if (m_arcPoint == useControlStart)
 			sPoint = getSegment(startAngle);
@@ -317,10 +313,7 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 			VectorDialog->setValues(computeRealAngle(startAngle, false), computeRealAngle(endAngle, false), item->spiralFactor);
 		}
 		currItem->update();
-		QRectF upRect;
-		upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-		upRect.translate(currItem->xPos(), currItem->yPos());
-		m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+		m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 	}
 	Mxp = newX;
 	Myp = newY;
@@ -329,7 +322,6 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -347,10 +339,8 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	QTransform itemMatrix;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
+	QTransform itemMatrix = currItem->getTransform();
 	QPointF stPoint = startPoint;
 	stPoint = itemMatrix.map(stPoint);
 	QPointF swPoint = endPoint;
@@ -363,19 +353,15 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 		m_arcPoint = noPointDefined;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-	QRectF upRect;
-	upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	upRect.translate(currItem->xPos(), currItem->yPos());
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 }
 
 void CanvasMode_EditSpiral::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	QRectF upRect = QRectF(QPointF(0, 0), QPointF(currItem->width(), currItem->height())).normalized();
-	m_doc->regionsChanged()->update(upRect.adjusted(-10.0 - currItem->width() / 2.0, -10.0 - currItem->height() / 2.0, 10.0 + currItem->width() / 2.0, 10.0 + currItem->height() / 2.0));
+	QTransform itemMatrix = currItem->getTransform();
+	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 }
