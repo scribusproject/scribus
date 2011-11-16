@@ -1736,7 +1736,7 @@ void PageItem_TextFrame::layout()
 				double diff = 0;
 				if (current.startOfCol || DropCmode)
 					diff = realAsce - (current.yPos - lastLineY);
-				else
+				else if (style.lineSpacingMode() != ParagraphStyle::FixedLineSpacing)
 					diff = charStyle.font().realCharAscent(QChar('l'), hlcsize10) * scaleV + offset - (current.yPos - lastLineY);
 				if (diff >= 1 || (!DropCmode && diff > 0))
 				{
