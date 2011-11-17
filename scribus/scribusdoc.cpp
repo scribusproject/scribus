@@ -5074,6 +5074,14 @@ void  ScribusDoc::fixItemPageOwner()
 		// If no or page owner is incorrect, recompute page owner
 		currItem->OwnPage = OnPage(currItem);
  	}
+
+	// #10379: Scribus crash when opening .sla document
+	// OwnPage is not meaningful for inline frame
+	for (int i = 0; i < FrameItems.count(); ++i)
+	{
+		currItem = FrameItems.at(i);
+		currItem->OwnPage = -1;
+ 	}
 }
 
 

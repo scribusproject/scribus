@@ -511,6 +511,7 @@ void StoryText::insertObject(int pos, PageItem* ob)
 	insertChars(pos, SpecialChars::OBJECT);
 	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
 	ob->isEmbedded = true;   // this might not be enough...
+	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
 

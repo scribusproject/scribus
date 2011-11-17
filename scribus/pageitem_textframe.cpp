@@ -1570,7 +1570,7 @@ void PageItem_TextFrame::layout()
 						{
 							if (current.yPos <= lastLineY)
 								current.yPos = lastLineY +1;
-							double by;
+							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
@@ -1583,7 +1583,7 @@ void PageItem_TextFrame::layout()
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						{
 							current.yPos += m_Doc->guidesPrefs().valueBaselineGrid;
-							double by;
+							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
