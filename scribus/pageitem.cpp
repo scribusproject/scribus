@@ -5561,6 +5561,8 @@ QTransform PageItem::getCombinedTransform() const
 		}
 		result.translate(ite->xPos(), ite->yPos());
 		result.rotate(ite->rotation());
+		if (ite == this)
+			return result;
 		if (ite->isGroup())
 			result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 		for (int aa = 0; aa < itList.count(); aa++)
@@ -5568,6 +5570,8 @@ QTransform PageItem::getCombinedTransform() const
 			ite = itList.at(aa);
 			result.translate(ite->gXpos, ite->gYpos);
 			result.rotate(ite->rotation());
+			if (ite == this)
+				return result;
 			if (ite->isGroup())
 				result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 		}

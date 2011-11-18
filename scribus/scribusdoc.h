@@ -974,6 +974,8 @@ public:
 	void groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemList);
 	const PageItem * itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection=0);
 	void itemSelection_UnGroupObjects(Selection* customSelection=0);
+	void addToGroup(PageItem* group, PageItem* item);
+	void removeFromGroup(PageItem* item);
 	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection=0);
 
 	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0, bool rmDirectFormatting = false);
@@ -1056,12 +1058,9 @@ public:
 	bool ApplyGuides(double *x, double *y);
 	bool ApplyGuides(FPoint* point);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-//	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
-//	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-//	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
 	void AdjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);

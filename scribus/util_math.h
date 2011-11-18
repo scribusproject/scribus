@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QList>
 #include <QPainterPath>
+#include <QLineF>
 
 #include "scribusapi.h"
 
@@ -55,6 +56,12 @@ double SCRIBUS_API constrainAngle(double angle, double constrain);
    \retval double the rotation angle
  */
 double SCRIBUS_API getRotationFromMatrix(QTransform& matrix, double def);
+/*! \brief Get the rotation angle (in degree) from a transformation matrix
+   \param matrix the transformation matrix
+   \retval double the rotation angle
+ */
+double SCRIBUS_API getRotationDFromMatrix(QTransform& matrix);
+void SCRIBUS_API getScaleFromMatrix(QTransform &matrix, double &scX, double &scY);
 
 
 // IMPLEMENTATION

@@ -308,7 +308,14 @@ void ResizeGesture::doResize(bool scaleContent)
 				}
 			}
 		}
+		double oldX = currItem->xPos();
+		double oldY = currItem->yPos();
 		currItem->setXYPos(newBounds.x() + m_extraX, newBounds.y() + m_extraY);
+		if (currItem->Parent != 0)	// part of a group
+		{
+			currItem->gXpos += currItem->xPos() - oldX;
+			currItem->gYpos += currItem->yPos() - oldY;
+		}
 		currItem->setWidth(newBounds.width() - m_extraWidth);
 		currItem->setHeight(newBounds.height() - m_extraHeight);
 		currItem->updateClip();
@@ -402,7 +409,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		qp = rotation.inverted().map(qp);
 		docPoint = FPoint(qp.x(), qp.y());
 	}
-	
+
 	// adjust bounds vertically
 	switch (m_handle)
 	{

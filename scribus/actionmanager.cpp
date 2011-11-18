@@ -1155,7 +1155,6 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemsUnWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnWeld()) );
 	connect( (*scrActions)["itemWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_Weld()) );
 	connect( (*scrActions)["itemEditWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_EditWeld()) );
-
 }
 
 void ActionManager::disconnectNewViewActions()
@@ -1914,7 +1913,7 @@ void ActionManager::createDefaultMenus()
 		<< "itemTransform" 
 		<< "itemDelete" 
 		<< "itemGroup" 
-		<< "itemUngroup" 
+		<< "itemUngroup"
 		<< "itemLock" 
 		<< "itemLockSize" 
 		<< "itemImageIsVisible" 

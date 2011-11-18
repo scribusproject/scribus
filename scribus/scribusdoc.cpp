@@ -12208,13 +12208,6 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 	return retw;
 }
 
-/*
-void ScribusDoc::RotateItem(double angle, int ite)
-{
-	RotateItem(angle, Items->at(ite));
-}
-*/
-
 void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 {
 	if (currItem->locked())
@@ -12283,13 +12276,6 @@ void ScribusDoc::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 	double myc = currItem->yPos() - (ma.m22() * npv.y() + ma.m12() * npv.x() + ma.dy());
 	MoveItem(-mxc, -myc, currItem, fromMP);
 }
-
-/*
-bool ScribusDoc::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdateClip, bool redraw)
-{
-	return SizeItem(newX, newY, Items->at(ite), fromMP, DoUpdateClip, redraw);
-}
-*/
 
 bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
 {
@@ -12433,13 +12419,6 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	return true;
 }
 
-/*
-bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool constrainRotation)
-{
-	PageItem *currItem = Items->at(ite);
-	return MoveSizeItem(newX, newY, currItem, fromMP, constrainRotation);
-}
-*/
 bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP, bool constrainRotation)
 {
 	QRectF oldR(currItem->getBoundingRect());
@@ -12566,8 +12545,6 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 	currItem->updateGradientVectors();
 	currItem->Sizing = siz;
 }
-
-
 
 void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSelection)
 {
@@ -13193,9 +13170,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			}
 			if ((currItem->width() != currItem->groupWidth) || (currItem->height() != currItem->groupHeight))
 				scaleGroup(currItem->width() / currItem->groupWidth, currItem->height() / currItem->groupHeight, true, &tempSelection, true);
-			QTransform ma;
-			ma.translate(currItem->xPos(), currItem->yPos());
-			ma.rotate(currItem->rotation());
+			QTransform ma = currItem->getTransform();
 			FPoint n;
 			for (int a = 0; a < tempSelection.count(); ++a)
 			{
@@ -13264,6 +13239,58 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
 		regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
 	}
+}
+
+void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
+{
+	QTransform groupTrans = group->getTransform();
+	QTransform itemTrans = item->getTransform();
+	QPointF grPos = groupTrans.map(QPointF(0, 0));
+	QPointF itPos = itemTrans.map(QPointF(0, 0));
+	double gRot = getRotationDFromMatrix(groupTrans);
+	groupTrans.scale(group->width() / group->groupWidth, group->height() / group->groupHeight);
+	double grScXi = 1.0;
+	double grScYi = 1.0;
+	getScaleFromMatrix(groupTrans, grScXi, grScYi);
+	QTransform mm;
+	mm.rotate(gRot);
+	mm.scale(1.0 / grScXi, 1.0 / grScYi);
+	QLineF d = QLineF(0.0, 0.0, itPos.x() - grPos.x(), itPos.y() - grPos.y());
+	d = mm.map(d);
+	item->gXpos = d.p2().x();
+	item->gYpos = d.p2().y();
+	SizeItem(item->width() * (1.0 / grScXi), item->height() * (1.0 / grScYi), item, false, true, false);
+	if (item->Parent != NULL)
+		item->Parent->groupItemList.removeAll(item);
+	else
+		Items->removeAll(item);
+	item->Parent = group;
+	item->rotateBy(gRot);
+	item->setLineWidth(item->lineWidth() / qMax(grScXi, grScYi));
+	item->setImageXScale(item->imageXScale() / grScXi);
+	item->setImageYScale(item->imageYScale() / grScYi);
+}
+
+void ScribusDoc::removeFromGroup(PageItem* item)
+{
+	if (item->Parent == NULL)
+		return;
+	PageItem* group = item->Parent;
+	QTransform itemTrans = item->getTransform();
+	QTransform groupTrans = group->getTransform();
+	QPointF itPos = itemTrans.map(QPointF(0, 0));
+	double grScXi = 1.0;
+	double grScYi = 1.0;
+	getScaleFromMatrix(itemTrans, grScXi, grScYi);
+	double gRot = getRotationDFromMatrix(groupTrans);
+	SizeItem(item->width() * grScXi, item->height() * grScYi, item, false, true, false);
+	item->setXYPos(itPos.x(), itPos.y(), true);
+	item->rotateBy(-gRot);
+	group->groupItemList.removeAll(item);
+	item->Parent = NULL;
+	item->setLineWidth(item->lineWidth() * qMax(grScXi, grScYi));
+	item->setImageXScale(item->imageXScale() * grScXi);
+	item->setImageYScale(item->imageYScale() * grScYi);
 }
 
 void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)

@@ -447,3 +447,19 @@ double getRotationFromMatrix(QTransform& matrix, double def)
 	return value;
 }
 
+double getRotationDFromMatrix(QTransform& matrix)
+{
+	QLineF line = QLineF(0.0, 0.0, 1.0, 0.0);
+	line = matrix.map(line);
+	return line.angle();
+}
+
+void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
+{
+	QLineF lineX = QLineF(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY = QLineF(0.0, 0.0, 0.0, 1.0);
+	lineX = matrix.map(lineX);
+	lineY = matrix.map(lineY);
+	scX = lineX.length();
+	scY = lineY.length();
+}
