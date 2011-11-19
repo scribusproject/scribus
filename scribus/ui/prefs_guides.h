@@ -34,6 +34,10 @@ class SCRIBUS_API Prefs_Guides : public Prefs_Pane, Ui::Prefs_Guides
 		virtual void changeBaselineColor();
 		virtual void changeGuideColor();
 		virtual void changeMarginColor();
+		virtual void changeRenderStack();
+		virtual void moveUp();
+		virtual void moveDown();
+		virtual void select(QListWidgetItem* item);
 
 	protected:
 		QColor colorGuides;
@@ -41,6 +45,7 @@ class SCRIBUS_API Prefs_Guides : public Prefs_Pane, Ui::Prefs_Guides
 		QColor colorMajorGrid;
 		QColor colorMinorGrid;
 		QColor colorBaselineGrid;
+		QList<int> renderStackOrder;
 };
 
 #endif // PREFS_GUIDES_H

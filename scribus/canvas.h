@@ -28,6 +28,7 @@ scribusview.h  -  description
 //#include <QDebug>
 #include <QPolygon>
 #include <QRect>
+#include <QRectF>
 #include <QWidget>
 
 #include "scribusapi.h"
@@ -212,7 +213,12 @@ public:
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
 private:
-	void DrawPageMarks(ScPainter *p, ScPage* page, QRect clip);
+	void DrawPageBorder(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageMargins(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageGrid(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageGuides(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageIndicator(ScPainter *p, QRectF clip, bool master = false);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	void PaintSizeRect(QRect neu);
 	void PaintSizeRect(QPolygon neu);
@@ -233,7 +239,6 @@ private:
 	void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
-	void drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawFrameLinks(ScPainter* painter);
 	void drawControls(QPainter* p);
 	void drawControlsMovingItemsRect(QPainter* pp);

@@ -307,7 +307,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		}
 		enableGuideGesture |= (frameResizeHandle == Canvas::OUTSIDE);
-		enableGuideGesture |= ((!m_doc->guidesPrefs().guidePlacement) && (frameResizeHandle == Canvas::INSIDE));
+		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && (frameResizeHandle == Canvas::INSIDE));
 		if (enableGuideGesture)
 		{
 			if (!guideMoveGesture)
@@ -1134,7 +1134,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
 	m_doc->nodeEdit.deselect();
 
-	if(!m_doc->guidesPrefs().guidePlacement) // guides are on foreground and want to be processed first
+	if (m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) // guides are on foreground and want to be processed first
 	{
 		if ((m_doc->guidesPrefs().guidesShown) && (m_doc->OnPage(MxpS, MypS) != -1))
 		{

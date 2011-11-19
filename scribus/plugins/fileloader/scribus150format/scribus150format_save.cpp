@@ -331,8 +331,13 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("MAJORC",m_Doc->guidesPrefs().majorGridColor.name());
 	docu.writeAttribute("GuideC", m_Doc->guidesPrefs().guideColor.name());
 	docu.writeAttribute("BaseC", m_Doc->guidesPrefs().baselineGridColor.name());
-//	docu.writeAttribute("GuideZ", m_Doc->guidesPrefs().guideRad);
-	docu.writeAttribute("BACKG", static_cast<int>(m_Doc->guidesPrefs().guidePlacement));
+	QString renderStack = "";
+	int renderStackCount = m_Doc->guidesPrefs().renderStackOrder.count();
+	for (int r = 0; r < renderStackCount; r++)
+	{
+		renderStack += QString("%1 ").arg(m_Doc->guidesPrefs().renderStackOrder[r]);
+	}
+	docu.writeAttribute("renderStack", renderStack.trimmed());
 	docu.writeAttribute("PAGEC",m_Doc->paperColor().name());
 	docu.writeAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
 	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored()));

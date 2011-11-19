@@ -947,7 +947,11 @@ void Scribus134Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 		doc->guidesPrefs().guideColor = QColor(attrs.valueAsString("GuideC"));
 	if (attrs.hasAttribute("BaseC"))
 		doc->guidesPrefs().baselineGridColor  = QColor(attrs.valueAsString("BaseC"));
-	doc->guidesPrefs().guidePlacement   = attrs.valueAsBool("BACKG", true);
+	doc->guidesPrefs().renderStackOrder.clear();
+	if (attrs.valueAsBool("BACKG", true))
+		doc->guidesPrefs().renderStackOrder << 0 << 1 << 2 << 3 << 4;
+	else
+		doc->guidesPrefs().renderStackOrder << 4 << 0 << 1 << 2 << 3;
 	doc->guidesPrefs().guideRad = attrs.valueAsDouble("GuideRad", 10.0);
 	doc->guidesPrefs().grabRadius  = attrs.valueAsInt("GRAB", 4);
 }

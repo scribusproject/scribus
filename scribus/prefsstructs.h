@@ -134,7 +134,12 @@ struct DocumentSetupPrefs
 //Guides
 struct GuidesPrefs
 {
-	bool guidePlacement; //! Placement of guides, in front or behind
+	QList<int> renderStackOrder;
+	// render stack id 0 = PageMargins
+	// render stack id 1 = BaselineGrid
+	// render stack id 2 = Grid
+	// render stack id 3 = Guides
+	// render stack id 4 = Items
 
 	int grabRadius;
 	double guideRad;

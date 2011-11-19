@@ -981,12 +981,10 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	ScLayer layer;
 	layer.isViewable = false;
 	layer.ID = 0;
-	
-//	Tsetup = tim.elapsed();
+
 	if (!m_doc->masterPageMode())
 	{
 		drawBackgroundPageOutlines(painter, clipx, clipy, clipw, cliph);
-//		Toutlines= tim.elapsed();
 		if (m_viewMode.viewAsPreview)
 		{
 			FPointArray PoLine;
@@ -997,51 +995,90 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 			painter->beginLayer(1.0, 0);
 		
 		m_viewMode.linkedFramesToShow.clear();
-		if ((m_doc->guidesPrefs().guidePlacement) && (!m_viewMode.viewAsPreview))
+		QRectF clip = QRectF(clipx, clipy, clipw, cliph);
+		if (!m_viewMode.viewAsPreview)
+			DrawPageBorder(painter, clip);
+		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
+		for (int r = 0; r < renderStackCount; r++)
 		{
-			drawGuides(painter, clipx, clipy, clipw, cliph);
-		}
-		int layerCount = m_doc->layerCount();
-		for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
-		{
-			m_doc->Layers.levelToLayer(layer, layerLevel);
-			for (uint a = 0; a < docPagesCount; ++a)
+			int ri = m_doc->guidesPrefs().renderStackOrder[r];
+			if (ri == 0)
 			{
-				DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
+				if (!m_viewMode.viewAsPreview)
+					DrawPageMargins(painter, clip);			// drawing stack id = 0
 			}
-			DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+			else if (ri == 1)
+			{
+				if (!m_viewMode.viewAsPreview)
+					DrawPageBaselineGrid(painter, clip);	// drawing stack id = 1
+			}
+			else if (ri == 2)
+			{
+				if (!m_viewMode.viewAsPreview)
+					DrawPageGrid(painter, clip);			// drawing stack id = 2
+			}
+			else if (ri == 3)
+			{
+				if (!m_viewMode.viewAsPreview)
+					DrawPageGuides(painter, clip);			// drawing stack id = 3
+			}
+			else if (ri == 4)
+			{
+				int layerCount = m_doc->layerCount();	// drawing stack id = 4
+				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+				{
+					m_doc->Layers.levelToLayer(layer, layerLevel);
+					for (uint a = 0; a < docPagesCount; ++a)
+					{
+						DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
+					}
+					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+				}
+			}
 		}
+		if (!m_viewMode.viewAsPreview)
+			DrawPageIndicator(painter, clip);
 		painter->endLayer();
-//		Tcontents = tim.elapsed();
-		if ((!m_doc->guidesPrefs().guidePlacement) && (!m_viewMode.viewAsPreview))
-		{
-			drawGuides(painter, clipx, clipy, clipw, cliph);
-		}
 	}
 	else // masterPageMode
 	{			
 		m_viewMode.linkedFramesToShow.clear();
 		drawBackgroundMasterpage(painter, clipx, clipy, clipw, cliph);
-		
-//		Tbackground = tim.elapsed();
 		painter->beginLayer(1.0, 0);
-		int layerCount = m_doc->layerCount();
-		for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+		QRectF clip = QRectF(clipx, clipy, clipw, cliph);
+		DrawPageBorder(painter, clip, true);
+		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
+		for (int r = 0; r < renderStackCount; r++)
 		{
-			m_doc->Layers.levelToLayer(layer, layerLevel);
-			DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+			int ri = m_doc->guidesPrefs().renderStackOrder[r];
+			if (ri == 0)
+			{
+				DrawPageMargins(painter, clip, true);			// drawing stack id = 0
+			}
+			else if (ri == 1)
+			{
+				DrawPageBaselineGrid(painter, clip, true);	// drawing stack id = 1
+			}
+			else if (ri == 2)
+			{
+				DrawPageGrid(painter, clip, true);			// drawing stack id = 2
+			}
+			else if (ri == 3)
+			{
+				DrawPageGuides(painter, clip, true);			// drawing stack id = 3
+			}
+			else if (ri == 4)
+			{
+				int layerCount = m_doc->layerCount();	// drawing stack id = 4
+				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+				{
+					m_doc->Layers.levelToLayer(layer, layerLevel);
+					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+				}
+			}
 		}
+		DrawPageIndicator(painter, clip, true);
 		painter->endLayer();
-//		Tcontents = tim.elapsed();
-		
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
-		double w = m_doc->currentPage()->width() * m_viewMode.scale;
-		double h = m_doc->currentPage()->height() * m_viewMode.scale;
-		QRectF drawRect = QRectF(x, y, w+5, h+5);
-		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-		if ((!m_doc->guidesPrefs().guidePlacement) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
-			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 	}
 	if (((m_doc->m_Selection->count() != 0) || (m_viewMode.linkedFramesToShow.count() != 0))  && (!m_viewMode.viewAsPreview))
 	{
@@ -1603,12 +1640,10 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		painter->setBrush(QColor(128,128,128));
 		MarginStruct pageBleeds;
 		m_doc->getBleeds(m_doc->currentPage(), pageBleeds);
-//		painter->beginLayer(1.0, 0);
 		painter->setAntialiasing(false);
 		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 		{
-//			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
 			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
 				painter->drawRect(m_doc->scratch()->Left - pageBleeds.Left+5, m_doc->scratch()->Top - pageBleeds.Top+5, m_doc->currentPage()->width() + pageBleeds.Left + pageBleeds.Right, m_doc->currentPage()->height() + pageBleeds.Bottom + pageBleeds.Top);
 			painter->setBrush(m_doc->paperColor());
@@ -1616,16 +1651,12 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		}
 		else
 		{
-//			painter->drawRect(m_doc->scratch.Left+5 / m_viewMode.scale, m_doc->scratch.Top+5 / m_viewMode.scale, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
 				painter->drawRect(m_doc->scratch()->Left+5, m_doc->scratch()->Top+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			painter->setBrush(m_doc->paperColor());
 			painter->drawRect(m_doc->scratch()->Left, m_doc->scratch()->Top, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 		}
 		painter->setAntialiasing(true);
-		if (m_doc->guidesPrefs().guidePlacement)
-			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
-//		painter->endLayer();
 	}
 }
 
@@ -1636,13 +1667,11 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
  */
 void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
-// 	qDebug()<<"Canvas::drawBackgroundPageOutlines"<< clipx<< clipy<< clipw<<cliph;
 	uint docPagesCount=m_doc->Pages->count();
 	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow && !m_viewMode.viewAsPreview)
 	{
 		painter->setBrush(QColor(128,128,128));
 		painter->setAntialiasing(false);
-//		painter->beginLayer(1.0, 0);
 		painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		ScPage *actPg;
 		MarginStruct pageBleeds;
@@ -1671,7 +1700,6 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 					blw2 += pageBleeds.Left + pageBleeds.Right;
 					blh2 += pageBleeds.Bottom + pageBleeds.Top;
 				}
-//				painter->drawRect(blx2 + 5 /* m_viewMode.scale */, bly2 + 5 /* m_viewMode.scale */, blw2, blh2);
 				painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
 				if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
 				{
@@ -1681,7 +1709,6 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 				}
 			}
 		}
-//		painter->endLayer();
 		painter->setAntialiasing(true);
 	}
 	painter->setFillMode(ScPainter::Solid);
@@ -1714,7 +1741,6 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			painter->setFillMode(ScPainter::Solid);
 			painter->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			painter->setAntialiasing(false);
-//			painter->beginLayer(1.0, 0);
 			painter->setLineWidth(0.0);
 			painter->setBrush(m_doc->paperColor());
 			if (!m_viewMode.viewAsPreview)
@@ -1729,7 +1755,6 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			}
 			else
 				painter->drawRect(x, y, w, h);
-//			painter->endLayer();
 			painter->setAntialiasing(true);
 		}
 	}
@@ -1765,125 +1790,522 @@ void Canvas::getClipPathForPages(FPointArray* PoLine)
 	}
 }
 
-
-void Canvas::drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
+/**
+  draws page border
+  */
+void Canvas::DrawPageBorder(ScPainter *p, QRectF clip, bool master)
 {
-	uint docPagesCount=m_doc->Pages->count();
-	ScPage *actPg;
-	for (uint a = 0; a < docPagesCount; ++a)
+	if (master)
 	{
-		actPg = m_doc->Pages->at(a);
-		double x = actPg->xOffset() * m_viewMode.scale;
-		double y = actPg->yOffset() * m_viewMode.scale;
-		double w = actPg->width() * m_viewMode.scale;
-		double h = actPg->height() * m_viewMode.scale;
+		ScPage *page = m_doc->currentPage();
+		double x = m_doc->scratch()->Left * m_viewMode.scale;
+		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double w = page->width() * m_viewMode.scale;
+		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
 		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-		if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
-			DrawPageMarks(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-	}				
+		if (drawRect.intersects(clip))
+		{
+			p->save();
+			p->setAntialiasing(false);
+			p->translate(page->xOffset(), page->yOffset());
+			double lineWidth = 1.0 / m_viewMode.scale;
+			double pageHeight = page->height();
+			double pageWidth = page->width();
+			p->setFillMode(ScPainter::None);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->drawRect(0, 0, pageWidth, pageHeight);
+			p->setAntialiasing(true);
+			p->restore();
+		}
+	}
+	else
+	{
+		uint docPagesCount = m_doc->Pages->count();
+		for (uint a = 0; a < docPagesCount; ++a)
+		{
+			ScPage *page = m_doc->Pages->at(a);
+			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			if (drawRect.intersects(clip))
+			{
+				p->save();
+				p->setAntialiasing(false);
+				p->translate(page->xOffset(), page->yOffset());
+				double lineWidth = 1.0 / m_viewMode.scale;
+				double pageHeight = page->height();
+				double pageWidth = page->width();
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->drawRect(0, 0, pageWidth, pageHeight);
+				p->setAntialiasing(true);
+				p->restore();
+			}
+		}
+	}
 }
-
 
 /**
-  draws guides, margins, grid and baseline grid
+  draws margins
  */
-void Canvas::DrawPageMarks(ScPainter *p, ScPage *page, QRect clip)
+void Canvas::DrawPageMargins(ScPainter *p, QRectF clip, bool master)
 {
-	p->save();
-	p->setAntialiasing(false);
-	p->translate(page->xOffset(), page->yOffset());
-	double lineWidth = 1.0 / m_viewMode.scale;
-	double pageHeight=page->height();
-	double pageWidth=page->width();
-	p->setFillMode(ScPainter::None);
-	p->setStrokeMode(ScPainter::Solid);
-
-	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	p->drawRect(0, 0, pageWidth, pageHeight);
-	//Draw the margins
-	if (m_doc->guidesPrefs().marginsShown)
+	if (master)
 	{
-		p->setPen(m_doc->guidesPrefs().marginColor);
-		if (m_doc->marginColored())
+		ScPage *page = m_doc->currentPage();
+		double x = m_doc->scratch()->Left * m_viewMode.scale;
+		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double w = page->width() * m_viewMode.scale;
+		double h = page->height() * m_viewMode.scale;
+		QRectF drawRect = QRectF(x, y, w+5, h+5);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		if (drawRect.intersects(clip))
 		{
-			p->setFillMode(ScPainter::Solid);
-			p->setBrush(m_doc->guidesPrefs().marginColor);
-			p->drawRect(0, 0, pageWidth, page->Margins.Top);
-			p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
-			p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
-			p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
+			p->save();
+			p->setAntialiasing(false);
+			p->translate(page->xOffset(), page->yOffset());
+			double lineWidth = 1.0 / m_viewMode.scale;
+			double pageHeight = page->height();
+			double pageWidth = page->width();
 			p->setFillMode(ScPainter::None);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			if (m_doc->guidesPrefs().marginsShown)
+			{
+				p->setPen(m_doc->guidesPrefs().marginColor);
+				if (m_doc->marginColored())
+				{
+					p->setFillMode(ScPainter::Solid);
+					p->setBrush(m_doc->guidesPrefs().marginColor);
+					p->drawRect(0, 0, pageWidth, page->Margins.Top);
+					p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
+					p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
+					p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
+					p->setFillMode(ScPainter::None);
+				}
+				p->setFillMode(ScPainter::None);
+				p->drawRect(page->Margins.Left, page->Margins.Top, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
+			}
+			p->setAntialiasing(true);
+			p->restore();
 		}
-//		p->setPen(m_doc->guidesPrefs().margColor);
-		p->setFillMode(ScPainter::None);
-		p->drawRect(page->Margins.Left, page->Margins.Top, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
-//		p->drawLine(FPoint(0, page->Margins.Top), FPoint(pageWidth, page->Margins.Top));
-//		p->drawLine(FPoint(0, pageHeight - page->Margins.Bottom), FPoint(pageWidth, pageHeight - page->Margins.Bottom));
-//		p->drawLine(FPoint(page->Margins.Left, 0), FPoint(page->Margins.Left, pageHeight));
-//		p->drawLine(FPoint(pageWidth - page->Margins.Right, 0), FPoint(pageWidth - page->Margins.Right, pageHeight));
 	}
-	//Draw the baseline grid
-	if (m_doc->guidesPrefs().baselineGridShown)
+	else
 	{
-		p->setPen(m_doc->guidesPrefs().baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		for (double yg = m_doc->guidesPrefs().offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesPrefs().valueBaselineGrid)
-			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
-	}
-	//Draw the grid lines
-	if (m_doc->guidesPrefs().gridShown)
-	{
-		double lowerBx = qMax(clip.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() - page->xOffset(), 0.0);
-		double lowerBy = qMax(clip.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y() - page->yOffset(), 0.0);
-		double highBx = qMin(lowerBx + clip.width() / m_viewMode.scale, pageWidth);
-		double highBy = qMin(lowerBy + clip.height() / m_viewMode.scale, pageHeight);
-		if (m_viewMode.scale > 0.49)
+		uint docPagesCount = m_doc->Pages->count();
+		for (uint a = 0; a < docPagesCount; ++a)
 		{
-			double i,start;
-			i = m_doc->guidesPrefs().majorGridSpacing;
-			p->setPen(m_doc->guidesPrefs().majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			start=floor(lowerBy/i);
-			start*=i;
-			for (double b = start; b <= highBy; b+=i)
+			ScPage *page = m_doc->Pages->at(a);
+			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			if (drawRect.intersects(clip))
 			{
-				p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
-			}
-			start=floor(lowerBx/i);
-			start*=i;
-			for (double b = start; b <= highBx; b+=i)
-			{
-				p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
-			}
-			i = m_doc->guidesPrefs().minorGridSpacing;
-			p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-			start=floor(lowerBy/i);
-			start*=i;
-			for (double b = start; b <= highBy; b+=i)
-			{
-				p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
-			}
-			start=floor(lowerBx/i);
-			start*=i;
-			for (double b = start; b <= highBx; b+=i)
-			{
-				p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
+				p->save();
+				p->setAntialiasing(false);
+				p->translate(page->xOffset(), page->yOffset());
+				double lineWidth = 1.0 / m_viewMode.scale;
+				double pageHeight = page->height();
+				double pageWidth = page->width();
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				if (m_doc->guidesPrefs().marginsShown)
+				{
+					p->setPen(m_doc->guidesPrefs().marginColor);
+					if (m_doc->marginColored())
+					{
+						p->setFillMode(ScPainter::Solid);
+						p->setBrush(m_doc->guidesPrefs().marginColor);
+						p->drawRect(0, 0, pageWidth, page->Margins.Top);
+						p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
+						p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
+						p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
+						p->setFillMode(ScPainter::None);
+					}
+					p->setFillMode(ScPainter::None);
+					p->drawRect(page->Margins.Left, page->Margins.Top, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
+				}
+				p->setAntialiasing(true);
+				p->restore();
 			}
 		}
 	}
-	//Draw the guides
-	if (m_doc->guidesPrefs().guidesShown)
-		page->guides.drawPage(p, m_doc, lineWidth);
-	if (m_doc->currentPage() == page)
-	{
-		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.pageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->drawRect(0, 0, pageWidth, pageHeight);
-	}
-	p->setAntialiasing(true);
-
-	p->restore();
 }
 
+/**
+  draws baseline grid
+ */
+void Canvas::DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master)
+{
+	if (master)
+	{
+		ScPage *page = m_doc->currentPage();
+		double x = m_doc->scratch()->Left * m_viewMode.scale;
+		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double w = page->width() * m_viewMode.scale;
+		double h = page->height() * m_viewMode.scale;
+		QRectF drawRect = QRectF(x, y, w+5, h+5);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		if (drawRect.intersects(clip))
+		{
+			p->save();
+			p->setAntialiasing(false);
+			p->translate(page->xOffset(), page->yOffset());
+			double lineWidth = 1.0 / m_viewMode.scale;
+			double pageHeight = page->height();
+			double pageWidth = page->width();
+			p->setFillMode(ScPainter::None);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			if (m_doc->guidesPrefs().baselineGridShown)
+			{
+				p->setPen(m_doc->guidesPrefs().baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				for (double yg = m_doc->guidesPrefs().offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesPrefs().valueBaselineGrid)
+					p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
+			}
+			p->setAntialiasing(true);
+			p->restore();
+		}
+	}
+	else
+	{
+		uint docPagesCount = m_doc->Pages->count();
+		for (uint a = 0; a < docPagesCount; ++a)
+		{
+			ScPage *page = m_doc->Pages->at(a);
+			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			if (drawRect.intersects(clip))
+			{
+				p->save();
+				p->setAntialiasing(false);
+				p->translate(page->xOffset(), page->yOffset());
+				double lineWidth = 1.0 / m_viewMode.scale;
+				double pageHeight = page->height();
+				double pageWidth = page->width();
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				if (m_doc->guidesPrefs().baselineGridShown)
+				{
+					p->setPen(m_doc->guidesPrefs().baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					for (double yg = m_doc->guidesPrefs().offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesPrefs().valueBaselineGrid)
+						p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
+				}
+				p->setAntialiasing(true);
+				p->restore();
+			}
+		}
+	}
+}
 
+/**
+  draws grid
+ */
+void Canvas::DrawPageGrid(ScPainter *p, QRectF clip, bool master)
+{
+	if (master)
+	{
+		ScPage *page = m_doc->currentPage();
+		double x = m_doc->scratch()->Left * m_viewMode.scale;
+		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double w = page->width() * m_viewMode.scale;
+		double h = page->height() * m_viewMode.scale;
+		QRectF drawRect = QRectF(x, y, w+5, h+5);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		if (drawRect.intersects(clip))
+		{
+			p->save();
+			p->setAntialiasing(false);
+			p->translate(page->xOffset(), page->yOffset());
+			double lineWidth = 1.0 / m_viewMode.scale;
+			double pageHeight = page->height();
+			double pageWidth = page->width();
+			p->setFillMode(ScPainter::None);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			if (m_doc->guidesPrefs().gridShown)
+			{
+				double lowerBx = qMax(clip.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() - page->xOffset(), 0.0);
+				double lowerBy = qMax(clip.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y() - page->yOffset(), 0.0);
+				double highBx = qMin(lowerBx + clip.width() / m_viewMode.scale, pageWidth);
+				double highBy = qMin(lowerBy + clip.height() / m_viewMode.scale, pageHeight);
+				if (m_viewMode.scale > 0.49)
+				{
+				/*	double i, startX, startY;
+					i = m_doc->guidesPrefs().minorGridSpacing;
+					p->setPen(m_doc->guidesPrefs().minorGridColor, 3.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+					startY = floor(lowerBy / i);
+					startY *= i;
+					startX = floor(lowerBx / i);
+					startX *= i;
+					for (double b = startY; b <= highBy; b += i)
+					{
+						for (double bb = startX; bb <= highBx; bb += i)
+						{
+							p->drawLine(FPoint(bb, b), FPoint(bb, b));
+						}
+					}
+					i = m_doc->guidesPrefs().majorGridSpacing;
+					p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth * 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					startY = floor(lowerBy / i);
+					startY *= i;
+					startX = floor(lowerBx / i);
+					startX *= i;
+					for (double b = startY; b <= highBy; b += i)
+					{
+						for (double bb = startX; bb <= highBx; bb += i)
+						{
+							p->drawLine(FPoint(bb - 4, b), FPoint(bb + 4, b));
+							p->drawLine(FPoint(bb, b - 4), FPoint(bb, b + 4));
+						}
+					} */
+					double i,start;
+					i = m_doc->guidesPrefs().majorGridSpacing;
+					p->setPen(m_doc->guidesPrefs().majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					start = floor(lowerBy / i);
+					start *= i;
+					for (double b = start; b <= highBy; b+=i)
+					{
+						p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
+					}
+					start=floor(lowerBx/i);
+					start*=i;
+					for (double b = start; b <= highBx; b+=i)
+					{
+						p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
+					}
+					i = m_doc->guidesPrefs().minorGridSpacing;
+					p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+					start = floor(lowerBy / i);
+					start *= i;
+					for (double b = start; b <= highBy; b+=i)
+					{
+						p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
+					}
+					start=floor(lowerBx/i);
+					start*=i;
+					for (double b = start; b <= highBx; b+=i)
+					{
+						p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
+					}
+				}
+			}
+			p->setAntialiasing(true);
+			p->restore();
+		}
+	}
+	else
+	{
+		uint docPagesCount = m_doc->Pages->count();
+		for (uint a = 0; a < docPagesCount; ++a)
+		{
+			ScPage *page = m_doc->Pages->at(a);
+			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			if (drawRect.intersects(clip))
+			{
+				p->save();
+				p->setAntialiasing(false);
+				p->translate(page->xOffset(), page->yOffset());
+				double lineWidth = 1.0 / m_viewMode.scale;
+				double pageHeight = page->height();
+				double pageWidth = page->width();
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				if (m_doc->guidesPrefs().gridShown)
+				{
+					double lowerBx = qMax(clip.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() - page->xOffset(), 0.0);
+					double lowerBy = qMax(clip.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y() - page->yOffset(), 0.0);
+					double highBx = qMin(lowerBx + clip.width() / m_viewMode.scale, pageWidth);
+					double highBy = qMin(lowerBy + clip.height() / m_viewMode.scale, pageHeight);
+					if (m_viewMode.scale > 0.49)
+					{
+					/*	double i, startX, startY;
+						i = m_doc->guidesPrefs().minorGridSpacing;
+						p->setPen(m_doc->guidesPrefs().minorGridColor, 3.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+						startY = floor(lowerBy / i);
+						startY *= i;
+						startX = floor(lowerBx / i);
+						startX *= i;
+						for (double b = startY; b <= highBy; b += i)
+						{
+							for (double bb = startX; bb <= highBx; bb += i)
+							{
+								p->drawLine(FPoint(bb, b), FPoint(bb, b));
+							}
+						}
+						i = m_doc->guidesPrefs().majorGridSpacing;
+						p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth * 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						startY = floor(lowerBy / i);
+						startY *= i;
+						startX = floor(lowerBx / i);
+						startX *= i;
+						for (double b = startY; b <= highBy; b += i)
+						{
+							for (double bb = startX; bb <= highBx; bb += i)
+							{
+								p->drawLine(FPoint(bb - 4, b), FPoint(bb + 4, b));
+								p->drawLine(FPoint(bb, b - 4), FPoint(bb, b + 4));
+							}
+						} */
+						double i,start;
+						i = m_doc->guidesPrefs().majorGridSpacing;
+						p->setPen(m_doc->guidesPrefs().majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						start = floor(lowerBy / i);
+						start *= i;
+						for (double b = start; b <= highBy; b+=i)
+						{
+							p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
+						}
+						start=floor(lowerBx/i);
+						start*=i;
+						for (double b = start; b <= highBx; b+=i)
+						{
+							p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
+						}
+						i = m_doc->guidesPrefs().minorGridSpacing;
+						p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+						start = floor(lowerBy / i);
+						start *= i;
+						for (double b = start; b <= highBy; b+=i)
+						{
+							p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
+						}
+						start=floor(lowerBx/i);
+						start*=i;
+						for (double b = start; b <= highBx; b+=i)
+						{
+							p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
+						}
+					}
+				}
+				p->setAntialiasing(true);
+				p->restore();
+			}
+		}
+	}
+}
+
+/**
+  draws guides
+ */
+void Canvas::DrawPageGuides(ScPainter *p, QRectF clip, bool master)
+{
+	if (master)
+	{
+		ScPage *page = m_doc->currentPage();
+		double x = m_doc->scratch()->Left * m_viewMode.scale;
+		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double w = page->width() * m_viewMode.scale;
+		double h = page->height() * m_viewMode.scale;
+		QRectF drawRect = QRectF(x, y, w+5, h+5);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		if (drawRect.intersects(clip))
+		{
+			p->save();
+			p->setAntialiasing(false);
+			p->translate(page->xOffset(), page->yOffset());
+			double lineWidth = 1.0 / m_viewMode.scale;
+			p->setFillMode(ScPainter::None);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			if (m_doc->guidesPrefs().guidesShown)
+				page->guides.drawPage(p, m_doc, lineWidth);
+			p->setAntialiasing(true);
+			p->restore();
+		}
+	}
+	else
+	{
+		uint docPagesCount = m_doc->Pages->count();
+		for (uint a = 0; a < docPagesCount; ++a)
+		{
+			ScPage *page = m_doc->Pages->at(a);
+			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			if (drawRect.intersects(clip))
+			{
+				p->save();
+				p->setAntialiasing(false);
+				p->translate(page->xOffset(), page->yOffset());
+				double lineWidth = 1.0 / m_viewMode.scale;
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				if (m_doc->guidesPrefs().guidesShown)
+					page->guides.drawPage(p, m_doc, lineWidth);
+				p->setAntialiasing(true);
+				p->restore();
+			}
+		}
+	}
+}
+
+/**
+  draws actual page indicator frame
+ */
+void Canvas::DrawPageIndicator(ScPainter *p, QRectF clip, bool master)
+{
+	if (master)
+	{
+		ScPage *page = m_doc->currentPage();
+		double x = m_doc->scratch()->Left * m_viewMode.scale;
+		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double w = page->width() * m_viewMode.scale;
+		double h = page->height() * m_viewMode.scale;
+		QRectF drawRect = QRectF(x, y, w+5, h+5);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		if (drawRect.intersects(clip))
+		{
+			p->save();
+			p->setAntialiasing(false);
+			p->translate(page->xOffset(), page->yOffset());
+			double lineWidth = 1.0 / m_viewMode.scale;
+			double pageHeight = page->height();
+			double pageWidth = page->width();
+			p->setFillMode(ScPainter::None);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.pageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->drawRect(0, 0, pageWidth, pageHeight);
+			p->setAntialiasing(true);
+			p->restore();
+		}
+	}
+	else
+	{
+		uint docPagesCount = m_doc->Pages->count();
+		for (uint a = 0; a < docPagesCount; ++a)
+		{
+			ScPage *page = m_doc->Pages->at(a);
+			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			if (drawRect.intersects(clip))
+			{
+				p->save();
+				p->setAntialiasing(false);
+				p->translate(page->xOffset(), page->yOffset());
+				double lineWidth = 1.0 / m_viewMode.scale;
+				double pageHeight = page->height();
+				double pageWidth = page->width();
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				if (m_doc->currentPage() == page)
+				{
+					p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.pageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->drawRect(0, 0, pageWidth, pageHeight);
+				}
+				p->setAntialiasing(true);
+				p->restore();
+			}
+		}
+	}
+}
 
 /**
   draws the links between textframe chains.

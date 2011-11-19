@@ -11,18 +11,26 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "units.h"
+#include "util_icon.h"
 
 Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
 	languageChange();
+	buttonUp->setIcon(loadIcon("16/go-up.png"));
+	buttonUp->setEnabled(false);
+	buttonDown->setIcon(loadIcon("16/go-down.png"));
+	buttonDown->setEnabled(false);
 
 	connect(guideColorPushButton, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
 	connect(marginColorPushButton, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
 	connect(majorGridColorPushButton, SIGNAL(clicked()), this, SLOT(changeMajorColor()));
 	connect(minorGridColorPushButton, SIGNAL(clicked()), this, SLOT(changeMinorColor()));
 	connect(baselineGridColorPushButton, SIGNAL(clicked()), this, SLOT(changeBaselineColor()));
+	connect(buttonUp, SIGNAL(clicked()), this, SLOT(moveUp()));
+	connect(buttonDown, SIGNAL(clicked()), this, SLOT(moveDown()));
+	connect(guidePlacementListBox, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(select(QListWidgetItem*)));
 }
 
 Prefs_Guides::~Prefs_Guides()
@@ -31,13 +39,26 @@ Prefs_Guides::~Prefs_Guides()
 
 void Prefs_Guides::languageChange()
 {
-	int i=guidePlacementComboBox->currentIndex();
-	guidePlacementComboBox->clear();
-	guidePlacementComboBox->addItem( tr ("In the Background") );
-	guidePlacementComboBox->addItem( tr ("In the Foreground") );
-	guidePlacementComboBox->setCurrentIndex(i<0?0:i);
-
-	guidePlacementComboBox->setToolTip( tr( "Place guides in front of or behind objects on the page" ) );
+	guidePlacementListBox->clear();
+	int renderStackCount = renderStackOrder.count();
+	for (int r = renderStackCount - 1; r > -1; r--)
+	{
+		QListWidgetItem *item;
+		int it = renderStackOrder[r];
+		if (it == 4)
+			item = new QListWidgetItem( tr("Content Objects"), guidePlacementListBox);
+		else if (it == 3)
+			item = new QListWidgetItem( tr("Guides"), guidePlacementListBox);
+		else if (it == 2)
+			item = new QListWidgetItem( tr("Grid"), guidePlacementListBox);
+		else if (it == 1)
+			item = new QListWidgetItem( tr("Baseline Grid"), guidePlacementListBox);
+		else if (it == 0)
+			item = new QListWidgetItem( tr("Margins"), guidePlacementListBox);
+		item->setData(Qt::UserRole, it);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	}
+	guidePlacementListBox->setToolTip( tr( "Place guides in front of or behind objects on the page" ) );
 	minorGridSpacingSpinBox->setToolTip( tr( "Distance between the minor grid lines" ) );
 	majorGridSpacingSpinBox->setToolTip( tr( "Distance between the major grid lines" ) );
 	guideSnapDistanceSpinBox->setToolTip(  "<qt>" + tr( "Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting." ) + "</qt>");
@@ -72,7 +93,26 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitChange(docUnitIndex);
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	guidePlacementComboBox->setCurrentIndex(prefsData->guidesPrefs.guidePlacement ?0:1);
+	renderStackOrder = prefsData->guidesPrefs.renderStackOrder;
+	guidePlacementListBox->clear();
+	int renderStackCount = renderStackOrder.count();
+	for (int r = renderStackCount - 1; r > -1; r--)
+	{
+		QListWidgetItem *item;
+		int it = renderStackOrder[r];
+		if (it == 4)
+			item = new QListWidgetItem( tr("Content Objects"), guidePlacementListBox);
+		else if (it == 3)
+			item = new QListWidgetItem( tr("Guides"), guidePlacementListBox);
+		else if (it == 2)
+			item = new QListWidgetItem( tr("Grid"), guidePlacementListBox);
+		else if (it == 1)
+			item = new QListWidgetItem( tr("BaselineGrid"), guidePlacementListBox);
+		else if (it == 0)
+			item = new QListWidgetItem( tr("Margins"), guidePlacementListBox);
+		item->setData(Qt::UserRole, it);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	}
 	guideSnapDistanceSpinBox->setValue(prefsData->guidesPrefs.guideRad);
 	guideGrabRadiusSpinBox->setValue(prefsData->guidesPrefs.grabRadius);
 	visibilityGuidesCheckBox->setChecked(prefsData->guidesPrefs.guidesShown);
@@ -115,7 +155,7 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Guides::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->guidesPrefs.guidePlacement=(guidePlacementComboBox->currentIndex()==0);
+	prefsData->guidesPrefs.renderStackOrder = renderStackOrder;
 	prefsData->guidesPrefs.guideRad=guideSnapDistanceSpinBox->value();
 	prefsData->guidesPrefs.grabRadius=guideGrabRadiusSpinBox->value();
 	prefsData->guidesPrefs.guidesShown=visibilityGuidesCheckBox->isChecked();
@@ -194,3 +234,70 @@ void Prefs_Guides::changeMarginColor()
 	}
 }
 
+void Prefs_Guides::changeRenderStack()
+{
+	renderStackOrder.clear();
+	for (int a = 0; a < guidePlacementListBox->count(); a++)
+	{
+		renderStackOrder.prepend(guidePlacementListBox->item(a)->data(Qt::UserRole).toInt());
+	}
+	int curr = guidePlacementListBox->currentRow();
+	if (curr == 0)
+	{
+		buttonUp->setEnabled(false);
+		buttonDown->setEnabled(true);
+	}
+	else if (curr == guidePlacementListBox->count() - 1)
+	{
+		buttonUp->setEnabled(true);
+		buttonDown->setEnabled(false);
+	}
+	else
+	{
+		buttonUp->setEnabled(true);
+		buttonDown->setEnabled(true);
+	}
+}
+
+void Prefs_Guides::moveUp()
+{
+	int curr = guidePlacementListBox->currentRow();
+	if (curr == 0)
+		return;
+	QListWidgetItem *it = guidePlacementListBox->takeItem(curr);
+	guidePlacementListBox->insertItem(curr-1, it);
+	guidePlacementListBox->setCurrentItem(it);
+	changeRenderStack();
+}
+
+void Prefs_Guides::moveDown()
+{
+	int curr = guidePlacementListBox->currentRow();
+	if (curr == static_cast<int>(guidePlacementListBox->count())-1)
+		return;
+	QListWidgetItem *it = guidePlacementListBox->takeItem(curr);
+	guidePlacementListBox->insertItem(curr+1, it);
+	guidePlacementListBox->setCurrentItem(it);
+	changeRenderStack();
+}
+
+void Prefs_Guides::select(QListWidgetItem* item)
+{
+	guidePlacementListBox->setCurrentItem(item);
+	int curr = guidePlacementListBox->currentRow();
+	if (curr == 0)
+	{
+		buttonUp->setEnabled(false);
+		buttonDown->setEnabled(true);
+	}
+	else if (curr == guidePlacementListBox->count() - 1)
+	{
+		buttonUp->setEnabled(true);
+		buttonDown->setEnabled(false);
+	}
+	else
+	{
+		buttonUp->setEnabled(true);
+		buttonDown->setEnabled(true);
+	}
+}

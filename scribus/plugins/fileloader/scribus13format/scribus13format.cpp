@@ -424,7 +424,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		if (dc.hasAttribute("BaseC"))
 			m_Doc->guidesPrefs().baselineGridColor = QColor(dc.attribute("BaseC"));
 		m_Doc->setMarginColored(static_cast<bool>(dc.attribute("RANDF", "0").toInt()));
-		m_Doc->guidesPrefs().guidePlacement = static_cast<bool>(dc.attribute("BACKG", "1").toInt());
+		m_Doc->guidesPrefs().renderStackOrder.clear();
+		if (static_cast<bool>(dc.attribute("BACKG", "1").toInt()))
+			m_Doc->guidesPrefs().renderStackOrder << 0 << 1 << 2 << 3 << 4;
+		else
+			m_Doc->guidesPrefs().renderStackOrder << 4 << 0 << 1 << 2 << 3;
 		m_Doc->guidesPrefs().guideRad = ScCLocale::toDoubleC(dc.attribute("GuideRad"), 10.0);
 		m_Doc->guidesPrefs().grabRadius  = dc.attribute("GRAB", "4").toInt();
 		if (dc.hasAttribute("currentProfile"))
