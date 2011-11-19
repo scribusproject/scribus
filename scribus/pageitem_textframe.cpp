@@ -87,7 +87,6 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 {
 	QRegion res;
 	QTransform pp;
-//	pp.begin(view->viewport());
 	pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
 	pp.rotate(docItem->rotation());
 	if (docItem->textFlowUsesBoundingBox())
@@ -97,35 +96,38 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 		tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 		tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
 		tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
-//		res = QRegion(pp.xForm(tcli));
 		res = QRegion(pp.map(tcli));
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
 		QList<uint> Segs;
 		QPolygon Clip2 = FlattenPath(docItem->imageClip, Segs);
-//		res = QRegion(pp.xForm(Clip2));
 		res = QRegion(pp.map(Clip2)).intersect(QRegion(pp.map(docItem->Clip)));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{
 		QList<uint> Segs;
 		QPolygon Clip2 = FlattenPath(docItem->ContourLine, Segs);
-//		res = QRegion(pp.xForm(Clip2));
 		res = QRegion(pp.map(Clip2));
 	}
 	else
-//		res = QRegion(pp.xForm(docItem->Clip));
 		res = QRegion(pp.map(docItem->Clip));
-//	pp.end();
 	return  res;
 }
 
-QRegion PageItem_TextFrame::availableRegion(QRegion clip)
+QRegion PageItem_TextFrame::availableRegion()
 {
-	QRegion result(clip);
+	QRegion result(this->Clip);
 	if (!isEmbedded)
 	{
+		bool invertible(false);
+		QTransform canvasToLocalMat;
+		canvasToLocalMat.translate(Xpos, Ypos);
+		canvasToLocalMat.rotate(Rot);
+		canvasToLocalMat = canvasToLocalMat.inverted(&invertible);
+
+		if (!invertible) return QRegion();
+
 		int LayerLev = m_Doc->layerLevelFromID(LayerID);
 		uint docItemsCount=m_Doc->Items->count();
 		ScPage* Mp=0;
@@ -152,7 +154,10 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->textFlowAroundObject())
-						result = result.subtracted(itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
+					{
+						QRegion itemRgn = itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset());
+						result = result.subtracted( canvasToLocalMat.map(itemRgn) );
+					}
 				}
 			} // for all masterItems
 			// (JG) #6009 : disable possible interaction between master text frames and normal frames
@@ -186,7 +191,10 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->textFlowAroundObject())
-						result = result.subtracted(itemShape(docItem, 0, 0));
+					{
+						QRegion itemRgn = itemShape(docItem, 0, 0);
+						result = result.subtracted( canvasToLocalMat.map(itemRgn) );
+					}
 				}
 			} // for all docItems
 		} // if(OnMasterPage.isEmpty()		
@@ -536,7 +544,7 @@ struct LineControl {
 	}*/
 
 	/// find x position where this line must end
-	double endOfLine(const QRegion& shape, const QTransform& pf2, double morespace, int yAsc, int yDesc)
+	double endOfLine(const QRegion& shape, double morespace, int yAsc, int yDesc)
 	{
 		// if we aren't restricted further, we'll end at this maxX:
 		double maxX = colRight - morespace;
@@ -549,10 +557,10 @@ struct LineControl {
 		QPoint  pt22 (xPos, yDesc);
 
 		QPolygon p;
-		p.append (pf2.map (QPoint (StartX, yAsc)));
-		p.append (pf2.map (QPoint (StartX, yDesc)));
-		p.append (pf2.map (pt12));
-		p.append (pf2.map (pt22));
+		p.append (QPoint (StartX, yAsc));
+		p.append (QPoint (StartX, yDesc));
+		p.append (pt12);
+		p.append (pt22);
 		// check if something gets in the way
 		QRegion lineI = shape.intersected (p.boundingRect());
 		// if the intersection only has 1 rectangle, then nothing gets in the way
@@ -560,11 +568,11 @@ struct LineControl {
 		{
 			int   cPos = static_cast<int>(ceil(StartX + morespace));
 			QRect cRect (QPoint(cPos, yAsc), QPoint(cPos, yDesc));
-			if (QRegion(pf2.mapToPolygon(cRect)).subtracted(shape).isEmpty())
+			if (QRegion(cRect).subtracted(shape).isEmpty())
 			{
 				QRect rect = lineI.rects().at(0);
-				double  mx = qMax(rect.left(), rect.right()) - pf2.dx(); 
-				int steps = static_cast<int>((mx - StartX - morespace - 2) / 0.25);
+				double  mx = qMax(rect.left(), rect.right()) /*- pf2.dx()*/; 
+				int steps  = static_cast<int>((mx - StartX - morespace - 2) / 0.25);
 				if (steps > 0)
 				{
 					StartX += steps * 0.25;
@@ -580,7 +588,7 @@ struct LineControl {
 		do {
 			int xP = static_cast<int>(ceil(EndX2 + morespace));
 			pt.moveTopLeft(QPoint(xP, yAsc));
-			region = QRegion(pf2.mapToPolygon(pt)).subtracted(shape);
+			region = QRegion(pt).subtracted(shape);
 			if (!region.isEmpty())
 				break;
 			EndX2 += Interval;
@@ -1039,13 +1047,13 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 	return 0.0;
 }
 
-static double findRealOverflowEnd(const QRegion& shape, const QTransform& pf2, QRect pt, double maxX)
+static double findRealOverflowEnd(const QRegion& shape, QRect pt, double maxX)
 {
-	while (!QRegion(pf2.mapToPolygon(pt)).subtracted(shape).isEmpty() && pt.right() < maxX)
+	while (!QRegion(pt).subtracted(shape).isEmpty() && pt.right() < maxX)
 		pt.translate(1, 0);
 	if (pt.right() >= maxX)
 		return maxX;
-	return pt.left() +0.5;
+	return pt.left() + 0.5;
 }
 
 static double adjustToBaselineGrid (const LineControl &control, PageItem *item, int OwnPage)
@@ -1196,7 +1204,6 @@ void PageItem_TextFrame::layout()
 		firstChar = 0;
 	
 //	qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame());
-	QTransform pf2;
 	QPoint pt1, pt2;
 	QRect pt;
 	double chs, chsd = 0;
@@ -1259,31 +1266,33 @@ void PageItem_TextFrame::layout()
 	}
 	qDebug() << "default:";
 	dumpIt(itemText.defaultStyle());
-*/	
-	
-	pf2.translate(Xpos, Ypos);
-	pf2.rotate(Rot);
+*/
 	
 	setShadow();
 	if ((itemText.length() != 0)) // || (NextBox != 0))
 	{
 		// determine layout area
-		QRegion cl = availableRegion(QRegion(pf2.map(Clip)));
+		QRegion cl = availableRegion();
 		if (cl.isEmpty())
 		{
 			MaxChars = firstInFrame();
 			goto NoRoom;
 		}
 		
-		if (imageFlippedH())
+		if (imageFlippedH() || imageFlippedV())
 		{
-			pf2.translate(Width, 0);
-			pf2.scale(-1, 1);
-		}
-		if (imageFlippedV())
-		{
-			pf2.translate(0, Height);
-			pf2.scale(1, -1);
+			QTransform matrix;
+			if (imageFlippedH())
+			{
+				matrix.translate(Width, 0);
+				matrix.scale(-1, 1);
+			}
+			if (imageFlippedV())
+			{
+				matrix.translate(0, Height);
+				matrix.scale(1, -1);
+			}
+			cl = matrix.map(cl);
 		}
 		
 		current.nextColumn();
@@ -1650,9 +1659,9 @@ void PageItem_TextFrame::layout()
 					//check if in indent any overflow occurs
 					while (Xpos <= Xend && Xpos < current.colRight)
 					{
-						if (!QRegion(pf2.mapToPolygon(pt)).subtracted(cl).isEmpty())
+						if (!QRegion(pt).subtracted(cl).isEmpty())
 						{
-							Xpos = current.xPos = realEnd = findRealOverflowEnd(cl, pf2, pt, current.colRight);
+							Xpos = current.xPos = realEnd = findRealOverflowEnd(cl, pt, current.colRight);
 							Xend = current.xPos + current.leftIndent;
 						}
 						else
@@ -1974,9 +1983,9 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(charEnd, maxYDesc);
 				}
 				pt = QRect(pt1, pt2);
-				if (!QRegion(pf2.mapToPolygon(pt)).subtracted(cl).isEmpty())
+				if (!QRegion(pt).subtracted(cl).isEmpty())
 				{
-					realEnd = findRealOverflowEnd(cl, pf2, pt, current.colRight);
+					realEnd = findRealOverflowEnd(cl, pt, current.colRight);
 					outs = true;
 				}
 				else if (style.rightMargin() > 0.0)
@@ -1985,9 +1994,9 @@ void PageItem_TextFrame::layout()
 						//condition after || is for find overflows in right margin area
 					{
 						pt.translate(static_cast<int>(ceil(style.rightMargin())), 0);
-						if (!QRegion(pf2.mapToPolygon(pt)).subtracted(cl).isEmpty())
+						if (!QRegion(pt).subtracted(cl).isEmpty())
 						{
-							realEnd = findRealOverflowEnd(cl, pf2, pt, current.colRight);
+							realEnd = findRealOverflowEnd(cl, pt, current.colRight);
 							outs = true;
 						}
 					}
@@ -2127,7 +2136,7 @@ void PageItem_TextFrame::layout()
 				{
 					// find end of line
 					current.breakLine(itemText, style, firstLineOffset(), a);
-					EndX = current.endOfLine(cl, pf2, style.rightMargin(), maxYAsc, maxYDesc);
+					EndX = current.endOfLine(cl, style.rightMargin(), maxYAsc, maxYDesc);
 					current.finishLine(EndX);
 					//addLine = true;
 					assert(current.addLine);
@@ -2204,7 +2213,7 @@ void PageItem_TextFrame::layout()
 						current.updateHeightMetrics(itemText);
 						//current.updateLineOffset(itemText, style, firstLineOffset());
 						//current.xPos = current.breakXPos;
-						EndX = current.endOfLine(cl, pf2, current.rightMargin, maxYAsc, maxYDesc);
+						EndX = current.endOfLine(cl, current.rightMargin, maxYAsc, maxYDesc);
 						current.finishLine(EndX);
 						
 						hyphWidth = 0.0;
@@ -2437,7 +2446,7 @@ void PageItem_TextFrame::layout()
 				maxYAsc = static_cast<int>(floor(current.yPos - qMax(realAsce, asce)));
 			maxYDesc = static_cast<int>(ceil(current.yPos + qMax(realDesc, desc)));
 
-			EndX = current.endOfLine(cl, pf2, style.rightMargin(), maxYAsc, maxYDesc);
+			EndX = current.endOfLine(cl, style.rightMargin(), maxYAsc, maxYDesc);
 			current.finishLine(EndX);
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
@@ -2486,7 +2495,6 @@ void PageItem_TextFrame::layout()
 	}
 	MaxChars = itemText.length();
 	invalid = false;
-//	pf2.end();
 	if (NextBox != NULL) 
 	{
 		PageItem_TextFrame* nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
@@ -2500,7 +2508,6 @@ void PageItem_TextFrame::layout()
 	return;
 			
 NoRoom:     
-//	pf2.end();
 	invalid = false;
 
 	adjustParagraphEndings ();
