@@ -614,6 +614,8 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("NACH", style.gapAfter());
 	if ( ! style.isInhHasDropCap())
 		docu.writeAttribute("DROP", static_cast<int>(style.hasDropCap()));
+	if ( ! style.isInhDcCharStyleName())
+		docu.writeAttribute("DROPCHSTYLE", style.dcCharStyleName());
 	if ( ! style.isInhDropCapLines())
 		docu.writeAttribute("DROPLIN", style.dropCapLines());
 	if ( ! style.isInhDropCapOffset())

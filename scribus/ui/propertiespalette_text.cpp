@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette_utils.h"
 #include "propertywidget_advanced.h"
 #include "propertywidget_distance.h"
+#include "propertywidget_dropcap.h"
 #include "propertywidget_flop.h"
 #include "propertywidget_optmargins.h"
 #include "propertywidget_orphans.h"
@@ -74,6 +75,9 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 
 	orphanBox = new PropertyWidget_Orphans(textTree);
 	orphanItem = textTree->addWidget( tr("Orphans and Widows"), orphanBox);
+
+	dropcapsBox = new PropertyWidget_DropCap(textTree);
+	dropcapsItem = textTree->addWidget( tr("Drop Cap"), dropcapsBox);
 
 	distanceWidgets = new PropertyWidget_Distance(textTree);
     distanceItem = textTree->addWidget( tr("Columns & Text Distances"), distanceWidgets);
@@ -171,6 +175,7 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	flopBox->setDoc(m_doc);
 	optMargins->setDoc(m_doc);
 	orphanBox->setDoc(m_doc);
+	dropcapsBox->setDoc(m_doc);
 	pathTextWidgets->setDoc(m_doc);
 
 	fonts->RebuildList(m_doc);
@@ -203,6 +208,7 @@ void PropertiesPalette_Text::unsetDoc()
 	flopBox->setDoc(0);
 	optMargins->setDoc(0);
 	orphanBox->setDoc(0);
+	dropcapsBox->setDoc(0);
 
 	m_haveItem = false;
 
@@ -280,7 +286,10 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 	/*if (updateFlags & reqColorsUpdate)
 		updateColorList();*/
 	if (updateFlags & reqCharStylesUpdate)
+	{
 		charStyleCombo->updateFormatList();
+		dropcapsBox->updateCharStyles();
+	}
 	if (updateFlags & reqParaStylesUpdate)
 		paraStyleCombo->updateFormatList();
 	if (updateFlags & reqDefFontListUpdate)
@@ -291,6 +300,7 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 	{
 		paraStyleCombo->setDoc(m_haveDoc ? m_doc : 0);
 		charStyleCombo->setDoc(m_haveDoc ? m_doc : 0);
+		dropcapsBox->setDoc(m_haveDoc ? m_doc : 0);
 	}
 }
 
@@ -370,6 +380,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		flopItem->setHidden(true);
 		distanceItem->setHidden(true);
 		orphanItem->setHidden(true);
+		dropcapsItem->setHidden(true);
 		pathTextItem->setHidden(false);
 		pathTextWidgets->pathTextType->setCurrentIndex(m_item->textPathType);
 		pathTextWidgets->flippedPathText->setChecked(m_item->textPathFlipped);
@@ -382,6 +393,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
 		orphanItem->setHidden(false);
+		dropcapsItem->setHidden(false);
 		pathTextItem->setHidden(true);
 	}
 	else
@@ -389,6 +401,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
 		orphanItem->setHidden(false);
+		dropcapsItem->setHidden(false);
 		pathTextItem->setHidden(true);
 	}
 
@@ -424,6 +437,7 @@ void PropertiesPalette_Text::unitChange()
 	flopBox->unitChange();
 	optMargins->unitChange();
 	pathTextWidgets->unitChange();
+	dropcapsBox->unitChange();
 
 	m_haveItem = tmp;
 }
@@ -575,6 +589,7 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 	advancedWidgets->updateStyle(newCurrent);
 	colorWidgets->updateStyle(newCurrent);
 	orphanBox->updateStyle (newCurrent);
+	dropcapsBox->updateStyle(newCurrent);
 
 	displayFontFace(charStyle.font().scName());
 	displayFontSize(charStyle.fontSize());
@@ -594,11 +609,14 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 void PropertiesPalette_Text::updateCharStyles()
 {
 	charStyleCombo->updateFormatList();
+	dropcapsBox->updateCharStyles();
 }
 
 void PropertiesPalette_Text::updateParagraphStyles()
 {
 	paraStyleCombo->updateFormatList();
+	charStyleCombo->updateFormatList();
+	dropcapsBox->updateCharStyles();
 }
 
 void PropertiesPalette_Text::updateTextStyles()

@@ -93,6 +93,7 @@ void SMPStyleWidget::languageChange()
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
 	dropCapOffset_->setToolTip(   tr("Drop Cap Offset"));
+	dropCapCharStyleCombo->setToolTip("<qt>" + tr("Choose chracter style or leave blank for use default paragraph style"));
 	alignement_->setToolTip(      tr("Alignment"));
 	tabList_->first_->setToolTip( tr("First Line Indent"));
 	tabList_->left_->setToolTip(  tr("Left Indent"));
@@ -293,6 +294,12 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	lineSpacing_->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
 	dropCapLines_->setEnabled(pstyle->hasDropCap());
 	dropCapOffset_->setEnabled(pstyle->hasDropCap());
+	dropCapCharStyleCombo->setEnabled(pstyle->hasDropCap());
+	dropCapCharStyleCombo->clear();
+	dropCapCharStyleCombo->addItem(tr("No Style"));
+	for (int i =0; i < cstyles.count(); i++)
+		dropCapCharStyleCombo->addItem(cstyles.at(i).name());
+	setCurrentComboItem(dropCapCharStyleCombo, pstyle->dcCharStyleName().isEmpty() ? tr("No Style") : pstyle->dcCharStyleName());
 
 	QFont f(font());
 	f.setBold(true);
@@ -311,7 +318,6 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 				parentCombo->addItem(pstyles[i].name());
 		}
 	}
-
 	if (pstyle->isDefaultStyle() || !hasParent_)
 		parentCombo->setCurrentIndex(0);
 	else
@@ -339,7 +345,7 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 	{
 		showLineSpacing(pstyles);
 		showSpaceAB(pstyles, unitIndex);
-		showDropCap(pstyles, unitIndex);
+		showDropCap(pstyles, cstyles, unitIndex);
 		showAlignment(pstyles);
 		showOpticalMargin(pstyles);
 		showMinSpace(pstyles);
@@ -433,7 +439,7 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 		spaceBelow_->setValue(tmpA);
 }
 
-void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex)
+void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentDropCapButton->hide();
@@ -483,10 +489,16 @@ void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	else
 		dropCapOffset_->setValue(dco * unitRatio);
 
+	dropCapCharStyleCombo->clear();
+	dropCapCharStyleCombo->addItem(tr("No Style"));
+	for (int i=0; i < cstyles.count(); i++)
+		dropCapCharStyleCombo->addItem(cstyles.at(i).name());
+
 	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	dropCapsBox->setEnabled(true);
 	dropCapLines_->setEnabled(true);
 	dropCapOffset_->setEnabled(true);
+	dropCapCharStyleCombo->setEnabled(true);
 }
 
 void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
@@ -820,12 +832,14 @@ void SMPStyleWidget::slotDropCap(bool isOn)
 		dropCapsBox->setEnabled(true);
 		dropCapLines_->setEnabled(true);
 		dropCapOffset_->setEnabled(true);
+		dropCapCharStyleCombo->setEnabled(true);
 	}
 	else
 	{
 		dropCapsBox->setEnabled(true);
 		dropCapLines_->setEnabled(false);
 		dropCapOffset_->setEnabled(false);
+		dropCapCharStyleCombo->setEnabled(false);
 	}
 	if (hasParent_)
 		parentDropCapButton->show();

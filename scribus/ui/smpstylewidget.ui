@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>714</width>
-    <height>580</height>
+    <height>599</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -257,56 +257,57 @@
               <item>
                <layout class="QHBoxLayout">
                 <item>
-                 <layout class="QVBoxLayout">
-                  <item>
-                   <layout class="QHBoxLayout">
-                    <item>
-                     <widget class="QLabel" name="label">
-                      <property name="text">
-                       <string>&amp;Lines:</string>
-                      </property>
-                      <property name="buddy">
-                       <cstring>dropCapLines_</cstring>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="SMSpinBox" name="dropCapLines_">
-                      <property name="minimum">
-                       <number>2</number>
-                      </property>
-                      <property name="maximum">
-                       <number>20</number>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout">
-                    <item>
-                     <widget class="QLabel" name="label_2">
-                      <property name="text">
-                       <string>Distance from Text:</string>
-                      </property>
-                      <property name="buddy">
-                       <cstring>dropCapOffset_</cstring>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="SMScrSpinBox" name="dropCapOffset_">
-                      <property name="minimum">
-                       <number>-3000</number>
-                      </property>
-                      <property name="maximum">
-                       <number>3000</number>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>&amp;Lines:</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>dropCapLines_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMSpinBox" name="dropCapLines_">
+                  <property name="minimum">
+                   <number>2</number>
+                  </property>
+                  <property name="maximum">
+                   <number>20</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>Distance from Text:</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>dropCapOffset_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMScrSpinBox" name="dropCapOffset_">
+                  <property name="minimum">
+                   <number>-3000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>3000</number>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <spacer>
@@ -322,6 +323,16 @@
                  </spacer>
                 </item>
                </layout>
+              </item>
+              <item>
+               <widget class="QLabel" name="dropCapCharStyleComboLabel">
+                <property name="text">
+                 <string>Character Style for Drop Cap:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMScComboBox" name="dropCapCharStyleCombo"/>
               </item>
               <item>
                <widget class="QToolButton" name="parentDropCapButton">

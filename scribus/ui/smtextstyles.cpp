@@ -515,6 +515,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
+	connect(pwidget_->dropCapCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotDropCapCharStyle(const QString&)));
 
 	connect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
 	connect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
@@ -592,6 +593,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	disconnect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
+	disconnect(pwidget_->dropCapCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotDropCapCharStyle(const QString&)));
 
 	disconnect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));
@@ -910,6 +912,23 @@ void SMParagraphStyle::slotDropCapOffset()
 		emit selectionDirty();
 	}
 }
+
+void SMParagraphStyle::slotDropCapCharStyle(const QString& name)
+{
+	if (pwidget_->dropCapCharStyleCombo->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetDcCharStyleName();
+	else
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setDcCharStyleName(name);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
 
 void SMParagraphStyle::handleKeepLinesStart()
 {

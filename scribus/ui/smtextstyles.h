@@ -75,6 +75,7 @@ private slots:
 	void slotDropCap(bool isOn);
 	void slotDropCapLines(int lines);
 	void slotDropCapOffset();
+	void slotDropCapCharStyle(const QString &name);
 	void slotSpaceAbove();
 	void slotSpaceBelow();
 	void slotAlignment();

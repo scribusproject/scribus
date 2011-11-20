@@ -1348,7 +1348,7 @@ void PageItem_TextFrame::layout()
 			if (current.itemsInLine == 0)
 				opticalMargins = style.opticalMargins();
 			
-			const CharStyle& charStyle =  (hl->ch != SpecialChars::PARSEP? itemText.charStyle(a) : itemText.paragraphStyle(a).charStyle());
+			CharStyle charStyle = (hl->ch != SpecialChars::PARSEP? itemText.charStyle(a) : style.charStyle());
 			chstr = ExpandToken(a);
 			double hlcsize10 = charStyle.fontSize() / 10.0;
 			double scaleV = charStyle.scaleV() / 1000.0;
@@ -1371,6 +1371,31 @@ void PageItem_TextFrame::layout()
 					}
 					else
 						DropCmode = false;
+				}
+			}
+			if (a == 0 || itemText.text(a-1) == SpecialChars::PARSEP)
+			{
+				if (style.hasDropCap())
+				{
+					if (style.dcCharStyleName() == tr("No Style") || style.dcCharStyleName().isEmpty())
+					{
+						const QString& curParent(style.hasParent() ? style.parent() : style.name());
+						CharStyle newStyle;
+						newStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
+						charStyle.setStyle(newStyle);
+					}
+					else if (charStyle.name() != style.dcCharStyleName())
+						charStyle.setStyle(m_Doc->charStyle(style.dcCharStyleName()));
+					itemText.setCharStyle(a, chstr.length(),charStyle);
+				}
+				else if (style.dcCharStyleName() != tr("No Style") && !style.dcCharStyleName().isEmpty())
+				//hasDropCap is cleared but is set dcCharStyleName = clear drop cap char style
+				{
+					const QString& curParent(style.hasParent() ? style.parent() : style.name());
+					CharStyle newStyle;
+					newStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
+					charStyle.setStyle(newStyle);
+					itemText.setCharStyle(a, chstr.length(),charStyle);
 				}
 			}
 

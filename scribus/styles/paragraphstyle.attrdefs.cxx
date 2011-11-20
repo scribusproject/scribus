@@ -39,4 +39,5 @@ ATTRDEF(int, keepLinesStart, KeepLinesStart, 0)
 ATTRDEF(int, keepLinesEnd, KeepLinesEnd, 0)
 ATTRDEF(bool, keepWithNext, KeepWithNext, false)
 ATTRDEF(bool, keepTogether, KeepTogether, false)
+ATTRDEF(QString, dcCharStyleName, DcCharStyleName,"")
 

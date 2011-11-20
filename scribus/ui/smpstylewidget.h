@@ -37,7 +37,7 @@ private:
 
 	void showLineSpacing(QList<ParagraphStyle*> &pstyles);
 	void showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
 	void showAlignment(QList<ParagraphStyle*> &pstyles);
 	void showOpticalMargin(QList<ParagraphStyle*> &pstyles);
 	void showMinSpace(QList<ParagraphStyle*> &pstyles);

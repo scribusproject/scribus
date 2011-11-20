@@ -2381,6 +2381,10 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(DROP))
 		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt(DROP)));
 
+	static const QString DROPCHSTYLE("DROPCHSTYLE");
+	if (attrs.hasAttribute(DROPCHSTYLE))
+		newStyle.setDcCharStyleName(attrs.valueAsString(DROPCHSTYLE));
+
 	static const QString DROPLIN("DROPLIN");
 	if (attrs.hasAttribute(DROPLIN))
 		newStyle.setDropCapLines(attrs.valueAsInt(DROPLIN));
