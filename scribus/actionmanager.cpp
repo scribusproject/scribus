@@ -165,10 +165,8 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["PrintPreview"], SIGNAL(triggered()), mainWindow, SLOT(printPreview()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSaveAs()) );
-//	connect( (*scrActions)["fileDocSetup"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
-	connect( (*scrActions)["fileDocSetup150"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup150()) );
-//	connect( (*scrActions)["filePreferences"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
-	connect( (*scrActions)["filePreferences150"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefs150Org()) );
+	connect( (*scrActions)["fileDocSetup150"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
+	connect( (*scrActions)["filePreferences150"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(triggered()), mainWindow, SLOT(slotFileRevert()) );
 	connect( (*scrActions)["fileCollect"], SIGNAL(triggered()), mainWindow, SLOT(fileCollect()) );
 	connect( (*scrActions)["fileQuit"], SIGNAL(triggered()), mainWindow, SLOT(slotFileQuit()) );

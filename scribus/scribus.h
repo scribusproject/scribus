@@ -83,11 +83,9 @@ class PDFToolBar;
 class PSLib;
 class PageItem;
 class PagePalette;
-//class Preferences;
 class PrefsContext;
 class PrefsManager;
 class PropertiesPalette;
-//class ReformDoc;
 class ScToolBar;
 class ScrAction;
 class ScribusDoc;
@@ -222,7 +220,6 @@ public:
 	AlignDistributePalette *alignDistributePalette;
 	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
-// 	QMap<QString,QString> Sprachen; // <language not translated, file name>
 	QMdiArea *mdiArea;
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
@@ -260,14 +257,11 @@ public slots:
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	//void setItemFillTransparency(double t);
-	//void setItemLineTransparency(double t);
 	void setStatusBarMousePosition(double xp, double yp);
 	void setStatusBarTextPosition(double base, double xp);
 	void setTempStatusBarText(const QString &text);
 	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
-	//bool DoSaveClose();
 	void windowsMenuAboutToShow();
 	//! \brief Handle the Extras menu for its items availability.
 	void extrasMenuAboutToShow();
@@ -277,15 +271,12 @@ public slots:
 	void windowsMenuActivated(int id);
 	void UnDoAction();
 	void RedoAction();
-	//void doHyphenate();
-	//void doDeHyphenate();
 	void slotTest();
 	void slotTest2();
 	void PutScrap(int scID);
 	void PutToPatterns();
 	void changeLayer(int);
 	void showLayer();
-	//void LayerRemove(int l, bool dl = false);
 	void ManageJava();
 	void editSelectedSymbolStart();
 	void editSymbolStart(QString temp);
@@ -361,7 +352,6 @@ public slots:
 	void SelectAllOnLayer();
 	void deselectAll();
 	void ClipChange();
-	//void clearContents();
 	/** \brief shows an about dialog*/
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();
@@ -409,15 +399,8 @@ public slots:
 	void ToggleColumnBorders();
 	void ToggleRulers();
 	void ToggleRulerMode();
-	/* Schaltet Masspalette ein/aus */
-	//void togglePropertiesPalette();
-	/* Schaltet Uebersichtspalette ein/aus*/
-	//void toggleOutlinePalette();
-	//void toggleScrapbookPalette();
-	//void toggleLayerPalette();
 	void togglePagePalette();
 	void setPagePalette(bool visible);
-	//void toggleBookmarkPalette();
 	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void toggleCheckPal();
@@ -446,31 +429,15 @@ public slots:
 	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
-	/** Farbeditor */
-//	void slotEditColors();
 	/** Color Replacement */
 	void slotReplaceColors();
 	/** Style Manager */
-	/*
-	// Setzt den Pen-Tonwert
-	void setPenShade(int sh);
-	// Setzt den Brush-Tonwert
-	void setBrushShade(int sh);
-	void setGradFill(int typ);
-	*/
+
 	void updtGradMask();
 	void updtGradMaskGroup();
-	/*
-	// Setzt die Pen-Farbe
-	void setPenFarbe(QString farbe);
-	// Setzt die Brush-Farbe
-	void setBrushFarbe(QString farbe);
-	*/
-	//CB: void setCSMenu();
+
 	/** Erzeugt einen Rahmen */
 	void MakeFrame(int f, int c, double *vals);
-	//** Loescht ein Element */
-	//void DeleteObjekt();
 	/** Duplicate current item */
 	void duplicateItem();
 	/** Multiple duplicate current item*/
@@ -487,7 +454,6 @@ public slots:
 	void setAlignmentValue(int a);
 	void editItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(PageItem *ite, bool single = false);
-//	void selectItemsFromOutlines(int ScPage, int Item, bool single = false);
 	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();
 	void printPreview();
@@ -525,33 +491,18 @@ public slots:
 	void setUndoMode(bool isObjectSpecific);
 	//! \brief Apply a Lorem Ipsum to the each item in a selection
 	void insertSampleText();
-	//void sendToLayer(int layerNumber);
 	void updateItemLayerList();
 	void updateColorLists();
-	/*! \brief Apply changes from ReformDoc dialog.
-	It's called from this->slotDocSetup() or from ReformDoc directly.
-	\param dia a reference to the ReformDoc dialog */
-//	void docSetup(ReformDoc* dia);
-	/*! \brief Apply changes from Preferences dialog.
-	It's called from this->slotPrefsOrg() or from Preferences directly.
-	\param dia a reference to the Preferences dialog */
-//	void prefsOrg(Preferences* dia);
 	/*! \brief Change Preferences dialog.
 	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
-//	void slotPrefsOrg();
-	void slotPrefs150Org();
+	void slotPrefsOrg();
 	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
 	See docSetup() for more info. */
-//	bool slotDocSetup();
-	void slotDocSetup150();
+	void slotDocSetup();
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();
 	//! \brief Transform an item
 	void slotItemTransform();
-//	//! \brief manages the documents patterns
-//	void managePatterns();
-	//! \brief manages the documents gradients
-//	void manageGradients();
 	//! \brief manages paints
 	void managePaints();
 	//! \brief enable or disable the unicode actions and their menus

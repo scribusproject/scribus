@@ -1668,7 +1668,6 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	bookmarkPalette->hide();
 	layerPalette->hide();
 	pagePalette->hide();
-//	measurementPalette->hide();
 	docCheckerPalette->hide();
 	undoPalette->hide();
 	alignDistributePalette->hide();
@@ -1782,7 +1781,7 @@ void ScribusMainWindow::startUpDialog()
 	delete dia;
 	mainWindowStatusLabel->setText( tr("Ready"));
 	if (docSet)
-		slotDocSetup150();
+		slotDocSetup();
 }
 
 bool ScribusMainWindow::slotFileNew()
@@ -1832,7 +1831,7 @@ bool ScribusMainWindow::slotFileNew()
 	}
 	delete dia;
 	if (docSet)
-		slotDocSetup150();
+		slotDocSetup();
 	return retVal;
 }
 
@@ -1840,82 +1839,6 @@ bool ScribusMainWindow::slotFileNew()
 ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView, int marginPreset)
 {
 	return doFileNew(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement, unitIndex, firstPageLocation, orientation, firstPageNumber, defaultPageSize, requiresGUI, pageCount, showView, marginPreset);
-	/* TODO CB finish later this week.
-	if (HaveDoc)
-		doc->OpenNodes = outlinePalette->buildReopenVals();
-	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
-	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
-	QString newDocName(tr("Document")+"-"+QString::number(DocNr));
-	doc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
-		doc->setLoading(true);
-	doc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
-	HaveDoc++;
-	DocNr++;
-	if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
-		recalcColors();
-	//CB NOTE should be all done now
-	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
-	doc->setMasterPageMode(false);
-	doc->addMasterPage(0, CommonStrings::masterPageNormal);
-	int createCount=qMax(pageCount,1);
-	for (int i = 0; i < createCount; ++i)
-		doc->addPage(i, CommonStrings::masterPageNormal, true);
-	doc->addSection();
-	doc->setFirstSectionFromFirstPageNumber();
-	doc->setModified(false);
-	doc->OpenNodes.clear();
-	actionManager->disconnectNewDocActions();
-	actionManager->connectNewDocActions(doc);
-	//<<View and window code
-	ScribusWin* w = new ScribusWin(mdiArea, doc);
-	w->setMainWindow(this);
-	if (view!=NULL)
-	{
-		actionManager->disconnectNewViewActions();
-		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-	}
-	view = new ScribusView(w, this, doc);
-	doc->setCurrentPage(doc->Pages->at(0));
-	doc->setGUI(this, view);
-	doc->setLoading(false);
-	//run after setGUI to set up guidepalette ok
-
-	view->setScale(prefsManager->displayScale());
-	actionManager->connectNewViewActions(view);
-	alignDistributePalette->setDoc(doc);
-	docCheckerPalette->clearErrorList();
-	w->setView(view);
-	ActWin = w;
-	doc->WinHan = w;
-	w->setCentralWidget(view);
-	doc->connectDocSignals(); //Must be before the first reformpages
-	view->reformPages(true);
-	//>>
-
-	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
-	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
-
-	//Independent finishing tasks after doc setup
-	if (showView)
-	{
-		if ( mdiArea->windowList().isEmpty() )
-			w->showMaximized();
-		else
-			w->show();
-		view->show();
-	}
-	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
-	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
-	scrActions["fileSave"]->setEnabled(false);
-	undoManager->switchStack(doc->DocName);
-	styleManager->currentDoc(doc);
-	tocGenerator->setDoc(doc);
-
-	return doc;
-	*/
 }
 
 ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView, int marginPreset)
@@ -4338,7 +4261,6 @@ void ScribusMainWindow::slotFileAppend()
 		//CB Hyphenating now emits doc changed, plus we change lang as appropriate
 		if (doc->docHyphenator->AutoCheck)
 			doc->itemSelection_DoHyphenate();
-			//doc->docHyphenator->slotHyphenate(doc->m_Selection->itemAt(0));
 		view->DrawNew();
 		//slotDocCh();
 	}
@@ -5772,8 +5694,6 @@ void ScribusMainWindow::ToggleAllPalettes()
 			pagePalette->show();
 		if (palettesStatus[6])
 			bookmarkPalette->show();
-//		if (palettesStatus[7])
-//			measurementPalette->show();
 		if (palettesStatus[9])
 			docCheckerPalette->show();
 		setPagePalette(palettesStatus[5]);
@@ -5787,7 +5707,6 @@ void ScribusMainWindow::ToggleAllPalettes()
 		palettesStatus[4] = layerPalette->isVisible();
 		palettesStatus[5] = pagePalette->isVisible();
 		palettesStatus[6] = bookmarkPalette->isVisible();
-//		palettesStatus[7] = measurementPalette->isVisible();
 		palettesStatus[8] = undoPalette->isVisible();
 		palettesStatus[9] = docCheckerPalette->isVisible();
 		propertiesPalette->hide();
@@ -5796,7 +5715,6 @@ void ScribusMainWindow::ToggleAllPalettes()
 		bookmarkPalette->hide();
 		pagePalette->hide();
 		layerPalette->hide();
-//		measurementPalette->hide();
 		docCheckerPalette->hide();
 		setPagePalette(false);
 		setUndoPalette(false);
@@ -5814,27 +5732,7 @@ void ScribusMainWindow::setUndoPalette(bool visible)
 	undoPalette->setPaletteShown(visible);
 	scrActions["toolsActionHistory"]->setChecked(visible);
 }
-/*
-void ScribusMainWindow::togglePropertiesPalette()
-{
-	palettesStatus[0] = false;
-}
 
-void ScribusMainWindow::toggleOutlinePalette()
-{
-	palettesStatus[0] = false;
-}
-
-void ScribusMainWindow::toggleScrapbookPalette()
-{
-	palettesStatus[0] = false;
-}
-
-void ScribusMainWindow::toggleLayerPalette()
-{
-	palettesStatus[0] = false;
-}
-*/
 void ScribusMainWindow::setPagePalette(bool visible)
 {
 	if (!visible)
@@ -5849,12 +5747,6 @@ void ScribusMainWindow::togglePagePalette()
 	setPagePalette(!pagePalette->isVisible());
 	palettesStatus[0] = false;
 }
-/*
-void ScribusMainWindow::toggleBookmarkPalette()
-{
-	palettesStatus[0] = false;
-}
-*/
 
 void ScribusMainWindow::toggleUndoPalette()
 {
@@ -7025,41 +6917,6 @@ void ScribusMainWindow::setItemShade(int id)
 // 	slotDocCh();
 }
 
-/* CB: unused in 135 without the colours menu
-void ScribusMainWindow::setCSMenu()
-{
-	QString la = CommonStrings::tr_NoneColor;
-	int lb = 100;
-	PageItem *currItem;
-	if (doc->m_Selection->count() != 0)
-	{
-		currItem = doc->m_Selection->itemAt(0);
-		if ((currItem->asTextFrame()) || (currItem->asPathText()))
-		{
-			if ((doc->appMode == modeEdit) && (currItem->itemText.length() != 0))
-			{
-				la = currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillColor();
-				lb = qRound(currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillShade());
-			}
-			else
-			{
-				la = currItem->itemText.defaultStyle().charStyle().fillColor();
-				lb = qRound(currItem->itemText.defaultStyle().charStyle().fillShade());
-			}
-		}
-		else
-		{
-			la = currItem->fillColor();
-			lb = qRound(currItem->fillShade());
-		}
-	}
-	if (la == CommonStrings::None)
-		la = CommonStrings::tr_NoneColor;
-	if (scrActions[QString("shade%1").arg(lb)])
-		scrActions[QString("shade%1").arg(lb)]->setChecked(true);
-}
-*/
-
 #if 0
 //CB still called from SE
 void ScribusMainWindow::saveStyles(StilFormate *dia)
@@ -7605,54 +7462,7 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 		}
 	}
 }
-/*
-void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
-{
-	if (HaveDoc && doc->appMode == modeEditClip)
-		view->requestMode(submodeEndNodeEdit);
-	activateWindow();
-	view->Deselect(true);
-	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage()->pageNr())))
-		view->GotoPage(Page);
-	doc->m_Selection->delaySignalsOn();
-	view->SelectItemNr(Item, true, single);
-	doc->m_Selection->delaySignalsOff();
-	doc->m_Selection->connectItemToGUI();
-	if (doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-	 // jjsa 23-05-2004 added for centering of rotated objects
-	 	double rotation=currItem->rotation();
-		if ( rotation != 0.0 )
-		{
-			double MPI180=1.0/(180.0*M_PI);
-			double y1 = sin(rotation*MPI180) * currItem->width();
-			double x1 = cos(rotation*MPI180) * currItem->width();
-			double y2 = sin((rotation+90.0)*MPI180) * currItem->height();
-			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
-			double mx = currItem->xPos() + ((x1 + x2)/2.0);
-			double my = currItem->yPos() + ((y1 + y2)/2.0);
-//			double viewScale=view->scale();
-//			if ((qRound((currItem->xPos() + qMax(x1, x2)) * viewScale) > view->contentsWidth()) ||
-//				(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale) > view->contentsHeight()))
-//				view->resizeContents(qMax(qRound((currItem->xPos() + qMax(x1, x2)) * viewScale),
-//									view->contentsWidth()),
-//									qMax(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale), view->contentsHeight()));
-			view->SetCCPo(mx, my);
-		}
-		else
-		{
-//			double viewScale=view->scale();
-//			if ((qRound((currItem->xPos() + currItem->width()) * viewScale) > view->contentsWidth()) ||
-//				(qRound((currItem->yPos() + currItem->height()) * viewScale) > view->contentsHeight())
-//				)
-//				view->resizeContents(qMax(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
-//									 qMax(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
-			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
-		}
-	}
-}
-*/
+
 void ScribusMainWindow::selectPagesFromOutlines(int Page)
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
@@ -7663,117 +7473,8 @@ void ScribusMainWindow::selectPagesFromOutlines(int Page)
 		return;
 	view->GotoPage(Page);
 }
-/*
-void ScribusMainWindow::prefsOrg(Preferences *dia)
-{
-	//reset the appMode so we restore our tools shortcuts
-	QString oldUILanguage = prefsManager->uiLanguage();
-	QString oldUIStyle    = prefsManager->guiStyle();
-	QString oldMonitorProfile = ScCore->monitorProfile.productDescription();
-	bool    oldShowPageShadow = prefsManager->showPageShadow();
-	int     oldUIFontSize     = prefsManager->guiFontSize();
-	double  oldDisplayScale   = prefsManager->displayScale();
-	int     oldImageQuality   = prefsManager->applicationPrefs()->itemToolPrefs.imageLowResType;
-
-	dia->updatePreferences();
-	DocDir = prefsManager->documentDir();
-//		scrapbookPalette->rebuildView();
-//		scrapbookPalette->AdjustMenu();
-	QString newUILanguage = prefsManager->uiLanguage();
-	if (oldUILanguage != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
-		ScQApp->changeGUILanguage(newUILanguage);
-	QString newUIStyle = prefsManager->guiStyle();
-	if (oldUIStyle != newUIStyle)
-	{
-		if (newUIStyle.isEmpty())
-			qApp->setStyle(prefsManager->guiSystemStyle());
-		else
-			qApp->setStyle(QStyleFactory::create(newUIStyle));
-		// Plain wrong, a style may set a palette different from the standard palette
-		// Eg : Windows XP and Windows Vista styles
-		// qApp->setPalette(qApp->style()->standardPalette());
-	}
-	int newUIFontSize = prefsManager->guiFontSize();
-	if (oldUIFontSize != newUIFontSize)
-	{
-		QFont apf = qApp->font();
-		apf.setPointSize(prefsManager->appPrefs.uiPrefs.applicationFontSize);
-		qApp->setFont(apf);
-	}
-	propertiesPalette->textPal->Fonts->RebuildList(0);
-	ScCore->getCMSProfiles(false);
-	ScCore->recheckGS();
-	prefsManager->applyLoadedShortCuts();
-
-	QString newMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
-	if (oldMonitorProfile != newMonitorProfile)
-	{
-		bool success = false;
-		if (ScCore->MonitorProfiles.contains(newMonitorProfile))
-		{
-			QString profilePath = ScCore->MonitorProfiles[newMonitorProfile];
-			ScColorProfile newProfile = ScCore->defaultEngine.openProfileFromFile(profilePath);
-			if (!newProfile.isNull())
-			{
-				ScCore->monitorProfile = newProfile;
-				success = true;
-			}
-		}
-		if (!success)
-		{
-			prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = oldMonitorProfile;
-			QString message = tr("An error occurred while opening monitor profile.\nFormer monitor profile will be used." );
-			if (ScCore->usingGUI())
-				QMessageBox::warning(this, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
-			else
-				qWarning( "%s", message.toLocal8Bit().data() );
-		}
-	}
-
-	int newImageQuality = prefsManager->appPrefs.itemToolPrefs.imageLowResType;
-	if (oldImageQuality != newImageQuality)
-		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
-
-	if (prefsManager->appPrefs.uiPrefs.useTabs)
-		mdiArea->setViewMode(QMdiArea::TabbedView);
-	else
-		mdiArea->setViewMode(QMdiArea::SubWindowView);
-	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-	bool shadowChanged = oldShowPageShadow != prefsManager->showPageShadow();
-	if (!windows.isEmpty())
-	{
-		int windowCount=static_cast<int>(windows.count());
-		for ( int i = 0; i < windowCount; ++i )
-		{
-			QWidget* w = windows.at(i)->widget();
-			ScribusWin* scw = (ScribusWin*) w;
-			if (oldDisplayScale != prefsManager->displayScale())
-			{
-				int x = qRound(qMax(scw->view()->contentsX() / scw->view()->scale(), 0.0));
-				int y = qRound(qMax(scw->view()->contentsY() / scw->view()->scale(), 0.0));
-				int w = qRound(qMin(scw->view()->visibleWidth() / scw->view()->scale(), scw->doc()->currentPage()->width()));
-				int h = qRound(qMin(scw->view()->visibleHeight() / scw->view()->scale(), scw->doc()->currentPage()->height()));
-				scw->view()->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-				scw->view()->zoom((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
-			}
-			if (shadowChanged)
-				scw->view()->DrawNew();
-		}
-	}
-
-	prefsManager->SavePrefs();
-}
 
 void ScribusMainWindow::slotPrefsOrg()
-{
-	slotSelect();
-
-	Preferences dia(this);
-	if (dia.exec()==QDialog::Accepted)
-		prefsOrg(&dia);
-}
-*/
-void ScribusMainWindow::slotPrefs150Org()
 {
 	QString oldMonitorProfile(ScCore->monitorProfile.productDescription());
 	slotSelect();
@@ -7872,72 +7573,7 @@ void ScribusMainWindow::slotPrefs150Org()
 	}
 }
 
-/*
-void ScribusMainWindow::docSetup(ReformDoc* dia)
-{
-	slotChangeUnit(dia->getSelectedUnit(), false);
-	dia->updateDocumentSettings();
-	if (dia->imageResolutionChanged())
-	{
-		setStatusBarInfoText( tr("Updating Images"));
-		mainWindowProgressBar->reset();
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		qApp->processEvents();
-		doc->recalcPicturesRes(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		setStatusBarInfoText("");
-		mainWindowProgressBar->reset();
-		view->previewQualitySwitcher->blockSignals(true);
-		view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs().imageLowResType);
-		view->previewQualitySwitcher->blockSignals(false);
-	}
-	propertiesPalette->textPal->Fonts->RebuildList(doc);
-	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
-	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
-	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
-	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
-	scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
-	scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
-	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
-	scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
-	scrActions["viewShowImages"]->setChecked(doc->guidesPrefs().showPic);
-	scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
-	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
-	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
-	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
-	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
-	view->cmsToolbarButton->setChecked(doc->HasCMS);
-	//doc emits changed() via this
-	doc->setMasterPageMode(true);
-	view->reformPages();
-	doc->setMasterPageMode(false);
-//	doc->setLoading(true);
-//	uint pageCount=doc->DocPages.count();
-//	for (uint c=0; c<pageCount; ++c)
-//		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
-//	doc->setLoading(false);
-	view->reformPages();
-	view->GotoPage(doc->currentPage()->pageNr());
-	view->DrawNew();
-	propertiesPalette->imagePal->showCMSOptions();
-	pagePalette->rebuildPages();
-}
-
-bool ScribusMainWindow::slotDocSetup()
-{
-	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, doc);
-	Q_CHECK_PTR(dia);
-	if (dia->exec())
-	{
-		docSetup(dia);
-		ret = true;
-	}
-	delete dia;
-	return ret;
-}
-*/
-void ScribusMainWindow::slotDocSetup150()
+void ScribusMainWindow::slotDocSetup()
 {
 	if (!doc)
 		return;
