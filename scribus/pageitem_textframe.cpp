@@ -2400,7 +2400,7 @@ void PageItem_TextFrame::invalidateLayout()
 	}
 }
 
-void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
+void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 {
 	if(invalid)
 		layout();
@@ -2738,7 +2738,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	{
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
 		double aestheticFactor(5.0);
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
+		double scpInv = (qMin(view->m_canvas->scaledLineWidth(), 1.0) / aestheticFactor);
 		if ((Frame) && (m_Doc->guidesSettings.framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2788,7 +2788,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			drawColumnBorders(p);
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && (!view->m_canvas->isPreviewMode()))
 		{
-			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::black, 0.5 * m_Doc->view()->m_canvas->scaledLineWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerNr));
 			p->setBrushOpacity(1.0);
@@ -3658,7 +3658,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	if (m_Doc->m_Selection->containsItem(this))
 		color = Qt::red;
 
-	p->setPen(color, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(color, 0.5 * view->m_canvas->scaledLineWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -3671,7 +3671,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
-	p->setPen(Qt::black, 0.5/ view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(Qt::black, 0.5 * view->m_canvas->scaledLineWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);

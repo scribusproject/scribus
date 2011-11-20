@@ -125,8 +125,9 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
+		QRectF visible = m_view->visibleCanvas();
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(Myp + ((SeRx - Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
+		newY = qRound(Myp + ((SeRx - Mxp) * visible.height()) / visible.width());
 		SeRx = newX;
 		SeRy = newY;
 		/*
@@ -199,9 +200,9 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (m_canvas->haveRectangleSelection())
 		{
-			QRect geom = m_canvas->getRectangleSelection();
-			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
-			double scaleAdjust = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
+			QRectF geom =  m_canvas->globalToCanvas(m_canvas->getRectangleSelection());
+			FPoint nx = FPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2);
+			double scaleAdjust = m_view->visibleCanvas().width() / qMax(geom.width(), m_canvas->scaledLineWidth());
 			m_view->zoomRelative(nx.x(), nx.y(), scaleAdjust, false);
 			m_canvas->hideRectangleSelection();
 			if (qAbs(scaleAdjust - 1) < 0.001)

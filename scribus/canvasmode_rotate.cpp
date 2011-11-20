@@ -337,7 +337,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			if (currItem->asLine())
-				m_view->updateContents();
+				m_view->updateCanvas();
 		}
 	}
 	m_doc->RotMode  = m_oldRotMode;
@@ -356,7 +356,8 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			double delta = 5 * m_canvas->scaledLineWidth();
+			m_view->updateCanvas(QRectF(x-delta, y-delta, w+2*delta, h+2*delta));
 		}
 		// Handled normally automatically by Selection in sendSignals()
 		/*else

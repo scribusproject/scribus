@@ -317,8 +317,8 @@ QRect Canvas::exposedRect() const
 {
 	int ex ( -(x() / m_viewMode.m_scale) + m_doc->minCanvasCoordinate.x() );
 	int ey ( -(y() / m_viewMode.m_scale) + m_doc->minCanvasCoordinate.y() );
-	int ew ( (m_view->visibleWidth() * 1.2) / m_viewMode.m_scale );
-	int eh ( (m_view->visibleHeight() * 1.2) / m_viewMode.m_scale );
+	int ew ( (m_view->viewport()->size().width() * 1.2) / m_viewMode.m_scale );
+	int eh ( (m_view->viewport()->size().height() * 1.2) / m_viewMode.m_scale );
 	
 	return QRect( ex, ey, ew, eh );
 }
@@ -2361,7 +2361,7 @@ void Canvas::displayRotHUD(QPoint m, double rot)
 
 void Canvas::displayRectangleSelection(QPoint start, QPoint end)
 {
-	m_rectangleSelection->setGeometry(QRect(start, end).normalized());
+	m_rectangleSelection->setGeometry(QRect(m_view->mapFromGlobal(start), m_view->mapFromGlobal(end)).normalized());
 	if (!m_rectangleSelection->isVisible())
 		m_rectangleSelection->show();
 	m_haveRectangleSelection = true;
@@ -2383,7 +2383,8 @@ bool Canvas::haveRectangleSelection() const
 
 QRect Canvas::getRectangleSelection() const
 {
-	return m_rectangleSelection->geometry().normalized();
+	QPoint globalPos = m_view->mapToGlobal(m_rectangleSelection->pos());
+	return QRect(globalPos, m_rectangleSelection->size());
 }
 
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)

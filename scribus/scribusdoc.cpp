@@ -9624,10 +9624,10 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	Guides::iterator it;
 	uint yg = 0;
 	uint xg = 0;
-	double viewScale=m_View->scale();
+	double guideRad=m_View->m_canvas->scaledGuideRadius();
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (fabs((*it) + page->yOffset() - yin) < (guidesSettings.guideRad / viewScale))
+		if (fabs((*it) + page->yOffset() - yin) < guideRad)
 			tmpGuidesSel.insert(fabs((*it) + page->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
@@ -9639,7 +9639,7 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (fabs((*it) + page->xOffset() - xin) < (guidesSettings.guideRad / viewScale))
+		if (fabs((*it) + page->xOffset() - xin) < guideRad)
 			tmpGuidesSel.insert(fabs((*it) + page->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
@@ -9653,7 +9653,7 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = page->guides.horizontals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (fabs((*it) + page->yOffset() - yin) < (guidesSettings.guideRad / viewScale))
+		if (fabs((*it) + page->yOffset() - yin) < guideRad)
 			tmpGuidesSel.insert(fabs((*it) + page->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
@@ -9665,7 +9665,7 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = page->guides.verticals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (fabs((*it) + page->xOffset() - xin) < (guidesSettings.guideRad / viewScale))
+		if (fabs((*it) + page->xOffset() - xin) < guideRad)
 			tmpGuidesSel.insert(fabs((*it) + page->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
@@ -9755,23 +9755,23 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 			*y = yout+page->yOffset();
 			ret = true;
 		}
-		double invViewScale=1/m_View->scale();
-		if (fabs(page->Margins.Left + page->xOffset() - *x) < (guidesSettings.guideRad * invViewScale))
+		double guideRad = m_View->m_canvas->scaledGuideRadius();
+		if (fabs(page->Margins.Left + page->xOffset() - *x) < guideRad)
 		{
 			*x = page->Margins.Left+page->xOffset();
 			ret = true;
 		}
-		if (fabs((page->width() - page->Margins.Right) + page->xOffset() - *x) < (guidesSettings.guideRad * invViewScale))
+		if (fabs((page->width() - page->Margins.Right) + page->xOffset() - *x) < guideRad)
 		{
 			*x = page->width() - page->Margins.Right+page->xOffset();
 			ret = true;
 		}
-		if (fabs(page->Margins.Top + page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
+		if (fabs(page->Margins.Top + page->yOffset() - *y) < guideRad)
 		{
 			*y = page->Margins.Top+page->yOffset();
 			ret = true;
 		}
-		if (fabs((page->height() - page->Margins.Bottom)+page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
+		if (fabs((page->height() - page->Margins.Bottom)+page->yOffset() - *y) < guideRad)
 		{
 			*y = page->height() - page->Margins.Bottom+page->yOffset();
 			ret = true;
@@ -9797,7 +9797,7 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 	if ((currItem->xPos() != oldx) || (currItem->yPos() != oldy))
 		retw = true;
 	//FIXME: stop using m_View
-	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
+	//av: hm, not used: QRect oldR(currItem->getRedrawBounding(m_View->scale()));
 	setRedrawBounding(currItem);
 	currItem->OwnPage = OnPage(currItem);
 	return retw;

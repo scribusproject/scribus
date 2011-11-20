@@ -203,8 +203,9 @@ public:
 	qreal scaledGuideRadius() const;
 	QSizeF scaledQSizeF(QSizeF size) const;
 	void scaleAndTranslateQPainter(QPainter *p);
-	void mouseMoveScrollDeltas(qreal* dx, qreal *dx, QPointF& referencePoint, QMouseEvent* m);
+	void mouseMoveScrollDeltas(qreal* dx, qreal *dy, QPointF& referencePoint, QMouseEvent* m);
 	qreal zoomLevel() const;
+	qreal getScale() const { return m_viewMode.m_scale; } // try to avoid this!
 	
 private:
 	double scale() const { return m_viewMode.m_scale; }

@@ -110,7 +110,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		return;
 	QString tx = "";
 	double xl, frac;
-	double sc = currView->scale();
+	double sc = currView->getScale();
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
@@ -193,9 +193,9 @@ void Vruler::paintEvent(QPaintEvent *e)
 		}
 		// draw pixmap
 		p.save();
-		p.translate(0, -currView->contentsY());
+//		p.translate(0, -currView->contentsY());
 		p.scale(1.0/(SCALE+1), 1.0/SCALE);
-		p.drawPixmap(0, (where-2)*SCALE, pix);
+		p.drawPixmap(0, (whereToDraw-2)*SCALE, pix);
 		p.restore();
 		// repaint marks
 		p.setBrush(Qt::black);
@@ -211,7 +211,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		}
 #else
 		// draw slim marker
-		p.translate(0, -currView->contentsY());
+//		p.translate(0, -currView->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  5, whereToDraw, 16, whereToDraw, 5, whereToDraw, 0, whereToDraw+2, 0, whereToDraw-2);
@@ -239,7 +239,7 @@ double Vruler::ruleSpacing() {
 void Vruler::Draw(int where)
 {
 	// erase old marker
-	int currentCoor = where - currView->contentsY();
+	int currentCoor = where;// - currView->contentsY();
 	whereToDraw = where;
 	drawMark = true;
 	repaint(0, oldMark-3, 17, 6);
@@ -249,7 +249,7 @@ void Vruler::Draw(int where)
 
 void Vruler::unitChange()
 {
-	double sc = currView->scale();
+	double sc = currView->getScale();
 	cor=1;
 	int docUnitIndex=currDoc->unitIndex();
 	switch (docUnitIndex)

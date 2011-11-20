@@ -448,7 +448,7 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 
 void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 {
-	double savScale = view->scale();
+	double savScale = view->getScale();
 	view->setScale(1.0);
 	currentDoc->RePos = true;
 	QImage pgPix(10, 10, QImage::Format_ARGB32);

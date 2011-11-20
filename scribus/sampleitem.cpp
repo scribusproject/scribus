@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "sampleitem.h"
 //#include "sampleitem.moc"
+#include "canvas.h"
 #include "loremipsum.h"
 #include "scpainter.h"
 #include "scribusdoc.h"
@@ -14,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
+
 #include <QColor>
 #include <QString>
 #include <QCursor>
@@ -324,10 +326,10 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	if (m_Doc->view() != NULL)
 	{
-		sca = m_Doc->view()->scale();
-		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.DisScale);
+		sca = m_Doc->view()->m_canvas->getScale();
+		m_Doc->view()->m_canvas->setScale(1.0 * PrefsManager::instance()->appPrefs.DisScale);
 	}
-	painter->setZoomFactor(m_Doc->view()->scale());
+	painter->setZoomFactor(m_Doc->view()->m_canvas->getScale());
 
 	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
@@ -360,7 +362,7 @@ QPixmap SampleItem::getSample(int width, int height)
 		m_Doc->UsedFonts.remove(fontName);
 	}
 	if (m_Doc->view() != NULL)
-		m_Doc->view()->setScale(sca);
+		m_Doc->view()->m_canvas->setScale(sca);
 	m_Doc->appMode = userAppMode;
 //	m_Doc->docParagraphStyles.remove(tmpIndex);
 	UndoManager::instance()->setUndoEnabled(true);

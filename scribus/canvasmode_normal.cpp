@@ -343,7 +343,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				m_doc->DraggedElem = 0;
 				m_doc->DragElements.clear();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				m_view->updateContents();
+				m_view->updateCanvas();
 			}
 			return;
 		}
@@ -760,16 +760,17 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_canvas->hideRectangleSelection();
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
+		m_canvas->hideRectangleSelection();
 		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
+		m_canvas->hideRectangleSelection();
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
@@ -783,7 +784,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			m_canvas->m_viewMode.operItemResizing = false;
 			if (currItem->asLine())
-				m_view->updateContents();
+				m_view->updateCanvas();
 		}
 		if (m_canvas->m_viewMode.operItemMoving)
 		{
@@ -893,17 +894,20 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			//CB TODO And what if we have dragged to a new page. Items X&Y are not updated anyway now
 			//currItem->emitAllToGUI();
 			m_view->updatesOn(true);
-			m_view->updateContents();
+			m_view->updateCanvas();
 		}
 	}
 	//CB Drag selection performed here
 	if ((m_canvas->haveRectangleSelection()) && (!m_view->MidButt) &&
 		( (m_doc->m_Selection->count() == 0) || (shiftSelItems)))
 	{
-		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
-		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
-		QRectF canvasSele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
-		QRectF localSele  = m_canvas->canvasToLocal(canvasSele).normalized();
+		QRect globalSelection = m_canvas->getRectangleSelection();
+		QRectF canvasSele = m_canvas->globalToCanvas(globalSelection);
+		m_canvas->hideRectangleSelection();
+		//double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
+		//double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
+		//QRectF canvasSele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
+		//QRectF localSele  = m_canvas->canvasToLocal(canvasSele).normalized();
 		if (!m_doc->masterPageMode())
 		{
 			uint docPagesCount=m_doc->Pages->count();
@@ -922,7 +926,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					break;
 				}
 			}
-			m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+			m_view->updateRulers();
 		}
 		int docItemCount=m_doc->Items->count();
 		if (docItemCount != 0)
@@ -933,8 +937,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				PageItem* docItem = m_doc->Items->at(a);
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
-				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
-				if ((localSele.contains(apr2)) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+				//QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
+				if ((canvasSele.contains( docItem->getCurrentBoundingRect(docItem->lineWidth()) )) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);
@@ -949,10 +953,10 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				m_view->getGroupRectScreen(&x, &y, &w, &h);
 			}
 		}
-		m_canvas->hideRectangleSelection();
 		shiftSelItems = false;
-		m_view->updateContents();
+		m_view->updateCanvas();
 	}
+	m_canvas->hideRectangleSelection();
 	if (m_doc->appMode != modeEdit)
 	{
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
@@ -973,7 +977,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_canvas->m_viewMode.operItemMoving = false;
 			m_canvas->m_viewMode.operItemResizing = false;
-			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			double delta = 5*m_canvas->scaledLineWidth();
+			m_view->updateCanvas(QRectF(x-delta, y-delta, w+2*delta, h+2*delta));
 			m_ScMW->propertiesPalette->setXY(x,y);
 			m_ScMW->propertiesPalette->setBH(w,h);
 		}
@@ -1119,7 +1124,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				pageChanged = true;
 			}
 		}
-		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+		m_view->updateRulers();
 	}
 	
 	currItem = NULL;

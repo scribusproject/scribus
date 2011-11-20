@@ -80,7 +80,7 @@ public:
 #endif
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRectF e);
 	virtual void DrawObj_Post(ScPainter *p);
 	void drawOverflowMarker(ScPainter *p);
 	void drawUnderflowMarker(ScPainter *p);

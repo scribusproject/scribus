@@ -79,6 +79,7 @@ for which a new license (GPL+exception) is in place.
 #include "autoform.h"
 #include "basepointwidget.h"
 #include "bookmarkpalette.h"
+#include "canvas.h"
 #include "canvasmode.h"
 #include "charselect.h"
 #include "checkDocument.h"
@@ -1351,10 +1352,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			if (doc->m_Selection->count() == 0)
 			{
-				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
-				QPoint p(QCursor::pos() - mapToGlobal(QPoint(0,0)));
-				FPoint fp(p.x() / view->scale() + doc->minCanvasCoordinate.x(),
-				p.y() / view->scale() + doc->minCanvasCoordinate.y());
+				FPoint fp = view->m_canvas->globalToCanvas(QCursor::pos());
 				cmen = new ContextMenu(this, doc, fp.x(), fp.y());
 			}
 			else
@@ -2270,7 +2268,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 
-	tempView->setScale(prefsManager->displayScale());
+	tempView->resetZoom();
 	if (requiresGUI)
 	{
 		actionManager->connectNewViewActions(tempView);
@@ -2346,7 +2344,7 @@ void ScribusMainWindow::newView()
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	w->setMainWindow(this);
 	view = new ScribusView(w, this, doc);
-	view->setScale(prefsManager->displayScale());
+	view->resetZoom();
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
@@ -3928,7 +3926,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		w->setMainWindow(this);
 		view = new ScribusView(w, this, doc);
 		doc->setGUI(true, this, view);
-		view->setScale(prefsManager->displayScale());
+		view->resetZoom();
 		w->setView(view);
 		alignDistributePalette->setDoc(doc);
 		ActWin = w;
@@ -5867,13 +5865,14 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	else
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
 
-	if (finalZoomFactor == view->scale())
+	if (finalZoomFactor == view->m_canvas->getScale())
 		return;
 
-	int x = qRound(qMax(view->contentsX() / view->scale(), 0.0));
-	int y = qRound(qMax(view->contentsY() / view->scale(), 0.0));
-	int w = qRound(qMin(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
-	int h = qRound(qMin(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
+	QRectF visible = view->visibleCanvas();
+	int x = qRound(qMax(visible.x(), 0.0));
+	int y = qRound(qMax(visible.y(), 0.0));
+	int w = qRound(qMin(visible.width(), doc->currentPage()->width()));
+	int h = qRound(qMin(visible.height(), doc->currentPage()->height()));
 
 	if (zoomFactor == -200.0)
 		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), h / 2 + y);
@@ -7776,12 +7775,13 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 			ScribusWin* scw = (ScribusWin*) w;
 			if (oldDisplayScale != prefsManager->displayScale())
 			{
-				int x = qRound(qMax(scw->view()->contentsX() / scw->view()->scale(), 0.0));
-				int y = qRound(qMax(scw->view()->contentsY() / scw->view()->scale(), 0.0));
-				int w = qRound(qMin(scw->view()->visibleWidth() / scw->view()->scale(), scw->doc()->currentPage()->width()));
-				int h = qRound(qMin(scw->view()->visibleHeight() / scw->view()->scale(), scw->doc()->currentPage()->height()));
+				QRectF visible = scw->view()->visibleCanvas();
+				int x = qRound(qMax(visible.x(), 0.0));
+				int y = qRound(qMax(visible.y(), 0.0));
+				int w = qRound(qMin(visible.width(), scw->doc()->currentPage()->width()));
+				int h = qRound(qMin(visible.height(), scw->doc()->currentPage()->height()));
 				scw->view()->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-				scw->view()->zoom((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
+				scw->view()->zoomRelative(prefsManager->displayScale() / oldDisplayScale);
 			}
 			if (shadowChanged)
 				scw->view()->DrawNew();
@@ -8417,9 +8417,9 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 		else
 		{
 			storedPageNum = doc->currentPageNumber();
-			storedViewXCoor = view->contentsX();
-			storedViewYCoor = view->contentsY();
-			storedViewScale = view->scale();
+			storedViewXCoor = view->canvasOrigin().x();
+			storedViewYCoor = view->canvasOrigin().y();
+			storedViewScale = view->m_canvas->getScale();
 			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
 			//connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
 			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
@@ -8457,7 +8457,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 
 void ScribusMainWindow::manageMasterPagesEnd()
 {
-	view->setScale(storedViewScale);
+	view->m_canvas->setScale(storedViewScale);
 	view->hideMasterPage();
 	slotSelect();
 	scrActions["editMasterPages"]->setEnabled(true);
@@ -8495,7 +8495,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	ActWin->setMasterPagesPalette(NULL);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->reformPages(false);
-	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
+	view->setCanvasOrigin(storedViewXCoor, storedViewYCoor);
 	view->DrawNew();
 	pagePalette->Rebuild();
 //	if (outlinePalette->isVisible())

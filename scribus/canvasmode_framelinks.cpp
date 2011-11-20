@@ -257,7 +257,7 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 	{
-		m_view->updateContents();
+		m_view->updateCanvas();
 		if (!PrefsManager::instance()->appPrefs.stickyTools || m_doc->ElemToLink == 0)
 			m_view->requestMode(submodePaintingDone);
 		return;
@@ -316,7 +316,7 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 				break;
 			}
 		} */
-		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+		m_view->updateRulers();
 	}
 }
 
@@ -381,7 +381,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 				m_view->DrawNew();
 			}
 		}
-		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+		m_view->updateRulers();
 	}
 	
 	currItem = NULL;

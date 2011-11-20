@@ -160,9 +160,9 @@ void RulerGesture::mouseSelectGuide(QMouseEvent *m)
 
 void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 {
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	FPoint tmp = m_canvas->globalToCanvas(m->globalPos());
+	QPointF mousePointDoc = QPointF(tmp.x(), tmp.y());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	QRect viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), QSize(m_view->visibleWidth(), m_view->visibleHeight()));
 	QPoint newMousePoint = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
 	switch (m_mode)
 	{
@@ -175,7 +175,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				break;
 			m_canvas->update(0, m_xy.y()-2, m_canvas->width(), 4);
 			m_canvas->update(0, newMousePoint.y()-2, m_canvas->width(), 4);
-			if ((page >= 0) && (viewport.contains(m->globalPos())))
+			if ((page >= 0) && (m_view->visibleCanvas().contains(mousePointDoc)))
 			{
 				if (!m_haveGuide)
 				{
@@ -231,7 +231,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				break;
 			m_canvas->update(m_xy.x()-2, 0, 4, m_canvas->height());
 			m_canvas->update(newMousePoint.x()-2, 0, 4, m_canvas->height());
-			if ((page >= 0) && viewport.contains(m->globalPos()))
+			if ((page >= 0) && m_view->visibleCanvas().contains(mousePointDoc))
 			{
 				if (!m_haveGuide)
 				{

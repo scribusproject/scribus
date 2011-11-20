@@ -167,6 +167,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setWidgetResizable(false);
 	m_canvasMode = CanvasMode::createForAppMode(this, Doc->appMode);
 	setWidget(m_canvas);
+	resetZoom();
 	//already done by QScrollArea: widget()->installEventFilter(this);
 	installEventFilter(this); // FIXME:av
 //	viewport()->setBackgroundMode(Qt::PaletteBackground);
@@ -333,6 +334,7 @@ ScribusView::~ScribusView()
 		m_canvasMode = m_canvasMode->delegate();
 	}
 }
+
 
 void ScribusView::changeEvent(QEvent *e)
 {
@@ -2506,13 +2508,11 @@ void ScribusView::setRulerPos(int x, int y)
 		uint docPageCount=Doc->Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			int xs = static_cast<int>(Doc->Pages->at(a)->xOffset() / m_canvas->scaledLineWidth());
-			int ys = static_cast<int>(Doc->Pages->at(a)->yOffset() / m_canvas->scaledLineWidth());
-			int ws = static_cast<int>(Doc->Pages->at(a)->width() / m_canvas->scaledLineWidth());
-			int hs = static_cast<int>(Doc->Pages->at(a)->height() / m_canvas->scaledLineWidth());
-			QRect drawRect = QRect(x, y, visibleWidth(), visibleHeight());
+			QRectF pageRect(Doc->Pages->at(a)->xOffset(), Doc->Pages->at(a)->yOffset(),
+							Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height());
+			QRectF drawRect = visibleCanvas();
 //			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
-			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
+			if (drawRect.intersects(pageRect))
 				pag.append(a+1);
 		}
 		if (!pag.isEmpty())
@@ -2665,7 +2665,7 @@ void ScribusView::scrollCanvasBy(double deltaX, double deltaY)
 
 void ScribusView::ensureVisible ( int x, int y, int xmargin, int ymargin)
 {
-	double marginScale = 2 / scale();
+	double marginScale = 2 / m_canvas->scale();
 	FPoint tl = m_canvas->localToCanvas(QPoint(x-xmargin, y-ymargin));
 	ensureCanvasVisible(QRectF(tl.x(), tl.y(), xmargin*marginScale, ymargin*marginScale));
 }
@@ -4828,7 +4828,7 @@ void ScribusView::setScale(const double newScale)
 
 
 
-double ScribusView::scale() const
+double ScribusView::getScale() const
 {
 	return m_canvas->scale();
 }
@@ -4845,8 +4845,8 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		FPoint p = m_canvas->localToCanvas(QPoint(m->x(),m->y()));
 		emit MousePos(p.x(),p.y());
-		horizRuler->Draw(m->x() + qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
-		vertRuler->Draw(m->y() + qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
+		horizRuler->Draw(m->x());// + qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
+		vertRuler->Draw(m->y()); // + qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 		m_canvasMode->mouseMoveEvent(m);
 		return true;
 	}
@@ -4940,8 +4940,8 @@ void ScribusView::repaintContents(QRect box)
 void ScribusView::resizeContents(int w, int h)  // deprecated
 {
 //	qDebug() << "ScribusView::resizeContents(" << w << "," << h << ")";
-	int originX = qRound(Doc->minCanvasCoordinate.x() * scale());
-	int originY = qRound(Doc->minCanvasCoordinate.y() * scale());
+	int originX = qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale());
+	int originY = qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale());
 	widget()->resize(w - 0*originX, h - 0*originY);
 }
 
@@ -4957,13 +4957,13 @@ QPoint ScribusView::viewportToContents(QPoint p) // deprecated
 
 int ScribusView::contentsX() // deprecated
 {
-	int originX = qRound(Doc->minCanvasCoordinate.x() * scale());
+	int originX = qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale());
 	return horizontalScrollBar()->value() + originX;
 }
 
 int ScribusView::contentsY() // deprecated
 {
-	int originY = qRound(Doc->minCanvasCoordinate.y() * scale());
+	int originY = qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale());
 	return verticalScrollBar()->value() + originY;
 }
 
@@ -4997,6 +4997,12 @@ void ScribusView::scrollBy(int x, int y) // deprecated
 }
 
 
+void ScribusView::zoomRelative(double scaleR)
+{
+	zoom(scaleR * m_canvas->scale());
+}
+
+
 void ScribusView::zoom(double scale)
 {
 	double zPointX = oldX, zPointY = oldY;
@@ -5018,6 +5024,12 @@ void ScribusView::zoomRelative(int canvasX, int canvasY, double scaleR, bool pre
 }
 
 
+void ScribusView::resetZoom()
+{
+	m_canvas->setScale(Prefs->DisScale);
+}
+
+
 void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)
 {
 	QPoint canvasPoint;
@@ -5025,7 +5037,7 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 	double newScale    = (scale > 32*Prefs->DisScale) ? (32*Prefs->DisScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
-	setScale(newScale);
+	m_canvas->setScale(newScale);
 	QPoint localPoint = m_canvas->canvasToLocal( QPointF(canvasX, canvasY) );
 	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
 	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());

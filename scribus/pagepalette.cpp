@@ -643,9 +643,8 @@ void PagePalette::deleteMasterPage(QString tmp)
 	{
 		bool oldMPMode = currView->Doc->masterPageMode();
 		int  storedPageNum = currView->Doc->currentPageNumber();
-		int  storedViewXCoor = currView->horizontalScrollBar()->value();
-		int  storedViewYCoor = currView->verticalScrollBar()->value();
-
+		FPoint storedCanvasOrigin = currView->canvasOrigin();
+		
 		currView->Doc->setMasterPageMode(true);
 		currView->Doc->scMW()->DeletePage2(currView->Doc->MasterNames[tmp]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
@@ -658,7 +657,7 @@ void PagePalette::deleteMasterPage(QString tmp)
 
 		currView->Doc->setCurrentPage(currView->Doc->DocPages.at(storedPageNum));
 		currView->reformPages(false);
-		currView->setContentsPos(storedViewXCoor, storedViewYCoor);
+		currView->setCanvasOrigin(storedCanvasOrigin.x(), storedCanvasOrigin.y());
 		currView->DrawNew();
 	}
 }

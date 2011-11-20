@@ -818,7 +818,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			m_canvas->m_viewMode.operItemResizing = false;
 			if (currItem->asLine())
-				m_view->updateContents();
+				m_view->updateCanvas();
 		}
 		if (m_canvas->m_viewMode.operItemMoving)
 		{
@@ -907,7 +907,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			//CB TODO And what if we have dragged to a new page. Items X&Y are not updated anyway now
 			//currItem->emitAllToGUI();
 			m_view->updatesOn(true);
-			m_view->updateContents();
+			m_view->updateCanvas();
 		}
 	}
 	//CB Drag selection performed here
@@ -930,7 +930,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 					break;
 				}
 			}
-			m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+			m_view->updateRulers();
 		}
 		int docItemCount=m_doc->Items->count();
 		if (docItemCount != 0)
@@ -961,7 +961,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		m_canvas->hideRectangleSelection();
-		m_view->updateContents();
+		m_view->updateCanvas();
 	}
 	if (GetItem(&currItem))
 	{
@@ -972,7 +972,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_canvas->m_viewMode.operItemMoving = false;
 			m_canvas->m_viewMode.operItemResizing = false;
-			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			double delta = 5 * m_canvas->scaledLineWidth();
+			m_view->updateCanvas(QRectF(x-delta, y-delta, w+2*delta, h+2*delta));
 		}
 		/*else
 			currItem->emitAllToGUI();*/
@@ -1070,7 +1071,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 				m_view->DrawNew();
 			}
 		}
-		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+		m_view->updateRulers();
 	}
 	
 	currItem = NULL;

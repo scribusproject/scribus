@@ -92,17 +92,19 @@ class SCRIBUS_API ScribusView : public QScrollArea, public Observer<QRectF>
 public:
     ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
     ~ScribusView();
-	
+/*	
 	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;
-	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_Normal;
-	friend class CanvasMode_ObjImport;
+
 	friend class CanvasMode_Rotate;
+	*/
+	friend class CanvasMode_NodeEdit;  // uses protected slots
+	friend class CanvasMode_ObjImport; // uses ScribusView::contentsDropEvent()
 	
 	void requestMode(int appMode);
 	void startGesture(CanvasGesture*);
@@ -228,11 +230,10 @@ public:
 							   Selection* customSelection = 0);
 	void endGroupTransaction();
 	void cancelGroupTransaction();
-	void setScale(const double newScale);
-	double scale() const;
 
 	virtual void changed(QRectF re, bool);
 
+	void updateRulers() { setRulerPos(contentsX(), contentsY()); }
 	void updateCanvas(QRectF box = QRectF());
 	void updateCanvasItem(PageItem* item);
 	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }
@@ -253,7 +254,6 @@ private:
 	void resizeContents(int w, int h);
 	QPoint contentsToViewport(QPoint p);
 	QPoint viewportToContents(QPoint p);
-public: // for now
 	int contentsX();
 	int contentsY();
 	int contentsWidth();
@@ -261,12 +261,17 @@ public: // for now
 	void setContentsPos(int x, int y);
 	int visibleWidth() { return viewport()->size().width(); } ;
 	int visibleHeight() { return viewport()->size().height(); } ;
+public:
 	void stopAllDrags();
 	void scrollBy(int x, int y);
+	void resetZoom();
 	void zoom(double scale = 0.0);
-	void zoomRelative(int canvasX, int canvasY, double scaleR, bool preservePoint);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
-
+	void zoomRelative(double scaleR);
+	void zoomRelative(int canvasX, int canvasY, double scaleR, bool preservePoint);
+	void setScale(double);
+	double getScale() const;
+	
 public slots: // Public slots
 	void languageChange();
 	void toggleCMS();
@@ -356,9 +361,11 @@ private slots:
 	 */
 	void setRulerPos(int x, int y);
 	void selectionChanged();
+	void dragTimerTimeOut();
+
+public slots:
 	void setObjectUndoMode();
 	void setGlobalUndoMode();
-	void dragTimerTimeOut();
 
 public:
 	virtual void wheelEvent ( QWheelEvent *ev );

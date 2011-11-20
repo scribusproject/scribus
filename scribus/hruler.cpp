@@ -113,12 +113,12 @@ double Hruler::textPosToCanvas(double x) const
  
 int Hruler::textPosToLocal(double x) const
 {
-	return qRound(textPosToCanvas(x) * Scaling) - currView->contentsX();
+	return currView->m_canvas->canvasToLocal(FPoint(textPosToCanvas(x), 0)).x();
 }
  
 double Hruler::localToTextPos(int x) const
 {
-	return ((x + currView->contentsX()) / Scaling - textBase());
+	return currView->m_canvas->localToCanvas(QPoint(x,0)).x() - textBase();
 }
  
 void Hruler::shift(double pos)
@@ -496,8 +496,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 	if (currDoc->isLoading())
 		return;
 	QString tx = "";
-	double sc = currView->scale();
-	Scaling = sc;
+	Scaling = currView->m_canvas->getScale();
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
@@ -652,9 +651,9 @@ void Hruler::drawMarker(QPainter& p)
 	}
 	// draw pixmap
 	p.save();
-	p.translate(-currView->contentsX(), 0);
+//	p.translate(-currView->contentsX(), 0);
 	p.scale(1.0/SCALE, 1.0/(SCALE+1));
-	p.drawPixmap((where-2)*SCALE, 1, pix);
+	p.drawPixmap((whereToDraw-2)*SCALE, 1, pix);
 	p.restore();
 	// restore marks
 	p.setBrush(Qt::black);
@@ -671,7 +670,7 @@ void Hruler::drawMarker(QPainter& p)
 #else
 	// draw slim marker
 	p.resetTransform();
-	p.translate(-currView->contentsX(), 0);
+//	p.translate(-currView->contentsX(), 0);
 	p.setPen(Qt::red);
 	p.setBrush(Qt::red);
 	cr.setPoints(5, whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
@@ -855,7 +854,7 @@ double Hruler::ruleSpacing() {
 void Hruler::Draw(int where)
 {
 	// erase old marker
-	int currentCoor = where - currView->contentsX();
+	int currentCoor = where;
 	whereToDraw = where;
 	drawMark = true;
 	repaint(oldMark-3, 0, 7, 17);
@@ -924,7 +923,7 @@ void Hruler::UpdateTabList()
 
 void Hruler::unitChange()
 {
-	double sc = currView->scale();
+	double sc = currView->m_canvas->getScale();
 	cor=1;
 	int docUnitIndex=currDoc->unitIndex();
 	switch (docUnitIndex)

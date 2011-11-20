@@ -277,7 +277,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 				m_view->DrawNew();
 			}
 		}
-		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+		m_view->updateRulers();
 	}
 	
 	currItem = NULL;

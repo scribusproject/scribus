@@ -71,7 +71,7 @@ void PageItem_PathText::layout()
 }
 
 
-void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
+void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 {
 	itemText.invalidateAll();
 	firstChar = 0;
