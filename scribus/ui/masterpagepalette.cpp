@@ -33,12 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "util_icon.h"
 
-MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
-#if QT_VERSION >= 0x040500
-	: QDialog( parent, Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint)
-#else
-	: QDialog( parent, Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint | Qt::WindowType(0x08000000))
-#endif
+MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName) : ScrPaletteBase( parent, "MasterPages", false, 0 )
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 	setModal(false);
@@ -112,6 +107,7 @@ void MasterPagesPalette::reject()
 void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 {
 	emit finished();
+	hide();
 	closeEvent->accept();
 }
 

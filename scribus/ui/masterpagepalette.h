@@ -7,8 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef MUSTERPAGES_H
 #define MUSTERPAGES_H
 
-#include <QDialog>
-
 class QCloseEvent;
 class QHBoxLayout;
 class QListWidget;
@@ -17,13 +15,14 @@ class QToolButton;
 class QVBoxLayout;
 
 #include "scribusapi.h"
+#include "scrpalettebase.h"
 class ScribusDoc;
 class ScribusView;
 
 
 /*! \brief A dialog to manage/edit Master Pages
 */
-class SCRIBUS_API MasterPagesPalette : public QDialog
+class SCRIBUS_API MasterPagesPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
