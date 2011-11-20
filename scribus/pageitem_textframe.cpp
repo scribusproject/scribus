@@ -1440,7 +1440,6 @@ void PageItem_TextFrame::layout()
 						DropLines = style.dropCapLines();
 						DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
 //						qDebug() << QString("dropcapdrop: y=%1+%2").arg(current.yPos).arg(DropCapDrop);
-						current.yPos += DropCapDrop;
 					}
 				}
 			}
