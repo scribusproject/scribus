@@ -33,6 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include "canvasgesture_rulermove.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
+#include "scraction.h"
+#include "scribus.h"
 
 #include "util_icon.h"
 
@@ -80,6 +82,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		QMenu *pmen2 = NULL;
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
+		pmen->addAction(currView->Doc->scMW()->scrActions["viewRulerMode"]);
 		if (currView->Doc->guidesPrefs().rulerMode)
 		{
 			pmen2 = new QMenu();
