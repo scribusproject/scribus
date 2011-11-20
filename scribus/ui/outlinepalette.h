@@ -84,6 +84,7 @@ public slots:
 signals:
 	void ToggleAllPalettes();
 	void selectElementByItem(PageItem *, bool);
+	void editElementByItem(PageItem *);
 	void selectPage(int);
 	void selectMasterPage(QString);
 
@@ -92,6 +93,7 @@ protected slots:
 	void slotDoRename(QTreeWidgetItem* ite, int col);
 	void slotMultiSelect();
 	void slotSelect(QTreeWidgetItem* ite, int col);
+	void slotDoubleClick(QTreeWidgetItem* ite, int col);
 protected:
 	void filterTree();
 	void clearPalette();

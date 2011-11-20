@@ -433,6 +433,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 	connect(filterEdit, SIGNAL(textChanged(const QString&)), this, SLOT(filterTree(const QString&)));
 //	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
+	connect(reportDisplay, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotDoubleClick(QTreeWidgetItem*, int)));
 }
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
@@ -905,7 +906,7 @@ void OutlinePalette::slotMultiSelect()
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 }
 
-void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
+void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
@@ -950,6 +951,31 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 	selectionTriggered = false;
 }
 
+void OutlinePalette::slotDoubleClick(QTreeWidgetItem* ite, int)
+{
+	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
+		return;
+	OutlineTreeItem *item = (OutlineTreeItem*)ite;
+	PageItem *pgItem = NULL;
+	switch (item->type)
+	{
+		case 1:
+			if (!currDoc->masterPageMode())
+				emit selectMasterPage(item->PageItemObject->OnMasterPage);
+			pgItem = item->PageItemObject;
+			emit editElementByItem(pgItem);
+			break;
+		case 3:
+		case 4:
+			pgItem = item->PageItemObject;
+			m_MainWindow->closeActiveWindowMasterPageEditor();
+			emit editElementByItem(pgItem);
+			break;
+		default:
+			break;
+	}
+}
+
 void OutlinePalette::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
@@ -992,7 +1018,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 				object->type = 3;
 				object->setText(0, pgItem->itemName());
 				setItemIcon(object, pgItem);
-				object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+				object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 			}
 			else
 			{
@@ -1003,7 +1029,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 				object->type = 3;
 				object->setText(0, pgItem->itemName());
 				object->setIcon( 0, groupIcon );
-				object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
+				object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
 				parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->Pages->at(0));
 			}
 		}
@@ -1033,7 +1059,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						object->type = 1;
 						object->setText(0, pgItem->itemName());
 						setItemIcon(object, pgItem);
-						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					}
 					else
 					{
@@ -1044,7 +1070,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 						object->type = 1;
 						object->setText(0, pgItem->itemName());
 						object->setIcon( 0, groupIcon );
-						object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+						object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 						parseSubGroup(object, &pgItem->groupItemList, 1, currDoc->MasterPages.at(a));
 					}
 				}
@@ -1096,7 +1122,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 						}
 						else
 						{
@@ -1107,7 +1133,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
 							parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->DocPages.at(a));
 						}
 					}
@@ -1131,7 +1157,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 						}
 						else
 						{
@@ -1142,7 +1168,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 3;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
 							parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->DocPages.at(a));
 						}
 					}
@@ -1192,7 +1218,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 						}
 						else
 						{
@@ -1203,7 +1229,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 							parseSubGroup(object, &pgItem->groupItemList, 4, NULL);
 						}
 					}
@@ -1225,7 +1251,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							setItemIcon(object, pgItem);
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 						}
 						else
 						{
@@ -1236,7 +1262,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 							object->type = 4;
 							object->setText(0, pgItem->itemName());
 							object->setIcon( 0, groupIcon );
-							object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+							object->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 							parseSubGroup(object, &pgItem->groupItemList, 4, NULL);
 						}
 					}
@@ -1302,10 +1328,9 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 			grp->setText(0, pgItem->itemName());
 			setItemIcon(grp, pgItem);
 			if (itemType == 3)
-				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+				grp->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 			else
-				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-//			grp->setFlags(Qt::ItemIsEnabled);
+				grp->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 		}
 		else
 		{
@@ -1317,10 +1342,9 @@ void OutlinePalette::parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *su
 			grp->setText(0, pgItem->itemName());
 			grp->setIcon( 0, groupIcon );
 			if (itemType == 3)
-				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
+				grp->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
 			else
-				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-//			grp->setFlags(Qt::ItemIsEnabled);
+				grp->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 			parseSubGroup(grp, &pgItem->groupItemList, itemType, a);
 		}
 	}

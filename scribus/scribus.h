@@ -485,8 +485,9 @@ public slots:
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);
 	void setAlignmentValue(int a);
+	void editItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(PageItem *ite, bool single = false);
-	void selectItemsFromOutlines(int ScPage, int Item, bool single = false);
+//	void selectItemsFromOutlines(int ScPage, int Item, bool single = false);
 	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();
 	void printPreview();

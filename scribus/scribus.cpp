@@ -587,6 +587,7 @@ void ScribusMainWindow::initPalettes()
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 //	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
+	connect(outlinePalette, SIGNAL(editElementByItem(PageItem *)), this, SLOT(editItemsFromOutlines(PageItem *)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(propertiesPalette->textPal->paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewParStyle(const QString&)));
@@ -7498,6 +7499,76 @@ void ScribusMainWindow::duplicateItemMulti()
 	delete dia;
 }
 
+void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
+{
+	if (ite->locked())
+		return;
+	if (doc->m_Selection->count() != 0)
+	{
+		if (doc->m_Selection->itemAt(0) != ite)
+		{
+			if (ite->isGroup())
+				selectItemsFromOutlines(ite, true);
+			else
+				selectItemsFromOutlines(ite, false);
+		}
+	}
+	if (ite->asLatexFrame())
+	{
+		if (ite->imageShown())
+			view->requestMode(modeEdit);
+	}
+#ifdef HAVE_OSG
+	else if (ite->asOSGFrame())
+		view->requestMode(submodeEditExternal);
+#endif
+	else if ((ite->itemType() == PageItem::Polygon) || (ite->itemType() == PageItem::PolyLine) || (ite->itemType() == PageItem::Group) || (ite->itemType() == PageItem::ImageFrame) || (ite->itemType() == PageItem::PathText))
+	{
+		if (ite->itemType() == PageItem::ImageFrame)
+		{
+			if (ite->Pfile.isEmpty())
+				view->requestMode(submodeLoadPic);
+			else if (!ite->PictureIsAvailable)
+				view->requestMode(submodeStatusPic);
+			else if (ite->imageShown())
+				view->requestMode(modeEdit);
+		}
+		else if (ite->itemType() == PageItem::TextFrame)
+			view->requestMode(modeEdit);
+		else
+		{
+			view->requestMode(modeEditClip);
+			scrActions["itemUngroup"]->setEnabled(false);
+			propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
+		}
+	}
+	else if (ite->itemType() == PageItem::TextFrame)
+	{
+		if (ite->isAnnotation())
+		{
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			view->requestMode(submodeAnnotProps);
+		}
+		else if (doc->appMode != modeEdit)
+		{
+			view->requestMode(modeEdit);
+		}
+	}
+	else if (ite->asSymbolFrame())
+	{
+		if (!doc->symbolEditMode())
+			view->requestMode(submodeEditSymbol);
+	}
+	else if (ite->asArc())
+		view->requestMode(modeEditArc);
+	else if (ite->asRegularPolygon())
+		view->requestMode(modeEditPolygon);
+	else if (ite->asSpiral())
+		view->requestMode(modeEditSpiral);
+	else if (ite->asTable())
+		view->requestMode(modeEditTable);
+}
+
 void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
@@ -7534,7 +7605,7 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 		}
 	}
 }
-
+/*
 void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
@@ -7581,7 +7652,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 		}
 	}
 }
-
+*/
 void ScribusMainWindow::selectPagesFromOutlines(int Page)
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
