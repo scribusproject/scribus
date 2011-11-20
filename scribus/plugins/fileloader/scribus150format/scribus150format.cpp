@@ -1989,6 +1989,7 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 			doc->guidesPrefs().renderStackOrder << val.toInt();
 		}
 	}
+	doc->guidesPrefs().gridType = attrs.valueAsInt("GridType", 0);
 	doc->guidesPrefs().guideRad = attrs.valueAsDouble("GuideRad", 10.0);
 	doc->guidesPrefs().grabRadius  = attrs.valueAsInt("GRAB", 4);
 }

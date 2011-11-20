@@ -429,6 +429,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->guidesPrefs().renderStackOrder << 0 << 1 << 2 << 3 << 4;
 		else
 			m_Doc->guidesPrefs().renderStackOrder << 4 << 0 << 1 << 2 << 3;
+		m_Doc->guidesPrefs().gridType = 0;
 		m_Doc->guidesPrefs().guideRad = ScCLocale::toDoubleC(dc.attribute("GuideRad"), 10.0);
 		m_Doc->guidesPrefs().grabRadius  = dc.attribute("GRAB", "4").toInt();
 		if (dc.hasAttribute("currentProfile"))

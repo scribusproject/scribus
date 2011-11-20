@@ -31,6 +31,7 @@ Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	connect(buttonUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(buttonDown, SIGNAL(clicked()), this, SLOT(moveDown()));
 	connect(guidePlacementListBox, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(select(QListWidgetItem*)));
+	connect(visibilityGridCheckBox, SIGNAL(clicked()), this, SLOT(gridClicked()));
 }
 
 Prefs_Guides::~Prefs_Guides()
@@ -58,6 +59,11 @@ void Prefs_Guides::languageChange()
 		item->setData(Qt::UserRole, it);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
+	int grTy = gridTypeCombo->currentIndex();
+	gridTypeCombo->clear();
+	gridTypeCombo->addItem( tr("Lines"));
+	gridTypeCombo->addItem( tr("Crosses and Dots"));
+	gridTypeCombo->setCurrentIndex(grTy);
 	guidePlacementListBox->setToolTip( tr( "Place guides in front of or behind objects on the page" ) );
 	minorGridSpacingSpinBox->setToolTip( tr( "Distance between the minor grid lines" ) );
 	majorGridSpacingSpinBox->setToolTip( tr( "Distance between the major grid lines" ) );
@@ -120,6 +126,7 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	visibilityGridCheckBox->setChecked(prefsData->guidesPrefs.gridShown);
 	visibilityBaselineGridCheckBox->setChecked(prefsData->guidesPrefs.baselineGridShown);
 
+	gridTypeCombo->setCurrentIndex(prefsData->guidesPrefs.gridType);
 	majorGridSpacingSpinBox->setValue(prefsData->guidesPrefs.majorGridSpacing * unitRatio);
 	minorGridSpacingSpinBox->setValue(prefsData->guidesPrefs.minorGridSpacing * unitRatio);
 	baselineGridSpacingSpinBox->setValue(prefsData->guidesPrefs.valueBaselineGrid);
@@ -151,6 +158,7 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	colorBaselineGrid = prefsData->guidesPrefs.baselineGridColor;
 	baselineGridColorPushButton->setText( QString::null );
 	baselineGridColorPushButton->setIcon(pm);
+	gridTypeCombo->setEnabled(visibilityGridCheckBox->isChecked());
 }
 
 void Prefs_Guides::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -172,6 +180,7 @@ void Prefs_Guides::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->guidesPrefs.majorGridColor=colorMajorGrid;
 	prefsData->guidesPrefs.minorGridColor=colorMinorGrid;
 	prefsData->guidesPrefs.baselineGridColor=colorBaselineGrid;
+	prefsData->guidesPrefs.gridType = gridTypeCombo->currentIndex();
 }
 
 void Prefs_Guides::changeMajorColor()
@@ -300,4 +309,9 @@ void Prefs_Guides::select(QListWidgetItem* item)
 		buttonUp->setEnabled(true);
 		buttonDown->setEnabled(true);
 	}
+}
+
+void Prefs_Guides::gridClicked()
+{
+	gridTypeCombo->setEnabled(visibilityGridCheckBox->isChecked());
 }

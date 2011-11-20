@@ -213,11 +213,17 @@ public:
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
 private:
+	void DrawPageBorderSub(ScPainter *p, ScPage *page);
 	void DrawPageBorder(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageMarginsGridSub(ScPainter *p, ScPage *page);
 	void DrawPageMargins(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageBaselineGridSub(ScPainter *p, ScPage *page);
 	void DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageGridSub(ScPainter *p, ScPage *page, QRectF clip);
 	void DrawPageGrid(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageGuidesSub(ScPainter *p, ScPage *page);
 	void DrawPageGuides(ScPainter *p, QRectF clip, bool master = false);
+	void DrawPageIndicatorSub(ScPainter *p, ScPage *page);
 	void DrawPageIndicator(ScPainter *p, QRectF clip, bool master = false);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	void PaintSizeRect(QRect neu);

@@ -38,6 +38,7 @@ class SCRIBUS_API Prefs_Guides : public Prefs_Pane, Ui::Prefs_Guides
 		virtual void moveUp();
 		virtual void moveDown();
 		virtual void select(QListWidgetItem* item);
+		virtual void gridClicked();
 
 	protected:
 		QColor colorGuides;

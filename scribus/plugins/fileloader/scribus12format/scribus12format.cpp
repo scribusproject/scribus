@@ -803,6 +803,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->guidesPrefs().showControls = false;
 		m_Doc->guidesPrefs().renderStackOrder.clear();
 		m_Doc->guidesPrefs().renderStackOrder << 0 << 1 << 2 << 3 << 4;
+		m_Doc->guidesPrefs().gridType = 0;
 // 		DoFonts.clear();
 		m_Doc->itemToolPrefs().textSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");

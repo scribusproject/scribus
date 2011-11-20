@@ -183,6 +183,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.guideColor = QColor(Qt::darkBlue);
 	appPrefs.guidesPrefs.baselineGridColor = QColor(Qt::lightGray);
 	appPrefs.guidesPrefs.renderStackOrder << 0 << 1 << 2 << 3 << 4;
+	appPrefs.guidesPrefs.gridType = 0;
 	appPrefs.typoPrefs.valueSuperScript = 33;
 	appPrefs.typoPrefs.scalingSuperScript = 66;
 	appPrefs.typoPrefs.valueSubScript = 33;
@@ -1347,6 +1348,7 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	renderStack = renderStack.trimmed();
 	deGuides.setAttribute("renderStack", renderStack);
+	deGuides.setAttribute("GridType", appPrefs.guidesPrefs.gridType);
 	deGuides.setAttribute("ShowGrid", static_cast<int>(appPrefs.guidesPrefs.gridShown));
 	deGuides.setAttribute("BaselineGridDistance", ScCLocale::toQStringC(appPrefs.guidesPrefs.valueBaselineGrid));
 	deGuides.setAttribute("BaselineGridOffset", ScCLocale::toQStringC(appPrefs.guidesPrefs.offsetBaselineGrid));
@@ -1997,6 +1999,7 @@ bool PrefsManager::ReadPref(QString ho)
 					appPrefs.guidesPrefs.renderStackOrder << val.toInt();
 				}
 			}
+			appPrefs.guidesPrefs.gridType = dc.attribute("GridType", "0").toInt();
 			appPrefs.guidesPrefs.gridShown = static_cast<bool>(dc.attribute("ShowGrid", "0").toInt());
 			if (dc.hasAttribute("GuideC"))
 				appPrefs.guidesPrefs.guideColor = QColor(dc.attribute("GuideC"));

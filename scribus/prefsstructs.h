@@ -140,6 +140,9 @@ struct GuidesPrefs
 	// render stack id 2 = Grid
 	// render stack id 3 = Guides
 	// render stack id 4 = Items
+	int gridType;
+	// type 0 lines
+	// type 1 crosses and dots
 
 	int grabRadius;
 	double guideRad;

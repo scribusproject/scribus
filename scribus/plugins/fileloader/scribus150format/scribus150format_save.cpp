@@ -338,6 +338,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 		renderStack += QString("%1 ").arg(m_Doc->guidesPrefs().renderStackOrder[r]);
 	}
 	docu.writeAttribute("renderStack", renderStack.trimmed());
+	docu.writeAttribute("GridType", m_Doc->guidesPrefs().gridType);
 	docu.writeAttribute("PAGEC",m_Doc->paperColor().name());
 	docu.writeAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
 	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored()));
