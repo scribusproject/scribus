@@ -48,6 +48,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	documentStr.reserve(524288);
 	ScXmlStreamWriter writer(&documentStr);
 	writer.setAutoFormatting(true);
+//	writer.writeStartDocument();
 	writer.writeStartElement("SCRIBUSELEMUTF8");
 	writer.writeAttribute("XP", xp);
 	writer.writeAttribute("YP", yp);
@@ -103,9 +104,9 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	writePatterns(writer, fileDir, true, selection);
 	WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionElements, &emG);
 	writer.writeEndElement();
-	writer.writeEndDocument();
+//	writer.writeEndDocument();
 	documentStr.squeeze();
-	return documentStr;
+	return documentStr.trimmed();
 }
 
 bool Scribus150Format::savePalette(const QString & fileName)
