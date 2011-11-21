@@ -1435,6 +1435,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\propertywidget_dropcap.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_flop.cpp"
 				>
 			</File>
@@ -6120,6 +6124,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\propertywidget_dropcap.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_flop.h"
 				>
 				<FileConfiguration
@@ -8601,6 +8623,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\ui_propertywidget_dropcapbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\ui_propertywidget_flopbase.h"
 				>
 			</File>
@@ -9490,6 +9516,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\moc_propertywidget_dropcap.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\moc_propertywidget_flop.cpp"
 				>
 			</File>
@@ -10160,6 +10190,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_distancebase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\propertywidget_dropcapbase.ui"
 				>
 			</File>
 			<File
