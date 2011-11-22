@@ -1384,7 +1384,7 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		if (!m_unsupportedFeatures.contains(STag))
 		{
 			m_unsupportedFeatures.insert(STag, STag);
-			qDebug() << QString("unsupported SVG feature: %1").arg(STag);
+	//		qDebug() << QString("unsupported SVG feature: %1").arg(STag);
 			unsupported = true;
 		}
 	}
