@@ -9839,11 +9839,12 @@ void ScribusMainWindow::PutToPatterns()
 	if (doc->docPatterns.contains(patternName))
 		doc->docPatterns.remove(patternName);
 	doc->addPattern(patternName, pat);
-	double x = currItem->xPos();
-	double y = currItem->yPos();
-	double w = currItem->width();
-	double h = currItem->height();
+	double x = currItem->visualXPos();
+	double y = currItem->visualYPos();
+	double w = currItem->visualWidth();
+	double h = currItem->visualHeight();
 	currItem->setXYPos(0, 0, true);
+	currItem->moveBy(-currItem->visualXPos() / 2.0, -currItem->visualYPos() / 2.0);
 	currItem->gXpos = currItem->xPos();
 	currItem->gYpos = currItem->yPos();
 	int d = doc->Items->indexOf(currItem);

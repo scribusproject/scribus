@@ -5676,6 +5676,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
 		currItem->setXYPos(0, 0, true);
+		currItem->moveBy(-currItem->visualXPos() / 2.0, -currItem->visualYPos() / 2.0);
 		currItem->gXpos = currItem->xPos();
 		currItem->gYpos = currItem->yPos();
 		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
