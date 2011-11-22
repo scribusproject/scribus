@@ -2561,9 +2561,63 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	if (docSelectionCount == 0)
 		setStatusBarInfoText("");
 	else if (docSelectionCount == 1)
-		setStatusBarInfoText( tr("1 Object selected"));
+	{
+		QString whatSel = tr("Unknown");
+		switch (currItem->itemType())
+		{
+			case 2:
+				whatSel = tr("Image Frame");
+				break;
+			case 4:
+				whatSel = tr("Text Frame");
+				break;
+			case 5:
+				whatSel = tr("Line");
+				break;
+			case 6:
+				whatSel = tr("Polygon");
+				break;
+			case 7:
+				whatSel = tr("Polyline");
+				break;
+			case 8:
+				whatSel = tr("Text on Path");
+				break;
+			case 9:
+				whatSel = tr("Latex Frame");
+				break;
+			case 11:
+				whatSel = tr("Symbol");
+				break;
+			case 12:
+				whatSel = tr("Group");
+				break;
+			case 13:
+				whatSel = tr("RegularPolygon");
+				break;
+			case 14:
+				whatSel = tr("Arc");
+				break;
+			case 15:
+				whatSel = tr("Spiral");
+				break;
+			case 16:
+				whatSel = tr("Table");
+				break;
+			default:
+				whatSel = "Unknown";
+				break;
+		}
+		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
+		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
+		setStatusBarInfoText( tr("%1 selected, Size = %2 x %3").arg(whatSel).arg(widthTxt).arg(heightTxt));
+	}
 	else
-		setStatusBarInfoText( tr("%1 Objects selected").arg(docSelectionCount));
+	{
+		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
+		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
+		setStatusBarInfoText( tr("%1 Objects selected, Selection Size = %2 x %3").arg(docSelectionCount).arg(widthTxt).arg(heightTxt));
+	}
 	actionManager->disconnectNewSelectionActions();
 	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
