@@ -9706,14 +9706,6 @@ void ScribusMainWindow::PutToPatterns()
 	uint docSelectionCount = doc->m_Selection->count();
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
-	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
-	dia.setEditText(patternName, true);
-	dia.setTestList(doc->docPatterns.keys());
-	dia.setCheckMode(true);
-	if (dia.exec())
-		patternName = dia.getEditText();
-	else
-		return;
 	bool wasUndo = undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	PageItem* currItem;
@@ -9724,6 +9716,55 @@ void ScribusMainWindow::PutToPatterns()
 		currItem = doc->groupObjectsSelection(&itemSelection);
 	else
 		currItem = itemSelection.itemAt(0);
+	QList<PageItem*> allItems;
+	if (currItem->isGroup())
+		allItems = currItem->asGroupFrame()->getItemList();
+	else
+		allItems.append(currItem);
+	QStringList results;
+	for (int ii = 0; ii < allItems.count(); ii++)
+	{
+		PageItem *item = allItems.at(ii);
+		if ((!results.contains(item->pattern())) && ((item->GrType == 8) || (item->itemType() == PageItem::Symbol)))
+			results.append(item->pattern());
+		if (!item->strokePattern().isEmpty())
+		{
+			if (!results.contains(item->strokePattern()))
+				results.append(item->strokePattern());
+		}
+		if (!item->patternMask().isEmpty())
+		{
+			if (!results.contains(item->patternMask()))
+				results.append(item->patternMask());
+		}
+	}
+	patternsDependingOnThis.clear();
+	QStringList mainPatterns = doc->docPatterns.keys();
+	for (int b = 0; b < results.count(); b++)
+	{
+		QString temp = results[b];
+		for (int a = 0; a < mainPatterns.count(); a++)
+		{
+			if (mainPatterns[a] != temp)
+			{
+				QStringList subPatterns;
+				subPatterns = doc->getUsedPatternsHelper(mainPatterns[a], subPatterns);
+				if (subPatterns.contains(temp))
+					patternsDependingOnThis.prepend(mainPatterns[a]);
+			}
+		}
+		patternsDependingOnThis.prepend(temp);
+	}
+	allItems.clear();
+	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia.setEditText(patternName, true);
+	dia.setForbiddenList(patternsDependingOnThis);
+	dia.setTestList(doc->docPatterns.keys());
+	dia.setCheckMode(true);
+	if (dia.exec())
+		patternName = dia.getEditText();
+	else
+		return;
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
 	double minx =  std::numeric_limits<double>::max();
@@ -9755,11 +9796,11 @@ void ScribusMainWindow::PutToPatterns()
 	PageItem* groupItem = doc->Items->takeAt(z);
 	groupItem->setPattern(patternName);
 	doc->Items->replace(d, groupItem);
+	doc->m_Selection->delaySignalsOff();
 	propertiesPalette->updateColorList();
 	symbolPalette->updateSymbolList();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
-	doc->m_Selection->delaySignalsOff();
 	view->DrawNew();
 	undoManager->setUndoEnabled(wasUndo);
 }

@@ -61,6 +61,14 @@ void Query::Leave()
 {
 	if (answerEdit->text().isEmpty())
 		return;
+	if (!forbiddenList.isEmpty())
+	{
+		if (forbiddenList.contains(answerEdit->text()))
+		{
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not allowed.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+			return;
+		}
+	}
 	if (!checkList.isEmpty())
 	{
 		if (checkList.contains(answerEdit->text()))
@@ -104,6 +112,11 @@ void Query::setEditText(QString newText, bool setSelected)
 void Query::setTestList(QStringList tList)
 {
 	checkList = tList;
+}
+
+void Query::setForbiddenList(QStringList tList)
+{
+	forbiddenList = tList;
 }
 
 void Query::setCheckMode(bool mode)
