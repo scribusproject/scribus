@@ -38,6 +38,7 @@ public:
 	~CheckDocument() {};
 	
 	virtual void changeEvent(QEvent *e);
+	void setDoc(ScribusDoc *doc);
 
 	/*! \brief State of the P.V. */
 	enum CheckMode { checkNULL, checkPDF, checkEPS, checkPrint, checkPrintPreview };

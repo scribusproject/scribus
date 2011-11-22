@@ -2221,6 +2221,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		else
 			HaveNewSel(-1);
 	}
+	docCheckerPalette->setDoc(doc);
 	tocGenerator->setDoc(doc);
 	styleManager->setDoc(doc);
 	symbolPalette->setDoc(doc);

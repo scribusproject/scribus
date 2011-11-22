@@ -93,6 +93,17 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));
 }
 
+void CheckDocument::setDoc(ScribusDoc *doc)
+{
+	m_Doc = doc;
+	clearErrorList();
+	CheckerPrefsList::Iterator it;
+	CheckerPrefsList::Iterator itend=doc->checkerProfiles().end();
+	for (it = doc->checkerProfiles().begin(); it != itend ; ++it)
+		curCheckProfile->addItem(it.key());
+	setCurrentComboItem(curCheckProfile, doc->curCheckProfile());
+}
+
 void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 {
 	if (itemMap.contains(ite))
