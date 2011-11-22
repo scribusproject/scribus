@@ -204,6 +204,11 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(MissingImage, 0);
 				else
 				{
+					if (currItem->PictureIsAvailable)
+					{
+						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
+							itemError.insert(Transparency, 0);
+					}
 					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
 						itemError.insert(ImageDPITooLow, 0);
@@ -490,6 +495,11 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(MissingImage, 0);
 				else
 				{
+					if (currItem->PictureIsAvailable)
+					{
+						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
+							itemError.insert(Transparency, 0);
+					}
 					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
 						itemError.insert(ImageDPITooLow, 0);

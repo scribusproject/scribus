@@ -2444,3 +2444,23 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	}
 	return true;
 }
+
+bool ScImage::hasSmoothAlpha()
+{
+	int h = height();
+	int w = width();
+	QSet<int> alpha;
+	QRgb *s, r;
+	for( int yi=0; yi < h; ++yi )
+	{
+		s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			r = *s++;
+			alpha.insert(qAlpha(r));
+			if (alpha.count() > 2)
+				return true;
+		}
+	}
+	return (alpha.count() > 2);
+}
