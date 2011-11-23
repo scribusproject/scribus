@@ -301,6 +301,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
+	internalCopyBuffer = "";
 	m_doc = new ScribusDoc();
 	m_doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_doc->setPage(100, 100, 0, 0, 0, 0, 0, 0, false, false);
@@ -4975,18 +4976,26 @@ void ScribusMainWindow::slotEditCopy()
 				return;
 			ScriXmlDoc ss;
 			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
-			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+			if (!internalCopy)
 			{
-				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
-				rebuildRecentPasteMenu();
+				if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+				{
+					scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
+					rebuildRecentPasteMenu();
+				}
+				ScElemMimeData* mimeData = new ScElemMimeData();
+				mimeData->setScribusElem(BufferS);
+				mimeData->setText(BufferS);
+				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 			}
-			ScElemMimeData* mimeData = new ScElemMimeData();
-			mimeData->setScribusElem(BufferS);
-			mimeData->setText(BufferS);
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+			else
+				internalCopyBuffer = BufferS;
 		}
-		scrActions["editPaste"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
+		if (!internalCopy)
+		{
+			scrActions["editPaste"]->setEnabled(true);
+			scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
+		}
 	}
 }
 
@@ -5113,7 +5122,7 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else
 		{
-			if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
+			if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() || internalCopy)
 			{
 				view->Deselect(true);
 				uint ac = doc->Items->count();
@@ -5121,8 +5130,13 @@ void ScribusMainWindow::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				QString buffer  = ScMimeData::clipboardScribusElem();
-				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				if (internalCopy)
+					slotElemRead(internalCopyBuffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				else
+				{
+					QString buffer  = ScMimeData::clipboardScribusElem();
+					slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				}
 				// update style lists:
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();
@@ -7390,6 +7404,7 @@ void ScribusMainWindow::duplicateItem()
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	internalCopy = false;
+	internalCopyBuffer = "";
 	view->DrawNew();
 }
 

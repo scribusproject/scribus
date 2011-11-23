@@ -183,6 +183,7 @@ public:
 	void restoreDeletePage(SimpleState *state, bool isUndo);
 	struct CopyContentsBuffer contentsBuffer;
 	bool internalCopy;
+	QString internalCopyBuffer;
 	int  HaveDoc;
 	PrefsContext* dirs;
 	/** \brief view is the main widget which represents your working area. The View
