@@ -48,9 +48,13 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	effectsList = currItem->effectsInUse;
 	doc = docc;
 	currentOptions = 0;
+
+//	CMSettings cms(docc, "", Intent_Perceptual);
+//	cms.allowColorManagement(false);
 	bool mode = false;
-	CMSettings cms(docc, "", Intent_Perceptual);
-	cms.allowColorManagement(false);
+	CMSettings cms(doc, currItem->IProfile, currItem->IRender);
+	cms.setUseEmbeddedProfile(currItem->UseEmbedded);
+	cms.allowSoftProofing(true);
 	image.loadPicture(currItem->Pfile, currItem->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
