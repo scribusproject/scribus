@@ -79,13 +79,6 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->fillPath();
 			}
 			p->save();
-			if (imageClip.size() != 0)
-			{
-				p->setupPolygon(&imageClip);
-				p->setClipPath();
-			}
-			p->setupPolygon(&PoLine);
-			p->setClipPath();
 			if (Pfile.isEmpty())
 			{
 				if ((Frame) && (m_Doc->guidesPrefs().framesShown))
@@ -144,6 +137,8 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				}
 				else
 				{
+					p->setupPolygon(&PoLine);
+					p->setClipPath();
 					if (imageFlippedH())
 					{
 						p->translate(Width, 0);
@@ -153,6 +148,11 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					{
 						p->translate(0, Height);
 						p->scale(1, -1);
+					}
+					if (imageClip.size() != 0)
+					{
+						p->setupPolygon(&imageClip);
+						p->setClipPath();
 					}
 					p->translate(LocalX*LocalScX, LocalY*LocalScY);
 					p->rotate(LocalRot);
