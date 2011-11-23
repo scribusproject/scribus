@@ -83,6 +83,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	checkMode = checkNULL;
 	languageChange();
 	itemMap.clear();
+	posMap.clear();
 	pageMap.clear();
 	masterPageMap.clear();
 	masterPageItemMap.clear();
@@ -109,7 +110,10 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 	if (itemMap.contains(ite))
 	{
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		emit selectElementByItem(itemMap[ite], true);
+		if (itemMap[ite]->isTextFrame())
+			emit selectElement(itemMap[ite], true, posMap[ite]);
+		else
+			emit selectElementByItem(itemMap[ite], true);
 		return;
 	}
 	if (pageMap.contains(ite))
@@ -127,7 +131,10 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 	{
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
-		emit selectElementByItem(masterPageItemMap[ite], true);
+		if (itemMap[ite]->isTextFrame())
+			emit selectElement(masterPageItemMap[ite], true, posMap[ite]);
+		else
+			emit selectElementByItem(masterPageItemMap[ite], true);
 		return;
 	}
 }
@@ -155,6 +162,7 @@ void CheckDocument::clearErrorList()
 	reportDisplay->clear();
 	reportDisplay->setSortingEnabled(false);
 	itemMap.clear();
+	posMap.clear();
 	pageMap.clear();
 	masterPageMap.clear();
 	masterPageItemMap.clear();
@@ -401,6 +409,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						it3 = masterItemErrorsIt.value().begin();
 						buildItem(object, it3.key(), masterItemErrorsIt.key());
+						posMap.insert(object, it3.value());
 					}
 					else
 					{
@@ -408,6 +417,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							buildItem(errorText, it3.key(), masterItemErrorsIt.key());
+							posMap.insert(object, it3.value());
 						}
 						object->setExpanded( true );
 					}
@@ -476,6 +486,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						it3 = docItemErrorsIt.value().begin();
 						buildItem(object, it3.key(), docItemErrorsIt.key());
+						posMap.insert(object, it3.value());
 					}
 					else
 					{
@@ -483,6 +494,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
 							buildItem(errorText, it3.key(), docItemErrorsIt.key());
+							posMap.insert(object, it3.value());
 						}
 						object->setExpanded( true );
 					}
@@ -542,6 +554,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						it3 = freeItemsErrorsIt.value().begin();
 						buildItem(object, it3.key(), freeItemsErrorsIt.key());
+						posMap.insert(object, it3.value());
 					}
 					else
 					{
@@ -549,6 +562,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
 							buildItem(errorText, it3.key(), freeItemsErrorsIt.key());
+							posMap.insert(object, it3.value());
 						}
 						object->setExpanded( true );
 					}

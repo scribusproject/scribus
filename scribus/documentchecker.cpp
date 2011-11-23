@@ -334,7 +334,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							}
 							chr = chstr[0].unicode();
 							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-								itemError.insert(MissingGlyph, 0);
+								itemError.insert(MissingGlyph, e);
 						}
 						for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
 						{
@@ -348,7 +348,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							}
 							chr = chstr[0].unicode();
 							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-								itemError.insert(MissingGlyph, 0);
+								itemError.insert(MissingGlyph, e);
 						}
 						continue;
 					}
@@ -357,12 +357,12 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						for (int numco = 0x30; numco < 0x3A; ++numco)
 						{
 							if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
-								itemError.insert(MissingGlyph, 0);
+								itemError.insert(MissingGlyph, e);
 						}
 						continue;
 					}
 					if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-						itemError.insert(MissingGlyph, 0);
+						itemError.insert(MissingGlyph, e);
 				}
 	#endif
 			}
@@ -625,7 +625,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							}
 							chr = chstr[0].unicode();
 							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-								itemError.insert(MissingGlyph, 0);
+								itemError.insert(MissingGlyph, e);
 						}
 						for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
 						{
@@ -639,7 +639,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 							}
 							chr = chstr[0].unicode();
 							if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-								itemError.insert(MissingGlyph, 0);
+								itemError.insert(MissingGlyph, e);
 						}
 						continue;
 					}
@@ -648,12 +648,12 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						for (uint numco = 0x30; numco < 0x3A; ++numco)
 						{
 							if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
-								itemError.insert(MissingGlyph, 0);
+								itemError.insert(MissingGlyph, e);
 						}
 						continue;
 					}
 					if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
-						itemError.insert(MissingGlyph, 0);
+						itemError.insert(MissingGlyph, e);
 				}
 	#endif
 			}

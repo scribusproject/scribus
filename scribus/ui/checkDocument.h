@@ -79,7 +79,7 @@ public slots:
 signals:
 	//void rescan();
 	//! \brief Signal emitted when user selects any page item in error list.
-//	void selectElement(int, int);
+	void selectElement(PageItem *, bool, int);
 	void selectElementByItem(PageItem *, bool);
 	//! \brief Signal emitted when user selects any page in error list.
 	void selectPage(int);
@@ -108,6 +108,8 @@ protected:
 	QMap<QTreeWidgetItem*, QString> masterPageMap;
 	//! \brief Mappping MP Item - MP item nr.
 	QMap<QTreeWidgetItem*, PageItem*> masterPageItemMap;
+	//! \brief Mappping Page Item - cursor position in item
+	QMap<QTreeWidgetItem*, int> posMap;
 
 	//! \brief a reference to the current document
 	ScribusDoc* m_Doc;

@@ -583,6 +583,7 @@ void ScribusMainWindow::initPalettes()
 
 //	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
+	connect(docCheckerPalette, SIGNAL(selectElement(PageItem *, bool, int)), this, SLOT(selectItemFromOutlines(PageItem *, bool, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 //	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
@@ -7514,6 +7515,21 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 		else
 		{
 			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
+		}
+	}
+}
+
+void ScribusMainWindow::selectItemFromOutlines(PageItem *ite, bool single, int cPos)
+{
+	selectItemsFromOutlines(ite, single);
+	if (doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->isTextFrame())
+		{
+			view->requestMode(modeEdit);
+			currItem->itemText.setCursorPosition(cPos);
+			currItem->update();
 		}
 	}
 }

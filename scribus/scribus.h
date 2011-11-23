@@ -454,6 +454,7 @@ public slots:
 	void setAlignmentValue(int a);
 	void editItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(PageItem *ite, bool single = false);
+	void selectItemFromOutlines(PageItem *ite, bool single, int cPos);
 	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();
 	void printPreview();
