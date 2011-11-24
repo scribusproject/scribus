@@ -5601,8 +5601,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		{
 			m_Selection->addItem(Items->at(as));
 		}
-		QRectF sR = m_Selection->getGroupRect();
-		moveGroup(-sR.x() + addedPage->xOffset(), -sR.y() + addedPage->yOffset());
+		moveGroup(addedPage->xOffset(), addedPage->yOffset());
 		if (Items->at(0)->isGroup())
 			Items->at(0)->asGroupFrame()->adjustXYPosition();
 		m_Selection->clear();
@@ -5675,10 +5674,9 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		currItem->setXYPos(0, 0, true);
-		currItem->moveBy(-currItem->visualXPos() / 2.0, -currItem->visualYPos() / 2.0);
-		currItem->gXpos = currItem->xPos();
-		currItem->gYpos = currItem->yPos();
+		currItem->gXpos = currItem->xPos() - currItem->visualXPos();
+		currItem->gYpos = currItem->yPos() - currItem->visualYPos();
+		currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
 		docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 		docPatterns[currentEditedSymbol].width = maxx - minx;
 		docPatterns[currentEditedSymbol].height = maxy - miny;

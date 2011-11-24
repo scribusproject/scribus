@@ -2262,7 +2262,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("DASHOFF", item->DashOffset);
 	}
 	if (!(item->isArc() || item->isSpiral() || item->isRegularPolygon()))
-		docu.writeAttribute("path", item->PoLine.svgPath(!item->isPolyLine()));
+		docu.writeAttribute("path", item->PoLine.svgPath(!(item->isPolyLine() || item->isPathText())));
 	QString colp = item->ContourLine.svgPath(true);
 	if (!colp.isEmpty())
 		docu.writeAttribute("copath", colp);

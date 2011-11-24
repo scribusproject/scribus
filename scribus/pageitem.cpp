@@ -5925,6 +5925,13 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		FPoint maxAr = getMaxClipF(&arrow);
 		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
 	}
+	if (isPathText())
+	{
+		QTransform clipTrans;
+		clipTrans.translate(Xpos, Ypos);
+		clipTrans.rotate(Rot);
+		totalRect = totalRect.united(QRectF(clipTrans.mapRect(Clip.boundingRect())));
+	}
 	totalRect.getCoords(x1, y1, x2, y2);
 }
 
@@ -5956,6 +5963,8 @@ double PageItem::visualXPos() const
 				extraSpace = sl.Width / 2.0;
 		}
 	}
+	if (isPathText())
+		return qMin(Xpos + QRectF(Clip.boundingRect()).x(), Xpos - extraSpace);
 	return Xpos - extraSpace;
 }
 
@@ -5984,6 +5993,8 @@ double PageItem::visualYPos() const
 		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 			extraSpace = sl.Width / 2.0;
 	}
+	if (isPathText())
+		return qMin(Ypos + QRectF(Clip.boundingRect()).y(), Ypos - extraSpace);
 	return Ypos - extraSpace;
 }
 
@@ -6015,6 +6026,8 @@ double PageItem::visualWidth() const
 				extraSpace = sl.Width;
 		}
 	}
+	if (isPathText())
+		return qMax(QRectF(Clip.boundingRect()).width(), Width + extraSpace);
 	return Width + extraSpace;
 }
 
@@ -6043,6 +6056,8 @@ double PageItem::visualHeight() const
 		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 			extraSpace = sl.Width;
 	}
+	if (isPathText())
+		return qMax(QRectF(Clip.boundingRect()).height(), Height + extraSpace);
 	return isLine() ? extraSpace : Height + extraSpace;
 }
 

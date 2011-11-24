@@ -9874,10 +9874,9 @@ void ScribusMainWindow::PutToPatterns()
 	double y = currItem->visualYPos();
 	double w = currItem->visualWidth();
 	double h = currItem->visualHeight();
-	currItem->setXYPos(0, 0, true);
-	currItem->moveBy(-currItem->visualXPos() / 2.0, -currItem->visualYPos() / 2.0);
-	currItem->gXpos = currItem->xPos();
-	currItem->gYpos = currItem->yPos();
+	currItem->gXpos = currItem->xPos() - x;
+	currItem->gYpos = currItem->yPos() - y;
+	currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
 	int d = doc->Items->indexOf(currItem);
 	z = doc->itemAdd(PageItem::Symbol, PageItem::Rectangle, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* groupItem = doc->Items->takeAt(z);

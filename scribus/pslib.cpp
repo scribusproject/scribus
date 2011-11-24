@@ -491,6 +491,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		QBuffer b(&buf);
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
+//		PS_translate(pa.items.at(0)->gXpos, -pa.items.at(0)->gYpos);
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
@@ -2613,7 +2614,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				}
 				PS_scale(c->width() / pat.width, c->height() / pat.height);
 				PS_translate(0, -c->height());
-		//		PS_translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
+	//			PS_translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
 				for (int em = 0; em < pat.items.count(); ++em)
 				{
 					PageItem* embed = pat.items.at(em);

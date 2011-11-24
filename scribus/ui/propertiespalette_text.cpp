@@ -824,7 +824,7 @@ void PropertiesPalette_Text::handlePathType()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_item->textPathType = pathTextType->currentIndex();
+	m_item->textPathType = pathTextWidgets->pathTextType->currentIndex();
 	m_item->update();
 	emit DocChanged();
 }

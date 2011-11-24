@@ -110,7 +110,7 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			p->setMaskMode(0);
 			ScPattern pat = m_Doc->docPatterns[patternVal];
 			p->scale(Width / pat.width, Height / pat.height);
-			p->translate(pat.items.at(0)->gXpos, pat.items.at(0)->gYpos);
+	//		p->translate(pat.items.at(0)->gXpos, pat.items.at(0)->gYpos);
 			for (int em = 0; em < pat.items.count(); ++em)
 			{
 				PageItem* embedded = pat.items.at(em);
