@@ -1,3 +1,27 @@
+Scribus - 1.4.0
+- 0010396: [General] impossible to access to pages after 9 (cbradney) - resolved.
+- 0010277: [Graphics / Image Frames] Path included in tif should be correctly flipped with frames (fschmid) - resolved.
+- 0004889: [Usability] picture browser (fschmid) - resolved.
+- 0009570: [Mac OS] drag and drop to Scrapbook no longer works (fschmid) - resolved.
+- 0010387: [PDF] Missing German date format for PDF fields / ordering the list of formats (fschmid) - resolved.
+- 0010385: [Typography] [FIX] rotated text first/last line look awful & baseline shifted glyphs move whole line when fixed linespacing (jghali) - resolved.
+- 0010379: [General] Scribus crash when opening .sla document (jghali) - resolved.
+- 0010378: [Typography] [FIX] baseline offset shifts first line from top frame border (jghali) - resolved.
+- 0010371: [PDF] Adobe Reader states "Too few operands" when opening a Scribus-generated PDF containing form fields (jghali) - resolved.
+- 0010337: [User Interface] In "points" (shape) edit palette : points moved with arrows become invisible (fschmid) - resolved.
+- 0009499: [Story Editor / Text Frames] Hyphen extends past column edge (avox) - resolved.
+- 0009779: [Graphics / Image Frames] Compounding column margin /w image contour (jghali) - resolved.
+- 0008706: [Scripter] setScaleImageToFrame don't works in script imported image (jghali) - closed.
+- 0010376: [Translation] Polish translation update for 1.4 (jghali) - closed.
+- 0010346: [Story Editor / Text Frames] Last line of paragraph at end of textframe disappears. (jghali) - closed.
+- 0010345: [Canvas] [BUG] PP lost contact with document window after droping group from scrapbook (jghali) - closed.
+- 0010350: [Import / Export] html importer incorrectly assigns heading styles (jghali) - closed.
+- 0010355: [Printing] Reading of the PS part size and length from an EPSF is broken (jghali) - closed.
+- 0010348: [Story Editor / Text Frames] unwanted text center align in Story editor (jghali) - closed.
+- 0010328: [Canvas] Grouped object contour editable in Windows but not in Ubuntu (jghali) - closed.
+- 0008879: [User Interface] List of typos found in the EN version (christoph_s) - closed.
+- 0010251: [Story Editor / Text Frames] [PATCH] wrong text formatting issues (jghali) - closed.
+
 Scribus - 1.4.0.rc6
 - 0010288: [Canvas] resizing a frame with keyboard is not blocked when resizing is off (jghali) - resolved.
 - 0010251: [Story Editor / Text Frames] [PATCH] wrong text formatting issues (jghali) - closed.
