@@ -37,9 +37,12 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_icon.h"
 
-LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", false, 0 ), m_Doc(0)
+LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", 0 ), m_Doc(0)
 {
-	LayerPaletteLayout = new QVBoxLayout( this );
+	setObjectName(QString::fromLocal8Bit("Layers"));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	containerWidget = new QWidget(this);
+	LayerPaletteLayout = new QVBoxLayout();
 	LayerPaletteLayout->setMargin(2);
 	LayerPaletteLayout->setSpacing(2);
 
@@ -134,6 +137,8 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	Layout1->addWidget( lowerLayerButton );
 
 	LayerPaletteLayout->addLayout( Layout1 );
+	containerWidget->setLayout( LayerPaletteLayout );
+	setWidget( containerWidget );
 	ClearInhalt();
 	languageChange();
 
@@ -560,7 +565,7 @@ void LayerPalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void LayerPalette::languageChange()

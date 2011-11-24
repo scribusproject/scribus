@@ -29,14 +29,14 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
+#include "scdockpalette.h"
 #include "bookmwin.h"
 /**
   *@author Franz Schmid
   */
 
 /*! \brief A Bookmark Palette */
-class SCRIBUS_API BookPalette : public ScrPaletteBase
+class SCRIBUS_API BookPalette : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -58,9 +58,6 @@ public:
 	
 public slots:
 	void languageChange();
-
-protected:
-	QVBoxLayout* PaletteLayout;
 };
 
 #endif

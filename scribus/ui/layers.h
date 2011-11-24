@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
-#include "ui/scrpalettebase.h"
+#include "ui/scdockpalette.h"
 #include "scribusstructs.h"
 #include "sclayer.h"
 
@@ -28,7 +28,7 @@ class QVBoxLayout;
 class ScComboBox;
 class ScribusDoc;
 
-class SCRIBUS_API LayerPalette : public ScrPaletteBase
+class SCRIBUS_API LayerPalette : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -70,6 +70,7 @@ signals:
 	void LayerActivated(int);
 
 protected:
+	QWidget* containerWidget;
 	ScribusDoc* m_Doc;
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;

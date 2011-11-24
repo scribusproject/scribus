@@ -34,7 +34,7 @@ class QEvent;
 
 #include "scribusapi.h"
 #include "scribusview.h"
-#include "ui/scrpalettebase.h"
+#include "ui/scdockpalette.h"
 
 class QSpacerItem;
 class QLabel;
@@ -51,7 +51,7 @@ struct AlignObjs;
 
 /*! \brief Align/Distribute palette.
 */
-class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase, Ui::AlignDistribute
+class SCRIBUS_API AlignDistributePalette : public ScDockPalette, Ui::AlignDistribute
 {
 	Q_OBJECT
 

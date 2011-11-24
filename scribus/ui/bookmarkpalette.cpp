@@ -25,25 +25,22 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookmarkpalette.h"
 
-BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
+BookPalette::BookPalette(QWidget* parent) : ScDockPalette( parent, "Books", 0 )
 {
-	PaletteLayout = new QVBoxLayout( this );
-	PaletteLayout->setMargin(0);
-	PaletteLayout->setSpacing(0);
+	setObjectName(QString::fromLocal8Bit("Books"));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));
-	PaletteLayout->addWidget( BView );
+	setWidget( BView );
 	languageChange();
 }
 
 void BookPalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void BookPalette::languageChange()

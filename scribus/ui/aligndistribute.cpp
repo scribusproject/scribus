@@ -50,10 +50,12 @@ for which a new license (GPL+exception) is in place.
 //TODO Distribute with 
 
 AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool /*modal*/, Qt::WFlags /*fl*/ )
-	: ScrPaletteBase( parent, name )
+	: ScDockPalette( parent, name, 0 )
 {
 	setupUi(this);
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	currDoc=NULL;
+	setObjectName(name);
 	
 	//hide spare controls 
 	toolButtonDummy1->hide();
@@ -84,7 +86,7 @@ void AlignDistributePalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		ScDockPalette::changeEvent(e);
 }
 
 void AlignDistributePalette::languageChange()
