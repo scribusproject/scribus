@@ -898,6 +898,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			//currItem->emitAllToGUI();
 			m_view->updatesOn(true);
 			m_view->updateContents();
+			m_doc->changed();
 		}
 	}
 	//CB Drag selection performed here
