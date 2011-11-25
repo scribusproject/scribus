@@ -61,6 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
+#include "pageitem_pathtext.h"
 #include "pdfoptions.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"
@@ -2431,75 +2432,6 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						break;
 					case PageItem::PathText:
-						if (ite->PoShow)
-						{
-							if (ite->PoLine.size() > 3)
-							{
-								PutPage("q\n");
-								if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
-								{
-									if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-										PutPage(PDF_TransparenzStroke(ite));
-									if (ite->NamedLStyle.isEmpty())
-									{
-										if (!ite->strokePattern().isEmpty())
-										{
-											if (ite->patternStrokePath)
-											{
-												QPainterPath path = ite->PoLine.toQPainterPath(false);
-												PutPage(HandleBrushPattern(ite, path, pag, pag->pageNr()));
-											}
-											else
-											{
-												if (!PDF_PatternFillStroke(tmpOut, ite, 1))
-													return false;
-												PutPage(tmpOut);
-												PutPage(SetClipPath(ite, false));
-												PutPage("S\n");
-											}
-										}
-										else if (ite->GrTypeStroke > 0)
-										{
-											if (!PDF_GradientFillStroke(tmpOut, ite, true))
-												return false;
-											PutPage("q\n");
-											PutPage(tmpOut);
-											PutPage(SetClipPath(ite, false));
-											PutPage("S\n");
-											PutPage("Q\n");
-										}
-										else
-										{
-											PutPage(SetClipPath(ite, false));
-											PutPage("S\n");
-										}
-									}
-									else
-									{
-										multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-										for (int it = ml.size()-1; it > -1; it--)
-										{
-											if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-											{
-												PutPage(setStrokeMulti(&ml[it]));
-												PutPage(SetClipPath(ite, false));
-												PutPage("S\n");
-											}
-										}
-									}
-								}
-								PutPage("Q\n");
-							}
-						}
-						if (((ite->GrMask > 0) || (ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-						{
-							if (ite->GrMask > 0)
-								PutPage("q\n");
-							PutPage(PDF_TransparenzFill(ite));
-						}
-						PutPage(setTextSt(ite, pag->pageNr(), pag));
-						if (ite->GrMask > 0)
-							PutPage("Q\n");
 						break;
 					case PageItem::OSGFrame:
 						break;
@@ -3229,7 +3161,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
 			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(qHash(ite));
-			if (! ite->asTextFrame())
+			if ((!ite->asTextFrame()) && (!ite->asPathText()))
 				PutPage(name+" Do\n");
 			else
 			{
@@ -4964,13 +4896,16 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	}
 	else
 	{
+		ite->OwnPage = PNr;
+		ite->asPathText()->layout();
+		ite->OwnPage = savedOwnPage;
 		double CurX = 0;
-		for (int d = ite->firstInFrame(); d <= ite->lastInFrame(); ++d)
+		for (int d = 0; d < ite->asPathText()->itemRenderText.length(); ++d)
 		{
-			const ScText * const hl = ite->itemText.item(d);
+			const ScText * const hl = ite->asPathText()->itemRenderText.item(d);
 			const QChar ch = hl->ch;
-			const CharStyle& chstyle(ite->itemText.charStyle(d));
-			const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
+			const CharStyle& chstyle(ite->asPathText()->itemRenderText.charStyle(d));
+			const ParagraphStyle& pstyle(ite->asPathText()->itemRenderText.paragraphStyle(d));
 			if (SpecialChars::isBreak(ch, true) || (ch == QChar(10)))
 				continue;
 			if (chstyle.effects() & ScStyle_SuppressSpace)

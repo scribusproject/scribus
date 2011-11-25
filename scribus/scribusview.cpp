@@ -3433,14 +3433,14 @@ void ScribusView::TextToPath()
 
 			if (currItem->asPathText())
 			{
-				for (int a = 0; a < currItem->itemText.length(); ++a)
+				for (int a = 0; a < currItem->asPathText()->itemRenderText.length(); ++a)
 				{
 					pts.resize(0);
 					x = 0.0;
 					y = 0.0;
-					ScText * hl = currItem->itemText.item(a);
-					const CharStyle& charStyle(currItem->itemText.charStyle(a));
-					chstr = currItem->itemText.text(a,1);
+					ScText * hl = currItem->asPathText()->itemRenderText.item(a);
+					const CharStyle& charStyle(currItem->asPathText()->itemRenderText.charStyle(a));
+					chstr = currItem->asPathText()->itemRenderText.text(a,1);
 					if ((chstr == QChar(13)) || (chstr == QChar(29)))
 						continue;
 					if (chstr == QChar(30))
@@ -3492,8 +3492,8 @@ void ScribusView::TextToPath()
 					chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
 					if (currItem->reversed())
 					{
-						if (a < currItem->itemText.length()-1)
-							wide = hl->font().charWidth(chstr[0], hl->fontSize(), currItem->itemText.text(a+1));
+						if (a < currItem->asPathText()->itemRenderText.length()-1)
+							wide = hl->font().charWidth(chstr[0], hl->fontSize(), currItem->asPathText()->itemRenderText.text(a+1));
 						else
 							wide = hl->font().charWidth(chstr[0], hl->fontSize());
 						chma3.scale(-1, 1);
@@ -3602,7 +3602,7 @@ void ScribusView::TextToPath()
 							bb->PoLine.map(finalMat * shmap);
 							bb->setFillColor(hl->strokeColor());
 							bb->setFillShade(hl->strokeShade());
-							if (currItem->itemText.charStyle(a).effects() & ScStyle_Outline)
+							if (currItem->asPathText()->itemRenderText.charStyle(a).effects() & ScStyle_Outline)
 							{
 								bb->setLineColor(hl->strokeColor());
 								bb->setLineShade(hl->strokeShade());
@@ -3636,7 +3636,7 @@ void ScribusView::TextToPath()
 							bb->setRotation(currItem->rotation());
 						bb->setFillColor(hl->fillColor());
 						bb->setFillShade(hl->fillShade());
-						if (currItem->itemText.charStyle(a).effects() & ScStyle_Outline)
+						if (currItem->asPathText()->itemRenderText.charStyle(a).effects() & ScStyle_Outline)
 						{
 							bb->setLineColor(hl->strokeColor());
 							bb->setLineShade(hl->strokeShade());

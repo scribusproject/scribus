@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
+#include "pageitem_pathtext.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -976,13 +977,13 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 	}
 	double x, y, wide;
 	QString chstr;
-	for (int a = 0; a < Item->itemText.length(); ++a)
+	for (int a = 0; a < Item->asPathText()->itemRenderText.length(); ++a)
 	{
 		x = 0.0;
 		y = 0.0;
-		ScText *hl = Item->itemText.item(a);
-		const CharStyle& charStyle(Item->itemText.charStyle(a));
-		chstr = Item->itemText.text(a,1);
+		ScText *hl = Item->asPathText()->itemRenderText.item(a);
+		const CharStyle& charStyle(Item->asPathText()->itemRenderText.charStyle(a));
+		chstr = Item->asPathText()->itemRenderText.text(a,1);
 		if ((chstr == QChar(13)) || (chstr == QChar(29)))
 			continue;
 		if (chstr == QChar(30))

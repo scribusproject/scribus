@@ -46,6 +46,7 @@ public:
 	virtual bool createInfoGroup(QFrame *, QGridLayout *);
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
+	StoryText itemRenderText;
 
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);

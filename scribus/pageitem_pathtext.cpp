@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
-	: PageItem(pa, PageItem::PathText, x, y, w, h, w2, fill, outline)
+	: PageItem(pa, PageItem::PathText, x, y, w, h, w2, fill, outline), itemRenderText(pa)
 {
 	firstChar = 0;
 	MaxChars = itemText.length();
@@ -177,17 +177,35 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
 	segLen = PoLine.lenPathSeg(seg);
+	itemRenderText.setDefaultStyle(itemText.defaultStyle());
+	itemRenderText.clear();
 	for (a = firstChar; a < itemText.length(); ++a)
 	{
+		CharStyle nstyle;
 		hl = itemText.item(a);
+		nstyle = itemText.charStyle(a);
+		chstr = hl->ch;
+		if (!(chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK))
+			chstr = ExpandToken(a);
+		for (int cc = 0; cc < chstr.count(); cc++)
+		{
+			int pot = itemRenderText.length();
+			itemRenderText.insertChars(pot, chstr.mid(cc, 1));
+			itemRenderText.applyCharStyle(pot, 1, nstyle);
+		}
+		chstr.clear();
+	}
+	for (a = firstChar; a < itemRenderText.length(); ++a)
+	{
+		hl = itemRenderText.item(a);
 		chstr = hl->ch;
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
-		if (a < itemText.length()-1)
-			chstr += itemText.text(a+1, 1);
+		if (a < itemRenderText.length()-1)
+			chstr += itemRenderText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
-		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
+		layoutGlyphs(itemRenderText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
 		if (hl->hasObject())
 			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
@@ -198,36 +216,36 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	{
 		totalCurveLen += PoLine.lenPathSeg(segs);
 	}
-	if ((itemText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + Extra))
+	if ((itemRenderText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + Extra))
 	{
-		if (itemText.defaultStyle().alignment() == 2)
+		if (itemRenderText.defaultStyle().alignment() == 2)
 		{
 			CurX = totalCurveLen  - totalTextLen;
 			CurX -= Extra;
 		}
-		if (itemText.defaultStyle().alignment() == 1)
+		if (itemRenderText.defaultStyle().alignment() == 1)
 			CurX = (totalCurveLen - totalTextLen) / 2.0;
-		if ((itemText.defaultStyle().alignment() == 3) || (itemText.defaultStyle().alignment() == 4))
-			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemText.length());
+		if ((itemRenderText.defaultStyle().alignment() == 3) || (itemRenderText.defaultStyle().alignment() == 4))
+			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemRenderText.length());
 	}
 #ifndef NLS_PROTO
 	QPainterPath guidePath = PoLine.toQPainterPath(false);
 	QList<QPainterPath> pathList = decomposePath(guidePath);
 	QPainterPath currPath = pathList[0];
 	int currPathIndex = 0;
-	for (a = firstChar; a < itemText.length(); ++a)
+	for (a = firstChar; a < itemRenderText.length(); ++a)
 	{
 		CurY = 0;
-		hl = itemText.item(a);
+		hl = itemRenderText.item(a);
 		chstr = hl->ch;
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
 		chs = hl->fontSize();
-		if (a < itemText.length()-1)
-			chstr += itemText.text(a+1, 1);
+		if (a < itemRenderText.length()-1)
+			chstr += itemRenderText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
-		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
+		layoutGlyphs(itemRenderText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();                                                           // HACK
 		if (hl->hasObject())
 			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
@@ -287,8 +305,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		p->setWorldMatrix(trafo);
 		if (!m_Doc->RePos)
 		{
-			actFill = itemText.charStyle(a).fillColor();
-			actFillShade = itemText.charStyle(a).fillShade();
+			actFill = itemRenderText.charStyle(a).fillColor();
+			actFillShade = itemRenderText.charStyle(a).fillShade();
 			if (actFill != CommonStrings::None)
 			{
 				p->setFillMode(ScPainter::Solid);
@@ -305,8 +323,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 			else
 				p->setFillMode(ScPainter::None);
-			actStroke = itemText.charStyle(a).strokeColor();
-			actStrokeShade = itemText.charStyle(a).strokeShade();
+			actStroke = itemRenderText.charStyle(a).strokeColor();
+			actStrokeShade = itemRenderText.charStyle(a).strokeShade();
 			if (actStroke != CommonStrings::None)
 			{
 				if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
@@ -322,9 +340,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 			p->translate(0.0, BaseOffs);
 			if (hl->ch == SpecialChars::OBJECT)
-				DrawObj_Embedded(p, cullingArea, itemText.charStyle(a), hl->embedded.getItem());
+				DrawObj_Embedded(p, cullingArea, itemRenderText.charStyle(a), hl->embedded.getItem());
 			else
-				drawGlyphs(p, itemText.charStyle(a), hl->glyph);
+				drawGlyphs(p, itemRenderText.charStyle(a), hl->glyph);
 		}
 		p->setWorldMatrix(savWM);
 		p->restore();
