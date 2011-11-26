@@ -128,8 +128,6 @@ void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_ObjImport::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
 	m->accept();
 
 	if (commonMouseMove(m))
@@ -189,7 +187,6 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();

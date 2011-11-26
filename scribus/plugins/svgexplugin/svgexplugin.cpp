@@ -975,12 +975,10 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 			}
 		}
 	}
-	double x, y, wide;
+	double wide;
 	QString chstr;
 	for (int a = 0; a < Item->asPathText()->itemRenderText.length(); ++a)
 	{
-		x = 0.0;
-		y = 0.0;
 		ScText *hl = Item->asPathText()->itemRenderText.item(a);
 		const CharStyle& charStyle(Item->asPathText()->itemRenderText.charStyle(a));
 		chstr = Item->asPathText()->itemRenderText.text(a,1);

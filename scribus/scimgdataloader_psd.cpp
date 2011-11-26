@@ -135,7 +135,6 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 {
 	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	bool isCMYK = false;
-	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
 	bool valid = m_imageInfoRecord.isRequest;
@@ -181,8 +180,6 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		else if (header.color_mode == CM_DUOTONE)
 			m_imageInfoRecord.colorspace = ColorSpaceDuotone;
-		xres = m_imageInfoRecord.xres;
-		yres = m_imageInfoRecord.yres;
 		f.close();
 		if (thumbnail)
 		{

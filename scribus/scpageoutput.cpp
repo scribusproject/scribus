@@ -1192,10 +1192,9 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	FPoint ColBound;
 	QRegion cm;
 	int a;
-	double lineCorr;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
-	double desc, asce, tabDist;
+	double desc, asce;
 	
 	QRect e2;
 	painter->save();
@@ -1212,10 +1211,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		painter->setupPolygon(&item->PoLine);
 		fillPath(item, painter, clip);
 	}
-	if (item->lineColor() != CommonStrings::None)
-		lineCorr = item->lineWidth() / 2.0;
-	else
-		lineCorr = 0;
 	if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PictureIsAvailable) && (item->imageShown()) && (item->annotation().UseIcons()))
 	{
 		painter->save();
@@ -1243,7 +1238,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		for (uint ll=0; ll < item->itemText.lines(); ++ll)
 		{
 			LineSpec ls = item->itemText.line(ll);
-			tabDist = ls.x;
 			double CurX = ls.x;
 			for (a = ls.firstItem; a <= ls.lastItem; ++a)
 			{
@@ -1307,7 +1301,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					else*/
 					CurX += hl->glyph.wide();
 				}
-				tabDist = CurX;
 			}
 		}
 	}

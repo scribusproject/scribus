@@ -1868,7 +1868,6 @@ bool PrefsManager::ReadPref(QString ho)
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	csm.findUserPalettes();
-	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
 		appPrefs.verifierPrefs.checkerPrefsList.clear();

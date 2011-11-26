@@ -2124,10 +2124,6 @@ void AIPlug::processData(QString data)
 			{
 				int indY = meshYSize - currentMeshYPos - 1;
 				int indX = currentMeshXPos;
-				FPoint p2 = FPoint(meshNode1PointX, meshNode1PointY);
-				FPoint p1 = FPoint(meshNode2PointX, meshNode2PointY);
-				FPoint p4 = FPoint(meshNode3PointX, meshNode3PointY);
-				FPoint p3 = FPoint(meshNode4PointX, meshNode4PointY);
 				meshGradientArray[indY+1][indX+1].gridPoint   = FPoint(meshNode2PointX, meshNode2PointY);
 				meshGradientArray[indY+1][indX+1].controlTop  = FPoint(meshNode2Control2X, meshNode2Control2Y);
 				meshGradientArray[indY+1][indX+1].controlLeft = FPoint(meshNode2Control1X, meshNode2Control1Y);

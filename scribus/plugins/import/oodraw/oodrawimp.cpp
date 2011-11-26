@@ -1648,12 +1648,12 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 		QByteArray data = d.toLatin1();
 		const char *ptr = data.constData();
 		const char *end = data.constData() + data.length() + 1;
-		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
+		double contrlx, contrly, curx, cury, tox, toy, x1, y1, x2, y2, xc, yc;
 		double px1, py1, px2, py2, px3, py3;
 		bool relative;
 		FirstM = true;
 		char command = *(ptr++), lastCommand = ' ';
-		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
+		curx = cury = contrlx = contrly = 0.0;
 		while( ptr < end )
 		{
 			if( *ptr == ' ' )
@@ -1668,8 +1668,8 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
 					WasM = true;
-					subpathx = curx = relative ? curx + tox : tox;
-					subpathy = cury = relative ? cury + toy : toy;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
 					svgMoveTo(curx, cury );
 					break;
 				}
@@ -1715,8 +1715,6 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'z':
 			case 'Z':
 				{
-//					curx = subpathx;
-//					cury = subpathy;
 					svgClosePath(ite);
 					break;
 				}
