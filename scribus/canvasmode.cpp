@@ -64,6 +64,7 @@
 #include "undomanager.h"
 #include "units.h"
 #include "util_icon.h"
+#include "util_math.h"
 
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -228,6 +229,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	
 	psx->setClipping(true);
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
+	const double markWidth = 4.0 / m_canvas->scale();
+	const double halfMarkWidth = 2.0 / m_canvas->scale();
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		PageItem *curItem(0);
@@ -240,32 +243,33 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		}
 		
 		psx->save();
-		psx->setPen(m_pen["selection-group"]);
-		psx->setBrush(m_brush["selection-group"]);
 		double lineAdjust(psx->pen().width()/m_canvas->scale());
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
-		const double markWidth = 4 / m_canvas->scale();
-		const double halfMarkWidth = 2 / m_canvas->scale();
 		
 		psx->translate(x,y);
 		x = -lineAdjust;
 		y = -lineAdjust;
 
 //		tt.start();
+		psx->setBrush(Qt::NoBrush);
+		psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->drawRect(QRectF(x, y, w, h));
+		psx->setPen(m_pen["selection-group"]);
+		psx->setBrush(m_brush["selection-group"]);
 		psx->drawRect(QRectF(x, y, w, h));
 		if(drawHandles)
 		{
-			psx->setBrush(m_brush["handle"]);
+			psx->setBrush(Qt::white);
 			psx->setPen(m_pen["handle"]);
 			psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w/2.0 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w/2.0 - halfMarkWidth, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w-markWidth, y+h/2.0 - halfMarkWidth, markWidth, markWidth));
 			psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
 			psx->drawRect(QRectF(x, y, markWidth, markWidth));
-			psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y+h/2.0 - halfMarkWidth, markWidth, markWidth));
 			psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
 		}
 //		tg=tt.elapsed();
@@ -282,8 +286,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				if (!m_doc->Items->contains(currItem))
 					continue;
 				psx->save();
-				psx->setPen(m_pen["selection-group-inside"]);
-				psx->setBrush(m_brush["selection-group-inside"]);
 				double lineAdjust(psx->pen().width()/m_canvas->scale());
 				double x, y, w, h;
 				w = currItem->visualWidth() ;
@@ -302,7 +304,11 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					x = currItem->asLine() ? 0 : -lineAdjust;
 					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
-
+				psx->setBrush(Qt::NoBrush);
+				psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawRect(QRectF(x, y, w, h));
+				psx->setPen(m_pen["selection-group-inside"]);
+				psx->setBrush(m_brush["selection-group-inside"]);
 				psx->drawRect(QRectF(x, y, w, h));
 
 				psx->restore();
@@ -312,8 +318,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	else if (m_doc->m_Selection->count() != 0)
 	{
 // 		ds = "S" + QString::number(m_doc->m_Selection->count())+" ";
-		const double markWidth = 4 / m_canvas->scale();
-		const double halfMarkWidth = 2 / m_canvas->scale();
 
 		uint docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
@@ -331,15 +335,23 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			if (currItem->Parent != NULL)
 			{
 				QTransform t = currItem->getCombinedTransform();
-				psx->setTransform(t, true);
-				w = currItem->visualWidth();
-				h = currItem->visualHeight();
+				psx->translate(t.dx(), t.dy());
+				psx->rotate(getRotationDFromMatrix(t));
+				double sx = 1.0;
+				double sy = 1.0;
+				getScaleFromMatrix(t, sx, sy);
+		//		psx->setTransform(t, true);
+				w = currItem->visualWidth() * sx;
+				h = currItem->visualHeight() * sy;
 			//	x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
 			//	y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
 			//	w = currItem->width();
 			//	h = currItem->height();
 				x = -lineAdjust;
 				y = -lineAdjust;
+				psx->setBrush(Qt::NoBrush);
+				psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawRect(QRectF(x, y, w, h));
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
 				psx->drawRect(QRectF(x, y, w, h));
@@ -362,27 +374,33 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				}
 				w = currItem->visualWidth();
 				h = currItem->visualHeight();
+				psx->setBrush(Qt::NoBrush);
+				psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->drawRect(QRectF(x, y, w, h));
+				psx->setPen(m_pen["selection"]);
+				psx->setBrush(m_brush["selection"]);
 				psx->drawRect(QRectF(x, y, w, h));
 				if(drawHandles && !currItem->locked())
 				{
-					psx->setBrush(m_brush["handle"]);
-					psx->setPen(m_pen["handle"]);
 					if(currItem->asLine())
 					{
 						psx->setRenderHint(QPainter::Antialiasing);
+						psx->setBrush(Qt::white);
+						psx->setPen(m_pen["handle"]);
 						psx->drawEllipse(QRectF(x+w-markWidth, y+h/2.0-markWidth, 2* markWidth,2* markWidth));
-	// 					psx->setBrush(Qt::blue); // sometimes we forget which is what :)
 						psx->drawEllipse(QRectF(x-markWidth, y+h/2.0-markWidth, 2* markWidth, 2* markWidth));
 					}
 					else
 					{
+						psx->setBrush(Qt::white);
+						psx->setPen(m_pen["handle"]);
 						psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-						psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-						psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-						psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w/2.0 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w/2.0 - halfMarkWidth, y, markWidth, markWidth));
+						psx->drawRect(QRectF(x+w-markWidth, y+h/2.0 - halfMarkWidth, markWidth, markWidth));
 						psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
 						psx->drawRect(QRectF(x, y, markWidth, markWidth));
-						psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+						psx->drawRect(QRectF(x, y+h/2.0 - halfMarkWidth, markWidth, markWidth));
 						psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
 					}
 				}
