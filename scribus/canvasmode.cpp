@@ -229,8 +229,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	
 	psx->setClipping(true);
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
-	const double markWidth = 4.0 / m_canvas->scale();
-	const double halfMarkWidth = 2.0 / m_canvas->scale();
+	const double markWidth = 8.0 / m_canvas->scale();
+	const double halfMarkWidth = 4.0 / m_canvas->scale();
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		PageItem *curItem(0);
@@ -261,7 +261,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		psx->drawRect(QRectF(x, y, w, h));
 		if(drawHandles)
 		{
-			psx->setBrush(Qt::white);
+			psx->setBrush(Qt::green);
 			psx->setPen(m_pen["handle"]);
 			psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
 			psx->drawRect(QRectF(x+w/2.0 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
@@ -385,14 +385,14 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					if(currItem->asLine())
 					{
 						psx->setRenderHint(QPainter::Antialiasing);
-						psx->setBrush(Qt::white);
+						psx->setBrush(Qt::green);
 						psx->setPen(m_pen["handle"]);
 						psx->drawEllipse(QRectF(x+w-markWidth, y+h/2.0-markWidth, 2* markWidth,2* markWidth));
 						psx->drawEllipse(QRectF(x-markWidth, y+h/2.0-markWidth, 2* markWidth, 2* markWidth));
 					}
 					else
 					{
-						psx->setBrush(Qt::white);
+						psx->setBrush(Qt::green);
 						psx->setPen(m_pen["handle"]);
 						psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
 						psx->drawRect(QRectF(x+w/2.0 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
