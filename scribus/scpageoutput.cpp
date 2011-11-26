@@ -903,11 +903,9 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	uint seg = 0;
-	double chs, dx, segLen = 0;
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
-	double CurY = 0;
 	QString actFill, actStroke;
-	double actFillShade, actStrokeShade;
+	double actFillShade, actStrokeShade, dx;
 	StoryText& itemText = item->itemText;
 	if (item->pathTextShowFrame())
 	{
@@ -942,7 +940,6 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		CurX += itemText.item(0)->fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
-	segLen = item->PoLine.lenPathSeg(seg);
 	for (int a = 0; a < itemText.length(); ++a)
 	{
 		hl = itemText.item(a);
@@ -983,13 +980,11 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	int currPathIndex = 0;
 	for (int a = item->firstInFrame(); a < itemText.length(); ++a)
 	{
-		CurY = 0;
 		hl = itemText.item(a);
 		chstr = hl->ch;
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
-		chs = hl->fontSize();
 		if (a < itemText.length()-1)
 			chstr += itemText.text(a+1, 1);
 		hl->glyph.yadvance = 0;

@@ -84,7 +84,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	uint seg = 0;
-	double segLen = 0;
 	QColor tmp;
 	CurX = Extra;
 	QString cachedStroke = "";
@@ -176,7 +175,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
-	segLen = PoLine.lenPathSeg(seg);
 	itemRenderText.setDefaultStyle(itemText.defaultStyle());
 	itemRenderText.clear();
 	for (a = firstChar; a < itemText.length(); ++a)
