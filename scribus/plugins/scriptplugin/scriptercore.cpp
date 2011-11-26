@@ -321,6 +321,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
 				ScCore->closeSplash();
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									"<qt><p>"
