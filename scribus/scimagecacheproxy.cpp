@@ -422,7 +422,6 @@ bool ScImageCacheProxy::save(const QImage & image)
 	QString oldBase;
 	QString oldRefName;
 	QString oldImgName;
-	bool haveOldMeta = false;
 	bool haveOldRef = false;
 
 	ScLockedFileRW meta(absolutePath(metaName()));
@@ -463,7 +462,6 @@ bool ScImageCacheProxy::save(const QImage & image)
 			return false;
 		}
 
-		haveOldMeta = true;
 		oldRefName = oldBase + "." + referenceSuffix;
 		oldImgName = oldBase + "." + imageSuffix;
 

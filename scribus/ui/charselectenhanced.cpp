@@ -70,7 +70,6 @@ void CharSelectEnhanced::scanFont()
 {
 //     tDebug("scanFont start");
 	uint  charcode;
-	uint   gindex;
 	QString   gname;
 	allClasses.clear();
 	charactersFull.clear();
@@ -107,7 +106,6 @@ void CharSelectEnhanced::scanFont()
 	        it != glyphs.end(); ++it)
 	{
 		charcode = it.value().first.unicode();
-		gindex = it.key();
 		gname = it.value().second;
 		charactersFull.append(charcode);
 		if ((charcode >= 0x0020) && (charcode <= 0x007F))

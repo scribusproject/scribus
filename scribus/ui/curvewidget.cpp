@@ -52,11 +52,9 @@ KCurve::~KCurve()
 
 void KCurve::paintEvent(QPaintEvent *)
 {
-	int    x, y;
+	int    x = 0;
 	int    wWidth = width() - 1;
 	int    wHeight = height() - 1;
-	x  = 0;
-	y  = 0;
 	// Drawing selection or all histogram values.
 	QPainter p1;
 	p1.begin(this);

@@ -104,7 +104,7 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 	int renderStackCount = renderStackOrder.count();
 	for (int r = renderStackCount - 1; r > -1; r--)
 	{
-		QListWidgetItem *item;
+		QListWidgetItem *item(0);
 		int it = renderStackOrder[r];
 		if (it == 4)
 			item = new QListWidgetItem( tr("Content Objects"), guidePlacementListBox);
@@ -116,8 +116,11 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 			item = new QListWidgetItem( tr("BaselineGrid"), guidePlacementListBox);
 		else if (it == 0)
 			item = new QListWidgetItem( tr("Margins"), guidePlacementListBox);
-		item->setData(Qt::UserRole, it);
-		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		if (item)
+		{
+			item->setData(Qt::UserRole, it);
+			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		}
 	}
 	guideSnapDistanceSpinBox->setValue(prefsData->guidesPrefs.guideRad);
 	guideGrabRadiusSpinBox->setValue(prefsData->guidesPrefs.grabRadius);

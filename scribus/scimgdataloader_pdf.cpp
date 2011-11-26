@@ -116,7 +116,6 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 
 bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int gsRes, bool& hasAlpha)
 {
-	float xres, yres;
 //	short resolutionunit = 0;
 
 	initialize();
@@ -130,8 +129,6 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	QStringList args;
-	xres = gsRes;
-	yres = gsRes;
 	args.append("-r"+QString::number(gsRes));
 //	args.append("-sOutputFile=\""+tmpFile + "\"");
 	args.append("-sOutputFile="+tmpFile);

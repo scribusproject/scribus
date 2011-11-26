@@ -70,18 +70,12 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 	//	bool success = false;
 	bool showProgress;
 	//cancel = false;
-	double x,y,b,h;
 	//	bool ret = false;
 	QFileInfo fi = QFileInfo(fnameIn);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if(!ScCore->usingGUI())
-	showProgress=false;
+		showProgress = false;
 	/* Implement Progress Dialog Later */
-	
-	x = 0.0;
-	y = 0.0;
-	b = 0.0;
-	h = 0.0;
 	
 	/**
 	Here, first we parse the idml document, in the order designmap.xml,preferences.xml, fonts.xml, styles.xml, gradiant.xml, all the stories will be transformed into Story Objects, and finally all the master spreads and spreads.

@@ -522,11 +522,6 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
 	bool inText;
-	double Rxp = 0;
-	double Ryp = 0;
-// 	Not used said gcc
-// 	double Rxpd = 0;
-// 	double Rypd = 0;
 	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
@@ -543,8 +538,6 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 // 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRad, m->y()-m_doc->guidesPrefs().grabRad, m_doc->guidesPrefs().grabRad*2, m_doc->guidesPrefs().grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	Ryp = Myp;
-	Rxp = Mxp;
 	SeRx = Mxp;
 	SeRy = Myp;
 	if (m->button() == Qt::MidButton)

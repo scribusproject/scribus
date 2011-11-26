@@ -10072,7 +10072,6 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	QString tmp;
 	int ResO;
 	BookMItem* ip;
-	QTreeWidgetItem* pp;
 	QString Inhal = "";
 	QMap<int,QString> Inha;
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
@@ -10080,7 +10079,6 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		int Basis = ObjCounter - 1;
 		Outlines.Count = Bvie->topLevelItemCount();
 		ip = (BookMItem*)Bvie->topLevelItem(0);
-		pp = Bvie->topLevelItem(0);
 		Outlines.First = ip->ItemNr+Basis;
 		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr+Basis;
 		QTreeWidgetItemIterator it(Bvie);

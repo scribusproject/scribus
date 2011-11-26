@@ -22,16 +22,12 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -50,6 +46,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 
 PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 {
