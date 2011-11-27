@@ -113,42 +113,47 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	}
 	else
 	{
-		QVector<double> m_array;
-		QPainterPath ppa;
-		QPainterPath result;
-		if (docItem->itemType() == PageItem::PolyLine)
-			ppa = docItem->PoLine.toQPainterPath(false);
-		else
-			ppa = docItem->PoLine.toQPainterPath(true);
-		if (docItem->NamedLStyle.isEmpty())
+		if ((((docItem->lineColor() != CommonStrings::None) || (!docItem->patternStrokeVal.isEmpty()) || (docItem->GrTypeStroke > 0)) && (docItem->lineWidth() > 1)) || (!docItem->NamedLStyle.isEmpty()))
 		{
-			QPainterPathStroker stroke;
-			stroke.setCapStyle(docItem->lineEnd());
-			stroke.setJoinStyle(docItem->lineJoin());
-			stroke.setDashPattern(Qt::SolidLine);
-			stroke.setWidth(docItem->lineWidth());
-			result = stroke.createStroke(ppa);
-		}
-		else
-		{
-			multiLine ml = docItem->doc()->MLineStyles[docItem->NamedLStyle];
-			int ind = ml.size()-1;
-			if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
+			QVector<double> m_array;
+			QPainterPath ppa;
+			QPainterPath result;
+			if (docItem->itemType() == PageItem::PolyLine)
+				ppa = docItem->PoLine.toQPainterPath(false);
+			else
+				ppa = docItem->PoLine.toQPainterPath(true);
+			if (docItem->NamedLStyle.isEmpty())
 			{
 				QPainterPathStroker stroke;
-				stroke.setCapStyle(static_cast<Qt::PenCapStyle>(ml[ind].LineEnd));
-				stroke.setJoinStyle(static_cast<Qt::PenJoinStyle>(ml[ind].LineJoin));
+				stroke.setCapStyle(docItem->lineEnd());
+				stroke.setJoinStyle(docItem->lineJoin());
 				stroke.setDashPattern(Qt::SolidLine);
-				stroke.setWidth(ml[ind].Width);
+				stroke.setWidth(docItem->lineWidth());
 				result = stroke.createStroke(ppa);
 			}
+			else
+			{
+				multiLine ml = docItem->doc()->MLineStyles[docItem->NamedLStyle];
+				int ind = ml.size()-1;
+				if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
+				{
+					QPainterPathStroker stroke;
+					stroke.setCapStyle(static_cast<Qt::PenCapStyle>(ml[ind].LineEnd));
+					stroke.setJoinStyle(static_cast<Qt::PenJoinStyle>(ml[ind].LineJoin));
+					stroke.setDashPattern(Qt::SolidLine);
+					stroke.setWidth(ml[ind].Width);
+					result = stroke.createStroke(ppa);
+				}
+			}
+			res = QRegion(pp.map(docItem->Clip));
+			QList<QPolygonF> pl = result.toSubpathPolygons();
+			for (int b = 0; b < pl.count(); b++)
+			{
+				res = res.united(QRegion(pp.map(pl[b].toPolygon())));
+			}
 		}
-		res = QRegion(pp.map(docItem->Clip));
-		QList<QPolygonF> pl = result.toSubpathPolygons();
-		for (int b = 0; b < pl.count(); b++)
-		{
-			res = res.united(QRegion(pp.map(pl[b].toPolygon())));
-		}
+		else
+			res = QRegion(pp.map(docItem->Clip));
 	}
 	return  res;
 }
@@ -1143,7 +1148,7 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	// qDebug()<<"pos is"<<pos<<", length is"<<itemText.length()<<", incomplete is "<<prev->incompleteLines;
 	if ((pos != itemText.length()-1) && (!SpecialChars::isBreak (lastChar, true)))
 		return false;  // the paragraph isn't ending yet
-	uint lines = itemText.lines();  // lines added to the current frame
+	int lines = itemText.lines();  // lines added to the current frame
 
 	ParagraphStyle style = itemText.paragraphStyle (pos);
 	int need = style.keepLinesEnd () + 1;
@@ -1154,14 +1159,14 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	}
 
 	// too few lines - we need to pull some from the previous page
-	uint pull = need - lines;
+	int pull = need - lines;
 	// if pulling the lines would lead to the original frame having too few, pull the whole paragraph
 	if (prev->incompleteLines - pull < prevneed)
 		pull = prev->incompleteLines;
 	// qDebug()<<"pulling"<<pull<<"lines;
 	// Okay, move the starting/ending character
 	int startingPos = prev->incompletePositions[prev->incompleteLines - pull];
-	for (uint i = 0; i < pull; ++i)
+	for (int i = 0; i < pull; ++i)
 		prev->itemText.removeLastLine();
 	firstChar = prev->MaxChars = startingPos;
 	// keep the remaining incomplete lines flagged as such
