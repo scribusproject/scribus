@@ -82,7 +82,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	double dx;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-	uint seg = 0;
 	QColor tmp;
 	CurX = Extra;
 	QString cachedStroke = "";

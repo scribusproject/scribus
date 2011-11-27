@@ -902,7 +902,6 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	ScText *hl;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-	uint seg = 0;
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
 	QString actFill, actStroke;
 	double actFillShade, actStrokeShade, dx;

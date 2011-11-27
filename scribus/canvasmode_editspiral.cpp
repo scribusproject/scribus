@@ -228,7 +228,6 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 {
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Spiral *item = currItem->asSpiral();
-	QPointF mPoint = item->PoLine.pointQF(0);
 	item->spiralStartAngle = computeRealAngle(start, true);
 	item->spiralEndAngle = computeRealAngle(end, true);
 	item->spiralFactor = factor;

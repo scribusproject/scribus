@@ -4787,7 +4787,6 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, ScPag
 	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
 	double tabDist = ite->textToFrameDistLeft();
-	double colLeft = 0.0;
 	QList<ParagraphStyle::TabRecord> tTabValues;
 
 	ite->OwnPage = argh;
@@ -4799,7 +4798,6 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, ScPag
 
 	for (uint ll=0; ll < ite->itemText.lines(); ++ll) {
 		LineSpec ls = ite->itemText.line(ll);
-		colLeft = ls.colLeft;
 		tabDist = ls.x;
 		double CurX = ls.x;
 

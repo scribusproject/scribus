@@ -5785,15 +5785,13 @@ bool ScribusDoc::deleteSection(const uint number)
 
 int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 {
-	bool found=false;
-	int retVal=-1;
+	int retVal = -1;
 	DocumentSectionMap::ConstIterator it = docPrefsData.docSectionMap.begin();
-	for (; it!= docPrefsData.docSectionMap.end(); ++it)
+	for (; it != docPrefsData.docSectionMap.end(); ++it)
 	{
-		if (pageIndex>=it.value().fromindex && pageIndex<=it.value().toindex)
+		if (pageIndex >= it.value().fromindex && pageIndex <= it.value().toindex)
 		{
-			found=true;
-			retVal=it.key();
+			retVal = it.key();
 			break;
 		}
 	}

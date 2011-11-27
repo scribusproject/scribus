@@ -970,7 +970,6 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();

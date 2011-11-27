@@ -1007,7 +1007,6 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH && m_doc->nodeEdit.EdPoints))
 	{
-		FPoint mousePoint = m_canvas->globalToCanvas(m->globalPos());
 		for (uint poi=0; poi<Clip.size()-3; poi += 4)
 		{
 			// create bezier curve in canvas coords
