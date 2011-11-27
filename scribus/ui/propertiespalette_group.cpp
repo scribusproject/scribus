@@ -338,6 +338,7 @@ void PropertiesPalette_Group::setCurrentItem(PageItem *item)
 		textFlowUsesContourLine->setEnabled(true);
 		textFlowUsesImageClipping->setEnabled(false);
 	}
+	displayTextFlowMode(m_item->textFlowMode());
 }
 
 void PropertiesPalette_Group::displayTextFlowMode(PageItem::TextFlowMode mode)
@@ -496,8 +497,8 @@ void PropertiesPalette_Group::handleTextFlow()
 				mode = PageItem::TextFlowUsesImageClipping;
 		}
 		m_item->setTextFlowMode(mode);
-		m_ScMW->view->DrawNew();
 		emit DocChanged();
+		m_doc->regionsChanged()->update(QRect());
 	}
 }
 

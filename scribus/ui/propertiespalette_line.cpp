@@ -512,6 +512,7 @@ void PropertiesPalette_Line::handleLineWidth()
 			else
 				dashEditor->setEnabled(false);
 		}
+		m_doc->regionsChanged()->update(QRect());
 	}
 }
 

@@ -92,10 +92,11 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	if (docItem->textFlowUsesBoundingBox())
 	{
 		QPolygon tcli(4);
+		QRectF bb = docItem->getVisualBoundingRect();
 		tcli.setPoint(0, QPoint(0,0));
-		tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
-		tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
-		tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
+		tcli.setPoint(1, QPoint(qRound(bb.width()), 0));
+		tcli.setPoint(2, QPoint(qRound(bb.width()), qRound(bb.height())));
+		tcli.setPoint(3, QPoint(0, qRound(bb.height())));
 		res = QRegion(pp.map(tcli));
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
@@ -111,7 +112,44 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 		res = QRegion(pp.map(Clip2));
 	}
 	else
+	{
+		QVector<double> m_array;
+		QPainterPath ppa;
+		QPainterPath result;
+		if (docItem->itemType() == PageItem::PolyLine)
+			ppa = docItem->PoLine.toQPainterPath(false);
+		else
+			ppa = docItem->PoLine.toQPainterPath(true);
+		if (docItem->NamedLStyle.isEmpty())
+		{
+			QPainterPathStroker stroke;
+			stroke.setCapStyle(docItem->lineEnd());
+			stroke.setJoinStyle(docItem->lineJoin());
+			stroke.setDashPattern(Qt::SolidLine);
+			stroke.setWidth(docItem->lineWidth());
+			result = stroke.createStroke(ppa);
+		}
+		else
+		{
+			multiLine ml = docItem->doc()->MLineStyles[docItem->NamedLStyle];
+			int ind = ml.size()-1;
+			if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
+			{
+				QPainterPathStroker stroke;
+				stroke.setCapStyle(static_cast<Qt::PenCapStyle>(ml[ind].LineEnd));
+				stroke.setJoinStyle(static_cast<Qt::PenJoinStyle>(ml[ind].LineJoin));
+				stroke.setDashPattern(Qt::SolidLine);
+				stroke.setWidth(ml[ind].Width);
+				result = stroke.createStroke(ppa);
+			}
+		}
 		res = QRegion(pp.map(docItem->Clip));
+		QList<QPolygonF> pl = result.toSubpathPolygons();
+		for (int b = 0; b < pl.count(); b++)
+		{
+			res = res.united(QRegion(pp.map(pl[b].toPolygon())));
+		}
+	}
 	return  res;
 }
 

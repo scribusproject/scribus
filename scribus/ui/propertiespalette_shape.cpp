@@ -348,6 +348,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	if (m_item->FrameType > 3)
 		customShape->setIcon(customShape->getIconPixmap(m_item->FrameType-2));
 
+	m_haveItem = true;
 	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 	displayTextFlowMode(m_item->textFlowMode());
 
@@ -364,7 +365,6 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		stackedWidget->setCurrentIndex(1);
 		fillRuleGroup->setVisible(m_item->itemType() != PageItem::ImageFrame);
 	}
-
 	setLocked(m_item->locked());
 	setSizeLocked(m_item->sizeLocked());
 	nonZero->setChecked(!m_item->fillRule);
@@ -378,7 +378,6 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	{
 		roundRect->setEnabled ((m_item->asPolygon()) &&  (!m_item->ClipEdited)  && ((m_item->FrameType == 0) || (m_item->FrameType == 2)));
 	}
-
 	if (m_item->asOSGFrame())
 	{
 		setEnabled(false);
@@ -386,13 +385,10 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		editShape->setEnabled(false);
 		customShape->setEnabled(false);
 	}
-
 	if (m_item->asSymbolFrame())
 	{
 		setEnabled(false);
 	}
-
-	m_haveItem = true;
 }
 
 void PropertiesPalette_Shape::handleTextFlow()
@@ -416,8 +412,8 @@ void PropertiesPalette_Shape::handleTextFlow()
 				mode = PageItem::TextFlowUsesImageClipping;
 		}
 		m_item->setTextFlowMode(mode);
-		m_ScMW->view->DrawNew();
 		emit DocChanged();
+		m_doc->regionsChanged()->update(QRect());
 	}
 }
 
