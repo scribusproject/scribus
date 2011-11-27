@@ -822,7 +822,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1415"/>
         <source>Show &amp;Frames</source>
-        <translation>Показывать &amp;обрамление</translation>
+        <translation>Показывать &amp;границы блоков</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1417"/>
@@ -1269,7 +1269,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished">Вставить изображение из буфера обмена</translation>
+        <translation>Вставить изображение из буфера обмена</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1303"/>
@@ -5725,17 +5725,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1004"/>
         <source>Shade:</source>
-        <translation>Тень:</translation>
+        <translation>Интенсивность:</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1041"/>
         <source>Edit Line Color Properties</source>
-        <translation>Изменить свойства цвета линии</translation>
+        <translation>Изменить цвет обводки</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1042"/>
         <source>Edit Fill Color Properties</source>
-        <translation>Изменить свойства заливки линии</translation>
+        <translation>Изменить цвет заливки</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1043"/>
@@ -5755,12 +5755,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1016"/>
         <source>Free linear Gradient</source>
-        <translation>Свободный линейный градиент</translation>
+        <translation>Произвольный линейный градиент</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1017"/>
         <source>Free radial Gradient</source>
-        <translation>Свободный радиальный градиент</translation>
+        <translation>Произвольный радиальный градиент</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="987"/>
@@ -7009,7 +7009,7 @@ failed!</source>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="110"/>
         <source>Shade:</source>
-        <translation>Затенение:</translation>
+        <translation>Интенсивность:</translation>
     </message>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="126"/>
@@ -12143,7 +12143,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="267"/>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="271"/>
         <source>The config file didn&apos;t specify a executable path!</source>
-        <translation>В файле конфигурации не указано расположение программы визуализации</translation>
+        <translation>В файле конфигурации не указано расположение программы визуализации!</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="571"/>
@@ -14505,8 +14505,7 @@ Note: PDF Forms will not be exported.</source>
         <location filename="../../../scribus/propertiespalette.cpp" line="5323"/>
         <source>R&amp;ound
 Corners:</source>
-        <translation>За&amp;круглённые
-углы:</translation>
+        <translation>За&amp;кругление:</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5324"/>
@@ -15293,7 +15292,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5666"/>
         <source>Select the line spacing mode.</source>
-        <translation>Выберите способ установки межстрочного расстояния</translation>
+        <translation>Выберите способ установки интерлиньяжа.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5673"/>
@@ -16528,7 +16527,7 @@ External Links
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="350"/>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Радиус скругления должен быть положительным числом.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="28"/>
@@ -16552,32 +16551,32 @@ External Links
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="116"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить количество столбцов из нетекстового блока.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="134"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить интерлиньяж из нетекстового блока.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="174"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить межколонник из нетекстового блока.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="193"/>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="224"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Невозможно получить текст из нетекстового блока.</translation>
+        <translation>Невозможно получить текст из нетекстового блока.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="257"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно установить текст для нетекстового блока.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="292"/>
@@ -18773,7 +18772,7 @@ Therefore the image may be not correct</source>
         <location filename="../../../scribus/smcstylewidget.cpp" line="466"/>
         <location filename="../../../scribus/smcstylewidget.cpp" line="484"/>
         <source>Shade</source>
-        <translation>Затенение</translation>
+        <translation>Интенсивность</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.ui" line="49"/>
@@ -18852,7 +18851,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="93"/>
         <source>Fill Shade</source>
-        <translation>Тень заливки</translation>
+        <translation>Интенсивность заливки</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="94"/>
@@ -18862,7 +18861,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="95"/>
         <source>Stroke Shade</source>
-        <translation>Тень обводки</translation>
+        <translation>Интенсивность обводки</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="229"/>
@@ -21243,7 +21242,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../../scribus/search.cpp" line="83"/>
         <location filename="../../../scribus/search.cpp" line="172"/>
         <source>Fill Shade</source>
-        <translation>Тень заливки</translation>
+        <translation>Интенсивность заливки</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="86"/>
@@ -21255,7 +21254,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../../scribus/search.cpp" line="89"/>
         <location filename="../../../scribus/search.cpp" line="178"/>
         <source>Stroke Shade</source>
-        <translation>Тень контура</translation>
+        <translation>Интенсивность обводки</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="96"/>
@@ -22048,13 +22047,13 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="277"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation>Оттенённый текст. Подержите кнопку нажатой для указания смещения.</translation>
+        <translation>Тень от текста. Подержите кнопку нажатой для указания смещения.</translation>
     </message>
     <message>
         <location filename="../../../scribus/styleselect.cpp" line="276"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation>Контур. Подержите кнопку нажатой для указания толщины обводки контура.</translation>
+        <translation>Обводка. Подержите кнопку нажатой для указания толщины обводки.</translation>
     </message>
 </context>
 <context>
@@ -26175,7 +26174,7 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="853"/>
         <source>Set fill color shade</source>
-        <translation>Смена цвета заливки тени</translation>
+        <translation>Смена интенсивности заливки</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="854"/>
@@ -26185,7 +26184,7 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="855"/>
         <source>Set line color shade</source>
-        <translation>Смена цвета тени линии</translation>
+        <translation>Смена интенсивности обводки</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="856"/>
@@ -26342,12 +26341,12 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="891"/>
         <source>Set font fill color shade</source>
-        <translation>Смена тени цвета заливки шрифта</translation>
+        <translation>Смена интенсивности заливки текста</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="892"/>
         <source>Set font stroke color shade</source>
-        <translation>Смена тени цвета обводки шрифта</translation>
+        <translation>Смена интенсивности обводки текста</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="893"/>
@@ -27611,7 +27610,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="65"/>
         <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished"></translation>
+        <translation>Описание формата цветов в документе, любые комментарии касательно использованных цветов</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="88"/>
