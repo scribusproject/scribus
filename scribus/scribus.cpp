@@ -9870,15 +9870,11 @@ void ScribusMainWindow::PutToPatterns()
 	if (doc->docPatterns.contains(patternName))
 		doc->docPatterns.remove(patternName);
 	doc->addPattern(patternName, pat);
-	double x = currItem->visualXPos();
-	double y = currItem->visualYPos();
-	double w = currItem->visualWidth();
-	double h = currItem->visualHeight();
-	currItem->gXpos = currItem->xPos() - x;
-	currItem->gYpos = currItem->yPos() - y;
+	currItem->gXpos = currItem->xPos() - minx;
+	currItem->gYpos = currItem->yPos() - miny;
 	currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
 	int d = doc->Items->indexOf(currItem);
-	z = doc->itemAdd(PageItem::Symbol, PageItem::Rectangle, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+	z = doc->itemAdd(PageItem::Symbol, PageItem::Rectangle, minx, miny, maxx - minx, maxy - miny, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* groupItem = doc->Items->takeAt(z);
 	groupItem->setPattern(patternName);
 	doc->Items->replace(d, groupItem);
