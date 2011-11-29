@@ -1760,15 +1760,6 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_newpath();
 			}
 			PS_save();
-			if (c->imageClip.size() != 0)
-			{
-				SetClipPath(&c->imageClip);
-				PS_closepath();
-				PS_clip(true);
-			}
-			SetClipPath(&c->PoLine);
-			PS_closepath();
-			PS_clip(true);
 			if (c->imageFlippedH())
 			{
 				PS_translate(c->width(), 0);
@@ -1779,6 +1770,15 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_translate(0, -c->height());
 				PS_scale(1, -1);
 			}
+			if (c->imageClip.size() != 0)
+			{
+				SetClipPath(&c->imageClip);
+				PS_closepath();
+				PS_clip(true);
+			}
+			SetClipPath(&c->PoLine);
+			PS_closepath();
+			PS_clip(true);
 			if ((c->PictureIsAvailable) && (!c->Pfile.isEmpty()))
 			{
 				bool imageOk = false;

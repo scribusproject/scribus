@@ -2076,6 +2076,10 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
 						}
 						PutPage("q\n");
+						if (ite->imageFlippedH())
+							PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
+						if (ite->imageFlippedV())
+							PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
 						if (ite->imageClip.size() != 0)
 						{
 							PutPage(SetClipPathImage(ite));
@@ -2083,10 +2087,6 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						PutPage(SetClipPath(ite));
 						PutPage("h\nW*\nn\n");
-						if (ite->imageFlippedH())
-							PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
-						if (ite->imageFlippedV())
-							PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
 						if ((ite->PictureIsAvailable) && (!ite->Pfile.isEmpty()))
 						{
 							if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender, &tmpOut))
@@ -3731,6 +3731,10 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				}
 			}
 			tmp += "q\n";
+			if (ite->imageFlippedH())
+				tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
+			if (ite->imageFlippedV())
+				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
 			if (ite->imageClip.size() != 0)
 			{
 				tmp += SetClipPathImage(ite);
@@ -3738,10 +3742,6 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			}
 			tmp += SetClipPath(ite);
 			tmp += "h\nW*\nn\n";
-			if (ite->imageFlippedH())
-				tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
-			if (ite->imageFlippedV())
-				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
 			if ((ite->PictureIsAvailable) && (!ite->Pfile.isEmpty()))
 			{
 				if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender, &tmpOut))
