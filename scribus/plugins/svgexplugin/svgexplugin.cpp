@@ -623,6 +623,18 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 			cl.setAttribute("d", SetClipPath(&Item->imageClip, true));
 		else
 			cl.setAttribute("d", SetClipPath(&Item->PoLine, true));
+		QTransform mpc;
+		if (Item->imageFlippedH())
+		{
+			mpc.translate(Item->width(), 0);
+			mpc.scale(-1, 1);
+		}
+		if (Item->imageFlippedV())
+		{
+			mpc.translate(0, Item->height());
+			mpc.scale(1, -1);
+		}
+		cl.setAttribute("transform", MatrixToStr(mpc));
 		ob2.appendChild(cl);
 		globalDefs.appendChild(ob2);
 		QDomElement ob6 = docu.createElement("g");
