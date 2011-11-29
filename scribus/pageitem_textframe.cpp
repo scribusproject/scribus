@@ -624,18 +624,16 @@ struct LineControl {
 		}
 
 		QRect   pt(pt12, pt22);
-		QRegion region;
 
 		double EndX2 = StartX;
 		double Interval = 0.25;
 		do {
 			int xP = static_cast<int>(ceil(EndX2 + morespace));
 			pt.moveTopLeft(QPoint(xP, yAsc));
-			region = QRegion(pt).subtracted(shape);
-			if (!region.isEmpty())
+			if (!regionContainsRect(shape, pt))
 				break;
 			EndX2 += Interval;
-		} while ((EndX2 < maxX) && region.isEmpty());
+		} while ((EndX2 < maxX) && regionContainsRect(shape, pt));
 
 		/*double oldEndX2 = endOfLine_old(shape, pf2, morespace, yAsc, yDesc);
 		if (oldEndX2 != qMin(EndX2, maxX))
@@ -1092,7 +1090,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 
 static double findRealOverflowEnd(const QRegion& shape, QRect pt, double maxX)
 {
-	while (!QRegion(pt).subtracted(shape).isEmpty() && pt.right() < maxX)
+	while (!regionContainsRect(shape, pt) && pt.right() < maxX)
 		pt.translate(1, 0);
 	if (pt.right() >= maxX)
 		return maxX;
@@ -1726,7 +1724,7 @@ void PageItem_TextFrame::layout()
 					//check if in indent any overflow occurs
 					while (Xpos <= Xend && Xpos < current.colRight)
 					{
-						if (!QRegion(pt).subtracted(cl).isEmpty())
+						if (!regionContainsRect(cl, pt))
 						{
 							Xpos = current.xPos = realEnd = findRealOverflowEnd(cl, pt, current.colRight);
 							Xend = current.xPos + current.leftIndent;
@@ -2050,7 +2048,7 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(charEnd, maxYDesc);
 				}
 				pt = QRect(pt1, pt2);
-				if (!QRegion(pt).subtracted(cl).isEmpty())
+				if (!regionContainsRect(cl, pt))
 				{
 					realEnd = findRealOverflowEnd(cl, pt, current.colRight);
 					outs = true;
@@ -2061,7 +2059,7 @@ void PageItem_TextFrame::layout()
 						//condition after || is for find overflows in right margin area
 					{
 						pt.translate(static_cast<int>(ceil(style.rightMargin())), 0);
-						if (!QRegion(pt).subtracted(cl).isEmpty())
+						if (!regionContainsRect(cl, pt))
 						{
 							realEnd = findRealOverflowEnd(cl, pt, current.colRight);
 							outs = true;
@@ -2070,7 +2068,7 @@ void PageItem_TextFrame::layout()
 				}
 				if (outs)
 				{
-					if (current.itemsInLine ==0)
+					if (current.itemsInLine == 0)
 					{
 						current.line.x = current.xPos = realEnd;
 						a--;
