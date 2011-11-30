@@ -336,7 +336,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			{
 				QTransform t = currItem->getCombinedTransform();
 				psx->translate(t.dx(), t.dy());
-				psx->rotate(getRotationDFromMatrix(t));
+				psx->rotate(-getRotationDFromMatrix(t));
 				double sx = 1.0;
 				double sy = 1.0;
 				getScaleFromMatrix(t, sx, sy);
