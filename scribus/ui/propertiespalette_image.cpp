@@ -56,6 +56,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	yposImgLabel->setBuddy(imageYOffsetSpinBox);
 	
 	imageRotation->setWrapping( true );
+	imageRotation->setNewUnit(6);
 	installSniffer(imageRotation);
 	imageRotationLabel->setBuddy(imageRotation);
 
@@ -538,7 +539,11 @@ void PropertiesPalette_Image::handleLocalRotation()
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	if ((m_haveDoc) && (m_haveItem))
+	{
 		m_doc->itemSelection_SetImageRotation(360 - imageRotation->value());
+		if (frameScale->isChecked())
+			m_item->AdjustPictScale();
+	}
 }
 
 void PropertiesPalette_Image::handleScaling()

@@ -6510,7 +6510,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 
 void PageItem::AdjustPictScale()
 {
-	if (itemType()!=PageItem::ImageFrame)
+	if (itemType() != PageItem::ImageFrame)
 		return;
 	if (ScaleType)
 		return;
@@ -6521,6 +6521,27 @@ void PageItem::AdjustPictScale()
 //	LocalRot = 0;
 	double xs = Width / static_cast<double>(OrigW);
 	double ys = Height / static_cast<double>(OrigH);
+	if (LocalRot != 0.0)
+	{
+		QRectF br = QRectF(0, 0, OrigW, OrigH);
+		QTransform m;
+		m.rotate(LocalRot);
+		br = m.mapRect(br);
+		xs = Width / br.width();
+		ys = Height / br.height();
+		QLineF wL = QLineF(0, 0, OrigW, 0);
+		wL.setAngle(-LocalRot);
+		QLineF hL = QLineF(0, 0, 0, OrigH);
+		hL.setAngle(-LocalRot-90);
+		QTransform mm;
+		mm.scale(xs, ys);
+		hL = mm.map(hL);
+		wL = mm.map(wL);
+		xs = wL.length() / static_cast<double>(OrigW);
+		ys = hL.length() / static_cast<double>(OrigH);
+		LocalX = -br.x();
+		LocalY = -br.y();
+	}
 	if (AspectRatio)
 	{
 		LocalScX = qMin(xs, ys);
