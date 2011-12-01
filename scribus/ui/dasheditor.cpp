@@ -273,11 +273,17 @@ void DashPreview::setActStep(double t)
 void DashPreview::setDashValues(QVector<double> vals)
 {
 	DashValues = vals;
-	ActStop = 0;
+	if ((ActStop >= vals.count()) || (ActStop == -1))
+		ActStop = 0;
 	onlyselect = true;
 	repaint();
 	if (StopM.count() != 0)
-		emit currStep(StopM[0] / 10.0);
+	{
+		if ((ActStop >= vals.count()) || (ActStop == -1))
+			emit currStep(StopM[0] / 10.0);
+		else
+			emit currStep(StopM[ActStop] / 10.0);
+	}
 }
 
 DashEditor::DashEditor(QWidget *pa) : QFrame(pa)
