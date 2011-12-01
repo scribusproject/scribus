@@ -2025,7 +2025,7 @@ void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, QRectF clip)
 					}
 				}
 				i = m_doc->guidesPrefs().majorGridSpacing;
-				p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth * 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(m_doc->guidesPrefs().majorGridColor, lineWidth * 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				startY = floor(lowerBy / i);
 				startY *= i;
 				startX = floor(lowerBx / i);
