@@ -229,8 +229,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	
 	psx->setClipping(true);
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
-	const double markWidth = 8.0 / m_canvas->scale();
-	const double halfMarkWidth = 4.0 / m_canvas->scale();
+	const double markWidth = 4.0 / m_canvas->scale();
+	const double halfMarkWidth = 2.0 / m_canvas->scale();
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		PageItem *curItem(0);
