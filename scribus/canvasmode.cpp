@@ -80,20 +80,20 @@ CanvasMode::CanvasMode (ScribusView* view) :
 {
 	m_pen["outline"]	= QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["outline"].setCosmetic(true);
-	m_pen["selection"]	= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"]	= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection"].setCosmetic(true);
 	m_pen["selection-group"] = QPen(Qt::red, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group"].setCosmetic(true);
-	m_pen["selection-group-inside"] = QPen(Qt::red, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group-inside"] = QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
-	m_pen["handle"]		= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["handle"]		= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["handle"].setCosmetic(true);
 	
 	m_brush["outline"]	= Qt::NoBrush;
 	m_brush["selection"]	= Qt::NoBrush;
 	m_brush["selection-group"] = QColor(255,0,0,10);
 	m_brush["selection-group-inside"] = Qt::NoBrush;
-	m_brush["handle"]	= Qt::red;
+	m_brush["handle"]	= PrefsManager::instance()->appPrefs.displayPrefs.frameColor;
 
 	m_keyRepeat = false;
 	m_arrowKeyDown = false;
@@ -223,6 +223,13 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 //	QTime tt;
 //	int tg(0);
 //	QStringList tu;
+	m_pen["selection"]	= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"].setCosmetic(true);
+	m_pen["selection-group-inside"] = QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group-inside"].setCosmetic(true);
+	m_pen["handle"]		= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["handle"].setCosmetic(true);
+	m_brush["handle"]	= PrefsManager::instance()->appPrefs.displayPrefs.frameColor;
 	QString ds;
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());

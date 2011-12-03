@@ -74,6 +74,7 @@ class SCRIBUS_API Prefs_Display : public Prefs_Pane, Ui::Prefs_Display
 		QColor colorPageBorder;
 		QColor colorControlChars;
 		double displayScale;
+		ScribusDoc* m_doc;
 
 };
 

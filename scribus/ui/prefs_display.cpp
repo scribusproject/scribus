@@ -13,12 +13,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_display.h"
 #include "prefsstructs.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "units.h"
 #include "util_icon.h"
 
-Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc)
-	: Prefs_Pane(parent)
+Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(parent), m_doc(doc)
 {
 	setupUi(this);
 	languageChange();
@@ -26,19 +26,40 @@ Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc)
 	buttonRestoreDPI->setIcon(QIcon(loadIcon("screen.png")));
 
 	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(scratchSpaceColorButton, SIGNAL(clicked()), this, SLOT(changeScratchColor()));
-	connect(frameSelectedColorButton, SIGNAL(clicked()), this, SLOT(changeFrameColor()));
-	connect(frameColorButton, SIGNAL(clicked()), this, SLOT(changeNormFrameColor()));
-	connect(frameGroupedColorButton, SIGNAL(clicked()), this, SLOT(changeGroupFrameColor()));
-	connect(frameLinkedColorButton, SIGNAL(clicked()), this, SLOT(changeChainFrameColor()));
-	connect(frameLockedColorButton, SIGNAL(clicked()), this, SLOT(changeLockFrameColor()));
-	connect(frameAnnotationColorButton, SIGNAL(clicked()), this, SLOT(changeAnnotFrameColor()));
-	connect(selectedPageBorderButton, SIGNAL(clicked()), this, SLOT(changePageBorderColor()));
-	connect(textControlCharsButton, SIGNAL(clicked()), this, SLOT(changeControlCharsColor()));
 
-	connect(buttonRestoreDPI, SIGNAL(clicked()), this, SLOT(restoreDisScale()));
-	connect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
-	connect(rulerUnitComboBox, SIGNAL(activated(int)), this, SLOT(drawRuler()));
+	if (m_doc == NULL && !ScCore->primaryMainWindow()->HaveDoc)
+	{
+		connect(scratchSpaceColorButton, SIGNAL(clicked()), this, SLOT(changeScratchColor()));
+		connect(frameSelectedColorButton, SIGNAL(clicked()), this, SLOT(changeFrameColor()));
+		connect(frameColorButton, SIGNAL(clicked()), this, SLOT(changeNormFrameColor()));
+		connect(frameGroupedColorButton, SIGNAL(clicked()), this, SLOT(changeGroupFrameColor()));
+		connect(frameLinkedColorButton, SIGNAL(clicked()), this, SLOT(changeChainFrameColor()));
+		connect(frameLockedColorButton, SIGNAL(clicked()), this, SLOT(changeLockFrameColor()));
+		connect(frameAnnotationColorButton, SIGNAL(clicked()), this, SLOT(changeAnnotFrameColor()));
+		connect(selectedPageBorderButton, SIGNAL(clicked()), this, SLOT(changePageBorderColor()));
+		connect(textControlCharsButton, SIGNAL(clicked()), this, SLOT(changeControlCharsColor()));
+		connect(buttonRestoreDPI, SIGNAL(clicked()), this, SLOT(restoreDisScale()));
+		connect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+		connect(rulerUnitComboBox, SIGNAL(activated(int)), this, SLOT(drawRuler()));
+	}
+	else
+	{
+		scratchSpaceColorButton->setEnabled(false);
+		frameSelectedColorButton->setEnabled(false);
+		frameColorButton->setEnabled(false);
+		frameGroupedColorButton->setEnabled(false);
+		frameLinkedColorButton->setEnabled(false);
+		frameLockedColorButton->setEnabled(false);
+		frameAnnotationColorButton->setEnabled(false);
+		selectedPageBorderButton->setEnabled(false);
+		textControlCharsButton->setEnabled(false);
+		buttonRestoreDPI->setEnabled(false);
+		adjustDisplaySlider->setEnabled(false);
+		rulerUnitComboBox->setEnabled(false);
+		showPageShadowCheckBox->setEnabled(false);
+		showVerifierWarningsOnCanvasCheckBox->setEnabled(false);
+		tabWidget->setTabEnabled(2, false);
+	}
 }
 
 Prefs_Display::~Prefs_Display()
