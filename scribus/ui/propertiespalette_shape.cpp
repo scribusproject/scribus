@@ -348,7 +348,6 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	if (m_item->FrameType > 3)
 		customShape->setIcon(customShape->getIconPixmap(m_item->FrameType-2));
 
-	m_haveItem = true;
 	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 	displayTextFlowMode(m_item->textFlowMode());
 
@@ -389,6 +388,8 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	{
 		setEnabled(false);
 	}
+	m_haveItem = true;
+	displayTextFlowMode(m_item->textFlowMode());
 }
 
 void PropertiesPalette_Shape::handleTextFlow()
@@ -413,6 +414,7 @@ void PropertiesPalette_Shape::handleTextFlow()
 		}
 		m_item->setTextFlowMode(mode);
 		emit DocChanged();
+		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
 }

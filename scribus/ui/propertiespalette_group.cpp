@@ -498,6 +498,7 @@ void PropertiesPalette_Group::handleTextFlow()
 		}
 		m_item->setTextFlowMode(mode);
 		emit DocChanged();
+		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
 }
