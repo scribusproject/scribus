@@ -131,8 +131,6 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	rightTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Right * unitRatio);
 
 	//Image Tool
-//TODO	imageFrameLineColorComboBox
-//TODO	imageFrameLineShadingSpinBox
 	imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
 	imageFrameScalingRadioButton->setChecked( !prefsData->itemToolPrefs.imageScaleType );
 	imageHorizontalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleX * 100));
@@ -140,6 +138,8 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
 	imageFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageFillColor);
 	imageFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.imageFillColorShade );
+	imageFrameLineColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageStrokeColor);
+	imageFrameLineShadingSpinBox->setValue(prefsData->itemToolPrefs.imageStrokeColorShade );
 	imageUseEmbeddedClippingPathCheckBox->setChecked(prefsData->itemToolPrefs.imageUseEmbeddedPath);
 	switch (prefsData->itemToolPrefs.imageLowResType)
 	{
@@ -255,14 +255,16 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 	//Image Tool
 	//
-	//	TODO imageFrameLineColorComboBox
-	//	TODO imageFrameLineShadingSpinBox
 	//	TODO scalingLockToolButton
 
 	prefsData->itemToolPrefs.imageFillColor = imageFrameFillColorComboBox->currentText();
 	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
 		prefsData->itemToolPrefs.imageFillColor = CommonStrings::None;
 	prefsData->itemToolPrefs.imageFillColorShade = imageFrameFillShadingSpinBox->value();
+	prefsData->itemToolPrefs.imageStrokeColor = imageFrameLineColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.imageStrokeColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.imageStrokeColor = CommonStrings::None;
+	prefsData->itemToolPrefs.imageStrokeColorShade = imageFrameFillShadingSpinBox->value();
 	prefsData->itemToolPrefs.imageScaleX = static_cast<double>(imageHorizontalScalingSpinBox->value()) / 100.0;
 	prefsData->itemToolPrefs.imageScaleY = static_cast<double>(imageVerticalScalingSpinBox->value()) / 100.0;
 	prefsData->itemToolPrefs.imageScaleType = imageFreeScalingRadioButton->isChecked();

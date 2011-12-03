@@ -319,6 +319,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("MAGSTEP",m_Doc->opToolPrefs().magStep);
 	docu.writeAttribute("CPICT",m_Doc->itemToolPrefs().imageFillColor);
 	docu.writeAttribute("PICTSHADE",m_Doc->itemToolPrefs().imageFillColorShade);
+	docu.writeAttribute("CSPICT",m_Doc->itemToolPrefs().imageStrokeColor);
+	docu.writeAttribute("PICTSSHADE",m_Doc->itemToolPrefs().imageStrokeColorShade);
 	docu.writeAttribute("PICTSCX",m_Doc->itemToolPrefs().imageScaleX);
 	docu.writeAttribute("PICTSCY",m_Doc->itemToolPrefs().imageScaleY);
 	docu.writeAttribute("PSCALE", static_cast<int>(m_Doc->itemToolPrefs().imageScaleType));

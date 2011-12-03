@@ -1451,7 +1451,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	double h = e.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "height" ) );
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	if (!fname.isEmpty())
 	{

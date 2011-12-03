@@ -2071,6 +2071,9 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	if (attrs.hasAttribute("CPICT"))
 		doc->itemToolPrefs().imageFillColor = attrs.valueAsString("CPICT");
 	doc->itemToolPrefs().imageFillColorShade = attrs.valueAsInt("PICTSHADE", 100);
+	if (attrs.hasAttribute("CSPICT"))
+		doc->itemToolPrefs().imageStrokeColor = attrs.valueAsString("CSPICT");
+	doc->itemToolPrefs().imageStrokeColorShade = attrs.valueAsInt("PICTSSHADE", 100);
 }
 
 void Scribus150Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
@@ -3695,7 +3698,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::ImageFrame:
 	case PageItem::OSGFrame:
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
-		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;

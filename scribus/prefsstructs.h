@@ -219,6 +219,8 @@ struct ItemToolPrefs
 	/* Image Tool */
 	QString imageFillColor; //! Default fill color of an image frame
 	int imageFillColorShade; //! Default shade of fill color of an image grame
+	QString imageStrokeColor; //! Default stroke color of an image frame
+	int imageStrokeColorShade; //! Default shade of stroke color of an image grame
 	double imageScaleX; //! X scale of an image within an image frame
 	double imageScaleY; //! Y scale of an image within an image frame
 	bool imageScaleType; //! Scale type of image

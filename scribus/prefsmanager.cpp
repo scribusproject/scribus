@@ -257,10 +257,6 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.magMin = 1;
 	appPrefs.opToolPrefs.magMax = 3200;
 	appPrefs.opToolPrefs.magStep = 200;
-	appPrefs.itemToolPrefs.imageFillColor = CommonStrings::None;
-	appPrefs.itemToolPrefs.imageFillColorShade = 100;
-	appPrefs.itemToolPrefs.imageScaleX = 1;
-	appPrefs.itemToolPrefs.imageScaleY = 1;
 	appPrefs.docSetupPrefs.docUnitIndex = 0;
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;
@@ -274,6 +270,17 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.spiralStartAngle = 0.0;
 	appPrefs.itemToolPrefs.spiralEndAngle = 1080.0;
 	appPrefs.itemToolPrefs.spiralFactor = 1.2;
+	// Image item prefs
+	appPrefs.itemToolPrefs.imageFillColor = CommonStrings::None;
+	appPrefs.itemToolPrefs.imageFillColorShade = 100;
+	appPrefs.itemToolPrefs.imageStrokeColor = CommonStrings::None;
+	appPrefs.itemToolPrefs.imageStrokeColorShade = 100;
+	appPrefs.itemToolPrefs.imageScaleX = 1;
+	appPrefs.itemToolPrefs.imageScaleY = 1;
+	appPrefs.itemToolPrefs.imageScaleType = true;
+	appPrefs.itemToolPrefs.imageAspectRatio = true;
+	appPrefs.itemToolPrefs.imageLowResType = 1;
+	appPrefs.itemToolPrefs.imageUseEmbeddedPath = false;
 //	appPrefs.PSize = 40;
 	appPrefs.printerPrefs.ClipMargin = false;
 	appPrefs.printerPrefs.GCRMode = false;
@@ -299,10 +306,6 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.bleeds.Left = 0;
 	appPrefs.docSetupPrefs.bleeds.Right = 0;
 	appPrefs.docSetupPrefs.bleeds.Bottom = 0;
-	appPrefs.itemToolPrefs.imageScaleType = true;
-	appPrefs.itemToolPrefs.imageAspectRatio = true;
-	appPrefs.itemToolPrefs.imageLowResType = 1;
-	appPrefs.itemToolPrefs.imageUseEmbeddedPath = false;
 	appPrefs.hyphPrefs.MinWordLen = 3;
 	appPrefs.hyphPrefs.HyCount = 2;
 	appPrefs.hyphPrefs.Language = "";
@@ -1106,6 +1109,8 @@ bool PrefsManager::isToolColor(const struct ItemToolPrefs& settings, const QStri
 		return true;
 	if (settings.imageFillColor == name)
 		return true;
+	if (settings.imageStrokeColor == name)
+		return true;
 	return false;
 }
 
@@ -1132,6 +1137,8 @@ QStringList PrefsManager::toolColorNames(const struct ItemToolPrefs& settings)
 		names.append(settings.lineColor);
 	if (!names.contains(settings.imageFillColor))
 		names.append(settings.imageFillColor);
+	if (!names.contains(settings.imageStrokeColor))
+		names.append(settings.imageStrokeColor);
 	if (!names.contains(settings.calligrapicPenFillColor))
 		names.append(settings.calligrapicPenFillColor);
 	if (!names.contains(settings.calligrapicPenLineColor))
@@ -1162,6 +1169,8 @@ void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<
 		settings.lineColor = replaceMap[settings.lineColor];
 	if (replaceMap.contains(settings.imageFillColor))
 		settings.imageFillColor = replaceMap[settings.imageFillColor];
+	if (replaceMap.contains(settings.imageStrokeColor))
+		settings.imageStrokeColor = replaceMap[settings.imageStrokeColor];
 	if (replaceMap.contains(settings.calligrapicPenFillColor))
 		settings.calligrapicPenFillColor = replaceMap[settings.calligrapicPenFillColor];
 	if (replaceMap.contains(settings.calligrapicPenLineColor))
@@ -1196,6 +1205,9 @@ void PrefsManager::setColorSet(const ColorList& colorSet)
 	QString brushPict = appPrefs.itemToolPrefs.imageFillColor;
 	if (!tmpSet.contains(brushPict) && brushPict != CommonStrings::None)
 		tmpSet[brushPict] = appPrefs.colorPrefs.DColors[brushPict];
+	QString penPict = appPrefs.itemToolPrefs.imageStrokeColor;
+	if (!tmpSet.contains(penPict) && penPict != CommonStrings::None)
+		tmpSet[penPict] = appPrefs.colorPrefs.DColors[penPict];
 	QString brushCpen = appPrefs.itemToolPrefs.calligrapicPenFillColor;
 	if (!tmpSet.contains(brushCpen) && brushCpen != CommonStrings::None)
 		tmpSet[brushCpen] = appPrefs.colorPrefs.DColors[brushCpen];
@@ -1475,6 +1487,8 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("ShapeFillColorShade",appPrefs.itemToolPrefs.shapeFillColorShade);
 	dcItemTools.setAttribute("ImageFillColor",appPrefs.itemToolPrefs.imageFillColor);
 	dcItemTools.setAttribute("ImageFillColorShade",appPrefs.itemToolPrefs.imageFillColorShade);
+	dcItemTools.setAttribute("ImageStrokeColor",appPrefs.itemToolPrefs.imageStrokeColor);
+	dcItemTools.setAttribute("ImageStrokeColorShade",appPrefs.itemToolPrefs.imageStrokeColorShade);
 	dcItemTools.setAttribute("ImageScaleX",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleX));
 	dcItemTools.setAttribute("ImageScaleY",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleY));
 	dcItemTools.setAttribute("PolygonCorners", appPrefs.itemToolPrefs.polyCorners);
@@ -2085,6 +2099,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.shapeFillColorShade  = dc.attribute("ShapeFillColorShade").toInt();
 			appPrefs.itemToolPrefs.imageFillColor = dc.attribute("ImageFillColor", CommonStrings::None);
 			appPrefs.itemToolPrefs.imageFillColorShade = dc.attribute("ImageFillColorShade", "100").toInt();
+			appPrefs.itemToolPrefs.imageStrokeColor = dc.attribute("ImageStrokeColor", CommonStrings::None);
+			appPrefs.itemToolPrefs.imageStrokeColorShade = dc.attribute("ImageStrokeColorShade", "100").toInt();
 			appPrefs.itemToolPrefs.imageScaleX = ScCLocale::toDoubleC(dc.attribute("ImageScaleX"), 1.0);
 			appPrefs.itemToolPrefs.imageScaleY = ScCLocale::toDoubleC(dc.attribute("ImageScaleY"), 1.0);
 			appPrefs.itemToolPrefs.imageScaleType = static_cast<bool>(dc.attribute("PSCALE", "1").toInt());
@@ -2698,5 +2714,7 @@ void PrefsManager::languageChange()
 		appPrefs.itemToolPrefs.lineColor = CommonStrings::None;
 	if (appPrefs.itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
 		appPrefs.itemToolPrefs.imageFillColor = CommonStrings::None;
+	if (appPrefs.itemToolPrefs.imageStrokeColor == CommonStrings::tr_NoneColor)
+		appPrefs.itemToolPrefs.imageStrokeColor = CommonStrings::None;
 }
 

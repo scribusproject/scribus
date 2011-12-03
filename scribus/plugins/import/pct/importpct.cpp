@@ -1759,7 +1759,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
 			image.invertPixels();
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 		ite->tempImageFile->open();

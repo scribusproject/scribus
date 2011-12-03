@@ -419,6 +419,9 @@ void ScribusDoc::init()
 	if (appPrefsData.itemToolPrefs.imageFillColor != CommonStrings::None)
 		PageColors.insert(appPrefsData.itemToolPrefs.imageFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.imageFillColor]);
 	docPrefsData.itemToolPrefs.imageFillColor = appPrefsData.itemToolPrefs.imageFillColor;
+	if (appPrefsData.itemToolPrefs.imageStrokeColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.imageStrokeColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.imageStrokeColor]);
+	docPrefsData.itemToolPrefs.imageStrokeColor = appPrefsData.itemToolPrefs.imageStrokeColor;
 	if (appPrefsData.itemToolPrefs.textFillColor != CommonStrings::None)
 		PageColors.insert(appPrefsData.itemToolPrefs.textFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.textFillColor]);
 	docPrefsData.itemToolPrefs.textFillColor = appPrefsData.itemToolPrefs.textFillColor;
@@ -3047,7 +3050,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 		found = false;
 		// Tool preferences colors
 		if ((it.key() == docPrefsData.itemToolPrefs.shapeFillColor) || (it.key() == docPrefsData.itemToolPrefs.shapeLineColor) || (it.key() == docPrefsData.itemToolPrefs.imageFillColor)
-				|| (it.key() == docPrefsData.itemToolPrefs.lineColor) || (it.key() == docPrefsData.itemToolPrefs.textColor))
+				 || (it.key() == docPrefsData.itemToolPrefs.imageStrokeColor) || (it.key() == docPrefsData.itemToolPrefs.lineColor) || (it.key() == docPrefsData.itemToolPrefs.textColor))
 		{
 			if (spot)
 			{
@@ -4382,7 +4385,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		//Q_ASSERTs here will warn on creation issues when a coder specifies the frameType incorrectly
 		//for items that do not have/need a frameType for creation.
 		case PageItem::ImageFrame:
-			newItem = new PageItem_ImageFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, CommonStrings::None);
+			newItem = new PageItem_ImageFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
@@ -4415,12 +4418,12 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		case PageItem::LatexFrame:
-			newItem = new PageItem_LatexFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, CommonStrings::None);
+			newItem = new PageItem_LatexFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
-			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, CommonStrings::None);
+			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #endif
@@ -4638,12 +4641,14 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->IProfile = docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 			newItem->IRender = docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
 			newItem->setFillShade(docPrefsData.itemToolPrefs.imageFillColorShade);
+			newItem->setLineShade(docPrefsData.itemToolPrefs.imageStrokeColorShade);
 			break;
 		case PageItem::LatexFrame:
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
 #endif
 			newItem->setFillShade(docPrefsData.itemToolPrefs.imageFillColorShade);
+			newItem->setLineShade(docPrefsData.itemToolPrefs.imageStrokeColorShade);
 			break;
 		case PageItem::TextFrame:
 //			newItem->setFontFillShade(itemToolPrefs.textShade);

@@ -3358,7 +3358,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		}
 		else if (rasterFiles.contains(fi.suffix().toLower()))
 		{
-			int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, true);
 			PageItem *b = doc->Items->at(z);
 			b->LayerID = doc->activeLayer();
 			doc->loadPict(data, b);

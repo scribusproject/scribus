@@ -657,15 +657,15 @@ PageItem* CreateMode::doCreateNewObject(void)
 		break;
 	case modeDrawLatex:
 		if (modifiers == Qt::ShiftModifier)
-			z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		else
-			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		break;
 	case modeDrawImage:
 		if (modifiers == Qt::ShiftModifier)
-			z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		else
-			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		break;
 	case modeDrawText:
 		if (modifiers == Qt::ShiftModifier)
@@ -894,11 +894,11 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeInsertPDF3DAnnotation:
 		if (modifiers == Qt::ShiftModifier)
 		{
-			z = m_doc->itemAddArea(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAddArea(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		}
 		else
 		{
-			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		}
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);

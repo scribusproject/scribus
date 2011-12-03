@@ -84,7 +84,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 									ValueToPoint(w),
 									ValueToPoint(h),
 									1, ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
-									CommonStrings::None, true);
+									ScCore->primaryMainWindow()->doc->itemToolPrefs().imageStrokeColor, true);
 	if (Name != EMPTY_STRING)
 	{
 		QString objName = QString::fromUtf8(Name);

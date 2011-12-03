@@ -393,7 +393,7 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	}
 	double w = (bitmap.rect.x2 - bitmap.rect.x1) * 72.0;
 	double h = (bitmap.rect.y2 - bitmap.rect.y1) * 72.0;
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_wpg_XXXXXX.png");
 	ite->tempImageFile->open();
