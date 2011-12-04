@@ -1119,6 +1119,8 @@ void PropertiesPalette_XYZ::handleLower()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->view->LowerItem();
+	QString tm;
+	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleRaise()
@@ -1126,6 +1128,8 @@ void PropertiesPalette_XYZ::handleRaise()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->view->RaiseItem();
+	QString tm;
+	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleFront()
@@ -1133,6 +1137,8 @@ void PropertiesPalette_XYZ::handleFront()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->view->ToFront();
+	QString tm;
+	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleBack()
@@ -1140,6 +1146,8 @@ void PropertiesPalette_XYZ::handleBack()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->view->ToBack();
+	QString tm;
+	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleBasePoint(int m)
