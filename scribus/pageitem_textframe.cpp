@@ -113,6 +113,19 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	}
 	else
 	{
+		if (docItem->isSymbol() || docItem->isGroup())
+		{
+			if (docItem->imageFlippedH())
+			{
+				pp.translate(docItem->width(), 0);
+				pp.scale(-1, 1);
+			}
+			if (docItem->imageFlippedV())
+			{
+				pp.translate(0, docItem->height());
+				pp.scale(1, -1);
+			}
+		}
 		if ((((docItem->lineColor() != CommonStrings::None) || (!docItem->patternStrokeVal.isEmpty()) || (docItem->GrTypeStroke > 0)) && (docItem->lineWidth() > 1)) || (!docItem->NamedLStyle.isEmpty()))
 		{
 			QVector<double> m_array;

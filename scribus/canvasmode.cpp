@@ -1236,7 +1236,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedH()) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
@@ -1307,7 +1307,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedH()) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
@@ -1378,7 +1378,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedV()) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{
@@ -1449,7 +1449,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedV()) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
 								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 								{

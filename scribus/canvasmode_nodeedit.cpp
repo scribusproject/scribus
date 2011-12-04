@@ -61,26 +61,28 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	p->setTransform(currItem->getTransform(), true);
-	if (currItem->isSymbol() || currItem->isGroup())
-	{
-		if (currItem->imageFlippedH())
-		{
-			p->translate(currItem->width(), 0);
-			p->scale(-1, 1);
-		}
-		if (currItem->imageFlippedV())
-		{
-			p->translate(0, currItem->height());
-			p->scale(1, -1);
-		}
-	}
 	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
 
 	if ((m_doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
 		cli = currItem->ContourLine;
 	else
+	{
 		cli = currItem->PoLine;
+		if (currItem->isSymbol() || currItem->isGroup())
+		{
+			if (currItem->imageFlippedH())
+			{
+				p->translate(currItem->width(), 0);
+				p->scale(-1, 1);
+			}
+			if (currItem->imageFlippedV())
+			{
+				p->translate(0, currItem->height());
+				p->scale(1, -1);
+			}
+		}
+	}
 	// draw curve
 	const double scale = m_canvas->m_viewMode.scale;
 	const double onePerScale = 1 / scale;
@@ -173,22 +175,24 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 		QRectF Sele = m_rectangleSelect->result();
 		FPointArray Clip;
 		bool firstPoint = false;
+		QTransform pm2 = currItem->getTransform();
 		if (m_doc->nodeEdit.isContourLine)
 			Clip = currItem->ContourLine;
 		else
-			Clip = currItem->PoLine;
-		QTransform pm2 = currItem->getTransform();
-		if (currItem->isSymbol() || currItem->isGroup())
 		{
-			if (currItem->imageFlippedH())
+			Clip = currItem->PoLine;
+			if (currItem->isSymbol() || currItem->isGroup())
 			{
-				pm2.translate(currItem->width(), 0);
-				pm2.scale(-1, 1);
-			}
-			if (currItem->imageFlippedV())
-			{
-				pm2.translate(0, currItem->height());
-				pm2.scale(1, -1);
+				if (currItem->imageFlippedH())
+				{
+					pm2.translate(currItem->width(), 0);
+					pm2.scale(-1, 1);
+				}
+				if (currItem->imageFlippedV())
+				{
+					pm2.translate(0, currItem->height());
+					pm2.scale(1, -1);
+				}
 			}
 		}
 		for (uint a = 0; a < Clip.size(); ++a)
@@ -409,10 +413,6 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
 			FPointArray Clip;
-			if (m_doc->nodeEdit.isContourLine)
-				Clip = currItem->ContourLine;
-			else
-				Clip = currItem->PoLine;
 			FPoint npf;
 			double nx = newP.x();
 			double ny = newP.y();
@@ -422,21 +422,27 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 				npf = FPoint(nx, ny);
 			QTransform pp = currItem->getTransform();
 			npf = npf.transformPoint(pp, true);
-			if (currItem->isSymbol() || currItem->isGroup())
+			if (m_doc->nodeEdit.isContourLine)
+				Clip = currItem->ContourLine;
+			else
 			{
-				if (currItem->imageFlippedH())
+				Clip = currItem->PoLine;
+				if (currItem->isSymbol() || currItem->isGroup())
 				{
-					QTransform p;
-					p.translate(currItem->width(), 0);
-					p.scale(-1, 1);
-					npf = npf.transformPoint(p, false);
-				}
-				if (currItem->imageFlippedV())
-				{
-					QTransform p;
-					p.translate(0, currItem->height());
-					p.scale(1, -1);
-					npf = npf.transformPoint(p, false);
+					if (currItem->imageFlippedH())
+					{
+						QTransform p;
+						p.translate(currItem->width(), 0);
+						p.scale(-1, 1);
+						npf = npf.transformPoint(p, false);
+					}
+					if (currItem->imageFlippedV())
+					{
+						QTransform p;
+						p.translate(0, currItem->height());
+						p.scale(1, -1);
+						npf = npf.transformPoint(p, false);
+					}
 				}
 			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
@@ -500,7 +506,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	bool pfound = false;
 	QTransform pm2 = currItem->getTransform();
 	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(pm2, true);
-	if (currItem->isSymbol() || currItem->isGroup())
+	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine))
 	{
 		if (currItem->imageFlippedH())
 		{
@@ -961,7 +967,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, QTransform)
 {
 	QTransform itemPos = currItem->getTransform();
-	if (currItem->isSymbol() || currItem->isGroup())
+	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine))
 	{
 		if (currItem->imageFlippedH())
 		{
@@ -1066,7 +1072,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	currItem = m_doc->m_Selection->itemAt(0);
 	if ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1))
 	{
-		if (currItem->isSymbol() || currItem->isGroup())
+		if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine))
 		{
 			if (currItem->imageFlippedH())
 				np.setX(np.x() * -1);
@@ -1104,7 +1110,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 					npf = FPoint(nx, ny);
 				QTransform pp = currItem->getTransform();
 				npf = npf.transformPoint(pp, true);
-				if (currItem->isSymbol() || currItem->isGroup())
+				if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine))
 				{
 					if (currItem->imageFlippedH())
 					{
@@ -1126,7 +1132,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 			}
 			else
 			{
-				if (currItem->isSymbol() || currItem->isGroup())
+				if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine))
 				{
 					if (currItem->imageFlippedH())
 						np.setX(np.x() * -1);
@@ -1156,7 +1162,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				npf = FPoint(nx, ny);
 			QTransform pp = currItem->getTransform();
 			npf = npf.transformPoint(pp, true);
-			if (currItem->isSymbol() || currItem->isGroup())
+			if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine))
 			{
 				if (currItem->imageFlippedH())
 				{

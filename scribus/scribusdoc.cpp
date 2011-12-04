@@ -9532,6 +9532,23 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 		break;
 	default:
 		item->SetFrameShape(count, points);
+		if (item->isSymbol() || item->isGroup())
+		{
+			if (item->imageFlippedH())
+			{
+				QTransform ma;
+				ma.scale(-1, 1);
+				item->PoLine.map(ma);
+				item->PoLine.translate(item->width(), 0);
+			}
+			if (item->imageFlippedV())
+			{
+				QTransform ma;
+				ma.scale(1, -1);
+				item->PoLine.map(ma);
+				item->PoLine.translate(0, item->height());
+			}
+		}
 		this->setRedrawBounding(item);
 		item->FrameType = frameType + 2;
 		break;
@@ -13708,13 +13725,9 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 	currItem->ClipEdited = true;
 	FPointArray Clip;
 	if (isContourLine)
-	{
 		Clip = currItem->ContourLine.copy();
-	}
 	else
-	{
 		Clip = currItem->PoLine.copy();
-	}
 	currItem->FrameType = 3;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
