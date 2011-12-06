@@ -56,7 +56,6 @@ public slots:
 	void languageChange();
 	void unitChange();
 
-	void displayLevel(uint l);
 	void displayXY(double x, double y);
 	void displayWH(double x, double y);
 	void displayRotation(double r);

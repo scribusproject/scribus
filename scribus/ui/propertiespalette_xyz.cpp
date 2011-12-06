@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "pageitem.h"
 #include "pageitem_arc.h"
+#include "pageitem_group.h"
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
@@ -294,7 +295,10 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 
 	nameEdit->setText(m_item->itemName());
 	QString tm;
-	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	if (m_item->Parent == NULL)
+		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	else
+		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
 
 	connect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
 
@@ -352,7 +356,21 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	}
 	xposSpin->setEnabled(!setter);
 	yposSpin->setEnabled(!setter);
-	levelGroup->setEnabled(!setter);
+	bool haveSameParent = true;
+	int selectedItemCount = m_doc->m_Selection->count();
+	if (selectedItemCount > 1)
+	{
+		PageItem *firstItem = m_doc->m_Selection->itemAt(0);
+		for (int a = 1; a < selectedItemCount; ++a)
+		{
+			if (m_doc->m_Selection->itemAt(a)->Parent != firstItem->Parent)
+			{
+				haveSameParent = false;
+				break;
+			}
+		}
+	}
+	levelGroup->setEnabled(haveSameParent && !i->locked());
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
 		setEnabled(true);
@@ -395,7 +413,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	
 	doGroup->setEnabled(false);
 	doUnGroup->setEnabled(false);
-	if (m_doc->m_Selection->count() > 1)
+	if ((m_doc->m_Selection->count() > 1) && (haveSameParent))
 		doGroup->setEnabled(true);
 	if (m_doc->m_Selection->count() == 1)
 		doUnGroup->setEnabled(m_item->isGroup());
@@ -555,12 +573,6 @@ void PropertiesPalette_XYZ::unitChange()
 	widthSpin->setNewUnit( m_unitIndex );
 	heightSpin->setNewUnit( m_unitIndex );
 	m_haveItem = tmp;
-}
-
-void PropertiesPalette_XYZ::displayLevel(uint l)
-{
-	QString tm;
-	levelLabel->setText(tm.setNum(l + 1));
 }
 
 void PropertiesPalette_XYZ::displayXY(double x, double y)
@@ -1118,36 +1130,48 @@ void PropertiesPalette_XYZ::handleLower()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->view->LowerItem();
+	m_doc->itemSelection_LowerItem();
 	QString tm;
-	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	if (m_item->Parent == NULL)
+		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	else
+		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleRaise()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->view->RaiseItem();
+	m_doc->itemSelection_RaiseItem();
 	QString tm;
-	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	if (m_item->Parent == NULL)
+		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	else
+		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleFront()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->view->ToFront();
+	m_doc->bringItemSelectionToFront();
 	QString tm;
-	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	if (m_item->Parent == NULL)
+		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	else
+		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleBack()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->view->ToBack();
+	m_doc->sendItemSelectionToBack();
 	QString tm;
-	levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	if (m_item->Parent == NULL)
+		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
+	else
+		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
 }
 
 void PropertiesPalette_XYZ::handleBasePoint(int m)
@@ -1419,7 +1443,7 @@ void PropertiesPalette_XYZ::languageChange()
 	levelDown->setToolTip( tr("Move one level down"));
 	levelTop->setToolTip( tr("Move to front"));
 	levelBottom->setToolTip( tr("Move to back"));
-	levelLabel->setToolTip( tr("Indicates the level the object is on, 0 means the object is at the bottom"));
+	levelLabel->setToolTip( tr("Indicates the level the object is on, 1 means the object is at the bottom"));
 	doLock->setToolTip( tr("Lock or unlock the object"));
 	noResize->setToolTip( tr("Lock or unlock the size of the object"));
 	noPrint->setToolTip( tr("Enable or disable exporting of the object"));
@@ -1457,7 +1481,6 @@ void PropertiesPalette_XYZ::displayLocked(bool isLocked)
 	heightSpin->setPalette(pal);
 	rotationSpin->setPalette(pal);
 
-	levelGroup->setEnabled(!isLocked);
 	doLock->setChecked(isLocked);
 }
 

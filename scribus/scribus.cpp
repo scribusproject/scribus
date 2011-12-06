@@ -3142,13 +3142,26 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemTransform"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(true);
-			scrActions["itemLowerToBottom"]->setEnabled(setter);
-			scrActions["itemRaiseToTop"]->setEnabled(setter);
-			scrActions["itemRaise"]->setEnabled(setter);
-			scrActions["itemLower"]->setEnabled(setter);
 //			scrActions["itemSendToScrapbook"]->setEnabled(setter);
 			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", setter);
 			scrActions["itemSendToPattern"]->setEnabled(setter);
+			if (docSelectionCount > 1)
+			{
+				bool haveSameParent = true;
+				PageItem *firstItem = doc->m_Selection->itemAt(0);
+				for (uint a = 1; a < docSelectionCount; ++a)
+				{
+					if (doc->m_Selection->itemAt(a)->Parent != firstItem->Parent)
+					{
+						haveSameParent = false;
+						break;
+					}
+				}
+				scrActions["itemRaise"]->setEnabled(haveSameParent);
+				scrActions["itemLower"]->setEnabled(haveSameParent);
+				scrActions["itemRaiseToTop"]->setEnabled(haveSameParent);
+				scrActions["itemLowerToBottom"]->setEnabled(haveSameParent);
+			}
 		}
 		scrActions["itemLock"]->setChecked(currItem->locked());
 		scrActions["itemLockSize"]->setChecked(currItem->sizeLocked());

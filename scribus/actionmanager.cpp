@@ -1117,6 +1117,10 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["itemsUnWeld"], 0, 0, 0);
 	disconnect( (*scrActions)["itemWeld"], 0, 0, 0);
 	disconnect( (*scrActions)["itemEditWeld"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
+	disconnect( (*scrActions)["itemRaiseToTop"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
+	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
 
 
 }
@@ -1153,6 +1157,10 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemsUnWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnWeld()) );
 	connect( (*scrActions)["itemWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_Weld()) );
 	connect( (*scrActions)["itemEditWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_EditWeld()) );
+	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(triggered()), currDoc, SLOT(sendItemSelectionToBack()) );
+	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(triggered()), currDoc, SLOT(bringItemSelectionToFront()) );
+	connect( (*scrActions)["itemLower"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_LowerItem()) );
+	connect( (*scrActions)["itemRaise"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_RaiseItem()) );
 }
 
 void ActionManager::disconnectNewViewActions()
@@ -1160,13 +1168,10 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["viewFitPreview"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
 	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), 0, 0 );
 	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), 0,0 );
 	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), 0, 0 );
-	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToBezierCurve"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToImageFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToOutlines"], 0, 0, 0);
@@ -1184,10 +1189,6 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["viewFitPreview"], SIGNAL(triggered()), currView, SLOT(togglePreview()) );
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
-	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(triggered()), currView, SLOT(ToBack()) );
-	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(triggered()), currView, SLOT(ToFront()) );
-	connect( (*scrActions)["itemRaise"], SIGNAL(triggered()), currView, SLOT(RaiseItem()) );
-	connect( (*scrActions)["itemLower"], SIGNAL(triggered()), currView, SLOT(LowerItem()) );
 	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(triggered()), currView, SLOT(ToBezierFrame()) );
 	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(triggered()), currView, SLOT(ToPicFrame()) );
 	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(triggered()), currView, SLOT(TextToPath()) );

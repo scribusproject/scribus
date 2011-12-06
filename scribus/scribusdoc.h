@@ -964,9 +964,7 @@ public:
 	 * @return int of 0,1,2,3
 	 */
 	int columnOfPage(int pageIndex) const;
-	
-	bool sendItemSelectionToBack();
-	bool bringItemSelectionToFront();
+
 
 	QList<PageItem*>* GroupOfItem(QList<PageItem*>* itemList, PageItem* item);
 	PageItem* groupObjectsSelection(Selection* customSelection=0);
@@ -1346,6 +1344,10 @@ public slots:
 	void itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
 	void itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currAlignMethod, double guidePosition);
 
+	void sendItemSelectionToBack();
+	void bringItemSelectionToFront();
+	void itemSelection_LowerItem();
+	void itemSelection_RaiseItem();
 	void itemSelection_DistributeDistH(bool usingDistance=false, double distance=0.0, bool reverseDistribute=false);
 	void itemSelection_DistributeAcrossPage(bool useMargins=false);
 	void itemSelection_DistributeRight();

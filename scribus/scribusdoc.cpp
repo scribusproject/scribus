@@ -6338,63 +6338,261 @@ void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k
 	}
 }
 
-
-
-bool ScribusDoc::sendItemSelectionToBack()
+struct objOrdHelper
 {
-	uint docSelectionCount=m_Selection->count();
-	if ((Items->count() > 1) && (docSelectionCount != 0))
+	int objNrSel;
+	PageItem* parent;
+};
+
+void ScribusDoc::sendItemSelectionToBack()
+{
+	int docSelectionCount = m_Selection->count();
+	if (docSelectionCount == 0)
+		return;
+	if (docSelectionCount > 1)
 	{
-		QMap<int, uint> ObjOrder;
-		PageItem *currItem;
-		for (uint c = 0; c < docSelectionCount; ++c)
+		PageItem *firstItem = m_Selection->itemAt(0);
+		for (int a = 1; a < docSelectionCount; ++a)
+		{
+			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
+				return;
+		}
+	}
+	PageItem *currItem;
+	QMap<int, objOrdHelper> ObjOrder;
+	int d;
+	for (int c = 0; c < docSelectionCount; ++c)
+	{
+		objOrdHelper oHlp;
+		currItem = m_Selection->itemAt(c);
+		oHlp.objNrSel = c;
+		if (currItem->Parent != NULL)
+		{
+			if (currItem->Parent->asGroupFrame()->groupItemList.count() > 1)
+			{
+				d = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
+				oHlp.parent = currItem->Parent;
+				ObjOrder.insert(d, oHlp);
+				currItem->Parent->asGroupFrame()->groupItemList.takeAt(d);
+			}
+		}
+		else
+		{
+			if (Items->count() > 1)
+			{
+				d = Items->indexOf(currItem);
+				oHlp.parent = NULL;
+				ObjOrder.insert(d, oHlp);
+				Items->takeAt(d);
+			}
+		}
+	}
+	QList<objOrdHelper> Oindex = ObjOrder.values();
+	for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+	{
+		objOrdHelper oHlp = Oindex[c];
+		if (oHlp.parent == NULL)
+			Items->prepend(m_Selection->itemAt(oHlp.objNrSel));
+		else
+			oHlp.parent->asGroupFrame()->groupItemList.prepend(m_Selection->itemAt(oHlp.objNrSel));
+	}
+	changed();
+	regionsChanged()->update(QRectF());
+	return;
+}
+
+void ScribusDoc::bringItemSelectionToFront()
+{
+	int docSelectionCount = m_Selection->count();
+	if (docSelectionCount == 0)
+		return;
+	if (docSelectionCount > 1)
+	{
+		PageItem *firstItem = m_Selection->itemAt(0);
+		for (int a = 1; a < docSelectionCount; ++a)
+		{
+			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
+				return;
+		}
+	}
+	PageItem *currItem;
+	QMap<int, objOrdHelper> ObjOrder;
+	int d;
+	for (int c = 0; c < docSelectionCount; ++c)
+	{
+		objOrdHelper oHlp;
+		currItem = m_Selection->itemAt(c);
+		oHlp.objNrSel = c;
+		if (currItem->Parent != NULL)
+		{
+			if (currItem->Parent->asGroupFrame()->groupItemList.count() > 1)
+			{
+				d = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
+				oHlp.parent = currItem->Parent;
+				ObjOrder.insert(d, oHlp);
+				currItem->Parent->asGroupFrame()->groupItemList.takeAt(d);
+			}
+		}
+		else
+		{
+			if (Items->count() > 1)
+			{
+				d = Items->indexOf(currItem);
+				oHlp.parent = NULL;
+				ObjOrder.insert(d, oHlp);
+				Items->takeAt(d);
+			}
+		}
+	}
+	QList<objOrdHelper> Oindex = ObjOrder.values();
+	for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
+	{
+		objOrdHelper oHlp = Oindex[c];
+		if (oHlp.parent == NULL)
+			Items->append(m_Selection->itemAt(oHlp.objNrSel));
+		else
+			oHlp.parent->asGroupFrame()->groupItemList.append(m_Selection->itemAt(oHlp.objNrSel));
+	}
+	changed();
+	regionsChanged()->update(QRectF());
+	return;
+}
+
+void ScribusDoc::itemSelection_LowerItem()
+{
+	int docSelectionCount = m_Selection->count();
+	if (docSelectionCount == 0)
+		return;
+	if (docSelectionCount > 1)
+	{
+		PageItem *firstItem = m_Selection->itemAt(0);
+		for (int a = 1; a < docSelectionCount; ++a)
+		{
+			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
+				return;
+		}
+	}
+	QList<PageItem*> *itemList;
+	if (m_Selection->itemAt(0)->Parent == NULL)
+		itemList = Items;
+	else
+		itemList = &(m_Selection->itemAt(0)->Parent->asGroupFrame()->groupItemList);
+	int low = itemList->count();
+	int high = 0;
+	int d;
+	QMap<int, int> ObjOrder;
+	PageItem *currItem;
+	PageItem *b2;
+	if (itemList->count() > 1)
+	{
+		for (int c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
-				return false;
-			int d = Items->indexOf(currItem);
-			ObjOrder.insert(d, c);
-			Items->takeAt(d);
+			if (currItem->isTableItem && currItem->isSingleSel)
+				return;
+			int id = itemList->indexOf(currItem);
+			low = qMin(id, low);
+			high = qMax(id, high);
 		}
-		QList<uint> Oindex = ObjOrder.values();
+		if (low == 0)
+			return;
+		b2 = itemList->at(high);
+		bool wasSignalDelayed = !m_Selection->signalsDelayed();
+		m_Selection->delaySignalsOn();
+		if (!wasSignalDelayed)
+			m_Selection->disconnectAllItemsFromGUI();
+		Selection tempSelection(*m_Selection);
+		m_Selection->clear();
+		m_Selection->addItem(itemList->at(low - 1));
+		for (int c = 0; c < m_Selection->count(); ++c)
+		{
+			currItem = m_Selection->itemAt(c);
+			d = itemList->indexOf(currItem);
+			ObjOrder.insert(d, c);
+			itemList->takeAt(d);
+		}
+		d = itemList->indexOf(b2);
+		QList<int> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
-			Items->prepend(m_Selection->itemAt(Oindex[c]));
+			itemList->insert(d+1, m_Selection->itemAt(Oindex[c]));
 		}
-		return true;
+		m_Selection->clear();
+		*m_Selection = tempSelection;
+		m_Selection->delaySignalsOff();
+		changed();
+		regionsChanged()->update(QRectF());
 	}
-	return false;
 }
 
-
-
-bool ScribusDoc::bringItemSelectionToFront()
+void ScribusDoc::itemSelection_RaiseItem()
 {
-	uint docSelectionCount=m_Selection->count();
-	if ((Items->count() > 1) && (docSelectionCount != 0))
+	int docSelectionCount = m_Selection->count();
+	if (docSelectionCount == 0)
+		return;
+	if (docSelectionCount > 1)
 	{
-		QMap<int, uint> ObjOrder;
-		PageItem *currItem;
-		for (uint c = 0; c < docSelectionCount; ++c)
+		PageItem *firstItem = m_Selection->itemAt(0);
+		for (int a = 1; a < docSelectionCount; ++a)
+		{
+			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
+				return;
+		}
+	}
+	QList<PageItem*> *itemList;
+	if (m_Selection->itemAt(0)->Parent == NULL)
+		itemList = Items;
+	else
+		itemList = &(m_Selection->itemAt(0)->Parent->asGroupFrame()->groupItemList);
+	int low = itemList->count();
+	int high = 0;
+	int d;
+	QMap<int, int> ObjOrder;
+	PageItem *currItem;
+	PageItem *b2;
+	if (itemList->count() > 1)
+	{
+		for (int c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
-				return false;
-			int d = Items->indexOf(currItem);
-			ObjOrder.insert(d, c);
-			Items->takeAt(d);
+			if (currItem->isTableItem && currItem->isSingleSel)
+				return;
+			int id = itemList->indexOf(currItem);
+			low = qMin(id, low);
+			high = qMax(id, high);
 		}
-		QList<uint> Oindex = ObjOrder.values();
+		if (high == itemList->count()-1)
+			return;
+		b2 = itemList->at(low);
+		bool wasSignalDelayed = !m_Selection->signalsDelayed();
+		m_Selection->delaySignalsOn();
+		if (!wasSignalDelayed)
+			m_Selection->disconnectAllItemsFromGUI();
+		Selection tempSelection(*m_Selection);
+		m_Selection->clear();
+		m_Selection->addItem(itemList->at(high + 1));
+		for (int c = 0; c < m_Selection->count(); ++c)
+		{
+			currItem = m_Selection->itemAt(c);
+			d = itemList->indexOf(currItem);
+			ObjOrder.insert(d, c);
+			itemList->takeAt(d);
+		}
+		QList<int> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
 		{
-			Items->append(m_Selection->itemAt(Oindex[c]));
+			d = itemList->indexOf(b2);
+			if (d == -1)
+				d = 0;
+			itemList->insert(d, m_Selection->itemAt(Oindex[c]));
 		}
-		return true;
+		m_Selection->clear();
+		*m_Selection = tempSelection;
+		m_Selection->delaySignalsOff();
+		changed();
+		regionsChanged()->update(QRectF());
 	}
-	return false;
 }
-
-
 
 void ScribusDoc::itemSelection_SetLineWidth(double w)
 {

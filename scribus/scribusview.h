@@ -281,10 +281,6 @@ public slots: // Public slots
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	void ToggleBookmark();
 	void ToggleAnnotation();
-	void ToBack();
-	void ToFront();
-	void LowerItem();
-	void RaiseItem();
 	void ToPicFrame();
 	void ToPolyFrame();
 	void ToTextFrame();
