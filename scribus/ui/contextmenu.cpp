@@ -105,11 +105,10 @@ void ContextMenu::createMenuItems_Selection()
 		act->setText( ScribusView::tr("In&fo"));
 		if (currItem->asImageFrame())
 		{
-			QTextEdit* menuTextEdit= new QTextEdit("<html>" + currItem->infoDescription() + "</html>", this);
-			menuTextEdit->setReadOnly(true);
-			menuTextEdit->setFrameShape(QFrame::NoFrame);
+			QLabel* menuLabel = new QLabel("<html>" + currItem->infoDescription() + "</html>", this);
+			menuLabel->setFrameShape(QFrame::NoFrame);
 			QWidgetAction* menuTextWidget = new QWidgetAction(this);
-			menuTextWidget->setDefaultWidget(menuTextEdit);
+			menuTextWidget->setDefaultWidget(menuLabel);
 			menuInfo->addAction(menuTextWidget);
 		}
 	}
