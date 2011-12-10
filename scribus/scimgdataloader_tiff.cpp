@@ -110,7 +110,7 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 	struct PSDLayer lay;
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
-	if(tif)
+	if (tif)
 	{
 		do
 		{
@@ -304,7 +304,7 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 {
 	bool gotData = false;
 	uint32* bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-	uint16  extrasamples, *extratypes;
+	uint16  extrasamples(0), *extratypes(0);
 	if (!TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
 		extrasamples = 0;
 	if(bits)
@@ -622,7 +622,6 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		random_table[swap] = tmp;
 	}
 	int test;
-	int layerNum = 0;
 	bool valid = m_imageInfoRecord.isRequest;
 	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
@@ -632,7 +631,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	getLayers(fn, page);
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
-	if(tif)
+	if (tif)
 	{
 		bool isCMYK = false;
 		unsigned int widtht, heightt, size;
@@ -985,7 +984,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 				return false;
 			}
 			r_image.fill(0);
-			bool firstL = true;
+			int layerNum = 0;
 			do
 			{
 				RawImage tmpImg;
@@ -994,58 +993,67 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					TIFFClose(tif);
 					return false;
 				}
-				else
+
+				tmpImg.fill(0);
+				if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK))
 				{
-					tmpImg.fill(0);
-					if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK))
-					{
-						TIFFClose(tif);
-						return false;
-					}
-					bool visible = true;
-					bool useMask = true;
-					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-						visible = m_imageInfoRecord.RequestProps[layerNum].visible;
-					QString layBlend = "norm";
-					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-						layBlend = m_imageInfoRecord.RequestProps[layerNum].blend;
-					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-						useMask = m_imageInfoRecord.RequestProps[layerNum].useMask;
-					int layOpa = 255;
-					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
-						layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
-					if (visible)
-					{
-						if ((firstL) && (layBlend != "diss"))
-							r_image = tmpImg;
-						else
-							blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
-						firstL = false;
-					}
-					//JG Copy should not be necessary as QImage is implicitly shared in Qt4
-					QImage imt; //QImage imt = tmpImg.copy();
-					if (chans > 4)
-						imt = tmpImg.convertToQImage(true);
-					else
-						imt = tmpImg.convertToQImage(false);
-					double sx = tmpImg.width() / 40.0;
-					double sy = tmpImg.height() / 40.0;
-					imt = sy < sx ?	imt.scaled(qRound(imt.width() / sx), qRound(imt.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
-												imt.scaled(qRound(imt.width() / sy), qRound(imt.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-					m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
-					if (chans > 4)
-					{
-						QImage imt2 = imt.createAlphaMask();
-						imt2.invertPixels();
-						m_imageInfoRecord.layerInfo[layerNum].thumb_mask = imt2.copy();
-					}
-					else
-						m_imageInfoRecord.layerInfo[layerNum].thumb_mask = QImage();
-					layerNum++;
+					TIFFClose(tif);
+					return false;
 				}
+				bool visible = true;
+				bool useMask = true;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+					visible = m_imageInfoRecord.RequestProps[layerNum].visible;
+				QString layBlend = "norm";
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+					layBlend = m_imageInfoRecord.RequestProps[layerNum].blend;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+					useMask = m_imageInfoRecord.RequestProps[layerNum].useMask;
+				int layOpa = 255;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+					layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
+				if (visible)
+				{
+					if ((layerNum == 0) && (layBlend != "diss"))
+						r_image = tmpImg;
+					else
+						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
+				}
+				//JG Copy should not be necessary as QImage is implicitly shared in Qt4
+				QImage imt; //QImage imt = tmpImg.copy();
+				double sx = tmpImg.width() / 40.0;
+				double sy = tmpImg.height() / 40.0;
+				imt = tmpImg.convertToQImage((chans > 4) ? true : false);
+				imt = sy < sx ?	imt.scaled(qRound(imt.width() / sx), qRound(imt.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+											imt.scaled(qRound(imt.width() / sy), qRound(imt.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+				m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
+				if (chans > 4)
+				{
+					QImage imt2 = imt.createAlphaMask();
+					imt2.invertPixels();
+					m_imageInfoRecord.layerInfo[layerNum].thumb_mask = imt2.copy();
+				}
+				else
+					m_imageInfoRecord.layerInfo[layerNum].thumb_mask = QImage();
+				layerNum++;
+
 				if ((m_imageInfoRecord.layerInfo.count() == 1) && (chans < 5))
 					m_imageInfoRecord.layerInfo.clear();
 				test = TIFFReadDirectory(tif);
+
+				// #10415 : check that image size for the current directory is the same as the main one
+				// Some progs use tiff directory to store previews, we do not handle such case
+				// and may perform reads in non allocated blocks if we continue
+				while (test == 1)
+				{
+					unsigned int dirWidth(0), dirHeight(0);
+					TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &dirWidth);
+					TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &dirHeight);
+					if (dirWidth == widtht && dirHeight == heightt)
+						break;
+					test = TIFFReadDirectory(tif);
+					layerNum++;
+				}
 			}
 			while (test == 1);
 			TIFFClose(tif);
