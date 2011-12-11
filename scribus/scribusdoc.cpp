@@ -13373,40 +13373,30 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			int d = list->indexOf(currItem);
 			list->removeAt(d);
 			itemSelection->removeItem(currItem);
-			Selection tempSelection(this, false);
-			tempSelection.delaySignalsOn();
-			int gcount = currItem->groupItemList.count() - 1;
-			for (int c = gcount; c >= 0; c--)
+			int gcount = currItem->groupItemList.count();
+			for (int c = 0; c < gcount; c++)
 			{
-				PageItem* gItem = currItem->groupItemList.at(c);
-				gItem->Parent = currItem->Parent;
-				gItem->setXYPos(currItem->xPos() + gItem->gXpos, currItem->yPos() + gItem->gYpos, true);
-				list->insert(d, gItem);
-				itemSelection->addItem(currItem->groupItemList.at(gcount - c));
-				tempSelection.addItem(currItem->groupItemList.at(gcount - c));
+				PageItem* gItem = currItem->groupItemList.last();
+				removeFromGroup(gItem);
+				if (currItem->Parent == NULL)
+					Items->insert(d, gItem);
+				else
+				{
+					addToGroup(currItem->Parent, gItem);
+					list->insert(d, gItem);
+				}
+				itemSelection->addItem(gItem);
 			}
-			if ((currItem->width() != currItem->groupWidth) || (currItem->height() != currItem->groupHeight))
-				scaleGroup(currItem->width() / currItem->groupWidth, currItem->height() / currItem->groupHeight, true, &tempSelection, true);
-			QTransform ma = currItem->getTransform();
-			FPoint n;
-			for (int a = 0; a < tempSelection.count(); ++a)
-			{
-				PageItem* rItem = tempSelection.itemAt(a);
-				n = FPoint(rItem->xPos() - currItem->xPos(), rItem->yPos() - currItem->yPos());
-				rItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
-				rItem->rotateBy(currItem->rotation());
-				setRedrawBounding(rItem);
-				rItem->OwnPage = OnPage(rItem);
-			}
-			tempSelection.clear();
-			tempSelection.delaySignalsOff();
 		}
 		setLoading(wasLoad);
 		itemSelection->delaySignalsOff();
 
 		// Delete items after delaySignalsOff() call so that palette are updated before item deletion
 		for (int b = 0; b < toDelete.count(); b++)
+		{
+			currItem = toDelete.at(0);
 			delete currItem;
+		}
 
 		// Create undo actions
 /*		UndoTransaction* undoTransaction = NULL;
@@ -13486,6 +13476,34 @@ void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
 	item->setLineWidth(item->lineWidth() / qMax(grScXi, grScYi));
 	item->setImageXScale(item->imageXScale() / grScXi);
 	item->setImageYScale(item->imageYScale() / grScYi);
+
+	itemTrans = item->getTransform();
+	if (itemTrans.m11() < 0)
+	{
+		item->gXpos -= item->width();
+		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+			item->flipImageH();
+		if (item->itemType() != PageItem::Line)
+		{
+			QTransform ma;
+			ma.scale(-1, 1);
+			item->PoLine.map(ma);
+			item->PoLine.translate(item->width(), 0);
+		}
+	}
+	if (itemTrans.m22() < 0)
+	{
+		item->gYpos -= item->height();
+		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+			item->flipImageV();
+		if (item->itemType() != PageItem::Line)
+		{
+			QTransform ma;
+			ma.scale(1, -1);
+			item->PoLine.map(ma);
+			item->PoLine.translate(0, item->height());
+		}
+	}
 }
 
 void ScribusDoc::removeFromGroup(PageItem* item)
@@ -13495,19 +13513,52 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	PageItem* group = item->Parent;
 	QTransform itemTrans = item->getTransform();
 	QTransform groupTrans = group->getTransform();
+	group->groupItemList.removeAll(item);
+	item->Parent = NULL;
 	QPointF itPos = itemTrans.map(QPointF(0, 0));
 	double grScXi = 1.0;
 	double grScYi = 1.0;
 	getScaleFromMatrix(itemTrans, grScXi, grScYi);
 	double gRot = getRotationDFromMatrix(groupTrans);
 	SizeItem(item->width() * grScXi, item->height() * grScYi, item, false, true, false);
-	item->setXYPos(itPos.x(), itPos.y(), true);
+	double nX = itPos.x();
+	double nY = itPos.y();
+	if (itemTrans.m11() < 0)
+	{
+		nX -= item->width();
+		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+			item->flipImageH();
+		if (item->itemType() != PageItem::Line)
+		{
+			QTransform ma;
+			ma.scale(-1, 1);
+			item->PoLine.map(ma);
+			item->PoLine.translate(item->width(), 0);
+		}
+	}
+	if (itemTrans.m22() < 0)
+	{
+		nY -= item->height();
+		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+			item->flipImageV();
+		if (item->itemType() != PageItem::Line)
+		{
+			QTransform ma;
+			ma.scale(1, -1);
+			item->PoLine.map(ma);
+			item->PoLine.translate(0, item->height());
+		}
+	}
+	item->setXYPos(nX, nY, true);
 	item->rotateBy(-gRot);
-	group->groupItemList.removeAll(item);
-	item->Parent = NULL;
 	item->setLineWidth(item->lineWidth() * qMax(grScXi, grScYi));
 	item->setImageXScale(item->imageXScale() * grScXi);
 	item->setImageYScale(item->imageYScale() * grScYi);
+	if (item->asPathText())
+		item->updatePolyClip();
+	else
+		item->Clip = FlattenPath(item->PoLine, item->Segments);
+	setRedrawBounding(item);
 }
 
 void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
