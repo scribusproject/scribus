@@ -623,6 +623,7 @@ public:
 	double height() const { return Height; }
 	double visualWidth() const;
 	double visualHeight() const;
+	double visualLineWidth();
 	void setWidth(const double);
 	void setHeight(const double);
 	void setWidthHeight(const double, const double, bool drawingOnly);

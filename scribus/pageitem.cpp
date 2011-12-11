@@ -5563,6 +5563,19 @@ QTransform PageItem::getCombinedTransform() const
 		result.rotate(ite->rotation());
 		if (ite == this)
 			return result;
+		if (ite->isGroup() || ite->isSymbol())
+		{
+			if (ite->imageFlippedH())
+			{
+				result.translate(ite->width(), 0);
+				result.scale(-1, 1);
+			}
+			if (ite->imageFlippedV())
+			{
+				result.translate(0, ite->height());
+				result.scale(1, -1);
+			}
+		}
 		if (ite->isGroup())
 			result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 		for (int aa = 0; aa < itList.count(); aa++)
@@ -5572,6 +5585,19 @@ QTransform PageItem::getCombinedTransform() const
 			result.rotate(ite->rotation());
 			if (ite == this)
 				return result;
+			if (ite->isGroup() || ite->isSymbol())
+			{
+				if (ite->imageFlippedH())
+				{
+					result.translate(ite->width(), 0);
+					result.scale(-1, 1);
+				}
+				if (ite->imageFlippedV())
+				{
+					result.translate(0, ite->height());
+					result.scale(1, -1);
+				}
+			}
 			if (ite->isGroup())
 				result.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 		}
@@ -6059,6 +6085,34 @@ double PageItem::visualHeight() const
 	if (isPathText())
 		return qMax(QRectF(Clip.boundingRect()).height(), Height + extraSpace);
 	return isLine() ? extraSpace : Height + extraSpace;
+}
+
+double PageItem::visualLineWidth()
+{
+	double extraSpace = 0.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+			extraSpace = m_lineWidth;
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			QTransform mat;
+			mat.rotate(patternStrokeRotation);
+			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+			QRectF p1R = QRectF(0, 0, pat->width, pat->height);
+			QRectF p2R = mat.map(p1R).boundingRect();
+			extraSpace = p2R.height();
+		}
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width;
+	}
+	return extraSpace;
 }
 
 bool PageItem::pointWithinItem(const int x, const int y) const

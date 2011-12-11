@@ -215,29 +215,61 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 	viewmode->drawFramelinksWithContents = false;	
 }
 
+void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup)
+{
+	m_pen["handle"]		= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["handle"].setCosmetic(true);
+	m_pen["selection-group-inside"] = QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group-inside"].setCosmetic(true);
+	QPen ba = QPen(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	ba.setCosmetic(true);
+	const double markWidth = 4.0 / m_canvas->scale();
+	QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
+	double x = selectionRect.x();
+	double y = selectionRect.y();
+	double w = selectionRect.width();
+	double h = selectionRect.height();
+	psx->setBrush(Qt::white);
+	if (background)
+		psx->setPen(ba);
+	else
+	{
+		if (insideGroup)
+			psx->setPen(m_pen["selection-group-inside"]);
+		else
+			psx->setPen(m_pen["handle"]);
+	}
+	handleRect.moveCenter(QPointF(x, y));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x+w/2.0, y));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x+w, y));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x+w, y+h/2.0));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x+w, y+h));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x+w/2.0, y+h));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x, y+h));
+	psx->drawRect(handleRect);
+	handleRect.moveCenter(QPointF(x, y+h/2.0));
+	psx->drawRect(handleRect);
+}
 
 void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 {
-//	QTime t;
-//	t.start();
-//	QTime tt;
-//	int tg(0);
-//	QStringList tu;
 	m_pen["selection"]	= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection"].setCosmetic(true);
 	m_pen["selection-group-inside"] = QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
-	m_pen["handle"]		= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["handle"].setCosmetic(true);
-	m_brush["handle"]	= PrefsManager::instance()->appPrefs.displayPrefs.frameColor;
-	QString ds;
+	QPen ba = QPen(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	ba.setCosmetic(true);
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	
 	psx->setClipping(true);
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
-	const double markWidth = 4.0 / m_canvas->scale();
-	QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		PageItem *curItem(0);
@@ -248,48 +280,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			if(drawHandles)
 				drawHandles = !curItem->locked();
 		}
-		
-		psx->save();
-		double lineAdjust(psx->pen().width()/m_canvas->scale());
-		double x, y, w, h;
-		m_doc->m_Selection->setGroupRect();
-		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
-		
-		psx->translate(x,y);
-		x = -lineAdjust;
-		y = -lineAdjust;
-
-//		tt.start();
-		psx->setBrush(Qt::NoBrush);
-		psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		psx->drawRect(QRectF(x, y, w, h));
-		psx->setPen(m_pen["selection-group"]);
-		psx->setBrush(m_brush["selection-group"]);
-		psx->drawRect(QRectF(x, y, w, h));
-		if(drawHandles)
-		{
-			psx->setBrush(Qt::white);
-			psx->setPen(m_pen["handle"]);
-			handleRect.moveCenter(QPointF(x, y));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x+w/2.0, y));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x+w, y));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x+w, y+h/2.0));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x+w, y+h));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x+w/2.0, y+h));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x, y+h));
-			psx->drawRect(handleRect);
-			handleRect.moveCenter(QPointF(x, y+h/2.0));
-			psx->drawRect(handleRect);
-		}
-//		tg=tt.elapsed();
-		psx->restore();
-
 		// items inside a a multi
 		if (m_doc->m_Selection->count() > 1)
 		{
@@ -320,25 +310,41 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
 				psx->setBrush(Qt::NoBrush);
-				psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->setPen(ba);
 				psx->drawRect(QRectF(x, y, w, h));
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
 				psx->drawRect(QRectF(x, y, w, h));
-
 				psx->restore();
 			}
 		}
+		psx->save();
+		psx->setPen(m_pen["selection-group"]);
+		double lineAdjust(psx->pen().width()/m_canvas->scale());
+		double x, y, w, h;
+		m_doc->m_Selection->setGroupRect();
+		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
+
+		psx->translate(x,y);
+		x = -lineAdjust;
+		y = -lineAdjust;
+
+		psx->setBrush(Qt::NoBrush);
+		psx->setPen(ba);
+		psx->drawRect(QRectF(x, y, w, h));
+		if (drawHandles)
+			drawSelectionHandles(psx, QRectF(x, y, w, h), true);
+		psx->setPen(m_pen["selection-group"]);
+		psx->setBrush(m_brush["selection-group"]);
+		psx->drawRect(QRectF(x, y, w, h));
+		if(drawHandles)
+			drawSelectionHandles(psx, QRectF(x, y, w, h), false);
+		psx->restore();
 	}
 	else if (m_doc->m_Selection->count() != 0)
 	{
-// 		ds = "S" + QString::number(m_doc->m_Selection->count())+" ";
-
 		uint docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
-		
-		// FIXME when more than 1 item is selected, first Rect is drew normally (<10ms here)
-		// but followings are damn long - pm 
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			currItem = m_doc->m_Selection->itemAt(a);
@@ -350,26 +356,22 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			if (currItem->Parent != NULL)
 			{
 				QTransform t = currItem->getCombinedTransform();
-				psx->translate(t.dx(), t.dy());
-				psx->rotate(-getRotationDFromMatrix(t));
-				double sx = 1.0;
-				double sy = 1.0;
-				getScaleFromMatrix(t, sx, sy);
-		//		psx->setTransform(t, true);
-				w = currItem->visualWidth() * sx;
-				h = currItem->visualHeight() * sy;
-			//	x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
-			//	y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
-			//	w = currItem->width();
-			//	h = currItem->height();
-				x = -lineAdjust;
-				y = -lineAdjust;
+				psx->setTransform(t, true);
+				w = currItem->visualWidth();
+				h = currItem->visualHeight();
+				x = -currItem->visualLineWidth() / 2.0;
+				y = -currItem->visualLineWidth() / 2.0;
 				psx->setBrush(Qt::NoBrush);
-				psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				psx->drawRect(QRectF(x, y, w, h));
+				psx->setPen(ba);
+				QRectF drRect = QRectF(x, y, w, h).normalized();
+				psx->drawRect(drRect);
+				if (drawHandles)
+					drawSelectionHandles(psx, QRectF(x, y, w, h), true, true);
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
-				psx->drawRect(QRectF(x, y, w, h));
+				psx->drawRect(drRect);
+				if (drawHandles)
+					drawSelectionHandles(psx, QRectF(x, y, w, h), false, true);
 			}
 			else
 			{
@@ -390,8 +392,10 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				w = currItem->visualWidth();
 				h = currItem->visualHeight();
 				psx->setBrush(Qt::NoBrush);
-				psx->setPen(QPen(Qt::white, 3.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				psx->setPen(ba);
 				psx->drawRect(QRectF(x, y, w, h));
+				if(drawHandles && !currItem->locked() && !currItem->isLine())
+					drawSelectionHandles(psx, QRectF(x, y, w, h), true);
 				psx->setPen(m_pen["selection"]);
 				psx->setBrush(m_brush["selection"]);
 				psx->drawRect(QRectF(x, y, w, h));
@@ -399,6 +403,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				{
 					if(currItem->asLine())
 					{
+						const double markWidth = 4.0 / m_canvas->scale();
+						QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
 						psx->setRenderHint(QPainter::Antialiasing);
 						psx->setBrush(Qt::white);
 						psx->setPen(m_pen["handle"]);
@@ -408,26 +414,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 						psx->drawRect(handleRect);
 					}
 					else
-					{
-						psx->setBrush(Qt::white);
-						psx->setPen(m_pen["handle"]);
-						handleRect.moveCenter(QPointF(x, y));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w/2.0, y));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w, y));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w, y+h/2.0));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w, y+h));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w/2.0, y+h));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x, y+h));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x, y+h/2.0));
-						psx->drawRect(handleRect);
-					}
+						drawSelectionHandles(psx, QRectF(x, y, w, h), false);
 				}
 				if (currItem->isWelded())
 				{
@@ -444,9 +431,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		}
 		
 	}
-	
-
-// 	qDebug()<<ds<< t.elapsed() <<"U"<<tu.join(",")<<"G"<<tg;
 }
 
 
