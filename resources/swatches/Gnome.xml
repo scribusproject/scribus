@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Gnome">
+	<COLOR RGB="#eae8e3" NAME="Basic_3D_Hilight" />
+	<COLOR RGB="#bab5ab" NAME="Basic_3D_Medium" />
+	<COLOR RGB="#807d74" NAME="Basic_3D_Dark" />
+	<COLOR RGB="#565248" NAME="Basic_3D_Shadow" />
+	<COLOR RGB="#c5d2c8" NAME="Green_Hilight" />
+	<COLOR RGB="#83a67f" NAME="Green_Medium" />
+	<COLOR RGB="#5d7555" NAME="Green_Dark" />
+	<COLOR RGB="#445632" NAME="Green_Shadow" />
+	<COLOR RGB="#e0b6af" NAME="Red_Hilight" />
+	<COLOR RGB="#c1665a" NAME="Red_Medium" />
+	<COLOR RGB="#884631" NAME="Red_Dark" />
+	<COLOR RGB="#663822" NAME="Red_Shadow" />
+	<COLOR RGB="#ada7c8" NAME="Purple_Hilight" />
+	<COLOR RGB="#887fa3" NAME="Purple_Medium" />
+	<COLOR RGB="#625b81" NAME="Purple_Dark" />
+	<COLOR RGB="#494066" NAME="Purple_Shadow" />
+	<COLOR RGB="#9db8d2" NAME="Blue_Hilight" />
+	<COLOR RGB="#7590ae" NAME="Blue_Medium" />
+	<COLOR RGB="#4b6983" NAME="Blue_Dark" />
+	<COLOR RGB="#314e6c" NAME="Blue_Shadow" />
+	<COLOR RGB="#efe0cd" NAME="Face_Skin_Hilight" />
+	<COLOR RGB="#e0c39e" NAME="Face_Skin_Medium" />
+	<COLOR RGB="#b39169" NAME="Face_Skin_Dark" />
+	<COLOR RGB="#826647" NAME="Face_Skin_Shadow" />
+	<COLOR RGB="#df421e" NAME="Accent_Red" />
+	<COLOR RGB="#990000" NAME="Accent_Red Dark" />
+	<COLOR RGB="#eed680" NAME="Accent_Yellow" />
+	<COLOR RGB="#d1940c" NAME="Accent_Yellow_Dark" />
+	<COLOR RGB="#46a046" NAME="Accent_Green" />
+	<COLOR RGB="#267726" NAME="Accent_Green_Dark" />
+	<COLOR RGB="#ffffff" NAME="White" />
+	<COLOR RGB="#000000" NAME="Black" />
+</SCRIBUSCOLORS>
+<!--Based on http://primates.ximian.com/~tigert/new_stock_project/files/Gnome_Stock_Icon_Palette-->
