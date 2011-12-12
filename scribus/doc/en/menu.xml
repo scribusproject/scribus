@@ -2,7 +2,7 @@
 <menu>
 	<area text="Welcome" file="index.html">
 		<submenuitem text="New in Scribus 1.4" file="readme.html"/>
-		<submenuitem text="Specifications" file="specs.html"/>
+		<submenuitem text="Specification" file="specs.html"/>
 	</area>
 	<area text="Documentation" file="intro.html">
 		<submenuitem text="Introduction" file="documentation.html">
@@ -10,7 +10,6 @@
 			<submenuitem text="About the Team" file="about1.html"/>
 		</submenuitem>
 		<submenuitem text="Installation" file="install.html">
-			<submenuitem text="Debian" file="install-dpkg.html"/>
 			<submenuitem text="Mac OS X" file="readme-macosx.html"/>
 			<submenuitem text="OS/2 and eComStation" file="readme-os2.html"/>
 			<submenuitem text="Windows" file="readme-win32.html"/>
@@ -25,7 +24,7 @@
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 		</submenuitem>
-		<submenuitem text="Scribus Basics" file="about2.html" >
+		<submenuitem text="Scribus Basics" file="about2.html">
 			<submenuitem file="qsg.html" text="Quick Start Guide" />
 			<submenuitem file="cli.html" text="Command Line Reference" />
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
@@ -44,14 +43,16 @@
 			<submenuitem text="Working with Layers" file="layers.html" />
 			<submenuitem text="Working with Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
-			<submenuitem text="Short Words Plug-in" file="short-words.html" />
-			<submenuitem text="Editing Colors" file="color1.html" />
+			<submenuitem text="The Short Words Plug-in" file="short-words.html" />
+		</submenuitem>
+		<submenuitem text="Solid Colors" file="color1.html">
 			<submenuitem text="Managing Colors" file="color2.html" />
 			<submenuitem text="Open Source Color Sets" file="color3.html" />
 			<submenuitem text="National Color Standards" file="color4.html" />
 			<submenuitem text="Resene Color Sets" file="color5.html" />
 			<submenuitem text="dtp studio Color Sets" file="color6.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
+			<submenuitem text="The Color Wheel" file="colorwheel.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing Bitmap Files" file="importbitmap1.html" />
@@ -70,18 +71,16 @@
 			<submenuitem text="PDF Forms" file="pdf_form.html"/>
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 		</submenuitem>
-		<submenuitem text="Printing" file="print1.html">
-			<submenuitem text="Print Preview" file="print2.html"/>
-			<submenuitem text="CUPS" file="cups.html"/>
-			<submenuitem text="Preparing for Press" file="print3.html"/>
-			<submenuitem text="Pre-Press" file="prepress.html"/>
+		<submenuitem text="Printing with Scribus" file="print1.html">
+			<submenuitem text="Printing Tools (1)" file="print2.html"/>
+			<submenuitem text="Printing Tools (2)" file="print3.html"/>
+			<submenuitem text="Commercial Printing" file="print4.html"/>
 		</submenuitem>
 		<submenuitem text="Color Management" file="cms.html">
 			<submenuitem text="Color Management Setup" file="cms2.html"/>
 			<submenuitem text="Rendering Intents" file="cms3.html"/>
-			<submenuitem text="Monitor Profiling" file="moncal.html"/>
 		</submenuitem>
-		<submenuitem text="DTP ToolBox" file="toolbox.html">
+		<submenuitem text="DTP Toolbox" file="toolbox.html">
 			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
 			<submenuitem text="PDF/PostScript Tools" file="toolbox2.html"/>
 			<submenuitem text="Ghostscript" file="toolbox5.html"/>
@@ -97,6 +96,7 @@
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
 			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
 			<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
+			<submenuitem text="Commandline Tools" file="toolbox19.html"/>
 		</submenuitem>
 	</area>
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
