@@ -1,35 +1,29 @@
-Scribus Copyright 2001-2011 Franz Schmid and the members of the Scribus Team.
-The "Scribus Team" is informally defined as the following people:
-Craig Bradney, Jean Ghali, Riku Leino, Peter Linnell, Hermann Kraus, 
-Pierre Marchand, Oleksandr Moskalenko, Craig Ringer, Christoph Schäfer,
- Franz Schmid, Petr Vanek and Andreas Vox.
+Scribus Copyright
+Copyright 2001–2011 Franz Schmid and rest of the members of the Scribus Team.
 
-Other contributors are listed in the "About" tab of the
-dialog "Help > About Scribus."
+The "Scribus Team" is informally defined as the following people: Franz Schmid, Peter Linnell, Craig Bradney, Jean Ghali, Hermann Kraus, Riku Leino, Oleksandr Moskalenko, Christoph Schäfer, Petr Vaněk, Andreas Vox, and Jain Basil.
 
-This program is Free Software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 2 of the License,
-or (at your option) any later version.
+Other contributors are listed in the "Authors" tab of the dialog Help > About Scribus.
 
-Parts of the code are distributed under one of the following licenses:
-GNU Library/Lesser Public License, version 2 or version 2.1, 
-3-clause BSD license, and MIT license. 
-Please note that some of this code is using a dual licensing scheme.
-See the respective source files for further information.
-Other parts of the code are Public Domain.
+This program is Free Software; you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL) as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
-Some files in the source code don't include proper copyright notices.
-This doesn't mean that you are allowed to copy or modify the code without
-obligations. It only means that the original authors didn't add those notices.
-Without providing legal advice, we suggest that you contact the authors of the
-code who are mentioned in other files in the same directory and ask for
-permission or to update the files with appropriate licensing information.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-Resources, like the documentation, dictionaries, colour profiles, colour
-swatches or templates, may use their own licenses that need not be compatible
-with any of the licenses mentioned above, since they are regarded as content,
-not functional code.
+You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+Parts of the code are distributed under one of the following licenses: 
+- GNU Library/Lesser Public License (LGPL), version 2 or version 2.1
+- 3-clause BSD License
+- MIT License
+- Some parts of the code are distributed under a dual licensing scheme. See the respective source files for further information.
+- Other parts of the code are in the Public Domain.
+
+Some third party files in the source code don't include proper copyright notices, but the Scribus developers have been told by their authors that the license is compatible to the GPL version (e.g. LGPL v. 2 or MIT license). This doesn't mean that you are allowed to copy or modify the code without obligations. It only means that the original authors forgot to add these notices. Without providing legal advice, we suggest that you contact the authors of the code who are mentioned in other files in the same directory and ask for permission or to update the files with appropriate licensing information.
+
+Antiword, which is shipped with the Windows version of Scribus, is a separately licensed program under the GPL, and the copyright license is included with the program.
+
+Resources, like the documentation, dictionary files, color profiles, color palettes, or templates, use their own licenses that need not be compatible with any of the licenses mentioned above, because resources are considered to be content, not functional code. 
+Note that some of these files, especially some color palettes, are subject to very strict licensing conditions.
 
 
 ------------
