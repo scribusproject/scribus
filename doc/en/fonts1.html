@@ -12,7 +12,7 @@
 
 <p>Both dialogs look the same, which might be a bit confusing at first glance, as some options are probably grayed out. However, there is some logic behind the mechanisms, as you will see.</p>
 
-<h4>Managing detected fonts</h4>
+<h4>Managing Detected Fonts</h4>
 
 <p>The first tab (&ldquo;Available Fonts&rdquo;) initially shows the fonts detected by Scribus during its first launch. It depends on the operating system which directories or system settings will be searched for fonts (see below). If you open an existing document, Scribus will also search for font files in the document path, which is another word for the directory, in which your Scribus file is currently being stored.</p>
 
@@ -31,24 +31,24 @@
 <li><b>Used in Doc:</b> This column shows whether a font is being used in your currently open document (only available in the <i>Document Setup</i>).</li>
 <li><b>Path to Font File:</b> Here you can see where the font file is located.</li>
 </ul>
-
+<br>
 <table width="100%"><tr><td align="center"><img src="images/fontpref3.png" alt="Available Fonts and Embedding Preferences" title="Available Fonts and Embedding Preferences"/></td></tr></table>
 
 <h4>Font Substitutions</h4>
 
 <p>When opening a Scribus document, Scribus runs a check to see if all fonts listed in a document are available. In case a given font is not available on your computer or a network directory, Scribus, upon opening the doc, will ask you to choose a substitution:</p>
 <table width="100%"><tr><td align="center"><img src="images/font-subst.png" alt="Font Substitution Step 1" title="Font Substitution Step 1" /></td></tr></table>
-<p>You can can later adjust or change your choice in the &ldquo;Font Substitutions&rdquo; tab. This allows you to change the original substitution pattern, either for the current document or all newly created documents.</p>
+<p>You can can later adjust or change your choice in the &ldquo;Font Substitutions&rdquo; tab. This allows you to change the original substitution pattern, either for the current document or all newly created documents.</p><br>
 
 <table width="100%"><tr><td align="center"><img src="images/fontpref2.png" alt="Font Substitution Step 2" title="Font Substitution Step 2" /></td></tr></table>
 
 
-<h4>Adding additional font paths</h4>
-<p>One of the challenges in font management is the way different operating systems provide access to fonts and handle them internally. For example, Windows, OS/2 and eComStation use a single system-wide directory (Windows: <code>C:\Windows\Fonts</code>; OS/2 and eComStation: <code>C:\PSFONTS</code>), while modern members of the UNIX family allow for the use of system-wide, as well as user-specific directories (Mac OS X: <code>/Library/Fonts</code> and <code>/Users/username/Library/Fonts</code>; Linux and *BSD: <code>/usr/share/fonts</code>, <code>/usr/local/share/fonts</code> and <code>/home/username/.fonts</code>). In the early days of Desktop Publishing this was a serious problem, as professional users had to work with hundreds or even thousands of fonts, while the hardware, as well as the operating systems were unable to handle this amount of fonts. As a consequence, professionals had to work with a font manager, a software that helped to reduce the number of available fonts to a level that could be handled by operating systems and applications. To prevent a system crash font managers also allowed to specify additional font paths, i.e. the use of font files that didn&rsquo;t have to be copied to the system&rsquo;s font folder(s).</p> 
+<h4>Adding Additional Font Paths</h4>
+<p>One of the challenges in font management is the way different operating systems provide access to fonts and handle them internally. For example, Windows, OS/2 and eComStation use a single system-wide directory (Windows: <code>C:\Windows\Fonts</code>; OS/2 and eComStation: <code>C:\PSFONTS</code>), while modern members of the UNIX family allow for the use of system-wide, as well as user-specific directories (Mac OS X: <code>/Library/Fonts</code> and <code>/Users/username/Library/Fonts</code>; Linux and *BSD: <code>/usr/share/fonts</code>, <code>/usr/local/share/fonts</code> and <code>/home/username/.fonts</code>). In the early days of Desktop Publishing this was a serious problem, as professional users had to work with hundreds or even thousands of fonts, while the hardware, as well as operating systems were unable to handle this amount of fonts. As a consequence, professionals had to work with a font manager, a software that helped to reduce the number of available fonts to a level that could be handled by operating systems and applications. To prevent a system crash, font managers also allowed to specify additional font paths, i.e. the use of font files that didn&rsquo;t have to be copied to the system&rsquo;s font folder(s).</p> 
 
 <p>While modern hardware, operating systems and applications can easily work with hundreds of installed fonts, the feature to specify additional font paths, which is available in Scribus itself, is still quite useful. For instance, many users don&rsquo;t want to install fonts that they only use occasionally, so when they have to use a certain font, they can copy it to any directory and add the path to the file(s) in the Scribus font manager.</p>
 
-<p>To set an additional font path. you have to use <i>File &#062; Preferences &#062; Fonts &#062; Additional Paths</i> <b>without</b> any document open (in the <i>Document Setup</i> this tab is always grayed out). Here you can add one or more additional paths, which are not part of your system&rsquo;s defaults:</p>
+<p>To set an additional font path. you have to use <i>File &#062; Preferences &#062; Fonts &#062; Additional Paths</i> <b>without</b> any document open (in the <i>Document Setup</i> this tab is always grayed out). Here you can add one or more additional paths, which are not part of your system&rsquo;s defaults:</p><br>
 
 <table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Adding additional font paths." title="Adding additional font paths."/></td></tr></table>
 

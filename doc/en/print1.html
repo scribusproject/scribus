@@ -1,38 +1,25 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Printing in Depth</title>
+	<title>Printing with Scribus</title>
 </head>
 <body>
-<h2>Printing in Depth</h2>
-<p>One of the challenges of an advanced DTP application like Scribus, is the ability to generate what I refer to as "high-level" PostScript or PDF features. By <em>high level</em>, this is meant to describe things like transparency, blends, masks and gradients, usually created by professional grade DTP applications and illustration programs. <strong>Always</strong> make sure you have the newest updated versions of CUPS and Ghostscript available for your distribution. Newer versions of CUPS and Ghostscript are much better at supporting the kinds of high level PS3 and PDF features Scribus can create.</p>
-<h3>Basic Options:</h3>
-<ul>
-<li>Print to your default printer with the defaults set either by kprinter, CUPS or Lprng, depending on your specific installation. You can also specify printing in gray scale, as well as reverse the order of printing, which makes the pages stack in correct order on many ink jet printers.</li>
-<li>You can also use an external print command example. XPP, or kprinter.</li>
-</ul>
+<h2>Printing with Scribus</h2>
+<p>One of the issues in connection with an advanced DTP application like Scribus, is one of semantics, as &ldquo;printing&rdquo; or &ldquo;printer&rdquo; can mean different things. A &ldquo;printer&rdquo; can be either a device or a printing company, which will, of course, also use devices, but these are quite different from the one on your desktop. Moreover, a &ldquo;printer&rdquo; can also be a human being, i.e., someone whose profession is printing. Unfortunately, things are even more complicated, since not all printing devices are equal, and neither are professional printing companies. Nevertheless, to make things at least a bit clearer we will from now on refer to printing via your desktop device as &ldquo;local printing&rdquo;, whereas for print jobs at a printing company or a high-end printing machine the term &ldquo;commercial printing&rdquo; will be applied.</p>
 
-<h3>Advanced Options:</h3>
-<ul>
-<li>&#034;Print&#034; a separation as shown below. This enables you to create a 4 color separation of the CMYK inks used in process printing. Each of the inks will print on a separate page. This can also be saved to a PostScript file for later processing.</li>
-</ul>
-<table width="100%"><tr><td align="center"><img src="images/printseps.png" alt="Printing Separations from Scribus" title="Printing Separations from Scribus" /></td></tr></table>
+<h3>Local Printing &ndash; Some Background Information</h3>
 
-<ul>
-<li>&#034;Print&#034; a PostScript file, which can be later &#034;distilled&#034; or transferred for processing by a printer or service bureau.</li>
-<li>If you have the <strong>Gimp Print</strong> modules, selecting Options will bring up a panel similar to the one below. The exact contents will vary with the capabilities of the printer - one very good reason for having CUPS-Gimp Print. These modules are much less &quot;generic&quot; than many other printer drivers. When installed correctly, they enable you to use all the options your printer is capable of handling such as: different paper types, duplex modes, color printing modes etc. Scribus directly supports <strong>Gimp-Print</strong> drivers with CUPS, These high quality drivers are optimized for printing high resolution prints from ink-jet printers. The specific details are here: <a href="cups.html">CUPS and Gimp-Print</a>.</li>
-</ul>
-<table width="100%"><tr><td align="center"><img src="images/printer1.png" alt="Setup Printer Dialog" title="Advanced CUPS Options in Scribus"/></td></tr></table>
+<h4>General</h4>
+<p>As odd as it may seem at first glance, the DTP program Scribus, whose main purpose it is to create documents which will be printed, may not work at all directly with the noisy device sitting on your desktop, even though the program seems to detect the printer just fine via the system settings. This is a known issue, but while the developers are aware of it, resolving the problem is very complicated, and, more importantly, there are easy workarounds.</p>
 
-<ul>
-	<li>&#034;Mirrored&#034; Printing - this option enables you to mirror pages on the printer. This is useful when printing things like card layouts, calendars or brochures to compensate for folds and cuts or when duplexing prints.</li>
-</ul>
-<table width="100%"><tr><td align="center"><img src="images/printer2.png" alt="Advanced Options" title="Advanced Printing Options"/></td></tr></table>
+<p>Why, you will probably ask, is direct printing from within Scribus such a problem? Other applications print just fine on any of the many platforms supported by Scribus. The short answer is that Scribus&rsquo;s print output (i.e., the data being transferred to a printing device) expects a high-end PostScript printer. Such a machine can be (and most likely is) quite expensive. Most consumer devices (or their device drivers) simply can&rsquo;t handle the PostScript instructions created by Scribus.</p>
 
-<ul>
-	<li>Color Managed Printing - When color management is enabled Scribus can apply ICC profiles to the print output. This option can be used to make simple simulations of CMYK press conditions. This can also be used if have special profiles of your printer for special papers like glossy photo paper or specially coated stock paper for color laser printers. More details are found in <a href="cms.html">Scribus and littlecms</a>.</li>
-</ul>
+<p>For those with a technical background, as well as some knowledge of the more recent computer history, there&rsquo;s another reason for potential issues: A few decades ago, when affordable printing devices were hardly more than externally driven typewriters, a startup company called Adobe, which would later become one of the giants in the software industry, introduced the page description language <a href="importhints1.html">PostScript</a>, which became an integral part of the &ldquo;Desktop Publishing Revolution&rdquo;. With PostScript and PostScript-enabled printing devices available, it became possible to print attractive layouts on a &ldquo;desktop&rdquo; device &ndash; although early PostScript printers were so expensive that only a tiny percentage of desktops ever had the honor of hosting such a device. Among the reasons that drove up the costs for PostScript printers were the licensing costs of the PostScript language itself, as well as a basic set of PostScript fonts, since both were required to build a &ldquo;real&rdquo; PostScript printer. Another reason was related to printing hardware. This is where Microsoft stepped in and provided hardware vendors an offer they were unable to refuse: Microsoft introduced the so-called Graphical Device Interface (GDI), which made PostScript largely obsolete (at least for desktop printers), as it provided significantly less (but in most cases sufficient) features, and also moved some of the necessary data processing from the printing device (hardware) to the operating system (software), which was, of course, Windows. The opportunity to save a few cents per device led manufacturers to create cheap desktop printers that would only work with the Windows operating system. It took the developers of other operating systems years to provide a bridge between &ldquo;GDI&rdquo; devices and their own printing system, which is based on PostScript (e.g., Mac&nbsp;OS&nbsp;X, Linux, *BSD, UNIX), but not all GDI printers are fully supported by PostScript-based printing systems (which means pretty much every system that&rsquo;s not called Windows). Today, many vendors offer drivers for their printers for Mac&nbsp;OS&nbsp;X and Linux, or they provide enough information for developers to let them write working printer drivers.</p>
+<p>While the previous excursion may help to understand why direct printing from within  Scribus may not work, it is not a sufficient explanation. Since the output of Scribus is supposed to be printed on a &ldquo;real&rdquo; (read: high-end) PostScript printer, it may fail with many other devices. Readers with some background knowledge of the UNIX printing standard (CUPS &ndash; Common UNIX Printing System, used by Mac&nbsp;OS&nbsp;X, Linux, *BSD, and others), will probably ask how that can be, but the answer is that Scribus creates high-level PostScript output, whose instructions sometimes cannot be processed by the respective PostScript interpreters or printer drivers.</p>
 
+<p>This all sounds rather scary, but it&rsquo;s fairly likely you will be able to directly print to your local printer. A properly configured printer with Windows will likely print without any problems. In Linux, it may work fine, or simply require an alternative print command. It&rsquo;s probably at least worth a try.</p>
 
+<h4>How to Print Reliably on Your Local Printer</h4>
+<p>The most reliable way to print your Scribus document with your local printer is to export the Scribus file to PDF and then print from <a href="toolbox1.html">Adobe Reader</a>. While AR has received some well-deserved criticism in terms of security issues, it is still the most reliable PDF viewer and works flawlessly with the printing subsystems of every modern operating system.</p>
 </body>
 </html>

@@ -21,6 +21,7 @@
 <li><a href="#5"><strong>Tools</strong></a></li>
 <li><a href="#6"><strong>Hyphenation</strong></a></li>
 <li><a href="#7"><strong>Fonts</strong></a></li>
+<li><a href="#8"><strong>Preflight Verifier</strong></a></li>
 </ul></td>
 <td width="300" valign="top"><ul>
 </li>
@@ -90,12 +91,10 @@
 <p>Selecting and installing fonts correctly is one of the most important configuration items with Scribus, and an extensive set of notes is here: <a href="fonts1.html">Fonts and Scribus</a>. If there is one part of the documentation you really must read, it is this one.</p>
 
 <h3><a name="8"></a>Preflight Verifier</h3>
-<p>Preflight verification (checking for errors) is automatic when exporting to PDF, and also can be chosen separately from the toolbar. Here are the default settings for various items you wish to have checked. You would be ill-advised to check <em>Ignore all errors</em> &ndash; an error discovered after commercial printing could prove to be costly.</p>
-<p><table width="90%"><tr><td align="center"><img src="images/prefs_preflight.png"></td></tr>
-</table>
+<p>See the information about <a href="print2.html">Printing Tools</a> to learn more about the configuration options in this panel.</p>
 
 <h3><a name="9"></a>Color Management</h3>
-<p>There are detailed notes on <a href="cms.html"> Color Management under Scribus</a> and <a href="moncal.html">Creating a Monitor Profile with Littlecms</a>. Mac&nbsp;OS&nbsp;X and Windows users can use commercially available tools like Monaco&rsquo;s Color Tools or  Eye-One, and Scribus can use them alongside other color savvy applications.</p>
+<p>There are detailed notes on this topic in the <a href="cms.html">Color Management</a> section.
 <table width="90%"><tr><td align="center"><img src="images/prefs_colormgmt.png" alt="Color Management Preferences" title="Color Management Preferences" width="680" /></td></tr></table>
 <p><em>Note: You will not be able to export to PDF/X-3 if color management is not enabled, and the Preferences settings for this format will likewise not be available.</em></p>
 
@@ -166,7 +165,7 @@ See the section on <a href="docinfo.html">Document Information</a>.
 <li><strong>OS/2 and eComStation</strong>: <code>X:\SCRIBUS-1.4.x-OS2-date\scribus\.scribus</code></li>
 <li><strong>Windows:</strong> <code>C:\Documents and Settings/username/.scribus</code></li>
 </ul>
-<p>Within the directory are a <code>.scribus14.rc</code> file, a <code>scribusfont.rc</code> file (which preserves your font preferences) and a <code>prefs14.xml</code> file. These files are stored in XML format, so you can inspect and edit their contents with a text editor. If you have installed Python, there will also be a <code>scripter.rc</code> file that lists most recently used scripts. There are also several other directories, most which are comprised of configuration or history files. If you are encountering any issues with a previously working Scribus installation, <strong>renaming</strong>, not deleting, the <code>.scribus</code> directory may be a good idea. </p>
+<p>Within the directory are a <code>.scribus14.rc</code> file, a <code>scribusfont.rc</code> file (which preserves your font preferences) and a <code>prefs14.xml</code> file. These files are stored in XML format, so you can inspect and edit their contents with a text editor. If you have installed Python, there will also be a <code>scripter.rc</code> file that lists most recently used scripts. There are also several other directories, most which are comprised of configuration or history files. If you are encountering any issues with a previously working Scribus installation, <strong>renaming</strong>, not deleting, the <code>.scribus</code> directory may be a good idea. See the notes on <a href="fileproblems.html">Troubleshooting</a> for more information.</p>
 
 <hr>
 <p>See also</p>

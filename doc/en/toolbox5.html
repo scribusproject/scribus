@@ -7,13 +7,16 @@
 <h2>Ghostscript &ndash; Black Box Magic</h2>
 <h3>What is Ghostscript?</h3>
 
-<p>For those not familiar, <a href="http://www.ghostscript.com/">Ghostscript (gs)</a>, strictly defined, is a so-called &ldquo;PostScript interpreter&rdquo;, and many programs use <code>gs</code> for PostScript conversions and import/export. Ghostscript has become one of the core building blocks of OSS software. It would be hard to imagine modern OSS distributions and software without it.</p>
-<p>Likewise, Scribus uses Ghostscript, sometimes taking advantage of the most sophisticated features that are available only in the latest versions. Scribus uses <code>gs</code> for two purposes, the first one being the import of rasterized <a href="importhints1.html">EPS files</a> into <a href="WwImages.html">image frames</a>. The second feature that requires <code>gs</code> is the <a href="print2.html">Print Preview</a>.</p>
+<p>For those not familiar, <a href="http://www.ghostscript.com/">Ghostscript (<code>gs</code>)</a>, strictly defined, is a so-called &ldquo;PostScript interpreter,&rdquo; and many programs use <code>gs</code> for PostScript conversions and import/export. Ghostscript has become one of the core building blocks of OSS software. It would be hard to imagine modern OSS distributions and software without it.</p>
+<p>Likewise, Scribus uses Ghostscript, sometimes taking advantage of the most sophisticated features that are available only in the latest versions. Scribus uses <code>gs</code> for three purposes, the first one being the import of rasterized <a href="importhints1.html">EPS files</a> and certain <a href="psd.html">DCS files</a> into <a href="WwImages.html">image frames</a>. The second feature that requires <code>gs</code> is the <a href="print2.html">Print Preview</a>, and the third one is the Barcode Generator.</p>
+<p>If <code>gs</code> is not installed on your system or Scribus can&rsquo;t find the <code>gs</code> executable, the features mentioned before won&rsquo;t work, and Scribus will display a warning each time it is being launched:</p><br>
+<table width="100%"><tr><td align="center"><img src="images/missing-gs.png"/></td></tr></table><br>
+<p>In case <code>gs</code> has been installed on your computer, but Scribus can&rsquo;t find it, you can add the path to the <code>gs</code> exceutable file in the Scribus <a href="settings1.html">Preferences</a>.</p>
 
 <p>We always encourage you to have the latest Ghostscript available for your system.</p>
 <h3>Installing Ghostscript</h3>
 <h4>Linux/UNIX</h4>
-<p>As mentioned above, Ghostscript is required by many applications. Thus, it&rsquo;s unlikely that it isn&rsquo;t installed on your system. If, for any reason, <code>gs</code> isn&rsquo;t available on your system or your system is being shipped with a version that&rsquo;s too old (you should at least use Ghostscript 8.6 with Scribus), you can <a href="http://ghostscript.com/releases/">download</a> a tarball from the <code>gs</code> website. Be careful to download Ghostscript itself, not ghostpdl, whose source code is in the same directory. Then follow the build instructions in the tarball and install it.</p>
+<p>As mentioned above, Ghostscript is required by many applications, including the printing subsystem. Thus, it&rsquo;s unlikely that it isn&rsquo;t installed on your system. If, for any reason, <code>gs</code> isn&rsquo;t available on your system or your system is being shipped with a version that&rsquo;s too old (you should at least use Ghostscript 8.6 with Scribus), you can <a href="http://ghostscript.com/releases/">download</a> a tarball from the <code>gs</code> website. Be careful to download Ghostscript itself, not ghostpdl, whose source code is in the same directory. Then follow the build instructions in the tarball and install it.</p>
 <h4>Windows</h4>
 <p> See the <a href="readme-win32.html">general information</a> about Scribus on Windows for further details.</p>
 <h4>Mac OS X</h4>
@@ -25,7 +28,7 @@
 <li>Finally, you can, of course, download the latest <a href="http://ghostscript.com/releases/">source code</a> and compile Ghostscript yourself.</li>
 </ul>
 <h4>OS/2 and eComStation</h4>
-<p> See the <a href="readme-os2.html">general information</a> about Scribus on OS/2 for further details.</p>
+<p> See the <a href="readme-os2.html">general information</a> about Scribus on OS/2 and eComStation for further details.</p>
 
 
 </body>

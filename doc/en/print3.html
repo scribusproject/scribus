@@ -1,33 +1,21 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Prepping files for Commercial Printing</title>
+	<title>Printing Tools (2): The Print Dialog</title>
 </head>
-<body>
-<h2>Prepping files for Commercial Printing</h2>
-<p>If you have never dealt with printers, nothing will assure a worry free experience for printing files commercially better than talking to your printer well in advance. Preventing mis-understandings and making them well aware in advance of your goals will more than likely prevent 90% of the mistakes. If you do not get satisfactory answers shop around. The printing business is competitive. The best  offer both technical savvy and good service. </p>
+<h2>Printing Tools (2): The Print Dialog</h2>
+<p>If your printing device and your operating system&rsquo;s printing subsystem support direct printing from within Scribus, especially if the device is a PostScript printer, Scribus offers some extra printing features not available in most other programs. It&rsquo;s important to note (again) that the availability of those features depends on the quality of the device driver. Moreover, at least on Windows, where Scribus uses the &ldquo;Graphical Device Interface&rdquo; it also depends on the features that have been made <i>accessible</i> through the device driver by the manufacturer. For reasons of usability, the number of options may have been consciously limited on this operating system. Below we will describe the Print Dialog for operating systems that use the CUPS printing system (Linux, *BSD, UNIX, Mac&nbsp;OS&nbsp;X).</p><br>
+<table width="100%"><tr><td align="center"><img src="images/print-dialog1.png" alt="The Print Dialog" title="The Print Dialog"/></td></tr></table>
+<h3>Print Destination</h3>
+<p>The first thing you have to decide here is whether you actually want to print on paper (or a similar physical material) or &ldquo;print&rdquo; to a file, i.e., create a PostScript file, which can be later or transferred for processing by a commercial printer who can&rsquo;t process PDFs. If no printer driver is installed, creating a PostScript file will be your only option.</p>
+<p>The checkbox &ldquo;Alternative Printer Command&rdquo; is only important on Linux and UNIX systems. One example for its applicability is the use of a specific &ldquo;printing&rdquo; dialog in a particular desktop environment, since such a dialog may provide additional features (like Ghostscript-based PDF export) or a reduced feature set, which can make it easier for average users to print directly from within Scribus.</p>
+<h4>Printer Options</h4>
+<p>As has been mentioned above, operating systems that use CUPS (Common UNIX Printing System) for printing, usually provide access to a lot of features in a printing device, many of which are only important for experts. As you can see in the screenshot below, these include ink color balance or the size of ink drops. If you need a maximum of control over your local printer, you are advised to use a <a href="http://gutenprint.sourceforge.net/index.php">Gutenprint</a> driver, provided there exists one for your device. Scribus directly supports Gutenprint driver features via CUPS.</p><br>
+<table width="100%"><tr><td align="center"><img src="images/print-dialog2.png" alt="Printer options as provided by CUPS" title="Printer options as provided by CUPS"/></td></tr></table>
 
-
-<h3>Ask questions:</h3>
-
-<h4>If they accept PDF, which level ?</h4>
-
-<p> PDF 1.3 (Acrobat 4), PDF 1.4 (Acrobat 5) or  PDF/X-3 (ISO Standard)  ? If they accept PDF/X-3, consider yourself lucky. This type of PDF is the most advanced for commercial printing. 
-PDF/X is expressly designed to assure good color fidelity between systems. If they can recommend specific ICC profiles to use, then even better.</p>
-
-<h4>Will they be converting the PDF to other formats like EPS? </h4>
-
-<p>Be aware, not all page layout applications are capable of supporting some of the advanced PS3 or PDF 1.4 features Scribus supports. Unless the printer's systems are using PDF 1.4, this is <strong>not</strong> a recommended solution.</p>
-
-<h4>Can they provide an ICC profile of their printer if color fidelity is critical?</h4>
-
-<h4>What is the PS level of their RIP ?</h4>
-
-<p>This can be a determining factor in how you prepare the files. If their RIP is  3015.xxx+, you can be sure their RIP can handle 100% of the features of Scribus. They might not be able to directly answer that, but... </p>
-
-<p>Consult <a href="prepress.html">The Pre-Press Notes</a> and you can even take a printed copy of the PDF with you if the printer has not heard of Scribus. We have an online a listing of printers who support Scribus. See: <a href="scprinters.html">Scribus Printers</a></p>
-
-<p>If there remains unanswered issues, ask on the mailing list or on IRC. Usually, there is someone knowledgable who can answer your questions.</p>
-
+<h3>Range</h3>
+<p>The options in this part of the Print Dialog should be familiar to you, at least if you ever printed from a word processor.</p>
+<h3>More Printing Features</h3>
+<p>It&rsquo;s probably safe to say that most of the features in the lower part of the Print Dialog are only important to professional users, which in turn means that the &ldquo;average&rdquo; user can ignore them. It also means that we don&rsquo;t have to explain them in detail here, as they are (or at least should be) obvious to professional users.</p>
 </body>
 </html>
