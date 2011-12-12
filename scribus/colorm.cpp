@@ -222,8 +222,8 @@ void ColorManager::saveDefaults()
 	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"swatches/";
 	QString Name = LoadColSet->currentText();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
-	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
-	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
+	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11") || (Name == "OpenOffice dot org CMYK") || (Name == "LibreOffice")
+			|| (Name == "X11 Grey") || (Name == "Gnome") || (Name == "SVG"))
 		dia->setEditText("", false);
 	else
 		dia->setEditText(Name, false);
