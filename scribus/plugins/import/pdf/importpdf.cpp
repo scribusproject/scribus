@@ -151,7 +151,7 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 			baseX = 0;
@@ -333,6 +333,7 @@ bool PdfPlug::convert(QString fn)
 						m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(firstPage));
 						m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(firstPage));
 						m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(firstPage));
+						m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 						m_Doc->reformPages(true);
 						Object info;
 						pdfDoc->getDocInfo(&info);

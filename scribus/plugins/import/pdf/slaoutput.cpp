@@ -74,6 +74,7 @@ void SlaOutputDev::startPage(int pageNum, GfxState *state)
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		{
 			m_doc->addPage(pagecount);
+			m_doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 			m_doc->view()->addPage(pagecount, true);
 			pagecount++;
 		}
