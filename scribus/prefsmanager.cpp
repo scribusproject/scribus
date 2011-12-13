@@ -768,7 +768,6 @@ QString PrefsManager::setupPreferencesLocation()
 		QDir swatchDir = QDir();
 		swatchDir.mkpath(ScPaths::getApplicationDataDir()+"swatches");
 		swatchDir.mkpath(ScPaths::getApplicationDataDir()+"swatches/locked");
-		
 	}
 	return PrefsPfad;
 }
