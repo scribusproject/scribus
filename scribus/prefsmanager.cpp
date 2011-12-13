@@ -757,7 +757,14 @@ QString PrefsManager::setupPreferencesLocation()
 		QDir scrapDirectoryT = QDir();
 		scrapDirectoryT.mkdir(QDir::toNativeSeparators(scB+"/tmp"));
 	}
-	prefsLocation=prefsLoc;
+	QFileInfo scSwatch = QFileInfo(ScPaths::getApplicationDataDir()+"swatches");
+	if (!scSwatch.exists())
+	{
+		QDir swatchDir = QDir();
+		swatchDir.mkpath(ScPaths::getApplicationDataDir()+"swatches");
+		swatchDir.mkpath(ScPaths::getApplicationDataDir()+"swatches/locked");
+	}
+	prefsLocation = prefsLoc;
 	return prefsLoc;
 }
 
