@@ -1503,7 +1503,7 @@ void PageItem_TextFrame::layout()
 				}
 				current.breakIndex = -1;
 				if (current.startOfCol && !current.afterOverflow && current.recalculateY)
-					current.yPos = qMax(current.yPos,extra.Top);
+					current.yPos = qMax(current.yPos, extra.Top);
 				// more about par gap and dropcaps
 				if ((a > firstInFrame() && itemText.text(a-1) == SpecialChars::PARSEP) || (a == 0 && BackBox == 0 && current.startOfCol))
 				{
@@ -1752,9 +1752,9 @@ void PageItem_TextFrame::layout()
 					{
 						// new line
 						current.xPos = qMax(current.colLeft, maxDX);
-						current.yPos ++;
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						{
+							current.yPos++;
 							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
@@ -1762,6 +1762,10 @@ void PageItem_TextFrame::layout()
 							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 						}
+						else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+							current.yPos += (current.startOfCol ? 1 : style.lineSpacing());
+						else
+							current.yPos++;
 						lastLineY = maxYAsc +1;
 						if (current.startOfCol)
 						{
@@ -1836,7 +1840,7 @@ void PageItem_TextFrame::layout()
 					int linesDrop = 0;
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 					{
-						linesDrop = ceil(diff/m_Doc->guidesPrefs().valueBaselineGrid);
+						linesDrop = ceil(diff / m_Doc->guidesPrefs().valueBaselineGrid);
 						current.yPos += m_Doc->guidesPrefs().valueBaselineGrid * linesDrop;
 					}
 					else /*if (current.startOfCol)*/
