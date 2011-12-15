@@ -1991,12 +1991,17 @@ void PageItem_TextFrame::layout()
 					continue;
 				}
 				//there we have some glyphs
-				if ((current.breakIndex < 0) && !SpecialChars::isBreak(hl->ch, Cols > 1))
-				{
-					//force break
-					a--;
-					current.breakLine(itemText, style, firstLineOffset(),a);
-				}
+				if (current.breakIndex < 0)
+ 				{
+ 					//force break
+					if (!SpecialChars::isBreak(hl->ch, Cols > 1))
+					{
+						//force line end at previouse glyph
+						a--;
+						current.mustLineEnd = current.line.x;
+					}
+ 					current.breakLine(itemText, style, firstLineOffset(),a);
+ 				}
 				if (!current.addLine && !current.lastInRowLine && current.afterOverflow)
 				{
 					//we reach right edge of column
@@ -2004,9 +2009,7 @@ void PageItem_TextFrame::layout()
 					//if we have some text here - insert text WITHOUT right margin
 					//if there is no place for text - insert text WITH right margin and end line
 					current.lastInRowLine = false;
-					if (current.breakIndex <0)
-						current.mustLineEnd = current.line.x -1;
-					else if (current.line.firstItem == current.restartIndex)
+					if (current.line.firstItem == current.restartIndex)
 						current.lastInRowLine = true;
 					if (current.hasDropCap && DropLinesCount == 0 && current.restartIndex == current.restartRowIndex)
 					{
@@ -2118,7 +2121,7 @@ void PageItem_TextFrame::layout()
 								if (current.breakIndex < 0)
 								{
 									current.lastInRowLine = true;
-									current.mustLineEnd = current.line.x -1;
+									current.mustLineEnd = current.line.x;
 								}
 								else if (current.line.firstItem == current.restartIndex)
 									current.lastInRowLine = true;
