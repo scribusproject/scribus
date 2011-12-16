@@ -19,10 +19,9 @@ for which a new license (GPL+exception) is in place.
 class FileFormat;
 //TODO REmove includes one day
 //class ScribusDoc;
-//class ScribusView;
+class ScribusView;
 #include "scfonts.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
 
 /*!
  * @brief Superclass for all file import/export/load/save plugins

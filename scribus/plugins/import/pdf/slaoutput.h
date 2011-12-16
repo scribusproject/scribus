@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "pageitem.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "vgradient.h"
 

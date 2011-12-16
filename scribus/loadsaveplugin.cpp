@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include "plugins/formatidlist.h"
 
 #include <QList>
