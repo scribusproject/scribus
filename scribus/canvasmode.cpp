@@ -449,14 +449,20 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		{
 			p->setBrush(m_brush["outline"]);
 			p->setPen(m_pen["outline"]);
-			p->translate(currItem->xPos(), currItem->yPos());
+
+			QTransform itemTrans = currItem->getTransform();
+			QPointF itPos = itemTrans.map(QPointF(0, 0));
+			double gRot = getRotationDFromMatrix(itemTrans);
+			double m_scaleX, m_scaleY;
+			getScaleFromMatrix(itemTrans, m_scaleX, m_scaleY);
+			p->translate(itPos);
 			p->translate(deltax, deltay);
-			if (currItem->rotation() != 0)
+			if (gRot != 0)
 			{
 				p->setRenderHint(QPainter::Antialiasing);
-				p->rotate(currItem->rotation());
+				p->rotate(-gRot);
 			}
-			p->scale(scalex, scaley);
+			p->scale(scalex * m_scaleX, scaley * m_scaleY);
 			currItem->DrawPolyL(p, currItem->Clip);
 		}
 		else // moving page item

@@ -64,10 +64,16 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 	else // we keep m_bounds non-rotated
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		m_bounds = QRectF(currItem->visualXPos(), currItem->visualYPos(), currItem->visualWidth(), currItem->visualHeight());
-		m_rotation = currItem->rotation();
-//		currItem->OldB2 = currItem->visualWidth();
-//		currItem->OldH2 = currItem->visualHeight();
+		m_bounds = QRectF(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0, currItem->visualWidth(), currItem->visualHeight());
+		QTransform mm = currItem->getTransform();
+		QPointF itPos = mm.map(QPointF(0, 0));
+		double m_scaleX, m_scaleY;
+		getScaleFromMatrix(mm, m_scaleX, m_scaleY);
+		QTransform m;
+		m.scale(m_scaleX, m_scaleY);
+		m_bounds = m.mapRect(m_bounds);
+		m_bounds.moveTopLeft(itPos);
+		m_rotation = -getRotationDFromMatrix(mm);
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 		m_extraWidth = currItem->visualWidth() - currItem->width();
@@ -76,7 +82,6 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 	}
 	m_origRatio = m_bounds.width() / m_bounds.height();
 	m_origBounds = m_bounds;
-// 	qDebug()<<"P"<<m_bounds<< "E"<< m_extraX<< m_extraY<<m_extraWidth<<m_extraHeight;
 }
 
 
@@ -85,7 +90,6 @@ void ResizeGesture::clear()
 	m_handle = Canvas::OUTSIDE;
 	if (m_transactionStarted)
 	{
-//		qDebug() << "ResizeGesture::clear: cancel transaction" << m_transactionStarted;
 		m_transactionStarted->cancel();
 		delete m_transactionStarted;
 		m_transactionStarted = NULL;
@@ -94,14 +98,12 @@ void ResizeGesture::clear()
 
 void ResizeGesture::activate(bool flag)
 {
-//	qDebug() << "ResizeGesture::activate" << flag;	
 }
 
 
 
 void ResizeGesture::deactivate(bool forgesture)
 {
-//	qDebug() << "ResizeGesture::deactivate" << forgesture;
 	if (!forgesture)
 		clear();
 }
@@ -113,8 +115,6 @@ void ResizeGesture::drawControls(QPainter* p)
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
 	QRect localRect = m_canvas->canvasToLocal(m_bounds.normalized());
 	p->save();
-	//	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
-	//	p->drawRect(localRect);
 	if (m_rotation != 0)
 	{
 		p->setRenderHint(QPainter::Antialiasing);
@@ -126,8 +126,6 @@ void ResizeGesture::drawControls(QPainter* p)
 	drawColor.setAlpha(64);
 	p->setBrush(drawColor);
 	p->drawRect(localRect);
-	//	p->setPen(Qt::darkMagenta);
-	//	p->drawLine(localRect.topLeft(), localRect.bottomRight());
 	p->restore();
 
 	if (m_origBounds != m_bounds)
@@ -135,7 +133,6 @@ void ResizeGesture::drawControls(QPainter* p)
 		QRectF n_bounds = m_bounds.normalized();
 		QRectF n_origBounds = m_origBounds.normalized();
 		p->save();
-//		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
 		drawOutline(p, qAbs(n_bounds.width()) / qMax(qAbs(n_origBounds.width()), static_cast<qreal>(1.0)), 
 					qAbs(n_bounds.height()) / qMax(qAbs(n_origBounds.height()), static_cast<qreal>(1.0)),
 					n_bounds.left() - n_origBounds.left(),
@@ -152,7 +149,6 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	if (m_doc->m_Selection->count() != 0)
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-//		qDebug() << "ResizeGesture::release: new bounds" << m_bounds;
 		if (m_bounds != m_mousePressBounds)
 		{
 			doResize(m->modifiers() & Qt::AltModifier);
@@ -172,7 +168,6 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->changed();
 		}
 	}
-//	qDebug() << "ResizeGesture::release: transaction" << m_transactionStarted;
 	if (m_transactionStarted)
 	{
 		m_transactionStarted->commit();
@@ -196,11 +191,7 @@ void ResizeGesture::doResize(bool scaleContent)
 		targetIcon = currItem->getUPixmap();
 	}
 	if (!m_transactionStarted)
-	{
-		m_transactionStarted = new UndoTransaction(Um::instance()->beginTransaction(targetName, targetIcon,
-																					Um::Resize, "", Um::IResize));
-//		qDebug() << "ResizeGesture::doResize: begin transaction" << m_transactionStarted;
-	}
+		m_transactionStarted = new UndoTransaction(Um::instance()->beginTransaction(targetName, targetIcon, Um::Resize, "", Um::IResize));
 	QRectF newBounds = m_bounds.normalized();
 	double dw = (newBounds.width() - m_extraWidth) - currItem->width();
 	double dh = (newBounds.height() - m_extraHeight) - currItem->height();
@@ -310,14 +301,21 @@ void ResizeGesture::doResize(bool scaleContent)
 		}
 		double oldX = currItem->xPos();
 		double oldY = currItem->yPos();
-		currItem->setXYPos(newBounds.x() + m_extraX, newBounds.y() + m_extraY);
-		if (currItem->Parent != 0)	// part of a group
-		{
-			currItem->gXpos += currItem->xPos() - oldX;
-			currItem->gYpos += currItem->yPos() - oldY;
-		}
-		currItem->setWidth(newBounds.width() - m_extraWidth);
-		currItem->setHeight(newBounds.height() - m_extraHeight);
+		QTransform mm = currItem->getTransform();
+		QPointF itPos = mm.map(QPointF(0, 0));
+		oldX = itPos.x();
+		oldY = itPos.y();
+		double m_scaleX, m_scaleY;
+		getScaleFromMatrix(mm, m_scaleX, m_scaleY);
+		double dx = (itPos.x() - newBounds.x()) / m_scaleX;
+		double dy = (itPos.y() - newBounds.y()) / m_scaleY;
+		if (mm.m11() < 0)
+			dx *= -1;
+		if (mm.m22() < 0)
+			dy *= -1;
+		currItem->moveBy(-dx, -dy, true);
+		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
+		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);
 		currItem->updateClip();
 		if (currItem->isArc())
 		{
