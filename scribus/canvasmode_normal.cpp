@@ -218,7 +218,6 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			{
 				m_view->requestMode(modeEditClip);
 				m_ScMW->scrActions["itemUngroup"]->setEnabled(false);
-				m_ScMW->propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
 			}
 		}
 		else if (currItem->itemType() == PageItem::TextFrame)

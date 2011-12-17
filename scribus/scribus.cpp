@@ -1339,13 +1339,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeEdit:
 					view->cancelGroupTransaction();
 					break;
+				case modeCopyProperties:
+				case modeEditGradientVectors:
+				case modeEditMeshGradient:
 				case modeLinkFrames:
 				case modeUnlinkFrames:
 				case modeRotation:
-				case modeEditGradientVectors:
-				case modeEditMeshGradient:
-				case modeCopyProperties:
 					view->Deselect(false);
+				case modeEditWeldPoint:
 				case modeEyeDropper:
 				case modeImportObject:
 				case modePanning:
@@ -3095,13 +3096,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemPrintingEnabled"]->setEnabled(true);
 		if (currItem->isGroup())
 		{
-			if (doc->appMode == modeEdit)
-			{
-				propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
-				scrActions["itemUngroup"]->setEnabled(false);
-			}
-			else
-				scrActions["itemUngroup"]->setEnabled(true);
+			scrActions["itemUngroup"]->setEnabled(doc->appMode != modeEdit);
 		}
 		else
 		{
@@ -6612,6 +6607,8 @@ void ScribusMainWindow::setAppMode(int mode)
 			activateWindow();
 		PluginManager& pluginManager(PluginManager::instance());
 		pluginManager.enablePluginActionsForSelection(this);
+
+		emit AppModeChanged(oldMode, mode);
 /*
 		QStringList pluginNames(pluginManager.pluginNames(false));
 		ScPlugin* plugin;
@@ -7480,7 +7477,6 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 		{
 			view->requestMode(modeEditClip);
 			scrActions["itemUngroup"]->setEnabled(false);
-			propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
 		}
 	}
 	else if (ite->itemType() == PageItem::TextFrame)

@@ -65,6 +65,7 @@ public slots:
 	void displayFlippedH(bool);
 	void displayFlippedV(bool);
 
+	void handleAppModeChanged(int oldMode, int mode);
 	void handleSelectionChanged();
 
 private slots:

@@ -521,6 +521,7 @@ public slots:
 	void updateTableMenuActions();
 
 signals:
+	void AppModeChanged(int oldMode, int newMode);
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)
 	void TextEffects(int);

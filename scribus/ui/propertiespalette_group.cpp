@@ -581,7 +581,6 @@ void PropertiesPalette_Group::handleShapeEdit()
 		m_item->update();
 		m_ScMW->view->requestMode(modeEditClip);
 		m_ScMW->scrActions["itemUngroup"]->setEnabled(false);
-		m_ScMW->propertiesPalette->xyzPal->doUnGroup->setEnabled(false);
 		connect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
 		emit shapeEditStarted();
 	}

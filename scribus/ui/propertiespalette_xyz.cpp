@@ -149,6 +149,7 @@ void PropertiesPalette_XYZ::setMainWindow(ScribusMainWindow* mw)
 	m_ScMW = mw;
 
 	connect(this, SIGNAL(DocChanged()), m_ScMW, SLOT(slotDocCh()));
+	connect(mw, SIGNAL(AppModeChanged(int, int)), this, SLOT(handleAppModeChanged(int, int)));
 }
 
 void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)
@@ -412,6 +413,11 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 		setEnabled(true);
 	}
 	updateSpinBoxConstants();
+}
+
+void PropertiesPalette_XYZ::handleAppModeChanged(int oldMode, int mode)
+{
+	doUnGroup->setEnabled(mode != modeEdit && mode != modeEditClip);
 }
 
 void PropertiesPalette_XYZ::handleSelectionChanged()
