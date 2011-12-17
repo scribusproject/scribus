@@ -503,6 +503,25 @@ int Selection::objectsLayer(void) const
 	return layerID;
 }
 
+bool Selection::objectsHaveSameParent(void) const
+{
+	int selectedItemCount = m_SelList.count();
+	if (selectedItemCount <= 1)
+		return true;
+
+	bool haveSameParent = true;
+	const PageItem *firstItem = itemAt(0);
+	for (int a = 1; a < selectedItemCount; ++a)
+	{
+		if (itemAt(a)->Parent != firstItem->Parent)
+		{
+			haveSameParent = false;
+			break;
+		}
+	}
+	return haveSameParent;
+}
+
 bool Selection::signalsDelayed(void)
 {
 	return (m_isGUISelection && (m_delaySignals > 0));

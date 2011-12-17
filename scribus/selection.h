@@ -158,6 +158,12 @@ class SCRIBUS_API Selection : public QObject
 		 */
 		int objectsLayer(void) const;
 
+		/**
+		 * \brief detect if selected object have all same parent (doc or group)
+		 * @return true if objects share same parent, false otherwise
+		 */
+		bool objectsHaveSameParent(void) const;
+
 		bool signalsDelayed(void);
 		void delaySignalsOn(void);
 		void delaySignalsOff(void);

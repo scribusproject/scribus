@@ -247,6 +247,9 @@ public:
 //			unWeldChild();
 	}
 
+	// Get item level relative to its parent doc or group
+	int level();
+
 	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {}
 	void saxx(SaxHandler& handler) const {}
 	

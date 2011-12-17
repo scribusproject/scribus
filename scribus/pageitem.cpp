@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 #include "commonstrings.h"
 
+#include "pageitem_group.h"
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
@@ -848,6 +849,20 @@ void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawing
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	checkChanges();
+}
+
+int PageItem::level()
+{
+	if (Parent == NULL)
+	{
+		if (m_Doc)
+		{
+			QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
+			return (items->indexOf(this) + 1);
+		}
+		return 0;
+	}
+	return (Parent->asGroupFrame()->groupItemList.indexOf(this) + 1);
 }
 
 void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)

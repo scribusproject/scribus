@@ -294,11 +294,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	m_item = i;
 
 	nameEdit->setText(m_item->itemName());
-	QString tm;
-	if (m_item->Parent == NULL)
-		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
-	else
-		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
+	levelLabel->setText( QString::number(m_item->level()) );
 
 	connect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
 
@@ -356,20 +352,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	}
 	xposSpin->setEnabled(!setter);
 	yposSpin->setEnabled(!setter);
-	bool haveSameParent = true;
-	int selectedItemCount = m_doc->m_Selection->count();
-	if (selectedItemCount > 1)
-	{
-		PageItem *firstItem = m_doc->m_Selection->itemAt(0);
-		for (int a = 1; a < selectedItemCount; ++a)
-		{
-			if (m_doc->m_Selection->itemAt(a)->Parent != firstItem->Parent)
-			{
-				haveSameParent = false;
-				break;
-			}
-		}
-	}
+	bool haveSameParent = m_doc->m_Selection->objectsHaveSameParent();
 	levelGroup->setEnabled(haveSameParent && !i->locked());
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
@@ -1131,11 +1114,7 @@ void PropertiesPalette_XYZ::handleLower()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_doc->itemSelection_LowerItem();
-	QString tm;
-	if (m_item->Parent == NULL)
-		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
-	else
-		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
+	levelLabel->setText( QString::number(m_item->level()) );
 }
 
 void PropertiesPalette_XYZ::handleRaise()
@@ -1143,11 +1122,7 @@ void PropertiesPalette_XYZ::handleRaise()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_doc->itemSelection_RaiseItem();
-	QString tm;
-	if (m_item->Parent == NULL)
-		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
-	else
-		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
+	levelLabel->setText( QString::number(m_item->level()) );
 }
 
 void PropertiesPalette_XYZ::handleFront()
@@ -1155,11 +1130,7 @@ void PropertiesPalette_XYZ::handleFront()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_doc->bringItemSelectionToFront();
-	QString tm;
-	if (m_item->Parent == NULL)
-		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
-	else
-		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
+	levelLabel->setText( QString::number(m_item->level()) );
 }
 
 void PropertiesPalette_XYZ::handleBack()
@@ -1167,11 +1138,7 @@ void PropertiesPalette_XYZ::handleBack()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_doc->sendItemSelectionToBack();
-	QString tm;
-	if (m_item->Parent == NULL)
-		levelLabel->setText(tm.setNum(m_doc->Items->indexOf(m_item) + 1));
-	else
-		levelLabel->setText(tm.setNum(m_item->Parent->asGroupFrame()->groupItemList.indexOf(m_item) + 1));
+	levelLabel->setText( QString::number(m_item->level()) );
 }
 
 void PropertiesPalette_XYZ::handleBasePoint(int m)
