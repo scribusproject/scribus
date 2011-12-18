@@ -468,6 +468,8 @@ void PropertiesPalette_Group::handleNewShape(int frameType, int count, qreal *po
 			return;
 
 		m_doc->item_setFrameShape(m_item, frameType, count, points);
+		m_doc->invalidateAll();
+		m_doc->regionsChanged()->update(QRect());
 
 		//ScribusDoc::changed() is called in item_setFrameShape()
 		//Hope this is enough

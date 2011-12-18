@@ -73,7 +73,17 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 		m.scale(m_scaleX, m_scaleY);
 		m_bounds = m.mapRect(m_bounds);
 		m_bounds.moveTopLeft(itPos);
-		m_rotation = -getRotationDFromMatrix(mm);
+		if (mm.m11() < 0)
+		{
+			m_rotation = -getRotationDFromMatrix(mm) - 180.0;
+			m_bounds.translate(-currItem->visualWidth() * m_scaleX, 0);
+		}
+		else
+			m_rotation = -getRotationDFromMatrix(mm);
+		if (mm.m22() < 0)
+		{
+			m_bounds.translate(0, -currItem->visualHeight() * m_scaleY);
+		}
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 		m_extraWidth = currItem->visualWidth() - currItem->width();
@@ -126,19 +136,35 @@ void ResizeGesture::drawControls(QPainter* p)
 	drawColor.setAlpha(64);
 	p->setBrush(drawColor);
 	p->drawRect(localRect);
-	p->restore();
 
 	if (m_origBounds != m_bounds)
 	{
-		QRectF n_bounds = m_bounds.normalized();
-		QRectF n_origBounds = m_origBounds.normalized();
-		p->save();
-		drawOutline(p, qAbs(n_bounds.width()) / qMax(qAbs(n_origBounds.width()), static_cast<qreal>(1.0)), 
-					qAbs(n_bounds.height()) / qMax(qAbs(n_origBounds.height()), static_cast<qreal>(1.0)),
-					n_bounds.left() - n_origBounds.left(),
-					n_bounds.top() - n_origBounds.top());
-		p->restore();
+		if (m_doc->m_Selection->count() > 0)
+		{
+			p->setBrush(Qt::NoBrush);
+			QPen out = QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			out.setCosmetic(true);
+			p->setPen(out);
+			PageItem *currItem = m_doc->m_Selection->itemAt(0);
+			QTransform m;
+			m.translate(localRect.x(), localRect.y());
+			m.scale(localRect.width() / currItem->width(), localRect.height() / currItem->height());
+			QTransform mm = currItem->getTransform();
+			if (mm.m11() < 0)
+			{
+				m.translate(currItem->width(), 0);
+				m.scale(-1, 1);
+			}
+			if (mm.m22() < 0)
+			{
+				m.translate(0, currItem->height());
+				m.scale(1, -1);
+			}
+			QPolygon clip = m.map(currItem->Clip);
+			currItem->DrawPolyL(p, clip);
+		}
 	}
+	p->restore();
 }
 
 
@@ -316,6 +342,10 @@ void ResizeGesture::doResize(bool scaleContent)
 		currItem->moveBy(-dx, -dy, true);
 		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
 		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);
+		if (mm.m11() < 0)
+			currItem->moveBy(-currItem->width(), 0);
+		if (mm.m22() < 0)
+			currItem->moveBy(0, -currItem->height());
 		currItem->updateClip();
 		if (currItem->isArc())
 		{
@@ -589,6 +619,60 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 	else
 	{
 		m_handle = m_canvas->frameHitTest(QPointF(point.x(), point.y()), m_doc->m_Selection->itemAt(0));
+		PageItem* currItem = m_doc->m_Selection->itemAt(0);
+		QTransform mm = currItem->getTransform();
+		if (mm.m11() < 0)
+		{
+			switch (m_handle)
+			{
+				case Canvas::NORTHEAST:
+					m_handle = Canvas::NORTHWEST;
+					break;
+				case Canvas::NORTHWEST:
+					m_handle = Canvas::NORTHEAST;
+					break;
+				case Canvas::EAST:
+					m_handle = Canvas::WEST;
+					break;
+				case Canvas::WEST:
+					m_handle = Canvas::EAST;
+					break;
+				case Canvas::SOUTHEAST:
+					m_handle = Canvas::SOUTHWEST;
+					break;
+				case Canvas::SOUTHWEST:
+					m_handle = Canvas::SOUTHEAST;
+					break;
+				default:
+					break;
+			}
+		}
+		if (mm.m22() < 0)
+		{
+			switch (m_handle)
+			{
+				case Canvas::NORTHEAST:
+					m_handle = Canvas::SOUTHEAST;
+					break;
+				case Canvas::NORTHWEST:
+					m_handle = Canvas::SOUTHWEST;
+					break;
+				case Canvas::SOUTH:
+					m_handle = Canvas::NORTH;
+					break;
+				case Canvas::NORTH:
+					m_handle = Canvas::SOUTH;
+					break;
+				case Canvas::SOUTHEAST:
+					m_handle = Canvas::SOUTHWEST;
+					break;
+				case Canvas::SOUTHWEST:
+					m_handle = Canvas::NORTHWEST;
+					break;
+				default:
+					break;
+			}
+		}
 	}
 	if (m_handle > 0)
 	{

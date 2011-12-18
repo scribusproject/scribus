@@ -507,6 +507,8 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 //		m_item->convertTo(PageItem::Polygon);
 //		newSelection(6);
 		roundRect->setEnabled(f == 0);
+		m_doc->invalidateAll();
+		m_doc->regionsChanged()->update(QRect());
 	}
 }
 

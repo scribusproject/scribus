@@ -417,7 +417,9 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 
 void PropertiesPalette_XYZ::handleAppModeChanged(int oldMode, int mode)
 {
-	doUnGroup->setEnabled(mode != modeEdit && mode != modeEditClip);
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	doUnGroup->setEnabled(mode != modeEdit && mode != modeEditClip && m_item->isGroup());
 }
 
 void PropertiesPalette_XYZ::handleSelectionChanged()
@@ -1502,4 +1504,6 @@ void PropertiesPalette_XYZ::handleGrouping()
 void PropertiesPalette_XYZ::handleUngrouping()
 {
 	m_ScMW->UnGroupObj();
+	m_doc->invalidateAll();
+	m_doc->regionsChanged()->update(QRect());
 }

@@ -454,8 +454,16 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 			QPointF itPos = itemTrans.map(QPointF(0, 0));
 			double gRot = getRotationDFromMatrix(itemTrans);
 			double m_scaleX, m_scaleY;
+			double addTransX = 0.0;
 			getScaleFromMatrix(itemTrans, m_scaleX, m_scaleY);
 			p->translate(itPos);
+			if (itemTrans.m11() < 0)
+			{
+				gRot -= 180.0;
+		//		p->translate(-currItem->visualWidth(), 0);
+		//		addTransX = -currItem->visualWidth() * (scalex * m_scaleX);
+		//		m_scaleX *= -1;
+			}
 			p->translate(deltax, deltay);
 			if (gRot != 0)
 			{
@@ -463,6 +471,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 				p->rotate(-gRot);
 			}
 			p->scale(scalex * m_scaleX, scaley * m_scaleY);
+			p->translate(addTransX, 0);
 			currItem->DrawPolyL(p, currItem->Clip);
 		}
 		else // moving page item
