@@ -94,9 +94,6 @@ protected slots:
 	void spinboxFinishUserAction();
 	void updateSpinBoxConstants();
 
-signals:
-	void DocChanged();
-
 protected:
 	ScribusMainWindow *m_ScMW;
 

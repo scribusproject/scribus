@@ -148,7 +148,6 @@ void PropertiesPalette_XYZ::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-	connect(this, SIGNAL(DocChanged()), m_ScMW, SLOT(slotDocCh()));
 	connect(mw, SIGNAL(AppModeChanged(int, int)), this, SLOT(handleAppModeChanged(int, int)));
 }
 
@@ -750,7 +749,7 @@ void PropertiesPalette_XYZ::handleNewX()
 			}
 		}
 		m_doc->regionsChanged()->update(QRect());
-		emit DocChanged();
+		m_doc->changed();
 	}
 }
 
@@ -831,7 +830,7 @@ void PropertiesPalette_XYZ::handleNewY()
 		}
 	}
 	m_doc->regionsChanged()->update(QRect());
-	emit DocChanged();
+	m_doc->changed();
 }
 
 void PropertiesPalette_XYZ::handleNewW()
@@ -955,7 +954,6 @@ void PropertiesPalette_XYZ::handleNewW()
 		}
 		m_item->Sizing = oldS;
 	}
-	//emit DocChanged();
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 }
@@ -1082,7 +1080,6 @@ void PropertiesPalette_XYZ::handleNewH()
 			}
 			m_item->Sizing = oldS;
 		}
-		//emit DocChanged();
 		m_doc->changed();
 		m_doc->regionsChanged()->update(QRect());
 	}
@@ -1111,7 +1108,7 @@ void PropertiesPalette_XYZ::handleRotation()
 				m_doc->m_Selection->itemAt(i)->checkChanges(true);
 			m_ScMW->view->endGroupTransaction();
 		}
-		emit DocChanged();
+		m_doc->changed();
 		m_doc->regionsChanged()->update(QRect());
 		m_oldRotation = rotationSpin->value();
 	}
@@ -1244,7 +1241,6 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 			{
 				m_item->AdjustPictScale();
 				m_item->update();
-				emit DocChanged();
 			}
 		}
 		m_haveItem = true;
@@ -1328,7 +1324,7 @@ void PropertiesPalette_XYZ::handleNewName()
 		if (m_item->itemName() != nameEdit->text())
 		{
 			m_item->setItemName(nameEdit->text());
-			emit DocChanged();
+			m_doc->changed();
 		}
 	}
 }

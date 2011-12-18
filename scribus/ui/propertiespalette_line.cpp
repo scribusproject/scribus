@@ -122,7 +122,6 @@ void PropertiesPalette_Line::setMainWindow(ScribusMainWindow *mw)
 {
 	m_ScMW = mw;
 
-	connect(this  , SIGNAL(DocChanged())      , m_ScMW, SLOT(slotDocCh()));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this  , SLOT(handleUpdateRequest(int)));
 }
 
@@ -617,7 +616,6 @@ void PropertiesPalette_Line::handleTLines()
 		m_item->RightLine  = rightLine->isChecked();
 		m_item->BottomLine = bottomLine->isChecked();
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -661,7 +659,6 @@ void PropertiesPalette_Line::handleDashChange()
 			m_item->setDashOffset(dashEditor->Offset->value() * m_item->lineWidth());
 		}
 		m_item->update();
-		emit DocChanged();
 	}
 }
 

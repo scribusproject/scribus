@@ -243,7 +243,6 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	this->textPal->setMainWindow(mw);
 	this->tablePal->setMainWindow(mw);
 
-	connect(this, SIGNAL(DocChanged()), m_ScMW, SLOT(slotDocCh()));
 	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
 	connect(this->Tpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradMask()));
@@ -793,7 +792,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 		}
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
-		emit DocChanged();
+		m_doc->changed();
 	}
 }
 
@@ -866,7 +865,7 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
-		emit DocChanged();
+		m_doc->changed();
 	}
 }
 

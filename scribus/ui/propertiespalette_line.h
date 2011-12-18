@@ -84,7 +84,6 @@ private slots:
 	void handleLineStyle(QListWidgetItem *c);
 
 signals:
-	void DocChanged();
 	void lineModeChanged(int);
 };
 

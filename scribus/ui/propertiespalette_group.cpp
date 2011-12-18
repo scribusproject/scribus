@@ -128,7 +128,6 @@ void PropertiesPalette_Group::setMainWindow(ScribusMainWindow *mw)
 	m_ScMW = mw;
 
 	connect(this->transPalWidget, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradMaskGroup()));
-	connect(this                , SIGNAL(DocChanged())     , m_ScMW, SLOT(slotDocCh()));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
 }
 
@@ -411,7 +410,6 @@ void PropertiesPalette_Group::handleGroupTransparency(double trans)
 	{
 		m_item->setFillTransparency(trans);
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -421,7 +419,6 @@ void PropertiesPalette_Group::handleGroupBlending(int blend)
 	{
 		m_item->setFillBlendmode(blend);
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -433,7 +430,6 @@ void PropertiesPalette_Group::handleGroupGradMask(int typ)
 		if ((typ > 0) && (typ < 7))
 			m_item->updateGradientVectors();
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -443,7 +439,6 @@ void PropertiesPalette_Group::handleGroupPatternMask(QString pattern)
 	{
 		m_item->setPatternMask(pattern);
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -454,7 +449,6 @@ void PropertiesPalette_Group::handleGroupPatternMaskProps(double imageScaleX, do
 		m_item->setMaskTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
 		m_item->setMaskFlip(mirrorX, mirrorY);
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -499,7 +493,7 @@ void PropertiesPalette_Group::handleTextFlow()
 				mode = PageItem::TextFlowUsesImageClipping;
 		}
 		m_item->setTextFlowMode(mode);
-		emit DocChanged();
+		m_doc->changed();
 		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
@@ -556,7 +550,7 @@ void PropertiesPalette_Group::handleSpecialGradient(double x1, double y1, double
 		upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
-		emit DocChanged();
+		m_doc->changed();
 	}
 }
 
@@ -566,7 +560,6 @@ void PropertiesPalette_Group::handleFillRule()
 		return;
 	m_item->fillRule = evenOdd->isChecked();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Group::handleShapeEdit()

@@ -140,7 +140,6 @@ void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
 	advancedWidgets->setMainWindow(mw);
 	colorWidgets->setMainWindow(mw);
 
-	connect(this  , SIGNAL(DocChanged())           , m_ScMW, SLOT(slotDocCh()));
 	connect(this  , SIGNAL(NewAlignment(int))      , m_ScMW, SLOT(setNewAlignment(int)));
 	connect(this  , SIGNAL(NewFont(const QString&)), m_ScMW, SLOT(SetNewFont(const QString&)));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int))     , this  , SLOT(handleUpdateRequest(int)));
@@ -716,7 +715,6 @@ void PropertiesPalette_Text::handleColumns()
 		return;
 	m_item->Cols = distanceWidgets->columns->value();
 	displayColumns(m_item->Cols, m_item->ColGap);
-	m_item->update();
 	if (distanceWidgets->columns->value() == 1)
 	{
 		distanceWidgets->columnGap->setEnabled(false);
@@ -727,7 +725,7 @@ void PropertiesPalette_Text::handleColumns()
 		distanceWidgets->columnGap->setEnabled(true);
 		distanceWidgets->columnGapLabel->setEnabled(true);
 	}
-	emit DocChanged();
+	m_item->update();
 }
 
 void PropertiesPalette_Text::handleColumnGap()
@@ -748,7 +746,6 @@ void PropertiesPalette_Text::handleColumnGap()
 		m_item->ColGap = newGap;
 	}
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Text::handleFontSize()
@@ -778,7 +775,6 @@ void PropertiesPalette_Text::handleTextDistances()
 		m_item->setTextToFrameDist(left, right, top, bottom);
 		displayColumns(m_item->Cols, m_item->ColGap);
 		m_item->update();
-		emit DocChanged();
 	}
 }
 
@@ -826,7 +822,6 @@ void PropertiesPalette_Text::handlePathType()
 		return;
 	m_item->textPathType = pathTextWidgets->pathTextType->currentIndex();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Text::handlePathFlip()
@@ -836,7 +831,6 @@ void PropertiesPalette_Text::handlePathFlip()
 	m_item->textPathFlipped = pathTextWidgets->flippedPathText->isChecked();
 	m_item->updatePolyClip();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Text::handlePathLine()
@@ -845,7 +839,6 @@ void PropertiesPalette_Text::handlePathLine()
 		return;
 	m_item->PoShow = pathTextWidgets->showCurveCheckBox->isChecked();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Text::handlePathDist()
@@ -856,7 +849,6 @@ void PropertiesPalette_Text::handlePathDist()
 	m_doc->AdjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Text::handlePathOffs()
@@ -867,7 +859,6 @@ void PropertiesPalette_Text::handlePathOffs()
 	m_doc->AdjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Text::fillLangCombo(QMap<QString,QString> langMap)
@@ -891,7 +882,7 @@ void PropertiesPalette_Text::handleHyphLanguage()
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		m_item->doc()->setHyphLanguage(m_ScMW->GetLang(langCombo->currentText()));
-		emit DocChanged();
+		m_doc->changed();
 	}
 }
 
@@ -919,7 +910,6 @@ void PropertiesPalette_Text::handleTabs()
 				m_doc->itemSelection_ApplyParagraphStyle(newStyle);
 			}
 			m_item->update();
-			emit DocChanged();
 		}
 		delete dia;
 	}
@@ -991,5 +981,4 @@ void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
 	else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
 		m_item->setFirstLineOffset(FLOPLineSpacing);
 	m_item->update();
-	emit DocChanged();
 }

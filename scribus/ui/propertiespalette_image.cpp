@@ -122,7 +122,6 @@ void PropertiesPalette_Image::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-	connect(this  , SIGNAL(DocChanged())      , m_ScMW, SLOT(slotDocCh()));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this  , SLOT(handleUpdateRequest(int)));
 }
 
@@ -585,8 +584,8 @@ void PropertiesPalette_Image::handleScaling()
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		m_item->setImageScalingMode(freeScale->isChecked(), cbProportional->isChecked());
+		m_doc->changed();
 		emit UpdtGui(PageItem::ImageFrame);
-		emit DocChanged();
 	}
 }
 
@@ -682,7 +681,7 @@ void PropertiesPalette_Image::handleExtImgProperties()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->view->editExtendedImageProperties();
-	emit DocChanged();
+	m_doc->changed();
 }
 
 void PropertiesPalette_Image::handleImagePageNumber()

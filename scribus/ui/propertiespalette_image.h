@@ -103,7 +103,6 @@ private slots:
 	void handleExtImgProperties();
 
 signals:
-	void DocChanged();
 	void UpdtGui(int);
 };
 

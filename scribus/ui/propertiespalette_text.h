@@ -163,7 +163,6 @@ protected:
 	QTreeWidgetItem* pathTextItem;
 
 signals:
-	void DocChanged();
 	void NewAlignment(int);
 	void NewFont(const QString&);
 };

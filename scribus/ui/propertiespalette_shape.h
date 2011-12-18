@@ -80,9 +80,6 @@ private slots:
 	void handleCornerRadius();
 	void handleFillRule();
 	void handleNewShape(int, int, qreal *);
-
-signals:
-	void DocChanged();
 };
 
 #endif

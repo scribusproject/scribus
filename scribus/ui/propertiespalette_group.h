@@ -84,7 +84,6 @@ private slots:
 	void handleGradientEdit();
 
 signals:
-	void DocChanged();
 	void shapeChanged(int);
 	void shapeEditStarted();
 };

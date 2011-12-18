@@ -113,9 +113,6 @@ private slots:
 	void toggleGradientEditM();
 	void handleShapeEdit();
 
-signals:
-	void DocChanged();
-
 protected:
 	ScribusMainWindow *m_ScMW;
 

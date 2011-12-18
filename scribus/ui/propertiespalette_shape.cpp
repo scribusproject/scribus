@@ -86,7 +86,6 @@ void PropertiesPalette_Shape::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-	connect(this  , SIGNAL(DocChanged())      , m_ScMW, SLOT(slotDocCh()));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this  , SLOT(handleUpdateRequest(int)));
 }
 
@@ -413,7 +412,7 @@ void PropertiesPalette_Shape::handleTextFlow()
 				mode = PageItem::TextFlowUsesImageClipping;
 		}
 		m_item->setTextFlowMode(mode);
-		emit DocChanged();
+		m_doc->changed();
 		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
@@ -447,7 +446,7 @@ void PropertiesPalette_Shape::handleShapeEdit()
 			roundRect->setEnabled(false);
 			connect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
 		}
-		emit DocChanged();
+		m_doc->changed();
 	}
 }
 
@@ -471,7 +470,7 @@ void PropertiesPalette_Shape::handleCornerRadius()
 		return;
 	m_item->setCornerRadius(roundRect->value() / m_unitRatio);
 	m_ScMW->view->SetFrameRounded();
-	emit DocChanged();
+	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 }
 
@@ -481,7 +480,6 @@ void PropertiesPalette_Shape::handleFillRule()
 		return;
 	m_item->fillRule = evenOdd->isChecked();
 	m_item->update();
-	emit DocChanged();
 }
 
 void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
