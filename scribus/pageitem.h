@@ -359,6 +359,7 @@ public:
 	virtual void layout() {}
 	/// returns frame where is text end
 	PageItem * frameTextEnd();
+	int maxCharsInFrame();
 	/// returns true if text overflows
 	bool frameOverflows() const;
 	bool frameUnderflows() const;

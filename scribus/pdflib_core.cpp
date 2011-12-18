@@ -4900,7 +4900,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 		ite->asPathText()->layout();
 		ite->OwnPage = savedOwnPage;
 		double CurX = 0;
-		for (int d = 0; d < ite->asPathText()->itemRenderText.length(); ++d)
+		for (int d = 0; d < ite->maxCharsInFrame(); ++d)
 		{
 			const ScText * const hl = ite->asPathText()->itemRenderText.item(d);
 			const QChar ch = hl->ch;
@@ -5404,8 +5404,6 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 					}
 					else
 					{
-						if (ite->BaseOffs != 0)
-							tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
 						tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
 					}
 					if (hl->glyph.scaleV != 1.0)

@@ -1091,6 +1091,11 @@ int PageItem::frameOverflowCount() const
 	return 0;
 }
 
+int PageItem::maxCharsInFrame()
+{
+	return MaxChars;
+}
+
 /// returns true if text is ending before that frame
 bool PageItem::frameUnderflows() const
 {

@@ -2201,7 +2201,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			c->OwnPage = PNr-1;
 			c->asPathText()->layout();
 			c->OwnPage = savedOwnPage;
-			for (d = 0; d < c->asPathText()->itemRenderText.length(); ++d)
+			for (d = 0; d < c->maxCharsInFrame(); ++d)
 			{
 				hl = c->asPathText()->itemRenderText.item(d);
 				const CharStyle & style(c->asPathText()->itemRenderText.charStyle(d));
@@ -2958,7 +2958,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				ite->OwnPage = PNr;
 				ite->asPathText()->layout();
 				ite->OwnPage = savedOwnPage;
-				for (d = 0; d < ite->asPathText()->itemRenderText.length(); ++d)
+				for (d = 0; d < ite->maxCharsInFrame(); ++d)
 				{
 					hl = ite->asPathText()->itemRenderText.item(d);
 					const CharStyle & style(ite->asPathText()->itemRenderText.charStyle(d));
