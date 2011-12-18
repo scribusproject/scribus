@@ -3683,7 +3683,7 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/cmsprefs.cpp" line="69"/>
         <source>Perceptual</source>
-        <translation>Érzékelt</translation>
+        <translation>Érzékelési</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefs.cpp" line="69"/>
@@ -3796,7 +3796,7 @@ Ez a profil a nyomtatójához van kialakítva, nem egy általános profil (pl. s
         <location filename="../../../scribus/cmsprefsbase.ui" line="260"/>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>A képek alapértelmezett leképezésének módja. Amennyiben nem tudja mit jelentenek ezek, hagyja a Relatív színmérése vagy az Érzékelt beállításon.</translation>
+        <translation>A képek alapértelmezett leképezésének módja. Amennyiben nem tudja mit jelentenek ezek, hagyja a Relatív színmérési vagy az Érzékelési beállításon.</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="268"/>
@@ -3807,7 +3807,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
         <location filename="../../../scribus/cmsprefsbase.ui" line="284"/>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>A homogén színek alapértelmezett leképezésének módja. Amennyiben nem tudja mit jelentenek ezek, hagyja a Relatív színmérése vagy az Érzékelt beállításon.</translation>
+        <translation>A homogén színek alapértelmezett leképezésének módja. Amennyiben nem tudja mit jelentenek ezek, hagyja a Relatív színmérési vagy az Érzékelési beállításon.</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="298"/>
@@ -3846,12 +3846,12 @@ This requires very accurate profiles and serves only as a warning.</source>
         <location filename="../../../scribus/cmsprefsbase.ui" line="357"/>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>A fekete pont kiegyenlítés egy módszer fényképek kontrasztjának növelésére. Javasolt az engedélyezése, ha a dokumentum fényképet is tartalmaz.</translation>
+        <translation>A feketepont-kompenzáció egy módszer fényképek kontrasztjának növelésére. Javasolt az engedélyezése, ha a dokumentum fényképet is tartalmaz.</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="361"/>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation>&amp;Fekete pont kiegyenlítés alkalmazása</translation>
+        <translation>&amp;Feketepont-kompenzáció alkalmazása</translation>
     </message>
 </context>
 <context>
@@ -14340,7 +14340,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5426"/>
         <source>Perceptual</source>
-        <translation>Érzékelt</translation>
+        <translation>Érzékelési</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5427"/>
@@ -23996,7 +23996,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="750"/>
         <source>Perceptual</source>
-        <translation>Érzékelt</translation>
+        <translation>Érzékelési</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="750"/>
