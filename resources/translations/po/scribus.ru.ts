@@ -897,7 +897,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1440"/>
         <source>Preflight &amp;Verifier</source>
-        <translation>Предпе&amp;чатная проверка...</translation>
+        <translation>Допе&amp;чатная проверка...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1441"/>
@@ -2824,22 +2824,22 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
     <message>
         <location filename="../../../scribus/annota.cpp" line="77"/>
         <source>Text</source>
-        <translation>Текст</translation>
+        <translation>Текстовая аннотация</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="78"/>
         <source>Link</source>
-        <translation>Ссылка</translation>
+        <translation>Ссылка внутри документа</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="79"/>
         <source>External Link</source>
-        <translation>Внешняя ссылка</translation>
+        <translation>Ссылка на файл</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="80"/>
         <source>External Web-Link</source>
-        <translation>Внешняя веб-ссылка</translation>
+        <translation>Ссылка на веб-страницу</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="118"/>
@@ -4736,7 +4736,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="658"/>
         <source>Preflight Verifier</source>
-        <translation>Предпечатная проверка</translation>
+        <translation>Допечатная проверка</translation>
     </message>
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="681"/>
@@ -13644,7 +13644,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="99"/>
         <source>Preflight Verifier</source>
-        <translation>Предпечатная проверка</translation>
+        <translation>Допечатная проверка</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="96"/>
@@ -18661,7 +18661,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="90"/>
         <source>Preflight Verifier</source>
-        <translation>Предпечатная проверка</translation>
+        <translation>Допечатная проверка</translation>
     </message>
     <message>
         <location filename="../../../scribus/reformdoc.cpp" line="463"/>
@@ -19074,7 +19074,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="69"/>
         <source>Line shade</source>
-        <translation>Затенение линии</translation>
+        <translation>Интенсивность цвета линии</translation>
     </message>
     <message>
         <source> pt</source>
@@ -20356,7 +20356,7 @@ Vertical gap: %3</source>
         <location filename="../../../scribus/scribus.cpp" line="4802"/>
         <location filename="../../../scribus/scribus.cpp" line="7928"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation>Scribus обнаружил ошибки. Вам стоит запустить предпечатную проверку, чтобы исправить их</translation>
+        <translation>Scribus обнаружил ошибки. Вам стоит запустить допечатную проверку, чтобы исправить их</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4835"/>
@@ -20450,14 +20450,14 @@ Vertical gap: %3</source>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Обнаружены ошибки.
-Запустите предпечатную проверку для их устранения.</translation>
+Запустите допечатную проверку для их устранения.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8109"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Обнаружены ошибки.
-Запустите предпечатную проверку для их устранения</translation>
+Запустите допечатную проверку для их устранения</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8205"/>
@@ -20740,7 +20740,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../../scribus/scribusapp.cpp" line="463"/>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, предпечатная подготовка свободными средствами</translation>
+        <translation>Scribus, допечатная подготовка свободными средствами</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusapp.cpp" line="471"/>
@@ -25177,7 +25177,7 @@ when PDF document is opened:</source>
         <location filename="../../../scribus/tabtools.cpp" line="245"/>
         <location filename="../../../scribus/tabtools.cpp" line="299"/>
         <source>&amp;Shading:</source>
-        <translation>&amp;Затенение:</translation>
+        <translation>&amp;Интенсивность:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="251"/>
@@ -25188,7 +25188,7 @@ when PDF document is opened:</source>
         <location filename="../../../scribus/tabtools.cpp" line="260"/>
         <location filename="../../../scribus/tabtools.cpp" line="394"/>
         <source>S&amp;hading:</source>
-        <translation>За&amp;тенение:</translation>
+        <translation>Ин&amp;тенсивность цвета:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="267"/>
@@ -25443,7 +25443,7 @@ when PDF document is opened:</source>
         <location filename="../../../scribus/tabtools.cpp" line="171"/>
         <location filename="../../../scribus/tabtools.cpp" line="187"/>
         <source>Shading:</source>
-        <translation>Затенение:</translation>
+        <translation>Интенсивность:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="146"/>
