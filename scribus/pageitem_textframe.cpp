@@ -236,7 +236,7 @@ QRegion PageItem_TextFrame::availableRegion()
 		{
 			int thisid = 0;
 			if (Parent != NULL)
-				thisid = this->asGroupFrame()->groupItemList.indexOf(this);
+				thisid = Parent->asGroupFrame()->groupItemList.indexOf(this);
 			else
 				thisid = m_Doc->Items->indexOf(this);
 			for (uint a = 0; a < docItemsCount; ++a)
