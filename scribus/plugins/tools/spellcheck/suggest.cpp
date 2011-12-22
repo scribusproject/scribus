@@ -7,6 +7,7 @@
 */
 #include "suggest.h"
 #include "scpaths.h"
+#include <QDebug>
 #include <QFileInfo>
 /*!
 \brief Delimiter between different components of formatted strings for aspell dictionary entries.
@@ -51,7 +52,6 @@ void Speller::Aspell::Suggest::init(const std::string& lang,
 	flang = lang;
 	fjargon = jargon;
 	fencoding = encoding;
-
 	fconfig = new_aspell_config();
 	try
 	{
@@ -61,11 +61,17 @@ void Speller::Aspell::Suggest::init(const std::string& lang,
 	{
 		throw err;
 	}
+	//qDebug()<<QString::fromStdString(std::string( aspell_config_retrieve( fconfig, "data-dir") ) );
+	//qDebug()<<QString::fromStdString(std::string( aspell_config_retrieve( fconfig, "dict-dir") ) );
+	//qDebug()<<QString::fromStdString(std::string( aspell_config_retrieve( fconfig, "local-data-dir") ) );
+
+
 
 	AspellCanHaveError* ret = new_aspell_speller( fconfig );
 	delete_aspell_config( fconfig );
 	if( aspell_error_number( ret ) != 0 )
 	{
+		//qDebug()<<aspell_error_number( ret )<<aspell_error_message(ret);
 		delete_aspell_can_have_error( ret );
 		throw std::runtime_error( "(Aspell::Speller::Suggest::init"
 					  "): Error in creating speller." );
@@ -92,8 +98,11 @@ void Speller::Aspell::Suggest::listDicts(std::vector<AspellDictInfo>& vals)
 //__________________________________________________________________________
 void Speller::Aspell::Suggest::listDicts(std::vector<std::string>& vals)
 {
+	setConfig();
+
 	std::vector<AspellDictInfo> entries;
 	listDicts( entries );
+
 	for( std::vector<AspellDictInfo>::const_iterator i = entries.begin();
              i != entries.end();
              ++i )
@@ -136,11 +145,18 @@ void Speller::Aspell::Suggest::setConfig() throw( std::invalid_argument )
 		setConfigOpt( "lang", flang );
 		setConfigOpt( "jargon", fjargon );
 		setConfigOpt( "encoding", fencoding );
-#ifdef ASPELLRELATIVEDICTDIR
+#ifdef Q_WS_MAC && ASPELLRELATIVEDICTDIR
 		QString location(ScPaths::instance().bundleDir()+"/Contents/"+ASPELLRELATIVEDICTDIR);
+		//qDebug()<<"aspell location:"<<location;
 		QFileInfo fi(location);
 		if (fi.exists())
-			setConfigOpt( "dict-dir", (location.toStdString()));
+		{
+			//qDebug()<<"setting dict-dir to:"<<location;
+			setConfigOpt( "dict-dir", location.toStdString());
+			setConfigOpt( "local-data-dir", location.toStdString());
+			//qDebug()<<"getting local-data-dir:"<<QString::fromStdString(getConfigOpt("local-data-dir"));
+			//qDebug()<<"getting dict-dir:"<<QString::fromStdString(getConfigOpt("dict-dir"));
+		}
 #endif
 	}
 	catch( const std::invalid_argument& err )
