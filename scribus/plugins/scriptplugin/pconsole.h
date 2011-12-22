@@ -15,6 +15,7 @@ the Free Software Foundation; either version 2 of the License, or
 #define PCONSOLE_H
 
 #include <QLabel>
+#include <QMainWindow>
 #include <QSyntaxHighlighter>
 #include "ui_pconsole.h"
 
