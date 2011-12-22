@@ -37,6 +37,51 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	initScrAction();
 }
 
+ScrAction::ScrAction( ActionType aType, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( menuText, parent )
+{
+	setShortcut(accel);
+	initScrAction();
+	_actionType=aType;
+	if (_actionType!=Normal)
+		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
+	switch (_actionType)
+	{
+		case DataInt:
+			_dataInt=extraInt;
+			break;
+		case DataDouble:
+			_dataDouble=extraDouble;
+			break;
+		case DataQString:
+			_dataQString=extraQString;
+			break;
+		case RecentFile:
+			_dataQString=extraQString;
+			break;
+		case RecentPaste:
+			_dataQString=extraQString;
+			break;
+		case DLL:
+			pluginID=extraInt;
+			break;
+		case Window:
+			windowID=extraInt;
+			break;
+		case RecentScript:
+			break;
+		case UnicodeChar:
+			_dataInt=extraInt;
+			_dataQString=extraQString;
+			break;
+		case Layer:
+			layerID=extraInt;
+			break;
+		case Normal:
+		default:
+			break;
+	}
+}
+
 ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, parent )
 {
 	setShortcut(accel);

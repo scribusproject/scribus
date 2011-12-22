@@ -40,7 +40,7 @@ void importpct_freePlugin(ScPlugin* plugin)
 }
 
 ImportPctPlugin::ImportPctPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.

@@ -69,7 +69,10 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22,
+	ScrAction( ActionType aType,
+			   const QString &menuText, QKeySequence accel, QObject *parent,
+			   int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22,
 			   const QString &menuText, QKeySequence accel, QObject *parent,
 			   int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
