@@ -159,11 +159,11 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	prefsManager->setup();
 	//CB #4428 Get fonts before prefs are set to default
 	bool haveFonts=false;
-#ifdef Q_OS_MAC
-	haveFonts=ScCore->initFonts(true);
-#else
+//#ifdef Q_OS_MAC
+//	haveFonts=ScCore->initFonts(true);
+//#else
 	haveFonts=ScCore->initFonts(showFontInfo);
-#endif
+//#endif
 	if (!haveFonts)
 		return 1;
 	prefsManager->initDefaults();
