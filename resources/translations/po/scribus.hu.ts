@@ -14794,12 +14794,12 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5348"/>
         <source>Fill Rule</source>
-        <translation>Kitöltő szabály</translation>
+        <translation>Kitöltési szabály</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5349"/>
         <source>Even-Odd</source>
-        <translation>Páratlan - páros</translation>
+        <translation>Váltakozó</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5350"/>
