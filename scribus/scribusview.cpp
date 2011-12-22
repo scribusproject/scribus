@@ -1579,6 +1579,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 
 	PageItem_TextFrame *textFrame;
 	QPointF canvasPoint;
+	QTransform mm = item->getTransform();
+	QPointF textFramePoint = mm.map(QPointF(0, 0));
 	if (item->isTextFrame())
 	{
 		textFrame = item->asTextFrame();
@@ -1603,15 +1605,21 @@ bool ScribusView::slotSetCurs(int x, int y)
 		// #9592 : layout must be valid here, or screenToPosition() may crash
 		if (textFrame->invalid)
 			textFrame->layout();
+		double sx, sy;
+		getScaleFromMatrix(mm, sx, sy);
+		QTransform ms;
+		ms.scale(sx, sy);
 		if(textFrame->reversed())
 		{ //handle Right to Left writing
-			FPoint point(textFrame->width() - (canvasPoint.x() - textFrame->xPos()), canvasPoint.y() - textFrame->yPos());
+			FPoint point(textFrame->width() * mm.m11() - (canvasPoint.x() - textFramePoint.x()), canvasPoint.y() - textFramePoint.y());
+			point = point.transformPoint(ms, true);
 			textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
 				textFrame->itemText.screenToPosition(point));
 		}
 		else
 		{
-			FPoint point(canvasPoint.x() - textFrame->xPos(), canvasPoint.y() - textFrame->yPos());
+			FPoint point(canvasPoint.x() - textFramePoint.x(), canvasPoint.y() - textFramePoint.y());
+			point = point.transformPoint(ms, true);
 			textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
 				textFrame->itemText.screenToPosition(point));
 		}

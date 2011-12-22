@@ -933,12 +933,8 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 	{
 		dx=textframe->width()-dx;
 	}
-
 	p->save();
-	p->translate ( textframe->xPos(), textframe->yPos() );
-	p->rotate ( textframe->rotation() );
-
-
+	p->setTransform(textframe->getTransform(), true);
 	p->setPen ( cPen );
 	p->setRenderHint ( QPainter::Antialiasing, true );
 	// avoid displaying the cursor on the frameborder

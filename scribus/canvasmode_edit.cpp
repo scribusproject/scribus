@@ -86,8 +86,9 @@ void CanvasMode_Edit::blinkTextCursor()
 	PageItem* currItem;
 	if (m_doc->appMode == modeEdit && GetItem(&currItem))
 	{
-		QRectF brect = currItem->getBoundingRect();
-//		qDebug() << "update cursor" << brect;
+		QRectF brect = QRectF(0, 0, currItem->width(), currItem->height());
+		QTransform m = currItem->getTransform();
+		brect = m.mapRect(brect);
 		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
 	}
 }
@@ -128,9 +129,11 @@ void CanvasMode_Edit::rulerPreview(double base, double xp)
 	PageItem* currItem;
 	if (m_doc->appMode == modeEdit && GetItem(&currItem))
 	{
-		QPoint oldP = m_canvas->canvasToLocal(QPointF(mRulerGuide, currItem->yPos()));
+		QTransform mm = currItem->getTransform();
+		QPointF itPos = mm.map(QPointF(0, currItem->yPos()));
+		QPoint oldP = m_canvas->canvasToLocal(QPointF(mRulerGuide, itPos.y()));
 		mRulerGuide = base + xp;
-		QPoint p = m_canvas->canvasToLocal(QPointF(mRulerGuide, currItem->yPos() + currItem->height()));
+		QPoint p = m_canvas->canvasToLocal(QPointF(mRulerGuide, itPos.y() + currItem->height() * mm.m22()));
 		m_canvas->update(QRect(oldP.x()-2, oldP.y(), p.x()+2, p.y()));
 	}
 }
@@ -147,24 +150,15 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 		{
 			if (mRulerGuide >= 0)
 			{
+				QTransform mm = currItem->getTransform();
+				QPointF itPos = mm.map(QPointF(0, currItem->yPos()));
 				p->save();
-				p->translate(currItem->xPos(), currItem->yPos());
-				p->rotate(currItem->rotation());
+				p->setTransform(mm, true);
 				p->setPen(QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setClipRect(QRectF(0.0, 0.0, currItem->width(), currItem->height()));
 				p->setBrush(Qt::NoBrush);
 				p->setRenderHint(QPainter::Antialiasing);
-				if (currItem->imageFlippedH())
-				{
-					p->translate(currItem->width(), 0);
-					p->scale(-1, 1);
-				}
-				if (currItem->imageFlippedV())
-				{
-					p->translate(0, currItem->height());
-					p->scale(1, -1);
-				}
-				p->drawLine(mRulerGuide - currItem->xPos(), 0, mRulerGuide - currItem->xPos(), currItem->height());
+				p->drawLine(mRulerGuide - itPos.x(), 0, mRulerGuide - itPos.x(), currItem->height() * mm.m22());
 				p->restore();
 			}
 			drawTextCursor(p, textframe);
@@ -172,22 +166,11 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 		else if (currItem->asImageFrame())
 		{
 			p->save();
-			p->translate(currItem->xPos(), currItem->yPos());
-			p->rotate(currItem->rotation());
+			p->setTransform(currItem->getTransform(), true);
 			p->setPen(QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p->setClipRect(QRectF(0.0, 0.0, currItem->width(), currItem->height()));
 			p->setBrush(QColor(0,0,255,10));
 			p->setRenderHint(QPainter::Antialiasing);
-			if (currItem->imageFlippedH())
-			{
-				p->translate(currItem->width(), 0);
-				p->scale(-1, 1);
-			}
-			if (currItem->imageFlippedV())
-			{
-				p->translate(0, currItem->height());
-				p->scale(1, -1);
-			}
 			p->translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			p->rotate(currItem->imageRotation());
 			p->drawRect(0, 0, currItem->OrigW*currItem->imageXScale(), currItem->OrigH*currItem->imageYScale());
@@ -216,23 +199,6 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 	}
 	if ( m_cursorVisible )
 	{
-		// Debug
-// 		QString dbgString;
-// 		int lif(qMax(textframe->CPos , textframe->lastInFrame()));
-// 		for(int ti(textframe->firstInFrame());ti < lif; ++ti)
-// 		{
-// 			if(ti == textframe->CPos )
-// 			{
-// 				dbgString += "["+QString::number(textframe->CPos)+"]";
-// 			}
-// 			dbgString += textframe->itemText.text(ti);
-// 		}
-// 		dbgString +="]"+QString::number(textframe->lastInFrame())+"[";
-// 		qDebug()<<"==============================================================";
-// 		qDebug()<<textframe->CPos<<textframe->lastInFrame();
-// 		qDebug()<<dbgString;
-// 		qDebug()<<"==============================================================";
-		// end debug
 		commonDrawTextCursor(p, textframe, QPointF());
 	}
 }
@@ -253,7 +219,6 @@ void CanvasMode_Edit::leaveEvent(QEvent *e)
 
 void CanvasMode_Edit::activate(bool fromGesture)
 {
-//	qDebug() << "CanvasMode_Edit::activate" << fromGesture;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -290,7 +255,6 @@ void CanvasMode_Edit::activate(bool fromGesture)
 
 void CanvasMode_Edit::deactivate(bool forGesture)
 {
-//	qDebug() << "CanvasMode_Edit::deactivate" << forGesture;
 	m_view->redrawMarker->hide();
 	if (!forGesture)
 	{
@@ -304,7 +268,6 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-//	m_view->stopDragTimer();
 	PageItem *currItem = 0;
 	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame())
 	{
@@ -389,19 +352,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
 					qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
-					QTransform p;
-					p.translate(currItem->xPos(), currItem->yPos());
-					p.rotate(currItem->rotation());
-					if (currItem->imageFlippedH())
-					{
-						p.translate(currItem->width(), 0);
-						p.scale(-1, 1);
-					}
-					if (currItem->imageFlippedV())
-					{
-						p.translate(0, currItem->height());
-						p.scale(1, -1);
-					}
+					QTransform p = currItem->getTransform();
 					p.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 					QPointF rotP = p.map(QPointF(0.0, 0.0));
 					double itemRotation = xy2Deg(mousePointDoc.x() - rotP.x(), mousePointDoc.y() - rotP.y());

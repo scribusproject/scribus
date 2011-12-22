@@ -92,6 +92,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	textEditMode = false;
 	drawMark = false;
 	RulerCode = rc_none;
+	itemScale = 1.0;
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(currView, RulerGesture::HORIZONTAL);
 	unitChange();
@@ -881,8 +882,11 @@ void Hruler::Draw(int where)
 void Hruler::setItem(PageItem * item)
 {
 	currItem = item;
-	ItemPos = item->xPos();
-	ItemEndPos = ItemPos + item->width();
+	QTransform mm = currItem->getTransform();
+	QPointF itPos = mm.map(QPointF(0, currItem->yPos()));
+	itemScale = mm.m11();
+	ItemPos = itPos.x();
+	ItemEndPos = ItemPos + item->width() * itemScale;
 	/*if (currDoc->guidesPrefs().rulerMode)
 	{
 		ItemPos -= currDoc->currentPage()->xOffset();

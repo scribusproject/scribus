@@ -66,6 +66,7 @@ private:
 	double ItemPos;
 	double ItemEndPos;
 	double offs;
+	double itemScale;
 public:
 	double ruleSpacing();
 	void setItem(PageItem * item);
