@@ -5328,8 +5328,14 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//Take the item to convert from the docs Items list
 //	PageItem *oldItem = Items->take(currItem->ItemNr);
 	// Don't use take as we will insert the new item later at the same position
-	PageItem *oldItem = Items->at(Items->indexOf(currItem));
-	uint oldItemNr = Items->indexOf(currItem);
+	// PageItem *oldItem = Items->at(Items->indexOf(currItem));
+	// wtf ?? why not simply
+	PageItem *oldItem = currItem;
+	uint oldItemNr;
+	if (currItem->Parent != NULL)
+		oldItemNr = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
+	else
+		oldItemNr = Items->indexOf(currItem);
 	//Remove old item from the doc's selection if it was in it
 	bool removedFromSelection=m_Selection->removeItem(oldItem);
 	//Create a new item from the old one
@@ -5481,7 +5487,13 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//	Items->at(a)->ItemNr = a;
 //	Items->insert(oldItem->ItemNr, newItem);
 	newItem->uniqueNr = oldItem->uniqueNr;
-	Items->replace(oldItemNr, newItem);
+	if (oldItem->Parent != NULL)
+	{
+		oldItem->Parent->asGroupFrame()->groupItemList.replace(oldItemNr, newItem);
+		newItem->Parent = oldItem->Parent;
+	}
+	else
+		Items->replace(oldItemNr, newItem);
 	//FIXME: shouldn't we delete the oldItem ???
 	//Add new item back to selection if old item was in selection
 	if (removedFromSelection)
