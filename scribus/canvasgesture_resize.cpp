@@ -271,8 +271,17 @@ void ResizeGesture::doResize(bool scaleContent)
 		}
 		else if (currItem->itemType() == PageItem::ImageFrame && currItem->PictureIsAvailable)
 		{
-			double dx = ((newBounds.x() + m_extraX) - currItem->xPos());
-			double dy = ((newBounds.y() + m_extraY) - currItem->yPos());
+			QTransform mm = currItem->getTransform();
+			QPointF itPos = mm.map(QPointF(0, 0));
+			double dx = ((newBounds.x() + m_extraX) - itPos.x());
+			double dy = ((newBounds.y() + m_extraY) - itPos.y());
+			if (currItem->Parent != 0)
+			{
+				double sx, sy;
+				getScaleFromMatrix(mm, sx, sy);
+				dx /= sx;
+				dy /= sy;
+			}
 			double cosa = cos(currItem->rotation() * M_PI / 180.0);
 			double sina = sin(currItem->rotation() * M_PI / 180.0);
 			double xoff = -(cosa*dx + sina*dy);

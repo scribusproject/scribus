@@ -215,7 +215,7 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 	viewmode->drawFramelinksWithContents = false;	
 }
 
-void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup)
+void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup, double sx, double sy)
 {
 	m_pen["handle"]		= QPen(PrefsManager::instance()->appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["handle"].setCosmetic(true);
@@ -223,7 +223,9 @@ void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool 
 	m_pen["selection-group-inside"].setCosmetic(true);
 	QPen ba = QPen(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	ba.setCosmetic(true);
-	const double markWidth = 4.0 / m_canvas->scale();
+	double markWidth = 4.0 / m_canvas->scale();
+	if (insideGroup)
+		markWidth /= qMax(sx, sy);
 	QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
 	double x = selectionRect.x();
 	double y = selectionRect.y();
@@ -356,6 +358,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			if (currItem->Parent != NULL)
 			{
 				QTransform t = currItem->getCombinedTransform();
+				double sx, sy;
+				getScaleFromMatrix(t, sx, sy);
 				psx->setTransform(t, true);
 				w = currItem->visualWidth();
 				h = currItem->visualHeight();
@@ -366,12 +370,12 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				QRectF drRect = QRectF(x, y, w, h).normalized();
 				psx->drawRect(drRect);
 				if (drawHandles)
-					drawSelectionHandles(psx, QRectF(x, y, w, h), true, true);
+					drawSelectionHandles(psx, QRectF(x, y, w, h), true, true, sx, sy);
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
 				psx->drawRect(drRect);
 				if (drawHandles)
-					drawSelectionHandles(psx, QRectF(x, y, w, h), false, true);
+					drawSelectionHandles(psx, QRectF(x, y, w, h), false, true, sx, sy);
 			}
 			else
 			{

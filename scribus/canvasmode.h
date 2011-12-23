@@ -118,7 +118,7 @@ public:
 	
 
 	/** Draws the handles for the selection marker */
-	void drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup = false);
+	void drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup = false, double sx = 1.0, double sy = 1.0);
 	/** Draws the regular selection marker */
 	void drawSelection(QPainter* psx, bool drawHandles);
 	/** Draws an outline of selected items */

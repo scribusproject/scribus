@@ -145,6 +145,8 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 	PageItem* currItem;
 	if (GetItem(&currItem))
 	{
+		QPen pp = QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		pp.setCosmetic(true);
 		PageItem_TextFrame* textframe = currItem->asTextFrame();
 		if (textframe)
 		{
@@ -165,10 +167,11 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 		}
 		else if (currItem->asImageFrame())
 		{
+			QTransform mm = currItem->getTransform();
 			p->save();
-			p->setTransform(currItem->getTransform(), true);
-			p->setPen(QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setTransform(mm, true);
 			p->setClipRect(QRectF(0.0, 0.0, currItem->width(), currItem->height()));
+			p->setPen(pp);
 			p->setBrush(QColor(0,0,255,10));
 			p->setRenderHint(QPainter::Antialiasing);
 			p->translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
@@ -176,7 +179,9 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 			p->drawRect(0, 0, currItem->OrigW*currItem->imageXScale(), currItem->OrigH*currItem->imageYScale());
 			p->translate(currItem->OrigW*currItem->imageXScale() / 2, currItem->OrigH*currItem->imageYScale() / 2);
 			p->scale(1.0 / m_canvas->scale(), 1.0 / m_canvas->scale());
-			p->setPen(QPen(Qt::blue, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			QPen pps = QPen(Qt::blue, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			pps.setCosmetic(true);
+			p->setPen(pps);
 			p->drawLine(-10, 0, 10, 0);
 			p->drawLine(0, -10, 0, 10);
 			p->setBrush(QColor(0,0,255,70));
@@ -365,10 +370,14 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					QTransform ro;
 					ro.rotate(-currItem->rotation());
 					QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
-					currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
+					QTransform mm = currItem->getTransform();
+					double sx, sy;
+					getScaleFromMatrix(mm, sx, sy);
+					currItem->moveImageInFrame((rota.x() / sx) / currItem->imageXScale(), (rota.y() / sy) / currItem->imageYScale());
 					m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 				}
 				currItem->update();
+				m_view->DrawNew();
 				Mxp = newX;
 				Myp = newY;
 			}
