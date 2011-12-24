@@ -162,7 +162,14 @@ public:
 		it->invalidateLayout();
 		if (doLayout)
 			it->layout();
-		doc->regionsChanged()->update(it->getVisualBoundingRect());
+		double x, y, w, h;
+		QTransform t = it->getCombinedTransform();
+		w = it->visualWidth();
+		h = it->visualHeight();
+		x = -it->visualLineWidth() / 2.0;
+		y = -it->visualLineWidth() / 2.0;
+		QRectF upRect = t.mapRect(QRectF(x, y, w, h));
+		doc->regionsChanged()->update(upRect);
 		if (m_updateEnabled <= 0)
 		{
 			doc->changed();
@@ -4965,13 +4972,12 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		double y = currentPage()->yOffset() - docPrefsData.docSetupPrefs.bleeds.Top;
 		double w = currentPage()->width() + docPrefsData.docSetupPrefs.bleeds.Left + docPrefsData.docSetupPrefs.bleeds.Right;
 		double h1 = currentPage()->height() + docPrefsData.docSetupPrefs.bleeds.Bottom + docPrefsData.docSetupPrefs.bleeds.Top;
-		double x2 = currItem->BoundingX;
-		double y2 = currItem->BoundingY;
-		double w2 = currItem->BoundingW;
-		double h2 = currItem->BoundingH;
-		QRectF ret = QRectF(0, 0, w2 - x2, h2 - y2);
 		QTransform t = currItem->getCombinedTransform();
-		ret = t.mapRect(ret);
+		double w2 = currItem->visualWidth();
+		double h2 = currItem->visualHeight();
+		double x2 = -currItem->visualLineWidth() / 2.0;
+		double y2 = -currItem->visualLineWidth() / 2.0;
+		QRectF ret = t.mapRect(QRectF(x2, y2, w2, h2));
 		ret.getCoords(&x2, &y2, &w2, &h2);
 		if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			retw = currentPage()->pageNr();
@@ -4987,13 +4993,13 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			double y = Pages->at(a)->yOffset() - pageBleeds.Top;
 			double w = Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right;
 			double h1 = Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top;
-			double x2 = currItem->BoundingX;
-			double y2 = currItem->BoundingY;
-			double w2 = currItem->BoundingW;
-			double h2 = currItem->BoundingH;
-			QRectF ret = QRectF(0, 0, w2 - x2, h2 - y2);
 			QTransform t = currItem->getCombinedTransform();
-			ret = t.mapRect(ret);
+			double w2 = currItem->visualWidth();
+			double h2 = currItem->visualHeight();
+			double x2 = -currItem->visualLineWidth() / 2.0;
+			double y2 = -currItem->visualLineWidth() / 2.0;
+			QRectF ret = t.mapRect(QRectF(x2, y2, w2, h2));
+
 			ret.getCoords(&x2, &y2, &w2, &h2);
 			if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			{
@@ -5062,13 +5068,12 @@ void  ScribusDoc::fixItemPageOwner()
 			double y1 = page->yOffset() - pageBleeds.Top;
 			double w1 = page->width()   + pageBleeds.Left + pageBleeds.Right;
 			double h1 = page->height()  + pageBleeds.Bottom + pageBleeds.Top;
-			double x2 = currItem->BoundingX;
-			double y2 = currItem->BoundingY;
-			double w2 = currItem->BoundingW;
-			double h2 = currItem->BoundingH;
-			QRectF ret = QRectF(0, 0, w2 - x2, h2 - y2);
 			QTransform t = currItem->getCombinedTransform();
-			ret = t.mapRect(ret);
+			double w2 = currItem->visualWidth();
+			double h2 = currItem->visualHeight();
+			double x2 = -currItem->visualLineWidth() / 2.0;
+			double y2 = -currItem->visualLineWidth() / 2.0;
+			QRectF ret = t.mapRect(QRectF(x2, y2, w2, h2));
 			ret.getCoords(&x2, &y2, &w2, &h2);
 			if (( qMax(x1, x2) <= qMin(x1 + w1, x2 + w2) && qMax(y1, y2) <= qMin(y1 + h1, y2 + h2)))
 			{

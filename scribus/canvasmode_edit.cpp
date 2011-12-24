@@ -377,7 +377,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 				}
 				currItem->update();
-				m_view->DrawNew();
 				Mxp = newX;
 				Myp = newY;
 			}
