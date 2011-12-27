@@ -79,6 +79,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "hyphenator.h"
+#include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
@@ -3878,19 +3879,33 @@ void ScribusView::TextToPath()
 			delItems.append(tmpSelection.takeItem(offset));
 		}
 		tmpSelection.clear();
-		int ind = Doc->Items->indexOf(currItem);
+		int ind = -1;
+		if (currItem->Parent == NULL)
+			ind = Doc->Items->indexOf(currItem);
+		else
+		{
+			ind = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
+		}
 		if (newGroupedItems.count() > 1)
 		{
-			for (int ag = 0; ag < newGroupedItems.count(); ++ag)
-			{
-				Doc->Items->insert(ind+1+ag, newGroupedItems.at(ag));
-				tmpSelection.addItem(newGroupedItems.at(ag));
-			}
-			Doc->itemSelection_GroupObjects(true, false, &tmpSelection);
+			int z = Doc->itemAdd(PageItem::Group, PageItem::Rectangle, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), 0, CommonStrings::None, CommonStrings::None, true);
+			PageItem *gItem = Doc->Items->takeAt(z);
+			Doc->groupObjectsToItem(gItem, newGroupedItems);
+			gItem->Parent = currItem->Parent;
+			gItem->gXpos = currItem->gXpos;
+			gItem->gYpos = currItem->gYpos;
+			if (currItem->Parent == NULL)
+				Doc->Items->insert(ind+1, gItem);
+			else
+				currItem->Parent->asGroupFrame()->groupItemList.insert(ind+1, gItem);
 		}
 		else if (newGroupedItems.count() > 0)
 		{
-			Doc->Items->insert(ind+1, newGroupedItems.at(0));
+			newGroupedItems.at(0)->Parent = currItem->Parent;
+			if (currItem->Parent == NULL)
+				Doc->Items->insert(ind+1, newGroupedItems.at(0));
+			else
+				currItem->Parent->asGroupFrame()->groupItemList.insert(ind+1, newGroupedItems.at(0));
 		}
 		int toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)
