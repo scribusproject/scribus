@@ -386,8 +386,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	QString tmp;
 	BackBox = 0;
 	NextBox = 0;
-	oldXpos = Xpos = x;
-	oldYpos = Ypos = y;
+	gXpos = oldXpos = Xpos = x;
+	gYpos = oldYpos = Ypos = y;
 	//CB Surely we can remove some of these?
 	OldB2 = OldB = oldWidth = Width = w;
 	OldH2 = OldH = oldHeight = Height = h;
@@ -399,7 +399,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	oldRot = Rot = 0;
 	fillColorVal = fill;
 	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
-	gXpos = gYpos = 0;
 	gWidth = gHeight = 0;
 	GrType = 0;
 	GrStartX = 0;
