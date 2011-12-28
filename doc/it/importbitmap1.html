@@ -1,0 +1,64 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Importare file bitmap</title>
+</head>
+<body>
+<h2>Importare file bitmap</h2>
+<h3>Formati bitmap utilizzabili</h3>
+<p>Scribus &egrave; in grado di utilizzare un'ampia gamma di formati bitmap, ma la maggior parte di essi dovrebbe essere evitata per lavori seri destinati alla stampa. Questi formati sono (in ordine alfabetico):</p>
+<ul>
+<li><b>BMP:</b> un formato bitmap utilizzato da Windows, OS/2 ed eComStation (ad esempio nelle interfacce utente grafiche). A differenza dei formati GIF o XPM, pu&ograve; contenere fino a 32 bit per pixel e informazioni sulla trasparenza. A causa della sua semplicit&agrave;, il formato BMP &egrave; assai diffuso e pu&ograve; essere letto e scritto dalla maggior parte delle applicazioni grafiche. Purtroppo non prevede l'uso di algoritmi di compressione, e quindi le dimensioni dei file sono relativamente grandi; inoltre i dati BMP possono causare problemi con i RIP (Raster Image Processor) commerciali.</li>
+<li><b>EPS:</b> vedi la pagina sull'<a href="importhints1.html">importazione di EPS</a>.</li>
+<li><b>GIF:</b> il formato GIF fu creato agli e per gli inizi del World Wide Web. Utilizza la compressione e permette di usare soltanto un massimo di 256 colori. Anche se &egrave; possibile caricare un'immagine GIF in una cornice immagine di Scribus, per questo formato non c'&egrave; assolutamente posto nell'impaginazione professionale. Inoltre, la stampa in tipografia ha un'elevata probabilit&agrave; di insuccesso quando si usano le cosiddette &ldquo;GIF animate&rdquo;. Queste GIF funzionano come un <i>flip-book</i> e comprendono pi&ugrave; immagini che un browser visualizza una dopo l'altra, dando un'impressione di movimento</i>.</li>
+<li><b>JPEG:</b> vedi sotto per indicazioni pi&ugrave; dettagliate.</li>
+<li><b>PDF:</b> il PDF non &egrave; un formato bitmap. Come l'EPS o il PostScript, pu&ograve; contenere immagini, disegni vettoriali, caratteri e molto altro, il che rende un documento PDF <a href="toolbox2.html">difficile da modificare</a> e ancor pi&ugrave; difficile da importare direttamente. Ma, per mezzo di <a href="toolbox5.html">Ghostscript</a>,  Scribus pu&ograve; importare i file PDF nelle cornici immagine; in tal caso, il file importato viene rasterizzato. Poich&eacute; un file PDF pu&ograve; comprendere pi&ugrave; di una pagina, potete selezionare la pagina da utilizzare nella scheda <i>Immagine</i> del pannello Propriet&agrave;: <br> <table width="100%"><tr><td align="center"><img src="images/import-pdfimage.png" alt="Importazione PDF in una cornice immagine" title="Importazione PDF in una cornice immagine"/></td></tr></table></li>
+<li><b>PNG:</b> vedi sotto per indicazioni pi&ugrave; dettagliate.</li>
+<li><b>PostScript:</b> come il PDF, un file PostScript pu&ograve; comprendere pi&ugrave; di una pagina, e potete selezionarne una nello stesso modo previsto per i PDF.</li>
+<li><b>PSD:</b> vedi la pagina sull'<a href="psd.html">importazione da Photoshop</a>.</li>
+<li><b>TIFF:</b> vedi sotto per indicazioni pi&ugrave; dettagliate.</li>
+<li><b>XPM:</b> questo &egrave; un vecchio formato bitmap utilizzato per le icone nel sistema X-Window. Come il GIF, permette di usare soltanto un massimo di 256 colori.</li>
+</ul>
+
+<h3>Approfondimenti sui formati bitmap</h3>
+<h4>Se un'immagine appare buona su video, non date per certo che apparir&agrave; buona anche su carta</h4>
+<p>Questo non soltanto &egrave; poco professionale, ma pu&ograve; essere un errore costoso. Molti siti utilizzano immagini in formato JPEG, GIF o, sempre pi&ugrave; frequentemente, PNG. Ricordate che, qualunque formato usino, la maggior parte delle immagini per il web hanno risoluzioni di 72&ndash;96 DPI, che un &egrave; valore di gran lunga troppo basso per la stampa. Scribus pu&ograve; generare documenti PDF con risoluzioni di 4000 DPI, ma per la maggior parte degli scopi 300 DPI &egrave; una risoluzione ragionevole. Se avete dubbi e volete controllare attentamente un'immagine prima della stampa, create un PDF e osservatelo in un visualizzatore PDF con un alto ingrandimento.</p>
+
+<h3>JPEG</h3>
+<p>Le immagini JPEG utilizzano la compressione con perdita: &egrave; una loro caratteristica intrinseca. Quando un file JPEG viene modificato e/o compresso, una parte dei suoi dati viene eliminata in modo permanente. Inoltre esiste un tipo di JPEG detto &ldquo;progressivo,&rdquo; che nella stampa commerciale &egrave; puro veleno. Una JPEG progressiva &egrave; il tipo che viene parzialmente visualizzato in un browser mentre il suo download &egrave; ancora in corso. Scribus non carica n&eacute; esporta le JPEG progressive.</p>
+
+<p>Un altro problema con i file JPEG &egrave; che ogni volta che uno di essi viene aperto, modificato e salvato in un programma di grafica, una parte dei dati dell'immagine va perduta. Quindi, se dovete modificare un file JPEG (ad esempio uno proveniente da una fotocamera digitale), salvatelo in un altro formato (come il TIFF) prima di apportare qualunque cambiamento.</p>
+
+<h3>TIFF</h3>
+<p><b>Perch&eacute; usare il TIFF?</b></p>
+<p>Per la stampa PostScript di alto livello vi sono tre tipi di formato di file che funzionano bene per immagini come le fotografie e qualunque altro elemento grafico formato da pixel, e che hanno retto alla prova del tempo: TIFF, tif e Tiff.</p>
+<p>Comunque lo scriviate, il Tagged Image File Format &egrave; il formato giusto per le immagini bitmap se state preparando un file per la stampa commerciale.</p>
+<ol>
+	<li>&egrave; un formato <i>senza perdita</i>. Lo schema di compressione che utilizza non riduce la qualit&agrave;;</li>
+	<li>per quanto vi serve per lavorare con Scribus, GIMP o Krita esportano o salvano in TIFF molto bene;</li>
+	<li>gestisce i profili ICC senza problemi. Potete &ldquo;etichettare&rdquo; un file TIFF con il programma <code>tifficc</code> che fa parte di LittleCMS, o incorporare un profilo ICC con molti programmi per la grafica bitmap;</li>
+	<li>gestisce i colori CMYK meglio di quasi ogni altro formato bitmap;</li>
+	<li>ogni applicazione DTP di alta gamma (compreso Scribus) &egrave; in grado di importare file TIFF;</li>
+	<li>i file TIFF, se sono preparati correttamente in un programma per la creazione di immagini, sono estremamente affidabili per la stampa commerciale. Le macchine PostScript raramente hanno problemi con i TIFF.</li>
+</ol>
+<br>
+
+<b>Avvertenze</b>
+<p>Esiste un ampio numero di varianti del formato TIFF, e alcune di esse sono molto esoteriche e possono essere aperte solo da un particolare programma. Inoltre, non ogni programma di grafica li salva con la stessa fedelt&agrave; agli standard. GIMP utilizza libtiff (come fa anche Scribus), e ha buone capacit&agrave; di gestire i file TIFF. Un buon modo di lavorare con i file di GIMP consiste nel salvare l'originale nel formato XCF nativo di GIMP, e poi, quando l'immagine &egrave; pronta, esportarla come TIFF, oppure come PNG se deve essere utilizzata sul web.</p>
+<h3>PNG</h3>
+<p>Il formato PNG &egrave; un'eccezione alla regola sopra citata, specialmente per gli screenshot. Il PNG ha alcune caratteristiche avanzate, come la capacit&agrave; di gestire profili ICC e trasparenza alfa. Inoltre il PNG ha ottime capacit&agrave; di compressione, e pu&ograve; dare risultati molto migliori del JPEG quando vi sono brusche transizioni di colore e contrasto. La sola circostanza in cui il JPEG pu&ograve; essere preferibile al PNG &egrave; per fotografie con elevata gamma dinamica, soprattutto per ragioni di dimensioni quando &egrave; usato in una pagina web. Per la creazione di PDF contenenti screenshot, il PNG &egrave; superbo e d&agrave; buoni risultati con la stampa, purch&eacute; non eseguiate operazioni di scalatura che riducano le dimensioni dell'immagine. Quindi, se avete uno screenshot, che tipicamente ha una risoluzione di 72&ndash;96 DPI e avete bisogno di rimpicciolirlo, fatelo scalando l'immagine in un editor di immagini o in Scribus stesso. <i>Quando applicate operazioni di scalatura a screenshot, disabilitate sempre la ricampionatura, qualunque programma usiate</i>. Con gli screenshot non dovreste mai ridurre il numero di pixel, altrimenti l'immagine perder&agrave; nitidezza rapidamente.</p>
+<hr>
+Vedi anche:
+<ul>
+<li><a href="WwImages.html">Lavorare con le immagini</a></li>
+<li><a href="WwFill.html">Lavorare con lo sfondo degli oggetti: colori, sfumature e motivi</a></li>
+<li><a href="importhints1.html">Importare EPS</a></li>
+<li><a href="psd.html">Importare file di Photoshop</a></li>
+<li><a href="toolbox4.html">GIMP</a></li>
+<li><a href="toolbox15.html">Krita</a></li>
+<li><a href="toolbox13.html">XnView</a></li>
+<li><a href="toolbox8.html">ImageMagick</a></li>
+</ul>
+<br>
+</body>
+</html>

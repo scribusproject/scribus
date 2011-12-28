@@ -1,0 +1,34 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Numerazione automatica delle pagine</title>
+</head>
+<body>
+<h2>Numerazione automatica delle pagine</h2>
+
+<p>In Scribus, l'inserimento di numeri di pagina che vengono incrementati automaticamente non &egrave; cos&igrave; facile come, ad esempio, in un elaboratore di testo, ma quando avrete imparato come farlo, vedrete che &egrave; semplice e affidabile. Inoltre, quando &egrave; necessario usare diversi schemi di numerazione nello stesso documento (come &ldquo;I, II, III&rdquo; per l'introduzione, &ldquo;1, 2, 3&rdquo; per il testo principale e &ldquo;A, B, C&rdquo; per l'appendice), &egrave; anche pi&ugrave; facile rispetto a un elaboratore di testo.</p>
+<p>Come gi&agrave; sapete, quasi ogni cosa in Scribus si fa in una cornice, e i numeri di pagina non fanno eccezione. Quindi, per inserire un numero di pagina dobbiamo innanzitutto creare una cornice di testo in cui inserirlo. Dopo essere passati alla modalit&agrave; modifica per la cornice di testo, possiamo inserire una <i>variabile</i> che rappresenta il numero di pagina, e Scribus la sostituir&agrave; con l'effettivo numero della pagina. Vi sono due modi diversi di inserire questa variabile: il primo &egrave; l'uso della combinazione di tasti Ctrl+Alt+Maiusc+P. Se trovate questa combinazione troppo scomoda potete cambiarla in <i>Preferenze &gt; Tasti di scelta rapida</i>. Il secondo modo di inserire la variabile &egrave; il comando <i>Inserisci &gt; Carattere &gt; Numero di pagina</i> dalla barra dei men&ugrave;.<br />
+Vedrete che Scribus visualizza il numero di pagina, ma in questo modo potreste non aver ottenuto ci&ograve; che volevate, poich&eacute; il numero &egrave; stato inserito soltanto nella pagina corrente. Se volete automatizzare l'inserimento dei numeri di pagina, dovete inserire la variabile in una cornice di testo collocata in una <a href="pagetemplate1.html">pagina mastro</a>. Noterete che su una pagina mastro il numero di pagina non &egrave; visualizzato, poich&eacute; essa non &egrave; una &ldquo;vera&rdquo; pagina e quindi non ha una posizione nella successione delle pagine del documento. Al suo posto, Scribus visualizza il simbolo <b>#</b>.
+
+<h4>Cambiare lo schema di numerazione</h4>
+
+<p>Lo schema di numerazione pu&ograve; essere cambiato in <i>File &gt; Impostazioni documento</i>. In <i>Sezioni</i> potete creare delle sezioni di documento, ciascuna delle quali avr&agrave; una diversa numerazione:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/numb-sections.png" title="Sezioni per la numerazione" alt="Sezioni per la numerazione"  /></td></tr></table>
+
+<p>Supponiamo che abbiate un'introduzione che occupa le prime tre pagine, e volete che siano numerate in numeri romani. Il testo principale inizia alla quinta pagina, che dovr&agrave; avere il numero 1. Per motivi estetici, la quarta pagina non dovr&agrave; avere un numero. La prima sezione &egrave; gi&agrave; presente, e se volete potete darle un nome inserendolo nell'apposita colonna. Nella colonna &ldquo;Da&rdquo; inserite &ldquo;1&rdquo; e nella colonna &ldquo;A&rdquo; inserite &ldquo;3&rdquo;; scegliete &ldquo;I, II, III&rdquo; come stile di numerazione e impostare il valore &ldquo;Inizio&rdquo; a &ldquo;1&rdquo;.</p>
+<p>Per aggiungere una nuova sezione, premete il pulsante &ldquo;Aggiungi&rdquo; in basso nella finestra di dialogo. Per la quarta pagina del nostro esempio i valori devono essere: &ldquo;Da&rdquo; = 4, &ldquo;A&rdquo; = 4, &ldquo;Stile&rdquo; e &ldquo;Inizio&rdquo; non hanno importanza in questo caso, ma dovete disabilitare l'opzione &ldquo;Visibile&rdquo; nella seconda colonna: in questo modo sulla quarta pagina non comparir&agrave; il numero di pagina. Per il testo principale i valori sono: &ldquo;Da&rdquo; = 5, &ldquo;A&rdquo; = [il numero totale delle pagine necessarie per il testo principale], &ldquo;Stile&rdquo; = 1, 2, 3, e &ldquo;Inizio&rdquo; = 1. Questo &egrave; tutto: il documento avr&agrave; la numerazione desiderata.</p>
+
+<h4>Suggerimenti per la numerazione delle pagine</h4>
+<p>
+<ul>
+<li>Se il documento contiene pi&ugrave; di una pagina mastro, la numerazione dovr&agrave; essere aggiunta a ciascuna pagina mastro in cui il numero deve essere presente.</li>
+<li>Per fare in modo che ogni numero di pagina si trovi esattamente nella stessa posizione in ciascuna pagina mastro, dovreste prima creare una pagina mastro i cui elementi abbiano la disposizione desiderata, e poi duplicarla.</li>
+<li>Se state lavorando con un documento lungo, assicuratevi che le cornici di testo contenenti i numeri di pagina siano abbastanza grandi per contenere tutte le cifre. In caso contrario i numeri di pagina non vengono visualizzati.</li>
+<li>Alla numerazione potete applicare uno stile e la formattazione diretta, proprio come per le normali cornici di testo.</li>
+<li>Nelle pubblicazioni in lingue europee, la numerazione delle pagine inizia sempre su una pagina destra; in altre parole, la pagina 1 deve essere una pagina destra.</li>
+<li>Nei libri scritti in lingue europee, &egrave; considerato segno di stile e buona qualit&agrave; che ogni capitolo inizi su una pagina destra, cio&egrave; su una pagina dispari.</li>
+</ul>
+</p>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Esportazione PDF per schermo/web</title>
+</head>
+<h2>Esportazione PDF per schermo/web</h2>
+<br />
+<b>Impostazioni consigliate e suggerimenti:</b>
+
+<ul>
+<li>sottocampionate tutte le immagini fino a ridurne la risoluzione a 72&ndash;96&nbsp;dpi.</li>
+<li>riducete il numero dei tipi di carattere al minimo necessario (vedi sotto).</li>
+<li>nelle impostazioni di qualit&agrave; della compressione, scegliete la pi&ugrave; bassa che d&agrave; risultati accettabili per la visualizzazione a schermo (potreste dover fare qualche esperimento per individuare quella adatta per voi).</li>
+<li>spesso potete sostituire il carattere Arial con l'Helvetica, poich&eacute; alcuni visualizzatori PDF potrebbero avere quest'ultimo tra i propri caratteri.</li>
+<li>evitate di importare nel documento file bitmap in formato EPS o file PDF; invece, convertiteli in immagine PNG a bassa risoluzione con GSview, Inkscape o GIMP, e poi inseriteli nel vostro documento Scribus. Perch&eacute;? Saranno visualizzati pi&ugrave; velocemente e spesso renderanno minori le dimensioni del file.</li>
+<li>se possibile, sostituite le immagini bitmap con illustrazioni in formato vettoriale. Le immagini vettoriali sono molto pi&ugrave; compatte in termini di dimensioni nei documenti PDF.</li>
+<li>evitate di utilizzare i caratteri Nimbus. Adobe Reader d&agrave; cattivi risultati quando li sostituisce con i suoi propri caratteri.</li>
+<li>a meno che non abbiate bisogno di utilizzare la trasparenza nelle immagini, selezionate l'esportazione in PDF 1.3 in modo da ottenere la pi&ugrave; ampia compatibilit&agrave; con altri utenti.</li>
+<li>scegliete <b>sempre</b> &ldquo;Schermo/Web&rdquo; come destinazione nella finestra di esportazione PDF. L'eccezione sono i file il cui contenuto &egrave; soltanto in bianco e nero o in scala di grigi. In tal caso potete anche scegliere &ldquo;Scala di grigi,&rdquo; il che ridurr&agrave; ulteriormente le dimensioni del file.</li>
+</ul>
+<p>Quando vi occupate di ottimizzare un documento PDF per un sito web, vi sono due aspetti da considerare:</p>
+<ul>
+<li>se lo spazio &egrave; davvero un problema, pu&ograve; essere utile non incorporare i caratteri e utilizzare soltanto i &ldquo;14 tipi di carattere standard,&rdquo; che tutti i visualizzatori PDF dovrebbero essere in grado di mostrare correttamente. Questi tipi di carattere comprendono le varianti normale, grassetto, corsivo e grassetto corsivo di Courier, Helvetica, e Times, e inoltre il &ldquo;Symbol&rdquo; e lo &ldquo;Zapf Dingbats&rdquo; (o equivalenti).</li>
+</br>
+<li>il secondo aspetto &egrave; il tempo di download percepito dall'utente quando il PDF viene mostrato nel visualizzatore o in un plugin del browser. Ghostscript comprende il programma <code>pdfopt</code>, che pu&ograve; essere lanciato dalla riga di comando, ed &egrave; in grado di &ldquo;linearizzare&rdquo; un documento PDF, in modo che un visualizzatore PDF possa gi&agrave; mostrare la prima pagina del documento mentre le successive vengono scaricate in sottofondo. Questo pu&ograve; essere molto utile per documenti lunghi. Tenete presente tuttavia che questo strumento non riduce le dimensioni del PDF, anzi potrebbe aumentarle, poich&eacute; &ldquo;smonta&rdquo; la disposizione non lineare con cui gli oggetti sono salvati nel file PDF. Vedere la documentazione di <a href="toolbox5.html">Ghostscript</a> per i particolari.</li>
+</ul>
+</body>
+</html>

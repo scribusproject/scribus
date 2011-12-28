@@ -1,0 +1,55 @@
+<head>
+<title>Strumenti per i caratteri (1)</title>
+</head>
+<body>
+<h2>Strumenti per i caratteri (1)</h2>
+
+<p>I caratteri sono uno degli &ldquo;ingredienti&rdquo; pi&ugrave; importanti del desktop publishing. Quindi, Scribus fornisce alcuni potenti strumenti per gestire e i caratteri e visualizzarne anteprime.</p>
+
+<h3>Gestione dei caratteri</h3>
+
+<p>Gli strumenti pi&ugrave; importanti per la gestione dei caratteri si trovano nelle finestre <i>Impostazioni documento</i> e <i>Preferenze</i> (la differenza tra le due &egrave; spiegata nella pagina sulla <a href="settings1.html">configurazione di Scribus</a>), nella sezione <i>Font</i>.</p>
+
+<p>Le due finestre hanno lo stesso aspetto, e ci&ograve; a prima vista potrebbe causare un po' di confusione, poich&eacute; alcune opzioni probabilmente sono disattivate. Ma c'&egrave; una logica dietro tutto ci&ograve;, come vedrete.</p>
+
+<h4>Gestione dei caratteri rilevati</h4>
+
+<p>La prima scheda (&ldquo;Caratteri disponibili&rdquo;) elenca i caratteri rilevati da Scribus durante il suo primo avvio. Le directory o le impostazioni in cui Scribus ricerca i caratteri dipendono dal sistema operativo (vedi sotto). Quando aprite un documento esistente, Scribus ricerca i file dei caratteri anche nella directory in cui il documento &egrave; salvato.</p>
+
+<p>La scheda &ldquo;Caratteri disponibili&rdquo; comprende diverse colonne, alcune delle quali forniscono soltanto informazioni su ciascun carattere, mentre altre permettono di modificare il modo in cui Scribus utilizza un determinato carattere (in un documento esistente oppure in tutti i documenti futuri). Esaminiamo queste colonne una per una:
+<ul>
+<li><b>Nome Font:</b> questo &egrave; il nome del carattere contenuto nel (o nei) file del carattere. Si noti che spesso il nome &egrave; diverso dal nome del/i file stesso/i.</li>
+<li><b>Usa Font:</b> per impostazione predefinita, Scribus permette di utilizzare tutti i caratteri che il programma rileva e accetta. Poich&eacute; potreste aver installato un gran numero di caratteri, potete escluderne alcuni: quelli deselezionati in questa colonna non compariranno nell'interfaccia di Scribus (ad esempio nel pannello propriet&agrave; o nella finestra di gestione stili).</li>
+<li><b>Famiglia:</b> molti caratteri, specialmente quelli utilizzati nella grafica professionale, fanno parte di cosiddette &ldquo;famiglie&rdquo; di caratteri. Una tipica &ldquo;famiglia&rdquo; comprende diversi &ldquo;stili&rdquo; di carattere, come &ldquo;Normale&rdquo;, &ldquo;Grassetto&rdquo;, &ldquo;Corsivo&rdquo; o &ldquo;Grassetto Corsivo&rdquo;. Alcune famiglie sono anche pi&ugrave; numerose e comprendono gruppi come Serif, Sans Serif, Semi Serif e Mono. Questa colonna mostra il nome della famiglia di caratteri.</li>
+<li><b>Stile:</b> questa colonna mostra lo stile del carattere (ad esempio: Regular, Condensed, Semi Bold, Italic).</li>
+<li><b>Variante:</b> alcuni caratteri sofisticati (e molto costosi) contengono una o pi&ugrave; sottocategorie all'interno di un certo &ldquo;stile&rdquo;, ad esempio tipi diversi di &ldquo;Normale&rdquo;, &ldquo;Corsivo&rdquo; ecc. Queste sottocategorie possono essere identificate in questa colonna.</li>
+<li><b>Tipo:</b> in questa colonna Scribus mostra il formato del carattere: Postscript (tipo 0, tipo 1, tipo 3, o CFF), TrueType (TTF) o OpenType (OTF). Si noti che i caratteri Postscript sono sempre indicati come &ldquo;Tipo 1&rdquo; indipendentemente dal formato effettivo.</li>
+<li><b>Formato:</b> questa colonna mostra il formato interno di un file di caratteri (PFA, PFB, TYPE2, TYPE42, SFNT, TTCF, PFB_MAC, DFONT, HQX, o MACBIN), un'informazione che &egrave; importante soltanto per specialisti.</li>
+<li><b>Incorpora nel Postscript:</b> se quest'opzione &egrave; attivata, il carattere sar&agrave; incorporato nei file EPS e Postscript creati da Scribus. Inoltre sar&agrave; aggiunto automaticamente all'elenco dei caratteri incorporati nella finestra di dialogo per l'esportazione PDF.</li>
+<li><b>Sottoinsieme:</b> quest'opzione fa s&igrave; che nel file Postscript o PDF esportato vengono inclusi soltanto i glifi effettivamente utilizzati nel documento. Di conseguenza i file generati avranno dimensioni minori, ma questo render&agrave; difficile apportare modifiche in strumenti di prestampa come PitStop. Se il file PDF non deve essere mandato a una tipografia commerciale, l'inserimento di un sottoinsieme dei caratteri non dovrebbe dare problemi; questo pu&ograve; essere utile soprattutto quando il documento PDF deve essere inviato o distribuito in rete, e quindi &egrave; necessario contenere le dimensioni del file. &Egrave; importante notare che per la maggior parte dei caratteri in formato OpenType e per alcuni in formato TrueType l'opzione &ldquo;Sottoinsieme&rdquo; &egrave; attivata automaticamente, e questo significa che nella finestra di dialogo per l'esportazione in PDF non &egrave; possibile impostare l'incorporazione di questi caratteri. Scribus si comporta in questo modo a causa delle grandi dimensioni di questi caratteri, poich&eacute; i formati OTF e TTF possono contenere anche diverse migliaia di glifi per ogni file. La loro incorporazione nei file PDF pu&ograve; renderli di dimensioni molto grandi, quindi l'opzione di incorporazione in questi casi &egrave; disattivata come misura di sicurezza. Se per qualche ragione volete comunque incorporare il carattere nel file PDF, basta che togliate il contrassegno all'opzione &ldquo;Sottoinsieme&rdquo; in questa colonna.</li>
+<li><b>Accesso:</b> qui potete vedere se il carattere &egrave; stato installato in una delle directory di sistema per i caratteri (&ldquo;Sistema&rdquo;), oppure nella home directory dell'utente (Mac OS X, Linux, *BSD) o in un percorso aggiuntivo per i caratteri (vedi sotto). In entrambi questi due ultimi casi l'accesso al carattere &egrave; indicato come &ldquo;Utente&rdquo;.</li>
+<li><b>Utilizzato nel documento:</b> questa colonna (presente solo in <i>Impostazioni documento</i>) mostra se un carattere &egrave; utilizzato nel documento attualmente aperto.</li>
+<li><b>Percorso del file dei font:</b> qui potete vedere dove si trova il file del carattere.</li>
+</ul>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref3.png" alt="Impostazioni per i caratteri disponibili" title="Impostazioni per i caratteri disponibili"/></td></tr></table>
+
+<h4>Sostituzione dei caratteri</h4>
+
+<p>Quando viene aperto un documento di Scribus, il programma verifica se tutti i caratteri presenti nel documento sono disponibili. Se un certo carattere non &egrave; presente n&eacute; sul sistema locale n&eacute; in una directory di rete, all'apertura del documento Scribus chiede di selezionare un carattere che sostituisca quello mancante:</p>
+<table width="100%"><tr><td align="center"><img src="images/font-subst.png" alt="Sostituzione font - passo 1" title="Sostituzione font - passo 1" /></td></tr></table>
+<p>Potete modificare la scelta in seguito nella scheda &ldquo;Sostituzione font&rdquo;. In questo modo potete cambiare le impostazioni originarie per la sostituzione, per il documento corrente oppure per tutti quelli di nuova creazione.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref2.png" alt="Sostituzione font - passo 2" title="Sostituzione font - passo 2" /></td></tr></table>
+
+<h4>Aggiungere percorsi per i caratteri</h4>
+<p>Una difficolt&agrave; che si incontra nella gestione dei caratteri &egrave; il modo in cui diversi sistemi operativi forniscono accesso ai caratteri e li gestiscono internamente. Ad esempio, Windows, OS/2 ed eComStation usano una sola directory di sistema (Windows: <code>C:\Windows\Fonts</code>; OS/2 ed eComStation: <code>C:\PSFONTS</code>), mentre le versioni moderne dei sistemi della famiglia UNIX prevedono l'utilizzo sia di directory di sistema sia di directory utente (Mac OS X: <code>/Library/Fonts</code> e <code>/Users/nomeutente/Library/Fonts</code>; Linux e *BSD: <code>/usr/share/fonts</code>, <code>/usr/local/share/fonts</code> e <code>/home/nomeutente/.fonts</code>). Agli albori del desktop publishing questo era un problema serio, poich&eacute; gli utenti professionali dovevano lavorare con centinaia o anche migliaia di diversi tipi di carattere, mentre l'hardware e i sistemi operativi non erano in grado di gestirne  quantit&agrave; cos&igrave; elevate. Di conseguenza, i professionisti dovevano lavorare con un gestore di caratteri: un programma che riduceva il numero di caratteri disponibili fino a una quantit&agrave; adatta alle capacit&agrave; del sistema operativo e delle applicazioni. Per impedire blocchi al sistema, i gestori di caratteri permettevano di indicare anche percorsi aggiuntivi per i caratteri, e questo permetteva di utilizzare anche file di caratteri salvati al di fuori dalla/e cartella/e di caratteri di sistema.</p> 
+
+<p>Anche se l'hardware, i sistemi operativi e le applicazioni moderne sono in grado di lavorare facilmente con centinaia di caratteri installati, la possibilit&agrave; di indicare percorsi aggiuntivi per i caratteri, che &egrave; presente in Scribus, &egrave; ancora molto utile. Ad esempio, molti utenti preferiscono non installare un carattere usato solo occasionalmente, e in tal caso possono copiarlo in una directory a scelta e aggiungere il relativo percorso nel gestore di caratteri di Scribus.</p>
+
+<p>Potete impostare un percorso aggiuntivo per i caratteri in <i>File &#062; Preferenze &#062; Font &#062; Percorsi aggiuntivi</i> <b>senza</b> alcun documento aperto (in <i>Impostazioni documento</i> questa scheda &egrave; sempre disattivata). Qui potete inserire uno o pi&ugrave; percorsi aggiuntivi, che non fanno parte di quelli predefiniti di sistema:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Percorsi aggiuntivi per i caratteri" title="Percorsi aggiuntivi per i caratteri"/></td></tr></table>
+
+</body>
+</html>

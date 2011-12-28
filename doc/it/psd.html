@@ -1,0 +1,60 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Lavorare con i file di Photoshop&#174;</title>
+</head>
+<body>
+<h2>Lavorare con i file di Photoshop&#174;</h2>
+
+<h3>Introduzione</h3>
+<p>Adobe Photoshop &egrave; uno dei programmi per computer pi&ugrave; noti al mondo, ed &egrave; ampiamente utilizzato nella grafica professionale, sia per la stampa che per il web. Anche se esistono ottime applicazioni open source per la grafica bitmap, come GIMP o Krita, vi sono casi in cui Photoshop &egrave; l'unica applicazione che pu&ograve; essere usata; questo accade specialmente nel mondo della prestampa.</p>
+
+<p>Una delle ragioni della potenza di Photoshop &egrave; il suo formato di file nativo, il PSD. Un file PSD pu&ograve; non solo contenere dati immagine, ma &egrave; piuttosto un grande contenitore in cui possono essere inseriti anche metadati, informazioni sulla fotocamera, testo, elementi grafici vettoriali, e altro. La maggior parte degli altri programmi e formati hanno solo una piccola parte di tutte queste capacit&agrave;.</p>
+<h3>Importazione PSD</h3>
+<p>Scribus ha la capacit&agrave; di importare direttamente i file PSD delle versioni fino alla 6, che &egrave; l'ultima per cui esiste una documentazione pubblica. Il team di Scribus &egrave; riuscito per&ograve; a scoprire il funzionamento di certe caratteristiche dei file creati con versioni successive di Photoshop; quindi la maggior parte dei file PSD pu&ograve; almeno essere caricata in Scribus, anche se certe loro caratteristiche potrebbero non essere riconosciute e interpretate correttamente.</p>
+<p>In generale Scribus &egrave; in grado di riconoscere e gestire molte caratteristiche del formato PSD, tra cui:</p>
+<ul>
+<li>la capacit&agrave; di manipolare e regolare le impostazioni dei livelli;</li>
+<li>la possibilit&agrave; di abilitare e usare le maschere e i tracciati di ritaglio incorporati nel file;</li>
+<li>quasi sempre, i profili colore ICC incorporati nel file (purch&eacute; non siano difettosi) vengono rilevati e utilizzati, quando la gestione del colore in Scribus &egrave; attiva;</li>
+<li>Scribus in genere importa i file PSD in scala di grigi a 8 bit, RGB e CMYK senza problemi;</li>
+<li>la trasparenza alfa &egrave; riconosciuta;</li>
+<li>Scribus importa i file PSD con livelli normali, e mostra i singoli livelli nella finestra <i>Ulteriori informazioni</i> che si pu&ograve; aprire dal men&ugrave; contestuale;</li> 
+<li>le maschere di ritaglio nei file PSD vengono riconosciute e possono essere usate per il flusso di testo;</li>
+<li>i modi fusione presenti nel file PSD possono essere usati per modificare la visualizzazione e la stampa dell'immagine. Inoltre &egrave; possibile modificare la fusione, o applicare altri modi fusione tra livelli PSD. Il file originale resta invariato;</li>
+<li>quasi sempre Scribus individua automaticamente la codifica del file, sia essa ASCII, binaria, o binaria con JPEG.</li>
+<!--<li>Scribus will handle both PSD and TIFF files, no matter what byte order is used &ndash; PPC Mac/SPARC or PC. If Scribus is run from the command line, you may see harmless error messages about tags in wrong order. Ignore them. </li>-->
+</ul>
+<p><b>Potenziali problemi</b></p>
+<ul>
+<li>I livelli di regolazione e i livelli di effetto non sono ancora riconosciuti. Se sono presenti, Scribus fa ricorso a una versione del file ad unico livello.</li>
+<li>I file TIFF con livelli salvati da Photoshop spesso non sono ben gestiti da altri visualizzatori TIFF e applicazioni di importazione. Questo accade perch&eacute; Photoshop inserisce i livelli di tipo PSD in un marcatore privato. Scribus tenta di leggere le informazioni sui livelli PSD, e se vi riesce le rende accessibili nella finestra <i>Ulteriori informazioni</i> sull'immagine. I livelli di testo e vettoriali all'interno di questo marcatore privato non sono ancora riconosciuti da Scribus.</li>
+</ul>
+<h3>Particolarit&agrave;</h3>
+<ul>
+<li>I file DCS (Desktop Color Separations) 1.0/2.0 sono uno speciale tipo di <a href="importhints1.html">EPS</a> salvati in Photoshop, e vengono importati direttamente (in modo simile ai file PSD) insieme ai profili colore ICC. La qualit&agrave; dell'immagine dovrebbe essere vicina o equivalente a quella del file PSD originario. Le maschere vettoriali vengono rilevate e possono essere usate per controllare la visualizzazione nella finestra <i>Ulteriori informazioni</i>. I file DCS possono essere salvati anche da QuarkXPress&#174;, ma per ora questa variante viene importata usando Ghostscript come filtro. Questo avviene in parte perch&eacute; il modo con cui QuarkXPress&#174; li esporta non &egrave; conforme alle specifiche tecniche DCS.</li>
+<i>Ulteriori suggerimenti per l'importazione DCS:</i></li>
+<ol>
+<li><i>gli effetti immagine non possono essere applicati ai file DCS per motivi tecnici;</i></li>
+<li><i>prima di importare un file DCS, assicuratevi che il &ldquo;file master&rdquo; DCS (che ha estensione *.eps) e i file per ciascuna separazione (che hanno estensioni *.C, *.M, *.Y, *.K rispettivamente, pi&ugrave; un file per ogni colore spot) si trovino nella <b>stessa</b> directory. Diversamente, Scribus non pu&ograve; importare l'immagine correttamente, e si verificano degli scostamenti di colore.</i></li>
+</ol>
+<li>Scribus &egrave; in grado di individuare bicromie, tricromie e quadricromie nei file PSD ed EPS salvati da Photoshop e di importarle. La differenza tra i due formati &egrave; che i colori spot devono essere importati manualmente dagli EPS con il comando <i>Modifica &#062; Colori &#062; Importa</i>. Se importate un file PSD, potete manipolare direttamente ciascuno dei colori spot che contiene, usando la funzione <i>Effetti immagine</i>, che si pu&ograve; aprire dal men&ugrave; contestuale. Nella maggior parte dei casi Scribus individua automaticamente l'immagine come bicromia, tricromia o quadricromia e importa i colori dal file PSD.</li></ul><br>
+<table width="100%">
+<tr><td align="center"><img src="images/duotone-imp.png" /></td></tr>
+<tr><td align="center"><img src="images/duotone-imp2.png" /></td></tr>
+<tr><td><i><div align="center">Importazione di un'immagine in bicromia:<br> nella finestra di importazione Scribus segnala lo &ldquo;spazio colore&rdquo; Duotone (in alto)<br> e carica nell'elenco colori i colori spot utilizzati (in basso a destra).<br> Nella finestra Effetti immagine, viene automaticamente attivato l'effetto &ldquo;Bicromia&rdquo; (&ldquo;Duotone&rdquo;) (in basso a sinistra).</div></i></td></tr>
+</table>
+<br>
+<h3>Consigli</h3>
+<ul>
+<li>Se avete il file PSD originale di un'immagine, usatelo senz'altro.</li>
+<li>Fate in modo che in Photoshop sia attivata l'incorporazione del profilo ICC corretto. Lo si fa con il comando <i>Immagine &#062; Metodo &#062; Converti in profilo</i>.</li>
+<li>Evitate di usare i livelli di testo. Scribus comprende potenti strumenti per gli effetti di testo e li esporta come vettori, non come bitmap, e questo d&agrave; una migliore qualit&agrave; di stampa. Questo consiglio vale per qualunque applicazione per la grafica bitmap.</li>
+<li>Analogamente, evitate di inserire disegni vettoriali in file PSD. Scribus contiene versatili strumenti di disegno e d&agrave; risultati pi&ugrave; affidabili per la stampa.</li>
+<li>Scribus <i>pu&ograve;</i> gestire immagini JPEG a colori CMYK create da Photoshop, compresi i loro profili colore ICC, ma in generale &egrave; preferibile utilizzare i formati PSD o TIFF, poich&eacute; poche altre applicazioni sono in grado di leggere le JPEG CMYK.</li>
+<li>Analogamente, Scribus &egrave; in grado di gestire le maschere di ritaglio nelle JPEG salvate da Photoshop.</li>
+<li>Se usate livelli di regolazione e livelli di effetto, salvate una copia del file PSD e poi unite tutti i livelli prima di importare il file in Scribus. Questo rende il file pi&ugrave; piccolo, e assicura che non vi siano problemi con l'importazione in Scribus.</li>
+</ul>
+<br>
+</body>
+</html>

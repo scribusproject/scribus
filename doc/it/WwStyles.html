@@ -1,0 +1,62 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Lavorare con gli stili</title>
+</head>
+<body>
+<h2>Lavorare con gli stili</h2>
+Perch&eacute; si dovrebbe usare gli stili, e perch&eacute; sono una buona idea? E che cosa sono gli stili in Scribus?
+<p>Esistono due tipi di stile in Scribus, che vedrete se aprite la finestra di dialogo <b>Gestione stili</b> con <i>Modifica &gt; Stili</i>. Il primo comprende gli <b>stili di linea</b>, che saranno descritti in <a href="WwLines.html">Lavorare con le linee e gli stili di linea</a>. Il secondo riguarda l'aspetto del testo e comprende due sotto-tipi, Stili di paragrafo e Stili di carattere. Per entrambi esiste uno stile predefinito, che in parte dipende dalle impostazioni predefinite per i caratteri in <i>File &gt; Preferenze &gt; Strumenti &gt; Testo</i>, e che pu&ograve; anche essere modificato qui, nella finestra di gestione stili.
+<p>Gli <b>stili di paragrafo</b> sono applicati a un intero paragrafo di testo, come il nome suggerisce, mentre gli <b>stili di carattere</b> sono applicati a un certo insieme di lettere, parole, o anche a interi paragrafi di testo, indipendentemente dal loro stile di paragrafo. Forse questo pu&ograve; causare un po' di confusione, ma uno stile di paragrafo contiene sempre uno stile di carattere.
+<p>Perch&eacute; usare gli stili? In parte per comodit&agrave;, ma in parte anche per dare facilmente alle varie parti del documento un aspetto coerente. Ad esempio, per un notiziario si potrebbe voler usare un insieme preciso di attributi di carattere per intestazioni, corpo del testo, riquadri con testi secondari, e altri elementi. Un altro vantaggio degli stili &egrave; che, una volta applicati, se in seguito uno di essi viene modificato, le modifiche vengono applicate automaticamente a tutte le parti del documento in cui quello stile &egrave; usato. Inoltre, gli stili possono essere importati da altri documenti di Scribus, oppure uno stile pu&ograve; essere clonato e poi modificato al fine di utilizzarlo in qualche altro modo. Infine, se usate OpenOffice.org e salvate in formato ODT, gli stili creati in Writer possono essere importati e creati automaticamente in Scribus.
+<p>Dopo questa breve introduzione, cominciamo a creare qualche stile di paragrafo.
+<h3>Stili di paragrafo</h3>
+<table width="80%" cellpadding="5">
+<tr><td rowspan="3"><img src="images/style_manager1.png"></td>
+<td>Quando aprite la finestra di dialogo Gestione Stili, potrebbe avere l'aspetto mostrato qui oppure potrebbe essere espansa. Supponiamo di voler creare due stili da usare in un notiziario, uno per intestazioni e titoli, e l'altro per il corpo del testo. Vogliamo che le intestazioni si distinguano chiaramente dal corpo del testo, e quest'ultimo dovrebbe avere un aspetto piacevole ed essere facilmente leggibile. Ora non discuteremo i pro e contro della scelta dei caratteri nelle diverse situazioni, poich&eacute; molti fattori possono influenzarla.</td></tr>
+<tr><td><img src="images/style_manager1b.png"></td>
+</tr>
+<tr><td>Fate clic sul pulsante <b>Nuovo</b> per aprire il men&ugrave; a discesa e selezionate <b>Stile paragrafo</b>. Il nome predefinito sar&agrave; <i>Nuovo stile</i>. All'inizio sar&agrave; attiva la scheda <i>Propriet&agrave;</i>, che, come potete vedere, contiene le impostazioni per vari attributi dei glifi relativi a righe, altri paragrafi, margini e tabulazioni, ma nulla sul carattere stesso.</td></tr>
+</table>
+<img src="images/style_manager3b.png">
+<p>Non descriveremo gli elementi di cui si parla gi&agrave; in <a href="WwText.html">Lavorare con il testo</a>, ma ci concentreremo principalmente sulle impostazioni che <i>non</i> si trovano nella scheda Testo del pannello Propriet&agrave;.
+<p>Sotto le impostazioni dell'interlinea vi sono due caselle di controllo per impostare lo spazio bianco sopra e sotto il paragrafo per cui lo stile &egrave; usato. Lo spazio sar&agrave; sommato a quello stabilito per i paragrafi precedenti o successivi.
+<p>Sotto le impostazioni dei tabulatori (che abbiamo visto nel pannello Propriet&agrave;) vi sono tre caselle di controllo per i rientri.
+<p>In alto a sinistra si pu&ograve; impostare il rientro della prima riga del paragrafo <i>rispetto al margine sinistro del paragrafo</i>. Con un valore negativo si ottiene il cosiddetto rientro sporgente.
+<p>In basso a sinistra si pu&ograve; impostare il rientro dell'intero paragrafo rispetto agli altri elementi della cornice di testo: il bordo della cornice, e anche la eventuale distanza sinistra tra bordo cornice e testo, impostata nel pannello Propriet&agrave;. Questo rientro definisce il margine sinistro del paragrafo; un rientro sporgente si pu&ograve; impostare soltanto quando questo valore &egrave; positivo, e il valore assoluto del rientro sporgente non pu&ograve; essere maggiore. <i>Esempio: se volete un rientro sporgente di -15 pt, avete bisogno che il paragrafo abbia un rientro di almeno 15 pt.</i>
+<p>Infine, a destra, si pu&ograve; impostare il rientro destro dell'intero paragrafo, simile a quello sinistro di cui abbiamo appena parlato.
+<p>
+<table width="70%">
+<tr><td valign="top">Nell'esempio a destra vediamo alcuni paragrafi con rientro sporgente e dello spazio aggiuntivo al di sopra; notate che lo spazio aggiuntivo non viene applicato al primo paragrafo della cornice.</td>
+<td><img src="images/style_manager7.png"></td>
+</tr></table>
+<h4>Capilettera</h4>
+<table width="70%">
+<tr><td valign="top">Un capolettera &egrave; la prima lettera di un paragrafo, che &egrave; stata ingrandita fino ad occupare l'altezza di due o pi&ugrave; righe di testo. Il valore di <b>Linee</b> deve essere un numero intero.
+<p>La <b>Distanza dal testo</b> definisce lo spazio vuoto a destra della lettera ingrandita; pu&ograve; assumere anche un valore negativo, anche se questa possibilit&agrave; sembra di modesta utilit&agrave;.
+<p>Qui vediamo alcuni esempi di capilettera. I primi due hanno una distanza dal testo pari a 0, e il terzo pari a 10 pt. Nel paragrafo centrale il capolettera ha l'altezza di tre righe, e ha un rientro sporgente per ottenere un effetto pi&ugrave; elaborato.
+<p>I capilettera possono produrre effetti visivi molto interessanti, ma non si prestano a una facile leggibilit&agrave;, e quindi, in generale, dovrebbero essere utilizzati con parsimonia.</td>
+<td><img src="images/style_manager8.png"></td>
+</tr>
+</table>
+<h3>Stili di carattere</h3>
+<table width="80%">
+<tr><td valign="top">Qui vediamo la scheda Stile carattere nella finestra di Gestione stili: ora possiamo impostare i vari attributi del carattere e le alterazioni dei glifi. Quasi tutte queste impostazioni sono presenti anche nella scheda Testo del pannello Propriet&agrave;: potete trovarle descritte in <a href="WwText.html">Lavorare con il testo</a>.
+<p>L'eccezione &egrave; l'ultima casella di controllo a destra nella fila superiore, dopo quella per la spaziatura. Con essa si imposta la larghezza predefinita del carattere o glifo &ldquo;spazio&rdquo; (ricordate che lo spazio &egrave; un glifo, ma, a differenza, una tabulazione non lo &egrave;). Non influenza lo spazio tra tutti i glifi, come fa la casella per la spaziatura, ma soltanto quello tra parole.
+<p>Se state tentando di creare uno stile di carattere non associato a uno stile di paragrafo, vedrete soltanto questa scheda con le sue opzioni. Gli stili di carattere possono essere applicati soltanto nella finestra principale. Non c'&egrave; modo di applicare uno stile di carattere nell'editor interno: l&agrave; potete applicare solo uno stile di paragrafo con il suo stile di carattere associato.
+<p>C'&egrave; una gerarchia tra gli stili per il testo, e cio&egrave; uno stile di carattere prevale su uno stile di paragrafo, anche se questo &egrave; applicato a un'intera cornice, come si potrebbe fare in modalit&agrave; <i>Seleziona Elemento</i>. Dovreste ricordarvi dell'esistenza di questa gerarchia se state tentando di applicare uno stile di paragrafo nell'editor interno e questo sembra non funzionare.
+</td>
+<td><img src="images/style_manager9.png"></td>
+</tr>
+</table>
+<h3>Importare stili</h3>
+<table width="80%">
+<tr><td valign="top">Se fate clic sul pulsante <b>Importa</b> nella finestra Gestione stili, si apre una finestra di dialogo in cui potete scegliere un file di Scribus da cui importare gli stili. Potete selezionare un file di qualunque tipo, ma gli stili saranno trovati soltanto nei file di Scribus, e non saranno mostrati messaggi di errore.
+<p>Come si vede qui, potrete poi scegliere quali stili desiderate importare, e assicurarvi che non vi siano conflitti di nome. Gli stili importati vengono rinominati automaticamente, ma naturalmente potete rinominarli come volete dopo l'importazione.
+<p><i>Suggerimento 1: Potete creare dei file che contengono un documento vuoto, con un insieme di stili da utilizzare in altri documenti.</i>
+<p><i>Suggerimento 2, per coloro a cui piace analizzare i file .sla: scoprirete che, al fine di importare uno stile, potete eliminare dal file tutto, tranne i seguenti elementi: &lt;?xml...&gt;, &lt;SCRIBUSUTF8NEW...&gt;,&lt;DOCUMENT....&gt;, &lt;STYLE.....&gt; (in qualunque numero siano), &lt;/DOCUMENT&gt;, e &lt;/SCRIBUSUTF8NEW&gt;, e da ci&ograve; che resta &egrave; ancora possibile importare gli stili. Ma non tentate di aprirlo come documento.</i>
+</td>
+<td><img src="images/style_manager10.png"></td>
+</tr></table>
+</body>
+</html>

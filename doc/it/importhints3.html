@@ -1,0 +1,94 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus e OpenOffice.org/OpenDocument</title>
+</head>
+<body>
+<h2>Scribus e OpenOffice.org/OpenDocument</h2>
+
+<h4>Panoramica</h4>
+<p>Quando la SUN Microsystems avvi&ograve; il progetto OpenOffice.org, introdusse anche un nuovo tipo di formati di file. Mentre StarOffice (il predecessore di OpenOffice) salvava i dati in formato binario, i file di OpenOffice.org consistevano di diversi file XML riuniti in un unico archivio ZIP. In seguito, i formati di file sviluppati per OpenOffice.org furono la base per un nuovo standard per i documenti da ufficio (come documenti di testo, fogli elettronici o presentazioni). Questo standard &egrave; stato sviluppato dalla <a href="http://www.oasis-open.org/home/index.php">Organization for the Advancement of Structured Information Standards (OASIS)</a>, ed &egrave; detto <a href="http://www.oasis-open.org/specs/index.php#opendocument">OpenDocument</a> (ODT). L'OpenDocument &egrave; divenuto uno standard ISO nel 2006 (ISO/IEC 26300:2006).
+<br>
+Grazie alla chiara documentazione tecnica, il team di Scribus ha creato alcune utili funzioni per l'importazione da file ODT, che saranno migliorate in futuro.</p>
+<h4>Importare file OpenOffice.org Writer e OpenDocument</h4>
+<p>L'importatore per documenti Writer (SXW) e ODT opera su una data cornice di testo e importa <i>soltanto</i> il testo contenuto nel documento. Immagini e disegni devono essere salvati separatamente al di fuori del documento Writer, dopodich&eacute; ciascuno di essi pu&ograve; essere importato individualmente. Quindi, da un documento Writer complesso comprendente tabelle o grafici, questi ultimi non vengono importati. Tabelle, grafici o altri oggetti incorporati devono essere inseriti ciascuno in un documento Draw ed esportati come spiegato pi&ugrave; avanti.</p>
+<p>L'aspetto pi&ugrave; importante da considerare per ottenere un'importazione senza intralci da un file SXW/ODT &egrave; l'utilizzo attento degli stili in Writer (o altro elaboratore di testo ODT-compatibile). Se gli stili sono ben impostati, per Scribus sar&agrave; necessario meno tempo per formattare il testo e assegnargli gli stili. Tutti i particolari stili di paragrafo presenti nel documento Writer o ODT vengono automaticamente importati nel documento di Scribus.</p>
+
+<h4>Importazione da SXW/ODT passo per passo</h4>
+<ol>
+<li>selezionate la cornice di testo in cui volete importare il documento;</li>
+<li>clic col tasto destro &gt; Carica testo... </li>
+<li>selezionate il documento SXW/ODT da importare.</li>
+</ol>
+
+<p>Questo comando importa <i>tutto</i> il testo dal documento sorgente, quindi dovreste fare in modo che vi sia abbastanza spazio nella cornice, oppure collegate altre cornici a quella in cui state importando il testo. Potete tranquillamente importare 10, 20 o perfino 50 pagine di testo in un colpo solo; in pratica, per&ograve;, &egrave; bene non superare la lunghezza di un capitolo (15&ndash;30 pagine) per non rendere l'operazione troppo pesante.</p>
+<h4><a name="1">Fate creare a Scribus le cornici di testo</h4>
+<p>Se avete un'idea di quante cornici di testo sono necessarie per il testo importato, potete servirvi di un'opzione avanzata per l'importazione. Si trova nel men&ugrave; principale: <i>Inserisci &gt; Cornice&nbsp;...</i>.</p>
+<p>La finestra di dialogo &ldquo;Inserisci una cornice&rdquo; consiste di quattro schede. Nella prima, &ldquo;Tipo&rdquo; dovete selezionare (nel nostro caso) &ldquo;Cornice di testo&rdquo;. Nella seconda, &ldquo;Posizione&rdquo;, potete indicare le pagine in cui le nuove cornici saranno inserite e la loro posizione nella pagina.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/insert-frame-1.png" alt="La finestra di dialogo &ldquo;Inserisci cornice&rdquo;, scheda 2" align="middle" title="La finestra di dialogo &ldquo;Inserisci cornice&rdquo;, scheda 2" /></td></tr></table>
+
+<p>Nella terza scheda, &ldquo;Dimensione&rdquo;, potete impostare le dimensioni delle cornici che saranno inserite, e nella quarta scheda, &ldquo;Opzioni&rdquo; potete indicare il contenuto della cornice e il suo aspetto:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/insert-frame-2.png" alt="La finestra di dialogo &ldquo;Inserisci cornice&rdquo;, scheda 4" align="middle" title="La finestra di dialogo &ldquo;Inserisci cornice&rdquo;, scheda 4" /></td></tr></table>
+<p>
+<ul>
+<li><b>Colonne</b>: il numero di colonne di testo contenute nella cornice.</li>
+<li><b>Distanza</b>: la distanza che separa le colonne di testo.</li>
+<li><b>Collega le cornici inserite</b>: fa letteralmente questo.</li>
+<li><b>Collega alla cornice esistente</b>: vi permette di collegare la prima delle nuove cornici ad una gi&agrave; esistente, che potete scegliere da un men&ugrave; a discesa contenente tutte le cornici esistenti, ordinate per nome.</li>
+<li><b>Documento fonte</b>: qui potete scegliere il documento di testo il cui contenuto sar&agrave; caricato nelle nuove cornici.</li>
+</ul>
+</p>
+
+<h4>Opzioni per l'importazione SXW/ODT</h4>
+
+<p>Quando si esegue l'importazione di testo da OpenOffice.org vi sono quattro importanti opzioni il cui uso deve essere valutato attentamente:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/oogettext1.png" alt="Opzioni di importazione per file OO.org Writer e OASIS (Open Document)." align="middle" title="Opzioni di importazione per file SXW e ODT." /></td></tr></table>
+
+<ul>
+   <li><b>Sovrascrivi stili paragrafo</b>: con questa opzione, la formattazione degli stili creati nel documento sar&agrave; rimpiazzata da quella degli stili del documento importato.</li>
+   <li><b>Unisci stili paragrafo</b>: con questa opzione, gli attributi (come tipo e dimensione del carattere) degli stili importati vengono analizzati, e gli stili con attributi identici vengono fusi. Questo pu&ograve; aiutare a eliminare stili che hanno nomi diversi, ma per il resto sono identici.</li>
+   <li><b>Usa il nome del documento come prefisso per gli stili paragrafo</b>: questo pu&ograve; essere utile per riordinare gli stili quando si esegue l'importazione da pi&ugrave; documenti.</li>
+   <li><b>Non chiedere pi&ugrave;</b>: attenzione! Questa opzione rende permanenti le scelte fatte per le tre opzioni precedenti. Il solo modo per annullarla consiste nel modificare manualmente il file <code>prefs14.xml</code> che si trova nella cartella nascosta <code>./scribus</code> nella vostra home directory: occorre aprirlo con un elaboratore di testo, cercare la stringa di testo <code>attribute key"=ask-Again" value=0</code> e sostituire &ldquo;0&rdquo; con &ldquo;1&rdquo;.</li>
+ </ul>
+
+<h4>Importare tabelle da Calc </h4>
+<p>Poich&eacute; Scribus ha capacit&agrave; molto limitate di gestire tabelle, pu&ograve; essere pi&ugrave; comodo creare una tabella in un'applicazione per fogli elettronici come Calc di OpenOffice.org. Ecco una spiegazione passo per passo su come importare tabelle da Calc:</p>
+
+<p>1. create la tabella che vi serve in Calc:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/table-import-1.png" align="middle"/></td></tr></table>
+
+<p>2. selezionate gli elementi della tabella di cui avete bisogno in Scribus (non l'intero foglio) e copiateli negli Appunti, create un nuovo documento OpenOffice.org Draw, e date il comando <i>Modifica &gt; Incolla speciale &gt; GDI Metafile</i> per inserire la tabella in Draw come file vettoriale:</p>
+<table width="100%"><tr><td align="center"><img src="images/table-import-2.png" align="middle"/></td></tr></table>
+
+<p>3. selezionate <i>File &gt; Esporta</i> per esportare la tabella come file EPS. Assicuratevi che nella finestra di esportazione sia selezionata l'opzione &ldquo;Selezione&rdquo;, altrimenti sar&agrave; esportata l'intera pagina.</p>
+<p>4. ora importate il file EPS in Scribus come disegno vettoriale, con il comando <i>File &gt; Importa &gt; Carica file vettoriale</i>. Come risultato avrete nel documento una tabella ben formattata, che pu&ograve; essere modificata con gli strumenti vettoriali di Scribus:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/table-import-3.png" align="middle"/></td></tr></table>
+
+<h4>Importare file grafici SXD e ODG</h4>
+<p>Per eseguire quest'operazione vi sono due metodi. Il primo consiste nell'usare l'importatore nativo. Per molti disegni esso funziona molto bene; ma in alcuni casi, specialmente con disegni contenenti sfumature, pu&ograve; essere preferibile provare esportandoli in formato EPS o SVG.</p>
+
+<p>&Egrave; importante notare che gli oggetti tridimensionali di Draw non vengono esportati bene, poich&eacute; sono limitati dalla risoluzione dello schermo; spesso risultano di scarsa qualit&agrave; anche quando vengono stampati, e alle risoluzioni usate nella stampa appaiono pixelati. Inoltre il filtro di importazione di Scribus non &egrave; in grado di importare tutte le forme, n&eacute; certi tipi di linee (ad esempio i connettori).</p>
+<p>Se avete bisogno di usare oggetti di questi tipi, c'&egrave; un'affidabile soluzione alternativa. Come quasi ogni programma da cui &egrave; possibile stampare, OpenOffice.org d&agrave; la possibilit&agrave; di stampare su file, invece di inviare i dati alla stampante. Basta andare in <i>File &gt; Stampa</i> in OpenOffice.org e contrassegnare l'opzione &ldquo;Stampa nel file&rdquo;. Su Linux/UNIX e Mac OS X il risultato sar&agrave; un file PostScript.</p>
+
+<p>Su Windows e OS/2 &egrave; necessario prima installare un driver per stampante PostScript (ad esempio la Apple Color Laser Writer). Quando vi si chiede di inserire un nome per il file di stampa, selezionate o aggiungete &ldquo;ps&rdquo; come estensione del file.</p>
+
+<p>Infine potete aprire il file oppure importarlo in Scribus come file vettoriale. Questa volta il contenuto &egrave; identico, o quasi, all'originale. Anche le forme tridimensionali a bassa risoluzione hanno contorni lisci.</p>
+
+<h4>Importare formule SXM e ODF</h4>
+<p>Il modo pi&ugrave; sicuro consiste nel creare una formula in OpenOffice.org Math e salvarla come SXM oppure ODF. Poi aprite OpenOffice.org Draw e create un nuovo file. Selezionate <i>Inserisci oggetto &gt; Formula</i>: avrete un piccolo quadrato incorporato nello spazio di lavoro di Draw. Poi aprite <i>Modifica oggetto</i> nel men&ugrave; contestuale: Draw avvier&agrave; Math. In Math, selezionate <i>Strumenti &gt; Importa Formula</i>, trovate e importate la formula che avevate salvato e poi salvate per chiudere il file. La formula incorporata &egrave; ora modificabile come oggetto vettoriale. Salvate questo file di Draw, poi esportatelo come EPS e importatelo in Scribus. Le formule e il testo saranno importati come oggetti vettoriali scalabili, e di conseguenza potranno essere stampati con risultati di qualit&agrave; <b>molto</b> alta e non daranno preoccupazioni quando esportati in PDF. Salvare il file Draw e tentare di importarlo con i suoi oggetti incorporati non funziona, poich&eacute; Scribus non pu&ograve; accedere direttamente a questi oggetti.</p>
+
+<hr>
+<p>Vedi anche:</p>
+<ul>
+<li><a href="WwText.html">Lavorare con il testo</a></li>
+<li><a href="WwStyles.html">Lavorare con gli stili</a></li>
+<li><a href="importhints2.html">Importare disegni vettoriali</a></li>
+</ul>
+</p>
+</body>
+</html>

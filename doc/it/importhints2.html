@@ -1,0 +1,77 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Importare disegni vettoriali</title>
+</head>
+<body>
+<h2>Importare disegni vettoriali</h2>
+<h3>Formati importabili</h3>
+<p>Diamo una breve descrizione dei formati vettoriali che Scribus &egrave; attualmente in grado di importare:</p>
+<ul>
+<li><b>AI (Adobe Illustrator)</b>: il formato (o, pi&ugrave; precisamente, i formati) nativi di Illustrator. Le versioni meno recenti di AI sono sostanzialmente file EPS con alcune caratteristiche aggiuntive specifiche di Illustrator. A partire da Illustrator 9, AI &egrave; basato sul PDF, e come il suo predecessore vi aggiunge alcune informazioni specifiche del programma. L'importazione di file AI &egrave; ancora sperimentale, ma nella maggior parte dei casi funziona molto bene. Uno dei vantaggi principali del filtro di importazione AI (e anche di quello EPS) &egrave; che Scribus carica correttamente i colori spot definiti nei file AI ed EPS. Se un file AI basato sul formato PDF viene aperto direttamente (cio&egrave; con <i>File &gt; Apri</i>), Scribus importa anche i <a href="layers.html">livelli AI/PDF</a>.</li>
+<li><b>EPS (Encapsulated PostScript)</b>: probabilmente il formato grafico pi&ugrave; diffuso nella prestampa, &egrave; un sottoinsieme dello standard PostScript. Vedi la pagina sull'<a href="importhints1.html">importazione EPS</a> per maggiori informazioni.</li>
+<li><b>PS (PostScript)</b>: un linguaggio di descrizione pagina sviluppato dalla Adobe Systems, che &egrave; alla base di quasi tutte le moderne attivit&agrave; di stampa. Anche il formato PDF &egrave; derivato dal PostScript. Poich&eacute; i file PostScript possono contenere pi&ugrave; di una pagina, l'importazione in Scribus pu&ograve; non dare il risultato atteso.</li>
+<li><b>FIG (Xfig)</b>: &egrave; il formato nativo del programma di disegno Xfig per sistemi UNIX. Xfig ha una lunga vita; &egrave; poco diffuso tra i grafici, ma &egrave; ampiamente usato per disegni tecnici o diagrammi in ambienti scientifici, come le universit&agrave;. Il formato &egrave; ben documentato, e l'importazione in Scribus funziona perfettamente.</li>
+<li><b>Scalable Vector Graphics (SVG)</b>: uno standard aperto molto diffuso per la grafica vettoriale a due dimensioni. Vedi la pagina sull'<a href="scribus-svg.html">importazione SVG</a> per maggiori informazioni.</li>
+<li><b>SXD (OpenOffice.org Draw 1) e ODG (OpenDocument Graphics)</b>: questi sono i formati vettoriali utilizzati da OpenOffice.org e da altri programmi di produttivit&agrave; open source. Il disegno in Open Office funziona in modo abbastanza diverso rispetto al tipico programma di grafica vettoriale, e i formati contengono molte caratteristiche (come i connettori automatici) poco adatte per l'uso nella stampa. Di conseguenza l'importazione in Scribus funziona solo parzialmente. Vedi <a href="importhints3.html">Scribus e OpenOffice.org/OpenDocument</a> per possibili soluzioni alternative.</li>
+<li><b>WMF (Windows Metafile)</b>: un formato vettoriale usato da molti pacchetti di applicazioni per l'ufficio e anche dal visualizzatore appunti di Windows. Di solito i professionisti della creativit&agrave; rifiutano di servirsi del formato WMF, che per&ograve; &egrave; usato dalla maggior parte delle raccolte di clip art&ldquo; da ufficio&rdquo;. Il filtro WMF &egrave; presente in Scribus in modo da permettere l'importazione di questi disegni vettoriali semplici.</li>
+<li><b>PICT (Macintosh Picture)</b>: il formato per file grafici utilizzato da Mac OS, simile al WMF di Windows. Pu&ograve; contenere dati sia bitmap sia vettoriali.</li>
+<li><b>CVG (Calamus Vector Graphic)</b>: un formato vettoriale semplice usato dal vecchio programma di desktop publishing Calamus. Le immagini in questo formato sono solo in toni di grigio.</li>
+<li><b>SHAPE (Dia Shapes) e SML (Kivio Shape)</b>: forme vettoriali di base utilizzate dalle applicazioni per diagrammi Dia e Kivio. Sono solo in toni di grigio o RGB.</li>
+</ul>
+<h3>Come funziona</h3>
+<p>L'importazione di disegni vettoriali in Scribus &egrave; piuttosto diversa rispetto alla maggior parte degli altri programmi di desktop publishing, ed &egrave; anche un'eccezione al &ldquo;modello a cornici&rdquo; usato per quasi ogni altra cosa in Scribus.</p>
+<p>Quando importate un disegno vettoriale con il comando <i>File &gt; Importa &gt; Carica file vettoriale</i>, i dati vettoriali del file originale vengono convertiti in oggetti vettoriali nativi di Scribus. Il vantaggio principale di quest'approccio &egrave; che le immagini vettoriali importate restano pienamente modificabili in Scribus, e ci&ograve; &egrave; utile anche se non intendete usare Scribus come editor vettoriale. Ad esempio, il rispetto di specifiche tecniche pubbliche, come quelle per EPS o SVG, &egrave; molto variabile a seconda dei diversi programmi, o anche di diverse versioni dello stesso programma. L'importazione di file come oggetti vettoriali nativi permette di apportare correzioni (come chiudere curve, ecc.) in modo facile e veloce. Inoltre rende possibile modificare facilmente i colori delle immagini importate (vedi sotto).</p>
+<p>L'approccio di Scribus per l'importazione vettoriale tuttavia ha un costo, e dovreste valutare attentamente se siete disposti a pagarlo, o se &egrave; meglio per voi esportare un'immagine dal programma originario come bitmap e importarla in Scribus in una <a href="WwImages.html">cornice immagine</a>. Per cominciare, come noterete quando tentate di caricare un file vettoriale complesso, l'importazione pu&ograve; richiedere molto tempo, poich&eacute; Scribus potrebbe dover creare centinaia o perfino migliaia di oggetti vettoriali nativi. Inoltre, la creazione di tutti questi oggetti genera un evento Annulla/Ripristina per ciascun oggetto; potete rendere l'importazione un po' pi&ugrave; veloce disabilitando la funzione Annulla/Ripristina prima di importare un disegno vettoriale complesso. Analogamente, il ridimensionamento o lo spostamento di un disegno complesso implica la modifica delle propriet&agrave; di tutti gli oggetti che compongono il disegno, e se il vostro computer non ha abbastanza memoria per completare l'operazione, Scribus potrebbe anche andare in errore e chiudersi.</p>
+<p>Un problema simile si pu&ograve; incontrare quando i <a href="color1.html">colori</a> utilizzati in un disegno sono numerosi. Scribus importa i colori di tutti gli oggetti che compongono il disegno (vedi sotto), e questo pu&ograve; risultare in un elenco di colori interminabile. Come prima, dovreste valutare se vi conviene usare quest'approccio.</p>
+<p>Infine, ogni disegno che consiste di pi&ugrave; di un oggetto vettoriale (cio&egrave;, quasi ogni disegno) viene importato come <i>gruppo</i> di oggetti, e il flusso di testo intorno ai gruppi non funziona. Questo significa che dovete disegnare un'apposita <a href="WwShapes.html">forma</a> intorno al disegno e far scorrere il testo intorno ad essa.</p>
+<h3>Modificare i disegni vettoriali importati</h3>
+<p>L'uso degli strumenti vettoriali di Scribus &egrave; spiegato in <a href="EditingShapes.html">Modificare forme</a>. Ma, come noterete dopo l'importazione di un disegno vettoriale, questi strumenti inizialmente non sono attivi: il motivo &egrave; che il disegno &egrave; stato importato come <i>gruppo</i> di oggetti vettoriali. Quindi dovete prima <i>separarli</i>. Questo si pu&ograve; fare con il comando &ldquo;Separa&rdquo; nel men&ugrave; &ldquo;Elemento&rdquo;, nel men&ugrave; contestuale del disegno oppure con i tasti di scelta rapida Ctrl+Maiusc+G:</p><br>
+<table width="100%"><tr><td align="center"><img src="images/vectimp1.png" title="Il comando &ldquo;Separa&rdquo;" alt="Il comando &ldquo;Separa&rdquo;" /></td></tr></table><br>
+<p>Pi&ugrave; un disegno importato &egrave; complesso, pi&ugrave; &egrave; probabile che sia necessario applicare l'operazione di separazione parecchie volte, poich&eacute; il disegno probabilmente comprender&agrave; diversi sottogruppi.</p>
+<p>Lo svantaggio di quest'approccio &egrave; che scompone l'intero disegno, anche se volete modificarne soltanto una piccola parte; se in seguito volete spostare o ridimensionare l'intero disegno, dovete raggruppare di nuovo tutte le sue parti. Fortunatamente in Scribus vi &egrave; un potente strumento che pu&ograve; soccorrervi in questa situazione, e cio&egrave; lo &ldquo;schema documento&rdquo; (lo trovate nel men&ugrave; <i>Finestre</i>). La sua finestra elenca tutti gli elementi che fanno parte del documento, ordinati per pagina. Qui potete selezionare singole parti del gruppo importato, e se siete fortunati, l'autore del disegno ha assegnato nomi significativi ai rispettivi elementi, anche se non tutti i programmi e formati di file permettono di farlo. Scribus passa a ciascun elemento selezionato, e indica la selezione colorando in rosso il bordo della cornice dell'elemento:</p>
+<table width="100%"><tr><td align="center"><img src="images/vectimp2.png" title="Uso dello schema documento per selezionare elementi in oggetti raggruppati" alt="Uso dello schema documento per selezionare elementi in oggetti raggruppati" /></td></tr></table><br>
+<p>Potete usare il men&ugrave; contestuale nello schema documento per separare dal resto del gruppo l'elemento selezionato, con il comando &ldquo;Separa&rdquo;. Come spiegato prima, potrebbe essere necessario usare questo comando pi&ugrave; di una volta, se il disegno contiene gruppi distribuiti su pi&ugrave; livelli. Alla fine vedrete l'elemento come voce distinta nello schema documento:</p><br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/vectimp4.png" title="L'elemento &ldquo;path13122&rdquo; è stato separato dal gruppo &ldquo;svg1061&rdquo;, un file SVG importato." alt="L'elemento &ldquo;path13122&rdquo; è stato separato dal gruppo &ldquo;svg1061&rdquo;, un file SVG importato." /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>L'elemento &ldquo;path13122&rdquo; &egrave; stato separato dal gruppo &ldquo;svg1061&rdquo;, che &egrave; un file SVG importato.</i></div></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Colori a tinta unita nei disegni vettoriali importati</h3>
+<p>Una conseguenza del modo con cui Scribus importa i file vettoriali &egrave; che tutti colori contenuti nel disegno vengono aggiunti all'elenco dei colori del documento. A seconda della complessit&agrave; del disegno e del numero di file importati, l'elenco pu&ograve; diventare piuttosto lungo, e a seconda del formato del file sorgente e dagli spazi di colore utilizzati, i nomi dei colori potrebbero essere poco significativi:</p>
+<table width="100%"><tr><td align="center"><img src="images/vectimp3.png" title="Colori importati da un disegno vettoriale (SVG)" alt="Colori importati da un disegno vettoriale (SVG)" /></td></tr></table><br>
+<p>Tutto questo pu&ograve; suscitare un po' di confusione in alcuni utenti, ma vi sono alcuni accorgimenti che rendono le cose un po' pi&ugrave; facili. In primo luogo, Scribus non duplica i colori, cio&egrave; se in un disegno importato &egrave; presente un colore i cui valori numerici corrispondono a quelli di un colore esistente, il colore importato sar&agrave; &ldquo;abbinato&rdquo; a esso. Questo avviene anche per i colori spot. In secondo luogo, Scribus &egrave; in grado di gestire i <a href="color1.html">colori denominati</a>, quindi se un programma vettoriale e il formato del file possono salvare i nomi dei colori, essi saranno importati:</p><br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/vectimp5.png" title="Xfig utilizza un nome per identificare ciascun colore, e Scribus importa i colori denominati." alt="Xfig utilizza un nome per identificare ciascun colore, e Scribus importa i colori denominati." /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Xfig utilizza un nome per identificare ciascun colore, e Scribus importa i colori denominati.</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p>Se cancellate un disegno importato, i suoi colori non vengono eliminati automaticamente dall'elenco dei colori, poich&eacute; &egrave; difficile stabilire se sono stati &ldquo;abbinati&rdquo; o se sono in uso da parte di altri oggetti. Ma questo non &egrave; un problema, perch&eacute; dopo aver cancellato il disegno, potete aprire il pannello di gestione dei colori (<i>Modifica &gt;Colori</i>) e fare clic su &ldquo;Elimina inutilizzati&rdquo;: questo comando eliminer&agrave; dall'elenco tutti i colori non utilizzati da alcun elemento del documento.</p>
+<p>Un esempio che mostra l'utilit&agrave; dell'importazione dei colori &egrave; la funzione &ldquo;Sostituisci colori&rdquo;. Supponiamo che stiate lavorando con un logo che dovr&agrave; avere diversi colori in diversi documenti. Con la funzione &ldquo;Sostituisci colori&rdquo;, potete lavorare con un singolo file sorgente: importate il logo nel documento, e sostituite uno o pi&ugrave; dei colori del logo in base a quanto necessario per ciascun documento. E a proposito di loghi: spesso richiedono di usare un colore spot. Se avete creato o modificato il logo in un programma che non gestisce i colori spot, potete caricare il disegno in Scribus e usare il comando &ldquo;Sostituisci colori&rdquo; per sostituire un colore CMYK o RGB con un colore spot:</p><br>
+<table width="100%"><tr><td align="center"><img src="images/new5.png" title="Sostituzione colori" alt="Sostituzione colori"/></td></tr></table><br>
+<hr>
+<p>Vedi anche:</p>
+<ul>
+<li><a href="WwShapes.html">Lavorare con le forme</a></li>
+<li><a href="EditingShapes.html">Modificare le forme</a></li>
+<li><a href="WwLines.html">Lavorare con le linee e gli stili di linea</a></li>
+<li><a href="color1.html">Modificare i colori</a></li>
+<li><a href="importhints1.html">Importare file EPS</a></li>
+<li><a href="scribus-svg.html">Importare file SVG</a></li>
+<li><a href="importhints3.html">Importare file OpenOffice.org e ODF</a></li>
+</ul>
+</p>
+</body>
+</html>

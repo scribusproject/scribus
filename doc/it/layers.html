@@ -1,0 +1,60 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Lavorare con i livelli</title>
+</head>
+<body>
+<h3>Lavorare con i livelli</h3>
+<p>Forse conoscete gi&agrave; il concetto di <b>livello</b> per averlo incontrato in altri programmi di disegno o di grafica. I livelli possono essere utilizzati per molti scopi diversi, ad esempio per separare oggetti stampabili e non stampabili come le griglie, per creare versioni in lingue diverse dello stesso documento in un unico file, o semplicemente per rendere pi&ugrave; facile la creazione e la modifica di determinati oggetti senza disturbarne altri.</p>
+<p>Per impostazione predefinita, un nuovo documento contiene un solo livello chiamato &ldquo;Sfondo&rdquo;. Ciascun oggetto creato su un livello si trova alla propria quota, quindi possono esistere pi&ugrave; <i>quote</i> sullo stesso <i>livello</i>. Per molti documenti sar&agrave; necessario un solo livello, ma a volte pu&ograve; essere desiderabile lavorare con pi&ugrave; di un livello.</p>
+<p>Per aggiungere un nuovo livello, aprite la finestra di dialogo Livelli in <i>Finestre &gt; Livelli</i> oppure premete F6:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/layers1.png" title="La finestra di dialogo Livelli" alt="La finestra di dialogo Livelli" /></td></tr></table><br />
+<p>A prima vista questa finestra di dialogo sembra semplice, ma &egrave; molto potente. Nella parte superiore potete impostare un modo fusione e l'opacit&agrave; del livello.</p>
+<p>Nella parte inferiore sono collocati gli strumenti fondamentali per la gestione dei livelli, che da sinistra a destra sono:
+<ul>
+<li>aggiunta di un livello</li>
+<li>eliminazione di un livello</li>
+<li>duplicazione di un livello selezionato, compreso il suo contenuto</li>
+<li>spostamento verso l'alto di un livello selezionato</li>
+<li>spostamento verso il basso di un livello selezionato</li>
+</ul>
+</p>
+<p>La maggior parte della finestra di dialogo &egrave; occupata dall'elenco dei livelli, che comprende alcune opzioni per i livelli stessi. Queste sono, da sinistra a destra:
+<ul>
+<li><b>colore dell'indicatore di livello</b>: ogni livello ha un colore unico che aiuta a identificare gli oggetti che si trovano su di esso. Potete abilitare gli indicatori di colore per gli oggetti in <i>Vista &gt; Mostra indicatori livello</i>. Per cambiarlo, fate clic sul colore del livello interessato: si apre un pannello per la selezione del colore, dove potete scegliere un colore diverso o crearne uno nuovo.</li>
+<li><b>visibilit&agrave; del livello</b>: qui potete stabilire se il livello &egrave; visibile o invisibile. La visibilit&agrave; non ha alcuna influenza sulla stampa, quindi fate attenzione all'uso di questa funzione, poich&eacute; pu&ograve; accadere che del contenuto invisibile venga stampato o inserito nel PDF esportato perch&eacute; avete dimenticato di disabilitare anche la stampa.</li>
+<li><b>stampabilit&agrave; del livello</b>: questa opzione ha una funzione simile a quella precedente, e anche in questo caso dovreste usarla con cautela, poich&eacute; un livello visibile potrebbe essere impostato per non essere stampato n&eacute; esportato nel PDF.</li>
+<li><b>blocca livello</b>: questa opzione blocca tutti gli oggetti sul livello interessato, che quindi non potranno essere modificati.</li>
+<li><b>flusso di testo per gli oggetti del livello</b>: se abilitata, quest'opzione fa s&igrave; che il testo contenuto in cornici su livelli inferiori fluisca intorno agli oggetti sul livello selezionato.</li>
+<li><b>modo contorno per gli oggetti del livello</b>: quest'opzione pu&ograve; essere utile se desiderate rendere Scribus pi&ugrave; veloce, poich&eacute; quando &egrave; attivata tutti gli oggetti sul livello sono visualizzati in modalit&agrave; &ldquo;scheletro&rdquo;. &Egrave; particolarmente efficace quando un livello contiene disegni vettoriali complessi.</li>
+<li><b>nome del livello</b>: ciascun livello ha un nome unico, che &egrave; mostrato qui. Per cambiarlo, fate doppio clic sul campo &ldquo;Nome&rdquo; e inseritene uno nuovo.</li>
+</ul>
+</p>
+<h4>Passare da un livello a un altro</h4>
+<p>Ci sono due modi di passare da un livello a un altro. Il primo consiste nel selezionare un diverso livello nella finestra di dialogo Livelli, ma pu&ograve; essere un po' fastidioso dover aprire una finestra semplicemente per cambiare livello. Fortunatamente, la barra di stato nella parte inferiore della finestra di Scribus contiene un selettore livelli, che elenca tutti i livelli presenti nel documento con il loro colore e permette di passare velocemente da uno all'altro.</p>
+<h4>Spostare oggetti tra livelli</h4>
+<p>Per spostare un oggetto da un livello a un altro, potete usare il comando &ldquo;Invia al livello&rdquo; nel men&ugrave; contestuale oppure nel men&ugrave; <i>Elemento</i> nella barra dei men&ugrave;. Questo comando &egrave; presente anche nel men&ugrave; contestuale degli oggetti nella finestra Schema documento.</p>
+<h4>Suggerimenti per lavorare con i livelli</h4>
+<p>
+<ul>
+<li>i livelli coprono l'intero documento, non la singola pagina.</li>
+<li>per selezionare tutti gli oggetti che si trovano su un certo livello, usate <i>Modifica &gt; Seleziona tutto avanzato</i> dalla barra dei men&ugrave;.</li>
+<li>se tentate di eliminare un livello non vuoto, vi sar&agrave; chiesto se devono essere eliminati anche gli oggetti presenti su di esso. Se rispondete di no, tutti gli oggetti presenti sul livello eliminato saranno spostati sul livello di sfondo.</li>
+<li>i livelli dei documenti di Scribus non devono essere confusi con i livelli nei file PSD. Essi sono completamente indipendenti gli uni dagli altri.</li>
+<li>Scribus riconosce i livelli dei file di Adobe Illustrator (AI), ma solo se un file viene <i>aperto</i> (<i>File > Apri</i>). Se un file AI con livelli viene <i>importato</i> (<i>File > Importa > Carica file vettoriale</i>), tutti i livelli di AI vengono uniti in uno solo.</li>
+<li>i livelli possono essere utilizzati anche nei documenti PDF versione 1.5 e successive, ma attualmente soltanto Adobe Reader 7 e le versioni successive sono in grado di visualizzare correttamente i PDF con livelli. Scribus pu&ograve; esportare file PDF 1.5 con livelli: per farlo si deve abilitare l'opzione &ldquo;Includi livelli&rdquo; nella scheda &ldquo;Generale&rdquo; della finestra di dialogo &ldquo;Salva come PDF&rdquo;. Adobe Reader legger&agrave; correttamente il contenuto dei livelli:</li><br>
+</ul>
+</p>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/layers2.png" title="The Layers Dialog" alt="The Layers Dialog" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>I livelli e le loro impostazioni in Adobe Reader (sinistra) e Scribus (destra)</i></div></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
