@@ -1,0 +1,141 @@
+<h1>Iniziare subito a lavorare con Scribus</h1>
+<p>Prima di cominciare con una spiegazione approfondita di Scribus, potrebbe essere utile &ldquo;farsi un&rsquo;idea&rdquo; di come Scribus funziona. A questo scopo mostreremo come pu&ograve; essere creata la copertina di una rivista immaginaria per una mostra su Rembrandt. Per seguire la descrizione che daremo, questo &egrave; ci&ograve; che vi serve:
+</p>
+<ul><li>i tipi di carattere <a href="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;item_id=Gentium&amp;_sc=1" class="external text" title="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;item_id=Gentium&amp;_sc=1" rel="nofollow">Gentium</a> e <a href="http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/" class="external text" title="http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/" rel="nofollow">Bitstream Vera Sans</a> devono essere installati sul vostro computer.</li>
+<li>l&rsquo;autoritratto di Rembrandt che potete trovare su <a href="http://commons.wikimedia.org/wiki/Image:Rembrandt_Harmensz._van_Rijn_137.jpg" class="external text" title="http://commons.wikimedia.org/wiki/Image:Rembrandt_Harmensz._van_Rijn_137.jpg" rel="nofollow">Wikimedia</a>.
+</li><li>il logo di Scribus, che potete trovare nella directory di installazione di Scribus sul vostro computer.
+</li></ul>
+<p>Questo &egrave; il risultato a cui vogliamo giungere:
+<table width="100%"><tr><td align="center"><img src="images/Cover_en1-page1.png"/></td></tr></table> 
+</p>
+<p>Prima di cominciare, &egrave; necessario scegliere la raccolta di colori adatta per il progetto. Assicuratevi che nessun documento sia aperto, e andate in <i>Modifica &gt; Colori</i>. La raccolta di colori predefinita &egrave; la &ldquo;Scribus Basic&rdquo;, come potete vedere nella finestra di dialogo. Quella che ci serve ora &egrave; invece la &ldquo;Scribus X11&rdquo;. Potete selezionarla in <i>Raccolta colori</i> nella finestra di dialogo <i>Colori</i>:</p>
+
+<table width="100%">
+  <tbody>
+    <tr><td align="center"><img src="images/qsg-col1.png"/></td>
+<td></td>
+<td></td>
+      <td align="center"><img src="images/qsg-col2.png"/></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Passo uno: creare un documento e lo sfondo della pagina</h2>
+<p>Probabilmente sapete cosa accade se create un nuovo file in un elaboratore di testo: il programma crea una nuova pagina, e potete iniziare a digitare. Se &egrave; necessaria una nuova pagina, il programma la crea automaticamente. Questo non accade in Scribus (e nemmeno nella maggior parte delle altre applicazioni di desktop publishing). Per creare una nuova pagina, dovete dire esplicitamente al programma di farlo; lo scopo principale di un programma DTP &egrave; quello di darvi il massimo controllo sull&rsquo;impostazione grafica e sul contenuto del documento. Quindi selezioniamo <i>File &gt; Nuovo</i>, e Scribus mostra la seguente finestra di dialogo:
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt1.png"/></td></tr></table> 
+
+</p><p>Per la nostra copertina scegliamo il layout Pagina singola. Impostate le dimensioni della pagina a &ldquo;Personalizzato&rdquo; (si trova in fondo all&rsquo;elenco nel men&ugrave; a discesa <i>Dimensione</i>) e modificate il valore dell&rsquo;<i>Altezza</i> a 285 mm. La copertina non ha bisogno di margini, quindi impostiamo a 0 mm il valore per tutti i margini. Lasciate cos&igrave; come sono tutte le altre impostazioni predefinite.
+</p><p>Dopo aver premuto il pulsante &ldquo;OK&rdquo;, Scribus crea una nuova pagina:
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt2.png"/></td></tr></table>
+
+</p><p>Poi, ci serve uno sfondo grigio per la pagina. Fate clic sul rettangolo bianco (o grigio chiaro) nella barra dei men&ugrave;, oppure premete S sulla tastiera. S&igrave;, state leggendo bene: premere il tasto S non far&agrave; comparire una lettera o un testo sulla pagina. Per inserire del testo &egrave; necessario un apposito ambiente, detto cornice di testo, come vedrete in seguito. Ma in questo caso ci serve una forma, quindi diamo il comando S da tastiera.
+</p><p>Il puntatore del mouse diventa un rettangolo con un + sull&rsquo;angolo superiore sinistro. Fate clic e tenete premuto il pulsante del mouse, trascinate il + attraverso la pagina e lasciate andare: avete appena creato una forma. Dimensioni, posizione e colore non hanno importanza, perch&eacute; li cambieremo subito.
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt3.png"/></td></tr></table>
+
+</p><p>Se non avete fatto clic in qualche altro punto sullo schermo, il nuovo rettangolo &egrave; ancora selezionato, il che significa che &egrave; evidenziato in puntini rossi e ha delle &ldquo;maniglie&rdquo; in ciascun angolo e a met&agrave; dei lati. Ora selezionate <i>Finestre &gt; Propriet&agrave;</i> o premete F2 per aprire il <b>pannello Propriet&agrave;</b>, che &egrave;, per cos&igrave; dire, il &ldquo;coltellino svizzero&rdquo; di Scribus; in seguito imparerete molto altro su di esso. Per ora restiamo nella scheda predefinita di questo strumento, che &egrave; chiamata  &ldquo;X,Y,Z&rdquo;. Pi&ugrave; un documento &egrave; complesso, pi&ugrave; &egrave; utile dare un nome unico a ciascun oggetto: render&agrave; pi&ugrave; facile trovarlo e selezionarlo in seguito. Non vi sorprender&agrave;, ma diamo alla nostra forma il nome di &ldquo;Sfondo&rdquo;.
+
+</p><p>Poi facciamo in modo che il rettangolo abbia le stesse dimensioni della pagina. Ricordate i valori che abbiamo scelto prima per la pagina? Inseriteli qui, ma prima non dimenticate di fare clic sul simbolo di catena a destra delle caselle in cui si impostano i valori di larghezza e altezza. Se non deselezionate la catena, vedrete che una modifica a uno dei valori provocher&agrave; un cambiamento proporzionale anche nell&rsquo;altro: vi sembrer&agrave; di essere bloccati, ed &egrave; proprio cos&igrave; finch&eacute; non deselezionate la catena.
+</p><p>Ora che il nostro rettangolo ha esattamente le stesse dimensioni della pagina, dovete fare in modo che coincida con i bordi della pagina impostando le sue posizioni X e Y a 0,000; se cancellate i valori e inserite 0, e poi premete Tab o Invio, Scribus aggiunge automaticamente la virgola e gli zeri successivi.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt4.png"/></td></tr></table> 
+
+<p><i><b>Suggerimento:</b> avete visto come farlo manualmente, ma nella versione 1.4.0 esiste un modo rapido per creare una cornice che riempia tutto lo spazio fino ai margini della pagina. Dopo aver premuto S per attivare l&rsquo;icona delle forme, tenete premuto il tasto Maiusc e fate clic in un punto qualunque sulla pagina: subito compare una cornice grande quanto i margini; nel nostro caso sar&agrave; grande quanto l&rsquo;intera pagina poich&eacute; abbiamo impostato i margini a 0.</i></p>
+
+</p><p>Per impostazione predefinita, Scribus usa &ldquo;Nessuno&rdquo; come colore di riempimento per le forme, che non &egrave; ci&ograve; che ci serve. Con la nostra forma ancora selezionata, usiamo il pannello Propriet&agrave; per assegnarle nuovi colori. A questo scopo selezioniamo la scheda &ldquo;Colori&rdquo;. Nell&rsquo;elenco selezionate &ldquo;Grey41&rdquo; come colore di riempimento.</p>
+<p>Ogni forma e ogni cornice in in Scribus ha un bordo. Per le forme il colore predefinito &egrave; il nero. Poich&eacute; non vogliamo che il bordo della nostra cornice abbia un colore, fate clic sul simbolo con il pennello e selezionate il colore  &ldquo;Nessuno&rdquo;, che &egrave; sempre il primo dell&rsquo;elenco.
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt5.png"/></td></tr></table> 
+
+</p><p>Lo sfondo della pagina &egrave; completo. Per assicurarvi che non ci siano cambiamenti non intenzionali, tornate alla scheda &ldquo;X,Y,Z&rdquo; del pannello Propriet&agrave; e fate clic sul simbolo &ldquo;lucchetto&rdquo;: in questo modo lo sfondo sar&agrave; protetto da modifiche.
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt6.png"/></td></tr></table> 
+</p>
+<h2>Passo due: inserire l&rsquo;immagine di copertina</h2>
+
+<p>Ora che lo sfondo &egrave; stato creato, bisogna inserire l&rsquo;immagine di copertina. Forse siete abituati a inserire direttamente le immagini quando usate un elaboratore di testo, ma in Scribus esse sono inserite in un apposito contenitore (detto cornice). Per le immagini, o, pi&ugrave; precisamente, per le immagini bitmap, create una cornice immagine facendo clic sull&rsquo;icona &ldquo;Inserisci cornice immagine&rdquo; nella barra degli strumenti, oppure premendo I sulla tastiera. Tracciate la cornice immagine nello stesso modo visto prima per il rettangolo, e, come prima, andate alla scheda &ldquo;X,Y,Z&rdquo; del pannello Propriet&agrave;.</p>
+
+<p>Date a questa cornice immagine il nome &ldquo;Rembrandt1&rdquo;, e per larghezza e altezza inserite i valori come mostrato nello screenshot qui sotto. La nostra immagine deve essere posizionata esattamente in basso a destra nella pagina. Come si pu&ograve; fare? A dire il vero, &egrave; piuttosto facile. Conosciamo le coordinate X e Y della pagina, e cio&egrave; 210 mm e 285 mm. Quindi potete inserire questi valori nelle caselle &ldquo;Pos X&rdquo; e &ldquo;Pos Y&rdquo; ma aspettate! prima di farlo, modificate il punto base dell&rsquo;oggetto. Quando avete inserito i valori 0,000 per la forma sullo sfondo, i valori erano per la parte superiore sinistra della pagina. Ma l&rsquo;immagine deve essere allineata ai margini inferiore e destro, quindi modifichiamo il punto base a inferiore destro prima di inserire i valori X e Y. Inoltre, rendiamo fisse le misure della cornice immagine bloccandola:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt7.png"/></td></tr></table> 
+
+</p><p>Per rendere la nostra copertina un po&rsquo; pi&ugrave; elegante, aggiungiamo una copia modificata dell&rsquo;immagine. Sar&agrave; quasi del tutto nascosta: si vedr&agrave; solo una piccola striscia sulla sinistra. Usiamo <i>Elemento &gt;  Duplicazione multipla</i> per quest&rsquo;operazione, perch&eacute; ci permette di dare valori precisi per lo spostamento orizzontale e verticale. Ci serve una sola copia, e in &ldquo;Distanza orizzontale&rdquo; inserite -6mm, in modo che la copia sia collocata a sinistra dell&rsquo;immagine di copertina:
+</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt8.png"/></td></tr></table> 
+
+</p><p>Poich&eacute; la nuova cornice immagine &egrave; una copia di &ldquo;Rembrandt1&rdquo;, non c&rsquo;&egrave; bisogno di cambiarne le dimensioni, e la sua posizione &egrave; stata determinata dall&rsquo;operazione di copia. Assegnatele il nome &ldquo;Rembrandt2&rdquo;. Ma ora c&rsquo;&egrave; un altro problema: la nuova cornice immagine si trova sopra la cornice per l&rsquo;immagine di copertina. La soluzione consiste nello spostarla dietro di essa. Finora sono stati creati tre oggetti, e ciascun nuovo oggetto &egrave; stato collocato sopra i precedenti; quindi spostiamo la copia a una quota inferiore, cio&egrave; sotto &ldquo;Rembrandt1&rdquo;:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt9.png"/></td></tr></table> 
+
+<p>Ora il nostro lavoro si fa un po&rsquo; pi&ugrave; serio, e dobbiamo inserire nel nostro documento del materiale dall&rsquo;esterno di Scribus. Per caricare l&rsquo;immagine di copertina in &ldquo;Rembrandt1&rdquo;, fate clic col tasto destro sulla cornice e poi su &ldquo;Carica immagine&rdquo;:</p> 
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt10.png"/></td></tr></table> 
+
+<p>Si apre una finestra di dialogo da cui caricare il file, ma, come di solito accade per le mostre, c&rsquo;&egrave; un gran numero di immagini con nomi molto simili, tutte nella stessa directory. Come possiamo identificare il file giusto? Houston, abbiamo un problema! E invece no. Fortunatamente, Scribus fornisce un&rsquo;anteprima nella finestra di dialogo per le immagini:
+</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt11.png"/></td></tr></table> 
+
+<p>Ora che abbiamo identificato la giusta versione del file, fate clic sul pulsante &ldquo;Apri&rdquo; oppure semplicemente doppio clic; ma cosa succede??
+</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt12.png"/></td></tr></table> 
+
+<p>Sembra ovvio che le misure dell&rsquo;immagine e le misure della cornice immagine non siano gemelli identici, ma fortunatamente il pannello Propriet&agrave; ci viene in soccorso e le obbliga a comportarsi come se lo fossero. Nella scheda &ldquo;Immagine&rdquo; contrassegnate le opzioni &ldquo;Adatta alla cornice&rdquo; e &ldquo;Proporzionale&rdquo; e la nostra immagine di copertina sar&agrave; perfettamente posizionata:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt13.png"/></td></tr></table> 
+
+<p>La prossima cosa che ci serve &egrave; una copia del contenuto di &ldquo;Rembrandt1&rdquo; in &ldquo;Rembrandt2&rdquo;. Fate clic col tasto destro su &ldquo;Rembrandt1&rdquo; e poi su &ldquo;Contenuto &gt; Copia&rdquo;. Poi fate clic col tasto destro sulla striscia visibile di &ldquo;Rembrandt2&rdquo; e poi su &ldquo;Contenuto &gt; Inserisci&rdquo;. Il risultato &egrave; tutt&rsquo;altro che spettacolare, quindi bisogner&agrave; eseguire qualche magia su &ldquo;Rembrandt2&rdquo;. Usate di nuovo il pulsante destro del mouse per aprire il men&ugrave; contestuale, questa volta per visualizzare la finestra di dialogo &ldquo;Effetti immagine&rdquo;:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt15.png"/></td></tr></table> 
+
+<p>Nella finestra di dialogo &ldquo;Effetti immagine&rdquo;, mettiamocela tutta e applichiamo all&rsquo;immagine quattro diversi effetti: inverti, sfocatura (raggio: 7,0), scala di grigi, e luminosit&agrave; (da impostare a -44):</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt16.png"/></td></tr></table> 
+
+<p>Ora l&rsquo;aspetto &egrave; molto migliore, non &egrave; vero?</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt17.png"/></td></tr></table> 
+
+<h2>Passo tre: aggiungere il testo</span></h2>
+
+<p>Ed ora diciamo al nostro pubblico chi &egrave; l&rsquo;eroe raffigurato nell&rsquo;immagine. A questo scopo, create una cornice di testo facendo clic sull&rsquo;icona Inserisci cornice di testo nella barra degli strumenti o premendo il tasto T; ormai avrete capito come funziona. Potete creare la cornice trascinando il puntatore del mouse, proprio come avete fatto prima per la forma rettangolare. Dovrebbe essere abbastanza grande da contenere il testo, come mostrato sotto. Poi fate doppio clic sulla cornice di testo e digitate REMBRANDT. Poi fate clic in qualche altro punto dello schermo e selezionate di nuovo la cornice di testo facendo clic (una sola volta) su di essa.
+
+</p><p>Aprite il pannello Propriet&agrave; (F2) e andate nella scheda &ldquo;Testo&rdquo;. Nel men&ugrave; di scelta del tipo di carattere scegliete &ldquo;Gentium&rdquo;, impostate le dimensioni del carattere a 97 pt e il colore del testo a &ldquo;Bianco&rdquo; per il nome di Rembrandt. Il risultato dovrebbe essere simile al seguente:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt17b.png"/></td></tr></table> 
+
+</p><p>Fino a questo punto la nostra copertina sembra a posto, ma &egrave; un po&rsquo; noiosa. &Egrave; ora di aggiungere qualche dettaglio pi&ugrave; raffinato. I fatti storici sono dalla nostra parte quando cerchiamo di raggiungere il nostro obiettivo: Rembrandt era il nome (certamente non comune) del nostro uomo, mentre il suo cognome era &ldquo;van Rijn&rdquo;. Quindi create un&rsquo;altra cornice di testo, fate doppio clic e digitate VAN RIJN. Scegliete lo stesso tipo di carattere e la stessa dimensione che avete usato prima, ma invece del bianco usate il colore &ldquo;Pink2&rdquo;. &ldquo;Che cosa?&rdquo; dite voi, &ldquo;Rosa? Rembrandt vi prenderebbe immediatamente a schioppettate!&rdquo; Di sicuro lo farebbe, se non avesse visto ci&ograve; che abbiamo intenzione di fare, e infatti non abbiamo ancora finito. Passate alla scheda &ldquo;Colori&rdquo; e impostate &ldquo;Tonalit&agrave;&rdquo; a 50% e &ldquo;Opacit&agrave;&rdquo; a 20%. &Egrave; meglio ora? Ve l&rsquo;avevamo detto, e persino Rembrandt apprezza il risultato: potete quasi vederlo sorridere.
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt18.png"/></td></tr></table> 
+
+</p><p>Infine, spostate la cornice &ldquo;Van Rijn&rdquo; una quota pi&ugrave; bassa, dietro la cornice &ldquo;Rembrandt&rdquo;:</p>
+
+<p>Ora aggiungete altre tre cornici di testo e inserite i testi &ldquo;1606&rdquo;, &ldquo;2006&rdquo; e &ldquo;Painting the Dutch Golden Century&rdquo;. Usate il carattere Gentium per tutte le cornici di testo; ai numeri date la dimensione di 53 pt e al testo di 31 pt. Selezionate dei colori per il testo che somiglino a quelli che vedete su schermo; dopo ci&ograve; che avete imparato finora, dovrebbe gi&agrave; essere facile. Qui vediamo un suggerimento per un buon design: notate l&rsquo;aspetto piacevole che otteniamo usando lo stesso tipo di carattere per tutti gli elementi, anche se con colori e dimensioni diverse.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt18b.png"/></td></tr></table> 
+
+<p>Per rifinire il titolo, tracciate una linea retta facendo clic sull&rsquo;icona &ldquo;Inserisci linea&rdquo; sulla barra degli strumenti e trascinando col mouse. Trascinate il mouse da sinistra a destra tenendo premuto il tasto Ctrl per far s&igrave; che la linea sia orizzontale. Poi aprite il pannello Propriet&agrave; e spostatevi nella scheda &ldquo;Linea&rdquo;. Qui potete sperimentare con lo Spessore Linea, poi spostatevi nella scheda  &ldquo;Colori&rdquo;, aprite l&rsquo;elenco dei colori per la linea (icona con il pennello) e scegliete &ldquo;WhiteSmoke&rdquo;.
+</p><p>Per finire, spostate la linea a met&agrave; tra le cornici di testo &ldquo;1606&rdquo; e &ldquo;2006&rdquo; .</p>
+
+
+<h2>Passo quattro: aggiungere l&rsquo;&ldquo;Editore&rdquo;</h2>
+
+<p>Le operazioni conclusive consistono nell&rsquo;aggiungere un editore immaginario e il suo logo. Con uno sfoggio di modestia, chiameremo il nostro editore &ldquo;Scribus Publishing&rdquo;. Cos&igrave; non dovremo scervellarci per inventare un logo, ma potremo usare quello di Scribus. Potete trovarlo nella cartella <code>~/share/scribus/icons</code>, dove ~ &egrave; la directory in cui Scribus &egrave; installato sul vostro computer. Il file si chiama <code>scribus.png</code>.</p>
+
+<p>Ora create una piccola cornice immagine in fondo alla pagina, tra il bordo e le immagini di copertina. Assicuratevi che il colore di riempimento di questa cornice sia impostato a &ldquo;Nessuno&rdquo;, Perch&eacute; vi importeremo un&rsquo;immagine con sfondo trasparente. Poi, come abbiamo fatto con la prima immagine, importiamo l&rsquo;icona con clic sul tasto destro &gt; <i>Carica immagine</i>. Per evitare che i colori dell&rsquo;icona interferiscano con i colori che abbiamo scelto per la pagina, aprite la finestra di dialogo Effetti Immagine come spiegato al passo 2. Trasformate l&rsquo;immagine in &ldquo;Scala di grigi&rdquo; e aumentate il contrasto: in questo modo il logo rester&agrave; ben visibile, e allo stesso tempo non contraster&agrave; con i colori scelti prima.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt20.png"/></td></tr></table> 
+
+<p>Per aggiungere il nome dell&rsquo;editore, create una cornice di testo in un punto qualunque della pagina, chiamatela &ldquo;ScribusPublishing&rdquo; nella scheda &ldquo;X,Y,Z&rdquo; del pannello Propriet&agrave; e inseritevi il testo &ldquo;Scribus Publishing&rdquo;. Scegliete &ldquo;Bitstream Vera Sans&rdquo; come tipo di carattere, impostate la dimensione a 13 pt e il colore a &ldquo;Grey97&rdquo;.
+</p><p>Infine, ruotate la cornice di testo di 90 gradi. Il posto giusto per farlo &egrave; la scheda &ldquo;X,Y,Z&rdquo; del pannello Propriet&agrave;: basta cambiare il valore della &ldquo;Rotazione&rdquo; a 90:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Rembrandt21.png"/></td></tr></table> 
+
+<p>Ora usate il mouse per spostare la cornice di testo ruotata in una posizione al di sopra del logo di Scribus. Ora fate clic su <i>File &gt; Salva</i>, inserite &ldquo;Rembrandt-tp&rdquo; come nome del file e fate clic su &ldquo;OK&rdquo;. Voil&#224;! Avete appena creato il vostro primo documento in Scribus. Non &egrave; stato cos&igrave; difficile, vero?
+</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Cover_en1-page1.png"/></td></tr></table> 

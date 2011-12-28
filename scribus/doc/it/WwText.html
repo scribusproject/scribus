@@ -1,0 +1,188 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Lavorare con il testo</title>
+</head>
+<body>
+<h2>Lavorare con il testo</h2>
+Diversamente da quanto accade in un elaboratore di testo, Scribus usa un ambiente a cornici. Quindi non potete semplicemente inserire del testo nella pagina. Leggete <a href="WwFrames.html">Lavorare con le cornici</a> per sapere come creare e manipolare cornici. Quando avete una cornice di testo, ci&ograve; che dovete fare &egrave; inserire del testo al suo interno.
+<p>Potete inserire del testo in una cornice di testo nei seguenti modi:
+<ul>
+<li>usando l'editor interno.</li>
+<li>direttamente nella cornice, visualizzata nella finestra principale.</li>
+<li>importando il testo da un file di testo semplice.</li>
+<li>importando il testo formattato da documenti di tipo ODT, HTML, CSV. Ci sono altri formati di file, come il DOC, da cui Scribus pu&ograve; importare il testo, ma senza alcuna formattazione.</li>
+<li>potete anche inserire in un file di testo dei marcatori personalizzati, che facciano da filtro per la formattazione al momento dell'importazione.</li>
+</ul>
+<h3>Usare l'editor interno</h3>
+Citiamo per primo questo metodo perch&eacute; &egrave; quello consigliato per inserire del testo manualmente da tastiera. Potete aprire l'editor interno dal men&ugrave; contestuale oppure premendo Ctrl+T. Poich&eacute; l'editor interno &egrave; molto versatile, sar&agrave; descritto in dettaglio in un'apposita sezione. Il suo svantaggio principale &egrave; che l'aspetto finale del testo non &egrave; visibile finch&eacute; non aggiornate la cornice (questo si pu&ograve; fare anche senza uscire dall'editor interno). L'editor interno offre anche la possibilit&agrave; di applicare comodamente gli stili di paragrafo e di carattere.
+<h3>Inserire testo dalla finestra principale</h3>
+Una cornice selezionata pu&ograve; passare alla modalit&agrave; Modifica Contenuto quando fate clic sull'icona Modifica contenuto cornice nella barra degli strumenti, oppure quando fate doppio clic sulla cornice stessa (da tastiera: E). Il vantaggio di questa modalit&agrave; &egrave; che l'aspetto del testo aggiunto o modificato &egrave; immediatamente visibile; &egrave; per&ograve; un po' pi&ugrave; lenta, poich&eacute; richiede di aggiornare frequentemente la visualizzazione. Potete usare il pannello Propriet&agrave; per modificare il carattere, lo stile, e altre propriet&agrave; come l'interlinea. Per piccole modifiche e per cornici che contengono una modesta quantit&agrave; di testo, la modalit&agrave; Modifica Contenuto pu&ograve; soddisfare adeguatamente le vostre necessit&agrave;.
+<h3>Immagini in linea</h3>
+Potete anche inserire immagini all'interno di una riga di testo. Basta semplicemente copiare (con Ctrl+C, ad esempio) l'oggetto e incollarlo nella riga mentre la cornice &egrave; in modalit&agrave; Modifica Contenuto. Non &egrave; possibile eseguire questa operazione nell'editor interno.
+<h3>Importare testo da un file</h3>
+Esaminiamo insieme gli ultimi tre punti dell'elenco, e parliamo ora dell'importazione di file di testo non formattati, formattati e con marcatori.
+<h3>Testo semplice</h3>
+Quando si fa clic su <b>Carica testo</b> si apre una finestra di dialogo che per impostazione predefinita mostra i file con estensioni .csv, .html, .htm, .odt, .pdb, .sxw, e .txt; quindi se salvate un file di testo semplice dovreste salvarlo come *.txt. In Linux potete inoltre importare file .doc se avete installato Antiword; sulle versioni di Scribus per Windows esso &egrave; gi&agrave; presente. Se la cornice ha gi&agrave; del contenuto, e il testo da importare deve essere aggiunto ad esso, usate il comando <b>Accoda testo</b>. L'operazione di accodamento si pu&ograve; eseguire sia in modalit&agrave; Seleziona elemento sia in modalit&agrave; Modifica Contenuto, ma il testo sar&agrave; sempre aggiunto alla fine.
+<p>Se volete inserire il contenuto di un file in un punto all'interno del testo, accodatelo, poi selezionate il testo in modalit&agrave; Modifica Contenuto, tagliatelo e incollatelo nel punto desiderato, menter siete in modalit&agrave; Modifica Contenuto oppure nell'editor interno.
+<p>Il testo semplice inserito in una cornice vuota avr&agrave; le impostazioni di carattere predefinite per le cornici di testo, che potete modificare in <i>File > Preferenze > Strumenti</i>.
+<h3>File in formato CSV, HTML, e ODT</h3>
+<ul>
+<li>I file in formato CSV (comma-separated values, o valori separati da virgole) sono tipicamente generati da fogli elettronici o programmi di database, ma sono abbastanza semplici da poter essere creati con un elaboratore di testo. I dati sono disposti in modo che una virgola o qualche altro carattere indica a Scribus il punto in cui inizia il campo successivo, e un ritorno a capo indica l'inizio della riga successiva nel file. Al momento dell'importazione, avete la possibilit&agrave; di indicare il carattere che fa da delimitatore, e anche di indicare un <i>delimitatore di valore</i>, di solito le virgolette. Il delimitatore di valore &egrave; opzionale, e pu&ograve; essere usato per permettere l'inserimento di virgole all'interno dei campi. Se contrassegnate l'opzione che indica che la prima riga &egrave; un'intestazione, i suoi valori saranno formattati in grassetto. Quando Scribus importa il testo, inserisce delle tabulazioni tra i campi; per la riga di intestazione saranno tabulazioni centrate, e per il resto del testo saranno tabulazioni a sinistra.</li>
+<li>Se si considera la grande variet&agrave; di elementi HTML, non dovrebbe sorprendere il fatto che vi sono limitazioni a ci&ograve; che Scribus pu&ograve; interpretare da un file HTML. Interpreta soltanto il testo compreso tra i marcatori &lt;body&gt; e &lt;/body&gt; e tenta principalmente di riconoscere intestazioni, paragrafi e interruzioni di riga, e stili di testo, ma gli stili disponibili possono dipendere dai tipi di carattere presenti nel sistema. Quando importate un file HTML complesso, potete aspettarvi di trovare una certa quantit&agrave; di testo estraneo. Scribus assegna degli stili alle varie parti di testo in base alla loro formattazione.</li>
+<li>I file in formato ODT (da OpenOffice.org) sono il formato consigliato quando volete automaticamente assegnare degli stili di Scribus al testo importato in una cornice. Potete aspettarvi risultati ottimi o eccellenti per il riconoscimento e l'assegnazione degli stili, purch&eacute; usiate gli stili in Writer. Questa pu&ograve; essere anche una soluzione alternativa per file DOC o in altri formati: importarli in Writer e salvarli in formato ODT. L'importazione di tabelle in genere non d&agrave; buoni risultati, nemmeno da file ODT.</li>
+</ul>
+<h3>File con marcatori</h3>
+<table cellpadding=3><tr>
+<td>L'idea di inserire qualche tipo di indicatore di testo, o marcatore, in determinati punti di un file di testo per dare l'avvio a qualche azione quando il file viene letto &egrave; elegante ed &egrave; sopravvissuta fin dagli albori dell'informatica. L'obiettivo in Scribus &egrave; quello di fare in modo che determinate caratteristiche (di solito uno stile di paragrafo) siano automaticamente applicate al testo. I marcatori possono essere qualunque gruppo di caratteri vogliate, ma dovrebbero essere facili da digitare, facili da riconoscere mentre esaminate il file, e unici. Ecco perch&eacute; i consigli presenti nel wiki e nel manuale cartaceo prevedono combinazioni di 2-3 lettere che iniziano con una barra rovesciata (\).
+<p>Quando preparate il file di testo dovreste inserire questi marcatori, ad esempio \h1 e \h2, all'inizio di ogni paragrafo a cui deve essere applicato un certo stile. Dopo averlo salvato, importatelo con il comando <b>Carica testo</b> come fareste con un file di testo semplice. Ma c'&egrave; una differenza. Probabilmente non l'avete notato, ma nella finestra di dialogo c'&egrave; un men&ugrave; a discesa con l'opzione <b>Automatico</b>; facendo clic su di esso il men&ugrave; si apre, e una delle opzioni &egrave; <b>Filtri di testo</b>.
+</td>
+<td rowspan=2><img src="images/text_filter136.png" ALT="Filtro testo automatico 2"></td>
+</tr>
+<tr><td><img src="images/text_filter135.png" ALT="Filtro testo automatico" ALIGN="center">
+</td></tr>
+<tr><td>Dopo aver scelto Filtri di Testo, aver selezionato il file da importare e premuto OK, avete un po' di lavoro da fare, poich&eacute;, se non avevate gi&agrave; creato le specifiche azioni corrispondenti ai marcatori, dovete farlo ora. Per ciascun marcatore potete scegliere fra le tre azioni <b>Elimina</b>, <b>Sostituisci</b>, <b>Applica</b>; ora vogliamo applicare uno stile, ma, come potete immaginare, si potrebbe anche eliminare o sostituire del testo durante l'importazione senza modificare il file stesso.
+<p>In questo piccolo esempio abbiamo creato un filtro a cui abbiamo dato il nome di <b>thesis</b> scegliendo di <b>applicare</b> uno <b>stile di paragrafo</b> chiamato <b>header1</b> ai <b>paragrafi che iniziano per</b> il nostro marcatore <b>\h1</b>, e di <b>eliminare i risultati</b> (gli \h1). Se avessimo creato thesis in precedenza, l'avremmo potuto scegliere dal men&ugrave; a discesa nell'angolo superiore destro della finestra di dialogo. In modo simile, se avessimo gi&agrave; creato questi stili, li avremmo potuti scegliere dall'elenco in cui si vedono header1 e header2. Si pu&ograve; cancellare un'azione premendo il pulsante <b>'&ndash;'</b>, e si pu&ograve; aggiungerne un'altra premendo il pulsante <b>'+'</b>.
+</td>
+<td><img src="images/text_filter136b.png" ALT="Filtro testo automatico 3"></td></tr>
+</table>
+<h3>Men&ugrave; contestuale</h3>
+<table cellpadding=3><tr>
+<td>Fate clic col tasto destro su una cornice e apparir&agrave; il suo men&ugrave; contestuale, mostrato qui a destra. Non descriveremo in dettaglio tutte le voci del men&ugrave;, che sono quelle contenute nell'elenco che segue.
+<ul>
+<li>La prima &egrave; <b>Informazioni</b> che fornisce notizie sul contenuto della cornice, statistiche sul numero di paragrafi, righe, e cos&igrave; via, e inoltre se la stampa &egrave; abilitata o no (il che vale anche per l'inclusione o meno della cornice nel PDF esportato).</li>
+<li><b>Annulla</b>: annulla l'ultima operazione eseguita sulla cornice. <b>Ripristina</b> viene visualizzato quando qualche operazione &egrave; stata annullata.</li>
+<li><b>Carica testo</b> e <b>Accoda testo</b> permettono l'importazione di testo da un file.</li>
+<li><b>Modifica testo</b>: apre l'Editor interno.</b>
+<li><b>Testo di esempio</b>: permette di importare il cosiddetto <i>Lorem ipsum</i>, non solo nell'originale latino, ma anche in molte altre lingue. Una finestra di dialogo permette la scelta della lingua e della quantit&agrave; di testo da caricare.</li>
+<li><b>Attributi</b> e <b>Opzioni PDF</b> sono opzioni avanzate di cui non parleremo qui.</li>
+<li><b>Bloccato</b>: se contrassegnata, blocca tutte le caratteristiche della cornice (posizione, dimensioni, contenuto). Una cornice bloccata non pu&ograve; essere cancellata, ma pu&ograve; essere copiata e incollata, e anche la copia sar&agrave; bloccata. Se duplicate una cornice bloccata, la copia duplicata non sar&agrave; bloccata.</li>
+<li><b>Dimensione bloccata</b>: come il nome suggerisce, se &egrave; contrassegnata blocca soltanto le dimensioni della cornice.</li>
+<li><b>Invia alla biblioteca</b> e <b>Invia ai motivi</b> non saranno descritte qui; diremo solo che permettono di salvare dei contenuti che possono essere riutilizzati in altri documenti.</li>
+<li><b>Quota</b>: permette di spostare la cornice a una quota superiore o inferiore sul livello corrente. Se il vostro documento ha pi&ugrave; di un livello, &egrave; presente anche una voce <b>Invia al livello</b> che permette di spostare la cornice da un livello all'altro.</li>
+<li><b>Converti in</b>: apre un sottomen&ugrave; con le seguenti scelte:
+<ul><li><b>Cornice immagine</b>: converte in quel tipo di cornice, nel qual caso il testo diventa invisibile, ma viene ripristinato se la cornice immagine viene ri-convertita in cornice di testo. Non &egrave; possibile mostrare testo e immagini nella stessa cornice, tranne che quando il testo &egrave; incorporato in un'immagine. Per inserire del testo sopra un'immagine, usate una cornice di testo posizionata sopra l'immagine.</li>
+<li><b>Contorni</b>: trasforma i glifi (caratteri) in immagini vettoriali, che sono poi raggruppate. <i>Questa operazione &egrave; da usare con cautela, poich&eacute; anche se sembra che vi sia un'opzione per ri-convertire i contorni in cornice di testo, il testo non sar&agrave; modificabile. Se volete tornare indietro, &egrave; meglio farlo con il comando Annulla fino a raggiungere il punto precedente alla conversione in contorni, ma dovete farlo con l'icona Annulla sulla barra degli strumenti oppure premendo Ctrl+Z.</i></li>
+<li><b>Poligono</b>: come per la conversione in cornice immagine, converte in poligono con apparente perdita del testo, recuperabile con Converti in cornice di testo.</li>
+</ul>
+<li><b>Taglia</b>, <b>Copia</b>, e <b>Elimina</b> sono descritte nella pagina Lavorare con le cornici.</li>
+<li><b>Contenuto > Pulisci</b>: &egrave; presente soltanto quando la cornice ha del contenuto, e vi sar&agrave; chiesta conferma prima di eseguire l'operazione.</li>
+<li><b>Propriet&agrave;</b>: apre o chiude il pannello Propriet&agrave;.</li>
+</ul>
+</td>
+<td><img src="images/context_text135.png" ALT="Menù contestuale delle cornici di testo"></td>
+</tr>
+</table>
+<h3>Collegare cornici di testo</h3>
+<table cellpadding=3><tr>
+<td>In un documento formato da pi&ugrave; pagine, &egrave; probabile che sia necessario collegare il testo da una pagina alla successiva. Quando si crea un nuovo documento si pu&ograve; fare in modo che questo avvenga automaticamente. L'immagine a fianco mostra la parte inferiore destra della finestra di dialogo <b>Nuovo Documento</b>. In quest'esempio abbiamo impostato il numero di pagine a 4, con cornici disposte su due colonne (che riempiranno la pagina fino ai margini), e una distanza di 11 punti tra le colonne. <i>Dopo la creazione mostra impostazioni documento</i>, se contrassegnato, apre la finestra di dialogo <i>Impostazioni documento</i> dopo la pressione del pulsante <b>OK</b>.
+<p>In seguito potrete modificare liberamente le singole cornici senza che si perda il collegamento del testo. Inoltre, se aggiungete altre pagine al documento, esse conterranno le stesse cornici collegate.</td>
+<td><img src="images/text_linking.png" ALT="Opzioni nella finestra di dialogo Nuovo documento"></td>
+</table>
+<h3>Collegare cornici di testo esistenti</h3>
+<p><img src="images/text-frame-link.png" ALIGN-left>
+Se selezionate una cornice di testo non collegata, l'icona sulla barra degli strumenti mostrata a sinistra (quella con la freccia verde) si attiva. Fate clic sull'icona di collegamento, e poi sulla cornice a cui deve essere collegata quella selezionata; se volete collegare altre cornici dopo la seconda, fate clic su di esse nell'ordine in cui volete che siano collegate. <i>Quando avete finito i collegamenti, ricordate di fare clic sull'icona per disattivarla.</i>
+<p><img src="images/text-frame-unlink.png" ALIGN-left>
+Se volete scollegare cornici, il procedimento &egrave; simile. L'icona sar&agrave; attiva soltanto se avete selezionato una cornice collegata. Selezionate la cornice che volete scollegare, poi fate clic sull'icona Scollega e poi sulla cornice successiva nella serie collegata. <i>Se volete che il collegamento salti una certa cornice, dovrete ricreare il collegamento tra quella che precede e quella che segue la cornice da saltare.</i>
+<br clear=all>
+<h3>Propriet&agrave;: Testo</h3>
+<table cellpadding=3><tr>
+<td><img src="images/text_tab1.png" ALT="Proprietà: scheda Testob" ALIGN="right"></td>
+<td><p>A causa dell'aggiunta di nuove capacit&agrave; nella versione 1.4.0, e al ridisegno del pannello Propriet&agrave;, la scheda Testo &egrave; divenuta piuttosto complessa. La struttura di base sembra pi&ugrave; semplice, ma vi sono sei sottoschede con molte opzioni. Nella parte alta della scheda c'&egrave; un men&ugrave; per la scelta della famiglia di caratteri, e subito sotto per la scelta del carattere nell'ambito di quella famiglia. Poi viene la casella di controllo per la dimensione del testo, e un men&ugrave; a discesa per l'interlinea con tre scelte: <b>Interlinea fissa</b>, <b>Interlinea automatica</b>, e <b>Allinea alla griglia tipografica</b>. Se selezionate l'interlinea fissa, una casella di controllo a destra permette di impostare l'ampiezza dello spazio tra le righe di testo. Con l'opzione interliea automatica Scribus regola automaticamente lo spazio tra le righe in base alle dimensioni del carattere. L'impostazione predefinita &egrave; pari al 120% del corpo del carattere, ma la si pu&ograve; modificare in <i>File > Preferenze > Tipografico</i>. Infine, la fila di pulsanti in fondo permette di impostare il tipo di giustificazione: testo allineato a sinistra, centrato, allineato a destra, giustificato, giustificato forzato.
+<p>&Egrave; importante notare che in modalit&agrave; Seleziona Elemento le modifiche saranno applicate all'intero contenuto della cornice. In modalit&agrave; Modifica Contenuto le cose sono un po' pi&ugrave; complesse:
+<ul>
+<li>se il cursore si trova in una certa posizione nel testo, le modifiche di famiglia, tipo e dimensioni di carattere saranno applicate al singolo glifo a destra del cursore;</li>
+<li>se un blocco di testo &egrave; selezionato con il cursore, le modifiche di famiglia, tipo e dimensioni di carattere saranno applicate ai glifi selezionati;</li>
+<li>le modifiche all'interlinea e alla giustificazione saranno applicate al paragrafo in cui si trova il cursore oppure al paragrafo/i in cui si trovano le parole selezionate. <i>Si noti che con l'interlinea automatica, la spaziatura tra le righe viene regolata riga per riga in situazioni in cui la dimensione del carattere varia da parola a parola o da lettera a lettera nello stesso paragrafo. Nella maggior parte dei casi, scoprirete che quando un paragrafo contiene caratteri di dimensioni diverse, l'interlinea fissa produce un risultato pi&ugrave; attraente.</i></li>
+</ul>
+</td></tr>
+</table>
+<h3><a name="10">La griglia tipografica</a></h3>
+<table cellpadding=3 width="80%"><tr>
+<td>La griglia tipografica &egrave; sempre presente, ma &egrave; nascosta per impostazione predefinita, e non viene mai inserita nelle stampe del documento o nel PDF esportato. Pu&ograve; essere visualizzata con <i>Vista > Mostra griglia tipografica</i>. La distanza tra le sue linee &egrave; di 14,40 punti per impostazione predefinita, e pu&ograve; essere modificata in <i>File > Preferenze > Guide</i>; qui, inoltre si pu&ograve; modificare lo <b>sfasamento dalle linee di base</b>, cio&egrave; la distanza dei glifi dalle linee di base, che pu&ograve; assumere un valore positivo o negativo.
+<p>Qui a destra vediamo del testo allineato alla griglia tipografica nell'intera cornice, con alcune parole e lettere che sono state modificate in modalit&agrave; Modifica Contenuto. Lo sfasamento qui &egrave; 0. Come potete vedere, questo &egrave; un metodo per mantenere l'interlinea costante quando la dimensione del carattere varia all'interno di uno stesso paragrafo, poich&eacute; l'allineamento alla griglia tipografica non &egrave; altro che un particolare tipo di interlinea fissa. L'allineamento alla griglia tipografica si usa comunemente quando si vuole fare in modo che righe che si trovano in cornici o colonne adiacenti abbiano lo stesso allineamento.</td>
+<td><img src="images/text_tab2.png" ALT="Griglia tipografica" ALIGN="right"></td></tr>
+</table>
+
+<h3>Colore ed effetti</h3>
+<table cellpadding=3><tr>
+<td>In questa sottoscheda si possono impostare i colori del testo. Il colore di riempimento sar&agrave; il colore vero e proprio del testo. Il colore del contorno si pu&ograve; impostare solo quando sono attivati gli effetti di ombreggiatura o di contorno, e si pu&ograve; scegliere un solo colore che sar&agrave; applicato a entrambi gli effetti.
+<p>Da sinistra a destra, i pulsanti degli effetti sono i seguenti:
+<ol>
+<li>Sottolinea parti del testo, compresi gli spazi. Tenete premuto il pulsante per regolare lo <b>Spostamento</b> e lo <b>Spessore</b> della linea. I valori predefiniti sono in <i>File > Preferenze > Tipografico</i>.</li>
+<li>Sottolinea soltanto le parole, escludendo gli spazi compresi. Tenete premuto il pulsante per regolare lo <b>Spostamento</b> e lo <b>Spessore</b> della linea. I valori predefiniti sono in <i>File > Preferenze > Tipografico</i>.</li>
+<li>Pedice. Le dimensioni relative (<b>Scala</b>) e lo <b>Spostamento</b> sono impostate in <i>File > Preferenze > Tipografico</i>.</li>
+<li>Apice. I valori predefiniti sono in <i>File > Preferenze > Tipografico</i>.</li>
+<li>Tutto maiuscolo.</li>
+<li>Maiuscoletto. Esistono alcuni tipi di carattere che hanno un vero maiuscoletto; quest'opzione offre una soluzione alternativa per quelli che ne sono privi.</li>
+<li>Barrato. Tenete premuto il pulsante per regolare lo <b>Spostamento</b> e lo <b>Spessore</b> della linea. I valori predefiniti sono in <i>File > Preferenze > Tipografico</i>.</li>
+<li>Contornato. Tenete premuto il pulsante per regolare lo <b>Spessore della linea</b>.</li>
+<li>Ombreggiato. Tenete premuto il pulsante per regolare gli <b>spostamenti orizzontale e verticale</b>.</li>
+<li>Scrittura da destra a sinistra. I glifi vengono ribaltati orizzontalmente e sono disposti da destra a sinistra. Funziona solo per l'intera cornice, non per glifi/parole/paragrafi.</li>
+</ol>
+</td>
+<td valign=middle><img src="images/text_tab3.png" ALT="Coloi & effetti"></td>
+</tr>
+</table>
+<table cellpadding=3><tr>
+<td align=center><img src="images/text_tab4.png" ALT="Soluzione alternativa per invertire una parola" ALIGN="left"></td>
+<td>Qui a sinistra &egrave; mostrata una soluzione alternativa per l'apparente incapacit&agrave; di invertire il senso di scrittura di una singola parola, usando un'immagine in linea. Abbiamo creato una piccola cornice di testo contenente la parola da invertire, poi l'abbiamo convertita in contorni. Il gruppo di contorni &egrave; stato poi ribaltato orizzontalmente, copiato e inserito (come immagine in linea) nel testo di esempio.</td>
+</tr>
+</table>
+<h3>Impostazioni stile</h3>
+Qui, nel pannello Propriet&agrave;, possiamo solo impostare uno stile gi&agrave; esistente. La creazione e la modifica degli stili &egrave; spiegata in <a href="WwStyles.html">Lavorare con gli stili</a>.
+<h3>Spostamento prima riga</h3>
+<table cellpadding=3>
+<tr><td>Lo spostamento della prima riga indica la posizione della prima riga rispetto al bordo superiore della cornice, o lo spazio tra di essi. In quest'esempio vediamo da sinistra a destra gli effetti delle tre opzioni <b>Massimo ascendente</b>, <b>Ascendente del carattere</b> e <b>Spaziatura tra le righe</b>.
+</td></tr>
+<tr>
+<td><img src="images/text_tab7a.png" ALT="First Line Offset"></td></tr>
+</table>
+<h3>Colonne e distanze dal testo</h3>
+<table cellpadding=3 width="60%"><tr>
+<td><img src="images/text_tab6.png" width=200 height=200 ALT="Colonne e distanze dal testo" ALIGN="left"></td>
+<td>In precedenza queste opzioni si trovavano nella scheda Forma, ma ora, sensatamente, sono state spostate nella scheda Testo, poich&eacute; si applicano alle cornici di testo. Un altro miglioramento, visibile in quest'esempio, &egrave; la possibilit&agrave; di impostare due <b>colonne</b>, la <b>distanza</b> tra le colonne, e le <b>distanze dai margini</b>, anche quando la cornice &egrave; vuota. Le visualizzazione delle colonne pu&ograve; essere attivata o disattivata in <i>Vista > Mostra colonne della cornice testo</i>.</td></tr>
+</table>
+<h3>Tabulatori</h3>
+<p>Le tabulazioni si possono creare e modificare negli stili, come descriveremo nella pagina Lavorare con gli Stili, ma qui &egrave; possibile creare e applicare tabulazioni per tutto il contenuto della cornice. &Egrave; piuttosto facile creare tabulatori: basta fare clic in un punto sul righello e sar&agrave; creata una tabulazione <b>sinistra</b>. La <b>posizione</b> pu&ograve; essere modificata trascinando la tabulazione lungo il righello, oppure con l'apposita casella di controllo. Il tipo di tabulazione pu&ograve; essere modificato in <b>destra</b>, <b>punto</b>, <b>virgola</b>, o <b>centro</b>. Per eliminare una tabulazione, fate clic su di essa e trascinatela via dal righello (verso l'alto o il basso).</p>
+<p>Tra i punti di tabulazione vi saranno spazi bianchi, ma potete cambiare il <b>carattere di riempimento</b> da <b>Nessuno</b> a <b>Punto</b>, <b>Trattino</b>, <b>Trattino basso</b> o a un carattere <b>personalizzato</b> a vostra scelta.</p>
+<p><img src="images/text_tab10.png" ALT="Tabulatori"></p>
+<p>Tipi di tabulazione:
+<ul>
+<li>sinistra - il testo inserito si sposta a destra del punto di tabulazione.</li>
+<li>destra - il testo inserito si sposta a sinistra del punto di tabulazione finch&eacute; Tab &egrave; premuto di nuovo.</li>
+<li>punto - il testo o i numeri inseriti sono centrati intorno a un punto finch&eacute; Tab &egrave; premuto di nuovo.</li>
+<li>virgola - il testo o i numeri inseriti sono centrati intorno a una virgola finch&eacute; Tab &egrave; premuto di nuovo.</li>
+<li>centro - il testo inserito viene centrato sul centro della stringa finch&eacute; Tab &egrave; premuto di nuovo.</li>
+</ul></p>
+<h3>Allineamento ottico al margine</h3>
+<table cellpadding=3 width="75%"><tr>
+<td>Quando una riga inizia o finisce con un segno di punteggiatura, i caratteri adiacenti vengono leggermente spinti verso l'interno della colonna di testo, dando al suo margine un aspetto lievemente frastagliato. Con l'applicazione dell'allineamento ottico, la punteggiatura sporge lievemente oltre il margine, in modo che i punti estremi dei caratteri siano meglio allineati tra loro.
+<p>Nell'immagine a fianco, sul lato sinistro &egrave; mostrato il margine di una colonna di testo senza allineamento ottico, e a destra &egrave; mostrato il suo aspetto con l'allineamento ottico.</td>
+<td><img src="images/text_tab11b.png" ALT="Margini ottici" ALIGN="right"></td></tr>
+</table>
+<h3>Impostazioni avanzate</h3>
+<table cellpadding=3 width="80%">
+<tr><td>La parte superiore di questa sottoscheda contiene alcune funzioni presenti in Scribus da molto tempo, ma che sono state spostate qui. Partendo dalla casella di controllo in alto a sinistra, troviamo in senso orario lo spostamento dei caratteri rispetto alla linea di base, e non soltanto rispetto alla griglia tipografica: questo permette di spostare le parole selezionate quanto volete al di sopra o al di sotto la linea di base.
+<p>L'opzione successiva &egrave; la crenatura manuale, che permette di regolare la spaziatura tra glifi, sia diminuendola (con una percentuale negativa) che aumentandola.
+<p>La casella in basso a destra permette di estendere o restringere i glifi in direzione verticale, e quella in basso a sinistra permette di farlo in direzione orizzontale.</td>
+<td><img src="images/text_tab13.png" ALT="Impostazioni avanzate" ALIGN="right"></td>
+</tr>
+</table>
+<h3>Spaziatura tra le parole ed estensione dei glifi</h3>
+Potete considerare queste funzioni come modalit&agrave; pi&ugrave; avanzate o intelligenti di regolare la crenatura e l'ampiezza 
+dei caratteri, in cui possiamo, impostando i parametri Minimo e Normale, o Minimo e Massimo, fare in modo che la spaziatura sia regolata in modo variabile nelle diverse parti del testo comprese nella cornice. Alla modifica dei parametri vedrete che solo alcune parole e alcune righe variano in aspetto e distribuzione. L'obiettivo &egrave; quello di ottenere una distribuzione del testo nella cornice pi&ugrave; uniforme e pi&ugrave; piacevole, tentando di eliminare o evitare problemi come canaletti di spazio bianco.</p>
+<hr>
+<p>Vedi anche:
+<ul>
+<li><a href="WwFrames.html">Lavorare con le cornici</a></li>
+<li><a href="WwStyles.html">Lavorare con gli stili</li>
+<li><a href="hyphenator.html">Sillabazione</a></li>
+<li><a href="pagenumber.html">Numerazione automatica delle pagine</a></li>
+<li><a href="short-words.html">Il plugin Parole Brevi</a></li>
+<li><a href="importhints3.html">Importazione di file OpenOffice.org e ODF</a></li>
+<li><a href="importhints4.html">Importazione HTML</a></li>
+</ul>
+</p>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<body>
+<head><TITLE>Render Frames</TITLE></head>
+<body>
+<h2>Introduction</h2>
+<p>Since version 1.3.5 Scribus offers a powerful new feature called Render Frames. Originally planned as a means to insert formulas into
+Scribus documents, the inventor, Hermann Kraus, has enabled the creation of almost any kind of special typesetting, like formulas, musical notation or chess notation, from within Scribus. The trick here is that Scribus uses other programs in the background and imports their output into a special frame type called <b>Render Frames</b>.</p>
+<p>While this feature is extremely versatile, you must not forget that the use of it requires knowledge of the markup codes required by a particular program. These commands are beyond the scope of the Scribus documentation.</p>
+<h2>Creating a Render Frame</h2>
+<p>To create a Render Frame, click on the Render Frame icon in the menu bar, use <i>Insert&nbsp;&gt; Render Frame</i>, or press D on the keyboard:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf2.png"/></td></tr></table>
+<p>The cursor will then turn into a frame symbol with an L inside:</p>
+<table width="100%"><tr><td align="center"><img src="images/DrawLatexFrame.png"/></td></tr></table>
+<p><br><br>
+</p>
+<p>The next step is to click-drag the frame and let up, just like you would do with a text frame. By default, Scribus will display a welcome message, which indicates that at least the configuration for LaTeX is correct. What you see below is the output from LaTeX, rendered in Scribus. The welcome message will be displayed in the language of the user interface as set in the <a href="settings1.html#1">Preferences</a>. If no translation of the message is available, you will see the English version:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf3.png"/></td></tr></table>
+<p>The screenshot above has been made with the default resolution of 72 dpi, which, obviously, isn&rsquo;t enough for printing. You can easily change the resolution as you&rsquo;ll learn below.</p>
+<h1>Editing Render Frames</h1>
+<p>If you right-click on a Render Frame, the context menu shows an entry called &ldquo;Edit Source:&rdquo;</p>
+<table width="100%"><tr><td align="center"><img src="images/rf4.png"/></td></tr></table>
+<p>Selecting it brings up the &ldquo;heart&rdquo; of the Render Frame, the editor:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf5.png"/></td></tr></table>
+<p>In Scribus 1.4, the editor is preconfigured to use LaTeX, Lilypond, gnuplot, dot/GraphViz and POV-Ray.</p>
+<p>To the left you see a field with the caption &ldquo;Enter Code.&rdquo; Here you can insert the markup code for the output you want from the external program. For preconfigured renderers Scribus is shipped with some simple code snippets that will enable you to test whether the respective programs are installed and configured properly. As you can see, the editor provides syntax highlighting.</p>
+<p>The &ldquo;Update&rdquo; button beneath the text field will update the content of the Render Frame, so that you can visually check the results of changes you made to the markup text without closing the editor. &ldquo;Revert&rdquo; will revert any change you made to the text. Please be aware that once you started editing the text, it&rsquo;s no longer possible to change the markup renderer, e.g., if you started editing LaTeX source code, you cannot switch to Lilypond anymore.</p>
+<p>To the right you see a row of tabs. These are not available for all preconfigured markup languages, so sometimes the editor only shows the &ldquo;Options&rdquo; tab. 
+</p>
+<p>In the &ldquo;Options&rdquo; tab, the first entry is &ldquo;Resolution.&rdquo; Its default setting is &ldquo;Automatic,&rdquo; thus, 72 dpi as explained above. You can easily change the resolution of the output to something more suitable for printing.</p>
+<p>&ldquo;Program&rdquo; shows the list of supported programs. The editor will list all programs that are configured in <I>File &gt; Preferences&gt; External Tools</I>.</p>
+<p>If you check &ldquo;Use Preamble,&rdquo; the editor will automatically use the preamble and the postamble as specified in the XML configuration files. See below for more details.</p>
+<p>&ldquo;Program Messages&rdquo; shows the messages that would otherwise be displayed in a command-line interpreter. They are &ldquo;intercepted&rdquo; by Scribus, just like the final output, and they are often useful to find out what went wrong if the rendering failed.</p>
+<p>If you click on &ldquo;Run external editor,&rdquo; Scribus will start the editor as specified in the Preferences, and &ldquo;Kill Program&rdquo; will stop the external program. This can be useful when the external program stumbles across an error you made in your markup that causes the external program to fail or even crash.</p>
+<h2>Preconfigured Programs</h2>
+<h3>LaTeX</h3>
+<table width="100%"><tr><td align="center"><img src="images/rf6.png"/></td></tr></table>
+<p>The first LaTeX tab is called &ldquo;Fonts/Headers.&rdquo; In the upper drop-down list you can set the font used for a Render Frame that uses LaTeX. By default, only four fonts are listed, but you can easily add more by editing the LaTeX XML configuration file as described in detail below: Just add another font under <code>&lt;list name=&quot;font&quot; default=&quot;&quot;&gt;</code> in the file. Please note that the font list for LaTeX (and many other markup programs) is probably completely different from the fonts available to you in Scribus and other programs, as LaTeX uses its own fonts and needs to be configured to use the Type&nbsp;1, TrueType and OpenType fonts available to you in programs like Scribus or LibreOffice. For more information about LaTeX font configuration see the <a href="http://www.latex-project.org/guides/fntguide.pdf">LaTeX Font Selection Guide (PDF)</a>.</p>
+<p>The next drop-down list allows for changing the default font size. If you are used to LaTeX, you will already know that this is the setting for the base font. Other necessary font sizes, e.g. for superscript and subscript are determined by LaTeX. You will also note that the editor lists only a
+selection of base font sizes. Again, you can easily add other sizes under <code>&lt;list name=&quot;fontsize&quot; default=&quot;11pt&quot;&gt;</code>
+in the LaTeX XML configuration file. Since there are almost no limits as to the possibilities you have for the configuration of a LaTeX file, you will appreciate the option to select different XML configuration files in <i>File &gt; Preferences &gt; External Tools</i>.</p>
+<p>The text field &ldquo;Additional Headers&rdquo; allows for the insertion of additional headers to the preamble of the LaTeX markup, which will be stored within the Scribus SLA file.</p>
+<p>Finally, you find different tabs with symbols and characters that can be created by LaTeX:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf7.png"/></td></tr></table>
+<p>To insert a single symbol into your markup code, you can either select the symbol and click &ldquo;Insert Symbol&rdquo; or double-click on the icon in the field.</p>
+<p>For more information see the <a href="http://www.latex-project.org/">official LaTeX website</a>.</p>
+
+<h3>Lilypond</h3>
+
+<table width="100%"><tr><td align="center"><img src="images/lilyp.png"/></td></tr></table>
+
+<p>There are no additional options for Lilypond available.</p>
+<p>For more information see the <a href="http://lilypond.org/web/">official Lilypond website</a>.</p>
+
+<h3>gnuplot</h3>
+
+<table width="100%"><tr><td align="center"><img src="images/plot1.png"/></td></tr></table>
+<br></br>
+<p>The gnuplot options are very basic. Under &ldquo;Ranges&rdquo; you can enter the start and end digits for the X and the  Y axis. The default is an asterisk, which will result in gnuplot creating the digits automatically, according to the values set in the markup text.</p>
+<br></br>
+<table width="100%"><tr><td align="center"><img src="images/plot2.png"/></td></tr></table>
+<br></br>
+<p>The tab called &ldquo;Labels&rdquo; serves as an assistant to determine some visual aspects of a graph:</p>
+
+<ul>
+<li>&ldquo;Title&rdquo; will create a title for your graph, which will be placed at the top of the rendered image.</li>
+<li>&ldquo;X-Label&rdquo; and &ldquo;Y-Label&rdquo; will create captions for the X and Y axis.</li>
+<li>&ldquo;Grid&rdquo; and &ldquo;Grid Layer&rdquo; work similiar to the guides/page grid settings in Scribus, except that the grid in the graph will become part of the rendered image. You can choose between no grid at all, the major grid (&ldquo;Major ticks only&rdquo;) and major plus minor grid (&ldquo;Major and minor ticks&rdquo;). Just like in Scribus you can also decide to have the grid rendered in the background or in the foreground.</li>
+<li>&ldquo;Zero axis&rdquo; will create a dotted line to indicate either the X or the Y axis, or both. Note that using any grid will make the setting of any zero axis unnecessary, as both use the same color. If you want to use a different line style for grid and the axes, you have to do this in the markup text. Likewise, adding a Z axis requires the editing of the graph&rsquo;s source code.</li>
+</ul>
+
+<p>For more information see the <a href="http://www.gnuplot.info/">official gnuplot website</a>.</p>
+
+<h3>dot/Graphviz</h3>
+
+<p>There are no additional options for dot/Graphviz available.</p>
+
+<p>For more information see the <a href="http://www.graphviz.org/">official Graphviz website</a>.</p>
+
+<h3>POV-Ray</h3>
+
+<table width="100%"><tr><td align="center"><img src="images/povray.png"/></td></tr></table>
+<br></br>
+<p>The editor offers only one tab for the rendering of POV-Ray files, namley &ldquo;Rendering Options:&rdquo; </p>
+<ul>
+<li>&ldquo;Quality&rdquo; provides the same seven quality levels as the POV-Ray command-line interface, and the editor uses the same default level (&ldquo;Compute media and radiosity&rdquo;). Otherwise, the quality levels are listed in an ascending order, &ldquo;Just show quick colors&rdquo; providing the lowest quality.</li>
+<li>&ldquo;Antialiasing&rdquo; is a technique to &ldquo;smoothen&rdquo; edges in a rendered image. It can dramatically improve the quality of an image, but using it may result in much longer rendering times. The options &ldquo;Antialiasing Threshold&rdquo; and &ldquo;Antialiasing Depth&rdquo; are explained in detail in the POV-Ray documentation, but the default values should suffice in most cases.</li></ul>
+
+<p>For more information see the <a href="http://www.povray.org/">official POV-Ray website</a>.</p>
+
+<h2>Rendering</h2>
+<p>Once you have created the markup to your satisfaction, you can click the &ldquo;OK&rdquo; button.</p>
+<p>If you made a mistake, and the external program cannot render your markup, Scribus will display an error message:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf8.png"/></td></tr></table>
+<p><br><br>
+</p>
+<p>A blue &ldquo;X&rdquo; in the Render Frame along with an error message will then indicate that no content could be rendered:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf-error2.png"/></td></tr></table>
+<h2>Additional Notes</h2>
+<p>If you look at the Context Menu for Render Frames, you will get the impression that they are image frames. In a sense, that&rsquo;s correct, as you can change the preview settings for Render Frames or update the content. There is, however, a major difference: As said above, the markup text ist stored within a Scribus file, and the rendered content is always created &ldquo;on the fly.&rdquo; Each time you open a Scribus file that contains a Render Frame, Scribus will run the program that&rsquo;s necessary to render the content and create a temporary image file which will then be loaded into the frame. This is why Render Frames aren&rsquo;t listed in <i>Extras &gt; Manage Images</i>.</p>
+<p>This behavior has some consequences. While you can use a Scribus file with images on another computer by using <i>File &gt; Collect for Output</i>
+and copying the resulting archive to another machine, Render Frames require the presence of the used <i>software</i> on this machine. Moreover, the feature might not work between different operating systems, because the command-line options can be different.</p>
+<p>Another limitation is that you can&rsquo;t apply any image effects to Render Frames.</p>
+
+<h2>Configuration</h2>
+<p>To make Render Frames work, you need to have the required programs installed on your computer. By default, Scribus supports five programs, namely LaTeX, Lilypond, gnuplot, dot/Graphviz and Lilypond. On Linux, your package manager will take care about the installation and the dependencies of the software. On other platforms you might need to install the programs separately and edit some configuration files.</p>
+<p>If you open the tab &ldquo;External Tools&rdquo; in the Preferences, you see the configuration options for Render Frames at the bottom of the dialog:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf1.png"/></td></tr></table>
+
+<p>Under &ldquo;Configurations,&rdquo; Scribus shows the default configuration files. Each program you want to use from within Scribus needs a separate configuration file. To add a new program to your Render Frames, you have to create an XML file with some required settings. Below you see an abridged and commented gnuplot configuration file, which will serve as an example:</p>
+
+<p><code>&lt;editorsettings description="Gnuplot" icon="gnuplot.png"&gt;</code> This line sets the description of the program, as well as the icon for the drop-down list in the Render Frame Editor. It must be stored in the same directory as the XML file. You can use  PNG, XPM and SVG icons.</p>
+<p><code>&lt;executable command="gnuplot"&gt;</code> This is the command-line call of the program. You can only use software that can work on the command-line. Also, the program needs to be able to create output in either PNG, PDF or EPS format. By default, Scribus uses the command-line options for Linux/UNIX systems.</p>
+<p><code>&lt;imagefile extension=".png"/&gt;</code> Here you tell the editor which file format it has to expect from the external program.</p>
+<p><code>&lt;highlighter&gt; &lt;/highlighter&gt;</code> This part is mainly interesting for programmers, as it allows for the creation of indvidual syntax highlighting schemes by using Regular Expressions. For further information see: <a href="http://docs.kde.org/kde3/en/kdeutils/KRegExpEditor/index.html">http://docs.kde.org/kde3/en/kdeutils/KRegExpEditor/index.html</a> and <a href="http://doc.trolltech.com/4.4/qregexp.html">http://doc.trolltech.com/4.4/qregexp.html</a>.</p>
+<p><code>&lt;empty-frame-text&gt;</code> Here you can enter sample text in the markup language of the program you want to use, for instance:</p>
+<p><code>plot sin(x), (cos(x))**2</code></p>
+</p><code>&lt;preamble&gt;</code> If the markup language you want to use requires a preamble, you can enter it here. It will not be displayed in the editor.</p>
+<p><code>&lt;postamble&gt;</code> If the markup language you want to use requires a postamble, you can enter it here. It will not be displayed in the editor.</p>
+<p><code>&lt;tab type="settings"&gt;</code> Here&rsquo;s where translations to existing GUI strings as well as new tabs or other UI elements can be added via simple XML entries, for example:</p>
+<p><code>&lt;title&gt;&lt;i18n&gt;</code>
+<p6><code>
+<ul>
+<li>&lt;en&gt;Ranges&lt;/en&gt;
+<li>&lt;de&gt;Bereiche&lt;/de&gt;.org.org.org
+<li>&lt;fr&gt;Rangées&lt;/fr&gt;
+<li>&lt;pl&gt;Zakresy&lt;/pl&gt;
+<li>&lt;ru&gt;&#1044;&#1080;&#1072;&#1087;&#1072;&#1079;&#1086;&#1085;&#1099;&lt;/ru&gt;
+</ul></code></p6>
+
+<p>To add a new configuration file, click on the &ldquo;Add&nbsp;&hellip;&rdquo; button, which will bring up a file dialog. Select your file and click &ldquo;Open.&rdquo; The file will then be added to your Render Frame configuration.</p>
+<p>By moving entries of XML configuration files in the list up or down, you can change the order of entries in the editor&rsquo;s drop down list. If you want to use a different XML configuration file for a particular markup language (for example, if you need another default preamble for LaTeX frames in a project), you can change the path to the alternative file by clicking on &ldquo;Change&nbsp;&hellip;&rdquo; or simply add a new configuration file with an appropriate name, like &ldquo;MyLateX.&rdquo;</p>
+<br>If you prefer another editor for your markup, for example if you can&rsquo;t live without Emacs or vi, or if the editor window is simply too small for you, you can override the built-in Scribus Render Frame Editor by using another editor like vi or Kate. Just insert the path to the executable file in the text field &ldquo;External Editor.&rdquo; The external editor won&rsquo;t override the Render Frame editor: As soon as you save your markup from the external editor, Scribus &ldquo;intercepts&rdquo; the data and renders the output into the frame or will display error messages in the &ldquo;Program Messages&rdquo; field. The interception also means that any change to the markup text won&rsquo;t be saved anywhere but in your Scribus file. If you haven&rsquo;t specified an external editor in <i>Preferences &lt; Tools</i>, Scribus will display an error message:</p>
+<br></br>
+<table width="100%"><tr><td align="center"><img src="images/rf-error3.png"/></td></tr></table>
+<br></br>
+<p>In addition, you have the option to start with an empty frame. By checking &ldquo;Force DPI,&rdquo; Scribus will render the output of every Render Frame with the resolution set in the spinbox to the right. It's set to 72 dpi by default for performance reasons. If you want to produce a document for professional printing, you will want to choose a higher resolution.</p>
+</body>
+</html>
