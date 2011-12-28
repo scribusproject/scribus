@@ -91,13 +91,8 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	pp.rotate(docItem->rotation());
 	if (docItem->textFlowUsesBoundingBox())
 	{
-		QPolygon tcli(4);
 		QRectF bb = docItem->getVisualBoundingRect();
-		tcli.setPoint(0, QPoint(0,0));
-		tcli.setPoint(1, QPoint(qRound(bb.width()), 0));
-		tcli.setPoint(2, QPoint(qRound(bb.width()), qRound(bb.height())));
-		tcli.setPoint(3, QPoint(0, qRound(bb.height())));
-		res = QRegion(pp.map(tcli));
+		res = QRegion(bb.toRect());
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
