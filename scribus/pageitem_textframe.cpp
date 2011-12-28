@@ -1240,20 +1240,24 @@ void PageItem_TextFrame::layout()
 					{
 						DropLines = style.dropCapLines();
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-							DropCapDrop = m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
+							DropCapDrop = m_Doc->typographicSettings.valueBaseGrid * (DropLines - 1);
+						else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+							DropCapDrop = style.lineSpacing() * (DropLines - 1);
 						else
-						{
-							if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-								DropCapDrop = style.lineSpacing() * (DropLines-1);
-							else
-								DropCapDrop = charStyle.font().height(hlcsize10) * (DropLines-1);
-						}
+							DropCapDrop = charStyle.font().height(hlcsize10) * (DropLines - 1);
 					}
 				}
 			}
 			// find charsize factors
 			if (DropCmode)
 			{
+				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					DropCapDrop = m_Doc->typographicSettings.valueBaseGrid * (DropLines - 1);
+				else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+					DropCapDrop = style.lineSpacing() * (DropLines - 1);
+				else
+					DropCapDrop = charStyle.font().height(hlcsize10) * (DropLines - 1);
+
 				// FIXME : we should ensure that fonts are loaded before calls to layout()
 				// ScFace::realCharHeight()/Ascent() ensure font is loaded thanks to an indirect call to char2CMap()
 				// ScFace::ascent() can be called safely afterwards
@@ -1269,19 +1273,16 @@ void PageItem_TextFrame::layout()
 					chsd = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1) + fontAscent) / realCharHeight));
 					chs  = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1) + fontAscent) / realCharAscent));
 				}
+				else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				{
+					chsd = (10 * ((style.lineSpacing() * (DropLines-1) + fontAscent) / realCharHeight));
+					chs  = (10 * ((style.lineSpacing() * (DropLines-1) + fontAscent) / realCharAscent));
+				}
 				else
 				{
-					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					{
-						chsd = (10 * ((style.lineSpacing() * (DropLines-1) + fontAscent) / realCharHeight));
-						chs  = (10 * ((style.lineSpacing() * (DropLines-1) + fontAscent) / realCharAscent));
-					}
-					else
-					{
-						double currasce = charStyle.font().height(hlcsize10);
-						chsd = (10 * ((currasce * (DropLines-1) + fontAscent) / realCharHeight));
-						chs  = (10 * ((currasce * (DropLines-1) + fontAscent) / realCharAscent));
-					}
+					double currasce = charStyle.font().height(hlcsize10);
+					chsd = (10 * ((currasce * (DropLines-1) + fontAscent) / realCharHeight));
+					chs  = (10 * ((currasce * (DropLines-1) + fontAscent) / realCharAscent));
 				}
 				hl->setEffects(hl->effects() | ScStyle_DropCap);
 				hl->glyph.yoffset -= DropCapDrop;
@@ -1972,17 +1973,14 @@ void PageItem_TextFrame::layout()
 					int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
 					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
 				}
+				else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				{
+					current.yPos -= style.lineSpacing() * (DropLines-1);
+				}
 				else
 				{
-					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					{
-						current.yPos -= style.lineSpacing() * (DropLines-1);
-					}
-					else
-					{
-						double currasce = charStyle.font().height(charStyle.fontSize() / 10.0);
-						current.yPos -= currasce * (DropLines-1);
-					}
+					double currasce = charStyle.font().height(charStyle.fontSize() / 10.0);
+					current.yPos -= currasce * (DropLines-1);
 				}
 				current.recalculateY = false;
 			}
