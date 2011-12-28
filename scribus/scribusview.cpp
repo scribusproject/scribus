@@ -3433,6 +3433,9 @@ void ScribusView::TextToPath()
 						Doc->AdjustItemSize(bb);
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
+						bb->FrameType = 3;
+						bb->OldB2 = bb->width();
+						bb->OldH2 = bb->height();
 						Doc->setRedrawBounding(bb);
 						undoManager->setUndoEnabled(true);
 						newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3474,6 +3477,9 @@ void ScribusView::TextToPath()
 							Doc->AdjustItemSize(bb);
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
+							bb->FrameType = 3;
+							bb->OldB2 = bb->width();
+							bb->OldH2 = bb->height();
 							Doc->setRedrawBounding(bb);
 							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3508,6 +3514,9 @@ void ScribusView::TextToPath()
 						Doc->AdjustItemSize(bb);
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
+						bb->FrameType = 3;
+						bb->OldB2 = bb->width();
+						bb->OldH2 = bb->height();
 						Doc->setRedrawBounding(bb);
 						undoManager->setUndoEnabled(true);
 						newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3564,6 +3573,9 @@ void ScribusView::TextToPath()
 						Doc->AdjustItemSize(bb);
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
+						bb->FrameType = 3;
+						bb->OldB2 = bb->width();
+						bb->OldH2 = bb->height();
 						Doc->setRedrawBounding(bb);
 						bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
 						undoManager->setUndoEnabled(true);
@@ -3672,6 +3684,8 @@ void ScribusView::TextToPath()
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
 							bb->FrameType = 3;
+							bb->OldB2 = bb->width();
+							bb->OldH2 = bb->height();
 							Doc->setRedrawBounding(bb);
 							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3737,6 +3751,9 @@ void ScribusView::TextToPath()
 								bb->moveBy(npo.x(),npo.y());
 								bb->ContourLine = bb->PoLine.copy();
 								bb->ClipEdited = true;
+								bb->FrameType = 3;
+								bb->OldB2 = bb->width();
+								bb->OldH2 = bb->height();
 								Doc->setRedrawBounding(bb);
 								undoManager->setUndoEnabled(true);
 								newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3794,6 +3811,9 @@ void ScribusView::TextToPath()
 							bb->moveBy(npo.x(),npo.y());
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
+							bb->FrameType = 3;
+							bb->OldB2 = bb->width();
+							bb->OldH2 = bb->height();
 							Doc->setRedrawBounding(bb);
 							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3854,6 +3874,8 @@ void ScribusView::TextToPath()
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
 							bb->FrameType = 3;
+							bb->OldB2 = bb->width();
+							bb->OldH2 = bb->height();
 							Doc->setRedrawBounding(bb);
 							undoManager->setUndoEnabled(true);
 							newGroupedItems.append(Doc->Items->takeAt(z));
@@ -3870,11 +3892,25 @@ void ScribusView::TextToPath()
 				bb->PoLine = currItem->PoLine.copy();
 				bb->ClipEdited = true;
 				bb->FrameType = 3;
+				bb->OldB2 = bb->width();
+				bb->OldH2 = bb->height();
 				bb->setRotation(currItem->rotation());
-//				bb->setPolyClip(qRound(qMax(bb->lineWidth() / 2, 1)));
 				Doc->AdjustItemSize(bb);
 				undoManager->setUndoEnabled(true);
 				newGroupedItems.append(Doc->Items->takeAt(z));
+			}
+			if (currItem->asTextFrame())
+			{
+				PageItem* newItem = new PageItem_Polygon(*currItem);
+				newItem->convertTo(PageItem::Polygon);
+				newItem->Frame = false;
+				newItem->ClipEdited = true;
+				newItem->FrameType = 3;
+				newItem->OldB2 = newItem->width();
+				newItem->OldH2 = newItem->height();
+				newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
+				newItem->ContourLine = newItem->PoLine.copy();
+				newGroupedItems.prepend(newItem);
 			}
 			delItems.append(tmpSelection.takeItem(offset));
 		}
