@@ -1520,6 +1520,8 @@ void PageItem_TextFrame::layout()
 			// find charsize factors
 			if (DropCmode)
 			{
+				DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
+
 				// FIXME : we should ensure that fonts are loaded before calls to layout()
 				// ScFace::realCharHeight()/Ascent() ensure font is loaded thanks to an indirect call to char2CMap()
 				// ScFace::ascent() can be called safely afterwards
