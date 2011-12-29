@@ -95,7 +95,7 @@ void ContextMenu::createMenuItems_Selection()
 	QMenu *menuLevel = new QMenu(this);
 	QMenu *menuPDF = new QMenu(this);
 	QMenu *menuResolution = new QMenu(this);
-	QMenu *menuWeld = new QMenu(this);
+//	QMenu *menuWeld = new QMenu(this);
 	
 	//<-- Add Info
 	//Test new method with image frames first
@@ -440,14 +440,15 @@ void ContextMenu::createMenuItems_Selection()
 		}
 	}
 	if (selectedItemCount == 2 && m_doc->appMode != modeEdit)
-	{
+		addAction(m_AP->scrActions["itemWeld"]);
+/*	{
 		menuWeld->addAction(m_AP->scrActions["itemWeld17"]);
 		menuWeld->addAction(m_AP->scrActions["itemWeld71"]);
 		menuWeld->addAction(m_AP->scrActions["itemWeld13"]);
 		menuWeld->addAction(m_AP->scrActions["itemWeld31"]);
 		QAction *act = addMenu(menuWeld);
 		act->setText( ScribusView::tr("Weld to last..."));
-	}
+	}*/
 	//-->
 	
 	//<-- Add Properties
