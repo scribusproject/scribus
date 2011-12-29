@@ -308,7 +308,6 @@
 				AssemblyDebug="0"
 				ProgramDatabaseFile="$(OutDir)\Scribus.pdb"
 				SubSystem="1"
-				OptimizeForWindows98="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				ImportLibrary="$(OutDir)\scribus-api.lib"
