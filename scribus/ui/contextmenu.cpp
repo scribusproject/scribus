@@ -471,6 +471,8 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	}
 	if (m_AP->scrRecentPasteActions.count()>0)
 	{
+		m_doc->view()->dragX = mx;
+		m_doc->view()->dragY = my;
 		QMenu* menuPasteRecent = new QMenu(this);
 		QAction *act = addMenu(menuPasteRecent);
 		act->setText( ScribusView::tr("Paste Recent"));
