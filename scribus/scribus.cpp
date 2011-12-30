@@ -3386,7 +3386,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			bool savedAlignGuides = doc->SnapGuides;
 			doc->useRaster = false;
 			doc->SnapGuides = false;
-			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
+			slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
 			doc->useRaster = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			Selection tmpSelection(this, false);
