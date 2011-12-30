@@ -300,7 +300,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				m_Doc->MLineStyles.insert(mlName, ml);
 			}
 		}
-		if (tagName == "ITEM")
+		if ((tagName == "ITEM") || (tagName == "FRAMEOBJECT"))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, itemInfo, fileDir, true);
@@ -3565,13 +3565,19 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		}
 		
 		int pos = obj->itemText.length();
-		if (ch == SpecialChars::OBJECT) {
-			if (iobj >= 0) {
-				if (iobj < doc->FrameItems.count())
-					obj->itemText.insertObject(pos, LinkID[iobj]);
-				else
-					qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
-			}
+		if (ch == SpecialChars::OBJECT)
+		{
+			if (LinkID.contains(iobj))
+				obj->itemText.insertObject(pos, LinkID[iobj]);
+			else
+				qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
+		//	if (iobj >= 0)
+		//	{
+		//		if (iobj < doc->FrameItems.count())
+		//			obj->itemText.insertObject(pos, LinkID[iobj]);
+		//		else
+		//			qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
+		//	}
 		}
 		else if (ch == SpecialChars::SHYPHEN && pos > 0)
 		{

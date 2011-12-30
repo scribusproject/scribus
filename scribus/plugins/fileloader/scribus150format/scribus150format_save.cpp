@@ -61,10 +61,26 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	writeGradients(writer, true);
 	ResourceCollection lists;
 	QList<PageItem*> emG;
+	QList<PageItem*> emF;
+	emG.clear();
+	emF.clear();
 	for (int cor = 0; cor < selection->count(); ++cor)
 	{
-		selection->itemAt(cor)->getNamedResources(lists);
-		emG.append(selection->itemAt(cor));
+		PageItem *currItem = selection->itemAt(cor);
+		currItem->getNamedResources(lists);
+		emG.append(currItem);
+		if ((currItem->asTextFrame()) || (currItem->asPathText()))
+		{
+			for (int e = currItem->firstInFrame(); e <= currItem->lastInFrame(); ++e)
+			{
+				uint chr = currItem->itemText.text(e).unicode();
+				if (chr == 25)
+				{
+					if ((currItem->itemText.item(e)->hasObject()) && (!emF.contains(currItem->itemText.item(e)->embedded.getItem())))
+						emF.append(currItem->itemText.item(e)->embedded.getItem());
+				}
+			}
+		}
 	}
 	QList<QString>::Iterator it;
 	QList<QString> names = lists.styleNames();
@@ -102,6 +118,8 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	} */
 	writeLinestyles(writer);
 	writePatterns(writer, fileDir, true, selection);
+	if (!emF.isEmpty())
+		WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionFrame, &emF);
 	WriteObjects(m_Doc, writer, fileDir, 0, 0, ItemSelectionElements, &emG);
 	writer.writeEndElement();
 //	writer.writeEndDocument();
@@ -1313,7 +1331,10 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			items = &doc->DocItems;
 			break;
 		case ItemSelectionFrame:
-			items = &doc->FrameItems;
+			if (some_items != NULL)
+				items = some_items;
+			else
+				items = &doc->FrameItems;
 			break;
 		case ItemSelectionGroup:
 		case ItemSelectionPattern:
