@@ -6,7 +6,7 @@
 	>
 	<UserMacro
 		Name="QT4_DIR"
-		Value="F:\Libraries-vc9\qt-4.6.3"
+		Value="F:\Libraries-vc9\qt-4.7.3"
 	/>
 	<UserMacro
 		Name="BOOST_DIR"
@@ -18,7 +18,7 @@
 	/>
 	<UserMacro
 		Name="FREETYPE_DIR"
-		Value="F:\Libraries-vc9\freetype-2.4.2"
+		Value="F:\Libraries-vc9\freetype-2.4.6"
 	/>
 	<UserMacro
 		Name="ICONV_DIR"
@@ -26,7 +26,7 @@
 	/>
 	<UserMacro
 		Name="LCMS_DIR"
-		Value="F:\Libraries-vc9\lcms2-2.1"
+		Value="F:\Libraries-vc9\lcms2-2.3"
 	/>
 	<UserMacro
 		Name="LIBJPEG_DIR"
@@ -38,7 +38,7 @@
 	/>
 	<UserMacro
 		Name="PODOFO_DIR"
-		Value="F:\Libraries-vc9\podofo-0.8.2"
+		Value="F:\Libraries-vc9\podofo-0.8.4"
 	/>
 	<UserMacro
 		Name="LIBXML2_DIR"
