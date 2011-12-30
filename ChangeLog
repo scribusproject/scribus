@@ -1,4 +1,16 @@
 Scribus - 1.4.0
+- 0010401: [User Interface] Wrong mouse cursor when script error message appears (jghali) - closed.
+- 0010404: [Story Editor / Text Frames] Linked text frames edition has become sluggish (jghali) - closed.
+- 0010408: [Translation] Translation update for 1.4.0 (jghali) - closed.
+- 0010414: [PDF] Thin multisegmented custom lines incorrectly rendered to PDF (fschmid) - closed.
+- 0010418: [Graphics / Image Frames] Image characteristics are writen black on black (jghali) - closed.
+- 0010415: [Graphics / Image Frames] Crash when loading a TIF file into an image frame (jghali) - closed.
+- 0008389: [Import / Export] Free dtp studio colour palettes (christoph_s) - closed.
+- 0010440: [Translation] Update of Russian translation (jghali) - closed.
+- 0010467: [General] Incorrect X and Y update when moving multiple objects with arrow keys (jghali) - closed.
+- 0010445: [Story Editor / Text Frames] Drop cap styled paragraph displays incorrectly at the top of linked text frame (jghali) - closed.
+- 0010279: [Translation] Online help Italian translation (cbradney) - closed.
+- 0010437: [Translation] Small Hungarian translation update for 1.4 (jghali) - closed.
 - 0010396: [General] impossible to access to pages after 9 (cbradney) - resolved.
 - 0010277: [Graphics / Image Frames] Path included in tif should be correctly flipped with frames (fschmid) - resolved.
 - 0004889: [Usability] picture browser (fschmid) - resolved.

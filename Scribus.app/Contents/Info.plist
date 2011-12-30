@@ -67,7 +67,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.0.rc6</string>
+	<string>1.4.0</string>
 	<key>CFBundleSignature</key>
 	<string>OSCR</string>
 </dict>
