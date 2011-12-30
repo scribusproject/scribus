@@ -669,9 +669,12 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 	item->OwnPage = m_Doc->OnPage(item);
 	if (e.isElement())
 	{
-		QString nodeId = e.toElement().attribute("id");
-		if( !nodeId.isEmpty() )
-			item->setItemName(" "+nodeId);
+		if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
+		{
+			QString nodeId = e.toElement().attribute("id");
+			if( !nodeId.isEmpty() )
+				item->setItemName(" "+nodeId);
+		}
 	}
 	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );

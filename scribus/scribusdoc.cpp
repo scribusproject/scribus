@@ -5551,19 +5551,18 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 	for (uint i = 0; i < docItemCount; ++i)
 	{
 		PageItem *currItem = Items->at(i);
+		if (checkItemName == currItem->itemName())
+			return true;
 		if (currItem->isGroup())
-			allItems = currItem->asGroupFrame()->getItemList();
-		else
-			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			if (checkItemName == allItems.at(ii)->itemName())
+			allItems = currItem->asGroupFrame()->getItemList();
+			for (int ii = 0; ii < allItems.count(); ii++)
 			{
-				found = true;
-				break;
+				if (checkItemName == allItems.at(ii)->itemName())
+					return true;
 			}
-
 		}
+		allItems.clear();
 	}
 	return found;
 }
