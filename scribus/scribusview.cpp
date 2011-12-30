@@ -811,7 +811,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
 //		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
 
-	if (ScMimeData::clipboardHasScribusElem())
+	if (ScMimeData::clipboardHasScribusElem() && (Doc->DraggedElem == 0))
 	{
 		text = ScMimeData::clipboardScribusElem();
 		url  = QUrl(text);
