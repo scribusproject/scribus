@@ -1627,6 +1627,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								doc->SizeItem(currItem->width() + resizeBy, currItem->height(), currItem->ItemNr);
  							}
 						}
+						if (doc->m_Selection->count() > 1)
+						{
+							double x, y, w, h;
+							doc->m_Selection->setGroupRect();
+							doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+							propertiesPalette->setXY(x, y);
+							propertiesPalette->setBH(w, h);
+						}
 						currItem->update();
 						slotDocCh();
 					}
@@ -1695,6 +1703,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								currItem->Sizing = false;
 								doc->SizeItem(currItem->width() + resizeBy, currItem->height(), currItem->ItemNr);
 							}
+						}
+						if (doc->m_Selection->count() > 1)
+						{
+							double x, y, w, h;
+							doc->m_Selection->setGroupRect();
+							doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+							propertiesPalette->setXY(x, y);
+							propertiesPalette->setBH(w, h);
 						}
 						currItem->update();
 						slotDocCh();
@@ -1765,6 +1781,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem->ItemNr);
 							}
 						}
+						if (doc->m_Selection->count() > 1)
+						{
+							double x, y, w, h;
+							doc->m_Selection->setGroupRect();
+							doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+							propertiesPalette->setXY(x, y);
+							propertiesPalette->setBH(w, h);
+						}
 						currItem->update();
 						slotDocCh();
 					}
@@ -1833,6 +1857,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								currItem->Sizing = false;
 								doc->SizeItem(currItem->width(), currItem->height() + resizeBy, currItem->ItemNr);
 							}
+						}
+						if (doc->m_Selection->count() > 1)
+						{
+							double x, y, w, h;
+							doc->m_Selection->setGroupRect();
+							doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+							propertiesPalette->setXY(x, y);
+							propertiesPalette->setBH(w, h);
 						}
 						currItem->update();
 						slotDocCh();
@@ -4163,6 +4195,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 //		RestoreBookMarks();
 		doc->setMasterPageMode(false);
+		/*QTime t;
+		t.start();*/
 		int docItemsCount=doc->Items->count();
 		for (int azz=0; azz<docItemsCount; ++azz)
 		{
@@ -4196,6 +4230,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			if(ite->nextInChain() == NULL)
 				ite->layout();
 		}
+		/*qDebug("Time elapsed: %d ms", t.elapsed());*/
 //		if (doc->OldBM)
 //			StoreBookmarks();
 		doc->RePos = false;
