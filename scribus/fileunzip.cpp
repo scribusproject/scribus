@@ -94,7 +94,7 @@ QString FileUnzip::getFile(QString name)
 	QDir::setCurrent(outDir);
 	unzFile uf = unzOpenFile(zipFile);
 	int ret = do_extract_onefile(uf,name, 0, 1, NULL);
-	unzCloseCurrentFile(uf);
+	unzClose(uf);
 	QDir::setCurrent(pwd);
 	if (ret != 0)
 		return NULL;
