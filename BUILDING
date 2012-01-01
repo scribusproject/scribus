@@ -4,9 +4,8 @@ CMake Build
 Scribus 1.3.5+ has replaced the traditionally used so called autotools with
 the CMake build system (cmake.org).
 
-Please see install4.html in scribus/doc or:
-	http://docs.scribus.net/index.php?lang=en&page=install4
-for details *after* reviewing the build requirements below.
+Please see install4.html in scribus/doc for details *after* reviewing the 
+build requirements below.
 
 Note that while a QMake project file (Scribus.pro) is provided in the Scribus
 source distribution, it is not possible to build Scribus with this project
@@ -134,7 +133,7 @@ there's anything there for your OS / distro.
 Next, ensure you definitely have the library installed, as well as any
 additional development packages that may be required to use it.  On Linux, make
 sure to install the "-dev" or "-devel" package for the missing library. After
-doing this, re-run configure.
+doing this, re-run cmake.
 
 If the library is still not found, please read and act on the section above,
 entitled `LIBRARIES IN NONSTANDARD LOCATIONS'. Check that all those environment
@@ -266,7 +265,7 @@ Mac OS X
 ========
 
 There is a separate document for building on OSX. The Scribus build system
-can create native dmg installers for OSX..
+can be used to create native dmg installers for OSX.
 
 Microsoft Windows
 =================
