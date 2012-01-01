@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
         <key>CFBundleGetInfoString</key>
-        <string>Scribus 1.4.0</string>
+        <string>Scribus 1.4.1.svn</string>
         <key>CFBundleIdentifier</key>
         <string>net.scribus.aqua</string>
         <key>CFBundleName</key>
