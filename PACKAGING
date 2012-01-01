@@ -5,7 +5,7 @@ You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
-While we also note md5sums and sha1sums, gpg --verify are more secure and reliable.
+While we also note md5sums and sha1sums, gpg --verify is more secure and reliable.
 
 * The font sampler script, requires tkinter to run properly and optionally 
 python-imaging to enable print previews. Please consider adding these as 
@@ -86,4 +86,4 @@ http://lists.scribus.info/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in December 2010
+in December 2011
