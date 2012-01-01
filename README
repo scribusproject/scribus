@@ -1,9 +1,9 @@
 SCRIBUS 1.4.0
 ----------------------------------------------
 
-1.4.0 is the new officially stable Scribus version, released January 1 2012.
+1.4.0 is the new stable Scribus version, released January 1 2012.
 
-While 1.4.0 is now considered to be usable, you may want to keep the latest 1.3.3.14 as a fallback option for older documents due to some changes in layout. 
+While 1.4.0 is now considered to be usable in production, you may want to keep the latest 1.3.3.14 as a fallback option for older documents due to some changes in layout. 
 Both versions can be installed in parallel. Please be aware of the fact that files saved with 1.3.4 or any later version cannot be opened by 1.3.3.x!
 
 If you think you have found a bug in 1.4.0, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
@@ -44,7 +44,7 @@ Dependencies:
 
 To install Scribus on Linux and UNIX systems, a number of dependencies needs to be resolved, some of which are optional.
 
-See: http://docs.scribus.net/index.php?lang=en&page=install2 for further details. In general, the package manager of your distribution will resolve these dependencies for you.
+See the BUILDING file and online help for further details. In general, the package manager of your distribution will resolve these dependencies for you.
 
 If you want to build Scribus from source, you will also need the development versions of the required libraries. Please read the BUILDING file for further information.
 
@@ -68,12 +68,12 @@ Since version 1.3.5 Scribus provides a unique type of frame, called "Render Fram
 Other Recommended Tools
 -----------------------
 
-A good collection of small tools and full-fledged programs for use with Scribus is described at http://docs.scribus.net/index.php?lang=en&page=toolbox.
+A good collection of small tools and full-fledged programs for use with Scribus is described in the toolbox section of the online help.
 
 ICC Profiles for Color Management:
 ===================================
 
-Activating Color Management *requires* installation of CMYK and RGB ICC profiles. Please see the included help files, FAQ's on http://docs.scribus.net for details. Scribus ships with 2 ICC profiles, which are installed only to enable color management functionality. (This is not true for some distribution packages, where licensing rules prevent the inclusion of these profiles). The profiles *may not* and probably *will not* provide meaningful color management for printing. Additional profiles, covering most of the printing industry's standard profiles, as well as test images and related documentation can be downloaded from http://www.colormanagement.org/index_en.html. Scribus 1.4. will probably be shipped with these (and other) profiles, since they have been released under a Creative Commons license.
+Activating Color Management *requires* installation of CMYK and RGB ICC profiles. Please see the included help files and FAQs for details. Scribus ships with 2 ICC profiles, which are installed only to enable color management functionality. (This is not true for some distribution packages, where licensing rules prevent the inclusion of these profiles). The profiles *may not* and probably *will not* provide meaningful color management for printing. Additional profiles, covering most of the printing industry's standard profiles, as well as test images and related documentation can be downloaded from http://www.colormanagement.org/index_en.html. Scribus 1.4. will probably be shipped with these (and other) profiles, since they have been released under a Creative Commons license.
 
 
 Happy publishing with Scribus
