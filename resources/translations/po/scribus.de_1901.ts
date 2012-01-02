@@ -11531,7 +11531,8 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
         <location filename="../../../scribus/canvas.cpp" line="2195"/>
         <source>X: %1
 Y: %2</source>
-        <translation>X: %1Y: %2</translation>
+        <translation>X: %1
+Y: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvas.cpp" line="2180"/>
