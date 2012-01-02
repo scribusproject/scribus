@@ -92,7 +92,6 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	FileUnzip* fun = new FileUnzip(fileName);
 	stylePath   = fun->getFile(STYLE);
 	contentPath = fun->getFile(CONTENT);
-	delete fun;
 	// Qt4 NULL -> isNull()
 	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
@@ -104,21 +103,8 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		creader->parse(contentPath);
 		delete sreader;
 		delete creader;
-		QFile f1(stylePath);
-		f1.remove();
-		QFile f2(contentPath);
-		f2.remove();
 	}
-	else if ((stylePath.isNull()) && (!contentPath.isNull()))
-	{
-		QFile f2(contentPath);
-		f2.remove();
-	}
-	else if ((!stylePath.isNull()) && (contentPath.isNull()))
-	{
-		QFile f1(stylePath);
-		f1.remove();
-	}
+	delete fun;
 }
 
 SxwIm::~SxwIm()

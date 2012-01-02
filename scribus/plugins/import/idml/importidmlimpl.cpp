@@ -95,7 +95,10 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 		bool success = preference.processFile(root);
 		root.clear();
 		if(!success)
+		{
+			delete idmlFile;
 			return false;
+		}
 	}
 	docWidth = preference.preference.PageWidth.toDouble();
 	docHeight = preference.preference.PageHeight.toDouble();
@@ -122,36 +125,52 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 		for( int i=0;i<MasterSpreads.count();i++ )
 		mspreadPath.append(idmlFile->getFile(MasterSpreads.at(i)));
 		if(!success)
+		{
+			delete idmlFile;
 			return false;
+		}
 	}
 	if(!fontPath.isNull())
 	{
 		bool success = processFont();
 		root.clear();
 		if(!success)
+		{
+			delete idmlFile;
 			return false;
+		}
 	}
 	if(!stylePath.isEmpty())
 	{
 		bool success = processStyles();
 		root.clear();
 		if(!success)
+		{
+			delete idmlFile;
 			return false;
+		}
 	}
 	if(!storyPath.isEmpty())
 	{
 		bool success = processStory();
 		root.clear();
 		if(!success)
+		{
+			delete idmlFile;
 			return false;
+		}
 	}
 	if(!spreadPath.isEmpty())
 	{
 		bool success = processSpreads();
 		root.clear();
 		if(!success)
+		{
+			delete idmlFile;
 			return false;
+		}
 	}
+	delete idmlFile;
 	return true;
 }
 

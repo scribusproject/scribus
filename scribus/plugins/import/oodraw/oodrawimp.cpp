@@ -258,7 +258,6 @@ QImage OODPlug::readThumbnail(QString fileName )
 	stylePath   = fun->getFile("styles.xml");
 	contentPath = fun->getFile("content.xml");
 	metaPath = fun->getFile("meta.xml");
-	delete fun;
 	// Qt4 NULL -> isNull()
 	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
@@ -266,31 +265,19 @@ QImage OODPlug::readThumbnail(QString fileName )
 		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 		docname = docname.left(docname.lastIndexOf("."));
 		loadRawText(stylePath, f);
-		if(!inpStyles.setContent(f))
-			return QImage();
 		loadRawText(contentPath, f2);
-		if(!inpContents.setContent(f2))
-			return QImage();
-		QFile::remove(stylePath);
-		QFile::remove(contentPath);
 		HaveMeta = false;
 		if (!metaPath.isEmpty())
 		{
 			loadRawText(metaPath, f3);
 			HaveMeta = inpMeta.setContent(f3);
-			QFile::remove(f3);
 		}
 	}
-	else if ((stylePath.isNull()) && (!contentPath.isNull()))
-	{
-		QFile f2(contentPath);
-		f2.remove();
-	}
-	else if ((!stylePath.isNull()) && (contentPath.isNull()))
-	{
-		QFile f1(stylePath);
-		f1.remove();
-	}
+	delete fun;
+	if(!inpStyles.setContent(f))
+		return QImage();
+	if(!inpContents.setContent(f2))
+		return QImage();
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.path());
@@ -390,12 +377,10 @@ bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, in
 	QByteArray f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
-// 	m_styles.setAutoDelete( true );
 	FileUnzip* fun = new FileUnzip(fileName);
 	stylePath   = fun->getFile("styles.xml");
 	contentPath = fun->getFile("content.xml");
 	metaPath = fun->getFile("meta.xml");
-	delete fun;
 	// Qt4 NULL -> isNull()
 	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
@@ -403,31 +388,19 @@ bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, in
 		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 		docname = docname.left(docname.lastIndexOf("."));
 		loadRawText(stylePath, f);
-		if(!inpStyles.setContent(f))
-			return false;
 		loadRawText(contentPath, f2);
-		if(!inpContents.setContent(f2))
-			return false;
-		QFile::remove(stylePath);
-		QFile::remove(contentPath);
 		HaveMeta = false;
 		if (!metaPath.isEmpty())
 		{
 			loadRawText(metaPath, f3);
 			HaveMeta = inpMeta.setContent(f3);
-			QFile::remove(f3);
 		}
 	}
-	else if ((stylePath.isNull()) && (!contentPath.isNull()))
-	{
-		QFile f2(contentPath);
-		f2.remove();
-	}
-	else if ((!stylePath.isNull()) && (contentPath.isNull()))
-	{
-		QFile f1(stylePath);
-		f1.remove();
-	}
+	delete fun;
+	if(!inpStyles.setContent(f))
+		return false;
+	if(!inpContents.setContent(f2))
+		return false;
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.path());

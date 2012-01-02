@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusapi.h"
 #include <QString>
+#include <QTemporaryFile>
+#include <QList>
 
 /**
  * @brief Extract files from a zip archive.
@@ -42,6 +44,7 @@ class SCRIBUS_API FileUnzip
 {
 private:
 	QString zipFile;
+	QList<QTemporaryFile*> tempFileList;
 public:
 	FileUnzip(QString zipFilePath);
 	~FileUnzip();
