@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="gettext-pdbim"
-	ProjectGUID="{97BDE35F-A881-49BE-ADB4-218998087BF9}"
+	Name="gettext-textfilter"
+	ProjectGUID="{3CF57996-98BE-4C6A-85D6-91A85107D52A}"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -80,15 +80,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-textfilter.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -177,17 +177,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib freetype.lib libjpeg.a libtiff.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-textfilter.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -274,15 +274,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtXmld4.lib freetypeD.lib libjpeg.a libtiff.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-textfilter.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -371,17 +371,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib QtXml4.lib freetype.lib libjpeg.a libtiff.lib libxml2.lib scribus-api.lib"
-				OutputFile="$(OutDir)\gettext-pdbim.dll"
+				OutputFile="$(OutDir)\gettext-textfilter.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
+				ProgramDatabaseFile="$(OutDir)\gettext-textfilter.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
+				ImportLibrary="$(OutDir)/gettext-textfilter.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -415,11 +415,19 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="gettext-pdbimdll.cpp"
+				RelativePath="gettext-textfilterdll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\pdbim\pdbim.cpp"
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\textfilter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tfdia.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tffilter.cpp"
 				>
 			</File>
 		</Filter>
@@ -428,19 +436,86 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\gettext\pdbim\pdbim.h"
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\textfilter.h"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tfdia.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\tffilter.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			Name="Generated Moc Files"
 			>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\moc_tfdia.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\gettext\textfilter\moc_tffilter.cpp"
+				>
+			</File>
 		</Filter>
-		<File
-			RelativePath="ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
