@@ -7069,7 +7069,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (currItem->asTextFrame())
 		currItem->itemTextSaxed = currItem->getItemTextSaxed(doc->appMode == modeEdit? PageItem::SELECTION : PageItem::FRAME);
-	qDebug() << "setNewFont" << currItem->HasSel;
+//	qDebug() << "setNewFont" << currItem->HasSel;
 	doc->itemSelection_SetFont(nf2);
 	if (currItem->asTextFrame())
 		currItem->asTextFrame()->updateUndo(currItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
