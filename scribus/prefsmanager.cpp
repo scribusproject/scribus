@@ -142,7 +142,7 @@ void PrefsManager::initDefaults()
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	/*
-	QString pfadC = ScPaths::instance().libDir()+"swatches/";
+	QString pfadC = ScPaths::instance().shareDir()+"swatches/";
 	QString pfadC2 = pfadC + "Scribus_X11.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())

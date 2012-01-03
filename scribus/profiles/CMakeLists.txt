@@ -8,5 +8,5 @@ GenericCMYK.txt
 Readme
 sRGB.icm
 srgb.license
-  DESTINATION ${LIBDIR}profiles
+  DESTINATION ${SHAREDIR}profiles
 )

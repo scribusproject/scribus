@@ -332,7 +332,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 	PrinterProfiles.clear();
 	InputProfiles.clear();
 	InputProfilesCMYK.clear();
-	QString pfad = ScPaths::instance().libDir();
+	QString pfad = ScPaths::instance().shareDir();
 	pfad += "profiles/";
 	profDirs = ScPaths::getSystemProfilesDirs();
 	profDirs.prepend( prefsManager->appPrefs.ProfileDir );

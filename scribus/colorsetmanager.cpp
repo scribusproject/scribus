@@ -29,7 +29,7 @@ ColorSetManager::~ColorSetManager()
 
 void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 {
-	QString pfadC = ScPaths::instance().libDir()+"swatches/";
+	QString pfadC = ScPaths::instance().shareDir()+"swatches/";
 	QString pfadC2 = pfadC + "Scribus_Basic.xml";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
@@ -113,7 +113,7 @@ void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
 	QStringList locations=ScPaths::instance().getSystemCreateSwatchesDirs();
-	locations << ScPaths::instance().libDir()+"swatches/";
+	locations << ScPaths::instance().shareDir()+"swatches/";
 	locations << ScPaths::getApplicationDataDir() + "swatches/locked/";
 	locations << ScPaths::getApplicationDataDir() + "swatches/";
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
