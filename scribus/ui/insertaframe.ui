@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Insert A Frame</string>
+   <string>Insert Frames</string>
   </property>
   <layout class="QVBoxLayout" >
    <property name="spacing" >
