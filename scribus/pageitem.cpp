@@ -6930,6 +6930,10 @@ void PageItem::updateConstants()
 	{
 		m_Doc->constants().insert("pagewidth", m_Doc->Pages->at(OwnPage)->width());
 		m_Doc->constants().insert("pageheight", m_Doc->Pages->at(OwnPage)->height());
+		m_Doc->constants().insert("marginleft", m_Doc->Pages->at(OwnPage)->Margins.Left);
+		m_Doc->constants().insert("marginright", m_Doc->Pages->at(OwnPage)->width() - m_Doc->Pages->at(OwnPage)->Margins.Right);
+		m_Doc->constants().insert("margintop", m_Doc->Pages->at(OwnPage)->Margins.Top);
+		m_Doc->constants().insert("marginbottom", m_Doc->Pages->at(OwnPage)->height() - m_Doc->Pages->at(OwnPage)->Margins.Bottom);
 	}
 	m_Doc->constants().insert("width", Width);
 	m_Doc->constants().insert("height", Height);
