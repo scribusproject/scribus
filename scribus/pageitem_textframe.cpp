@@ -2526,6 +2526,7 @@ void PageItem_TextFrame::layout()
 			}
 			else
 				maxYAsc = static_cast<int>(floor(current.yPos - qMax(realAsce, asce)));
+			maxYAsc = qMax(maxYAsc, 0);
 			maxYDesc = static_cast<int>(ceil(current.yPos + qMax(realDesc, desc)));
 
 			EndX = current.endOfLine(cl, style.rightMargin(), maxYAsc, maxYDesc);
