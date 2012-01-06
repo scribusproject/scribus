@@ -7923,7 +7923,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>&amp;Frame...</source>
-        <translation>&amp;Frame...</translation>
+        <translation type="obsolete">&amp;Frame...</translation>
     </message>
     <message>
         <source>Preview Mode</source>
@@ -8307,6 +8307,74 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <source>Paste Image from Clipboard</source>
         <translation type="unfinished">Paste Image from Clipboard</translation>
     </message>
+    <message>
+        <source>Insert Rows...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Columns...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Rows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Cells</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split Cells...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Row Heights...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Column Widths...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute Rows Evenly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute Columns Evenly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust Table to Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unweld items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weld items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit weld item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Frames...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Table 2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -8352,6 +8420,10 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Swap</source>
         <translation>Swap</translation>
+    </message>
+    <message>
+        <source>DockWidget</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8592,299 +8664,299 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <name>Annot</name>
     <message>
         <source>Field Properties</source>
-        <translation>Field Properties</translation>
+        <translation type="obsolete">Field Properties</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Type:</translation>
+        <translation type="obsolete">Type:</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation>Button</translation>
+        <translation type="obsolete">Button</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>Text Field</translation>
+        <translation type="obsolete">Text Field</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation>Check Box</translation>
+        <translation type="obsolete">Check Box</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Combo Box</translation>
+        <translation type="obsolete">Combo Box</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation>List Box</translation>
+        <translation type="obsolete">List Box</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation>Properties</translation>
+        <translation type="obsolete">Properties</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="obsolete">Text</translation>
     </message>
     <message>
         <source>Border</source>
-        <translation>Border</translation>
+        <translation type="obsolete">Border</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>Colour:</translation>
+        <translation type="obsolete">Colour:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Width:</translation>
+        <translation type="obsolete">Width:</translation>
     </message>
     <message>
         <source>Thin</source>
-        <translation>Thin</translation>
+        <translation type="obsolete">Thin</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation type="obsolete">Normal</translation>
     </message>
     <message>
         <source>Wide</source>
-        <translation>Wide</translation>
+        <translation type="obsolete">Wide</translation>
     </message>
     <message>
         <source>Style:</source>
-        <translation>Style:</translation>
+        <translation type="obsolete">Style:</translation>
     </message>
     <message>
         <source>Solid</source>
-        <translation>Solid</translation>
+        <translation type="obsolete">Solid</translation>
     </message>
     <message>
         <source>Dashed</source>
-        <translation>Dashed</translation>
+        <translation type="obsolete">Dashed</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Underline</translation>
+        <translation type="obsolete">Underline</translation>
     </message>
     <message>
         <source>Beveled</source>
-        <translation>Bevelled</translation>
+        <translation type="obsolete">Bevelled</translation>
     </message>
     <message>
         <source>Inset</source>
-        <translation>Inset</translation>
+        <translation type="obsolete">Inset</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Other</translation>
+        <translation type="obsolete">Other</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation>Read Only</translation>
+        <translation type="obsolete">Read Only</translation>
     </message>
     <message>
         <source>Required</source>
-        <translation>Required</translation>
+        <translation type="obsolete">Required</translation>
     </message>
     <message>
         <source>Visibility:</source>
-        <translation>Visibility:</translation>
+        <translation type="obsolete">Visibility:</translation>
     </message>
     <message>
         <source>Visible</source>
-        <translation>Visible</translation>
+        <translation type="obsolete">Visible</translation>
     </message>
     <message>
         <source>Hidden</source>
-        <translation>Hidden</translation>
+        <translation type="obsolete">Hidden</translation>
     </message>
     <message>
         <source>No Print</source>
-        <translation>No Print</translation>
+        <translation type="obsolete">No Print</translation>
     </message>
     <message>
         <source>No View</source>
-        <translation>No View</translation>
+        <translation type="obsolete">No View</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation>Appearance</translation>
+        <translation type="obsolete">Appearance</translation>
     </message>
     <message>
         <source>Text for Button Down</source>
-        <translation>Text for Button Down</translation>
+        <translation type="obsolete">Text for Button Down</translation>
     </message>
     <message>
         <source>Text for Roll Over</source>
-        <translation>Text for Roll Over</translation>
+        <translation type="obsolete">Text for Roll Over</translation>
     </message>
     <message>
         <source>Icons</source>
-        <translation>Icons</translation>
+        <translation type="obsolete">Icons</translation>
     </message>
     <message>
         <source>Use Icons</source>
-        <translation>Use Icons</translation>
+        <translation type="obsolete">Use Icons</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Remove</translation>
+        <translation type="obsolete">Remove</translation>
     </message>
     <message>
         <source>Pressed</source>
-        <translation>Pressed</translation>
+        <translation type="obsolete">Pressed</translation>
     </message>
     <message>
         <source>Roll Over</source>
-        <translation>Roll Over</translation>
+        <translation type="obsolete">Roll Over</translation>
     </message>
     <message>
         <source>Icon Placement...</source>
-        <translation>Icon Placement...</translation>
+        <translation type="obsolete">Icon Placement...</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation>Highlight</translation>
+        <translation type="obsolete">Highlight</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation>Invert</translation>
+        <translation type="obsolete">Invert</translation>
     </message>
     <message>
         <source>Outlined</source>
-        <translation>Outlined</translation>
+        <translation type="obsolete">Outlined</translation>
     </message>
     <message>
         <source>Push</source>
-        <translation>Push</translation>
+        <translation type="obsolete">Push</translation>
     </message>
     <message>
         <source>Multi-Line</source>
-        <translation>Multi-Line</translation>
+        <translation type="obsolete">Multi-Line</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Password</translation>
+        <translation type="obsolete">Password</translation>
     </message>
     <message>
         <source>Limit of</source>
-        <translation>Limit of</translation>
+        <translation type="obsolete">Limit of</translation>
     </message>
     <message>
         <source>Characters</source>
-        <translation>Characters</translation>
+        <translation type="obsolete">Characters</translation>
     </message>
     <message>
         <source>Do Not Scroll</source>
-        <translation>Do Not Scroll</translation>
+        <translation type="obsolete">Do Not Scroll</translation>
     </message>
     <message>
         <source>Do Not Spell Check</source>
-        <translation>Do Not Spell Check</translation>
+        <translation type="obsolete">Do Not Spell Check</translation>
     </message>
     <message>
         <source>Check Style:</source>
-        <translation>Check Style:</translation>
+        <translation type="obsolete">Check Style:</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation>Check</translation>
+        <translation type="obsolete">Check</translation>
     </message>
     <message>
         <source>Cross</source>
-        <translation>Cross</translation>
+        <translation type="obsolete">Cross</translation>
     </message>
     <message>
         <source>Diamond</source>
-        <translation>Diamond</translation>
+        <translation type="obsolete">Diamond</translation>
     </message>
     <message>
         <source>Circle</source>
-        <translation>Circle</translation>
+        <translation type="obsolete">Circle</translation>
     </message>
     <message>
         <source>Star</source>
-        <translation>Star</translation>
+        <translation type="obsolete">Star</translation>
     </message>
     <message>
         <source>Square</source>
-        <translation>Square</translation>
+        <translation type="obsolete">Square</translation>
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation>Default is Checked</translation>
+        <translation type="obsolete">Default is Checked</translation>
     </message>
     <message>
         <source>Editable</source>
-        <translation>Editable</translation>
+        <translation type="obsolete">Editable</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation>Options</translation>
+        <translation type="obsolete">Options</translation>
     </message>
     <message>
         <source>Go To</source>
-        <translation>Go To</translation>
+        <translation type="obsolete">Go To</translation>
     </message>
     <message>
         <source>Submit Form</source>
-        <translation>Submit Form</translation>
+        <translation type="obsolete">Submit Form</translation>
     </message>
     <message>
         <source>Reset Form</source>
-        <translation>Reset Form</translation>
+        <translation type="obsolete">Reset Form</translation>
     </message>
     <message>
         <source>Import Data</source>
-        <translation>Import Data</translation>
+        <translation type="obsolete">Import Data</translation>
     </message>
     <message>
         <source>Event:</source>
-        <translation>Event:</translation>
+        <translation type="obsolete">Event:</translation>
     </message>
     <message>
         <source>Mouse Up</source>
-        <translation>Mouse Up</translation>
+        <translation type="obsolete">Mouse Up</translation>
     </message>
     <message>
         <source>Mouse Down</source>
-        <translation>Mouse Down</translation>
+        <translation type="obsolete">Mouse Down</translation>
     </message>
     <message>
         <source>Mouse Enter</source>
-        <translation>Mouse Enter</translation>
+        <translation type="obsolete">Mouse Enter</translation>
     </message>
     <message>
         <source>Mouse Exit</source>
-        <translation>Mouse Exit</translation>
+        <translation type="obsolete">Mouse Exit</translation>
     </message>
     <message>
         <source>On Focus</source>
-        <translation>On Focus</translation>
+        <translation type="obsolete">On Focus</translation>
     </message>
     <message>
         <source>On Blur</source>
-        <translation>On Blur</translation>
+        <translation type="obsolete">On Blur</translation>
     </message>
     <message>
         <source>Script:</source>
-        <translation>Script:</translation>
+        <translation type="obsolete">Script:</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Edit...</translation>
+        <translation type="obsolete">Edit...</translation>
     </message>
     <message>
         <source>Submit to URL:</source>
-        <translation>Submit to URL:</translation>
+        <translation type="obsolete">Submit to URL:</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
@@ -8892,273 +8964,273 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Import Data from:</source>
-        <translation>Import Data from:</translation>
+        <translation type="obsolete">Import Data from:</translation>
     </message>
     <message>
         <source>Destination</source>
-        <translation>Destination</translation>
+        <translation type="obsolete">Destination</translation>
     </message>
     <message>
         <source>To File:</source>
-        <translation>To File:</translation>
+        <translation type="obsolete">To File:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Change...</translation>
+        <translation type="obsolete">Change...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Page:</translation>
+        <translation type="obsolete">Page:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+        <translation type="obsolete">X-Pos:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+        <translation type="obsolete">Y-Pos:</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>Action</translation>
+        <translation type="obsolete">Action</translation>
     </message>
     <message>
         <source>Field is formatted as:</source>
-        <translation>Field is formatted as:</translation>
+        <translation type="obsolete">Field is formatted as:</translation>
     </message>
     <message>
         <source>Plain</source>
-        <translation>Plain</translation>
+        <translation type="obsolete">Plain</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation>Number</translation>
+        <translation type="obsolete">Number</translation>
     </message>
     <message>
         <source>Percentage</source>
-        <translation>Percentage</translation>
+        <translation type="obsolete">Percentage</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation>Date</translation>
+        <translation type="obsolete">Date</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation>Time</translation>
+        <translation type="obsolete">Time</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Custom</translation>
+        <translation type="obsolete">Custom</translation>
     </message>
     <message>
         <source>Number Format</source>
-        <translation>Number Format</translation>
+        <translation type="obsolete">Number Format</translation>
     </message>
     <message>
         <source>Decimals:</source>
-        <translation>Decimals:</translation>
+        <translation type="obsolete">Decimals:</translation>
     </message>
     <message>
         <source>Use Currency Symbol</source>
-        <translation>Use Currency Symbol</translation>
+        <translation type="obsolete">Use Currency Symbol</translation>
     </message>
     <message>
         <source>Prepend Currency Symbol</source>
-        <translation>Prepend Currency Symbol</translation>
+        <translation type="obsolete">Prepend Currency Symbol</translation>
     </message>
     <message>
         <source>Formatting</source>
-        <translation>Formatting</translation>
+        <translation type="obsolete">Formatting</translation>
     </message>
     <message>
         <source>Percent Format</source>
-        <translation>Percent Format</translation>
+        <translation type="obsolete">Percent Format</translation>
     </message>
     <message>
         <source>Date Format</source>
-        <translation>Date Format</translation>
+        <translation type="obsolete">Date Format</translation>
     </message>
     <message>
         <source>Time Format</source>
-        <translation>Time Format</translation>
+        <translation type="obsolete">Time Format</translation>
     </message>
     <message>
         <source>Custom Scripts</source>
-        <translation>Custom Scripts</translation>
+        <translation type="obsolete">Custom Scripts</translation>
     </message>
     <message>
         <source>Format:</source>
-        <translation>Format:</translation>
+        <translation type="obsolete">Format:</translation>
     </message>
     <message>
         <source>Keystroke:</source>
-        <translation>Keystroke:</translation>
+        <translation type="obsolete">Keystroke:</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation>Format</translation>
+        <translation type="obsolete">Format</translation>
     </message>
     <message>
         <source>Value is not validated</source>
-        <translation>Value is not validated</translation>
+        <translation type="obsolete">Value is not validated</translation>
     </message>
     <message>
         <source>Value must be greater than or equal to:</source>
-        <translation>Value must be greater than or equal to:</translation>
+        <translation type="obsolete">Value must be greater than or equal to:</translation>
     </message>
     <message>
         <source>and less or equal to:</source>
-        <translation>and less or equal to:</translation>
+        <translation type="obsolete">and less or equal to:</translation>
     </message>
     <message>
         <source>Custom validate script:</source>
-        <translation>Custom validate script:</translation>
+        <translation type="obsolete">Custom validate script:</translation>
     </message>
     <message>
         <source>Validate</source>
-        <translation>Validate</translation>
+        <translation type="obsolete">Validate</translation>
     </message>
     <message>
         <source>Value is not calculated</source>
-        <translation>Value is not calculated</translation>
+        <translation type="obsolete">Value is not calculated</translation>
     </message>
     <message>
         <source>Value is the</source>
-        <translation>Value is the</translation>
+        <translation type="obsolete">Value is the</translation>
     </message>
     <message>
         <source>sum</source>
-        <translation>sum</translation>
+        <translation type="obsolete">sum</translation>
     </message>
     <message>
         <source>product</source>
-        <translation>product</translation>
+        <translation type="obsolete">product</translation>
     </message>
     <message>
         <source>average</source>
-        <translation>average</translation>
+        <translation type="obsolete">average</translation>
     </message>
     <message>
         <source>minimum</source>
-        <translation>minimum</translation>
+        <translation type="obsolete">minimum</translation>
     </message>
     <message>
         <source>maximum</source>
-        <translation>maximum</translation>
+        <translation type="obsolete">maximum</translation>
     </message>
     <message>
         <source>of the following fields:</source>
-        <translation>of the following fields:</translation>
+        <translation type="obsolete">of the following fields:</translation>
     </message>
     <message>
         <source>Pick...</source>
-        <translation>Pick...</translation>
+        <translation type="obsolete">Pick...</translation>
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Custom calculation script:</translation>
+        <translation type="obsolete">Custom calculation script:</translation>
     </message>
     <message>
         <source>Calculate</source>
-        <translation>Calculate</translation>
+        <translation type="obsolete">Calculate</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
-        <translation>Enter a comma separated list of fields here</translation>
+        <translation type="obsolete">Enter a comma separated list of fields here</translation>
     </message>
     <message>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation>You need at least the Icon for Normal to use Icons for Buttons</translation>
+        <translation type="obsolete">You need at least the Icon for Normal to use Icons for Buttons</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation type="obsolete">Open</translation>
     </message>
     <message>
         <source>Example:</source>
-        <translation>Example:</translation>
+        <translation type="obsolete">Example:</translation>
     </message>
     <message>
         <source>Selection Change</source>
-        <translation>Selection Change</translation>
+        <translation type="obsolete">Selection Change</translation>
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation>Font for use with PDF 1.3:</translation>
+        <translation type="obsolete">Font for use with PDF 1.3:</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF 1.3</source>
-        <translation>Flag is ignored for PDF 1.3</translation>
+        <translation type="obsolete">Flag is ignored for PDF 1.3</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF Files (*.pdf);;All Files (*)</translation>
+        <translation type="obsolete">PDF Files (*.pdf);;All Files (*)</translation>
     </message>
     <message>
         <source>JavaScript</source>
-        <translation>JavaScript</translation>
+        <translation type="obsolete">JavaScript</translation>
     </message>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Tooltip:</source>
-        <translation>Tooltip:</translation>
+        <translation type="obsolete">Tooltip:</translation>
     </message>
     <message>
         <source>Do Not Export Value</source>
-        <translation>Do Not Export Value</translation>
+        <translation type="obsolete">Do Not Export Value</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
-        <translation>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</translation>
+        <translation type="obsolete">Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
-        <translation>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</translation>
+        <translation type="obsolete">Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</translation>
     </message>
     <message>
         <source>Export absolute Filename</source>
-        <translation>Export absolute Filename</translation>
+        <translation type="obsolete">Export absolute Filename</translation>
     </message>
     <message>
         <source>Submit format:</source>
-        <translation>Submit format:</translation>
+        <translation type="obsolete">Submit format:</translation>
     </message>
     <message>
         <source>FDF</source>
-        <translation>FDF</translation>
+        <translation type="obsolete">FDF</translation>
     </message>
     <message>
         <source>HTML</source>
-        <translation>HTML</translation>
+        <translation type="obsolete">HTML</translation>
     </message>
     <message>
         <source>XFDF</source>
-        <translation>XFDF</translation>
+        <translation type="obsolete">XFDF</translation>
     </message>
     <message>
         <source>PDF</source>
-        <translation>PDF</translation>
+        <translation type="obsolete">PDF</translation>
     </message>
 </context>
 <context>
@@ -9523,11 +9595,11 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</source>
-        <translation>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</translation>
+        <translation type="obsolete">aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</translation>
     </message>
     <message>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</source>
-        <translation>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</translation>
+        <translation type="obsolete">aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</translation>
     </message>
     <message>
         <source>Spell Checker</source>
@@ -9540,6 +9612,19 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Do you want start from the beginning of the selection with new language selected?</source>
         <translation>Do you want start from the beginning of the selection with new language selected?</translation>
+    </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialise.
+Configuration invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Aspell dictionaries could be found.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10724,6 +10809,10 @@ Height: %2</translation>
         <source>Open</source>
         <translation>Open</translation>
     </message>
+    <message>
+        <source>Overflow Characters: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CgmPlug</name>
@@ -11611,6 +11700,13 @@ See the Edit Colours section of the documentation for more details.</translation
     </message>
 </context>
 <context>
+    <name>ColumnResize</name>
+    <message>
+        <source>Width</source>
+        <translation type="unfinished">Width</translation>
+    </message>
+</context>
+<context>
     <name>CommonStrings</name>
     <message>
         <source>&amp;Apply</source>
@@ -12020,6 +12116,26 @@ See the Edit Colours section of the documentation for more details.</translation
     <message>
         <source>Default Line Style</source>
         <translation>Default Line Style</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished">Group</translation>
+    </message>
+    <message>
+        <source>Regular Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14197,6 +14313,18 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>Mesh -&gt; Shape</source>
         <translation>Mesh -&gt; Shape</translation>
     </message>
+    <message>
+        <source>Snap to other Mesh Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Patch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Patch</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientVectorDialog</name>
@@ -14771,6 +14899,26 @@ converting their vector data into Scribus objects.</translation>
         <source>The file could not be imported</source>
         <translation>The file could not be imported</translation>
     </message>
+    <message>
+        <source>This file contains 2 versions of the data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose which one should be imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the pdf part</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the ai part</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The PDF Import plugin could not be found</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportCgmPlugin</name>
@@ -14922,6 +15070,30 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+</context>
+<context>
+    <name>ImportPdfPlugin</name>
+    <message>
+        <source>Import PDF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports PDF Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most PDF files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+    <message>
+        <source>The Import plugin cannot handle Postscript files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15292,7 +15464,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Insert A Frame</source>
-        <translation>Insert A Frame</translation>
+        <translation type="obsolete">Insert A Frame</translation>
     </message>
     <message>
         <source>T&amp;ype</source>
@@ -15546,6 +15718,10 @@ p, li { white-space: pre-wrap; }
         <source>Source image to load into the inserted image frame</source>
         <translation>Source image to load into the inserted image frame</translation>
     </message>
+    <message>
+        <source>Insert Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InsertTable</name>
@@ -15560,6 +15736,76 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Number of columns:</source>
         <translation>Number of columns:</translation>
+    </message>
+</context>
+<context>
+    <name>InsertTableColumnsDialog</name>
+    <message>
+        <source>Insert Column(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation type="unfinished">Number of Columns:</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation type="unfinished">Position:</translation>
+    </message>
+    <message>
+        <source>Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>positions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beginning</source>
+        <translation type="unfinished">Beginning</translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="unfinished">End</translation>
+    </message>
+</context>
+<context>
+    <name>InsertTableRowsDialog</name>
+    <message>
+        <source>Insert Row(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation type="unfinished">Number of Rows:</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation type="unfinished">Position:</translation>
+    </message>
+    <message>
+        <source>Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>positions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beginning</source>
+        <translation type="unfinished">Beginning</translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="unfinished">End</translation>
     </message>
 </context>
 <context>
@@ -17491,11 +17737,15 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>All Supported Formats (%1);;All Files (*)</source>
-        <translation type="unfinished">All Supported Formats (%1);;All Files (*)</translation>
+        <translation type="obsolete">All Supported Formats (%1);;All Files (*)</translation>
     </message>
     <message>
         <source>Import 3-D Model</source>
         <translation type="unfinished">Import 3-D Model</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (%1);;%2All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17651,7 +17901,27 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Ctrl+F</source>
         <comment>Filter the Outline using a keyword</comment>
-        <translation>Ctrl+F</translation>
+        <translation type="obsolete">Ctrl+F</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visible</source>
+        <translation type="unfinished">Visible</translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished">Printing</translation>
+    </message>
+    <message>
+        <source>Locked</source>
+        <translation type="unfinished">Locked</translation>
+    </message>
+    <message>
+        <source>Layer: &quot;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17663,6 +17933,45 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Linewidth</source>
         <translation>Linewidth</translation>
+    </message>
+</context>
+<context>
+    <name>OutlineWidget</name>
+    <message>
+        <source>Layer is:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>invisible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>non printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>locked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="unfinished">X-Pos:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="unfinished">Y-Pos:</translation>
     </message>
 </context>
 <context>
@@ -18068,6 +18377,10 @@ If no handle is selected all handles will be reset.</source>
         <source>Spiral</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Table</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageItemAttributes</name>
@@ -18450,6 +18763,10 @@ becomes
     <message>
         <source>Chars: </source>
         <translation>Chars: </translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">No Style</translation>
     </message>
 </context>
 <context>
@@ -19360,6 +19677,21 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Generating Items</source>
         <translation>Generating Items</translation>
+    </message>
+</context>
+<context>
+    <name>PdfPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Generating Items</translation>
     </message>
 </context>
 <context>
@@ -22065,11 +22397,11 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>In the Background</source>
-        <translation>In the Background</translation>
+        <translation type="obsolete">In the Background</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation>In the Foreground</translation>
+        <translation type="obsolete">In the Foreground</translation>
     </message>
     <message>
         <source>Place guides in front of or behind objects on the page</source>
@@ -22134,6 +22466,38 @@ Do you want to use this?</source>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Turns the margins on or off</translation>
+    </message>
+    <message>
+        <source>Foreground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Background</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Content Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished">Lines</translation>
+    </message>
+    <message>
+        <source>Crosses and Dots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BaselineGrid</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23832,7 +24196,7 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Ignore non-printable layers</translation>
     </message>
     <message>
-        <source>Check for part filed image frames</source>
+        <source>Check for part filled image frames</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26138,6 +26502,10 @@ Corners:</translation>
         <source>Scaling:</source>
         <translation type="obsolete">Scaling:</translation>
     </message>
+    <message>
+        <source>T&amp;able</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_Group</name>
@@ -26243,6 +26611,18 @@ Corners:</translation>
     <message>
         <source>Transparency</source>
         <translation type="unfinished">Transparency</translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished">Fill Rule</translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished">Even-Odd</translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished">Non Zero</translation>
     </message>
 </context>
 <context>
@@ -26868,6 +27248,41 @@ Corners:</translation>
     </message>
 </context>
 <context>
+    <name>PropertiesPalette_TableBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Borders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Width:</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Colour:</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation type="unfinished">Shade:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertiesPalette_Text</name>
     <message>
         <source>Color &amp; Effects</source>
@@ -26960,6 +27375,14 @@ Corners:</translation>
     <message>
         <source>Remove Direct Character Formatting</source>
         <translation type="unfinished">Remove Direct Character Formatting</translation>
+    </message>
+    <message>
+        <source>Orphans and Widows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27101,7 +27524,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation type="unfinished">Indicates the level the object is on, 0 means the object is at the bottom</translation>
+        <translation type="obsolete">Indicates the level the object is on, 0 means the object is at the bottom</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
@@ -27118,6 +27541,10 @@ Corners:</translation>
     <message>
         <source>Keep the aspect ratio</source>
         <translation type="unfinished">Keep the aspect ratio</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
+        <translation type="unfinished">Indicates the level the object is on, 0 means the object is at the bottom {1 ?}</translation>
     </message>
 </context>
 <context>
@@ -27364,6 +27791,60 @@ Corners:</translation>
     </message>
 </context>
 <context>
+    <name>PropertyWidget_DropCap</name>
+    <message>
+        <source>Use Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Caps lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Caps offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap use character style...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose chracter style or leave blank for use default paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_DropCapBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished">Height</translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>use Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertyWidget_Flop</name>
     <message>
         <source>Maximum Ascent</source>
@@ -27465,6 +27946,76 @@ Corners:</translation>
     <message>
         <source>Reset</source>
         <translation type="unfinished">Reset</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Orphans</name>
+    <message>
+        <source>Don&apos;t separate first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t separate last</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not split paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep with next paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_OrphansBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t separate first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t separate last</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not split paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep with next paragraph</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30258,6 +30809,274 @@ Therefore the image may be not correct</source>
         <source>SmoothPath</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell text on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The cell %1,%2 does not exist in table</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get cell style on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell style on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get cell row span from non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get cell column span from non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get cell fill color on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell fill color on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell left border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell right border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell top border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell bottom border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell left padding on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cell padding must be &gt;= 0.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell right padding on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell top padding on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set cell bottom padding on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both numRows and numColumns must be greater than 0.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get table row count of non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get table column count of non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot insert rows on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table row index out of bounds, must be &gt;= 0 and &lt; %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table row count out of bounds, must be &gt;= 1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove rows from a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table row count out of bounds, must be &gt;= 1 and &lt; %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Row deletion range out of bounds, index + numRows must be &lt;= %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get row height from non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot resize row on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table row height must be &gt; 0.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot insert columns on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table column index out of bounds, must be &gt;= 0 and &lt; %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table column count out of bounds, must be &gt;= 1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove columns from a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table column count out of bounds, must be &gt;= 1 and &lt; %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column deletion range out of bounds, index + numColumns must be &lt;= %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get column width from non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot resize column on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table column width must be &gt; 0.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot merge cells on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of rows and columns must both be &gt; 0.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The area %1,%2 %3x%4 is not inside the table.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get table style on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set table style on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get table fill color on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set table fill color on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set table left border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set table right border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set table top border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set table bottom border on a non-table item.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expected a list of border lines</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Border lines are specified as (width,style,color) tuples</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Border line width must be &gt; 0.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -30424,6 +31243,11 @@ Please choose another.</source>
         <translation>Name &quot;%1&quot; is not unique.
 Please choose another.</translation>
     </message>
+    <message>
+        <source>Name &quot;%1&quot; is not allowed.
+Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReformDoc</name>
@@ -30508,6 +31332,13 @@ Please choose another.</translation>
     </message>
 </context>
 <context>
+    <name>RowResize</name>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished">Height</translation>
+    </message>
+</context>
+<context>
     <name>RulerMover</name>
     <message>
         <source>Reset Rulers</source>
@@ -30536,6 +31367,14 @@ Please choose another.</translation>
     <message>
         <source>Origin at Center</source>
         <translation>Origin at Centre</translation>
+    </message>
+    <message>
+        <source>Origin at Top Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Origin at Bottom Center</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30702,6 +31541,49 @@ Please choose another.</translation>
     <message>
         <source>Default width for space</source>
         <translation type="unfinished">Default width for space</translation>
+    </message>
+</context>
+<context>
+    <name>SMCellStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Properties</translation>
+    </message>
+    <message>
+        <source>Cell Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cell Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation type="unfinished">New Style</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation type="unfinished">Clone of %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation type="unfinished">%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SMCellStyleWidget</name>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Colours</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished">TextLabel</translation>
+    </message>
+    <message>
+        <source>Fill Color</source>
+        <translation type="unfinished">Fill Colour</translation>
     </message>
 </context>
 <context>
@@ -31095,6 +31977,58 @@ Expressed as a percentage of the current white space value.</translation>
         <source>Right Only</source>
         <translation>Right Only</translation>
     </message>
+    <message>
+        <source>Character Style for Drop Cap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orphans and Widows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t separate first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t separate last</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not split paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep with next paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose chracter style or leave blank for use default paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">No Style</translation>
+    </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
@@ -31225,6 +32159,49 @@ Expressed as a percentage of the current white space value.</translation>
     <message>
         <source>Use parent style&apos;s effects instead of overriding them</source>
         <translation>Use parent style&apos;s effects instead of overriding them</translation>
+    </message>
+</context>
+<context>
+    <name>SMTableStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Properties</translation>
+    </message>
+    <message>
+        <source>Table Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation type="unfinished">New Style</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation type="unfinished">Clone of %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation type="unfinished">%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SMTableStyleWidget</name>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Colours</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished">TextLabel</translation>
+    </message>
+    <message>
+        <source>Fill Color</source>
+        <translation type="unfinished">Fill Colour</translation>
     </message>
 </context>
 <context>
@@ -31400,22 +32377,22 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Apply unbreakable space on:</translation>
+        <translation type="obsolete">Apply unbreakable space on:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Selected frames</translation>
+        <translation type="obsolete">&amp;Selected frames</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Active &amp;page</translation>
+        <translation type="obsolete">Active &amp;page</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;All items</translation>
+        <translation type="obsolete">&amp;All items</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
@@ -31466,7 +32443,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Apply Unbreakable Space On:</source>
-        <translation>Apply Unbreakable Space On:</translation>
+        <translation type="obsolete">Apply Unbreakable Space On:</translation>
     </message>
     <message>
         <source>&amp;Selected Frames</source>
@@ -31487,6 +32464,30 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>&amp;Use Language from Style Definition</source>
         <translation>&amp;Use Language from Style Definition</translation>
+    </message>
+    <message>
+        <source>Apply Unbreakable Space To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Unbreakable Space To:</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selected Frames</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;Selected Frames</translation>
+    </message>
+    <message>
+        <source>Active &amp;Page</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Active &amp;Page</translation>
+    </message>
+    <message>
+        <source>&amp;All Items</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;All Items</translation>
     </message>
 </context>
 <context>
@@ -31557,6 +32558,575 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
         <translation>Save a document as a template. Good way to ease the initial work for documents with a constant look</translation>
+    </message>
+</context>
+<context>
+    <name>ScAnnot</name>
+    <message>
+        <source>Field Properties</source>
+        <translation type="unfinished">Field Properties</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation type="unfinished">Button</translation>
+    </message>
+    <message>
+        <source>Text Field</source>
+        <translation type="unfinished">Text Field</translation>
+    </message>
+    <message>
+        <source>Check Box</source>
+        <translation type="unfinished">Check Box</translation>
+    </message>
+    <message>
+        <source>Combo Box</source>
+        <translation type="unfinished">Combo Box</translation>
+    </message>
+    <message>
+        <source>List Box</source>
+        <translation type="unfinished">List Box</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Properties</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <source>Tooltip:</source>
+        <translation type="unfinished">Tooltip:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Text</translation>
+    </message>
+    <message>
+        <source>Font for use with PDF 1.3:</source>
+        <translation type="unfinished">Font for use with PDF 1.3:</translation>
+    </message>
+    <message>
+        <source>Border</source>
+        <translation type="unfinished">Border</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Colour:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Width:</translation>
+    </message>
+    <message>
+        <source>Thin</source>
+        <translation type="unfinished">Thin</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Wide</source>
+        <translation type="unfinished">Wide</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="unfinished">Style:</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <translation type="unfinished">Solid</translation>
+    </message>
+    <message>
+        <source>Dashed</source>
+        <translation type="unfinished">Dashed</translation>
+    </message>
+    <message>
+        <source>Underline</source>
+        <translation type="unfinished">Underline</translation>
+    </message>
+    <message>
+        <source>Beveled</source>
+        <translation type="unfinished">Bevelled</translation>
+    </message>
+    <message>
+        <source>Inset</source>
+        <translation type="unfinished">Inset</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished">Other</translation>
+    </message>
+    <message>
+        <source>Read Only</source>
+        <translation type="unfinished">Read Only</translation>
+    </message>
+    <message>
+        <source>Required</source>
+        <translation type="unfinished">Required</translation>
+    </message>
+    <message>
+        <source>Do Not Export Value</source>
+        <translation type="unfinished">Do Not Export Value</translation>
+    </message>
+    <message>
+        <source>Visibility:</source>
+        <translation type="unfinished">Visibility:</translation>
+    </message>
+    <message>
+        <source>Visible</source>
+        <translation type="unfinished">Visible</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation type="unfinished">Hidden</translation>
+    </message>
+    <message>
+        <source>No Print</source>
+        <translation type="unfinished">No Print</translation>
+    </message>
+    <message>
+        <source>No View</source>
+        <translation type="unfinished">No View</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation type="unfinished">Appearance</translation>
+    </message>
+    <message>
+        <source>Text for Button Down</source>
+        <translation type="unfinished">Text for Button Down</translation>
+    </message>
+    <message>
+        <source>Text for Roll Over</source>
+        <translation type="unfinished">Text for Roll Over</translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished">Icons</translation>
+    </message>
+    <message>
+        <source>Use Icons</source>
+        <translation type="unfinished">Use Icons</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Remove</translation>
+    </message>
+    <message>
+        <source>Pressed</source>
+        <translation type="unfinished">Pressed</translation>
+    </message>
+    <message>
+        <source>Roll Over</source>
+        <translation type="unfinished">Roll Over</translation>
+    </message>
+    <message>
+        <source>Icon Placement...</source>
+        <translation type="unfinished">Icon Placement...</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation type="unfinished">Highlight</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation type="unfinished">Invert</translation>
+    </message>
+    <message>
+        <source>Outlined</source>
+        <translation type="unfinished">Outlined</translation>
+    </message>
+    <message>
+        <source>Push</source>
+        <translation type="unfinished">Push</translation>
+    </message>
+    <message>
+        <source>Multi-Line</source>
+        <translation type="unfinished">Multi-Line</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Password</translation>
+    </message>
+    <message>
+        <source>Limit of</source>
+        <translation type="unfinished">Limit of</translation>
+    </message>
+    <message>
+        <source>Characters</source>
+        <translation type="unfinished">Characters</translation>
+    </message>
+    <message>
+        <source>Do Not Scroll</source>
+        <translation type="unfinished">Do Not Scroll</translation>
+    </message>
+    <message>
+        <source>Do Not Spell Check</source>
+        <translation type="unfinished">Do Not Spell Check</translation>
+    </message>
+    <message>
+        <source>Check Style:</source>
+        <translation type="unfinished">Check Style:</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Check</translation>
+    </message>
+    <message>
+        <source>Cross</source>
+        <translation type="unfinished">Cross</translation>
+    </message>
+    <message>
+        <source>Diamond</source>
+        <translation type="unfinished">Diamond</translation>
+    </message>
+    <message>
+        <source>Circle</source>
+        <translation type="unfinished">Circle</translation>
+    </message>
+    <message>
+        <source>Star</source>
+        <translation type="unfinished">Star</translation>
+    </message>
+    <message>
+        <source>Square</source>
+        <translation type="unfinished">Square</translation>
+    </message>
+    <message>
+        <source>Default is Checked</source>
+        <translation type="unfinished">Default is Checked</translation>
+    </message>
+    <message>
+        <source>Editable</source>
+        <translation type="unfinished">Editable</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Options</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished">JavaScript</translation>
+    </message>
+    <message>
+        <source>Go To</source>
+        <translation type="unfinished">Go To</translation>
+    </message>
+    <message>
+        <source>Submit Form</source>
+        <translation type="unfinished">Submit Form</translation>
+    </message>
+    <message>
+        <source>Reset Form</source>
+        <translation type="unfinished">Reset Form</translation>
+    </message>
+    <message>
+        <source>Import Data</source>
+        <translation type="unfinished">Import Data</translation>
+    </message>
+    <message>
+        <source>Event:</source>
+        <translation type="unfinished">Event:</translation>
+    </message>
+    <message>
+        <source>Mouse Up</source>
+        <translation type="unfinished">Mouse Up</translation>
+    </message>
+    <message>
+        <source>Mouse Down</source>
+        <translation type="unfinished">Mouse Down</translation>
+    </message>
+    <message>
+        <source>Mouse Enter</source>
+        <translation type="unfinished">Mouse Enter</translation>
+    </message>
+    <message>
+        <source>Mouse Exit</source>
+        <translation type="unfinished">Mouse Exit</translation>
+    </message>
+    <message>
+        <source>On Focus</source>
+        <translation type="unfinished">On Focus</translation>
+    </message>
+    <message>
+        <source>On Blur</source>
+        <translation type="unfinished">On Blur</translation>
+    </message>
+    <message>
+        <source>Script:</source>
+        <translation type="unfinished">Script:</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation type="unfinished">Edit...</translation>
+    </message>
+    <message>
+        <source>Destination</source>
+        <translation type="unfinished">Destination</translation>
+    </message>
+    <message>
+        <source>To File:</source>
+        <translation type="unfinished">To File:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Change...</translation>
+    </message>
+    <message>
+        <source>Export absolute Filename</source>
+        <translation type="unfinished">Export absolute Filename</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <translation type="unfinished">Page:</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="unfinished">X-Pos:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="unfinished">Y-Pos:</translation>
+    </message>
+    <message>
+        <source>Submit to URL:</source>
+        <translation type="unfinished">Submit to URL:</translation>
+    </message>
+    <message>
+        <source>Submit format:</source>
+        <translation type="unfinished">Submit format:</translation>
+    </message>
+    <message>
+        <source>FDF</source>
+        <translation type="unfinished">FDF</translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished">HTML</translation>
+    </message>
+    <message>
+        <source>XFDF</source>
+        <translation type="unfinished">XFDF</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
+    </message>
+    <message>
+        <source>Import Data from:</source>
+        <translation type="unfinished">Import Data from:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished">Action</translation>
+    </message>
+    <message>
+        <source>Field is formatted as:</source>
+        <translation type="unfinished">Field is formatted as:</translation>
+    </message>
+    <message>
+        <source>Plain</source>
+        <translation type="unfinished">Plain</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation type="unfinished">Number</translation>
+    </message>
+    <message>
+        <source>Percentage</source>
+        <translation type="unfinished">Percentage</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation type="unfinished">Date</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation type="unfinished">Time</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Custom</translation>
+    </message>
+    <message>
+        <source>Number Format</source>
+        <translation type="unfinished">Number Format</translation>
+    </message>
+    <message>
+        <source>Decimals:</source>
+        <translation type="unfinished">Decimals:</translation>
+    </message>
+    <message>
+        <source>Use Currency Symbol</source>
+        <translation type="unfinished">Use Currency Symbol</translation>
+    </message>
+    <message>
+        <source>Prepend Currency Symbol</source>
+        <translation type="unfinished">Prepend Currency Symbol</translation>
+    </message>
+    <message>
+        <source>Formatting</source>
+        <translation type="unfinished">Formatting</translation>
+    </message>
+    <message>
+        <source>Percent Format</source>
+        <translation type="unfinished">Percent Format</translation>
+    </message>
+    <message>
+        <source>Date Format</source>
+        <translation type="unfinished">Date Format</translation>
+    </message>
+    <message>
+        <source>Time Format</source>
+        <translation type="unfinished">Time Format</translation>
+    </message>
+    <message>
+        <source>Custom Scripts</source>
+        <translation type="unfinished">Custom Scripts</translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished">Format:</translation>
+    </message>
+    <message>
+        <source>Keystroke:</source>
+        <translation type="unfinished">Keystroke:</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <translation type="unfinished">Format</translation>
+    </message>
+    <message>
+        <source>Value is not validated</source>
+        <translation type="unfinished">Value is not validated</translation>
+    </message>
+    <message>
+        <source>Value must be greater than or equal to:</source>
+        <translation type="unfinished">Value must be greater than or equal to:</translation>
+    </message>
+    <message>
+        <source>and less or equal to:</source>
+        <translation type="unfinished">and less or equal to:</translation>
+    </message>
+    <message>
+        <source>Custom validate script:</source>
+        <translation type="unfinished">Custom validate script:</translation>
+    </message>
+    <message>
+        <source>Validate</source>
+        <translation type="unfinished">Validate</translation>
+    </message>
+    <message>
+        <source>Value is not calculated</source>
+        <translation type="unfinished">Value is not calculated</translation>
+    </message>
+    <message>
+        <source>Value is the</source>
+        <translation type="unfinished">Value is the</translation>
+    </message>
+    <message>
+        <source>sum</source>
+        <translation type="unfinished">sum</translation>
+    </message>
+    <message>
+        <source>product</source>
+        <translation type="unfinished">product</translation>
+    </message>
+    <message>
+        <source>average</source>
+        <translation type="unfinished">average</translation>
+    </message>
+    <message>
+        <source>minimum</source>
+        <translation type="unfinished">minimum</translation>
+    </message>
+    <message>
+        <source>maximum</source>
+        <translation type="unfinished">maximum</translation>
+    </message>
+    <message>
+        <source>of the following fields:</source>
+        <translation type="unfinished">of the following fields:</translation>
+    </message>
+    <message>
+        <source>Pick...</source>
+        <translation type="unfinished">Pick...</translation>
+    </message>
+    <message>
+        <source>Custom calculation script:</source>
+        <translation type="unfinished">Custom calculation script:</translation>
+    </message>
+    <message>
+        <source>Calculate</source>
+        <translation type="unfinished">Calculate</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel</translation>
+    </message>
+    <message>
+        <source>Flag is ignored for PDF 1.3</source>
+        <translation type="unfinished">Flag is ignored for PDF 1.3</translation>
+    </message>
+    <message>
+        <source>Enter a comma separated list of fields here</source>
+        <translation type="unfinished">Enter a comma separated list of fields here</translation>
+    </message>
+    <message>
+        <source>You need at least the Icon for Normal to use Icons for Buttons</source>
+        <translation type="unfinished">You need at least the Icon for Normal to use Icons for Buttons</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Open</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
+        <translation type="unfinished">Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+        <translation type="unfinished">Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>Example:</source>
+        <translation type="unfinished">Example:</translation>
+    </message>
+    <message>
+        <source>Selection Change</source>
+        <translation type="unfinished">Selection Change</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF Files (*.pdf);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -32087,11 +33657,11 @@ Rotation: %4</translation>
     </message>
     <message>
         <source>1 Object selected</source>
-        <translation>1 Object selected</translation>
+        <translation type="obsolete">1 Object selected</translation>
     </message>
     <message>
         <source>%1 Objects selected</source>
-        <translation>%1 Objects selected</translation>
+        <translation type="obsolete">%1 Objects selected</translation>
     </message>
     <message>
         <source>Open</source>
@@ -32464,6 +34034,70 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>Close</source>
         <translation type="unfinished">Close</translation>
     </message>
+    <message>
+        <source>Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Unknown</translation>
+    </message>
+    <message>
+        <source>Image Frame</source>
+        <translation type="unfinished">Image Frame</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Text Frame</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished">Line</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation type="unfinished">Polygon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation type="unfinished">Polyline</translation>
+    </message>
+    <message>
+        <source>Text on Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latex Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Symbol</source>
+        <translation type="unfinished">Symbol</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished">Group</translation>
+    </message>
+    <message>
+        <source>RegularPolygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 selected, Size = %2 x %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Objects selected, Selection Size = %2 x %3</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -32574,6 +34208,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Invalid argument: %1</source>
         <translation>Invalid argument: %1</translation>
+    </message>
+    <message>
+        <source>Run unit tests and exit</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -33146,6 +34784,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>Close search and replace</source>
         <translation>Close search and replace</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="unfinished">Style</translation>
     </message>
 </context>
 <context>
@@ -33878,6 +35520,13 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>Symbols</source>
         <translation>Symbols</translation>
+    </message>
+</context>
+<context>
+    <name>SymbolView</name>
+    <message>
+        <source>Display Icons only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -36863,6 +38512,28 @@ when PDF document is opened:</translation>
     </message>
 </context>
 <context>
+    <name>TableColumnWidthsDialog</name>
+    <message>
+        <source>Set Column Widths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TableRowHeightsDialog</name>
+    <message>
+        <source>Set Row Heights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Row Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Tabruler</name>
     <message>
         <source>Left</source>
@@ -38365,6 +40036,14 @@ converting their vector data into Scribus objects.</translation>
         <source>Stroke Mode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Conical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patch Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>gradientAddEditDialog</name>
@@ -39359,6 +41038,29 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Properties...</source>
         <translation>Properties...</translation>
+    </message>
+    <message>
+        <source>Use inverted Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>weldEditBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Move weld Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Edit</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
