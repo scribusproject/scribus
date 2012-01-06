@@ -1447,7 +1447,7 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
     </message>
     <message>
         <source>&amp;Frame...</source>
-        <translation>&amp;Ramme …</translation>
+        <translation type="obsolete">&amp;Ramme …</translation>
     </message>
     <message>
         <source>Preview Mode</source>
@@ -1790,6 +1790,10 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
     <message>
         <source>Paste Image from Clipboard</source>
         <translation type="unfinished">Lim inn bilde fra utklippstavla </translation>
+    </message>
+    <message>
+        <source>&amp;Frames...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3202,11 +3206,11 @@ UCR reduserer muligheten for overmetning med CMY-farger.</translation>
     </message>
     <message>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
-        <translation>programtillegg for aspell (AspellPluginImpl::AspellPluginImpl): Feil i oppsettet for aspell-stavekontrollen.</translation>
+        <translation type="obsolete">programtillegg for aspell (AspellPluginImpl::AspellPluginImpl): Feil i oppsettet for aspell-stavekontrollen.</translation>
     </message>
     <message>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
-        <translation>programtillegg for aspell (AspellPluginImpl::AspellPluginImpl): Det oppsto en feil da stavekontrollen skulle opprettes.</translation>
+        <translation type="obsolete">programtillegg for aspell (AspellPluginImpl::AspellPluginImpl): Det oppsto en feil da stavekontrollen skulle opprettes.</translation>
     </message>
     <message>
         <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
@@ -3235,6 +3239,19 @@ UCR reduserer muligheten for overmetning med CMY-farger.</translation>
     <message>
         <source>Do you want start from the beginning of the selection with new language selected?</source>
         <translation>Vil du starte om igjen fra begynnelsen av utvalget med et annet språkvalg?</translation>
+    </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialise.
+Configuration invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Aspell dictionaries could be found.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9694,7 +9711,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Insert A Frame</source>
-        <translation>Sett inn ramme</translation>
+        <translation type="obsolete">Sett inn ramme</translation>
     </message>
     <message>
         <source>T&amp;ype</source>
@@ -9971,6 +9988,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Source image to load into the inserted image frame</source>
         <translation>Kildebilde som skal lastes inn i den nye bilderamma</translation>
+    </message>
+    <message>
+        <source>Insert Frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22173,6 +22194,14 @@ Hvis du bruker motstående sider, kan dette brukes til å få rettinnbindingsmar
         <source>Origin at Center</source>
         <translation>Opprinnelse midt på</translation>
     </message>
+    <message>
+        <source>Origin at Top Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Origin at Bottom Center</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
@@ -23087,22 +23116,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation>Legg til et hardt mellomrom på:</translation>
+        <translation type="obsolete">Legg til et hardt mellomrom på:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>De &amp;valgte rammene</translation>
+        <translation type="obsolete">De &amp;valgte rammene</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation>Denne &amp;siden</translation>
+        <translation type="obsolete">Denne &amp;siden</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Alle elementene</translation>
+        <translation type="obsolete">&amp;Alle elementene</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
@@ -23141,7 +23170,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Apply Unbreakable Space On:</source>
-        <translation>Legg til et hardt mellomrom på:</translation>
+        <translation type="obsolete">Legg til et hardt mellomrom på:</translation>
     </message>
     <message>
         <source>&amp;Selected Frames</source>
@@ -23162,6 +23191,30 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&amp;Use Language from Style Definition</source>
         <translation>&amp;Hent språkvalget fra stilvalget</translation>
+    </message>
+    <message>
+        <source>Apply Unbreakable Space To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Unbreakable Space To:</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selected Frames</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">De &amp;valgte rammene</translation>
+    </message>
+    <message>
+        <source>Active &amp;Page</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Denne &amp;siden</translation>
+    </message>
+    <message>
+        <source>&amp;All Items</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;Alle elementene</translation>
     </message>
 </context>
 <context>
@@ -26311,6 +26364,10 @@ Du kan bruke forhåndssjekken for å rette dem.</translation>
     <message>
         <source>Close search and replace</source>
         <translation>Lukk søk og erstatt</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="unfinished">Stil</translation>
     </message>
 </context>
 <context>
