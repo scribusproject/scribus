@@ -94,14 +94,16 @@ _cairo_win32_print_gdi_error (const char *context)
 			 NULL,
 			 last_error,
 			 MAKELANGID (LANG_NEUTRAL, SUBLANG_DEFAULT),
-			 (LPSTR) &lpMsgBuf,
+			 (LPWSTR) &lpMsgBuf,
 			 0, NULL)) {
 	fprintf (stderr, "%s: Unknown GDI error", context);
     } else {
-	fwprintf (stderr, "%S: %s", context, (char *)lpMsgBuf);
+	fprintf (stderr, "%s: %S", context, (wchar_t *)lpMsgBuf);
 
 	LocalFree (lpMsgBuf);
     }
+
+	fflush (stderr);
 
     /* We should switch off of last_status, but we'd either return
      * CAIRO_STATUS_NO_MEMORY or CAIRO_STATUS_UNKNOWN_ERROR and there
