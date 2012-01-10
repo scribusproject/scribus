@@ -2537,7 +2537,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			QString params2 = params.simplified().replace(',', " ");
 			QStringList dashes = params2.split(' ', QString::SkipEmptyParts);
 			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
-				array.append( ScCLocale::toDoubleC(*it) );
+				array.append( parseUnit(*it) );
 		}
 		obj->dashArray = array;
 	}
