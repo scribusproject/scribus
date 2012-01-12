@@ -96,7 +96,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 	Q_ASSERT(target.isEmpty());
 	Q_ASSERT(!doc->masterPageMode());
 	QSharedPointer<ExportBitmap> ex( new ExportBitmap() );
-	QSharedPointer<ExportForm>  dia( new ExportForm(doc->scMW(), doc, ex->pageDPI, ex->quality, ex->bitmapType) );
+	QSharedPointer<ExportForm>  dia( new ExportForm(0, doc, ex->pageDPI, ex->quality, ex->bitmapType) );
 
 	// interval widgets handling
 	QString tmp;
