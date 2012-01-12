@@ -43,6 +43,7 @@ class SCRIBUS_API DocumentInformation
 		const QString getRelation();
 		const QString getRights();
 		const QString getSource();
+		const QString getSubject();
 		const QString getTitle();
 		const QString getType();
 		
@@ -59,6 +60,7 @@ class SCRIBUS_API DocumentInformation
 		void setRelation(const QString &_relation);
 		void setRights(const QString &_rights);
 		void setSource(const QString &_source);
+		void setSubject(const QString &_subject);
 		void setTitle(const QString &_title);
 		void setType(const QString &_type);
 		
@@ -76,6 +78,7 @@ class SCRIBUS_API DocumentInformation
 		QString relation;
 		QString rights;
 		QString source;
+		QString subject;
 		QString title;
 		QString type;
 };

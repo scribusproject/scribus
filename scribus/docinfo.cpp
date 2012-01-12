@@ -49,21 +49,28 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	layout1->addWidget( authorLabel, 1, 0 );
 	layout1->addWidget( authorEdit, 1, 1 );
 
+	subjectEdit = new QLineEdit( page1 );
+	subjectLabel = new QLabel( tr("&Subject:"), page1);
+	subjectLabel->setBuddy(subjectEdit);
+	subjectLabel->resize( subjectLabel->sizeHint() );
+	layout1->addWidget( subjectLabel, 2, 0 );
+	layout1->addWidget( subjectEdit, 2, 1 );
+
 	keywordsEdit = new QTextEdit( page1 );
 	keywordsLabel = new QLabel( tr("&Keywords:"), page1 );
 	keywordsLabel->setBuddy(keywordsEdit);
 	keywordsLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	keywordsEdit->setMinimumSize(QSize(200, 105));
-	layout1->addWidget( keywordsLabel, 2, 0 );
-	layout1->addWidget( keywordsEdit, 2, 1 );
+	layout1->addWidget( keywordsLabel, 3, 0 );
+	layout1->addWidget( keywordsEdit, 3, 1 );
 
 	descriptionEdit = new QTextEdit( page1 );
 	descriptionLabel = new QLabel( tr("Descri&ption:"), page1 );
 	descriptionLabel->setBuddy(descriptionEdit);
 	descriptionLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	descriptionEdit->setMinimumSize(QSize(200, 105));
-	layout1->addWidget( descriptionLabel, 3, 0 );
-	layout1->addWidget( descriptionEdit, 3, 1 );
+	layout1->addWidget( descriptionLabel, 4, 0 );
+	layout1->addWidget( descriptionEdit, 4, 1 );
 
 	page2 = new QWidget( this );
 	layout2 = new QGridLayout(page2);
@@ -190,6 +197,7 @@ DocumentInformation DocInfos::getDocInfo()
 	docInfo.setRelation(relationEdit->text());
 	docInfo.setRights(rightsEdit->text());
 	docInfo.setSource(sourceEdit->text());
+	docInfo.setSubject(subjectEdit->text());
 	docInfo.setTitle(titleEdit->text());
 	docInfo.setType(typeEdit->text());
 	return docInfo;
@@ -199,6 +207,7 @@ void DocInfos::restoreDefaults()
 {
 	titleEdit->setText(infos.getTitle());
 	authorEdit->setText(infos.getAuthor());
+	subjectEdit->setText(infos.getSubject());
 	descriptionEdit->setPlainText(infos.getComments());
 	keywordsEdit->setPlainText(infos.getKeywords());
 	publisherEdit->setText(infos.getPublisher());

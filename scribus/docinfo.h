@@ -55,6 +55,7 @@ protected:
 	QLineEdit* rightsEdit;
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
+	QLineEdit* subjectEdit;
 
 	QTextEdit* descriptionEdit;
 	QTextEdit* keywordsEdit;
@@ -62,6 +63,7 @@ protected:
 
 	QLabel* authorLabel;
 	QLabel* titleLabel;
+	QLabel* subjectLabel;
 	QLabel* publisherLabel;
 	QLabel* dateLabel;
 	QLabel* typeLabel;
