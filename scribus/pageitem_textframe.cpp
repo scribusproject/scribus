@@ -1536,11 +1536,16 @@ void PageItem_TextFrame::layout()
 				chs  = (10 * ((DropCapDrop + fontAscent) / realCharAscent));
 				hl->setEffects(hl->effects() | ScStyle_DropCap);
 				hl->glyph.yoffset -= DropCapDrop;
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				{
+					chs = qRound((hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth()) * 10);
+					chsd = qRound((hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth()) * 10);
+				}
 			}
 			else // ! dropCapMode
 			{
 				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
-					chs = qRound((hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()) * 10);
+					chs = qRound((hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
 			}
@@ -1560,7 +1565,7 @@ void PageItem_TextFrame::layout()
 			// find out width, ascent and descent of char
 			if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 			{
-				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
+				wide = hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth();
 				hl->glyph.xadvance = wide * hl->glyph.scaleH;
 			}
 			else
@@ -1580,10 +1585,11 @@ void PageItem_TextFrame::layout()
 				// drop caps are wider...
 				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
-					double itemHeight = hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth();
+					double itemHeight = hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth();
 					if (itemHeight == 0)
 						itemHeight = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-					wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
+					wide = hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth();
+					asce = hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth();
 					realAsce = calculateLineSpacing (style, this) * DropLines;
 					hl->glyph.scaleH /= hl->glyph.scaleV;
 					hl->glyph.scaleV = (realAsce / itemHeight);
@@ -1623,8 +1629,16 @@ void PageItem_TextFrame::layout()
 					realDesc = charStyle.font().realCharDescent(chstr[0], hlcsize10) * scaleV - offset;
 					current.rememberShrinkStretch(hl->ch, wide, style);
 				}
-				asce = charStyle.font().ascent(hlcsize10);
-				realAsce = charStyle.font().realCharAscent(chstr[0], hlcsize10) * scaleV + offset;
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				{
+					asce = hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth();
+					realAsce = asce * scaleV + offset;
+				}
+				else
+				{
+					asce = charStyle.font().ascent(hlcsize10);
+					realAsce = charStyle.font().realCharAscent(chstr[0], hlcsize10) * scaleV + offset;
+				}
 			}
 
 			//check for Y position at beginning of line
@@ -1936,7 +1950,7 @@ void PageItem_TextFrame::layout()
 			// remember y pos
 			if (DropCmode)
 				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr[0], chsd / 10.0);
-			
+
 			// remember x pos
 			double breakPos = current.xPos;
 			

@@ -63,6 +63,7 @@ double SCRIBUS_API getRotationFromMatrix(QTransform& matrix, double def);
  */
 double SCRIBUS_API getRotationDFromMatrix(QTransform& matrix);
 void SCRIBUS_API getScaleFromMatrix(QTransform &matrix, double &scX, double &scY);
+void SCRIBUS_API getTransformValuesFromMatrix(QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy);
 
 
 // IMPLEMENTATION

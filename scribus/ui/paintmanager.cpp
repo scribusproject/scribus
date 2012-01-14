@@ -1029,6 +1029,8 @@ void PaintManagerDialog::importColorItems()
 		}
 		else if ((it->parent() == colorItems) || (it == colorItems))
 		{
+		//	QStringList allFormatsV = LoadSavePlugin::getExtensionsForColors();
+		//	qDebug() << allFormatsV;
 			QString fileName;
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 			QString wdir = dirs->get("colors", ".");

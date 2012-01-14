@@ -529,3 +529,16 @@ void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
 	scX = lineX.length();
 	scY = lineY.length();
 }
+
+void getTransformValuesFromMatrix(QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy)
+{
+	QLineF lineX = QLineF(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY = QLineF(0.0, 0.0, 0.0, 1.0);
+	lineX = matrix.map(lineX);
+	lineY = matrix.map(lineY);
+	scX = lineX.length();
+	scY = lineY.length();
+	rot = lineX.angle();
+	dx = lineX.x1();
+	dy = lineX.y1();
+}
