@@ -121,6 +121,7 @@ private:
 	double def_gradientLen;
 	double def_gradientX;
 	double def_gradientY;
+	PageItem::TextFlowMode def_TextFlow;
 
 	FileUnzip *fun;
 

@@ -448,6 +448,7 @@ bool IdmlPlug::convert(QString fn)
 	def_gradientLen = 0.0;
 	def_gradientX = 0.0;
 	def_gradientY = 0.0;
+	def_TextFlow = PageItem::TextFlowDisabled;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -737,6 +738,28 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 		if (fillTint != -1)
 			newStyle.charStyle().setFillShade(fillTint);
 	}
+	StyleFlag styleEffects = newStyle.charStyle().effects();
+	if (styleElem.attribute("Underline") == "true")
+		styleEffects |= ScStyle_Underline;
+	if (styleElem.attribute("StrikeThru") == "true")
+		styleEffects |= ScStyle_Strikethrough;
+	if (styleElem.hasAttribute("Capitalization"))
+	{
+		QString ca = styleElem.attribute("Capitalization");
+		if (ca == "AllCaps")
+			styleEffects |= ScStyle_AllCaps;
+		else if (ca == "SmallCaps")
+			styleEffects |= ScStyle_SmallCaps;
+	}
+	if (styleElem.hasAttribute("Position"))
+	{
+		QString pa = styleElem.attribute("Position");
+		if ((pa == "Superscript") || (pa == "OTSuperscript"))
+			styleEffects |= ScStyle_Superscript;
+		else if ((pa == "Subscript") || (pa == "OTSubscript"))
+			styleEffects |= ScStyle_Subscript;
+	}
+	newStyle.charStyle().setFeatures(styleEffects.featureList());
 
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	if (styleElem.hasAttribute("LeftIndent"))
@@ -766,6 +789,16 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 		newStyle.setAlignment(ParagraphStyle::Justified);
 	else if (align == "FullyJustified")
 		newStyle.setAlignment(ParagraphStyle::Extended);
+/*
+	if (styleElem.hasAttribute("MinimumGlyphScaling"))
+		newStyle.setMinGlyphExtension(styleElem.attribute("MinimumGlyphScaling", "100").toDouble());
+	if (styleElem.hasAttribute("MaximumGlyphScaling"))
+		newStyle.setMaxGlyphExtension(styleElem.attribute("MaximumGlyphScaling", "100").toDouble());
+	if (styleElem.hasAttribute("MinimumWordSpacing"))
+		newStyle.setMinWordTracking(styleElem.attribute("MinimumWordSpacing", "100").toDouble());
+	if (styleElem.hasAttribute("DesiredWordSpacing"))
+		newStyle.charStyle().setWordTracking(styleElem.attribute("DesiredWordSpacing", "100").toDouble());
+*/
 	StyleSet<ParagraphStyle>tmp;
 	tmp.create(newStyle);
 	m_Doc->redefineStyles(tmp, false);
@@ -885,6 +918,15 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 			Code >> def_gradientX >> def_gradientY;
 			def_gradientLen = e.attribute("GradientFillLength", "0").toDouble();
 			def_gradientAngle = e.attribute("GradientFillAngle", "0").toDouble();
+		}
+		if (e.tagName() == "TextWrapPreference")
+		{
+			if (e.attribute("TextWrapMode") == "None")
+				def_TextFlow = PageItem::TextFlowDisabled;
+			else if (e.attribute("TextWrapMode") == "BoundingBoxTextWrap")
+				def_TextFlow = PageItem::TextFlowUsesBoundingBox;
+			else if (e.attribute("TextWrapMode") == "Contour")
+				def_TextFlow = PageItem::TextFlowUsesFrameShape;
 		}
 	}
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -1040,6 +1082,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	bool isGroup = false;
 	bool realGroup = false;
 	bool isImage = false;
+	bool isPathText = false;
 	if (itElem.tagName() == "Group")
 		realGroup = true;
 	double Opacity = def_Opacity;
@@ -1047,6 +1090,9 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	QString imageType = "";
 	QByteArray imageData = "";
 	QTransform imageTransform;
+	PageItem::TextFlowMode textFlow = PageItem::TextFlowDisabled;
+	QString storyForPath = "";
+	int pathTextType = 0;
 	for(QDomNode it = itElem.firstChild(); !it.isNull(); it = it.nextSibling() )
 	{
 		QDomElement ite = it.toElement();
@@ -1062,7 +1108,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 						QDomElement itgg = itg.toElement();
 						if (itgg.tagName() == "GeometryPathType")
 						{
-							isOpen = (itgg.attribute("PathOpen") == "true" ? true : false);
+							isOpen = (itgg.attribute("PathOpen") == "true");
 							for(QDomNode itpp = itgg.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
 							{
 								QDomElement itpa = itpp.toElement();
@@ -1129,7 +1175,9 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 									else
 									{
 										if (isOpen)
+										{
 											pointList.removeLast();
+										}
 										else
 										{
 											pointList.append(firstBezPoint);
@@ -1149,7 +1197,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 									}
 								}
 							}
-							GCoords.svgClosePath();
+							if (!isOpen)
+								GCoords.svgClosePath();
 						}
 					}
 				}
@@ -1176,6 +1225,15 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 			}
 		}
+		if (ite.tagName() == "TextWrapPreference")
+		{
+			if (ite.attribute("TextWrapMode") == "None")
+				textFlow = PageItem::TextFlowDisabled;
+			else if (ite.attribute("TextWrapMode") == "BoundingBoxTextWrap")
+				textFlow = PageItem::TextFlowUsesBoundingBox;
+			else if (ite.attribute("TextWrapMode") == "Contour")
+				textFlow = PageItem::TextFlowUsesFrameShape;
+		}
 		else if ((ite.tagName() == "Image") || (ite.tagName() == "EPS") || (ite.tagName() == "PDF") || (ite.tagName() == "PICT"))
 		{
 			imageType = ite.attribute("ImageTypeName");
@@ -1200,6 +1258,21 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		{
 			qDebug() << "ImportedPage";
 		}
+		else if (ite.tagName() == "TextPath")
+		{
+			isPathText = true;
+			storyForPath = ite.attribute("ParentStory");
+			if (ite.attribute("PathEffect") == "RainbowPathEffect")
+				pathTextType = 0;
+			else if (ite.attribute("PathEffect") == "StairStepPathEffect")
+				pathTextType = 1;
+			else if (ite.attribute("PathEffect") == "SkewPathEffect")
+				pathTextType = 2;
+			else if (ite.attribute("PathEffect") == "RibbonPathEffect")			// not implemented in PathText yet
+				pathTextType = 0;
+			else if (ite.attribute("PathEffect") == "GravityPathEffect")		// not implemented in PathText yet
+				pathTextType = 0;
+		}
 	}
 	if (GCoords.size() > 0)
 	{
@@ -1222,9 +1295,15 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 					QString story = itElem.attribute("ParentStory");
 					if (!storyMap.contains(story))
-					{
 						storyMap.insert(story, m_Doc->Items->at(z));
-					}
+				}
+				else if (isPathText)
+				{
+					z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
+					if (!storyMap.contains(storyForPath))
+						storyMap.insert(storyForPath, m_Doc->Items->at(z));
+					PageItem* item = m_Doc->Items->at(z);
+					item->setPathTextType(pathTextType);
 				}
 				else if (isImage)
 				{
@@ -1256,7 +1335,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				FPoint wh = getMaxClipF(&item->PoLine);
 				item->setWidthHeight(wh.x(),wh.y());
-				item->setTextFlowMode(PageItem::TextFlowDisabled);
+				item->setTextFlowMode(textFlow);
 				m_Doc->AdjustItemSize(item);
 				item->moveBy(dx, dy, true);
 				item->setRotation(-rot, true);
@@ -1283,7 +1362,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			itemg->FrameType = 3;
 			FPoint wh = getMaxClipF(&itemg->PoLine);
 			itemg->setWidthHeight(wh.x(),wh.y());
-			itemg->setTextFlowMode(PageItem::TextFlowDisabled);
+			itemg->setTextFlowMode(textFlow);
 			m_Doc->AdjustItemSize(itemg, true);
 			itemg->moveBy(dx, dy, true);
 			itemg->setRotation(-rot, true);
@@ -1313,9 +1392,15 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 				QString story = itElem.attribute("ParentStory");
 				if (!storyMap.contains(story))
-				{
 					storyMap.insert(story, m_Doc->Items->at(z));
-				}
+			}
+			else if (isPathText)
+			{
+				z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
+				if (!storyMap.contains(storyForPath))
+					storyMap.insert(storyForPath, m_Doc->Items->at(z));
+				PageItem* item = m_Doc->Items->at(z);
+				item->setPathTextType(pathTextType);
 			}
 			else if (isImage)
 			{
@@ -1345,13 +1430,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				gradientVector.setLength(gLen);
 				gradientVector.setAngle(gAngle);
 				gradientVector.translate(-grOffset.x(), -grOffset.y());
+				item->fill_gradient = m_Doc->docGradients[fillGradient];
 				item->setGradientVector(gradientVector.x1(), gradientVector.y1(), gradientVector.x2(), gradientVector.y2(), gradientVector.x1(), gradientVector.y1(), 1, 0);
 				item->setGradient(fillGradient);
 				item->setGradientType(fillGradientTyp);
 			}
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
-			item->setTextFlowMode(PageItem::TextFlowDisabled);
+			item->setTextFlowMode(textFlow);
 			m_Doc->AdjustItemSize(item);
 			item->moveBy(dx, dy, true);
 			item->setRotation(-rot, true);
@@ -1434,7 +1520,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			double gh = maxy - miny;
 			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
 			PageItem *item = m_Doc->Items->at(z);
-			item->setTextFlowMode(PageItem::TextFlowDisabled);
+			item->setTextFlowMode(textFlow);
 			m_Doc->AdjustItemSize(item);
 			item->OldB2 = item->width();
 			item->OldH2 = item->height();
@@ -1533,6 +1619,16 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 						else if (align == "FullyJustified")
 							newStyle.setAlignment(ParagraphStyle::Extended);
 					}
+/*
+					if (ste.hasAttribute("MinimumGlyphScaling"))
+						newStyle.setMinGlyphExtension(ste.attribute("MinimumGlyphScaling", "100").toDouble());
+					if (ste.hasAttribute("MaximumGlyphScaling"))
+						newStyle.setMaxGlyphExtension(ste.attribute("MaximumGlyphScaling", "100").toDouble());
+					if (ste.hasAttribute("MinimumWordSpacing"))
+						newStyle.setMinWordTracking(ste.attribute("MinimumWordSpacing", "100").toDouble());
+					if (ste.hasAttribute("DesiredWordSpacing"))
+						newStyle.charStyle().setWordTracking(ste.attribute("DesiredWordSpacing", "100").toDouble());
+*/
 					for(QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling() )
 					{
 						QString data = "";
@@ -1604,6 +1700,29 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 								if (fillTint != -1)
 									nstyle.setFillShade(fillTint);
 							}
+							StyleFlag styleEffects = nstyle.effects();
+							if (stt.attribute("Underline") == "true")
+								styleEffects |= ScStyle_Underline;
+							if (stt.attribute("StrikeThru") == "true")
+								styleEffects |= ScStyle_Strikethrough;
+							if (stt.hasAttribute("Capitalization"))
+							{
+								QString ca = stt.attribute("Capitalization");
+								if (ca == "AllCaps")
+									styleEffects |= ScStyle_AllCaps;
+								else if (ca == "SmallCaps")
+									styleEffects |= ScStyle_SmallCaps;
+							}
+							if (stt.hasAttribute("Position"))
+							{
+								QString pa = stt.attribute("Position");
+								if ((pa == "Superscript") || (pa == "OTSuperscript"))
+									styleEffects |= ScStyle_Superscript;
+								else if ((pa == "Subscript") || (pa == "OTSubscript"))
+									styleEffects |= ScStyle_Subscript;
+							}
+							nstyle.setFeatures(styleEffects.featureList());
+
 							item->itemText.insertChars(posC, data);
 							item->itemText.applyStyle(posC, newStyle);
 							item->itemText.applyCharStyle(posC, data.length(), nstyle);
