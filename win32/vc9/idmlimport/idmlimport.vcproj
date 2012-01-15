@@ -222,10 +222,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\import\idml\docpreference.cpp"
-				>
-			</File>
-			<File
 				RelativePath="idmlimportdll.cpp"
 				>
 			</File>
@@ -234,7 +230,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\import\idml\importidmlimpl.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\idml\importidmlplugin.cpp"
 				>
 			</File>
 		</Filter>
@@ -242,24 +238,6 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
-			<File
-				RelativePath="..\..\..\scribus\plugins\import\idml\docpreference.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc.exe"
-					/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\import\idml\importidml.h"
 				>
@@ -279,7 +257,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\import\idml\importidmlimpl.h"
+				RelativePath="..\..\..\scribus\plugins\import\idml\importidmlplugin.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -301,15 +279,11 @@
 			Name="Generated Moc Files"
 			>
 			<File
-				RelativePath="..\..\..\scribus\plugins\import\idml\moc_docpreference.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\plugins\import\idml\moc_importidml.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\import\idml\moc_importidmlimpl.cpp"
+				RelativePath="..\..\..\scribus\plugins\import\idml\moc_importidmlplugin.cpp"
 				>
 			</File>
 		</Filter>
