@@ -80,7 +80,7 @@ void ScJpegDestinationMgr::jpegDestinationTerm(j_compress_ptr cinfo)
     ScJpegDestinationMgr* dest = (ScJpegDestinationMgr*) cinfo->dest;
     int n = BUFFER_SIZE - dest->free_in_buffer;
 
-    bool written = dest->filter->writeDataInternal((const char*) dest->buffer, BUFFER_SIZE);
+    bool written = dest->filter->writeDataInternal((const char*) dest->buffer, n);
     if (!written)
         (*cinfo->err->error_exit)((j_common_ptr)cinfo);
 }
