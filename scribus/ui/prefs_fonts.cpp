@@ -50,6 +50,8 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 
 	fontListTableView->setModel(new FontListModel(fontListTableView));
 
+	fontSubstitutionsTableWidget->setRowCount(RList.count());
+	fontSubstitutionsTableWidget->setColumnCount(2);
 	fontSubstitutionsTableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem( tr("Font Name")));
 	fontSubstitutionsTableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Replacement")));
 	fontSubstitutionsTableWidget->setSortingEnabled(false);
@@ -187,7 +189,6 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 		FlagsRepl.clear();
 		fontSubstitutionsTableWidget->clearContents();
 		m_GFontSub=prefsData->fontPrefs.GFontSub;
-		fontSubstitutionsTableWidget->setRowCount(m_GFontSub.count());
 		int a = 0;
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
