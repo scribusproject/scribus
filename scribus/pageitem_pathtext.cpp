@@ -177,9 +177,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	itemRenderText.clear();
 	for (a = firstChar; a < itemText.length(); ++a)
 	{
-		CharStyle nstyle;
 		hl = itemText.item(a);
-		nstyle = itemText.charStyle(a);
+		CharStyle nstyle = itemText.charStyle(a);
+		ParagraphStyle pstyle = itemText.paragraphStyle(a);
 		chstr = hl->ch;
 		if (!(chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK))
 			chstr = ExpandToken(a);
@@ -187,6 +187,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		{
 			int pot = itemRenderText.length();
 			itemRenderText.insertChars(pot, chstr.mid(cc, 1));
+			itemRenderText.applyStyle(pot, pstyle);
 			itemRenderText.applyCharStyle(pot, 1, nstyle);
 		}
 		chstr.clear();
@@ -212,16 +213,16 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	{
 		totalCurveLen += PoLine.lenPathSeg(segs);
 	}
-	if ((itemRenderText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + Extra))
+	if ((itemRenderText.paragraphStyle(0).alignment() != 0) && (totalCurveLen >= totalTextLen + Extra))
 	{
-		if (itemRenderText.defaultStyle().alignment() == 2)
+		if (itemRenderText.paragraphStyle(0).alignment() == 2)
 		{
 			CurX = totalCurveLen  - totalTextLen;
 			CurX -= Extra;
 		}
-		if (itemRenderText.defaultStyle().alignment() == 1)
+		if (itemRenderText.paragraphStyle(0).alignment() == 1)
 			CurX = (totalCurveLen - totalTextLen) / 2.0;
-		if ((itemRenderText.defaultStyle().alignment() == 3) || (itemRenderText.defaultStyle().alignment() == 4))
+		if ((itemRenderText.paragraphStyle(0).alignment() == 3) || (itemRenderText.paragraphStyle(0).alignment() == 4))
 			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemRenderText.length());
 	}
 #ifndef NLS_PROTO
