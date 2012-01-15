@@ -69,11 +69,14 @@ private:
 	bool convert(QString fn);
 	bool parseGraphicsXML(const QDomElement& grElem);
 	bool parseStylesXML(const QDomElement& sElem);
+	void parseCharacterStyle(const QDomElement& styleElem);
 	void parseParagraphStyle(const QDomElement& styleElem);
 	bool parsePreferencesXML(const QDomElement& prElem);
 	bool parseSpreadXML(const QDomElement& spElem);
 	QList<PageItem*> parseItemXML(const QDomElement& itElem, QTransform pTrans = QTransform());
 	bool parseStoryXML(const QDomElement& stElem);
+	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
+	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
 	int convertBlendMode(QString blendName);
 	QString constructFontName(QString fontBaseName, QString fontStyle);
 	
@@ -105,6 +108,7 @@ private:
 	QMap<QString, QString> layerTranslate;
 	QMap<QString, PageItem*> storyMap;
 	QMap<QString, QString> styleTranslate;
+	QMap<QString, QString> charStyleTranslate;
 	QString def_fillColor;
 	QString def_strokeColor;
 	QString def_fillGradient;

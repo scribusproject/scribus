@@ -670,6 +670,24 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 	for (QDomNode n = sNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
+		if (e.tagName() == "RootCharacterStyleGroup")
+		{
+			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
+			{
+				QDomElement itpg = it.toElement();
+				if (itpg.tagName() == "CharacterStyle")
+					parseCharacterStyle(itpg);
+				else if (itpg.tagName() == "CharacterStyleGroup")
+				{
+					for(QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling() )
+					{
+						QDomElement itp = its.toElement();
+						if (itp.tagName() == "CharacterStyle")
+							parseCharacterStyle(itp);
+					}
+				}
+			}
+		}
 		if (e.tagName() == "RootParagraphStyleGroup")
 		{
 			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
@@ -692,16 +710,57 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 	return true;
 }
 
+void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
+{
+	CharStyle newStyle;
+	newStyle.setDefaultStyle(false);
+	newStyle.setName(styleElem.attribute("Name"));
+	newStyle.setParent(CommonStrings::DefaultCharacterStyle);
+	QString fontName = m_Doc->itemToolPrefs().textFont;
+	QString fontBaseName = "";
+	QString fontStyle = styleElem.attribute("FontStyle", "");
+	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+	{
+		QDomElement itpr = itp.toElement();
+		if (itpr.tagName() == "Properties")
+		{
+			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			{
+				QDomElement i = itpp.toElement();
+				if (i.tagName() == "AppliedFont")
+					fontBaseName = i.text();
+				else if (i.tagName() == "BasedOn")
+				{
+					QString parentStyle = i.text();
+					if (charStyleTranslate.contains(parentStyle))
+						parentStyle = charStyleTranslate[parentStyle];
+					if (m_Doc->styleExists(parentStyle))
+						newStyle.setParent(parentStyle);
+				}
+			}
+		}
+	}
+	if ((!fontBaseName.isEmpty()) && (!fontStyle.isEmpty()))
+		fontName = constructFontName(fontBaseName, fontStyle);
+	newStyle.setFont((*m_Doc->AllFonts)[fontName]);
+	readCharStyleAttributes(newStyle, styleElem);
+	StyleSet<CharStyle> temp;
+	temp.create(newStyle);
+	m_Doc->redefineCharStyles(temp, false);
+	charStyleTranslate.insert(styleElem.attribute("Self"), styleElem.attribute("Name"));
+}
+
 void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 {
 	ParagraphStyle newStyle;
 	newStyle.erase();
-	newStyle.setName(styleElem.attribute("Name"));
 	newStyle.setDefaultStyle(false);
+	newStyle.setName(styleElem.attribute("Name"));
 	newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	QString fontName = m_Doc->itemToolPrefs().textFont;
 	QString fontBaseName = "";
 	QString fontStyle = styleElem.attribute("FontStyle", "");
+	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
 	{
 		QDomElement itpr = itp.toElement();
@@ -720,85 +779,26 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 					if (m_Doc->styleExists(parentStyle))
 						newStyle.setParent(parentStyle);
 				}
+				else if (i.tagName() == "Leading")
+				{
+					if (i.attribute("type") == "unit")
+					{
+						int lead = i.text().toDouble();
+						if (lead != 0)
+						{
+							newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+							newStyle.setLineSpacing(lead);
+						}
+					}
+				}
 			}
 		}
 	}
 	if ((!fontBaseName.isEmpty()) && (!fontStyle.isEmpty()))
 		fontName = constructFontName(fontBaseName, fontStyle);
 	newStyle.charStyle().setFont((*m_Doc->AllFonts)[fontName]);
-	int pointSize = qRound(styleElem.attribute("PointSize", "12").toDouble() * 10);
-	if (pointSize > 0)
-		newStyle.charStyle().setFontSize(pointSize);
-	QString fillColor = styleElem.attribute("FillColor");
-	if (colorTranslate.contains(fillColor))
-		newStyle.charStyle().setFillColor(colorTranslate[fillColor]);
-	if (styleElem.hasAttribute("FillTint"))
-	{
-		int fillTint = styleElem.attribute("FillTint", "100").toInt();
-		if (fillTint != -1)
-			newStyle.charStyle().setFillShade(fillTint);
-	}
-	StyleFlag styleEffects = newStyle.charStyle().effects();
-	if (styleElem.attribute("Underline") == "true")
-		styleEffects |= ScStyle_Underline;
-	if (styleElem.attribute("StrikeThru") == "true")
-		styleEffects |= ScStyle_Strikethrough;
-	if (styleElem.hasAttribute("Capitalization"))
-	{
-		QString ca = styleElem.attribute("Capitalization");
-		if (ca == "AllCaps")
-			styleEffects |= ScStyle_AllCaps;
-		else if (ca == "SmallCaps")
-			styleEffects |= ScStyle_SmallCaps;
-	}
-	if (styleElem.hasAttribute("Position"))
-	{
-		QString pa = styleElem.attribute("Position");
-		if ((pa == "Superscript") || (pa == "OTSuperscript"))
-			styleEffects |= ScStyle_Superscript;
-		else if ((pa == "Subscript") || (pa == "OTSubscript"))
-			styleEffects |= ScStyle_Subscript;
-	}
-	newStyle.charStyle().setFeatures(styleEffects.featureList());
-
-	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	if (styleElem.hasAttribute("LeftIndent"))
-		newStyle.setLeftMargin(styleElem.attribute("LeftIndent", "0").toDouble());
-	if (styleElem.hasAttribute("FirstLineIndent"))
-		newStyle.setFirstIndent(styleElem.attribute("FirstLineIndent", "0").toDouble());
-	if (styleElem.hasAttribute("RightIndent"))
-		newStyle.setRightMargin(styleElem.attribute("RightIndent", "0").toDouble());
-	if (styleElem.hasAttribute("SpaceBefore"))
-		newStyle.setGapBefore(styleElem.attribute("SpaceBefore", "0").toDouble());
-	if (styleElem.hasAttribute("SpaceAfter"))
-		newStyle.setGapAfter(styleElem.attribute("SpaceAfter", "0").toDouble());
-	if (styleElem.hasAttribute("DropCapCharacters"))
-	{
-		newStyle.setHasDropCap(styleElem.attribute("DropCapCharacters", "0").toInt() != 0);
-		if (styleElem.hasAttribute("DropCapLines"))
-			newStyle.setDropCapLines(styleElem.attribute("DropCapLines", "2").toInt());
-	}
-	QString align = styleElem.attribute("Justification", "LeftAlign");
-	if (align == "LeftAlign")
-		newStyle.setAlignment(ParagraphStyle::Leftaligned);
-	else if (align == "CenterAlign")
-		newStyle.setAlignment(ParagraphStyle::Centered);
-	else if (align == "RightAlign")
-		newStyle.setAlignment(ParagraphStyle::Rightaligned);
-	else if ((align == "LeftJustified") || (align == "CenterJustified") || (align == "RightJustified"))
-		newStyle.setAlignment(ParagraphStyle::Justified);
-	else if (align == "FullyJustified")
-		newStyle.setAlignment(ParagraphStyle::Extended);
-/*
-	if (styleElem.hasAttribute("MinimumGlyphScaling"))
-		newStyle.setMinGlyphExtension(styleElem.attribute("MinimumGlyphScaling", "100").toDouble());
-	if (styleElem.hasAttribute("MaximumGlyphScaling"))
-		newStyle.setMaxGlyphExtension(styleElem.attribute("MaximumGlyphScaling", "100").toDouble());
-	if (styleElem.hasAttribute("MinimumWordSpacing"))
-		newStyle.setMinWordTracking(styleElem.attribute("MinimumWordSpacing", "100").toDouble());
-	if (styleElem.hasAttribute("DesiredWordSpacing"))
-		newStyle.charStyle().setWordTracking(styleElem.attribute("DesiredWordSpacing", "100").toDouble());
-*/
+	readCharStyleAttributes(newStyle.charStyle(), styleElem);
+	readParagraphStyleAttributes(newStyle, styleElem);
 	StyleSet<ParagraphStyle>tmp;
 	tmp.create(newStyle);
 	m_Doc->redefineStyles(tmp, false);
@@ -1585,50 +1585,11 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 					}
 					ParagraphStyle newStyle;
 					newStyle.setParent(pStyle);
+					// Apply possible override of paragraph style
+					readParagraphStyleAttributes(newStyle, ste);
 					ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
 					QString fontBase = ttx.charStyle().font().family();
 					QString fontStyle = ttx.charStyle().font().style();
-					// Apply possible override of paragraph style
-					if (ste.hasAttribute("LeftIndent"))
-						newStyle.setLeftMargin(ste.attribute("LeftIndent", "0").toDouble());
-					if (ste.hasAttribute("FirstLineIndent"))
-						newStyle.setFirstIndent(ste.attribute("FirstLineIndent", "0").toDouble());
-					if (ste.hasAttribute("RightIndent"))
-						newStyle.setRightMargin(ste.attribute("RightIndent", "0").toDouble());
-					if (ste.hasAttribute("SpaceBefore"))
-						newStyle.setGapBefore(ste.attribute("SpaceBefore", "0").toDouble());
-					if (ste.hasAttribute("SpaceAfter"))
-						newStyle.setGapAfter(ste.attribute("SpaceAfter", "0").toDouble());
-					if (ste.hasAttribute("DropCapCharacters"))
-					{
-						newStyle.setHasDropCap(ste.attribute("DropCapCharacters", "0").toInt() != 0);
-						if (ste.hasAttribute("DropCapLines"))
-							newStyle.setDropCapLines(ste.attribute("DropCapLines", "2").toInt());
-					}
-					if (ste.hasAttribute("Justification"))
-					{
-						QString align = ste.attribute("Justification", "LeftAlign");
-						if (align == "LeftAlign")
-							newStyle.setAlignment(ParagraphStyle::Leftaligned);
-						else if (align == "CenterAlign")
-							newStyle.setAlignment(ParagraphStyle::Centered);
-						else if (align == "RightAlign")
-							newStyle.setAlignment(ParagraphStyle::Rightaligned);
-						else if ((align == "LeftJustified") || (align == "CenterJustified") || (align == "RightJustified"))
-							newStyle.setAlignment(ParagraphStyle::Justified);
-						else if (align == "FullyJustified")
-							newStyle.setAlignment(ParagraphStyle::Extended);
-					}
-/*
-					if (ste.hasAttribute("MinimumGlyphScaling"))
-						newStyle.setMinGlyphExtension(ste.attribute("MinimumGlyphScaling", "100").toDouble());
-					if (ste.hasAttribute("MaximumGlyphScaling"))
-						newStyle.setMaxGlyphExtension(ste.attribute("MaximumGlyphScaling", "100").toDouble());
-					if (ste.hasAttribute("MinimumWordSpacing"))
-						newStyle.setMinWordTracking(ste.attribute("MinimumWordSpacing", "100").toDouble());
-					if (ste.hasAttribute("DesiredWordSpacing"))
-						newStyle.charStyle().setWordTracking(ste.attribute("DesiredWordSpacing", "100").toDouble());
-*/
 					for(QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling() )
 					{
 						QString data = "";
@@ -1649,6 +1610,18 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 										{
 											fontBase = spf.text();
 											hasChangedFont = true;
+										}
+									}
+								}
+								else if (sp.tagName() == "Leading")
+								{
+									if (sp.attribute("type") == "unit")
+									{
+										int lead = sp.text().toDouble();
+										if (lead != 0)
+										{
+											newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+											newStyle.setLineSpacing(lead);
 										}
 									}
 								}
@@ -1682,47 +1655,21 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 									nstyle.setFont((*m_Doc->AllFonts)[fontName]);
 								}
 							}
-							if (stt.hasAttribute("PointSize"))
+							readCharStyleAttributes(nstyle, stt);
+							if (stt.hasAttribute("AppliedCharacterStyle"))
 							{
-								int pointSize = qRound(stt.attribute("PointSize", "12").toDouble() * 10);
-								if (pointSize > 0)
-									nstyle.setFontSize(pointSize);
+								QString cStyle = stt.attribute("AppliedCharacterStyle");
+								if (cStyle != "CharacterStyle/$ID/[No character style]")
+								{
+									if (charStyleTranslate.contains(cStyle))
+									{
+										QString pst = nstyle.name();
+										cStyle = charStyleTranslate[cStyle];
+										nstyle = m_Doc->charStyle(cStyle);
+										nstyle.setParent(pst);
+									}
+								}
 							}
-							if (stt.hasAttribute("FillColor"))
-							{
-								QString fillColor = stt.attribute("FillColor");
-								if (colorTranslate.contains(fillColor))
-									nstyle.setFillColor(colorTranslate[fillColor]);
-							}
-							if (stt.hasAttribute("FillTint"))
-							{
-								int fillTint = stt.attribute("FillTint", "100").toInt();
-								if (fillTint != -1)
-									nstyle.setFillShade(fillTint);
-							}
-							StyleFlag styleEffects = nstyle.effects();
-							if (stt.attribute("Underline") == "true")
-								styleEffects |= ScStyle_Underline;
-							if (stt.attribute("StrikeThru") == "true")
-								styleEffects |= ScStyle_Strikethrough;
-							if (stt.hasAttribute("Capitalization"))
-							{
-								QString ca = stt.attribute("Capitalization");
-								if (ca == "AllCaps")
-									styleEffects |= ScStyle_AllCaps;
-								else if (ca == "SmallCaps")
-									styleEffects |= ScStyle_SmallCaps;
-							}
-							if (stt.hasAttribute("Position"))
-							{
-								QString pa = stt.attribute("Position");
-								if ((pa == "Superscript") || (pa == "OTSuperscript"))
-									styleEffects |= ScStyle_Superscript;
-								else if ((pa == "Subscript") || (pa == "OTSubscript"))
-									styleEffects |= ScStyle_Subscript;
-							}
-							nstyle.setFeatures(styleEffects.featureList());
-
 							item->itemText.insertChars(posC, data);
 							item->itemText.applyStyle(posC, newStyle);
 							item->itemText.applyCharStyle(posC, data.length(), nstyle);
@@ -1736,6 +1683,94 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 		}
 	}
 	return true;
+}
+
+void IdmlPlug::readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem)
+{
+	if (styleElem.hasAttribute("PointSize"))
+	{
+		int pointSize = qRound(styleElem.attribute("PointSize", "12").toDouble() * 10);
+		if (pointSize > 0)
+			newStyle.setFontSize(pointSize);
+	}
+	if (styleElem.hasAttribute("FillColor"))
+	{
+		QString fillColor = styleElem.attribute("FillColor");
+		if (colorTranslate.contains(fillColor))
+			newStyle.setFillColor(colorTranslate[fillColor]);
+	}
+	if (styleElem.hasAttribute("FillTint"))
+	{
+		int fillTint = styleElem.attribute("FillTint", "100").toInt();
+		if (fillTint != -1)
+			newStyle.setFillShade(fillTint);
+	}
+	StyleFlag styleEffects = newStyle.effects();
+	if (styleElem.attribute("Underline") == "true")
+		styleEffects |= ScStyle_Underline;
+	if (styleElem.attribute("StrikeThru") == "true")
+		styleEffects |= ScStyle_Strikethrough;
+	if (styleElem.hasAttribute("Capitalization"))
+	{
+		QString ca = styleElem.attribute("Capitalization");
+		if (ca == "AllCaps")
+			styleEffects |= ScStyle_AllCaps;
+		else if (ca == "SmallCaps")
+			styleEffects |= ScStyle_SmallCaps;
+	}
+	if (styleElem.hasAttribute("Position"))
+	{
+		QString pa = styleElem.attribute("Position");
+		if ((pa == "Superscript") || (pa == "OTSuperscript"))
+			styleEffects |= ScStyle_Superscript;
+		else if ((pa == "Subscript") || (pa == "OTSubscript"))
+			styleEffects |= ScStyle_Subscript;
+	}
+	newStyle.setFeatures(styleEffects.featureList());
+}
+
+void IdmlPlug::readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem)
+{
+	if (styleElem.hasAttribute("LeftIndent"))
+		newStyle.setLeftMargin(styleElem.attribute("LeftIndent", "0").toDouble());
+	if (styleElem.hasAttribute("FirstLineIndent"))
+		newStyle.setFirstIndent(styleElem.attribute("FirstLineIndent", "0").toDouble());
+	if (styleElem.hasAttribute("RightIndent"))
+		newStyle.setRightMargin(styleElem.attribute("RightIndent", "0").toDouble());
+	if (styleElem.hasAttribute("SpaceBefore"))
+		newStyle.setGapBefore(styleElem.attribute("SpaceBefore", "0").toDouble());
+	if (styleElem.hasAttribute("SpaceAfter"))
+		newStyle.setGapAfter(styleElem.attribute("SpaceAfter", "0").toDouble());
+	if (styleElem.hasAttribute("DropCapCharacters"))
+	{
+		newStyle.setHasDropCap(styleElem.attribute("DropCapCharacters", "0").toInt() != 0);
+		if (styleElem.hasAttribute("DropCapLines"))
+			newStyle.setDropCapLines(styleElem.attribute("DropCapLines", "2").toInt());
+	}
+	if (styleElem.hasAttribute("Justification"))
+	{
+		QString align = styleElem.attribute("Justification", "LeftAlign");
+		if (align == "LeftAlign")
+			newStyle.setAlignment(ParagraphStyle::Leftaligned);
+		else if (align == "CenterAlign")
+			newStyle.setAlignment(ParagraphStyle::Centered);
+		else if (align == "RightAlign")
+			newStyle.setAlignment(ParagraphStyle::Rightaligned);
+		else if ((align == "LeftJustified") || (align == "CenterJustified") || (align == "RightJustified"))
+			newStyle.setAlignment(ParagraphStyle::Justified);
+		else if (align == "FullyJustified")
+			newStyle.setAlignment(ParagraphStyle::Extended);
+	}
+/*
+	if (styleElem.hasAttribute("MinimumGlyphScaling"))
+		newStyle.setMinGlyphExtension(styleElem.attribute("MinimumGlyphScaling", "100").toDouble());
+	if (styleElem.hasAttribute("MaximumGlyphScaling"))
+		newStyle.setMaxGlyphExtension(styleElem.attribute("MaximumGlyphScaling", "100").toDouble());
+	if (styleElem.hasAttribute("MinimumWordSpacing"))
+		newStyle.setMinWordTracking(styleElem.attribute("MinimumWordSpacing", "100").toDouble());
+	if (styleElem.hasAttribute("DesiredWordSpacing"))
+		newStyle.charStyle().setWordTracking(styleElem.attribute("DesiredWordSpacing", "100").toDouble());
+*/
 }
 
 int IdmlPlug::convertBlendMode(QString blendName)
