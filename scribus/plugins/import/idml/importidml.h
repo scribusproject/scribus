@@ -126,6 +126,8 @@ private:
 	double def_gradientX;
 	double def_gradientY;
 	PageItem::TextFlowMode def_TextFlow;
+	QMap<PageItem*, QString> frameLinks;
+	QMap<QString, PageItem*> frameTargets;
 
 	FileUnzip *fun;
 

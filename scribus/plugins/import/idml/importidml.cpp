@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
+#include <QUrl>
 #include <QDebug>
 
 #if defined(_MSC_VER)
@@ -449,6 +450,19 @@ bool IdmlPlug::convert(QString fn)
 	def_gradientX = 0.0;
 	def_gradientY = 0.0;
 	def_TextFlow = PageItem::TextFlowDisabled;
+	frameLinks.clear();
+	frameTargets.clear();
+	MasterSpreads.clear();
+	Spreads.clear();
+	importedColors.clear();
+	colorTranslate.clear();
+	importedGradients.clear();
+	gradientTranslate.clear();
+	gradientTypeMap.clear();
+	layerTranslate.clear();
+	storyMap.clear();
+	styleTranslate.clear();
+	charStyleTranslate.clear();
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -539,6 +553,17 @@ bool IdmlPlug::convert(QString fn)
 						retVal = false;
 						break;
 					}
+				}
+			}
+			if (!frameLinks.isEmpty())
+			{
+				QMap<PageItem*, QString>::Iterator lc;
+				for (lc = frameLinks.begin(); lc != frameLinks.end(); ++lc)
+				{
+					PageItem *Its = lc.key();
+					PageItem *Itn = frameTargets[lc.value()];
+					if (Its->testLinkCandidate(Itn))
+						Its->link(Itn);
 				}
 			}
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -1089,6 +1114,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	int blendMode = def_Blendmode;
 	QString imageType = "";
 	QByteArray imageData = "";
+	QString imageFileName = "";
 	QTransform imageTransform;
 	PageItem::TextFlowMode textFlow = PageItem::TextFlowDisabled;
 	QString storyForPath = "";
@@ -1248,6 +1274,11 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				QDomElement itpg = itp.toElement();
 				if (itpg.tagName() == "Properties")
 					imageData = QByteArray::fromBase64(getNodeValue(itpg, "Contents").toLatin1());
+				if (itpg.tagName() == "Link")
+				{
+					if (itpg.hasAttribute("LinkResourceURI"))
+						imageFileName = itpg.attribute("LinkResourceURI");
+				}
 			}
 		}
 		else if (ite.tagName() == "WMF")
@@ -1296,6 +1327,12 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					QString story = itElem.attribute("ParentStory");
 					if (!storyMap.contains(story))
 						storyMap.insert(story, m_Doc->Items->at(z));
+					if (itElem.hasAttribute("NextTextFrame"))
+					{
+						if (itElem.attribute("NextTextFrame") != "n")
+							frameLinks.insert(m_Doc->Items->at(z), itElem.attribute("NextTextFrame"));
+					}
+					frameTargets.insert(itemName, m_Doc->Items->at(z));
 				}
 				else if (isPathText)
 				{
@@ -1393,6 +1430,12 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				QString story = itElem.attribute("ParentStory");
 				if (!storyMap.contains(story))
 					storyMap.insert(story, m_Doc->Items->at(z));
+				if (itElem.hasAttribute("NextTextFrame"))
+				{
+					if (itElem.attribute("NextTextFrame") != "n")
+						frameLinks.insert(m_Doc->Items->at(z), itElem.attribute("NextTextFrame"));
+				}
+				frameTargets.insert(itemName, m_Doc->Items->at(z));
 			}
 			else if (isPathText)
 			{
@@ -1454,43 +1497,62 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				item->setCornerRadius(itElem.attribute("CornerRadius", "0").toDouble());
 				item->SetFrameRound();
 			}
-			if ((isImage) && (imageData.count() > 0))
+			if (isImage)
 			{
-				QString imgExt = "";
-				if (imageType.contains("EPS", Qt::CaseInsensitive))
-					imgExt = "eps";
-				else if (imageType.contains("GIF", Qt::CaseInsensitive))
-					imgExt = "gif";
-				else if (imageType.contains("JPEG", Qt::CaseInsensitive))
-					imgExt = "jpg";
-				else if (imageType.contains("PDF", Qt::CaseInsensitive))
-					imgExt = "pdf";
-				else if (imageType.contains("PICT", Qt::CaseInsensitive))
-					imgExt = "pict";
-				else if (imageType.contains("PNG", Qt::CaseInsensitive))
-					imgExt = "png";
-				else if (imageType.contains("PSD", Qt::CaseInsensitive))
-					imgExt = "psd";
-				else if (imageType.contains("TIFF", Qt::CaseInsensitive))
-					imgExt = "tif";
-				item->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
-				if (item->tempImageFile->open())
+				double scXi, scYi, roti, dxi, dyi;
+				getTransformValuesFromMatrix(imageTransform, scXi, scYi, roti, dxi, dyi);
+				if (imageData.count() > 0)
 				{
-					QString fileName = getLongPathName(item->tempImageFile->fileName());
-					if (!fileName.isEmpty())
+					QString imgExt = "";
+					if (imageType.contains("EPS", Qt::CaseInsensitive))
+						imgExt = "eps";
+					else if (imageType.contains("GIF", Qt::CaseInsensitive))
+						imgExt = "gif";
+					else if (imageType.contains("JPEG", Qt::CaseInsensitive))
+						imgExt = "jpg";
+					else if (imageType.contains("PDF", Qt::CaseInsensitive))
+						imgExt = "pdf";
+					else if (imageType.contains("PICT", Qt::CaseInsensitive))
+						imgExt = "pict";
+					else if (imageType.contains("PNG", Qt::CaseInsensitive))
+						imgExt = "png";
+					else if (imageType.contains("PSD", Qt::CaseInsensitive))
+						imgExt = "psd";
+					else if (imageType.contains("TIFF", Qt::CaseInsensitive))
+						imgExt = "tif";
+					item->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
+					if (item->tempImageFile->open())
 					{
-						double scXi, scYi, roti, dxi, dyi;
-						getTransformValuesFromMatrix(imageTransform, scXi, scYi, roti, dxi, dyi);
-						item->tempImageFile->write(imageData);
-						item->tempImageFile->close();
-						item->isInlineImage = true;
-						item->ScaleType   = true;
-						item->AspectRatio = true;
-						m_Doc->loadPict(fileName, item);
-						item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-						item->setImageXYOffset(0, 0);
-						item->setImageRotation(0);
+						QString fileName = getLongPathName(item->tempImageFile->fileName());
+						if (!fileName.isEmpty())
+						{
+							item->tempImageFile->write(imageData);
+							item->tempImageFile->close();
+							item->isInlineImage = true;
+							item->ScaleType   = true;
+							item->AspectRatio = true;
+							m_Doc->loadPict(fileName, item);
+							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
+							item->setImageXYOffset(0, 0);
+							item->setImageRotation(0);
+						}
 					}
+				}
+				else
+				{
+					QUrl url = QUrl(imageFileName);
+					QFileInfo fi(url.toLocalFile());
+					QString fileName;
+					if (fi.exists())
+						fileName = url.toLocalFile();
+					else
+						fileName = fi.fileName();
+					item->ScaleType   = true;
+					item->AspectRatio = true;
+					m_Doc->loadPict(fileName, item);
+					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
+					item->setImageXYOffset(0, 0);
+					item->setImageRotation(0);
 				}
 			}
 			GElements.append(m_Doc->Items->takeAt(z));
@@ -1626,20 +1688,6 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 									}
 								}
 							}
-							for(QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling() )
-							{
-								QDomElement s = stch.toElement();
-								if (s.tagName() == "Content")
-								{
-									QString ch = s.text();
-									if (!ch.isEmpty())
-										data += s.text();
-									else
-										data += " ";
-								}
-								else if (s.tagName() == "Br")
-									data += SpecialChars::LINEBREAK;
-							}
 							// Apply possible override of character style
 							CharStyle nstyle = newStyle.charStyle();
 							if (stt.hasAttribute("FontStyle"))
@@ -1670,13 +1718,51 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 									}
 								}
 							}
-							item->itemText.insertChars(posC, data);
-							item->itemText.applyStyle(posC, newStyle);
-							item->itemText.applyCharStyle(posC, data.length(), nstyle);
+							for(QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling() )
+							{
+								QDomElement s = stch.toElement();
+								if (s.tagName() == "Content")
+								{
+									QString ch = s.text();
+									if (!ch.isEmpty())
+									{
+										for (int tt = 0; tt < ch.length(); ++tt)
+										{
+											QChar c = ch.at(tt);
+											if (c.unicode() == 0x2028)
+												ch[tt] = SpecialChars::LINEBREAK;
+											if (c.unicode() == 0x202F)
+												ch[tt] = SpecialChars::NBSPACE;
+										}
+										data += ch;
+									}
+									else
+										data += " ";
+								}
+								else if (s.tagName() == "Br")
+								{
+									data += SpecialChars::PARSEP;
+									item->itemText.insertChars(posC, data);
+									item->itemText.applyStyle(posC, newStyle);
+									item->itemText.applyCharStyle(posC, data.length(), nstyle);
+									data = "";
+									posC = item->itemText.length();
+								}
+							}
+							if (data.count() > 0)
+							{
+								item->itemText.insertChars(posC, data);
+								item->itemText.applyStyle(posC, newStyle);
+								item->itemText.applyCharStyle(posC, data.length(), nstyle);
+							}
 						}
 					}
 					int posT = item->itemText.length();
-					item->itemText.insertChars(posT, SpecialChars::PARSEP);
+					if (posT > 0)
+					{
+						if ((item->itemText.text(posT - 1) != SpecialChars::PARSEP))
+							item->itemText.insertChars(posT, SpecialChars::PARSEP);
+					}
 					item->itemText.applyStyle(posT, newStyle);
 				}
 			}
