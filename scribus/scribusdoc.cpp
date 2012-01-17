@@ -5948,6 +5948,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	setUsesAutomaticTextFrames(false);
 	ScPage* from = DocPages.at(pageNumberToCopy);
 	ScPage* lastDest = NULL;
+	setCurrentPage(from);
 
 	uint oldItems = Items->count();
 	QList<QString> itemBuffer;
