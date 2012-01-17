@@ -65,10 +65,26 @@ public:
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
+	struct ObjectStyle
+	{
+		QString parentStyle;
+		QString fillColor;
+		QString fillGradient;
+		QString strokeColor;
+		int fillTint;
+		int strokeTint;
+		double lineWidth;
+		double Opacity;
+		int blendMode;
+		QPointF gradientFillStart;
+		double gradientFillLength;
+		double gradientFillAngle;
+	};
 	QString getNodeValue(QDomNode &baseNode, QString path);
 	bool convert(QString fn);
 	bool parseGraphicsXML(const QDomElement& grElem);
 	bool parseStylesXML(const QDomElement& sElem);
+	void parseObjectStyle(const QDomElement& styleElem);
 	void parseCharacterStyle(const QDomElement& styleElem);
 	void parseParagraphStyle(const QDomElement& styleElem);
 	bool parsePreferencesXML(const QDomElement& prElem);
@@ -77,6 +93,7 @@ private:
 	bool parseStoryXML(const QDomElement& stElem);
 	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
 	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
+	void resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName);
 	int convertBlendMode(QString blendName);
 	QString constructFontName(QString fontBaseName, QString fontStyle);
 	
@@ -128,6 +145,7 @@ private:
 	PageItem::TextFlowMode def_TextFlow;
 	QMap<PageItem*, QString> frameLinks;
 	QMap<QString, PageItem*> frameTargets;
+	QMap<QString, ObjectStyle> ObjectStyles;
 
 	FileUnzip *fun;
 

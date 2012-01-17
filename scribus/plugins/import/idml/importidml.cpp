@@ -463,6 +463,7 @@ bool IdmlPlug::convert(QString fn)
 	storyMap.clear();
 	styleTranslate.clear();
 	charStyleTranslate.clear();
+	ObjectStyles.clear();
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -731,8 +732,104 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 				}
 			}
 		}
+		if (e.tagName() == "RootObjectStyleGroup")
+		{
+			for(QDomNode it = e.firstChild(); !it.isNull(); it = it.nextSibling() )
+			{
+				QDomElement itpg = it.toElement();
+				if (itpg.tagName() == "ObjectStyle")
+					parseObjectStyle(itpg);
+				else if (itpg.tagName() == "ObjectStyleGroup")
+				{
+					for(QDomNode its = itpg.firstChild(); !its.isNull(); its = its.nextSibling() )
+					{
+						QDomElement itp = its.toElement();
+						if (itp.tagName() == "ObjectStyle")
+							parseObjectStyle(itp);
+					}
+				}
+			}
+		}
 	}
 	return true;
+}
+
+void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
+{
+	ObjectStyle nstyle;
+	nstyle.fillColor = def_fillColor;
+	nstyle.strokeColor = def_strokeColor;
+	nstyle.fillGradient = "";
+	nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
+	nstyle.gradientFillLength = def_gradientLen;
+	nstyle.gradientFillAngle = def_gradientAngle;
+	nstyle.lineWidth = def_lineWidth;
+	nstyle.fillTint = def_fillTint;
+	nstyle.strokeTint = def_strokeTint;
+	nstyle.Opacity = def_Opacity;
+	nstyle.blendMode = def_Blendmode;
+	nstyle.parentStyle = "";
+	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
+	{
+		QDomElement itpr = itp.toElement();
+		if (itpr.tagName() == "Properties")
+		{
+			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			{
+				QDomElement i = itpp.toElement();
+				if (i.tagName() == "BasedOn")
+				{
+					QString ps = i.text();
+					if (ps != "$ID/[None]")
+						nstyle.parentStyle = ps;
+				}
+			}
+		}
+	}
+	if (styleElem.hasAttribute("StrokeColor"))
+	{
+		if (colorTranslate.contains(styleElem.attribute("StrokeColor")))
+			nstyle.strokeColor = colorTranslate[styleElem.attribute("StrokeColor")];
+	}
+	if (styleElem.hasAttribute("FillColor"))
+	{
+		QString fillColor = styleElem.attribute("FillColor");
+		if (colorTranslate.contains(fillColor))
+			nstyle.fillColor = colorTranslate[fillColor];
+		else
+		{
+			if (gradientTranslate.contains(fillColor))
+				nstyle.fillGradient = gradientTranslate[fillColor];
+		}
+	}
+	if (styleElem.hasAttribute("FillTint"))
+	{
+		int fillShade = styleElem.attribute("FillTint").toInt();
+		if (fillShade != -1)
+			nstyle.fillTint = fillShade;
+	}
+	if (styleElem.hasAttribute("StrokeTint"))
+	{
+		int strokeShade = styleElem.attribute("StrokeTint").toInt();
+		if (strokeShade != -1)
+			nstyle.strokeTint = strokeShade;
+	}
+	if (styleElem.hasAttribute("StrokeWeight"))
+		nstyle.lineWidth = styleElem.attribute("StrokeWeight", "0").toDouble();
+	if (styleElem.hasAttribute("GradientFillStart"))
+	{
+		QString fillGStart = styleElem.attribute("GradientFillStart");
+		ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
+		double gstX, gstY;
+		Code >> gstX >> gstY;
+		nstyle.gradientFillStart = QPointF(gstX, gstY);
+	}
+	if (styleElem.hasAttribute("GradientFillLength"))
+		nstyle.gradientFillLength = styleElem.attribute("GradientFillLength").toDouble();
+	if (styleElem.hasAttribute("GradientFillAngle"))
+		nstyle.gradientFillAngle = styleElem.attribute("GradientFillAngle").toDouble();
+	QString itemName = styleElem.attribute("Self");
+	ObjectStyles.insert(itemName, nstyle);
 }
 
 void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
@@ -1058,35 +1155,86 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	/* Adding the values directly */
 	QTransform transformation(a, b, c, d, e, f);
 	QString itemName = itElem.attribute("Self");
-	QString fillColor = itElem.attribute("FillColor");
+	QString fillColor = def_fillColor;
 	QString fillGradient = "";
+	double gstX = def_gradientX;
+	double gstY = def_gradientY;
+	double gLen = def_gradientLen;
+	double gAngle = def_gradientAngle;
 	int fillGradientTyp = 6;
-	if (colorTranslate.contains(fillColor))
-		fillColor = colorTranslate[fillColor];
-	else
+	QString strokeColor = def_strokeColor;
+	double lineWidth = def_lineWidth;
+	int fillShade = def_fillTint;
+	int strokeShade = def_strokeTint;
+	double Opacity = def_Opacity;
+	int blendMode = def_Blendmode;
+	if (itElem.hasAttribute("AppliedObjectStyle"))
 	{
-		if (gradientTranslate.contains(fillColor))
+		QString os = itElem.attribute("AppliedObjectStyle");
+		ObjectStyle nstyle;
+		nstyle.fillColor = def_fillColor;
+		nstyle.strokeColor = def_strokeColor;
+		nstyle.fillGradient = "";
+		nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
+		nstyle.gradientFillLength = def_gradientLen;
+		nstyle.gradientFillAngle = def_gradientAngle;
+		nstyle.lineWidth = def_lineWidth;
+		nstyle.fillTint = def_fillTint;
+		nstyle.strokeTint = def_strokeTint;
+		nstyle.Opacity = def_Opacity;
+		nstyle.blendMode = def_Blendmode;
+		nstyle.parentStyle = "";
+		resolveObjectStyle(nstyle, os);
+		fillColor = nstyle.fillColor;
+		if (!nstyle.fillGradient.isEmpty())
 		{
+			fillGradient = nstyle.fillGradient;
 			fillGradientTyp = gradientTypeMap[fillColor];
-			fillGradient = gradientTranslate[fillColor];
 		}
-		else
-			fillColor = def_fillColor;
+		gstX = nstyle.gradientFillStart.x();
+		gstY = nstyle.gradientFillStart.y();
+		gLen = nstyle.gradientFillLength;
+		gAngle = nstyle.gradientFillAngle;
+		strokeColor = nstyle.strokeColor;
+		lineWidth = nstyle.lineWidth;
+		fillShade = nstyle.fillTint;
+		strokeShade = nstyle.strokeTint;
+		Opacity = nstyle.Opacity;
+		blendMode = nstyle.blendMode;
 	}
-	QString fillGStart = itElem.attribute("GradientFillStart", QString("%1 %2").arg(def_gradientX).arg(def_gradientY));
-	ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
-	double gstX, gstY, gLen, gAngle;
-	Code >> gstX >> gstY;
-	gLen = itElem.attribute("GradientFillLength", QString("%1").arg(def_gradientLen)).toDouble();
-	gAngle = itElem.attribute("GradientFillAngle", QString("%1").arg(def_gradientAngle)).toDouble();
-	QString strokeColor = itElem.attribute("StrokeColor");
-	if (colorTranslate.contains(strokeColor))
-		strokeColor = colorTranslate[strokeColor];
-	else
-		strokeColor = def_strokeColor;
-	double lineWidth = itElem.attribute("StrokeWeight", QString("%1").arg(def_lineWidth)).toDouble();
-	int fillShade = itElem.attribute("FillTint", QString("%1").arg(def_fillTint)).toInt();
-	int strokeShade = itElem.attribute("StrokeTint", QString("%1").arg(def_strokeTint)).toInt();
+	if (itElem.hasAttribute("FillColor"))
+	{
+		fillColor = itElem.attribute("FillColor");
+		if (colorTranslate.contains(fillColor))
+			fillColor = colorTranslate[fillColor];
+		else
+		{
+			if (gradientTranslate.contains(fillColor))
+			{
+				fillGradientTyp = gradientTypeMap[fillColor];
+				fillGradient = gradientTranslate[fillColor];
+			}
+		}
+	}
+	if (itElem.hasAttribute("GradientFillStart"))
+	{
+		QString fillGStart = itElem.attribute("GradientFillStart");
+		ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
+		Code >> gstX >> gstY;
+		gLen = itElem.attribute("GradientFillLength").toDouble();
+		gAngle = itElem.attribute("GradientFillAngle").toDouble();
+	}
+	if (itElem.hasAttribute("StrokeColor"))
+	{
+		if (colorTranslate.contains(itElem.attribute("StrokeColor")))
+			strokeColor = colorTranslate[itElem.attribute("StrokeColor")];
+	}
+	if (itElem.hasAttribute("StrokeWeight"))
+		lineWidth = itElem.attribute("StrokeWeight").toDouble();
+	if (itElem.hasAttribute("FillTint"))
+		fillShade = itElem.attribute("FillTint").toInt();
+	if (itElem.hasAttribute("StrokeTint"))
+		strokeShade = itElem.attribute("StrokeTint").toInt();
 	QString forLayer = itElem.attribute("ItemLayer");
 	if (layerTranslate.contains(forLayer))
 		forLayer = layerTranslate[forLayer];
@@ -1110,8 +1258,6 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	bool isPathText = false;
 	if (itElem.tagName() == "Group")
 		realGroup = true;
-	double Opacity = def_Opacity;
-	int blendMode = def_Blendmode;
 	QString imageType = "";
 	QByteArray imageData = "";
 	QString imageFileName = "";
@@ -1895,6 +2041,44 @@ int IdmlPlug::convertBlendMode(QString blendName)
 	else if (blendName == "Luminosity")
 		mode = 15;
 	return mode;
+}
+
+void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
+{
+	QStringList styles;
+	styles.prepend(baseStyleName);
+	ObjectStyle style = ObjectStyles[baseStyleName];
+	while (!style.parentStyle.isEmpty())
+	{
+		styles.prepend(style.parentStyle);
+		style = ObjectStyles[style.parentStyle];
+	}
+	for (int a = 0; a < styles.count(); ++a)
+	{
+		style = ObjectStyles[styles[a]];
+		if (style.fillColor != def_fillColor)
+			nstyle.fillColor = style.fillColor;
+		if (style.strokeColor != def_strokeColor)
+			nstyle.strokeColor = style.strokeColor;
+		if (style.fillGradient != "")
+			nstyle.fillGradient = style.fillGradient;
+		if (style.gradientFillStart != QPointF(def_gradientX, def_gradientY))
+			nstyle.gradientFillStart = style.gradientFillStart;
+		if (style.gradientFillLength != def_gradientLen)
+			nstyle.gradientFillLength = style.gradientFillLength;
+		if (style.gradientFillAngle != def_gradientAngle)
+			nstyle.gradientFillAngle = style.gradientFillAngle;
+		if (style.lineWidth != def_lineWidth)
+			nstyle.lineWidth = style.lineWidth;
+		if (style.fillTint != def_fillTint)
+			nstyle.fillTint = style.fillTint;
+		if (style.strokeTint != def_strokeTint)
+			nstyle.strokeTint = style.strokeTint;
+		if (style.Opacity != def_Opacity)
+			nstyle.Opacity = style.Opacity;
+		if (style.blendMode != def_Blendmode)
+			nstyle.blendMode = style.blendMode;
+	}
 }
 
 QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
