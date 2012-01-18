@@ -600,6 +600,7 @@ public:
 	static QString ClearContent;
 	static QString LinkTextFrame;
 	static QString UnlinkTextFrame;
+	static QString MovePage;
 	/*@}*/
 
 	/**

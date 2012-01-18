@@ -167,6 +167,7 @@ public:
 	Page* addPage(int nr, bool mov = true);
 
 	void reformPages(bool moveObjects = true);
+	void reformPagesView();
 	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();

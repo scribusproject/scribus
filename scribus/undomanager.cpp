@@ -931,10 +931,6 @@ void UndoManager::languageChange()
 	UndoManager::EditShape          = tr("Edit shape");
 	UndoManager::ChangeShapeType    = tr("Change shape type");
 	UndoManager::ResetContourLine   = tr("Reset contour line");
-	UndoManager::AddPage            = tr("Add page");
-	UndoManager::AddPages           = tr("Add pages");
-	UndoManager::DeletePage         = tr("Delete page");
-	UndoManager::DeletePages        = tr("Delete pages");
 	UndoManager::ChangePageProps    = tr("Change page properties");
 	UndoManager::AddLayer           = tr("Add layer");
 	UndoManager::DuplicateLayer	    = tr("Duplicate layer %1");
@@ -969,7 +965,12 @@ void UndoManager::languageChange()
 	UndoManager::RemoveAllGuides    = tr("Remove all guides");
 	UndoManager::RemoveAllPageGuides = tr("Remove page guides");
 	UndoManager::Copy               = tr("Copy");
+	UndoManager::AddPage            = tr("Add page");
 	UndoManager::CopyPage           = tr("Copy page");
+	UndoManager::DeletePage         = tr("Delete page");
+	UndoManager::MovePage           = tr("Move page");
+	UndoManager::AddPages           = tr("Add pages");
+	UndoManager::DeletePages        = tr("Delete pages");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
 	UndoManager::EditText			= tr("Edit text");
 	UndoManager::ClearImage			= tr("Clear image frame content");
@@ -1188,6 +1189,7 @@ QString UndoManager::ClearImage			= "";
 QString UndoManager::ClearContent		= "";
 QString UndoManager::LinkTextFrame		= "";
 QString UndoManager::UnlinkTextFrame	= "";
+QString UndoManager::MovePage			= "";
 
 
 /*** Icons for UndoObjects *******************************************/
