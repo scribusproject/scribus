@@ -1741,25 +1741,41 @@ void PageItem_TextFrame::layout()
 				double Xpos, Xend;
 				bool done = false;
 				bool newColumn = false;
+				
+				//FIX ME - that should be paragraph style`s properties
+				//if set then indent is add to possible line start point (after overflow)
+				//if not then indent is calculated from column left edge
+				//if you dont agree that adding indent to overflow should be default behaviour 
+				//then change it to false
+				bool addIndent2overflow = false; // should be addIndent2Overflow = style.addIndent2Overlow();
+				bool addFirstIndent2overflow = true; // should be addFirstIndent2Overflow = style.addFirstIndent2Overlow();
+				//if first line indent is negative and left indent should not be added to overflow
+				//then dont add first line ident either
+				if ((style.firstIndent() < 0) && !addIndent2overflow)
+					addFirstIndent2overflow = false;
+
 				while (!done)
 				{
-					Xpos = current.xPos;
+					Xpos = current.xPos + (addIndent2overflow ? 0 : current.leftIndent);
 					Xend = current.xPos + current.leftIndent;
 					//check if in indent any overflow occurs
 					while (Xpos <= Xend && Xpos < current.colRight)
 					{
+						pt.moveTopLeft(QPoint(static_cast<int>(floor(Xpos)),maxYAsc));
 						if (!regionContainsRect(cl, pt))
 						{
 							Xpos = current.xPos = realEnd = findRealOverflowEnd(cl, pt, current.colRight);
-							Xend = current.xPos + current.leftIndent;
+							Xend = current.xPos + (addIndent2overflow ? current.leftIndent : 0);
+							//for first paragraph`s line - if first line offset should be added
+							if ( addFirstIndent2overflow && (a==0 || (a > 0 && (itemText.text(a-1) == SpecialChars::PARSEP))))
+								Xend += style.firstIndent();
 						}
 						else
 							Xpos++;
-						pt.moveTopLeft(QPoint(static_cast<int>(floor(Xpos)),maxYAsc));
 					}
 					current.xPos = Xend;
 					done = true;
-					if (current.isEndOfLine((style.minGlyphExtension() * wide) + current.rightMargin + current.leftIndent))
+					if (current.isEndOfLine((style.minGlyphExtension() * wide) + current.rightMargin))
 					{
 						// new line
 						current.xPos = qMax(current.colLeft, maxDX);
