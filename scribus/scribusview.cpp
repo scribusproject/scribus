@@ -2184,6 +2184,11 @@ ScPage* ScribusView::addPage(int nr, bool mov)
 void ScribusView::reformPages(bool moveObjects)
 {
 	Doc->reformPages(moveObjects);
+	reformPagesView();
+}
+
+void ScribusView::reformPagesView()
+{
 	if (!m_ScMW->scriptIsRunning())
 		setContentsPos(qRound((Doc->currentPage()->xOffset()-10 - 0*Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->currentPage()->yOffset()-10 - 0*Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 	if (!Doc->isLoading())

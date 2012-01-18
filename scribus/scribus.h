@@ -370,17 +370,17 @@ public slots:
 	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
 	void duplicateToMasterPage();
 	/** \brief Loescht die aktuelle Seite */
-	void DeletePage();
+	void deletePage();
 	/**
 	 * \brief Delete pages
 	 * @param from First page to delete
 	 * @param to Last page to delete
 	 */
-	void DeletePage(int from, int to);
-	void DeletePage2(int pg);
+	void deletePage(int from, int to);
+	void deletePage2(int pg);
 	/** \brief Verschiebt Seiten */
-	void MovePage();
-	void CopyPage();
+	void movePage();
+	void copyPage();
 	void changePageMargins();
 	/*!
 	\author Craig Bradney
@@ -511,7 +511,8 @@ public slots:
 	void enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 	//! \brief allow SE to get the SM for edit stlyes
 	StyleManager *styleMgr() const {return styleManager;};
-
+	//! \brief drawnew, call palettes to update for new page layout
+	void updateGUIAfterPagesChanged();
 	/**
 	 * Enables/disables the actions in the "Table" menu.
 	 *

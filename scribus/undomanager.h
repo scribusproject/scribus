@@ -592,6 +592,7 @@ public:
 	static QString AdjustFrameToImage;
 	static QString Copy;
 	static QString CopyPage;
+	static QString MovePage;
 	static QString ToOutlines;
 	static QString LinkTextFrame;
 	static QString UnlinkTextFrame;

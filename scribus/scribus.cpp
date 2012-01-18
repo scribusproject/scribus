@@ -5506,10 +5506,7 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	else
 		doc->addPageToSection(wo+1, where, 1);
 	doc->changed();
-	if (outlinePalette->isVisible())
-		outlinePalette->BuildTree();
-	pagePalette->rebuildPages();
-	view->DrawNew();
+	updateGUIAfterPagesChanged();
 }
 
 /** Erzeugt eine neue Seite */
@@ -5633,11 +5630,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	//Use wo, the dialog currently returns a page Index +1 due to old numbering scheme, function now does the -1 as required
 	doc->changed();
 	doc->addPageToSection(wo, where, numPages);
-	pagePalette->rebuildPages();
-	view->reformPages(mov);
-	view->DrawNew();
-	if (outlinePalette->isVisible())
-		outlinePalette->BuildTree();
+	doc->reformPages();
+	updateGUIAfterPagesChanged();
 
 	undoManager->setUndoEnabled(true);
 
@@ -6733,28 +6727,28 @@ void ScribusMainWindow::setItemEffects(int h)
 }
 
 //CB-->Doc partly
-void ScribusMainWindow::DeletePage2(int pg)
+void ScribusMainWindow::deletePage2(int pg)
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	if (doc->Pages->count() == 1)
 		return;
-	DeletePage(pg+1, pg+1);
+	deletePage(pg+1, pg+1);
 }
 
-void ScribusMainWindow::DeletePage()
+void ScribusMainWindow::deletePage()
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	DelPages *dia = new DelPages(this, doc->currentPage()->pageNr()+1, doc->Pages->count());
 	if (dia->exec())
-		DeletePage(dia->getFromPage(), dia->getToPage());
+		deletePage(dia->getFromPage(), dia->getToPage());
 	delete dia;
 }
 
-void ScribusMainWindow::DeletePage(int from, int to)
+void ScribusMainWindow::deletePage(int from, int to)
 {
 	UndoTransaction* activeTransaction = NULL;
 	assert( from > 0 );
@@ -6822,14 +6816,11 @@ void ScribusMainWindow::DeletePage(int from, int to)
 			doc->removePageFromSection(a);
 	}
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
-	view->reformPages();
+	view->reformPagesView();
 	undoManager->setUndoEnabled(true); // ugly hack continues
 	view->GotoPage(qMin(doc->Pages->count()-1, oldPg));
-	view->DrawNew();
-	if (outlinePalette->isVisible())
-		outlinePalette->BuildTree();
+	updateGUIAfterPagesChanged();
 	doc->rebuildMasterNames();
-	pagePalette->rebuildPages();
 	pagePalette->rebuildMasters();
 	if (activeTransaction)
 	{
@@ -6839,7 +6830,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	}
 }
 
-void ScribusMainWindow::MovePage()
+void ScribusMainWindow::movePage()
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
@@ -6853,17 +6844,13 @@ void ScribusMainWindow::MovePage()
 		if (from != wo || (wie == 2 && to != signed(doc->Pages->count()) ) )
 		{
 			doc->movePage(from-1, to, wo-1, wie);
-			view->reformPages();
-			view->DrawNew();
-			pagePalette->rebuildPages();
-			if (outlinePalette->isVisible())
-				outlinePalette->BuildTree();
+			updateGUIAfterPagesChanged();
 		}
 	}
 	delete dia;
 }
 
-void ScribusMainWindow::CopyPage()
+void ScribusMainWindow::copyPage()
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
@@ -6876,8 +6863,7 @@ void ScribusMainWindow::CopyPage()
 		int wo = dia->getWherePage();
 		doc->copyPage(pageNumberToCopy, wo, whereToInsert, copyCount);
 		view->Deselect(true);
-		view->DrawNew();
-		pagePalette->rebuildPages();
+		updateGUIAfterPagesChanged();
 		slotDocCh();
 	}
 	delete dia;
@@ -8497,7 +8483,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			storedViewScale = view->scale();
 			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
 			//connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
-			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
+			connect(dia, SIGNAL(removePage(int )), this, SLOT(deletePage2(int )));
 			//connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
 			scrActions["pageInsert"]->setEnabled(false);
@@ -8753,7 +8739,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		uint id = static_cast<uint>(duo->getUId());
 		undoManager->replaceObject(doc->Pages->at(pagenr - 1)->getUId(), duo);
 		state->set("DUMMY_ID", id);
-		DeletePage(pagenr, pagenr);
+		deletePage(pagenr, pagenr);
 	}
 	if (!pageName.isEmpty() && !oldPageMode)
 	{
@@ -8812,7 +8798,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 		if (HaveDoc && doc->appMode == modeEditClip)
 			view->requestMode(submodeEndNodeEdit);
 		view->Deselect(true);
-		DeletePage(delFrom, delTo);
+		deletePage(delFrom, delTo);
 	}
 	else
 	{
@@ -10050,6 +10036,14 @@ void ScribusMainWindow::enableTextActions(QMap<QString, QPointer<ScrAction> > *a
 	scrMenuMgr->setMenuEnabled("InsertQuote", enabled);
 	scrMenuMgr->setMenuEnabled("InsertSpace", enabled);
 	scrMenuMgr->setMenuEnabled("InsertLigature", enabled);
+}
+
+void ScribusMainWindow::updateGUIAfterPagesChanged()
+{
+	view->DrawNew();
+	pagePalette->rebuildPages();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 }
 
 void ScribusMainWindow::updateTableMenuActions()

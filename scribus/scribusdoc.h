@@ -262,12 +262,12 @@ public:
 	void setLocationBasedPageLRMargins(uint pageIndex);
 	/**
 	 * @brief Move page(s) within the document
-	 * @param from page index
-	 * @param to page index
-	 * @param ziel target to move to (page index)
-	 * @param art Before, After or at the end
+	 * @param fromPage page index
+	 * @param toPage page index
+	 * @param count target to move to (page index)
+	 * @param position Before, After or at the end
 	 */
-	void movePage(const int from, const int to, const int ziel, const int art);
+	void movePage(const int fromPage, const int toPage, const int dest, const int position);
 	
 	/**
 	 * @brief Copy a page (pageNumberToCopy) copyCount times, whereToInsert(before or after) the existingPage or at the end.
@@ -704,7 +704,8 @@ public:
 	 * @brief Undo function for applying a master page
 	 */
 	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
-	void restorePageCopy(SimpleState *state, bool isUndo);
+	void restoreCopyPage(SimpleState *state, bool isUndo);
+	void restoreMovePage(SimpleState *state, bool isUndo);
 	/**
 	 * @brief Undo function for grouping/ungrouping
 	 */

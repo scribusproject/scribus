@@ -966,6 +966,7 @@ void UndoManager::languageChange()
 	UndoManager::RemoveAllPageGuides = tr("Remove page guides");
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
+	UndoManager::MovePage           = tr("Move page");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
 	UndoManager::LinkTextFrame		= tr("Link text frame");
 	UndoManager::UnlinkTextFrame	= tr("Unlink text frame");
@@ -1176,6 +1177,7 @@ QString UndoManager::RemoveAllGuides    = "";
 QString UndoManager::RemoveAllPageGuides = "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
+QString UndoManager::MovePage           = "";
 QString UndoManager::ToOutlines         = "";
 QString UndoManager::LinkTextFrame      = "";
 QString UndoManager::UnlinkTextFrame    = "";

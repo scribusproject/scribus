@@ -572,9 +572,9 @@ void ActionManager::initPageMenuActions()
 
 	connect( (*scrActions)["pageInsert"], SIGNAL(triggered()), mainWindow, SLOT(slotNewPageM()) );
 	connect( (*scrActions)["pageImport"], SIGNAL(triggered()), mainWindow, SLOT(slotPageImport()) );
-	connect( (*scrActions)["pageDelete"], SIGNAL(triggered()), mainWindow, SLOT(DeletePage()) );
-	connect( (*scrActions)["pageCopy"], SIGNAL(triggered()), mainWindow, SLOT(CopyPage()) );
-	connect( (*scrActions)["pageMove"], SIGNAL(triggered()), mainWindow, SLOT(MovePage()) );
+	connect( (*scrActions)["pageDelete"], SIGNAL(triggered()), mainWindow, SLOT(deletePage()) );
+	connect( (*scrActions)["pageCopy"], SIGNAL(triggered()), mainWindow, SLOT(copyPage()) );
+	connect( (*scrActions)["pageMove"], SIGNAL(triggered()), mainWindow, SLOT(movePage()) );
 	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(ApplyMasterPage()) );
 	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(duplicateToMasterPage()) );
 	connect( (*scrActions)["pageManageMargins"], SIGNAL(triggered()), mainWindow, SLOT(changePageMargins()) );

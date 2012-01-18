@@ -381,7 +381,7 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 	}
 	bool oldMode = ScCore->primaryMainWindow()->doc->masterPageMode();
 	ScCore->primaryMainWindow()->doc->setMasterPageMode(true);
-	ScCore->primaryMainWindow()->DeletePage2(ScCore->primaryMainWindow()->doc->MasterNames[masterPageName]);
+	ScCore->primaryMainWindow()->deletePage2(ScCore->primaryMainWindow()->doc->MasterNames[masterPageName]);
 	ScCore->primaryMainWindow()->doc->setMasterPageMode(oldMode);
 //	Py_INCREF(Py_None);
 //	return Py_None;

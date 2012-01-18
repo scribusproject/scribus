@@ -151,7 +151,7 @@ void MasterPagesPalette::deleteMasterPage()
 
 		if (currentDoc->appMode == modeEditClip)
 			currentView->requestMode(submodeEndNodeEdit);
-		currentDoc->scMW()->DeletePage2(currentDoc->MasterNames[sMuster]);
+		currentDoc->scMW()->deletePage2(currentDoc->MasterNames[sMuster]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
 		currentDoc->rebuildMasterNames();

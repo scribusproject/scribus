@@ -1735,8 +1735,10 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		}
 		else if (ss->contains("OLD_MASTERPAGE"))
 			restoreMasterPageApplying(ss, isUndo);
-		else if (ss->contains("COPY_PAGE"))
-			restorePageCopy(ss, isUndo);
+		else if (ss->contains("PAGE_COPY"))
+			restoreCopyPage(ss, isUndo);
+		else if (ss->contains("PAGE_MOVE"))
+			restoreMovePage(ss, isUndo);
 		else if (ss->contains("PAGE_CHANGEPROPS"))
 		{
 			if (isUndo)
@@ -2209,38 +2211,89 @@ void ScribusDoc::deletePage(const int pageNumber)
 	setCurrentPage(Pages->at(pageNumber!=0?0:1));
 	ScPage* page = Pages->takeAt(pageNumber);
 	delete page;
+	reformPages();
 	changed();
 }
 
 
-void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
+void ScribusDoc::movePage(const int fromPage, const int toPage, const int dest, const int position)
 {
-	QList<ScPage*> Buf;
-	int zz = ziel;
-	Buf.clear();
-	for (int a = from; a < to; ++a)
+	QList<ScPage*> pageList;
+	int numPages = dest;
+	pageList.clear();
+	for (int i = fromPage; i < toPage; ++i)
 	{
-		Buf.append(Pages->takeAt(from));
-		if (a <= zz)
-			--zz;
+		pageList.append(Pages->takeAt(fromPage));
+		if (i <= numPages)
+			--numPages;
 	}
-	int bufCount=Buf.count();
-	switch (art)
+	int pageListCount=pageList.count();
+	switch (position)
 	{
-		case 0:
-			for (int b = 0; b < bufCount; ++b)
-				Pages->insert(zz++, Buf.at(b));
+		case 0: //Before Page
+			for (int j = 0; j < pageListCount; ++j)
+				Pages->insert(numPages++, pageList.at(j));
 			break;
-		case 1:
-			for (int b = 0; b < bufCount; ++b)
-				Pages->insert(++zz, Buf.at(b));
+		case 1: //After Page
+			for (int j = 0; j < pageListCount; ++j)
+				Pages->insert(++numPages, pageList.at(j));
 			break;
-		case 2:
-			for (int b = 0; b < bufCount; ++b)
-				Pages->append(Buf.at(b));
+		case 2: //To End
+			for (int j = 0; j < pageListCount; ++j)
+				Pages->append(pageList.at(j));
 			break;
+	}
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::MovePage, "", Um::IDocument);
+		ss->set("PAGE_MOVE", "page_move");
+		ss->set("PAGE_MOVE_FROM", fromPage);
+		ss->set("PAGE_MOVE_TO", toPage);
+		ss->set("PAGE_MOVE_DEST", dest);
+		ss->set("PAGE_MOVE_NEWPOS", position);
+		undoManager->action(this, ss, DocName, Um::IDocument);
+	}
+	reformPages();
+	if (m_View && m_ScMW)
+	{
+		m_View->reformPagesView();
+		m_ScMW->updateGUIAfterPagesChanged();
 	}
 	changed();
+}
+
+void ScribusDoc::restoreMovePage(SimpleState *state, bool isUndo)
+{
+	int fromPage = state->getInt("PAGE_MOVE_FROM");
+	int toPage = state->getInt("PAGE_MOVE_TO");
+	int position = state->getInt("PAGE_MOVE_NEWPOS");
+	int dest = state->getInt("PAGE_MOVE_DEST");
+
+	if (isUndo)
+	{
+		int newPageDest=fromPage;
+		int newPageFrom=0;
+		int newPageTo  =0;
+		int newPosition=0;
+		int pagesMoved=toPage-fromPage;
+		switch (position)
+		{
+		case 0: //Before Page
+			newPageFrom=dest-pagesMoved;
+			break;
+		case 1: //After Page
+			newPageFrom=dest-pagesMoved+1;
+			break;
+		case 2: //To End
+			newPageFrom=Pages->count()-pagesMoved;
+			break;
+		}
+		newPageTo=newPageFrom+pagesMoved;
+		movePage(newPageFrom, newPageTo, newPageDest, newPosition);
+	}
+	else
+		movePage(fromPage, toPage, dest, position);
 }
 
 
@@ -4038,7 +4091,7 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 }
 
 
-void ScribusDoc::restorePageCopy(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreCopyPage(SimpleState *state, bool isUndo)
 {
 	int pnum = state->getInt("PAGE_NUM");
 	int extPage = state->getInt("EXISTING_PAGE");
@@ -4054,7 +4107,7 @@ void ScribusDoc::restorePageCopy(SimpleState *state, bool isUndo)
 			destLocation=DocPages.count();
 		for (int i = 0; i < copyCount; ++i)
 		{
-			m_ScMW->DeletePage(destLocation, destLocation);
+			m_ScMW->deletePage(destLocation, destLocation);
 			if (whereTo == 2)
 				--destLocation;
 		}
@@ -5936,7 +5989,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 {
 	UndoTransaction copyTransaction(undoManager->beginTransaction(getUName(), Um::IDocument, Um::CopyPage, "", Um::ICreate));
 	SimpleState *ss = new SimpleState(Um::Copy, "", Um::ICreate);
-	ss->set("COPY_PAGE", "copy_page");
+	ss->set("PAGE_COPY", "copy_page");
 	ss->set("PAGE_NUM", pageNumberToCopy);
 	ss->set("EXISTING_PAGE", existingPage);
 	ss->set("WHERE_TO", whereToInsert);
@@ -6035,8 +6088,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				destination->initialMargins.Right = from->initialMargins.Right;
 			}
 		}
+		reformPages();
 		// FIXME: stop using m_View
-		m_View->reformPages();
+		if (m_View)
+			m_View->reformPagesView();
 		if (itemBuffer.count() > 0)
 		{
 			int lcount = 0;

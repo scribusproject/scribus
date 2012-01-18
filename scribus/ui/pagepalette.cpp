@@ -625,8 +625,8 @@ PagePalette::PagePalette(QWidget* parent) : ScDockPalette( parent, "Sp", 0)
 	connect(this, SIGNAL(EditTemp(QString)), m_scMW, SLOT(manageMasterPages(QString)));
 	connect(pageView, SIGNAL(UseTemp(QString, int)), m_scMW, SLOT(Apply_MasterPage(QString, int)));
 	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
-	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
-	connect(pageView, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
+	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(deletePage2(int)));
+	connect(pageView, SIGNAL(DelPage(int)), m_scMW, SLOT(deletePage2(int)));
 	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 }
 
@@ -652,7 +652,7 @@ void PagePalette::deleteMasterPage(QString tmp)
 		int  storedViewYCoor = currView->verticalScrollBar()->value();
 
 		currView->Doc->setMasterPageMode(true);
-		currView->Doc->scMW()->DeletePage2(currView->Doc->MasterNames[tmp]);
+		currView->Doc->scMW()->deletePage2(currView->Doc->MasterNames[tmp]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
 		currView->Doc->rebuildMasterNames();

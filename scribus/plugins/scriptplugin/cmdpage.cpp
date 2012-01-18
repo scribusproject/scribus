@@ -83,7 +83,7 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	ScCore->primaryMainWindow()->DeletePage2(e);
+	ScCore->primaryMainWindow()->deletePage2(e);
 // 	Py_INCREF(Py_None);
 // 	return Py_None;
 	Py_RETURN_NONE;
