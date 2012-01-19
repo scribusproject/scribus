@@ -5019,7 +5019,7 @@ void ScribusMainWindow::slotEditPaste()
 	if (HaveDoc)
 	{
 		UndoTransaction* activeTransaction = NULL;
-		if (!ScMimeData::clipboardHasScribusData())
+		if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
 			return;
 		if (UndoManager::undoEnabled())
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
