@@ -963,8 +963,8 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* kw)
 {
+	int nolinks = 0;
 	char *name = const_cast<char*>("");
-	bool nolinks = false;
 	char *kwargs[] = {const_cast<char*>("name"), const_cast<char*>("nolinks"), NULL};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "|esi", kwargs, "utf-8", &name, &nolinks))
 		return NULL;
