@@ -106,6 +106,21 @@ void ImportIdmlPlugin::registerFormats()
 	fmt.mimeTypes.append("application/vnd.adobe.indesign-idml-package");
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
+
+	FileFormat fmt2(this);
+	fmt2.trName = tr("Adobe Indesign IDMS");
+	fmt2.filter = tr("Adobe Indesign IDMS (*.idms *.IDMS)");
+	fmt2.formatId = 0;
+	fmt2.nameMatch = QRegExp("\\.idms$", Qt::CaseInsensitive);
+	fmt2.fileExtensions = QStringList() << "idms";
+	fmt2.load = true;
+	fmt2.save = false;
+	fmt2.thumb = true;
+	fmt2.colorReading = true;
+	fmt2.mimeTypes = QStringList();
+	fmt2.mimeTypes.append("application/vnd.adobe.indesign-idms");
+	fmt2.priority = 64; // Priority
+	registerFormat(fmt2);
 }
 
 bool ImportIdmlPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const
@@ -128,7 +143,7 @@ bool ImportIdmlPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importidml");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.idml *.IDML);;All Files (*)");
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.idml *.IDML *.idms *.IDMS);;All Files (*)");
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();

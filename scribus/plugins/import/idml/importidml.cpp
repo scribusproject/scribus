@@ -70,6 +70,7 @@ IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = NULL;
+	fun = NULL;
 }
 
 QString IdmlPlug::getNodeValue(QDomNode &baseNode, QString path)
@@ -102,11 +103,22 @@ QString IdmlPlug::getNodeValue(QDomNode &baseNode, QString path)
 QImage IdmlPlug::readThumbnail(QString fName)
 {
 	QImage tmp;
-	QByteArray f, f2;
+	QByteArray f;
+	QString designMap;
 	if ( !QFile::exists(fName) )
 		return QImage();
-	fun = new FileUnzip(fName);
-	QString designMap = fun->getFile("designmap.xml");
+	QFileInfo fi = QFileInfo(fName);
+	QString ext = fi.suffix().toLower();
+	if (ext == "idml")
+	{
+		fun = new FileUnzip(fName);
+		designMap = fun->getFile("designmap.xml");
+	}
+	else if (ext == "idms")
+	{
+		designMap = fName;
+		fun = NULL;
+	}
 	if (!designMap.isNull())
 	{
 		loadRawText(designMap, f);
@@ -213,23 +225,41 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
 	QByteArray f;
-	fun = new FileUnzip(fNameIn);
-	QString designMap = fun->getFile("designmap.xml");
+	QString designMap;
+	QFileInfo fi = QFileInfo(fNameIn);
+	QString ext = fi.suffix().toLower();
+	if (ext == "idml")
+	{
+		fun = new FileUnzip(fNameIn);
+		designMap = fun->getFile("designmap.xml");
+	}
+	else if (ext == "idms")
+	{
+		designMap = fNameIn;
+		fun = NULL;
+	}
 	if (!designMap.isNull())
 	{
 		loadRawText(designMap, f);
 		if(designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
-			for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+			if (ext == "idms")
 			{
-				QDomElement dpg = drawPag.toElement();
-				if (dpg.tagName() == "idPkg:Graphic")
+				parseGraphicsXMLNode(docElem);
+			}
+			else
+			{
+				for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 				{
-					if (!parseGraphicsXML(dpg))
+					QDomElement dpg = drawPag.toElement();
+					if (dpg.tagName() == "idPkg:Graphic")
 					{
-						delete fun;
-						return false;
+						if (!parseGraphicsXML(dpg))
+						{
+							delete fun;
+							return false;
+						}
 					}
 				}
 			}
@@ -256,6 +286,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	firstLayer = true;
 	firstPage = true;
 	pagecount = 1;
+	mpagecount = 0;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
@@ -452,8 +483,6 @@ bool IdmlPlug::convert(QString fn)
 	def_TextFlow = PageItem::TextFlowDisabled;
 	frameLinks.clear();
 	frameTargets.clear();
-	MasterSpreads.clear();
-	Spreads.clear();
 	importedColors.clear();
 	colorTranslate.clear();
 	importedGradients.clear();
@@ -474,8 +503,19 @@ bool IdmlPlug::convert(QString fn)
 	bool retVal = true;
 	bool firstSpread = true;
 	QByteArray f;
-	fun = new FileUnzip(fn);
-	QString designMap = fun->getFile("designmap.xml");
+	QString designMap;
+	QFileInfo fi = QFileInfo(fn);
+	QString ext = fi.suffix().toLower();
+	if (ext == "idml")
+	{
+		fun = new FileUnzip(fn);
+		designMap = fun->getFile("designmap.xml");
+	}
+	else if (ext == "idms")
+	{
+		designMap = fn;
+		fun = NULL;
+	}
 	if (!designMap.isNull())
 	{
 		loadRawText(designMap, f);
@@ -483,76 +523,119 @@ bool IdmlPlug::convert(QString fn)
 		{
 			QDomElement docElem = designMapDom.documentElement();
 			QString activeLayer = docElem.attribute("ActiveLayer");
-			for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+			if (ext == "idms")
 			{
-				QDomElement dpg = drawPag.toElement();
-				if (dpg.tagName() == "Layer")
+				for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 				{
-					QString layerSelf = dpg.attribute("Self");
-					QString layerName = dpg.attribute("Name");
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					QDomElement dpg = drawPag.toElement();
+					if (dpg.tagName() == "Layer")
 					{
-						int currentLayer = 0;
-						if (!firstLayer)
-							currentLayer = m_Doc->addLayer(layerName);
-						else
-							m_Doc->changeLayerName(currentLayer, layerName);
-						m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
-						m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
-						m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
-						m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
-					}
-					layerTranslate.insert(layerSelf, layerName);
-					firstLayer = false;
-				}
-				if (dpg.tagName() == "idPkg:Graphic")
-				{
-					if (!parseGraphicsXML(dpg))
-					{
-						retVal = false;
-						break;
-					}
-				}
-				if (dpg.tagName() == "idPkg:Styles")
-				{
-					if (!parseStylesXML(dpg))
-					{
-						retVal = false;
-						break;
-					}
-				}
-				if (dpg.tagName() == "idPkg:Preferences")
-				{
-					if (!parsePreferencesXML(dpg))
-					{
-						retVal = false;
-						break;
-					}
-				}
-				if (dpg.tagName() == "idPkg:MasterSpread")
-					MasterSpreads.append(dpg.attribute("src"));
-				if (dpg.tagName() == "idPkg:Spread")
-				{
-					if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
-					{
-						if (firstSpread)
+						QString layerSelf = dpg.attribute("Self");
+						QString layerName = dpg.attribute("Name");
+						if (importerFlags & LoadSavePlugin::lfCreateDoc)
 						{
-							parseSpreadXML(dpg);
-							firstSpread = false;
+							int currentLayer = 0;
+							if (!firstLayer)
+								currentLayer = m_Doc->addLayer(layerName);
+							else
+								m_Doc->changeLayerName(currentLayer, layerName);
+							m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
+							m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
+							m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
+							m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
+						}
+						layerTranslate.insert(layerSelf, layerName);
+						firstLayer = false;
+					}
+				}
+				parseGraphicsXMLNode(docElem);
+				parseStylesXMLNode(docElem);
+				parsePreferencesXMLNode(docElem);
+				parseSpreadXMLNode(docElem);
+				parseStoryXMLNode(docElem);
+			}
+			else
+			{
+				for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+				{
+					QDomElement dpg = drawPag.toElement();
+					if (dpg.tagName() == "Layer")
+					{
+						QString layerSelf = dpg.attribute("Self");
+						QString layerName = dpg.attribute("Name");
+						if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						{
+							int currentLayer = 0;
+							if (!firstLayer)
+								currentLayer = m_Doc->addLayer(layerName);
+							else
+								m_Doc->changeLayerName(currentLayer, layerName);
+							m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
+							m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
+							m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
+							m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
+						}
+						layerTranslate.insert(layerSelf, layerName);
+						firstLayer = false;
+					}
+					if (dpg.tagName() == "idPkg:Graphic")
+					{
+						if (!parseGraphicsXML(dpg))
+						{
+							retVal = false;
+							break;
 						}
 					}
-					else if (!parseSpreadXML(dpg))
+					if (dpg.tagName() == "idPkg:Styles")
 					{
-						retVal = false;
-						break;
+						if (!parseStylesXML(dpg))
+						{
+							retVal = false;
+							break;
+						}
 					}
-				}
-				if (dpg.tagName() == "idPkg:Story")
-				{
-					if (!parseStoryXML(dpg))
+					if (dpg.tagName() == "idPkg:Preferences")
 					{
-						retVal = false;
-						break;
+						if (!parsePreferencesXML(dpg))
+						{
+							retVal = false;
+							break;
+						}
+					}
+					if (dpg.tagName() == "idPkg:MasterSpread")
+					{
+						if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						{
+							if (!parseSpreadXML(dpg))
+							{
+								retVal = false;
+								break;
+							}
+						}
+					}
+					if (dpg.tagName() == "idPkg:Spread")
+					{
+						if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
+						{
+							if (firstSpread)
+							{
+								parseSpreadXML(dpg);
+								firstSpread = false;
+							}
+						}
+						else if (!parseSpreadXML(dpg))
+						{
+							retVal = false;
+							break;
+						}
+					}
+					if (dpg.tagName() == "idPkg:Story")
+					{
+						if (!parseStoryXML(dpg))
+						{
+							retVal = false;
+							break;
+						}
 					}
 				}
 			}
@@ -577,7 +660,8 @@ bool IdmlPlug::convert(QString fn)
 			}
 		}
 	}
-	delete fun;
+	if (fun != NULL)
+		delete fun;
 	if (progressDialog)
 		progressDialog->close();
 	return retVal;
@@ -603,6 +687,12 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 		else
 			return false;
 	}
+	parseGraphicsXMLNode(grNode);
+	return true;
+}
+
+void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
+	{
 	for (QDomNode n = grNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
@@ -670,7 +760,7 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 			gradientTypeMap.insert(grSelf, grTyp);
 		}
 	}
-	return true;
+	return;
 }
 
 bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
@@ -693,6 +783,12 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 		else
 			return false;
 	}
+	parseStylesXMLNode(sNode);
+	return true;
+}
+
+void IdmlPlug::parseStylesXMLNode(const QDomElement& sNode)
+{
 	for (QDomNode n = sNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
@@ -751,7 +847,7 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 			}
 		}
 	}
-	return true;
+	return;
 }
 
 void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
@@ -947,6 +1043,12 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 		else
 			return false;
 	}
+	parsePreferencesXMLNode(prNode);
+	return true;
+}
+
+void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
+{
 	double topMargin = m_Doc->marginsVal().Top;
 	double leftMargin = m_Doc->marginsVal().Left;
 	double rightMargin = m_Doc->marginsVal().Right;
@@ -1069,7 +1171,7 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	return true;
+	return;
 }
 
 bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
@@ -1092,6 +1194,12 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 		else
 			return false;
 	}
+	parseSpreadXMLNode(spNode);
+	return true;
+}
+
+void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
+{
 	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
@@ -1138,8 +1246,50 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 				}
 			}
 		}
+/*		else if (e.tagName() == "MasterSpread")
+		{
+			m_Doc->setMasterPageMode(true);
+			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			{
+				QDomElement spe = sp.toElement();
+				if (spe.tagName() == "Page")
+				{
+					QString pageNam = spe.attribute("Name") + "_" + spe.attribute("Self");
+					m_Doc->addMasterPage(mpagecount, pageNam);
+					m_Doc->currentPage()->MPageNam = "";
+					m_Doc->view()->addPage(mpagecount, true);
+					mpagecount++;
+					baseX = m_Doc->currentPage()->xOffset();
+					baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+				}
+			}
+			if ((facingPages) && (mpagecount % 2 == 0))
+			{
+				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width();
+				baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+			}
+			if (!facingPages)
+			{
+				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width() / 2.0;
+				baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+			}
+			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
+			{
+				QDomElement spe = sp.toElement();
+				if ((spe.tagName() == "Rectangle") || (spe.tagName() == "Oval") || (spe.tagName() == "GraphicLine") || (spe.tagName() == "Polygon") || (spe.tagName() == "TextFrame") || (spe.tagName() == "Group") || (spe.tagName() == "Button"))
+				{
+					QList<PageItem*> el = parseItemXML(spe);
+					for (int ec = 0; ec < el.count(); ++ec)
+					{
+						m_Doc->Items->append(el.at(ec));
+						Elements.append(el.at(ec));
+					}
+				}
+			}
+			m_Doc->setMasterPageMode(false);
+		} */
 	}
-	return true;
+	return;
 }
 
 QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pTrans)
@@ -1457,7 +1607,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		QTransform finalMat = transformation * pTrans;
 		double scX, scY, rot, dx, dy;
 		getTransformValuesFromMatrix(finalMat, scX, scY, rot, dx, dy);
+		if ((finalMat.m11() < 0) && (finalMat.m12() == 0) && (finalMat.m21() == 0))
+		{
+			QLineF line = QLineF(0.0, 0.0, 1.0, 0.0);
+			line.setAngle(rot);
+			QTransform matrix;
+			matrix.scale(-1, 0);
+			line = matrix.map(line);
+			rot = line.angle();
+			scX *= -1;
+		}
+		if ((finalMat.m22() < 0) && (finalMat.m12() == 0) && (finalMat.m21() == 0))
+		{
+			scY *= -1;
+		}
 		FPoint grOffset(getMinClipF(&GCoords));
+		GCoords.map(finalMat);
 		if (isGroup)
 		{
 			QString pre = "";
@@ -1501,6 +1666,20 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				PageItem* item = m_Doc->Items->at(z);
 				item->PoLine = GCoords.copy();
+				double dx = 0;
+				double dy = 0;
+				if (rot != 0)
+				{
+					QTransform mr;
+					FPoint grOffset2(getMinClipF(&item->PoLine));
+					mr.translate(-grOffset2.x(), -grOffset2.y());
+					mr.rotate(rot);
+					mr.translate(grOffset2.x(), grOffset2.y());
+					item->PoLine.map(mr);
+					FPoint grOffset3(getMinClipF(&item->PoLine));
+					dx = grOffset2.x() - grOffset3.x();
+					dy = grOffset2.y() - grOffset3.y();
+				}
 				item->ClipEdited = true;
 				item->FrameType = 3;
 				item->setFillShade(fillShade);
@@ -1520,8 +1699,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				item->setWidthHeight(wh.x(),wh.y());
 				item->setTextFlowMode(textFlow);
 				m_Doc->AdjustItemSize(item);
-				item->moveBy(dx, dy, true);
 				item->setRotation(-rot, true);
+				item->moveBy(dx, dy, true);
 				item->OldB2 = item->width();
 				item->OldH2 = item->height();
 				item->updateClip();
@@ -1540,6 +1719,20 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			}
 			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 			PageItem *itemg = m_Doc->Items->at(z);
+			double dx = 0;
+			double dy = 0;
+			if (rot != 0)
+			{
+				QTransform mr;
+				FPoint grOffset2(getMinClipF(&GCoords));
+				mr.translate(-grOffset2.x(), -grOffset2.y());
+				mr.rotate(rot);
+				mr.translate(grOffset2.x(), grOffset2.y());
+				GCoords.map(mr);
+				FPoint grOffset3(getMinClipF(&GCoords));
+				dx = grOffset2.x() - grOffset3.x();
+				dy = grOffset2.y() - grOffset3.y();
+			}
 			itemg->PoLine = GCoords.copy();
 			itemg->ClipEdited = true;
 			itemg->FrameType = 3;
@@ -1565,6 +1758,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			itemg->OwnPage = m_Doc->OnPage(itemg);
 			m_Doc->Items->takeAt(z);
 			m_Doc->groupObjectsToItem(itemg, GElements);
+			m_Doc->GroupOnPage(itemg);
 		}
 		else
 		{
@@ -1603,6 +1797,20 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 			}
 			PageItem* item = m_Doc->Items->at(z);
+			double dx = 0;
+			double dy = 0;
+			if (rot != 0)
+			{
+				QTransform mr;
+				FPoint grOffset2(getMinClipF(&GCoords));
+				mr.translate(-grOffset2.x(), -grOffset2.y());
+				mr.rotate(rot);
+				mr.translate(grOffset2.x(), grOffset2.y());
+				GCoords.map(mr);
+				FPoint grOffset3(getMinClipF(&GCoords));
+				dx = grOffset2.x() - grOffset3.x();
+				dy = grOffset2.y() - grOffset3.y();
+			}
 			item->PoLine = GCoords.copy();
 			item->ClipEdited = true;
 			item->FrameType = 3;
@@ -1744,6 +1952,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			item->OwnPage = m_Doc->OnPage(item);
 			m_Doc->Items->takeAt(z);
 			m_Doc->groupObjectsToItem(item, GElements);
+			m_Doc->GroupOnPage(item);
 		}
 	}
 	return GElements;
@@ -1769,13 +1978,19 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 		else
 			return false;
 	}
+	parseStoryXMLNode(stNode);
+	return true;
+}
+
+void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
+{
 	for (QDomNode n = stNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
 		QString storyName = e.attribute("Self");
 		PageItem *item = NULL;
 		if (!storyMap.contains(storyName))
-			return true;
+			return;
 		item = storyMap[storyName];
 		if (e.tagName() == "Story")
 		{
@@ -1869,7 +2084,15 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 								QDomElement s = stch.toElement();
 								if (s.tagName() == "Content")
 								{
-									QString ch = s.text();
+									QString ch = "";
+									for(QDomNode sh = s.firstChild(); !sh.isNull(); sh = sh.nextSibling() )
+									{
+										QString p = sh.nodeValue();
+										if (sh.nodeName() == "#text")
+											ch += p;
+										else if (p == "18")
+											ch += SpecialChars::PAGENUMBER;
+									}
 									if (!ch.isEmpty())
 									{
 										for (int tt = 0; tt < ch.length(); ++tt)
@@ -1914,7 +2137,7 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 			}
 		}
 	}
-	return true;
+	return;
 }
 
 void IdmlPlug::readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem)
