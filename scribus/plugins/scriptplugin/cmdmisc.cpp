@@ -12,10 +12,11 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QList>
 
+#include "prefsmanager.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "selection.h"
 #include "fonts/scfontmetrics.h"
-#include "prefsmanager.h"
 
 PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 {
@@ -203,26 +204,30 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == NULL)
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->view->SelectItem(i);
-	bool found = false;
-	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
-	{
-		ScCore->primaryMainWindow()->view->SelectItem(i);
-		for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
-			if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Layer))
-			{
-				i->LayerID = static_cast<int>(lam);
-				found = true;
-				break;
-			}
-	}
-	if (!found)
+	ScribusDoc* currentDoc   = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	const ScLayer *scLayer = currentDoc->Layers.layerByName( QString::fromUtf8(Layer) );
+	if (!scLayer)
 	{
 		PyErr_SetString(ScribusException, QString("Layer not found").toLocal8Bit().constData());
 		return NULL;
+	}
+	// If no name have been specified in args, process whole selection
+	currentView->SelectItem(item);
+	if (Name == EMPTY_STRING)
+	{
+		for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
+		{
+			item = currentDoc->m_Selection->itemAt(i);
+			item->LayerID = scLayer->ID;
+		}
+	}
+	else
+	{
+		item->LayerID = scLayer->ID;
 	}
 
 //	Py_INCREF(Py_None);
