@@ -23,6 +23,8 @@ public:
 	bool    valueAsBool   (const QString& attrName, bool def = false) const;
 	int     valueAsInt    (const char*    attrName, int def = 0) const;
 	int     valueAsInt    (const QString& attrName, int def = 0) const;
+	int     valueAsInt    (const char*    attrName, int min, int max, int def = 0) const;
+	int     valueAsInt    (const QString& attrName, int min, int max, int def = 0) const;
 	uint    valueAsUInt   (const char*    attrName, uint def = 0) const;
 	uint    valueAsUInt   (const QString& attrName, uint def = 0) const;
 	double  valueAsDouble (const char*    attrName, double def = 0.0) const;

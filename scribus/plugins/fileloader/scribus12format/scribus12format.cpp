@@ -836,7 +836,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->typographicPrefs().valueSmallCaps = dc.attribute("VKAPIT").toInt();
 		m_Doc->guidesPrefs().valueBaselineGrid = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
 		m_Doc->guidesPrefs().offsetBaselineGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
-		m_Doc->typographicPrefs().autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
+		// #9621 : autolinespacing is now express as a percentage of the font height
+		m_Doc->typographicPrefs().autoLineSpacing = 100 /*dc.attribute("AUTOL", "20").toInt()*/;
 		m_Doc->GroupCounter = 1 /*dc.attribute("GROUPC", "1").toInt()*/;
 		//m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
 		m_Doc->cmsSettings().SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());

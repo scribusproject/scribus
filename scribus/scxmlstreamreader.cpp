@@ -80,6 +80,18 @@ int ScXmlStreamAttributes::valueAsInt (const QString& attrName, int def) const
 	return retValue;
 }
 
+int ScXmlStreamAttributes::valueAsInt (const char* attrName, int min, int max, int def) const
+{
+	int value = valueAsInt(attrName, def);
+	return qMin(max, qMax(value, min));
+}
+
+int ScXmlStreamAttributes::valueAsInt (const QString& attrName, int min, int max, int def) const
+{
+	int value = valueAsInt(attrName, def);
+	return qMin(max, qMax(value, min));
+}
+
 uint ScXmlStreamAttributes::valueAsUInt  (const char*    attrName, uint def) const
 {
 	uint retValue = def;

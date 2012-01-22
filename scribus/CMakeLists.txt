@@ -588,6 +588,7 @@ SET(SCRIBUS_SOURCES
   sccolorshade.cpp
   scdocoutput.cpp
   scdocoutput_ps2.cpp
+  scdomelement.cpp
   scfonts.cpp
   scgtplugin.cpp
   scgzfile.cpp

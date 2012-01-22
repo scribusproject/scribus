@@ -98,7 +98,7 @@ static void updateAutoLinespacing(ParagraphStyle& that)
 	switch (that.lineSpacingMode())
 	{
 		case 0: 
-			that.setLineSpacing(((that.charStyle().fontSize() / 10.0) * static_cast<qreal>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
+			that.setLineSpacing(((that.charStyle().fontSize() / 10.0) * static_cast<qreal>(typographicSettings.autoLineSpacing) / 100));
 			break;
 		case 1:
 			that.setLineSpacing(that.charStyle().font().height(size));

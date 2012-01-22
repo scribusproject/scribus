@@ -1029,7 +1029,9 @@ void Scribus134Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttri
 	doc->typographicPrefs().valueSmallCaps     = attrs.valueAsInt("VKAPIT");
 	doc->guidesPrefs().valueBaselineGrid      = attrs.valueAsDouble("BASEGRID", 12.0);
 	doc->guidesPrefs().offsetBaselineGrid     = attrs.valueAsDouble("BASEO", 0.0);
-	doc->typographicPrefs().autoLineSpacing    = attrs.valueAsInt("AUTOL", 20);
+	// #9621 : autolinespacing is now express as a percentage of the font height
+	// It was not working in regualer text frame in 1.3.4+, so set it to the default value
+	doc->typographicPrefs().autoLineSpacing    = 100 /*attrs.valueAsInt("AUTOL", 20)*/;
 	doc->typographicPrefs().valueUnderlinePos  = attrs.valueAsInt("UnderlinePos", -1);
 	doc->typographicPrefs().valueUnderlineWidth  = attrs.valueAsInt("UnderlineWidth", -1);
 	doc->typographicPrefs().valueStrikeThruPos   = attrs.valueAsInt("StrikeThruPos", -1);

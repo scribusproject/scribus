@@ -1547,6 +1547,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\scdomelement.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\fonts\scface.cpp"
 				>
 			</File>
@@ -6422,6 +6426,10 @@
 						Name="moc.exe"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\scdomelement.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\fonts\scface.h"

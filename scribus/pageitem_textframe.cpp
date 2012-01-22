@@ -1131,7 +1131,10 @@ static double nextAutoTab (const LineControl &current, PageItem *item)
 static double calculateLineSpacing (const ParagraphStyle &style, PageItem *item)
 {
 	if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-		return style.charStyle().font().height(style.charStyle().fontSize() / 10.0);
+	{
+		double autoLS = static_cast<double>(item->doc()->typographicPrefs().autoLineSpacing) / 100.0;
+		return (style.charStyle().font().height(style.charStyle().fontSize() / 10.0) * autoLS);
+	}
 	if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 		return item->doc()->guidesPrefs().valueBaselineGrid;
 	return style.lineSpacing();
@@ -1346,6 +1349,9 @@ void PageItem_TextFrame::layout()
 		
 		current.nextColumn();
 		lastLineY = extra.Top;
+
+		//automatic line spacing factor (calculated once)
+		double autoLS = static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100.0;
 
 		// find start of first line
 		if (firstInFrame() < itemText.length())
@@ -2313,7 +2319,7 @@ void PageItem_TextFrame::layout()
 						// go back to last break position
 						style = itemText.paragraphStyle(a);
 						if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-							style.setLineSpacing(charStyle.font().height(hlcsize10));
+							style.setLineSpacing(charStyle.font().height(hlcsize10) * autoLS);
 						else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 							style.setLineSpacing(m_Doc->guidesPrefs().valueBaselineGrid);
 						

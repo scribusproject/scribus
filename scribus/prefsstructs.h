@@ -11,17 +11,20 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
+#include <cstring>
+
 #include <QColor>
 #include <QString>
 #include <QList>
 #include <QSet>
 #include <QHash>
+
+#include "documentinformation.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
 #include "scpattern.h"
 #include "vgradient.h"
-#include "documentinformation.h"
 
 struct CheckerPrefs
 {
@@ -69,6 +72,15 @@ struct TypoPrefs
 	int valueUnderlineWidth; //! Underline width
 	int valueStrikeThruPos; //! Strike-through displacement
 	int valueStrikeThruWidth; //! Strike-through line width
+
+	inline bool operator==(const TypoPrefs &other)
+	{
+		return (memcmp(this, &other, sizeof(TypoPrefs)) == 0);
+	}
+	inline bool operator!=(const TypoPrefs &other)
+	{
+		return (memcmp(this, &other, sizeof(TypoPrefs)) != 0);
+	}
 };
 
 struct WindowPrefs

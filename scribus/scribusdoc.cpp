@@ -7836,11 +7836,11 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 	{
 		ParagraphStyle storyStyle;
 		storyStyle.charStyle().setFontSize(size);
-		if (storyStyle.lineSpacingMode() == 0)
+		if (storyStyle.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
 		{
-			storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(docPrefsData.typoPrefs.autoLineSpacing) / 100) + (size / 10.0));
+			storyStyle.setLineSpacing((size / 10.0) * (static_cast<double>(docPrefsData.typoPrefs.autoLineSpacing) / 100));
 		}
-		else if (storyStyle.lineSpacingMode() == 1)
+		else if (storyStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 		{
 			storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
 		}
@@ -13066,7 +13066,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 //			bb->setFontSize(qMax(qRound(bb->fontSize()*((scx+scy)/2)), 1));
 			if ((bb->itemText.length() != 0) && (!bb->isTableItem))
 			{
-//				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0));
+//				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100));
 				for (aa = 0; aa < bb->itemText.length(); ++aa)
 					bb->itemText.item(aa)->setFontSize(qMax(qRound(bb->itemText.item(aa)->fontSize()*((scx+scy)/2)), 1));
 				if (bb->asPathText())

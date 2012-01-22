@@ -7673,7 +7673,6 @@ void ScribusMainWindow::slotDocSetup()
 		prefsDialog.getResizeDocumentPages(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 		doc->setNewPrefs(newDocPrefs, oldDocPrefs, resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 
-
 		slotChangeUnit(doc->unitIndex(), false);
 		//dia->updateDocumentSettings();
 		if (oldDocPrefs.itemToolPrefs.imageLowResType!=newDocPrefs.itemToolPrefs.imageLowResType)
@@ -7689,6 +7688,10 @@ void ScribusMainWindow::slotDocSetup()
 			view->previewQualitySwitcher->blockSignals(true);
 			view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs().imageLowResType);
 			view->previewQualitySwitcher->blockSignals(false);
+		}
+		if (oldDocPrefs.typoPrefs != newDocPrefs.typoPrefs)
+		{
+			doc->invalidateAll();
 		}
 		emit UpdateRequest(reqDocFontListUpdate);
 		scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);

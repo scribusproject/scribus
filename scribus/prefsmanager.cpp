@@ -37,24 +37,26 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "latexhelpers.h"
-#include "ui/missing.h"
-#include "ui/prefs_keyboardshortcuts.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
+#include "scdomelement.h"
 #include "scfonts.h"
-#include "ui/scmessagebox.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "sctextstream.h"
-#include "ui/modetoolbar.h"
 #include "util_color.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
+
+#include "ui/missing.h"
+#include "ui/modetoolbar.h"
+#include "ui/prefs_keyboardshortcuts.h"
+#include "ui/scmessagebox.h"
 
 extern bool emergencyActivated;
 
@@ -189,7 +191,7 @@ void PrefsManager::initDefaults()
 	appPrefs.typoPrefs.valueSubScript = 33;
 	appPrefs.typoPrefs.scalingSubScript = 66;
 	appPrefs.typoPrefs.valueSmallCaps = 75;
-	appPrefs.typoPrefs.autoLineSpacing = 20;
+	appPrefs.typoPrefs.autoLineSpacing = 100;
 	appPrefs.typoPrefs.valueUnderlinePos = -1;
 	appPrefs.typoPrefs.valueUnderlineWidth = -1;
 	appPrefs.typoPrefs.valueStrikeThruPos = -1;
@@ -1861,7 +1863,7 @@ bool PrefsManager::ReadPref(QString ho)
 		return false;
 	}
 	f.close();
-	QDomElement elem=docu.documentElement();
+	ScDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
 	//Ignore scribus*.rc files prior to 1.5.0 due to changes
@@ -1886,7 +1888,7 @@ bool PrefsManager::ReadPref(QString ho)
 		appPrefs.verifierPrefs.checkerPrefsList.clear();
 	while(!DOC.isNull())
 	{
-		QDomElement dc=DOC.toElement();
+		ScDomElement dc = DOC.toElement();
 
 		if (dc.tagName()=="UI")
 		{
@@ -2036,7 +2038,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.typoPrefs.valueSubScript = dc.attribute("SubScriptDistance").toInt();
 			appPrefs.typoPrefs.scalingSubScript = dc.attribute("SubScriptScaling").toInt();
 			appPrefs.typoPrefs.valueSmallCaps  = dc.attribute("SmallCapsScaling").toInt();
-			appPrefs.typoPrefs.autoLineSpacing = dc.attribute("AutomaticLineSpacing", "20").toInt();
+			appPrefs.typoPrefs.autoLineSpacing = dc.valueAsInt("AutomaticLineSpacing", 100, 500, 100);
 			double ulp = ScCLocale::toDoubleC(dc.attribute("UnderlineDistance"), -1.0);
 			if (ulp != -1)
 				appPrefs.typoPrefs.valueUnderlinePos = qRound(ulp * 10);
@@ -2202,7 +2204,7 @@ bool PrefsManager::ReadPref(QString ho)
 			while(!scrp.isNull())
 			{
 				QDomElement scrpElem = scrp.toElement();
-				if (scrpElem.tagName()=="Recent")
+				if (scrpElem.tagName() == "Recent")
 				{
 					QString nam = scrpElem.attribute("Name");
 					QFileInfo fd(nam);

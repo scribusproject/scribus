@@ -296,7 +296,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->typographicPrefs().valueSmallCaps = dc.attribute("VKAPIT").toInt();
 		m_Doc->guidesPrefs().valueBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BASEGRID"), 12.0);
 		m_Doc->guidesPrefs().offsetBaselineGrid = ScCLocale::toDoubleC(dc.attribute("BASEO"), 0.0);
-		m_Doc->typographicPrefs().autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
+		// #9621 : autolinespacing is now express as a percentage of the font height
+		// It was not working in regualer text frame in 1.3.x, so set it to the default value
+		m_Doc->typographicPrefs().autoLineSpacing = 100 /*dc.attribute("AUTOL", "20").toInt()*/;
 		m_Doc->typographicPrefs().valueUnderlinePos = dc.attribute("UnderlinePos", "-1").toInt();
 		m_Doc->typographicPrefs().valueUnderlineWidth = dc.attribute("UnderlineWidth", "-1").toInt();
 		m_Doc->typographicPrefs().valueStrikeThruPos = dc.attribute("StrikeThruPos", "-1").toInt();
