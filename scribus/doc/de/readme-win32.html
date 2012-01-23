@@ -5,41 +5,25 @@
 </head>
 <body>
 <h2>Scribus unter Windows</h2>
-<h4>Was ist anders in Scribus?</h4>
 
-<p>Zunächst einmal wurde Scribus vor allem unter Linux und UNIX entwickelt. Deshalb funktioniert Scribus nicht immer wie eine reine Windows-Anwendung, sondern eher plattformneutral. Scribus wird auch auf Mac&nbsp;OS&nbsp;X portiert, und die Änderungen betreffen vor allem das Verhalten der Menüs. Weiterhin sei gesagt, daß sehr viel Zeit und Arbeit darauf verwendet wurden, es Scribus zu ermöglichen, hochwertige PDF-Dateien auszugeben. Wenn Sie den Empfehlungen für einen funktionierenden Workflow in der Dokumentation folgen, sollten Sie kaum Probleme beim kommerziellen Druck haben.</p>
-
-<h3>Minimale Hardware- und Softwareanforderungen:</h3>
-<p>Windows 2000 SP4 oder Windows XP werden unterstützt. Windows 98 und ME wurden nicht getestet und werden <strong>nicht unterstützt</strong>. Alle Fehlerberichte, die Windows 9x betreffen, werden schnell geschlossen.</p>
-<p>256 Mb oder mehr Arbeitsspeicher, je mehr, desto besser. 512Mb oder mehr werden unbedingt empfohlen, wenn größere oder komplexere Dokumente bearbeitet werden sollen.</p>
-<p>Ein Pentium III oder ein besserer Prozessor; 750MHz oder mehr.</p>
-<h3>Empfohlen:</h3>
-<p>Deaktivieren Sie das XP-Thema in Scribus und verwenden Sie statt dessen "Windows Classic". Dies wird <strong>dringend empfohlen</strong>. Es existiert ein bekanntes Problem beim Laden von Dokumenten, wenn das XP-Thema oder Themen von Drittherstellern verwendet werden. </p>
-
-<h3>Bevor Sie Scribus installieren</h3>
+<h3>Hardware- und Softwarevoraussetzungen (Minimum):</h3>
+<p>
 <ul>
-   <li>Installieren Sie Ghostscript für Windows &ndash; <a href="http://ghostscript.com">Ghostscript 8.60 oder höher</a> wird empfohlen. Dies ist für den EPS/PS-Import sowie für die Druckvorschau wichtig. Beachten Sie: Nach der Installaion existieren in Ihrem Ghostscript-Verzeichnis zwei ausführbare Dateien. Die richtige *.exe-Datei, die Sie in den Voreinstellungen eintragen müssen, ist <strong>nicht</strong> gswin32.exe, sondern gswin32c.exe. In den meisten Fällen wird Scribus eine Ghostscript-Installation erkennen und die Einstellung automatisch vornehmen.</li>
-   <li>Scribus ist gegenüber schlecht programmierten oder minderwertigen Fonts <strong>sehr </strong> intolerant. Wenn Sie Scribus installiert haben, lesen Sie bitte die Dokumentation über Fonts. Scribus könnte und wird häufig Fonts verwerfen, die nicht den TrueType- und Type-1-Spezifikationen entsprechen. Schlicht gesagt, werden Sie Freeware-Fonts, die Sie in anderen Programmen verwenden können, in Scribus nicht nutzen können. Einiges in der Dokumentation bezieht sich auf Linux, aber Sie finden dort detaillierte Informationen über die Probleme, die fehlerhafte Fonts verursachen könnnen.</li>
- </ul>
- <h3>Nach der Installation</h3>
- <ul>
-<li>Wenn Scribus das erste Mal aufgerufen wird, dauert der Programmstart etwas länger. Das liegt daran, daß Scribus zunächst ein Caché Ihrer Fonts erzeugt. Spätere Programmstarts verlaufen wesentlich schneller.</li>
+<li>Windows 2000 SP4, Windows XP, Vista oder 7 werden unterst&uuml;tzt, Windows 98 und ME <b>nicht</b>. </li>
+<li>512 MB RAM oder mehr werden dringend empfohlen &ndash; je mehr, desto besser. </li>
+<li>Pentium III oder st&auml;rker &ndash; 750 MHz oder mehr.</li>
+<li>Scribus ist nur als 32-Bit-Version erh&auml;ltlich. Dies ist jedoch kein Hindernis zur Verwendung unter 64-Bit-Systemen und erfordert keinerlei gesonderte Ma&szlig;nahmen vor oder nach der Installation.</li>
+<li><i>Wir empfehlen dringend, alle Desktop-Themen von Drittanbietern zu deaktivieren. Wenn Sie ein seltsames Verhalten von Scribus feststellen, z.B. das Nichterscheinen eines geladenen Dokuments, verwenden Sie das &raquo;Windows Classic&laquo;-Thema. Es gibt ein bekanntes Problem mit den von Scribus verwendeten Qt-Bibliotheken, das dazu f&uuml;hren kann, da&szlig; Dokumente nicht geladen werden k&ouml;nnen, und es wird von diesen externen Desktopthemen verursacht.</i></li>
+</ul>
+</p>
+<h3>Vor der Installation</h3>
+<p>Installieren Sie <a href="http://ghostscript.com/releases/">Ghostscript f&uuml;r Windows</a> &ndash; Ghostscript 8.7+ oder h&ouml;her werden empfohlen. Dieses Programm ben&ouml;tigen Sie f&uuml;r den import von EPS- und PDF-Dateien sowie den Strichode-Generator. <br>Nach der Installation finden Sie auf Ihrem System zwei ausf&uuml;hrbare Ghostscript-Dateien. Die richtige *.exe-Datei, die sie in den <a href="settings1.html#15">Allgemeinen Einstellungen</a> unter &raquo;Externe Tools&laquo; f&uuml;r Ghostscript eintragen m&uuml;ssen, ist <code>gswin32c.exe</code>, <b>nicht</b> <code>gswin32.exe</code>. In den allermeisten F&auml;llen wird Scribus ein installiertes Ghostscript von alleine finden. Bedenken Sie, da&szlig; Sie Ghostscript nicht zwangsl&auml;ufig ben&ouml;tigen. Ohne gs stehen Ihnen lediglich weniger Funktionen zur Verf&uuml;gung. Wenn Sie Ghostcript nicht installiert haben, wird eine Warnung angezeigt, die Ihnen hilft, es herunterzuladen, aber das ist lediglich ein Angebot.</p>
+<h3>W&auml;hrend der Installation</h3>
+<p>Falls Sie die Option &raquo;Zus&auml;tzliche Schriften&laquo; w&auml;hrend der Installation w&auml;hlen, werden auf Ihrem Rechner zus&auml;tzlich zwei Sammlungen mit hochwertigen Freien Schriften installiert. Die eine enth&auml;lt die URW-Fonts aus Ghostscript. Darunter sind 45 Schriftschnitte enthalten, die kompatibel mit den typischen PostScript-Druckerschriften sind. Die andere besteht aus der Vera-Familie von Bitstream, die unter Linux sehr weit verbreitet ist und auch von eingen Vorlagen verwendet wird.</p>
+<h3>Nach der Installation</h3>
+<p>Beim ersten Start oder wenn ein neu eingerichteter Benutzer Scribus zum erstenmal startet, kann es eine Weile dauern, bis das Programm benutzt werden kann, weil Scribus erst ein Verzeichnis s&auml;mtlicher installierten Schriften anlegt. Sp&auml;tere Neustarts verlaufen wesentlich schneller.</p>
 
-<li>Wenn Sie die Option "Extra Fonts" bei der Installation gewählt haben, werden zwei Sammlungen mit hochwertigen Fonts installiert, die frei vertrieben werden können. Die eine enthält URW-Fonts von Ghostscript. Sie besteht aus 45 Schriften, die meist in PostScript-Druckern verwendet werden. Die zweite ist die Bitstream-Vera-Familie, die unter Linux sehr verbreitet ist und von den meisten der mitgelieferten Vorlagen verwendet wird.</ul>
-
-<h3>Konsolenmodus zur Diagnose</h3>
-<p>Es gibt eine zweite Möglichkeit, Scribus zu starten, nämlich der <strong>Konsolenmodus</strong>. Unter <strong>Start > Programme</strong> finden Sie einen zweiten Eintrag namens <strong>Scribus -console</strong>. Damit wird ein Kommandozeilenfenster geöffnet, in dem Zeile für Zeile jede Schrift samt Installationspfad angezeigt wird, während Scribus sie lädt. Neben anderen diagnostischen Informationen können Sie dort sehen, welche Fonts Scribus verwirft oder welche doppelt vorhanden sind. Duplikate werden nicht geladen, selbst wenn sie unterschiedliche Namen tragen. Einer der Tests, die Scribus durchführt, ist der auf einen korrekten PostScript-Namen. </p>
-<p>Das Scribus-Team freut sich, das einzige Open-Source-Seitenlayout-Programm anzubieten, das auf allen drei großen Desktop-Betriebssystemen, Linux, Mac&nbsp;OS&nbsp;X und Windows, läuft. Support ist sowohl online (kostenlos) als auch direkt gegen Bezahlung verfügbar. Um Scribus ist eine freundliche Gemeinschaft entstanden, an der die Entwickler aktiv teilhaben. Viel Spaß!</p>
-
-<p><a href="http://docs.scribus.net">Scribus-Dokumentationsseiten</a> (EN, FR, DE, PL)</p>
-<p><a href="http://www.scribus.net/">Scribus-Homepage</a></p>
-  <p><a href="http://bugs.scribus.net">Scribus-Bugtracker</a></p>
-  <p><a href="http://wiki.scribus.net">Scribus-Wiki</a> (Anwender für Anwender)</p>
-  <p><a href="http://lists.scribus.info/mailman/listinfo">Mailingliste</a> (Registrierung, Archiv etc.)</p>
-
-<!--  <p><a href="http://sourceforge.net/project/showfiles.php?group_id=125235">Scribus
-SourceForge Downloads</a></p>
-  <p><a href="devel-docs">Developers Documentation (API)</a></p>
--->
+<h3>Kommadozeilenmodus zur Fehlerdiagnose</h3>
+<p>Im Startmen&uuml; finden Sie einen zweiten Eintrag namens &raquo;Scribus -console&laquo;. Damit wird ein Windows-Kommandozeilenfenster ge&ouml;ffnet, in dem jede gefundene und geladene Schriftdatei ebenso angezeigt wird wie Schriftdateien, die von Scribus wegen Fehlerhaftigkeit zur&uuml;ckgewiesen wurden. In manchen F&auml;llen werden auch andere Probleme angezeigt. Schriftduplikate werden nicht geladen, selbst wenn sie verschiedene Dateinamen haben.</p>
 </body>
 </html>
