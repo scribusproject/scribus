@@ -1,51 +1,56 @@
-<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Voreinstellungen und Verwaltung von Schriftarten mit Scribus</title>
+<title>Schriften einrichten</title>
 </head>
 <body>
-<h2>Voreinstellungen und Verwaltung von Schriftarten mit Scribus</h2>
+<h2>Schriften einrichten</h2>
 
-<h3>&Uuml;berblick</h3>
+<p>Schriften bzw, Schriftdateien (Fonts) sind eine der Hauptzutaten im Desktop Publishing. Aus diesem Grund bietet Scribus einige m&auml;chtige Werkzeuge, um Schriften zu verwalten und zu betrachten.</p>
 
-<p>Scribus verf&uuml;gt &uuml;ber einige sehr praktische Panel-Register, mit denen sich die zu benutzenden Schriftarten unkompliziert verwalten lassen. Au&szlig;erdem k&ouml;nnen Sie die Global-Einstellungen f&uuml;r Schriftarten und Schriftarten-Ersetzungen, die f&uuml;r Scribus gelten sollen, leicht selbst vorgeben. Mit den neuen, eigenen Voreinstellungen k&ouml;nnen Sie:</p>
+<h3>Schriftenverwaltung</h3>
 
+<p>Die wichtigsten Werkzeuge finden Sie im <i>Datei</i>-Men&uuml; unter <i>Dokument einrichten</i> bzw. <i>Allgemeine Einstellungen</i> (zu den Unterschieden zwischen den beiden fast identischen Dialogen vgl. <a href="settings1.html">Konfiguration</a>) im Unterdialog <i>Schriften</i> tab.</p>
+
+<p>Beide Dialoge sehen identisch aus, was auf den ersten Blick ein wenig verwirrend erscheinen mag, weil einige Optionen wahrscheinlich ausgegraut sind. Wie Sie sehen werden, steckt jedoch eine gewisse Logik hinter diesem Verhalten.</p>
+
+<h4>Gefundene Schriften verwalten</h4>
+
+<p>Der erste Reiter (&raquo;Verf&uuml;gbare Schriften&laquo;) zeigt zun&auml;chst die Schriften an, die Scribus w&auml;hrend des ersten Starts gefunden hat. Dabei h&auml;ngt es vom verwendeten Betriebssystem ab, welche Verzeichnisse nach Schriftdateien durchsucht werden (s.u.). Wenn Sie ein Scribus-Dokument &ouml;ffnen, sucht Scribus zus&auml;tzlich noch im &raquo;Dokumentpfad&laquo;, d.h. in dem Verzeichnis, in dem das Scribus-Dokument gespechert ist.</p>
+
+<p>Der Reiter &raquo;Verf&uuml;gbare Schriften&laquo; besteht aus zahlreichen Spalten, von denen manche nur Informationen &uuml;ber eine Schrift anzeigen, w&auml;hrend Sie in anderen Einstellungen zur Behandlung von Schriften machen k&ouml;nnen, und zwar entweder in einem bestehenden oder neu zu erstellenden Dokumenten. Werfen wir einmal einen Blick auf die einzelnen Spalten:</p>
 <ul>
-	<li>zus&auml;tzliche benutzerdefinierte Pfade f&uuml;r Schriftarten setzen, die weder root-Rechte ben&ouml;tigen noch eine manuelle Anpassung der XF86Free-Konfiguration erfordern.</li>
-	<li>selbst festlegen, welche Schriftarten verwendet und wie diese in Ihre Scribus-Dokumente eingebettet werden.</li>
-	<li>vorbestimmen, wie fehlende oder nicht verf&uuml;gbare Schriftarten (im fliegenden Wechsel) durch andere ersetzt werden.</li>
+<li><b>Schriftname:</b> Dies ist der Name der Schrift, wie er in der Schriftdatei gespeichert ist. Beachten Sie, da&szlig; dieser Name oft nicht identisch ist mit dem Namen der Schriftdatei bzw. der Schriftdateien selbst.</li>
+<li><b>Schrift benutzen:</b> Standardm&auml;&szlig;ig stellt Scribus alle Schriften, die es gefunden hat, zur Verf&uuml;gung. Wenn Sie sehr viele Schriften installiert haben, k&ouml;nnen sie deren Anzahl in den Scribus-Schriftdialogen (z.B. der Eigenschaftenpalette oder dem Stilmanager) reduzieren, indem Sie sie hier durch entfernen des &raquo;H&auml;kchens&laquo; deaktivieren.</li>
+<li><b>Familie:</b> Viele Schriften, besonders jene, die im professionellen Umfeld eingesetzt werden, sind Teil einer sogenannten &raquo;Schriftfamilie&laquo;. Eine typische &raquo;Familie&laquo; besteht aus verschiedenen &raquo;Schriftschnitten&laquo;, z.B. normal, kursiv, fett, fett kursiv. Manche Schriftfamilien sind sogar noch wesentlich gr&ouml;&szlig;er und enthalten Unterfamilien mit Serifenschriften, serifenlosen Schriften, Halbserifenschriften und Schriften mit fester Zeichenbreite. Diese Spalte zeigt den Namen der Familie an.</li>
+<li><b>Stil:</b> Hier sehen Sie den Schriftschnitt (meist in englischer Sprache) z.B. Regular, Condensed, Semi Bold, Italic.</li>
+<li><b>Variante:</b> Einige ausgefeilte (und sehr teure) Schriften bieten noch mehr Unterkategorien innerhalb eines Schnittes, z.B. verschiedene Normal- oder Kursivvarianten. Diese Unterkategorien sehen Sie hier angezeigt.</li>
+<li><b>Typ:</b> In dieser Spalte zeigt Scribus das Format einer Schrift an: PostScript (Type 0, Type 1, Type 3, oder CFF), TrueType (TTF) oder OpenType (OTF). Beachten Sie, da&szlig; Postscript-Schriften als &raquo;Type 1&laquo; angezeigt werden, egal welches Format tats&auml;chlich vorliegt.</li>
+<li><b>Format:</b> Hier sehen Sie das interne Format einer Schriftdatei (PFA, PFB, TYPE2, TYPE42, SFNT, TTCF, PFB_MAC, DFONT, HQX, oder MACBIN). Diese Information ist nur Font-Experten von Bedeutung.</li>
+<li><b>In Postscript einbetten:</b> Wenn diese Option f&uuml;r ein Schrift aktiviert wurde, wird diese in EPS- und PostScript-Dateien eingebettet, die Sie aus Scribus exportieren. Auch wird die Schrift im PDF-Export-Dialog automatisch in der Liste der einzubettenden Fonts angezeigt.</li>
+<li><b>Unterteilen:</b> Diese Option bedeutet, da&szlig; nur die in einem Dokument tats&auml;chlich verwendeten Glyphe einer Schrift auch in eine exportierte  Postscript- oder PDF-Datei eingebettet werden. Auf diese Weise entstehen kleinere Dateien, aber es wird auch schwieriger, eine solche Datei nachtr&auml;glich mit Spezialprogrammen wie PitStop zu bearbeiten. Solange Sie eine PDF-Datei nicht in einer Druckerei verarbeiten lassen, k&ouml;nnen Sie diese Funktion gefahrlos anwenden. Besonders empfehlenswert ist die Option, wenn Sie Dateien f&uuml;rs Internet erzeugen m&ouml;chten, die m&ouml;glichst klein sein sollen.<br>Beachten Sie, da&szlig; die meisten OpenType und viele neue TrueType-Schriften automatisch unterteilt werden. Das hei&szlig;t, da&szlig; Sie diese zun&auml;chst nicht einbetten k&ouml;nnen. Der Grund f&uuml;r diese Voreinstellung ist die Gr&ouml;&szlig;e dieser Schriftdateien, weil deren Dateiformat es erm&ouml;glicht, etliche tausend Glyphe darin zu speichern. Die Einbettung solcher Schriften k&ouml;nnte zu riesigen PDF-Dateien f&uuml;hren, weshalb das Verhindern der Einbettung eine eingebaute Sicherheitsma&szlig;nahme darstellt. Wenn Sie eine Schrift dennoch einbetten m&ouml;chten, entfernen Sie einfach das H&auml;kchen in dieser Spalte.</li>
+<li><b>Zugriff:</b> Hier wird angezeigt, wo eine Schrift installiert ist, n&auml;mlich entweder einem Systemverzeichnis (&raquo;System&laquo;), im Home-Verzeichnis des Benutzers (Mac&nbsp;OS&nbsp;X, Linux, UNIX) oder einem zus&auml;tzlichen Schriftpfad (s.u.). In den beiden letztgenannten F&auml;llen wird der Zugriff &raquo;User&laquo; angezeigt.</li>
+<li><b>Im Dokument verwendet:</b> Diese Spalte zeigt an, ob eine Schrift im aktuellen Dokument verwendet wird und ist nur in den <i>Dokumenteinstellungen</i> verf&uuml;gbar.</li>
+<li><b>Pfad zur Schriftdatei:</b> Hier k&ouml;nnen Sie sehen, wo die Schrift gespeichert ist.</li>
 </ul>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/fontpref3.png" alt="Verf&uuml;gbare Schriften und Einbettungsoptionen" title="Verf&uuml;gbare Schriften und Einbettungsoptionen"/></td></tr></table>
 
-<p>Auf den ersten Blick mag es etwas verwirren, da&szlig; einige Optionen zun&auml;chst nicht anw&auml;hlbar sind. Dahinter steht jedoch eine gewisse Logik, wie wir sehen werden. Seit je her besteht eine der H&uuml;rden der Schriftarten-Verwaltung mit Xfree86 darin, da&szlig; manche Anwendungen einfach ihr Schriftarten-Verzeichnis an den von Xfree86 erstellten Standardpfad anh&auml;ngen. Das neuere Funktionsprinzip von fontconfig und Freetype2 haben das ge&auml;ndert und endlich eine L&ouml;sung f&uuml;r eines der &auml;ltesten Probleme gebracht, das der Endbenutzer mit Linux als Desktop-System bislang hatte.</p>
+<h4>Schriftersetzung</h4>
+
+<p>Sobald Sie ein Scribus-Dokument &ouml;ffnen, &uuml;berpr&uuml;ft das Programm, ob alle Schriften, die darin verwendet werden, verf&uuml;gbar sind. Wenn eine Schrift nicht auf Ihrem System oder Netzwerk vorhanden ist, wird Scribus Sie beim &Ouml;ffnen des Dokuments auffordern, eine Ersatzschrift anzugeben:</p>
+<table width="100%"><tr><td align="center"><img src="images/font-subst.png" alt="Font Substitution Step 1" title="Font Substitution Step 1" /></td></tr></table>
+<p>Sie k&ouml;nnen Ihre Entscheidung sp&auml;ter im Reiter &raquo;Schriftersetzung&laquo; korrigieren. Hier k&ouml;nnen Sie die Ersatzschrift(en) f&uuml;r das aktuelle Dokument (in den <i>Dokumenteinstellungen</i>) oder f&uuml;r neue Dokumente (in den <i>Allgemeinen Einstellungen</i>) &auml;ndern.</p><br>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref2.png" alt="Schriftersetzung, Schritt 2" title="Schriftersetzung, Schritt 2" /></td></tr></table>
 
 
-<h3>Schriftarten-Verzeichnisse zum Pfad hinzuf&uuml;gen:</h3>
+<h4>Zus&auml;tzliche Pfade</h4>
+<p>Eine der Herausforderungen in der Schriftenverwaltung (&raquo;Font Management&laquo;) liegt darin begr&uuml;ndet, da&szlig; Betriebssysteme auf sehr unterschiedliche Art und Weise den Zugriff auf Schriften erm&ouml;glichen. So verwenden Windows, OS/2 und eComStation beispielsweise ein einziges systemweites Verzeichnis (Windows: <code>C:\Windows\Fonts</code>; OS/2 und eComStation: <code>C:\PSFONTS</code>), w&auml;hrend moderne Systeme der UNIX-Familie sowohl auf System- als auch auf Benutzerverzeichnisse zugreifen (Mac OS X: <code>/Library/Fonts</code> und <code>/Users/username/Library/Fonts</code>; Linux und *BSD: <code>/usr/share/fonts</code>, <code>/usr/local/share/fonts</code> und <code>/home/username/.fonts</code>). In der Fr&uuml;hzeit des Desktop Publishings war dies ein ernstes Problem, denn professionelle Anwender m&uuml;ssen mit Hunderten oder gar Tausenden Schriften umgehen, aber weder die Hardware noch die Betriebssysteme dieser Zeit konnten mit einer solchen Menge an Schriftdateien umgehen. Die L&ouml;sung bestand in der Entwicklung spezieller Software, sogenannten Font-Managern, die es erm&ouml;glichten, die Zahl der zu einem bestimmten Zeitpunkt verf&uuml;gbaren Schriften so zu reduzieren, da&szlig; Betriebssysteme und Anwendungen damit zurechtkamen. Um einen Absturz des Betriebssystems zu verhindern, konnte man mit einem Font-Manager zus&auml;tzliche Pfade zu Verzeichnissen mit Schriften festlegen, auf die das System selbst keinen Zugriff nahm. So konnte man die Schriften verwenden, ohne sie vorher &raquo;installieren&laquo; zu m&uuml;ssen.</p> 
 
-<p>Starten Sie Scribus, <strong>ohne</strong>  ein Dokument zu &ouml;ffnen. Dann klicken Sie auf <strong>Bearbeiten &gt; Einstellungen &gt; Schriftarten</strong>, und es erscheint ein Register-Panel. W&auml;hlen Sie die Registerkarte &quot;Zus&auml;tzliche Pfade&quot;:</p>
+<p>Moderne Hardware, Betriebssystem und Anwendungen k&ouml;nnen zwar problemlos mit Hunderten installierter Schriften umgehen, aber die M&ouml;glichkeit, zus&auml;tzliche Schriftpfade festzulegen, ist immer noch ausgesprochen n&uuml;tzlich. Viele Anwender m&ouml;chten beispielsweise keine Schriften installieren, die sie nur selten benutzen. Mit Hilfe der beschriebenen Funktion k&ouml;nnen Sie eine Schrift in ein beliebiges Verzeichnis kopieren und den Pfad zu diesem Verzeichnis im Schriftendialog von Scribus eingeben.</p>
 
-<table width="100%"><tr><td align="center"><img src="../en/images/fontpref1.png" alt="Adding additional font paths." title="Adding additional font paths."/></td></tr></table>
+<p>Um einen zus&auml;tzlichen Schriftenpfad einzugeben, m&uuml;ssen Sie den Reiter &raquo;Zus&auml;tzliche Pfade&laquo; in den <i>Allgemeinen Einstellungen</i> verwenden. Dabei darf <b>kein</b> Dokument ge&ouml;ffnet sein (in den <i>Dokumenteinstellungen</i> ist dieser Dialog immer ausgegraut):</p><br>
 
-<p>Hier k&ouml;nnen Sie Schriftarten-Pfade hinzuf&uuml;gen, die nicht zu den Standardpfaden von XFree86 oder X-org geh&ouml;ren. Im folgenden Beispiel sehen Sie drei benutzerdefinierte Pfade zu Schriftarten, die wir in Scribus benutzen wollen. Das Verzeichnis <code>.fonts</code> ist das Standardverzeichnis f&uuml;r das neue <a href="fontconfig.html">fontconfig</a>, das zusammen mit Xft2 Bestandteil neuerer Distributionen ist. Klicken Sie auf  <strong>OK</strong>, und Scribus f&uuml;gt diese Schriftarten-Pfade hinzu, so da&szlig; alle korrekt installierten Schriften sogleich in neuen oder vorhandenen Dokumenten eingesetzt werden k&ouml;nnen.</p>
-
-<h3>Schriftarten-Ersetzung</h3>
-
-<p>Wenn Scribus ein neues Dokument &ouml;ffnet, &uuml;berpr&uuml;ft das Programm, ob alle im Dokument benutzten Schriftarten vorhanden sind. Ist das nicht der Fall, bekommen Sie gleich beim &Ouml;ffnen des Dokuments die M&ouml;glichkeit, eine Ersetzung vorzunehmen. Au&szlig;erdem k&ouml;nnen Sie diese Zuweisung auf der Registerkarte <strong>Font-Ersetzungen</strong> einstellen. Auf diese Weise k&ouml;nnen Sie das voreingestellte Ersetzungsprofil &auml;ndern. Im vorliegenden Beispiel ersetzen wir die Schriftart &quot;Timmons Bold&quot; (zu StarOffice 5.2 geh&ouml;rig) durch eine TrueType-Version von &quot;Times New Roman&quot;.</p>
-
-<table width="100%"><tr><td align="center"><img src="../en/images/fontpref2.png" alt="Font Substitutions" title="Font Substitutions" /></td></tr></table>
-
-<h4>Verf&uuml;gbare Schriftarten</h4>
-
-<p>Diese Registerkarte listet die auf Ihrem System verf&uuml;gbaren Schriftarten, gegebenenfalls mit benutzerdefinierten Pfadangaben. Hier k&ouml;nnen Sie auch einstellen, welche einzelne Schriftart jeweils von Scribus verwendet bzw. welche Schriftarten in PostScript-Dateien eingebettet werden sollen.	</p>
-
-<table width="100%"><tr><td align="center"><img src="../en/images/fontpref3.png" alt="Available Fonts and Embedding Preferences" title="Available Fonts and Embedding Preferences"/></td></tr></table>
-
-<p>Im diesem Beispiel wurde die Schriftart Nimbus Roman (eine &quot;Times Roman&quot;-Nachbildung) deaktiviert, weil sie auf anderen Plattformen gelegentlich Anzeigeprobleme bereitet; zumal der Acrobat Reader ohnehin die eigenen Multi-Master-Fonts als Ersetzung benutzt.</p>
-
-<h3>Weitere Anmerkungen zur Schriftarten-Verwaltung:</h3>
-<ul>
-	<li><strong>Subset</strong> zu aktivieren bedeutet, da&szlig; alle Zeichen, die eine Schriftart umfa&szlig;t, in den PostScript-Datenstrom oder ein PDF-Dokument eingebunden werden. Dies erm&ouml;glicht zwar kleinere PDF-Dateien, macht aber selbst kleinere &Auml;nderungen mit Druckvorstufen-Tools wie PitStop schwierig. Sofern die PDF-Dateien nicht f&uuml;r Ihre Druckerei bestimmt sind, k&ouml;nnen Sie die Subset-Option getrost aktivieren. Dies ist bedeutsam, wenn Sie die Gr&ouml;&szlig;e einer PDF-Datei zum Herunterladen m&ouml;glichst klein halten m&ouml;chten.</li>
-	<li><strong>OpenType-Schriftarten</strong> lassen sich standardm&auml;&szlig;ig nicht komplett einbetten, wodurch andere Anwendungen weitgehend leichter mit ihnen umgehen k&ouml;nnen. OpenType- und Unicode-TrueType-Schriftarten k&ouml;nnen sehr gro&szlig; werden. Daher werden Sie als Umri&szlig;schriften in  PDF-Dokumente exportiert. Dort, im PDF-Format, k&ouml;nnen diese genutzt werden, w&auml;hrend andere Anwendungen h&auml;ufig passen m&uuml;ssen.</li>
-	<li><strong>In Umrisse konvertieren.</strong> Scribus kann wahlweise Text in PostScript-Umrisse umwandeln. M&ouml;glicherweise brauchen Sie diese Option, wenn der Rasterbildprozessor (RIP) oder Belichter Ihrer Druckerei noch kein PDF 1.4 akzeptiert. Manchmal ist sie auch eine gute Wahl, bevor Sie SVG- oder EPS-Dateien exportieren. Wenn Sie wissen, da&szlig; EPS-Dateien f&uuml;r andere Programme oder Plattformen bestimmt sind, dann sollten Sie diese Option aktivieren.</li>
-</ul>
+<table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Zus&auml;tzliche Schriftpfade festlegen" title="Zus&auml;tzliche Schriftpfade festlegen"/></td></tr></table>
+<br>
 </body>
 </html>

@@ -1,74 +1,540 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Scribus-Spezifikationen</title>
+	<title>Scribus 1.4: Datenblatt</title>
 </head>
 <body>
-<h2>Scribus-Spezifikationen</h2>
-<h3>&Uuml;berblick</h3>
-<p>Scribus ist ein quelloffenes, plattform&uuml;bergreifendes Seitengestaltungprogramm (DTP). Urspr&uuml;nglich f&uuml;r Linux entwickelt, ist Scribus ebenfalls unter Mac&nbsp;OS&nbsp;X, Windows 2000/XP sowie OS/2 bzw. ecomStation installierbar und lauff&auml;hig. Ziel des Scribus-Teams ist es, professionelles Seitenlayout auch f&uuml;r Anf&auml;nger zug&auml;nglich zu machen, ohne da&szlig; der Support f&uuml;r professionelle DTP-Funktionen wie Schmuckfarben, CMYK-Farben, hochwertige PDF-Erzeugung, Import/Export von EPS und das Erstellen von Farbausz&uuml;gen eingeschr&auml;nkt ist.</p>
-<h3>Eigenschaften von Dokumenten:</h3>
-<!--goals goal-->
-<ul>
- <li>Scribus kann viele verbreitete Textformate importieren, einschlie&szlig;lich OASIS (Open Document) und dem DOC-Format von MS Word (mit Hilfe von Antiword).</li>
- <li>Unterst&uuml;tzt werden Unicode-Text und -Schriftarten, einschlie&szlig;lich Text mit gegenl&auml;ufiger Schreibrichtung f&uuml;r Arabisch und Hebr&auml;isch mittels FreeType2.</li>
- <li>Rahmen, sichtbar und verborgen; Unterst&uuml;tzung abgerundeter Kanten und Ecken f&uuml;r Text und Objekte, dreh- und skalierbar.</li>
- <li>Seitenvorlagen &ndash; Seitenpaletten erm&ouml;glichen ein leichtes Seiten-Management.</li>
- <li>F&uuml;r das ganze Dokument g&uuml;ltige Ebenen &ndash; editierbar, mit verschiebbaren Elementen.</li>
- <li>Absatzvorlagen mit zahlreichen Optionen f&uuml;r Text- und Absatzstil (Ausrichtung, Schriftarten)</li>
- <li>Manuelles Unterschneiden von Zeichens&auml;tzen und bei eingebetteten Schriftarten in allen Dokumenten (einschlie&szlig;lich PDF-Dateien) m&ouml;glich.</li>
- <li>Verlinken, Gruppieren, Verschieben, Sperren und Gr&ouml;&szlig;en&auml;nderung von Objekten sowie Umwandeln in andere Objektarten.</li>
- <li>R&auml;nder, Hilfslinien und Einrastfunktion; benutzerdefinierbar, sowohl verborgen als auch sichtbar.</li>
-<li>Ausgereifte Schriftsatzfunktionen, darunter manuelles Unterschneiden, optischer Randausgleich, sowie Optionen zur Veränderung der Zeichen- und Wortabstände.</li>
-<li>Die neue Version 1.3.5 wird LaTeX-Rahmen enthalten, so daß Sie LaTeX-Formeln und andere Inhalte direkt in Rahmen importieren können.</li>
-</ul>
+<h2>Scribus 1.4: Datenblatt</h2><br>
 
-<h3>Professionelle DTP-Funktionen:</h3>
-<ul>
- <li>CMYK-Farbmodell einschlie&szlig;lich Bildvorschau mittels ICC-Farbmanagement sowie Einbettung von ICC-Profilen in PDF-Dokumenten, damit die Bildschirmfarben exakt dem Druckergebnis entsprechen. Scribus unterst&uuml;tzt die vorgeschlagene openICC-Spezifikation f&uuml;r Profile.</li>
- <li>Erzeugung von CMYK- und RGB-Halbtonvorlagen f&uuml;r PostScript.</li>
- <li>Erstellung anspruchsvoller PDF-Dokumente, einschlie&szlig;lich interaktiver PDF-Formulare. Es werden nahezu alle PDF-Feldtypen und JavaScript-Aktionen unterst&uuml;tzt.</li>
- <li>Die F&auml;higkeit zur Ausgabe auf professionelle Belichtern, einschlie&szlig;lich fortschrittlicher Postscript-Ger&auml;te (Level 3/PDF 1.4).</li>
- <li>Import von Encapsulated PostScript mit Vorschau auf der Seitenarbeitsfl&auml;che / EPS-Export.</li>
- <li>Uneingeschr&auml;nkte Unterst&uuml;tzung der Level 2 PostScript-Ausgabe, einer Untermenge von Level 3 sowie der Funktionen und M&ouml;glichkeiten von PDF 1.4, wie Transparenz, Farbverl&auml;ufen und 128-Bit-Verschl&uuml;sselungssicherheit.</li>
- <li>Volle Einhaltung der PDF/X-3-Spezifikation, einem ISO-Standard zum Erzeugen &quot;druckfertiger&quot; PDF-Dateien &ndash; eine Priori&auml;t f&uuml;r jedes DTP-Programm.</li>
- <li>Unterst&uuml;tzt werden das Einbetten von Schriftarten oder Schriftart-Untermengen sowohl in Postscript als auch beim PDF-Export.</li>
- <li>Scribus kann alle unterst&uuml;tzten Zeichen in PostScript-Umri&szlig;linien umwandeln und sp&auml;ter selbst bearbeiten.</li>
-</ul>
-
-<h3>Benutzerfreundliche Funktionalit&auml;t:</h3>
-<ul>
- <li>Drag &amp; Drop mit KDE 3, einschlie&szlig;lich einer Drag-&amp;-Drop-Bibliothek f&uuml;r h&auml;ufig benutzte Elemente wie Textbl&ouml;cke, Bilderlogos, Hintergr&uuml;nde etc.</li>
- <li>Onlinehilfe-Browser mit ausf&uuml;hrlicher und st&auml;ndig aktualisierter Dokumentation (in Englisch, Deutsch und Französisch) und fertigen Beispieldateien.</li>
- <li>Benutzerfreundliche Werkzeuge und Paletten f&uuml;r Ma&szlig;e, Rotation und andere Objekteigenschaften</li>
- <li>Es werden sowohl TrueType, Type 1-PostScript als auch OpenType-Schriftarten vollst&auml;ndig unterst&uuml;tzt.</li>
- <li>Benutzerdefinierbare Tastaturk&uuml;rzel</li>
- <li>Auswahl zwischen 27 verschiedenen Sprachen, ohne da&szlig; neu kompiliert werden mu&szlig;.</li>
- <li>Anspruchsvolle automatische Silbentrennung in verschiedenen Sprachen.</li>
- <li>Benutzerfreundliche Zeichenwerkzeuge f&uuml;r gebr&auml;uchliche Formen wie Freihandlinien, Linien, Kurven, Ellipsen, Bézierkurven, Polygone etc.</li>
- <li>Ausf&uuml;hrliche und konfigurierbare Benutzer-Voreinstellungen f&uuml;r das jeweilige Dokument und die Applikation selbst.</li>
-</ul>
-
-<h3>Dateiformate:</h3>
-<ul>
- <li>Das Scribus 1.2.x eigene Dateiformat ist vollst&auml;ndig dokumentiert und basiert auf XML. Das aktuelle Format 1.3.x ist ein tempor&auml;res Format, das rechtzeitig zum Erscheinen der n&auml;chsten stabilen Version eine vollständige DTD (Document Type Definition) haben wird. </li>
- <li>EPS (Encapsulated PostScript), JPEG (Joint Photographic Experts Group), PNG (Portable Network Graphics), TIFF (Tag Image File Format) und XPM (XpixMap). Die Unterst&uuml;tzung von PSD schlie&szlig;t duplex/triplex/quadruplex, Ebenen und Beschneidungspfade ein. Ddie Unterst&uuml;tzung von 16-Bit-TIFF und PSD-Dateien befindet sich in der Erprobungsphase.</li>
- <li>Scribus ist auch in der Lage, wohlgeformtes SVG 1.0 (Scalable Vector Graphics) zu im- und exportieren, einschlie&szlig;lich Text mit Pfadausrichtung, Bildern und Text. Scribus kann s&auml;mtliche Funktionen und Eigenschaften eines Scribus-Dokuments nach SVG exportieren. Bei diesem Vorgang werden vorhandene Bilder nach PNG exportiert.</li>
- <li>Scribus kann Text mit vielen verschiedenen Kodierungen, darunter Unicode, importieren. Hinzu kommen OpenOffice.org 1.x, OASIS Open Document Writer und Draw-Dateien. Stile und Formatierungen bleiben beim Import erhalten. </li>
-<!--removed support for -->
-</ul>
-
-<h3>Architektur</h3>
-<ul>
- <li>Entwickelt mit GPL QT 3 f&uuml;r Linux und &quot;Unix-&auml;hnliche&quot; Betriebssysteme. Scribus läuft außerdem  nativ unter Mac&nbsp;OS&nbsp;X, OS/2 und Windows 2000 oder neueren Versionen (Win9x und WinME werden nicht unterstützt).</li>
- <li>Plug-in-Unterst&uuml;tzung und Programmierschnittstelle (API) mit Im- und Export-Plugins. </li>
- <li>Leistungsf&auml;higes Python-Skript-Plug-in zur Erweiterung der Scribus-Funktionen, zur Automatisierung von Aufgaben und zum Aufrufen externer Programme aus Scribus heraus.</li>
-</ul>
-<h3>Einsatzbereiche:</h3>
-<ul>
- <li>Entw&uuml;rfe f&uuml;r Newsletter, Firmenbriefpapier, Poster, Schulungsunterlagen, technische Dokumentationen, Visitenkarten und andere Dokumente, die nicht nur eine flexible Aufmachung bzw. anspruchsvolle Bildbehandlung erfordern, sondern auch eine exakte Drucksteuerung und eine Bildskalierung, mit der g&auml;ngige Textverarbeitungen nicht aufwarten k&ouml;nnen.</li>
- <li>Anwender, die die F&auml;higkeit zur Ausgabe auf professionelle Plattenbelichter ben&ouml;tigen, und zur Wiederverwendung f&uuml;r interne Druckzwecke bzw. über das Internet verbreitete PDF-Dokumente oder Pr&auml;sentationen.</li>
- <li>Anwender, die interaktive PDF-Formulare f&uuml;r Pr&auml;sentationen und CGI-Skript-Formulareingaben via PDF ben&ouml;tigen.</li>
-</ul>
+<body text="#000000">
+<table frame=VOID cellspacing=0 cols=2 rules=NONE border=0>
+	
+	<tbody>
+		<tr>
+			<td height=42 align=LEFT bgcolor="#CCCCCC"><b>Unterst&uuml;tzte Betriebssysteme</b></td>
+			<td align=LEFT bgcolor="#CCCCCC">Linux, FreeBSD, NetBSD, OpenBSD, Solaris, OpenIndiana, Nexenta, Mac&nbsp;OS&nbsp;X 10.5 oder h&ouml;her, OS/2 Warp 4, eComStation 1 oder h&ouml;her, Windows 2000 oder h&ouml;her</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Anzahl der &Uuml;bersetzungen f&uuml;r die Benutzeroberfl&auml;che</b></td>
+			<td align=LEFT sdval="25" sdnum="1031;">25</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Importfilter</b></td>
+			<td align=LEFT bgcolor="#CCCCCC"></td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>Text</td>
+			<td align=LEFT>Open Document Text (ODT), OpenOffice.org Writer 1 (SXW), HTML, MS Word (DOC), Kommaseparierte Dateien (CSV), Palm Document (PDB), Plain Text in verschiedenen Kodierungen</td>
+		</tr>
+		<tr>
+			<td height=84 align=LEFT bgcolor="#CCCCCC">Bitmap</td>
+			<td align=LEFT bgcolor="#CCCCCC">Desktop Color Separations (DCS), Encapsulated PostScript (EPS), Graphics Interchange Format (GIF), JPEG, Portable Networks Graphic (PNG), Photoshop Document (PSD), Tagged Image File Format (TIFF), Windows und OS/2 Bitmap (BMP),  X PixMap (XPM)</td>
+		</tr>
+		<tr>
+			<td height=103 align=LEFT>Vektor</td>
+			<td align=LEFT>Adobe Illustrator (AI), Calamus Vector Graphics (CVG), Dia Shapes (SHAPE), Encapsulated PostScript (EPS), Kivio Stencils (SML), OpenDocument Graphics (ODG), OpenOffice.org Draw (SXD), Macintosh PICT File (PICT), PostScript (PS), Scalable Vector Graphics (SVG, SVGZ), Scribus Objekte (SCE), Windows Metafile (WMF), Xfig (FIG)</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT bgcolor="#CCCCCC">Farbpaletten</td>
+			<td align=LEFT bgcolor="#CCCCCC">Adobe Illustrator (AI), Encapsulated PostScript (EPS), GIMP Palette (GPL), OpenDocument Swatch (SOC), PostScript (PS), Scribus Palette (XML)</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>Andere</td>
+			<td align=LEFT>PDF (&Ouml;ffnen als Dokument oder Import in Bildrahmen), Scribus Unicode Glyph Palette (UCP)</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Exportfilter:</b></td>
+			<td align=LEFT bgcolor="#CCCCCC"></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>PDF:</td>
+			<td align=LEFT>1.3, 1.4, 1.5, X-3</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">PostScript:</td>
+			<td align=LEFT bgcolor="#CCCCCC">Level 2, 3</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Vektor:</td>
+			<td align=LEFT>Encapsulated PostScript (EPS), Scalable Vector Graphics (SVG, SVGZ)</td>
+		</tr>
+		<tr>
+			<td height=42 align=LEFT bgcolor="#CCCCCC">Bitmap:</td>
+			<td align=LEFT bgcolor="#CCCCCC">BMP, BW, EPS, ICO, JP2, JPEG, PCX, PIC, PNG, PPM, RGB, RGBA, SGI, TGA, TIFF, XBM, XPM, XV</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Text:</td>
+			<td align=LEFT>Plain Text</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Interne bzw. native Dateiformate:</b></td>
+			<td align=LEFT bgcolor="#CCCCCC">SLA (XML-basiert, Plain Text), SLA.GZ (Komprimiertes SLA)</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Layout/Seitenverwaltung</b></td>
+			<td align=LEFT></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Standard-Layouts</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Musterseiten</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Gestaltungsraster/Hilfslinien</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Seitenpalette</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Ebenen</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Seitenimport</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Flexible Seitennumerierung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Unterschiedliche R&auml;nder und Abmessungen f&uuml;r Seiten</td>
+			<td align=LEFT>✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Inhaltsverzeichnisse</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Lesezeichen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Text/Typographie</b></td>
+			<td align=LEFT bgcolor="#CCCCCC"></td>
+		</tr>
+		<tr>
+			<td height=19 align=LEFT>Absatz-/Zeichenstile</td>
+			<td align=LEFT>✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Stilverwaltung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Zeichenskalierung</td>
+			<td align=LEFT>Manuell/automatisch</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Unterschneidung f&uuml;r Zeichen und W&ouml;rter</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Glyphenstauchung</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Optischer Randausgleich</td>
+			<td align=LEFT bgcolor="#CCCCCC">Links, rechts</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Initialen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Einstellbarer Abstand der ersten Zeile vom Rahmenrand</td>
+			<td align=LEFT bgcolor="#CCCCCC">Oberl&auml;nge, Versalh&ouml;he, Zeilenabstand</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Grundlinienraster</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Einzug/Tabulatoren</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Spalten/Textabstand vom Rahmenrand</td>
+			<td align=LEFT>✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Textumflu&szlig; um Objekte</td>
+			<td align=LEFT bgcolor="#CCCCCC">Automatisch/flexibel</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>Konfigurierbare Silbentrennung</td>
+			<td align=LEFT>Sprachbasiert, Anzahl aufeinanderfolgender Trennungen, K&uuml;rzestes Wort, Ausnahmeliste, Auslassungsliste</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Rechtschreibpr&uuml;fung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓<sup>1</sup></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Umbruchkontrolle f&uuml;r Abk&uuml;rzungen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Inline-Objekte</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Unterst&uuml;tzte Schriftenformate</td>
+			<td align=LEFT>Type 1 (Mac und PC), TrueType, OpenType</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Schriftmanagement</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Schriftenvorschau</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Kontrollzeichen</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Integrierter Texteditor (Story Editor)</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Glyphensammlungen</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Tabellen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Text an Pfad</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Bitmap-Features</b></td>
+			<td align=LEFT></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">RGB/CMYK/Schmuckfarben</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Unterst&uuml;tzung f&uuml;r eingebettete Beschneidungspfade</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Unterst&uuml;tzung f&uuml;r Ebenen und Transparenzeffekte</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Nichtdestruktive Bildeffekte</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Bilderverwaltungr</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>EXIF-Unterst&uuml;tzung</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Konfigurierbare Aufl&ouml;sung der Bildvorschau</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>Zuweisung von unterschiedlichen Farbprofilen f&uuml;r Bildrahmen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Aufruf eines externen Bildbearbeitungsprogrammes</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Vektorgrafiken</b></td>
+			<td align=LEFT></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Import als Vektordaten</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Import als Bilddatei</td>
+			<td align=LEFT>✓<sup>2</sup></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Farbimport</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Malwerkzeuge</td>
+			<td align=LEFT>Gerade Linien, Bézierkurven, Freihandlinien, Formenbibliothek</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Linienstile/Linienstil-Editor</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>Pfadwerkzeuge</td>
+			<td align=LEFT>Linseneffekte, Mesh Distortion, Pfad an Pfad, Pfade verbinden, Polygone zerschneiden, Boolsche Pfadperationen, Pfad aus Umri&szlig;, Pfad unterteilen</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Text-Import</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓<sup>3</sup></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Objektbezogene Funktionen</b></td>
+			<td align=LEFT></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Duplizieren/Mehrfach Duplizieren/Transformation</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Editierbare Rahmenformen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Mehrfach-Auswahl aufgrund von Objekteigenschaften</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>R&uuml;ckg&auml;ngig/Wiederherstellen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Aktionsverlauf</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Dokumentstruktur</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Ausrichten/Verteilen/Spiegeln/Drehen</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓/✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Ablagefl&auml;che au&szlig;erhalb von Seiten</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Konfigurierbare Lineale</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Objektbibliothek</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Me&szlig;werkzeug</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>F&uuml;llungen</td>
+			<td align=LEFT>F&uuml;llfarben, Verl&auml;ufe (Horizontal, Vertikal, Diagonal, Radial, Benutzerdefiniert), F&uuml;llmuster (Bitmap und Vektor)</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Farbpalettenverwaltung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT>F&uuml;ll- und Schmuckfarbenpaletten</td>
+			<td align=LEFT>&Uuml;ber 150 Farbpaletten, darunter Open-Source-Paletten, Nationale bzw. Regierungsstandards, Resene&reg; Farben, Crayola&reg; Farben, GCMI Farben, dtp studio collection und die Farben von GiveLife Color System&reg;</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Umwandlung zwischen verschiedenen Rahmentypen</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Transparenzmodi</td>
+			<td align=LEFT>✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Gruppieren/Sperren/Kombinieren</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Unterst&uuml;tzung f&uuml;r traditionelle Ma&szlig;systeme der Druckindustrie</td>
+			<td align=LEFT>Cicero, Pica</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Druckvorstufe</b></td>
+			<td align=LEFT bgcolor="#CCCCCC"></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>RGB/CMYK/Schmuckfarben</td>
+			<td align=LEFT>✓/✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Farbmanagement</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Drucksimulation auf dem Bildschirm</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Gamut-Warnung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Simulation von Farbenblindheit</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Knockout/&Uuml;berducken</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Farbseparationen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Passermarken</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Druck-/Separationsvorschau</td>
+			<td align=LEFT>✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Farbauftragsvorschau</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Tiefenkompensierung</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Beschnittzugabe</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Kontrolle &uuml;ber Schrifteinbettung</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Druckvorstufen&uuml;berpr&uuml;fung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Sammeln f&uuml;r Ausgabe</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Scripting</b></td>
+			<td align=LEFT bgcolor="#CCCCCC"></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Unterst&uuml;tze Sprachen</td>
+			<td align=LEFT>Python</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Scripting-Konsole</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Fertige Scripts in der Benutzeroberfl&auml;che</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Beispiel-Scripts</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Weitere Features</b></td>
+			<td align=LEFT></td>
+		</tr>
+		<tr>
+			<td height=46 align=LEFT bgcolor="#CCCCCC">Renderrahmen zum Rendern von Markup-Sprachen in Scribus</td>
+			<td align=LEFT bgcolor="#CCCCCC">Vorkonfiguriert f&uuml;r LaTeX, Lilypond, Gnuplot, GraphViz, POV-Ray</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>PDF-Formulare</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">PDF-JavaScript</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>PDF-Pr&auml;sentationen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">PDF-Verschl&uuml;sselung</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Einbetten von PDF- und EPS-Dateien in PDF-Dateien</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Farbrad f&uuml;r Farbharmonien</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Strichcode-Generator</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Unterst&uuml;tzung f&uuml;r Dublin-Core-Metadaten</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT><b>Dokumentation/Support</b></td>
+			<td align=LEFT></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Tooltips</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Integrierte Hilfe/<br>Suchfunktion/Lesezeichen</td>
+			<td align=LEFT>✓/✓/✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Gedrucktes Handbuch</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓<sup>4</sup></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Vorlagen</td>
+			<td align=LEFT>✓</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC"><b>Architektur</b></td>
+			<td align=LEFT bgcolor="#CCCCCC"></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Programmiersprache</td>
+			<td align=LEFT>C++ (einige Dateien von Drittanbietern sind in C geschrieben)</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Verwendetes UI-Toolkit</td>
+			<td align=LEFT bgcolor="#CCCCCC">Qt 4.6 oder h&ouml;her</td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT>Abh&auml;ngigkeiten</td>
+			<td align=LEFT>Vgl. die Liste unter <a href="install2.html">Voraussetzungen</a></td>
+		</tr>
+		<tr>
+			<td height=24 align=LEFT bgcolor="#CCCCCC">Plug-in-Interface</td>
+			<td align=LEFT bgcolor="#CCCCCC">✓</td>
+		</tr>
+</tbody>
+</table>
+<hr>
+<p><sup>1</sup> Nicht verf&uuml;gbar unter OS/2, eComStation und Windows.</p>
+<p><sup>2</sup> Nur EPS und PostScript.</p>
+<p><sup>3</sup> Nur AI und EPS.</p>
+<p><sup>4</sup> F&uuml;r die vorige Version. Eine aktualisierte Auflage befindet sich in Arbeit.</p>
+<hr>
+<p><b>Lizenz</b>: <a href="scribuscopyright.html">GPL 2 mit Ausnahmen</a></p>
 </body>
+
 </html>
