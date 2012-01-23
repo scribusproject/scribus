@@ -210,6 +210,24 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 
 void PageItem_ImageFrame::clearContents()
 {
+	if (UndoManager::undoEnabled())
+	{
+		ScItemState<ScImageEffectList> *is = new ScItemState<ScImageEffectList>(Um::ClearImage + "\n" + Pfile, "");
+		is->set("CLEAR_IMAGE", "clear_image");
+		is->set("CI_PFILE", Pfile);
+		is->set("CI_FLIPPH",imageFlippedH());
+		is->set("CI_FLIPPV",imageFlippedV());
+		is->set("CI_SCALING",ScaleType);
+		is->set("CI_ASPECT",AspectRatio);
+		is->set("CI_XOFF",imageXOffset());
+		is->set("CI_XSCALE",imageXScale());
+		is->set("CI_YOFF",imageYOffset());
+		is->set("CI_YSCALE",imageYScale());
+		is->set("CI_FILLT", fillTransparency());
+		is->set("CI_LINET", lineTransparency());
+		is->setItem(effectsInUse);
+		undoManager->action(this, is);
+	}
 	effectsInUse.clear();
 	PictureIsAvailable = false;
 	Pfile = "";

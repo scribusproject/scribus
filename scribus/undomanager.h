@@ -596,6 +596,7 @@ public:
 	static QString ToOutlines;
 	static QString LinkTextFrame;
 	static QString UnlinkTextFrame;
+	static QString ClearImage;
 	/*@}*/
 
 	/**

@@ -1847,7 +1847,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			double minres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].minResolution;
 			double maxres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].maxResolution;
 			bool checkres = m_Doc->checkerProfiles()[m_Doc->curCheckProfile()].checkResolution;
-			if  ((((72.0 / imageXScale()) < minres) 
+			if  ((((72.0 / imageXScale()) < minres)
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 
 				|| ((72.0 / imageYScale()) > maxres)) 
@@ -3994,8 +3994,20 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 		to += ", ";
 		to += keepRatio ? Um::KeepRatio : Um::BreakRatio;
 		SimpleState *ss = new SimpleState(Um::ImageScaling, QString(Um::FromTo).arg(from).arg(to), Um::IImageScaling);
+		ss->set("SCALE_MODE", "scaling_mode");
 		if (freeScale != ScaleType)
+		{
 			ss->set("SCALE_TYPE", freeScale);
+			if (!freeScale)
+			{
+				//if switching from free scaling to frame size
+				//in undo must be offset and scale saved
+				ss->set("OLD_IMAGEXOFFSET", LocalX);
+				ss->set("OLD_IMAGEYOFFSET", LocalY);
+				ss->set("OLD_IMAGEXSCALE", LocalScX);
+				ss->set("OLD_IMAGEYSCALE", LocalScY);
+			}
+		}
 		if (keepRatio != AspectRatio)
 			ss->set("ASPECT_RATIO", keepRatio);
 		undoManager->action(this, ss);
@@ -4374,6 +4386,7 @@ void PageItem::changeImageOffsetUndoAction()
 	{
 		SimpleState *ss = new SimpleState(Um::ImageOffset,
 			QString(Um::ImageOffsetFromTo).arg(oldLocalX).arg(oldLocalY).arg(LocalX).arg(LocalY), Um::IMove);
+		ss->set("IMAGE_OFFSET", "image_offset");
 		ss->set("OLD_IMAGEXOFFSET", oldLocalX);
 		ss->set("OLD_IMAGEYOFFSET", oldLocalY);
 		ss->set("NEW_IMAGEXOFFSET", LocalX);
@@ -4392,6 +4405,7 @@ void PageItem::changeImageScaleUndoAction()
 	{
 		SimpleState *ss = new SimpleState(Um::ImageScale,
 			QString(Um::ImageScaleFromTo).arg(oldLocalScX).arg(oldLocalScY).arg(LocalScX).arg(LocalScY), Um::IMove);
+		ss->set("IMAGE_SCALE", "image_scale");
 		ss->set("OLD_IMAGEXSCALE", oldLocalScX);
 		ss->set("OLD_IMAGEYSCALE", oldLocalScY);
 		ss->set("NEW_IMAGEXSCALE", LocalScX);
@@ -4484,14 +4498,12 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreType(ss, isUndo);
 		else if (ss->contains("TEXTFLOW_OLDMODE"))
 			restoreTextFlowing(ss, isUndo);
-		else if (ss->contains("SCALE_TYPE"))
-			restoreImageScaleType(ss, isUndo);
-		else if (ss->contains("OLD_IMAGEXSCALE"))
+		else if (ss->contains("SCALE_MODE"))
+			restoreImageScaleMode(ss, isUndo);
+		else if (ss->contains("IMAGE_SCALE"))
 			restoreImageScaleChange(ss, isUndo);
-		else if (ss->contains("OLD_IMAGEXOFFSET"))
+		else if (ss->contains("IMAGE_OFFSET"))
 			restoreImageOffsetChange(ss, isUndo);	
-		else if (ss->contains("ASPECT_RATIO"))
-			restoreImageScaleType(ss, isUndo);
 		else if (ss->contains("EDIT_CONTOUR"))
 			restorePoly(ss, isUndo, true);
 		else if (ss->contains("EDIT_SHAPE"))
@@ -4530,6 +4542,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreUnlinkTextFrame(ss,isUndo);
 		else if (ss->contains("REVERSE_TEXT"))
 			restoreReverseText(ss, isUndo);
+		else if (ss->contains("CLEAR_IMAGE"))
+			restoreClearImage(ss,isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -4804,7 +4818,7 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	}
 }
 
-void PageItem::restoreImageScaleType(SimpleState *state, bool isUndo)
+void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 {
 	bool type=ScaleType;
 	if (state->contains("SCALE_TYPE"))
@@ -4813,6 +4827,19 @@ void PageItem::restoreImageScaleType(SimpleState *state, bool isUndo)
 			type = !state->getBool("SCALE_TYPE");
 		else
 			type = state->getBool("SCALE_TYPE");
+		//if restoring free scaling
+		//old offset and scale ratio must be restored
+		if (type)
+		{
+			double oscx = state->getDouble("OLD_IMAGEXSCALE");
+			double oscy = state->getDouble("OLD_IMAGEYSCALE");
+			double ox = state->getDouble("OLD_IMAGEXOFFSET");
+			double oy = state->getDouble("OLD_IMAGEYOFFSET");
+			Selection tempSelection(this, false);
+			tempSelection.addItem(this, true);
+			m_Doc->itemSelection_SetImageScale(oscx, oscy, &tempSelection);
+			m_Doc->itemSelection_SetImageOffset(ox, oy, &tempSelection);
+		}
 	}
 
 	bool ratio=AspectRatio;
@@ -4853,6 +4880,33 @@ void PageItem::restoreImageOffsetChange(SimpleState *state, bool isUndo)
 		m_Doc->itemSelection_SetImageOffset(x, y, &tempSelection);
 	else
 		m_Doc->itemSelection_SetImageOffset(ox, oy, &tempSelection);
+}
+
+void PageItem::restoreClearImage(UndoState *state, bool isUndo)
+{
+	if (!isImageFrame())
+		return;
+	if (isUndo)
+	{
+		ScItemState<ScImageEffectList> *is = dynamic_cast<ScItemState<ScImageEffectList>*>(state);
+		Pfile = is->get("CI_PFILE");
+		loadImage(Pfile, false);
+		effectsInUse = is->getItem();
+		setImageFlippedH(is->getBool("CI_FLIPPH"));
+		setImageFlippedV(is->getBool("CI_FLIPPV"));
+		setImageScalingMode(is->getBool("CI_SCALING"),is->getBool("CI_ASPECT"));
+		setImageXOffset(is->getDouble("CI_XOFF"));
+		setImageXScale(is->getDouble("CI_XSCALE"));
+		setImageYOffset(is->getDouble("CI_YOFF"));
+		setImageYScale(is->getDouble("CI_YSCALE"));
+		setFillTransparency(is->getDouble("CI_FILLT"));
+		setLineTransparency(is->getDouble("CI_LINET"));
+
+		select();
+		m_Doc->updatePic();
+	}
+	else
+		asImageFrame()->clearContents();
 }
 
 void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
@@ -4961,11 +5015,12 @@ void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 	m_Doc->regionsChanged()->update(QRectF());
 }
 
-void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
+void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 {
-	QString fn = state->get("OLD_IMAGE_PATH");
+	ScItemState<ScImageEffectList> *is = dynamic_cast<ScItemState<ScImageEffectList>*>(state);
+	QString fn = is->get("OLD_IMAGE_PATH");
 	if (!isUndo)
-		fn = state->get("NEW_IMAGE_PATH");
+		fn = is->get("NEW_IMAGE_PATH");
 	if (fn.isEmpty())
 	{
 		Selection tempSelection(this, false);
@@ -4973,7 +5028,25 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 		m_Doc->itemSelection_ClearItem(&tempSelection);
 	}
 	else
+	{
 		loadImage(fn, false);
+		if (isUndo)
+		{
+			//restore old image settings
+			effectsInUse = is->getItem();
+			setImageFlippedH(is->getBool("FLIPPH"));
+			setImageFlippedV(is->getBool("FLIPPV"));
+			setImageScalingMode(is->getBool("SCALING"), is->getBool("ASPECT"));
+			setImageXOffset(is->getDouble("XOFF"));
+			setImageXScale(is->getDouble("XSCALE"));
+			setImageYOffset(is->getDouble("YOFF"));
+			setImageYScale(is->getDouble("YSCALE"));
+			setFillTransparency(is->getDouble("FILLT"));
+			setLineTransparency(is->getDouble("LINET"));
+		}
+		select();
+		m_Doc->updatePic();
+	}
 }
 
 void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
@@ -6212,11 +6285,22 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		QString ext = fi.suffix().toLower();
 		if (UndoManager::undoEnabled() && !reload)
 		{
-			SimpleState *ss = new SimpleState(Um::GetImage, filename, Um::IGetImage);
-			ss->set("GET_IMAGE", "get_image");
-			ss->set("OLD_IMAGE_PATH", Pfile);
-			ss->set("NEW_IMAGE_PATH", filename);
-			undoManager->action(this, ss);
+			ScItemState<ScImageEffectList> *is = new ScItemState<ScImageEffectList>(Um::GetImage, filename, Um::IGetImage);
+			is->set("GET_IMAGE", "get_image");
+			is->set("OLD_IMAGE_PATH", Pfile);
+			is->set("NEW_IMAGE_PATH", filename);
+			is->set("FLIPPH",imageFlippedH());
+			is->set("FLIPPV",imageFlippedV());
+			is->set("SCALING",ScaleType);
+			is->set("ASPECT",AspectRatio);
+			is->set("XOFF",imageXOffset());
+			is->set("XSCALE",imageXScale());
+			is->set("YOFF",imageYOffset());
+			is->set("YSCALE",imageYScale());
+			is->set("FILLT", fillTransparency());
+			is->set("LINET", lineTransparency());
+			is->setItem(effectsInUse);
+			undoManager->action(this, is);
 		}
 		double xres = pixm.imgInfo.xres;
 		double yres = pixm.imgInfo.yres;
