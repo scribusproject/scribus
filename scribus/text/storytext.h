@@ -126,6 +126,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	// Insert object at specific position
  	void insertObject(int pos, PageItem* obj);
  	void replaceChar(int pos, QChar ch);
+	void replaceObject(int pos, PageItem* obj);
 
 	void hyphenateWord(int pos, uint len, char* hyphens);
 	

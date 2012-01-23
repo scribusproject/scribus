@@ -173,22 +173,30 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
-	itemRenderText.setDefaultStyle(itemText.defaultStyle());
 	itemRenderText.clear();
+	itemRenderText.setDefaultStyle(itemText.defaultStyle());
 	for (a = firstChar; a < itemText.length(); ++a)
 	{
 		hl = itemText.item(a);
 		CharStyle nstyle = itemText.charStyle(a);
 		ParagraphStyle pstyle = itemText.paragraphStyle(a);
 		chstr = hl->ch;
-		if (!(chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK))
-			chstr = ExpandToken(a);
-		for (int cc = 0; cc < chstr.count(); cc++)
+		if ((itemText.item(a)->ch == SpecialChars::OBJECT) && (itemText.item(a)->embedded.hasItem()))
 		{
 			int pot = itemRenderText.length();
-			itemRenderText.insertChars(pot, chstr.mid(cc, 1));
-			itemRenderText.applyStyle(pot, pstyle);
-			itemRenderText.applyCharStyle(pot, 1, nstyle);
+			itemRenderText.insertObject(pot, itemText.object(a));
+		}
+		else
+		{
+			if (!(chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK))
+				chstr = ExpandToken(a);
+			for (int cc = 0; cc < chstr.count(); cc++)
+			{
+				int pot = itemRenderText.length();
+				itemRenderText.insertChars(pot, chstr.mid(cc, 1));
+				itemRenderText.applyStyle(pot, pstyle);
+				itemRenderText.applyCharStyle(pot, 1, nstyle);
+			}
 		}
 		chstr.clear();
 	}

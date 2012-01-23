@@ -194,7 +194,7 @@ void StoryText::clear()
 	
 	d->defaultStyle.erase();
 	d->trailingStyle.erase();
-	
+
 	d->clear();
 	d->len = 0;
 	invalidateAll();
@@ -509,6 +509,17 @@ void StoryText::insertObject(int pos, PageItem* ob)
 		pos += length()+1;
 
 	insertChars(pos, SpecialChars::OBJECT);
+	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
+	ob->isEmbedded = true;   // this might not be enough...
+	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
+}
+
+void StoryText::replaceObject(int pos, PageItem* ob)
+{
+	if (pos < 0)
+		pos += length()+1;
+
+	replaceChar(pos, SpecialChars::OBJECT);
 	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
 	ob->isEmbedded = true;   // this might not be enough...
 	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
