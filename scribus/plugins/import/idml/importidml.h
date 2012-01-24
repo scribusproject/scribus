@@ -71,6 +71,7 @@ private:
 		QString fillColor;
 		QString fillGradient;
 		QString strokeColor;
+		QString strokeGradient;
 		int fillTint;
 		int strokeTint;
 		double lineWidth;
@@ -79,6 +80,9 @@ private:
 		QPointF gradientFillStart;
 		double gradientFillLength;
 		double gradientFillAngle;
+		QPointF gradientStrokeStart;
+		double gradientStrokeLength;
+		double gradientStrokeAngle;
 	};
 	QString getNodeValue(QDomNode &baseNode, QString path);
 	bool convert(QString fn);
@@ -131,8 +135,9 @@ private:
 	QMap<QString, QString> styleTranslate;
 	QMap<QString, QString> charStyleTranslate;
 	QString def_fillColor;
-	QString def_strokeColor;
 	QString def_fillGradient;
+	QString def_strokeColor;
+	QString def_strokeGradient;
 	int def_Blendmode;
 	int def_fillBlendmode;
 	int def_strokeBlendmode;
@@ -146,6 +151,10 @@ private:
 	double def_gradientLen;
 	double def_gradientX;
 	double def_gradientY;
+	double def_gradientStrokeStartX;
+	double def_gradientStrokeStartY;
+	double def_gradientStrokeLength;
+	double def_gradientStrokeAngle;
 	PageItem::TextFlowMode def_TextFlow;
 	QMap<PageItem*, QString> frameLinks;
 	QMap<QString, PageItem*> frameTargets;

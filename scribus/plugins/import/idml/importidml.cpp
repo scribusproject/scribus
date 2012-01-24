@@ -467,6 +467,7 @@ bool IdmlPlug::convert(QString fn)
 	def_fillColor = CommonStrings::None;
 	def_strokeColor = CommonStrings::None;
 	def_fillGradient = "";
+	def_strokeGradient = "";
 	def_Blendmode = 0;
 	def_fillBlendmode = 0;
 	def_strokeBlendmode = 0;
@@ -480,6 +481,10 @@ bool IdmlPlug::convert(QString fn)
 	def_gradientLen = 0.0;
 	def_gradientX = 0.0;
 	def_gradientY = 0.0;
+	def_gradientStrokeStartX = 0;
+	def_gradientStrokeStartY = 0;
+	def_gradientStrokeLength = 0;
+	def_gradientStrokeAngle = 0;
 	def_TextFlow = PageItem::TextFlowDisabled;
 	frameLinks.clear();
 	frameTargets.clear();
@@ -732,7 +737,7 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				colorTranslate.insert(colorSelf, fNam);
 			}
 		}
-		if (e.tagName() == "Gradient")
+		else if (e.tagName() == "Gradient")
 		{
 			QString grSelf = e.attribute("Self");
 			QString grName = e.attribute("Self").remove(0, 9);
@@ -758,6 +763,36 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				importedGradients.append(grName);
 			gradientTranslate.insert(grSelf, grName);
 			gradientTypeMap.insert(grSelf, grTyp);
+		}
+		else if (e.tagName() == "Tint")
+		{
+			QString colorSelf = e.attribute("Self");
+			QString colorName = e.attribute("Self").remove(0, 5);
+			QString baseName = e.attribute("BaseColor", "Black");
+			double tint = e.attribute("TintValue", "100").toDouble() / 100.0;
+			if (colorTranslate.contains(baseName))
+			{
+				ScColor tmp = m_Doc->PageColors[colorTranslate[baseName]];
+				ScColor res;
+				if (tmp.getColorModel() == colorModelCMYK)
+				{
+					int c, m, y, k;
+					tmp.getCMYK(&c, &m, &y, &k);
+					res.setColor(qRound(c * tint), qRound(m * tint), qRound(y * tint), qRound(k * tint));
+				}
+				else
+				{
+					int r, g, b;
+					tmp.getRGB(&r, &g, &b);
+					res.setColorRGB(qRound(r * tint), qRound(g * tint), qRound(b * tint));
+				}
+				res.setSpotColor(false);
+				res.setRegistrationColor(false);
+				QString fNam = m_Doc->PageColors.tryAddColor(colorName, res);
+				if (fNam == colorName)
+					importedColors.append(fNam);
+				colorTranslate.insert(colorSelf, fNam);
+			}
 		}
 	}
 	return;
@@ -859,6 +894,10 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 	nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
 	nstyle.gradientFillLength = def_gradientLen;
 	nstyle.gradientFillAngle = def_gradientAngle;
+	nstyle.strokeGradient = "";
+	nstyle.gradientStrokeStart = QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY);
+	nstyle.gradientStrokeLength = def_gradientStrokeLength;
+	nstyle.gradientStrokeAngle = def_gradientStrokeAngle;
 	nstyle.lineWidth = def_lineWidth;
 	nstyle.fillTint = def_fillTint;
 	nstyle.strokeTint = def_strokeTint;
@@ -884,8 +923,14 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 	}
 	if (styleElem.hasAttribute("StrokeColor"))
 	{
-		if (colorTranslate.contains(styleElem.attribute("StrokeColor")))
-			nstyle.strokeColor = colorTranslate[styleElem.attribute("StrokeColor")];
+		QString strokeColor = styleElem.attribute("StrokeColor");
+		if (colorTranslate.contains(strokeColor))
+			nstyle.strokeColor = colorTranslate[strokeColor];
+		else
+		{
+			if (gradientTranslate.contains(strokeColor))
+				nstyle.strokeGradient = gradientTranslate[strokeColor];
+		}
 	}
 	if (styleElem.hasAttribute("FillColor"))
 	{
@@ -924,6 +969,18 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 		nstyle.gradientFillLength = styleElem.attribute("GradientFillLength").toDouble();
 	if (styleElem.hasAttribute("GradientFillAngle"))
 		nstyle.gradientFillAngle = styleElem.attribute("GradientFillAngle").toDouble();
+	if (styleElem.hasAttribute("GradientStrokeStart"))
+	{
+		QString fillGStart = styleElem.attribute("GradientStrokeStart");
+		ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
+		double gstX, gstY;
+		Code >> gstX >> gstY;
+		nstyle.gradientStrokeStart = QPointF(gstX, gstY);
+	}
+	if (styleElem.hasAttribute("GradientStrokeLength"))
+		nstyle.gradientStrokeLength = styleElem.attribute("GradientStrokeLength").toDouble();
+	if (styleElem.hasAttribute("GradientStrokeAngle"))
+		nstyle.gradientStrokeAngle = styleElem.attribute("GradientStrokeAngle").toDouble();
 	QString itemName = styleElem.attribute("Self");
 	ObjectStyles.insert(itemName, nstyle);
 }
@@ -1116,6 +1173,23 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 			QString strokeColor = e.attribute("StrokeColor");
 			if (colorTranslate.contains(strokeColor))
 				def_strokeColor = colorTranslate[strokeColor];
+			else
+			{
+				if (gradientTranslate.contains(strokeColor))
+				{
+					def_strokeGradient = gradientTranslate[strokeColor];
+				}
+			}
+			QString strokeGStart = e.attribute("GradientStrokeStart", "0 0");
+			ScTextStream Code2(&strokeGStart, QIODevice::ReadOnly);
+			Code2 >> def_gradientStrokeStartX >> def_gradientStrokeStartY;
+			def_gradientStrokeLength = e.attribute("GradientStrokeLength", "0").toDouble();
+			def_gradientStrokeAngle = e.attribute("GradientStrokeAngle", "0").toDouble();
+			int strokeShade = e.attribute("StrokeTint", "100").toInt();
+			if (strokeShade != -1)
+				def_strokeTint = strokeShade;
+			else
+				def_strokeTint = 100;
 			QString fillColor = e.attribute("FillColor");
 			if (colorTranslate.contains(fillColor))
 				def_fillColor = colorTranslate[fillColor];
@@ -1126,22 +1200,17 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 					def_fillGradient = gradientTranslate[fillColor];
 				}
 			}
-			int fillShade = e.attribute("FillTint", "100").toInt();
-			if (fillShade != -1)
-				def_fillTint = fillShade;
-			else
-				def_fillTint = 100;
-			int strokeShade = e.attribute("StrokeTint", "100").toInt();
-			if (strokeShade != -1)
-				def_strokeTint = strokeShade;
-			else
-				def_strokeTint = 100;
-			def_lineWidth = e.attribute("StrokeWeight", "0").toDouble();
 			QString fillGStart = e.attribute("GradientFillStart", "0 0");
 			ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
 			Code >> def_gradientX >> def_gradientY;
 			def_gradientLen = e.attribute("GradientFillLength", "0").toDouble();
 			def_gradientAngle = e.attribute("GradientFillAngle", "0").toDouble();
+			int fillShade = e.attribute("FillTint", "100").toInt();
+			if (fillShade != -1)
+				def_fillTint = fillShade;
+			else
+				def_fillTint = 100;
+			def_lineWidth = e.attribute("StrokeWeight", "0").toDouble();
 		}
 		if (e.tagName() == "TextWrapPreference")
 		{
@@ -1313,6 +1382,12 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	double gAngle = def_gradientAngle;
 	int fillGradientTyp = 6;
 	QString strokeColor = def_strokeColor;
+	QString strokeGradient = "";
+	double gstSX = def_gradientStrokeStartX;
+	double gstSY = def_gradientStrokeStartY;
+	double gSLen = def_gradientStrokeLength;
+	double gSAngle = def_gradientStrokeAngle;
+	int strokeGradientTyp = 6;
 	double lineWidth = def_lineWidth;
 	int fillShade = def_fillTint;
 	int strokeShade = def_strokeTint;
@@ -1376,8 +1451,27 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	}
 	if (itElem.hasAttribute("StrokeColor"))
 	{
+		strokeColor = itElem.attribute("StrokeColor");
+		if (colorTranslate.contains(strokeColor))
+			strokeColor = colorTranslate[strokeColor];
+		else
+		{
+			if (gradientTranslate.contains(strokeColor))
+			{
+				strokeGradientTyp = gradientTypeMap[strokeColor];
+				strokeGradient = gradientTranslate[strokeColor];
+			}
+		}
 		if (colorTranslate.contains(itElem.attribute("StrokeColor")))
 			strokeColor = colorTranslate[itElem.attribute("StrokeColor")];
+	}
+	if (itElem.hasAttribute("GradientStrokeStart"))
+	{
+		QString fillGStart = itElem.attribute("GradientStrokeStart");
+		ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
+		Code >> gstSX >> gstSY;
+		gSLen = itElem.attribute("GradientStrokeLength").toDouble();
+		gSAngle = itElem.attribute("GradientStrokeAngle").toDouble();
 	}
 	if (itElem.hasAttribute("StrokeWeight"))
 		lineWidth = itElem.attribute("StrokeWeight").toDouble();
@@ -1691,9 +1785,21 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					gradientVector.setLength(gLen);
 					gradientVector.setAngle(gAngle);
 					gradientVector.translate(-grOffset.x(), -grOffset.y());
+					item->fill_gradient = m_Doc->docGradients[fillGradient];
 					item->setGradientVector(gradientVector.x1(), gradientVector.y1(), gradientVector.x2(), gradientVector.y2(), gradientVector.x1(), gradientVector.y1(), 1, 0);
 					item->setGradient(fillGradient);
 					item->setGradientType(fillGradientTyp);
+				}
+				if (!strokeGradient.isEmpty())
+				{
+					QLineF gradientVector = QLineF(gstSX, gstSY, gstSX+1, gstSY);
+					gradientVector.setLength(gSLen);
+					gradientVector.setAngle(gSAngle);
+					gradientVector.translate(-grOffset.x(), -grOffset.y());
+					item->stroke_gradient = m_Doc->docGradients[strokeGradient];
+					item->setStrokeGradientVector(gradientVector.x1(), gradientVector.y1(), gradientVector.x2(), gradientVector.y2(), gradientVector.x1(), gradientVector.y1(), 1, 0);
+					item->setStrokeGradient(strokeGradient);
+					item->setStrokeGradientType(strokeGradientTyp);
 				}
 				FPoint wh = getMaxClipF(&item->PoLine);
 				item->setWidthHeight(wh.x(),wh.y());
@@ -1831,6 +1937,17 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				item->setGradientVector(gradientVector.x1(), gradientVector.y1(), gradientVector.x2(), gradientVector.y2(), gradientVector.x1(), gradientVector.y1(), 1, 0);
 				item->setGradient(fillGradient);
 				item->setGradientType(fillGradientTyp);
+			}
+			if (!strokeGradient.isEmpty())
+			{
+				QLineF gradientVector = QLineF(gstSX, gstSY, gstSX+1, gstSY);
+				gradientVector.setLength(gSLen);
+				gradientVector.setAngle(gSAngle);
+				gradientVector.translate(-grOffset.x(), -grOffset.y());
+				item->stroke_gradient = m_Doc->docGradients[strokeGradient];
+				item->setStrokeGradientVector(gradientVector.x1(), gradientVector.y1(), gradientVector.x2(), gradientVector.y2(), gradientVector.x1(), gradientVector.y1(), 1, 0);
+				item->setStrokeGradient(strokeGradient);
+				item->setStrokeGradientType(strokeGradientTyp);
 			}
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
@@ -2117,6 +2234,25 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 									data = "";
 									posC = item->itemText.length();
 								}
+								else if ((s.tagName() == "Rectangle") || (s.tagName() == "Oval") || (s.tagName() == "GraphicLine") || (s.tagName() == "Polygon") || (s.tagName() == "TextFrame") || (s.tagName() == "Group") || (s.tagName() == "Button"))
+								{
+									QTransform m;
+									QList<PageItem*> el = parseItemXML(s, m);
+									for (int ec = 0; ec < el.count(); ++ec)
+									{
+										PageItem* currItem = el.at(ec);
+										currItem->isEmbedded = true;
+										currItem->gXpos = 0;
+										currItem->gYpos = 0;
+										currItem->gWidth = currItem->width();
+										currItem->gHeight = currItem->height();
+										m_Doc->FrameItems.append(currItem);
+										item->itemText.insertObject(currItem);
+										item->itemText.applyStyle(posC, newStyle);
+										data = "";
+										posC = item->itemText.length();
+									}
+								}
 							}
 							if (data.count() > 0)
 							{
@@ -2142,6 +2278,40 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 
 void IdmlPlug::readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem)
 {
+	if (styleElem.hasAttribute("BaselineShift"))
+		newStyle.setBaselineOffset(qRound((styleElem.attribute("BaselineShift","0").toDouble()) * 10));
+	if (styleElem.hasAttribute("UnderlineOffset"))
+	{
+		double offs = styleElem.attribute("UnderlineOffset","0").toDouble();
+		if (offs >= 0)
+			newStyle.setUnderlineOffset(qRound(offs * 10));
+		else
+			newStyle.setUnderlineOffset(-1);
+	}
+	if (styleElem.hasAttribute("UnderlineWidth"))
+	{
+		double offs = styleElem.attribute("UnderlineWidth","0").toDouble();
+		if (offs >= 0)
+			newStyle.setUnderlineWidth(qRound(offs * 10));
+		else
+			newStyle.setUnderlineWidth(-1);
+	}
+	if (styleElem.hasAttribute("StrikeThroughOffset"))
+	{
+		double offs = styleElem.attribute("StrikeThroughOffset","0").toDouble();
+		if (offs >= 0)
+			newStyle.setStrikethruOffset(qRound(offs * 10));
+		else
+			newStyle.setStrikethruOffset(-1);
+	}
+	if (styleElem.hasAttribute("StrikeThroughWidth"))
+	{
+		double offs = styleElem.attribute("StrikeThroughWidth","0").toDouble();
+		if (offs >= 0)
+			newStyle.setStrikethruWidth(qRound(offs * 10));
+		else
+			newStyle.setStrikethruWidth(-1);
+	}
 	if (styleElem.hasAttribute("PointSize"))
 	{
 		int pointSize = qRound(styleElem.attribute("PointSize", "12").toDouble() * 10);
@@ -2291,6 +2461,14 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
 			nstyle.gradientFillLength = style.gradientFillLength;
 		if (style.gradientFillAngle != def_gradientAngle)
 			nstyle.gradientFillAngle = style.gradientFillAngle;
+		if (style.strokeGradient != "")
+			nstyle.strokeGradient = style.strokeGradient;
+		if (style.gradientStrokeStart != QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY))
+			nstyle.gradientStrokeStart = style.gradientStrokeStart;
+		if (style.gradientStrokeLength != def_gradientStrokeLength)
+			nstyle.gradientStrokeLength = style.gradientStrokeLength;
+		if (style.gradientStrokeAngle != def_gradientStrokeAngle)
+			nstyle.gradientStrokeAngle = style.gradientStrokeAngle;
 		if (style.lineWidth != def_lineWidth)
 			nstyle.lineWidth = style.lineWidth;
 		if (style.fillTint != def_fillTint)
