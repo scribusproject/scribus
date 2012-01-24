@@ -2104,13 +2104,13 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 	for (QDomNode n = stNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
-		QString storyName = e.attribute("Self");
-		PageItem *item = NULL;
-		if (!storyMap.contains(storyName))
-			return;
-		item = storyMap[storyName];
 		if (e.tagName() == "Story")
 		{
+			QString storyName = e.attribute("Self");
+			PageItem *item = NULL;
+			if (!storyMap.contains(storyName))
+				return;
+			item = storyMap[storyName];
 			for(QDomNode st = e.firstChild(); !st.isNull(); st = st.nextSibling() )
 			{
 				QDomElement ste = st.toElement();
@@ -2122,6 +2122,8 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 						pStyle = ste.attribute("AppliedParagraphStyle");
 						if (styleTranslate.contains(pStyle))
 							pStyle = styleTranslate[pStyle];
+						else
+							pStyle = CommonStrings::DefaultParagraphStyle;
 					}
 					ParagraphStyle newStyle;
 					newStyle.setParent(pStyle);
