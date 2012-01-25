@@ -47,7 +47,7 @@ void ShadeButton::setShade(QAction *act)
 	if (c == 0)
 	{
 		Query dia(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
-		if (dia->exec())
+		if (dia.exec())
     	{
 			c = dia.getEditText().toInt(&ok);
 			if (ok)
