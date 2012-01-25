@@ -6940,17 +6940,15 @@ void ScribusMainWindow::setItemFSize(int id)
 	else
 	{
 		bool ok = false;
-		Query* dia = new Query(this, "New", 1, 0, tr("&Size:"), tr("Size"));
-		if (dia->exec())
+		Query dia(this, "New", 1, 0, tr("&Size:"), tr("Size"));
+		if (dia.exec())
 		{
-			c = qRound(dia->getEditText().toDouble(&ok));
+			c = qRound(dia.getEditText().toDouble(&ok));
 			if ((ok) && (c < 1025) && (c > 0))
 				doc->itemSelection_SetFontSize(c*10);
 		}
-		delete dia;
 	}
 	propertiesPalette->textPal->displayFontSize(c*10);
-// 	slotDocCh();
 }
 
 //CB-->Doc partly
@@ -6970,10 +6968,10 @@ void ScribusMainWindow::setItemShade(int id)
 		}
 		else
 		{
-			Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
-			if (dia->exec())
+			Query dia(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
+			if (dia.exec())
 			{
-				c = dia->getEditText().toInt(&ok);
+				c = dia.getEditText().toInt(&ok);
 				if (ok)
 				{
 					if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
@@ -6982,10 +6980,8 @@ void ScribusMainWindow::setItemShade(int id)
 						doc->itemSelection_SetItemBrushShade(c);
 				}
 			}
-			delete dia;
 		}
 	}
-// 	slotDocCh();
 }
 
 #if 0

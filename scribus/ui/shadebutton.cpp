@@ -46,21 +46,17 @@ void ShadeButton::setShade(QAction *act)
 	
 	if (c == 0)
 	{
-		Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
+		Query dia(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
 		if (dia->exec())
     	{
-			c = dia->getEditText().toInt(&ok);
+			c = dia.getEditText().toInt(&ok);
 			if (ok)
 				b = qMax(qMin(c, 100),0);
 			else
 				b = 100;
-			delete dia;
 		}
 		else
-		{
-			delete dia;
 			return;
-		}
 	}
 	setText(QString::number(b)+" %");
 	emit clicked();

@@ -76,12 +76,12 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 void JavaDocs::slotAdd()
 {
 	QString nam;
-	Query *dia = new Query(this, "tt", 1, 0, tr("&New Script:"), tr("New Script"));
-	dia->setEditText( tr("New Script"), false );
-	dia->setTestList(Doc->JavaScripts.keys());
+	Query dia(this, "tt", 1, 0, tr("&New Script:"), tr("New Script"));
+	dia.setEditText( tr("New Script"), false );
+	dia.setTestList(Doc->JavaScripts.keys());
 	if (dia->exec())
 	{
-		nam = dia->getEditText();
+		nam = dia.getEditText();
 		nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 		Editor* dia2 = new Editor(this, "", View);
 		dia2->EditTex->setText("function "+nam+"()\n{\n}");
@@ -95,7 +95,6 @@ void JavaDocs::slotAdd()
 		}
 		delete dia2;
 	}
-	delete dia;
 }
 
 void JavaDocs::slotEdit()
