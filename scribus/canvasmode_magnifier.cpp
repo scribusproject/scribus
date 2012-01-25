@@ -204,10 +204,9 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 		{
 			QRect geom = m_view->redrawMarker->geometry().normalized();
 			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
-			double scaleAdjust = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
-			/*m_view->setScale(m_canvas->scale() * scaleAdjust);
-			m_view->slotDoZoom();
-			m_view->SetCCPo(nx.x(), nx.y());*/
+			double scaleH = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
+			double scaleV = m_view->visibleHeight() / static_cast<double>(qMax(geom.height(), 1));
+			double scaleAdjust = qMax(0.5, qMin(scaleH, scaleV));
 			m_view->zoom(nx.x(), nx.y(), m_canvas->scale() * scaleAdjust, false);
 			if (sc == m_canvas->scale())
 			{
