@@ -197,26 +197,42 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
+		// #10537 Check item has not been destroyed before requesting its selection
+		if (itemMap[ite].isNull())
+			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		emit selectElement(m_Doc->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
+		emit selectElement(itemMap[ite]->OwnPage, itemMap[ite]->ItemNr);
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
+		// #10537 Get page index from pointer in case user has deleted a page
+		// after preflight has been run
+		int pageIndex = m_Doc->DocPages.indexOf(pageMap[ite]);
+		if (pageIndex < 0)
+			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		emit selectPage(pageMap[ite]);
+		emit selectPage(pageIndex);
 		return;
 	}
 	if (masterPageMap.contains(ite))
 	{
-		emit selectMasterPage(masterPageMap[ite]);
+		// #10537 Get page index from pointer in case user has deleted a page
+		// after preflight has been run
+		int pageIndex = m_Doc->MasterPages.indexOf(masterPageMap[ite]);
+		if (pageIndex < 0)
+			return;
+		emit selectMasterPage(masterPageMap[ite]->pageName());
 		return;
 	}
 	if (masterPageItemMap.contains(ite))
 	{
+		// #10537 Check item has not been destroyed before requesting its selection
+		if (masterPageItemMap[ite].isNull())
+			return;
 		if (!m_Doc->masterPageMode())
-			emit selectMasterPage(m_Doc->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
-		emit selectElement(-1, masterPageItemMap[ite]);
+			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
+		emit selectElement(-1, masterPageItemMap[ite]->ItemNr);
 		return;
 	}
 }
@@ -454,7 +470,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			pageGraveError = false;
 			QTreeWidgetItem * page = new QTreeWidgetItem( masterPageRootItem);//, pagep );
-			masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+			masterPageMap.insert(page, doc->MasterPages.at(mPage));
 // 			pagep = page;
 			QMap<int, errorCodes>::Iterator masterItemErrorsIt;
 			for (masterItemErrorsIt = doc->masterItemErrors.begin();
@@ -466,7 +482,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				{
 					hasError = true;
 					QTreeWidgetItem * object = new QTreeWidgetItem( page);
-					masterPageItemMap.insert(object, doc->MasterItems.at(masterItemErrorsIt.key())->ItemNr);
+					masterPageItemMap.insert(object, doc->MasterItems.at(masterItemErrorsIt.key()));
 					object->setText(COLUMN_ITEM, doc->MasterItems.at(masterItemErrorsIt.key())->itemName());
 					errorCodes::Iterator it3;
 					if (masterItemErrorsIt.value().count() == 1)
@@ -483,19 +499,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						}
 						object->setExpanded( true );
 					}
-					if (itemError)
-						object->setIcon(COLUMN_ITEM, graveError );
-					else
-						object->setIcon(COLUMN_ITEM, onlyWarning );
+					object->setIcon(COLUMN_ITEM, itemError ? graveError : onlyWarning);
 				}
 			}
 			if (hasError)
 			{
 				++mpErrorCount;
-				if (pageGraveError)
-					page->setIcon(COLUMN_ITEM, graveError );
-				else
-					page->setIcon(COLUMN_ITEM, onlyWarning );
+				page->setIcon(COLUMN_ITEM, pageGraveError ? graveError : onlyWarning);
 				page->setExpanded( true );
 			}
 			else
@@ -513,7 +523,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			pageGraveError = false;
 			QTreeWidgetItem * page = new QTreeWidgetItem( reportDisplay);//, pagep );
-			pageMap.insert(page, aPage);
+			pageMap.insert(page, doc->DocPages.at(aPage));
 // 			pagep = page;
 			QMap<int, errorCodes>::Iterator docItemErrorsIt;
 			for (docItemErrorsIt = doc->docItemErrors.begin();
@@ -526,7 +536,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					itemError = false;
 					QTreeWidgetItem * object = new QTreeWidgetItem(page);
 					object->setText(COLUMN_ITEM, doc->DocItems.at(docItemErrorsIt.key())->itemName());
-					itemMap.insert(object, doc->DocItems.at(docItemErrorsIt.key())->ItemNr);
+					itemMap.insert(object, doc->DocItems.at(docItemErrorsIt.key()));
 					errorCodes::Iterator it3;
 					if (docItemErrorsIt.value().count() == 1)
 					{
@@ -542,18 +552,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						}
 						object->setExpanded( true );
 					}
-					if (itemError)
-						object->setIcon(COLUMN_ITEM, graveError );
-					else
-						object->setIcon(COLUMN_ITEM, onlyWarning );
+					object->setIcon(COLUMN_ITEM, itemError ? graveError : onlyWarning);
 				}
 			}
 			if (hasError)
 			{
-				if (pageGraveError)
-					page->setIcon(COLUMN_ITEM, graveError );
-				else
-					page->setIcon(COLUMN_ITEM, onlyWarning );
+				page->setIcon(COLUMN_ITEM, itemError ? graveError : onlyWarning);
 				page->setExpanded( true );
 			}
 			else
@@ -590,7 +594,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					hasError = true;
 					QTreeWidgetItem * object = new QTreeWidgetItem(freeItem);
 					object->setText(0, doc->DocItems.at(freeItemsErrorsIt.key())->itemName());
-					itemMap.insert(object, doc->DocItems.at(freeItemsErrorsIt.key())->ItemNr);
+					itemMap.insert(object, doc->DocItems.at(freeItemsErrorsIt.key()));
 					errorCodes::Iterator it3;
 					if (freeItemsErrorsIt.value().count() == 1)
 					{
@@ -606,18 +610,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						}
 						object->setExpanded( true );
 					}
-					if (pageGraveError)
-						object->setIcon(COLUMN_ITEM, graveError );
-					else
-						object->setIcon(COLUMN_ITEM, onlyWarning );
+					object->setIcon(COLUMN_ITEM, pageGraveError ? graveError : onlyWarning);
 				}
 			}
 			if (hasError)
 			{
-				if (pageGraveError)
-					freeItem->setIcon(COLUMN_ITEM, graveError );
-				else
-					freeItem->setIcon(COLUMN_ITEM, onlyWarning );
+				freeItem->setIcon(COLUMN_ITEM, pageGraveError ? graveError : onlyWarning );
 				freeItem->setExpanded( true );
 			}
 			else

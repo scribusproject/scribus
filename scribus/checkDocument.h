@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define CHECKDOCUMENT_H
 
 #include <QMap>
+#include <QPointer>
 
 class QEvent;
 class QHBoxLayout;
@@ -18,9 +19,12 @@ class QTreeWidgetItem;
 class QVBoxLayout;
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
-#include "scribusstructs.h"
 
+#include "pageitem.h"
+#include "scribusstructs.h"
+#include "scrpalettebase.h"
+
+class Page;
 class ScribusDoc;
 class ScComboBox;
 
@@ -99,13 +103,13 @@ protected slots:
 
 private:
 	//! \brief Mappping Page Item - item nr.
-	QMap<QTreeWidgetItem*, int> itemMap;
+	QMap<QTreeWidgetItem*, QPointer<PageItem> > itemMap;
 	//! \brief Mappping Page - page nr.
-	QMap<QTreeWidgetItem*, int> pageMap;
+	QMap<QTreeWidgetItem*, Page*> pageMap;
 	//! \brief Mappping Master Page - MP nr.
-	QMap<QTreeWidgetItem*, QString> masterPageMap;
+	QMap<QTreeWidgetItem*, Page*> masterPageMap;
 	//! \brief Mappping MP Item - MP item nr.
-	QMap<QTreeWidgetItem*, int> masterPageItemMap;
+	QMap<QTreeWidgetItem*, QPointer<PageItem> > masterPageItemMap;
 
 	//! \brief a reference to the current document
 	ScribusDoc* m_Doc;
