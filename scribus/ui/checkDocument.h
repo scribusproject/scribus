@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define CHECKDOCUMENT_H
 
 #include <QMap>
+#include <QPointer>
 
 class QEvent;
 class QHBoxLayout;
@@ -18,12 +19,14 @@ class QTreeWidgetItem;
 class QVBoxLayout;
 
 #include "scribusapi.h"
-#include "ui/scrpalettebase.h"
+
+#include "pageitem.h"
 #include "scribusstructs.h"
+#include "ui/scrpalettebase.h"
 
 class ScribusDoc;
 class ScComboBox;
-
+class ScPage;
 
 /*! \brief Preflight Verifier GUI (P.V.)
 A tool to check document for errors (in P.V. profiles)
@@ -101,13 +104,13 @@ protected:
 	QHBoxLayout* layout1;
 	QHBoxLayout* layout2;
 	//! \brief Mappping Page Item - item nr.
-	QMap<QTreeWidgetItem*, PageItem*> itemMap;
+	QMap<QTreeWidgetItem*, QPointer<PageItem> > itemMap;
 	//! \brief Mappping Page - page nr.
-	QMap<QTreeWidgetItem*, int> pageMap;
+	QMap<QTreeWidgetItem*, ScPage*> pageMap;
 	//! \brief Mappping Master Page - MP nr.
-	QMap<QTreeWidgetItem*, QString> masterPageMap;
+	QMap<QTreeWidgetItem*, ScPage*> masterPageMap;
 	//! \brief Mappping MP Item - MP item nr.
-	QMap<QTreeWidgetItem*, PageItem*> masterPageItemMap;
+	QMap<QTreeWidgetItem*, QPointer<PageItem> > masterPageItemMap;
 	//! \brief Mappping Page Item - cursor position in item
 	QMap<QTreeWidgetItem*, int> posMap;
 

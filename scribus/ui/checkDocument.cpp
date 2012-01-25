@@ -109,6 +109,9 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
+		// #10537 Check item has not been destroyed before requesting its selection
+		if (itemMap[ite].isNull())
+			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
 		if (itemMap[ite]->isTextFrame())
 			emit selectElement(itemMap[ite], true, posMap[ite]);
@@ -118,17 +121,30 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 	}
 	if (pageMap.contains(ite))
 	{
+		// #10537 Get page index from pointer in case user has deleted a page
+		// after preflight has been run
+		int pageIndex = m_Doc->DocPages.indexOf(pageMap[ite]);
+		if (pageIndex < 0)
+			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		emit selectPage(pageMap[ite]);
+		emit selectPage(pageIndex);
 		return;
 	}
 	if (masterPageMap.contains(ite))
 	{
-		emit selectMasterPage(masterPageMap[ite]);
+		// #10537 Get page index from pointer in case user has deleted a page
+		// after preflight has been run
+		int pageIndex = m_Doc->MasterPages.indexOf(masterPageMap[ite]);
+		if (pageIndex < 0)
+			return;
+		emit selectMasterPage(masterPageMap[ite]->pageName());
 		return;
 	}
 	if (masterPageItemMap.contains(ite))
 	{
+		// #10537 Check item has not been destroyed before requesting its selection
+		if (masterPageItemMap[ite].isNull())
+			return;
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
 		if (itemMap[ite]->isTextFrame())
@@ -380,7 +396,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( masterPageRootItem);
-				masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+				masterPageMap.insert(page, doc->MasterPages.at(mPage));
 			}
 // 			pagep = page;
 			QMap<PageItem*, errorCodes>::Iterator masterItemErrorsIt;
@@ -398,7 +414,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					if (!showPagesWithoutErrors && page==NULL)
 					{
 						page = new QTreeWidgetItem( masterPageRootItem);
-						masterPageMap.insert(page, doc->MasterPages.at(mPage)->pageName());
+						masterPageMap.insert(page, doc->MasterPages.at(mPage));
 					}
 					hasError = true;
 					QTreeWidgetItem * object = new QTreeWidgetItem( page);
@@ -458,7 +474,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( reportDisplay);
-				pageMap.insert(page, aPage);
+				pageMap.insert(page, doc->DocPages.at(aPage));
 			}
 // 			pagep = page;
 			QMap<PageItem*, errorCodes>::Iterator docItemErrorsIt;
@@ -474,7 +490,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					if (!showPagesWithoutErrors && page==NULL)
 					{
 						page = new QTreeWidgetItem( reportDisplay);
-						pageMap.insert(page, aPage);
+						pageMap.insert(page, doc->DocPages.at(aPage));
 					}
 					hasError = true;
 					itemError = false;
