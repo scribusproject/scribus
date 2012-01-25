@@ -87,11 +87,19 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 {
 	QRegion res;
 	QTransform pp;
-	pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
+	if (docItem->Parent != NULL)
+		pp.translate(docItem->gXpos, docItem->gYpos);
+	else
+		pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
 	pp.rotate(docItem->rotation());
 	if (docItem->textFlowUsesBoundingBox())
 	{
 		QRectF bb = docItem->getVisualBoundingRect();
+		if (docItem->Parent != 0)
+		{
+			bb.translate(-docItem->xPos(), -docItem->yPos());
+			bb.translate(docItem->gXpos, docItem->gYpos);
+		}
 		res = QRegion(bb.toRect());
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
@@ -169,11 +177,14 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 QRegion PageItem_TextFrame::availableRegion()
 {
 	QRegion result(this->Clip);
-	if (!isEmbedded)
+	if ((!isEmbedded) || (Parent != NULL))
 	{
 		bool invertible(false);
 		QTransform canvasToLocalMat;
-		canvasToLocalMat.translate(Xpos, Ypos);
+		if (Parent != NULL)
+			canvasToLocalMat.translate(gXpos, gYpos);
+		else
+			canvasToLocalMat.translate(Xpos, Ypos);
 		canvasToLocalMat.rotate(Rot);
 		canvasToLocalMat = canvasToLocalMat.inverted(&invertible);
 
@@ -231,20 +242,38 @@ QRegion PageItem_TextFrame::availableRegion()
 		{
 			int thisid = 0;
 			if (Parent != NULL)
-				thisid = Parent->asGroupFrame()->groupItemList.indexOf(this);
-			else
-				thisid = m_Doc->Items->indexOf(this);
-			for (uint a = 0; a < docItemsCount; ++a)
 			{
-				docItem = m_Doc->Items->at(a);
-				int did = m_Doc->Items->indexOf(docItem);
-				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+				thisid = Parent->asGroupFrame()->groupItemList.indexOf(this);
+				docItemsCount = Parent->asGroupFrame()->groupItemList.count();
+				for (uint a = 0; a < docItemsCount; ++a)
 				{
-					if (docItem->textFlowAroundObject())
+					docItem = Parent->asGroupFrame()->groupItemList.at(a);
+					int did = Parent->asGroupFrame()->groupItemList.indexOf(docItem);
+					if (did > thisid)
 					{
-						QRegion itemRgn = itemShape(docItem, 0, 0);
-						result = result.subtracted( canvasToLocalMat.map(itemRgn) );
+						if (docItem->textFlowAroundObject())
+						{
+							QRegion itemRgn = itemShape(docItem, 0, 0);
+							result = result.subtracted( canvasToLocalMat.map(itemRgn) );
+						}
+					}
+				}
+			}
+			else
+			{
+				thisid = m_Doc->Items->indexOf(this);
+				for (uint a = 0; a < docItemsCount; ++a)
+				{
+					docItem = m_Doc->Items->at(a);
+					int did = m_Doc->Items->indexOf(docItem);
+					LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
+					if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+					{
+						if (docItem->textFlowAroundObject())
+						{
+							QRegion itemRgn = itemShape(docItem, 0, 0);
+							result = result.subtracted( canvasToLocalMat.map(itemRgn) );
+						}
 					}
 				}
 			} // for all docItems
