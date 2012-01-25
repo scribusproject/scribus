@@ -485,7 +485,14 @@ bool IdmlPlug::convert(QString fn)
 	def_gradientStrokeStartY = 0;
 	def_gradientStrokeLength = 0;
 	def_gradientStrokeAngle = 0;
+	def_Extra = 0;
+	def_TExtra = 0;
+	def_BExtra = 0;
+	def_RExtra = 0;
 	def_TextFlow = PageItem::TextFlowDisabled;
+	def_TextColumnCount = 1;
+	def_TextColumnGutter = 0;
+	def_TextColumnFixedWidth = 0;
 	frameLinks.clear();
 	frameTargets.clear();
 	importedColors.clear();
@@ -904,6 +911,13 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 	nstyle.Opacity = def_Opacity;
 	nstyle.blendMode = def_Blendmode;
 	nstyle.parentStyle = "";
+	nstyle.Extra = def_Extra;
+	nstyle.TExtra = def_TExtra;
+	nstyle.BExtra = def_BExtra;
+	nstyle.RExtra = def_RExtra;
+	nstyle.TextColumnCount = def_TextColumnCount;
+	nstyle.TextColumnGutter = def_TextColumnGutter;
+	nstyle.TextFlow = def_TextFlow;
 	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
 	{
 		QDomElement itpr = itp.toElement();
@@ -917,6 +931,64 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 					QString ps = i.text();
 					if (ps != "$ID/[None]")
 						nstyle.parentStyle = ps;
+				}
+			}
+		}
+		if (itpr.tagName() == "TextWrapPreference")
+		{
+			if (itpr.hasAttribute("TextWrapMode"))
+			{
+				if (itpr.attribute("TextWrapMode") == "None")
+					nstyle.TextFlow = PageItem::TextFlowDisabled;
+				else if (itpr.attribute("TextWrapMode") == "BoundingBoxTextWrap")
+					nstyle.TextFlow = PageItem::TextFlowUsesBoundingBox;
+				else if (itpr.attribute("TextWrapMode") == "Contour")
+					nstyle.TextFlow = PageItem::TextFlowUsesFrameShape;
+			}
+		}
+		else if (itpr.tagName() == "TextFramePreference")
+		{
+			if (itpr.hasAttribute("TextColumnCount"))
+				nstyle.TextColumnCount = itpr.attribute("TextColumnCount").toInt();
+			if (itpr.hasAttribute("TextColumnGutter"))
+				nstyle.TextColumnGutter = itpr.attribute("TextColumnGutter").toDouble();
+			if (itpr.hasAttribute("TextColumnFixedWidth"))
+				nstyle.TextColumnFixedWidth = itpr.attribute("TextColumnFixedWidth").toDouble();
+			for(QDomNode itpp = itpr.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			{
+				QDomElement i = itpp.toElement();
+				if (i.tagName() == "Properties")
+				{
+					for(QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling() )
+					{
+						QDomElement itx = it.toElement();
+						if (itx.tagName() == "InsetSpacing")
+						{
+							if (itx.attribute("type") == "unit")
+								nstyle.Extra = nstyle.TExtra = nstyle.BExtra = nstyle.RExtra = itx.text().toDouble();
+							else if (itx.attribute("type") == "list")
+							{
+								int cc = 0;
+								for(QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling() )
+								{
+									QDomElement itxx = ity.toElement();
+									if (itxx.tagName() == "ListItem")
+									{
+										double val = itxx.text().toDouble();
+										if (cc == 0)
+											nstyle.Extra = val;
+										else if (cc == 1)
+											nstyle.TExtra = val;
+										else if (cc == 2)
+											nstyle.RExtra = val;
+										else if (cc == 3)
+											nstyle.BExtra = val;
+										cc++;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1221,6 +1293,52 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 			else if (e.attribute("TextWrapMode") == "Contour")
 				def_TextFlow = PageItem::TextFlowUsesFrameShape;
 		}
+		if (e.tagName() == "TextFramePreference")
+		{
+			if (e.hasAttribute("TextColumnCount"))
+				def_TextColumnCount = e.attribute("TextColumnCount").toInt();
+			if (e.hasAttribute("TextColumnGutter"))
+				def_TextColumnGutter = e.attribute("TextColumnGutter").toDouble();
+			if (e.hasAttribute("TextColumnFixedWidth"))
+				def_TextColumnFixedWidth = e.attribute("TextColumnFixedWidth").toDouble();
+			for(QDomNode itpp = e.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			{
+				QDomElement i = itpp.toElement();
+				if (i.tagName() == "Properties")
+				{
+					for(QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling() )
+					{
+						QDomElement itx = it.toElement();
+						if (itx.tagName() == "InsetSpacing")
+						{
+							if (itx.attribute("type") == "unit")
+								def_Extra = def_TExtra = def_BExtra = def_RExtra = itx.text().toDouble();
+							else if (itx.attribute("type") == "list")
+							{
+								int cc = 0;
+								for(QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling() )
+								{
+									QDomElement itxx = ity.toElement();
+									if (itxx.tagName() == "ListItem")
+									{
+										double val = itxx.text().toDouble();
+										if (cc == 0)
+											def_Extra = val;
+										else if (cc == 1)
+											def_TExtra = val;
+										else if (cc == 2)
+											def_RExtra = val;
+										else if (cc == 3)
+											def_BExtra = val;
+										cc++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
@@ -1393,6 +1511,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	int strokeShade = def_strokeTint;
 	double Opacity = def_Opacity;
 	int blendMode = def_Blendmode;
+	double Extra = def_Extra;
+	double TExtra = def_TExtra;
+	double BExtra = def_BExtra;
+	double RExtra = def_RExtra;
+	int TextColumnCount = def_TextColumnCount;
+	double TextColumnGutter = def_TextColumnGutter;
+	double TextColumnFixedWidth = def_TextColumnFixedWidth;
+	PageItem::TextFlowMode textFlow = def_TextFlow;
 	if (itElem.hasAttribute("AppliedObjectStyle"))
 	{
 		QString os = itElem.attribute("AppliedObjectStyle");
@@ -1408,6 +1534,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		nstyle.strokeTint = def_strokeTint;
 		nstyle.Opacity = def_Opacity;
 		nstyle.blendMode = def_Blendmode;
+		nstyle.Extra = def_Extra;
+		nstyle.TExtra = def_TExtra;
+		nstyle.BExtra = def_BExtra;
+		nstyle.RExtra = def_RExtra;
+		nstyle.TextColumnCount = def_TextColumnCount;
+		nstyle.TextColumnGutter = def_TextColumnGutter;
+		nstyle.TextColumnFixedWidth = def_TextColumnFixedWidth;
+		nstyle.TextFlow = def_TextFlow;
 		nstyle.parentStyle = "";
 		resolveObjectStyle(nstyle, os);
 		fillColor = nstyle.fillColor;
@@ -1426,6 +1560,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		strokeShade = nstyle.strokeTint;
 		Opacity = nstyle.Opacity;
 		blendMode = nstyle.blendMode;
+		Extra = nstyle.Extra;
+		TExtra = nstyle.TExtra;
+		BExtra = nstyle.BExtra;
+		RExtra = nstyle.RExtra;
+		TextColumnCount = nstyle.TextColumnCount;
+		TextColumnGutter = nstyle.TextColumnGutter;
+		TextColumnFixedWidth = nstyle.TextColumnFixedWidth;
+		textFlow = nstyle.TextFlow;
 	}
 	if (itElem.hasAttribute("FillColor"))
 	{
@@ -1506,7 +1648,6 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	QByteArray imageData = "";
 	QString imageFileName = "";
 	QTransform imageTransform;
-	PageItem::TextFlowMode textFlow = PageItem::TextFlowDisabled;
 	QString storyForPath = "";
 	int pathTextType = 0;
 	for(QDomNode it = itElem.firstChild(); !it.isNull(); it = it.nextSibling() )
@@ -1641,7 +1782,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 			}
 		}
-		if (ite.tagName() == "TextWrapPreference")
+		else if (ite.tagName() == "TextWrapPreference")
 		{
 			if (ite.attribute("TextWrapMode") == "None")
 				textFlow = PageItem::TextFlowDisabled;
@@ -1649,6 +1790,52 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				textFlow = PageItem::TextFlowUsesBoundingBox;
 			else if (ite.attribute("TextWrapMode") == "Contour")
 				textFlow = PageItem::TextFlowUsesFrameShape;
+		}
+		else if (ite.tagName() == "TextFramePreference")
+		{
+			if (ite.hasAttribute("TextColumnCount"))
+				TextColumnCount = ite.attribute("TextColumnCount").toInt();
+			if (ite.hasAttribute("TextColumnGutter"))
+				TextColumnGutter = ite.attribute("TextColumnGutter").toDouble();
+			if (ite.hasAttribute("TextColumnFixedWidth"))
+				TextColumnFixedWidth = ite.attribute("TextColumnFixedWidth").toDouble();
+			for(QDomNode itpp = ite.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
+			{
+				QDomElement i = itpp.toElement();
+				if (i.tagName() == "Properties")
+				{
+					for(QDomNode it = i.firstChild(); !it.isNull(); it = it.nextSibling() )
+					{
+						QDomElement itx = it.toElement();
+						if (itx.tagName() == "InsetSpacing")
+						{
+							if (itx.attribute("type") == "unit")
+								Extra = TExtra = BExtra = RExtra = itx.text().toDouble();
+							else if (itx.attribute("type") == "list")
+							{
+								int cc = 0;
+								for(QDomNode ity = itx.firstChild(); !ity.isNull(); ity = ity.nextSibling() )
+								{
+									QDomElement itxx = ity.toElement();
+									if (itxx.tagName() == "ListItem")
+									{
+										double val = itxx.text().toDouble();
+										if (cc == 0)
+											Extra = val;
+										else if (cc == 1)
+											TExtra = val;
+										else if (cc == 2)
+											RExtra = val;
+										else if (cc == 3)
+											BExtra = val;
+										cc++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		else if ((ite.tagName() == "Image") || (ite.tagName() == "EPS") || (ite.tagName() == "PDF") || (ite.tagName() == "PICT"))
 		{
@@ -1729,15 +1916,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				if (itElem.tagName() == "TextFrame")
 				{
 					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					PageItem* item = m_Doc->Items->at(z);
 					QString story = itElem.attribute("ParentStory");
 					if (!storyMap.contains(story))
-						storyMap.insert(story, m_Doc->Items->at(z));
+						storyMap.insert(story, item);
 					if (itElem.hasAttribute("NextTextFrame"))
 					{
 						if (itElem.attribute("NextTextFrame") != "n")
-							frameLinks.insert(m_Doc->Items->at(z), itElem.attribute("NextTextFrame"));
+							frameLinks.insert(item, itElem.attribute("NextTextFrame"));
 					}
-					frameTargets.insert(itemName, m_Doc->Items->at(z));
+					frameTargets.insert(itemName, item);
+					item->setTextToFrameDistLeft(Extra);
+					item->setTextToFrameDistTop(TExtra);
+					item->setTextToFrameDistRight(RExtra);
+					item->setTextToFrameDistBottom(BExtra);
+					item->setColumns(TextColumnCount);
+					item->setColumnGap(TextColumnGutter);
 				}
 				else if (isPathText)
 				{
@@ -1821,6 +2015,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					gClip = item->PoLine.copy();
 				}
 				item->OwnPage = m_Doc->OnPage(item);
+				item->ContourLine = item->PoLine.copy();
 				GElements.prepend(m_Doc->Items->takeAt(z));
 			}
 			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
@@ -1862,6 +2057,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
 				itemg->setLayer(layerNum);
 			itemg->OwnPage = m_Doc->OnPage(itemg);
+			itemg->ContourLine = itemg->PoLine.copy();
 			m_Doc->Items->takeAt(z);
 			m_Doc->groupObjectsToItem(itemg, GElements);
 			m_Doc->GroupOnPage(itemg);
@@ -1873,15 +2069,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			if (itElem.tagName() == "TextFrame")
 			{
 				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+				PageItem* item = m_Doc->Items->at(z);
 				QString story = itElem.attribute("ParentStory");
 				if (!storyMap.contains(story))
-					storyMap.insert(story, m_Doc->Items->at(z));
+					storyMap.insert(story, item);
 				if (itElem.hasAttribute("NextTextFrame"))
 				{
 					if (itElem.attribute("NextTextFrame") != "n")
-						frameLinks.insert(m_Doc->Items->at(z), itElem.attribute("NextTextFrame"));
+						frameLinks.insert(item, itElem.attribute("NextTextFrame"));
 				}
-				frameTargets.insert(itemName, m_Doc->Items->at(z));
+				frameTargets.insert(itemName, item);
+				item->setTextToFrameDistLeft(Extra);
+				item->setTextToFrameDistTop(TExtra);
+				item->setTextToFrameDistRight(RExtra);
+				item->setTextToFrameDistBottom(BExtra);
+				item->setColumns(TextColumnCount);
+				item->setColumnGap(TextColumnGutter);
 			}
 			else if (isPathText)
 			{
@@ -1960,6 +2163,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			item->updateClip();
 			item->setItemName(itemName);
 			item->OwnPage = m_Doc->OnPage(item);
+			item->ContourLine = item->PoLine.copy();
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
 				item->setLayer(layerNum);
 			if ((itElem.tagName() == "Rectangle") && (itElem.attribute("CornerOption") == "RoundedCorner"))
@@ -2481,6 +2685,22 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
 			nstyle.Opacity = style.Opacity;
 		if (style.blendMode != def_Blendmode)
 			nstyle.blendMode = style.blendMode;
+		if (style.Extra != def_Extra)
+			nstyle.Extra = style.Extra;
+		if (style.TExtra != def_TExtra)
+			nstyle.TExtra = style.TExtra;
+		if (style.BExtra != def_BExtra)
+			nstyle.BExtra = style.BExtra;
+		if (style.RExtra != def_RExtra)
+			nstyle.RExtra = style.RExtra;
+		if (style.TextColumnCount != def_TextColumnCount)
+			nstyle.TextColumnCount = style.TextColumnCount;
+		if (style.TextColumnGutter != def_TextColumnGutter)
+			nstyle.TextColumnGutter = style.TextColumnGutter;
+		if (style.TextColumnFixedWidth != def_TextColumnFixedWidth)
+			nstyle.TextColumnFixedWidth = style.TextColumnFixedWidth;
+		if (style.TextFlow != def_TextFlow)
+			nstyle.TextFlow = style.TextFlow;
 	}
 }
 

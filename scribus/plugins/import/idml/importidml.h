@@ -83,6 +83,14 @@ private:
 		QPointF gradientStrokeStart;
 		double gradientStrokeLength;
 		double gradientStrokeAngle;
+		double Extra;
+		double TExtra;
+		double BExtra;
+		double RExtra;
+		double TextColumnCount;
+		double TextColumnGutter;
+		double TextColumnFixedWidth;
+		PageItem::TextFlowMode TextFlow;
 	};
 	QString getNodeValue(QDomNode &baseNode, QString path);
 	bool convert(QString fn);
@@ -155,6 +163,13 @@ private:
 	double def_gradientStrokeStartY;
 	double def_gradientStrokeLength;
 	double def_gradientStrokeAngle;
+	double def_Extra;
+	double def_TExtra;
+	double def_BExtra;
+	double def_RExtra;
+	double def_TextColumnCount;
+	double def_TextColumnGutter;
+	double def_TextColumnFixedWidth;
 	PageItem::TextFlowMode def_TextFlow;
 	QMap<PageItem*, QString> frameLinks;
 	QMap<QString, PageItem*> frameTargets;
