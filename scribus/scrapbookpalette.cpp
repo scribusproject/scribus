@@ -925,26 +925,13 @@ bool Biblio::copyObj(int id)
 	BibView* bv = (BibView*)Frame3->widget(id);
 	if (bv->objectMap.contains(nam))
 	{
-		Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
-		dia->setEditText(nam, true);
-		if (dia->exec())
-		{
-			nam = dia->getEditText();
-			while (activeBView->objectMap.contains(nam))
-			{
-				if (!dia->exec())
-				{
-					delete dia;
-					return false;
-				}
-				nam = dia->getEditText();
-			}
-		}
+		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+		dia.setEditText(nam, true);
+		dia.setTestList(activeBView->objectMap.keys());
+		if (dia.exec())
+			nam = dia.getEditText();
 		else
-		{
-			delete dia;
 			return false;
-		}
 	}
 	QPixmap pm;
 	QByteArray cf;
@@ -1124,28 +1111,13 @@ void Biblio::renameObj()
 	QPixmap ObjPreview;
 	QListWidgetItem *ite = actItem;
 	QString OldName = ite->text();
-	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Name"));
-	dia->setEditText(ite->text(), true);
-	if (dia->exec())
-	{
-		nam = dia->getEditText();
-		while (activeBView->objectMap.contains(nam))
-		{
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(nam), CommonStrings::tr_OK);
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			nam = dia->getEditText();
-		}
-	}
+	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Name"));
+	dia.setEditText(ite->text(), true);
+	dia.setTestList(activeBView->objectMap.keys());
+	if (dia.exec())
+		nam = dia.getEditText();
 	else
-	{
-		delete dia;
 		return;
-	}
-	delete dia;
 	ite->setText(nam);
 	ObjData = activeBView->objectMap[OldName].Data;
 	ObjPreview = activeBView->objectMap[OldName].Preview;
@@ -1280,27 +1252,13 @@ void Biblio::ObjFromMenu(QString text)
 			nam += "("+ tmp.setNum(tempCount) + ")";
 	}
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
-	dia->setEditText(nam, true);
-	if (dia->exec())
-	{
-		nam = dia->getEditText();
-		while (activeBView->objectMap.contains(nam))
-		{
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			nam = dia->getEditText();
-		}
-	}
+	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia.setEditText(nam, true);
+	dia.setTestList(activeBView->objectMap.keys());
+	if (dia.exec())
+		nam = dia.getEditText();
 	else
-	{
-		delete dia;
 		return;
-	}
-	delete dia;
 	QString ff = text;
 	activeBView->checkAndChange(ff, QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
@@ -1443,27 +1401,13 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 	if (actBView->objectMap.contains(nam))
 		nam += "("+ tmp.setNum(tempCount) + ")";
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
-	dia->setEditText(nam, true);
-	if (dia->exec())
-	{
-		nam = dia->getEditText();
-		while (activeBView->objectMap.contains(nam))
-		{
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			nam = dia->getEditText();
-		}
-	}
+	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia.setEditText(nam, true);
+	dia.setTestList(activeBView->objectMap.keys());
+	if (dia.exec())
+		nam = dia.getEditText();
 	else
-	{
-		delete dia;
-		return;
-	}
-	delete dia;
+		return;	
 	QString ff = text;
 	actBView->checkAndChange(ff, QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename)));
 	ScPreview *pre = new ScPreview();

@@ -29,6 +29,9 @@ public:
 
 	const QString getEditText();
 	void setEditText(QString newText, bool setSelected);
+	void setTestList(QStringList tList);
+	void setForbiddenList(QStringList tList);
+	void setCheckMode(bool mode);
 
 public slots:
 	void Leave();
@@ -41,6 +44,9 @@ private:
 	QPushButton* cancelButton;
 	QLineEdit* answerEdit;
 	QLabel* questionLabel;
+	QStringList checkList;
+	QStringList forbiddenList;
+	bool checkMode;
 };
 
 #endif // QUERY_H

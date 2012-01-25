@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QMessageBox>
 #include "commonstrings.h"
 #include "util_icon.h"
 
@@ -44,6 +45,8 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	queryLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 	answerEdit->setFocus();
+	checkList = QStringList();
+	checkMode = false;
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( Leave() ) );
@@ -58,6 +61,38 @@ void Query::Leave()
 {
 	if (answerEdit->text().isEmpty())
 		return;
+	if (!forbiddenList.isEmpty())
+	{
+		if (forbiddenList.contains(answerEdit->text()))
+		{
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not allowed.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+			return;
+		}
+	}
+	if (!checkList.isEmpty())
+	{
+		if (checkList.contains(answerEdit->text()))
+		{
+			if (checkMode)
+			{
+				int ret = QMessageBox::warning(this, 
+												CommonStrings::trWarning,
+												tr("Name \"%1\" already exists.\nDo you want to replace the current contents?").arg(answerEdit->text()),
+												QMessageBox::Yes | QMessageBox::No,
+												QMessageBox::No);
+				if (ret == QMessageBox::No)
+					return;
+				else
+					accept();
+			}
+			else
+			{
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+				return;
+			}
+		}
+		accept();
+	}
 	else
 		accept();
 }
@@ -72,4 +107,19 @@ void Query::setEditText(QString newText, bool setSelected)
 	answerEdit->setText(newText);
 	if (setSelected)
 		answerEdit->selectAll();
+}
+
+void Query::setTestList(QStringList tList)
+{
+	checkList = tList;
+}
+
+void Query::setForbiddenList(QStringList tList)
+{
+	forbiddenList = tList;
+}
+
+void Query::setCheckMode(bool mode)
+{
+	checkMode = mode;
 }

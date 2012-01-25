@@ -7075,14 +7075,13 @@ void ScribusMainWindow::setItemFSize(int id)
 	else
 	{
 		bool ok = false;
-		Query* dia = new Query(this, "New", 1, 0, tr("&Size:"), tr("Size"));
-		if (dia->exec())
+		Query dia(this, "New", 1, 0, tr("&Size:"), tr("Size"));
+		if (dia.exec())
 		{
-			c = qRound(dia->getEditText().toDouble(&ok));
+			c = qRound(dia.getEditText().toDouble(&ok));
 			if ((ok) && (c < 1025) && (c > 0))
 				doc->itemSelection_SetFontSize(c*10);
 		}
-		delete dia;
 	}
 	if (currItem->asTextFrame())
 		currItem->asTextFrame()->updateUndo(currItem->HasSel? PageItem::PARAMSEL : PageItem::PARAMFULL);
@@ -9730,16 +9729,10 @@ void ScribusMainWindow::PutToPatterns()
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
+	dia.setTestList(doc->docPatterns.keys());
+	dia.setCheckMode(true);
 	if (dia.exec())
-	{
 		patternName = dia.getEditText();
-		while (doc->docPatterns.contains(patternName))
-		{
-			if (!dia.exec())
-				return;
-			patternName = dia.getEditText();
-		}
-	}
 	else
 		return;
 	bool wasUndo = undoManager->undoEnabled();
