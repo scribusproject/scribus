@@ -286,25 +286,31 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 
 void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
-	movePoint(m, false);
 	m->accept();
-	if (m_ScMW->doc->guidesPrefs().guidesShown)
-		emit guideInfo(m_mode, m_currentGuide);
+	if (m_view->moveTimerElapsed())
+	{
+		movePoint(m, false);
+		if (m_ScMW->doc->guidesPrefs().guidesShown)
+			emit guideInfo(m_mode, m_currentGuide);
+	}
 }
 
 
 void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 {
-	movePoint(m, true);
-	if (m_mode == ORIGIN)
-		m_view->setNewRulerOrigin(m);
-	else
+	m->accept();
+	if (m_view->moveTimerElapsed())
 	{
-		if (m_ScMW->doc->guidesPrefs().guidesShown)
-			m_ScMW->guidePalette->setupPage();
+		movePoint(m, true);
+		if (m_mode == ORIGIN)
+			m_view->setNewRulerOrigin(m);
+		else
+		{
+			if (m_ScMW->doc->guidesPrefs().guidesShown)
+				m_ScMW->guidePalette->setupPage();
+		}
 	}
 	m_haveGuide = false;
-	m->accept();
 	m_canvas->repaint();
 	m_view->stopGesture();
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
@@ -314,11 +320,12 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 
 void RulerGesture::mousePressEvent(QMouseEvent* m)
 {
+	m->accept();
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	m_view->registerMousePress(m->globalPos());
 	if (mouseHitsGuide(mousePointDoc))
 	{
 		m_xy = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
-		m->accept();
 	}
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
 		emit guideInfo(m_mode, m_currentGuide);
