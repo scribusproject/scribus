@@ -408,6 +408,8 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 			fileT = new QLabel(infoGroup);
 			if (isInlineImage)
 				fileT->setText( tr("Embedded Image missing"));
+			else if (extensionIndicatesPDF(fi.suffix().toLower()))
+				fileT->setText(fi.fileName() + " " + tr("missing or corrupt"));
 			else
 				fileT->setText(fi.fileName() + " " + tr("missing"));
 			infoGroupLayout->addWidget( fileT, 1, 1 );
@@ -495,6 +497,8 @@ QString PageItem_ImageFrame::infoDescription()
 			QFileInfo fi = QFileInfo(Pfile);
 			if (isInlineImage)
 				htmlText.append( tr("Embedded Image missing") + "<br/>");
+			else if (extensionIndicatesPDF(fi.suffix().toLower()))
+				htmlText.append( tr("File:") + " " + fi.fileName() + " " + tr("missing or corrupt") + "<br/>");
 			else
 				htmlText.append( tr("File:") + " " + fi.fileName() + " " + tr("missing") + "<br/>");
 		}
