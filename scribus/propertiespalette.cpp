@@ -5604,6 +5604,8 @@ void PropertiesPalette::languageChange()
 	Locked->setToolTip( tr("Lock or unlock the object"));
 	NoResize->setToolTip( tr("Lock or unlock the size of the object"));
 	NoPrint->setToolTip( tr("Enable or disable exporting of the object"));
+	EvenOdd->setToolTip( "<qt>" + tr("This rule determines the &quot;insideness&quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.")  + "</qt>");
+	NonZero->setToolTip( "<qt>" + tr("This rule determines the &quot;insideness&quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. After counting the crossings, if the result is zero then the point is outside the path. Otherwise, it is inside.")  + "</qt>");
 	/*textFlowOptions->setToolTip( tr("Make text in lower frames flow around the object shape")); */
 	textFlowDisabled->setToolTip( tr("Disable text flow from lower frames around object"));
 	textFlowUsesFrameShape->setToolTip( tr("Use the frame shape for text flow of text frames below the object."));
