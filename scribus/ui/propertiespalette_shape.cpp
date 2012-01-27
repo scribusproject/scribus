@@ -549,7 +549,7 @@ void PropertiesPalette_Shape::languageChange()
 	nonZero->setText( tr("Non Zero"));
 
 	evenOdd->setToolTip( "<qt>" + tr("This rule determines the &quot;insideness&quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.")  + "</qt>");
-	nonZero->setToolTip( "<qt>" + tr("This rule determines the &quot;insideness&quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. After counting the crossings, if the result is zero then the point is outside the path. Otherwise, it is inside.")  + "</qt>");
+	nonZero->setToolTip( "<qt>" + tr("This rule determines the &quot;insideness&quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.")  + "</qt>");
 
 	textFlowGroup->setTitle( tr("Text &Flow Around Frame"));
 	textFlowDisabled->setText( tr("Disabled"));
