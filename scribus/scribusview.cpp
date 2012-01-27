@@ -1018,6 +1018,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								// We disable undo here as we are only interested by the item creation undo actions
 								// We create them manually after import
 								undoManager->setUndoEnabled(false);
+								Doc->dontResize = true;
 								fmt->loadFile(url.toLocalFile(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 								undoManager->setUndoEnabled(true);
 								if (Doc->m_Selection->count() > 0)
@@ -1046,6 +1047,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 									m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqTextStylesUpdate | reqLineStylesUpdate);
 									undoManager->setUndoEnabled(true);
 								}
+								Doc->dontResize = false;
 							}
 						}
 					}

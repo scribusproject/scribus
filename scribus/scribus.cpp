@@ -3474,7 +3474,9 @@ void ScribusMainWindow::importVectorFile()
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 				if( fmt )
 				{
+					doc->dontResize = true;
 					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+					doc->dontResize = false;
 				}
 			}
 		}

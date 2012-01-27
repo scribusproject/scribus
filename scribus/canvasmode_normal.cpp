@@ -1372,6 +1372,7 @@ void CanvasMode_Normal::importToPage()
 			m_ScMW->slotElemRead(fileName, pastePoint.x(), pastePoint.y(), true, false, m_doc, m_doc->view());
 		else
 		{
+			m_doc->dontResize = true;
 			FileLoader *fileLoader = new FileLoader(fileName);
 			int testResult = fileLoader->TestFile();
 			delete fileLoader;
@@ -1390,6 +1391,7 @@ void CanvasMode_Normal::importToPage()
 				m_doc->moveGroup(pastePoint.x() - x2, pastePoint.y() - y2);
 				m_ScMW->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 			}
+			m_doc->dontResize = false;
 		}
 		for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 		{

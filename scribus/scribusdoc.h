@@ -1116,6 +1116,7 @@ public: // Public attributes
 	int viewID;
 	bool SnapGuides;
 	bool GuideLock;
+	bool dontResize;
 	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;

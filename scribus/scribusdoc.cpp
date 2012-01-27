@@ -269,6 +269,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	drawAsPreview = false;
 	viewAsPreview = false;
 	previewVisual = -1;
+	dontResize = false;
 }
 
 
@@ -364,6 +365,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	drawAsPreview = false;
 	viewAsPreview = false;
 	previewVisual = -1;
+	dontResize = false;
 }
 
 
@@ -8389,6 +8391,8 @@ void ScribusDoc::setRedrawBounding(PageItem *currItem)
 
 void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 {
+	if (dontResize)
+		return;
 	double newMaxX, newMaxY, newMinX, newMinY;
 	if (absolute)
 	{
