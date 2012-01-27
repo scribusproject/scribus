@@ -1970,6 +1970,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				item->ClipEdited = true;
 				item->FrameType = 3;
+				item->setFillColor(fillColor);
+				item->setLineColor(strokeColor);
 				item->setFillShade(fillShade);
 				item->setLineShade(strokeShade);
 				item->setFillEvenOdd(false);
@@ -2123,6 +2125,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			item->PoLine = GCoords.copy();
 			item->ClipEdited = true;
 			item->FrameType = 3;
+			item->setFillColor(fillColor);
+			item->setLineColor(strokeColor);
 			item->setFillShade(fillShade);
 			item->setLineShade(strokeShade);
 			item->setFillTransparency(Opacity);
