@@ -52,6 +52,28 @@ public:
 	static bool isBreakingSpace(QChar c);
 	static bool isExpandingSpace(QChar c);
 
+		enum {
+			CJK_FENCE_BEGIN = 0x0001,
+			CJK_FENCE_END = 0x0002,
+			CJK_NOTOP = 0x0003,
+			CJK_HYPHEN = 0x0004,
+			CJK_DELMITER = 0x0005,
+			CJK_MIDPOINT = 0x0006,
+			CJK_PERIOD = 0x0007,
+			CJK_COMMA = 0x0008,
+			CJK_BETWEEN = 0x0009,
+			CJK_PREFIX = 0x000a,
+			CJK_POSTFIX = 0x000b,
+			CJK_SPACE = 0x000c,
+			CJK_KANA = 0x000d,
+			CJK_KANJI = 0x000e,
+
+			CJK_CHAR_MASK = 0x00ff,
+
+			CJK_NOBREAK_BEFORE = 0x0100,
+			CJK_NOBREAK_AFTER = 0x0200,
+		};
+		static int getCJKAttr(QChar c);
 };
 
 #endif

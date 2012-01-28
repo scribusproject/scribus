@@ -1423,10 +1423,12 @@ void PageItem_TextFrame::layout()
 		current.rightMargin = 0.0;
 		current.mustLineEnd = current.colRight;
 		current.restartX = 0;
+		int lastStat = 0, curStat = 0;
 
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
 		{
 			hl = itemText.item(a);
+			curStat = SpecialChars::getCJKAttr(hl->ch);
 			if (a > 0 && itemText.text(a-1) == SpecialChars::PARSEP)
 				style = itemText.paragraphStyle(a);
 			if (current.itemsInLine == 0)
@@ -1613,6 +1615,82 @@ void PageItem_TextFrame::layout()
 					double kern= charStyle.font().glyphKerning(hl->glyph.glyph, glyph2, chs / 10.0) * hl->glyph.scaleH;
 					wide += kern;
 					hl->glyph.xadvance += kern;
+					// change xadvance, xoffset according to JIS X4051
+					ScText *hl2 = itemText.item(a+1);
+					int nextStat = SpecialChars::getCJKAttr(hl2->ch);
+					int prevStat;
+					if(curStat != 0)
+					{	// current char is CJK
+						if(nextStat == 0 && !SpecialChars::isBreakingSpace(hl2->ch)){
+							switch(curStat & SpecialChars::CJK_CHAR_MASK){
+							case SpecialChars::CJK_KANJI:
+							case SpecialChars::CJK_KANA:
+							case SpecialChars::CJK_NOTOP:
+								kern = wide / 4;
+								wide += kern;
+								hl->glyph.xadvance += kern;
+							}
+						} else {	// next char is CJK, too
+							switch(curStat & SpecialChars::CJK_CHAR_MASK){
+							case SpecialChars::CJK_FENCE_END:
+								switch(nextStat & SpecialChars::CJK_CHAR_MASK){
+								case SpecialChars::CJK_FENCE_BEGIN:
+								case SpecialChars::CJK_FENCE_END:
+								case SpecialChars::CJK_COMMA:
+								case SpecialChars::CJK_PERIOD:
+								case SpecialChars::CJK_MIDPOINT:
+									kern = -wide / 2;
+									wide += kern;
+									hl->glyph.xadvance += kern;
+								}
+								break;
+							case SpecialChars::CJK_COMMA:
+							case SpecialChars::CJK_PERIOD:
+								switch(nextStat & SpecialChars::CJK_CHAR_MASK){
+								case SpecialChars::CJK_FENCE_BEGIN:
+								case SpecialChars::CJK_FENCE_END:
+									kern = -wide / 2;
+									wide += kern;
+									hl->glyph.xadvance += kern;
+								}
+								break;
+							case SpecialChars::CJK_MIDPOINT:
+								switch(nextStat & SpecialChars::CJK_CHAR_MASK){
+								case SpecialChars::CJK_FENCE_BEGIN:
+									kern = -wide / 2;
+									wide += kern;
+									hl->glyph.xadvance += kern;
+								}
+								break;
+							case SpecialChars::CJK_FENCE_BEGIN:
+								if(a == current.line.firstItem){ // first char of the line
+									prevStat = SpecialChars::CJK_FENCE_BEGIN;
+								} else {
+									hl2 = itemText.item(a-1);
+									prevStat = SpecialChars::getCJKAttr(hl2->ch) & SpecialChars::CJK_CHAR_MASK;
+								}
+								if(prevStat == SpecialChars::CJK_FENCE_BEGIN){
+									kern = -wide / 2;
+									wide += kern;
+									hl->glyph.xadvance += kern;
+									hl->glyph.xoffset += kern;
+								}
+								break;
+							}
+
+						}
+					} else {	// current char is not CJK
+						if(nextStat != 0 && !SpecialChars::isBreakingSpace(hl->ch)){
+							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
+							case SpecialChars::CJK_KANJI:
+							case SpecialChars::CJK_KANA:
+							case SpecialChars::CJK_NOTOP:
+								kern = hl2->glyph.wide() / 4;
+								wide += kern;
+								hl->glyph.xadvance += kern;
+							}
+						}
+					}
 				}
 			}
 			if (DropCmode)
@@ -2026,6 +2104,22 @@ void PageItem_TextFrame::layout()
 					current.rememberBreak(a, breakPos, style.rightMargin());
 				}
 			}
+			// CJK break
+			if(a > current.line.firstItem)
+			{ // not the first char
+				if( (lastStat == 0) && (curStat == 0))
+				{	// both non-CJK
+					// do nothing
+				} else {
+					// non-CJK char does not have CJK_NOBREAK_AFTER/CJK_NOBREAK_BEFORE
+					if((lastStat & SpecialChars::CJK_NOBREAK_AFTER) == 0 &&
+							(curStat & SpecialChars::CJK_NOBREAK_BEFORE) == 0){
+						current.rememberBreak(a-1, breakPos, style.rightMargin());
+					}
+				}
+
+			}
+			lastStat = curStat;
 			//check against space before PARSEP
 			/*if (SpecialChars::isBreakingSpace(hl->ch) && (a + 1 < itemText.length()) && (itemText.item(a+1)->ch == SpecialChars::PARSEP))
 			{
@@ -2853,6 +2947,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 							&& (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
 						{
 							double xcoZli = selX + hls->glyph.xoffset;
+							// ugly hack to make selection correct, as xoffset is used to
+							// remove left-half of CJK lparen , which is blank.
+							if(hls->glyph.xoffset)
+							{
+								int attr = SpecialChars::getCJKAttr(hls->ch) & SpecialChars::CJK_CHAR_MASK;
+								if( attr == SpecialChars::CJK_FENCE_BEGIN)
+								{
+									xcoZli -= hls->glyph.xoffset;
+								}
+							}
 							desc = - charStyleS.font().descent(charStyleS.fontSize() / 10.0);
 							asce = charStyleS.font().ascent(charStyleS.fontSize() / 10.0);
 							wide = hls->glyph.wide();
