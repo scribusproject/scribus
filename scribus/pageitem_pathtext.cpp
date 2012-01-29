@@ -200,6 +200,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		chstr.clear();
 	}
+	int spaceCount = 0;
+	double wordExtra = 0;
 	for (a = firstChar; a < itemRenderText.length(); ++a)
 	{
 		hl = itemRenderText.item(a);
@@ -207,13 +209,15 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
+		if (chstr[0] == SpecialChars::BLANK)
+			spaceCount++;
 		if (a < itemRenderText.length()-1)
 			chstr += itemRenderText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
 		layoutGlyphs(itemRenderText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
 		if (hl->hasObject())
-			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+			totalTextLen += (hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
@@ -230,7 +234,20 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		if (itemRenderText.paragraphStyle(0).alignment() == 1)
 			CurX = (totalCurveLen - totalTextLen) / 2.0;
-		if ((itemRenderText.paragraphStyle(0).alignment() == 3) || (itemRenderText.paragraphStyle(0).alignment() == 4))
+		if (itemRenderText.paragraphStyle(0).alignment() == 3)
+		{
+			if (spaceCount != 0)
+			{
+				extraOffset = 0;
+				wordExtra = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(spaceCount);
+			}
+			else
+			{
+				extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemRenderText.length());
+				wordExtra = 0;
+			}
+		}
+		if (itemRenderText.paragraphStyle(0).alignment() == 4)
 			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemRenderText.length());
 	}
 #ifndef NLS_PROTO
@@ -252,7 +269,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		layoutGlyphs(itemRenderText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();                                                           // HACK
 		if (hl->hasObject())
-			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
+			dx = (hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
 		else
 			dx = hl->glyph.wide() / 2.0;
 		CurX += dx;
@@ -353,7 +370,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		MaxChars = a+1;
 		CurX -= dx;
 		if (hl->hasObject())
-			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+			CurX += (hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH + extraOffset;
+		else if (hl->ch == SpecialChars::BLANK)
+			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + wordExtra + extraOffset;
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 	}

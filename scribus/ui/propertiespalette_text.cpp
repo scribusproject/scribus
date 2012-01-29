@@ -822,6 +822,7 @@ void PropertiesPalette_Text::handlePathType()
 		return;
 	m_item->textPathType = pathTextWidgets->pathTextType->currentIndex();
 	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Text::handlePathFlip()
@@ -831,6 +832,7 @@ void PropertiesPalette_Text::handlePathFlip()
 	m_item->textPathFlipped = pathTextWidgets->flippedPathText->isChecked();
 	m_item->updatePolyClip();
 	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Text::handlePathLine()
@@ -849,6 +851,7 @@ void PropertiesPalette_Text::handlePathDist()
 	m_doc->AdjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Text::handlePathOffs()
@@ -859,6 +862,7 @@ void PropertiesPalette_Text::handlePathOffs()
 	m_doc->AdjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Text::fillLangCombo(QMap<QString,QString> langMap)

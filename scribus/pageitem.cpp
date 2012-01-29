@@ -6858,7 +6858,7 @@ void PageItem::updateGradientVectors()
 
 void PageItem::setPolyClip(int up, int down)
 {
-	if (PoLine.size() < 4)
+	if (PoLine.size() < 3)
 		return;
 	double rot;
 	int upval = up;

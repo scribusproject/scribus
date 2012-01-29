@@ -564,6 +564,8 @@ void NodePalette::ResetShapeToImageClip()
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		doc->AdjustItemSize(currItem);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->updatePolyClip();
 		doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
@@ -588,6 +590,8 @@ void NodePalette::MovePoint()
 		}
 		doc->nodeEdit.moveClipPoint(currItem, np);
 		doc->AdjustItemSize(currItem, true, true);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->updatePolyClip();
 		doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
@@ -860,6 +864,9 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 		doc->nodeEdit.SegP1 = -1;
 		doc->nodeEdit.SegP2 = -1;
 		doc->nodeEdit.SelNode.clear();
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->updatePolyClip();
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
@@ -879,6 +886,9 @@ void NodePalette::EndEdit()
 		doc->nodeEdit.SelNode.clear();
 		EditCont->setChecked(false);
 		ToggleConMode();
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->updatePolyClip();
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
