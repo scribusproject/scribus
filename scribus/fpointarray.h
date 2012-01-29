@@ -47,6 +47,7 @@ public:
 	FPointArray(const FPointArray &a) : QVector<FPoint>(a), svgState(NULL) {};
 	uint size() const { return static_cast<uint>(QVector<FPoint>::count()); };
 	bool resize(uint newCount);
+	void reverse();
 	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
 	void setPoint(uint i, FPoint p) {	setPoint(i, p.xp, p.yp); };
 	bool setPoints( int nPoints, double firstx, double firsty, ... );

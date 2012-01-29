@@ -2003,6 +2003,19 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				m_Doc->AdjustItemSize(item);
 				item->setRotation(-rot, true);
 				item->moveBy(dx, dy, true);
+				if (isPathText)
+				{
+					if (isOpen)
+					{
+						if (scX < 0)
+							item->PoLine.reverse();
+					}
+					else
+					{
+						if (scX > 0)
+							item->PoLine.reverse();
+					}
+				}
 				item->OldB2 = item->width();
 				item->OldH2 = item->height();
 				item->updateClip();
@@ -2161,6 +2174,19 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			item->setTextFlowMode(textFlow);
 			m_Doc->AdjustItemSize(item);
 			item->moveBy(dx, dy, true);
+			if (isPathText)
+			{
+				if (isOpen)
+				{
+					if (scX < 0)
+						item->PoLine.reverse();
+				}
+				else
+				{
+					if (scX > 0)
+						item->PoLine.reverse();
+				}
+			}
 			item->setRotation(-rot, true);
 			item->OldB2 = item->width();
 			item->OldH2 = item->height();

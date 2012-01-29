@@ -74,6 +74,19 @@ bool FPointArray::resize(uint newCount)
 	return true;
 }
 
+void FPointArray::reverse()
+{
+	FPointArray tmp;
+	tmp << *this;
+	tmp.QVector<FPoint>::squeeze();
+	QVector<FPoint>::resize(0);
+	QVector<FPoint>::squeeze();
+	for (int a = 0; a < tmp.count()-1; a += 2)
+	{
+		QVector<FPoint>::prepend(tmp.point(a+1));
+		QVector<FPoint>::prepend(tmp.point(a));
+	}
+}
 
 bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 {
