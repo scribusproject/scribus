@@ -269,6 +269,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(this->document(), SIGNAL(contentsChange(int, int, int)), this, SLOT(handleContentsChange(int, int, int)));
+	SuspendContentsChange = 0;
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
@@ -280,14 +281,48 @@ void SEditor::setCurrentDocument(ScribusDoc *docc)
 void SEditor::inputMethodEvent(QInputMethodEvent *event)
 {
 	QString uc = event->commitString();
-	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
+	SuspendContentsChange = 1;	// prevent our handler from doing anything
+	bool changed = false;
+	int pos;
+	if(textCursor().hasSelection())
+	{
+		pos =  textCursor().selectionStart();
+		StyledText.removeChars(pos, textCursor().selectionEnd() - pos);
+		changed = true;
+	}
+	pos = -1;
+	if(!uc.isEmpty())
+	{
+		if ((*doc->AllFonts)[CurrFont].canRender(uc[0]))
+		{
+			pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
+			pos = qMin(pos, StyledText.length());
+		}
+		else
+		{
+			event->setCommitString("");
+		}
+	}
+	QTextEdit::inputMethodEvent(event);
+	SuspendContentsChange = 0;
+	if(pos >= 0)
+	{
+		handleContentsChange(pos, 0, uc.length());
+		changed = true;
+	}
+	if(changed)
+	{
+		emit SideBarUp(true);
+		emit SideBarUpdate();
+	}
+/*	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 	{
 		// Should be processed by the handleContentsChange slot
 		// insertCharsInternal(event->commitString());
 		QTextEdit::inputMethodEvent(event);
 		emit SideBarUp(true);
 		emit SideBarUpdate();
-	}
+	} */
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -441,6 +476,10 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 
 void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdded)
 {
+	// As of Qt 4.7.4, Cococa-QTextEdit output of input method is broken.
+	// We need a workaround to avoit the bug.
+	if(SuspendContentsChange != 0)
+		return;
 	if (blockContentsChangeHook <= 0)
 	{
 		if (charsRemoved > 0 && StyledText.length() > 0)
@@ -2012,6 +2051,7 @@ void StoryEditor::connectSignals()
 	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
 	connect(Editor->document(), SIGNAL(contentsChange(int, int, int)), Editor, SLOT(handleContentsChange(int, int, int)));
+	Editor->SuspendContentsChange = 0;
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 //	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
 	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));

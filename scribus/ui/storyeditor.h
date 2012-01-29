@@ -133,6 +133,7 @@ public:
 	int SelParaEnd;
 	int SelCharStart;
 	int SelCharEnd;
+	int SuspendContentsChange;	// input method
 
 protected:
 
