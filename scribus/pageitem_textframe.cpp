@@ -2270,6 +2270,12 @@ void PageItem_TextFrame::layout()
 					double newXAdd = overflowWidth - style.rightMargin() + style.minGlyphExtension() * wide + hyphWidth;
 					if (current.isEndOfLine(newXAdd) || current.xPos + newXAdd >= current.colRight || realEnd >= current.mustLineEnd)
 					{
+						if (!current.afterOverflow)
+						{
+							current.addLine = true;
+							current.lastInRowLine = true;
+						}
+						//line must end before overflov
 						if (!current.addLine && !current.lastInRowLine)
 						{
 							if (current.afterOverflow)
