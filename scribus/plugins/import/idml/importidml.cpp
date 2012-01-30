@@ -1401,6 +1401,11 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					{
 						m_Doc->addPage(pagecount);
 						m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+						m_Doc->currentPage()->m_pageSize = "Custom";
+						m_Doc->currentPage()->setInitialHeight(docHeight);
+						m_Doc->currentPage()->setInitialWidth(docWidth);
+						m_Doc->currentPage()->setHeight(docHeight);
+						m_Doc->currentPage()->setWidth(docWidth);
 						m_Doc->view()->addPage(pagecount, true);
 						pagecount++;
 					}
@@ -1650,6 +1655,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	QTransform imageTransform;
 	QString storyForPath = "";
 	int pathTextType = 0;
+	double pathTextStart = 0;
 	for(QDomNode it = itElem.firstChild(); !it.isNull(); it = it.nextSibling() )
 	{
 		QDomElement ite = it.toElement();
@@ -1880,6 +1886,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				pathTextType = 0;
 			else if (ite.attribute("PathEffect") == "GravityPathEffect")		// not implemented in PathText yet
 				pathTextType = 0;
+			if (ite.hasAttribute("StartBracket"))
+				pathTextStart = ite.attribute("StartBracket").toDouble();
 		}
 	}
 	if (GCoords.size() > 0)
@@ -1940,6 +1948,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 						storyMap.insert(storyForPath, m_Doc->Items->at(z));
 					PageItem* item = m_Doc->Items->at(z);
 					item->setPathTextType(pathTextType);
+					item->setTextToFrameDistLeft(pathTextStart);
 				}
 				else if (isImage)
 				{
@@ -2008,12 +2017,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					if (isOpen)
 					{
 						if (scX < 0)
+						{
 							item->PoLine.reverse();
+						}
 					}
 					else
 					{
 						if (scX > 0)
+						{
+							double totalCurveLen = 0;
+							for (uint segs = 0; segs < item->PoLine.size()-3; segs += 4)
+							{
+								totalCurveLen += item->PoLine.lenPathSeg(segs);
+							}
+							item->setTextToFrameDistLeft(totalCurveLen - pathTextStart);
 							item->PoLine.reverse();
+						}
 					}
 				}
 				item->OldB2 = item->width();
@@ -2108,6 +2127,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					storyMap.insert(storyForPath, m_Doc->Items->at(z));
 				PageItem* item = m_Doc->Items->at(z);
 				item->setPathTextType(pathTextType);
+				item->setTextToFrameDistLeft(pathTextStart);
 			}
 			else if (isImage)
 			{
@@ -2179,12 +2199,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				if (isOpen)
 				{
 					if (scX < 0)
+					{
 						item->PoLine.reverse();
+					}
 				}
 				else
 				{
 					if (scX > 0)
+					{
+						double totalCurveLen = 0;
+						for (uint segs = 0; segs < item->PoLine.size()-3; segs += 4)
+						{
+							totalCurveLen += item->PoLine.lenPathSeg(segs);
+						}
+						item->setTextToFrameDistLeft(totalCurveLen - pathTextStart);
 						item->PoLine.reverse();
+					}
 				}
 			}
 			item->setRotation(-rot, true);
