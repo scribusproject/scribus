@@ -334,6 +334,8 @@ bool PdfPlug::convert(QString fn)
 						m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(firstPage));
 						m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(firstPage));
 						m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+						m_Doc->currentPage()->m_pageSize = "Custom";
+						m_Doc->setPageSize("Custom");
 						m_Doc->reformPages(true);
 						Object info;
 						pdfDoc->getDocInfo(&info);

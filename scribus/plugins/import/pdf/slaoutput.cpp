@@ -74,7 +74,12 @@ void SlaOutputDev::startPage(int pageNum, GfxState *state)
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		{
 			m_doc->addPage(pagecount);
+			m_doc->currentPage()->setInitialHeight(state->getPageHeight());
+			m_doc->currentPage()->setInitialWidth(state->getPageWidth());
+			m_doc->currentPage()->setHeight(state->getPageHeight());
+			m_doc->currentPage()->setWidth(state->getPageWidth());
 			m_doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+			m_doc->currentPage()->m_pageSize = "Custom";
 			m_doc->view()->addPage(pagecount, true);
 			pagecount++;
 		}
