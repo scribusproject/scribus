@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "fpoint.h"
 #include "fpointarray.h"
+#include "mesh.h"
 #include "vgradientex.h"
 #include "sccolorshade.h"
 
