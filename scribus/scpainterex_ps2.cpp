@@ -242,18 +242,36 @@ void ScPainterEx_Ps2::setFillMode( int fill )
 	m_fillMode = fill;
 }
 
-void ScPainterEx_Ps2::setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc)
+void ScPainterEx_Ps2::setStrokeMode( int stroke )
+{
+	m_strokeMode = stroke;
+}
+
+void ScPainterEx_Ps2::setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
 {
 	m_fillGradient.setType(mode);
 	m_fillGradient.setOrigin(orig);
 	m_fillGradient.setVector(vec);
 	m_fillGradient.setFocalPoint(foc);
+
+	m_strokeGradient.setType(mode);
+	m_strokeGradient.setOrigin(orig);
+	m_strokeGradient.setVector(vec);
+	m_strokeGradient.setFocalPoint(foc);;
 }
 
-void ScPainterEx_Ps2::setPattern( ScPattern* pattern, QTransform& patternTransform )
+void ScPainterEx_Ps2::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
-	m_patternTransform = patternTransform;
+	m_patternScaleX = scaleX / 100.0;
+	m_patternScaleY = scaleY / 100.0;
+	m_patternOffsetX = offsetX;
+	m_patternOffsetY = offsetY;
+	m_patternRotation = rotation;
+	m_patternSkewX   = skewX;
+	m_patternSkewY   = skewY;
+	m_patternMirrorX = mirrorX;
+	m_patternMirrorY = mirrorY;
 }
 
 void ScPainterEx_Ps2::fillTextPath()

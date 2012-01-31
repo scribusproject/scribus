@@ -68,7 +68,8 @@ protected:
 
 	virtual void drawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs, const QRect& clip);
 	virtual void drawItem_Embedded( PageItem* item, ScPainterExBase *p, const QRect& clip, const CharStyle& style, PageItem* cembedded);
-	virtual void drawPattern( PageItem* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawPattern(PageItem* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawStrokePattern(PageItem* item, ScPainterExBase* painter, const QPainterPath& path);
 	
 	virtual void drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, const QRect& clip);

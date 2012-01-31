@@ -304,7 +304,10 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 //		painter->rotate(item->rotation());
 	}
 	painter->rotate(item->rotation());
+	painter->setBlendModeFill(item->fillBlendmode());
 	painter->setLineWidth(item->lineWidth());
+	if (item->isGroup())
+		return;
 	if (item->GrType == 8)
 	{
 		QString pat = item->pattern();
@@ -324,39 +327,78 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			QTransform patternTransform;
 			ScPattern& pattern = m_doc->docPatterns[item->pattern()];
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+			bool   patternMirrorX, patternMirrorY;
 			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-			patternTransform.translate(patternOffsetX, patternOffsetY);
-			patternTransform.rotate(patternRotation);
-			patternTransform.shear(patternSkewX, patternSkewY);
-			patternTransform.scale(pattern.scaleX, pattern.scaleY);
-			patternTransform.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
-			painter->setPattern(&pattern, patternTransform);
+			item->patternFlip(patternMirrorX, patternMirrorY);
+			painter->setPattern(&pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
 			painter->setFillMode(ScPainterExBase::Pattern);
 		}
 	}
-	else if (item->GrType != 0)
+	else if (item->GrType == 9)
 	{
 		painter->setFillMode(ScPainterExBase::Gradient);
-		painter->m_fillGradient = VGradientEx(item->fill_gradient, *m_doc);
-		QTransform grm;
-		grm.rotate(item->rotation());
-		FPointArray gra;
-		switch (item->GrType)
+		FPoint pG1 = FPoint(0, 0);
+		FPoint pG2 = FPoint(item->width(), 0);
+		FPoint pG3 = FPoint(item->width(), item->height());
+		FPoint pG4 = FPoint(0, item->height());
+		ScColorShade col1(m_doc->PageColors[item->GrColorP1], item->GrCol1Shade);
+		ScColorShade col2(m_doc->PageColors[item->GrColorP2], item->GrCol2Shade);
+		ScColorShade col3(m_doc->PageColors[item->GrColorP3], item->GrCol3Shade);
+		ScColorShade col4(m_doc->PageColors[item->GrColorP4], item->GrCol4Shade);
+		painter->set4ColorGeometry(pG1, pG2, pG3, pG4, item->GrControl1, item->GrControl2, item->GrControl3, item->GrControl4);
+		painter->set4ColorColors(col1, col2, col3, col4);
+	}
+	else if (item->GrType != 0)
+	{
+		QString gradientVal = item->gradient();
+		if ((!gradientVal.isEmpty()) && (!m_doc->docGradients.contains(gradientVal)))
+			gradientVal = "";
+		if (!(gradientVal.isEmpty()) && (m_doc->docGradients.contains(gradientVal)))
+			painter->m_fillGradient = VGradientEx(m_doc->docGradients[gradientVal], *m_doc);
+		if ((painter->m_fillGradient.Stops() < 2) && (item->GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
 		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, item->GrStartX, item->GrStartY, item->GrEndX, item->GrEndY);
-				gra.map(grm);
-				painter->setGradient(VGradientEx::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, item->GrStartX, item->GrStartY, item->GrEndX, item->GrEndY);
-				painter->setGradient(VGradientEx::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
+			if (item->fillColor() != CommonStrings::None)
+			{
+				painter->setBrush( ScColorShade(m_doc->PageColors[item->fillColor()], (int) item->fillShade()) );
+				painter->setFillMode(ScPainterExBase::Solid);
+			}
+			else
+				painter->setFillMode(ScPainterExBase::None);
+		}
+		else
+		{
+			FPoint fpStart(item->GrStartX, item->GrStartY), fpEnd(item->GrEndX, item->GrEndY);
+			FPoint fpFocal(item->GrFocalX, item->GrFocalY);
+			painter->setFillMode(ScPainterExBase::Gradient);
+			painter->m_fillGradient = VGradientEx(item->fill_gradient, *m_doc);
+			switch (item->GrType)
+			{
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 6:
+					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrScale, item->GrSkew);
+					break;
+				case 5:
+				case 7:
+					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrScale, item->GrSkew);
+					break;
+				case 10:
+					painter->setFillMode(ScPainterExBase::Gradient);
+					painter->setDiamondGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()), 
+					                            item->GrControl1, item->GrControl2, item->GrControl3, item->GrControl4, item->GrControl5);
+					break;
+				case 11:
+				case 13:
+					painter->setFillMode(ScPainterExBase::Gradient);
+					painter->setMeshGradient(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()), item->meshGradientArray);
+					break;
+				case 12:
+					painter->setFillMode(ScPainterExBase::Gradient);
+					painter->setMeshGradient(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()), item->meshGradientPatches);
+					break;
+			}
 		}
 	}
 	else
@@ -387,48 +429,157 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	painter->setBrushOpacity(1.0 - item->fillTransparency());
 	painter->setPenOpacity(1.0 - item->lineTransparency());
 	painter->setFillRule(item->fillRule);
+
+	if ((item->GrMask == 1) || (item->GrMask == 2) || (item->GrMask == 4) || (item->GrMask == 5))
+	{
+		QString gradientMaskVal = item->gradientMaskVal;
+		FPoint fpMaskStart(item->GrMaskStartX, item->GrMaskStartY);
+		FPoint fpMaskEnd(item->GrMaskEndX, item->GrMaskEndY);
+		FPoint fpMaskFocal(item->GrMaskFocalX, item->GrMaskFocalY);
+		if ((item->GrMask == 1) || (item->GrMask == 2))
+			painter->setMaskMode(1);
+		else
+			painter->setMaskMode(3);
+		if ((!gradientMaskVal.isEmpty()) && (!m_doc->docGradients.contains(gradientMaskVal)))
+			gradientMaskVal = "";
+		if (!(gradientMaskVal.isEmpty()) && (m_doc->docGradients.contains(gradientMaskVal)))
+			painter->m_maskGradient = VGradientEx(m_doc->docGradients[gradientMaskVal], *m_doc);
+		if ((item->GrMask == 1) || (item->GrMask == 4))
+			painter->setGradientMask(VGradientEx::linear, fpMaskStart, fpMaskEnd, fpMaskStart, item->GrMaskScale, item->GrMaskSkew);
+		else
+			painter->setGradientMask(VGradientEx::radial, fpMaskStart, fpMaskEnd, fpMaskFocal, item->GrMaskScale, item->GrMaskSkew);
+	}
+	else if ((item->GrMask == 3) || (item->GrMask == 6) || (item->GrMask == 7) || (item->GrMask == 8))
+	{
+		QString patternMaskVal = item->patternMaskVal;
+		if ((patternMaskVal.isEmpty()) || (!m_doc->docPatterns.contains(patternMaskVal)))
+			painter->setMaskMode(0);
+		else
+		{
+			painter->setPatternMask(&m_doc->docPatterns[patternMaskVal], item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY, 
+				                    item->patternMaskRotation, item->patternMaskSkewX, item->patternMaskSkewY, item->patternMaskMirrorX, item->patternMaskMirrorY);
+			if (item->GrMask == 3)
+				painter->setMaskMode(2);
+			else if (item->GrMask == 6)
+				painter->setMaskMode(4);
+			else if (item->GrMask == 7)
+				painter->setMaskMode(5);
+			else
+				painter->setMaskMode(6);
+		}
+	}
+	else
+		painter->setMaskMode(0);
 }
 
 void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 {
-	bool doStroke=true;
-	if ( item->itemType() == PageItem::PathText || item->itemType() == PageItem::PolyLine || item->itemType() == PageItem::Line )
-		doStroke=false;
-	if ((doStroke))
+	bool doStroke = true;
+	if (!item->isGroup())
 	{
-		if (item->lineColor() != CommonStrings::None)
+		painter->setMaskMode(0);
+		if ( item->itemType() == PageItem::PathText || item->itemType() == PageItem::PolyLine || item->itemType() == PageItem::Line )
+			doStroke = false;
+		if ((doStroke))
 		{
-			ScColorShade tmp(m_doc->PageColors[item->lineColor()], (int) item->lineShade());
-			painter->setPen(tmp, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
-			if (item->DashValues.count() != 0)
-				painter->setDash(item->DashValues, item->DashOffset);
-		}
-		else
-			painter->setLineWidth(0);
-		if (!item->isTableItem)
-		{
-			painter->setupPolygon(&item->PoLine);
-			if (item->NamedLStyle.isEmpty())
-				painter->strokePath();
-			else
+			painter->setBlendModeStroke(item->lineBlendmode());
+			painter->setPenOpacity(1.0 - item->lineTransparency());
+			if ((item->lineColor() != CommonStrings::None)|| (!item->strokePattern().isEmpty()) || (item->strokeGradientType() > 0))
 			{
-				multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				ScColorShade tmp(m_doc->PageColors[item->lineColor()], (int) item->lineShade());
+				painter->setPen(tmp, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
+				if (item->DashValues.count() != 0)
+					painter->setDash(item->DashValues, item->DashOffset);
+			}
+			else
+				painter->setLineWidth(0);
+			if (!item->isTableItem)
+			{
+				if ((item->itemType() == PageItem::LatexFrame) || (item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::OSGFrame))
+					painter->setupPolygon(&item->PoLine);
+				if (item->NamedLStyle.isEmpty())
 				{
-					const SingleLine& sl = ml[it];
-					if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+					QString patternStrokeVal = item->strokePattern();
+					if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
 					{
-						ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
-						painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
-								static_cast<Qt::PenCapStyle>(sl.LineEnd),
-								static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+						if (item->patternStrokePath)
+						{
+							QPainterPath guidePath = item->PoLine.toQPainterPath(false);
+							drawStrokePattern(item, painter, guidePath);
+						}
+						else
+						{
+							painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+							painter->setStrokeMode(ScPainterExBase::Pattern);
+							painter->strokePath();
+						}
+					}
+					else if (item->strokeGradientType() > 0)
+					{
+						QString gradientStrokeVal = item->strokeGradient();
+						if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
+							gradientStrokeVal = "";
+						if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
+							painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
+						if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+						{
+							if (item->lineColor() != CommonStrings::None)
+							{
+								ScColorShade strokeColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+								painter->setBrush(strokeColor);
+								painter->setStrokeMode(ScPainterExBase::Solid);
+							}
+							else
+								painter->setStrokeMode(ScPainterExBase::None);
+						}
+						else
+						{
+							FPoint fpStart(item->GrStrokeStartX, item->GrStrokeStartY);
+							FPoint fpEnd(item->GrStrokeEndX, item->GrStrokeEndY);
+							FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
+							painter->setStrokeMode(ScPainterExBase::Gradient);
+							painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
+							if (item->GrTypeStroke == 6)
+								painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
+							else
+								painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
+						}
+						painter->strokePath();
+					}
+					else if (item->lineColor() != CommonStrings::None)
+					{
+						ScColorShade scColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+						painter->setStrokeMode(ScPainterExBase::Solid);
+						painter->setPen(scColor, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
+						if (item->DashValues.count() != 0)
+							painter->setDash(item->DashValues, item->DashOffset);
 						painter->strokePath();
 					}
 				}
+				else
+				{
+					multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						const SingleLine& sl = ml[it];
+						if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+						{
+							ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+							painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+									static_cast<Qt::PenCapStyle>(sl.LineEnd),
+									static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+							painter->strokePath();
+						}
+					}
+				}
 			}
+			painter->setBlendModeStroke(0);
 		}
 	}
-//	item->Tinput = false;
+	painter->setFillMode(ScPainterExBase::Solid);
+	painter->setBlendModeFill(0);
+	painter->setStrokeMode(ScPainterExBase::Solid);
+	painter->setBlendModeStroke(0);
 	painter->restore();
 }
 
@@ -768,6 +919,11 @@ void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const 
 		painter->restore();
 	}
 	painter->restore();
+}
+
+void ScPageOutput::drawStrokePattern(PageItem* item, ScPainterExBase* painter, const QPainterPath& path)
+{
+
 }
 
 void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip  )

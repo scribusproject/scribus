@@ -91,8 +91,21 @@ public:
 	virtual bool fillRule()  = 0;
 	virtual void setFillMode( int fill ) = 0;
 	virtual int  fillMode() = 0;
-	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0) ) = 0;
-	virtual void setPattern ( ScPattern* pattern, QTransform& patternTransform ) = 0;
+	virtual void setStrokeMode( int stroke ) = 0;
+	virtual int  strokeMode() = 0;
+	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew ) = 0;
+	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
+
+	virtual void setMaskMode( int mask ) = 0;
+	virtual void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) = 0;
+	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
+
+	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4) = 0;
+	virtual void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4) = 0;
+	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5) = 0;
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray) = 0;
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches) = 0;
+
 	virtual void setClipPath() = 0;
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
@@ -121,11 +134,15 @@ public:
 	virtual void restore() = 0;
 
 	virtual void setRasterOp( int op ) = 0;
+	virtual void setBlendModeFill( int blendMode ) = 0;
+	virtual void setBlendModeStroke( int blendMode ) = 0;
 
-	VGradientEx m_fillGradient;
-	VGradientEx m_strokeGradient;
-	ScPattern*  m_pattern;
-	QTransform     m_patternTransform;
+	VGradientEx  m_fillGradient;
+	VGradientEx  m_strokeGradient;
+	VGradientEx  m_maskGradient;
+	ScPattern*   m_pattern;
+	ScPattern*   m_maskPattern;
+	QTransform   m_patternTransform;
 };
 
 #endif

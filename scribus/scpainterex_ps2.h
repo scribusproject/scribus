@@ -107,8 +107,21 @@ public:
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual int  fillMode() { return m_fillMode; }
-	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern ( ScPattern* pattern, QTransform& patternTransform );
+	virtual void setStrokeMode( int fill );
+	virtual int  strokeMode() { return m_strokeMode; }
+	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
+	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+
+	virtual void setMaskMode( int mask ) {};
+	virtual void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) {};
+	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) {};
+
+	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4) {};
+	virtual void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4) {};
+	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5) {};
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray) {};
+	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches) {};
+
 	virtual void setClipPath();
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
@@ -142,6 +155,8 @@ public:
 	virtual void restore();
 
 	virtual void setRasterOp( int op );
+	virtual void setBlendModeFill( int blendMode ) {};
+	virtual void setBlendModeStroke( int blendMode ) {};
 
 protected:
 
@@ -198,11 +213,22 @@ private:
 	bool   m_fillRule;
 	int    m_fillMode;			// 0 = none, 1 = solid, 2 = gradient
 	int    m_gradientMode;		// 1 = linear, 2 = radial
+
+	double m_patternScaleX;
+	double m_patternScaleY;
+	double m_patternOffsetX;
+	double m_patternOffsetY;
+	double m_patternRotation;
+	double m_patternSkewX;
+	double m_patternSkewY;
+	bool   m_patternMirrorX;
+	bool   m_patternMirrorY;
+
 /* Stroking */
 	ScColorShade m_strokeColor;
 	double m_strokeTrans;
 	double m_lineWidth;
-
+	int    m_strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 /* Line End Style */
 	Qt::PenCapStyle m_lineEnd;
 /* Line Join Style */
