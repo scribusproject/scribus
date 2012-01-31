@@ -125,6 +125,7 @@ QImage IdmlPlug::readThumbnail(QString fName)
 		delete fun;
 		if(!designMapDom.setContent(f))
 			return QImage();
+		bool found = false;
 		QDomElement docElem = designMapDom.documentElement();
 		QString metaD = getNodeValue(docElem, "MetadataPacketPreference/Properties/Contents");
 		QDomDocument rdfD;
@@ -143,77 +144,70 @@ QImage IdmlPlug::readThumbnail(QString fName)
 						QByteArray imgD = getNodeValue(dpg2, "xmp:Thumbnails/rdf:Alt/rdf:li/xmpGImg:image").toLatin1();
 						QByteArray inlineImageData = QByteArray::fromBase64(imgD);
 						tmp.loadFromData(inlineImageData);
+						found = true;
 					}
 				}
+			}
+		}
+		if (!found)
+		{
+			progressDialog = NULL;
+			QFileInfo fi = QFileInfo(fName);
+			baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+			docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+			docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+			m_Doc = new ScribusDoc();
+			m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+			m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+			m_Doc->addPage(0);
+			m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+			baseX = m_Doc->currentPage()->xOffset();
+			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+			Elements.clear();
+			m_Doc->setLoading(true);
+			m_Doc->DoDrawing = false;
+			m_Doc->scMW()->setScriptRunning(true);
+			QString CurDirP = QDir::currentPath();
+			QDir::setCurrent(fi.path());
+			if (convert(fName))
+			{
+				tmpSel->clear();
+				QDir::setCurrent(CurDirP);
+				if (Elements.count() > 1)
+					m_Doc->groupObjectsList(Elements);
+				m_Doc->DoDrawing = true;
+				m_Doc->m_Selection->delaySignalsOn();
+				QImage tmpImage;
+				if (Elements.count() > 0)
+				{
+					for (int dre=0; dre<Elements.count(); ++dre)
+					{
+						tmpSel->addItem(Elements.at(dre), true);
+					}
+					tmpSel->setGroupRect();
+					double xs = tmpSel->width();
+					double ys = tmpSel->height();
+					tmpImage = Elements.at(0)->DrawObj_toImage(500);
+					tmpImage.setText("XSize", QString("%1").arg(xs));
+					tmpImage.setText("YSize", QString("%1").arg(ys));
+				}
+				m_Doc->scMW()->setScriptRunning(false);
+				m_Doc->setLoading(false);
+				m_Doc->m_Selection->delaySignalsOff();
+				delete m_Doc;
+				return tmpImage;
+			}
+			else
+			{
+				QDir::setCurrent(CurDirP);
+				m_Doc->DoDrawing = true;
+				m_Doc->scMW()->setScriptRunning(false);
+				delete m_Doc;
 			}
 		}
 	}
 	return tmp;
 }
-/*
-
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	double b, h;
-	parseHeader(fName, b, h);
-	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	if (h == 0.0)
-		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	progressDialog = NULL;
-	m_Doc = new ScribusDoc();
-	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
-	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
-	baseY = m_Doc->currentPage()->yOffset();
-	Elements.clear();
-	m_Doc->setLoading(true);
-	m_Doc->DoDrawing = false;
-	m_Doc->scMW()->setScriptRunning(true);
-	QString CurDirP = QDir::currentPath();
-	QDir::setCurrent(fi.path());
-	if (convert(fName))
-	{
-		tmpSel->clear();
-		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
-		m_Doc->DoDrawing = true;
-		m_Doc->m_Selection->delaySignalsOn();
-		QImage tmpImage;
-		if (Elements.count() > 0)
-		{
-			for (int dre=0; dre<Elements.count(); ++dre)
-			{
-				tmpSel->addItem(Elements.at(dre), true);
-			}
-			tmpSel->setGroupRect();
-			double xs = tmpSel->width();
-			double ys = tmpSel->height();
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
-			tmpImage.setText("XSize", QString("%1").arg(xs));
-			tmpImage.setText("YSize", QString("%1").arg(ys));
-		}
-		m_Doc->scMW()->setScriptRunning(false);
-		m_Doc->setLoading(false);
-		m_Doc->m_Selection->delaySignalsOff();
-		delete m_Doc;
-		return tmpImage;
-	}
-	else
-	{
-		QDir::setCurrent(CurDirP);
-		m_Doc->DoDrawing = true;
-		m_Doc->scMW()->setScriptRunning(false);
-		delete m_Doc;
-	}
-	return QImage();
-}
-*/
 
 bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 {
