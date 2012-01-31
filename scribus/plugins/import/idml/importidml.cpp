@@ -1055,7 +1055,7 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 {
 	CharStyle newStyle;
 	newStyle.setDefaultStyle(false);
-	newStyle.setName(styleElem.attribute("Name"));
+	newStyle.setName(styleElem.attribute("Name").remove("$ID/"));
 	newStyle.setParent(CommonStrings::DefaultCharacterStyle);
 	QString fontName = m_Doc->itemToolPrefs().textFont;
 	QString fontBaseName = "";
@@ -1072,7 +1072,7 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 					fontBaseName = i.text();
 				else if (i.tagName() == "BasedOn")
 				{
-					QString parentStyle = i.text();
+					QString parentStyle = i.text().remove("$ID/");
 					if (charStyleTranslate.contains(parentStyle))
 						parentStyle = charStyleTranslate[parentStyle];
 					if (m_Doc->styleExists(parentStyle))
@@ -1088,7 +1088,7 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 	StyleSet<CharStyle> temp;
 	temp.create(newStyle);
 	m_Doc->redefineCharStyles(temp, false);
-	charStyleTranslate.insert(styleElem.attribute("Self"), styleElem.attribute("Name"));
+	charStyleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
 }
 
 void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
@@ -1096,7 +1096,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 	ParagraphStyle newStyle;
 	newStyle.erase();
 	newStyle.setDefaultStyle(false);
-	newStyle.setName(styleElem.attribute("Name"));
+	newStyle.setName(styleElem.attribute("Name").remove("$ID/"));
 	newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	QString fontName = m_Doc->itemToolPrefs().textFont;
 	QString fontBaseName = "";
@@ -1114,7 +1114,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 					fontBaseName = i.text();
 				else if (i.tagName() == "BasedOn")
 				{
-					QString parentStyle = i.text();
+					QString parentStyle = i.text().remove("$ID/");
 					if (styleTranslate.contains(parentStyle))
 						parentStyle = styleTranslate[parentStyle];
 					if (m_Doc->styleExists(parentStyle))
@@ -1143,7 +1143,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 	StyleSet<ParagraphStyle>tmp;
 	tmp.create(newStyle);
 	m_Doc->redefineStyles(tmp, false);
-	styleTranslate.insert(styleElem.attribute("Self"), styleElem.attribute("Name"));
+	styleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
 }
 
 bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
@@ -1528,6 +1528,10 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
 		nstyle.gradientFillLength = def_gradientLen;
 		nstyle.gradientFillAngle = def_gradientAngle;
+		nstyle.strokeGradient = "";
+		nstyle.gradientStrokeStart = QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY);
+		nstyle.gradientStrokeAngle = def_gradientStrokeAngle;
+		nstyle.gradientStrokeLength = def_gradientStrokeLength;
 		nstyle.lineWidth = def_lineWidth;
 		nstyle.fillTint = def_fillTint;
 		nstyle.strokeTint = def_strokeTint;
@@ -1554,6 +1558,15 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		gLen = nstyle.gradientFillLength;
 		gAngle = nstyle.gradientFillAngle;
 		strokeColor = nstyle.strokeColor;
+		if (!nstyle.strokeGradient.isEmpty())
+		{
+			strokeGradient = nstyle.strokeGradient;
+			strokeGradientTyp = gradientTypeMap[strokeColor];
+		}
+		gstSX = nstyle.gradientStrokeStart.x();
+		gstSY = nstyle.gradientStrokeStart.y();
+		gSLen = nstyle.gradientStrokeLength;
+		gSAngle = nstyle.gradientStrokeAngle;
 		lineWidth = nstyle.lineWidth;
 		fillShade = nstyle.fillTint;
 		strokeShade = nstyle.strokeTint;
@@ -1603,8 +1616,6 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				strokeGradient = gradientTranslate[strokeColor];
 			}
 		}
-		if (colorTranslate.contains(itElem.attribute("StrokeColor")))
-			strokeColor = colorTranslate[itElem.attribute("StrokeColor")];
 	}
 	if (itElem.hasAttribute("GradientStrokeStart"))
 	{
@@ -2377,7 +2388,7 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 					QString pStyle = CommonStrings::DefaultParagraphStyle;
 					if (ste.hasAttribute("AppliedParagraphStyle"))
 					{
-						pStyle = ste.attribute("AppliedParagraphStyle");
+						pStyle = ste.attribute("AppliedParagraphStyle").remove("$ID/");
 						if (styleTranslate.contains(pStyle))
 							pStyle = styleTranslate[pStyle];
 						else
@@ -2444,8 +2455,8 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 							readCharStyleAttributes(nstyle, stt);
 							if (stt.hasAttribute("AppliedCharacterStyle"))
 							{
-								QString cStyle = stt.attribute("AppliedCharacterStyle");
-								if (cStyle != "CharacterStyle/$ID/[No character style]")
+								QString cStyle = stt.attribute("AppliedCharacterStyle").remove("$ID/");
+								if (cStyle != "CharacterStyle/[No character style]")
 								{
 									if (charStyleTranslate.contains(cStyle))
 									{
