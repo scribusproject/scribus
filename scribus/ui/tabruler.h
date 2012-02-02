@@ -54,6 +54,7 @@ public slots:
 	void changeTab(int t);
 	void changeTabChar(QChar t);
 	void moveTab(double t);
+	void removeActTab();
 	void moveFirstLine(double t);
 	void moveLeftIndent(double t);
 
@@ -103,6 +104,7 @@ public slots:
 	void resetOFfL();
 	void resetOFfR();
 	void clearAll();
+	void clearOne();
 	void tabAdded();
 	void lastTabRemoved();
 	void setTabType(int t);
@@ -156,6 +158,7 @@ protected:
 	ScrSpinBox* leftIndentData;
 	ScrSpinBox* rightIndentData;
 	QPushButton* clearButton;
+	QPushButton* clearOneButton;
 
 	double docUnitRatio;
 protected slots:

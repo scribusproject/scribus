@@ -343,6 +343,10 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
+	if ((mousePressed) && ((m->y() > height()) || (m->y() < 0) || (m->x() < 0) || (m->x() > width())))
+	{
+		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+	}
 }
 
 void RulerT::leaveEvent(QEvent*)
@@ -428,6 +432,24 @@ void RulerT::moveTab(double t)
 		return;
 	tabValues[actTab].tabPosition = t;
 	updateTabList();
+	repaint();
+}
+
+void RulerT::removeActTab()
+{
+	if (actTab > -1)
+	{
+		tabValues.removeAt(actTab);
+		actTab = 0;
+		if (tabValues.count() != 0)
+		{
+			emit typeChanged(tabValues[actTab].tabType);
+			emit tabMoved(tabValues[actTab].tabPosition);
+			emit fillCharChanged(tabValues[actTab].tabFillChar);
+		}
+		else
+			emit noTabs();
+	}
 	repaint();
 }
 
@@ -552,6 +574,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	clearButton->setText( tr( "Delete All" ) );
 	indentLayout->addSpacing(20);
 	indentLayout->addWidget( clearButton);
+	clearOneButton = new QPushButton( this );
+	clearOneButton->setText( tr( "Delete Selected" ) );
+	indentLayout->addWidget( clearOneButton);
 	indentLayout->addStretch(10);
 	if (!haveFirst)
 	{
@@ -571,6 +596,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	typeCombo->setEnabled(false);
 	if (Tabs.count() == 0)
 		clearButton->setEnabled(false);
+	clearOneButton->setEnabled(false);
 	resize( minimumSizeHint() );
 	connect(rulerScrollL, SIGNAL(clicked()), ruler, SLOT(decreaseOffset()));
 	connect(rulerScrollR, SIGNAL(clicked()), ruler, SLOT(increaseOffset()));
@@ -587,6 +613,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	connect(ruler, SIGNAL(noTabs()), this, SLOT(lastTabRemoved()));
 	connect(tabData, SIGNAL(valueChanged(double)), this, SLOT(setTab()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearAll()));
+	connect(clearOneButton, SIGNAL(clicked()), this, SLOT(clearOne()));
 
 	tabFillCombo->setToolTip( tr( "Fill Character of Tab" ) );
 	typeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
@@ -609,6 +636,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 		rightIndentLabel->setToolTip(rightIndentData->toolTip());
 	}
 	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
+	clearOneButton->setToolTip( tr("Delete selected Tabulator"));
 	QString ein = unitGetSuffixFromIndex(dEin);
 	if (dEin == 2)
 	{
@@ -643,6 +671,7 @@ void Tabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 	ruler->setTabs(Tabs, dEin);
 	if (Tabs.count() == 0)
 		clearButton->setEnabled(false);
+	clearOneButton->setEnabled(false);
 	tabData->setEnabled(false);
 	tabFillCombo->setEnabled(false);
 	typeCombo->setEnabled(false);
@@ -672,11 +701,19 @@ void Tabruler::clearAll()
 	emit tabsChanged();
 }
 
+void Tabruler::clearOne()
+{
+	ruler->removeActTab();
+	emit tabrulerChanged();
+	emit tabsChanged();
+}
+
 void Tabruler::tabAdded()
 {
 	typeCombo->setEnabled(true);
 	tabData->setEnabled(true);
 	clearButton->setEnabled(true);
+	clearOneButton->setEnabled(true);
 	tabFillCombo->setEnabled(true);
 	emit tabrulerChanged();
 	emit tabsChanged();
@@ -687,6 +724,7 @@ void Tabruler::lastTabRemoved()
 	typeCombo->setEnabled(false);
 	tabData->setEnabled(false);
 	clearButton->setEnabled(false);
+	clearOneButton->setEnabled(false);
 	tabFillCombo->setEnabled(false);
 	emit tabrulerChanged();
 	emit tabsChanged();
