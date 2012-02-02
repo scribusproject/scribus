@@ -404,7 +404,7 @@ void OutlinePalette::slotShowSelect(uint SNr, int Nr)
 		{
 			PageItem *item = currDoc->m_Selection->itemAt(a);
 			QTreeWidgetItem *retVal = getListItem(item->OwnPage, item->ItemNr);
-			if (retVal != 0)
+			if (retVal != 0 && !retVal->isHidden())
 				itemSelection.append(retVal);
 		}
 		reportDisplay->selectItems(itemSelection);
@@ -412,7 +412,7 @@ void OutlinePalette::slotShowSelect(uint SNr, int Nr)
 	else
 	{
 		QTreeWidgetItem *retVal = getListItem(SNr, Nr);
-		if (retVal != 0)
+		if (retVal != 0 && !retVal->isHidden())
 			retVal->setSelected(true);
 	}
 	QList<QTreeWidgetItem *> items = reportDisplay->selectedItems();
@@ -823,9 +823,9 @@ void OutlinePalette::BuildTree(bool storeVals)
 	if (storeVals)
 		reopenTree();
 	setUpdatesEnabled(true);
+	filterTree();
 	if (currDoc->m_Selection->count() > 0)
 		slotShowSelect(0, -1);
-	filterTree();
 	repaint();
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
