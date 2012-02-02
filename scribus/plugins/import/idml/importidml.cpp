@@ -2273,7 +2273,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 							item->AspectRatio = true;
 							m_Doc->loadPict(fileName, item);
 							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-							item->setImageXYOffset(0, 0);
+							item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
 							item->setImageRotation(0);
 						}
 					}
@@ -2291,7 +2291,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					item->AspectRatio = true;
 					m_Doc->loadPict(fileName, item);
 					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-					item->setImageXYOffset(0, 0);
+					item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
 					item->setImageRotation(0);
 				}
 			}
