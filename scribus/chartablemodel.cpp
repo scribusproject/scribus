@@ -123,6 +123,15 @@ void CharTableModel::setCharacters(CharClassDef ch)
 	reset();
 }
 
+void CharTableModel::setCharactersAndFonts(CharClassDef ch, QStringList fonts)
+{
+	m_characters.clear();
+	m_fonts.clear();
+	m_characters = ch;
+	m_fonts = fonts;
+	reset();
+}
+
 void CharTableModel::addCharacter(QString ch)
 {
 	int orig = rowCount();

@@ -45,6 +45,7 @@ public:
 	ScFace fontFace();
 
 	void setCharacters(CharClassDef ch);
+	void setCharactersAndFonts(CharClassDef ch, QStringList fonts);
 	void addCharacter(QString ch);
 	CharClassDef characters() {
 		return m_characters;

@@ -1564,7 +1564,7 @@ StoryEditor::~StoryEditor()
 void StoryEditor::showEvent(QShowEvent *)
 {
 	charSelect = new CharSelect(this);
-	charSelect->userTableModel()->setCharacters(ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
+	charSelect->userTableModel()->setCharactersAndFonts(ScCore->primaryMainWindow()->charPalette->userTableModel()->characters(), ScCore->primaryMainWindow()->charPalette->userTableModel()->fonts());
 	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
 	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)), this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
 
@@ -1577,7 +1577,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 	if (charSelect)
 	{
 		if (charSelectUsed)
-			ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(charSelect->userTableModel()->characters());
+			ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharactersAndFonts(charSelect->userTableModel()->characters(), charSelect->userTableModel()->fonts());
 		if (charSelect->isVisible())
 			charSelect->close();
 		disconnect(charSelect, SIGNAL(insertSpecialChar()),
