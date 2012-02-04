@@ -1566,7 +1566,7 @@ void StoryEditor::showEvent(QShowEvent *)
 	charSelect = new CharSelect(this);
 	charSelect->userTableModel()->setCharacters(ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
 	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
+	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)), this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
 
 	smartSelection=prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
 	seActions["settingsSmartTextSelection"]->setChecked(smartSelection);
@@ -1582,8 +1582,8 @@ void StoryEditor::hideEvent(QHideEvent *)
 			charSelect->close();
 		disconnect(charSelect, SIGNAL(insertSpecialChar()),
 					this, SLOT(slot_insertSpecialChar()));
-		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
-					this, SLOT(slot_insertUserSpecialChar(QChar)));
+		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)),
+					this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
 		delete charSelect;
 		charSelect = NULL;
 	}
@@ -2690,7 +2690,7 @@ void StoryEditor::slot_insertSpecialChar()
 	blockUpdate = false;
 }
 
-void StoryEditor::slot_insertUserSpecialChar(QChar c)
+void StoryEditor::slot_insertUserSpecialChar(QChar c, QString)
 {
 	blockUpdate = true;
 	Editor->insertPlainText(c);

@@ -57,7 +57,7 @@ signals:
 	in StoryEditor workaround. */
 	void insertSpecialChar();
 	/*! Internal signal for one glyph only */
-	void insertUserSpecialChar(QChar);
+	void insertUserSpecialChar(QChar, QString);
 
 
 private:
@@ -81,11 +81,11 @@ private:
 	void closeEnhanced();
 
 private slots:
-	void userNewChar(uint i);
+	void userNewChar(uint i, QString font);
 	void hideButton_toggled(bool);
 	void slot_insertSpecialChar();
 	void slot_insertSpecialChars(const QString & chars);
-	void slot_insertUserSpecialChar(QChar);
+	void slot_insertUserSpecialChar(QChar, QString font);
 	void uniLoadButton_clicked();
 	void uniSaveButton_clicked();
 	void uniClearButton_clicked();

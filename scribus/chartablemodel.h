@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define CHARTABLEMODEL_H
 
 #include <QAbstractTableModel>
+#include <QStringList>
 
 #include "scribusapi.h"
 
@@ -44,9 +45,12 @@ public:
 	ScFace fontFace();
 
 	void setCharacters(CharClassDef ch);
+	void addCharacter(QString ch);
 	CharClassDef characters() {
 		return m_characters;
 	};
+
+	QStringList fonts() { return m_fonts; }
 
 	//! \brief called to erase glyph at index from table.
 	bool removeCharacter(int index);
@@ -84,6 +88,7 @@ private:
 
 	QString m_fontInUse;
 	CharClassDef m_characters;
+	QStringList m_fonts;
 
 	//! \brief Internal selection handling. See selectionChanged().
 	QItemSelectionModel * m_selectionModel;

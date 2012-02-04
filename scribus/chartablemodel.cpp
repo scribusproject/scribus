@@ -21,6 +21,7 @@ CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, cons
 {
 	m_selectionModel = new QItemSelectionModel(this);
 	m_characters.clear();
+	m_fonts.clear();
 }
 
 int CharTableModel::rowCount(const QModelIndex & parent) const
@@ -40,14 +41,18 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 
 	int ix = index.row() * m_cols + index.column();
 	int currentChar;
+	QString currentFont = m_fontInUse;
 	if (ix < m_characters.count())
+	{
 		currentChar = m_characters[ix];
+		currentFont = m_fonts[ix];
+	}
 	else
 		return QVariant();
 
 	// for mimeData()
 	if (role == Qt::AccessibleTextRole)
-		return m_characters[ix];
+		return QString("%1#%2").arg(currentChar).arg(currentFont);
 
 	// tooltip
 	if (role == Qt::ToolTipRole)
@@ -65,7 +70,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 		QTransform chma;
 		chma.scale(baseSize/10, baseSize/10);
 
-		ScFace face = (*m_doc->AllFonts)[m_fontInUse];
+		ScFace face = (*m_doc->AllFonts)[currentFont];
 		uint gl = face.char2CMap(currentChar);
 		int size = baseSize + qRound(-face.descent() * baseSize) + 1;
 		double ww = baseSize - face.glyphWidth(gl, baseSize);
@@ -109,8 +114,30 @@ ScFace CharTableModel::fontFace()
 void CharTableModel::setCharacters(CharClassDef ch)
 {
 	m_characters.clear();
+	m_fonts.clear();
 	m_characters = ch;
+	for (int a = 0; a < m_characters.count(); a++)
+	{
+		m_fonts.append(m_fontInUse);
+	}
 	reset();
+}
+
+void CharTableModel::addCharacter(QString ch)
+{
+	int orig = rowCount();
+	bool ok;
+	int a = ch.indexOf(" ");
+	QString si = ch.left(a);
+	QString sf = ch.mid(a+1);
+	int val = si.toInt(&ok, 10);
+	if (!ok)
+		return;
+	m_characters.append(val);
+	m_fonts.append(sf);
+	reset();
+	if (orig < rowCount())
+		emit rowAppended();
 }
 
 void CharTableModel::setFontInUse(QString font)
@@ -126,13 +153,17 @@ void CharTableModel::appendUnicode(const QString & s, uint base)
 {
 	int orig = rowCount();
 	bool ok;
-	int val = s.toInt(&ok, base);
+	int a = s.indexOf("#");
+	QString si = s.left(a);
+	QString sf = s.mid(a+1);
+	int val = si.toInt(&ok, base);
 	if (!ok)
 		return;
 
-	if (!m_characters.contains(val))
+	if ((!m_characters.contains(val)) || (!m_fonts.contains(sf)))
 	{
 		m_characters.append(val);
+		m_fonts.append(sf);
 		reset();
 	}
 	else
@@ -154,6 +185,7 @@ bool CharTableModel::removeCharacter(int index)
 	if (index >= 0 && index < m_characters.size())
 	{
 		m_characters.removeAt(index);
+		m_fonts.removeAt(index);
 		reset();
 		return true;
 	}

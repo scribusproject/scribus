@@ -117,7 +117,7 @@ void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 void CharTableView::viewDoubleClicked(const QModelIndex & /*index*/)
 {
 	if (model()->characters().count() > currenCharactersIndex())
-		emit selectChar(model()->characters()[currenCharactersIndex()]);
+		emit selectChar(model()->characters()[currenCharactersIndex()], model()->fonts()[currenCharactersIndex()]);
 }
 
 int CharTableView::currenCharactersIndex()
