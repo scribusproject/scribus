@@ -2444,15 +2444,6 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 								fontStyle = stt.attribute("FontStyle", "");
 								hasChangedFont = true;
 							}
-							if (hasChangedFont)
-							{
-								if ((!fontBase.isEmpty()) && (!fontStyle.isEmpty()))
-								{
-									QString fontName = constructFontName(fontBase, fontStyle);
-									nstyle.setFont((*m_Doc->AllFonts)[fontName]);
-								}
-							}
-							readCharStyleAttributes(nstyle, stt);
 							if (stt.hasAttribute("AppliedCharacterStyle"))
 							{
 								QString cStyle = stt.attribute("AppliedCharacterStyle").remove("$ID/");
@@ -2467,6 +2458,15 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 									}
 								}
 							}
+							if (hasChangedFont)
+							{
+								if ((!fontBase.isEmpty()) && (!fontStyle.isEmpty()))
+								{
+									QString fontName = constructFontName(fontBase, fontStyle);
+									nstyle.setFont((*m_Doc->AllFonts)[fontName]);
+								}
+							}
+							readCharStyleAttributes(nstyle, stt);
 							for(QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling() )
 							{
 								QDomElement s = stch.toElement();
