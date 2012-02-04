@@ -29,7 +29,7 @@ public:
 	CharTableView(QWidget * parent = 0);
 
 signals:
-	void selectChar(uint);
+	void selectChar(uint, QString);
 	//! \brief When user press the DELETE/BACKSPACE key
 	void delChar();
 

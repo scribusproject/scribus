@@ -26,6 +26,7 @@ public:
 	~CharSelectEnhanced();
 
 	void setDoc(ScribusDoc* doc);
+	QString getUsedFont();
 
 signals:
 	/*! \brief A signall emitted when press the "Insert" button.
@@ -34,7 +35,7 @@ signals:
 	void insertSpecialChars(const QString & chars);
 
 public slots:
-	void newChar(uint i);
+	void newChar(uint i, QString);
 	void delChar();
 	void newFont(int font);
 	void newCharClass(int c);

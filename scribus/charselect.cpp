@@ -45,8 +45,8 @@ CharSelect::CharSelect(QWidget* parent)
 	m_userTable->setAcceptDrops(true);
 
 	// signals and slots connections
-	connect(m_userTable, SIGNAL(selectChar(uint)),
-	        this, SLOT(userNewChar(uint)));
+	connect(m_userTable, SIGNAL(selectChar(uint, QString)),
+	        this, SLOT(userNewChar(uint, QString)));
 	connect(m_userTableModel, SIGNAL(selectionChanged(QItemSelectionModel*)),
 	        m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
 	connect(m_userTableModel, SIGNAL(rowAppended()),
@@ -55,8 +55,8 @@ CharSelect::CharSelect(QWidget* parent)
 	        m_userTableModel, SLOT(appendUnicode(const QString &)));
 	connect(hideButton, SIGNAL(toggled(bool)),
 	        this, SLOT(hideButton_toggled(bool)));
-	connect(this, SIGNAL(insertUserSpecialChar(QChar)),
-	        this, SLOT(slot_insertUserSpecialChar(QChar)));
+	connect(this, SIGNAL(insertUserSpecialChar(QChar, QString)),
+	        this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
 	connect(uniLoadButton, SIGNAL(clicked()),
 	        this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()),
@@ -93,9 +93,9 @@ const QString & CharSelect::getCharacters()
 	return chToIns;
 }
 
-void CharSelect::userNewChar(uint i)
+void CharSelect::userNewChar(uint i, QString font)
 {
-	emit insertUserSpecialChar(QChar(i));
+	emit insertUserSpecialChar(QChar(i), font);
 }
 
 void CharSelect::slot_insertSpecialChars(const QString & chars)
@@ -120,6 +120,9 @@ void CharSelect::slot_insertSpecialChar()
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	QChar ch;
 	QString txtIns;
+	QString fontName = m_doc->currentStyle.charStyle().font().scName();
+	if (m_enhanced)
+		fontName = m_enhanced->getUsedFont();
 	m_Item->oldCPos = m_Item->itemText.cursorPosition();
 	for (int a=0; a<chToIns.length(); ++a)
 	{
@@ -128,7 +131,11 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
+		int pot = m_Item->itemText.cursorPosition();
 		m_Item->itemText.insertChars(ch, true);
+		CharStyle nstyle = m_Item->itemText.charStyle(pot);
+		nstyle.setFont((*m_doc->AllFonts)[fontName]);
+		m_Item->itemText.applyCharStyle(pot, 1, nstyle);
 		txtIns.append(ch);
 	}
 	if (m_Item->itemTextSaxed.isEmpty())
@@ -141,7 +148,7 @@ void CharSelect::slot_insertSpecialChar()
 // 	delEdit();
 }
 
-void CharSelect::slot_insertUserSpecialChar(QChar ch)
+void CharSelect::slot_insertUserSpecialChar(QChar ch, QString font)
 {
 	if (!m_Item)
 		return;
@@ -159,7 +166,11 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 	if (ch == QChar(9))
 		ch = QChar(32);
 	m_Item->oldCPos = m_Item->itemText.cursorPosition();
+	int pot = m_Item->itemText.cursorPosition();
 	m_Item->itemText.insertChars(ch, true);
+	CharStyle nstyle = m_Item->itemText.charStyle(pot);
+	nstyle.setFont((*m_doc->AllFonts)[font]);
+	m_Item->itemText.applyCharStyle(pot, 1, nstyle);
 	if (m_Item->itemTextSaxed.isEmpty())
 		m_Item->asTextFrame()->updateUndo(PageItem::INS, QString(ch));
 	else
@@ -178,6 +189,7 @@ void CharSelect::openEnhanced()
 	m_enhanced = new CharSelectEnhanced(this);
 	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
 	        this, SLOT(slot_insertSpecialChars(const QString &)));
+	connect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(this->isEnabled());
 	m_enhanced->show();
@@ -195,6 +207,7 @@ void CharSelect::closeEnhanced()
 
 	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
 	           this, SLOT(slot_insertSpecialChars(const QString &)));
+	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
 	m_enhanced = 0;
@@ -257,16 +270,24 @@ void CharSelect::loadUserContent(QString f)
 	if (file.open(QIODevice::ReadOnly))
 	{
 		QTextStream stream(&file);
-		QString line;
+		QString line = stream.readLine();
+		if (line != "# Character palette file for Scribus")
+		{
+			file.close();
+			return;
+		}
+		m_userTableModel->setCharacters(CharClassDef());
 		while (!stream.atEnd())
 		{
 			bool ok = false;
 			line = stream.readLine();
 			if (line.left(1) == "#")
 				continue; // don't mess with a comment
-			int val = line.toInt(&ok, 10);
+			int a = line.indexOf(" ");
+			QString si = line.left(a);
+			si.toInt(&ok, 10);
 			if (ok)
-				newChars.append(val);
+				m_userTableModel->addCharacter(line);
 			else
 			{
 				QMessageBox::warning(this, tr("Error"),
@@ -276,7 +297,6 @@ void CharSelect::loadUserContent(QString f)
 			}
 		}
 		file.close();
-		m_userTableModel->setCharacters(newChars);
 	}
 //     tDebug("loadUserContent end");
 }
@@ -306,9 +326,12 @@ void CharSelect::saveUserContent(QString f)
 	{
 		QTextStream stream(&file);
 		CharClassDef chars = m_userTableModel->characters();
-		stream << "# This is a character palette file for Scribus\n";
-		for (CharClassDef::Iterator it = chars.begin(); it != chars.end(); ++it)
-			stream << (*it) << "\n";
+		QStringList fonts = m_userTableModel->fonts();
+		stream << "# Character palette file for Scribus\n";
+		for (int a = 0; a < chars.count(); a++)
+		{
+			stream << chars[a] << " " << fonts[a] << "\n";
+		}
 		file.close();
 	}
 	else

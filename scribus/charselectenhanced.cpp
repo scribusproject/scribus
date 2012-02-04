@@ -33,7 +33,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	// signals and slots connections
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
-	connect(m_charTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
+	connect(m_charTable, SIGNAL(selectChar(uint, QString)), this, SLOT(newChar(uint, QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(hexLineEdit, SIGNAL(returnPressed()),
@@ -64,6 +64,11 @@ void CharSelectEnhanced::setDoc(ScribusDoc* doc)
 		newFont(fontSelector->currentIndex());
 	}
 //     tDebug("CharSelectEnhanced setDoc end");
+}
+
+QString CharSelectEnhanced::getUsedFont()
+{
+	return m_fontInUse;
 }
 
 void CharSelectEnhanced::scanFont()
@@ -410,7 +415,7 @@ void CharSelectEnhanced::newFont(int font)
 //     tDebug("newFont end");
 }
 
-void CharSelectEnhanced::newChar(uint i)
+void CharSelectEnhanced::newChar(uint i, QString)
 {
 	chToIns += QChar(i);
 	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, palette().color(QPalette::Window), true));
@@ -456,7 +461,7 @@ void CharSelectEnhanced::hexLineEdit_returnPressed()
 	bool ok = false;
 	uint code = tx.arg(hexLineEdit->text()).toUInt(&ok, 16);
 	if ((ok) && (code > 31))
-		newChar(code);
+		newChar(code, m_fontInUse);
 }
 
 void CharSelectEnhanced::changeEvent(QEvent *e)
