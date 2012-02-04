@@ -26,6 +26,7 @@ public:
 	~CharSelectEnhanced();
 
 	void setDoc(ScribusDoc* doc);
+	QString getUsedFont();
 
 signals:
 	/*! \brief A signall emitted when press the "Insert" button.

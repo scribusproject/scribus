@@ -77,7 +77,7 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 	int index = currenCharactersIndex();
 	int currentChar = -1;
 
-	if (index < model()->characters().count())
+	if ((index < model()->characters().count()) && (model()->characters().count() > 0))
 		currentChar = model()->characters()[index];
 
 	if (e->button() == Qt::RightButton && currentChar > -1)

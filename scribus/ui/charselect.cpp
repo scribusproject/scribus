@@ -116,6 +116,9 @@ void CharSelect::slot_insertSpecialChar()
 		m_Item->asTextFrame()->invalidateLayout();
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	QChar ch;
+	QString fontName = m_doc->currentStyle.charStyle().font().scName();
+	if (m_enhanced)
+		fontName = m_enhanced->getUsedFont();
 	for (int a=0; a<chToIns.length(); ++a)
 	{
 		ch = chToIns.at(a);
@@ -123,7 +126,11 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
+		int pot = m_Item->itemText.cursorPosition();
 		m_Item->itemText.insertChars(ch, true);
+		CharStyle nstyle = m_Item->itemText.charStyle(pot);
+		nstyle.setFont((*m_doc->AllFonts)[fontName]);
+		m_Item->itemText.applyCharStyle(pot, 1, nstyle);
 	}
 	m_doc->view()->DrawNew();
 	m_doc->changed();

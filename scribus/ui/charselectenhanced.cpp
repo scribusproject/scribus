@@ -66,6 +66,11 @@ void CharSelectEnhanced::setDoc(ScribusDoc* doc)
 //     tDebug("CharSelectEnhanced setDoc end");
 }
 
+QString CharSelectEnhanced::getUsedFont()
+{
+	return m_fontInUse;
+}
+
 void CharSelectEnhanced::scanFont()
 {
 //     tDebug("scanFont start");
