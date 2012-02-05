@@ -6872,7 +6872,15 @@ void PageItem::setPolyClip(int up, int down)
 	}
 	QPoint np, np2;
 	QPolygon cl, cl1, cl2;
-	cl = FlattenPath(PoLine, Segments);
+	Segments.clear();
+	QPainterPath pa = PoLine.toQPainterPath(false);
+	QList<QPolygonF> polist = pa.toSubpathPolygons();
+	for (int a = 0; a < polist.count(); a++)
+	{
+		QPolygon cli = polist[a].toPolygon();
+		cl += cli;
+		Segments.append(cl.size());
+	}
 	if (cl.size() > 1)
 	{
 		Clip.resize(0);
