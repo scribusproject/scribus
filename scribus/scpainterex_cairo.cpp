@@ -496,20 +496,12 @@ void ScPainterEx_Cairo::drawVPath( int mode )
 	}
 	else
 	{
-		double r, g, b;
-		QColor strokeColor = transformColor( m_strokeColor, 1.0 );
-		strokeColor.getRgbF(&r, &g, &b);
-		cairo_set_source_rgba( m_cr, r, g, b, m_strokeTrans );
-		
 		cairo_set_line_width( m_cr, m_lineWidth );
 		if( m_array.count() > 0 )
 			cairo_set_dash( m_cr, m_array.data(), m_array.count(), static_cast<double>(m_offset));
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
-		if (m_strokeTrans != 1.0)
-			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-		else
-			cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 		if( m_lineEnd == Qt::RoundCap )
 			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
 		else if( m_lineEnd == Qt::SquareCap )
@@ -522,7 +514,24 @@ void ScPainterEx_Cairo::drawVPath( int mode )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
 		else if( m_lineJoin == Qt::MiterJoin )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
-		cairo_stroke_preserve( m_cr );
+		if (m_strokeMode == 3)
+		{
+
+		}
+		else if (m_strokeMode == 2)
+		{
+			strokeGradient(m_strokeGradient);
+		}
+		else
+		{
+			double r, g, b;
+			QColor strokeColor = transformColor( m_strokeColor, 1.0 );
+			strokeColor.getRgbF(&r, &g, &b);
+			cairo_set_source_rgba( m_cr, r, g, b, m_strokeTrans );
+			setRasterOp(m_blendModeStroke);
+			cairo_stroke_preserve( m_cr );
+		}
+		
 	}
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
@@ -759,7 +768,7 @@ void ScPainterEx_Cairo::drawFourColorGradient( const QRect& rect )
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
 	cairo_set_source (m_cr, pat);
-	cairo_clip_preserve (m_cr);
+	//cairo_clip_preserve (m_cr);
 
 	if (m_maskMode > 0)
 	{
@@ -973,7 +982,7 @@ void ScPainterEx_Cairo::drawDiamondGradient( VGradientEx& gradient, const QRect&
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
 	cairo_set_source (m_cr, pat);
-	cairo_clip_preserve (m_cr);
+	//cairo_clip_preserve (m_cr);
 
 	if (m_maskMode > 0)
 	{
@@ -1051,7 +1060,7 @@ void ScPainterEx_Cairo::drawMeshGradient( const QRect& rect )
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
 
 	cairo_set_source (m_cr, pat);
-	cairo_clip_preserve (m_cr);
+	//cairo_clip_preserve (m_cr);
 
 	if (m_maskMode > 0)
 	{
@@ -1127,7 +1136,7 @@ void ScPainterEx_Cairo::drawFreeMeshGradient( const QRect& rect )
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
 	
 	cairo_set_source (m_cr, pat);
-	cairo_clip_preserve (m_cr);
+	//cairo_clip_preserve (m_cr);
 
 	if (m_maskMode > 0)
 	{
@@ -1148,6 +1157,124 @@ void ScPainterEx_Cairo::drawFreeMeshGradient( const QRect& rect )
 	if (img) cairo_surface_destroy(img);
 	if (mpat) cairo_pattern_destroy(mpat);
 	if (cr) cairo_destroy( cr );
+}
+
+void ScPainterEx_Cairo::strokeGradient(VGradientEx& gradient)
+{
+	save();
+	if ( gradient.type() == VGradientEx::linear )
+		strokeLinearGradient(gradient);
+	else if ( gradient.type() == VGradientEx::radial )
+		strokeCircularGradient(gradient);
+	restore();
+}
+
+void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
+{
+	cairo_pattern_t *pat = NULL;
+	double r, g, b, lastPoint = 0.0;
+	double x1 = gradient.origin().x();
+	double y1 = gradient.origin().y();
+	double x2 = gradient.vector().x();
+	double y2 = gradient.vector().y();
+	double fx = gradient.focalPoint().x();
+	double fy = gradient.focalPoint().y();
+	QList<VColorStopEx*> colorStops = gradient.colorStops();
+	VColorStopEx* stop = NULL;
+	QColor color;
+
+	cairo_push_group(m_cr);
+
+	pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+
+	bool   isFirst  = true;
+	double lastStop = 0.0;
+	for( uint index = 0 ; index < gradient.Stops(); index++)
+	{
+		stop  = colorStops.at(index);
+		if ((lastStop == stop->rampPoint) && (!isFirst))
+			continue;
+		isFirst = false;
+		color = transformColor( ScColorShade(stop->color, stop->shade), 1.0 );
+		color.getRgbF(&r, &g, &b);
+		cairo_pattern_add_color_stop_rgba (pat, stop->rampPoint, r, g, b, stop->opacity);
+		lastStop = stop->rampPoint;
+	}
+
+	cairo_matrix_t matrix;
+	QTransform qmatrix;
+	qmatrix.translate(x1, y1);
+	qmatrix.shear(-m_gradientSkew, 0);
+	qmatrix.translate(-x1, -y1);
+	cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+	cairo_matrix_invert(&matrix);
+	cairo_pattern_set_matrix (pat, &matrix);
+	cairo_set_source (m_cr, pat);
+	cairo_stroke_preserve( m_cr );
+	cairo_pattern_destroy (pat);
+
+	cairo_pop_group_to_source (m_cr);
+
+	setRasterOp(m_blendModeStroke);
+	cairo_paint_with_alpha (m_cr, m_strokeTrans);
+}
+
+void ScPainterEx_Cairo::strokeCircularGradient(VGradientEx& gradient)
+{
+	cairo_pattern_t *pat = NULL;
+	double r, g, b, lastPoint = 0.0;
+	double x1 = gradient.origin().x();
+	double y1 = gradient.origin().y();
+	double x2 = gradient.vector().x();
+	double y2 = gradient.vector().y();
+	double fx = gradient.focalPoint().x();
+	double fy = gradient.focalPoint().y();
+	QList<VColorStopEx*> colorStops = gradient.colorStops();
+	VColorStopEx* stop = NULL;
+	QColor color;
+
+	cairo_push_group(m_cr);
+
+	pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+
+	bool   isFirst  = true;
+	double lastStop = 0.0;
+	for( uint index = 0 ; index < gradient.Stops(); index++)
+	{
+		stop  = colorStops.at(index);
+		if ((lastStop == stop->rampPoint) && (!isFirst))
+			continue;
+		isFirst = false;
+		color = transformColor( ScColorShade(stop->color, stop->shade), 1.0 );
+		color.getRgbF(&r, &g, &b);
+		cairo_pattern_add_color_stop_rgba (pat, stop->rampPoint, r, g, b, stop->opacity);
+		lastStop = stop->rampPoint;
+	}
+
+	cairo_matrix_t matrix;
+	QTransform qmatrix;
+	double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+	qmatrix.translate(x1, y1);
+	qmatrix.rotate(rotEnd);
+	qmatrix.shear(m_gradientSkew, 0);
+	qmatrix.translate(0, y1 * (1.0 - m_gradientScale));
+	qmatrix.translate(-x1, -y1);
+	qmatrix.scale(1, m_gradientScale);
+	cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+	cairo_matrix_invert(&matrix);
+	cairo_pattern_set_matrix (pat, &matrix);
+	cairo_set_source (m_cr, pat);
+	cairo_stroke_preserve( m_cr );
+	cairo_pattern_destroy (pat);
+
+	cairo_pop_group_to_source (m_cr);
+
+	setRasterOp(m_blendModeStroke);
+	cairo_paint_with_alpha (m_cr, m_strokeTrans);
 }
 
 void ScPainterEx_Cairo::getClipPathDimensions( QRect& r )

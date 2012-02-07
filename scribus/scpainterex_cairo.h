@@ -100,6 +100,7 @@ public:
 private:
 
 	void drawVPath( int mode );
+
 	void drawGradient( VGradientEx& gradient );
 	void drawLinearGradient( VGradientEx& gradient, const QRect& rect );
 	void drawCircularGradient( VGradientEx& gradient, const QRect& rect );
@@ -107,6 +108,11 @@ private:
 	void drawDiamondGradient( VGradientEx& gradient, const QRect& rect );
 	void drawMeshGradient( const QRect& rect );
 	void drawFreeMeshGradient( const QRect& rect );
+
+	void strokeGradient( VGradientEx& gradient );
+	void strokeLinearGradient( VGradientEx& gradient );
+	void strokeCircularGradient( VGradientEx& gradient );
+
 	void getClipPathDimensions( QRect& r );
 
 	ScribusDoc* m_doc;
