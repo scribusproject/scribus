@@ -187,9 +187,8 @@ void CharSelect::openEnhanced()
 
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
-	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
-	        this, SLOT(slot_insertSpecialChars(const QString &)));
-	connect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
+	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(slot_insertSpecialChars(const QString &)));
+//	connect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(this->isEnabled());
 	m_enhanced->show();
@@ -203,14 +202,13 @@ void CharSelect::closeEnhanced()
 
 	hideButton->blockSignals(true);
 	hideButton->setChecked(false);
-	hideButton->blockSignals(false);
 
-	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
-	           this, SLOT(slot_insertSpecialChars(const QString &)));
-	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
+	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(slot_insertSpecialChars(const QString &)));
+//	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
 	m_enhanced = 0;
+	hideButton->blockSignals(false);
 }
 
 void CharSelect::hideButton_toggled(bool state)
