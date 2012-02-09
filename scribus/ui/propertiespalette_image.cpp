@@ -423,8 +423,15 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	if (m_item->asImageFrame())
 	{
 		imagePageNumber->blockSignals(true);
-		imagePageNumber->setMaximum(m_item->pixm.imgInfo.numberOfPages);
+		if(m_item->PictureIsAvailable)
+		{
+			imagePageNumber->setMaximum(m_item->pixm.imgInfo.numberOfPages);
+			imagePageNumber->setEnabled(true);
+		}
+		else
+			imagePageNumber->setEnabled(false);
 		imagePageNumber->setValue(m_item->pixm.imgInfo.actualPageNumber);
+
 		compressionMethod->setCurrentIndex(m_item->OverrideCompressionMethod ? m_item->CompressionMethodIndex + 1 : 0);
 		compressionQuality->setCurrentIndex(m_item->OverrideCompressionQuality ? m_item->CompressionQualityIndex + 1 : 0);
 		imagePageNumber->blockSignals(false);
