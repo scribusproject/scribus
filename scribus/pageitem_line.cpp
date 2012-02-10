@@ -49,94 +49,94 @@ PageItem_Line::PageItem_Line(ScribusDoc *pa, double x, double y, double w, doubl
 
 void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 {
-	if (!m_Doc->RePos)
+	if (m_Doc->RePos)
+		return;
+
+	if (m_Doc->layerOutline(LayerID))
+		p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+	else
 	{
-		if (m_Doc->layerOutline(LayerID))
-			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-		else
+		if (NamedLStyle.isEmpty())
 		{
-			if (NamedLStyle.isEmpty())
+			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
 			{
-				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				if (patternStrokePath)
 				{
-					if (patternStrokePath)
-					{
-						QPainterPath guidePath;
-						guidePath.moveTo(0, 0);
-						guidePath.lineTo(Width, 0);
-						DrawStrokePattern(p, guidePath);
-					}
-					else
-					{
-						p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
-						p->setStrokeMode(ScPainter::Pattern);
-						p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-					}
+					QPainterPath guidePath;
+					guidePath.moveTo(0, 0);
+					guidePath.lineTo(Width, 0);
+					DrawStrokePattern(p, guidePath);
 				}
-				else if (GrTypeStroke > 0)
+				else
 				{
-					if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-						gradientStrokeVal = "";
-					if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
-						stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
-					if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
-					{
-						if (lineColor() != CommonStrings::None)
-						{
-							p->setBrush(strokeQColor);
-							p->setStrokeMode(ScPainter::Solid);
-						}
-						else
-							p->setStrokeMode(ScPainter::None);
-					}
-					else
-					{
-						p->setStrokeMode(ScPainter::Gradient);
-						p->stroke_gradient = stroke_gradient;
-						if (GrTypeStroke == 6)
-							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
-						else
-							p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
-					}
-					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-				}
-				else if (lineColor() != CommonStrings::None)
-				{
-					p->setStrokeMode(ScPainter::Solid);
+					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+					p->setStrokeMode(ScPainter::Pattern);
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 				}
 			}
-			else
+			else if (GrTypeStroke > 0)
+			{
+				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+					gradientStrokeVal = "";
+				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+				if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+				{
+					if (lineColor() != CommonStrings::None)
+					{
+						p->setBrush(strokeQColor);
+						p->setStrokeMode(ScPainter::Solid);
+					}
+					else
+						p->setStrokeMode(ScPainter::None);
+				}
+				else
+				{
+					p->setStrokeMode(ScPainter::Gradient);
+					p->stroke_gradient = stroke_gradient;
+					if (GrTypeStroke == 6)
+						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
+					else
+						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
+				}
+				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			}
+			else if (lineColor() != CommonStrings::None)
 			{
 				p->setStrokeMode(ScPainter::Solid);
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-				QColor tmp;
-				for (int it = ml.size()-1; it > -1; it--)
+				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			}
+		}
+		else
+		{
+			p->setStrokeMode(ScPainter::Solid);
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			QColor tmp;
+			for (int it = ml.size()-1; it > -1; it--)
+			{
+				if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
 				{
-					if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
-					{
-						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-						p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-					}
+					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 				}
 			}
 		}
-		if (m_startArrowIndex != 0)
-		{
-			QTransform arrowTrans;
-			arrowTrans.translate(0, 0);
-			arrowTrans.scale(-1,1);
-			arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
-			drawArrow(p, arrowTrans, m_startArrowIndex);
-		}
-		if (m_endArrowIndex != 0)
-		{
-			QTransform arrowTrans;
-			arrowTrans.translate(Width, 0);
-			arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
-			drawArrow(p, arrowTrans, m_endArrowIndex);
-		}
+	}
+	if (m_startArrowIndex != 0)
+	{
+		QTransform arrowTrans;
+		arrowTrans.translate(0, 0);
+		arrowTrans.scale(-1,1);
+		arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
+		drawArrow(p, arrowTrans, m_startArrowIndex);
+	}
+	if (m_endArrowIndex != 0)
+	{
+		QTransform arrowTrans;
+		arrowTrans.translate(Width, 0);
+		arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
+		drawArrow(p, arrowTrans, m_endArrowIndex);
 	}
 }
 

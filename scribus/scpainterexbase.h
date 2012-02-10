@@ -84,8 +84,6 @@ public:
 	virtual void lineTo( const double &, const double & ) = 0;
 	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 ) = 0;
 	virtual void newPath() = 0;
-	virtual void fillTextPath() = 0;
-	virtual void strokeTextPath() = 0;
 	virtual void fillPath() = 0;
 	virtual void strokePath() = 0;
 	virtual void setFillRule( bool fillRule ) = 0;

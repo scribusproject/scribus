@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "pageitem.h"
+#include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
@@ -280,17 +281,19 @@ void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, const QRe
 {
 	drawItem_Pre(item, painter);
 	PageItem::ItemType itemType = item->itemType();
-	if( itemType == PageItem::ImageFrame )
+	if (itemType == PageItem::Group)
+		drawItem_Group( (PageItem_Group*) item, painter, clip);
+	else if (itemType == PageItem::ImageFrame)
 		drawItem_ImageFrame( (PageItem_ImageFrame*) item, painter, clip);
-	else if( itemType == PageItem::Line )
+	else if (itemType == PageItem::Line)
 		drawItem_Line( (PageItem_Line*) item, painter, clip);
-	else if( itemType == PageItem::PathText )
+	else if (itemType == PageItem::PathText)
 		drawItem_PathText(  (PageItem_PathText*) item, painter, clip);
-	else if( itemType == PageItem::Polygon )
+	else if (itemType == PageItem::Polygon)
 		drawItem_Polygon( (PageItem_Polygon*) item, painter, clip);
-	else if( itemType == PageItem::PolyLine )
+	else if (itemType == PageItem::PolyLine)
 		drawItem_PolyLine( (PageItem_PolyLine*) item, painter, clip);
-	else if( itemType == PageItem::TextFrame )
+	else if (itemType == PageItem::TextFrame)
 		drawItem_TextFrame( (PageItem_TextFrame*) item, painter, clip);
 	drawItem_Post(item, painter);
 }
@@ -924,6 +927,107 @@ void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const 
 void ScPageOutput::drawStrokePattern(PageItem* item, ScPainterExBase* painter, const QPainterPath& path)
 {
 
+}
+
+void ScPageOutput::drawItem_Group( PageItem_Group* item, ScPainterExBase* painter, const QRect& clip )
+{
+	if (item->groupItemList.isEmpty())
+		return;
+
+	painter->save();
+	if (item->imageFlippedH())
+	{
+		painter->translate(item->width(), 0);
+		painter->scale(-1, 1);
+	}
+	if (item->imageFlippedV())
+	{
+		painter->translate(0, item->height());
+		painter->scale(1, -1);
+	}
+	/*if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
+	{
+		if ((maskType() == 1) || (maskType() == 2))
+			painter->setMaskMode(1);
+		else
+			painter->setMaskMode(3);
+		if ((!gradientMask().isEmpty()) && (!m_Doc->docGradients.contains(gradientMask())))
+			gradientMaskVal = "";
+		if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
+			mask_gradient = m_Doc->docGradients[gradientMask()];
+		painter->mask_gradient = mask_gradient;
+		if ((maskType() == 1) || (maskType() == 4))
+			painter->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
+		else
+			painter->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
+	}
+	else if ((maskType() == 3) || (maskType() == 6) || (maskType() == 7) || (maskType() == 8))
+	{
+		if ((patternMask().isEmpty()) || (!m_Doc->docPatterns.contains(patternMask())))
+			painter->setMaskMode(0);
+		else
+		{
+			double scw = Width / groupWidth;
+			double sch = Height / groupHeight;
+			painter->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+			if (maskType() == 3)
+				painter->setMaskMode(2);
+			else if (maskType() == 6)
+				painter->setMaskMode(4);
+			else if (maskType() == 7)
+				painter->setMaskMode(5);
+			else
+				painter->setMaskMode(6);
+		}
+	}
+	else*/
+		painter->setMaskMode(0);
+	painter->setFillRule(item->fillRule);
+	//painter->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
+	painter->setMaskMode(0);
+	painter->scale(item->width() / item->groupWidth, item->height() / item->groupHeight);
+	for (int em = 0; em < item->groupItemList.count(); ++em)
+	{
+		PageItem* embedded = item->groupItemList.at(em);
+		painter->save();
+		painter->translate(embedded->gXpos, embedded->gYpos);
+		embedded->isEmbedded = true;
+		embedded->invalidateLayout();
+		drawItem(embedded, painter, QRect());
+		embedded->isEmbedded = false;
+		painter->restore();
+	}
+	for (int em = 0; em < item->groupItemList.count(); ++em)
+	{
+		PageItem* embedded = item->groupItemList.at(em);
+		if (!embedded->isTableItem)
+			continue;
+		painter->save();
+		painter->translate(embedded->gXpos, embedded->gYpos);
+		painter->rotate(embedded->rotation());
+		embedded->isEmbedded = true;
+		embedded->invalidateLayout();
+		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
+		{
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				ScColorShade colorShade(m_doc->PageColors[embedded->lineColor()], embedded->lineShade());
+				painter->setPen(colorShade, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
+				if (embedded->TopLine)
+					painter->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
+				if (embedded->RightLine)
+					painter->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
+				if (embedded->BottomLine)
+					painter->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
+				if (embedded->LeftLine)
+					painter->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
+			}
+		}
+		embedded->isEmbedded = false;
+		painter->restore();
+	}
+	//painter->endLayer();
+	painter->restore();
 }
 
 void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip  )

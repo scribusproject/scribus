@@ -274,18 +274,6 @@ void ScPainterEx_Ps2::setPattern(ScPattern *pattern, double scaleX, double scale
 	m_patternMirrorY = mirrorY;
 }
 
-void ScPainterEx_Ps2::fillTextPath()
-{
-	drawVPath( 0 );
-}
-
-void ScPainterEx_Ps2::strokeTextPath()
-{
-	if( m_lineWidth == 0 )
-		return;
-	drawVPath( 1 );
-}
-
 void ScPainterEx_Ps2::fillPath()
 {
 	if(!m_pathIsClosed)

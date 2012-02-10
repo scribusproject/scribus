@@ -68,144 +68,143 @@ PageItem_ImageFrame::~PageItem_ImageFrame()
 
 void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 {
-	if(!m_Doc->RePos)
+	if (m_Doc->RePos)
+		return;
+	if (m_Doc->layerOutline(LayerID))
+		return;
+
+	p->setFillRule(true);
+	if ((fillColor() != CommonStrings::None) || (GrType != 0))
 	{
-		if (!m_Doc->layerOutline(LayerID))
+		p->setupPolygon(&PoLine);
+		p->fillPath();
+	}
+	p->save();
+	if (Pfile.isEmpty())
+	{
+		if ((Frame) && (m_Doc->guidesPrefs().framesShown))
 		{
-			p->setFillRule(true);
-			if ((fillColor() != CommonStrings::None) || (GrType != 0))
+			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+			p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+		}
+	}
+	else
+	{
+		//If we are missing our image, draw a red cross in the frame
+		if ((!PicArt) || (!PictureIsAvailable))
+		{
+			if ((Frame) && (m_Doc->guidesPrefs().framesShown))
 			{
-				p->setupPolygon(&PoLine);
-				p->fillPath();
-			}
-			p->save();
-			if (Pfile.isEmpty())
-			{
-				if ((Frame) && (m_Doc->guidesPrefs().framesShown))
+				p->setBrush(Qt::white);
+				QString htmlText = "";
+				QFileInfo fi = QFileInfo(Pfile);
+				if (PictureIsAvailable)
 				{
 					p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-				}
-			}
-			else
-			{
-				//If we are missing our image, draw a red cross in the frame
-				if ((!PicArt) || (!PictureIsAvailable))
-				{
-					if ((Frame) && (m_Doc->guidesPrefs().framesShown))
+					if (isInlineImage)
+						htmlText.append( tr("Embedded Image") + "\n");
+					else
+						htmlText.append( tr("File:") + " " + fi.fileName() + "\n");
+					htmlText.append( tr("Original PPI:") + " " + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "\n");
+					htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "\n");
+					htmlText.append( tr("Size:") + " " + QString::number(OrigW) + " x " + QString::number(OrigH) + "\n");
+					htmlText.append( tr("Colorspace:") + " ");
+					QString cSpace;
+					QString ext = fi.suffix().toLower();
+					if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
+						htmlText.append( tr("Unknown"));
+					else
+						htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));
+					if (pixm.imgInfo.numberOfPages > 1)
 					{
-						p->setBrush(Qt::white);
-						QString htmlText = "";
-						QFileInfo fi = QFileInfo(Pfile);
-						if (PictureIsAvailable)
-						{
-							p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-							if (isInlineImage)
-								htmlText.append( tr("Embedded Image") + "\n");
-							else
-								htmlText.append( tr("File:") + " " + fi.fileName() + "\n");
-							htmlText.append( tr("Original PPI:") + " " + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "\n");
-							htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "\n");
-							htmlText.append( tr("Size:") + " " + QString::number(OrigW) + " x " + QString::number(OrigH) + "\n");
-							htmlText.append( tr("Colorspace:") + " ");
-							QString cSpace;
-							QString ext = fi.suffix().toLower();
-							if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
-								htmlText.append( tr("Unknown"));
-							else
-								htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));
-							if (pixm.imgInfo.numberOfPages > 1)
-							{
-								htmlText.append("\n");
-								if (pixm.imgInfo.actualPageNumber > 0)
-									htmlText.append( tr("Page:") + " " + QString::number(pixm.imgInfo.actualPageNumber) + "/" + QString::number(pixm.imgInfo.numberOfPages));
-								else
-									htmlText.append( tr("Pages:") + " " + QString::number(pixm.imgInfo.numberOfPages));
-							}
-						}
+						htmlText.append("\n");
+						if (pixm.imgInfo.actualPageNumber > 0)
+							htmlText.append( tr("Page:") + " " + QString::number(pixm.imgInfo.actualPageNumber) + "/" + QString::number(pixm.imgInfo.numberOfPages));
 						else
-						{
-							p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-							htmlText = fi.fileName();
-						}
-						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-						p->setFont(QApplication::font());
-						p->drawText(QRectF(0.0, 0.0, Width, Height), htmlText);
+							htmlText.append( tr("Pages:") + " " + QString::number(pixm.imgInfo.numberOfPages));
 					}
 				}
 				else
 				{
-					p->setupPolygon(&PoLine);
-					p->setClipPath();
-					if (imageFlippedH())
-					{
-						p->translate(Width, 0);
-						p->scale(-1, 1);
-					}
-					if (imageFlippedV())
-					{
-						p->translate(0, Height);
-						p->scale(1, -1);
-					}
-					if (imageClip.size() != 0)
-					{
-						p->setupPolygon(&imageClip);
-						p->setClipPath();
-					}
-					p->translate(LocalX*LocalScX, LocalY*LocalScY);
-					p->rotate(LocalRot);
-					double mscalex = 1.0 / LocalScX;
-					double mscaley = 1.0 / LocalScY;
-					p->scale(LocalScX, LocalScY);
-					if (pixm.imgInfo.lowResType != 0)
-					{
-						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
-						mscalex *= 1.0 / pixm.imgInfo.lowResScale;
-						mscaley *= 1.0 / pixm.imgInfo.lowResScale;
-					}
-					if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
-					{
-						if ((GrMask == 1) || (GrMask == 2))
-							p->setMaskMode(1);
-						else
-							p->setMaskMode(3);
-						if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
-							gradientMaskVal = "";
-						if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
-							mask_gradient = m_Doc->docGradients[gradientMaskVal];
-						p->mask_gradient = mask_gradient;
-						if ((GrMask == 1) || (GrMask == 4))
-							p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), GrMaskScale, GrMaskSkew);
-						else
-							p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskFocalX * mscalex, GrMaskFocalY * mscaley), GrMaskScale, GrMaskSkew);
-					}
-					else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
-					{
-						if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
-							p->setMaskMode(0);
-						else
-						{
-							p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX * mscalex, patternMaskScaleY * mscaley, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-							if (GrMask == 3)
-								p->setMaskMode(2);
-							else if (GrMask == 6)
-								p->setMaskMode(4);
-							else if (GrMask == 7)
-								p->setMaskMode(5);
-							else
-								p->setMaskMode(6);
-						}
-					}
+					p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					htmlText = fi.fileName();
+				}
+				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				p->setFont(QApplication::font());
+				p->drawText(QRectF(0.0, 0.0, Width, Height), htmlText);
+			}
+		}
+		else
+		{
+			p->setupPolygon(&PoLine);
+			p->setClipPath();
+			if (imageFlippedH())
+			{
+				p->translate(Width, 0);
+				p->scale(-1, 1);
+			}
+			if (imageFlippedV())
+			{
+				p->translate(0, Height);
+				p->scale(1, -1);
+			}
+			if (imageClip.size() != 0)
+			{
+				p->setupPolygon(&imageClip);
+				p->setClipPath();
+			}
+			p->translate(LocalX*LocalScX, LocalY*LocalScY);
+			p->rotate(LocalRot);
+			double mscalex = 1.0 / LocalScX;
+			double mscaley = 1.0 / LocalScY;
+			p->scale(LocalScX, LocalScY);
+			if (pixm.imgInfo.lowResType != 0)
+			{
+				p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
+				mscalex *= 1.0 / pixm.imgInfo.lowResScale;
+				mscaley *= 1.0 / pixm.imgInfo.lowResScale;
+			}
+			if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+			{
+				if ((GrMask == 1) || (GrMask == 2))
+					p->setMaskMode(1);
+				else
+					p->setMaskMode(3);
+				if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
+					gradientMaskVal = "";
+				if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
+					mask_gradient = m_Doc->docGradients[gradientMaskVal];
+				p->mask_gradient = mask_gradient;
+				if ((GrMask == 1) || (GrMask == 4))
+					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), GrMaskScale, GrMaskSkew);
+				else
+					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskFocalX * mscalex, GrMaskFocalY * mscaley), GrMaskScale, GrMaskSkew);
+			}
+			else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+			{
+				if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
+					p->setMaskMode(0);
+				else
+				{
+					p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX * mscalex, patternMaskScaleY * mscaley, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+					if (GrMask == 3)
+						p->setMaskMode(2);
+					else if (GrMask == 6)
+						p->setMaskMode(4);
+					else if (GrMask == 7)
+						p->setMaskMode(5);
 					else
-						p->setMaskMode(0);
-					p->drawImage(pixm.qImagePtr());
+						p->setMaskMode(6);
 				}
 			}
-			p->restore();
+			else
+				p->setMaskMode(0);
+			p->drawImage(pixm.qImagePtr());
 		}
 	}
+	p->restore();
 }
 
 void PageItem_ImageFrame::clearContents()

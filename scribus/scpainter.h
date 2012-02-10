@@ -59,8 +59,6 @@ public:
 	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
 	virtual void newPath();
 	virtual void closePath();
-	virtual void fillTextPath();
-	virtual void strokeTextPath();
 	virtual void fillPath();
 	virtual void strokePath();
 	virtual void setFillRule( bool fillRule );
@@ -121,7 +119,8 @@ public:
 	ScPattern *m_pattern;
 
 private:
-	void drawVPath( int mode );
+	void fillPathHelper();
+	void strokePathHelper();
 
 	cairo_t *m_cr;
 	struct layerProp

@@ -112,147 +112,146 @@ void PageItem_Group::getNamedResources(ResourceCollection& lists) const
 
 void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 {
-	if (!m_Doc->RePos)
+	if (m_Doc->RePos)
+		return;
+
+	if (groupItemList.isEmpty())
 	{
-		if (!groupItemList.isEmpty())
+		if (m_Doc->guidesPrefs().framesShown)
 		{
 			p->save();
-			if (imageFlippedH())
-			{
-				p->translate(Width, 0);
-				p->scale(-1, 1);
-			}
-			if (imageFlippedV())
-			{
-				p->translate(0, Height);
-				p->scale(1, -1);
-			}
-			if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
-			{
-				if ((maskType() == 1) || (maskType() == 2))
-					p->setMaskMode(1);
-				else
-					p->setMaskMode(3);
-				if ((!gradientMask().isEmpty()) && (!m_Doc->docGradients.contains(gradientMask())))
-					gradientMaskVal = "";
-				if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
-					mask_gradient = m_Doc->docGradients[gradientMask()];
-				p->mask_gradient = mask_gradient;
-				if ((maskType() == 1) || (maskType() == 4))
-					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
-				else
-					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
-			}
-			else if ((maskType() == 3) || (maskType() == 6) || (maskType() == 7) || (maskType() == 8))
-			{
-				if ((patternMask().isEmpty()) || (!m_Doc->docPatterns.contains(patternMask())))
-					p->setMaskMode(0);
-				else
-				{
-					double scw = Width / groupWidth;
-					double sch = Height / groupHeight;
-					p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-					if (maskType() == 3)
-						p->setMaskMode(2);
-					else if (maskType() == 6)
-						p->setMaskMode(4);
-					else if (maskType() == 7)
-						p->setMaskMode(5);
-					else
-						p->setMaskMode(6);
-				}
-			}
-			else
-				p->setMaskMode(0);
-			p->setFillRule(fillRule);
-			p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
-			p->setMaskMode(0);
-			p->scale(Width / groupWidth, Height / groupHeight);
-			for (int em = 0; em < groupItemList.count(); ++em)
-			{
-				PageItem* embedded = groupItemList.at(em);
-				p->save();
-				p->translate(embedded->gXpos, embedded->gYpos);
-				embedded->isEmbedded = true;
-				embedded->invalidateLayout();
-				embedded->DrawObj(p, QRectF());
-				embedded->isEmbedded = false;
-				p->restore();
-				if (m_Doc->guidesPrefs().framesShown)
-				{
-					p->save();
-					double x = embedded->xPos();
-					double y = embedded->yPos();
-					embedded->setXYPos(embedded->gXpos, embedded->gYpos, true);
-					embedded->DrawObj_Decoration(p);
-					embedded->setXYPos(x, y, true);
-					p->restore();
-				}
-				if (m_Doc->layerOutline(LayerID))
-				{
-					p->save();
-					p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					p->setFillMode(ScPainter::None);
-					p->setBrushOpacity(1.0);
-					p->setPenOpacity(1.0);
-					p->setupPolygon(&PoLine);
-					p->strokePath();
-					p->restore();
-				}
-			}
-			for (int em = 0; em < groupItemList.count(); ++em)
-			{
-				PageItem* embedded = groupItemList.at(em);
-				if (!embedded->isTableItem)
-					continue;
-				p->save();
-				p->translate(embedded->gXpos, embedded->gYpos);
-				p->rotate(embedded->rotation());
-				embedded->isEmbedded = true;
-				embedded->invalidateLayout();
-				if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
-				{
-					QColor tmp;
-					embedded->SetQColor(&tmp, embedded->lineColor(), embedded->lineShade());
-					if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-					{
-						p->setPen(tmp, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
-						if (embedded->TopLine)
-							p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
-						if (embedded->RightLine)
-							p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
-						if (embedded->BottomLine)
-							p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
-						if (embedded->LeftLine)
-							p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
-					}
-				}
-				embedded->isEmbedded = false;
-				p->restore();
-			}
-			p->endLayer();
+			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+			p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+			p->setFont(QApplication::font());
+			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			p->drawLine(FPoint(Width, 0), FPoint(Width, Height));
+			p->drawLine(FPoint(Width, Height), FPoint(0, Height));
+			p->drawLine(FPoint(0, Height), FPoint(0, 0));
+			p->setBrush(QColor(255, 255, 255));
+			p->setBrushOpacity(0.0);
+			p->drawText(QRectF(0.0, 0.0, Width, Height), "Empty Group");
 			p->restore();
 		}
+		return;
+	}
+
+	p->save();
+	if (imageFlippedH())
+	{
+		p->translate(Width, 0);
+		p->scale(-1, 1);
+	}
+	if (imageFlippedV())
+	{
+		p->translate(0, Height);
+		p->scale(1, -1);
+	}
+	if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
+	{
+		if ((maskType() == 1) || (maskType() == 2))
+			p->setMaskMode(1);
+		else
+			p->setMaskMode(3);
+		if ((!gradientMask().isEmpty()) && (!m_Doc->docGradients.contains(gradientMask())))
+			gradientMaskVal = "";
+		if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
+			mask_gradient = m_Doc->docGradients[gradientMask()];
+		p->mask_gradient = mask_gradient;
+		if ((maskType() == 1) || (maskType() == 4))
+			p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
+		else
+			p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
+	}
+	else if ((maskType() == 3) || (maskType() == 6) || (maskType() == 7) || (maskType() == 8))
+	{
+		if ((patternMask().isEmpty()) || (!m_Doc->docPatterns.contains(patternMask())))
+			p->setMaskMode(0);
 		else
 		{
-			if (m_Doc->guidesPrefs().framesShown)
-			{
-				p->save();
-				p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-				p->setFont(QApplication::font());
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-				p->drawLine(FPoint(Width, 0), FPoint(Width, Height));
-				p->drawLine(FPoint(Width, Height), FPoint(0, Height));
-				p->drawLine(FPoint(0, Height), FPoint(0, 0));
-				p->setBrush(QColor(255, 255, 255));
-				p->setBrushOpacity(0.0);
-				p->drawText(QRectF(0.0, 0.0, Width, Height), "Empty Group");
-				p->restore();
-			}
+			double scw = Width / groupWidth;
+			double sch = Height / groupHeight;
+			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+			if (maskType() == 3)
+				p->setMaskMode(2);
+			else if (maskType() == 6)
+				p->setMaskMode(4);
+			else if (maskType() == 7)
+				p->setMaskMode(5);
+			else
+				p->setMaskMode(6);
 		}
 	}
+	else
+		p->setMaskMode(0);
+	p->setFillRule(fillRule);
+	p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
+	p->setMaskMode(0);
+	p->scale(Width / groupWidth, Height / groupHeight);
+	for (int em = 0; em < groupItemList.count(); ++em)
+	{
+		PageItem* embedded = groupItemList.at(em);
+		p->save();
+		p->translate(embedded->gXpos, embedded->gYpos);
+		embedded->isEmbedded = true;
+		embedded->invalidateLayout();
+		embedded->DrawObj(p, QRectF());
+		embedded->isEmbedded = false;
+		p->restore();
+		if (m_Doc->guidesPrefs().framesShown)
+		{
+			p->save();
+			double x = embedded->xPos();
+			double y = embedded->yPos();
+			embedded->setXYPos(embedded->gXpos, embedded->gYpos, true);
+			embedded->DrawObj_Decoration(p);
+			embedded->setXYPos(x, y, true);
+			p->restore();
+		}
+		if (m_Doc->layerOutline(LayerID))
+		{
+			p->save();
+			p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setFillMode(ScPainter::None);
+			p->setBrushOpacity(1.0);
+			p->setPenOpacity(1.0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+			p->restore();
+		}
+	}
+	for (int em = 0; em < groupItemList.count(); ++em)
+	{
+		PageItem* embedded = groupItemList.at(em);
+		if (!embedded->isTableItem)
+			continue;
+		p->save();
+		p->translate(embedded->gXpos, embedded->gYpos);
+		p->rotate(embedded->rotation());
+		embedded->isEmbedded = true;
+		embedded->invalidateLayout();
+		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
+		{
+			QColor tmp;
+			embedded->SetQColor(&tmp, embedded->lineColor(), embedded->lineShade());
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				p->setPen(tmp, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
+				if (embedded->TopLine)
+					p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
+				if (embedded->RightLine)
+					p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
+				if (embedded->BottomLine)
+					p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
+				if (embedded->LeftLine)
+					p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
+			}
+		}
+		embedded->isEmbedded = false;
+		p->restore();
+	}
+	p->endLayer();
+	p->restore();
 }
 
 void PageItem_Group::applicableActions(QStringList & actionList)
