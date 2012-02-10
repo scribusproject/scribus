@@ -517,10 +517,10 @@ void Selection::setGroupRect()
 			QRectF itRect(currItem->getVisualBoundingRect());
 // 			for (uint pc = 0; pc < 4; ++pc)
 			{
-				vminx = qMin(vminx, itRect.x());
-				vminy = qMin(vminy, itRect.y());
-				vmaxx = qMax(vmaxx, itRect.right());
-				vmaxy = qMax(vmaxy, itRect.bottom());
+				vminx = qMin(vminx, (double)itRect.x());
+				vminy = qMin(vminy, (double)itRect.y());
+				vmaxx = qMax(vmaxx, (double)itRect.right());
+				vmaxy = qMax(vmaxy, (double)itRect.bottom());
 			}
 		}
 		else

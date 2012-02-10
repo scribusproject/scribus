@@ -2840,12 +2840,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									if (style.underlineWidth() != -1)
 										Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 									else
-										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 								}
 								else
 								{
 									Upos = style.font().underlinePos(style.fontSize() / 10.0);
-									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 								}
 								if (style.baselineOffset() != 0)
 									Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
@@ -2911,12 +2911,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									if (style.strikethruWidth() != -1)
 										Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 									else
-										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 								}
 								else
 								{
 									Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 								}
 								if (style.baselineOffset() != 0)
 									Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
@@ -2988,12 +2988,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							if (style.underlineWidth() != -1)
 								Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 							else
-								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 						}
 						else
 						{
 							Upos = style.font().underlinePos(style.fontSize() / 10.0);
-							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 						}
 						if (style.baselineOffset() != 0)
 							Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
@@ -3065,12 +3065,12 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							if (style.strikethruWidth() != -1)
 								Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 							else
-								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 						}
 						else
 						{
 							Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 						}
 						if (style.baselineOffset() != 0)
 							Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
@@ -3789,12 +3789,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				if (cstyle.underlineWidth() != -1)
 					lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
 				else
-					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
+					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), qreal(1.0));
 			}
 			else
 			{
 				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
+				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), qreal(1.0));
 			}
 			if (cstyle.baselineOffset() != 0)
 				Upos += (cstyle.fontSize() / 10.0) * glyphs.scaleV * (cstyle.baselineOffset() / 1000.0);
@@ -3922,12 +3922,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				if (cstyle.strikethruWidth() != -1)
 					lw = (cstyle.strikethruWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
 				else
-					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
+					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), qreal(1.0));
 			}
 			else
 			{
 				Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
+				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), qreal(1.0));
 			}
 			if (cstyle.baselineOffset() != 0)
 				Upos += (cstyle.fontSize() / 10.0) * glyphs.scaleV * (cstyle.baselineOffset() / 1000.0);

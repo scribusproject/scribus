@@ -115,7 +115,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{
-		QVector<double> m_array;
+		QVector<qreal> m_array;
 		PageItem *currItem = currDoc->m_Selection->itemAt(0);
 		FPointArray path = currItem->PoLine;
 		QPainterPath pp;

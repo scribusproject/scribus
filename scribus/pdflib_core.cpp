@@ -4418,12 +4418,12 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				if (style.underlineWidth() != -1)
 					Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+					Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), (qreal)1.0);
 			}
 			else
 			{
 				Upos = style.font().underlinePos(style.fontSize() / 10.0);
-				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), (qreal)1.0);
 			}
 			if (style.baselineOffset() != 0)
 				Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);
@@ -4698,12 +4698,12 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				if (style.strikethruWidth() != -1)
 					Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+					Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), (qreal)1.0);
 			}
 			else
 			{
 				Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), (qreal)1.0);
 			}
 			if (style.baselineOffset() != 0)
 				Upos += (style.fontSize() / 10.0) * hl->glyph.scaleV * (style.baselineOffset() / 1000.0);

@@ -2038,12 +2038,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if (style.underlineWidth() != -1)
 					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+    				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 			}
 			else
 			{
 				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -2156,12 +2156,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if (style.strikethruWidth() != -1)
 					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+    				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 			}
 			else
 			{
 				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), qreal(1.0));
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -4829,7 +4829,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		FPoint maxAr = getMaxClipF(&arrow);
 		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
 	}
-	totalRect.getCoords(x1, y1, x2, y2);
+	totalRect.getCoords((qreal*)x1, (qreal*)y1, (qreal*)x2, (qreal*)y2);
 }
 
 void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
@@ -4989,7 +4989,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		FPoint maxAr = getMaxClipF(&arrow);
 		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
 	}
-	totalRect.getCoords(x1, y1, x2, y2);
+	totalRect.getCoords((qreal*)x1, (qreal*)y1, (qreal*)x2, (qreal*)y2);
 }
 
 double PageItem::visualXPos() const

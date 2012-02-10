@@ -101,7 +101,7 @@ void ModeToolBar::SelShape(int s, int c, qreal *vals)
 //	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
-	ShapeVals = vals;
+	ShapeVals = (double*)vals;
 	m_ScMW->scrActions["toolsInsertShape"]->setChecked(false);
 	m_ScMW->scrActions["toolsInsertShape"]->setChecked(true);
 }

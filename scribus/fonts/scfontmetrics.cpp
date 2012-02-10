@@ -281,7 +281,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 			{
 				gly.translate(static_cast<qreal>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
-				ymax = qMax(ymax, gp.y());
+				ymax = qMax(double(ymax), gp.y());
 				p->setupPolygon(&gly);
 				p->fillPath();
 			}
@@ -302,7 +302,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 			{
 				gly.translate(static_cast<qreal>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
-				ymax = qMax(ymax, gp.y());
+				ymax = qMax(double(ymax), gp.y());
 				p->setupPolygon(&gly);
 				p->fillPath();
 			}

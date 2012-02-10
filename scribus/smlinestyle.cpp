@@ -734,7 +734,7 @@ void SMLineStyle::updatePreview()
 	for (int it = (*tmpLine).size()-1; it > -1; it--)
 	{
 		QPen pen;
-		QVector<double> m_array;
+		QVector<qreal> m_array;
 		if ((*tmpLine)[it].Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else

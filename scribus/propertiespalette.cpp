@@ -107,7 +107,7 @@ void LineFormatItemDelegate::redraw(const QVariant& data) const
 		const ScColor& col = item.m_doc->PageColors[item.m_Line[its].Color];
 		tmpf = ScColorEngine::getDisplayColor(col, item.m_doc, item.m_Line[its].Shade);
 		QPen pen;
-		QVector<double> m_array;
+		QVector<qreal> m_array;
 		if (item.m_Line[its].Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else
@@ -4618,7 +4618,7 @@ void PropertiesPalette::MakeIrre(int f, int c, qreal *vals)
 			doc->setRedrawBounding(CurItem);
 			break;
 		default:
-			CurItem->SetFrameShape(c, vals);
+			CurItem->SetFrameShape(c, (double*)vals);
 			doc->setRedrawBounding(CurItem);
 			CurItem->FrameType = f+2;
 			break;

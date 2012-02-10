@@ -4153,12 +4153,12 @@ void ScribusView::TextToPath()
 							if (charStyle.underlineWidth() != -1)
 								Uwid = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
 							else
-								Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+								Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 						}
 						else
 						{
 							Upos = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-							Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+							Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 						}
 						if (charStyle.baselineOffset() != 0)
 							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
@@ -4293,12 +4293,12 @@ void ScribusView::TextToPath()
 							if (charStyle.strikethruWidth() != -1)
 								Uwid = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
 							else
-								Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+								Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 						}
 						else
 						{
 							Upos = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-							Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+							Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 						}
 						if (charStyle.baselineOffset() != 0)
 							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
@@ -4383,12 +4383,12 @@ void ScribusView::TextToPath()
 								if (charStyle.underlineWidth() != -1)
 									lw = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
 								else
-									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 							}
 							else
 							{
 								st = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-								lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+								lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 							}
 							if (charStyle.baselineOffset() != 0)
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
@@ -4567,12 +4567,12 @@ void ScribusView::TextToPath()
 								if (charStyle.strikethruWidth() != -1)
 									lw = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
 								else
-									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 							}
 							else
 							{
 								st = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-								lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+								lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), (qreal)1.0);
 							}
 							if (charStyle.baselineOffset() != 0)
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);

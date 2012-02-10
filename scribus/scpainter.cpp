@@ -941,7 +941,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
 		if (fillMode == 1)
 		{
-			double r, g, b;
+			qreal r, g, b;
 			m_fill.getRgbF(&r, &g, &b);
 			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
 //			if (fill_trans != 1.0)
@@ -979,7 +979,7 @@ void ScPainter::drawVPath( int mode )
 				vneu = 255 - ((255 - v) * shad / 100);
 				qStopColor.setHsv(h, sneu, vneu);
 				double a = colorStops[offset]->opacity;
-				double r, g, b;
+				qreal r, g, b;
 				qStopColor.getRgbF(&r, &g, &b);
 				cairo_pattern_add_color_stop_rgba (pat, rampPoint, r, g, b, a);
 				lastPoint = rampPoint;
@@ -1024,7 +1024,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
-		double r, g, b;
+		qreal r, g, b;
 		m_stroke.getRgbF(&r, &g, &b);
 		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
 //		if (stroke_trans != 1.0)
@@ -1348,7 +1348,7 @@ void ScPainter::drawText(QRectF area, QString text)
 	double y;
 	double ww = 0;
 	double hh = 0;
-	double r, g, b;
+	qreal r, g, b;
 	cairo_select_font_face(m_cr, m_font.family().toLatin1(), CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 	cairo_set_font_size(m_cr, m_font.pointSizeF());
 	cairo_font_extents (m_cr, &extentsF);

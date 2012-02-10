@@ -525,7 +525,7 @@ struct LineControl {
 		double maxX = colRight - morespace;
 		if (legacy) maxX -= lineCorr;
 
-		double StartX = floor(qMax(line.x, qMin(maxX,breakXPos-maxShrink-1))-1);
+		double StartX = floor(qMax((double)line.x, qMin(maxX,breakXPos-maxShrink-1))-1);
 		int xPos  = static_cast<int>(ceil(maxX));
 
 		QPoint  pt12 (xPos, Yasc);
@@ -729,8 +729,8 @@ struct LineControl {
 				desc = cStyle.font().realCharDescent(ch, cStyle.fontSize() / 10.0) * scaleV - offset;
 			}
 			//	qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result);
-			line.ascent  = qMax(line.ascent, asce);
-			line.descent = qMax(line.descent, desc);
+			line.ascent  = qMax((double)line.ascent, asce);
+			line.descent = qMax((double)line.descent, desc);
 		}
 	}
 	
