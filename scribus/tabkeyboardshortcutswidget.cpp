@@ -493,7 +493,7 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 			tl = keyDisplay->text().split("+", QString::SkipEmptyParts);
 			if (tl.count() > 0)
 			{
-				Part4 = tl[tl.count()-1];
+				Part4 = tl.last();
 				if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 					Part4 = "";
 			}
@@ -553,7 +553,7 @@ void TabKeyboardShortcutsWidget::keyReleaseEvent(QKeyEvent *k)
 			tl = keyDisplay->text().split("+", QString::SkipEmptyParts);
 			if (tl.count() > 0)
 			{
-				Part4 = tl[tl.count()-1];
+				Part4 = tl.last();
 				if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 					Part4 = "";
 			}

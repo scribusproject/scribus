@@ -612,7 +612,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 		neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
 		neu->Groups.push(m_Doc->GroupCounter);
 		neu->isGroupControl = true;
-		neu->groupsLastItem = cElements.at(cElements.count()-1);
+		neu->groupsLastItem = cElements.last();
 		if( !e.attribute("id").isEmpty() )
 			neu->setItemName(e.attribute("id"));
 		else

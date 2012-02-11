@@ -7584,7 +7584,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 					PutDoc("   /F "+QString::number(threadObj + 1)+" 0 R\n");
 					PutDoc(">>\nendobj\n");
 					Beads[0].Prev = fir + Beads.count()-1;
-					Beads[Beads.count()-1].Next = fir;
+					Beads.last().Next = fir;
 				}
 				for (int beac = 0; beac < Beads.count(); ++beac)
 				{

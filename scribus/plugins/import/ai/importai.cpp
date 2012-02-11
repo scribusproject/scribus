@@ -1157,7 +1157,7 @@ void AIPlug::processData(QString data)
 				}
 				else
 				{
-					ite = m_Doc->Items->at(m_Doc->Items->count()-1);
+					ite = m_Doc->Items->last();
 					ite->PoLine.setMarker();
 					Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					ite->PoLine.putPoints(ite->PoLine.size(), Coords.size(), Coords);
@@ -1178,7 +1178,7 @@ void AIPlug::processData(QString data)
 		else if (command == "*U")
 		{
 			WasU = false;
-			ite = m_Doc->Items->at(m_Doc->Items->count()-1);
+			ite = m_Doc->Items->last();
 			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->setWidthHeight(wh.x(),wh.y());
 			m_Doc->AdjustItemSize(ite);
@@ -1328,7 +1328,7 @@ void AIPlug::processData(QString data)
 			if (itemRendered)
 			{
 				gradientMode = false;
-				ite = m_Doc->Items->at(m_Doc->Items->count()-1);
+				ite = m_Doc->Items->last();
 				ite->fill_gradient = m_gradients[currentGradientName];
 				if (ite->fill_gradient.type() == 0)
 					ite->GrType = 6;
@@ -1969,7 +1969,7 @@ void AIPlug::processGradientData(QString data)
 	{
 		Cdata = da[a];
 		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
-		command = da2[da2.count()-1];
+		command = da2.last();
 		if (command == "Bd")
 		{
 			QString tmpS = Cdata;
@@ -2144,7 +2144,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	QString Cdata = "";
 	QStringList da;
 	getCommands(cumulated, da);
-	Cdata = da[da.count()-1];
+	Cdata = da.last();
 	ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 	gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6 >> x1 >> y1 >> x2 >> y2 >> w >> h >> bits >> type >> alpha >> dummy >> bin;
 //	qDebug() << QString("Matrix: %1 %2 %3 %4 %5 %6").arg(m1).arg(m2).arg(m3).arg(m4).arg(m5).arg(m6);

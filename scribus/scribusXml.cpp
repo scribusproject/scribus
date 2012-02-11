@@ -1392,7 +1392,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 		{
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
-			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			PageItem* Neu = doc->Items->last();
 			Neu->doOverprint = doOverprint;
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			if (Neu->asLatexFrame())
@@ -1694,7 +1694,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 		{
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
-			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			PageItem* Neu = doc->Items->last();
 			Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			Neu->itemText = storyText;
