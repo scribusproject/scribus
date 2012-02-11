@@ -14,12 +14,14 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "pageitem.h"
+#include "pageitem_arc.h"
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
+#include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scfonts.h"
@@ -281,7 +283,9 @@ void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, const QRe
 {
 	drawItem_Pre(item, painter);
 	PageItem::ItemType itemType = item->itemType();
-	if (itemType == PageItem::Group)
+	if (itemType == PageItem::Arc)
+		drawItem_Arc( (PageItem_Arc*) item, painter, clip);
+	else if (itemType == PageItem::Group)
 		drawItem_Group( (PageItem_Group*) item, painter, clip);
 	else if (itemType == PageItem::ImageFrame)
 		drawItem_ImageFrame( (PageItem_ImageFrame*) item, painter, clip);
@@ -293,6 +297,8 @@ void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, const QRe
 		drawItem_Polygon( (PageItem_Polygon*) item, painter, clip);
 	else if (itemType == PageItem::PolyLine)
 		drawItem_PolyLine( (PageItem_PolyLine*) item, painter, clip);
+	else if (itemType == PageItem::Spiral)
+		drawItem_Spiral( (PageItem_Spiral*) item, painter, clip);
 	else if (itemType == PageItem::TextFrame)
 		drawItem_TextFrame( (PageItem_TextFrame*) item, painter, clip);
 	drawItem_Post(item, painter);
@@ -929,6 +935,12 @@ void ScPageOutput::drawStrokePattern(PageItem* item, ScPainterExBase* painter, c
 
 }
 
+void ScPageOutput::drawItem_Arc ( PageItem_Arc* item , ScPainterExBase* painter, const QRect& clip )
+{
+	painter->setupPolygon(&item->PoLine);
+	fillPath(item, painter, clip);
+}
+
 void ScPageOutput::drawItem_Group( PageItem_Group* item, ScPainterExBase* painter, const QRect& clip )
 {
 	if (item->groupItemList.isEmpty())
@@ -1444,6 +1456,110 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	}
 }
 
+void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, const QRect& clip )
+{
+	int startArrowIndex = item->startArrowIndex();
+	int endArrowIndex = item->endArrowIndex();
+
+	if (item->PoLine.size()>=4)
+	{
+		if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+		{
+			FPointArray cli;
+			FPoint Start;
+			bool firstp = true;
+			for (uint n = 0; n < item->PoLine.size()-3; n += 4)
+			{
+				if (firstp)
+				{
+					Start = item->PoLine.point(n);
+					firstp = false;
+				}
+				if (item->PoLine.point(n).x() > 900000)
+				{
+					cli.addPoint(item->PoLine.point(n-2));
+					cli.addPoint(item->PoLine.point(n-2));
+					cli.addPoint(Start);
+					cli.addPoint(Start);
+					cli.setMarker();
+					firstp = true;
+					continue;
+				}
+				cli.addPoint(item->PoLine.point(n));
+				cli.addPoint(item->PoLine.point(n+1));
+				cli.addPoint(item->PoLine.point(n+2));
+				cli.addPoint(item->PoLine.point(n+3));
+			}
+			if (cli.size() > 2)
+			{
+				FPoint l1 = cli.point(cli.size()-2);
+				cli.addPoint(l1);
+				cli.addPoint(l1);
+				cli.addPoint(Start);
+				cli.addPoint(Start);
+			}
+			painter->setupPolygon(&cli);
+			fillPath(item, painter, clip);
+		}
+		painter->setupPolygon(&item->PoLine, false);
+		if (item->NamedLStyle.isEmpty())
+		{
+			if (item->lineColor() != CommonStrings::None)
+				painter->strokePath();
+		}
+		else
+		{
+			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+			for (int it = ml.size()-1; it > -1; it--)
+			{
+				const SingleLine& sl = ml[it];
+				if (sl.Color != CommonStrings::None)
+				{
+					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+					painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+							static_cast<Qt::PenCapStyle>(sl.LineEnd),
+							static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+					painter->strokePath();
+				}
+			}
+		}
+		if (startArrowIndex != 0)
+		{
+			FPoint Start = item->PoLine.point(0);
+			for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+			{
+				FPoint Vector = item->PoLine.point(xx);
+				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				{
+					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+					QTransform arrowTrans;
+					arrowTrans.translate(Start.x(), Start.y());
+					arrowTrans.rotate(r);
+					drawArrow(painter, item, arrowTrans, startArrowIndex);
+					break;
+				}
+			}
+		}
+		if (endArrowIndex != 0)
+		{
+			FPoint End = item->PoLine.point(item->PoLine.size()-2);
+			for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+			{
+				FPoint Vector = item->PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				{
+					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					QTransform arrowTrans;
+					arrowTrans.translate(End.x(), End.y());
+					arrowTrans.rotate(r);
+					drawArrow(painter, item, arrowTrans, endArrowIndex);
+					break;
+				}
+			}
+		}
+	}
+}
+
 void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip )
 {
 	QTransform wm;
@@ -1828,9 +1944,3 @@ void ScPageOutput::strokePath( PageItem* item, ScPainterExBase* painter, const Q
 {
 	painter->strokePath();
 }
-
-
-
-
-
-

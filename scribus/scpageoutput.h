@@ -19,12 +19,14 @@ class CharStyle;
 struct GlyphLayout;
 class ScPage;
 class PageItem;
+class PageItem_Arc;
 class PageItem_Group;
 class PageItem_ImageFrame;
 class PageItem_Line;
 class PageItem_PathText;
 class PageItem_Polygon;
 class PageItem_PolyLine;
+class PageItem_Spiral;
 class PageItem_TextFrame;
 class ScLayer;
 class ScribusDoc;
@@ -72,12 +74,14 @@ protected:
 	virtual void drawPattern(PageItem* item, ScPainterExBase* painter, const QRect& clip);
 	virtual void drawStrokePattern(PageItem* item, ScPainterExBase* painter, const QPainterPath& path);
 	
+	virtual void drawItem_Arc( PageItem_Arc* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Group( PageItem_Group* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, const QRect& clip);
 	virtual void drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painte, const QRect& clip );
+	virtual void drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip );
 
 	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex);
