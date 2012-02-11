@@ -137,15 +137,15 @@ QPainterPath RegularPolygonPath(double w, double h, uint c, bool star, double fa
 		myc1 = oline.pointAt(factor3).y();
 		// inner control point
 		sc = seg * (cornerPoints.count()-1) + 180.0 + rota;
-		mxc2 = sin((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].x();
-		myc2 = cos((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].y();
-		pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints[cornerPoints.count()-1]);
+		mxc2 = sin((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().x();
+		myc2 = cos((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().y();
+		pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints.last());
 		oline = QLineF(cornerPoints[0], cornerPoints[cornerPoints.count()-2]);
 		mxc1 = oline.pointAt(factor3).x();
 		myc1 = oline.pointAt(factor3).y();
 		// inner control point
-		mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].x();
-		myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[cornerPoints.count()-1].y();
+		mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().x();
+		myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().y();
 		pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[0]);
 		pts.closeSubpath();
 	}

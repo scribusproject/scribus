@@ -1067,16 +1067,16 @@ void ScPainter::fillPathHelper()
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
 				qStopColors.append(qStopColor);
 			}
-			qStopColors[qStopColors.count()-1].getRgbF(&r, &g, &b, &a);
+			qStopColors.last().getRgbF(&r, &g, &b, &a);
 			QPointF centerP = QPointF(gradControlP5.x(), gradControlP5.y());
 			QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
 			QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
 			QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
 			QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
-			QPointF p1 = edge1.pointAt(colorStops[colorStops.count()-1]->rampPoint);
-			QPointF p2 = edge2.pointAt(colorStops[colorStops.count()-1]->rampPoint);
-			QPointF p3 = edge3.pointAt(colorStops[colorStops.count()-1]->rampPoint);
-			QPointF p4 = edge4.pointAt(colorStops[colorStops.count()-1]->rampPoint);
+			QPointF p1 = edge1.pointAt(colorStops.last()->rampPoint);
+			QPointF p2 = edge2.pointAt(colorStops.last()->rampPoint);
+			QPointF p3 = edge3.pointAt(colorStops.last()->rampPoint);
+			QPointF p4 = edge4.pointAt(colorStops.last()->rampPoint);
 			cairo_set_source_rgba(cr, r, g, b, a);
 			cairo_paint_with_alpha(cr, 1.0);
 			cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);

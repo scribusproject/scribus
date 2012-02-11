@@ -830,7 +830,7 @@ void ScPainterEx_Cairo::drawDiamondGradient( VGradientEx& gradient, const QRect&
 		qStopColor.setAlphaF(colorStops[offset]->opacity);
 		qStopColors.append(qStopColor);
 	}
-	qStopColors[qStopColors.count()-1].getRgbF(&r, &g, &b, &a);
+	qStopColors.last().getRgbF(&r, &g, &b, &a);
 	QPointF centerP = QPointF(m_gradControlP5.x(), m_gradControlP5.y());
 	QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
 	QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));

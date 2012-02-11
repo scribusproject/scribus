@@ -65,7 +65,7 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 		if (!keyDisplay->text().isEmpty())
 		{
 			tl = keyDisplay->text().split("+", QString::SkipEmptyParts);
-			Part4 = tl[tl.count()-1];
+			Part4 = tl.last();
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";
 		}
@@ -112,7 +112,7 @@ void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
 		{
 			QStringList tl;
 			tl = keyDisplay->text().split("+", QString::SkipEmptyParts);
-			Part4 = tl[tl.count()-1];
+			Part4 = tl.last();
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";
 		}

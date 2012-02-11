@@ -328,7 +328,7 @@ void SlaOutputDev::stroke(GfxState *state)
 	getPenState(state);
 	if ((m_Elements->count() != 0) && (output == Coords))			// Path is the same as in last fill
 	{
-		PageItem* ite = m_Elements->at(m_Elements->count()-1);
+		PageItem* ite = m_Elements->last();
 		ite->setLineColor(CurrColorStroke);
 		ite->setLineShade(shade);
 		ite->setLineEnd(PLineEnd);

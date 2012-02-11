@@ -7512,10 +7512,10 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 	{
 		QString ShName = ResNam+QString::number(ResCount);
 		ResCount++;
-		Transpar[ShName] = writeGState("/ca "+FToStr(TransVec[TransVec.count()-1])+"\n/SMask /None\n/AIS false\n/OPM 1\n");
+		Transpar[ShName] = writeGState("/ca "+FToStr(TransVec.last())+"\n/SMask /None\n/AIS false\n/OPM 1\n");
 		tmp += "/"+ShName+" gs\n";
 	}
-	tmp += putColor(colorNames[colorNames.count()-1], colorShades[colorShades.count()-1], true);
+	tmp += putColor(colorNames.last(), colorShades.last(), true);
 	tmp += SetClipPath(c);
 	tmp += "h\n";
 	tmp += FToStr(c->GrControl1.x())+" "+FToStr(-c->GrControl1.y())+" m\n";
@@ -10343,7 +10343,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 					PutDoc("   /F "+QString::number(threadObj + 1)+" 0 R\n");
 					PutDoc(">>\nendobj\n");
 					Beads[0].Prev = fir + Beads.count()-1;
-					Beads[Beads.count()-1].Next = fir;
+					Beads.last().Next = fir;
 				}
 				for (int beac = 0; beac < Beads.count(); ++beac)
 				{

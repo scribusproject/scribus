@@ -25,14 +25,15 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 #include "scribusapi.h"
-#include "colormgmt/sccolormgmtstructs.h"
+
+#include "annotation.h"
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "scfonts.h"
 #include "scimagestructs.h"
 #include "sctextstruct.h"
-#include "scfonts.h"
-#include "fpointarray.h"
 #include "vgradient.h"
-#include "annotation.h"
-#include "pageitem.h"
+#include "colormgmt/sccolormgmtstructs.h"
 
 extern bool SCRIBUS_API compareDouble(double, double);
 
