@@ -528,7 +528,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				{
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
-						ite = Elements.at(Elements.count()-1);
+						ite = Elements.last();
 						ite->setFillColor(CurrColor);
 						ite->setFillTransparency(1.0 - Opacity);
 						lastPath = "";
@@ -568,7 +568,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				//	LineW = qMax(LineW, 0.01); // Set Linewidth to be a least 0.01 pts, a Stroke without a Linewidth makes no sense
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
-						ite = Elements.at(Elements.count()-1);
+						ite = Elements.last();
 						ite->setLineColor(CurrColor);
 						ite->setLineWidth(LineW);
 						ite->PLineEnd = CapStyle;
@@ -617,13 +617,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			{
 				if (Coords.size() != 0)
 				{
-					QString vers = QString(qVersion()).left(5);
-					if (vers < "4.3.3")
+					QPainterPath tmpPath = Coords.toQPainterPath(true);
+					tmpPath = boundingBoxRect.intersected(tmpPath);
+					if ((tmpPath.boundingRect().width() != 0) && (tmpPath.boundingRect().height() != 0))
 					{
-						clipCoords = Coords;
+						clipCoords.fromQPainterPath(tmpPath);
 						z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 						ite = m_Doc->Items->at(z);
-						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+						ite->PoLine = clipCoords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
@@ -642,36 +643,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						groupStackP.push(gElements);
 						gsStackMarks.push(gsStack.count());
 						m_Doc->GroupCounter++;
-					}
-					else
-					{
-						QPainterPath tmpPath = Coords.toQPainterPath(true);
-						tmpPath = boundingBoxRect.intersected(tmpPath);
-						if ((tmpPath.boundingRect().width() != 0) && (tmpPath.boundingRect().height() != 0))
-						{
-							clipCoords.fromQPainterPath(tmpPath);
-							z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
-							ite = m_Doc->Items->at(z);
-							ite->PoLine = clipCoords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
-							ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-							ite->ClipEdited = true;
-							ite->FrameType = 3;
-							FPoint wh = getMaxClipF(&ite->PoLine);
-							ite->setWidthHeight(wh.x(),wh.y());
-							ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-							m_Doc->AdjustItemSize(ite, true);
-							ite->ContourLine = ite->PoLine.copy();
-							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-							ite->setTextFlowMode(PageItem::TextFlowDisabled);
-							Elements.append(ite);
-							if ((groupStack.count() != 0) && (groupStackP.count() != 0))
-								groupStackP.top().append(ite);
-							groupStack.push(ite);
-							QList<PageItem*> gElements;
-							groupStackP.push(gElements);
-							gsStackMarks.push(gsStack.count());
-							m_Doc->GroupCounter++;
-						}
 					}
 				}
 				Coords   = FPointArray(0);
