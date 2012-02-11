@@ -51,6 +51,7 @@ protected:
 
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(ScrSpinBox *spinBox);
+	void installSniffer(QSpinBox *spinBox);
 
 private:
 

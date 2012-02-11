@@ -47,6 +47,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText(tr( "Auto" ));
 	imagePageNumberLabel->setBuddy(imagePageNumber);
+	installSniffer(imagePageNumber);
 	
 //	freeScale = new QRadioButton( "&Free Scaling", this );
 //	freeScale->setChecked( true );
@@ -203,6 +204,21 @@ PageItem* PropertiesPalette_Image::currentItemFromSelection()
 }
 
 void PropertiesPalette_Image::installSniffer(ScrSpinBox *spinBox)
+{
+	const QList<QObject*> list = spinBox->children();
+	if (!list.isEmpty())
+	{
+		QListIterator<QObject*> it(list);
+		QObject *obj;
+		while (it.hasNext())
+		{
+			obj = it.next();
+			obj->installEventFilter(userActionSniffer);
+		}
+	}
+}
+
+void PropertiesPalette_Image::installSniffer(QSpinBox *spinBox)
 {
 	const QList<QObject*> list = spinBox->children();
 	if (!list.isEmpty())
