@@ -19,6 +19,7 @@ class CharStyle;
 struct GlyphLayout;
 class ScPage;
 class PageItem;
+class PageItem_Group;
 class PageItem_ImageFrame;
 class PageItem_Line;
 class PageItem_PathText;
