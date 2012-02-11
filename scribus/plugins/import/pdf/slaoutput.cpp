@@ -496,7 +496,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 			}
 		}
 	}
-	else if (func->getType() == 2)
+	else if ((func->getType() == 2) || (func->getType() == 0))
 	{
 		GfxColor stop1;
 		((GfxAxialShading*)shading)->getColor(0.0, &stop1);
@@ -591,7 +591,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 			}
 		}
 	}
-	else if (func->getType() == 2)
+	else if ((func->getType() == 2) || (func->getType() == 0))
 	{
 		GfxColor stop1;
 		((GfxRadialShading*)shading)->getColor(0.0, &stop1);
