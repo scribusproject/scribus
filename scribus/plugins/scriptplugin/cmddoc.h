@@ -111,9 +111,9 @@ PyObject *scribus_closedoc(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_havedoc__doc__,
-QT_TR_NOOP("haveDoc() -> bool\n\
+QT_TR_NOOP("haveDoc() -> int\n\
 \n\
-Returns true if there is a document open.\n\
+Returns the quantity of open documents: 0 if none are opened.\n\
 "));
 /** Checks if is a document opened. */
 PyObject *scribus_havedoc(PyObject * /*self*/);
