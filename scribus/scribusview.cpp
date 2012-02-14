@@ -1711,8 +1711,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 			FPoint point(pf.x() - currItem->xPos(), pf.y() - currItem->yPos());
 			if (transform.isInvertible() && currItem->itemText.length() > 0)
 			{
-				double tx = 0, ty = 0;
-				transform.inverted().map(qreal(pf.x()), qreal(pf.y()), (qreal*)&tx, (qreal*)&ty);
+				qreal tx = 0, ty = 0;
+				transform.inverted().map(pf.x(), pf.y(), &tx, &ty);
 				point.setXY(tx, ty);
 			}
 			if (currItem->reversed())
