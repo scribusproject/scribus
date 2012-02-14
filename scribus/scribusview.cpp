@@ -1712,7 +1712,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			if (transform.isInvertible() && currItem->itemText.length() > 0)
 			{
 				double tx = 0, ty = 0;
-				transform.inverted().map(pf.x(), pf.y(), &tx, &ty);
+				transform.inverted().map(qreal(pf.x()), qreal(pf.y()), (qreal*)&tx, (qreal*)&ty);
 				point.setXY(tx, ty);
 			}
 			if (currItem->reversed())
