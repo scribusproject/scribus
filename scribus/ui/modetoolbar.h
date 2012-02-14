@@ -51,7 +51,7 @@ public:
 
 	int SubMode;
 	int ValCount;
-	double *ShapeVals;
+	qreal *ShapeVals;
 	
 	virtual void changeEvent(QEvent *e);
 

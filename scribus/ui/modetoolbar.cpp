@@ -40,7 +40,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 {
 	SubMode = 0;
 	ValCount = 32;
-	static double AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
+	static qreal AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
@@ -101,7 +101,7 @@ void ModeToolBar::SelShape(int s, int c, qreal *vals)
 //	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
-	ShapeVals = (double*)vals;
+	ShapeVals = vals;
 	m_ScMW->scrActions["toolsInsertShape"]->setChecked(false);
 	m_ScMW->scrActions["toolsInsertShape"]->setChecked(true);
 }
