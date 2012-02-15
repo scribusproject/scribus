@@ -2685,7 +2685,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 							double y = c->asTable()->rowPosition(row);
 							double width = c->asTable()->columnPosition(lastCol) + c->asTable()->columnWidth(lastCol) - x;
 							double height = c->asTable()->rowPosition(lastRow) + c->asTable()->rowHeight(lastRow) - y;
-							PutStream(ToStr(x)+" "+ToStr(c->asTable()->tableHeight() - y)+" "+ToStr(width)+" "+ToStr(-height)+" rectfill\n");
+							PutStream(ToStr(x)+" "+ToStr(-y)+" "+ToStr(width)+" "+ToStr(-height)+" rectfill\n");
 							PS_restore();
 						}
 					}
