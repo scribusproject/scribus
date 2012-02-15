@@ -550,7 +550,7 @@ struct LineControl {
 		// so that endOfLine() returns correct result
 		updateHeightMetrics(itemText);
 		// #9060 : update line offset too
-		//updateLineOffset(itemText, style, offsetPolicy);
+	//	updateLineOffset(itemText, style, offsetPolicy);
 	}
 
 	/// use the last remembered break to set line width and itemrange
@@ -692,7 +692,7 @@ struct LineControl {
 		if ((firstChar == SpecialChars::PARSEP) || (firstChar == SpecialChars::LINEBREAK))
 			result = fcStyle.font().ascent(fcStyle.fontSize() / 10.0);
 		else if (obj)
-			result = qMax(result, (obj->gHeight + obj->lineWidth()) * (fcStyle.scaleV() / 1000.0));
+			result = qMax(result, (obj->height() + obj->lineWidth()) * (fcStyle.scaleV() / 1000.0));
 		else
 			result = fcStyle.font().realCharAscent(firstChar, fcStyle.fontSize() / 10.0);
 		for (int zc = 0; zc < itemsInLine; ++zc)
@@ -707,7 +707,7 @@ struct LineControl {
 			double asce;
 			PageItem *obj = itemText.object (line.firstItem + zc);
 			if (obj)
-				asce = obj->gHeight + obj->lineWidth() * (cStyle.scaleV() / 1000.0);
+				asce = obj->height() + obj->lineWidth() * (cStyle.scaleV() / 1000.0);
 			else
 				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
 			//	qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result);
@@ -755,7 +755,7 @@ struct LineControl {
 		const CharStyle& firstStyle(itemText.charStyle(line.firstItem));
 		PageItem *obj = itemText.object (line.firstItem);
 		if (obj)
-			result = qMax(result, (obj->gHeight + obj->lineWidth()) * (firstStyle.scaleV() / 1000.0));
+			result = qMax(result, (obj->height() + obj->lineWidth()) * (firstStyle.scaleV() / 1000.0));
 		else
 			result = firstStyle.font().height(firstStyle.fontSize() / 10.0);
 		for (int zc = 0; zc < itemsInLine; ++zc)
@@ -768,7 +768,7 @@ struct LineControl {
 			PageItem *obj = itemText.object (line.firstItem + zc);
 			double asce;
 			if (obj)
-				asce = (obj->gHeight + obj->lineWidth()) * (cStyle.scaleV() / 1000.0);
+				asce = (obj->height() + obj->lineWidth()) * (cStyle.scaleV() / 1000.0);
 			else
 				asce = cStyle.font().height (cStyle.fontSize() / 10.0);
 			//	qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result);
@@ -794,7 +794,7 @@ struct LineControl {
 
 			if (itemText.object(line.firstItem+zc) != 0)
 			{
-				asce = (itemText.object(line.firstItem+zc)->gHeight + itemText.object(line.firstItem+zc)->lineWidth()) * scaleV + offset;
+				asce = (itemText.object(line.firstItem+zc)->height() + itemText.object(line.firstItem+zc)->lineWidth()) * scaleV + offset;
 				desc = 0.0;
 			}
 			else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
@@ -809,45 +809,45 @@ struct LineControl {
 	}
 
 // yPos should not be changed when all line is already calculated - at new y position there can be overflow!!!
-//
-//	void updateLineOffset(const StoryText& itemText, const ParagraphStyle& style, FirstLineOffsetPolicy offsetPolicy)
+// edit: can't happen as it should only move upwards, and this is covered by the calculations done.
+//void updateLineOffset(const StoryText& itemText, const ParagraphStyle& style, FirstLineOffsetPolicy offsetPolicy)
+//{
+//	if (itemsInLine <= 0)
+//		return;
+//	if ((!hasDropCap) && (startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 //	{
-//		if (itemsInLine <= 0)
-//			return;
-//		if ((!hasDropCap) && (startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
+//		//FIXME: use glyphs, not chars
+//		double firstasce = itemText.charStyle(line.firstItem).font().ascent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
+//		double adj (0.0);
+//		double currasce (this->getLineAscent(itemText));
+//		if( offsetPolicy == FLOPRealGlyphHeight )
 //		{
-//			//FIXME: use glyphs, not chars
-//			double firstasce = itemText.charStyle(line.firstItem).font().ascent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
-//			double adj (0.0);
-//			double currasce (this->getLineAscent(itemText));
-//			if( offsetPolicy == FLOPRealGlyphHeight )
-//			{
-//				adj = firstasce - currasce;
-//			}
-//			else if( offsetPolicy == FLOPFontAscent )
-//			{
-//				adj = 0.0;
-//			}
-//			else if( offsetPolicy == FLOPLineSpacing )
-//			{
-//				adj = firstasce - style.lineSpacing();
-//			}
-//			line.ascent = currasce;
-//			line.y -= adj;
-//			yPos -= adj;
+//			adj = firstasce - currasce;
 //		}
-//		else if ((!startOfCol) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+//		else if( offsetPolicy == FLOPFontAscent )
 //		{
-//			QChar ch = itemText.text(line.firstItem);
-//			double firstasce = style.lineSpacing();
-//			double currasce  = getLineHeight(itemText);						
-//			double adj = firstasce - currasce;
-//			qDebug() << QString("move2 line %1.. down by %2").arg(current.line.firstItem).arg(-adj);
-//			line.ascent = currasce;
-//			line.y -= adj;
-//			yPos -= adj;
+//			adj = 0.0;
 //		}
+//		else if( offsetPolicy == FLOPLineSpacing )
+//		{
+//			adj = firstasce - style.lineSpacing();
+//		}
+//		line.ascent = currasce;
+//		line.y -= adj;
+//		yPos -= adj;
 //	}
+//	else if ((!startOfCol) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+//	{
+//		QChar ch = itemText.text(line.firstItem);
+//		double firstasce = style.lineSpacing();
+//		double currasce  = getLineHeight(itemText);
+//		double adj = firstasce - currasce;
+//		qDebug() << QString("move2 line %1.. down by %2").arg(current.line.firstItem).arg(-adj);
+//		line.ascent = currasce;
+//		line.y -= adj;
+//		yPos -= adj;
+//	}
+//}
 
 private:
 	double frameWidth;
@@ -1968,7 +1968,17 @@ void PageItem_TextFrame::layout()
 				if (current.startOfCol || DropCmode)
 					diff = realAsce - (current.yPos - lastLineY);
 				else if (style.lineSpacingMode() != ParagraphStyle::FixedLineSpacing)
-					diff = charStyle.font().realCharAscent(QChar('l'), hlcsize10) * scaleV + offset - (current.yPos - lastLineY);
+				{
+					if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+						diff = (hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
+					else
+						diff = charStyle.font().realCharAscent(QChar('l'), hlcsize10) * scaleV + offset - (current.yPos - lastLineY);
+				}
+				else
+				{
+					if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+						diff = (hl->embedded.getItem()->height() + hl->embedded.getItem()->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
+				}
 				if (diff >= 1 || (!DropCmode && diff > 0))
 				{
 					if (current.hasDropCap && DropLinesCount == 0)
@@ -1982,6 +1992,7 @@ void PageItem_TextFrame::layout()
 					{
 						linesDrop = ceil(diff / m_Doc->guidesPrefs().valueBaselineGrid);
 						current.yPos += m_Doc->guidesPrefs().valueBaselineGrid * linesDrop;
+						maxDX = 0;
 					}
 					else /*if (current.startOfCol)*/
 					{
@@ -2104,6 +2115,8 @@ void PageItem_TextFrame::layout()
 					current.rememberBreak(a, breakPos, style.rightMargin());
 				}
 			}
+			if  ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				current.rememberBreak(a, breakPos, style.rightMargin());
 			// CJK break
 			if(a > current.line.firstItem)
 			{ // not the first char
@@ -2156,7 +2169,7 @@ void PageItem_TextFrame::layout()
 						a--;
 						current.mustLineEnd = current.line.x;
 					}
- 					current.breakLine(itemText, style, firstLineOffset(),a);
+					current.breakLine(itemText, style, firstLineOffset(),a);
  				}
 				if (!current.addLine && !current.lastInRowLine && current.afterOverflow)
 				{
@@ -2969,8 +2982,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 							QRectF scr;
 							if ((hls->ch == SpecialChars::OBJECT)  && (hls->embedded.hasItem()))
 							{
-								double ww = (hls->embedded.getItem()->gWidth + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
-								double hh = (hls->embedded.getItem()->gHeight + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
+								double ww = (hls->embedded.getItem()->width() + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleH;
+								double hh = (hls->embedded.getItem()->height() + hls->embedded.getItem()->lineWidth()) * hls->glyph.scaleV;
 								scr = QRectF(xcoZli, ls.y - hh, ww , hh);
 								previousWasObject = true;
 							}
