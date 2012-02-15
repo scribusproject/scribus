@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_pathtext.h"
+#include "pageitem_table.h"
 #include "prefsmanager.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -2641,6 +2642,57 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				ProcessItem(m_Doc, a, embed, PNr, sep, farb, ic, gcr, master, true);
 				PS_restore();
 			}
+			PS_restore();
+			break;
+		case PageItem::Table:
+			PS_save();
+			SetClipPath(&c->PoLine);
+			PS_closepath();
+			PS_clip(c->fillRule);
+			PS_save();
+			PS_translate(c->asTable()->gridOffset().x(), c->asTable()->gridOffset().y());
+			// Paint table fill.
+			if (c->asTable()->fillColor() != CommonStrings::None)
+			{
+				int lastCol = c->asTable()->columns() - 1;
+				int lastRow = c->asTable()->rows() - 1;
+				double x = c->asTable()->columnPosition(0);
+				double y = c->asTable()->rowPosition(0);
+				double width = c->asTable()->columnPosition(lastCol) + c->asTable()->columnWidth(lastCol) - x;
+				double height = c->asTable()->rowPosition(lastRow) + c->asTable()->rowHeight(lastRow) - y;
+				putColorNoDraw(c->asTable()->fillColor(), c->asTable()->fillShade(), gcr);
+				PutStream("0 0 "+ToStr(width)+" "+ToStr(-height)+" rectfill\n");
+			}
+			// Pass 1: Paint cell fills.
+			for (int row = 0; row < c->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < c->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = c->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						QString colorName = cell.fillColor();
+						if (colorName != CommonStrings::None)
+						{
+							PS_save();
+							putColorNoDraw(colorName, 100, gcr);
+							int row = cell.row();
+							int col = cell.column();
+							int lastRow = row + cell.rowSpan() - 1;
+							int lastCol = col + cell.columnSpan() - 1;
+							double x = c->asTable()->columnPosition(col);
+							double y = c->asTable()->rowPosition(row);
+							double width = c->asTable()->columnPosition(lastCol) + c->asTable()->columnWidth(lastCol) - x;
+							double height = c->asTable()->rowPosition(lastRow) + c->asTable()->rowHeight(lastRow) - y;
+							PutStream(ToStr(x)+" "+ToStr(c->asTable()->tableHeight() - y)+" "+ToStr(width)+" "+ToStr(-height)+" rectfill\n");
+							PS_restore();
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			PS_restore();
 			PS_restore();
 			break;
 		default:
