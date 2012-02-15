@@ -2272,8 +2272,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 							item->ScaleType   = true;
 							item->AspectRatio = true;
 							m_Doc->loadPict(fileName, item);
+							item->setImageXYOffset(dxi - grOffset.x(), dyi - grOffset.y());
 							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-							item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
 							item->setImageRotation(0);
 						}
 					}
@@ -2384,167 +2384,179 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 			{
 				QDomElement ste = st.toElement();
 				if (ste.tagName() == "ParagraphStyleRange")
+					parseParagraphStyleRange(ste, item);
+				else if (ste.tagName() == "XMLElement")
 				{
-					QString pStyle = CommonStrings::DefaultParagraphStyle;
-					if (ste.hasAttribute("AppliedParagraphStyle"))
+					for(QDomNode stx = ste.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
 					{
-						pStyle = ste.attribute("AppliedParagraphStyle").remove("$ID/");
-						if (styleTranslate.contains(pStyle))
-							pStyle = styleTranslate[pStyle];
-						else
-							pStyle = CommonStrings::DefaultParagraphStyle;
+						QDomElement stxe = stx.toElement();
+						if (stxe.tagName() == "ParagraphStyleRange")
+							parseParagraphStyleRange(stxe, item);
 					}
-					ParagraphStyle newStyle;
-					newStyle.setParent(pStyle);
-					// Apply possible override of paragraph style
-					readParagraphStyleAttributes(newStyle, ste);
-					ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
-					QString fontBase = ttx.charStyle().font().family();
-					QString fontStyle = ttx.charStyle().font().style();
-					for(QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling() )
-					{
-						QString data = "";
-						int posC = item->itemText.length();
-						QDomElement stt = stc.toElement();
-						if (stt.tagName() == "CharacterStyleRange")
-						{
-							bool hasChangedFont = false;
-							for(QDomNode stcp = stt.firstChild(); !stcp.isNull(); stcp = stcp.nextSibling() )
-							{
-								QDomElement sp = stcp.toElement();
-								if (sp.tagName() == "Properties")
-								{
-									for(QDomNode spa = sp.firstChild(); !spa.isNull(); spa = spa.nextSibling() )
-									{
-										QDomElement spf = spa.toElement();
-										if (spf.tagName() == "AppliedFont")
-										{
-											fontBase = spf.text();
-											hasChangedFont = true;
-										}
-									}
-								}
-								else if (sp.tagName() == "Leading")
-								{
-									if (sp.attribute("type") == "unit")
-									{
-										int lead = sp.text().toDouble();
-										if (lead != 0)
-										{
-											newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-											newStyle.setLineSpacing(lead);
-										}
-									}
-								}
-							}
-							// Apply possible override of character style
-							CharStyle nstyle = newStyle.charStyle();
-							if (stt.hasAttribute("FontStyle"))
-							{
-								fontStyle = stt.attribute("FontStyle", "");
-								hasChangedFont = true;
-							}
-							if (stt.hasAttribute("AppliedCharacterStyle"))
-							{
-								QString cStyle = stt.attribute("AppliedCharacterStyle").remove("$ID/");
-								if (cStyle != "CharacterStyle/[No character style]")
-								{
-									if (charStyleTranslate.contains(cStyle))
-									{
-										QString pst = nstyle.name();
-										cStyle = charStyleTranslate[cStyle];
-										nstyle = m_Doc->charStyle(cStyle);
-										nstyle.setParent(pst);
-									}
-								}
-							}
-							if (hasChangedFont)
-							{
-								if ((!fontBase.isEmpty()) && (!fontStyle.isEmpty()))
-								{
-									QString fontName = constructFontName(fontBase, fontStyle);
-									nstyle.setFont((*m_Doc->AllFonts)[fontName]);
-								}
-							}
-							readCharStyleAttributes(nstyle, stt);
-							for(QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling() )
-							{
-								QDomElement s = stch.toElement();
-								if (s.tagName() == "Content")
-								{
-									QString ch = "";
-									for(QDomNode sh = s.firstChild(); !sh.isNull(); sh = sh.nextSibling() )
-									{
-										QString p = sh.nodeValue();
-										if (sh.nodeName() == "#text")
-											ch += p;
-										else if (p == "18")
-											ch += SpecialChars::PAGENUMBER;
-									}
-									if (!ch.isEmpty())
-									{
-										for (int tt = 0; tt < ch.length(); ++tt)
-										{
-											QChar c = ch.at(tt);
-											if (c.unicode() == 0x2028)
-												ch[tt] = SpecialChars::LINEBREAK;
-											if (c.unicode() == 0x202F)
-												ch[tt] = SpecialChars::NBSPACE;
-										}
-										data += ch;
-									}
-									else
-										data += " ";
-								}
-								else if (s.tagName() == "Br")
-								{
-									data += SpecialChars::PARSEP;
-									item->itemText.insertChars(posC, data);
-									item->itemText.applyStyle(posC, newStyle);
-									item->itemText.applyCharStyle(posC, data.length(), nstyle);
-									data = "";
-									posC = item->itemText.length();
-								}
-								else if ((s.tagName() == "Rectangle") || (s.tagName() == "Oval") || (s.tagName() == "GraphicLine") || (s.tagName() == "Polygon") || (s.tagName() == "TextFrame") || (s.tagName() == "Group") || (s.tagName() == "Button"))
-								{
-									QTransform m;
-									QList<PageItem*> el = parseItemXML(s, m);
-									for (int ec = 0; ec < el.count(); ++ec)
-									{
-										PageItem* currItem = el.at(ec);
-										currItem->isEmbedded = true;
-										currItem->gXpos = 0;
-										currItem->gYpos = 0;
-										currItem->gWidth = currItem->width();
-										currItem->gHeight = currItem->height();
-										m_Doc->FrameItems.append(currItem);
-										item->itemText.insertObject(currItem);
-										item->itemText.applyStyle(posC, newStyle);
-										data = "";
-										posC = item->itemText.length();
-									}
-								}
-							}
-							if (data.count() > 0)
-							{
-								item->itemText.insertChars(posC, data);
-								item->itemText.applyStyle(posC, newStyle);
-								item->itemText.applyCharStyle(posC, data.length(), nstyle);
-							}
-						}
-					}
-					int posT = item->itemText.length();
-					if (posT > 0)
-					{
-						if ((item->itemText.text(posT - 1) != SpecialChars::PARSEP))
-							item->itemText.insertChars(posT, SpecialChars::PARSEP);
-					}
-					item->itemText.applyStyle(posT, newStyle);
 				}
 			}
 		}
 	}
 	return;
+}
+
+void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
+{
+	QString pStyle = CommonStrings::DefaultParagraphStyle;
+	if (ste.hasAttribute("AppliedParagraphStyle"))
+	{
+		pStyle = ste.attribute("AppliedParagraphStyle").remove("$ID/");
+		if (styleTranslate.contains(pStyle))
+			pStyle = styleTranslate[pStyle];
+		else
+			pStyle = CommonStrings::DefaultParagraphStyle;
+	}
+	ParagraphStyle newStyle;
+	newStyle.setParent(pStyle);
+	// Apply possible override of paragraph style
+	readParagraphStyleAttributes(newStyle, ste);
+	ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
+	QString fontBase = ttx.charStyle().font().family();
+	QString fontStyle = ttx.charStyle().font().style();
+	for(QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling() )
+	{
+		QString data = "";
+		int posC = item->itemText.length();
+		QDomElement stt = stc.toElement();
+		if (stt.tagName() == "CharacterStyleRange")
+		{
+			bool hasChangedFont = false;
+			for(QDomNode stcp = stt.firstChild(); !stcp.isNull(); stcp = stcp.nextSibling() )
+			{
+				QDomElement sp = stcp.toElement();
+				if (sp.tagName() == "Properties")
+				{
+					for(QDomNode spa = sp.firstChild(); !spa.isNull(); spa = spa.nextSibling() )
+					{
+						QDomElement spf = spa.toElement();
+						if (spf.tagName() == "AppliedFont")
+						{
+							fontBase = spf.text();
+							hasChangedFont = true;
+						}
+					}
+				}
+				else if (sp.tagName() == "Leading")
+				{
+					if (sp.attribute("type") == "unit")
+					{
+						int lead = sp.text().toDouble();
+						if (lead != 0)
+						{
+							newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+							newStyle.setLineSpacing(lead);
+						}
+					}
+				}
+			}
+			// Apply possible override of character style
+			CharStyle nstyle = newStyle.charStyle();
+			if (stt.hasAttribute("FontStyle"))
+			{
+				fontStyle = stt.attribute("FontStyle", "");
+				hasChangedFont = true;
+			}
+			if (stt.hasAttribute("AppliedCharacterStyle"))
+			{
+				QString cStyle = stt.attribute("AppliedCharacterStyle").remove("$ID/");
+				if (cStyle != "CharacterStyle/[No character style]")
+				{
+					if (charStyleTranslate.contains(cStyle))
+					{
+						QString pst = nstyle.name();
+						cStyle = charStyleTranslate[cStyle];
+						nstyle = m_Doc->charStyle(cStyle);
+						nstyle.setParent(pst);
+					}
+				}
+			}
+			if (hasChangedFont)
+			{
+				if ((!fontBase.isEmpty()) && (!fontStyle.isEmpty()))
+				{
+					QString fontName = constructFontName(fontBase, fontStyle);
+					nstyle.setFont((*m_Doc->AllFonts)[fontName]);
+				}
+			}
+			readCharStyleAttributes(nstyle, stt);
+			for(QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling() )
+			{
+				QDomElement s = stch.toElement();
+				if (s.tagName() == "Content")
+				{
+					QString ch = "";
+					for(QDomNode sh = s.firstChild(); !sh.isNull(); sh = sh.nextSibling() )
+					{
+						QString p = sh.nodeValue();
+						if (sh.nodeName() == "#text")
+							ch += p;
+						else if (p == "18")
+							ch += SpecialChars::PAGENUMBER;
+					}
+					if (!ch.isEmpty())
+					{
+						for (int tt = 0; tt < ch.length(); ++tt)
+						{
+							QChar c = ch.at(tt);
+							if (c.unicode() == 0x2028)
+								ch[tt] = SpecialChars::LINEBREAK;
+							if (c.unicode() == 0x202F)
+								ch[tt] = SpecialChars::NBSPACE;
+						}
+						data += ch;
+					}
+					else
+						data += " ";
+				}
+				else if (s.tagName() == "Br")
+				{
+					data += SpecialChars::PARSEP;
+					item->itemText.insertChars(posC, data);
+					item->itemText.applyStyle(posC, newStyle);
+					item->itemText.applyCharStyle(posC, data.length(), nstyle);
+					data = "";
+					posC = item->itemText.length();
+				}
+				else if ((s.tagName() == "Rectangle") || (s.tagName() == "Oval") || (s.tagName() == "GraphicLine") || (s.tagName() == "Polygon") || (s.tagName() == "TextFrame") || (s.tagName() == "Group") || (s.tagName() == "Button"))
+				{
+					QTransform m;
+					QList<PageItem*> el = parseItemXML(s, m);
+					for (int ec = 0; ec < el.count(); ++ec)
+					{
+						PageItem* currItem = el.at(ec);
+						currItem->isEmbedded = true;
+						currItem->gXpos = 0;
+						currItem->gYpos = 0;
+						currItem->gWidth = currItem->width();
+						currItem->gHeight = currItem->height();
+						m_Doc->FrameItems.append(currItem);
+						item->itemText.insertObject(currItem);
+						item->itemText.applyStyle(posC, newStyle);
+						data = "";
+						posC = item->itemText.length();
+					}
+				}
+			}
+			if (data.count() > 0)
+			{
+				item->itemText.insertChars(posC, data);
+				item->itemText.applyStyle(posC, newStyle);
+				item->itemText.applyCharStyle(posC, data.length(), nstyle);
+			}
+		}
+	}
+	int posT = item->itemText.length();
+	if (posT > 0)
+	{
+		if ((item->itemText.text(posT - 1) != SpecialChars::PARSEP))
+			item->itemText.insertChars(posT, SpecialChars::PARSEP);
+	}
+	item->itemText.applyStyle(posT, newStyle);
 }
 
 void IdmlPlug::readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem)

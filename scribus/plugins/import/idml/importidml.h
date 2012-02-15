@@ -108,6 +108,7 @@ private:
 	QList<PageItem*> parseItemXML(const QDomElement& itElem, QTransform pTrans = QTransform());
 	bool parseStoryXML(const QDomElement& stElem);
 	void parseStoryXMLNode(const QDomElement& stNode);
+	void parseParagraphStyleRange(QDomElement &ste, PageItem* item);
 	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
 	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
 	void resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName);
