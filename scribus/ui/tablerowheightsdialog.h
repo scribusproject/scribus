@@ -24,7 +24,7 @@ public:
 	explicit TableRowHeightsDialog(ScribusDoc* doc, QWidget *parent = 0);
 
 	/// Returns the row height the user entered.
-	qreal rowHeight() const;
+	double rowHeight() const;
 
 private:
 	ScribusDoc* m_doc;

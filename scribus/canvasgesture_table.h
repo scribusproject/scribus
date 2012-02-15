@@ -59,8 +59,8 @@ protected:
 	 * The size of these vectors must match the dimensions of the currently edited table,
 	 * or the result of this function is undefined.
 	 */
-	void paintTableOutline(const QList<qreal>& rowHeights, const QList<qreal>& rowPositions,
-		const QList<qreal>& columnWidths, const QList<qreal>& columnPositions, QPainter* p);
+	void paintTableOutline(const QList<double>& rowHeights, const QList<double>& rowPositions,
+		const QList<double>& columnWidths, const QList<double>& columnPositions, QPainter* p);
 
 	/**
 	 * Paints the selection of the currently edited table.

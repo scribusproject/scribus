@@ -75,10 +75,10 @@ public:
 	};
 
 	/// The minimum row height.
-	static const qreal MinimumRowHeight;
+	static const double MinimumRowHeight;
 
 	/// The minimum column width.
-	static const qreal MinimumColumnWidth;
+	static const double MinimumColumnWidth;
 
 public:
 	/// Construct a new table item with @a numRows rows and @a numColumns columns.
@@ -99,14 +99,14 @@ public:
 	 *
 	 * This is the width of the table grid, not including any borders along the left and right side.
 	 */
-	qreal tableWidth() const { return m_columnPositions.last() + m_columnWidths.last(); }
+	double tableWidth() const { return m_columnPositions.last() + m_columnWidths.last(); }
 
 	/**
 	 * Returns the height of the table.
 	 *
 	 * This is the height of the table grid, not including any borders along the top and left side.
 	 */
-	qreal tableHeight() const { return m_rowPositions.last() + m_rowHeights.last(); }
+	double tableHeight() const { return m_rowPositions.last() + m_rowHeights.last(); }
 
 	/**
 	 * Returns the offset of the table grid from the item origin.
@@ -119,7 +119,7 @@ public:
 	 * The effective table width includes the width of the table grid plus half the width of the widest
 	 * borders found along its left and right side.
 	 */
-	qreal effectiveWidth() const { return tableWidth() + (maxLeftBorderWidth() + maxRightBorderWidth()) / 2; }
+	double effectiveWidth() const { return tableWidth() + (maxLeftBorderWidth() + maxRightBorderWidth()) / 2; }
 
 	/**
 	 * Returns the effective height of the table.
@@ -127,7 +127,7 @@ public:
 	 * The effective table height includes the height of the table grid plus half the width of the widest
 	 * borders found along its top and bottom side.
 	 */
-	qreal effectiveHeight() const { return tableHeight() + (maxTopBorderWidth() + maxBottomBorderWidth()) / 2; }
+	double effectiveHeight() const { return tableHeight() + (maxTopBorderWidth() + maxBottomBorderWidth()) / 2; }
 
 	/**
 	 * Resizes the table grid to @a width, @a height.
@@ -137,7 +137,7 @@ public:
 	 * If any row or column hits the limit MinimumRowHeight or MinimumColumnWidth, resizing in that
 	 * direction will stop for the entire table.
 	 */
-	void resize(qreal width, qreal height);
+	void resize(double width, double height);
 
 	/**
 	 * Inserts @a numRows rows before the row at @a index.
@@ -160,19 +160,19 @@ public:
 	/**
 	 * Returns the height of @a row, or 0 if @a row does not exist.
 	 */
-	qreal rowHeight(int row) const;
+	double rowHeight(int row) const;
 
 	/**
 	 * Returns the list of row heights for the table.
 	 */
-	QList<qreal> rowHeights() const { return m_rowHeights; }
+	QList<double> rowHeights() const { return m_rowHeights; }
 
 	/**
 	 * Resizes @a row to @a height using resize strategy @a strategy.
 	 *
 	 * If @a row does not exists, this method does nothing.
 	 */
-	void resizeRow(int row, qreal height, ResizeStrategy strategy = MoveFollowing);
+	void resizeRow(int row, double height, ResizeStrategy strategy = MoveFollowing);
 
 	/**
 	 * Distributes the rows from @a startRow to @a endRow evenly.
@@ -187,12 +187,12 @@ public:
 	/**
 	 * Returns the position of @a row, or 0 if @a row does not exist.
 	 */
-	qreal rowPosition(int row) const;
+	double rowPosition(int row) const;
 
 	/**
 	 * Returns the list of row positions for the table.
 	 */
-	QList<qreal> rowPositions() const { return m_rowPositions; }
+	QList<double> rowPositions() const { return m_rowPositions; }
 
 	/**
 	 * Inserts @a numColumns columns before the column at @a index.
@@ -215,19 +215,19 @@ public:
 	/**
 	 * Returns the width of @a column, or 0 if @a column does not exist.
 	 */
-	qreal columnWidth(int column) const;
+	double columnWidth(int column) const;
 
 	/**
 	 * Returns the list of column widths for the table.
 	 */
-	QList<qreal> columnWidths() const { return m_columnWidths; }
+	QList<double> columnWidths() const { return m_columnWidths; }
 
 	/**
 	 * Resizes @a column to @a width using resize strategy @a strategy.
 	 *
 	 * If @a column does not exists, this method does nothing.
 	 */
-	void resizeColumn(int column, qreal width, ResizeStrategy strategy = MoveFollowing);
+	void resizeColumn(int column, double width, ResizeStrategy strategy = MoveFollowing);
 
 	/**
 	 * Distributes the columns from @a startColumn to @a endColumn evenly.
@@ -242,12 +242,12 @@ public:
 	/**
 	 * Returns the position of @a column, or 0 if @a column does not exist.
 	 */
-	qreal columnPosition(int column) const;
+	double columnPosition(int column) const;
 
 	/**
 	 * Returns the list of column positions for the table.
 	 */
-	QList<qreal> columnPositions() const { return m_columnPositions; }
+	QList<double> columnPositions() const { return m_columnPositions; }
 
 	/**
 	 * Merges the cell at the specified @a row and @a column with the adjacent cells into
@@ -368,7 +368,7 @@ public:
 	 * The returned handle describes what was hit. @a threshold is a distance in points.
 	 * @a point is considered to hit a handle if it is within @a threshold from it.
 	 */
-	TableHandle hitTest(const QPointF& point, qreal threshold) const;
+	TableHandle hitTest(const QPointF& point, double threshold) const;
 
 	/// Resizes the table to fit the frame.
 	void adjustTableToFrame();
@@ -502,26 +502,26 @@ private:
 	bool validCell(int row, int column) const { return validRow(row) && validColumn(column); }
 
 	/// Returns the width of the widest border along the left side of this table.
-	qreal maxLeftBorderWidth() const;
+	double maxLeftBorderWidth() const;
 
 	/// Returns the width of the widest border along the right side of this table.
-	qreal maxRightBorderWidth() const;
+	double maxRightBorderWidth() const;
 
 	/// Returns the width of the widest border along the top side of this table.
-	qreal maxTopBorderWidth() const;
+	double maxTopBorderWidth() const;
 
 	/// Returns the width of the widest border along the bottom side of this table.
-	qreal maxBottomBorderWidth() const;
+	double maxBottomBorderWidth() const;
 
 	/// TODO: Turn these into strategies to be reused in resize gestures.
 	/// Resizes @a row according to the MoveFollowing strategy and returns the new height.
-	qreal resizeRowMoveFollowing(int row, qreal height);
+	double resizeRowMoveFollowing(int row, double height);
 	/// Resizes @a row according to the ResizeFollowing strategy and returns the new height.
-	qreal resizeRowResizeFollowing(int row, qreal height);
+	double resizeRowResizeFollowing(int row, double height);
 	/// Resizes @a column according to the MoveFollowing strategy and returns the new width.
-	qreal resizeColumnMoveFollowing(int row, qreal width);
+	double resizeColumnMoveFollowing(int row, double width);
 	/// Resizes @a column according to the ResizeFollowing strategy and returns the new width.
-	qreal resizeColumnResizeFollowing(int row, qreal width);
+	double resizeColumnResizeFollowing(int row, double width);
 
 	/**
 	 * Updates row and column spans following a change in rows or columns.
@@ -551,14 +551,14 @@ private:
 	int m_columns;
 
 	/// Vertical positions of rows.
-	QList<qreal> m_rowPositions;
+	QList<double> m_rowPositions;
 	/// Height of rows.
-	QList<qreal> m_rowHeights;
+	QList<double> m_rowHeights;
 
 	/// Horizontal positions of columns.
-	QList<qreal> m_columnPositions;
+	QList<double> m_columnPositions;
 	/// Width of columns.
-	QList<qreal> m_columnWidths;
+	QList<double> m_columnWidths;
 
 	/// List of areas of merged cells.
 	QList<CellArea> m_cellAreas;

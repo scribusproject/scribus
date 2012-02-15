@@ -166,28 +166,28 @@ public:
 	TableBorder bottomBorder() const { return d->style.bottomBorder(); }
 
 	/// Sets the left padding of this cell to @a padding.
-	void setLeftPadding(qreal padding);
+	void setLeftPadding(double padding);
 
 	/// Returns the left padding of this cell.
-	qreal leftPadding() const { return d->style.leftPadding(); }
+	double leftPadding() const { return d->style.leftPadding(); }
 
 	/// Sets the right padding of this cell to @a padding.
-	void setRightPadding(qreal padding);
+	void setRightPadding(double padding);
 
 	/// Returns the right padding of this cell.
-	qreal rightPadding() const { return d->style.rightPadding(); }
+	double rightPadding() const { return d->style.rightPadding(); }
 
 	/// Sets the top padding of this cell to @a padding.
-	void setTopPadding(qreal padding);
+	void setTopPadding(double padding);
 
 	/// Returns the top padding of this cell.
-	qreal topPadding() const { return d->style.topPadding(); }
+	double topPadding() const { return d->style.topPadding(); }
 
 	/// Sets the bottom padding of this cell to @a padding.
-	void setBottomPadding(qreal padding);
+	void setBottomPadding(double padding);
 
 	/// Returns the bottom padding of this cell.
-	qreal bottomPadding() const { return d->style.bottomPadding(); }
+	double bottomPadding() const { return d->style.bottomPadding(); }
 
 	/// Sets the cell style for this cell to @a style.
 	void setStyle(const QString& style);
@@ -234,13 +234,13 @@ private:
 	void moveLeft(int numColumns) { d->column -= numColumns; }
 
 	/// Returns the maximum border width found along left side of cell.
-	qreal maxLeftBorderWidth() const;
+	double maxLeftBorderWidth() const;
 	/// Returns the maximum border width found along right side of cell.
-	qreal maxRightBorderWidth() const;
+	double maxRightBorderWidth() const;
 	/// Returns the maximum border width found along top side of cell.
-	qreal maxTopBorderWidth() const;
+	double maxTopBorderWidth() const;
 	/// Returns the maximum border width found along bottom side of cell.
-	qreal maxBottomBorderWidth() const;
+	double maxBottomBorderWidth() const;
 
 private:
 	friend class PageItem_Table;

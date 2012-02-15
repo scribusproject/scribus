@@ -71,8 +71,8 @@ void RowResize::mouseMoveEvent(QMouseEvent* event)
 
 	QPointF gridPoint = globalToTableGrid(event->globalPos());
 
-	qreal requestedHeight = gridPoint.y() - m_rowPositions[m_row];
-	qreal actualHeight = 0.0;
+	double requestedHeight = gridPoint.y() - m_rowPositions[m_row];
+	double actualHeight = 0.0;
 
 	if (event->modifiers() & Qt::ShiftModifier)
 		actualHeight = resizeRowResizeFollowing(requestedHeight);
@@ -110,13 +110,13 @@ void RowResize::setup(PageItem_Table* table, int row)
 	m_rowPositions = table->rowPositions();
 }
 
-qreal RowResize::resizeRowMoveFollowing(qreal height)
+double RowResize::resizeRowMoveFollowing(double height)
 {
 	// Set row height.
-	qreal newHeight = m_rowHeights[m_row] = qMax(PageItem_Table::MinimumRowHeight, height);
+	double newHeight = m_rowHeights[m_row] = qMax(PageItem_Table::MinimumRowHeight, height);
 
 	// Move following rows.
-	qreal rowPosition = m_rowPositions[m_row];
+	double rowPosition = m_rowPositions[m_row];
 	for (int row = m_row; row < m_rowPositions.size(); ++row)
 	{
 		m_rowPositions[row] = rowPosition;
@@ -126,10 +126,10 @@ qreal RowResize::resizeRowMoveFollowing(qreal height)
 	return newHeight;
 }
 
-qreal RowResize::resizeRowResizeFollowing(qreal height)
+double RowResize::resizeRowResizeFollowing(double height)
 {
-	qreal oldHeight = m_rowHeights[m_row];
-	qreal newHeight = 0.0;
+	double oldHeight = m_rowHeights[m_row];
+	double newHeight = 0.0;
 
 	if (m_row < table()->rows() - 1)
 	{
@@ -139,7 +139,7 @@ qreal RowResize::resizeRowResizeFollowing(qreal height)
 			oldHeight + m_rowHeights[m_row + 1] - PageItem_Table::MinimumRowHeight);
 
 		// Resize/move following row.
-		qreal heightChange = newHeight - oldHeight;
+		double heightChange = newHeight - oldHeight;
 		m_rowPositions[m_row + 1] += heightChange;
 		m_rowHeights[m_row + 1] -= heightChange;
 	}

@@ -22,7 +22,7 @@ TableRowHeightsDialog::TableRowHeightsDialog(ScribusDoc* doc, QWidget *parent) :
 	tableRowHeight->setMinimum(PageItem_Table::MinimumRowHeight * m_doc->unitRatio());
 }
 
-qreal TableRowHeightsDialog::rowHeight() const
+double TableRowHeightsDialog::rowHeight() const
 {
 	Q_ASSERT(m_doc);
 

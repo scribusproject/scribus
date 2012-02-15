@@ -22,7 +22,7 @@ TableColumnWidthsDialog::TableColumnWidthsDialog(ScribusDoc* doc, QWidget *paren
 	tableColumnWidth->setMinimum(PageItem_Table::MinimumColumnWidth * m_doc->unitRatio());
 }
 
-qreal TableColumnWidthsDialog::columnWidth() const
+double TableColumnWidthsDialog::columnWidth() const
 {
 	Q_ASSERT(m_doc);
 

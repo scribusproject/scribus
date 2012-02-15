@@ -24,7 +24,7 @@ public:
 	explicit TableColumnWidthsDialog(ScribusDoc* doc, QWidget *parent = 0);
 
 	/// Returns the column width the user entered.
-	qreal columnWidth() const;
+	double columnWidth() const;
 
 private:
 	ScribusDoc* m_doc;

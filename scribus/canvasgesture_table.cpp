@@ -39,8 +39,8 @@ QPointF TableGesture::globalToTableGrid(const QPoint point, bool snap)
 }
 
 void TableGesture::paintTableOutline(
-	const QList<qreal>& rowHeights, const QList<qreal>& rowPositions,
-	const QList<qreal>& columnWidths, const QList<qreal>& columnPositions, QPainter* p)
+	const QList<double>& rowHeights, const QList<double>& rowPositions,
+	const QList<double>& columnWidths, const QList<double>& columnPositions, QPainter* p)
 {
 	if (!m_table || !m_canvas || !p)
 		return;
@@ -75,7 +75,7 @@ void TableGesture::paintTableOutline(
 		{
 			cell = m_table->cellAt(row, col);
 			int endRow = cell.row() + cell.rowSpan() - 1;
-			qreal bottom = rowPositions[endRow] + rowHeights[endRow];
+			double bottom = rowPositions[endRow] + rowHeights[endRow];
 
 			if (cell.column() == col)
 				endPoint.setY(bottom);
@@ -99,7 +99,7 @@ void TableGesture::paintTableOutline(
 		{
 			cell = m_table->cellAt(row, col);
 			int endCol = cell.column() + cell.columnSpan() - 1;
-			qreal right = columnPositions[endCol] + columnWidths[endCol];
+			double right = columnPositions[endCol] + columnWidths[endCol];
 
 			if (cell.row() == row)
 				endPoint.setX(right);

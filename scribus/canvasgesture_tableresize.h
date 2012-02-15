@@ -48,17 +48,17 @@ public:
 
 private:
 	/// List of row heights for the table outline.
-	QList<qreal> m_rowHeights;
+	QList<double> m_rowHeights;
 	/// List of row positions for the table outline.
-	QList<qreal> m_rowPositions;
+	QList<double> m_rowPositions;
 	/// List of column widths for the table outline.
-	QList<qreal> m_columnWidths;
+	QList<double> m_columnWidths;
 	/// List of column positions for the table outline.
-	QList<qreal> m_columnPositions;
+	QList<double> m_columnPositions;
 	/// The minimum row height before the gesture started.
-	qreal m_minHeight;
+	double m_minHeight;
 	/// The minimum column width before the gesture started.
-	qreal m_minWidth;
+	double m_minWidth;
 };
 
 #endif // CANVASGESTURE_TABLERESIZE_H

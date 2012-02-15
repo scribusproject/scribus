@@ -52,9 +52,9 @@ void TableResize::mouseMoveEvent(QMouseEvent* event)
 	QPointF gridPoint = globalToTableGrid(event->globalPos());
 
 	// Set the column  geometries for the table outline.
-	qreal requestedWidthFactor = gridPoint.x() / table()->tableWidth();
-	qreal newMinWidth = qMax(m_minWidth * requestedWidthFactor, PageItem_Table::MinimumColumnWidth);
-	qreal actualWidthFactor = newMinWidth / m_minWidth;
+	double requestedWidthFactor = gridPoint.x() / table()->tableWidth();
+	double newMinWidth = qMax(m_minWidth * requestedWidthFactor, PageItem_Table::MinimumColumnWidth);
+	double actualWidthFactor = newMinWidth / m_minWidth;
 	for (int col = 0; col < m_columnWidths.size(); ++col)
 	{
 		m_columnWidths[col] = table()->columnWidth(col) * actualWidthFactor;
@@ -62,9 +62,9 @@ void TableResize::mouseMoveEvent(QMouseEvent* event)
 	}
 
 	// Set the row geometries for the table outline.
-	qreal requestedHeightFactor = gridPoint.y() / table()->tableHeight();
-	qreal newMinHeight = qMax(m_minHeight * requestedHeightFactor, PageItem_Table::MinimumRowHeight);
-	qreal actualHeightFactor = newMinHeight / m_minHeight;
+	double requestedHeightFactor = gridPoint.y() / table()->tableHeight();
+	double newMinHeight = qMax(m_minHeight * requestedHeightFactor, PageItem_Table::MinimumRowHeight);
+	double actualHeightFactor = newMinHeight / m_minHeight;
 	for (int row = 0; row < m_rowHeights.size(); ++row)
 	{
 		m_rowHeights[row] = table()->rowHeight(row) * actualHeightFactor;
@@ -72,8 +72,8 @@ void TableResize::mouseMoveEvent(QMouseEvent* event)
 	}
 
 	// Display size tooltip.
-	qreal actualTableWidth = table()->tableWidth() * actualWidthFactor;
-	qreal actualTableHeight = table()->tableHeight() * actualHeightFactor;
+	double actualTableWidth = table()->tableWidth() * actualWidthFactor;
+	double actualTableHeight = table()->tableHeight() * actualHeightFactor;
 	m_canvas->displaySizeHUD(event->globalPos(), actualTableWidth, actualTableHeight, false);
 
 	m_canvas->update();

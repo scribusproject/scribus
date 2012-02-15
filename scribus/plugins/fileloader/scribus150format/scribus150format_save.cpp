@@ -1792,8 +1792,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->isTable())
 		{
 			//PTYPE == PageItem::Table or 16 (pageitem.h)
-			PageItem_Table* tableItem=item->asTable();
+			PageItem_Table* tableItem = item->asTable();
 			docu.writeStartElement("TableData");
+			docu.writeAttribute("FillColor", tableItem->fillColor());
 			//for each cell, write it to the doc
 			foreach (QList<TableCell> cellRow, tableItem->cellRows())
 			{

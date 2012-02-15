@@ -52,22 +52,22 @@ private:
 	 *
 	 * The resize will imitate the behavior of the PageItem_Table::MoveFollowing strategy.
 	 */
-	qreal resizeColumnMoveFollowing(qreal width);
+	double resizeColumnMoveFollowing(double width);
 
 	/**
 	 * Resizes the column to @a width and returns the new width.
 	 *
 	 * The resize will imitate the behavior of the PageItem_Table::ResizeFollowing strategy.
 	 */
-	qreal resizeColumnResizeFollowing(qreal width);
+	double resizeColumnResizeFollowing(double width);
 
 private:
 	/// Column being resized.
 	int m_column;
 	/// List of column widths for the table outline.
-	QList<qreal> m_columnWidths;
+	QList<double> m_columnWidths;
 	/// List of column positions for the table outline.
-	QList<qreal> m_columnPositions;
+	QList<double> m_columnPositions;
 };
 
 #endif // CANVASGESTURE_COLUMNRESIZE_H

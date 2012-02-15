@@ -49,10 +49,10 @@ QRectF TableCell::boundingRect() const
 	const int endRow = row() + rowSpan() - 1;
 	const int endCol = column() + columnSpan() - 1;
 
-	const qreal x = d->table->columnPosition(column());
-	const qreal y = d->table->rowPosition(row());
-	const qreal width = d->table->columnPosition(endCol) + d->table->columnWidth(endCol) - x;
-	const qreal height = d->table->rowPosition(endRow) + d->table->rowHeight(endRow) - y;
+	const double x = d->table->columnPosition(column());
+	const double y = d->table->rowPosition(row());
+	const double width = d->table->columnPosition(endCol) + d->table->columnWidth(endCol) - x;
+	const double height = d->table->rowPosition(endRow) + d->table->rowHeight(endRow) - y;
 
 	return QRectF(x, y, width, height);
 }
@@ -62,10 +62,10 @@ QRectF TableCell::contentRect() const
 	if (!isValid())
 		return QRectF();
 
-	const qreal x = d->textFrame->xPos();
-	const qreal y = d->textFrame->yPos();
-	const qreal width = d->textFrame->width();
-	const qreal height = d->textFrame->height();
+	const double x = d->textFrame->xPos();
+	const double y = d->textFrame->yPos();
+	const double width = d->textFrame->width();
+	const double height = d->textFrame->height();
 
 	return QRectF(x, y, width, height);
 }
@@ -94,25 +94,25 @@ void TableCell::setBottomBorder(const TableBorder& border)
 	d->table->updateCells();
 }
 
-void TableCell::setLeftPadding(qreal padding)
+void TableCell::setLeftPadding(double padding)
 {
 	d->style.setLeftPadding(padding);
 	d->table->updateCells();
 }
 
-void TableCell::setRightPadding(qreal padding)
+void TableCell::setRightPadding(double padding)
 {
 	d->style.setRightPadding(padding);
 	d->table->updateCells();
 }
 
-void TableCell::setTopPadding(qreal padding)
+void TableCell::setTopPadding(double padding)
 {
 	d->style.setTopPadding(padding);
 	d->table->updateCells();
 }
 
-void TableCell::setBottomPadding(qreal padding)
+void TableCell::setBottomPadding(double padding)
 {
 	d->style.setBottomPadding(padding);
 	d->table->updateCells();
@@ -162,12 +162,12 @@ QString TableCell::asString() const
 	return str;
 }
 
-qreal TableCell::maxLeftBorderWidth() const
+double TableCell::maxLeftBorderWidth() const
 {
 	const int endRow = row() + rowSpan() - 1;
 
-	qreal maxWidth = 0.0;
-	qreal currentWidth = 0.0;
+	double maxWidth = 0.0;
+	double currentWidth = 0.0;
 	for (int currentRow = row(); currentRow <= endRow; ++currentRow)
 	{
 		TableCell cellLeft = d->table->cellAt(currentRow, column() - 1);
@@ -181,13 +181,13 @@ qreal TableCell::maxLeftBorderWidth() const
 	return maxWidth;
 }
 
-qreal TableCell::maxRightBorderWidth() const
+double TableCell::maxRightBorderWidth() const
 {
 	const int endRow = row() + rowSpan() - 1;
 	const int endCol = column() + columnSpan() - 1;
 
-	qreal maxWidth = 0.0;
-	qreal currentWidth = 0.0;
+	double maxWidth = 0.0;
+	double currentWidth = 0.0;
 	for (int currentRow = row(); currentRow <= endRow; ++currentRow)
 	{
 		TableCell cellRight = d->table->cellAt(currentRow, endCol + 1);
@@ -201,12 +201,12 @@ qreal TableCell::maxRightBorderWidth() const
 	return maxWidth;
 }
 
-qreal TableCell::maxTopBorderWidth() const
+double TableCell::maxTopBorderWidth() const
 {
 	const int endCol = column() + columnSpan() - 1;
 
-	qreal maxWidth = 0.0;
-	qreal currentWidth = 0.0;
+	double maxWidth = 0.0;
+	double currentWidth = 0.0;
 	for (int currentCol = column(); currentCol <= endCol; ++currentCol)
 	{
 		TableCell cellAbove = d->table->cellAt(row() - 1, currentCol);
@@ -220,13 +220,13 @@ qreal TableCell::maxTopBorderWidth() const
 	return maxWidth;
 }
 
-qreal TableCell::maxBottomBorderWidth() const
+double TableCell::maxBottomBorderWidth() const
 {
 	const int endRow = row() + rowSpan() - 1;
 	const int endCol = column() + columnSpan() - 1;
 
-	qreal maxWidth = 0.0;
-	qreal currentWidth = 0.0;
+	double maxWidth = 0.0;
+	double currentWidth = 0.0;
 	for (int currentCol = column(); currentCol <= endCol; ++currentCol)
 	{
 		TableCell cellBelow = d->table->cellAt(endRow + 1, currentCol);

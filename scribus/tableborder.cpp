@@ -27,7 +27,7 @@ TableBorderLine::TableBorderLine()
 	setColor("Black");
 }
 
-TableBorderLine::TableBorderLine(qreal width, Qt::PenStyle style, const QString& color)
+TableBorderLine::TableBorderLine(double width, Qt::PenStyle style, const QString& color)
 {
 	setWidth(width);
 	setStyle(style);
@@ -43,12 +43,12 @@ QString TableBorderLine::asString() const
  * TableBorder definitions.
  */
 
-TableBorder::TableBorder(qreal width, Qt::PenStyle style, const QString& color)
+TableBorder::TableBorder(double width, Qt::PenStyle style, const QString& color)
 {
 	addBorderLine(TableBorderLine(width, style, color));
 }
 
-qreal TableBorder::width() const
+double TableBorder::width() const
 {
 	return isNull() ? 0.0 : m_borderLines.first().width();
 }

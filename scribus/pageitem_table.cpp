@@ -38,10 +38,10 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 // The minimum row height.
-const qreal PageItem_Table::MinimumRowHeight = 3.0;
+const double PageItem_Table::MinimumRowHeight = 3.0;
 
 // The minimum column width.
-const qreal PageItem_Table::MinimumColumnWidth = 3.0;
+const double PageItem_Table::MinimumColumnWidth = 3.0;
 
 PageItem_Table::PageItem_Table(ScribusDoc *pa, double x, double y, double w, double h,
 	double w2, QString fill, QString outline, int numRows, int numColumns) :
@@ -61,7 +61,7 @@ PageItem_Table::~PageItem_Table()
 	delete m_tablePainter;
 }
 
-void PageItem_Table::resize(qreal width, qreal height)
+void PageItem_Table::resize(double width, double height)
 {
 	ASSERT_VALID();
 
@@ -69,10 +69,10 @@ void PageItem_Table::resize(qreal width, qreal height)
 	 * Distribute width proportionally to columns, but don't let any column width below
 	 * MinimumColumnWidth.
 	 */
-	qreal requestedWidthFactor = width / tableWidth();
-	qreal oldMinWidth = *std::min_element(m_columnWidths.begin(), m_columnWidths.end());
-	qreal newMinWidth = qMax(oldMinWidth * requestedWidthFactor, MinimumColumnWidth);
-	qreal actualWidthFactor = newMinWidth / oldMinWidth;
+	double requestedWidthFactor = width / tableWidth();
+	double oldMinWidth = *std::min_element(m_columnWidths.begin(), m_columnWidths.end());
+	double newMinWidth = qMax(oldMinWidth * requestedWidthFactor, MinimumColumnWidth);
+	double actualWidthFactor = newMinWidth / oldMinWidth;
 	for (int col = 0; col < columns(); ++col)
 	{
 		m_columnWidths[col] *= actualWidthFactor;
@@ -83,10 +83,10 @@ void PageItem_Table::resize(qreal width, qreal height)
 	 * Distribute height proportionally to rows, but don't let any row height below
 	 * MinimumRowHeight.
 	 */
-	qreal requestedHeightFactor = height / tableHeight();
-	qreal oldMinHeight = *std::min_element(m_rowHeights.begin(), m_rowHeights.end());
-	qreal newMinHeight = qMax(oldMinHeight * requestedHeightFactor, MinimumRowHeight);
-	qreal actualHeightFactor = newMinHeight / oldMinHeight;
+	double requestedHeightFactor = height / tableHeight();
+	double oldMinHeight = *std::min_element(m_rowHeights.begin(), m_rowHeights.end());
+	double newMinHeight = qMax(oldMinHeight * requestedHeightFactor, MinimumRowHeight);
+	double actualHeightFactor = newMinHeight / oldMinHeight;
 	for (int row = 0; row < rows(); ++row)
 	{
 		m_rowHeights[row] *= actualHeightFactor;
@@ -108,8 +108,8 @@ void PageItem_Table::insertRows(int index, int numRows)
 	if (index < 0 || index > rows() || numRows < 1)
 		return;
 
-	qreal rowHeight = m_rowHeights.at(qMax(index - 1, 0));
-	qreal rowPosition = index == 0 ? 0.0 : m_rowPositions.at(index - 1) + rowHeight;
+	double rowHeight = m_rowHeights.at(qMax(index - 1, 0));
+	double rowPosition = index == 0 ? 0.0 : m_rowPositions.at(index - 1) + rowHeight;
 
 	for (int row = index; row < index + numRows; ++row)
 	{
@@ -126,7 +126,7 @@ void PageItem_Table::insertRows(int index, int numRows)
 	}
 
 	// Adjust following rows.
-	qreal insertedHeight = rowHeight * numRows;
+	double insertedHeight = rowHeight * numRows;
 	for (int nextRow = index + numRows; nextRow < rows() + numRows; ++nextRow)
 	{
 		// Adjust position of following row.
@@ -159,7 +159,7 @@ void PageItem_Table::removeRows(int index, int numRows)
 		return;
 
 	// Remove row heights, row positions and rows of cells.
-	qreal removedHeight = 0.0;
+	double removedHeight = 0.0;
 	for (int i = 0; i < numRows; ++i)
 	{
 		// Remove row height and position.
@@ -215,8 +215,8 @@ void PageItem_Table::insertColumns(int index, int numColumns)
 	if (index < 0 || index > columns() || numColumns < 1)
 		return;
 
-	qreal columnWidth = m_columnWidths.at(qMax(index - 1, 0));
-	qreal columnPosition = index == 0 ? 0.0 : m_columnPositions.at(index - 1) + columnWidth;
+	double columnWidth = m_columnWidths.at(qMax(index - 1, 0));
+	double columnPosition = index == 0 ? 0.0 : m_columnPositions.at(index - 1) + columnWidth;
 
 	for (int col = index; col < index + numColumns; ++col)
 	{
@@ -231,7 +231,7 @@ void PageItem_Table::insertColumns(int index, int numColumns)
 	}
 
 	// Adjust following columns.
-	qreal insertedWidth = columnWidth * numColumns;
+	double insertedWidth = columnWidth * numColumns;
 	for (int nextColumn = index + numColumns; nextColumn < columns() + numColumns; ++nextColumn)
 	{
 		// Adjust position of following column.
@@ -264,7 +264,7 @@ void PageItem_Table::removeColumns(int index, int numColumns)
 		return;
 
 	// Remove column widths, column positions and columns of cells.
-	qreal removedWidth = 0.0;
+	double removedWidth = 0.0;
 	for (int i = 0; i < numColumns; ++i)
 	{
 		// Remove columns widths and positions.
@@ -311,7 +311,7 @@ void PageItem_Table::removeColumns(int index, int numColumns)
 	ASSERT_VALID();
 }
 
-qreal PageItem_Table::rowHeight(int row) const
+double PageItem_Table::rowHeight(int row) const
 {
 	if (!validRow(row))
 		return 0.0;
@@ -319,7 +319,7 @@ qreal PageItem_Table::rowHeight(int row) const
 	return m_rowHeights.at(row);
 }
 
-void PageItem_Table::resizeRow(int row, qreal height, ResizeStrategy strategy)
+void PageItem_Table::resizeRow(int row, double height, ResizeStrategy strategy)
 {
 	ASSERT_VALID();
 
@@ -347,7 +347,7 @@ void PageItem_Table::distributeRows(int startRow, int endRow)
 		return;
 
 	const int numRows = endRow - startRow + 1;
-	const qreal newHeight = (rowPosition(endRow) + rowHeight(endRow) - rowPosition(startRow)) / numRows;
+	const double newHeight = (rowPosition(endRow) + rowHeight(endRow) - rowPosition(startRow)) / numRows;
 
 	for (int row = startRow; row <= endRow; ++row)
 		resizeRow(row, newHeight);
@@ -359,13 +359,13 @@ void PageItem_Table::distributeColumns(int startColumn, int endColumn)
 		return;
 
 	const int numColumns = endColumn - startColumn + 1;
-	const qreal newWidth = (columnPosition(endColumn) + columnWidth(endColumn) - columnPosition(startColumn)) / numColumns;
+	const double newWidth = (columnPosition(endColumn) + columnWidth(endColumn) - columnPosition(startColumn)) / numColumns;
 
 	for (int column = startColumn; column <= endColumn; ++column)
 		resizeColumn(column, newWidth);
 }
 
-qreal PageItem_Table::rowPosition(int row) const
+double PageItem_Table::rowPosition(int row) const
 {
 	if (!validRow(row))
 		return 0.0;
@@ -373,7 +373,7 @@ qreal PageItem_Table::rowPosition(int row) const
 	return m_rowPositions.at(row);
 }
 
-qreal PageItem_Table::columnWidth(int column) const
+double PageItem_Table::columnWidth(int column) const
 {
 	if (!validColumn(column))
 		return 0.0;
@@ -381,7 +381,7 @@ qreal PageItem_Table::columnWidth(int column) const
 	return m_columnWidths.at(column);
 }
 
-void PageItem_Table::resizeColumn(int column, qreal width, ResizeStrategy strategy)
+void PageItem_Table::resizeColumn(int column, double width, ResizeStrategy strategy)
 {
 	ASSERT_VALID();
 
@@ -403,7 +403,7 @@ void PageItem_Table::resizeColumn(int column, qreal width, ResizeStrategy strate
 	ASSERT_VALID();
 }
 
-qreal PageItem_Table::columnPosition(int column) const
+double PageItem_Table::columnPosition(int column) const
 {
 	if (!validColumn(column))
 		return 0.0;
@@ -625,7 +625,7 @@ void PageItem_Table::moveTo(const TableCell& cell)
 	m_activeColumn = activeCell().column();
 }
 
-TableHandle PageItem_Table::hitTest(const QPointF& point, qreal threshold) const
+TableHandle PageItem_Table::hitTest(const QPointF& point, double threshold) const
 {
 	const QPointF framePoint = getTransform().inverted().map(point);
 	const QPointF gridPoint = framePoint - gridOffset();
@@ -639,10 +639,10 @@ TableHandle PageItem_Table::hitTest(const QPointF& point, qreal threshold) const
 	if (!gridRect.adjusted(-threshold, -threshold, threshold, threshold).contains(gridPoint))
 		return TableHandle(TableHandle::None);
 
-	const qreal tableHeight = this->tableHeight();
-	const qreal tableWidth = this->tableWidth();
-	const qreal x = gridPoint.x();
-	const qreal y = gridPoint.y();
+	const double tableHeight = this->tableHeight();
+	const double tableWidth = this->tableWidth();
+	const double x = gridPoint.x();
+	const double y = gridPoint.y();
 
 	// Test if hit is on left edge of table.
 	if (x <= threshold)
@@ -671,10 +671,10 @@ TableHandle PageItem_Table::hitTest(const QPointF& point, qreal threshold) const
 	if (hitRect.adjusted(threshold, threshold, -threshold, -threshold).contains(gridPoint))
 		return TableHandle(TableHandle::CellSelect); // Hit interior of cell.
 
-	const qreal toLeft = x - hitRect.left();
-	const qreal toRight = hitRect.right() - x;
-	const qreal toTop = y - hitRect.top();
-	const qreal toBottom = hitRect.bottom() - y;
+	const double toLeft = x - hitRect.left();
+	const double toRight = hitRect.right() - x;
+	const double toTop = y - hitRect.top();
+	const double toBottom = hitRect.bottom() - y;
 	TableHandle handle(TableHandle::None);
 
 	// Test which side of the cell was hit.
@@ -917,9 +917,9 @@ void PageItem_Table::activateCell(const TableCell& cell)
 	ASSERT_VALID();
 }
 
-qreal PageItem_Table::maxLeftBorderWidth() const
+double PageItem_Table::maxLeftBorderWidth() const
 {
-	qreal maxWidth = 0.0;
+	double maxWidth = 0.0;
 	TableCell cell;
 	for (int row = 0; row < rows(); row += cell.rowSpan())
 	{
@@ -929,9 +929,9 @@ qreal PageItem_Table::maxLeftBorderWidth() const
 	return maxWidth;
 }
 
-qreal PageItem_Table::maxRightBorderWidth() const
+double PageItem_Table::maxRightBorderWidth() const
 {
-	qreal maxWidth = 0.0;
+	double maxWidth = 0.0;
 	TableCell cell;
 	for (int row = 0; row < rows(); row += cell.rowSpan())
 	{
@@ -941,9 +941,9 @@ qreal PageItem_Table::maxRightBorderWidth() const
 	return maxWidth;
 }
 
-qreal PageItem_Table::maxTopBorderWidth() const
+double PageItem_Table::maxTopBorderWidth() const
 {
-	qreal maxWidth = 0.0;
+	double maxWidth = 0.0;
 	TableCell cell;
 	for (int col = 0; col < columns(); col += cell.columnSpan())
 	{
@@ -953,9 +953,9 @@ qreal PageItem_Table::maxTopBorderWidth() const
 	return maxWidth;
 }
 
-qreal PageItem_Table::maxBottomBorderWidth() const
+double PageItem_Table::maxBottomBorderWidth() const
 {
-	qreal maxWidth = 0.0;
+	double maxWidth = 0.0;
 	TableCell cell;
 	for (int col = 0; col < columns(); col += cell.columnSpan())
 	{
@@ -965,13 +965,13 @@ qreal PageItem_Table::maxBottomBorderWidth() const
 	return maxWidth;
 }
 
-qreal PageItem_Table::resizeRowMoveFollowing(int row, qreal height)
+double PageItem_Table::resizeRowMoveFollowing(int row, double height)
 {
 	// Set row height.
-	qreal newHeight = m_rowHeights[row] = qMax(MinimumRowHeight, height);
+	double newHeight = m_rowHeights[row] = qMax(MinimumRowHeight, height);
 
 	// Move following rows.
-	qreal rowPosition = m_rowPositions[row];
+	double rowPosition = m_rowPositions[row];
 	for (int nextRow = row; nextRow < m_rowPositions.size(); ++nextRow)
 	{
 		m_rowPositions[nextRow] = rowPosition;
@@ -981,10 +981,10 @@ qreal PageItem_Table::resizeRowMoveFollowing(int row, qreal height)
 	return newHeight;
 }
 
-qreal PageItem_Table::resizeRowResizeFollowing(int row, qreal height)
+double PageItem_Table::resizeRowResizeFollowing(int row, double height)
 {
-	qreal oldHeight = m_rowHeights[row];
-	qreal newHeight = oldHeight;
+	double oldHeight = m_rowHeights[row];
+	double newHeight = oldHeight;
 
 	if (row < rows() - 1)
 	{
@@ -994,7 +994,7 @@ qreal PageItem_Table::resizeRowResizeFollowing(int row, qreal height)
 			oldHeight + m_rowHeights[row + 1] - MinimumRowHeight);
 
 		// Resize/move following row.
-		qreal heightChange = newHeight - oldHeight;
+		double heightChange = newHeight - oldHeight;
 		m_rowPositions[row + 1] += heightChange;
 		m_rowHeights[row + 1] -= heightChange;
 	}
@@ -1007,13 +1007,13 @@ qreal PageItem_Table::resizeRowResizeFollowing(int row, qreal height)
 	return newHeight;
 }
 
-qreal PageItem_Table::resizeColumnMoveFollowing(int column, qreal width)
+double PageItem_Table::resizeColumnMoveFollowing(int column, double width)
 {
 	// Set column width.
-	qreal newWidth = m_columnWidths[column] = qMax(MinimumColumnWidth, width);
+	double newWidth = m_columnWidths[column] = qMax(MinimumColumnWidth, width);
 
 	// Move following columns.
-	qreal columnPosition = m_columnPositions[column];
+	double columnPosition = m_columnPositions[column];
 	for (int nextColumn = column; nextColumn < m_columnPositions.size(); ++nextColumn)
 	{
 		m_columnPositions[nextColumn] = columnPosition;
@@ -1023,10 +1023,10 @@ qreal PageItem_Table::resizeColumnMoveFollowing(int column, qreal width)
 	return newWidth;
 }
 
-qreal PageItem_Table::resizeColumnResizeFollowing(int column, qreal width)
+double PageItem_Table::resizeColumnResizeFollowing(int column, double width)
 {
-	qreal oldWidth = m_columnWidths[column];
-	qreal newWidth = oldWidth;
+	double oldWidth = m_columnWidths[column];
+	double newWidth = oldWidth;
 
 	if (column < columns() - 1)
 	{
@@ -1036,7 +1036,7 @@ qreal PageItem_Table::resizeColumnResizeFollowing(int column, qreal width)
 			oldWidth + m_columnWidths[column + 1] - MinimumColumnWidth);
 
 		// Resize/move following column.
-		qreal widthChange = newWidth - oldWidth;
+		double widthChange = newWidth - oldWidth;
 		m_columnPositions[column + 1] += widthChange;
 		m_columnWidths[column + 1] -= widthChange;
 	}

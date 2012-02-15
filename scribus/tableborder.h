@@ -25,13 +25,13 @@ public:
 	TableBorderLine();
 
 	/// Creates a new table border line with @a width, @a style and @a color.
-	TableBorderLine(qreal width, Qt::PenStyle style, const QString& color);
+	TableBorderLine(double width, Qt::PenStyle style, const QString& color);
 
 	/// Returns the width of this table border line.
-	qreal width() const { return m_width; }
+	double width() const { return m_width; }
 
 	/// Sets the width of this table border line to @a width.
-	void setWidth(qreal width) { m_width = width; }
+	void setWidth(double width) { m_width = width; }
 
 	/// Returns the pen style of this table border line.
 	Qt::PenStyle style() const { return m_style; }
@@ -62,7 +62,7 @@ public:
 
 private:
 	/// The width of the table border line.
-	qreal m_width;
+	double m_width;
 	/// The pen style of the table border line.
 	Qt::PenStyle m_style;
 	/// The color of the table border line.
@@ -82,10 +82,10 @@ public:
 	TableBorder() {}
 
 	/// Creates a new table border with a single border line with @a width, @a style and @a color.
-	TableBorder(qreal width, Qt::PenStyle style, const QString& color);
+	TableBorder(double width, Qt::PenStyle style, const QString& color);
 
 	/// Returns the width of the first table border line, or 0.0 if this is a null border.
-	qreal width() const;
+	double width() const;
 
 	/// Returns the list of border lines for this border in the order they should be painted.
 	QList<TableBorderLine> borderLines() const { return m_borderLines; }

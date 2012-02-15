@@ -52,22 +52,22 @@ private:
 	 *
 	 * The resize will imitate the behavior of the PageItem_Table::MoveFollowing strategy.
 	 */
-	qreal resizeRowMoveFollowing(qreal height);
+	double resizeRowMoveFollowing(double height);
 
 	/**
 	 * Resizes the row to @a height and returns the new height.
 	 *
 	 * The resize will imitate the behavior of the PageItem_Table::ResizeFollowing strategy.
 	 */
-	qreal resizeRowResizeFollowing(qreal height);
+	double resizeRowResizeFollowing(double height);
 
 private:
 	/// Row being resized.
 	int m_row;
 	/// List of row heights for the table outline.
-	QList<qreal> m_rowHeights;
+	QList<double> m_rowHeights;
 	/// List of row positions for the table outline.
-	QList<qreal> m_rowPositions;
+	QList<double> m_rowPositions;
 };
 
 #endif // CANVASGESTURE_ROWRESIZE_H

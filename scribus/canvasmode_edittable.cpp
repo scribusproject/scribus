@@ -150,7 +150,7 @@ void CanvasMode_EditTable::mouseMoveEvent(QMouseEvent* event)
 	event->accept();
 
 	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPos()).toQPointF();
-	qreal threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
+	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
 
 	if (event->buttons() & Qt::LeftButton)
@@ -196,7 +196,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 {
 	event->accept();
 	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPos()).toQPointF();
-	qreal threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
+	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
 
 	if (event->button() == Qt::LeftButton)

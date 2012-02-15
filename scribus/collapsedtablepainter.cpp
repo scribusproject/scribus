@@ -100,10 +100,10 @@ void CollapsedTablePainter::paintTable(ScPainter* p)
 				{
 					int endCol = col + cell.columnSpan() - 1;
 					int endRow = row + cell.rowSpan() - 1;
-					qreal left = table()->columnPosition(col);
-					qreal right = table()->columnPosition(endCol) + table()->columnWidth(endCol);
-					qreal top = table()->rowPosition(row);
-					qreal bottom = table()->rowPosition(endRow) + table()->rowHeight(endRow);
+					double left = table()->columnPosition(col);
+					double right = table()->columnPosition(endCol) + table()->columnWidth(endCol);
+					double top = table()->rowPosition(row);
+					double bottom = table()->rowPosition(endRow) + table()->rowHeight(endRow);
 					// Paint right and bottom grid line.
 					paintGridLine(QPointF(right, top), QPointF(right, bottom), p);
 					paintGridLine(QPointF(left, bottom), QPointF(right, bottom), p);
@@ -148,10 +148,10 @@ void CollapsedTablePainter::paintTableFill(ScPainter* p) const
 	int lastCol = table()->columns() - 1;
 	int lastRow = table()->rows() - 1;
 
-	qreal x = table()->columnPosition(0);
-	qreal y = table()->rowPosition(0);
-	qreal width = table()->columnPosition(lastCol) + table()->columnWidth(lastCol) - x;
-	qreal height = table()->rowPosition(lastRow) + table()->rowHeight(lastRow) - y;
+	double x = table()->columnPosition(0);
+	double y = table()->rowPosition(0);
+	double width = table()->columnPosition(lastCol) + table()->columnWidth(lastCol) - x;
+	double height = table()->rowPosition(lastRow) + table()->rowHeight(lastRow) - y;
 
 	QColor color;
 	table()->SetQColor(&color, colorName, 100.0);
@@ -402,7 +402,7 @@ void CollapsedTablePainter::paintCellLeftBorders(const TableCell& cell, ScPainte
 	// The cell starts in this column.
 	const int firstCol = cell.column();
 	// The X position of the border segments to paint.
-	const qreal borderX = table()->columnPosition(firstCol);
+	const double borderX = table()->columnPosition(firstCol);
 
 	// The start point of the border segment currently being painted.
 	QPointF start(borderX, 0.0);
@@ -478,7 +478,7 @@ void CollapsedTablePainter::paintCellRightBorders(const TableCell& cell, ScPaint
 	// The cell ends in this column.
 	const int lastCol = cell.column() + cell.columnSpan() - 1;
 	// The X position of the border segments to paint.
-	const qreal borderX = table()->columnPosition(lastCol) + table()->columnWidth(lastCol);
+	const double borderX = table()->columnPosition(lastCol) + table()->columnWidth(lastCol);
 
 	// The start point of the border segment currently being painted.
 	QPointF start(borderX, 0.0);
@@ -547,7 +547,7 @@ void CollapsedTablePainter::paintCellTopBorders(const TableCell& cell, ScPainter
 	// The cell ends in this column.
 	const int lastCol = cell.column() + cell.columnSpan() - 1;
 	// The Y position of the border segments to paint.
-	const qreal borderY = table()->rowPosition(firstRow);
+	const double borderY = table()->rowPosition(firstRow);
 
 	// The start point of the border segment currently being painted.
 	QPointF start(0.0, borderY);
@@ -616,7 +616,7 @@ void CollapsedTablePainter::paintCellBottomBorders(const TableCell& cell, ScPain
 	// The cell ends in this column.
 	const int lastCol = cell.column() + cell.columnSpan() - 1;
 	// The Y position of the border segments to paint.
-	const qreal borderY = table()->rowPosition(lastRow) + table()->rowHeight(lastRow);
+	const double borderY = table()->rowPosition(lastRow) + table()->rowHeight(lastRow);
 
 	// The start point of the border segment currently being painted.
 	QPointF start(0.0, borderY);
@@ -681,10 +681,10 @@ void CollapsedTablePainter::paintCellFill(const TableCell& cell, ScPainter* p) c
 	int lastRow = row + cell.rowSpan() - 1;
 	int lastCol = col + cell.columnSpan() - 1;
 
-	qreal x = table()->columnPosition(col);
-	qreal y = table()->rowPosition(row);
-	qreal width = table()->columnPosition(lastCol) + table()->columnWidth(lastCol) - x;
-	qreal height = table()->rowPosition(lastRow) + table()->rowHeight(lastRow) - y;
+	double x = table()->columnPosition(col);
+	double y = table()->rowPosition(row);
+	double width = table()->columnPosition(lastCol) + table()->columnWidth(lastCol) - x;
+	double height = table()->rowPosition(lastRow) + table()->rowHeight(lastRow) - y;
 	p->drawRect(x, y, width, height);
 
 	p->restore();

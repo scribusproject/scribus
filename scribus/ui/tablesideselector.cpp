@@ -49,8 +49,8 @@ QList<TableSideSelector::Side> TableSideSelector::selectionList() const
 
 void TableSideSelector::paintEvent(QPaintEvent* event)
 {
-	qreal edgeWidth = 5;
-	qreal inset = edgeWidth/2 + frameWidth()*2;
+	double edgeWidth = 5;
+	double inset = edgeWidth/2 + frameWidth()*2;
 
 	QPointF topLeft(inset, inset);
 	QPointF topRight(width() - inset, inset);
@@ -120,11 +120,11 @@ void TableSideSelector::leaveEvent(QEvent* event)
 
 TableSideSelector::Side TableSideSelector::closestSide(const QPointF& point) const
 {
-	QList<QPair<qreal, Side> > distances;
-	distances.append(QPair<qreal, Side>(QLineF(point, m_left.pointAt(0.5)).length(), Left));
-	distances.append(QPair<qreal, Side>(QLineF(point, m_right.pointAt(0.5)).length(), Right));
-	distances.append(QPair<qreal, Side>(QLineF(point, m_top.pointAt(0.5)).length(), Top));
-	distances.append(QPair<qreal, Side>(QLineF(point, m_bottom.pointAt(0.5)).length(), Bottom));
+	QList<QPair<double, Side> > distances;
+	distances.append(QPair<double, Side>(QLineF(point, m_left.pointAt(0.5)).length(), Left));
+	distances.append(QPair<double, Side>(QLineF(point, m_right.pointAt(0.5)).length(), Right));
+	distances.append(QPair<double, Side>(QLineF(point, m_top.pointAt(0.5)).length(), Top));
+	distances.append(QPair<double, Side>(QLineF(point, m_bottom.pointAt(0.5)).length(), Bottom));
 	qSort(distances);
 
 	return distances.first().second;
