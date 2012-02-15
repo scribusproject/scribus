@@ -4829,7 +4829,11 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		FPoint maxAr = getMaxClipF(&arrow);
 		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
 	}
-	totalRect.getCoords((qreal*)x1, (qreal*)y1, (qreal*)x2, (qreal*)y2);
+
+	qreal rx1, ry1, rx2, ry2;
+	totalRect.getCoords(&rx1, &ry1, &rx2, &ry2);
+	*x1 = rx1; *y1 = ry1;
+	*x2 = rx2; *y2 = ry2;
 }
 
 void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
@@ -4989,7 +4993,11 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		FPoint maxAr = getMaxClipF(&arrow);
 		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
 	}
-	totalRect.getCoords((qreal*)x1, (qreal*)y1, (qreal*)x2, (qreal*)y2);
+
+	qreal rx1, ry1, rx2, ry2;
+	totalRect.getCoords(&rx1, &ry1, &rx2, &ry2);
+	*x1 = rx1; *y1 = ry1;
+	*x2 = rx2; *y2 = ry2;
 }
 
 double PageItem::visualXPos() const
