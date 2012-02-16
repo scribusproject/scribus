@@ -6389,6 +6389,8 @@ void ScribusMainWindow::setAppMode(int mode)
 			if (currItem != 0)
 			{
 				currItem->update();
+				if (currItem->asTextFrame())
+					enableTextActions(&scrActions, false);
 				//		scrMenuMgr->setMenuEnabled("Item", true);
 				scrActions["itemDuplicate"]->setEnabled(true);
 				scrActions["itemMulDuplicate"]->setEnabled(true);
@@ -6610,33 +6612,6 @@ void ScribusMainWindow::setAppMode(int mode)
 		pluginManager.enablePluginActionsForSelection(this);
 
 		emit AppModeChanged(oldMode, mode);
-/*
-		QStringList pluginNames(pluginManager.pluginNames(false));
-		ScPlugin* plugin;
-		ScActionPlugin* ixplug;
-		ScrAction* pluginAction = 0;
-		QString pName;
-		for (int i = 0; i < pluginNames.count(); ++i)
-		{
-			pName = pluginNames.at(i);
-			plugin = pluginManager.getPlugin(pName, true);
-			Q_ASSERT(plugin); // all the returned names should represent loaded plugins
-			if (plugin->inherits("ScActionPlugin"))
-			{
-				ixplug = dynamic_cast<ScActionPlugin*>(plugin);
-				Q_ASSERT(ixplug);
-				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
-				if (pluginAction != 0)
-				{
-					if (doc->m_Selection->count() != 0)
-						pluginAction->setEnabled(ixplug->handleSelection(doc, doc->m_Selection->itemAt(0)->itemType()));
-					else
-						pluginAction->setEnabled(ixplug->handleSelection(doc));
-				}
-			}
-		}
-*/
 	}
 	actionManager->connectModeActions();
 }
