@@ -54,12 +54,14 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scstreamfilter_ascii85.h"
 #include "scstreamfilter_flate.h"
+#include "tableutils.h"
 #include "ui/multiprogressdialog.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_math.h"
 
 #include "text/nlsconfig.h"
+using namespace TableUtils;
 
 PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
@@ -2646,10 +2648,6 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			break;
 		case PageItem::Table:
 			PS_save();
-			SetClipPath(&c->PoLine);
-			PS_closepath();
-			PS_clip(c->fillRule);
-			PS_save();
 			PS_translate(c->asTable()->gridOffset().x(), c->asTable()->gridOffset().y());
 			// Paint table fill.
 			if (c->asTable()->fillColor() != CommonStrings::None)
@@ -2692,7 +2690,158 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					colSpan = cell.columnSpan();
 				}
 			}
-			PS_restore();
+			// Pass 2: Paint vertical borders.
+			for (int row = 0; row < c->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < c->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = c->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						const int lastRow = cell.row() + cell.rowSpan() - 1;
+						const int lastCol = cell.column() + cell.columnSpan() - 1;
+						const double borderX = c->asTable()->columnPosition(lastCol) + c->asTable()->columnWidth(lastCol);
+						QPointF start(borderX, 0.0);
+						QPointF end(borderX, 0.0);
+						QPointF startOffsetFactors, endOffsetFactors;
+						int startRow, endRow;
+						for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+						{
+							TableCell rightCell = c->asTable()->cellAt(row, lastCol + 1);
+							startRow = qMax(cell.row(), rightCell.row());
+							endRow = qMin(lastRow, rightCell.isValid() ? rightCell.row() + rightCell.rowSpan() - 1 : lastRow);
+							TableCell topLeftCell = c->asTable()->cellAt(startRow - 1, lastCol);
+							TableCell topRightCell = c->asTable()->cellAt(startRow - 1, lastCol + 1);
+							TableCell bottomRightCell = c->asTable()->cellAt(endRow + 1, lastCol + 1);
+							TableCell bottomLeftCell = c->asTable()->cellAt(endRow + 1, lastCol);
+							TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+							resolveBordersVertical(topLeftCell, topRightCell, cell, rightCell, bottomLeftCell, bottomRightCell,
+								&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, c->asTable());
+							if (border.isNull())
+								continue; // Quit early if the border to paint is null.
+							start.setY(c->asTable()->rowPosition(startRow));
+							end.setY((c->asTable()->rowPosition(endRow) + c->asTable()->rowHeight(endRow)));
+							joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+							paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+						}
+						if (col == 0)
+						{
+							const int lastRow = cell.row() + cell.rowSpan() - 1;
+							const int firstCol = cell.column();
+							const double borderX = c->asTable()->columnPosition(firstCol);
+							QPointF start(borderX, 0.0);
+							QPointF end(borderX, 0.0);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startRow, endRow;
+							for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+							{
+								TableCell leftCell = c->asTable()->cellAt(row, firstCol - 1);
+								startRow = qMax(cell.row(), leftCell.row());
+								endRow = qMin(lastRow, leftCell.isValid() ? leftCell.row() + leftCell.rowSpan() - 1 : lastRow);
+								TableCell topLeftCell = c->asTable()->cellAt(startRow - 1, firstCol - 1);
+								TableCell topRightCell = c->asTable()->cellAt(startRow - 1, firstCol);
+								TableCell bottomRightCell = c->asTable()->cellAt(lastRow + 1, firstCol);
+								TableCell bottomLeftCell = c->asTable()->cellAt(lastRow + 1, firstCol - 1);
+								TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+								resolveBordersVertical(topLeftCell, topRightCell, leftCell, cell, bottomLeftCell, bottomRightCell,
+									&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, c->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border to paint is null.
+								start.setY(c->asTable()->rowPosition(startRow));
+								end.setY((c->asTable()->rowPosition(endRow) + c->asTable()->rowHeight(endRow)));
+								joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+							}
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 3: Paint horizontal borders.
+			for (int row = 0; row < c->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < c->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = c->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						const int lastRow = cell.row() + cell.rowSpan() - 1;
+						const int lastCol = cell.column() + cell.columnSpan() - 1;
+						const double borderY = (c->asTable()->rowPosition(lastRow) + c->asTable()->rowHeight(lastRow));
+						QPointF start(0.0, borderY);
+						QPointF end(0.0, borderY);
+						QPointF startOffsetFactors, endOffsetFactors;
+						int startCol, endCol;
+						for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+						{
+							TableCell bottomCell = c->asTable()->cellAt(lastRow + 1, col);
+							startCol = qMax(cell.column(), bottomCell.column());
+							endCol = qMin(lastCol, bottomCell.isValid() ? bottomCell.column() + bottomCell.columnSpan() - 1 : lastCol);
+							TableCell topLeftCell = c->asTable()->cellAt(lastRow, startCol - 1);
+							TableCell topRightCell = c->asTable()->cellAt(lastRow, endCol + 1);
+							TableCell bottomRightCell = c->asTable()->cellAt(lastRow + 1, endCol + 1);
+							TableCell bottomLeftCell = c->asTable()->cellAt(lastRow + 1, startCol - 1);
+							TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+							resolveBordersHorizontal(topLeftCell, cell, topRightCell, bottomLeftCell, bottomCell,
+											  bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, c->asTable());
+							if (border.isNull())
+								continue; // Quit early if the border is null.
+							start.setX(c->asTable()->columnPosition(startCol));
+							end.setX(c->asTable()->columnPosition(endCol) + c->asTable()->columnWidth(endCol));
+							joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+							paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+						}
+						if (row == 0)
+						{
+							const int firstRow = cell.row();
+							const int lastCol = cell.column() + cell.columnSpan() - 1;
+							const double borderY = c->asTable()->rowPosition(firstRow);
+							QPointF start(0.0, borderY);
+							QPointF end(0.0, borderY);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startCol, endCol;
+							for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+							{
+								TableCell topCell = c->asTable()->cellAt(firstRow - 1, col);
+								startCol = qMax(cell.column(), topCell.column());
+								endCol = qMin(lastCol, topCell.isValid() ? topCell.column() + topCell.columnSpan() - 1 : lastCol);
+								TableCell topLeftCell = c->asTable()->cellAt(firstRow - 1, startCol - 1);
+								TableCell topRightCell = c->asTable()->cellAt(firstRow - 1, endCol + 1);
+								TableCell bottomRightCell = c->asTable()->cellAt(firstRow, endCol + 1);
+								TableCell bottomLeftCell = c->asTable()->cellAt(firstRow, startCol - 1);
+								TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+								resolveBordersHorizontal(topLeftCell, topCell, topRightCell, bottomLeftCell, cell,
+														 bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, c->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border is null.
+								start.setX(c->asTable()->columnPosition(startCol));
+								end.setX(c->asTable()->columnPosition(endCol) + c->asTable()->columnWidth(endCol));
+								joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+							}
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 4: Paint cell content.
+			for (int row = 0; row < c->asTable()->rows(); ++row)
+			{
+				for (int col = 0; col < c->asTable()->columns(); col ++)
+				{
+					TableCell cell = c->asTable()->cellAt(row, col);
+					if (cell.row() == row && cell.column() == col)
+					{
+						PageItem* textFrame = cell.textFrame();
+						PS_save();
+						PS_translate(cell.contentRect().x(), -cell.contentRect().y());
+						ProcessItem(m_Doc, a, textFrame, PNr, sep, farb, ic, gcr, master, true);
+						PS_restore();
+					}
+				}
+			}
 			PS_restore();
 			break;
 		default:
@@ -2701,6 +2850,195 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 		PS_restore();
 	}
 	return true;
+}
+
+
+void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, bool gcr)
+{
+	PS_save();
+	QPointF lineStart, lineEnd;
+	foreach (const TableBorderLine& line, border.borderLines())
+	{
+		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
+		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());
+		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
+		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
+		PS_moveto(lineStart.x(), -lineStart.y());
+		PS_lineto(lineEnd.x(), -lineEnd.y());
+		PS_setlinewidth(line.width());
+		int h, s, v, k;
+		if (line.color() != CommonStrings::None)
+		{
+			SetColor(line.color(), 100, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+		putColor(line.color(), 100, false);
+	}
+	PS_restore();
+}
+
+void PSLib::resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
+	const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
+	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
+	TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight, PageItem_Table* table)
+{
+	if (!topCell.isValid() && !bottomCell.isValid())
+		return;
+	if (topLeftCell.column() == topCell.column())
+		*topLeft = TableBorder();
+	else if (topLeftCell.isValid() && topCell.isValid())
+		*topLeft = collapseBorders(topCell.leftBorder(), topLeftCell.rightBorder());
+	else if (topLeftCell.isValid())
+		*topLeft = collapseBorders(table->rightBorder(), topLeftCell.rightBorder());
+	else if (topCell.isValid())
+		*topLeft = collapseBorders(topCell.leftBorder(), table->leftBorder());
+	else
+		*topLeft = TableBorder();
+	if (topLeftCell.row() == bottomLeftCell.row())
+		*left = TableBorder();
+	else if (topLeftCell.isValid() && bottomLeftCell.isValid())
+		*left = collapseBorders(bottomLeftCell.topBorder(), topLeftCell.bottomBorder());
+	else if (topLeftCell.isValid())
+		*left = collapseBorders(table->bottomBorder(), topLeftCell.bottomBorder());
+	else if (bottomLeftCell.isValid())
+		*left = collapseBorders(bottomLeftCell.topBorder(), table->topBorder());
+	else
+		*left = TableBorder();
+	if (bottomLeftCell.column() == bottomCell.column())
+		*bottomLeft = TableBorder();
+	else if (bottomLeftCell.isValid() && bottomCell.isValid())
+		*bottomLeft = collapseBorders(bottomCell.leftBorder(), bottomLeftCell.rightBorder());
+	else if (bottomLeftCell.isValid())
+		*bottomLeft = collapseBorders(table->rightBorder(), bottomLeftCell.rightBorder());
+	else if (bottomCell.isValid())
+		*bottomLeft = collapseBorders(bottomCell.leftBorder(), table->leftBorder());
+	else
+		*bottomLeft = TableBorder();
+	if (topCell.row() == bottomCell.row())
+		*center = TableBorder();
+	else if (topCell.isValid() && bottomCell.isValid())
+		*center = collapseBorders(topCell.bottomBorder(), bottomCell.topBorder());
+	else if (topCell.isValid())
+		*center = collapseBorders(table->bottomBorder(), topCell.bottomBorder());
+	else if (bottomCell.isValid())
+		*center = collapseBorders(bottomCell.topBorder(), table->topBorder());
+	else
+		*center = TableBorder();
+	if (topRightCell.column() == topCell.column())
+		*topRight = TableBorder();
+	else if (topRightCell.isValid() && topCell.isValid())
+		*topRight = collapseBorders(topRightCell.leftBorder(), topCell.rightBorder());
+	else if (topRightCell.isValid())
+		*topRight = collapseBorders(topRightCell.leftBorder(), table->leftBorder());
+	else if (topCell.isValid())
+		*topRight = collapseBorders(table->rightBorder(), topCell.rightBorder());
+	else
+		*topRight = TableBorder();
+	if (topRightCell.row() == bottomRightCell.row())
+		*right = TableBorder();
+	else if (topRightCell.isValid() && bottomRightCell.isValid())
+		*right = collapseBorders(bottomRightCell.topBorder(), topRightCell.bottomBorder());
+	else if (topRightCell.isValid())
+		*right = collapseBorders(table->bottomBorder(), topRightCell.bottomBorder());
+	else if (bottomRightCell.isValid())
+		*right = collapseBorders(bottomRightCell.topBorder(), table->topBorder());
+	else
+		*right = TableBorder();
+	if (bottomRightCell.column() == bottomCell.column())
+		*bottomRight = TableBorder();
+	else if (bottomRightCell.isValid() && bottomCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.leftBorder(), bottomCell.rightBorder());
+	else if (bottomRightCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.leftBorder(), table->leftBorder());
+	else if (bottomCell.isValid())
+		*bottomRight = collapseBorders(table->rightBorder(), bottomCell.rightBorder());
+	else
+		*bottomRight = TableBorder();
+}
+
+void PSLib::resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell, const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
+	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight, TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight, PageItem_Table* table)
+{
+	if (!leftCell.isValid() && !rightCell.isValid())
+		return;
+	// Resolve top left.
+	if (topLeftCell.row() == leftCell.row())
+		*topLeft = TableBorder();
+	else if (topLeftCell.isValid() && leftCell.isValid())
+		*topLeft = collapseBorders(leftCell.topBorder(), topLeftCell.bottomBorder());
+	else if (topLeftCell.isValid())
+		*topLeft = collapseBorders(table->bottomBorder(), topLeftCell.bottomBorder());
+	else if (leftCell.isValid())
+		*topLeft = collapseBorders(leftCell.topBorder(), table->topBorder());
+	else
+		*topLeft = TableBorder();
+	// Resolve top.
+	if (topLeftCell.column() == topRightCell.column())
+		*top = TableBorder();
+	else if (topLeftCell.isValid() && topRightCell.isValid())
+		*top = collapseBorders(topRightCell.leftBorder(), topLeftCell.rightBorder());
+	else if (topLeftCell.isValid())
+		*top = collapseBorders(table->rightBorder(), topLeftCell.rightBorder());
+	else if (topRightCell.isValid())
+		*top = collapseBorders(topRightCell.leftBorder(), table->leftBorder());
+	else
+		*top = TableBorder();
+	// Resolve top right.
+	if (topRightCell.row() == rightCell.row())
+		*topRight = TableBorder();
+	else if (topRightCell.isValid() && rightCell.isValid())
+		*topRight = collapseBorders(rightCell.topBorder(), topRightCell.bottomBorder());
+	else if (topRightCell.isValid())
+		*topRight = collapseBorders(table->bottomBorder(), topRightCell.bottomBorder());
+	else if (rightCell.isValid())
+		*topRight = collapseBorders(rightCell.topBorder(), table->topBorder());
+	else
+		*topRight = TableBorder();
+	// Resolve center.
+	if (leftCell.column() == rightCell.column())
+		*center = TableBorder();
+	else if (leftCell.isValid() && rightCell.isValid())
+		*center = collapseBorders(rightCell.leftBorder(), leftCell.rightBorder());
+	else if (leftCell.isValid())
+		*center = collapseBorders(table->rightBorder(), leftCell.rightBorder());
+	else if (rightCell.isValid())
+		*center = collapseBorders(rightCell.leftBorder(), table->leftBorder());
+	else
+		*center = TableBorder();
+	// Resolve bottom left.
+	if (bottomLeftCell.row() == leftCell.row())
+		*bottomLeft = TableBorder();
+	else if (bottomLeftCell.isValid() && leftCell.isValid())
+		*bottomLeft = collapseBorders(bottomLeftCell.topBorder(), leftCell.bottomBorder());
+	else if (bottomLeftCell.isValid())
+		*bottomLeft = collapseBorders(bottomLeftCell.topBorder(), table->topBorder());
+	else if (leftCell.isValid())
+		*bottomLeft = collapseBorders(table->bottomBorder(), leftCell.bottomBorder());
+	else
+		*bottomLeft = TableBorder();
+	// Resolve bottom.
+	if (bottomLeftCell.column() == bottomRightCell.column())
+		*bottom = TableBorder();
+	else if (bottomLeftCell.isValid() && bottomRightCell.isValid())
+		*bottom = collapseBorders(bottomRightCell.leftBorder(), bottomLeftCell.rightBorder());
+	else if (bottomLeftCell.isValid())
+		*bottom = collapseBorders(table->rightBorder(), bottomLeftCell.rightBorder());
+	else if (bottomRightCell.isValid())
+		*bottom = collapseBorders(bottomRightCell.leftBorder(), table->leftBorder());
+	else
+		*bottom = TableBorder();
+	// Resolve bottom right.
+	if (bottomRightCell.row() == rightCell.row())
+		*bottomRight = TableBorder();
+	else if (bottomRightCell.isValid() && rightCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.topBorder(), rightCell.bottomBorder());
+	else if (bottomRightCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.topBorder(), table->topBorder());
+	else if (rightCell.isValid())
+		*bottomRight = collapseBorders(table->bottomBorder(), rightCell.bottomBorder());
+	else
+		*bottomRight = TableBorder();
 }
 
 void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)

@@ -3691,7 +3691,23 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				it = allItems.at(ii);
-				checkItemForFonts(it, Really, lc);
+				if (it->isTable())
+				{
+					for (int row = 0; row < it->asTable()->rows(); ++row)
+					{
+						for (int col = 0; col < it->asTable()->columns(); col ++)
+						{
+							TableCell cell = it->asTable()->cellAt(row, col);
+							if (cell.row() == row && cell.column() == col)
+							{
+								PageItem* textFrame = cell.textFrame();
+								checkItemForFonts(textFrame, Really, lc);
+							}
+						}
+					}
+				}
+				else
+					checkItemForFonts(it, Really, lc);
 			}
 			allItems.clear();
 		}

@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "colormgmt/sccolormgmtengine.h"
+#include "tableborder.h"
 
 #ifdef NLS_PROTO
 class ScText;
@@ -47,6 +48,7 @@ class PageItem;
 class MultiProgressDialog;
 class ScImage;
 class ScLayer;
+class TableCell;
 
 /**
   *@author Franz Schmid
@@ -161,6 +163,16 @@ class SCRIBUS_API PSLib : public QObject
 		quint32 encode32dVal(double val);
 		quint16 encode16dVal(double val);
 		void encodeColor(QDataStream &vs, QString col);
+
+		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, bool gcr);
+		void resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
+			const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
+			const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
+			TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight, PageItem_Table* table);
+		void resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell,
+			const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
+			const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight,
+			TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight, PageItem_Table* table);
 
 		Optimization optimization;
 
