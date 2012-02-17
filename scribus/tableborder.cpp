@@ -25,27 +25,29 @@ TableBorderLine::TableBorderLine()
 	setWidth(0.0);
 	setStyle(Qt::SolidLine);
 	setColor("Black");
+	setShade(100);
 }
 
-TableBorderLine::TableBorderLine(double width, Qt::PenStyle style, const QString& color)
+TableBorderLine::TableBorderLine(double width, Qt::PenStyle style, const QString& color, double shade)
 {
 	setWidth(width);
 	setStyle(style);
 	setColor(color);
+	setShade(shade);
 }
 
 QString TableBorderLine::asString() const
 {
-	return QString("(%1,%2,%3)").arg(width()).arg(style()).arg(color());
+	return QString("(%1,%2,%3,%4)").arg(width()).arg(style()).arg(color()).arg(shade());
 }
 
 /*
  * TableBorder definitions.
  */
 
-TableBorder::TableBorder(double width, Qt::PenStyle style, const QString& color)
+TableBorder::TableBorder(double width, Qt::PenStyle style, const QString& color, double shade)
 {
-	addBorderLine(TableBorderLine(width, style, color));
+	addBorderLine(TableBorderLine(width, style, color, shade));
 }
 
 double TableBorder::width() const

@@ -230,6 +230,7 @@ void PropertiesPalette_Table::updateFillControls()
 		fillShadeLabel->setEnabled(true);
 		// Fill in values.
 		setCurrentComboItem(fillColor, table->fillColor());
+		fillShade->setValue(table->fillShade());
 	}
 	else
 	{
@@ -283,6 +284,7 @@ void PropertiesPalette_Table::on_borderLineList_currentRowChanged(int row)
 		borderLineWidth->showValue(line.width());
 		setCurrentComboItem(borderLineColor, line.color());
 		borderLineStyle->setCurrentIndex(static_cast<int>(line.style()) - 1);
+		borderLineShade->setValue(line.shade());
 	}
 }
 
@@ -318,6 +320,17 @@ void PropertiesPalette_Table::on_borderLineWidth_valueChanged(double width)
 	updateBorderLineListItem();
 }
 
+void PropertiesPalette_Table::on_borderLineShade_valueChanged(int shade)
+{
+	int index = borderLineList->currentRow();
+	TableBorderLine borderLine = m_currentBorder.borderLines().at(index);
+	borderLine.setShade(shade);
+	m_currentBorder.replaceBorderLine(index, borderLine);
+
+	updateBorders();
+	updateBorderLineListItem();
+}
+
 void PropertiesPalette_Table::on_borderLineColor_activated(const QString& colorName)
 {
 	int index = borderLineList->currentRow();
@@ -347,7 +360,18 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 
 	PageItem_Table* table = m_item->asTable();
 	table->setFillColor(colorName);
+	table->setFillShade(fillShade->value());
+	table->update();
+}
 
+void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
+{
+	if (!m_item || !m_item->isTable())
+		return;
+
+	PageItem_Table* table = m_item->asTable();
+	table->setFillColor(fillColor->currentColor());
+	table->setFillShade(shade);
 	table->update();
 }
 

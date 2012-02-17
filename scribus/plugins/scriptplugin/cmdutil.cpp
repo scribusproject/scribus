@@ -256,12 +256,13 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 	int nBorderLines = PyList_Size(borderLinesList);
 	for (int i = 0; i < nBorderLines; i++) {
 		double width = 0.0;
+		double shade = 100.0;
 		int style;
 		char* color;
 		PyObject* props = PyList_GET_ITEM(borderLinesList, i);
-		if (!PyArg_ParseTuple(props, "dies", &width, &style, "utf-8", &color))
+		if (!PyArg_ParseTuple(props, "dies|d", &width, &style, "utf-8", &color, &shade))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color) tuples", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color,shade) tuples", "python error").toLocal8Bit().constData());
 			*ok = false;
 			return border;
 		}
@@ -271,7 +272,7 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 			*ok = false;
 			return border;
 		}
-		border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), QString::fromUtf8(color)));
+		border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), QString::fromUtf8(color), shade));
 	}
 	Py_DECREF(borderLinesList);
 

@@ -154,7 +154,7 @@ void CollapsedTablePainter::paintTableFill(ScPainter* p) const
 	double height = table()->rowPosition(lastRow) + table()->rowHeight(lastRow) - y;
 
 	QColor color;
-	table()->SetQColor(&color, colorName, 100.0);
+	table()->SetQColor(&color, colorName, table()->fillShade());
 	p->setBrush(color);
 	p->setFillMode(ScPainter::Solid);
 	p->setStrokeMode(ScPainter::None);
@@ -671,7 +671,7 @@ void CollapsedTablePainter::paintCellFill(const TableCell& cell, ScPainter* p) c
 	p->save();
 
 	QColor color;
-	table()->SetQColor(&color, colorName, 100.0); // TODO: Support shade.
+	table()->SetQColor(&color, colorName, cell.fillShade());
 	p->setBrush(color);
 	p->setFillMode(ScPainter::Solid);
 	p->setStrokeMode(ScPainter::None);
@@ -708,7 +708,7 @@ void CollapsedTablePainter::paintBorder(const TableBorder& border, const QPointF
 		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
 		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
 		// Set line color.
-		table()->SetQColor(&lineColor, line.color(), 100.0); // TODO: Support shade.
+		table()->SetQColor(&lineColor, line.color(), line.shade());
 		// Draw line.
 		p->setPen(lineColor, line.width(), line.style(), Qt::FlatCap, Qt::MiterJoin);
 		p->drawLine(lineStart, lineEnd);

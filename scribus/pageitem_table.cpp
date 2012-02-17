@@ -722,6 +722,23 @@ QString PageItem_Table::fillColor() const
 	return m_style.fillColor();
 }
 
+void PageItem_Table::setFillShade(const double& shade)
+{
+	m_style.setFillShade(shade);
+	emit changed();
+}
+
+void PageItem_Table::unsetFillShade()
+{
+	m_style.resetFillShade();
+	emit changed();
+}
+
+double PageItem_Table::fillShade() const
+{
+	return m_style.fillShade();
+}
+
 void PageItem_Table::setLeftBorder(const TableBorder& border)
 {
 	m_style.setLeftBorder(border);

@@ -141,6 +141,12 @@ public:
 	/// Returns the fill color of this cell.
 	QString fillColor() const { return d->style.fillColor(); }
 
+	/// Sets the fill color of this cell to @a color.
+	void setFillColor(const double& shade) { d->style.setFillShade(shade); }
+
+	/// Returns the fill color of this cell.
+	double fillShade() const { return d->style.fillShade(); }
+
 	/// Sets the left border of this cell to @a border.
 	void setLeftBorder(const TableBorder& border);
 

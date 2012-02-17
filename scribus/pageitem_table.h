@@ -385,6 +385,15 @@ public:
 	/// Returns the fill color of this table.
 	QString fillColor() const;
 
+	/// Sets the fill shade of this table to @a color.
+	void setFillShade(const double& shade);
+
+	/// Unsets the fill shade of this table.
+	void unsetFillShade();
+
+	/// Returns the fill shade of this table.
+	double fillShade() const;
+
 	/// Sets the left border of this table to @a border.
 	void setLeftBorder(const TableBorder& border);
 

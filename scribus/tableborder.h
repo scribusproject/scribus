@@ -25,7 +25,7 @@ public:
 	TableBorderLine();
 
 	/// Creates a new table border line with @a width, @a style and @a color.
-	TableBorderLine(double width, Qt::PenStyle style, const QString& color);
+	TableBorderLine(double width, Qt::PenStyle style, const QString& color, double shade);
 
 	/// Returns the width of this table border line.
 	double width() const { return m_width; }
@@ -45,13 +45,19 @@ public:
 	/// Sets the color of this table border line to @a color.
 	void setColor(const QString& color) { m_color = color; }
 
+	/// Returns the shade of this table border line.
+	double shade() const { return m_shade; }
+
+	/// Sets the shade of this table border line to @a shade.
+	void setShade(double shade) { m_shade = shade; }
+
 	/// Returns a string representation of the border line.
 	QString asString() const;
 
 	/// Returns <code>true</code> if this table border line is equal to @a other.
 	bool operator==(const TableBorderLine& other) const
 	{
-		return width() == other.width() && color() == other.color() && style() == other.style();
+		return width() == other.width() && color() == other.color() && style() == other.style() && shade() == other.shade();
 	}
 
 	/// Returns <code>true</code> if this table border line is not equal to @a other.
@@ -67,6 +73,8 @@ private:
 	Qt::PenStyle m_style;
 	/// The color of the table border line.
 	QString m_color;
+	/// Ths shade of the table border line
+	double m_shade;
 };
 Q_DECLARE_TYPEINFO(TableBorderLine, Q_MOVABLE_TYPE);
 
@@ -82,7 +90,7 @@ public:
 	TableBorder() {}
 
 	/// Creates a new table border with a single border line with @a width, @a style and @a color.
-	TableBorder(double width, Qt::PenStyle style, const QString& color);
+	TableBorder(double width, Qt::PenStyle style, const QString& color, double shade);
 
 	/// Returns the width of the first table border line, or 0.0 if this is a null border.
 	double width() const;

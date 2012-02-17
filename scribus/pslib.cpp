@@ -2674,7 +2674,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						if (colorName != CommonStrings::None)
 						{
 							PS_save();
-							putColorNoDraw(colorName, 100, gcr);
+							putColorNoDraw(colorName, cell.fillShade(), gcr);
 							int row = cell.row();
 							int col = cell.column();
 							int lastRow = row + cell.rowSpan() - 1;
@@ -2857,6 +2857,7 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 {
 	PS_save();
 	QPointF lineStart, lineEnd;
+	QVector<double> DashValues;
 	foreach (const TableBorderLine& line, border.borderLines())
 	{
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
@@ -2866,14 +2867,16 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 		PS_moveto(lineStart.x(), -lineStart.y());
 		PS_lineto(lineEnd.x(), -lineEnd.y());
 		PS_setlinewidth(line.width());
+		getDashArray(line.style(), qMax(line.width(), 1.0), DashValues);
+		PS_setdash(line.style(), 0, DashValues);
 		int h, s, v, k;
 		if (line.color() != CommonStrings::None)
 		{
-			SetColor(line.color(), 100, &h, &s, &v, &k, gcr);
+			SetColor(line.color(), line.shade(), &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 		}
 		PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-		putColor(line.color(), 100, false);
+		putColor(line.color(), line.shade(), false);
 	}
 	PS_restore();
 }

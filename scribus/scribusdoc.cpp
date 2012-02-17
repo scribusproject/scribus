@@ -498,10 +498,11 @@ void ScribusDoc::init()
 	TableStyle defaultTableStyle;
 	defaultTableStyle.setName(CommonStrings::DefaultTableStyle);
 	defaultTableStyle.setFillColor(CommonStrings::None);
-	defaultTableStyle.setLeftBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
-	defaultTableStyle.setRightBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
-	defaultTableStyle.setTopBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
-	defaultTableStyle.setBottomBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultTableStyle.setFillShade(100);
+	defaultTableStyle.setLeftBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
+	defaultTableStyle.setRightBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
+	defaultTableStyle.setTopBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
+	defaultTableStyle.setBottomBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
 	docTableStyles.create(defaultTableStyle);
 	docTableStyles.makeDefault(&(docTableStyles[0]));
 
@@ -510,10 +511,11 @@ void ScribusDoc::init()
 	CellStyle defaultCellStyle;
 	defaultCellStyle.setName(CommonStrings::DefaultCellStyle);
 	defaultCellStyle.setFillColor(CommonStrings::None);
-	defaultCellStyle.setLeftBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
-	defaultCellStyle.setRightBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
-	defaultCellStyle.setTopBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
-	defaultCellStyle.setBottomBorder(TableBorder(1.0, Qt::SolidLine, "Black"));
+	defaultCellStyle.setFillShade(100);
+	defaultCellStyle.setLeftBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
+	defaultCellStyle.setRightBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
+	defaultCellStyle.setTopBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
+	defaultCellStyle.setBottomBorder(TableBorder(1.0, Qt::SolidLine, "Black", 100));
 	defaultCellStyle.setLeftPadding(1.0);
 	defaultCellStyle.setRightPadding(1.0);
 	defaultCellStyle.setTopPadding(1.0);

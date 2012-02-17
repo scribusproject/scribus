@@ -85,6 +85,7 @@ QString CellStyle::asString() const
 	QString str("cellstyle(");
 	str += QString("displayName=%1,").arg(displayName());
 	str += QString("fillColor=%1%2,").arg(fillColor()).arg(inh_FillColor ? "(inh)" : "");
+	str += QString("fillShade=%1%2,").arg(fillShade()).arg(inh_FillShade ? "(inh)" : "");
 	str += QString("leftBorder=%1%2,").arg(leftBorder().asString()).arg(inh_LeftBorder ? "(inh)" : "");
 	str += QString("rightBorder=%1%2,").arg(rightBorder().asString()).arg(inh_RightBorder ? "(inh)" : "");
 	str += QString("topBorder=%1%2,").arg(topBorder().asString()).arg(inh_TopBorder ? "(inh)" : "");

@@ -1795,6 +1795,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			PageItem_Table* tableItem = item->asTable();
 			docu.writeStartElement("TableData");
 			docu.writeAttribute("FillColor", tableItem->fillColor());
+			docu.writeAttribute("FillShade", tableItem->fillShade());
 			//for each cell, write it to the doc
 			foreach (QList<TableCell> cellRow, tableItem->cellRows())
 			{
@@ -1811,6 +1812,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					//BoundRect?
 					//ContentRect?
 					docu.writeAttribute("FillColor", cell.fillColor());
+					docu.writeAttribute("FillShade", cell.fillShade());
 					docu.writeAttribute("LeftPadding",cell.leftPadding());
 					docu.writeAttribute("RightPadding", cell.rightPadding());
 					docu.writeAttribute("TopPadding",cell.topPadding());
@@ -1825,6 +1827,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("Width", tbl.width());
 						docu.writeAttribute("PenStyle", tbl.style());
 						docu.writeAttribute("Color", tbl.color());
+						docu.writeAttribute("Shade", tbl.shade());
 						docu.writeEndElement();
 					}
 					docu.writeEndElement();
@@ -1838,6 +1841,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("Width", tbl.width());
 						docu.writeAttribute("PenStyle", tbl.style());
 						docu.writeAttribute("Color", tbl.color());
+						docu.writeAttribute("Shade", tbl.shade());
 						docu.writeEndElement();
 					}
 					docu.writeEndElement();
@@ -1851,6 +1855,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("Width", tbl.width());
 						docu.writeAttribute("PenStyle", tbl.style());
 						docu.writeAttribute("Color", tbl.color());
+						docu.writeAttribute("Shade", tbl.shade());
 						docu.writeEndElement();
 					}
 					docu.writeEndElement();
@@ -1864,10 +1869,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("Width", tbl.width());
 						docu.writeAttribute("PenStyle", tbl.style());
 						docu.writeAttribute("Color", tbl.color());
+						docu.writeAttribute("Shade", tbl.shade());
 						docu.writeEndElement();
 					}
 					docu.writeEndElement();
 					//End Cell
+					writeITEXTs(doc, docu, cell.textFrame());
 					docu.writeEndElement();
 				}
 				docu.writeEndElement();
