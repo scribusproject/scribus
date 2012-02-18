@@ -836,10 +836,10 @@ void ScPainterEx_Cairo::drawDiamondGradient( VGradientEx& gradient, const QRect&
 	QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
 	QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
 	QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
-	QPointF p1 = edge1.pointAt(colorStops[colorStops.count() - 1]->rampPoint);
-	QPointF p2 = edge2.pointAt(colorStops[colorStops.count() - 1]->rampPoint);
-	QPointF p3 = edge3.pointAt(colorStops[colorStops.count() - 1]->rampPoint);
-	QPointF p4 = edge4.pointAt(colorStops[colorStops.count() - 1]->rampPoint);
+	QPointF p1 = edge1.pointAt(colorStops.last()->rampPoint);
+	QPointF p2 = edge2.pointAt(colorStops.last()->rampPoint);
+	QPointF p3 = edge3.pointAt(colorStops.last()->rampPoint);
+	QPointF p4 = edge4.pointAt(colorStops.last()->rampPoint);
 	cairo_set_source_rgba(cr, r, g, b, a);
 	cairo_paint_with_alpha(cr, 1.0);
 	cairo_set_operator(cr, CAIRO_OPERATOR_DEST_OUT);

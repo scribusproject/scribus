@@ -1132,18 +1132,81 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 
 void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, const QRect& clip )
 {
+	if (item->PoLine.size() < 4)
+		return;
+
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
 
 	if (item->NamedLStyle.isEmpty())
-		painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+	{
+		QString patternStrokeVal = item->strokePattern();
+		if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+		{
+			if (item->patternStrokePath)
+			{
+				QPainterPath guidePath = item->PoLine.toQPainterPath(false);
+				guidePath.moveTo(0, 0);
+				guidePath.lineTo(item->width(), 0);
+				drawStrokePattern(item, painter, guidePath);
+			}
+			else
+			{
+				painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setStrokeMode(ScPainterExBase::Pattern);
+				painter->strokePath();
+			}
+		}
+		else if (item->strokeGradientType() > 0)
+		{
+			QString gradientStrokeVal = item->strokeGradient();
+			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
+				gradientStrokeVal = "";
+			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
+				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
+			if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+			{
+				if (item->lineColor() != CommonStrings::None)
+				{
+					ScColorShade strokeColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+					painter->setBrush(strokeColor);
+					painter->setStrokeMode(ScPainterExBase::Solid);
+				}
+				else
+					painter->setStrokeMode(ScPainterExBase::None);
+			}
+			else
+			{
+				FPoint fpStart(item->GrStrokeStartX, item->GrStrokeStartY);
+				FPoint fpEnd(item->GrStrokeEndX, item->GrStrokeEndY);
+				FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
+				painter->setStrokeMode(ScPainterExBase::Gradient);
+				painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
+				if (item->GrTypeStroke == 6)
+					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
+				else
+					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
+			}
+			painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+		}
+		else if (item->lineColor() != CommonStrings::None)
+		{
+			ScColorShade scColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+			painter->setStrokeMode(ScPainterExBase::Solid);
+			painter->setPen(scColor, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
+			if (item->DashValues.count() != 0)
+				painter->setDash(item->DashValues, item->DashOffset);
+			painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+		}
+	}
 	else
 	{
+		painter->setStrokeMode(ScPainterExBase::Solid);
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
 		for (int it = ml.size()-1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
-			if (sl.Color != CommonStrings::None)
+			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 			{
 				ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
 				painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
@@ -1354,103 +1417,159 @@ void ScPageOutput::drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* 
 
 void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painter, const QRect& clip )
 {
+	if (item->PoLine.size() < 4)
+		return;
+
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
 
-	if (item->PoLine.size()>=4)
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
-		if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+		FPointArray cli;
+		FPoint Start;
+		bool firstp = true;
+		for (uint n = 0; n < item->PoLine.size()-3; n += 4)
 		{
-			FPointArray cli;
-			FPoint Start;
-			bool firstp = true;
-			for (uint n = 0; n < item->PoLine.size()-3; n += 4)
+			if (firstp)
 			{
-				if (firstp)
-				{
-					Start = item->PoLine.point(n);
-					firstp = false;
-				}
-				if (item->PoLine.point(n).x() > 900000)
-				{
-					cli.addPoint(item->PoLine.point(n-2));
-					cli.addPoint(item->PoLine.point(n-2));
-					cli.addPoint(Start);
-					cli.addPoint(Start);
-					cli.setMarker();
-					firstp = true;
-					continue;
-				}
-				cli.addPoint(item->PoLine.point(n));
-				cli.addPoint(item->PoLine.point(n+1));
-				cli.addPoint(item->PoLine.point(n+2));
-				cli.addPoint(item->PoLine.point(n+3));
+				Start = item->PoLine.point(n);
+				firstp = false;
 			}
-			if (cli.size() > 2)
+			if (item->PoLine.point(n).x() > 900000)
 			{
-				FPoint l1 = cli.point(cli.size()-2);
-				cli.addPoint(l1);
-				cli.addPoint(l1);
+				cli.addPoint(item->PoLine.point(n-2));
+				cli.addPoint(item->PoLine.point(n-2));
 				cli.addPoint(Start);
 				cli.addPoint(Start);
+				cli.setMarker();
+				firstp = true;
+				continue;
 			}
-			painter->setupPolygon(&cli);
-			fillPath(item, painter, clip);
+			cli.addPoint(item->PoLine.point(n));
+			cli.addPoint(item->PoLine.point(n+1));
+			cli.addPoint(item->PoLine.point(n+2));
+			cli.addPoint(item->PoLine.point(n+3));
 		}
-		painter->setupPolygon(&item->PoLine, false);
-		if (item->NamedLStyle.isEmpty())
+		if (cli.size() > 2)
 		{
-			if (item->lineColor() != CommonStrings::None)
+			FPoint l1 = cli.point(cli.size()-2);
+			cli.addPoint(l1);
+			cli.addPoint(l1);
+			cli.addPoint(Start);
+			cli.addPoint(Start);
+		}
+		painter->setupPolygon(&cli);
+		fillPath(item, painter, clip);
+	}
+	painter->setupPolygon(&item->PoLine, false);
+	if (item->NamedLStyle.isEmpty())
+	{
+		QString patternStrokeVal = item->strokePattern();
+		if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+		{
+			if (item->patternStrokePath)
+			{
+				QPainterPath guidePath = item->PoLine.toQPainterPath(false);
+				guidePath.moveTo(0, 0);
+				guidePath.lineTo(item->width(), 0);
+				drawStrokePattern(item, painter, guidePath);
+			}
+			else
+			{
+				painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
-		}
-		else
-		{
-			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				const SingleLine& sl = ml[it];
-				if (sl.Color != CommonStrings::None)
-				{
-					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
-					painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
-							static_cast<Qt::PenCapStyle>(sl.LineEnd),
-							static_cast<Qt::PenJoinStyle>(sl.LineJoin));
-					painter->strokePath();
-				}
 			}
 		}
-		if (startArrowIndex != 0)
+		else if (item->strokeGradientType() > 0)
 		{
-			FPoint Start = item->PoLine.point(0);
-			for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+			QString gradientStrokeVal = item->strokeGradient();
+			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
+				gradientStrokeVal = "";
+			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
+				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
+			if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 			{
-				FPoint Vector = item->PoLine.point(xx);
-				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				if (item->lineColor() != CommonStrings::None)
 				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QTransform arrowTrans;
-					arrowTrans.translate(Start.x(), Start.y());
-					arrowTrans.rotate(r);
-					drawArrow(painter, item, arrowTrans, startArrowIndex);
-					break;
+					ScColorShade strokeColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+					painter->setBrush(strokeColor);
+					painter->setStrokeMode(ScPainterExBase::Solid);
 				}
+				else
+					painter->setStrokeMode(ScPainterExBase::None);
+			}
+			else
+			{
+				FPoint fpStart(item->GrStrokeStartX, item->GrStrokeStartY);
+				FPoint fpEnd(item->GrStrokeEndX, item->GrStrokeEndY);
+				FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
+				painter->setStrokeMode(ScPainterExBase::Gradient);
+				painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
+				if (item->GrTypeStroke == 6)
+					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
+				else
+					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
+			}
+			painter->strokePath();
+		}
+		else if (item->lineColor() != CommonStrings::None)
+		{
+			ScColorShade scColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+			painter->setStrokeMode(ScPainterExBase::Solid);
+			painter->setPen(scColor, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
+			if (item->DashValues.count() != 0)
+				painter->setDash(item->DashValues, item->DashOffset);
+			painter->strokePath();
+		}
+	}
+	else
+	{
+		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			const SingleLine& sl = ml[it];
+			if (sl.Color != CommonStrings::None)
+			{
+				ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+				painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+						static_cast<Qt::PenCapStyle>(sl.LineEnd),
+						static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+				painter->strokePath();
 			}
 		}
-		if (endArrowIndex != 0)
+	}
+	if (startArrowIndex != 0)
+	{
+		FPoint Start = item->PoLine.point(0);
+		for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
 		{
-			FPoint End = item->PoLine.point(item->PoLine.size()-2);
-			for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+			FPoint Vector = item->PoLine.point(xx);
+			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 			{
-				FPoint Vector = item->PoLine.point(xx);
-				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QTransform arrowTrans;
-					arrowTrans.translate(End.x(), End.y());
-					arrowTrans.rotate(r);
-					drawArrow(painter, item, arrowTrans, endArrowIndex);
-					break;
-				}
+				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+				QTransform arrowTrans;
+				arrowTrans.translate(Start.x(), Start.y());
+				arrowTrans.rotate(r);
+				drawArrow(painter, item, arrowTrans, startArrowIndex);
+				break;
+			}
+		}
+	}
+	if (endArrowIndex != 0)
+	{
+		FPoint End = item->PoLine.point(item->PoLine.size()-2);
+		for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+		{
+			FPoint Vector = item->PoLine.point(xx);
+			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+			{
+				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+				QTransform arrowTrans;
+				arrowTrans.translate(End.x(), End.y());
+				arrowTrans.rotate(r);
+				drawArrow(painter, item, arrowTrans, endArrowIndex);
+				break;
 			}
 		}
 	}
@@ -1458,103 +1577,159 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 
 void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, const QRect& clip )
 {
+	if (item->PoLine.size() < 4)
+		return;
+
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
 
-	if (item->PoLine.size()>=4)
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
-		if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+		FPointArray cli;
+		FPoint Start;
+		bool firstp = true;
+		for (uint n = 0; n < item->PoLine.size()-3; n += 4)
 		{
-			FPointArray cli;
-			FPoint Start;
-			bool firstp = true;
-			for (uint n = 0; n < item->PoLine.size()-3; n += 4)
+			if (firstp)
 			{
-				if (firstp)
-				{
-					Start = item->PoLine.point(n);
-					firstp = false;
-				}
-				if (item->PoLine.point(n).x() > 900000)
-				{
-					cli.addPoint(item->PoLine.point(n-2));
-					cli.addPoint(item->PoLine.point(n-2));
-					cli.addPoint(Start);
-					cli.addPoint(Start);
-					cli.setMarker();
-					firstp = true;
-					continue;
-				}
-				cli.addPoint(item->PoLine.point(n));
-				cli.addPoint(item->PoLine.point(n+1));
-				cli.addPoint(item->PoLine.point(n+2));
-				cli.addPoint(item->PoLine.point(n+3));
+				Start = item->PoLine.point(n);
+				firstp = false;
 			}
-			if (cli.size() > 2)
+			if (item->PoLine.point(n).x() > 900000)
 			{
-				FPoint l1 = cli.point(cli.size()-2);
-				cli.addPoint(l1);
-				cli.addPoint(l1);
+				cli.addPoint(item->PoLine.point(n-2));
+				cli.addPoint(item->PoLine.point(n-2));
 				cli.addPoint(Start);
 				cli.addPoint(Start);
+				cli.setMarker();
+				firstp = true;
+				continue;
 			}
-			painter->setupPolygon(&cli);
-			fillPath(item, painter, clip);
+			cli.addPoint(item->PoLine.point(n));
+			cli.addPoint(item->PoLine.point(n+1));
+			cli.addPoint(item->PoLine.point(n+2));
+			cli.addPoint(item->PoLine.point(n+3));
 		}
-		painter->setupPolygon(&item->PoLine, false);
-		if (item->NamedLStyle.isEmpty())
+		if (cli.size() > 2)
 		{
-			if (item->lineColor() != CommonStrings::None)
+			FPoint l1 = cli.point(cli.size()-2);
+			cli.addPoint(l1);
+			cli.addPoint(l1);
+			cli.addPoint(Start);
+			cli.addPoint(Start);
+		}
+		painter->setupPolygon(&cli);
+		fillPath(item, painter, clip);
+	}
+	painter->setupPolygon(&item->PoLine, false);
+	if (item->NamedLStyle.isEmpty())
+	{
+		QString patternStrokeVal = item->strokePattern();
+		if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+		{
+			if (item->patternStrokePath)
+			{
+				QPainterPath guidePath = item->PoLine.toQPainterPath(false);
+				guidePath.moveTo(0, 0);
+				guidePath.lineTo(item->width(), 0);
+				drawStrokePattern(item, painter, guidePath);
+			}
+			else
+			{
+				painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
-		}
-		else
-		{
-			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				const SingleLine& sl = ml[it];
-				if (sl.Color != CommonStrings::None)
-				{
-					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
-					painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
-							static_cast<Qt::PenCapStyle>(sl.LineEnd),
-							static_cast<Qt::PenJoinStyle>(sl.LineJoin));
-					painter->strokePath();
-				}
 			}
 		}
-		if (startArrowIndex != 0)
+		else if (item->strokeGradientType() > 0)
 		{
-			FPoint Start = item->PoLine.point(0);
-			for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+			QString gradientStrokeVal = item->strokeGradient();
+			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
+				gradientStrokeVal = "";
+			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
+				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
+			if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 			{
-				FPoint Vector = item->PoLine.point(xx);
-				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				if (item->lineColor() != CommonStrings::None)
 				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QTransform arrowTrans;
-					arrowTrans.translate(Start.x(), Start.y());
-					arrowTrans.rotate(r);
-					drawArrow(painter, item, arrowTrans, startArrowIndex);
-					break;
+					ScColorShade strokeColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+					painter->setBrush(strokeColor);
+					painter->setStrokeMode(ScPainterExBase::Solid);
 				}
+				else
+					painter->setStrokeMode(ScPainterExBase::None);
+			}
+			else
+			{
+				FPoint fpStart(item->GrStrokeStartX, item->GrStrokeStartY);
+				FPoint fpEnd(item->GrStrokeEndX, item->GrStrokeEndY);
+				FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
+				painter->setStrokeMode(ScPainterExBase::Gradient);
+				painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
+				if (item->GrTypeStroke == 6)
+					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
+				else
+					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
+			}
+			painter->strokePath();
+		}
+		else if (item->lineColor() != CommonStrings::None)
+		{
+			ScColorShade scColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+			painter->setStrokeMode(ScPainterExBase::Solid);
+			painter->setPen(scColor, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
+			if (item->DashValues.count() != 0)
+				painter->setDash(item->DashValues, item->DashOffset);
+			painter->strokePath();
+		}
+	}
+	else
+	{
+		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			const SingleLine& sl = ml[it];
+			if (sl.Color != CommonStrings::None)
+			{
+				ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+				painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+						static_cast<Qt::PenCapStyle>(sl.LineEnd),
+						static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+				painter->strokePath();
 			}
 		}
-		if (endArrowIndex != 0)
+	}
+	if (startArrowIndex != 0)
+	{
+		FPoint Start = item->PoLine.point(0);
+		for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
 		{
-			FPoint End = item->PoLine.point(item->PoLine.size()-2);
-			for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+			FPoint Vector = item->PoLine.point(xx);
+			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 			{
-				FPoint Vector = item->PoLine.point(xx);
-				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QTransform arrowTrans;
-					arrowTrans.translate(End.x(), End.y());
-					arrowTrans.rotate(r);
-					drawArrow(painter, item, arrowTrans, endArrowIndex);
-					break;
-				}
+				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+				QTransform arrowTrans;
+				arrowTrans.translate(Start.x(), Start.y());
+				arrowTrans.rotate(r);
+				drawArrow(painter, item, arrowTrans, startArrowIndex);
+				break;
+			}
+		}
+	}
+	if (endArrowIndex != 0)
+	{
+		FPoint End = item->PoLine.point(item->PoLine.size()-2);
+		for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+		{
+			FPoint Vector = item->PoLine.point(xx);
+			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+			{
+				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+				QTransform arrowTrans;
+				arrowTrans.translate(End.x(), End.y());
+				arrowTrans.rotate(r);
+				drawArrow(painter, item, arrowTrans, endArrowIndex);
+				break;
 			}
 		}
 	}
