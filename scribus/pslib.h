@@ -48,7 +48,6 @@ class PageItem;
 class MultiProgressDialog;
 class ScImage;
 class ScLayer;
-class TableCell;
 
 /**
   *@author Franz Schmid
@@ -165,14 +164,6 @@ class SCRIBUS_API PSLib : public QObject
 		void encodeColor(QDataStream &vs, QString col);
 
 		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, bool gcr);
-		void resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
-			const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
-			const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
-			TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight, PageItem_Table* table);
-		void resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell,
-			const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
-			const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight,
-			TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight, PageItem_Table* table);
 
 		Optimization optimization;
 

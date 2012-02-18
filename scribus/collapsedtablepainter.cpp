@@ -163,214 +163,6 @@ void CollapsedTablePainter::paintTableFill(ScPainter* p) const
 	p->restore();
 }
 
-void CollapsedTablePainter::resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell,
-	const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
-	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight,
-	TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight) const
-{
-	Q_ASSERT(topLeft);
-	Q_ASSERT(top);
-	Q_ASSERT(topRight);
-	Q_ASSERT(center);
-	Q_ASSERT(bottomLeft);
-	Q_ASSERT(bottom);
-	Q_ASSERT(bottomRight);
-
-	if (!leftCell.isValid() && !rightCell.isValid())
-	{
-		qWarning("leftCell and rightCell invalid!");
-		return;
-	}
-
-	// Resolve top left.
-	if (topLeftCell.row() == leftCell.row())
-		*topLeft = TableBorder();
-	else if (topLeftCell.isValid() && leftCell.isValid())
-		*topLeft = collapseBorders(leftCell.topBorder(), topLeftCell.bottomBorder());
-	else if (topLeftCell.isValid())
-		*topLeft = collapseBorders(table()->bottomBorder(), topLeftCell.bottomBorder());
-	else if (leftCell.isValid())
-		*topLeft = collapseBorders(leftCell.topBorder(), table()->topBorder());
-	else
-		*topLeft = TableBorder();
-
-	// Resolve top.
-	if (topLeftCell.column() == topRightCell.column())
-		*top = TableBorder();
-	else if (topLeftCell.isValid() && topRightCell.isValid())
-		*top = collapseBorders(topRightCell.leftBorder(), topLeftCell.rightBorder());
-	else if (topLeftCell.isValid())
-		*top = collapseBorders(table()->rightBorder(), topLeftCell.rightBorder());
-	else if (topRightCell.isValid())
-		*top = collapseBorders(topRightCell.leftBorder(), table()->leftBorder());
-	else
-		*top = TableBorder();
-
-	// Resolve top right.
-	if (topRightCell.row() == rightCell.row())
-		*topRight = TableBorder();
-	else if (topRightCell.isValid() && rightCell.isValid())
-		*topRight = collapseBorders(rightCell.topBorder(), topRightCell.bottomBorder());
-	else if (topRightCell.isValid())
-		*topRight = collapseBorders(table()->bottomBorder(), topRightCell.bottomBorder());
-	else if (rightCell.isValid())
-		*topRight = collapseBorders(rightCell.topBorder(), table()->topBorder());
-	else
-		*topRight = TableBorder();
-
-	// Resolve center.
-	if (leftCell.column() == rightCell.column())
-		*center = TableBorder();
-	else if (leftCell.isValid() && rightCell.isValid())
-		*center = collapseBorders(rightCell.leftBorder(), leftCell.rightBorder());
-	else if (leftCell.isValid())
-		*center = collapseBorders(table()->rightBorder(), leftCell.rightBorder());
-	else if (rightCell.isValid())
-		*center = collapseBorders(rightCell.leftBorder(), table()->leftBorder());
-	else
-		*center = TableBorder();
-
-	// Resolve bottom left.
-	if (bottomLeftCell.row() == leftCell.row())
-		*bottomLeft = TableBorder();
-	else if (bottomLeftCell.isValid() && leftCell.isValid())
-		*bottomLeft = collapseBorders(bottomLeftCell.topBorder(), leftCell.bottomBorder());
-	else if (bottomLeftCell.isValid())
-		*bottomLeft = collapseBorders(bottomLeftCell.topBorder(), table()->topBorder());
-	else if (leftCell.isValid())
-		*bottomLeft = collapseBorders(table()->bottomBorder(), leftCell.bottomBorder());
-	else
-		*bottomLeft = TableBorder();
-
-	// Resolve bottom.
-	if (bottomLeftCell.column() == bottomRightCell.column())
-		*bottom = TableBorder();
-	else if (bottomLeftCell.isValid() && bottomRightCell.isValid())
-		*bottom = collapseBorders(bottomRightCell.leftBorder(), bottomLeftCell.rightBorder());
-	else if (bottomLeftCell.isValid())
-		*bottom = collapseBorders(table()->rightBorder(), bottomLeftCell.rightBorder());
-	else if (bottomRightCell.isValid())
-		*bottom = collapseBorders(bottomRightCell.leftBorder(), table()->leftBorder());
-	else
-		*bottom = TableBorder();
-
-	// Resolve bottom right.
-	if (bottomRightCell.row() == rightCell.row())
-		*bottomRight = TableBorder();
-	else if (bottomRightCell.isValid() && rightCell.isValid())
-		*bottomRight = collapseBorders(bottomRightCell.topBorder(), rightCell.bottomBorder());
-	else if (bottomRightCell.isValid())
-		*bottomRight = collapseBorders(bottomRightCell.topBorder(), table()->topBorder());
-	else if (rightCell.isValid())
-		*bottomRight = collapseBorders(table()->bottomBorder(), rightCell.bottomBorder());
-	else
-		*bottomRight = TableBorder();
-}
-
-void CollapsedTablePainter::resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
-	const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
-	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
-	TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight) const
-{
-	Q_ASSERT(topLeft);
-	Q_ASSERT(left);
-	Q_ASSERT(bottomLeft);
-	Q_ASSERT(center);
-	Q_ASSERT(topRight);
-	Q_ASSERT(right);
-	Q_ASSERT(bottomRight);
-
-	if (!topCell.isValid() && !bottomCell.isValid())
-	{
-		qWarning("topCell and bottomCell invalid!");
-		return;
-	}
-
-	// Resolve top left.
-	if (topLeftCell.column() == topCell.column())
-		*topLeft = TableBorder();
-	else if (topLeftCell.isValid() && topCell.isValid())
-		*topLeft = collapseBorders(topCell.leftBorder(), topLeftCell.rightBorder());
-	else if (topLeftCell.isValid())
-		*topLeft = collapseBorders(table()->rightBorder(), topLeftCell.rightBorder());
-	else if (topCell.isValid())
-		*topLeft = collapseBorders(topCell.leftBorder(), table()->leftBorder());
-	else
-		*topLeft = TableBorder();
-
-	// Resolve left.
-	if (topLeftCell.row() == bottomLeftCell.row())
-		*left = TableBorder();
-	else if (topLeftCell.isValid() && bottomLeftCell.isValid())
-		*left = collapseBorders(bottomLeftCell.topBorder(), topLeftCell.bottomBorder());
-	else if (topLeftCell.isValid())
-		*left = collapseBorders(table()->bottomBorder(), topLeftCell.bottomBorder());
-	else if (bottomLeftCell.isValid())
-		*left = collapseBorders(bottomLeftCell.topBorder(), table()->topBorder());
-	else
-		*left = TableBorder();
-
-	// Resolve bottom left.
-	if (bottomLeftCell.column() == bottomCell.column())
-		*bottomLeft = TableBorder();
-	else if (bottomLeftCell.isValid() && bottomCell.isValid())
-		*bottomLeft = collapseBorders(bottomCell.leftBorder(), bottomLeftCell.rightBorder());
-	else if (bottomLeftCell.isValid())
-		*bottomLeft = collapseBorders(table()->rightBorder(), bottomLeftCell.rightBorder());
-	else if (bottomCell.isValid())
-		*bottomLeft = collapseBorders(bottomCell.leftBorder(), table()->leftBorder());
-	else
-		*bottomLeft = TableBorder();
-
-	// Resolve center.
-	if (topCell.row() == bottomCell.row())
-		*center = TableBorder();
-	else if (topCell.isValid() && bottomCell.isValid())
-		*center = collapseBorders(topCell.bottomBorder(), bottomCell.topBorder());
-	else if (topCell.isValid())
-		*center = collapseBorders(table()->bottomBorder(), topCell.bottomBorder());
-	else if (bottomCell.isValid())
-		*center = collapseBorders(bottomCell.topBorder(), table()->topBorder());
-	else
-		*center = TableBorder();
-
-	// Resolve top right.
-	if (topRightCell.column() == topCell.column())
-		*topRight = TableBorder();
-	else if (topRightCell.isValid() && topCell.isValid())
-		*topRight = collapseBorders(topRightCell.leftBorder(), topCell.rightBorder());
-	else if (topRightCell.isValid())
-		*topRight = collapseBorders(topRightCell.leftBorder(), table()->leftBorder());
-	else if (topCell.isValid())
-		*topRight = collapseBorders(table()->rightBorder(), topCell.rightBorder());
-	else
-		*topRight = TableBorder();
-
-	// Resolve right.
-	if (topRightCell.row() == bottomRightCell.row())
-		*right = TableBorder();
-	else if (topRightCell.isValid() && bottomRightCell.isValid())
-		*right = collapseBorders(bottomRightCell.topBorder(), topRightCell.bottomBorder());
-	else if (topRightCell.isValid())
-		*right = collapseBorders(table()->bottomBorder(), topRightCell.bottomBorder());
-	else if (bottomRightCell.isValid())
-		*right = collapseBorders(bottomRightCell.topBorder(), table()->topBorder());
-	else
-		*right = TableBorder();
-
-	// Resolve bottom right.
-	if (bottomRightCell.column() == bottomCell.column())
-		*bottomRight = TableBorder();
-	else if (bottomRightCell.isValid() && bottomCell.isValid())
-		*bottomRight = collapseBorders(bottomRightCell.leftBorder(), bottomCell.rightBorder());
-	else if (bottomRightCell.isValid())
-		*bottomRight = collapseBorders(bottomRightCell.leftBorder(), table()->leftBorder());
-	else if (bottomCell.isValid())
-		*bottomRight = collapseBorders(table()->rightBorder(), bottomCell.rightBorder());
-	else
-		*bottomRight = TableBorder();
-}
-
 void CollapsedTablePainter::paintCellLeftBorders(const TableCell& cell, ScPainter* p) const
 {
 	/*
@@ -428,8 +220,7 @@ void CollapsedTablePainter::paintCellLeftBorders(const TableCell& cell, ScPainte
 
 		// Resolve borders between neighboring cells.
 		TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
-		resolveBordersVertical(topLeftCell, topRightCell, leftCell, cell, bottomLeftCell, bottomRightCell,
-			&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight);
+		resolveBordersVertical(topLeftCell, topRightCell, leftCell, cell, bottomLeftCell, bottomRightCell, &topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, table());
 
 		if (border.isNull())
 			continue; // Quit early if the border to paint is null.
@@ -504,8 +295,7 @@ void CollapsedTablePainter::paintCellRightBorders(const TableCell& cell, ScPaint
 
 		// Resolve borders between neighboring cells.
 		TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
-		resolveBordersVertical(topLeftCell, topRightCell, cell, rightCell, bottomLeftCell, bottomRightCell,
-			&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight);
+		resolveBordersVertical(topLeftCell, topRightCell, cell, rightCell, bottomLeftCell, bottomRightCell, &topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, table());
 
 		if (border.isNull())
 			continue; // Quit early if the border to paint is null.
@@ -573,8 +363,7 @@ void CollapsedTablePainter::paintCellTopBorders(const TableCell& cell, ScPainter
 
 		// Resolve borders between neighboring cells.
 		TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
-		resolveBordersHorizontal(topLeftCell, topCell, topRightCell, bottomLeftCell, cell,
-			bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight);
+		resolveBordersHorizontal(topLeftCell, topCell, topRightCell, bottomLeftCell, cell, bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, table());
 
 		if (border.isNull())
 			continue; // Quit early if the border is null.
@@ -642,8 +431,7 @@ void CollapsedTablePainter::paintCellBottomBorders(const TableCell& cell, ScPain
 
 		// Resolve borders between neighboring cells.
 		TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
-		resolveBordersHorizontal(topLeftCell, cell, topRightCell, bottomLeftCell, bottomCell,
-			bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight);
+		resolveBordersHorizontal(topLeftCell, cell, topRightCell, bottomLeftCell, bottomCell, bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, table());
 
 		if (border.isNull())
 			continue; // Quit early if the border is null.
