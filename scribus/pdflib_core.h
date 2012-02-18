@@ -30,9 +30,11 @@ class PrefsContext;
 class MultiProgressDialog;
 class ScLayer;
 class ScText;
+class TableCell;
 
 #include "scribusstructs.h"
 #include "scimagestructs.h"
+#include "tableborder.h"
 
 #ifdef HAVE_PODOFO
 #include <podofo/podofo.h>
@@ -150,6 +152,15 @@ private:
 
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString PDF_ProcessTableItem(PageItem* ite, const ScPage* pag);
+	QString paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
+	void resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
+		const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
+		const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
+		TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight, PageItem_Table* table);
+	void resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell,
+		const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
+		const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight,
+		TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight, PageItem_Table* table);
 	QString HandleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr);
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);

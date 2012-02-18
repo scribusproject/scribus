@@ -3617,6 +3617,31 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				it = allItems.at(ii);
+				if (it->isTable())
+				{
+					for (int row = 0; row < it->asTable()->rows(); ++row)
+					{
+						for (int col = 0; col < it->asTable()->columns(); col ++)
+						{
+							TableCell cell = it->asTable()->cellAt(row, col);
+							if (cell.row() == row && cell.column() == col)
+							{
+								PageItem* textFrame = cell.textFrame();
+								QString fontName(textFrame->itemText.defaultStyle().charStyle().font().replacementName());
+								Really.insert(fontName, UsedFonts[fontName]);
+								int start = textFrame->firstInFrame();
+								int stop = textFrame->lastInFrame();
+								for (int e = start; e <= stop; ++e)
+								{
+									QString rep = textFrame->itemText.charStyle(e).font().replacementName();
+									if (Really.contains(rep))
+										continue;
+									Really.insert(rep, UsedFonts[rep]);
+								}
+							}
+						}
+					}
+				}
 				if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 				{
 					QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());

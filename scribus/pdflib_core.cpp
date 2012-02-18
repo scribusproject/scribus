@@ -62,6 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
 #include "pageitem_pathtext.h"
+#include "pageitem_table.h"
 #include "pdfoptions.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"
@@ -76,6 +77,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scstreamfilter_flate.h"
 #include "scstreamfilter_rc4.h"
+#include "tableutils.h"
 #include "text/nlsconfig.h"
 #include "util.h"
 #include "util_file.h"
@@ -92,6 +94,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/multiprogressdialog.h"
 
 using namespace std;
+using namespace TableUtils;
 
 #if defined(_WIN32)
 #undef GetObject
@@ -954,6 +957,24 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pgit = allItems.at(ii);
+			if (pgit->isTable())
+			{
+				for (int row = 0; row < pgit->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < pgit->asTable()->columns(); col ++)
+					{
+						TableCell cell = pgit->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							for (uint e = 0; e < static_cast<uint>(textFrame->itemText.length()); ++e)
+							{
+								ReallyUsed.insert(textFrame->itemText.charStyle(e).font().replacementName(), DocFonts[textFrame->itemText.charStyle(e).font().replacementName()]);
+							}
+						}
+					}
+				}
+			}
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
 				if (pgit->isAnnotation())
@@ -986,6 +1007,24 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pgit = allItems.at(ii);
+			if (pgit->isTable())
+			{
+				for (int row = 0; row < pgit->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < pgit->asTable()->columns(); col ++)
+					{
+						TableCell cell = pgit->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							for (uint e = 0; e < static_cast<uint>(textFrame->itemText.length()); ++e)
+							{
+								ReallyUsed.insert(textFrame->itemText.charStyle(e).font().replacementName(), DocFonts[textFrame->itemText.charStyle(e).font().replacementName()]);
+							}
+						}
+					}
+				}
+			}
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
 				if (pgit->isAnnotation())
@@ -1018,6 +1057,24 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pgit = allItems.at(ii);
+			if (pgit->isTable())
+			{
+				for (int row = 0; row < pgit->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < pgit->asTable()->columns(); col ++)
+					{
+						TableCell cell = pgit->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							for (uint e = 0; e < static_cast<uint>(textFrame->itemText.length()); ++e)
+							{
+								ReallyUsed.insert(textFrame->itemText.charStyle(e).font().replacementName(), DocFonts[textFrame->itemText.charStyle(e).font().replacementName()]);
+							}
+						}
+					}
+				}
+			}
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
 				if (pgit->isAnnotation())
@@ -1058,6 +1115,24 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				pgit = allItems.at(ii);
+				if (pgit->isTable())
+				{
+					for (int row = 0; row < pgit->asTable()->rows(); ++row)
+					{
+						for (int col = 0; col < pgit->asTable()->columns(); col ++)
+						{
+							TableCell cell = pgit->asTable()->cellAt(row, col);
+							if (cell.row() == row && cell.column() == col)
+							{
+								PageItem* textFrame = cell.textFrame();
+								for (uint e = 0; e < static_cast<uint>(textFrame->itemText.length()); ++e)
+								{
+									ReallyUsed.insert(textFrame->itemText.charStyle(e).font().replacementName(), DocFonts[textFrame->itemText.charStyle(e).font().replacementName()]);
+								}
+							}
+						}
+					}
+				}
 				if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 				{
 					if (pgit->isAnnotation())
@@ -2432,8 +2507,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						break;
 					case PageItem::PathText:
-						break;
 					case PageItem::OSGFrame:
+					case PageItem::Table:
 						break;
 					case PageItem::Symbol:
 						if (doc.docPatterns.contains(ite->pattern()))
@@ -3161,7 +3236,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
 			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(qHash(ite));
-			if ((!ite->asTextFrame()) && (!ite->asPathText()))
+			if ((!ite->asTextFrame()) && (!ite->asPathText()) && (!ite->asTable()))
 				PutPage(name+" Do\n");
 			else
 			{
@@ -4354,6 +4429,208 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				tmp += "Q\n";
 			}
 			break;
+		case PageItem::Table:
+			tmp += "q\n";
+			tmp +=  "1 0 0 1 "+FToStr(ite->asTable()->gridOffset().x())+" "+FToStr(-ite->asTable()->gridOffset().y())+" cm\n";
+			// Paint table fill.
+			if (ite->asTable()->fillColor() != CommonStrings::None)
+			{
+				int lastCol = ite->asTable()->columns() - 1;
+				int lastRow = ite->asTable()->rows() - 1;
+				double x = ite->asTable()->columnPosition(0);
+				double y = ite->asTable()->rowPosition(0);
+				double width = ite->asTable()->columnPosition(lastCol) + ite->asTable()->columnWidth(lastCol) - x;
+				double height = ite->asTable()->rowPosition(lastRow) + ite->asTable()->rowHeight(lastRow) - y;
+				tmp += putColor(ite->asTable()->fillColor(), ite->asTable()->fillShade(), true);
+				tmp += "0 0 "+FToStr(width)+" "+FToStr(-height)+" re\n";
+				tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+			}
+			// Pass 1: Paint cell fills.
+			for (int row = 0; row < ite->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < ite->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = ite->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						QString colorName = cell.fillColor();
+						if (colorName != CommonStrings::None)
+						{
+							tmp += "q\n";
+							tmp += putColor(colorName, cell.fillShade(), true);
+							int row = cell.row();
+							int col = cell.column();
+							int lastRow = row + cell.rowSpan() - 1;
+							int lastCol = col + cell.columnSpan() - 1;
+							double x = ite->asTable()->columnPosition(col);
+							double y = ite->asTable()->rowPosition(row);
+							double width = ite->asTable()->columnPosition(lastCol) + ite->asTable()->columnWidth(lastCol) - x;
+							double height = ite->asTable()->rowPosition(lastRow) + ite->asTable()->rowHeight(lastRow) - y;
+							tmp += FToStr(x)+" "+FToStr(-y)+" "+FToStr(width)+" "+FToStr(-height)+" re\n";
+							tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+							tmp += "Q\n";
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 2: Paint vertical borders.
+			for (int row = 0; row < ite->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < ite->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = ite->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						const int lastRow = cell.row() + cell.rowSpan() - 1;
+						const int lastCol = cell.column() + cell.columnSpan() - 1;
+						const double borderX = ite->asTable()->columnPosition(lastCol) + ite->asTable()->columnWidth(lastCol);
+						QPointF start(borderX, 0.0);
+						QPointF end(borderX, 0.0);
+						QPointF startOffsetFactors, endOffsetFactors;
+						int startRow, endRow;
+						for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+						{
+							TableCell rightCell = ite->asTable()->cellAt(row, lastCol + 1);
+							startRow = qMax(cell.row(), rightCell.row());
+							endRow = qMin(lastRow, rightCell.isValid() ? rightCell.row() + rightCell.rowSpan() - 1 : lastRow);
+							TableCell topLeftCell = ite->asTable()->cellAt(startRow - 1, lastCol);
+							TableCell topRightCell = ite->asTable()->cellAt(startRow - 1, lastCol + 1);
+							TableCell bottomRightCell = ite->asTable()->cellAt(endRow + 1, lastCol + 1);
+							TableCell bottomLeftCell = ite->asTable()->cellAt(endRow + 1, lastCol);
+							TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+							resolveBordersVertical(topLeftCell, topRightCell, cell, rightCell, bottomLeftCell, bottomRightCell,
+								&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, ite->asTable());
+							if (border.isNull())
+								continue; // Quit early if the border to paint is null.
+							start.setY(ite->asTable()->rowPosition(startRow));
+							end.setY((ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow)));
+							joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+							tmp += paintBorder(border, start, end, startOffsetFactors, endOffsetFactors);
+						}
+						if (col == 0)
+						{
+							const int lastRow = cell.row() + cell.rowSpan() - 1;
+							const int firstCol = cell.column();
+							const double borderX = ite->asTable()->columnPosition(firstCol);
+							QPointF start(borderX, 0.0);
+							QPointF end(borderX, 0.0);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startRow, endRow;
+							for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+							{
+								TableCell leftCell = ite->asTable()->cellAt(row, firstCol - 1);
+								startRow = qMax(cell.row(), leftCell.row());
+								endRow = qMin(lastRow, leftCell.isValid() ? leftCell.row() + leftCell.rowSpan() - 1 : lastRow);
+								TableCell topLeftCell = ite->asTable()->cellAt(startRow - 1, firstCol - 1);
+								TableCell topRightCell = ite->asTable()->cellAt(startRow - 1, firstCol);
+								TableCell bottomRightCell = ite->asTable()->cellAt(lastRow + 1, firstCol);
+								TableCell bottomLeftCell = ite->asTable()->cellAt(lastRow + 1, firstCol - 1);
+								TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+								resolveBordersVertical(topLeftCell, topRightCell, leftCell, cell, bottomLeftCell, bottomRightCell,
+									&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, ite->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border to paint is null.
+								start.setY(ite->asTable()->rowPosition(startRow));
+								end.setY((ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow)));
+								joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								tmp += paintBorder(border, start, end, startOffsetFactors, endOffsetFactors);
+							}
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 3: Paint horizontal borders.
+			for (int row = 0; row < ite->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < ite->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = ite->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						const int lastRow = cell.row() + cell.rowSpan() - 1;
+						const int lastCol = cell.column() + cell.columnSpan() - 1;
+						const double borderY = (ite->asTable()->rowPosition(lastRow) + ite->asTable()->rowHeight(lastRow));
+						QPointF start(0.0, borderY);
+						QPointF end(0.0, borderY);
+						QPointF startOffsetFactors, endOffsetFactors;
+						int startCol, endCol;
+						for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+						{
+							TableCell bottomCell = ite->asTable()->cellAt(lastRow + 1, col);
+							startCol = qMax(cell.column(), bottomCell.column());
+							endCol = qMin(lastCol, bottomCell.isValid() ? bottomCell.column() + bottomCell.columnSpan() - 1 : lastCol);
+							TableCell topLeftCell = ite->asTable()->cellAt(lastRow, startCol - 1);
+							TableCell topRightCell = ite->asTable()->cellAt(lastRow, endCol + 1);
+							TableCell bottomRightCell = ite->asTable()->cellAt(lastRow + 1, endCol + 1);
+							TableCell bottomLeftCell = ite->asTable()->cellAt(lastRow + 1, startCol - 1);
+							TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+							resolveBordersHorizontal(topLeftCell, cell, topRightCell, bottomLeftCell, bottomCell,
+											  bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, ite->asTable());
+							if (border.isNull())
+								continue; // Quit early if the border is null.
+							start.setX(ite->asTable()->columnPosition(startCol));
+							end.setX(ite->asTable()->columnPosition(endCol) + ite->asTable()->columnWidth(endCol));
+							joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+							tmp += paintBorder(border, start, end, startOffsetFactors, endOffsetFactors);
+						}
+						if (row == 0)
+						{
+							const int firstRow = cell.row();
+							const int lastCol = cell.column() + cell.columnSpan() - 1;
+							const double borderY = ite->asTable()->rowPosition(firstRow);
+							QPointF start(0.0, borderY);
+							QPointF end(0.0, borderY);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startCol, endCol;
+							for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+							{
+								TableCell topCell = ite->asTable()->cellAt(firstRow - 1, col);
+								startCol = qMax(cell.column(), topCell.column());
+								endCol = qMin(lastCol, topCell.isValid() ? topCell.column() + topCell.columnSpan() - 1 : lastCol);
+								TableCell topLeftCell = ite->asTable()->cellAt(firstRow - 1, startCol - 1);
+								TableCell topRightCell = ite->asTable()->cellAt(firstRow - 1, endCol + 1);
+								TableCell bottomRightCell = ite->asTable()->cellAt(firstRow, endCol + 1);
+								TableCell bottomLeftCell = ite->asTable()->cellAt(firstRow, startCol - 1);
+								TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+								resolveBordersHorizontal(topLeftCell, topCell, topRightCell, bottomLeftCell, cell,
+														 bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, ite->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border is null.
+								start.setX(ite->asTable()->columnPosition(startCol));
+								end.setX(ite->asTable()->columnPosition(endCol) + ite->asTable()->columnWidth(endCol));
+								joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								tmp += paintBorder(border, start, end, startOffsetFactors, endOffsetFactors);
+							}
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 4: Paint cell content.
+			for (int row = 0; row < ite->asTable()->rows(); ++row)
+			{
+				for (int col = 0; col < ite->asTable()->columns(); col ++)
+				{
+					TableCell cell = ite->asTable()->cellAt(row, col);
+					if (cell.row() == row && cell.column() == col)
+					{
+						PageItem* textFrame = cell.textFrame();
+						tmp += "q\n";
+						tmp +=  "1 0 0 1 "+FToStr(cell.contentRect().x())+" "+FToStr(-cell.contentRect().y())+" cm\n";
+						QString output;
+						PDF_ProcessItem(output, textFrame, pag, PNr, true);
+						tmp += output;
+						tmp += "Q\n";
+					}
+				}
+			}
+			tmp += "Q\n";
+			break;
 		case PageItem::Multiple:
 			Q_ASSERT(false);
 			break;
@@ -4361,6 +4638,208 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 	tmp += "Q\n";
 	output = tmp;
 	return true;
+}
+
+QString PDFLibCore::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors)
+{
+	QString tmp;
+	tmp = "";
+	tmp += "q\n";
+	QPointF lineStart, lineEnd;
+	QVector<double> DashValues;
+	foreach (const TableBorderLine& line, border.borderLines())
+	{
+		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
+		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());
+		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
+		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
+		tmp += FToStr(lineStart.x())+" "+FToStr(-lineStart.y())+" m\n";
+		tmp += FToStr(lineEnd.x())+" "+FToStr(-lineEnd.y())+" l\n";
+		if (line.color() != CommonStrings::None)
+			tmp += putColor(line.color(), line.shade(), false);
+		tmp += FToStr(fabs(line.width()))+" w\n";
+		getDashArray(line.style(), qMax(line.width(), 1.0), DashValues);
+		if (DashValues.count() != 0)
+		{
+			tmp += "[ ";
+			QVector<double>::iterator it;
+			for ( it = DashValues.begin(); it != DashValues.end(); ++it )
+			{
+				double da = *it;
+				if (da != 0)
+					tmp += QString::number(da)+" ";
+			}
+			tmp += "] 0 d\n";
+		}
+		else
+			tmp += "["+getDashString(line.style(), line.width())+"] 0 d\n";
+		tmp += "0 J 0 j S\n";
+	}
+	tmp += "Q\n";
+	return tmp;
+}
+
+void PDFLibCore::resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
+	const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
+	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
+	TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight, PageItem_Table* table)
+{
+	if (!topCell.isValid() && !bottomCell.isValid())
+		return;
+	if (topLeftCell.column() == topCell.column())
+		*topLeft = TableBorder();
+	else if (topLeftCell.isValid() && topCell.isValid())
+		*topLeft = collapseBorders(topCell.leftBorder(), topLeftCell.rightBorder());
+	else if (topLeftCell.isValid())
+		*topLeft = collapseBorders(table->rightBorder(), topLeftCell.rightBorder());
+	else if (topCell.isValid())
+		*topLeft = collapseBorders(topCell.leftBorder(), table->leftBorder());
+	else
+		*topLeft = TableBorder();
+	if (topLeftCell.row() == bottomLeftCell.row())
+		*left = TableBorder();
+	else if (topLeftCell.isValid() && bottomLeftCell.isValid())
+		*left = collapseBorders(bottomLeftCell.topBorder(), topLeftCell.bottomBorder());
+	else if (topLeftCell.isValid())
+		*left = collapseBorders(table->bottomBorder(), topLeftCell.bottomBorder());
+	else if (bottomLeftCell.isValid())
+		*left = collapseBorders(bottomLeftCell.topBorder(), table->topBorder());
+	else
+		*left = TableBorder();
+	if (bottomLeftCell.column() == bottomCell.column())
+		*bottomLeft = TableBorder();
+	else if (bottomLeftCell.isValid() && bottomCell.isValid())
+		*bottomLeft = collapseBorders(bottomCell.leftBorder(), bottomLeftCell.rightBorder());
+	else if (bottomLeftCell.isValid())
+		*bottomLeft = collapseBorders(table->rightBorder(), bottomLeftCell.rightBorder());
+	else if (bottomCell.isValid())
+		*bottomLeft = collapseBorders(bottomCell.leftBorder(), table->leftBorder());
+	else
+		*bottomLeft = TableBorder();
+	if (topCell.row() == bottomCell.row())
+		*center = TableBorder();
+	else if (topCell.isValid() && bottomCell.isValid())
+		*center = collapseBorders(topCell.bottomBorder(), bottomCell.topBorder());
+	else if (topCell.isValid())
+		*center = collapseBorders(table->bottomBorder(), topCell.bottomBorder());
+	else if (bottomCell.isValid())
+		*center = collapseBorders(bottomCell.topBorder(), table->topBorder());
+	else
+		*center = TableBorder();
+	if (topRightCell.column() == topCell.column())
+		*topRight = TableBorder();
+	else if (topRightCell.isValid() && topCell.isValid())
+		*topRight = collapseBorders(topRightCell.leftBorder(), topCell.rightBorder());
+	else if (topRightCell.isValid())
+		*topRight = collapseBorders(topRightCell.leftBorder(), table->leftBorder());
+	else if (topCell.isValid())
+		*topRight = collapseBorders(table->rightBorder(), topCell.rightBorder());
+	else
+		*topRight = TableBorder();
+	if (topRightCell.row() == bottomRightCell.row())
+		*right = TableBorder();
+	else if (topRightCell.isValid() && bottomRightCell.isValid())
+		*right = collapseBorders(bottomRightCell.topBorder(), topRightCell.bottomBorder());
+	else if (topRightCell.isValid())
+		*right = collapseBorders(table->bottomBorder(), topRightCell.bottomBorder());
+	else if (bottomRightCell.isValid())
+		*right = collapseBorders(bottomRightCell.topBorder(), table->topBorder());
+	else
+		*right = TableBorder();
+	if (bottomRightCell.column() == bottomCell.column())
+		*bottomRight = TableBorder();
+	else if (bottomRightCell.isValid() && bottomCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.leftBorder(), bottomCell.rightBorder());
+	else if (bottomRightCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.leftBorder(), table->leftBorder());
+	else if (bottomCell.isValid())
+		*bottomRight = collapseBorders(table->rightBorder(), bottomCell.rightBorder());
+	else
+		*bottomRight = TableBorder();
+}
+
+void PDFLibCore::resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell, const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
+	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight, TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight, PageItem_Table* table)
+{
+	if (!leftCell.isValid() && !rightCell.isValid())
+		return;
+	// Resolve top left.
+	if (topLeftCell.row() == leftCell.row())
+		*topLeft = TableBorder();
+	else if (topLeftCell.isValid() && leftCell.isValid())
+		*topLeft = collapseBorders(leftCell.topBorder(), topLeftCell.bottomBorder());
+	else if (topLeftCell.isValid())
+		*topLeft = collapseBorders(table->bottomBorder(), topLeftCell.bottomBorder());
+	else if (leftCell.isValid())
+		*topLeft = collapseBorders(leftCell.topBorder(), table->topBorder());
+	else
+		*topLeft = TableBorder();
+	// Resolve top.
+	if (topLeftCell.column() == topRightCell.column())
+		*top = TableBorder();
+	else if (topLeftCell.isValid() && topRightCell.isValid())
+		*top = collapseBorders(topRightCell.leftBorder(), topLeftCell.rightBorder());
+	else if (topLeftCell.isValid())
+		*top = collapseBorders(table->rightBorder(), topLeftCell.rightBorder());
+	else if (topRightCell.isValid())
+		*top = collapseBorders(topRightCell.leftBorder(), table->leftBorder());
+	else
+		*top = TableBorder();
+	// Resolve top right.
+	if (topRightCell.row() == rightCell.row())
+		*topRight = TableBorder();
+	else if (topRightCell.isValid() && rightCell.isValid())
+		*topRight = collapseBorders(rightCell.topBorder(), topRightCell.bottomBorder());
+	else if (topRightCell.isValid())
+		*topRight = collapseBorders(table->bottomBorder(), topRightCell.bottomBorder());
+	else if (rightCell.isValid())
+		*topRight = collapseBorders(rightCell.topBorder(), table->topBorder());
+	else
+		*topRight = TableBorder();
+	// Resolve center.
+	if (leftCell.column() == rightCell.column())
+		*center = TableBorder();
+	else if (leftCell.isValid() && rightCell.isValid())
+		*center = collapseBorders(rightCell.leftBorder(), leftCell.rightBorder());
+	else if (leftCell.isValid())
+		*center = collapseBorders(table->rightBorder(), leftCell.rightBorder());
+	else if (rightCell.isValid())
+		*center = collapseBorders(rightCell.leftBorder(), table->leftBorder());
+	else
+		*center = TableBorder();
+	// Resolve bottom left.
+	if (bottomLeftCell.row() == leftCell.row())
+		*bottomLeft = TableBorder();
+	else if (bottomLeftCell.isValid() && leftCell.isValid())
+		*bottomLeft = collapseBorders(bottomLeftCell.topBorder(), leftCell.bottomBorder());
+	else if (bottomLeftCell.isValid())
+		*bottomLeft = collapseBorders(bottomLeftCell.topBorder(), table->topBorder());
+	else if (leftCell.isValid())
+		*bottomLeft = collapseBorders(table->bottomBorder(), leftCell.bottomBorder());
+	else
+		*bottomLeft = TableBorder();
+	// Resolve bottom.
+	if (bottomLeftCell.column() == bottomRightCell.column())
+		*bottom = TableBorder();
+	else if (bottomLeftCell.isValid() && bottomRightCell.isValid())
+		*bottom = collapseBorders(bottomRightCell.leftBorder(), bottomLeftCell.rightBorder());
+	else if (bottomLeftCell.isValid())
+		*bottom = collapseBorders(table->rightBorder(), bottomLeftCell.rightBorder());
+	else if (bottomRightCell.isValid())
+		*bottom = collapseBorders(bottomRightCell.leftBorder(), table->leftBorder());
+	else
+		*bottom = TableBorder();
+	// Resolve bottom right.
+	if (bottomRightCell.row() == rightCell.row())
+		*bottomRight = TableBorder();
+	else if (bottomRightCell.isValid() && rightCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.topBorder(), rightCell.bottomBorder());
+	else if (bottomRightCell.isValid())
+		*bottomRight = collapseBorders(bottomRightCell.topBorder(), table->topBorder());
+	else if (rightCell.isValid())
+		*bottomRight = collapseBorders(table->bottomBorder(), rightCell.bottomBorder());
+	else
+		*bottomRight = TableBorder();
 }
 
 QString PDFLibCore::HandleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr)

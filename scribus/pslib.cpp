@@ -2647,8 +2647,10 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			PS_restore();
 			break;
 		case PageItem::Table:
+			if (master)
+				break;
 			PS_save();
-			PS_translate(c->asTable()->gridOffset().x(), c->asTable()->gridOffset().y());
+			PS_translate(c->asTable()->gridOffset().x(), -c->asTable()->gridOffset().y());
 			// Paint table fill.
 			if (c->asTable()->fillColor() != CommonStrings::None)
 			{
@@ -3073,6 +3075,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 					continue;
 				if ((!a->pageName().isEmpty()) && (c->asPathText()))
 					continue;
+				if ((!a->pageName().isEmpty()) && (c->asTable()))
+					continue;
 				if ((!a->pageName().isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 					continue;
 				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
@@ -3198,7 +3202,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				ScQApp->processEvents();
 			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
-			if (!(ite->asTextFrame()) && !(ite->asImageFrame()) && !(ite->asPathText()))
+			if (!(ite->asTextFrame()) && !(ite->asImageFrame()) && !(ite->asPathText()) && !(ite->asTable()))
 			{
 				int mpIndex = Doc->MasterNames[page->MPageNam];
 				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(qHash(ite)));
@@ -3208,6 +3212,206 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				PS_save();
 				// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
 				success &= ProcessItem(Doc, mPage, ite, PNr, sep, farb, ic, gcr, false, false, true);
+				PS_restore();
+			}
+			else if (ite->asTable())
+			{
+				PS_save();
+				PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
+				PS_translate(ite->asTable()->gridOffset().x(), -ite->asTable()->gridOffset().y());
+				// Paint table fill.
+				if (ite->asTable()->fillColor() != CommonStrings::None)
+				{
+					int lastCol = ite->asTable()->columns() - 1;
+					int lastRow = ite->asTable()->rows() - 1;
+					double x = ite->asTable()->columnPosition(0);
+					double y = ite->asTable()->rowPosition(0);
+					double width = ite->asTable()->columnPosition(lastCol) + ite->asTable()->columnWidth(lastCol) - x;
+					double height = ite->asTable()->rowPosition(lastRow) + ite->asTable()->rowHeight(lastRow) - y;
+					putColorNoDraw(ite->asTable()->fillColor(), ite->asTable()->fillShade(), gcr);
+					PutStream("0 0 "+ToStr(width)+" "+ToStr(-height)+" rectfill\n");
+				}
+				// Pass 1: Paint cell fills.
+				for (int row = 0; row < ite->asTable()->rows(); ++row)
+				{
+					int colSpan = 0;
+					for (int col = 0; col < ite->asTable()->columns(); col += colSpan)
+					{
+						TableCell cell = ite->asTable()->cellAt(row, col);
+						if (row == cell.row())
+						{
+							QString colorName = cell.fillColor();
+							if (colorName != CommonStrings::None)
+							{
+								PS_save();
+								putColorNoDraw(colorName, cell.fillShade(), gcr);
+								int row = cell.row();
+								int col = cell.column();
+								int lastRow = row + cell.rowSpan() - 1;
+								int lastCol = col + cell.columnSpan() - 1;
+								double x = ite->asTable()->columnPosition(col);
+								double y = ite->asTable()->rowPosition(row);
+								double width = ite->asTable()->columnPosition(lastCol) + ite->asTable()->columnWidth(lastCol) - x;
+								double height = ite->asTable()->rowPosition(lastRow) + ite->asTable()->rowHeight(lastRow) - y;
+								PutStream(ToStr(x)+" "+ToStr(-y)+" "+ToStr(width)+" "+ToStr(-height)+" rectfill\n");
+								PS_restore();
+							}
+						}
+						colSpan = cell.columnSpan();
+					}
+				}
+				// Pass 2: Paint vertical borders.
+				for (int row = 0; row < ite->asTable()->rows(); ++row)
+				{
+					int colSpan = 0;
+					for (int col = 0; col < ite->asTable()->columns(); col += colSpan)
+					{
+						TableCell cell = ite->asTable()->cellAt(row, col);
+						if (row == cell.row())
+						{
+							const int lastRow = cell.row() + cell.rowSpan() - 1;
+							const int lastCol = cell.column() + cell.columnSpan() - 1;
+							const double borderX = ite->asTable()->columnPosition(lastCol) + ite->asTable()->columnWidth(lastCol);
+							QPointF start(borderX, 0.0);
+							QPointF end(borderX, 0.0);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startRow, endRow;
+							for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+							{
+								TableCell rightCell = ite->asTable()->cellAt(row, lastCol + 1);
+								startRow = qMax(cell.row(), rightCell.row());
+								endRow = qMin(lastRow, rightCell.isValid() ? rightCell.row() + rightCell.rowSpan() - 1 : lastRow);
+								TableCell topLeftCell = ite->asTable()->cellAt(startRow - 1, lastCol);
+								TableCell topRightCell = ite->asTable()->cellAt(startRow - 1, lastCol + 1);
+								TableCell bottomRightCell = ite->asTable()->cellAt(endRow + 1, lastCol + 1);
+								TableCell bottomLeftCell = ite->asTable()->cellAt(endRow + 1, lastCol);
+								TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+								resolveBordersVertical(topLeftCell, topRightCell, cell, rightCell, bottomLeftCell, bottomRightCell,
+									&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, ite->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border to paint is null.
+								start.setY(ite->asTable()->rowPosition(startRow));
+								end.setY((ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow)));
+								joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+							}
+							if (col == 0)
+							{
+								const int lastRow = cell.row() + cell.rowSpan() - 1;
+								const int firstCol = cell.column();
+								const double borderX = ite->asTable()->columnPosition(firstCol);
+								QPointF start(borderX, 0.0);
+								QPointF end(borderX, 0.0);
+								QPointF startOffsetFactors, endOffsetFactors;
+								int startRow, endRow;
+								for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+								{
+									TableCell leftCell = ite->asTable()->cellAt(row, firstCol - 1);
+									startRow = qMax(cell.row(), leftCell.row());
+									endRow = qMin(lastRow, leftCell.isValid() ? leftCell.row() + leftCell.rowSpan() - 1 : lastRow);
+									TableCell topLeftCell = ite->asTable()->cellAt(startRow - 1, firstCol - 1);
+									TableCell topRightCell = ite->asTable()->cellAt(startRow - 1, firstCol);
+									TableCell bottomRightCell = ite->asTable()->cellAt(lastRow + 1, firstCol);
+									TableCell bottomLeftCell = ite->asTable()->cellAt(lastRow + 1, firstCol - 1);
+									TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+									resolveBordersVertical(topLeftCell, topRightCell, leftCell, cell, bottomLeftCell, bottomRightCell,
+										&topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, ite->asTable());
+									if (border.isNull())
+										continue; // Quit early if the border to paint is null.
+									start.setY(ite->asTable()->rowPosition(startRow));
+									end.setY((ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow)));
+									joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+									paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+								}
+							}
+						}
+						colSpan = cell.columnSpan();
+					}
+				}
+				// Pass 3: Paint horizontal borders.
+				for (int row = 0; row < ite->asTable()->rows(); ++row)
+				{
+					int colSpan = 0;
+					for (int col = 0; col < ite->asTable()->columns(); col += colSpan)
+					{
+						TableCell cell = ite->asTable()->cellAt(row, col);
+						if (row == cell.row())
+						{
+							const int lastRow = cell.row() + cell.rowSpan() - 1;
+							const int lastCol = cell.column() + cell.columnSpan() - 1;
+							const double borderY = (ite->asTable()->rowPosition(lastRow) + ite->asTable()->rowHeight(lastRow));
+							QPointF start(0.0, borderY);
+							QPointF end(0.0, borderY);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startCol, endCol;
+							for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+							{
+								TableCell bottomCell = ite->asTable()->cellAt(lastRow + 1, col);
+								startCol = qMax(cell.column(), bottomCell.column());
+								endCol = qMin(lastCol, bottomCell.isValid() ? bottomCell.column() + bottomCell.columnSpan() - 1 : lastCol);
+								TableCell topLeftCell = ite->asTable()->cellAt(lastRow, startCol - 1);
+								TableCell topRightCell = ite->asTable()->cellAt(lastRow, endCol + 1);
+								TableCell bottomRightCell = ite->asTable()->cellAt(lastRow + 1, endCol + 1);
+								TableCell bottomLeftCell = ite->asTable()->cellAt(lastRow + 1, startCol - 1);
+								TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+								resolveBordersHorizontal(topLeftCell, cell, topRightCell, bottomLeftCell, bottomCell,
+												  bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, ite->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border is null.
+								start.setX(ite->asTable()->columnPosition(startCol));
+								end.setX(ite->asTable()->columnPosition(endCol) + ite->asTable()->columnWidth(endCol));
+								joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+							}
+							if (row == 0)
+							{
+								const int firstRow = cell.row();
+								const int lastCol = cell.column() + cell.columnSpan() - 1;
+								const double borderY = ite->asTable()->rowPosition(firstRow);
+								QPointF start(0.0, borderY);
+								QPointF end(0.0, borderY);
+								QPointF startOffsetFactors, endOffsetFactors;
+								int startCol, endCol;
+								for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+								{
+									TableCell topCell = ite->asTable()->cellAt(firstRow - 1, col);
+									startCol = qMax(cell.column(), topCell.column());
+									endCol = qMin(lastCol, topCell.isValid() ? topCell.column() + topCell.columnSpan() - 1 : lastCol);
+									TableCell topLeftCell = ite->asTable()->cellAt(firstRow - 1, startCol - 1);
+									TableCell topRightCell = ite->asTable()->cellAt(firstRow - 1, endCol + 1);
+									TableCell bottomRightCell = ite->asTable()->cellAt(firstRow, endCol + 1);
+									TableCell bottomLeftCell = ite->asTable()->cellAt(firstRow, startCol - 1);
+									TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+									resolveBordersHorizontal(topLeftCell, topCell, topRightCell, bottomLeftCell, cell,
+															 bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, ite->asTable());
+									if (border.isNull())
+										continue; // Quit early if the border is null.
+									start.setX(ite->asTable()->columnPosition(startCol));
+									end.setX(ite->asTable()->columnPosition(endCol) + ite->asTable()->columnWidth(endCol));
+									joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+									paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, gcr);
+								}
+							}
+						}
+						colSpan = cell.columnSpan();
+					}
+				}
+				// Pass 4: Paint cell content.
+				for (int row = 0; row < ite->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < ite->asTable()->columns(); col ++)
+					{
+						TableCell cell = ite->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							PS_save();
+							PS_translate(cell.contentRect().x(), -cell.contentRect().y());
+							ProcessItem(Doc, mPage, textFrame, PNr, sep, farb, ic, gcr, false, false, true);
+							PS_restore();
+						}
+					}
+				}
 				PS_restore();
 			}
 			else if (ite->asTextFrame())
@@ -3813,6 +4017,8 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint
 			if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
 				continue;
 			if ((!page->pageName().isEmpty()) && (item->asPathText()))
+				continue;
+			if ((!page->pageName().isEmpty()) && (item->asTable()))
 				continue;
 			if ((!page->pageName().isEmpty()) && (item->asImageFrame()) && ((sep) || (!farb)))
 				continue;
