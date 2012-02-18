@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "tableborder.h"
 
 class QString;
 class ScLayer;
@@ -80,6 +81,7 @@ private:
 	*/
 	void ProcessPageLayer(ScPage *page, ScLayer& layer);
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
+	void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob);
 	QDomElement processSymbolStroke(PageItem *Item, QString trans);
 	QDomElement processSymbolItem(PageItem *Item, QString trans);
 	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);

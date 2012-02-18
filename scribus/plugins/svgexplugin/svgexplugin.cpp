@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "pageitem_pathtext.h"
+#include "pageitem_table.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -45,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribuscore.h"
 #include "sctextstruct.h"
+#include "tableutils.h"
 #include "util.h"
 #include "ui/customfdialog.h"
 #include "ui/guidemanager.h"
@@ -71,6 +73,8 @@ void svgexplugin_freePlugin(ScPlugin* plugin)
 	Q_ASSERT(plug);
 	delete plug;
 }
+
+using namespace TableUtils;
 
 SVGExportPlugin::SVGExportPlugin() : ScActionPlugin()
 {
@@ -442,6 +446,208 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 				}
 			}
 			break;
+		case PageItem::Table:
+			ob = docu.createElement("g");
+			ob.setAttribute("transform", trans + QString("translate(%1, %2)").arg(Item->asTable()->gridOffset().x()).arg(Item->asTable()->gridOffset().y()));
+			// Paint table fill.
+			if (Item->asTable()->fillColor() != CommonStrings::None)
+			{
+				int lastCol = Item->asTable()->columns() - 1;
+				int lastRow = Item->asTable()->rows() - 1;
+				double x = Item->asTable()->columnPosition(0);
+				double y = Item->asTable()->rowPosition(0);
+				double width = Item->asTable()->columnPosition(lastCol) + Item->asTable()->columnWidth(lastCol) - x;
+				double height = Item->asTable()->rowPosition(lastRow) + Item->asTable()->rowHeight(lastRow) - y;
+				QDomElement cl = docu.createElement("rect");
+				cl.setAttribute("fill", SetColor(Item->asTable()->fillColor(), Item->asTable()->fillShade()));
+				cl.setAttribute("x", "0");
+				cl.setAttribute("y", "0");
+				cl.setAttribute("width", FToStr(width));
+				cl.setAttribute("height", FToStr(height));
+				ob.appendChild(cl);
+			}
+			// Pass 1: Paint cell fills.
+			for (int row = 0; row < Item->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < Item->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = Item->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						QString colorName = cell.fillColor();
+						if (colorName != CommonStrings::None)
+						{
+							int row = cell.row();
+							int col = cell.column();
+							int lastRow = row + cell.rowSpan() - 1;
+							int lastCol = col + cell.columnSpan() - 1;
+							double x = Item->asTable()->columnPosition(col);
+							double y = Item->asTable()->rowPosition(row);
+							double width = Item->asTable()->columnPosition(lastCol) + Item->asTable()->columnWidth(lastCol) - x;
+							double height = Item->asTable()->rowPosition(lastRow) + Item->asTable()->rowHeight(lastRow) - y;
+							QDomElement cl = docu.createElement("rect");
+							cl.setAttribute("fill", SetColor(colorName, cell.fillShade()));
+							cl.setAttribute("x", FToStr(x));
+							cl.setAttribute("y", FToStr(y));
+							cl.setAttribute("width", FToStr(width));
+							cl.setAttribute("height", FToStr(height));
+							ob.appendChild(cl);
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 2: Paint vertical borders.
+			for (int row = 0; row < Item->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < Item->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = Item->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						const int lastRow = cell.row() + cell.rowSpan() - 1;
+						const int lastCol = cell.column() + cell.columnSpan() - 1;
+						const double borderX = Item->asTable()->columnPosition(lastCol) + Item->asTable()->columnWidth(lastCol);
+						QPointF start(borderX, 0.0);
+						QPointF end(borderX, 0.0);
+						QPointF startOffsetFactors, endOffsetFactors;
+						int startRow, endRow;
+						for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+						{
+							TableCell rightCell = Item->asTable()->cellAt(row, lastCol + 1);
+							startRow = qMax(cell.row(), rightCell.row());
+							endRow = qMin(lastRow, rightCell.isValid() ? rightCell.row() + rightCell.rowSpan() - 1 : lastRow);
+							TableCell topLeftCell = Item->asTable()->cellAt(startRow - 1, lastCol);
+							TableCell topRightCell = Item->asTable()->cellAt(startRow - 1, lastCol + 1);
+							TableCell bottomRightCell = Item->asTable()->cellAt(endRow + 1, lastCol + 1);
+							TableCell bottomLeftCell = Item->asTable()->cellAt(endRow + 1, lastCol);
+							TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+							resolveBordersVertical(topLeftCell, topRightCell, cell, rightCell, bottomLeftCell, bottomRightCell,
+												   &topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, Item->asTable());
+							if (border.isNull())
+								continue; // Quit early if the border to paint is null.
+							start.setY(Item->asTable()->rowPosition(startRow));
+							end.setY((Item->asTable()->rowPosition(endRow) + Item->asTable()->rowHeight(endRow)));
+							joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+							paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, ob);
+						}
+						if (col == 0)
+						{
+							const int lastRow = cell.row() + cell.rowSpan() - 1;
+							const int firstCol = cell.column();
+							const double borderX = Item->asTable()->columnPosition(firstCol);
+							QPointF start(borderX, 0.0);
+							QPointF end(borderX, 0.0);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startRow, endRow;
+							for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
+							{
+								TableCell leftCell = Item->asTable()->cellAt(row, firstCol - 1);
+								startRow = qMax(cell.row(), leftCell.row());
+								endRow = qMin(lastRow, leftCell.isValid() ? leftCell.row() + leftCell.rowSpan() - 1 : lastRow);
+								TableCell topLeftCell = Item->asTable()->cellAt(startRow - 1, firstCol - 1);
+								TableCell topRightCell = Item->asTable()->cellAt(startRow - 1, firstCol);
+								TableCell bottomRightCell = Item->asTable()->cellAt(lastRow + 1, firstCol);
+								TableCell bottomLeftCell = Item->asTable()->cellAt(lastRow + 1, firstCol - 1);
+								TableBorder topLeft, top, topRight, border, bottomLeft, bottom, bottomRight;
+								resolveBordersVertical(topLeftCell, topRightCell, leftCell, cell, bottomLeftCell, bottomRightCell,
+													   &topLeft, &top, &topRight, &border, &bottomLeft, &bottom, &bottomRight, Item->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border to paint is null.
+								start.setY(Item->asTable()->rowPosition(startRow));
+								end.setY((Item->asTable()->rowPosition(endRow) + Item->asTable()->rowHeight(endRow)));
+								joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, ob);
+							}
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 3: Paint horizontal borders.
+			for (int row = 0; row < Item->asTable()->rows(); ++row)
+			{
+				int colSpan = 0;
+				for (int col = 0; col < Item->asTable()->columns(); col += colSpan)
+				{
+					TableCell cell = Item->asTable()->cellAt(row, col);
+					if (row == cell.row())
+					{
+						const int lastRow = cell.row() + cell.rowSpan() - 1;
+						const int lastCol = cell.column() + cell.columnSpan() - 1;
+						const double borderY = (Item->asTable()->rowPosition(lastRow) + Item->asTable()->rowHeight(lastRow));
+						QPointF start(0.0, borderY);
+						QPointF end(0.0, borderY);
+						QPointF startOffsetFactors, endOffsetFactors;
+						int startCol, endCol;
+						for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+						{
+							TableCell bottomCell = Item->asTable()->cellAt(lastRow + 1, col);
+							startCol = qMax(cell.column(), bottomCell.column());
+							endCol = qMin(lastCol, bottomCell.isValid() ? bottomCell.column() + bottomCell.columnSpan() - 1 : lastCol);
+							TableCell topLeftCell = Item->asTable()->cellAt(lastRow, startCol - 1);
+							TableCell topRightCell = Item->asTable()->cellAt(lastRow, endCol + 1);
+							TableCell bottomRightCell = Item->asTable()->cellAt(lastRow + 1, endCol + 1);
+							TableCell bottomLeftCell = Item->asTable()->cellAt(lastRow + 1, startCol - 1);
+							TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+							resolveBordersHorizontal(topLeftCell, cell, topRightCell, bottomLeftCell, bottomCell,
+													 bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, Item->asTable());
+							if (border.isNull())
+								continue; // Quit early if the border is null.
+							start.setX(Item->asTable()->columnPosition(startCol));
+							end.setX(Item->asTable()->columnPosition(endCol) + Item->asTable()->columnWidth(endCol));
+							joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+							paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, ob);
+						}
+						if (row == 0)
+						{
+							const int firstRow = cell.row();
+							const int lastCol = cell.column() + cell.columnSpan() - 1;
+							const double borderY = Item->asTable()->rowPosition(firstRow);
+							QPointF start(0.0, borderY);
+							QPointF end(0.0, borderY);
+							QPointF startOffsetFactors, endOffsetFactors;
+							int startCol, endCol;
+							for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
+							{
+								TableCell topCell = Item->asTable()->cellAt(firstRow - 1, col);
+								startCol = qMax(cell.column(), topCell.column());
+								endCol = qMin(lastCol, topCell.isValid() ? topCell.column() + topCell.columnSpan() - 1 : lastCol);
+								TableCell topLeftCell = Item->asTable()->cellAt(firstRow - 1, startCol - 1);
+								TableCell topRightCell = Item->asTable()->cellAt(firstRow - 1, endCol + 1);
+								TableCell bottomRightCell = Item->asTable()->cellAt(firstRow, endCol + 1);
+								TableCell bottomLeftCell = Item->asTable()->cellAt(firstRow, startCol - 1);
+								TableBorder topLeft, left, bottomLeft, border, topRight, right, bottomRight;
+								resolveBordersHorizontal(topLeftCell, topCell, topRightCell, bottomLeftCell, cell,
+														 bottomRightCell, &topLeft, &left, &bottomLeft, &border, &topRight, &right, &bottomRight, Item->asTable());
+								if (border.isNull())
+									continue; // Quit early if the border is null.
+								start.setX(Item->asTable()->columnPosition(startCol));
+								end.setX(Item->asTable()->columnPosition(endCol) + Item->asTable()->columnWidth(endCol));
+								joinHorizontal(border, topLeft, left, bottomLeft, topRight, right, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
+								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, ob);
+							}
+						}
+					}
+					colSpan = cell.columnSpan();
+				}
+			}
+			// Pass 4: Paint cell content.
+			for (int row = 0; row < Item->asTable()->rows(); ++row)
+			{
+				for (int col = 0; col < Item->asTable()->columns(); col ++)
+				{
+					TableCell cell = Item->asTable()->cellAt(row, col);
+					if (cell.row() == row && cell.column() == col)
+					{
+						PageItem* textFrame = cell.textFrame();
+						ProcessItemOnPage(cell.contentRect().x(), cell.contentRect().y(), textFrame, &ob);
+					}
+				}
+			}
+			break;
 		default:
 			break;
 	}
@@ -450,6 +656,42 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 	if (!Item->AutoName)
 		ob.setAttribute("id", Item->itemName());
 	parentElem->appendChild(ob);
+}
+
+void SVGExPlug::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob)
+{
+	QPointF lineStart, lineEnd;
+	foreach (const TableBorderLine& line, border.borderLines())
+	{
+		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
+		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());
+		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
+		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
+		QDomElement cl = docu.createElement("path");
+		cl.setAttribute("d", "M "+FToStr(lineStart.x())+" "+FToStr(lineStart.y())+" L "+FToStr(lineEnd.x())+" "+FToStr(lineEnd.y()));
+		QString stroke = "";
+		if (line.color() != CommonStrings::None)
+			cl.setAttribute("stroke", SetColor(line.color(), line.shade()));
+		if (line.width() != 0.0)
+			stroke = "stroke-width:"+FToStr(line.width())+";";
+		else
+			stroke = "stroke-width:1px;";
+		stroke += " stroke-linecap:butt;";
+		stroke += " stroke-linejoin:miter;";
+		stroke += " stroke-dasharray:";
+		if (line.style() == Qt::SolidLine)
+			stroke += "none;";
+		else
+		{
+			QString Da = getDashString(line.style(), qMax(line.width(), 1.0));
+			if (Da.isEmpty())
+				stroke += "none;";
+			else
+				stroke += Da.replace(" ", ", ")+";";
+		}
+		cl.setAttribute("style", stroke);
+		ob.appendChild(cl);
+	}
 }
 
 QDomElement SVGExPlug::processSymbolStroke(PageItem *Item, QString trans)
