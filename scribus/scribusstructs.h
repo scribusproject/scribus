@@ -301,7 +301,7 @@ enum AppMode
 	modeInsertPDFTextAnnotation,
 	modeInsertPDFLinkAnnotation,
 	modeDrawFreehandLine,
-	modeDrawTable,
+	modeDrawTable,	// Now deprecated as new tables are working now.
 	modeDrawTable2, // Temporary name for new tables.
 	modePanning,
 	modeMeasurementTool,

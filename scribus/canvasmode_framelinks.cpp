@@ -132,7 +132,7 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		/*
 		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
 		*/
-		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable || m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 		if (!m_view->redrawMarker->isVisible())
 			m_view->redrawMarker->show();

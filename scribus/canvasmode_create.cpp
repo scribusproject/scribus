@@ -371,9 +371,6 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 
 	switch (m_doc->appMode)
 	{
-		case modeDrawTable:
-			m_view->Deselect(false);
-			break;
 		case modeDrawTable2:
 			m_view->Deselect(false);
 			break;
@@ -555,10 +552,6 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 		itemType  = (int) PageItem::TextFrame;
 		frameType = (int) PageItem::Unspecified;
 		break;
-	case modeDrawTable:
-		itemType  = (int) PageItem::TextFrame;
-		frameType = (int) PageItem::Unspecified;
-		break;
 	case modeDrawTable2:
 		itemType  = (int) PageItem::Table;
 		frameType = (int) PageItem::Unspecified;
@@ -580,7 +573,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 	double wSize = canvasCurrCoord.x() - createObjectPos.x();
 	double hSize = canvasCurrCoord.y() - createObjectPos.y();
 	bool   skipOneClick = (modifiers == Qt::ShiftModifier);
-	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable) || (createObjectMode == modeDrawTable2) ||
+	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable2) ||
 		(createObjectMode == modeInsertPDFButton) || (createObjectMode == modeInsertPDFTextfield) ||
 		(createObjectMode == modeInsertPDFTextfield) || (createObjectMode == modeInsertPDFCheckbox) ||
 		(createObjectMode == modeInsertPDFCombobox) || (createObjectMode == modeInsertPDFListbox) ||
@@ -734,116 +727,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 			currItem->annotation().setAction("0 0");
 			currItem->setTextFlowMode(PageItem::TextFlowDisabled);
 			break;
-		}
-		break;
-	case modeDrawTable:
-		/*m_view->Deselect(false);
-		Rxp = mousePointDoc.x();
-		Ryp = mousePointDoc.y();
-		npf = m_doc->ApplyGridF(FPoint(Rxp, Ryp));
-		Rxp = npf.x();
-		Ryp = npf.y();
-		m_doc->ApplyGuides(&Rxp, &Ryp);
-		canvasPressCoord.setXY(qRound(Rxp), qRound(Ryp));
-		canvasCurrCoord = canvasPressCoord;
-		mouseGlobalCoord.setXY(m->globalPos().x(), m->globalPos().y());
-		m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
-		m_view->redrawMarker->show();*/
-
-		if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
-		{
-			UndoTransaction * activeTransaction = NULL;
-			m_view->HaveSelRect = false;
-			double Tx, Ty, Tw, Th;
-			FPoint np2 = m_doc->ApplyGridF(canvasPressCoord);
-			Tx = np2.x();
-			Ty = np2.y();
-			m_doc->ApplyGuides(&Tx, &Ty);
-			canvasPressCoord.setXY(qRound(Tx), qRound(Ty));
-			np2 = m_doc->ApplyGridF(canvasCurrCoord);
-			Tw = np2.x();
-			Th = np2.y();
-			m_doc->ApplyGuides(&Tw, &Th);
-			canvasCurrCoord.setXY(qRound(Tw), qRound(Th));
-			Tw = Tw - Tx;
-			Th = Th - Ty;
-			int Cols, Rows;
-			double deltaX, deltaY, offX, offY;
-			if ((Th < 6) || (Tw < 6))
-			{
-				m_view->requestMode(submodePaintingDone);
-				break;
-			}
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			InsertTable *dia = new InsertTable(m_view, static_cast<int>(Th / 6), static_cast<int>(Tw / 6));
-			if (!dia->exec())
-			{
-				m_view->requestMode(submodePaintingDone);
-				delete dia;
-				dia = NULL;
-				break;
-			}
-			Cols = dia->Cols->value();
-			Rows = dia->Rows->value();
-			delete dia;
-			dia=NULL;
-			deltaX = Tw / Cols;
-			deltaY = Th / Rows;
-			offX = 0.0;
-			offY = 0.0;
-			m_doc->m_Selection->clear();
-			if (UndoManager::undoEnabled())
-				activeTransaction = new UndoTransaction(Um::instance()->beginTransaction(m_doc->currentPage()->getUName(),
-																						 Um::ITable, Um::CreateTable,
-																						 QString(Um::RowsCols).arg(Rows).arg(Cols),
-																						 Um::ICreate));
-			m_doc->m_Selection->delaySignalsOn();
-			for (int rc = 0; rc < Rows; ++rc)
-			{
-				for (int cc = 0; cc < Cols; ++cc)
-				{
-					z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().textColor, true);
-					currItem = m_doc->Items->at(z);
-					currItem->isTableItem = true;
-					currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-					m_doc->m_Selection->addItem(currItem);
-					offX += deltaX;
-				}
-				offY += deltaY;
-				offX = 0.0;
-			}
-			for (int rc = 0; rc < Rows; ++rc)
-			{
-				for (int cc = 0; cc < Cols; ++cc)
-				{
-					currItem = m_doc->m_Selection->itemAt((rc * Cols) + cc);
-					if (rc == 0)
-						currItem->TopLink = 0;
-					else
-						currItem->TopLink = m_doc->m_Selection->itemAt(((rc-1)*Cols)+cc);
-					if (rc == Rows-1)
-						currItem->BottomLink = 0;
-					else
-						currItem->BottomLink = m_doc->m_Selection->itemAt(((rc+1)*Cols)+cc);
-					if (cc == 0)
-						currItem->LeftLink = 0;
-					else
-						currItem->LeftLink = m_doc->m_Selection->itemAt((rc*Cols)+cc-1);
-					if (cc == Cols-1)
-						currItem->RightLink = 0;
-					else
-						currItem->RightLink = m_doc->m_Selection->itemAt((rc*Cols)+cc+1);
-				}
-			}
-			m_doc->itemSelection_GroupObjects(false, false);
-			z = m_doc->Items->count() - 1;
-			if (activeTransaction)
-			{
-				activeTransaction->commit();
-				delete activeTransaction;
-				activeTransaction = NULL;
-			}
-			m_doc->m_Selection->delaySignalsOff();
 		}
 		break;
 	case modeDrawTable2:
