@@ -109,6 +109,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last);
+		bool readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
 		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
 		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
 		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);

@@ -142,7 +142,7 @@ public:
 	QString fillColor() const { return d->style.fillColor(); }
 
 	/// Sets the fill color of this cell to @a color.
-	void setFillColor(const double& shade) { d->style.setFillShade(shade); }
+	void setFillShade(const double& shade) { d->style.setFillShade(shade); }
 
 	/// Returns the fill color of this cell.
 	double fillShade() const { return d->style.fillShade(); }
