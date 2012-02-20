@@ -342,9 +342,13 @@ void CommonStrings::languageChange()
 	CommonStrings::DefaultParagraphStyle     = "Default Paragraph Style";
 	CommonStrings::DefaultCharacterStyle     = "Default Character Style";
 	CommonStrings::DefaultLineStyle          = "Default Line Style";
+	CommonStrings::DefaultTableStyle         = "Default Table Style";
+	CommonStrings::DefaultCellStyle          = "Default Cell Style";
 	CommonStrings::trDefaultParagraphStyle   = tr("Default Paragraph Style");
 	CommonStrings::trDefaultCharacterStyle   = tr("Default Character Style");
 	CommonStrings::trDefaultLineStyle        = tr("Default Line Style");
+	CommonStrings::trDefaultTableStyle       = tr("Default Table Style");
+	CommonStrings::trDefaultCellStyle        = tr("Default Cell Style");
 
 
 	CommonStrings::monday    = tr("Monday");

@@ -16,6 +16,7 @@ SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) : QWidget()
 
 	fillColorIcon->setPixmap(loadIcon("16/color-fill.png"));
 	fillColor->addItem(CommonStrings::tr_NoneColor);
+	fillShadeLabel->setPixmap( loadIcon("shade.png") );
 }
 
 SMTableStyleWidget::~SMTableStyleWidget()
@@ -32,6 +33,7 @@ void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableSt
 	// TODO: Handle parent styles (and language?)
 
 	fillColor->setCurrentText(tableStyle->fillColor());
+	fillShade_->setValue(qRound(tableStyle->fillShade()));
 }
 
 void SMTableStyleWidget::show(QList<TableStyle*> &tableStyles, QList<TableStyle> &tableStylesAll, const QString &defaultLanguage, int unitIndex)
@@ -45,7 +47,8 @@ void SMTableStyleWidget::show(QList<TableStyle*> &tableStyles, QList<TableStyle>
 
 void SMTableStyleWidget::languageChange()
 {
-	fillColor->setToolTip(tr("Fill Color"));
+	fillColor->setToolTip( tr("Fill Color"));
+	fillShade_->setToolTip( tr("Fill Shade"));
 }
 
 void SMTableStyleWidget::fillFillColorCombo(ColorList &colors)

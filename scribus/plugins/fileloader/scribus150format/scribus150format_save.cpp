@@ -809,10 +809,130 @@ void Scribus150Format::writeCellStyles(ScXmlStreamWriter& docu)
 
 void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &style)
 {
+	if ( ! style.name().isEmpty() )
+		docu.writeAttribute("NAME", style.name());
+	if ( style.hasName() && style.isDefaultStyle())
+		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
+	if ( ! style.parent().isEmpty() )
+		docu.writeAttribute("PARENT", style.parent());
+	if ( ! style.isInhFillColor())
+		docu.writeAttribute("FillColor", style.fillColor());
+	if ( ! style.isInhFillShade())
+		docu.writeAttribute("FillShade", style.fillShade());
+	TableBorder tbLeft = style.leftBorder();
+	docu.writeStartElement("TableBorderLeft");
+	foreach (TableBorderLine tbl, tbLeft.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+	TableBorder tbRight = style.rightBorder();
+	docu.writeStartElement("TableBorderRight");
+	foreach (TableBorderLine tbl, tbRight.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+	TableBorder tbTop = style.topBorder();
+	docu.writeStartElement("TableBorderTop");
+	foreach (TableBorderLine tbl, tbTop.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+	TableBorder tbBottom = style.bottomBorder();
+	docu.writeStartElement("TableBorderBottom");
+	foreach (TableBorderLine tbl, tbBottom.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
 }
 
 void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style)
 {
+	if ( ! style.name().isEmpty() )
+		docu.writeAttribute("NAME", style.name());
+	if ( style.hasName() && style.isDefaultStyle())
+		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
+	if ( ! style.parent().isEmpty() )
+		docu.writeAttribute("PARENT", style.parent());
+	if ( ! style.isInhFillColor())
+		docu.writeAttribute("FillColor", style.fillColor());
+	if ( ! style.isInhFillShade())
+		docu.writeAttribute("FillShade", style.fillShade());
+	docu.writeAttribute("LeftPadding",style.leftPadding());
+	docu.writeAttribute("RightPadding", style.rightPadding());
+	docu.writeAttribute("TopPadding",style.topPadding());
+	docu.writeAttribute("BottomPadding", style.bottomPadding());
+	TableBorder tbLeft = style.leftBorder();
+	docu.writeStartElement("TableBorderLeft");
+	foreach (TableBorderLine tbl, tbLeft.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+	TableBorder tbRight = style.rightBorder();
+	docu.writeStartElement("TableBorderRight");
+	foreach (TableBorderLine tbl, tbRight.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+	TableBorder tbTop = style.topBorder();
+	docu.writeStartElement("TableBorderTop");
+	foreach (TableBorderLine tbl, tbTop.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+	TableBorder tbBottom = style.bottomBorder();
+	docu.writeStartElement("TableBorderBottom");
+	foreach (TableBorderLine tbl, tbBottom.borderLines())
+	{
+		docu.writeStartElement("TableBorderLine");
+		docu.writeAttribute("Width", tbl.width());
+		docu.writeAttribute("PenStyle", tbl.style());
+		docu.writeAttribute("Color", tbl.color());
+		docu.writeAttribute("Shade", tbl.shade());
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
 }
 
 void Scribus150Format::writeLayers(ScXmlStreamWriter & docu) 

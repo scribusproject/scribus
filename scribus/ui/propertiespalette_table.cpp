@@ -229,8 +229,25 @@ void PropertiesPalette_Table::updateFillControls()
 		fillShade->setEnabled(true);
 		fillShadeLabel->setEnabled(true);
 		// Fill in values.
-		setCurrentComboItem(fillColor, table->fillColor());
-		fillShade->setValue(table->fillShade());
+		if (table->selectedCells().count() == 0)
+		{
+			setCurrentComboItem(fillColor, table->fillColor());
+			fillShade->setValue(table->fillShade());
+		}
+		else if (table->selectedCells().count() == 1)
+		{
+			TableCell cell = table->selectedCells().toList().first();
+			setCurrentComboItem(fillColor, cell.fillColor());
+			fillShade->setValue(cell.fillShade());
+		}
+		else
+		{
+			// Disable fill editing controls.
+			fillColor->setEnabled(false);
+			fillColorLabel->setEnabled(false);
+			fillShade->setEnabled(false);
+			fillShadeLabel->setEnabled(false);
+		}
 	}
 	else
 	{
@@ -359,8 +376,18 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 		return;
 
 	PageItem_Table* table = m_item->asTable();
-	table->setFillColor(colorName);
-	table->setFillShade(fillShade->value());
+	if (table->selectedCells().count() == 0)
+	{
+		table->setFillColor(colorName);
+		table->setFillShade(fillShade->value());
+	}
+	else if (table->selectedCells().count() == 1)
+	{
+		TableCell cell = table->selectedCells().toList().first();
+		cell.setFillColor(colorName);
+		cell.setFillShade(fillShade->value());
+	}
+
 	table->update();
 }
 
@@ -370,8 +397,17 @@ void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
 		return;
 
 	PageItem_Table* table = m_item->asTable();
-	table->setFillColor(fillColor->currentColor());
-	table->setFillShade(shade);
+	if (table->selectedCells().count() == 0)
+	{
+		table->setFillColor(fillColor->currentColor());
+		table->setFillShade(shade);
+	}
+	else if (table->selectedCells().count() == 1)
+	{
+		TableCell cell = table->selectedCells().toList().first();
+		cell.setFillColor(fillColor->currentColor());
+		cell.setFillShade(shade);
+	}
 	table->update();
 }
 

@@ -496,6 +496,7 @@ void ScribusDoc::init()
 	// Create default table style.
 	// TODO: We should have preferences for the default values.
 	TableStyle defaultTableStyle;
+	defaultTableStyle.setDefaultStyle(true);
 	defaultTableStyle.setName(CommonStrings::DefaultTableStyle);
 	defaultTableStyle.setFillColor(CommonStrings::None);
 	defaultTableStyle.setFillShade(100);
@@ -509,6 +510,7 @@ void ScribusDoc::init()
 	// Create default table cell style.
 	// TODO: We should have preferences for the default values.
 	CellStyle defaultCellStyle;
+	defaultCellStyle.setDefaultStyle(true);
 	defaultCellStyle.setName(CommonStrings::DefaultCellStyle);
 	defaultCellStyle.setFillColor(CommonStrings::None);
 	defaultCellStyle.setFillShade(100);

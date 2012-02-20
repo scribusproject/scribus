@@ -92,6 +92,7 @@ private:
 
 private slots:
 	void slotFillColor();
+	void slotFillShade();
 };
 
 #endif // SMTABLESTYLES_H
