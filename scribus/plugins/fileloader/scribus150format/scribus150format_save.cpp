@@ -819,54 +819,66 @@ void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 		docu.writeAttribute("FillColor", style.fillColor());
 	if ( ! style.isInhFillShade())
 		docu.writeAttribute("FillShade", style.fillShade());
-	TableBorder tbLeft = style.leftBorder();
-	docu.writeStartElement("TableBorderLeft");
-	foreach (TableBorderLine tbl, tbLeft.borderLines())
+	if ( ! style.isInhLeftBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbLeft = style.leftBorder();
+		docu.writeStartElement("TableBorderLeft");
+		foreach (TableBorderLine tbl, tbLeft.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
-	TableBorder tbRight = style.rightBorder();
-	docu.writeStartElement("TableBorderRight");
-	foreach (TableBorderLine tbl, tbRight.borderLines())
+	if ( ! style.isInhRightBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbRight = style.rightBorder();
+		docu.writeStartElement("TableBorderRight");
+		foreach (TableBorderLine tbl, tbRight.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
-	TableBorder tbTop = style.topBorder();
-	docu.writeStartElement("TableBorderTop");
-	foreach (TableBorderLine tbl, tbTop.borderLines())
+	if ( ! style.isInhTopBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbTop = style.topBorder();
+		docu.writeStartElement("TableBorderTop");
+		foreach (TableBorderLine tbl, tbTop.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
-	TableBorder tbBottom = style.bottomBorder();
-	docu.writeStartElement("TableBorderBottom");
-	foreach (TableBorderLine tbl, tbBottom.borderLines())
+	if ( ! style.isInhBottomBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbBottom = style.bottomBorder();
+		docu.writeStartElement("TableBorderBottom");
+		foreach (TableBorderLine tbl, tbBottom.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
 }
 
 void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style)
@@ -881,58 +893,74 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 		docu.writeAttribute("FillColor", style.fillColor());
 	if ( ! style.isInhFillShade())
 		docu.writeAttribute("FillShade", style.fillShade());
-	docu.writeAttribute("LeftPadding",style.leftPadding());
-	docu.writeAttribute("RightPadding", style.rightPadding());
-	docu.writeAttribute("TopPadding",style.topPadding());
-	docu.writeAttribute("BottomPadding", style.bottomPadding());
-	TableBorder tbLeft = style.leftBorder();
-	docu.writeStartElement("TableBorderLeft");
-	foreach (TableBorderLine tbl, tbLeft.borderLines())
+	if ( ! style.isInhLeftPadding())
+		docu.writeAttribute("LeftPadding",style.leftPadding());
+	if ( ! style.isInhRightPadding())
+		docu.writeAttribute("RightPadding", style.rightPadding());
+	if ( ! style.isInhTopPadding())
+		docu.writeAttribute("TopPadding",style.topPadding());
+	if ( ! style.isInhBottomPadding())
+		docu.writeAttribute("BottomPadding", style.bottomPadding());
+	if ( ! style.isInhLeftBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbLeft = style.leftBorder();
+		docu.writeStartElement("TableBorderLeft");
+		foreach (TableBorderLine tbl, tbLeft.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
-	TableBorder tbRight = style.rightBorder();
-	docu.writeStartElement("TableBorderRight");
-	foreach (TableBorderLine tbl, tbRight.borderLines())
+	if ( ! style.isInhRightBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbRight = style.rightBorder();
+		docu.writeStartElement("TableBorderRight");
+		foreach (TableBorderLine tbl, tbRight.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
-	TableBorder tbTop = style.topBorder();
-	docu.writeStartElement("TableBorderTop");
-	foreach (TableBorderLine tbl, tbTop.borderLines())
+	if ( ! style.isInhTopBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbTop = style.topBorder();
+		docu.writeStartElement("TableBorderTop");
+		foreach (TableBorderLine tbl, tbTop.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
-	TableBorder tbBottom = style.bottomBorder();
-	docu.writeStartElement("TableBorderBottom");
-	foreach (TableBorderLine tbl, tbBottom.borderLines())
+	if ( ! style.isInhBottomBorder())
 	{
-		docu.writeStartElement("TableBorderLine");
-		docu.writeAttribute("Width", tbl.width());
-		docu.writeAttribute("PenStyle", tbl.style());
-		docu.writeAttribute("Color", tbl.color());
-		docu.writeAttribute("Shade", tbl.shade());
+		TableBorder tbBottom = style.bottomBorder();
+		docu.writeStartElement("TableBorderBottom");
+		foreach (TableBorderLine tbl, tbBottom.borderLines())
+		{
+			docu.writeStartElement("TableBorderLine");
+			docu.writeAttribute("Width", tbl.width());
+			docu.writeAttribute("PenStyle", tbl.style());
+			docu.writeAttribute("Color", tbl.color());
+			docu.writeAttribute("Shade", tbl.shade());
+			docu.writeEndElement();
+		}
 		docu.writeEndElement();
 	}
-	docu.writeEndElement();
 }
 
 void Scribus150Format::writeLayers(ScXmlStreamWriter & docu) 
@@ -1914,57 +1942,76 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			//PTYPE == PageItem::Table or 16 (pageitem.h)
 			PageItem_Table* tableItem = item->asTable();
 			docu.writeStartElement("TableData");
-			docu.writeAttribute("FillColor", tableItem->fillColor());
-			docu.writeAttribute("FillShade", tableItem->fillShade());
+			QString tstyle = tableItem->style();
 			docu.writeAttribute("Style", tableItem->style());
-			TableBorder tbLeft = tableItem->leftBorder();
-			docu.writeStartElement("TableBorderLeft");
-			foreach (TableBorderLine tbl, tbLeft.borderLines())
+			TableStyle ts;
+			if (!tstyle.isEmpty())
+				ts = m_Doc->tableStyle(tstyle);
+
+			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && (!ts.isInhFillColor())))
+				docu.writeAttribute("FillColor", tableItem->fillColor());
+			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && ( !ts.isInhFillShade())))
+				docu.writeAttribute("FillShade", tableItem->fillShade());
+			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && ( !ts.isInhLeftBorder())))
 			{
-				docu.writeStartElement("TableBorderLine");
-				docu.writeAttribute("Width", tbl.width());
-				docu.writeAttribute("PenStyle", tbl.style());
-				docu.writeAttribute("Color", tbl.color());
-				docu.writeAttribute("Shade", tbl.shade());
+				TableBorder tbLeft = tableItem->leftBorder();
+				docu.writeStartElement("TableBorderLeft");
+				foreach (TableBorderLine tbl, tbLeft.borderLines())
+				{
+					docu.writeStartElement("TableBorderLine");
+					docu.writeAttribute("Width", tbl.width());
+					docu.writeAttribute("PenStyle", tbl.style());
+					docu.writeAttribute("Color", tbl.color());
+					docu.writeAttribute("Shade", tbl.shade());
+					docu.writeEndElement();
+				}
 				docu.writeEndElement();
 			}
-			docu.writeEndElement();
-			TableBorder tbRight = tableItem->rightBorder();
-			docu.writeStartElement("TableBorderRight");
-			foreach (TableBorderLine tbl, tbRight.borderLines())
+			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && ( !ts.isInhRightBorder())))
 			{
-				docu.writeStartElement("TableBorderLine");
-				docu.writeAttribute("Width", tbl.width());
-				docu.writeAttribute("PenStyle", tbl.style());
-				docu.writeAttribute("Color", tbl.color());
-				docu.writeAttribute("Shade", tbl.shade());
+				TableBorder tbRight = tableItem->rightBorder();
+				docu.writeStartElement("TableBorderRight");
+				foreach (TableBorderLine tbl, tbRight.borderLines())
+				{
+					docu.writeStartElement("TableBorderLine");
+					docu.writeAttribute("Width", tbl.width());
+					docu.writeAttribute("PenStyle", tbl.style());
+					docu.writeAttribute("Color", tbl.color());
+					docu.writeAttribute("Shade", tbl.shade());
+					docu.writeEndElement();
+				}
 				docu.writeEndElement();
 			}
-			docu.writeEndElement();
-			TableBorder tbTop = tableItem->topBorder();
-			docu.writeStartElement("TableBorderTop");
-			foreach (TableBorderLine tbl, tbTop.borderLines())
+			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && ( !ts.isInhTopBorder())))
 			{
-				docu.writeStartElement("TableBorderLine");
-				docu.writeAttribute("Width", tbl.width());
-				docu.writeAttribute("PenStyle", tbl.style());
-				docu.writeAttribute("Color", tbl.color());
-				docu.writeAttribute("Shade", tbl.shade());
+				TableBorder tbTop = tableItem->topBorder();
+				docu.writeStartElement("TableBorderTop");
+				foreach (TableBorderLine tbl, tbTop.borderLines())
+				{
+					docu.writeStartElement("TableBorderLine");
+					docu.writeAttribute("Width", tbl.width());
+					docu.writeAttribute("PenStyle", tbl.style());
+					docu.writeAttribute("Color", tbl.color());
+					docu.writeAttribute("Shade", tbl.shade());
+					docu.writeEndElement();
+				}
 				docu.writeEndElement();
 			}
-			docu.writeEndElement();
-			TableBorder tbBottom = tableItem->bottomBorder();
-			docu.writeStartElement("TableBorderBottom");
-			foreach (TableBorderLine tbl, tbBottom.borderLines())
+			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && ( !ts.isInhBottomBorder())))
 			{
-				docu.writeStartElement("TableBorderLine");
-				docu.writeAttribute("Width", tbl.width());
-				docu.writeAttribute("PenStyle", tbl.style());
-				docu.writeAttribute("Color", tbl.color());
-				docu.writeAttribute("Shade", tbl.shade());
+				TableBorder tbBottom = tableItem->bottomBorder();
+				docu.writeStartElement("TableBorderBottom");
+				foreach (TableBorderLine tbl, tbBottom.borderLines())
+				{
+					docu.writeStartElement("TableBorderLine");
+					docu.writeAttribute("Width", tbl.width());
+					docu.writeAttribute("PenStyle", tbl.style());
+					docu.writeAttribute("Color", tbl.color());
+					docu.writeAttribute("Shade", tbl.shade());
+					docu.writeEndElement();
+				}
 				docu.writeEndElement();
 			}
-			docu.writeEndElement();
 			//for each cell, write it to the doc
 			for (int row = 0; row < tableItem->rows(); ++row)
 			{
@@ -1977,71 +2024,86 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("Row", cell.row());
 						docu.writeAttribute("Column",cell.column());
 						docu.writeAttribute("Style",cell.style());
-						//TODO
-						//BoundRect?
-						//ContentRect?
-						docu.writeAttribute("FillColor", cell.fillColor());
-						docu.writeAttribute("FillShade", cell.fillShade());
-						docu.writeAttribute("LeftPadding",cell.leftPadding());
-						docu.writeAttribute("RightPadding", cell.rightPadding());
-						docu.writeAttribute("TopPadding",cell.topPadding());
-						docu.writeAttribute("BottomPadding", cell.bottomPadding());
-
-						TableBorder tbLeft = cell.leftBorder();
-						docu.writeStartElement("TableBorderLeft");
-						docu.writeAttribute("Width", tbLeft.width());
-						foreach (TableBorderLine tbl, tbLeft.borderLines())
+						QString cstyle = cell.style();
+						CellStyle cs;
+						if (!cell.style().isEmpty())
+							cs = m_Doc->cellStyle(cell.style());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhFillColor())))
+							docu.writeAttribute("FillColor", cell.fillColor());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhFillShade())))
+							docu.writeAttribute("FillShade", cell.fillShade());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhLeftPadding())))
+							docu.writeAttribute("LeftPadding",cell.leftPadding());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhRightPadding())))
+							docu.writeAttribute("RightPadding", cell.rightPadding());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhTopPadding())))
+							docu.writeAttribute("TopPadding",cell.topPadding());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhBottomPadding())))
+							docu.writeAttribute("BottomPadding", cell.bottomPadding());
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhLeftBorder())))
 						{
-							docu.writeStartElement("TableBorderLine");
-							docu.writeAttribute("Width", tbl.width());
-							docu.writeAttribute("PenStyle", tbl.style());
-							docu.writeAttribute("Color", tbl.color());
-							docu.writeAttribute("Shade", tbl.shade());
+							TableBorder tbLeft = cell.leftBorder();
+							docu.writeStartElement("TableBorderLeft");
+							docu.writeAttribute("Width", tbLeft.width());
+							foreach (TableBorderLine tbl, tbLeft.borderLines())
+							{
+								docu.writeStartElement("TableBorderLine");
+								docu.writeAttribute("Width", tbl.width());
+								docu.writeAttribute("PenStyle", tbl.style());
+								docu.writeAttribute("Color", tbl.color());
+								docu.writeAttribute("Shade", tbl.shade());
+								docu.writeEndElement();
+							}
 							docu.writeEndElement();
 						}
-						docu.writeEndElement();
-
-						TableBorder tbRight = cell.rightBorder();
-						docu.writeStartElement("TableBorderRight");
-						docu.writeAttribute("Width", tbRight.width());
-						foreach (TableBorderLine tbl, tbRight.borderLines())
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhRightBorder())))
 						{
-							docu.writeStartElement("TableBorderLine");
-							docu.writeAttribute("Width", tbl.width());
-							docu.writeAttribute("PenStyle", tbl.style());
-							docu.writeAttribute("Color", tbl.color());
-							docu.writeAttribute("Shade", tbl.shade());
+							TableBorder tbRight = cell.rightBorder();
+							docu.writeStartElement("TableBorderRight");
+							docu.writeAttribute("Width", tbRight.width());
+							foreach (TableBorderLine tbl, tbRight.borderLines())
+							{
+								docu.writeStartElement("TableBorderLine");
+								docu.writeAttribute("Width", tbl.width());
+								docu.writeAttribute("PenStyle", tbl.style());
+								docu.writeAttribute("Color", tbl.color());
+								docu.writeAttribute("Shade", tbl.shade());
+								docu.writeEndElement();
+							}
 							docu.writeEndElement();
 						}
-						docu.writeEndElement();
-
-						TableBorder tbTop = cell.topBorder();
-						docu.writeStartElement("TableBorderTop");
-						docu.writeAttribute("Width", tbTop.width());
-						foreach (TableBorderLine tbl, tbTop.borderLines())
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhTopBorder())))
 						{
-							docu.writeStartElement("TableBorderLine");
-							docu.writeAttribute("Width", tbl.width());
-							docu.writeAttribute("PenStyle", tbl.style());
-							docu.writeAttribute("Color", tbl.color());
-							docu.writeAttribute("Shade", tbl.shade());
+							TableBorder tbTop = cell.topBorder();
+							docu.writeStartElement("TableBorderTop");
+							docu.writeAttribute("Width", tbTop.width());
+							foreach (TableBorderLine tbl, tbTop.borderLines())
+							{
+								docu.writeStartElement("TableBorderLine");
+								docu.writeAttribute("Width", tbl.width());
+								docu.writeAttribute("PenStyle", tbl.style());
+								docu.writeAttribute("Color", tbl.color());
+								docu.writeAttribute("Shade", tbl.shade());
+								docu.writeEndElement();
+							}
 							docu.writeEndElement();
 						}
-						docu.writeEndElement();
-
-						TableBorder tbBottom = cell.bottomBorder();
-						docu.writeStartElement("TableBorderBottom");
-						docu.writeAttribute("Width", tbBottom.width());
-						foreach (TableBorderLine tbl, tbBottom.borderLines())
+						if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhBottomBorder())))
 						{
-							docu.writeStartElement("TableBorderLine");
-							docu.writeAttribute("Width", tbl.width());
-							docu.writeAttribute("PenStyle", tbl.style());
-							docu.writeAttribute("Color", tbl.color());
-							docu.writeAttribute("Shade", tbl.shade());
+							TableBorder tbBottom = cell.bottomBorder();
+							docu.writeStartElement("TableBorderBottom");
+							docu.writeAttribute("Width", tbBottom.width());
+							foreach (TableBorderLine tbl, tbBottom.borderLines())
+							{
+								docu.writeStartElement("TableBorderLine");
+								docu.writeAttribute("Width", tbl.width());
+								docu.writeAttribute("PenStyle", tbl.style());
+								docu.writeAttribute("Color", tbl.color());
+								docu.writeAttribute("Shade", tbl.shade());
+								docu.writeEndElement();
+							}
 							docu.writeEndElement();
 						}
-						docu.writeEndElement();
 						//End Cell
 						writeITEXTs(doc, docu, cell.textFrame());
 						docu.writeEndElement();

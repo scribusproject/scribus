@@ -4745,7 +4745,7 @@ bool Scribus150Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader
 			{
 				if (tAtt.hasAttribute("Style"))
 				{
-					QString Style = attrs.valueAsString("Style");
+					QString Style = tAtt.valueAsString("Style");
 					if (!Style.isEmpty())
 						item->cellAt(row, col).setStyle(Style);
 				}

@@ -10,15 +10,15 @@
     <height>478</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="smColorGroup">
      <property name="title">
       <string>Colors</string>
      </property>
-     <layout class="QVBoxLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QHBoxLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="fillColorIcon">
           <property name="maximumSize">
@@ -39,6 +39,20 @@
          <widget class="SMColorCombo" name="fillColor"/>
         </item>
         <item>
+         <widget class="QLabel" name="fillShadeLabel">
+          <property name="text">
+           <string>Text</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMShadeButton" name="fillShade_">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -53,24 +67,24 @@
         </item>
        </layout>
       </item>
-      <item>
-       <spacer>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::MinimumExpanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>72</width>
-          <height>0</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::MinimumExpanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>72</width>
+       <height>388</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
@@ -80,6 +94,11 @@
    <class>SMColorCombo</class>
    <extends>QComboBox</extends>
    <header>ui/smcolorcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMShadeButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/smshadebutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

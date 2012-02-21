@@ -92,6 +92,7 @@ private:
 
 private slots:
 	void slotFillColor();
+	void slotFillShade();
 };
 
 #endif // SMCELLSTYLES_H

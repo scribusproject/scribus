@@ -16,6 +16,8 @@ SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget()
 
 	fillColorIcon->setPixmap(loadIcon("16/color-fill.png"));
 	fillColor->addItem(CommonStrings::tr_NoneColor);
+	fillShadeLabel->setPixmap( loadIcon("shade.png") );
+	fillShade_->setToolTip( tr("Fill Shade"));
 }
 
 SMCellStyleWidget::~SMCellStyleWidget()
@@ -32,6 +34,7 @@ void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles,
 	// TODO: Handle parent styles (and language?)
 
 	fillColor->setCurrentText(cellStyle->fillColor());
+	fillShade_->setValue(qRound(cellStyle->fillShade()));
 }
 
 void SMCellStyleWidget::show(QList<CellStyle*> &cellStyles, QList<CellStyle> &cellStylesAll, const QString &defaultLanguage, int unitIndex)

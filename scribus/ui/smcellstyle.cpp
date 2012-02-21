@@ -398,11 +398,9 @@ void SMCellStyle::updateStylesCache()
 {
 	if (!m_doc)
 		return; // No document available.
-
 	m_selection.clear();
 	m_cachedStyles.clear();
 	m_deleted.clear();
-
 	m_cachedStyles.redefine(m_doc->cellStyles(), true);
 }
 
@@ -410,28 +408,41 @@ void SMCellStyle::setupConnections()
 {
 	if (!m_page)
 		return;
-
-	connect(m_page->fillColor, SIGNAL(activated(const QString&)),
-			this, SLOT(slotFillColor()));
+	connect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 }
 
 void SMCellStyle::removeConnections()
 {
 	if (!m_page)
 		return;
-
-	disconnect(m_page->fillColor, SIGNAL(activated(const QString&)),
-			this, SLOT(slotFillColor()));
+	disconnect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 }
 
 void SMCellStyle::slotFillColor()
 {
 	// TODO: Handle inheritance as well.
 	QString fillColor(m_page->fillColor->currentText());
-	foreach (CellStyle *cellStyle, m_selection) {
+	foreach (CellStyle *cellStyle, m_selection)
+	{
 		cellStyle->setFillColor(fillColor);
 	}
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
 
+void SMCellStyle::slotFillShade()
+{
+	// TODO: Handle inheritance as well.
+	double fillShade = m_page->fillShade_->getValue();
+	foreach (CellStyle *cellStyle, m_selection)
+	{
+		cellStyle->setFillShade(fillShade);
+	}
 	if (!m_selectionIsDirty)
 	{
 		m_selectionIsDirty = true;
