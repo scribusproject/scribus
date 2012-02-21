@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABLEUTILS_H
 #define TABLEUTILS_H
 
+#include "scribusapi.h"
 #include "tableborder.h"
 
 class QPointF;
@@ -57,7 +58,7 @@ namespace TableUtils
  * @a topLeft, @a left , @a bottomLeft, @a center, @a topRight, @a right and
  * @a bottomRight must point to existing borders.
  */
-void resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
+void SCRIBUS_API resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& topCell,
 	const TableCell& topRightCell, const TableCell& bottomLeftCell, const TableCell& bottomCell,
 	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* left, TableBorder* bottomLeft,
 	TableBorder* center, TableBorder* topRight, TableBorder* right, TableBorder* bottomRight, PageItem_Table* table);
@@ -104,7 +105,7 @@ void resolveBordersHorizontal(const TableCell& topLeftCell, const TableCell& top
  * @a topLeft, @a top, @a topRight, @a center, @a bottomLeft, @a bottom and
  * @a bottomRight must point to existing borders.
  */
-void resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell,
+void SCRIBUS_API resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRightCell,
 	const TableCell& leftCell, const TableCell& rightCell, const TableCell& bottomLeftCell,
 	const TableCell& bottomRightCell, TableBorder* topLeft, TableBorder* top, TableBorder* topRight,
 	TableBorder* center, TableBorder* bottomLeft, TableBorder* bottom, TableBorder* bottomRight, PageItem_Table* table);
@@ -120,7 +121,7 @@ void resolveBordersVertical(const TableCell& topLeftCell, const TableCell& topRi
  * 4) If @a firstBorder has more border lines than @a secondBorder, @a firstBorder is returned,
  *    else, @a secondBorder is returned.
  */
-TableBorder collapseBorders(const TableBorder& firstBorder, const TableBorder& secondBorder);
+TableBorder SCRIBUS_API collapseBorders(const TableBorder& firstBorder, const TableBorder& secondBorder);
 
 /**
  * Joins the vertical border @a border with neighboring borders.
@@ -162,7 +163,7 @@ TableBorder collapseBorders(const TableBorder& firstBorder, const TableBorder& s
  * 		point of each border line of the border should be adjusted by its
  * 		own width multiplied by these factors.
  */
-void joinVertical(const TableBorder& border, const TableBorder& topLeft, const TableBorder& top,
+void SCRIBUS_API joinVertical(const TableBorder& border, const TableBorder& topLeft, const TableBorder& top,
 				  const TableBorder& topRight, const TableBorder& bottomLeft, const TableBorder& bottom,
 				  const TableBorder& bottomRight, QPointF* start, QPointF* end, QPointF* startOffsetFactors,
 				  QPointF* endOffsetFactors);
@@ -202,7 +203,7 @@ void joinVertical(const TableBorder& border, const TableBorder& topLeft, const T
  * 		point of each border line of the border should be adjusted by its
  * 		own width multiplied by these factors.
  */
-void joinHorizontal(const TableBorder& border, const TableBorder& topLeft, const TableBorder& left,
+void SCRIBUS_API joinHorizontal(const TableBorder& border, const TableBorder& topLeft, const TableBorder& left,
 				  const TableBorder& bottomLeft, const TableBorder& topRight, const TableBorder& right,
 				  const TableBorder& bottomRight, QPointF* start, QPointF* end, QPointF* startOffsetFactors,
 				  QPointF* endOffsetFactors);
