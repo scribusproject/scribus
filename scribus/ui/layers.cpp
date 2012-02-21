@@ -432,31 +432,31 @@ void LayerPalette::toggleAllfromHeader(int index)
 		int layerCount = m_Doc->layerCount();
 		for (it = layers->begin(); it != layers->end(); ++it)
 		{
-			int row = layerCount - m_Doc->layerLevelFromID((*it).ID) - 1;
+			int row = layerCount - m_Doc->layerLevelFromID(it->ID) - 1;
 			if (index == 1)
 			{
 				((QCheckBox*)(Table->cellWidget(row, 1)))->toggle();
-				(*it).isViewable = ((QCheckBox*)(Table->cellWidget(row, 1)))->isChecked();
+				it->isViewable = ((QCheckBox*)(Table->cellWidget(row, 1)))->isChecked();
 			}
 			if (index == 2)
 			{
 				((QCheckBox*)(Table->cellWidget(row, 2)))->toggle();
-				(*it).isPrintable = ((QCheckBox*)(Table->cellWidget(row, 2)))->isChecked();
+				it->isPrintable = ((QCheckBox*)(Table->cellWidget(row, 2)))->isChecked();
 			}
 			if (index == 3)
 			{
 				((QCheckBox*)(Table->cellWidget(row, 3)))->toggle();
-				(*it).isEditable = ((QCheckBox*)(Table->cellWidget(row, 3)))->isChecked();
+				it->isEditable = !((QCheckBox*)(Table->cellWidget(row, 3)))->isChecked();
 			}
 			if (index == 4)
 			{
 				((QCheckBox*)(Table->cellWidget(row, 4)))->toggle();
-				(*it).flowControl = ((QCheckBox*)(Table->cellWidget(row, 4)))->isChecked();
+				it->flowControl = ((QCheckBox*)(Table->cellWidget(row, 4)))->isChecked();
 			}
 			else if (index == 5)
 			{
 				((QCheckBox*)(Table->cellWidget(row, 5)))->toggle();
-				(*it).outlineMode = ((QCheckBox*)(Table->cellWidget(row, 5)))->isChecked();
+				it->outlineMode = ((QCheckBox*)(Table->cellWidget(row, 5)))->isChecked();
 			}
 		}
 		emit LayerChanged();
