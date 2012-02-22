@@ -55,11 +55,19 @@ void ColumnResize::mouseReleaseEvent(QMouseEvent* event)
 	// Perform the actual resize of the row.
 	PageItem_Table::ResizeStrategy strategy;
 	if (event->modifiers() & Qt::ShiftModifier)
-		 strategy = PageItem_Table::ResizeFollowing;
+		strategy = PageItem_Table::MoveFollowing;
 	else
-		 strategy = PageItem_Table::MoveFollowing;
+		strategy = PageItem_Table::ResizeFollowing;
 
+	table()->doc()->dontResize = true;
 	table()->resizeColumn(m_column, gridPoint.x() - table()->columnPosition(m_column), strategy);
+	if (strategy == PageItem_Table::MoveFollowing)
+	{
+		table()->adjustTableToFrame();
+		table()->adjustFrameToTable();
+	}
+	table()->doc()->dontResize = false;
+	table()->doc()->setRedrawBounding(table());
 	table()->update();
 
 	m_view->stopGesture();
@@ -75,9 +83,9 @@ void ColumnResize::mouseMoveEvent(QMouseEvent* event)
 	double actualWidth = 0.0;
 
 	if (event->modifiers() & Qt::ShiftModifier)
-		actualWidth = resizeColumnResizeFollowing(requestedWidth);
-	else
 		actualWidth = resizeColumnMoveFollowing(requestedWidth);
+	else
+		actualWidth = resizeColumnResizeFollowing(requestedWidth);
 
 	// Display width tooltip.
 	m_canvas->displayDoubleHUD(event->globalPos(), tr("Width"), actualWidth);

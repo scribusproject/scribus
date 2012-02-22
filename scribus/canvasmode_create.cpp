@@ -758,6 +758,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			dia = 0;
 			// Add the table item.
 			// TODO: This should be done in an undo transaction.
+			m_doc->dontResize = true;
 			z = m_doc->itemAdd(PageItem::Table, PageItem::Unspecified,
 						   tableRect.x(),
 						   tableRect.y(),
@@ -772,6 +773,8 @@ PageItem* CreateMode::doCreateNewObject(void)
 			table->insertColumns(0, numColumns - 1);
 			table->adjustTableToFrame();
 			table->adjustFrameToTable();
+			m_doc->dontResize = false;
+			m_doc->setRedrawBounding(table);
 		}
 		break;
 	case modeInsertPDF3DAnnotation:

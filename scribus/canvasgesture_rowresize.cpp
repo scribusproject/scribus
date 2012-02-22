@@ -55,11 +55,19 @@ void RowResize::mouseReleaseEvent(QMouseEvent* event)
 	// Perform the actual resize of the row.
 	PageItem_Table::ResizeStrategy strategy;
 	if (event->modifiers() & Qt::ShiftModifier)
-		 strategy = PageItem_Table::ResizeFollowing;
+		strategy = PageItem_Table::MoveFollowing;
 	else
-		 strategy = PageItem_Table::MoveFollowing;
+		strategy = PageItem_Table::ResizeFollowing;
 
+	table()->doc()->dontResize = true;
 	table()->resizeRow(m_row, gridPoint.y() - table()->rowPosition(m_row), strategy);
+	if (strategy == PageItem_Table::MoveFollowing)
+	{
+		table()->adjustTableToFrame();
+		table()->adjustFrameToTable();
+	}
+	table()->doc()->dontResize = false;
+	table()->doc()->setRedrawBounding(table());
 	table()->update();
 
 	m_view->stopGesture();
@@ -75,9 +83,9 @@ void RowResize::mouseMoveEvent(QMouseEvent* event)
 	double actualHeight = 0.0;
 
 	if (event->modifiers() & Qt::ShiftModifier)
-		actualHeight = resizeRowResizeFollowing(requestedHeight);
-	else
 		actualHeight = resizeRowMoveFollowing(requestedHeight);
+	else
+		actualHeight = resizeRowResizeFollowing(requestedHeight);
 
 	// Display height tooltip.
 	m_canvas->displayDoubleHUD(event->globalPos(), tr("Height"), actualHeight);
