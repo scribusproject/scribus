@@ -409,13 +409,13 @@ void StyleManager::slotImport()
 			if (!neededColors.isEmpty())
 			{
 				FileLoader fl(selectedFile);
-				if (fl.TestFile() == -1)
+				if (fl.testFile() == -1)
 				{ //TODO put in nice user warning
 					delete dia2;
 					return;
 				}
 				ColorList LColors;
-				if (fl.ReadColors(selectedFile, LColors))
+				if (fl.readColors(LColors))
 				{
 					ColorList::Iterator itc;
 					for (itc = LColors.begin(); itc != LColors.end(); ++itc)

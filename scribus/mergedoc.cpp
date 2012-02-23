@@ -143,15 +143,15 @@ void MergeDoc::changeFile()
 			dirs->set("merge", fn.left(fn.lastIndexOf("/")));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			FileLoader fl(fn);
-			if (fl.TestFile() == -1)
+			if (fl.testFile() == -1)
 			//TODO put in nice user warning
 				return;
 			QStringList masterPageNames;
 			bool ret = false;
 			if (masterPages)
-				ret = fl.ReadPageCount(fn, &dummy, &count, masterPageNames);
+				ret = fl.readPageCount(&dummy, &count, masterPageNames);
 			else
-				ret = fl.ReadPageCount(fn, &count, &dummy, masterPageNames);
+				ret = fl.readPageCount(&count, &dummy, masterPageNames);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			if ((ret) && (count != 0))
 			{

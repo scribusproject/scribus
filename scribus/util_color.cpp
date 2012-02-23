@@ -734,11 +734,11 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 		else
 		{
 			FileLoader fl(fileName);
-			int test = fl.TestFile();
+			int test = fl.testFile();
 			if ((test == FORMATID_SLA134IMPORT) || (test == FORMATID_SLA13XIMPORT) || (test == FORMATID_SLA12XIMPORT))
 			{
 				ColorList LColors;
-				if (fl.ReadColors(fileName, LColors))
+				if (fl.readColors(LColors))
 				{
 					ColorList::Iterator it;
 					for (it = LColors.begin(); it != LColors.end(); ++it)

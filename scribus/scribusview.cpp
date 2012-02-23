@@ -941,7 +941,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			else
 			{
 				FileLoader *fileLoader = new FileLoader(url.toLocalFile());
-				int testResult = fileLoader->TestFile();
+				int testResult = fileLoader->testFile();
 				delete fileLoader;
 				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 					vectorFile = true;
@@ -1041,7 +1041,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					else
 					{
 						FileLoader *fileLoader = new FileLoader(url.toLocalFile());
-						int testResult = fileLoader->TestFile();
+						int testResult = fileLoader->testFile();
 						delete fileLoader;
 						if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 						{

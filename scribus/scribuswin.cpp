@@ -96,7 +96,7 @@ void ScribusWin::slotAutoSave()
 		//instead of overwriting source document
 		//moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
 		FileLoader fl(m_Doc->DocName);
-		if (fl.SaveFile(m_Doc->DocName+".autosave", m_Doc, 0))
+		if (fl.saveFile(m_Doc->DocName+".autosave", m_Doc, 0))
 		{
 			//#8081 related : do not unset modified flag until user really save file
 			//m_Doc->setModified(false);

@@ -5031,7 +5031,7 @@ void LegacyMode::importToPage()
 		else
 		{
 			FileLoader *fileLoader = new FileLoader(fileName);
-			int testResult = fileLoader->TestFile();
+			int testResult = fileLoader->testFile();
 			delete fileLoader;
 			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 			{

@@ -368,7 +368,7 @@ void PatternDialog::loadVectors(QString data)
 	else
 	{
 		FileLoader *fileLoader = new FileLoader(data);
-		int testResult = fileLoader->TestFile();
+		int testResult = fileLoader->testFile();
 		delete fileLoader;
 		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 		{

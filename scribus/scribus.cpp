@@ -3646,7 +3646,7 @@ void ScribusMainWindow::importVectorFile()
 		else
 		{
 			FileLoader *fileLoader = new FileLoader(fileName);
-			int testResult = fileLoader->TestFile();
+			int testResult = fileLoader->testFile();
 			delete fileLoader;
 			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 			{
@@ -3845,14 +3845,14 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 	if (!fileName.isEmpty())
 	{
 		FileLoader *fl = new FileLoader(fileName);
-		if (fl->TestFile() == -1)
+		if (fl->testFile() == -1)
 		{
 			delete fl;
 			return false;
 		}
 		doc->setLoading(true);
 		uint oldItemsCount = doc->Items->count();
-		if(!fl->LoadPage(doc, Nr, Mpa, renamedPageName))
+		if(!fl->loadPage(doc, Nr, Mpa, renamedPageName))
 		{
 			delete fl;
 			doc->setLoading(false);
@@ -3949,7 +3949,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	{
 		QString FName = fi.absoluteFilePath();
 		FileLoader *fileLoader = new FileLoader(FName);
-		int testResult=fileLoader->TestFile();
+		int testResult = fileLoader->testFile();
 		if (testResult == -1)
 		{
 			delete fileLoader;
@@ -3999,11 +3999,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->SoftProofing = false;
 		doc->Gamut = false;
 		setScriptRunning(true);
-		bool loadSuccess=fileLoader->LoadFile(doc);
+		bool loadSuccess = fileLoader->loadFile(doc);
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
 		if (loadSuccess && ScCore->usingGUI())
-			loadSuccess=fileLoader->postLoad(doc);
+			loadSuccess = fileLoader->postLoad(doc);
 		if(!loadSuccess)
 		{
 			view->close();
@@ -4158,7 +4158,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 //		propertiesPalette->updateColorList();
 //		propertiesPalette->Cpal->ChooseGrad(0);
-		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
+		if (fileLoader->fileType() > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->setName(FName+ tr("(converted)"));
 			QFileInfo fi(doc->DocName);
@@ -9232,7 +9232,7 @@ void ScribusMainWindow::emergencySave()
 				std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
 				doc->autoSaveTimer->stop();
 				FileLoader fl(doc->DocName+".emergency");
-				fl.SaveFile(doc->DocName+".emergency", doc, 0);
+				fl.saveFile(doc->DocName+".emergency", doc, 0);
 			}
 			view->close();
 			uint numPages=doc->Pages->count();
@@ -9553,7 +9553,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 			{
 				QUrl url( fileUrls[i] );
 				FileLoader *fileLoader = new FileLoader(url.path());
-				int testResult = fileLoader->TestFile();
+				int testResult = fileLoader->testFile();
 				delete fileLoader;
 				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 				{
@@ -9591,7 +9591,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 			{
 				QUrl url( fileUrls[i] );
 				FileLoader *fileLoader = new FileLoader(url.path());
-				int testResult = fileLoader->TestFile();
+				int testResult = fileLoader->testFile();
 				delete fileLoader;
 				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 				{
