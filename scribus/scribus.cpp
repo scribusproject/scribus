@@ -10034,8 +10034,19 @@ void ScribusMainWindow::updateTableMenuActions()
 	scrActions["tableSplitCells"]->setEnabled(false); // Not implemented.
 	scrActions["tableSetRowHeights"]->setEnabled(tableEdited);
 	scrActions["tableSetColumnWidths"]->setEnabled(tableEdited);
-	scrActions["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
-	scrActions["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
+	if (doc)
+	{
+		if (doc->appMode == modeEditTable)
+		{
+			scrActions["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
+			scrActions["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
+		}
+		else
+		{
+			scrActions["tableDistributeRowsEvenly"]->setEnabled(table);
+			scrActions["tableDistributeColumnsEvenly"]->setEnabled(table);
+		}
+	}
 	scrActions["tableAdjustFrameToTable"]->setEnabled(table);
 	scrActions["tableAdjustTableToFrame"]->setEnabled(table);
 }

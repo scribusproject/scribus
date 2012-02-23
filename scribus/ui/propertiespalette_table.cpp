@@ -54,6 +54,7 @@ void PropertiesPalette_Table::setMainWindow(ScribusMainWindow* mainWindow)
 	m_mainWindow = mainWindow;
 
 	connect(m_mainWindow, SIGNAL(UpdateRequest(int)), SLOT(handleUpdateRequest(int)));
+	connect(m_mainWindow, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateFillControls()));
 }
 
 void PropertiesPalette_Table::setDocument(ScribusDoc *doc)
@@ -69,10 +70,13 @@ void PropertiesPalette_Table::unsetDocument()
 void PropertiesPalette_Table::setItem(PageItem* item)
 {
 	m_item = item;
+	connect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
 }
 
 void PropertiesPalette_Table::unsetItem()
 {
+	if (m_item)
+		disconnect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
 	m_item = 0;
 }
 
@@ -94,6 +98,15 @@ void PropertiesPalette_Table::handleSelectionChanged()
 
 	sideSelector->setSelection(TableSideSelector::All);
 
+	updateFillControls();
+}
+
+void PropertiesPalette_Table::handleCellSelectionChanged()
+{
+	if (!m_doc)
+		return;
+	if (!m_item)
+		return;
 	updateFillControls();
 }
 
@@ -191,7 +204,7 @@ void PropertiesPalette_Table::updateBorderLineList()
 
 	foreach (const TableBorderLine& borderLine, m_currentBorder.borderLines())
 	{
-		QPixmap *icon = getWidePixmap(getColor(borderLine.color(), 100.0)); // TODO: Support shade.
+		QPixmap *icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
 		QString text = QString(" %1%2 %3")
 			.arg(borderLine.width())
 			.arg(borderLineWidth->suffix())
@@ -208,7 +221,10 @@ void PropertiesPalette_Table::updateBorderLineList()
 void PropertiesPalette_Table::updateBorderLineListItem()
 {
 	QListWidgetItem* item = borderLineList->currentItem();
-	QPixmap *icon = getWidePixmap(getColor(borderLineColor->currentColor(), 100.0)); // TODO: Support shade.
+	QString color = borderLineColor->currentColor();
+	if (color == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
+	QPixmap *icon = getWidePixmap(getColor(color, borderLineShade->value()));
 	QString text = QString(" %1%2 %3")
 		.arg(borderLineWidth->getValue())
 		.arg(borderLineWidth->suffix())
@@ -229,24 +245,22 @@ void PropertiesPalette_Table::updateFillControls()
 		fillShade->setEnabled(true);
 		fillShadeLabel->setEnabled(true);
 		// Fill in values.
-		if (table->selectedCells().count() == 0)
+		if (m_doc->appMode != modeEditTable)
 		{
-			setCurrentComboItem(fillColor, table->fillColor());
+			QString color = table->fillColor();
+			if (color == CommonStrings::None)
+				color = CommonStrings::tr_NoneColor;
+			setCurrentComboItem(fillColor, color);
 			fillShade->setValue(table->fillShade());
-		}
-		else if (table->selectedCells().count() == 1)
-		{
-			TableCell cell = table->selectedCells().toList().first();
-			setCurrentComboItem(fillColor, cell.fillColor());
-			fillShade->setValue(cell.fillShade());
 		}
 		else
 		{
-			// Disable fill editing controls.
-			fillColor->setEnabled(false);
-			fillColorLabel->setEnabled(false);
-			fillShade->setEnabled(false);
-			fillShadeLabel->setEnabled(false);
+			TableCell cell = table->activeCell();
+			QString color = cell.fillColor();
+			if (color == CommonStrings::None)
+				color = CommonStrings::tr_NoneColor;
+			setCurrentComboItem(fillColor, color);
+			fillShade->setValue(cell.fillShade());
 		}
 	}
 	else
@@ -374,17 +388,19 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 {
 	if (!m_item || !m_item->isTable())
 		return;
-
+	QString color = colorName;
+	if (colorName == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
 	PageItem_Table* table = m_item->asTable();
-	if (table->selectedCells().count() == 0)
+	if (m_doc->appMode != modeEditTable)
 	{
-		table->setFillColor(colorName);
+		table->setFillColor(color);
 		table->setFillShade(fillShade->value());
 	}
-	else if (table->selectedCells().count() == 1)
+	else
 	{
-		TableCell cell = table->selectedCells().toList().first();
-		cell.setFillColor(colorName);
+		TableCell cell = table->activeCell();
+		cell.setFillColor(color);
 		cell.setFillShade(fillShade->value());
 	}
 
@@ -396,16 +412,19 @@ void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
 	if (!m_item || !m_item->isTable())
 		return;
 
+	QString color = fillColor->currentColor();
+	if (color == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
 	PageItem_Table* table = m_item->asTable();
-	if (table->selectedCells().count() == 0)
+	if (m_doc->appMode != modeEditTable)
 	{
-		table->setFillColor(fillColor->currentColor());
+		table->setFillColor(color);
 		table->setFillShade(shade);
 	}
-	else if (table->selectedCells().count() == 1)
+	else
 	{
-		TableCell cell = table->selectedCells().toList().first();
-		cell.setFillColor(fillColor->currentColor());
+		TableCell cell = table->activeCell();
+		cell.setFillColor(color);
 		cell.setFillShade(shade);
 	}
 	table->update();
@@ -419,6 +438,7 @@ void PropertiesPalette_Table::updateBorders()
 	PageItem_Table* table = m_item->asTable();
 	TableSideSelector::Sides selectedSides = sideSelector->selection();
 
+	m_doc->dontResize = true;
 	if (selectedSides & TableSideSelector::Left)
 		table->setLeftBorder(m_currentBorder);
 	if (selectedSides & TableSideSelector::Right)
@@ -427,7 +447,7 @@ void PropertiesPalette_Table::updateBorders()
 		table->setTopBorder(m_currentBorder);
 	if (selectedSides & TableSideSelector::Bottom)
 		table->setBottomBorder(m_currentBorder);
-
+	table->adjustTable();
 	table->update();
 }
 

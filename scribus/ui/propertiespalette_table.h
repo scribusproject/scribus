@@ -51,12 +51,16 @@ public slots:
 
 	/// Handles item selection changes.
 	void handleSelectionChanged();
+	/// Handles cell selection changes.
+	void handleCellSelectionChanged();
 	/// Handles update requests from the main window.
 	void handleUpdateRequest(int updateFlags);
 	/// Handles language changes.
 	void languageChange();
 	/// Handles unit changes.
 	void unitChange();
+	/// Updates the fill controls.
+	void updateFillControls();
 
 private slots:
 	/// Handles selection changes in the side selector.
@@ -95,8 +99,6 @@ private:
 	void updateBorderLineList();
 	/// Updates the current item in the list of border lines.
 	void updateBorderLineListItem();
-	/// Updates the fill controls.
-	void updateFillControls();
 	/// Updates the selected table with the current border.
 	void updateBorders();
 	/// Returns the color with name @a colorName and shade @a shade as a QColor.

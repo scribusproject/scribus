@@ -31,6 +31,7 @@
 #include "undomanager.h"
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
+#include "pageitem_table.h"
 #include "util_math.h"
 
 ResizeGesture::ResizeGesture (CanvasMode* parent) : CanvasGesture(parent)
@@ -371,6 +372,8 @@ void ResizeGesture::doResize(bool scaleContent)
 			PageItem_Spiral* item = currItem->asSpiral();
 			item->recalcPath();
 		}
+		if (currItem->isTable())
+			currItem->asTable()->adjustTable();
 		// rotation does not change
 	}
 	m_origBounds = m_bounds;

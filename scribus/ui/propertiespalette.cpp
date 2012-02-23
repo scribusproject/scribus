@@ -356,6 +356,7 @@ void PropertiesPalette::unsetItem()
 	m_item     = NULL;
 	Cpal->setCurrentItem(NULL);
 	Tpal->setCurrentItem(NULL);
+	tablePal->unsetItem();
 	handleSelectionChanged();
 }
 
@@ -420,6 +421,8 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 
 	m_haveItem = false;
 	m_item = i;
+
+	tablePal->setItem(m_item);
 
 	/*xyzPal->handleSelectionChanged();
 	shapePal->handleSelectionChanged();

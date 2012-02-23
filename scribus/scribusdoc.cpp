@@ -7405,6 +7405,7 @@ void ScribusDoc::itemSelection_InsertTableRows()
 	QPointer<InsertTableRowsDialog> dialog = new InsertTableRowsDialog(appMode, m_ScMW);
 	if (dialog->exec() == QDialog::Accepted)
 	{
+		dontResize = true;
 		/*
 		 * In table edit mode we insert either before or after the active
 		 * cell, otherwise we insert at beginning or end of table.
@@ -7419,6 +7420,7 @@ void ScribusDoc::itemSelection_InsertTableRows()
 		// Insert the rows.
 		table->insertRows(index, dialog->numberOfRows());
 		table->clearSelection();
+		table->adjustTable();
 		table->update();
 
 		m_ScMW->updateTableMenuActions();
@@ -7441,6 +7443,7 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 	QPointer<InsertTableColumnsDialog> dialog = new InsertTableColumnsDialog(appMode, m_ScMW);
 	if (dialog->exec() == QDialog::Accepted)
 	{
+		dontResize = true;
 		/*
 		 * In table edit mode we insert either before or after the active
 		 * cell, otherwise we insert at beginning or end of table.
@@ -7455,6 +7458,7 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 		// Insert the columns.
 		table->insertColumns(index, dialog->numberOfColumns());
 		table->clearSelection();
+		table->adjustTable();
 		table->update();
 
 		m_ScMW->updateTableMenuActions();
@@ -7480,10 +7484,11 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 	if (table->selectedRows().size() >= table->rows())
 		return;
 
+	dontResize = true;
 	if (table->selectedRows().isEmpty())
 	{
 		// Remove rows spanned by active cell.
-	TableCell activeCell = table->activeCell();
+		TableCell activeCell = table->activeCell();
 		table->removeRows(activeCell.row(), activeCell.rowSpan());
 	}
 	else
@@ -7512,6 +7517,7 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 	}
 
 	m_View->stopGesture(); // FIXME: Don't use m_View.
+	table->adjustTable();
 	table->update();
 
 	m_ScMW->updateTableMenuActions();
@@ -7534,6 +7540,7 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 	if (table->selectedColumns().size() >= table->columns())
 		return;
 
+	dontResize = true;
 	if (table->selectedColumns().isEmpty())
 	{
 		// Remove columns spanned by active cell.
@@ -7566,6 +7573,7 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 	}
 
 	m_View->stopGesture(); // FIXME: Don't use m_View.
+	table->adjustTable();
 	table->update();
 
 	m_ScMW->updateTableMenuActions();
@@ -7598,9 +7606,11 @@ void ScribusDoc::itemSelection_MergeTableCells()
 	const int numRows = selectedRows.last() - row + 1;
 	const int numColumns = selectedColumns.last() - column + 1;
 
+	dontResize = true;
 	table->mergeCells(row, column, numRows, numColumns);
 
 	m_View->stopGesture(); // FIXME: Don't use m_View.
+	table->adjustTable();
 	table->update();
 
 	m_ScMW->updateTableMenuActions();
@@ -7622,6 +7632,7 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 		return;
 
 	const qreal rowHeight = dialog->rowHeight();
+	dontResize = true;
 	if (appMode == modeEditTable)
 	{
 		if (table->selectedCells().isEmpty())
@@ -7649,6 +7660,7 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 
 	delete dialog;
 
+	table->adjustTable();
 	table->update();
 	changed();
 }
@@ -7668,6 +7680,7 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 		return;
 
 	const qreal columnWidth = dialog->columnWidth();
+	dontResize = true;
 	if (appMode == modeEditTable)
 	{
 		if (table->selectedCells().isEmpty())
@@ -7695,6 +7708,7 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 
 	delete dialog;
 
+	table->adjustTable();
 	table->update();
 	changed();
 }
@@ -7709,6 +7723,7 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 	if (!table)
 		return;
 
+	dontResize = true;
 	if (appMode == modeEditTable && !table->selectedRows().isEmpty())
 	{
 		// Distribute each contigous range of selected rows.
@@ -7736,6 +7751,7 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 		table->distributeRows(0, table->rows() - 1);
 	}
 
+	table->adjustTable();
 	table->update();
 	changed();
 }
@@ -7750,6 +7766,7 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 	if (!table)
 		return;
 
+	dontResize = true;
 	if (appMode == modeEditTable && !table->selectedColumns().isEmpty())
 	{
 		// Distribute each contigous range of selected columns.
@@ -7777,6 +7794,7 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 		table->distributeColumns(0, table->columns() - 1);
 	}
 
+	table->adjustTable();
 	table->update();
 	changed();
 }
@@ -13909,7 +13927,12 @@ void ScribusDoc::itemSelection_AdjustFrameToTable()
 	{
 		PageItem *item = m_Selection->itemAt(i);
 		if (item && item->isTable())
+		{
+			dontResize = true;
 			item->asTable()->adjustFrameToTable();
+			dontResize = false;
+			setRedrawBounding(item);
+		}
 	}
 
 	regionsChanged()->update(QRectF());
@@ -13923,12 +13946,16 @@ void ScribusDoc::itemSelection_AdjustTableToFrame()
 
 	if (selectedItemCount < 1)
 		return;
-
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *item = m_Selection->itemAt(i);
 		if (item && item->isTable())
+		{
+			dontResize = true;
 			item->asTable()->adjustTableToFrame();
+			dontResize = false;
+			setRedrawBounding(item);
+		}
 	}
 
 	regionsChanged()->update(QRectF());

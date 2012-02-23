@@ -61,6 +61,14 @@ PageItem_Table::~PageItem_Table()
 	delete m_tablePainter;
 }
 
+void PageItem_Table::adjustTable()
+{
+	doc()->dontResize = true;
+	adjustTableToFrame();
+	adjustFrameToTable();
+	doc()->dontResize = false;
+}
+
 void PageItem_Table::resize(double width, double height)
 {
 	ASSERT_VALID();
@@ -504,6 +512,7 @@ void PageItem_Table::selectCell(int row, int column)
 		return;
 
 	m_selection.insert(cellAt(row, column));
+	emit selectionChanged();
 }
 
 void PageItem_Table::selectCells(int startRow, int startColumn, int endRow, int endColumn)
@@ -525,7 +534,6 @@ void PageItem_Table::selectCells(int startRow, int startColumn, int endRow, int 
 	for (int row = topRow; row <= bottomRow; ++row)
 		for (int col = leftCol; col <= rightCol; ++col)
 			selectCell(row, col);
-
 	emit selectionChanged();
 }
 
@@ -575,8 +583,8 @@ void PageItem_Table::moveLeft()
 		return;
 
 	// Move active position left and activate cell at new position.
-	m_activeColumn = m_activeCell.column() - 1;
-	activateCell(cellAt(m_activeRow, m_activeColumn));
+//	m_activeColumn = m_activeCell.column() - 1;
+	activateCell(cellAt(m_activeRow, m_activeCell.column() - 1));
 }
 
 void PageItem_Table::moveRight()
@@ -585,8 +593,8 @@ void PageItem_Table::moveRight()
 		return;
 
 	// Move active position right and activate cell at new position.
-	m_activeColumn = m_activeCell.column() + m_activeCell.columnSpan();
-	activateCell(cellAt(m_activeRow, m_activeColumn));
+//	m_activeColumn = m_activeCell.column() + m_activeCell.columnSpan();
+	activateCell(cellAt(m_activeRow, m_activeCell.column() + m_activeCell.columnSpan()));
 }
 
 void PageItem_Table::moveUp()
@@ -595,34 +603,33 @@ void PageItem_Table::moveUp()
 		return;
 
 	// Move active position up and activate cell at new position.
-	m_activeRow = m_activeCell.row() - 1;
-	activateCell(cellAt(m_activeRow, m_activeColumn));
+//	m_activeRow = m_activeCell.row() - 1;
+	activateCell(cellAt(m_activeCell.row() - 1, m_activeColumn));
 }
 
 void PageItem_Table::moveDown()
 {
 	if (m_activeCell.row() + m_activeCell.rowSpan() >= rows())
 		return;
+	activateCell(cellAt(m_activeCell.row() + m_activeCell.rowSpan(), m_activeColumn));
 
 	// Deselect previous active cell and its text.
-	m_activeCell.textFrame()->setSelected(false);
-	m_activeCell.textFrame()->itemText.deselectAll();
+//	m_activeCell.textFrame()->setSelected(false);
+//	m_activeCell.textFrame()->itemText.deselectAll();
 
 	// Move active logical position down.
-	m_activeRow = m_activeCell.row() + m_activeCell.rowSpan();
+//	m_activeRow = m_activeCell.row() + m_activeCell.rowSpan();
 
 	// Set the new active cell and select it.
-	m_activeCell = cellAt(m_activeRow, m_activeColumn);
-	m_activeCell.textFrame()->setSelected(true);
-	m_Doc->currentStyle = m_activeCell.textFrame()->currentStyle();
+//	m_activeCell = cellAt(m_activeRow, m_activeColumn);
+//	m_activeCell.textFrame()->setSelected(true);
+//	m_Doc->currentStyle = m_activeCell.textFrame()->currentStyle();
 }
 
 void PageItem_Table::moveTo(const TableCell& cell)
 {
 	// Activate the cell and move active position to its top left.
 	activateCell(cell);
-	m_activeRow = activeCell().row();
-	m_activeColumn = activeCell().column();
 }
 
 TableHandle PageItem_Table::hitTest(const QPointF& point, double threshold) const
@@ -930,6 +937,9 @@ void PageItem_Table::activateCell(const TableCell& cell)
 	m_activeCell = newActiveCell;
 	m_activeCell.textFrame()->setSelected(true);
 	m_Doc->currentStyle = m_activeCell.textFrame()->currentStyle();
+	m_activeRow = m_activeCell.row();
+	m_activeColumn = m_activeCell.column();
+	emit selectionChanged();
 
 	ASSERT_VALID();
 }

@@ -88,6 +88,9 @@ public:
 	/// Destructor.
 	~PageItem_Table();
 
+	/// Resizes the table to fit the frame.
+	void adjustTable();
+
 	/// Returns the number of rows in the table.
 	int rows() const { return m_rows; }
 
