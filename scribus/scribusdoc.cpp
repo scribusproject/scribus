@@ -1501,21 +1501,21 @@ void ScribusDoc::loadStylesFromFile(QString fileName)
 	if (!fileName.isEmpty())
 	{
 		FileLoader fl(fileName);
-		if (fl.TestFile() == -1)
+		if (fl.testFile() == -1)
 		//TODO put in nice user warning
 			return;
 
-		if (!fl.ReadStyles(fileName, this, *wrkStyles))
+		if (!fl.readStyles(this, *wrkStyles))
 		{
 			//TODO put in nice user warning
 		}
 
-		if (!fl.ReadCharStyles(fileName, this, *wrkCharStyles))
+		if (!fl.readCharStyles(this, *wrkCharStyles))
 		{
 			//TODO put in nice user warning
 		}
 
-		if (!fl.ReadLineStyles(fileName, wrkLineStyles))
+		if (!fl.readLineStyles(wrkLineStyles))
 		{
 			//TODO put in nice user warning
 		}
@@ -1538,21 +1538,21 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 	if (!fileName.isEmpty())
 	{
 		FileLoader fl(fileName);
-		if (fl.TestFile() == -1)
+		if (fl.testFile() == -1)
 		//TODO put in nice user warning
 			return;
 
-		if (!fl.ReadStyles(fileName, this, *wrkStyles))
+		if (!fl.readStyles(this, *wrkStyles))
 		{
 			//TODO put in nice user warning
 		}
 
-		if (!fl.ReadCharStyles(fileName, this, *wrkCharStyles))
+		if (!fl.readCharStyles(this, *wrkCharStyles))
 		{
 			//TODO put in nice user warning
 		}
 
-		if (!fl.ReadLineStyles(fileName, wrkLineStyles))
+		if (!fl.readLineStyles(wrkLineStyles))
 		{
 			//TODO put in nice user warning
 		}
@@ -4175,7 +4175,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 		mainWindowProgressBar->reset();
 	}
 	FileLoader fl(fileName);
-	bool ret = fl.SaveFile(fileName, this, savedFile);
+	bool ret = fl.saveFile(fileName, this, savedFile);
 	if (ret)
 	{
 		setName(fileName);

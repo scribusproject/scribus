@@ -87,7 +87,7 @@ void loadImagesThread::processLoadImageJob ( int row, QString path, int size, in
 	if (allFormatsV.contains(ext.toUtf8()))
 	{
 		FileLoader *fileLoader = new FileLoader(path);
-		int testResult = fileLoader->TestFile();
+		int testResult = fileLoader->testFile();
 		delete fileLoader;
 		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 		{

@@ -40,7 +40,7 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	FileLoader *fileLoader = new FileLoader(fName);
-	int testResult = fileLoader->TestFile();
+	int testResult = fileLoader->testFile();
 	delete fileLoader;
 	if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 	{

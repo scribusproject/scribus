@@ -153,7 +153,7 @@ void BibView::dropEvent(QDropEvent *e)
 			if (vectorFiles.contains(fi.suffix().toLower()))
 			{
 				FileLoader *fileLoader = new FileLoader(url.path());
-				int testResult = fileLoader->TestFile();
+				int testResult = fileLoader->testFile();
 				delete fileLoader;
 				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT) && (fi.exists()))
 					emit fileDropped(url.path(), testResult);
@@ -451,7 +451,7 @@ void BibView::ReadContents(QString name)
 				else
 				{
 					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
-					int testResult = fileLoader->TestFile();
+					int testResult = fileLoader->testFile();
 					delete fileLoader;
 					if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 					{

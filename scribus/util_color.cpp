@@ -718,11 +718,11 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,
 			if (allFormatsV.contains(ext))
 			{
 				FileLoader fl(fileName);
-				int testResult = fl.TestFile();
+				int testResult = fl.testFile();
 				if (testResult != -1)
 				{
 					ColorList LColors;
-					if (fl.ReadColors(fileName, LColors))
+					if (fl.readColors(LColors))
 					{
 						ColorList::Iterator it;
 						for (it = LColors.begin(); it != LColors.end(); ++it)

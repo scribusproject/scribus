@@ -199,7 +199,7 @@ void FDialogPreview::GenPreview(QString name)
 	else if (allFormatsV.contains(ext.toUtf8()))
 	{
 		FileLoader *fileLoader = new FileLoader(name);
-		int testResult = fileLoader->TestFile();
+		int testResult = fileLoader->testFile();
 		delete fileLoader;
 		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 		{
