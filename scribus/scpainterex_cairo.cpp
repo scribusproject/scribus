@@ -559,37 +559,42 @@ void ScPainterEx_Cairo::drawImage( ScImage *image, ScPainterExBase::ImageMode mo
 void ScPainterEx_Cairo::setupPolygon(FPointArray *points, bool closed)
 {
 	bool nPath = true, first = true;
-	FPoint np, np1, np2, np3;
-	if (points->size() > 3)
+	FPoint np, np1, np2, np3, np4, firstP;
+
+	if (points->size() <= 3)
+		return;
+
+	newPath();
+	for (uint poi=0; poi<points->size()-3; poi += 4)
 	{
-		newPath();
-		for (uint poi=0; poi<points->size()-3; poi += 4)
+		if (points->point(poi).x() > 900000)
 		{
-			if (points->point(poi).x() > 900000)
-			{
-				nPath = true;
-				continue;
-			}
-			if (nPath)
-			{
-				np = points->point(poi);
-				if ((!first) && (closed))
-					cairo_close_path( m_cr );
-				moveTo( np.x(), np.y() );
-				nPath = first = false;
-			}
-			np  = points->point(poi);
-			np1 = points->point(poi+1);
-			np2 = points->point(poi+3);
-			np3 = points->point(poi+2);
-			if ((np == np1) && (np2 == np3))
-				lineTo( np3.x(), np3.y() );
-			else
-				curveTo(np1, np2, np3);
+			nPath = true;
+			continue;
 		}
-		if (closed)
-			cairo_close_path( m_cr );
+		if (nPath)
+		{
+			np = points->point(poi);
+			if ((!first) && (closed) && (np4 == firstP))
+				cairo_close_path( m_cr );
+			moveTo( np.x(), np.y() );
+			first = nPath = false;
+			firstP = np4 = np;
+		}
+		np  = points->point(poi);
+		np1 = points->point(poi + 1);
+		np2 = points->point(poi + 3);
+		np3 = points->point(poi + 2);
+		if (np4 == np3)
+			continue;
+		if ((np == np1) && (np2 == np3))
+			lineTo( np3.x(), np3.y() );
+		else
+			curveTo(np1, np2, np3);
+		np4 = np3;
 	}
+	if (closed)
+		cairo_close_path( m_cr );
 }
 
 void ScPainterEx_Cairo::drawPolygon()
@@ -655,9 +660,13 @@ void ScPainterEx_Cairo::drawLinearGradient( VGradientEx& gradient, const QRect& 
 	if ( gradient.Stops() < 2 )
 		return;
 
-	FPoint p1( gradient.origin().x(), gradient.origin().y() );
-	FPoint p2( gradient.vector().x(), gradient.vector().y() );
-	cairo_pattern_t *pat = cairo_pattern_create_linear (p1.x(), p1.y(), p2.x(), p2.y());	
+	double x1 = gradient.origin().x();
+	double y1 = gradient.origin().y();
+	double x2 = gradient.vector().x();
+	double y2 = gradient.vector().y();
+	cairo_pattern_t *pat = cairo_pattern_create_linear (x1, y1, x2, y2);
+	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
@@ -673,6 +682,17 @@ void ScPainterEx_Cairo::drawLinearGradient( VGradientEx& gradient, const QRect& 
 		lastStop = stop->rampPoint;
 	}
 
+	QTransform qmatrix;
+	qmatrix.translate(x1, y1);
+	qmatrix.shear(-m_gradientSkew, 0);
+	qmatrix.translate(-x1, -y1);
+
+	cairo_matrix_t matrix;
+	cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+	cairo_matrix_invert(&matrix);
+	cairo_pattern_set_matrix (pat, &matrix);
+
+	setRasterOp(m_blendModeFill);
 	cairo_set_source (m_cr, pat);
 	//cairo_clip_preserve (m_cr);
 	cairo_paint_with_alpha (m_cr, m_fillTrans);
@@ -687,12 +707,17 @@ void ScPainterEx_Cairo::drawCircularGradient( VGradientEx& gradient, const QRect
 	VColorStopEx* stop = NULL;
 	QColor color;
 
-	FPoint pc( gradient.origin().x(), gradient.origin().y() );
-	FPoint pf( gradient.focalPoint().x(), gradient.focalPoint().y() );
-	FPoint pv( gradient.vector().x(), gradient.vector().y() );
-	double rad = sqrt( pow(pv.x() - pc.x(), 2) + pow(pv.y() - pc.y(), 2) );
+	double x1  = gradient.origin().x();
+	double y1  = gradient.origin().y();
+	double x2  = gradient.vector().x();
+	double y2  = gradient.vector().y();
+	double fx  = gradient.focalPoint().x();
+	double fy  = gradient.focalPoint().y();
+	double rad = sqrt( pow(x2 - x1, 2) + pow(y2 - y1, 2) );
 
-	cairo_pattern_t* pat = cairo_pattern_create_radial (pc.x(), pc.y(), 0.1, pc.x(), pc.y(), rad);	
+	cairo_pattern_t* pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, rad);
+	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
@@ -707,9 +732,20 @@ void ScPainterEx_Cairo::drawCircularGradient( VGradientEx& gradient, const QRect
 		cairo_pattern_add_color_stop_rgba (pat, stop->rampPoint, r, g, b, stop->opacity);
 		lastStop = stop->rampPoint;
 	}
+
+	QTransform qmatrix;
+	double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+	qmatrix.translate(x1, y1);
+	qmatrix.rotate(rotEnd);
+	qmatrix.shear(m_gradientSkew, 0);
+	qmatrix.translate(0, y1 * (1.0 - m_gradientScale));
+	qmatrix.translate(-x1, -y1);
+	qmatrix.scale(1, m_gradientScale);
 	
 	cairo_set_source (m_cr, pat);
 	//cairo_clip_preserve (m_cr);
+
+	setRasterOp(m_blendModeFill);
 	cairo_paint_with_alpha (m_cr, m_fillTrans);
 	cairo_pattern_destroy (pat);
 }

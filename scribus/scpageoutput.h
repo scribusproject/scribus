@@ -27,6 +27,7 @@ class PageItem_PathText;
 class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_Spiral;
+class PageItem_RegularPolygon;
 class PageItem_TextFrame;
 class ScLayer;
 class ScribusDoc;
@@ -81,6 +82,7 @@ protected:
 	virtual void drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painte, const QRect& clip );
+	virtual void drawItem_RegularPolygon( PageItem_RegularPolygon* item, ScPainterExBase* painte, const QRect& clip );
 	virtual void drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, const QRect& clip );
 	virtual void drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip );
 

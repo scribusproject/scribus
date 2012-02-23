@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
+#include "pageitem_regularpolygon.h"
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
@@ -232,17 +233,6 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer
 		if (clip.intersects(oldR))
 		{
 			drawItem( currItem, painter, clip );
-			if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
-			{
-				PageItem *nextItem = currItem;
-				while (nextItem != 0)
-				{
-					if (nextItem->prevInChain() != 0)
-						nextItem = nextItem->prevInChain();
-					else
-						break;
-				}
-			}
 		}
 	}
 	for (int it = 0; it < m_doc->Items->count(); ++it)
@@ -297,6 +287,8 @@ void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, const QRe
 		drawItem_Polygon( (PageItem_Polygon*) item, painter, clip);
 	else if (itemType == PageItem::PolyLine)
 		drawItem_PolyLine( (PageItem_PolyLine*) item, painter, clip);
+	else if (itemType == PageItem::RegularPolygon)
+		drawItem_RegularPolygon( (PageItem_RegularPolygon*) item, painter, clip);
 	else if (itemType == PageItem::Spiral)
 		drawItem_Spiral( (PageItem_Spiral*) item, painter, clip);
 	else if (itemType == PageItem::TextFrame)
@@ -308,10 +300,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 {
 	painter->save();
 	if (!item->isEmbedded)
-	{
 		painter->translate( item->xPos(), item->yPos());
-//		painter->rotate(item->rotation());
-	}
 	painter->rotate(item->rotation());
 	painter->setBlendModeFill(item->fillBlendmode());
 	painter->setLineWidth(item->lineWidth());
@@ -487,7 +476,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 	if (!item->isGroup())
 	{
 		painter->setMaskMode(0);
-		if ( item->itemType() == PageItem::PathText || item->itemType() == PageItem::PolyLine || item->itemType() == PageItem::Line )
+		if (item->isGroup() || item->isLine() || item->isPathText() || item->isPolyLine() || item->isSpiral() || item->isSymbol() || item->isTable() )
 			doStroke = false;
 		if ((doStroke))
 		{
@@ -1573,6 +1562,12 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 			}
 		}
 	}
+}
+
+void ScPageOutput::drawItem_RegularPolygon( PageItem_RegularPolygon* item, ScPainterExBase* painter, const QRect& clip )
+{
+	painter->setupPolygon(&item->PoLine);
+	painter->fillPath();
 }
 
 void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, const QRect& clip )

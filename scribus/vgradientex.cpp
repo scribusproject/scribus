@@ -65,6 +65,7 @@ VGradientEx::VGradientEx( VGradientEx::Type type ) : m_type( type )
 
 	setOrigin( FPoint( 0, 0 ) );
 	setVector( FPoint( 0, 50 ) );
+	setFocalPoint( FPoint( 0, 0 ) );
 	setRepeatMethod( VGradientEx::reflect );
 }
 
