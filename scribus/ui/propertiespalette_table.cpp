@@ -32,12 +32,20 @@ PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(pare
 
 	addBorderLineButton->setIcon(QIcon(loadIcon("penciladd.png")));
 	removeBorderLineButton->setIcon(QIcon(loadIcon("pencilsub.png")));
+	labelTable->setBuddy(tableStyleCombo);
+	buttonClearTableStyle->setIcon(loadIcon("16/edit-clear.png"));
+	labelCells->setBuddy(cellStyleCombo);
+	buttonClearCellStyle->setIcon(loadIcon("16/edit-clear.png"));
+	connect(tableStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setTableStyle(const QString&)));
+	connect(cellStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setCellStyle(const QString&)));
 }
 
 void PropertiesPalette_Table::handleUpdateRequest(int updateFlags)
 {
 	if (updateFlags & reqColorsUpdate)
 		updateColorList();
+	tableStyleCombo->updateFormatList();
+	cellStyleCombo->updateFormatList();
 }
 
 void PropertiesPalette_Table::updateColorList()
@@ -55,20 +63,27 @@ void PropertiesPalette_Table::setMainWindow(ScribusMainWindow* mainWindow)
 
 	connect(m_mainWindow, SIGNAL(UpdateRequest(int)), SLOT(handleUpdateRequest(int)));
 	connect(m_mainWindow, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateFillControls()));
+	connect(m_mainWindow, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateStyleControls()));
 }
 
 void PropertiesPalette_Table::setDocument(ScribusDoc *doc)
 {
 	m_doc = doc;
+	tableStyleCombo->setDoc(m_doc);
+	cellStyleCombo->setDoc(m_doc);
 }
 
 void PropertiesPalette_Table::unsetDocument()
 {
 	m_doc = 0;
+	tableStyleCombo->setDoc(m_doc);
+	cellStyleCombo->setDoc(m_doc);
 }
 
 void PropertiesPalette_Table::setItem(PageItem* item)
 {
+	tableStyleCombo->updateFormatList();
+	cellStyleCombo->updateFormatList();
 	m_item = item;
 	if (item->isTable())
 		connect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
@@ -100,6 +115,7 @@ void PropertiesPalette_Table::handleSelectionChanged()
 	sideSelector->setSelection(TableSideSelector::All);
 
 	updateFillControls();
+	updateStyleControls();
 }
 
 void PropertiesPalette_Table::handleCellSelectionChanged()
@@ -109,6 +125,72 @@ void PropertiesPalette_Table::handleCellSelectionChanged()
 	if (!m_item)
 		return;
 	updateFillControls();
+	updateStyleControls();
+}
+
+void PropertiesPalette_Table::displayTableStyle(const QString& name)
+{
+	bool blocked = tableStyleCombo->blockSignals(true);
+	tableStyleCombo->setFormat(name);
+	tableStyleCombo->blockSignals(blocked);
+}
+
+void PropertiesPalette_Table::displayCellStyle(const QString& name)
+{
+	bool blocked = cellStyleCombo->blockSignals(true);
+	cellStyleCombo->setFormat(name);
+	cellStyleCombo->blockSignals(blocked);
+}
+
+void PropertiesPalette_Table::updateStyleControls()
+{
+	if (m_item && m_item->isTable())
+	{
+		PageItem_Table* table = m_item->asTable();
+		tableStyleCombo->setEnabled(true);
+		cellStyleCombo->setEnabled(true);
+		buttonClearTableStyle->setEnabled(true);
+		buttonClearCellStyle->setEnabled(true);
+		// Fill in values.
+		if (m_doc->appMode != modeEditTable)
+		{
+			displayTableStyle(table->style());
+			cellStyleCombo->setEnabled(false);
+			buttonClearCellStyle->setEnabled(false);
+		}
+		else
+		{
+			displayTableStyle(table->style());
+			displayCellStyle(table->activeCell().style());
+		}
+	}
+	else
+	{
+		tableStyleCombo->setEnabled(false);
+		cellStyleCombo->setEnabled(false);
+		buttonClearTableStyle->setEnabled(false);
+		buttonClearCellStyle->setEnabled(false);
+	}
+}
+
+void PropertiesPalette_Table::setTableStyle(const QString &name)
+{
+	if (!m_item || !m_item->isTable())
+		return;
+	m_item->asTable()->setStyle(name);
+	m_item->asTable()->update();
+	displayTableStyle(name);
+}
+
+void PropertiesPalette_Table::setCellStyle(const QString &name)
+{
+	if (!m_item || !m_item->isTable())
+		return;
+	m_doc->dontResize = true;
+	m_item->asTable()->activeCell().setStyle(name);
+	m_doc->dontResize = true;
+	m_item->asTable()->update();
+	displayCellStyle(name);
 }
 
 void PropertiesPalette_Table::on_sideSelector_selectionChanged()
@@ -454,7 +536,10 @@ void PropertiesPalette_Table::updateBorders()
 
 void PropertiesPalette_Table::languageChange()
 {
-	// Not implemented.
+	cellStyleCombo->setToolTip( tr("Cell style of currently selected cell"));
+	tableStyleCombo->setToolTip( tr("Table style of currently selected table"));
+	labelCells->setToolTip( tr("Remove Direct Cell Formatting"));
+	labelTable->setToolTip( tr("Remove Direct Table Formatting"));
 }
 
 void PropertiesPalette_Table::unitChange()

@@ -75,4 +75,46 @@ signals:
 	void editCharStyle();
 };
 
+class SCRIBUS_API CellStyleComboBox : public QComboBox
+{
+	Q_OBJECT
+
+public:
+	CellStyleComboBox(QWidget* parent);
+	~CellStyleComboBox() {};
+
+	ScribusDoc *currentDoc;
+
+public slots:
+	void setDoc(ScribusDoc *newCurrentDoc);
+	void setFormat(QString name);
+	void updateFormatList();
+	void selFormat(int e);
+
+signals:
+	void newStyle(const QString&);
+	void editCharStyle();
+};
+
+class SCRIBUS_API TableStyleComboBox : public QComboBox
+{
+	Q_OBJECT
+
+public:
+	TableStyleComboBox(QWidget* parent);
+	~TableStyleComboBox() {};
+
+	ScribusDoc *currentDoc;
+
+public slots:
+	void setDoc(ScribusDoc *newCurrentDoc);
+	void setFormat(QString name);
+	void updateFormatList();
+	void selFormat(int e);
+
+signals:
+	void newStyle(const QString&);
+	void editCharStyle();
+};
+
 #endif

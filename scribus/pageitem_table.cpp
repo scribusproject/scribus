@@ -824,15 +824,19 @@ TableBorder PageItem_Table::bottomBorder() const
 
 void PageItem_Table::setStyle(const QString& style)
 {
+	doc()->dontResize = true;
 	m_style.setParent(style);
 	updateCells();
+	doc()->dontResize = false;
 	emit changed();
 }
 
 void PageItem_Table::unsetStyle()
 {
+	doc()->dontResize = true;
 	m_style.setParent("");
 	updateCells();
+	doc()->dontResize = false;
 	emit changed();
 }
 
@@ -843,7 +847,9 @@ QString PageItem_Table::style() const
 
 void PageItem_Table::handleStyleChanged()
 {
+	doc()->dontResize = true;
 	updateCells();
+	doc()->dontResize = false;
 }
 
 void PageItem_Table::applicableActions(QStringList& actionList)

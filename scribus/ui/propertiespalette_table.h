@@ -61,8 +61,11 @@ public slots:
 	void unitChange();
 	/// Updates the fill controls.
 	void updateFillControls();
+	void updateStyleControls();
 
 private slots:
+	void setTableStyle(const QString& name);
+	void setCellStyle(const QString& name);
 	/// Handles selection changes in the side selector.
 	void on_sideSelector_selectionChanged();
 	/// Handles selection changes in the list of border lines.
@@ -95,6 +98,8 @@ private:
 	};
 
 private:
+	void displayTableStyle(const QString& name);
+	void displayCellStyle(const QString& name);
 	/// Updates the list of border lines from the current border.
 	void updateBorderLineList();
 	/// Updates the current item in the list of border lines.

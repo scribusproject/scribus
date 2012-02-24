@@ -31,9 +31,6 @@ for which a new license (GPL+exception) is in place.
 
 ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
-//	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
-//	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
-//  										 sizePolicy().hasHeightForWidth() ) );
 	setEditable(false);
 	addItem( tr("No Style"));
 	currentDoc = NULL;
@@ -61,8 +58,10 @@ void ParaStyleComboBox::updateFormatList()
 		st.clear();
 		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->paragraphStyles().count(); ++x)
+		{
 			if ( !currentDoc->paragraphStyles()[x].name().isEmpty() )
 				st.append(currentDoc->paragraphStyles()[x].name());
+		}
 		st.sort();
 		addItems(st);
 	}
@@ -87,9 +86,6 @@ void ParaStyleComboBox::selFormat(int e)
 
 CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
-//	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
-//	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
-//  										 sizePolicy().hasHeightForWidth() ) );
 	setEditable(false);
 	addItem( tr("No Style"));
 	currentDoc = NULL;
@@ -117,8 +113,10 @@ void CharStyleComboBox::updateFormatList()
 		st.clear();
 		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->charStyles().count(); ++x)
+		{
 			if ( !currentDoc->charStyles()[x].name().isEmpty() )
 				st.append(currentDoc->charStyles()[x].name());
+		}
 		st.sort();
 		addItems(st);
 	}
@@ -130,6 +128,116 @@ void CharStyleComboBox::updateFormatList()
 }
 
 void CharStyleComboBox::selFormat(int e)
+{
+	if (e == 0)
+	{
+		emit newStyle(QString::null);
+	}
+	else
+	{
+		emit newStyle(currentText());
+	}
+}
+
+CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
+{
+	setEditable(false);
+	addItem( tr("No Style"));
+	currentDoc = NULL;
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void CellStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
+{
+	currentDoc = newCurrentDoc;
+	updateFormatList();
+}
+
+void CellStyleComboBox::setFormat(QString name)
+{
+	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
+}
+
+void CellStyleComboBox::updateFormatList()
+{
+	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	clear();
+	if (currentDoc != NULL)
+	{
+		QStringList st;
+		st.clear();
+		addItem( tr("No Style"));
+		for (int x = 0; x < currentDoc->cellStyles().count(); ++x)
+		{
+			if ( !currentDoc->cellStyles()[x].name().isEmpty() )
+				st.append(currentDoc->cellStyles()[x].name());
+		}
+		st.sort();
+		addItems(st);
+	}
+	QListView *tmpView = dynamic_cast<QListView*>(view());
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void CellStyleComboBox::selFormat(int e)
+{
+	if (e == 0)
+	{
+		emit newStyle(QString::null);
+	}
+	else
+	{
+		emit newStyle(currentText());
+	}
+}
+
+TableStyleComboBox::TableStyleComboBox(QWidget* parent) : QComboBox(parent)
+{
+	setEditable(false);
+	addItem( tr("No Style"));
+	currentDoc = NULL;
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void TableStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
+{
+	currentDoc = newCurrentDoc;
+	updateFormatList();
+}
+
+void TableStyleComboBox::setFormat(QString name)
+{
+	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
+}
+
+void TableStyleComboBox::updateFormatList()
+{
+	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	clear();
+	if (currentDoc != NULL)
+	{
+		QStringList st;
+		st.clear();
+		addItem( tr("No Style"));
+		for (int x = 0; x < currentDoc->tableStyles().count(); ++x)
+		{
+			if ( !currentDoc->tableStyles()[x].name().isEmpty() )
+				st.append(currentDoc->tableStyles()[x].name());
+		}
+		st.sort();
+		addItems(st);
+	}
+	QListView *tmpView = dynamic_cast<QListView*>(view());
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void TableStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
 	{

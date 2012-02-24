@@ -13,7 +13,76 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1,0">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Styles</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelTable">
+        <property name="text">
+         <string>Table</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="TableStyleComboBox" name="tableStyleCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="buttonClearTableStyle">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelCells">
+        <property name="text">
+         <string>Cells</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="CellStyleComboBox" name="cellStyleCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QToolButton" name="buttonClearCellStyle">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QGroupBox" name="bordersLayout">
      <property name="title">
@@ -420,6 +489,16 @@
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TableStyleComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ui/spalette.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CellStyleComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ui/spalette.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
