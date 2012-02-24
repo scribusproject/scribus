@@ -121,8 +121,8 @@ Voir les FAQ pour plus de d&eacute;tails. Si "nom" n'est pas fourni, l'&eacute;l
 <dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
 <dd><code><a href="#-textOverflows">textOverflows</a>(["nom",
 sansLiens]) -&gt; nombre entier</code>
-<p>Retourne le nombre actuel de caract&egrave;res en surplus dans le
-cadre de texte "nom". Si sansLiens est une valeur non nulle, il prend
+<p>Retourne 1 en cas de pr&eacute;sence de caract&egrave;res en surplus dans le
+cadre de texte "nom", 0 sinon. Si sansLiens est une valeur non nulle, il prend
 seulement un cadre - il n'utilise pas les liens de cadre. Sans
 ce param&egrave;tre, il cherche toute les cha&icirc;nes li&eacute;es.</p>
 <p>Peut g&eacute;n&eacute;rer WrongFrameTypeError si le cadre cible n'est pas un

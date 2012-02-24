@@ -365,7 +365,7 @@ PyObject *scribus_tracetext(PyObject * self, PyObject* args);
 PyDoc_STRVAR(scribus_istextoverflowing__doc__,
 QT_TR_NOOP("textOverflows([\"name\", nolinks]) -> integer\n\
 \n\
-Returns the actual number of overflowing characters in text frame \"name\".\n\
+Returns 1 if there are overflowing characters in text frame \"name\", 0 if not.\n\
 If is nolinks set to non zero value it takes only one frame - it doesn't\n\
 use text frame linking. Without this parameter it search all linking chain.\n\
 \n\
