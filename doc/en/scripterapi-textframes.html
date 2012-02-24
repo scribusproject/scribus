@@ -160,7 +160,7 @@ selected item is used.</p>
 
 <dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
 <dd><code>textOverflows(["name", nolinks]) -&gt; integer</code>
-<p>Returns the actual number of overflowing characters in text frame "name". If is nolinks set to non zero value it takes only one frame - it doesn't use text frame linking. Without this parameter it search all linking chain.</p>
+<p>Returns 1 if there are overflowing characters in text frame "name", 0 if not. If is nolinks set to non zero value it takes only one frame - it doesn't use text frame linking. Without this parameter it search all linking chain.</p>
 <p>May raise WrongFrameTypeError if the target frame is not an text frame</p></dd>
 
 </dl>
