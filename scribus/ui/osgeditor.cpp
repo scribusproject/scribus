@@ -589,7 +589,6 @@ void OSGEditorDialog::openFile()
 				{
 					if (supportedExts.contains(QString::fromStdString(fdm_itr->first)))
 					{
-						qDebug() << QString::fromStdString(fdm_itr->first) << QString::fromStdString(fdm_itr->second);
 						formats.insert("*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper(), QString::fromStdString(fdm_itr->second) + " (*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper() + ")");
 					}
 				}
