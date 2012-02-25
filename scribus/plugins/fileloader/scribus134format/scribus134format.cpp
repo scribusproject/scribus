@@ -572,6 +572,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
+	m_Doc->refreshGuides();
 
 	// #9969 : Some old long doc may have page owner somewhat broken
 	m_Doc->fixItemPageOwner();

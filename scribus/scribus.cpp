@@ -4007,6 +4007,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->RePos = true;
 		doc->setMasterPageMode(true);
 		doc->reformPages();
+		doc->refreshGuides();
 		doc->setLoading(false);
 		for (int azz=0; azz<doc->MasterItems.count(); ++azz)
 		{

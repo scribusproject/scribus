@@ -5353,6 +5353,16 @@ void ScribusDoc::reformPages(bool moveObjects)
 	}
 }
 
+void ScribusDoc::refreshGuides()
+{
+	for (int i = 0; i < Pages->count(); ++i)
+	{
+		ScPage* page = Pages->at(i);
+		page->guides.addHorizontals(page->guides.getAutoHorizontals(page), GuideManagerCore::Auto);
+		page->guides.addVerticals(page->guides.getAutoVerticals(page), GuideManagerCore::Auto);
+	}
+}
+
 double ScribusDoc::getXOffsetForPage(const int pageNumber)
 {
 	if (Pages->at(pageNumber)!=NULL)

@@ -1674,6 +1674,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->setActiveLayer(layerToSetActive);
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
+	m_Doc->refreshGuides();
 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
