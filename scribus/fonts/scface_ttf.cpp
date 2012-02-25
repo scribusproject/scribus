@@ -377,10 +377,21 @@ KernFeature::ClassDefTable KernFeature::getClass ( bool leftGlyph, quint16 class
 			quint16 End ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 2 ) );
 			quint16 Class ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 4 ) );
 
-			for ( int gl ( Start ); gl <= (int) End; ++gl )
+			if (Start <= End)
 			{
-				excludeList<< (quint16) gl;
-				ret[Class] << gl;
+				for ( int gl ( Start ); gl <= (int) End; ++gl )
+				{
+					excludeList<< (quint16) gl;
+					ret[Class] << gl;
+				}
+			}
+			else
+			{
+				for ( int gl ( Start ); gl >= (int) End; --gl )
+				{
+					excludeList<< (quint16) gl;
+					ret[Class] << gl;
+				}
 			}
 		}
 	}
