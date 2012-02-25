@@ -1880,7 +1880,6 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	if (it->hasAttribute("CULW"))
 		newStyle.setUnderlineWidth(qRound(ScCLocale::toDoubleC(it->attribute("CULW"), -0.1) * 10));
 	
-	
 	if (it->hasAttribute("CSTP"))
 		newStyle.setStrikethruOffset(qRound(ScCLocale::toDoubleC(it->attribute("CSTP"), -0.1) * 10));
 	
@@ -1890,7 +1889,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	fixLegacyCharStyle(newStyle);
 	
 	if (impo && ab >= 0 && VorLFound)
-		last->ParaStyle = DoVorl[ab].toInt();
+		last->ParaStyle = legacyStyleMap[ab];
 	else
 		last->ParaStyle = pstylename;
 	// end of legacy stuff
@@ -1998,6 +1997,8 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	{
 		if (m_Doc->styleExists(parentStyle))
 			vg.setParent(parentStyle);
+		else if (parStyleMap.contains(parentStyle))
+			vg.setParent(parStyleMap.value(parentStyle));
 		else
 			vg.setParent(CommonStrings::DefaultParagraphStyle);
 	}
@@ -2778,13 +2779,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		maxLayer = qMax(m_Doc->Layers[la2].LNr, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
-	DoVorl.clear();
-	DoVorl[0] = "0";
-	DoVorl[1] = "1";
-	DoVorl[2] = "2";
-	DoVorl[3] = "3";
-	DoVorl[4] = "4";
-	VorlC = 5;
+	parStyleMap.clear();
+	legacyStyleMap.clear();
+	legacyStyleMap[0] = "0";
+	legacyStyleMap[1] = "1";
+	legacyStyleMap[2] = "2";
+	legacyStyleMap[3] = "3";
+	legacyStyleMap[4] = "4";
+	legacyStyleCount = 5;
 	QDomDocument docu("scridoc");
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -3448,12 +3450,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> * tempStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou(false);
-	QString tmV;
+	bool  found(false);
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
-	//PrefsManager* prefsManager=PrefsManager::instance();
 	readParagraphStyle(*vg, *pg, doc);
-	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
+	for (int xx=0; xx < docParagraphStyles->count(); ++xx)
 	{
 		if (vg->name() == (*docParagraphStyles)[xx].name())
 		{
@@ -3461,37 +3461,35 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
+					legacyStyleMap[legacyStyleCount] = vg->name();
+					legacyStyleCount++;
 				}
-				fou = true;
+				found = true;
 			}
 			else
 			{
 				vg->setName("Copy of "+(*docParagraphStyles)[xx].name());
-				fou = false;
+				found = false;
 			}
 			break;
 		}
 	}
-	if (!fou)
+	if (!found && fl)
 	{
 		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
 		{
-			if (vg->equiv((*docParagraphStyles)[xx]) && fl)
+			if (vg->equiv((*docParagraphStyles)[xx]))
 			{
+				parStyleMap[vg->name()] = (*docParagraphStyles)[xx].name();
 				vg->setName((*docParagraphStyles)[xx].name());
-				fou = true;
-// 				if (fl)
-				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
-				}
+				legacyStyleMap[legacyStyleCount] = vg->name();
+				legacyStyleCount++;
+				found = true;
 				break;
 			}
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
 		if (tempStyles)
 			tempStyles->create(*vg);
@@ -3503,8 +3501,8 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 		}
 		if (fl)
 		{
-			DoVorl[VorlC] = tmV.setNum(docParagraphStyles->count()-1);
-			VorlC++;
+			legacyStyleMap[legacyStyleCount] = vg->name();
+			legacyStyleCount++;
 		}
 	}
 }

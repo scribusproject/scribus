@@ -93,6 +93,10 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat);
 
+		QMap<QString, QString> parStyleMap;
+		QMap<uint, QString> legacyStyleMap;
+		uint legacyStyleCount;
+		
 		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
@@ -103,8 +107,6 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		int itemCount;
 		int itemCountM;
 		int itemCountF;
-		QMap<uint,QString> DoVorl;
-		uint VorlC;
 };
 
 extern "C" PLUGIN_API int scribus134format_getPluginAPIVersion();
