@@ -2377,6 +2377,8 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	{
 		if (m_Doc->styleExists(parentStyle))
 			newStyle.setParent(parentStyle);
+		else if (parStyleMap.contains(parentStyle))
+			newStyle.setParent(parStyleMap.value(parentStyle));
 		else
 			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	}
@@ -5091,6 +5093,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 
+	parStyleMap.clear();
+
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -5579,8 +5583,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou(false);
-	QString tmpf, tmV;
+	bool  found(false);
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
 	//UNUSED: PrefsManager* prefsManager = PrefsManager::instance();
 	readParagraphStyle(doc, reader, style);
@@ -5590,29 +5593,30 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 		{
 			if (style.equiv((*docParagraphStyles)[xx]))
 			{
-				fou = true;
+				found = true;
 			}
 			else
 			{
 				style.setName("Copy of "+(*docParagraphStyles)[xx].name());
-				fou = false;
+				found = false;
 			}
 			break;
 		}
 	}
-	if (!fou && fl)
+	if (!found && fl)
 	{
 		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
 		{
 			if (style.equiv((*docParagraphStyles)[xx]))
 			{
+				parStyleMap[style.name()] = (*docParagraphStyles)[xx].name();
 				style.setName((*docParagraphStyles)[xx].name());
-				fou = true;
+				found = true;
 				break;
 			}
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
 		if (tempStyles)
 			tempStyles->create(style);

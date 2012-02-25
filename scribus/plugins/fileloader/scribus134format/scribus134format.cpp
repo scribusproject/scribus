@@ -1262,6 +1262,8 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	{
 		if (m_Doc->styleExists(parentStyle))
 			newStyle.setParent(parentStyle);
+		else if (parStyleMap.contains(parentStyle))
+			newStyle.setParent(parStyleMap.value(parentStyle));
 		else
 			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	}
@@ -2294,7 +2296,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	fixLegacyCharStyle(newStyle);
 	
 	if (impo && ab >= 0 && VorLFound)
-		last->ParaStyle = DoVorl[ab].toInt();
+		last->ParaStyle = legacyStyleMap[ab];
 	else
 		last->ParaStyle = pstylename;
 	// end of legacy stuff
@@ -3054,13 +3056,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	itemNextM.clear();
 	itemCountM = 0;
 
-	DoVorl.clear();
-	DoVorl[0] = "0";
-	DoVorl[1] = "1";
-	DoVorl[2] = "2";
-	DoVorl[3] = "3";
-	DoVorl[4] = "4";
-	VorlC = 5;
+	parStyleMap.clear();
+	legacyStyleMap.clear();
+	legacyStyleMap[0] = "0";
+	legacyStyleMap[1] = "1";
+	legacyStyleMap[2] = "2";
+	legacyStyleMap[3] = "3";
+	legacyStyleMap[4] = "4";
+	legacyStyleCount = 5;
 
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -3378,10 +3381,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou(false);
-	QString tmpf, tmV;
+	bool  found(false);
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
-//	PrefsManager* prefsManager = PrefsManager::instance();
 	readParagraphStyle(doc, reader, style);
 	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{
@@ -3391,37 +3392,35 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
+					legacyStyleMap[legacyStyleCount] = style.name();
+					legacyStyleCount++;
 				}
-				fou = true;
+				found = true;
 			}
 			else
 			{
 				style.setName("Copy of "+(*docParagraphStyles)[xx].name());
-				fou = false;
+				found = false;
 			}
 			break;
 		}
 	}
-	if (!fou)
+	if (!found && fl)
 	{
-		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
+		for (int xx=0; xx < docParagraphStyles->count(); ++xx)
 		{
-			if (style.equiv((*docParagraphStyles)[xx]) && fl)
+			if (style.equiv((*docParagraphStyles)[xx]))
 			{
+				parStyleMap[style.name()] = (*docParagraphStyles)[xx].name();
 				style.setName((*docParagraphStyles)[xx].name());
-				fou = true;
-// 				if (fl)
-				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
-				}
+				legacyStyleMap[legacyStyleCount] = style.name();
+				legacyStyleCount++;
+				found = true;
 				break;
 			}
 		}
 	}
-	if (!fou)
+	if (!found)
 	{
 		if (tempStyles)
 			tempStyles->create(style);
@@ -3433,8 +3432,8 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 		}
 		if (fl)
 		{
-			DoVorl[VorlC] = tmV.setNum(docParagraphStyles->count()-1);
-			VorlC++;
+			legacyStyleMap[legacyStyleCount] = style.name();
+			legacyStyleCount++;
 		}
 	}
 }

@@ -113,34 +113,11 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
 
 		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr = -2 /* currentPage*/);
-/*
-		void writeCheckerProfiles(ScXmlStreamWriter& docu);
-		void writeLinestyles(ScXmlStreamWriter& docu);
-		void writeJavascripts(ScXmlStreamWriter& docu);
-		void writeBookmarks(ScXmlStreamWriter& docu);
-		void writeColors(ScXmlStreamWriter& docu);
-		void writeHyphenatorLists(ScXmlStreamWriter& docu);
-		void writePStyles(ScXmlStreamWriter& docu);
-		void writeCStyles(ScXmlStreamWriter& docu);
-		void putPStyle(ScXmlStreamWriter& docu, const ParagraphStyle & style, const QString &nodeName);
-		void putCStylePT(ScXmlStreamWriter& docu, const CharStyle & style);
-		void putCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
-		void putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
-		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
-		void writeLayers(ScXmlStreamWriter& docu);
-		void writePrintOptions(ScXmlStreamWriter& docu);
-		void writePdfOptions(ScXmlStreamWriter& docu);
-		void writeDocItemAttributes(ScXmlStreamWriter& docu);
-		void writeTOC(ScXmlStreamWriter& docu);
-		void writePageSets(ScXmlStreamWriter& docu);
-		void writeSections(ScXmlStreamWriter& docu);
-		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir);
-		void writeContent(ScXmlStreamWriter& docu, const QString& baseDir);
-
-		void WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
-		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat);
-*/
+		
+		QMap<QString, QString> parStyleMap;
+		QMap<uint, QString> legacyStyleMap;
+		uint legacyStyleCount;
+		
 		QMap<int, int> groupRemap;
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
@@ -149,8 +126,6 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 
 		int itemCount;
 		int itemCountM;
-		QMap<uint,QString> DoVorl;
-		uint VorlC;
 };
 
 extern "C" PLUGIN_API int scribus134format_getPluginAPIVersion();
