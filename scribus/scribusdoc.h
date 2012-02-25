@@ -697,7 +697,11 @@ public:
 	int  OnPage(double x2, double  y2);
 	int  OnPage(PageItem *currItem);
 	void GroupOnPage(PageItem *currItem);
+
 	void reformPages(bool moveObjects = true);
+	/** @brief Refresh automatic guides once Margin struct has been properly configure by reformPages() */
+	void refreshGuides();
+	/** @brief Check and fix if needed PageItem OwnPage member */
 	void fixItemPageOwner();
 	
 	/**

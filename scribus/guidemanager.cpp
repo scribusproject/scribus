@@ -565,7 +565,7 @@ void GuideManager::windowActivationChange(bool oldActive)
 
 Guides GuideManager::getAutoVerticals()
 {
-GuideManagerCore guides;
+	GuideManagerCore guides;
 
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())

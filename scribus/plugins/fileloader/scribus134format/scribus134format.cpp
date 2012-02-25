@@ -1542,6 +1542,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->setActiveLayer(layerToSetActive);
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
+	m_Doc->refreshGuides();
 
 	// Some old long doc may have page owner somewhat broken
 	m_Doc->fixItemPageOwner();
@@ -2976,7 +2977,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 				Apage->guides.addHorizontals(Apage->guides.getAutoHorizontals(Apage), GuideManagerCore::Auto);
 				Apage->guides.addVerticals(Apage->guides.getAutoVerticals(Apage), GuideManagerCore::Auto);
-				
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
