@@ -82,8 +82,6 @@ void PropertiesPalette_Table::unsetDocument()
 
 void PropertiesPalette_Table::setItem(PageItem* item)
 {
-	tableStyleCombo->updateFormatList();
-	cellStyleCombo->updateFormatList();
 	m_item = item;
 	if (item->isTable())
 		connect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
@@ -160,7 +158,7 @@ void PropertiesPalette_Table::updateStyleControls()
 		}
 		else
 		{
-			displayTableStyle(table->style());
+//			displayTableStyle(table->style());
 			displayCellStyle(table->activeCell().style());
 		}
 	}
@@ -284,7 +282,6 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 void PropertiesPalette_Table::updateBorderLineList()
 {
 	borderLineList->clear();
-
 	foreach (const TableBorderLine& borderLine, m_currentBorder.borderLines())
 	{
 		QPixmap *icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
@@ -294,11 +291,7 @@ void PropertiesPalette_Table::updateBorderLineList()
 			.arg(CommonStrings::translatePenStyleName(borderLine.style()));
 		borderLineList->addItem(new QListWidgetItem(*icon, text, borderLineList));
 	}
-
-	/*if (borderLineList->count() > 0)
-		borderLineList->setCurrentItem(borderLineList->item(0));
-	else
-		on_borderLineList_currentRowChanged(-1);*/
+	removeBorderLineButton->setEnabled(borderLineList->count() > 1);
 }
 
 void PropertiesPalette_Table::updateBorderLineListItem()
@@ -416,10 +409,8 @@ void PropertiesPalette_Table::on_addBorderLineButton_clicked()
 void PropertiesPalette_Table::on_removeBorderLineButton_clicked()
 {
 	int index = borderLineList->currentRow();
-
 	borderLineList->removeItemWidget(borderLineList->currentItem());
 	m_currentBorder.removeBorderLine(index);
-
 	updateBorderLineList();
 }
 
@@ -513,6 +504,26 @@ void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
 	table->update();
 }
 
+void PropertiesPalette_Table::on_buttonClearTableStyle_clicked()
+{
+	if (!m_item || !m_item->isTable())
+		return;
+	PageItem_Table* table = m_item->asTable();
+	table->unsetDirectFormatting();
+	table->update();
+}
+
+void PropertiesPalette_Table::on_buttonClearCellStyle_clicked()
+{
+	if (!m_item || !m_item->isTable())
+		return;
+	m_doc->dontResize = true;
+	PageItem_Table* table = m_item->asTable();
+	table->activeCell().unsetDirectFormatting();
+	table->adjustTable();
+	table->update();
+}
+
 void PropertiesPalette_Table::updateBorders()
 {
 	if (!m_doc || !m_item || !m_item->isTable())
@@ -522,14 +533,29 @@ void PropertiesPalette_Table::updateBorders()
 	TableSideSelector::Sides selectedSides = sideSelector->selection();
 
 	m_doc->dontResize = true;
-	if (selectedSides & TableSideSelector::Left)
-		table->setLeftBorder(m_currentBorder);
-	if (selectedSides & TableSideSelector::Right)
-		table->setRightBorder(m_currentBorder);
-	if (selectedSides & TableSideSelector::Top)
-		table->setTopBorder(m_currentBorder);
-	if (selectedSides & TableSideSelector::Bottom)
-		table->setBottomBorder(m_currentBorder);
+	if (m_doc->appMode != modeEditTable)
+	{
+		if (selectedSides & TableSideSelector::Left)
+			table->setLeftBorder(m_currentBorder);
+		if (selectedSides & TableSideSelector::Right)
+			table->setRightBorder(m_currentBorder);
+		if (selectedSides & TableSideSelector::Top)
+			table->setTopBorder(m_currentBorder);
+		if (selectedSides & TableSideSelector::Bottom)
+			table->setBottomBorder(m_currentBorder);
+	}
+	else
+	{
+		TableCell cell = table->activeCell();
+		if (selectedSides & TableSideSelector::Left)
+			cell.setLeftBorder(m_currentBorder);
+		if (selectedSides & TableSideSelector::Right)
+			cell.setRightBorder(m_currentBorder);
+		if (selectedSides & TableSideSelector::Top)
+			cell.setTopBorder(m_currentBorder);
+		if (selectedSides & TableSideSelector::Bottom)
+			cell.setBottomBorder(m_currentBorder);
+	}
 	table->adjustTable();
 	table->update();
 }
@@ -538,8 +564,8 @@ void PropertiesPalette_Table::languageChange()
 {
 	cellStyleCombo->setToolTip( tr("Cell style of currently selected cell"));
 	tableStyleCombo->setToolTip( tr("Table style of currently selected table"));
-	labelCells->setToolTip( tr("Remove Direct Cell Formatting"));
-	labelTable->setToolTip( tr("Remove Direct Table Formatting"));
+	buttonClearCellStyle->setToolTip( tr("Remove Direct Cell Formatting"));
+	buttonClearTableStyle->setToolTip( tr("Remove Direct Table Formatting"));
 }
 
 void PropertiesPalette_Table::unitChange()

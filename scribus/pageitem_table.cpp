@@ -840,6 +840,20 @@ void PageItem_Table::unsetStyle()
 	emit changed();
 }
 
+void PageItem_Table::unsetDirectFormatting()
+{
+	doc()->dontResize = true;
+	QString parentStyle = m_style.parent();
+	m_style.setParent("");
+	m_style.erase();
+	m_style.setParent(parentStyle);
+	adjustTableToFrame();
+	adjustFrameToTable();
+	updateCells();
+	doc()->dontResize = false;
+	emit changed();
+}
+
 QString PageItem_Table::style() const
 {
 	return m_style.parent();

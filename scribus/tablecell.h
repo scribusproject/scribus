@@ -198,6 +198,8 @@ public:
 	/// Sets the cell style for this cell to @a style.
 	void setStyle(const QString& style);
 
+	void unsetDirectFormatting();
+
 	/// Returns the named cell style for this cell.
 	QString style() const { return d->style.parent(); }
 

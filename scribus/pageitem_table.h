@@ -439,6 +439,9 @@ public:
 	/// Unsets the style of this table.
 	void unsetStyle();
 
+	/// Unsets direct formatting
+	void unsetDirectFormatting();
+
 	/// Returns the style of this table.
 	QString style() const;
 

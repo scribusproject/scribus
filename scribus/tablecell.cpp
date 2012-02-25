@@ -124,6 +124,14 @@ void TableCell::setStyle(const QString& style)
 	d->table->updateCells();
 }
 
+void TableCell::unsetDirectFormatting()
+{
+	QString parentStyle = d->style.parent();
+	d->style.setParent("");
+	d->style.erase();
+	d->style.setParent(parentStyle);
+}
+
 void TableCell::updateContent()
 {
 	QRectF contentRect = boundingRect();

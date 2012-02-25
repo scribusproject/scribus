@@ -87,6 +87,8 @@ private slots:
 	void on_fillColor_activated(const QString& colorName);
 	/// Handles table fill shade changes.
 	void on_fillShade_valueChanged(int shade);
+	void on_buttonClearTableStyle_clicked();
+	void on_buttonClearCellStyle_clicked();
 
 private:
 	/// This enum represents three states. Used for three-state logic.
