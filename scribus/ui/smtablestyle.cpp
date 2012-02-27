@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QTabWidget>
+#include <QMessageBox>
 
 #include "prefsmanager.h"
 #include "smtablestyle.h"
@@ -412,6 +413,7 @@ void SMTableStyle::setupConnections()
 		return;
 	connect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	connect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 }
 
 void SMTableStyle::removeConnections()
@@ -420,17 +422,24 @@ void SMTableStyle::removeConnections()
 		return;
 	disconnect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	disconnect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 }
 
 void SMTableStyle::slotFillColor()
 {
-	// TODO: Handle inheritance as well.
-	QString fillColor(m_page->fillColor->currentText());
-	foreach (TableStyle *tableStyle, m_selection)
+	if (m_page->fillColor->useParentValue())
 	{
-		tableStyle->setFillColor(fillColor);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetFillColor();
 	}
-
+	else
+	{
+		QString col(m_page->fillColor->currentText());
+		for (int i = 0; i < m_selection.count(); ++i)
+		{
+			m_selection[i]->setFillColor(col);
+		}
+	}
 	if (!m_selectionIsDirty)
 	{
 		m_selectionIsDirty = true;
@@ -440,12 +449,62 @@ void SMTableStyle::slotFillColor()
 
 void SMTableStyle::slotFillShade()
 {
-	// TODO: Handle inheritance as well.
-	double fillShade = m_page->fillShade_->getValue();
-	foreach (TableStyle *tableStyle, m_selection)
+	if (m_page->fillShade_->useParentValue())
 	{
-		tableStyle->setFillShade(fillShade);
+		for (int i = 0; i < m_selection.count(); ++i)
+		{
+			m_selection[i]->resetFillShade();
+		}
 	}
+	else
+	{
+		int fs = m_page->fillShade_->getValue();
+		for (int i = 0; i < m_selection.count(); ++i)
+		{
+			m_selection[i]->setFillShade(fs);
+		}
+	}
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMTableStyle::slotParentChanged(const QString &parent)
+{
+	Q_ASSERT(!parent.isNull());
+
+	bool  loop = false, parentLoop = false;
+	const Style* parentStyle = (!parent.isEmpty()) ? m_cachedStyles.resolve(parent) : NULL;
+	QStringList  sel;
+
+	for (int i = 0; i < m_selection.count(); ++i)
+	{
+		loop = false;
+		// Check if setting parent won't create a loop
+		const Style* pStyle = parentStyle;
+		while (pStyle)
+		{
+			if (pStyle->hasParent() && (pStyle->parent() == m_selection[i]->name()))
+			{
+				loop = parentLoop = true;
+				break;
+			}
+			pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
+		}
+		if (!loop)
+		{
+			m_selection[i]->erase();
+			m_selection[i]->setParent(parent);
+		}
+		sel << m_selection[i]->name();
+	}
+
+	if (parentLoop)
+		QMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."), CommonStrings::tr_OK);
+
+	selected(sel);
 
 	if (!m_selectionIsDirty)
 	{

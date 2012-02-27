@@ -24,26 +24,113 @@ SMCellStyleWidget::~SMCellStyleWidget()
 {
 }
 
+void SMCellStyleWidget::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+
 
 void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles, const QString &defLang, int unitIndex)
 {
 	Q_ASSERT(cellStyle);
 	if (!cellStyle)
 		return;
+	parentCombo->setEnabled(!cellStyle->isDefaultStyle());
+	const CellStyle *parent = dynamic_cast<const CellStyle*>(cellStyle->parentStyle());
+	bool hasParent =  cellStyle->hasParent() && parent != 0 && parent->hasName() && cellStyle->parent() != "";
+	if (hasParent)
+	{
+		fillColor->setCurrentText(cellStyle->fillColor(), cellStyle->isInhFillColor());
+		fillColor->setParentText(parent->fillColor());
+		fillShade_->setValue(qRound(cellStyle->fillShade()), cellStyle->isInhFillShade());
+		fillShade_->setParentValue(qRound(parent->fillShade()));
+	}
+	else
+	{
+		fillColor->setCurrentText(cellStyle->fillColor());
+		fillShade_->setValue(qRound(cellStyle->fillShade()));
+	}
+	parentCombo->clear();
+	parentCombo->addItem( cellStyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
+	if (!cellStyle->isDefaultStyle())
+	{
+		for (int i = 0; i < cellStyles.count(); ++i)
+		{
+			if (cellStyles[i].name() != cellStyle->name())
+				parentCombo->addItem(cellStyles[i].name());
+		}
+	}
 
-	// TODO: Handle parent styles (and language?)
-
-	fillColor->setCurrentText(cellStyle->fillColor());
-	fillShade_->setValue(qRound(cellStyle->fillShade()));
+	if (cellStyle->isDefaultStyle() || !hasParent)
+		parentCombo->setCurrentIndex(0);
+	else if (hasParent)
+	{
+		int index = 0;
+		for (int i = 0; i < parentCombo->count(); ++i)
+		{
+			if (parentCombo->itemText(i) == cellStyle->parentStyle()->name())
+			{
+				index = i;
+				break;
+			}
+		}
+		parentCombo->setCurrentIndex(index);
+	}
 }
 
 void SMCellStyleWidget::show(QList<CellStyle*> &cellStyles, QList<CellStyle> &cellStylesAll, const QString &defaultLanguage, int unitIndex)
 {
-	if (cellStyles.count() == 1) {
+	if (cellStyles.count() == 1)
 		show(cellStyles[0], cellStylesAll, defaultLanguage, unitIndex);
+	else if (cellStyles.count() > 1)
+	{
+		showColors(cellStyles);
+		parentCombo->setEnabled(false);
 	}
+}
 
-	// TODO: Implement actual support multiple styles.
+void SMCellStyleWidget::showColors(const QList<CellStyle*> &cellStyles)
+{
+	double d = -30000;
+	for (int i = 0; i < cellStyles.count(); ++i)
+	{
+		if (d != -30000 && cellStyles[i]->fillShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cellStyles[i]->fillShade();
+	}
+	if (d == -30000)
+		fillShade_->setText( tr("Shade"));
+	else
+		fillShade_->setValue(qRound(d));
+	QString s;
+	QString emptyString;
+	for (int i = 0; i < cellStyles.count(); ++i)
+	{
+		if (!s.isNull() && s != cellStyles[i]->fillColor())
+		{
+			s = emptyString;
+			break;
+		}
+		else
+			s = cellStyles[i]->fillColor();
+	}
+	if (s.isEmpty())
+	{
+		if (fillColor->itemText(fillColor->count() - 1) != "")
+			fillColor->addItem("");
+		fillColor->setCurrentIndex(fillColor->count() - 1);
+	}
+	else
+		fillColor->setCurrentText(s);
 }
 
 void SMCellStyleWidget::languageChange()

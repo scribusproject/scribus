@@ -4335,6 +4335,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 
 	if (currItem->asTable())
 	{
+		doc->dontResize = true;
 		PageItem_Table *tableitem = currItem->asTable();
 		int rows=attrs.valueAsInt("Rows",1);
 		int cols=attrs.valueAsInt("Columns",1);
@@ -4382,6 +4383,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				tableitem->mergeCells(rows,columns,height,width);
 			}
 		}
+		doc->dontResize = false;
 	}
 
 	currItem->TopLine      = attrs.valueAsBool("TopLine", false);
@@ -4734,6 +4736,7 @@ bool Scribus150Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader
 	item->setFillShade(attrs.valueAsInt("FillShade", 100));
 	QStringRef tagName = reader.name();
 	LastStyles * lastStyle = new LastStyles();
+	doc->dontResize = true;
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -5019,6 +5022,7 @@ bool Scribus150Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader
 	}
 	item->adjustTableToFrame();
 	item->adjustFrameToTable();
+	doc->dontResize = false;
 	return !reader.hasError();
 }
 

@@ -93,6 +93,7 @@ private:
 private slots:
 	void slotFillColor();
 	void slotFillShade();
+	void slotParentChanged(const QString &parent);
 };
 
 #endif // SMTABLESTYLES_H

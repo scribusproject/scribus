@@ -28,6 +28,7 @@ public:
 	SMTableStyleWidget(QWidget *parent = 0);
 	/// Destructor.
 	~SMTableStyleWidget();
+	virtual void changeEvent(QEvent *e);
 
 	/**
 	 * Shows attributes for a single table style.
@@ -62,6 +63,7 @@ public:
 	 * @param colors list of colors to populate the combo with.
 	 */
 	void fillFillColorCombo(ColorList &colors);
+	void showColors(const QList<TableStyle*> &tableStyles);
 };
 
 #endif // SMTABLESTYLEWIDGET_H
