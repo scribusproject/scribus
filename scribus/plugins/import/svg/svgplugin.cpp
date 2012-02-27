@@ -1015,6 +1015,11 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 			clip.addQuadPoint(width+x, height+y, width+x, height+y, x, height+y, x, height+y);
 			clip.addQuadPoint(x, height+y, x, height+y, x, y, x, y);
 		}
+		if (b2.hasAttribute("transform"))
+		{
+			QTransform transform = parseTransform(b2.attribute("transform"));
+			clip.map(transform);
+		}
 		if (clip.size() >= 2)
 			m_clipPaths.insert(id, clip);
 	}
