@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "importidml.h"
 #include "loadsaveplugin.h"
+#include "pageitem_table.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -1521,65 +1522,68 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	if (itElem.hasAttribute("AppliedObjectStyle"))
 	{
 		QString os = itElem.attribute("AppliedObjectStyle");
-		ObjectStyle nstyle;
-		nstyle.fillColor = def_fillColor;
-		nstyle.strokeColor = def_strokeColor;
-		nstyle.fillGradient = "";
-		nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
-		nstyle.gradientFillLength = def_gradientLen;
-		nstyle.gradientFillAngle = def_gradientAngle;
-		nstyle.strokeGradient = "";
-		nstyle.gradientStrokeStart = QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY);
-		nstyle.gradientStrokeAngle = def_gradientStrokeAngle;
-		nstyle.gradientStrokeLength = def_gradientStrokeLength;
-		nstyle.lineWidth = def_lineWidth;
-		nstyle.fillTint = def_fillTint;
-		nstyle.strokeTint = def_strokeTint;
-		nstyle.Opacity = def_Opacity;
-		nstyle.blendMode = def_Blendmode;
-		nstyle.Extra = def_Extra;
-		nstyle.TExtra = def_TExtra;
-		nstyle.BExtra = def_BExtra;
-		nstyle.RExtra = def_RExtra;
-		nstyle.TextColumnCount = def_TextColumnCount;
-		nstyle.TextColumnGutter = def_TextColumnGutter;
-		nstyle.TextColumnFixedWidth = def_TextColumnFixedWidth;
-		nstyle.TextFlow = def_TextFlow;
-		nstyle.parentStyle = "";
-		resolveObjectStyle(nstyle, os);
-		fillColor = nstyle.fillColor;
-		if (!nstyle.fillGradient.isEmpty())
+		if (os != "n")
 		{
-			fillGradient = nstyle.fillGradient;
-			fillGradientTyp = gradientTypeMap[fillColor];
+			ObjectStyle nstyle;
+			nstyle.fillColor = def_fillColor;
+			nstyle.strokeColor = def_strokeColor;
+			nstyle.fillGradient = "";
+			nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
+			nstyle.gradientFillLength = def_gradientLen;
+			nstyle.gradientFillAngle = def_gradientAngle;
+			nstyle.strokeGradient = "";
+			nstyle.gradientStrokeStart = QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY);
+			nstyle.gradientStrokeAngle = def_gradientStrokeAngle;
+			nstyle.gradientStrokeLength = def_gradientStrokeLength;
+			nstyle.lineWidth = def_lineWidth;
+			nstyle.fillTint = def_fillTint;
+			nstyle.strokeTint = def_strokeTint;
+			nstyle.Opacity = def_Opacity;
+			nstyle.blendMode = def_Blendmode;
+			nstyle.Extra = def_Extra;
+			nstyle.TExtra = def_TExtra;
+			nstyle.BExtra = def_BExtra;
+			nstyle.RExtra = def_RExtra;
+			nstyle.TextColumnCount = def_TextColumnCount;
+			nstyle.TextColumnGutter = def_TextColumnGutter;
+			nstyle.TextColumnFixedWidth = def_TextColumnFixedWidth;
+			nstyle.TextFlow = def_TextFlow;
+			nstyle.parentStyle = "";
+			resolveObjectStyle(nstyle, os);
+			fillColor = nstyle.fillColor;
+			if (!nstyle.fillGradient.isEmpty())
+			{
+				fillGradient = nstyle.fillGradient;
+				fillGradientTyp = gradientTypeMap[fillColor];
+			}
+			gstX = nstyle.gradientFillStart.x();
+			gstY = nstyle.gradientFillStart.y();
+			gLen = nstyle.gradientFillLength;
+			gAngle = nstyle.gradientFillAngle;
+			strokeColor = nstyle.strokeColor;
+			if (!nstyle.strokeGradient.isEmpty())
+			{
+				strokeGradient = nstyle.strokeGradient;
+				strokeGradientTyp = gradientTypeMap[strokeColor];
+			}
+			gstSX = nstyle.gradientStrokeStart.x();
+			gstSY = nstyle.gradientStrokeStart.y();
+			gSLen = nstyle.gradientStrokeLength;
+			gSAngle = nstyle.gradientStrokeAngle;
+			lineWidth = nstyle.lineWidth;
+			fillShade = nstyle.fillTint;
+			strokeShade = nstyle.strokeTint;
+			Opacity = nstyle.Opacity;
+			blendMode = nstyle.blendMode;
+			Extra = nstyle.Extra;
+			TExtra = nstyle.TExtra;
+			BExtra = nstyle.BExtra;
+			RExtra = nstyle.RExtra;
+			TextColumnCount = nstyle.TextColumnCount;
+			TextColumnGutter = nstyle.TextColumnGutter;
+			TextColumnFixedWidth = nstyle.TextColumnFixedWidth;
+			textFlow = nstyle.TextFlow;
 		}
-		gstX = nstyle.gradientFillStart.x();
-		gstY = nstyle.gradientFillStart.y();
-		gLen = nstyle.gradientFillLength;
-		gAngle = nstyle.gradientFillAngle;
-		strokeColor = nstyle.strokeColor;
-		if (!nstyle.strokeGradient.isEmpty())
-		{
-			strokeGradient = nstyle.strokeGradient;
-			strokeGradientTyp = gradientTypeMap[strokeColor];
-		}
-		gstSX = nstyle.gradientStrokeStart.x();
-		gstSY = nstyle.gradientStrokeStart.y();
-		gSLen = nstyle.gradientStrokeLength;
-		gSAngle = nstyle.gradientStrokeAngle;
-		lineWidth = nstyle.lineWidth;
-		fillShade = nstyle.fillTint;
-		strokeShade = nstyle.strokeTint;
-		Opacity = nstyle.Opacity;
-		blendMode = nstyle.blendMode;
-		Extra = nstyle.Extra;
-		TExtra = nstyle.TExtra;
-		BExtra = nstyle.BExtra;
-		RExtra = nstyle.RExtra;
-		TextColumnCount = nstyle.TextColumnCount;
-		TextColumnGutter = nstyle.TextColumnGutter;
-		TextColumnFixedWidth = nstyle.TextColumnFixedWidth;
-		textFlow = nstyle.TextFlow;
 	}
 	if (itElem.hasAttribute("FillColor"))
 	{
@@ -1628,9 +1632,19 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	if (itElem.hasAttribute("StrokeWeight"))
 		lineWidth = itElem.attribute("StrokeWeight").toDouble();
 	if (itElem.hasAttribute("FillTint"))
-		fillShade = itElem.attribute("FillTint").toInt();
+	{
+		if (itElem.attribute("FillTint").toInt() != -1)
+			fillShade = itElem.attribute("FillTint").toInt();
+	}
+	if (fillShade < 0)
+		fillShade = 100;
 	if (itElem.hasAttribute("StrokeTint"))
-		strokeShade = itElem.attribute("StrokeTint").toInt();
+	{
+		if (itElem.attribute("StrokeTint").toInt() != -1)
+			strokeShade = itElem.attribute("StrokeTint").toInt();
+	}
+	if (strokeShade < 0)
+		strokeShade = 100;
 	QString forLayer = itElem.attribute("ItemLayer");
 	if (layerTranslate.contains(forLayer))
 		forLayer = layerTranslate[forLayer];
@@ -2540,6 +2554,73 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 						data = "";
 						posC = item->itemText.length();
 					}
+				}
+				else if (s.tagName() == "Table")
+				{
+					int rows = s.attribute("BodyRowCount","0").toInt();
+					int cols = s.attribute("ColumnCount","0").toInt();
+					QList<double> rowHeights;
+					QList<double> colWidths;
+					double twidth = 0.0;
+					double theight = 0.0;
+					for(QDomNode st = s.firstChild(); !st.isNull(); st = st.nextSibling() )
+					{
+						QDomElement sr = st.toElement();
+						if (sr.tagName() == "Row")
+						{
+							theight += sr.attribute("SingleRowHeight", "0").toDouble();
+							rowHeights.append(sr.attribute("SingleRowHeight", "0").toDouble());
+						}
+						if (sr.tagName() == "Column")
+						{
+							twidth += sr.attribute("SingleColumnWidth", "0").toDouble();
+							colWidths.append(sr.attribute("SingleColumnWidth", "0").toDouble());
+						}
+					}
+					m_Doc->dontResize = true;
+					int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, 0, 0, twidth - cols, theight - rows, 0.0, CommonStrings::None, CommonStrings::None, true);
+					PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
+					currItem->insertRows(0, rows-1);
+					m_Doc->dontResize = true;
+					currItem->insertColumns(0, cols-1);
+					m_Doc->dontResize = true;
+					for (int i = 0; i < rowHeights.count(); i++)
+					{
+						currItem->resizeRow(i, rowHeights[i]);
+					}
+					m_Doc->dontResize = true;
+					for (int i = 0; i < colWidths.count(); i++)
+					{
+						currItem->resizeColumn(i, colWidths[i]);
+					}
+					m_Doc->dontResize = true;
+					for(QDomNode st = s.firstChild(); !st.isNull(); st = st.nextSibling() )
+					{
+						QDomElement sr = st.toElement();
+						if (sr.tagName() == "Cell")
+						{
+							QStringList pos = sr.attribute("Name", "0:0").split(":");
+							PageItem* itText = currItem->cellAt(pos[1].toInt(), pos[0].toInt()).textFrame();
+							QDomElement spf = sr.firstChild().toElement();
+							m_Doc->dontResize = true;
+							if (itText)
+								parseParagraphStyleRange(spf, itText);
+						}
+					}
+					m_Doc->dontResize = true;
+					currItem->adjustTableToFrame();
+					currItem->adjustFrameToTable();
+					currItem->isEmbedded = true;
+					currItem->gXpos = 0;
+					currItem->gYpos = 0;
+					currItem->gWidth = currItem->width();
+					currItem->gHeight = currItem->height();
+					m_Doc->dontResize = false;
+					m_Doc->FrameItems.append(currItem);
+					item->itemText.insertObject(currItem);
+					item->itemText.applyStyle(posC, newStyle);
+					data = "";
+					posC = item->itemText.length();
 				}
 			}
 			if (data.count() > 0)

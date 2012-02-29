@@ -1923,6 +1923,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			case Group:
 			case RegularPolygon:
 			case Arc:
+			case Table:
 				embedded->DrawObj_Item(p, cullingArea);
 				break;
 			case Line:

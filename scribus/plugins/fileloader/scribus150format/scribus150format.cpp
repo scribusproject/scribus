@@ -4124,7 +4124,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Table:
-		// TODO: Actually handle pasting of tables properly.
 		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2)
@@ -4345,6 +4344,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 //		QString rowPositions(attrs.valueAsString("RowPositions"));
 //		QStringList slRowPositions=rowPositions.split(" ");
 //		qDebug()<<"RowCount"<<rows<<"row positions"<<slRowPositions.count();
+		doc->dontResize = true;
 
 		QString rowHeights(attrs.valueAsString("RowHeights",""));
 		if(!rowHeights.isEmpty())

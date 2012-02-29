@@ -50,8 +50,10 @@ PageItem_Table::PageItem_Table(ScribusDoc *pa, double x, double y, double w, dou
 {
 	initialize(numRows, numColumns);
 
+	doc()->dontResize = true;
 	adjustTableToFrame();
 	adjustFrameToTable();
+	doc()->dontResize = false;
 
 	ASSERT_VALID();
 }
