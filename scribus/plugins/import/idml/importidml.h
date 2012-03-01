@@ -109,6 +109,7 @@ private:
 	bool parseStoryXML(const QDomElement& stElem);
 	void parseStoryXMLNode(const QDomElement& stNode);
 	void parseParagraphStyleRange(QDomElement &ste, PageItem* item);
+	void parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC);
 	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
 	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
 	void resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName);
