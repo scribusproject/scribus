@@ -370,7 +370,7 @@ QByteArray PDFLibCore::EncodeUTF16(const QString &in)
 	QString tmp = in;
 	QByteArray cres = ucs2Codec->fromUnicode( tmp );
 #ifndef WORDS_BIGENDIAN
-	// on little endian systems we ned to swap bytes:
+	// on little endian systems we need to swap bytes:
 	uchar sw;
 	for(int d = 0; d < cres.size()-1; d += 2)
 	{
@@ -8843,15 +8843,12 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 5:
 				case 6:
-					PutDoc("/FT /Ch\n/V (");
-					if (bmst.count() > 0)
-						PutDoc(bmst[0]);
-					PutDoc(")\n/DV ");
-					cnx = "(";
-					if (bmst.count() > 0)
-						cnx += bmstUtf16[0];
-					cnx += ")";
-					PutDoc(EncStringUTF16(cnx,annotationObj)+"\n");
+					cnx = "(%1)";
+					cnx = cnx.arg((bmstUtf16.count() > 0) ? bmstUtf16[0] : "");
+					cnx = EncStringUTF16(cnx, annotationObj);
+					PutDoc("/FT /Ch\n");
+					PutDoc("/V " + cnx + "\n");
+					PutDoc("/DV " + cnx + "\n");
 					PutDoc("/Opt [ ");
 					for (int bmc = 0; bmc < bmstUtf16.count(); ++bmc)
 						PutDoc(EncStringUTF16("("+bmstUtf16[bmc]+")",annotationObj)+"\n");
