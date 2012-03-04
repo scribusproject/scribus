@@ -4896,28 +4896,36 @@ void ScribusMainWindow::slotEditCut()
 			}
 		}
 		currItem = doc->m_Selection->itemAt(0);
-		if (doc->appMode == modeEdit)
+		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
 		{
-			if ((currItem->itemText.length() == 0) || (!currItem->HasSel))
-				return;
-			StoryText itemText(doc);
-			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
-			itemText.insert(0, currItem->itemText, true);
-
-			std::ostringstream xmlString;
-			SaxXML xmlStream(xmlString);
-			xmlStream.beginDoc();
-			itemText.saxx(xmlStream, "SCRIBUSTEXT");
-			xmlStream.endDoc();
-			std::string xml(xmlString.str());
-
-			ScTextMimeData* mimeData = new ScTextMimeData();
-			mimeData->setScribusText (QByteArray(xml.c_str(), xml.length()));
-			mimeData->setText( itemText.text(0, itemText.length()) ) ;
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-
-			dynamic_cast<PageItem_TextFrame*>(currItem)->deleteSelectedTextFromFrame();
-			currItem->update();
+			PageItem_TextFrame *cItem;
+			if (doc->appMode == modeEditTable)
+				cItem = currItem->asTable()->activeCell().textFrame();
+			else
+				cItem = currItem->asTextFrame();
+			if (cItem->HasSel)
+			{
+				if ((cItem->itemText.length() == 0) || (!cItem->HasSel))
+					return;
+				StoryText itemText(doc);
+				itemText.setDefaultStyle(cItem->itemText.defaultStyle());
+				itemText.insert(0, cItem->itemText, true);
+				std::ostringstream xmlString;
+				SaxXML xmlStream(xmlString);
+				xmlStream.beginDoc();
+				itemText.saxx(xmlStream, "SCRIBUSTEXT");
+				xmlStream.endDoc();
+				std::string xml(xmlString.str());
+				ScTextMimeData* mimeData = new ScTextMimeData();
+				mimeData->setScribusText (QByteArray(xml.c_str(), xml.length()));
+				mimeData->setText( itemText.text(0, itemText.length()) ) ;
+				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+				cItem->deleteSelectedTextFromFrame();
+				if (doc->appMode == modeEditTable)
+					currItem->asTable()->update();
+				else
+					cItem->update();
+			}
 		}
 		else
 		{
@@ -4963,25 +4971,30 @@ void ScribusMainWindow::slotEditCopy()
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if ((doc->appMode == modeEdit) && (currItem->HasSel))
+		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
 		{
-			StoryText itemText(doc);
-			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
-			itemText.insert(0, currItem->itemText, true);
-
-			BufferI = itemText.text(0, itemText.length());
-
-			std::ostringstream xmlString;
-			SaxXML xmlStream(xmlString);
-			xmlStream.beginDoc();
-			itemText.saxx(xmlStream, "SCRIBUSTEXT");
-			xmlStream.endDoc();
-			std::string xml(xmlString.str());
-
-			ScTextMimeData* mimeData = new ScTextMimeData();
-			mimeData->setScribusText( QByteArray(xml.c_str(), xml.length()) );
-			mimeData->setText( itemText.text(0, itemText.length()) );
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+			PageItem_TextFrame *cItem;
+			if (doc->appMode == modeEditTable)
+				cItem = currItem->asTable()->activeCell().textFrame();
+			else
+				cItem = currItem->asTextFrame();
+			if (cItem->HasSel)
+			{
+				StoryText itemText(doc);
+				itemText.setDefaultStyle(cItem->itemText.defaultStyle());
+				itemText.insert(0, cItem->itemText, true);
+				BufferI = itemText.text(0, itemText.length());
+				std::ostringstream xmlString;
+				SaxXML xmlStream(xmlString);
+				xmlStream.beginDoc();
+				itemText.saxx(xmlStream, "SCRIBUSTEXT");
+				xmlStream.endDoc();
+				std::string xml(xmlString.str());
+				ScTextMimeData* mimeData = new ScTextMimeData();
+				mimeData->setScribusText( QByteArray(xml.c_str(), xml.length()) );
+				mimeData->setText( itemText.text(0, itemText.length()) );
+				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+			}
 		}
 		else
 		{
@@ -5024,10 +5037,13 @@ void ScribusMainWindow::slotEditPaste()
 		if (UndoManager::undoEnabled())
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
 		PageItem* selItem = doc->m_Selection->itemAt(0);
-		bool isTextFrame  = (dynamic_cast<PageItem_TextFrame*>(selItem) != NULL);
-		if (doc->appMode == modeEdit && isTextFrame)
+		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
 		{
-			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
+			PageItem_TextFrame *currItem;
+			if (doc->appMode == modeEditTable)
+				currItem = selItem->asTable()->activeCell().textFrame();
+			else
+				currItem = selItem->asTextFrame();
 			assert(currItem != NULL);
 			if (currItem->HasSel)
 				currItem->deleteSelectedTextFromFrame();
@@ -5088,7 +5104,6 @@ void ScribusMainWindow::slotEditPaste()
 				{
 					doc->m_Selection->addItem(doc->Items->at(as));
 				}
-				doc->m_Selection->delaySignalsOff();
 				if (isGroup)
 					doc->GroupCounter++;
 				doc->m_Selection->setGroupRect();
@@ -5122,6 +5137,7 @@ void ScribusMainWindow::slotEditPaste()
 					outlinePalette->BuildTree();
 				currItem->itemText.insertObject(currItem3);
 				undoManager->setUndoEnabled(true);
+				doc->m_Selection->delaySignalsOff();
 			}
 			else
 			{
@@ -5131,7 +5147,11 @@ void ScribusMainWindow::slotEditPaste()
 				text = text.replace('\n', SpecialChars::PARSEP);
 				currItem->itemText.insertChars(text, true);
 			}
-			currItem->update();
+			if (doc->appMode == modeEditTable)
+				selItem->asTable()->update();
+			else
+				currItem->update();
+			view->DrawNew();
 		}
 		else
 		{

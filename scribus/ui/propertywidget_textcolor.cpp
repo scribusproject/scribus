@@ -91,31 +91,33 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 
 	if (item && m_doc.isNull())
 		setDoc(item->doc());
-
-	m_item = item;
-
-	disconnectSignals();
-	enableFromSelection();
-
-	if (m_item)
+	if (item == NULL)
+		return;
+	if (item->isTable() || item->isTextFrame())
 	{
-		PageItem_TextFrame *i2;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		else
-			i2 = m_item->asTextFrame();
-		if (i2 != 0)
-			revertButton->setChecked(i2->reversed());
-		if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+		m_item = item;
+		disconnectSignals();
+		enableFromSelection();
+		if (m_item)
 		{
-			ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
-			if (m_doc->appMode == modeEdit)
-				m_item->currentTextProps(parStyle);
-			else if (m_doc->appMode == modeEditTable)
-				m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
-			updateStyle(parStyle);
+			PageItem_TextFrame *i2;
+			if (m_doc->appMode == modeEditTable)
+				i2 = m_item->asTable()->activeCell().textFrame();
+			else
+				i2 = m_item->asTextFrame();
+			if (i2 != 0)
+				revertButton->setChecked(i2->reversed());
+			if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+			{
+				ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
+				if (m_doc->appMode == modeEdit)
+					m_item->currentTextProps(parStyle);
+				else if (m_doc->appMode == modeEditTable)
+					m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
+				updateStyle(parStyle);
+			}
+			connectSignals();
 		}
-		connectSignals();
 	}
 }
 
