@@ -7831,7 +7831,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 			if (currItem->itemText.length() != 0)
 			{
 #ifndef NLS_PROTO
-				if (appMode == modeEdit)
+				if ((appMode == modeEdit) || (appMode == modeEditTable))
 				{
 					for (int a = 0; a < currItem->itemText.length(); ++a)
 					{
@@ -7901,7 +7901,7 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 
 void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 {
-	if (true || appMode == modeEdit) 
+	if (true || ((appMode == modeEdit) || (appMode == modeEditTable)))
 	{
 		CharStyle newStyle;
 		newStyle.setFontSize(size);
@@ -7943,11 +7943,11 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 //		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
 //		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount > 0) && (appMode == modeEdit))
+		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
-			if (appMode == modeEdit)
+			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
@@ -7997,11 +7997,11 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 //		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
 //		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount > 0) && (appMode == modeEdit))
+		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
-			if (appMode == modeEdit)
+			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
@@ -8055,7 +8055,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount == 0) || (appMode != modeEdit))
+		if ((currItemTextCount == 0) || ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 			dstyle.applyStyle(newStyle);
@@ -8065,7 +8065,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		{
 			int start = currItem->asPathText() ? currItem->itemText.startOfItem(currItem->firstInFrame()) : 0;
 			int stop  = currItem->asPathText() ? currItem->itemText.endOfItem(currItem->lastInFrame()) :  currItemTextCount;
-			if (appMode == modeEdit)
+			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
@@ -8112,11 +8112,11 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 //		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
 //		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount > 0) && (appMode == modeEdit))
+		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
-			if (appMode == modeEdit)
+			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				if (currItem->itemText.lengthOfSelection() > 0)
 				{
@@ -8172,11 +8172,11 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 //		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
 //		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount > 0) && (appMode == modeEdit))
+		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
-			if (appMode == modeEdit)
+			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				if (currItem->itemText.lengthOfSelection() > 0)
 				{
@@ -8231,11 +8231,11 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 //		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
 //		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount > 0) && (appMode == modeEdit))
+		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
-			if (appMode == modeEdit)
+			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				if (currItem->itemText.lengthOfSelection() > 0)
 				{
@@ -10118,9 +10118,10 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemTextReversed(bool reversed)
+void ScribusDoc::itemSelection_SetItemTextReversed(bool reversed, Selection *customSelection)
 {
-	uint selectedItemCount = m_Selection->count();
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount != 0)
 	{
 		UndoTransaction *activeTransaction = NULL;
@@ -10128,7 +10129,7 @@ void ScribusDoc::itemSelection_SetItemTextReversed(bool reversed)
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction());
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
-			PageItem *currItem = m_Selection->itemAt(i);
+			PageItem *currItem = itemSelection->itemAt(i);
 			currItem->setImageFlippedH(reversed);
 			currItem->setReversed(reversed);
 		}

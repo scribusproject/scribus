@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "colorlistbox.h"
 #include "pageitem.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
 #include "propertywidget_advanced.h"
@@ -266,6 +267,9 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		case PageItem::PathText:
 			setEnabled(true);
 			break;
+		case PageItem::Table:
+			setEnabled(m_doc->appMode == modeEditTable);
+			break;
 		default:
 			setEnabled(false);
 			break;
@@ -320,9 +324,16 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	m_haveItem = false;
 	m_item = i;
 
-	QString tm;
-	PageItem_TextFrame *i2=m_item->asTextFrame();
-	if (i2!=0)
+	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+	{
+		fonts->RebuildList(m_doc, m_item->isAnnotation());
+	}
+	PageItem_TextFrame *i2;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	else
+		i2 = m_item->asTextFrame();
+	if (i2 != 0)
 	{
 		disconnect(distanceWidgets->columnGap, SIGNAL(valueChanged(double)), this, SLOT(handleColumnGap()));
 		disconnect(distanceWidgets->columns  , SIGNAL(valueChanged(int)), this, SLOT(handleColumns()));
@@ -357,18 +368,12 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		// I put it here because it’s visually grouped with these elements
 		// but it’s a PageItem prop. and as such should be set without considering
 		// the frame type.
-		displayFirstLinePolicy(m_item->firstLineOffset());
+		displayFirstLinePolicy(i2->firstLineOffset());
 		
 		connect(distanceWidgets->columnGap, SIGNAL(valueChanged(double)), this, SLOT(handleColumnGap()));
 		connect(distanceWidgets->columns, SIGNAL(valueChanged(int))   , this, SLOT(handleColumns()));
 	}
 
-	if (m_item->asTextFrame() || m_item->asPathText())
-	{
-		fonts->RebuildList(m_doc, m_item->isAnnotation());
-	}
-
-	displayTextDistances(i->textToFrameDistLeft(),i->textToFrameDistTop(),i->textToFrameDistBottom(),i->textToFrameDistRight());
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
@@ -387,7 +392,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		pathTextWidgets->distFromCurve->setValue(m_item->BaseOffs * -1);
 		pathTextWidgets->startOffset->setValue(m_item->textToFrameDistLeft());
 	}
-	else if (m_item->asTextFrame())
+	else if (m_item->asTextFrame() || m_item->asTable())
 	{
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
@@ -405,12 +410,16 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	}
 
 	m_haveItem = true;
+	if (i2 != 0)
+		displayTextDistances(i2->textToFrameDistLeft(),i2->textToFrameDistTop(),i2->textToFrameDistBottom(),i2->textToFrameDistRight());
 
-	if (m_item->asTextFrame() || m_item->asPathText())
+	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 		if (m_doc->appMode == modeEdit)
 			m_item->currentTextProps(parStyle);
+		else if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 		updateStyle(parStyle);
 	}
 	if (m_item->asOSGFrame())
@@ -451,8 +460,12 @@ void PropertiesPalette_Text::displayColumns(int r, double g)
 	distanceWidgets->columnGap->setValue(g*m_unitRatio);
 	if (tmp)
 	{
-		PageItem_TextFrame *i2=m_item->asTextFrame();
-		if (i2!=0)
+		PageItem_TextFrame *i2;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		else
+			i2 = m_item->asTextFrame();
+		if (i2 != 0)
 		{
 			distanceWidgets->columns->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 			if (distanceWidgets->columnGapLabel->currentIndex() == 0)
@@ -486,8 +499,17 @@ void PropertiesPalette_Text::handleLineSpacingMode(int id)
 {
 	if ((m_haveDoc) && (m_haveItem))
 	{
-		m_doc->itemSelection_SetLineSpacingMode(id);
-		updateStyle(m_doc->appMode == modeEdit? m_item->currentStyle() : m_item->itemText.defaultStyle());
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
+			updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? i2->currentStyle() : i2->itemText.defaultStyle());
+			m_doc->regionsChanged()->update(QRect());
+		}
 	}
 }
 
@@ -498,11 +520,17 @@ void PropertiesPalette_Text::displayLineSpacing(double r)
 	bool tmp = m_haveItem;
 	m_haveItem = false;
 	lineSpacing->setValue(r);
-	const ParagraphStyle& curStyle(tmp && m_doc->appMode == modeEdit? m_item->currentStyle() : m_item->itemText.defaultStyle());
-	if (tmp)
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
 	{
-		setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
-		lineSpacingModeCombo->setCurrentIndex(curStyle.lineSpacingMode());
+		const ParagraphStyle& curStyle(tmp && m_doc->appMode == modeEdit? i2->currentStyle() : i2->itemText.defaultStyle());
+		if (tmp)
+		{
+			setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
+			lineSpacingModeCombo->setCurrentIndex(curStyle.lineSpacingMode());
+		}
 	}
 	m_haveItem = tmp;
 }
@@ -665,14 +693,30 @@ void PropertiesPalette_Text::handleOpticalMargins()
 	else if (optMargins->optMarginRadioRight->isChecked())
 		omt = ParagraphStyle::OM_RightHangingPunct;
 
-	m_doc->itemSelection_SetOpticalMargins(omt);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetOpticalMargins(omt, &tempSelection);
+	}
 }
 
 void PropertiesPalette_Text::resetOpticalMargins()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_resetOpticalMargins();
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_resetOpticalMargins(&tempSelection);
+	}
 }
 
 void PropertiesPalette_Text::displayOpticalMargins(const ParagraphStyle & pStyle)
@@ -694,14 +738,26 @@ void PropertiesPalette_Text::handleLineSpacing()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetLineSpacing(lineSpacing->value());
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetLineSpacing(lineSpacing->value(), &tempSelection);
+	}
 }
 
 void PropertiesPalette_Text::handleGapSwitch()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	displayColumns(m_item->Cols, m_item->ColGap);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+		displayColumns(i2->Cols, i2->ColGap);
 	distanceWidgets->columnGap->setToolTip("");
 	if (distanceWidgets->columnGapLabel->currentIndex() == 0)
 		distanceWidgets->columnGap->setToolTip( tr( "Distance between columns" ) );
@@ -713,53 +769,91 @@ void PropertiesPalette_Text::handleColumns()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_item->Cols = distanceWidgets->columns->value();
-	displayColumns(m_item->Cols, m_item->ColGap);
-	if (distanceWidgets->columns->value() == 1)
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
 	{
-		distanceWidgets->columnGap->setEnabled(false);
-		distanceWidgets->columnGapLabel->setEnabled(false);
+		i2->Cols = distanceWidgets->columns->value();
+		displayColumns(i2->Cols, i2->ColGap);
+		if (distanceWidgets->columns->value() == 1)
+		{
+			distanceWidgets->columnGap->setEnabled(false);
+			distanceWidgets->columnGapLabel->setEnabled(false);
+		}
+		else
+		{
+			distanceWidgets->columnGap->setEnabled(true);
+			distanceWidgets->columnGapLabel->setEnabled(true);
+		}
+		i2->update();
+		if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->update();
+		else
+			m_item->update();
+		m_doc->regionsChanged()->update(QRect());
 	}
-	else
-	{
-		distanceWidgets->columnGap->setEnabled(true);
-		distanceWidgets->columnGapLabel->setEnabled(true);
-	}
-	m_item->update();
 }
 
 void PropertiesPalette_Text::handleColumnGap()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if (distanceWidgets->columnGapLabel->currentIndex() == 0)
-		m_item->ColGap = distanceWidgets->columnGap->value() / m_unitRatio;
-	else
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
 	{
-		double lineCorr;
-		if ((m_item->lineColor() != CommonStrings::None) || (!m_item->strokePattern().isEmpty()))
-			lineCorr = m_item->lineWidth();
+		if (distanceWidgets->columnGapLabel->currentIndex() == 0)
+			i2->ColGap = distanceWidgets->columnGap->value() / m_unitRatio;
 		else
-			lineCorr = 0;
-		double newWidth = distanceWidgets->columnGap->value() / m_unitRatio;
-		double newGap = qMax(((m_item->width() - m_item->textToFrameDistLeft() - m_item->textToFrameDistRight() - lineCorr) - (newWidth * m_item->Cols)) / (m_item->Cols - 1), 0.0);
-		m_item->ColGap = newGap;
+		{
+			double lineCorr;
+			if ((i2->lineColor() != CommonStrings::None) || (!i2->strokePattern().isEmpty()))
+				lineCorr = i2->lineWidth();
+			else
+				lineCorr = 0;
+			double newWidth = distanceWidgets->columnGap->value() / m_unitRatio;
+			double newGap = qMax(((i2->width() - i2->textToFrameDistLeft() - i2->textToFrameDistRight() - lineCorr) - (newWidth * i2->Cols)) / (i2->Cols - 1), 0.0);
+			i2->ColGap = newGap;
+		}
+		i2->update();
+		if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->update();
+		else
+			m_item->update();
+		m_doc->regionsChanged()->update(QRect());
 	}
-	m_item->update();
 }
 
 void PropertiesPalette_Text::handleFontSize()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0));
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
+	}
 }
 
 void PropertiesPalette_Text::handleAlignement(int a)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetAlignment(a);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetAlignment(a, &tempSelection);
+	}
 }
 
 void PropertiesPalette_Text::handleTextDistances()
@@ -768,13 +862,24 @@ void PropertiesPalette_Text::handleTextDistances()
 		return;
 	if ((m_haveDoc) && (m_haveItem))
 	{
-		double left   = distanceWidgets->leftDistance->value() / m_unitRatio;
-		double right  = distanceWidgets->rightDistance->value() / m_unitRatio;
-		double top    = distanceWidgets->topDistance->value() / m_unitRatio;
-		double bottom = distanceWidgets->bottomDistance->value() / m_unitRatio;
-		m_item->setTextToFrameDist(left, right, top, bottom);
-		displayColumns(m_item->Cols, m_item->ColGap);
-		m_item->update();
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			double left   = distanceWidgets->leftDistance->value() / m_unitRatio;
+			double right  = distanceWidgets->rightDistance->value() / m_unitRatio;
+			double top    = distanceWidgets->topDistance->value() / m_unitRatio;
+			double bottom = distanceWidgets->bottomDistance->value() / m_unitRatio;
+			i2->setTextToFrameDist(left, right, top, bottom);
+			displayColumns(i2->Cols, i2->ColGap);
+			i2->update();
+			if (m_doc->appMode == modeEditTable)
+				m_item->asTable()->update();
+			else
+				m_item->update();
+			m_doc->regionsChanged()->update(QRect());
+		}
 	}
 }
 
@@ -791,7 +896,15 @@ void PropertiesPalette_Text::doClearCStyle()
 		return;
 	if (m_haveDoc)
 	{
-		m_doc->itemSelection_EraseCharStyle();
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_EraseCharStyle(&tempSelection);
+		}
 	}
 }
 
@@ -802,9 +915,17 @@ void PropertiesPalette_Text::doClearPStyle()
 		return;
 	if (m_haveDoc)
 	{
-		m_doc->itemSelection_EraseParagraphStyle();
-		CharStyle emptyCStyle;
-		m_doc->itemSelection_SetCharStyle(emptyCStyle);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
+			CharStyle emptyCStyle;
+			m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
+		}
 	}
 }
 
@@ -978,11 +1099,22 @@ void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
-	if( radioFlop == PropertyWidget_Flop::RealHeightID)
-		m_item->setFirstLineOffset(FLOPRealGlyphHeight);
-	else if( radioFlop == PropertyWidget_Flop::FontAscentID)
-		m_item->setFirstLineOffset(FLOPFontAscent);
-	else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
-		m_item->setFirstLineOffset(FLOPLineSpacing);
-	m_item->update();
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		if( radioFlop == PropertyWidget_Flop::RealHeightID)
+			i2->setFirstLineOffset(FLOPRealGlyphHeight);
+		else if( radioFlop == PropertyWidget_Flop::FontAscentID)
+			i2->setFirstLineOffset(FLOPFontAscent);
+		else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
+			i2->setFirstLineOffset(FLOPLineSpacing);
+		i2->update();
+		if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->update();
+		else
+			m_item->update();
+		m_doc->regionsChanged()->update(QRect());
+	}
 }

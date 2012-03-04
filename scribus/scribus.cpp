@@ -6893,7 +6893,15 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 			}
 		}
 	}
-	doc->itemSelection_SetFont(nf2);
+	PageItem *i2 = doc->m_Selection->itemAt(0);
+	if (doc->appMode == modeEditTable)
+		i2 = doc->m_Selection->itemAt(0)->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		doc->itemSelection_SetFont(nf2, &tempSelection);
+	}
 //	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	view->DrawNew();
 // 	slotDocCh();

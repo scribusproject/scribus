@@ -5,8 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include "pageitem_table.h"
 #include "propertywidget_dropcap.h"
 #include "scribus.h"
+#include "selection.h"
 #include "units.h"
 #include "util.h"
 
@@ -99,7 +101,15 @@ void PropertyWidget_DropCap::handleDropCapUse()
 	if (!m_doc) return;
 	ParagraphStyle newStyle;
 	newStyle.setHasDropCap(dropCapBox->isChecked());
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	PageItem *i2 = m_doc->m_Selection->itemAt(0);
+	if (m_doc->appMode == modeEditTable)
+		i2 = i2->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 	enableDropCap(dropCapBox->isChecked());
 }
 
@@ -108,7 +118,16 @@ void PropertyWidget_DropCap::handleDropCapLines()
 	if (!m_doc) return;
 	ParagraphStyle newStyle;
 	newStyle.setDropCapLines(dropCapLines->value());
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	newStyle.setHasDropCap(dropCapBox->isChecked());
+	PageItem *i2 = m_doc->m_Selection->itemAt(0);
+	if (m_doc->appMode == modeEditTable)
+		i2 = i2->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_DropCap::handleDropCapOffset()
@@ -116,7 +135,16 @@ void PropertyWidget_DropCap::handleDropCapOffset()
 	if (!m_doc) return;
 	ParagraphStyle newStyle;
 	newStyle.setDropCapOffset(dropCapOffset->value());
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	newStyle.setHasDropCap(dropCapBox->isChecked());
+	PageItem *i2 = m_doc->m_Selection->itemAt(0);
+	if (m_doc->appMode == modeEditTable)
+		i2 = i2->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_DropCap::handleDropCapCharStyle()
@@ -126,7 +154,16 @@ void PropertyWidget_DropCap::handleDropCapCharStyle()
 	QString name = dropCapCharStyleCombo->currentText();
 	if (!name.isEmpty())
 		newStyle.setDcCharStyleName(name);
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	newStyle.setHasDropCap(dropCapBox->isChecked());
+	PageItem *i2 = m_doc->m_Selection->itemAt(0);
+	if (m_doc->appMode == modeEditTable)
+		i2 = i2->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_DropCap::changeEvent(QEvent *e)

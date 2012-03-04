@@ -1315,7 +1315,7 @@ public slots:
 	void itemSelection_ClearItem(Selection* customSelection=0);
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
 	void itemSelection_DeleteItem(Selection* customSelection=0, bool forceDeletion=false);
-	void itemSelection_SetItemTextReversed(bool reversed);
+	void itemSelection_SetItemTextReversed(bool reversed, Selection* customSelection=0);
 	void itemSelection_SetItemFillTransparency(double t);
 	void itemSelection_SetItemLineTransparency(double t);
 	void itemSelection_SetItemFillBlend(int t);

@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "sccolorengine.h"
 #include "cpalette.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_group.h"
 #include "propertiespalette_image.h"
@@ -246,6 +247,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
 	connect(this->Tpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradMask()));
+	connect(m_ScMW, SIGNAL(AppModeChanged(int,int)), this, SLOT(AppModeChanged()));
 }
 
 void PropertiesPalette::SelTab(int t)
@@ -394,6 +396,24 @@ PageItem* PropertiesPalette::currentItemFromSelection()
 	return currentItem;
 }
 
+void PropertiesPalette::AppModeChanged()
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	if ((m_haveDoc) && (m_haveItem))
+	{
+		if (m_item->isTable())
+		{
+			TabStack->setItemEnabled(idTextItem, m_doc->appMode == modeEditTable);
+			if (m_doc->appMode == modeEditTable)
+				connect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+			else
+				disconnect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+		}
+		textPal->handleSelectionChanged();
+	}
+}
+
 void PropertiesPalette::setCurrentItem(PageItem *i)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
@@ -424,15 +444,6 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 
 	tablePal->setItem(m_item);
 
-	/*xyzPal->handleSelectionChanged();
-	shapePal->handleSelectionChanged();
-	groupPal->handleSelectionChanged();
-	imagePal->handleSelectionChanged();
-	linePal->handleSelectionChanged();
-	textPal->handleSelectionChanged();*/
-
-	/*Cpal->setCurrentItem(m_item);
-	Cpal->updateFromItem();*/
 	Tpal->setCurrentItem(m_item);
 	Tpal->updateFromItem();
 
@@ -505,15 +516,6 @@ void  PropertiesPalette::handleSelectionChanged()
 		return;
 	int currentTab = TabStack->currentIndex();
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-
-//	qDebug() << "PropertiesPalette::handleSelectionChanged()";
-
-	/*xyzPal->handleSelectionChanged();
-	shapePal->handleSelectionChanged();
-	groupPal->handleSelectionChanged();
-	imagePal->handleSelectionChanged();
-	linePal->handleSelectionChanged();
-	textPal->handleSelectionChanged();*/
 
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
@@ -623,7 +625,7 @@ void  PropertiesPalette::handleSelectionChanged()
 		case PageItem::Table:
 			TabStack->setItemEnabled(idTableItem, true);
 			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idTextItem, m_doc->appMode == modeEditTable);
 			TabStack->setItemEnabled(idImageItem, false);
 			TabStack->setItemEnabled(idLineItem, false);
 			TabStack->setItemEnabled(idGroupItem, false);

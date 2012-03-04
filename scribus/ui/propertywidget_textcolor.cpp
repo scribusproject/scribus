@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_textcolor.h"
 
+#include "pageitem_table.h"
 #include "scribus.h"
 #include "selection.h"
 #include "util_icon.h"
@@ -98,12 +99,20 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 
 	if (m_item)
 	{
-		revertButton->setChecked(m_item->reversed());
-		if (m_item->asTextFrame() || m_item->asPathText())
+		PageItem_TextFrame *i2;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		else
+			i2 = m_item->asTextFrame();
+		if (i2 != 0)
+			revertButton->setChecked(i2->reversed());
+		if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 		{
 			ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 			if (m_doc->appMode == modeEdit)
 				m_item->currentTextProps(parStyle);
+			else if (m_doc->appMode == modeEditTable)
+				m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 			updateStyle(parStyle);
 		}
 		connectSignals();
@@ -151,7 +160,7 @@ void PropertyWidget_TextColor::enableFromSelection(void)
 	bool enabled = false;
 	if (m_item && m_doc)
 	{
-		if (m_item->asPathText() || m_item->asTextFrame())
+		if (m_item->asPathText() || m_item->asTextFrame() || m_item->asTable())
 			enabled = true;
 		if ((m_item->isGroup()) && (!m_item->isSingleSel))
 			enabled = false;
@@ -294,7 +303,17 @@ void PropertyWidget_TextColor::handleOutlineWidth()
 {
 	int x = qRound(textEffects->OutlineVal->LWidth->value() * 10.0);
 	if ((m_doc) && (m_item))
-		m_doc->itemSelection_SetOutlineWidth(x);
+	{
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetOutlineWidth(x, &tempSelection);
+		}
+	}
 }
 
 void PropertyWidget_TextColor::handleShadowOffs()
@@ -303,7 +322,15 @@ void PropertyWidget_TextColor::handleShadowOffs()
 	{
 		int x = qRound(textEffects->ShadowVal->Xoffset->value() * 10.0);
 		int y = qRound(textEffects->ShadowVal->Yoffset->value() * 10.0);
-		m_doc->itemSelection_SetShadowOffsets(x, y);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetShadowOffsets(x, y, &tempSelection);
+		}
 	}
 }
 
@@ -313,7 +340,15 @@ void PropertyWidget_TextColor::handleStrikeThru()
 	{
 		int x = qRound(textEffects->StrikeVal->LPos->value() * 10.0);
 		int y = qRound(textEffects->StrikeVal->LWidth->value() * 10.0);
-		m_doc->itemSelection_SetStrikethru(x, y);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetStrikethru(x, y, &tempSelection);
+		}
 	}
 }
 
@@ -321,21 +356,45 @@ void PropertyWidget_TextColor::handleTextDirection()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetItemTextReversed(revertButton->isChecked());
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetItemTextReversed(revertButton->isChecked(), &tempSelection);
+	}
 }
 
 void PropertyWidget_TextColor::handleTextFill()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetFillColor(fillColor->currentColor());
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetFillColor(fillColor->currentColor(), &tempSelection);
+	}
 }
 
 void PropertyWidget_TextColor::handleTextStroke()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetStrokeColor(strokeColor->currentColor());
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetStrokeColor(strokeColor->currentColor(), &tempSelection);
+	}
 }
 
 void PropertyWidget_TextColor::handleTextShade()
@@ -345,12 +404,28 @@ void PropertyWidget_TextColor::handleTextShade()
 	if (strokeShade == sender())
 	{
 		int b = strokeShade->getValue();
-		m_doc->itemSelection_SetStrokeShade(b);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetStrokeShade(b, &tempSelection);
+		}
 	}
 	else
 	{
 		int b = fillShade->getValue();
-		m_doc->itemSelection_SetFillShade(b);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetFillShade(b, &tempSelection);
+		}
 	}
 }
 
@@ -358,7 +433,16 @@ void PropertyWidget_TextColor::handleTypeStyle(int s)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->setItemEffects(s);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetEffects(s, &tempSelection);
+		m_ScMW->setStyleEffects(s);
+	}
 }
 
 void PropertyWidget_TextColor::displayUnderline(double p, double w)
@@ -375,7 +459,15 @@ void PropertyWidget_TextColor::handleUnderline()
 	{
 		int x = qRound(textEffects->UnderlineVal->LPos->value() * 10.0);
 		int y = qRound(textEffects->UnderlineVal->LWidth->value() * 10.0);
-		m_doc->itemSelection_SetUnderline(x, y);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetUnderline(x, y, &tempSelection);
+		}
 	}
 }
 

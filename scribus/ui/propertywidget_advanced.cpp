@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_advanced.h"
 
+#include "pageitem_table.h"
 #include "scribus.h"
 #include "selection.h"
 #include "units.h"
@@ -31,7 +32,7 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	scaleH->setValues(10, 400, 2, 100 );
 	scaleHLabel->setPixmap(loadIcon("textscaleh.png"));
 
-	scaleH->setValues(10, 400, 2, 100 );
+	scaleV->setValues(10, 400, 2, 100 );
 	scaleVLabel->setPixmap(loadIcon("textscalev.png"));
 
 	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
@@ -102,11 +103,13 @@ void PropertyWidget_Advanced::setCurrentItem(PageItem *item)
 
 	if (m_item)
 	{
-		if (m_item->asTextFrame() || m_item->asPathText())
+		if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 		{
 			ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 			if (m_doc->appMode == modeEdit)
 				m_item->currentTextProps(parStyle);
+			else if (m_doc->appMode == modeEditTable)
+				m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 			updateStyle(parStyle);
 		}
 		connectSignals();
@@ -142,7 +145,7 @@ void PropertyWidget_Advanced::enableFromSelection(void)
 	bool enabled = false;
 	if (m_item && m_doc)
 	{
-		if (m_item->asPathText() || m_item->asTextFrame())
+		if (m_item->asPathText() || m_item->asTextFrame() || m_item->asTable())
 			enabled = true;
 		if ((m_item->isGroup()) && (!m_item->isSingleSel))
 			enabled = false;
@@ -197,64 +200,128 @@ void PropertyWidget_Advanced::handleBaselineOffset()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetBaselineOffset(qRound(textBase->value() * 10));
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetBaselineOffset(qRound(textBase->value() * 10), &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleMinWordTracking()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	ParagraphStyle newStyle;
-	newStyle.setMinWordTracking(minWordTrackingSpinBox->value() / 100.0);
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		ParagraphStyle newStyle;
+		newStyle.setMinWordTracking(minWordTrackingSpinBox->value() / 100.0);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleNormWordTracking()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	ParagraphStyle newStyle;
-	newStyle.charStyle().setWordTracking(normWordTrackingSpinBox->value() / 100.0);
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		ParagraphStyle newStyle;
+		newStyle.charStyle().setWordTracking(normWordTrackingSpinBox->value() / 100.0);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleMinGlyphExtension()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	ParagraphStyle newStyle;
-	newStyle.setMinGlyphExtension(minGlyphExtSpinBox->value() / 100.0);
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		ParagraphStyle newStyle;
+		newStyle.setMinGlyphExtension(minGlyphExtSpinBox->value() / 100.0);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleMaxGlyphExtension()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	ParagraphStyle newStyle;
-	newStyle.setMaxGlyphExtension(maxGlyphExtSpinBox->value() / 100.0);
-	m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		ParagraphStyle newStyle;
+		newStyle.setMaxGlyphExtension(maxGlyphExtSpinBox->value() / 100.0);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleTextScaleH()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetScaleH(qRound(scaleH->value() * 10));
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetScaleH(qRound(scaleH->value() * 10), &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleTextScaleV()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetScaleV(qRound(scaleV->value() * 10));
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetScaleV(qRound(scaleV->value() * 10), &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::handleTracking()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetTracking(qRound(tracking->value() * 10.0));
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetTracking(qRound(tracking->value() * 10.0), &tempSelection);
+	}
 }
 
 void PropertyWidget_Advanced::updateCharStyle(const CharStyle& charStyle)
