@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "charselect.h"
 #include "commonstrings.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
@@ -20,11 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "charselectenhanced.h"
 
 
-CharSelect::CharSelect(QWidget* parent)
-		: ScrPaletteBase(parent, "CharSelect"),
-		m_doc(0),
-		m_enhanced(0),
-		m_Item(0)
+CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), m_doc(0), m_enhanced(0), m_Item(0)
 {
 	setupUi(this);
 
@@ -36,32 +33,22 @@ CharSelect::CharSelect(QWidget* parent)
 	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
 
-	m_userTableModel = new CharTableModel(this, 6, m_doc,
-										  PrefsManager::instance()->appPrefs.itemToolPrefs.textFont);
+	m_userTableModel = new CharTableModel(this, 6, m_doc, PrefsManager::instance()->appPrefs.itemToolPrefs.textFont);
 	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
 
 	m_userTable->setModel(m_userTableModel);
 	m_userTable->setAcceptDrops(true);
 
 	// signals and slots connections
-	connect(m_userTable, SIGNAL(selectChar(uint, QString)),
-			this, SLOT(userNewChar(uint, QString)));
-	connect(m_userTableModel, SIGNAL(selectionChanged(QItemSelectionModel*)),
-	        m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
-	connect(m_userTableModel, SIGNAL(rowAppended()),
-	        m_userTable, SLOT(resizeLastRow()));
-	connect(unicodeButton, SIGNAL(chosenUnicode(const QString &)),
-	        m_userTableModel, SLOT(appendUnicode(const QString &)));
-	connect(hideButton, SIGNAL(toggled(bool)),
-	        this, SLOT(hideButton_toggled(bool)));
-	connect(this, SIGNAL(insertUserSpecialChar(QChar, QString)),
-			this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
-	connect(uniLoadButton, SIGNAL(clicked()),
-	        this, SLOT(uniLoadButton_clicked()));
-	connect(uniSaveButton, SIGNAL(clicked()),
-	        this, SLOT(uniSaveButton_clicked()));
-	connect(uniClearButton, SIGNAL(clicked()),
-	        this, SLOT(uniClearButton_clicked()));
+	connect(m_userTable, SIGNAL(selectChar(uint, QString)), this, SLOT(userNewChar(uint, QString)));
+	connect(m_userTableModel, SIGNAL(selectionChanged(QItemSelectionModel*)), m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
+	connect(m_userTableModel, SIGNAL(rowAppended()), m_userTable, SLOT(resizeLastRow()));
+	connect(unicodeButton, SIGNAL(chosenUnicode(const QString &)), m_userTableModel, SLOT(appendUnicode(const QString &)));
+	connect(hideButton, SIGNAL(toggled(bool)), this, SLOT(hideButton_toggled(bool)));
+	connect(this, SIGNAL(insertUserSpecialChar(QChar, QString)), this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
+	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
+	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
+	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
 }
 
 CharSelect::~CharSelect()
@@ -109,11 +96,14 @@ void CharSelect::slot_insertSpecialChar()
 
 	if (!m_Item)
 		return;
-
-	if (m_Item->HasSel)
-		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
-	if (m_Item->asTextFrame())
-		m_Item->asTextFrame()->invalidateLayout();
+	PageItem_TextFrame *cItem;
+	if (m_doc->appMode == modeEditTable)
+		cItem = m_Item->asTable()->activeCell().textFrame();
+	else
+		cItem = m_Item->asTextFrame();
+	if (cItem->HasSel)
+		cItem->deleteSelectedTextFromFrame();
+	cItem->invalidateLayout();
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	QChar ch;
 	QString fontName = m_doc->currentStyle.charStyle().font().scName();
@@ -126,11 +116,11 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
-		int pot = m_Item->itemText.cursorPosition();
-		m_Item->itemText.insertChars(ch, true);
+		int pot = cItem->itemText.cursorPosition();
+		cItem->itemText.insertChars(ch, true);
 		CharStyle nstyle = m_Item->itemText.charStyle(pot);
 		nstyle.setFont((*m_doc->AllFonts)[fontName]);
-		m_Item->itemText.applyCharStyle(pot, 1, nstyle);
+		cItem->itemText.applyCharStyle(pot, 1, nstyle);
 	}
 	m_doc->view()->DrawNew();
 	m_doc->changed();
@@ -141,20 +131,24 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch, QString font)
 {
 	if (!m_Item)
 		return;
-	if (m_Item->HasSel)
-		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
-	if (m_Item->asTextFrame())
-		m_Item->asTextFrame()->invalidateLayout();
+	PageItem_TextFrame *cItem;
+	if (m_doc->appMode == modeEditTable)
+		cItem = m_Item->asTable()->activeCell().textFrame();
+	else
+		cItem = m_Item->asTextFrame();
+	if (cItem->HasSel)
+		cItem->deleteSelectedTextFromFrame();
+	cItem->invalidateLayout();
 // 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	if (ch == QChar(10))
 		ch = QChar(13);
 	if (ch == QChar(9))
 		ch = QChar(32);
-	int pot = m_Item->itemText.cursorPosition();
-	m_Item->itemText.insertChars(ch, true);
+	int pot = cItem->itemText.cursorPosition();
+	cItem->itemText.insertChars(ch, true);
 	CharStyle nstyle = m_Item->itemText.charStyle(pot);
 	nstyle.setFont((*m_doc->AllFonts)[font]);
-	m_Item->itemText.applyCharStyle(pot, 1, nstyle);
+	cItem->itemText.applyCharStyle(pot, 1, nstyle);
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 }
@@ -166,8 +160,7 @@ void CharSelect::openEnhanced()
 
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
-	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
-	        this, SLOT(slot_insertSpecialChars(const QString &)));
+	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(slot_insertSpecialChars(const QString &)));
 	connect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(this->isEnabled());
@@ -184,8 +177,7 @@ void CharSelect::closeEnhanced()
 	hideButton->setChecked(false);
 	hideButton->blockSignals(false);
 
-	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
-	           this, SLOT(slot_insertSpecialChars(const QString &)));
+	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(slot_insertSpecialChars(const QString &)));
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
@@ -231,10 +223,7 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 
 void CharSelect::uniLoadButton_clicked()
 {
-	QString f = QFileDialog::getOpenFileName(this,
-	            tr("Choose a filename to open"),
-	            QDir::currentPath(),
-	            paletteFileMask);
+	QString f = QFileDialog::getOpenFileName(this, tr("Choose a filename to open"), QDir::currentPath(), paletteFileMask);
 	if (!f.isNull())
 		loadUserContent(f);
 }
@@ -283,10 +272,7 @@ void CharSelect::uniSaveButton_clicked()
 {
 	if (m_userTableModel->characters().count() == 0)
 		return;
-	QString f = QFileDialog::getSaveFileName(this,
-	            tr("Save Quick Character Palette"),
-	            QDir::currentPath(),
-	            paletteFileMask);
+	QString f = QFileDialog::getSaveFileName(this, tr("Save Quick Character Palette"), QDir::currentPath(), paletteFileMask);
 	if (f.isNull())
 		return;
 	if (!f.endsWith(".ucp"))

@@ -1150,21 +1150,23 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 {
 	if (HaveDoc)
 	{
-		if (doc->appMode==modeEdit)
+		if (doc->m_Selection->count() == 1)
 		{
-			if (doc->m_Selection->count() == 1)
+			PageItem* selItem = doc->m_Selection->itemAt(0);
+			if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
 			{
-				PageItem *currItem = doc->m_Selection->itemAt(0);
+				PageItem_TextFrame *currItem;
+				if (doc->appMode == modeEditTable)
+					currItem = selItem->asTable()->activeCell().textFrame();
+				else
+					currItem = selItem->asTextFrame();
 				if (currItem!=NULL)
 				{
 					if (unicodevalue!=-1)
 					{
-						if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
-							currItem->asTextFrame()->deleteSelectedTextFromFrame();
-
+						if (currItem->HasSel)
+							currItem->deleteSelectedTextFromFrame();
 						currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
-//						currItem->Tinput = true;
-						currItem->update();
 					}
 					else if (actionName=="unicodeSoftHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
@@ -1179,10 +1181,12 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 #else
 							currItem->itemText.insertChars(QString(SpecialChars::SHYPHEN), true);
 #endif
-//							currItem->Tinput = true;
-							currItem->update();
 						}
 					}
+					if (doc->appMode == modeEditTable)
+						selItem->asTable()->update();
+					else
+						currItem->update();
 				}
 			}
 		}
@@ -2863,6 +2867,14 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 //		doc->docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
 //		doc->docParagraphStyles[0].setAlignment(currItem->textAlignment);
 
+		break;
+	case PageItem::Table:
+		if (doc->appMode == modeEditTable)
+		{
+			charPalette->setEnabled(true, currItem);
+			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
+			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
+		}
 		break;
 	case PageItem::PathText: //Path Text
 		scrActions["fileImportText"]->setEnabled(true);
@@ -6390,10 +6402,18 @@ void ScribusMainWindow::setAppMode(int mode)
 
 		// Restore/save action shortcuts when entering/leaving table edit mode.
 		if (mode != modeEditTable && oldMode == modeEditTable)
+		{
+			charPalette->setEnabled(false, 0);
+			enableTextActions(&scrActions, false);
 			actionManager->restoreActionShortcutsPostEditMode();
+		}
 		else if (mode == modeEditTable && oldMode != modeEditTable)
+		{
+			charPalette->setEnabled(true, currItem);
+			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
+			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
 			actionManager->saveActionShortcutsPreEditMode();
-
+		}
 		if (oldMode == modeEdit)
 		{
 			view->zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
