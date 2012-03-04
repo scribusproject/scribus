@@ -2874,6 +2874,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			charPalette->setEnabled(true, currItem);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
+			scrActions["insertSampleText"]->setEnabled(true);
 		}
 		break;
 	case PageItem::PathText: //Path Text
@@ -6405,11 +6406,13 @@ void ScribusMainWindow::setAppMode(int mode)
 		{
 			charPalette->setEnabled(false, 0);
 			enableTextActions(&scrActions, false);
+			scrActions["insertSampleText"]->setEnabled(false);
 			actionManager->restoreActionShortcutsPostEditMode();
 		}
 		else if (mode == modeEditTable && oldMode != modeEditTable)
 		{
 			charPalette->setEnabled(true, currItem);
+			scrActions["insertSampleText"]->setEnabled(true);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
 			actionManager->saveActionShortcutsPreEditMode();

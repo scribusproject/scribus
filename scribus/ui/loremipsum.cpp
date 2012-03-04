@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "langmgr.h"
 #include "pageitem.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -276,17 +277,22 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 
 	for (int i = 0; i < m_Doc->m_Selection->count(); ++i)
 	{
-		PageItem* currItem=m_Doc->m_Selection->itemAt(i);
+		PageItem* currItem = m_Doc->m_Selection->itemAt(i);
 		if (currItem == NULL)
 			continue;
-		if (!currItem->asTextFrame())
+		PageItem *i2 = currItem;
+		if (m_Doc->appMode == modeEditTable)
+			i2 = currItem->asTable()->activeCell().textFrame();
+		if (!i2->asTextFrame())
 			continue;
-		if (currItem->itemText.length() != 0)
+		if (i2->itemText.length() != 0)
 		{
-			m_Doc->itemSelection_ClearItem();
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_Doc->itemSelection_ClearItem(&tempSelection);
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
-			if (currItem->itemText.length() != 0)
+			if (i2->itemText.length() != 0)
 				continue;
 		}
 		LoremParser *lp = new LoremParser(name);
@@ -305,7 +311,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 				writer->setOverridePStyleFont(false);
 				gtFrameStyle* fstyle = writer->getDefaultStyle();
 				gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
-				pstyle->setName(currItem->currentStyle().name());
+				pstyle->setName(i2->currentStyle().name());
 				writer->setParagraphStyle(pstyle);
 				done = true;
 				writer->append(lp->createLorem(paraCount));
@@ -314,20 +320,14 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 #endif
 		
 		// K.I.S.S.:
-		currItem->itemText.insertChars(0, lp->createLorem(paraCount, random));
+		i2->itemText.insertChars(0, lp->createLorem(paraCount, random));
 		delete lp;
-
-		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
-		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (m_Doc->docHyphenator->AutoCheck)
-			m_Doc->docHyphenator->slotHyphenate(currItem);
-		currItem->invalidateLayout();
+			m_Doc->docHyphenator->slotHyphenate(i2);
+		i2->invalidateLayout();
 	}
-// 	if (done)
-// 	{
- 		m_Doc->regionsChanged()->update(QRectF());
-		m_Doc->changed();
-// 	}
+	m_Doc->regionsChanged()->update(QRectF());
+	m_Doc->changed();
 }
 
 QString LoremManager::loremIpsum()
