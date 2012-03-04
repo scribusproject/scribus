@@ -250,7 +250,7 @@ public slots:
 	void ToggleStickyTools();
 	void ToggleAllGuides();
 	void ToggleAllPalettes();
-	void slotStoryEditor();
+	void slotStoryEditor(bool fromTable);
 	void slotCharSelect();
 	void ImageEffects();
 	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);

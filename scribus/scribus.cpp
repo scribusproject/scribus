@@ -2875,6 +2875,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
 			scrActions["insertSampleText"]->setEnabled(true);
+			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		}
 		break;
 	case PageItem::PathText: //Path Text
@@ -6407,12 +6408,14 @@ void ScribusMainWindow::setAppMode(int mode)
 			charPalette->setEnabled(false, 0);
 			enableTextActions(&scrActions, false);
 			scrActions["insertSampleText"]->setEnabled(false);
+			scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 			actionManager->restoreActionShortcutsPostEditMode();
 		}
 		else if (mode == modeEditTable && oldMode != modeEditTable)
 		{
 			charPalette->setEnabled(true, currItem);
 			scrActions["insertSampleText"]->setEnabled(true);
+			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
 			actionManager->saveActionShortcutsPreEditMode();
@@ -6627,7 +6630,7 @@ void ScribusMainWindow::setAppMode(int mode)
 
 		if (mode == modeStoryEditor)
 		{
-			slotStoryEditor();
+			slotStoryEditor(oldMode == modeEditTable);
 			slotSelect();
 		}
 		if (mode == modeCopyProperties)
@@ -9237,18 +9240,21 @@ bool ScribusMainWindow::scanDocument()
 	return DocumentChecker().checkDocument(doc);
 }
 
-void ScribusMainWindow::slotStoryEditor()
+void ScribusMainWindow::slotStoryEditor(bool fromTable)
 {
 	if (doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		PageItem *currItemSE=storyEditor->currentItem();
-		ScribusDoc *currDocSE=storyEditor->currentDocument();
+		PageItem *i2 = currItem;
+		if (fromTable)
+			i2 = currItem->asTable()->activeCell().textFrame();
+		PageItem *currItemSE = storyEditor->currentItem();
+		ScribusDoc *currDocSE = storyEditor->currentDocument();
 		storyEditor->activFromApp = true;
 		//CB shouldnt these be after the if?
 		//Why are we resetting the doc and item in this case. My original code didnt do this.
-		storyEditor->setCurrentDocumentAndItem(doc, currItem);
-		if (currItem==currItemSE && doc==currDocSE)
+		storyEditor->setCurrentDocumentAndItem(doc, i2);
+		if (i2 == currItemSE && doc == currDocSE)
 		{
 			storyEditor->show();
 			storyEditor->raise();
