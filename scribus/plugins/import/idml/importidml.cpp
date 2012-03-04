@@ -2272,6 +2272,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 						imgExt = "png";
 					else if (imageType.contains("PSD", Qt::CaseInsensitive))
 						imgExt = "psd";
+					else if (imageType.contains("Photoshop", Qt::CaseInsensitive))
+						imgExt = "psd";
 					else if (imageType.contains("TIFF", Qt::CaseInsensitive))
 						imgExt = "tif";
 					item->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
@@ -2295,15 +2297,16 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				else
 				{
 					QUrl url = QUrl(imageFileName);
-					QFileInfo fi(url.toLocalFile());
-					QString fileName;
+					QString fiNam = url.toLocalFile();
+					QFileInfo fi(fiNam);
+					QByteArray fileName;
 					if (fi.exists())
-						fileName = url.toLocalFile();
+						fileName = url.toLocalFile().toLocal8Bit();
 					else
-						fileName = fi.fileName();
+						fileName = fi.fileName().toLocal8Bit();
 					item->ScaleType   = true;
 					item->AspectRatio = true;
-					m_Doc->loadPict(fileName, item);
+					m_Doc->loadPict(QUrl::fromPercentEncoding(fileName), item);
 					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
 					item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
 					item->setImageRotation(0);
