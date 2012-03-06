@@ -1198,23 +1198,21 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			}
 			else if (currItem->Groups.count() > 0)
 			{
-				for (int ga=0; ga<m_doc->Items->count(); ++ga)
+				for (int ga=0; ga < m_doc->Items->count(); ++ga)
 				{
 					PageItem* item = m_doc->Items->at(ga);
-					if (item->Groups.count() != 0)
+					if (item->Groups.count() == 0)
+						continue;
+					if (item->Groups.top() != currItem->Groups.top())
+						continue;
+					if (item->ItemNr != currItem->ItemNr)
 					{
-						if (item->Groups.top() == currItem->Groups.top())
+						if (m_doc->m_Selection->findItem(item) == -1)
 						{
-							if (item->ItemNr != currItem->ItemNr)
-							{
-								if (m_doc->m_Selection->findItem(item) == -1)
-								{
-									m_doc->m_Selection->addItem(item, true);
-								}
-							}
-							item->isSingleSel = false;
+							m_doc->m_Selection->addItem(item, true);
 						}
 					}
+					item->isSingleSel = false;
 				}
 			}
 		}
