@@ -8055,7 +8055,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		int currItemTextCount = currItem->itemText.length();
-		if ((currItemTextCount == 0) || ((appMode == modeEdit) || (appMode == modeEditTable)))
+		if ((currItemTextCount == 0) || ((appMode != modeEdit) && (appMode != modeEditTable)))
 		{
 			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 			dstyle.applyStyle(newStyle);
