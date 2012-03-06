@@ -464,11 +464,25 @@ void CreateMode::selectPage(QMouseEvent *m)
 void CreateMode::SetupDrawNoResize(int nr)
 {
 	PageItem* currItem = m_doc->Items->at(nr);
-	//	currItem->setFont(Doc->toolSettings.defFont);
-	//	currItem->setFontSize(Doc->toolSettings.defSize);
 	m_doc->m_Selection->delaySignalsOn();
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(currItem);
+	// #10618 : Select table items if needed otherwise
+	// a crash will be triggered if user tries to ungroup
+	if (currItem->Groups.count() > 0)
+	{
+		for (int i = 0; i < m_doc->Items->count(); ++i)
+		{
+			PageItem* item = m_doc->Items->at(i);
+			if (item->Groups.count() == 0)
+				continue;
+			if (item->Groups.top() != currItem->Groups.top())
+				continue;
+			if (item->ItemNr != currItem->ItemNr)
+				m_doc->m_Selection->addItem(item, true);
+			item->isSingleSel = false;
+		}
+	}
 	m_doc->m_Selection->delaySignalsOff();
 //	emit DocChanged();
 	currItem->Sizing =  false /*currItem->asLine() ? false : true*/;
