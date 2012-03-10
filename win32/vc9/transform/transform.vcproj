@@ -23,7 +23,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -116,7 +116,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -213,7 +213,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -306,7 +306,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
