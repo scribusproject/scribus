@@ -9445,14 +9445,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::MultipleDuplicate, "", Um::IMultipleDuplicate));
 		}
 	}
-	//FIXME: Enable paste without doing this save/restore, and stop using paste with all the refreshes
-	bool savedAlignGrid = useRaster;
-	bool savedAlignGuides = SnapGuides;
-	useRaster = false;
-	SnapGuides = false;
-	DoDrawing = false;
 	view()->updatesOn(false);
-	m_Selection->delaySignalsOn();
 	m_ScMW->setScriptRunning(true);
 	if (mdData.type==0) // Copy and offset or set a gap
 	{
@@ -9469,18 +9462,23 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 			if (dV != 0.0)
 				dV2 += m_Selection->height();
 		}
-		m_ScMW->slotEditCopy();
+		ScriXmlDoc ss;
+		QString BufferS = ss.WriteElem(this, view(), m_Selection);
 		//FIXME: stop using m_View
 		m_View->Deselect(true);
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
-			m_ScMW->slotEditPaste();
-			for (int b=0; b<m_Selection->count(); ++b)
+			uint ac = Items->count();
+			ss.ReadElem(BufferS, prefsData.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, prefsData.GFontSub, view());
+			m_Selection->delaySignalsOn();
+			for (int as = ac; as < Items->count(); ++as)
 			{
-				PageItem* bItem=m_Selection->itemAt(b);
+				PageItem* bItem = Items->at(as);
 				bItem->setLocked(false);
-				MoveItem(dH2, dV2, bItem, true);
+				bItem->moveBy(dH2, dV2, true);
+				m_Selection->addItem(bItem);
 			}
+			m_Selection->delaySignalsOff();
 			m_Selection->setGroupRect();
 			if (dR != 0.0)
 			{
@@ -9499,6 +9497,12 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 					dV2 += m_Selection->height();
 			}
 			dR2 += dR;
+			if (m_Selection->count() > 0)
+			{
+				m_Selection->itemAt(0)->connectToGUI();
+				m_Selection->itemAt(0)->emitAllToGUI();
+			}
+			m_Selection->clear();
 		}
 		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(dH).arg(dV).arg(dR);
 	}
@@ -9508,9 +9512,8 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		int copyCount=mdData.gridRows*mdData.gridCols;
 		double dX=mdData.gridGapH/docUnitRatio + m_Selection->width();
 		double dY=mdData.gridGapV/docUnitRatio + m_Selection->height();
-// 		Personnaly I would prefer to first cleanup area but I guess it could mess up things elsewhere - pm
-// 		m_ScMW->slotEditCut();
-		m_ScMW->slotEditCopy();
+		ScriXmlDoc ss;
+		QString BufferS = ss.WriteElem(this, view(), m_Selection);
 		for (int i=0; i<mdData.gridRows; ++i) //skip 0, the item is the one we are copying
 		{
 			for (int j=0; j<mdData.gridCols; ++j) //skip 0, the item is the one we are copying
@@ -9518,14 +9521,15 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				// We can comment out this conditional jump if we use slotEditCut(), would not be cool? ;-)
 				if (i==0 && j==0)
 					continue;
-				// The true fix would be in slotEdit{Copy,Cut} but now its a reasonnably clean workaround
-				m_View->Deselect(true);
-				m_ScMW->slotEditPaste();
-				for (int b=0; b<m_Selection->count(); ++b)
+				uint ac = Items->count();
+				ss.ReadElem(BufferS, prefsData.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, prefsData.GFontSub, view());
+				for (int as = ac; as < Items->count(); ++as)
 				{
-					PageItem* bItem=m_Selection->itemAt(b);
+					PageItem* bItem = Items->at(as);
 					bItem->setLocked(false);
-					MoveItem(j*dX, i*dY, bItem, true);
+					bItem->moveBy(j*dX, i*dY, true);
+					bItem->connectToGUI();
+					bItem->emitAllToGUI();
 				}
 			}
 		}
@@ -9537,11 +9541,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	//FIXME: Enable paste without doing this save/restore
-	useRaster = savedAlignGrid;
-	SnapGuides = savedAlignGuides;
 	DoDrawing = true;
-	m_Selection->delaySignalsOff();
 	view()->updatesOn(true);
 	m_ScMW->setScriptRunning(false);
 	//FIXME: stop using m_View
