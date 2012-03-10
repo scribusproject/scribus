@@ -2236,6 +2236,11 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					}
 				}
 			}
+			QRectF br = QRectF(0, 0, item->width(), item->height());
+			QTransform ma;
+			ma.rotate(-rot);
+			QRectF br2 = ma.mapRect(br);
+			item->moveBy(br.x() - br2.x(), br.y() - br2.y(), true);
 			item->setRotation(-rot, true);
 			item->OldB2 = item->width();
 			item->OldH2 = item->height();
@@ -2290,7 +2295,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 							m_Doc->loadPict(fileName, item);
 							item->setImageXYOffset(dxi - grOffset.x(), dyi - grOffset.y());
 							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-							item->setImageRotation(0);
+							item->setImageRotation(-roti);
 						}
 					}
 				}
@@ -2309,7 +2314,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					m_Doc->loadPict(QUrl::fromPercentEncoding(fileName), item);
 					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
 					item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
-					item->setImageRotation(0);
+					item->setImageRotation(-roti);
 				}
 			}
 			GElements.append(m_Doc->Items->takeAt(z));
