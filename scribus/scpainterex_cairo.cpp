@@ -302,29 +302,17 @@ void ScPainterEx_Cairo::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint 
 	m_gradPatchP4 = p4;
 }
 
-void ScPainterEx_Cairo::fillTextPath()
-{
-	drawVPath( 0 );
-}
-
-void ScPainterEx_Cairo::strokeTextPath()
-{
-	if( m_lineWidth == 0 )
-		return;
-	drawVPath( 1 );
-}
-
 void ScPainterEx_Cairo::fillPath()
 {
-	if( m_fillMode != 0)
-		drawVPath( 0 );
+	if (m_fillMode != 0)
+		fillPathHelper();
 }
 
 void ScPainterEx_Cairo::strokePath()
 {
-	if( m_lineWidth == 0 )
-		return;
-	drawVPath( 1 );
+	//if (m_lineWidth == 0)
+	//	return;
+	strokePathHelper();
 }
 
 ScColorShade ScPainterEx_Cairo::pen()
@@ -453,85 +441,86 @@ void ScPainterEx_Cairo::setBlendModeStroke( int blendMode )
 	m_blendModeStroke = blendMode;
 }
 
-void ScPainterEx_Cairo::drawVPath( int mode )
+void ScPainterEx_Cairo::fillPathHelper()
 {
 	cairo_save( m_cr );
-	if (mode == 0)
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	if( m_fillRule )
+		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	else
+		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
+	if (m_fillMode == ScPainterExBase::Solid)
 	{
-		if( m_fillRule )
-			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+		double r, g, b;
+		QColor fillColor = transformColor(m_fillColor, 1.0);
+		fillColor.getRgbF(&r, &g, &b);
+		if (m_maskMode > 0)
+		{
+			/*cairo_pattern_t *pat = getMaskPattern();
+			cairo_set_source_rgb( m_cr, r, g, b );
+			setRasterOp(m_blendModeFill);
+			cairo_clip_preserve(m_cr);
+			cairo_mask(m_cr, pat);
+			if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
+				cairo_surface_destroy(imageMask);
+			cairo_pattern_destroy(pat);*/
+		}
 		else
-			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
-		if (m_fillMode == ScPainterExBase::Solid)
 		{
-			double r, g, b;
-			QColor fillColor = transformColor(m_fillColor, 1.0);
-			fillColor.getRgbF(&r, &g, &b);
-			if (m_maskMode > 0)
-			{
-				/*cairo_pattern_t *pat = getMaskPattern();
-				cairo_set_source_rgb( m_cr, r, g, b );
-				setRasterOp(m_blendModeFill);
-				cairo_clip_preserve(m_cr);
-				cairo_mask(m_cr, pat);
-				if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
-					cairo_surface_destroy(imageMask);
-				cairo_pattern_destroy(pat);*/
-			}
-			else
-			{
-				cairo_set_source_rgba(m_cr, r, g, b, m_fillTrans);
-				setRasterOp(m_blendModeFill);
-				cairo_fill_preserve(m_cr);
-			}
+			cairo_set_source_rgba(m_cr, r, g, b, m_fillTrans);
+			setRasterOp(m_blendModeFill);
+			cairo_fill_preserve(m_cr);
 		}
-		else if (m_fillMode == ScPainterExBase::Gradient)
-		{
-			drawGradient( m_fillGradient );
-		}
-		else if (m_fillMode == ScPainterExBase::Pattern)
-		{
+	}
+	else if (m_fillMode == ScPainterExBase::Gradient)
+	{
+		drawGradient( m_fillGradient );
+	}
+	else if (m_fillMode == ScPainterExBase::Pattern)
+	{
 
-		}
+	}
+	cairo_restore( m_cr );
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+}
+
+void ScPainterEx_Cairo::strokePathHelper()
+{
+	cairo_save( m_cr );
+	cairo_set_line_width( m_cr, m_lineWidth );
+	if( m_array.count() > 0 )
+		cairo_set_dash( m_cr, m_array.data(), m_array.count(), static_cast<double>(m_offset));
+	else
+		cairo_set_dash( m_cr, NULL, 0, 0 );
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	if( m_lineEnd == Qt::RoundCap )
+		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
+	else if( m_lineEnd == Qt::SquareCap )
+		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_SQUARE);
+	else if( m_lineEnd == Qt::FlatCap )
+		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_BUTT);
+	if( m_lineJoin == Qt::RoundJoin )
+		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_ROUND );
+	else if( m_lineJoin == Qt::BevelJoin )
+		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
+	else if( m_lineJoin == Qt::MiterJoin )
+		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
+	if (m_strokeMode == 3)
+	{
+
+	}
+	else if (m_strokeMode == 2)
+	{
+		strokeGradient(m_strokeGradient);
 	}
 	else
 	{
-		cairo_set_line_width( m_cr, m_lineWidth );
-		if( m_array.count() > 0 )
-			cairo_set_dash( m_cr, m_array.data(), m_array.count(), static_cast<double>(m_offset));
-		else
-			cairo_set_dash( m_cr, NULL, 0, 0 );
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-		if( m_lineEnd == Qt::RoundCap )
-			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
-		else if( m_lineEnd == Qt::SquareCap )
-			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_SQUARE);
-		else if( m_lineEnd == Qt::FlatCap )
-			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_BUTT);
-		if( m_lineJoin == Qt::RoundJoin )
-			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_ROUND );
-		else if( m_lineJoin == Qt::BevelJoin )
-			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
-		else if( m_lineJoin == Qt::MiterJoin )
-			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
-		if (m_strokeMode == 3)
-		{
-
-		}
-		else if (m_strokeMode == 2)
-		{
-			strokeGradient(m_strokeGradient);
-		}
-		else
-		{
-			double r, g, b;
-			QColor strokeColor = transformColor( m_strokeColor, 1.0 );
-			strokeColor.getRgbF(&r, &g, &b);
-			cairo_set_source_rgba( m_cr, r, g, b, m_strokeTrans );
-			setRasterOp(m_blendModeStroke);
-			cairo_stroke_preserve( m_cr );
-		}
-		
+		double r, g, b;
+		QColor strokeColor = transformColor( m_strokeColor, 1.0 );
+		strokeColor.getRgbF(&r, &g, &b);
+		cairo_set_source_rgba( m_cr, r, g, b, m_strokeTrans );
+		setRasterOp(m_blendModeStroke);
+		cairo_stroke_preserve( m_cr );
 	}
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );

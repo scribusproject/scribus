@@ -43,8 +43,6 @@ public:
 	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
 	virtual void newPath();
 	virtual void closePath();
-	virtual void fillTextPath();
-	virtual void strokeTextPath();
 	virtual void fillPath();
 	virtual void strokePath();
 	virtual void setFillRule( bool fillRule );
@@ -98,8 +96,8 @@ public:
 	virtual void setBlendModeStroke( int blendMode );
 
 private:
-
-	void drawVPath( int mode );
+	void fillPathHelper();
+	void strokePathHelper();
 
 	void drawGradient( VGradientEx& gradient );
 	void drawLinearGradient( VGradientEx& gradient, const QRect& rect );
