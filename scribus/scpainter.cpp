@@ -652,7 +652,7 @@ void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QLis
 
 void ScPainter::fillPath()
 {
-	if( fillMode != 0)
+	if (fillMode != 0)
 		fillPathHelper();
 }
 
@@ -1803,44 +1803,43 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 	bool nPath = true;
 	bool first = true;
 	FPoint np, np1, np2, np3, np4, firstP;
-	if (points->size() > 3)
+
+	if (points->size() <= 3)
+		return;
+
+	newPath();
+	for (uint poi=0; poi<points->size()-3; poi += 4)
 	{
-		newPath();
-		for (uint poi=0; poi<points->size()-3; poi += 4)
+		if (points->point(poi).x() > 900000)
 		{
-			if (points->point(poi).x() > 900000)
-			{
-				nPath = true;
-				continue;
-			}
-			if (nPath)
-			{
-				np = points->point(poi);
-				if ((!first) && (closed) && (np4 == firstP))
-					cairo_close_path( m_cr );
-    			cairo_move_to( m_cr, np.x(), np.y());
-				firstP = np;
-				nPath = false;
-				first = false;
-				np4 = np;
-			}
-			np = points->point(poi);
-			np1 = points->point(poi+1);
-			np2 = points->point(poi+3);
-			np3 = points->point(poi+2);
-			if (np4 == np3)
-				continue;
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 6)
-			if ((np == np1) && (np2 == np3))
-				cairo_line_to( m_cr, np3.x(), np3.y());
-			else
-#endif
-				cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
-			np4 = np3;
+			nPath = true;
+			continue;
 		}
-		if (closed)
-    		cairo_close_path( m_cr );
+		if (nPath)
+		{
+			np = points->point(poi);
+			if ((!first) && (closed) && (np4 == firstP))
+				cairo_close_path( m_cr );
+			cairo_move_to( m_cr, np.x(), np.y());
+			first = nPath = false;
+			firstP = np4 = np;
+		}
+		np  = points->point(poi);
+		np1 = points->point(poi + 1);
+		np2 = points->point(poi + 3);
+		np3 = points->point(poi + 2);
+		if (np4 == np3)
+			continue;
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 6)
+		if ((np == np1) && (np2 == np3))
+			cairo_line_to( m_cr, np3.x(), np3.y());
+		else
+#endif
+			cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
+		np4 = np3;
 	}
+	if (closed)
+		cairo_close_path( m_cr );
 }
 
 void ScPainter::drawPolygon()
