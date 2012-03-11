@@ -722,7 +722,8 @@ public:
 	/**
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */
-	 void recalculateColors();
+	void recalculateColorsList(QList<PageItem *> *itemList);
+	void recalculateColors();
 	/**
 	 * @brief Sets up the ScText defaults from the document
 	 */
@@ -935,10 +936,7 @@ public:
 	 * 
 	 */
 	void setFirstSectionFromFirstPageNumber();
-	/**
-	 * @brief Update the fill and line QColors for all items in the doc
-	 */
-	void updateAllItemQColors();
+
 	//! @brief Some internal align tools
 	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
 	typedef enum {alignByMoving, alignByResizing } AlignMethod;

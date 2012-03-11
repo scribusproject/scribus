@@ -973,7 +973,7 @@ void ScribusDoc::enableCMS(bool enable)
 {
 	m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 	m_ScMW->mainWindowProgressBar->reset();
-	int cc = PageColors.count() + MasterItems.count() + DocItems.count();
+	int cc = PageColors.count() + MasterItems.count() + DocItems.count() + FrameItems.count();
 	m_ScMW->mainWindowProgressBar->setMaximum(cc);
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	bool oldCM = docPrefsData.colorPrefs.DCMSset.CMSinUse;
@@ -4255,12 +4255,57 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 	return retVal;
 }
 
+void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
+{
+	QList<PageItem*> allItems;
+	for (int c = 0; c < itemList->count(); ++c)
+	{
+		PageItem *ite = itemList->at(c);
+		if (ite->isGroup())
+			allItems = ite->asGroupFrame()->getItemList();
+		else
+			allItems.append(ite);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			ite = allItems.at(ii);
+			ite->setLineQColor();
+			ite->setFillQColor();
+			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+			for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+				{
+					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+				}
+			}
+			for (int grow = 0; grow < ite->meshGradientPatches.count(); grow++)
+			{
+				meshGradientPatch patch = ite->meshGradientPatches[grow];
+				ite->setMeshPointColor(grow, 1, patch.TL.colorName, patch.TL.shade, patch.TL.transparency, true);
+				ite->setMeshPointColor(grow, 2, patch.TR.colorName, patch.TR.shade, patch.TR.transparency, true);
+				ite->setMeshPointColor(grow, 3, patch.BR.colorName, patch.BR.shade, patch.BR.transparency, true);
+				ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
+			}
+			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops = ite->stroke_gradient.colorStops();
+			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops = ite->mask_gradient.colorStops();
+			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			if (ite->GrType == 13)
+				ite->createConicalMesh();
+		}
+		allItems.clear();
+	}
+}
 
 void ScribusDoc::recalculateColors()
 {
 	//Adjust Items of the 3 types to the colors
-	uint itemsCount=Items->count();
-	updateAllItemQColors();
 	QMap<QString, VGradient>::Iterator itGrad;
 	for (itGrad = docGradients.begin(); itGrad != docGradients.end(); ++itGrad)
 	{
@@ -4277,73 +4322,58 @@ void ScribusDoc::recalculateColors()
 			cstops.at(cst)->color = tmp;
 		}
 	}
-	for (uint c=0; c<itemsCount; ++c)
-	{
-		PageItem *ite = Items->at(c);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		cstops = ite->stroke_gradient.colorStops();
-		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		cstops = ite->mask_gradient.colorStops();
-		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		if (ite->GrType == 13)
-			ite->createConicalMesh();
-	}
-	uint masterItemsCount=MasterItems.count();
-	for (uint c=0; c<masterItemsCount; ++c)
-	{
-		PageItem *ite = MasterItems.at(c);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		cstops = ite->stroke_gradient.colorStops();
-		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		cstops = ite->mask_gradient.colorStops();
-		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		if (ite->GrType == 13)
-			ite->createConicalMesh();
-	}
-	uint frameItemsCount=FrameItems.count();
-	for (uint c=0; c<frameItemsCount; ++c)
-	{
-		PageItem *ite = FrameItems.at(c);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		cstops = ite->stroke_gradient.colorStops();
-		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		cstops = ite->mask_gradient.colorStops();
-		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
-			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		if (ite->GrType == 13)
-			ite->createConicalMesh();
-	}
+	recalculateColorsList(&DocItems);
+	recalculateColorsList(&MasterItems);
+	recalculateColorsList(&FrameItems);
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (int o = 0; o < pa.items.count(); o++)
 		{
+			QList<PageItem*> allItems;
 			PageItem *ite = pa.items.at(o);
-			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-			cstops = ite->stroke_gradient.colorStops();
-			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
-				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-			cstops = ite->mask_gradient.colorStops();
-			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
-				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-			if (ite->asImageFrame())
-				loadPict(ite->Pfile, ite, true, false);
-			if (ite->GrType == 13)
-				ite->createConicalMesh();
+			if (ite->isGroup())
+				allItems = ite->asGroupFrame()->getItemList();
+			else
+				allItems.append(ite);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				ite = allItems.at(ii);
+				ite->setLineQColor();
+				ite->setFillQColor();
+				ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+				for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+				{
+					for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+					{
+						meshPoint mp = ite->meshGradientArray[grow][gcol];
+						ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+					}
+				}
+				for (int grow = 0; grow < ite->meshGradientPatches.count(); grow++)
+				{
+					meshGradientPatch patch = ite->meshGradientPatches[grow];
+					ite->setMeshPointColor(grow, 1, patch.TL.colorName, patch.TL.shade, patch.TL.transparency, true);
+					ite->setMeshPointColor(grow, 2, patch.TR.colorName, patch.TR.shade, patch.TR.transparency, true);
+					ite->setMeshPointColor(grow, 3, patch.BR.colorName, patch.BR.shade, patch.BR.transparency, true);
+					ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
+				}
+				QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+				cstops = ite->stroke_gradient.colorStops();
+				for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+				cstops = ite->mask_gradient.colorStops();
+				for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+				if (ite->asImageFrame())
+					loadPict(ite->Pfile, ite, true, false);
+				if (ite->GrType == 13)
+					ite->createConicalMesh();
+			}
+			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
@@ -6293,119 +6323,12 @@ int ScribusDoc::columnOfPage(int pageIndex) const
 	return ((pageIndex % setcol) + pageSets()[docPrefsData.docSetupPrefs.pagePositioning].FirstPage) % setcol;
 }
 
-
-void ScribusDoc::updateAllItemQColors()
-{
-	QList<PageItem*> allItems;
-	for (int c = 0; c < DocItems.count(); ++c)
-	{
-		PageItem *ite = DocItems.at(c);
-		if (ite->isGroup())
-			allItems = ite->asGroupFrame()->getItemList();
-		else
-			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			ite = allItems.at(ii);
-			ite->setLineQColor();
-			ite->setFillQColor();
-			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
-			for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
-			{
-				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
-				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
-					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
-				}
-			}
-		}
-		allItems.clear();
-	}
-	for (int c = 0; c < MasterItems.count(); ++c)
-	{
-		PageItem *ite = MasterItems.at(c);
-		if (ite->isGroup())
-			allItems = ite->asGroupFrame()->getItemList();
-		else
-			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			ite = allItems.at(ii);
-			ite->setLineQColor();
-			ite->setFillQColor();
-			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
-			for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
-			{
-				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
-				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
-					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
-				}
-			}
-		}
-		allItems.clear();
-	}
-	for (int c = 0; c < FrameItems.count(); ++c)
-	{
-		PageItem *ite = FrameItems.at(c);
-		if (ite->isGroup())
-			allItems = ite->asGroupFrame()->getItemList();
-		else
-			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			ite = allItems.at(ii);
-			ite->setLineQColor();
-			ite->setFillQColor();
-			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
-			for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
-			{
-				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
-				{
-					meshPoint mp = ite->meshGradientArray[grow][gcol];
-					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
-				}
-			}
-		}
-		allItems.clear();
-	}
-	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
-	{
-		ScPattern pa = docPatterns[patterns[c]];
-		for (int o = 0; o < pa.items.count(); o++)
-		{
-			PageItem *ite = pa.items.at(o);
-			if (ite->isGroup())
-				allItems = ite->asGroupFrame()->getItemList();
-			else
-				allItems.append(ite);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				ite = allItems.at(ii);
-				ite->setLineQColor();
-				ite->setFillQColor();
-				ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
-				for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
-				{
-					for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
-					{
-						meshPoint mp = ite->meshGradientArray[grow][gcol];
-						ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
-					}
-				}
-			}
-			allItems.clear();
-		}
-	}
-}
-
-
 //CB Moved from view
 void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	RecalcPictures(&MasterItems, Pr, PrCMYK, dia);
 	RecalcPictures(&DocItems, Pr, PrCMYK, dia);
+	RecalcPictures(&FrameItems, Pr, PrCMYK, dia);
 }
 
 void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
@@ -14631,7 +14554,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 		{
 			m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 			m_ScMW->mainWindowProgressBar->reset();
-			int cc = PageColors.count() + Items->count();
+			int cc = PageColors.count() + MasterItems.count() + DocItems.count() + FrameItems.count();
 			m_ScMW->mainWindowProgressBar->setMaximum(cc);
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			bool newCM  = docPrefsData.colorPrefs.DCMSset.CMSinUse;
