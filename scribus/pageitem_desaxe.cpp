@@ -456,6 +456,44 @@ class ImageEffectsAndLayers : public MakeAction<ImageEffectsAndLayers_body>
 
 class LoadPicture_body : public Action_body
 {
+	void begin (const Xml_string& tagname, Xml_attr attr)
+	{
+		PageItem* item = this->dig->top<PageItem>();
+		if (item->itemType() != PageItem::ImageFrame)
+			return;
+
+		bool    isInlineImage  = parseBool(attr.value("isInlineImage", QString()));
+		QString inlineImageExt = attr.value("inlineImageExt", QString());
+		if (!isInlineImage || inlineImageExt.isEmpty())
+			return;
+
+		QString imageData = attr.value("ImageData", QString());
+		if (imageData.isEmpty())
+			return;
+
+		QByteArray inlineImageData;
+		inlineImageData.append(imageData);
+		if (inlineImageData.size() <= 0)
+			return;
+
+		item->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
+		item->tempImageFile->open();
+		QString tempFileName = getLongPathName(item->tempImageFile->fileName());
+		item->tempImageFile->close();
+
+		inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+
+		QFile imageFile(tempFileName);
+		if (imageFile.open(QIODevice::WriteOnly))
+		{
+			imageFile.write(inlineImageData);
+			imageFile.close();
+
+			item->isInlineImage = true;
+			item->Pfile = tempFileName;
+		}
+	}
+
 	void end (const Xml_string& /*tagname*/)
 	{
 		PageItem* item = this->dig->top<PageItem>();
