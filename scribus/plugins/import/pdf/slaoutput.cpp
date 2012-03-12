@@ -176,6 +176,9 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 				m_doc->DoDrawing = false;
 				pat.width = ite->width();
 				pat.height = ite->height();
+				ite->gXpos = 0;
+				ite->gYpos = 0;
+				ite->setXYPos(ite->gXpos, ite->gYpos, true);
 				pat.items.append(ite);
 				m_doc->Items->removeAll(ite);
 				QString id = QString("Pattern_from_PDF_%1S").arg(m_doc->docPatterns.count() + 1);
@@ -953,6 +956,9 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Catalog *cat, Object *str
 		pat.height = ite->height();
 		pwidth = ite->width();
 		pheight = ite->height();
+		ite->gXpos = 0;
+		ite->gYpos = 0;
+		ite->setXYPos(ite->gXpos, ite->gYpos, true);
 		pat.items.append(ite);
 		m_doc->Items->removeAll(ite);
 		id = QString("Pattern_from_PDF_%1").arg(m_doc->docPatterns.count() + 1);
@@ -1855,6 +1861,9 @@ void SlaOutputDev::endType3Char(GfxState *state)
 		m_doc->DoDrawing = false;
 		pat.width = ite->width();
 		pat.height = ite->height();
+		ite->gXpos = 0;
+		ite->gYpos = 0;
+		ite->setXYPos(ite->gXpos, ite->gYpos, true);
 		pat.items.append(ite);
 		m_doc->Items->removeAll(ite);
 		QString id = QString("Pattern_from_PDF_%1T").arg(m_doc->docPatterns.count() + 1);
