@@ -400,7 +400,7 @@ void ScribusView::adjustCMS()
 		{
 			Doc->enableCMS(Doc->cmsSettings().CMSinUse);
 			cmsToolbarButton->setChecked(Doc->HasCMS);
-			m_ScMW->requestUpdate(reqCmsOptionsUpdate);;
+			m_ScMW->requestUpdate(reqCmsOptionsUpdate);
 			DrawNew();
 		}
 	}
@@ -438,6 +438,11 @@ void ScribusView::togglePreview()
 	{
 		Doc->guidesPrefs().framesShown = storedFramesShown;
 		Doc->guidesPrefs().showControls = storedShowControls;
+		disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
+		m_canvas->m_viewMode.previewVisual = 0;
+		Doc->previewVisual = 0;
+		visualMenu->setCurrentIndex(0);
+		connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	}
 	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowMargins"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
