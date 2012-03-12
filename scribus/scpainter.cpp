@@ -980,6 +980,27 @@ void ScPainter::fillPathHelper()
 			cairo_set_tolerance(cr, 0.5 );
 			double r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+			cairo_mesh_pattern_begin_patch(mpat);
+			cairo_mesh_pattern_move_to(mpat, p1x, p1y);
+			cairo_mesh_pattern_line_to(mpat, p2x, p2y);
+			cairo_mesh_pattern_line_to(mpat, p3x, p3y);
+			cairo_mesh_pattern_line_to(mpat, p4x, p4y);
+			cairo_mesh_pattern_line_to(mpat, p1x, p1y);
+			cairo_mesh_pattern_set_control_point(mpat, 0, gradControlP1.x(),  gradControlP1.y());
+			cairo_mesh_pattern_set_control_point(mpat, 1, gradControlP2.x(),  gradControlP2.y());
+			cairo_mesh_pattern_set_control_point(mpat, 2, gradControlP3.x(),  gradControlP3.y());
+			cairo_mesh_pattern_set_control_point(mpat, 3, gradControlP4.x(),  gradControlP4.y());
+			gradPatchColor1.getRgbF(&r, &g, &b, &a);
+			cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+			gradPatchColor2.getRgbF(&r, &g, &b, &a);
+			cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+			gradPatchColor3.getRgbF(&r, &g, &b, &a);
+			cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+			gradPatchColor4.getRgbF(&r, &g, &b, &a);
+			cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+			cairo_mesh_pattern_end_patch(mpat);
+#else
 			cairo_pattern_mesh_begin_patch(mpat);
 			cairo_pattern_mesh_move_to(mpat, p1x, p1y);
 			cairo_pattern_mesh_line_to(mpat, p2x, p2y);
@@ -999,6 +1020,7 @@ void ScPainter::fillPathHelper()
 			gradPatchColor4.getRgbF(&r, &g, &b, &a);
 			cairo_pattern_mesh_set_corner_color_rgba(mpat, 3, r, g, b, a);
 			cairo_pattern_mesh_end_patch(mpat);
+#endif
 			cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
 			cairo_set_source(cr, mpat);
 			cairo_paint_with_alpha(cr, 1.0);
@@ -1110,14 +1132,32 @@ void ScPainter::fillPathHelper()
 				e4s.setLength(edge4.length() * colorStops[ offset - 1 ]->rampPoint);
 				if (offset == 1)
 				{
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, centerP.x(), centerP.y());
+					cairo_mesh_pattern_line_to(mpat, e1.x2(), e1.y2());
+					cairo_mesh_pattern_line_to(mpat, e2.x2(), e2.y2());
+#else
 					cairo_pattern_mesh_begin_patch(mpat);
 					cairo_pattern_mesh_move_to(mpat, centerP.x(), centerP.y());
 					cairo_pattern_mesh_line_to(mpat, e1.x2(), e1.y2());
 					cairo_pattern_mesh_line_to(mpat, e2.x2(), e2.y2());
+#endif
 #ifdef HAVE_PRIVATE_CAIRO
 					cairo_pattern_mesh_line_to(mpat, centerP.x(), centerP.y());
 #endif
 					qStopColors[0].getRgbF(&r, &g, &b, &a);
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, centerP.x(), centerP.y());
+					cairo_mesh_pattern_line_to(mpat, e2.x2(), e2.y2());
+					cairo_mesh_pattern_line_to(mpat, e3.x2(), e3.y2());
+#else
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[1].getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 1, r, g, b, a);
@@ -1127,10 +1167,22 @@ void ScPainter::fillPathHelper()
 					cairo_pattern_mesh_move_to(mpat, centerP.x(), centerP.y());
 					cairo_pattern_mesh_line_to(mpat, e2.x2(), e2.y2());
 					cairo_pattern_mesh_line_to(mpat, e3.x2(), e3.y2());
+#endif
 #ifdef HAVE_PRIVATE_CAIRO
 					cairo_pattern_mesh_line_to(mpat, centerP.x(), centerP.y());
 #endif
 					qStopColors[0].getRgbF(&r, &g, &b, &a);
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, centerP.x(), centerP.y());
+					cairo_mesh_pattern_line_to(mpat, e3.x2(), e3.y2());
+					cairo_mesh_pattern_line_to(mpat, e4.x2(), e4.y2());
+#else
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[1].getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 1, r, g, b, a);
@@ -1140,10 +1192,22 @@ void ScPainter::fillPathHelper()
 					cairo_pattern_mesh_move_to(mpat, centerP.x(), centerP.y());
 					cairo_pattern_mesh_line_to(mpat, e3.x2(), e3.y2());
 					cairo_pattern_mesh_line_to(mpat, e4.x2(), e4.y2());
+#endif
 #ifdef HAVE_PRIVATE_CAIRO
 					cairo_pattern_mesh_line_to(mpat, centerP.x(), centerP.y());
 #endif
 					qStopColors[0].getRgbF(&r, &g, &b, &a);
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, centerP.x(), centerP.y());
+					cairo_mesh_pattern_line_to(mpat, e4.x2(), e4.y2());
+					cairo_mesh_pattern_line_to(mpat, e1.x2(), e1.y2());
+#else
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[1].getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 1, r, g, b, a);
@@ -1153,18 +1217,81 @@ void ScPainter::fillPathHelper()
 					cairo_pattern_mesh_move_to(mpat, centerP.x(), centerP.y());
 					cairo_pattern_mesh_line_to(mpat, e4.x2(), e4.y2());
 					cairo_pattern_mesh_line_to(mpat, e1.x2(), e1.y2());
+#endif
 #ifdef HAVE_PRIVATE_CAIRO
 					cairo_pattern_mesh_line_to(mpat, centerP.x(), centerP.y());
 #endif
 					qStopColors[0].getRgbF(&r, &g, &b, &a);
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+#else
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[1].getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 1, r, g, b, a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 2, r, g, b, a);
 					cairo_pattern_mesh_end_patch(mpat);
+#endif
 				}
 				else
 				{
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, e1s.x2(), e1s.y2());
+					cairo_mesh_pattern_line_to(mpat, e1.x2(), e1.y2());
+					cairo_mesh_pattern_line_to(mpat, e2.x2(), e2.y2());
+					cairo_mesh_pattern_line_to(mpat, e2s.x2(), e2s.y2());
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[offset].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, e2s.x2(), e2s.y2());
+					cairo_mesh_pattern_line_to(mpat, e2.x2(), e2.y2());
+					cairo_mesh_pattern_line_to(mpat, e3.x2(), e3.y2());
+					cairo_mesh_pattern_line_to(mpat, e3s.x2(), e3s.y2());
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[offset].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, e3s.x2(), e3s.y2());
+					cairo_mesh_pattern_line_to(mpat, e3.x2(), e3.y2());
+					cairo_mesh_pattern_line_to(mpat, e4.x2(), e4.y2());
+					cairo_mesh_pattern_line_to(mpat, e4s.x2(), e4s.y2());
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[offset].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, e4s.x2(), e4s.y2());
+					cairo_mesh_pattern_line_to(mpat, e4.x2(), e4.y2());
+					cairo_mesh_pattern_line_to(mpat, e1.x2(), e1.y2());
+					cairo_mesh_pattern_line_to(mpat, e1s.x2(), e1s.y2());
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					qStopColors[offset].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+#else
 					cairo_pattern_mesh_begin_patch(mpat);
 					cairo_pattern_mesh_move_to(mpat, e1s.x2(), e1s.y2());
 					cairo_pattern_mesh_line_to(mpat, e1.x2(), e1.y2());
@@ -1217,6 +1344,7 @@ void ScPainter::fillPathHelper()
 					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 3, r, g, b, a);
 					cairo_pattern_mesh_end_patch(mpat);
+#endif
 				}
 			}
 			cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
@@ -1252,6 +1380,27 @@ void ScPainter::fillPathHelper()
 					meshPoint mp2 = meshGradientArray[grow][gcol+1];
 					meshPoint mp3 = meshGradientArray[grow+1][gcol+1];
 					meshPoint mp4 = meshGradientArray[grow+1][gcol];
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+					cairo_mesh_pattern_begin_patch(mpat);
+					cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
+					cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+					cairo_mesh_pattern_curve_to(mpat, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+					cairo_mesh_pattern_curve_to(mpat, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+					cairo_mesh_pattern_curve_to(mpat, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+					cairo_mesh_pattern_set_control_point(mpat, 0, mp1.controlColor.x(),  mp1.controlColor.y());
+					cairo_mesh_pattern_set_control_point(mpat, 1, mp2.controlColor.x(),  mp2.controlColor.y());
+					cairo_mesh_pattern_set_control_point(mpat, 2, mp3.controlColor.x(),  mp3.controlColor.y());
+					cairo_mesh_pattern_set_control_point(mpat, 3, mp4.controlColor.x(),  mp4.controlColor.y());
+					mp1.color.getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+					mp2.color.getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+					mp3.color.getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+					mp4.color.getRgbF(&r, &g, &b, &a);
+					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+					cairo_mesh_pattern_end_patch(mpat);
+#else
 					cairo_pattern_mesh_begin_patch(mpat);
 					cairo_pattern_mesh_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 					cairo_pattern_mesh_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
@@ -1271,6 +1420,7 @@ void ScPainter::fillPathHelper()
 					mp4.color.getRgbF(&r, &g, &b, &a);
 					cairo_pattern_mesh_set_corner_color_rgba(mpat, 3, r, g, b, a);
 					cairo_pattern_mesh_end_patch(mpat);
+#endif
 				}
 			}
 			cairo_pattern_set_filter(mpat, CAIRO_FILTER_BEST);
@@ -1356,6 +1506,27 @@ void ScPainter::fillPathHelper()
 				meshPoint mp2 = patch.TR;
 				meshPoint mp3 = patch.BR;
 				meshPoint mp4 = patch.BL;
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
+				cairo_mesh_pattern_begin_patch(mpat);
+				cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
+				cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
+				cairo_mesh_pattern_curve_to(mpat, mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
+				cairo_mesh_pattern_curve_to(mpat, mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
+				cairo_mesh_pattern_curve_to(mpat, mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
+				cairo_mesh_pattern_set_control_point(mpat, 0, mp1.controlColor.x(),  mp1.controlColor.y());
+				cairo_mesh_pattern_set_control_point(mpat, 1, mp2.controlColor.x(),  mp2.controlColor.y());
+				cairo_mesh_pattern_set_control_point(mpat, 2, mp3.controlColor.x(),  mp3.controlColor.y());
+				cairo_mesh_pattern_set_control_point(mpat, 3, mp4.controlColor.x(),  mp4.controlColor.y());
+				mp1.color.getRgbF(&r, &g, &b, &a);
+				cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
+				mp2.color.getRgbF(&r, &g, &b, &a);
+				cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
+				mp3.color.getRgbF(&r, &g, &b, &a);
+				cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
+				mp4.color.getRgbF(&r, &g, &b, &a);
+				cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
+				cairo_mesh_pattern_end_patch(mpat);
+#else
 				cairo_pattern_mesh_begin_patch(mpat);
 				cairo_pattern_mesh_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 				cairo_pattern_mesh_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
@@ -1375,6 +1546,7 @@ void ScPainter::fillPathHelper()
 				mp4.color.getRgbF(&r, &g, &b, &a);
 				cairo_pattern_mesh_set_corner_color_rgba(mpat, 3, r, g, b, a);
 				cairo_pattern_mesh_end_patch(mpat);
+#endif
 			}
 			cairo_pattern_set_filter(mpat, CAIRO_FILTER_BEST);
 			cairo_set_source(cr, mpat);
