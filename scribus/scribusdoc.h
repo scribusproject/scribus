@@ -42,6 +42,8 @@ for which a new license (GPL+exception) is in place.
 #include "documentinformation.h"
 #include "observable.h"
 #include "pageitem.h"
+#include "pageitem_group.h"
+#include "pageitem_latexframe.h"
 #include "pagestructs.h"
 #include "prefsstructs.h"
 #include "scguardedptr.h"
@@ -572,6 +574,17 @@ public:
 	void replaceCellStyles(const QMap<QString, QString>& newNameForOld);
 
 	void getNamedResources(ResourceCollection& lists) const;
+	struct ResMapped
+	{
+		ResMapped(ResourceCollection& newNames) { m_newNames = newNames;}
+
+		void operator()(PageItem *item)
+		{
+			item->replaceNamedResources(m_newNames);
+		}
+
+		ResourceCollection m_newNames;
+	};
 	void replaceNamedResources(ResourceCollection& newNames);
 	bool styleExists(QString styleName);
 	
@@ -723,6 +736,7 @@ public:
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */
 	void recalculateColorsList(QList<PageItem *> *itemList);
+	static void recalculateColorItem(PageItem *item);
 	void recalculateColors();
 	/**
 	 * @brief Sets up the ScText defaults from the document
@@ -1031,6 +1045,41 @@ public:
 	
 	void setRedrawBounding(PageItem *currItem);
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
+	struct PicResMapped
+	{
+		PicResMapped(bool applyNewRes, int lowResType) { m_applyNewRes = applyNewRes; m_lowResType = lowResType;}
+
+		void operator()(PageItem *item)
+		{
+			QList<PageItem*> allItems;
+			if (item->isGroup())
+				allItems = item->asGroupFrame()->getItemList();
+			else
+				allItems.append(item);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				item = allItems.at(ii);
+				if (item->PictureIsAvailable)
+				{
+					bool fho = item->imageFlippedH();
+					bool fvo = item->imageFlippedV();
+					if (m_applyNewRes)
+						item->pixm.imgInfo.lowResType = m_lowResType;
+					if (item->asLatexFrame())
+						item->asLatexFrame()->rerunApplication(false);
+					else
+						item->loadImage(item->Pfile, true, -1, false);
+					item->setImageFlippedH(fho);
+					item->setImageFlippedV(fvo);
+					item->AdjustPictScale();
+				}
+			}
+			allItems.clear();
+		}
+
+		bool m_applyNewRes;
+		int m_lowResType;
+	};
 	void recalcPicturesRes(bool applyNewRes = false);
 	void connectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly

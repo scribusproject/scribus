@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPointer>
 #include <QProgressBar>
+#include <qtconcurrentmap.h>
 
 #include "canvas.h"
 #include "colorblind.h"
@@ -1215,10 +1216,16 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 	replaceNamedResources(newNames);
 }
 
-
 void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 {
 	// replace names in items
+
+#ifndef QT_NO_CONCURRENT
+	QtConcurrent::blockingMap(DocItems, ResMapped(newNames));
+	QtConcurrent::blockingMap(MasterItems, ResMapped(newNames));
+	QtConcurrent::blockingMap(FrameItems, ResMapped(newNames));
+#else
+
 	QList<PageItem*> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
@@ -1235,7 +1242,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		else
 			itemlist = NULL;
 	}
-	
+#endif
 	// replace names in styles...
 	for (int i=docParagraphStyles.count()-1; i >= 0; --i)
 	{
@@ -4303,6 +4310,50 @@ void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
 	}
 }
 
+void ScribusDoc::recalculateColorItem(PageItem *item)
+{
+	QList<PageItem*> allItems;
+	if (item->isGroup())
+		allItems = item->asGroupFrame()->getItemList();
+	else
+		allItems.append(item);
+	for (int ii = 0; ii < allItems.count(); ii++)
+	{
+		PageItem *ite = allItems.at(ii);
+		ite->setLineQColor();
+		ite->setFillQColor();
+		ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+		for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+		{
+			for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+			{
+				meshPoint mp = ite->meshGradientArray[grow][gcol];
+				ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+			}
+		}
+		for (int grow = 0; grow < ite->meshGradientPatches.count(); grow++)
+		{
+			meshGradientPatch patch = ite->meshGradientPatches[grow];
+			ite->setMeshPointColor(grow, 1, patch.TL.colorName, patch.TL.shade, patch.TL.transparency, true);
+			ite->setMeshPointColor(grow, 2, patch.TR.colorName, patch.TR.shade, patch.TR.transparency, true);
+			ite->setMeshPointColor(grow, 3, patch.BR.colorName, patch.BR.shade, patch.BR.transparency, true);
+			ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
+		}
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->stroke_gradient.colorStops();
+		for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		cstops = ite->mask_gradient.colorStops();
+		for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+		if (ite->GrType == 13)
+			ite->createConicalMesh();
+	}
+	allItems.clear();
+}
+
 void ScribusDoc::recalculateColors()
 {
 	//Adjust Items of the 3 types to the colors
@@ -4322,9 +4373,17 @@ void ScribusDoc::recalculateColors()
 			cstops.at(cst)->color = tmp;
 		}
 	}
+
+#ifndef QT_NO_CONCURRENT
+	QtConcurrent::blockingMap(DocItems, &ScribusDoc::recalculateColorItem);
+	QtConcurrent::blockingMap(MasterItems, &ScribusDoc::recalculateColorItem);
+	QtConcurrent::blockingMap(FrameItems, &ScribusDoc::recalculateColorItem);
+#else
+
 	recalculateColorsList(&DocItems);
 	recalculateColorsList(&MasterItems);
 	recalculateColorsList(&FrameItems);
+#endif
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -4376,7 +4435,17 @@ void ScribusDoc::recalculateColors()
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 	}
 }
 
@@ -8548,7 +8617,18 @@ void ScribusDoc::updatePict(QString name)
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+//		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 	if (updated)
 	{
@@ -8697,7 +8777,17 @@ void ScribusDoc::updatePictDir(QString name)
 			}
 			allItems.clear();
 			PageItem *ite = pa.items.at(0);
-			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			double x1, x2, y1, y2;
+			ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 		}
 	}
 	if (updated)
@@ -8710,11 +8800,21 @@ void ScribusDoc::updatePictDir(QString name)
 //CB Same as updatePict apart from the name checking, this should be able to be removed
 void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 {
-	int cc = 0;
 	int ca = 0;
 	ScGuardedPtr<ScribusDoc> docPtr = guardedPtr();
 	m_ScMW->mainWindowProgressBar->reset();
 	QList<PageItem*> allItems;
+	QStringList patterns = docPatterns.keys();
+
+#ifndef QT_NO_CONCURRENT
+	int lowRes = 0;
+	if (applyNewRes)
+		lowRes = docPrefsData.itemToolPrefs.imageLowResType;
+	QtConcurrent::blockingMap(DocItems, PicResMapped(applyNewRes, lowRes));
+	QtConcurrent::blockingMap(MasterItems, PicResMapped(applyNewRes, lowRes));
+	QtConcurrent::blockingMap(FrameItems, PicResMapped(applyNewRes, lowRes));
+#else
+	int cc = 0;
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
@@ -8760,7 +8860,6 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
@@ -8874,6 +8973,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
+#endif
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
@@ -8909,7 +9009,17 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 	}
 	regionsChanged()->update(QRectF());
 	changed();
@@ -9002,7 +9112,18 @@ void ScribusDoc::removePict(QString name)
 			allItems.clear();
 		}
 		PageItem *ite = pa.items.at(0);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+//		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
 	}
 	if (updated)
 	{
@@ -13446,6 +13567,66 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			int d = list->indexOf(currItem);
 			list->removeAt(d);
 			itemSelection->removeItem(currItem);
+			Selection tempSelection(this, false);
+			tempSelection.delaySignalsOn();
+			int gcount = currItem->groupItemList.count() - 1;
+			for (int c = gcount; c >= 0; c--)
+			{
+				PageItem* gItem = currItem->groupItemList.at(c);
+				gItem->Parent = currItem->Parent;
+				gItem->setXYPos(currItem->xPos() + gItem->gXpos, currItem->yPos() + gItem->gYpos, true);
+				list->insert(d, gItem);
+				itemSelection->addItem(currItem->groupItemList.at(gcount - c));
+				tempSelection.addItem(currItem->groupItemList.at(gcount - c));
+			}
+			if ((currItem->width() != currItem->groupWidth) || (currItem->height() != currItem->groupHeight))
+				scaleGroup(currItem->width() / currItem->groupWidth, currItem->height() / currItem->groupHeight, true, &tempSelection, true);
+			QTransform ma = currItem->getTransform();
+			FPoint n;
+			for (int a = 0; a < tempSelection.count(); ++a)
+			{
+				PageItem* rItem = tempSelection.itemAt(a);
+				n = FPoint(rItem->xPos() - currItem->xPos(), rItem->yPos() - currItem->yPos());
+				rItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
+				rItem->rotateBy(currItem->rotation());
+				QTransform itemTrans = rItem->getTransform();
+				if (itemTrans.m11() < 0)
+				{
+					rItem->gXpos -= rItem->width();
+					if (rItem->isImageFrame() || rItem->isTextFrame() || rItem->isLatexFrame() || rItem->isOSGFrame() || rItem->isSymbol() || rItem->isGroup() || rItem->isSpiral())
+						rItem->flipImageH();
+					if (rItem->itemType() != PageItem::Line)
+					{
+						QTransform ma;
+						ma.scale(-1, 1);
+						rItem->PoLine.map(ma);
+						rItem->PoLine.translate(rItem->width(), 0);
+					}
+				}
+				if (itemTrans.m22() < 0)
+				{
+					rItem->gYpos -= rItem->height();
+					if (rItem->isImageFrame() || rItem->isTextFrame() || rItem->isLatexFrame() || rItem->isOSGFrame() || rItem->isSymbol() || rItem->isGroup() || rItem->isSpiral())
+						rItem->flipImageV();
+					if (rItem->itemType() != PageItem::Line)
+					{
+						QTransform ma;
+						ma.scale(1, -1);
+						rItem->PoLine.map(ma);
+						rItem->PoLine.translate(0, rItem->height());
+					}
+				}
+				setRedrawBounding(rItem);
+				rItem->OwnPage = OnPage(rItem);
+			}
+			tempSelection.clear();
+			tempSelection.delaySignalsOff();
+		/*	currItem = toDelete.at(b);
+			QList<PageItem*> *list = Items;
+			list = parentGroup(currItem, Items);
+			int d = list->indexOf(currItem);
+			list->removeAt(d);
+			itemSelection->removeItem(currItem);
 			int gcount = currItem->groupItemList.count();
 			for (int c = 0; c < gcount; c++)
 			{
@@ -13459,7 +13640,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 					list->insert(d, gItem);
 				}
 				itemSelection->addItem(gItem);
-			}
+			} */
 		}
 		setLoading(wasLoad);
 		itemSelection->delaySignalsOff();
