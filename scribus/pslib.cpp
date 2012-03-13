@@ -4444,8 +4444,13 @@ void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)
 	QStringList colorValues;
 	QStringList spotColorSet;
 	QList<int> colsSh;
-	QList<VColorStop*> colorStops = c->fill_gradient.colorStops();
-	for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
+	VGradient gradient;
+	if (!(c->gradient().isEmpty()) && (m_Doc->docGradients.contains(c->gradient())))
+		gradient = m_Doc->docGradients[c->gradient()];
+	else
+		gradient = c->fill_gradient;
+	QList<VColorStop*> colorStops = gradient.colorStops();
+	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		cols.append(colorStops.at(cst)->name);
 		colsSh.append(colorStops.at(cst)->shade);
@@ -4548,7 +4553,7 @@ void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)
 	QLineF edge2 = QLineF(centerP, QPointF(c->GrControl2.x(), -c->GrControl2.y()));
 	QLineF edge3 = QLineF(centerP, QPointF(c->GrControl3.x(), -c->GrControl3.y()));
 	QLineF edge4 = QLineF(centerP, QPointF(c->GrControl4.x(), -c->GrControl4.y()));
-	for (uint offset = 1; offset < c->fill_gradient.Stops(); ++offset)
+	for (uint offset = 1; offset < gradient.Stops(); ++offset)
 	{
 		QLineF e1 = edge1;
 		QLineF e1s = edge1;
@@ -4776,7 +4781,10 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		FocalY = c->GrStrokeFocalY;
 		Gscale = c->GrStrokeScale;
 		Gskew = c->GrStrokeSkew;
-		gradient = c->stroke_gradient;
+		if (!(c->strokeGradient().isEmpty()) && (m_Doc->docGradients.contains(c->strokeGradient())))
+			gradient = m_Doc->docGradients[c->strokeGradient()];
+		else
+			gradient = c->stroke_gradient;
 	}
 	else
 	{
@@ -4789,7 +4797,10 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 		FocalY = c->GrFocalY;
 		Gscale = c->GrScale;
 		Gskew = c->GrSkew;
-		gradient = c->fill_gradient;
+		if (!(c->gradient().isEmpty()) && (m_Doc->docGradients.contains(c->gradient())))
+			gradient = m_Doc->docGradients[c->gradient()];
+		else
+			gradient = c->fill_gradient;
 		if (GType == 8)
 		{
 			QTransform patternMatrix;

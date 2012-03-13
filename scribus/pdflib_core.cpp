@@ -6192,7 +6192,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		FocalY = currItem->GrMaskFocalY;
 		Gscale = currItem->GrMaskScale;
 		Gskew = currItem->GrMaskSkew;
-		gradient = currItem->mask_gradient;
+		if (!(currItem->gradientMask().isEmpty()) && (doc.docGradients.contains(currItem->gradientMask())))
+			gradient = doc.docGradients[currItem->gradientMask()];
+		else
+			gradient = currItem->mask_gradient;
 		QList<VColorStop*> cstops = gradient.colorStops();
 		StopVec.clear();
 		TransVec.clear();
@@ -7433,7 +7436,10 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 	VGradient gradient;
 	bool spotMode = false;
 	bool transparencyFound = false;
-	gradient = c->fill_gradient;
+	if (!(c->gradient().isEmpty()) && (doc.docGradients.contains(c->gradient())))
+		gradient = doc.docGradients[c->gradient()];
+	else
+		gradient = c->fill_gradient;
 	QList<VColorStop*> cstops = gradient.colorStops();
 	StopVec.clear();
 	TransVec.clear();
@@ -7476,7 +7482,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		QDataStream vst(&vertStreamT, QIODevice::WriteOnly);
 		vst.setByteOrder(QDataStream::BigEndian);
 		quint8 flg = 0;
-		for (uint offset = 1; offset < c->fill_gradient.Stops(); ++offset)
+		for (uint offset = 1; offset < gradient.Stops(); ++offset)
 		{
 			QLineF e1 = edge1;
 			QLineF e1s = edge1;
@@ -7652,7 +7658,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 	QDataStream vs(&vertStream, QIODevice::WriteOnly);
 	vs.setByteOrder(QDataStream::BigEndian);
 	quint8 flg = 0;
-	for (uint offset = 1; offset < c->fill_gradient.Stops(); ++offset)
+	for (uint offset = 1; offset < gradient.Stops(); ++offset)
 	{
 		QLineF e1 = edge1;
 		QLineF e1s = edge1;
@@ -7833,7 +7839,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 	}
 	tmp += putColor(colorNames.last(), colorShades.last(), true);
 	tmp += SetClipPath(c);
-	tmp += "h\n";
+	tmp += (c->fillRule ? "h\nW*\nn\n" : "h\nW\nn\n");
 	tmp += FToStr(c->GrControl1.x())+" "+FToStr(-c->GrControl1.y())+" m\n";
 	tmp += FToStr(c->GrControl2.x())+" "+FToStr(-c->GrControl2.y())+" l\n";
 	tmp += FToStr(c->GrControl3.x())+" "+FToStr(-c->GrControl3.y())+" l\n";
@@ -8184,7 +8190,10 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		FocalY = currItem->GrStrokeFocalY;
 		Gscale = currItem->GrStrokeScale;
 		Gskew = currItem->GrStrokeSkew;
-		gradient = currItem->stroke_gradient;
+		if (!(currItem->strokeGradient().isEmpty()) && (doc.docGradients.contains(currItem->strokeGradient())))
+			gradient = doc.docGradients[currItem->strokeGradient()];
+		else
+			gradient = currItem->stroke_gradient;
 	}
 	else
 	{
@@ -8205,7 +8214,10 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		FocalY = currItem->GrFocalY;
 		Gscale = currItem->GrScale;
 		Gskew = currItem->GrSkew;
-		gradient = currItem->fill_gradient;
+		if (!(currItem->gradient().isEmpty()) && (doc.docGradients.contains(currItem->gradient())))
+			gradient = doc.docGradients[currItem->gradient()];
+		else
+			gradient = currItem->fill_gradient;
 	}
 	QList<VColorStop*> cstops = gradient.colorStops();
 	StopVec.clear();
