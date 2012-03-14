@@ -295,6 +295,8 @@ static QString PDFEncode(const QString & in)
 		QChar cc(in.at(d));
 		if ((cc == '(') || (cc == ')') || (cc == '\\'))
 			tmp += '\\';
+		else if ((cc == '\r') || (cc == '\n'))
+			tmp += "\\n";
 		tmp += cc;
 	}
 	return tmp;
@@ -359,14 +361,6 @@ static QString blendMode(int code)
 
 QByteArray PDFLibCore::EncodeUTF16(const QString &in)
 {
-//	QString tmp("");
-//	for (int d = 0; d < in.length(); ++d)
-//	{
-//		QChar cc(in.at(d));
-//		if ((cc == '(') || (cc == ')') || (cc == '\\'))
-//			tmp += '\\';
-//		tmp += cc;
-//	}
 	QString tmp = in;
 	QByteArray cres = ucs2Codec->fromUnicode( tmp );
 #ifndef WORDS_BIGENDIAN
@@ -405,22 +399,24 @@ QString PDFLibCore::EncStream(const QString & in, int ObjNum)
 
 QString PDFLibCore::EncString(const QString & in, int ObjNum)
 {
-	if (!Options.Encrypt)
-		return in;
-	rc4_context_t rc4;
 	QString tmp;
-	if (in.length() < 3)
+	if (in.length() < 1)
 		return "<>";
-	tmp = in.mid(1, in.length()-2);
-	QByteArray us(tmp.length(), ' ');
-	QByteArray ou(tmp.length(), ' ');
-	for (int a = 0; a < tmp.length(); ++a)
-		us[a] = static_cast<uchar>(QChar(tmp.at(a)).cell());
+	if (!Options.Encrypt)
+	{
+		tmp = "(" + PDFEncode(in) + ")";
+		return tmp;
+	}
+	rc4_context_t rc4;
+	QByteArray us(in.length(), ' ');
+	QByteArray ou(in.length(), ' ');
+	for (int a = 0; a < in.length(); ++a)
+		us[a] = static_cast<uchar>(QChar(in.at(a)).cell());
 	QByteArray step1 = ComputeRC4Key(ObjNum);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
+	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), in.length());
 	QString uk = "";
-	for (int cl = 0; cl < tmp.length(); ++cl)
+	for (int cl = 0; cl < in.length(); ++cl)
 		uk += QChar(ou[cl]);
 	tmp = "<"+String2Hex(&uk, false)+">";
 	return tmp;
@@ -428,20 +424,18 @@ QString PDFLibCore::EncString(const QString & in, int ObjNum)
 
 QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
 {
-	if (in.length() < 3)
+	if (in.length() < 1)
 		return "<>";
 	if (!Options.Encrypt)
 	{
-		QString tmp = in.mid(1, in.length()-2);
-		QByteArray us = EncodeUTF16(tmp);
+		QByteArray us = EncodeUTF16(in);
 		QString uk = "";
 		for (int cl = 0; cl < us.size(); ++cl)
 			uk += QChar(us[cl]);
 		return "<"+String2Hex(&uk, false)+">";
 	}
 	rc4_context_t rc4;
-	QString tmp = in.mid(1, in.length()-2);
-	QByteArray us = EncodeUTF16(tmp);
+	QByteArray us = EncodeUTF16(in);
 	QByteArray ou(us.size(), ' ');
 	QByteArray step1 = ComputeRC4Key(ObjNum);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
@@ -449,7 +443,7 @@ QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
 	QString uk = "";
 	for (int cl = 0; cl < ou.size(); ++cl)
 		uk += QChar(ou[cl]);
-	tmp = "<"+String2Hex(&uk, false)+">";
+	QString tmp = "<"+String2Hex(&uk, false)+">";
 	return tmp;
 }
 
@@ -895,18 +889,18 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		}
 	}
 	StartObj(2);
-	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
-	PutDoc("/Producer "+EncString("(Scribus PDF Library "+QString(VERSION)+")",2)+"\n");
+	PutDoc("<<\n/Creator " + EncString("Scribus "+QString(VERSION), 2) + "\n");
+	PutDoc("/Producer " + EncString("Scribus PDF Library "+QString(VERSION), 2) + "\n");
 	QString docTitle = doc.documentInfo().title();
 	if (((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4)) && (docTitle.isEmpty()))
-		PutDoc("/Title "+EncStringUTF16("("+doc.DocName+")",2)+"\n");
+		PutDoc("/Title " + EncStringUTF16(doc.DocName, 2) + "\n");
 	else
-		PutDoc("/Title "+EncStringUTF16("("+doc.documentInfo().title()+")",2)+"\n");
-	PutDoc("/Author "+EncStringUTF16("("+doc.documentInfo().author()+")",2)+"\n");
-	PutDoc("/Subject "+EncStringUTF16("("+doc.documentInfo().subject()+")",2)+"\n");
-	PutDoc("/Keywords "+EncStringUTF16("("+doc.documentInfo().keywords()+")",2)+"\n");
-	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
-	PutDoc("/ModDate "+EncString("("+Datum+")",2)+"\n");
+		PutDoc("/Title " + EncStringUTF16(doc.documentInfo().title(), 2) + "\n");
+	PutDoc("/Author " + EncStringUTF16(doc.documentInfo().author(), 2) + "\n");
+	PutDoc("/Subject " + EncStringUTF16(doc.documentInfo().subject(), 2) + "\n");
+	PutDoc("/Keywords " + EncStringUTF16(doc.documentInfo().keywords(), 2) + "\n");
+	PutDoc("/CreationDate " + EncString(Datum, 2) + "\n");
+	PutDoc("/ModDate " + EncString(Datum, 2) + "\n");
 	if (Options.Version == PDFOptions::PDFVersion_X3)
 		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	if (Options.Version == PDFOptions::PDFVersion_X1a)
@@ -1977,7 +1971,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("<<\n");
 			PutDoc("/Type /OCG\n");
 			PutDoc("/Name ");
-			PutDoc(EncStringUTF16("("+ll.Name+")", optionalContent));
+			PutDoc(EncStringUTF16(ll.Name, optionalContent));
 			PutDoc("\n");
 			PutDoc("/Usage <</Print <</PrintState ");
 			if (ll.isPrintable)
@@ -2907,7 +2901,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			PutPage("1 0 0 1 "+FToStr(startX)+" 6 cm\n");
 //			PutPage("BT\n");
 //			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-//			PutPage(EncString("("+docTitle+")",ObjCounter)+" Tj\nET\n");
+//			PutPage(EncString(docTitle, ObjCounter) + " Tj\nET\n");
 			painter1.addText( QPointF(0.0,0.0), infoFont, docTitle );
 			textPath.fromQPainterPath(painter1);
 			PutPage(SetClipPathArray(&textPath, true));
@@ -2920,7 +2914,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 //			PutPage("BT\n");
 //			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
 //			QDate d = QDate::currentDate();
-//			PutPage(EncString("("+ tr("Date:")+" "+d.toString(Qt::TextDate)+")",ObjCounter)+" Tj\nET\n");
+//			PutPage(EncString( tr("Date:")+" "+d.toString(Qt::TextDate), ObjCounter) + " Tj\nET\n");
 			painter2.addText( QPointF(0.0,0.0), infoFont, docDate );
 			textPath.fromQPainterPath(painter2);
 			PutPage(SetClipPathArray(&textPath, true));
@@ -5308,7 +5302,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	return tmp;
 }
 
-bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QString &tmp, QString &tmp2, const ScText *hl, const ParagraphStyle& pstyle, const ScPage* pag)
+bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, QString &tmp, QString &tmp2, const ScText *hl, const ParagraphStyle& pstyle, const ScPage* pag)
 {
 #ifndef NLS_PROTO
 	QString output;
@@ -8715,7 +8709,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 	double y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
 	double x2 = x+ite->width();
 	double y2 = y-ite->height();
-	QString bm(""), bmUtf16("");
+	QString bmUtf16("");
 	QString cc;
 	QFileInfo fiBase(Spool.fileName());
 	QString baseDir = fiBase.absolutePath();
@@ -8726,17 +8720,11 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		for (uint d = 0; d < static_cast<uint>(ite->itemText.length()); ++d)
 		{
 			cc = ite->itemText.text(d, 1);
-			bmUtf16 += cc;
-			if ((cc == "(") || (cc == ")") || (cc == "\\"))
-				bm += "\\";
-			if (cc == QChar(13))
-				cc = "\\r";
-			bm += cc;
+			bmUtf16 += (cc == QChar(13) ? QChar(10) : cc);
 		}
 	}
 	QString anTitle = ite->itemName().replace(".", "_" );
-	QStringList bmst = bm.split("\\r", QString::SkipEmptyParts);
-	QStringList bmstUtf16 = bmUtf16.split(QChar(13), QString::SkipEmptyParts);
+	QStringList bmstUtf16 = bmUtf16.split(QChar(10), QString::SkipEmptyParts);
 	const QString m[] = {"4", "5", "F", "l", "H", "n"};
 	QString ct(m[ite->annotation().ChkStil()]);
 	uint annotationObj = newObject();
@@ -8756,7 +8744,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		case 0:
 		case 10:
 			PutDoc("/Subtype /Text\n");
-			PutDoc("/Contents "+EncStringUTF16("("+bmUtf16+")",annotationObj)+"\n");
+			PutDoc("/Contents " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
 			break;
 		case 1:
 		case 11:
@@ -8773,14 +8761,14 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			}
 			if (ite->annotation().ActionType() == 7)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern(), baseDir)+")",annotationObj)+"\n");
+				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Path2Relative(ite->annotation().Extern(), baseDir), annotationObj) + "\n");
 				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 			}
 			if (ite->annotation().ActionType() == 8)
-				PutDoc("/A << /Type /Action /S /URI\n/URI "+ EncString("("+ite->annotation().Extern()+")",annotationObj)+"\n>>\n");
+				PutDoc("/A << /Type /Action /S /URI\n/URI " + EncString(ite->annotation().Extern(), annotationObj) + "\n>>\n");
 			if (ite->annotation().ActionType() == 9)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n");
+				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(ite->annotation().Extern(), ObjCounter-1) + "\n");
 				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 			}
 			break;
@@ -8791,9 +8779,9 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		case 6:
 			Seite.FormObjects.append(annotationObj);
 			PutDoc("/Subtype /Widget\n");
-			PutDoc("/T "+EncString("("+anTitle+")",annotationObj)+"\n");
+			PutDoc("/T " + EncString(anTitle, annotationObj) + "\n");
 			if (!ite->annotation().ToolTip().isEmpty())
-				PutDoc("/TU "+EncStringUTF16("("+PDFEncode(ite->annotation().ToolTip())+")",annotationObj)+"\n");
+				PutDoc("/TU " + EncStringUTF16(ite->annotation().ToolTip(), annotationObj) + "\n");
 			PutDoc("/F ");
 			QString mm[] = {"4", "2", "0", "32"};
 			PutDoc(mm[ite->annotation().Vis()]);
@@ -8804,7 +8792,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			QString cnx = "(";
+			QString cnx;
 			if (ite->annotation().Type() == 4)
 				cnx += "/"+StdFonts["/ZapfDingbats"];
 			else
@@ -8820,8 +8808,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 				cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 			if (ite->fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
-			cnx += ")";
-			PutDoc("/DA "+EncString(cnx,annotationObj)+"\n");
+			PutDoc("/DA " + EncString(cnx, annotationObj) + "\n");
 			int flg = ite->annotation().Flag();
 			if (Options.Version == PDFOptions::PDFVersion_13)
 				flg = flg & 522247;
@@ -8838,8 +8825,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 3:
 					PutDoc("/FT /Tx\n");
-					PutDoc("/V " + EncStringUTF16("("+bmUtf16+")",annotationObj)+"\n");
-					PutDoc("/DV "+ EncStringUTF16("("+bmUtf16+")",annotationObj)+"\n");
+					PutDoc("/V " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
+					PutDoc("/DV "+ EncStringUTF16(bmUtf16, annotationObj) + "\n");
 					PutDoc("/Q "+QString::number(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned))+"\n");
 					appearanceObj = newObject();
 					PutDoc("/AP << /N "+QString::number(appearanceObj)+" 0 R >>\n");
@@ -8855,7 +8842,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 5:
 				case 6:
-					cnx = "(%1)";
+					cnx = "%1";
 					cnx = cnx.arg((bmstUtf16.count() > 0) ? bmstUtf16[0] : "");
 					cnx = EncStringUTF16(cnx, annotationObj);
 					PutDoc("/FT /Ch\n");
@@ -8863,7 +8850,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/DV " + cnx + "\n");
 					PutDoc("/Opt [ ");
 					for (int bmc = 0; bmc < bmstUtf16.count(); ++bmc)
-						PutDoc(EncStringUTF16("("+bmstUtf16[bmc]+")",annotationObj)+"\n");
+						PutDoc(EncStringUTF16(bmstUtf16[bmc], annotationObj)+"\n");
 					PutDoc("]\n");
 					appearanceObj = newObject();
 					PutDoc("/AP << /N "+QString::number(appearanceObj)+" 0 R >>\n");
@@ -8887,11 +8874,11 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			switch (ite->annotation().Type())
 			{
 				case 2:
-					PutDoc("/CA "+EncString("("+bm+")",annotationObj)+" ");
+					PutDoc("/CA " + EncString(bmUtf16, annotationObj) + " ");
 					if (!ite->annotation().RollOver().isEmpty())
-						PutDoc("/RC "+ EncString("("+PDFEncode(ite->annotation().RollOver())+")",annotationObj)+" ");
+						PutDoc("/RC " + EncString(ite->annotation().RollOver(), annotationObj) + " ");
 					if (!ite->annotation().Down().isEmpty())
-						PutDoc("/AC "+ EncString("("+PDFEncode(ite->annotation().Down())+")",annotationObj)+" ");
+						PutDoc("/AC " + EncString(ite->annotation().Down(), annotationObj) + " ");
 					if (ite->annotation().UseIcons())
 					{
 						if (!ite->Pfile.isEmpty())
@@ -8957,7 +8944,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 				case 3:
 					break;
 				case 4:
-					PutDoc("/CA "+EncString("("+ct+")",annotationObj)+" ");
+					PutDoc("/CA " + EncString(ct, annotationObj) + " ");
 					break;
 			}
 			if (ite->rotation() != 0)
@@ -8967,21 +8954,21 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			{
 				if (ite->annotation().ActionType() == 7)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern(), baseDir)+")",annotationObj)+ "\n");
+					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Path2Relative(ite->annotation().Extern(), baseDir), annotationObj) + "\n");
 					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
 				if (ite->annotation().ActionType() == 9)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n");
+					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(ite->annotation().Extern(), ObjCounter-1) + "\n");
 					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
 				if (ite->annotation().ActionType() == 5)
-					PutDoc("/A << /Type /Action /S /ImportData\n/F "+ EncString("("+ite->annotation().Action()+")",annotationObj)+" >>\n");
+					PutDoc("/A << /Type /Action /S /ImportData\n/F " + EncString(ite->annotation().Action(), annotationObj) + " >>\n");
 				if (ite->annotation().ActionType() == 4)
 					PutDoc("/A << /Type /Action /S /ResetForm >>\n");
 				if (ite->annotation().ActionType() == 3)
 				{
-					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F "+ EncString("("+ite->annotation().Action()+")",annotationObj)+" >>\n");
+					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F " + EncString(ite->annotation().Action(), annotationObj) + " >>\n");
 //					if (ite->annotation().HTML())
 //						PutDoc("/Flags 4");
 					switch (ite->annotation().HTML())
@@ -9105,18 +9092,18 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
-		if (bmst.count() > 1)
+		if (bmstUtf16.count() > 1)
 		{
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
-			for (int mz = 0; mz < bmst.count(); ++mz)
+			for (int mz = 0; mz < bmstUtf16.count(); ++mz)
 			{
-				cc += EncStringUTF16("("+bmst[mz]+")",annotationObj);
+				cc += EncStringUTF16(bmstUtf16[mz], annotationObj);
 				cc += " Tj\nT*\n";
 			}
 			cc += "ET\nEMC";
 		}
 		else
-			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncStringUTF16("("+bmUtf16+")",annotationObj)+" Tj\nET\nEMC";
+			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n" + EncStringUTF16(bmUtf16, annotationObj) + " Tj\nET\nEMC";
 		PDF_xForm(appearanceObj, ite->width(), ite->height(), cc);
 	}
 	if (ite->annotation().Type() == 4)
@@ -9148,8 +9135,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
-		if (bmst.count() > 0)
-			cc += EncStringUTF16("("+bmst[0]+")",annotationObj);
+		if (bmstUtf16.count() > 0)
+			cc += EncStringUTF16(bmstUtf16[0], annotationObj);
 		cc += " Tj\nET\nQ\nEMC";
 		PDF_xForm(appearanceObj, ite->width(), ite->height(), cc);
 	}
@@ -10410,7 +10397,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 			ip = (BookMItem*)(*it);
 			QString encText = ip->text(0);
 			Inhal  = QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
-			Inhal += "<<\n/Title "+EncStringUTF16("("+encText+")", ip->ItemNr+Basis)+"\n";
+			Inhal += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr+Basis) + "\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else
@@ -10606,7 +10593,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		QMap<QString,QString>::Iterator itja2;
 		for (itja2 = doc.JavaScripts.begin(); itja2 != doc.JavaScripts.end(); ++itja2)
 		{
-			PutDoc(EncString("("+itja2.key()+")", 6)+" "+QString::number(Fjav)+" 0 R ");
+			PutDoc(EncString(itja2.key(), 6)+" "+QString::number(Fjav) + " 0 R ");
 			Fjav++;
 		}
 		PutDoc("] >>\nendobj\n");
