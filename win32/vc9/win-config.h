@@ -47,7 +47,7 @@
 #undef HAVE_INTTYPES_H
 
 /* Defines if your system has the cairo library */
-/*#define HAVE_CAIRO 1*/
+#define HAVE_CAIRO 1
 
 /* Define if you have libjpeg */
 #define HAVE_LIBJPEG 1

@@ -60,8 +60,8 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\vc9;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;..\..\..\scribus\third_party\cairo;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_PRIVATE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
+				AdditionalIncludeDirectories="..\..\vc9;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
 				IgnoreStandardIncludePath="false"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -88,7 +88,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib $(FREETYPE_DEBUG_LIB) $(LIBJPEG_DEBUG_LIB) $(LIBTIFF_DEBUG_LIB) $(LCMS_DEBUG_LIB) $(PODOFO_DEBUG_LIB) mscms.lib WSock32.Lib scribus-cairo.lib scribus-pgf.lib scribus-wpg.lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib QtWebKitd4.lib $(CAIRO_DEBUG_LIB) $(FREETYPE_DEBUG_LIB) $(LIBJPEG_DEBUG_LIB) $(LIBTIFF_DEBUG_LIB) $(LCMS_DEBUG_LIB) $(PODOFO_DEBUG_LIB) mscms.lib WSock32.Lib scribus-pgf.lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
@@ -166,8 +166,8 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\..\vc9;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;..\..\..\scribus\third_party\cairo;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_PRIVATE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
+				AdditionalIncludeDirectories="..\..\vc9;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4_DIR)\include\QtCore&quot;;&quot;$(QT4_DIR)\include\QtGui&quot;;&quot;$(QT4_DIR)\include\QtNetwork&quot;;&quot;$(QT4_DIR)\include\QtWebKit&quot;;&quot;$(QT4_DIR)\include\QtXml&quot;;&quot;$(QT4_DIR)\include&quot;;&quot;$(QT4_DIR)\src\3rdparty\zlib&quot;;&quot;$(CAIRO_DIR)\include&quot;;&quot;$(LCMS_DIR)\include&quot;;&quot;$(FREETYPE_DIR)\include&quot;;&quot;$(LIBJPEG_DIR)\include&quot;;&quot;$(LIBTIFF_DIR)\include&quot;;&quot;$(PODOFO_DIR)\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR=\&quot;doc/\&quot;;ICONDIR=\&quot;icons/\&quot;;SAMPLESDIR=\&quot;samples/\&quot;;SCRIPTSDIR=\&quot;scripts/\&quot;;SHAREDIR=\&quot;share/\&quot;;TEMPLATEDIR=\&quot;templates/\&quot;;LIBDIR=\&quot;libs/\&quot;;PLUGINDIR=\&quot;plugins\&quot;"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="true"
@@ -193,7 +193,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib $(FREETYPE_RELEASE_LIB) $(LIBJPEG_RELEASE_LIB) $(LIBTIFF_RELEASE_LIB) $(LCMS_RELEASE_LIB) $(PODOFO_RELEASE_LIB) mscms.lib WSock32.Lib scribus-cairo.lib scribus-pgf.lib scribus-wpg.lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib QtWebKit4.lib qtmain.lib $(CAIRO_RELEASE_LIB) $(FREETYPE_RELEASE_LIB) $(LIBJPEG_RELEASE_LIB) $(LIBTIFF_RELEASE_LIB) $(LCMS_RELEASE_LIB) $(PODOFO_RELEASE_LIB) mscms.lib WSock32.Lib scribus-pgf.lib scribus-wpg.lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;;&quot;$(OutDir)\.&quot;"
