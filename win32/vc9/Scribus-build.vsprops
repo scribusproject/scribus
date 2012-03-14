@@ -14,7 +14,7 @@
 	/>
 	<UserMacro
 		Name="CAIRO_DIR"
-		Value="F:\Libraries-vc9\cairo-1.8.8"
+		Value="F:\Libraries-vc9\cairo-1.11.4"
 	/>
 	<UserMacro
 		Name="CAIRO_DEBUG_LIB"
@@ -78,7 +78,7 @@
 	/>
 	<UserMacro
 		Name="PIXMAN_DIR"
-		Value="F:\Libraries-vc9\pixman-0.18.0"
+		Value="F:\Libraries-vc9\pixman-0.24.4"
 	/>
 	<UserMacro
 		Name="PIXMAN_DEBUG_LIB"
@@ -126,7 +126,7 @@
 	/>
 	<UserMacro
 		Name="POPPLER_DIR"
-		Value="F:\Libraries-vc9\poppler-0.17.1"
+		Value="F:\Libraries-vc9\poppler-0.18.4"
 	/>
 	<UserMacro
 		Name="POPPLER_DEBUG_LIB"
