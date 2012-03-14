@@ -95,10 +95,10 @@ protected:
 		body->refs = 1;
 	}
 
+	Action_body* body;
+
 private:
 	Action();  // not defined
-	
-	Action_body* body;
 };
 
 
