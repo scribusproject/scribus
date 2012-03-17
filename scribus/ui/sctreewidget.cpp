@@ -55,7 +55,10 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		static const int i = 9; // ### hardcoded in qcommonstyle.cpp
 		QRect r = option.rect;
 		painter->save();
-		painter->setBrush(Qt::black);
+		if (option.state & QStyle::State_Enabled)
+			painter->setBrush(Qt::black);
+		else
+			painter->setBrush(Qt::gray);
 		painter->setPen(Qt::NoPen);
 		QRect rect = QRect(r.left()+6, r.top()+6, r.height()-12, r.height()-12);
 		QPolygon pa(3);
