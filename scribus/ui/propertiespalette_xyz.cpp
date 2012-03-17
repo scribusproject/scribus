@@ -51,7 +51,7 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	m_unitRatio = 1.0;
 
 	setupUi(this);
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	_userActionOn = false;
 	userActionSniffer = new UserActionSniffer(this);

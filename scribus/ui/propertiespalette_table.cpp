@@ -29,6 +29,7 @@ PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(pare
 	m_mainWindow(0), m_doc(0), m_item(0), m_previousItem(0)
 {
 	setupUi(this);
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	addBorderLineButton->setIcon(QIcon(loadIcon("penciladd.png")));
 	removeBorderLineButton->setIcon(QIcon(loadIcon("pencilsub.png")));

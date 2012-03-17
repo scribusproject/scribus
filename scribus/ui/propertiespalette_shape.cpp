@@ -48,7 +48,7 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(par
 	m_tmpSelection->clear();
 
 	setupUi(this);
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	roundRectLabel->setBuddy(roundRect);
 

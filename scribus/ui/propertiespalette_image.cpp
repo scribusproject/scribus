@@ -42,7 +42,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
 
 	setupUi(this);
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText(tr( "Auto" ));

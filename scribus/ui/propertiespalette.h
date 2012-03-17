@@ -116,30 +116,7 @@ private slots:
 
 protected:
 	ScribusMainWindow *m_ScMW;
-
-	QVBoxLayout* MpalLayout;
-	QVBoxLayout* pageLayout;
-	QVBoxLayout* pageLayout_2;
-	QVBoxLayout* pageLayout_3;
-	QVBoxLayout* pageLayout_4;
-	QVBoxLayout* pageLayout_5;
-	QVBoxLayout* pageLayout_6;
-	QVBoxLayout* pageLayout_7;
-	QVBoxLayout* pageLayout_8;
-
-	QVBoxLayout* page_group_layout;
-	
-	QWidget* page;
-	QWidget* page_2;
-	QWidget* page_3;
-	QWidget* page_4;
-	QWidget* page_5;
-	QWidget* page_6;
-	QWidget* page_7;
-	QWidget* page_8;
-	QWidget* page_group;
-
-	QToolBox* TabStack;
+	ScTreeWidget* TabStack;
 
 	bool      m_haveDoc;
 	bool      m_haveItem;

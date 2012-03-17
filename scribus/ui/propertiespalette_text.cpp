@@ -55,9 +55,9 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	m_haveItem = false;
 	m_unitRatio = 1.0;
 
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	setupUi(this);
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	fontSize->setPrefix( "" );
 	fontSizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
@@ -69,7 +69,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	charStyleClear->setIcon(loadIcon("16/edit-clear.png"));
 
 	colorWidgets = new PropertyWidget_TextColor(textTree);
-	colorWidgetsItem = textTree->addWidget( tr("Color & Effects"), colorWidgets);
+	colorWidgetsItem = textTree->addWidget( tr("Color && Effects"), colorWidgets);
 
 	flopBox = new PropertyWidget_Flop(textTree);
 	flopItem = textTree->addWidget( tr("First Line Offset"), flopBox);
@@ -81,7 +81,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	dropcapsItem = textTree->addWidget( tr("Drop Cap"), dropcapsBox);
 
 	distanceWidgets = new PropertyWidget_Distance(textTree);
-    distanceItem = textTree->addWidget( tr("Columns & Text Distances"), distanceWidgets);
+	distanceItem = textTree->addWidget( tr("Columns && Text Distances"), distanceWidgets);
 
 	//<< Optical Margins
 	optMargins = new PropertyWidget_OptMargins(textTree);
@@ -1055,10 +1055,10 @@ void PropertiesPalette_Text::languageChange()
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
 	
-	colorWidgetsItem->setText(0, tr("Color & Effects"));
+	colorWidgetsItem->setText(0, tr("Color && Effects"));
 	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
 	flopItem->setText(0, tr("First Line Offset"));
-    distanceItem->setText(0, tr("Columns & Text Distances"));
+	distanceItem->setText(0, tr("Columns && Text Distances"));
 	optMarginsItem->setText(0, tr("Optical Margins"));
 	orphanItem->setText(0, tr("Orphans and Widows"));
 	pathTextItem->setText(0, tr("Path Text Properties"));

@@ -28,6 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTreeWidget>
 #include <QString>
 #include <QWidget>
+#include <QHash>
+#include <QEvent>
 #include "scribusapi.h"
 
 class SCRIBUS_API ScTreeWidgetDelegate : public QItemDelegate
@@ -50,7 +52,22 @@ public:
 	ScTreeWidget(QWidget* pa);
 	~ScTreeWidget() {};
 	QTreeWidgetItem* addWidget(QString title, QWidget* widget);
+	void setToolBoxMode(bool enable);
+	int addItem(QWidget* widget, QString title);
+	QWidget* widget(int index);
+	void setItemEnabled(int index, bool enable);
+	bool isItemEnabled(int index);
+	void setCurrentIndex(int index);
+	int currentIndex();
+	void setItemText(int index, QString text);
 private slots:
 	void handleMousePress(QTreeWidgetItem *item);
+signals:
+	void currentChanged(int);
+private:
+	bool m_toolbox_mode;
+	QHash<int, QTreeWidgetItem*> keySList;
+protected:
+	bool event(QEvent *e);
 };
 #endif

@@ -80,112 +80,39 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	setObjectName(QString::fromLocal8Bit("PropertiesPalette"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
-//	MpalLayout = new QVBoxLayout();
-//	MpalLayout->setMargin(5);
-//	MpalLayout->setSpacing(1);
-//	setLayout(MpalLayout);
-
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
-	TabStack = new QToolBox( this );
+	TabStack = new ScTreeWidget( this );
+	TabStack->setToolBoxMode(true);
 
-	page = new QWidget( TabStack );
-	
-	pageLayout = new QVBoxLayout( page );
-	pageLayout->setMargin(0);
-	pageLayout->setSpacing(5);
+	xyzPal = new PropertiesPalette_XYZ( this );
+	idXYZItem = TabStack->addItem( xyzPal, "X, Y, &Z" );
 
-	xyzPal = new PropertiesPalette_XYZ( page );
-	pageLayout->addWidget( xyzPal );
+	shapePal = new PropertiesPalette_Shape( this );
+	idShapeItem = TabStack->addItem( shapePal, "&Shape" );
 
-	QSpacerItem* spacer13 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	pageLayout->addItem( spacer13 );
-	idXYZItem = TabStack->addItem( page, "X, Y, &Z" );
+	groupPal = new PropertiesPalette_Group( this );
+	idGroupItem = TabStack->addItem(groupPal, "Groups");
 
-	page_2 = new QWidget( TabStack );
-	pageLayout_2 = new QVBoxLayout( page_2 );
-	pageLayout_2->setSpacing( 5 );
-	pageLayout_2->setMargin( 0 );
+	textPal = new PropertiesPalette_Text( this );
+	idTextItem = TabStack->addItem( textPal, "&Text" );
 
-	shapePal = new PropertiesPalette_Shape( page_2 );
-	pageLayout_2->addWidget( shapePal );
+	imagePal = new PropertiesPalette_Image(this);
+	idImageItem=TabStack->addItem( imagePal, "&Image" );
 
-	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	pageLayout_2->addItem( spacer6 );
-	idShapeItem = TabStack->addItem( page_2, "&Shape" );
+	linePal = new PropertiesPalette_Line(this);
+	idLineItem=TabStack->addItem( linePal, "&Line" );
 
-	page_group = new QWidget(TabStack);
-	page_group_layout = new QVBoxLayout( page_group );
-	page_group_layout->setSpacing( 5 );
-	page_group_layout->setMargin( 0 );
+	Cpal = new Cpalette(this);
+	idColorsItem = TabStack->addItem(Cpal, "&Colors" );
 
-	groupPal = new PropertiesPalette_Group( page_group );
-	page_group_layout->addWidget( groupPal );
+	Tpal = new Tpalette(this);
+	idTransparencyItem = TabStack->addItem(Tpal, "&Transparency" );
 
-	QSpacerItem* spacerTr2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	page_group_layout->addItem( spacerTr2 );
-	idGroupItem = TabStack->addItem(page_group, "Groups");
-
-	page_3 = new QWidget( TabStack );
-	pageLayout_3 = new QVBoxLayout( page_3 );
-	pageLayout_3->setSpacing( 5 );
-	pageLayout_3->setMargin( 0 );
-	pageLayout_3->setAlignment( Qt::AlignLeft );
-
-	textPal = new PropertiesPalette_Text( page_group );
-	pageLayout_3->addWidget( textPal );
-
-	idTextItem = TabStack->addItem( page_3, "&Text" );
-
-	page_4 = new QWidget( TabStack );
-	pageLayout_4 = new QVBoxLayout( page_4 );
-	pageLayout_4->setSpacing( 5 );
-	pageLayout_4->setMargin( 0 );
-
-	imagePal = new PropertiesPalette_Image(page_4);
-	pageLayout_4->addWidget(imagePal);
-
-	QSpacerItem* spacer9 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	pageLayout_4->addItem( spacer9 );
-	idImageItem=TabStack->addItem( page_4, "&Image" );
-
-	page_5 = new QWidget( TabStack );
-	pageLayout_5 = new QVBoxLayout( page_5 );
-	pageLayout_5->setSpacing( 5 );
-	pageLayout_5->setMargin( 0 );
-
-	linePal = new PropertiesPalette_Line(page_5);
-	pageLayout_5->addWidget(linePal);
-
-	idLineItem=TabStack->addItem( page_5, "&Line" );
-	
-	page_6 = new QWidget( TabStack );
-	pageLayout_6 = new QVBoxLayout( page_6 );
-	pageLayout_6->setSpacing( 5 );
-	pageLayout_6->setMargin( 0 );
-	Cpal = new Cpalette(page_6);
-	pageLayout_6->addWidget( Cpal );
-	idColorsItem = TabStack->addItem(page_6, "&Colors" );
-	
-	page_7 = new QWidget( TabStack );
-	pageLayout_7 = new QVBoxLayout( page_7 );
-	pageLayout_7->setSpacing( 5 );
-	pageLayout_7->setMargin( 0 );
-	Tpal = new Tpalette(page_7);
-	pageLayout_7->addWidget( Tpal );
-	idTransparencyItem = TabStack->addItem(page_7, "&Transparency" );
-
-	page_8 = new QWidget(TabStack);
-	pageLayout_8 = new QVBoxLayout(page_8);
-	pageLayout_8->setSpacing(5);
-	pageLayout_8->setMargin(0);
-	tablePal = new PropertiesPalette_Table(page_8);
-	pageLayout_8->addWidget(tablePal);
-	idTableItem = TabStack->addItem(page_8, "T&able" );
-
-//	MpalLayout->addWidget( TabStack );
+	tablePal = new PropertiesPalette_Table(this);
+	idTableItem = TabStack->addItem(tablePal, "T&able" );
 
 	setWidget( TabStack );
 

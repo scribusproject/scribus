@@ -43,7 +43,7 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	m_unitRatio = 1.0;
 
 	setupUi(this);
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	lineType->addItem( tr("Custom"));
 

@@ -77,6 +77,7 @@ PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(par
 	m_tmpSelection->clear();
 
 	setupUi(this);
+	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	textFlowDisabled->setIcon(QIcon(loadIcon("flow-none.png")));
 	textFlowUsesFrameShape->setIcon(QIcon(loadIcon("flow-frame.png")));

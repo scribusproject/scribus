@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QHeaderView>
 #include <QLayout>
+#include <QShortcutEvent>
 
 #include "sctreewidget.h"
 
@@ -51,13 +52,12 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		buttonOption.palette = option.palette;
 		buttonOption.features = QStyleOptionButton::None;
 		m_view->style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, m_view);
-		QStyleOption branchOption;
 		static const int i = 9; // ### hardcoded in qcommonstyle.cpp
 		QRect r = option.rect;
 		painter->save();
 		painter->setBrush(Qt::black);
 		painter->setPen(Qt::NoPen);
-		QRect rect = QRect(r.left()+5, r.top()+5, r.height()-10, r.height()-10);
+		QRect rect = QRect(r.left()+6, r.top()+6, r.height()-12, r.height()-12);
 		QPolygon pa(3);
 		if (m_view->isExpanded(index))
 		{
@@ -76,8 +76,8 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		painter->restore();
 			// draw text
 		QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - ((5*i)/2), r.height());
-		QString text = elidedText(option.fontMetrics, textrect.width(), Qt::ElideMiddle, model->data(index, Qt::DisplayRole).toString());
-		m_view->style()->drawItemText(painter, textrect, Qt::AlignCenter, option.palette, m_view->isEnabled(), text);
+		QString text = option.fontMetrics.elidedText(model->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, textrect.width(), Qt::TextShowMnemonic);
+		m_view->style()->drawItemText(painter, textrect, Qt::AlignCenter | Qt::TextShowMnemonic, option.palette, (option.state & QStyle::State_Enabled), text, QPalette::Text);
 	}
 	else
 		QItemDelegate::paint(painter, option, index);
@@ -85,8 +85,7 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 
 QSize ScTreeWidgetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
-	QStyleOptionViewItem option = opt;
-	QSize sz = QItemDelegate::sizeHint(opt, index) + QSize(2, 2);
+	QSize sz = QItemDelegate::sizeHint(opt, index) + QSize(2, 6);
 	return sz;
 }
 
@@ -100,7 +99,24 @@ ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 	header()->hide();
 	header()->setResizeMode(QHeaderView::Stretch);
 	viewport()->setBackgroundRole(QPalette::Window);
+	m_toolbox_mode = false;
     connect(this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(handleMousePress(QTreeWidgetItem*)));
+}
+
+bool ScTreeWidget::event(QEvent *e)
+{
+	if (e->type() == QEvent::Shortcut)
+	{
+		QShortcutEvent *se = static_cast<QShortcutEvent *>(e);
+		if (se != NULL)
+		{
+			int k = se->shortcutId();
+			QTreeWidgetItem *item1 = keySList.value(k);
+			handleMousePress(item1);
+			return true;
+		}
+	}
+	return QTreeWidget::event(e);
 }
 
 QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
@@ -116,7 +132,92 @@ QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
 	item2->setSizeHint(0, widget->layout()->minimumSize());
 // end hack
 	setItemWidget(item2, 0, widget);
+	QKeySequence newMnemonic = QKeySequence::mnemonic(title);
+//	grabShortcut(newMnemonic);
+	keySList.insert(grabShortcut(newMnemonic), item1);
 	return item1;
+}
+
+void ScTreeWidget::setToolBoxMode(bool enable)
+{
+	m_toolbox_mode = enable;
+}
+
+int ScTreeWidget::addItem(QWidget* widget, QString title)
+{
+	QTreeWidgetItem *top = addWidget(title, widget);
+	return indexOfTopLevelItem(top);
+}
+
+QWidget* ScTreeWidget::widget(int index)
+{
+	if ((index < 0) || (index >= topLevelItemCount()))
+		return NULL;
+	QTreeWidgetItem *top = topLevelItem(index);
+	if (top->childCount() == 0)
+		return NULL;
+	QTreeWidgetItem *child = top->child(0);
+	return itemWidget(child, 0);
+}
+
+void ScTreeWidget::setItemEnabled(int index, bool enable)
+{
+	if ((index < 0) || (index >= topLevelItemCount()))
+		return;
+	if (enable)
+		topLevelItem(index)->setFlags(Qt::ItemIsEnabled);
+	else
+		topLevelItem(index)->setFlags(0);
+}
+
+bool ScTreeWidget::isItemEnabled(int index)
+{
+	if ((index < 0) || (index >= topLevelItemCount()))
+		return false;
+	return !topLevelItem(index)->isDisabled();
+}
+
+void ScTreeWidget::setCurrentIndex(int index)
+{
+	if ((index < 0) || (index >= topLevelItemCount()))
+		return;
+	int tops = topLevelItemCount();
+	for (int t = 0; t < tops; t++)
+	{
+		setItemExpanded(topLevelItem(t), false);
+	}
+	QTreeWidgetItem *top = topLevelItem(index);
+	setCurrentItem(top);
+	setItemExpanded(top, true);
+	int wide = 0;
+	if (top->childCount() != 0)
+	{
+		QTreeWidgetItem *child = top->child(0);
+		if (child != 0)
+			wide = itemWidget(child, 0)->minimumSizeHint().width()+5;
+	}
+	if (wide != 0)
+		setColumnWidth(0, wide);
+	else
+		resizeColumnToContents(0);
+}
+
+int ScTreeWidget::currentIndex()
+{
+	int index = -1;
+	QTreeWidgetItem* item = currentItem();
+	if (item->parent() == 0)
+		index = indexOfTopLevelItem(item);
+	else
+		index = indexOfTopLevelItem(item->parent());
+	return index;
+}
+
+void ScTreeWidget::setItemText(int index, QString text)
+{
+	if ((index < 0) || (index >= topLevelItemCount()))
+		return;
+	topLevelItem(index)->setText(0, text);
 }
 
 void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
@@ -125,19 +226,46 @@ void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
 		return;
 	if (item->parent() == 0)
 	{
-		setItemExpanded(item, !isItemExpanded(item));
-		int tops = topLevelItemCount();
-		int wide = 0;
-		for (int t = 0; t < tops; t++)
+		if (item->isDisabled())
 		{
-			QTreeWidgetItem *top = topLevelItem(t);
-			if (isItemExpanded(top))
+			setItemExpanded(item, false);
+			return;
+		}
+		int wide = 0;
+		int tops = topLevelItemCount();
+		if (m_toolbox_mode)
+		{
+			for (int t = 0; t < tops; t++)
 			{
-				if (top->childCount() != 0)
+				setItemExpanded(topLevelItem(t), false);
+			}
+			setCurrentItem(item);
+			setItemExpanded(item, true);
+			if (item->childCount() != 0)
+			{
+				QTreeWidgetItem *child = item->child(0);
+				if (child != 0)
+					wide = itemWidget(child, 0)->minimumSizeHint().width()+5;
+			}
+			if (wide != 0)
+				setColumnWidth(0, wide);
+			else
+				resizeColumnToContents(0);
+		}
+		else
+		{
+			setItemExpanded(item, !isItemExpanded(item));
+			for (int t = 0; t < tops; t++)
+			{
+				QTreeWidgetItem *top = topLevelItem(t);
+				if (isItemExpanded(top))
 				{
-					QTreeWidgetItem *child = top->child(0);
-					if (child != 0)
-						wide = qMax(wide, itemWidget(child, 0)->minimumSizeHint().width()+5);
+					if (top->childCount() != 0)
+					{
+						QTreeWidgetItem *child = top->child(0);
+						if (child != 0)
+							wide = qMax(wide, itemWidget(child, 0)->minimumSizeHint().width()+5);
+					}
 				}
 			}
 		}
@@ -145,6 +273,6 @@ void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
 			setColumnWidth(0, wide);
 		else
 			resizeColumnToContents(0);
-		return;
+		emit currentChanged(indexOfTopLevelItem(item));
 	}
 }
