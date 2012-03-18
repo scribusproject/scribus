@@ -50,7 +50,6 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		buttonOption.state &= ~QStyle::State_HasFocus;
 		buttonOption.rect = option.rect;
 		buttonOption.palette = option.palette;
-		buttonOption.features = QStyleOptionButton::None;
 		m_view->style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, m_view);
 		static const int i = 9; // ### hardcoded in qcommonstyle.cpp
 		QRect r = option.rect;
@@ -171,6 +170,9 @@ void ScTreeWidget::setItemEnabled(int index, bool enable)
 		topLevelItem(index)->setFlags(Qt::ItemIsEnabled);
 	else
 		topLevelItem(index)->setFlags(0);
+	QTreeWidgetItem *child = topLevelItem(index)->child(0);
+	if (child != NULL)
+		itemWidget(child, 0)->setEnabled(enable);
 }
 
 bool ScTreeWidget::isItemEnabled(int index)

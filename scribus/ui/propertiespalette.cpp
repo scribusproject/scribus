@@ -85,7 +85,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	setFont(f);
 
 	TabStack = new ScTreeWidget( this );
-	TabStack->setToolBoxMode(true);
+//	Uncomment this line if the new behaviour makes any trouble.
+//	TabStack->setToolBoxMode(true);
 
 	xyzPal = new PropertiesPalette_XYZ( this );
 	idXYZItem = TabStack->addItem( xyzPal, "X, Y, &Z" );
@@ -390,6 +391,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		TabStack->setItemEnabled(idColorsItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
+		TabStack->setItemEnabled(idTableItem, false);
 	}
 	else
 		TabStack->setItemEnabled(idGroupItem, false);
@@ -422,6 +424,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		TabStack->setItemEnabled(idTransparencyItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
+		TabStack->setItemEnabled(idTableItem, false);
 	}
 	if (m_item->asSymbolFrame())
 	{
@@ -433,6 +436,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
 		TabStack->setItemEnabled(idTransparencyItem, false);
+		TabStack->setItemEnabled(idTableItem, false);
 	}
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
@@ -471,6 +475,7 @@ void  PropertiesPalette::handleSelectionChanged()
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		TabStack->setItemEnabled(idTransparencyItem, true);
+		TabStack->setItemEnabled(idTableItem, false);
 		switch (itemType)
 		{
 		case -1:
@@ -492,7 +497,6 @@ void  PropertiesPalette::handleSelectionChanged()
 				TabStack->setItemEnabled(idLineItem, false);
 				TabStack->setItemEnabled(idColorsItem, true);
 				TabStack->setItemEnabled(idTransparencyItem, false);
-				TabStack->setItemEnabled(idTableItem, false);
 				TabStack->setItemEnabled(idTextItem, false);
 				TabStack->setItemEnabled(idImageItem, false);
 			}
