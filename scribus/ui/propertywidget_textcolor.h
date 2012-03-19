@@ -23,19 +23,19 @@ public:
 	PropertyWidget_TextColor(QWidget* parent);
 	~PropertyWidget_TextColor() {};
 
-	virtual void changeEvent(QEvent *e);
-
 	void updateColorList();
 
 protected:
-	void connectSignals();
-	void disconnectSignals();
-
 	PageItem *         m_item;
 	ScribusMainWindow* m_ScMW;
 
-	void enableFromSelection(void);
+	void connectSignals();
+	void disconnectSignals();
+
+	void configureWidgets(void);
 	void setCurrentItem(PageItem *i);
+
+	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

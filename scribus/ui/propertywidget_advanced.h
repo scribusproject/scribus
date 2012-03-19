@@ -25,8 +25,6 @@ public:
 	PropertyWidget_Advanced(QWidget* parent);
 	~PropertyWidget_Advanced() {};
 
-	virtual void changeEvent(QEvent *e);
-
 protected:
 	void connectSignals();
 	void disconnectSignals();
@@ -37,8 +35,10 @@ protected:
 	PageItem*          m_item;
 	ScribusMainWindow* m_ScMW;
 
-	void enableFromSelection(void);
+	void configureWidgets(void);
 	void setCurrentItem(PageItem *i);
+
+	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

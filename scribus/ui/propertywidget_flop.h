@@ -29,11 +29,11 @@ public:
 	PropertyWidget_Flop(QWidget* parent);
 	~PropertyWidget_Flop() {};
 
-	virtual void changeEvent(QEvent *e);
-
 protected:
 
 	ScGuardedPtr<ScribusDoc> m_doc;
+
+	virtual void changeEvent(QEvent *e);
 
 public slots:
 

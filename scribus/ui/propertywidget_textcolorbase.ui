@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>210</width>
-    <height>88</height>
+    <height>94</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,7 +45,14 @@
       </widget>
      </item>
      <item>
-      <widget class="ColorCombo" name="strokeColor"/>
+      <widget class="ColorCombo" name="strokeColor">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="strokeShadeLabel">
@@ -63,19 +70,6 @@
         <string/>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
    </item>
@@ -95,7 +89,14 @@
       </widget>
      </item>
      <item>
-      <widget class="ColorCombo" name="fillColor"/>
+      <widget class="ColorCombo" name="fillColor">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="fillShadeLabel">
@@ -114,8 +115,15 @@
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="effectsLayout">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="horizontalSpacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -127,13 +135,6 @@
        </property>
       </spacer>
      </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <layout class="QHBoxLayout" name="effectsLayout">
-     <property name="spacing">
-      <number>3</number>
-     </property>
      <item>
       <widget class="StyleSelect" name="textEffects" native="true"/>
      </item>
@@ -152,19 +153,6 @@
         <bool>true</bool>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
    </item>

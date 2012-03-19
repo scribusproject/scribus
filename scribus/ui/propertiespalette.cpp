@@ -174,7 +174,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 
 	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
-	connect(this->Tpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradMask()));
+	connect(this->Tpal, SIGNAL(gradientChanged()), this, SLOT(handleGradientChanged()));
 	connect(m_ScMW, SIGNAL(AppModeChanged(int,int)), this, SLOT(AppModeChanged()));
 }
 
@@ -609,13 +609,6 @@ void PropertiesPalette::NewLineMode(int mode)
 	repaint();
 }
 
-void PropertiesPalette::NewAlignement(int a)
-{
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	m_doc->itemSelection_SetAlignment(a);
-}
-
 void PropertiesPalette::handleNewShape(int frameType)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
@@ -874,16 +867,6 @@ void PropertiesPalette::languageChange()
 	tablePal->languageChange();
 }
 
-const VGradient PropertiesPalette::getMaskGradient()
-{
-	return Tpal->gradEdit->gradient();
-}
-
-const VGradient PropertiesPalette::getMaskGradientGroup()
-{
-	return groupPal->getMaskGradientGroup();
-}
-
 void PropertiesPalette::setGradientEditMode(bool on)
 {
 	Cpal->gradEditButton->setChecked(on);
@@ -938,5 +921,16 @@ void PropertiesPalette::handleShapeEdit()
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		shapePal->setRoundRectEnabled(false);
+	}
+}
+
+void PropertiesPalette::handleGradientChanged()
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	if ((m_haveDoc) && (m_haveItem))
+	{
+		VGradient vg(Tpal->gradEdit->gradient());
+		m_doc->itemSelection_SetMaskGradient(vg);
 	}
 }

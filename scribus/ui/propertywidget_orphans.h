@@ -22,11 +22,12 @@ public:
 	PropertyWidget_Orphans(QWidget* parent);
 	~PropertyWidget_Orphans() {};
 
+	void updateStyle(const ParagraphStyle& newCurrent);
+
+protected:
 	virtual void changeEvent(QEvent *e);
 
-  void updateStyle(const ParagraphStyle& newCurrent);
 public slots:
-
 	void languageChange();
 	void handleKeepLinesStart();
 	void handleKeepLinesEnd();

@@ -27,8 +27,6 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 
-	const VGradient getMaskGradientGroup();
-
 	void displayTextFlowMode(PageItem::TextFlowMode mode);
 
 	void updateColorList();
@@ -67,6 +65,7 @@ public slots:
 
 private slots:
 
+	void handleGradientChanged();
 	void handleGroupTransparency(double trans);
 	void handleGroupBlending(int blend);
 	void handleGroupGradMask(int typ);

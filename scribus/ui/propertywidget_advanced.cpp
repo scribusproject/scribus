@@ -99,7 +99,7 @@ void PropertyWidget_Advanced::setCurrentItem(PageItem *item)
 	m_item = item;
 
 	disconnectSignals();
-	enableFromSelection();
+	configureWidgets();
 
 	if (m_item)
 	{
@@ -140,7 +140,7 @@ void PropertyWidget_Advanced::disconnectSignals()
 	disconnect(maxGlyphExtSpinBox     , SIGNAL(valueChanged(double)), this, SLOT(handleMaxGlyphExtension()) );
 }
 
-void PropertyWidget_Advanced::enableFromSelection(void)
+void PropertyWidget_Advanced::configureWidgets(void)
 {
 	bool enabled = false;
 	if (m_item && m_doc)

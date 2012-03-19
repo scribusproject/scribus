@@ -71,8 +71,8 @@ void PropertyWidget_Orphans::handleKeepWithNext()
 void PropertyWidget_Orphans::updateStyle(const ParagraphStyle& newCurrent)
 {
 	disconnectSignals ();
-  keepLinesStart->setValue (newCurrent.keepLinesStart());
-  keepLinesEnd->setValue (newCurrent.keepLinesEnd());
+	keepLinesStart->setValue (newCurrent.keepLinesStart());
+	keepLinesEnd->setValue (newCurrent.keepLinesEnd());
 	keepTogether->setChecked (newCurrent.keepTogether());
 	keepWithNext->setChecked (newCurrent.keepWithNext());
 	connectSignals ();

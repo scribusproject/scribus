@@ -194,7 +194,7 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 {
 	if (item==NULL)
 		return false;
-	bool listWasEmpty=m_SelList.isEmpty();
+	bool listWasEmpty = m_SelList.isEmpty();
 	if (listWasEmpty || !m_SelList.contains(item))
 	{
 		m_SelList.append(item);

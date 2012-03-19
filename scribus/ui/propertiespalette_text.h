@@ -47,11 +47,7 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	void updateColorList();
-	/*! \brief fills the langs combobox in language specific order
-	\author 10/07/2004 - Petr Vanek - rewritten to fix #1185.
-	Uses sortQStringList from utils.cpp - STL!
-	\param langMap a structure with languages/hyphs*/
-	void fillLangCombo(QMap<QString,QString> langMap);
+
 	/** @brief Returns true if there is a user action going on at the moment of call. */
 	bool userActionOn(); // not yet implemented!!! This is needed badly.
                          // When user releases the mouse button or arrow key, changes must be checked
@@ -88,14 +84,11 @@ public slots:
 
 	void displayAlignment(int e);
 	void displayCharStyle(const QString& name);
-	void displayColumns(int r, double g);
 	void displayFontFace(const QString&);
 	void displayFontSize(double s);
 	void displayFirstLinePolicy(FirstLineOffsetPolicy);
 	void displayLineSpacing(double r);
-	void displayOpticalMargins(const ParagraphStyle& pStyle);
 	void displayParStyle(const QString& name);
-	void displayTextDistances(double left, double top, double bottom, double right);
 	
 	void setupLineSpacingSpinbox(int mode, double value);
 	
@@ -108,35 +101,20 @@ public slots:
 	void updateTextStyles();
 	
 	void handleLineSpacingMode(int id);
-	void handleOpticalMargins();
-	void resetOpticalMargins();
-	void handleTabs();
 	void handleTextFont(QString);
 
 private slots:
 	void handleAlignement(int a);
-	void handleColumns();
-	void handleColumnGap();
 	void handleFirstLinePolicy(int);
 	void handleFontSize();
-	void handleGapSwitch();
-	void handleHyphLanguage();
 	void handleLineSpacing();
-	void handleTextDistances();
 	
 	void doClearCStyle();
 	void doClearPStyle();
 
-	void handlePathType();
-	void handlePathFlip();
-	void handlePathLine();
-	void handlePathDist();
-	void handlePathOffs();
-
 protected:
 
 	ScComboBox* pathTextType;
-	QComboBox* langCombo;
 
 	PropertyWidget_TextColor* colorWidgets;
 	QTreeWidgetItem* colorWidgetsItem;
@@ -161,10 +139,6 @@ protected:
 
 	PropertyWidget_PathText* pathTextWidgets;
 	QTreeWidgetItem* pathTextItem;
-
-signals:
-	void NewAlignment(int);
-	void NewFont(const QString&);
 };
 
 #endif

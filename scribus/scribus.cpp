@@ -158,7 +158,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/insertaframe.h"
 #include "ui/inspage.h"
 #include "ui/javadocs.h"
-#include "langmgr.h"
 #include "ui/layers.h"
 #include "ui/loremipsum.h"
 #include "ui/marginwidget.h"
@@ -592,8 +591,6 @@ void ScribusMainWindow::initPalettes()
 	connect(outlinePalette, SIGNAL(editElementByItem(PageItem *)), this, SLOT(editItemsFromOutlines(PageItem *)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
-	connect(propertiesPalette->textPal->paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewParStyle(const QString&)));
-	connect(propertiesPalette->textPal->charStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewCharStyle(const QString&)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 //	connect(nodePalette, SIGNAL(paletteClosed()), propertiesPalette, SLOT(endEdit2()));
 	connect(nodePalette, SIGNAL(paletteClosed()), this, SLOT(slotSelect()));
@@ -7362,22 +7359,6 @@ void ScribusMainWindow::setAlignmentValue(int a)
 	}
 }
 
-void ScribusMainWindow::updtGradMask()
-{
-	if (!HaveDoc)
-		return;
-	VGradient vg(propertiesPalette->getMaskGradient());
-	doc->itemSelection_SetMaskGradient(vg);
-}
-
-void ScribusMainWindow::updtGradMaskGroup()
-{
-	if (!HaveDoc)
-		return;
-	VGradient vg(propertiesPalette->getMaskGradientGroup());
-	doc->itemSelection_SetMaskGradient(vg);
-}
-
 //CB-->??
 void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 {
@@ -9173,7 +9154,6 @@ void ScribusMainWindow::initHyphenator()
 		if (datein.isEmpty())
 			prefsManager->appPrefs.hyphPrefs.Language = "English";
 	}
-//	propertiesPalette->fillLangCombo(LangTransl);
 }
 
 QString ScribusMainWindow::GetLang(QString inLang)
@@ -9917,6 +9897,7 @@ void ScribusMainWindow::PutToPatterns()
 	doc->m_Selection->delaySignalsOff();
 	propertiesPalette->updateColorList();
 	symbolPalette->updateSymbolList();
+	emit UpdateRequest(reqColorsUpdate);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	view->DrawNew();

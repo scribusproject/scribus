@@ -434,9 +434,6 @@ public slots:
 	void slotReplaceColors();
 	/** Style Manager */
 
-	void updtGradMask();
-	void updtGradMaskGroup();
-
 	/** Erzeugt einen Rahmen */
 	void MakeFrame(int f, int c, double *vals);
 	/** Duplicate current item */

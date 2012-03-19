@@ -5,7 +5,9 @@
 
 #include "propertywidgetbase.h"
 
+class PageItem;
 class ParagraphStyle;
+class ScribusMainWindow;
 
 class PropertyWidget_DropCap : public QFrame, private Ui::PropertyWidget_DropCapBase, public PropertyWidgetBase
 {
@@ -17,17 +19,32 @@ public:
 
 	void updateStyle(const ParagraphStyle& newCurrent);
 	void updateCharStyles();
-	void setDoc(ScribusDoc *doc);
+
 	void displayCharStyle(const QString& name);
 
 protected:
 	double m_unitRatio;
 	int    m_unitIndex;
-	void changeEvent(QEvent *e);
+
+	PageItem *         m_item;
+	ScribusMainWindow* m_ScMW;
+
+	void configureWidgets();
+	void setCurrentItem(PageItem *item);
+
+	virtual void changeEvent(QEvent *e);
 
 public slots:
+	void setMainWindow(ScribusMainWindow *mw);
+	void setDoc(ScribusDoc *doc);
+
+	void handleAppModeChanged(int oldMode, int mode);
+	void handleSelectionChanged();
+	void handleUpdateRequest(int);
+
 	void languageChange();
 	void unitChange();
+
 	void handleDropCapUse();
 	void handleDropCapLines();
 	void handleDropCapOffset();

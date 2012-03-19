@@ -59,8 +59,6 @@ public:
 
 	void endPatchAdd();
 	void updateColorSpecialGradient();
-	const VGradient getMaskGradient();
-	const VGradient getMaskGradientGroup();
 	void updateColorList();
 	void setGradientEditMode(bool);
 	void setTextFlowMode(PageItem::TextFlowMode mode);
@@ -106,7 +104,7 @@ private slots:
 	void SelTab(int t);
 
 	void NewLineMode(int mode);
-	void NewAlignement(int a);
+	void handleGradientChanged();
 	void handleNewShape(int frameType);
 	void NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void toggleGradientEdit(int);

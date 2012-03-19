@@ -9,11 +9,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_propertywidget_optmarginsbase.h"
 
-#include "scguardedptr.h"
+#include "propertywidgetbase.h"
 
+class ParagraphStyle;
 class ScribusDoc;
+class ScribusMainWindow;
 
-class PropertyWidget_OptMargins : public QFrame, public Ui::PropertyWidget_OptMarginsBase
+class PropertyWidget_OptMargins : public QFrame, public Ui::PropertyWidget_OptMarginsBase,
+                                  public PropertyWidgetBase
 {
 	Q_OBJECT
 
@@ -21,18 +24,36 @@ public:
 	PropertyWidget_OptMargins(QWidget* parent);
 	~PropertyWidget_OptMargins() {};
 
-	virtual void changeEvent(QEvent *e);
+	void updateStyle(const ParagraphStyle& newCurrent);
 
 protected:
+	PageItem *         m_item;
+	ScribusMainWindow* m_ScMW;
 
-	ScGuardedPtr<ScribusDoc> m_doc;
+	void connectSignals();
+	void disconnectSignals();
+
+	void configureWidgets(void);
+	void setCurrentItem(PageItem *item);
+
+	virtual void changeEvent(QEvent *e);
 
 public slots:
-
+	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *d);
+
+	void handleAppModeChanged(int oldMode, int mode);
+	void handleSelectionChanged();
+	void handleUpdateRequest(int) {};
 
 	void languageChange();
 	void unitChange() {};
+
+	void displayOpticalMargins(const ParagraphStyle& pStyle);
+
+private slots:
+	void handleOpticalMargins();
+	void resetOpticalMargins();
 };
 
 #endif

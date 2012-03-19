@@ -98,10 +98,10 @@ PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(par
 	connect(textFlowBtnGroup, SIGNAL(buttonClicked(int)), this, SLOT(handleTextFlow()));
 
 	connect(customShape  , SIGNAL(FormSel(int, int, qreal *)), this, SLOT(handleNewShape(int, int, qreal *)));
-	connect(editShape, SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
-	connect(evenOdd    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
-	connect(nonZero    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
-	connect(transPalWidget , SIGNAL(editGradient())            , this, SLOT(handleGradientEdit()));
+	connect(editShape    , SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
+	connect(evenOdd      , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
+	connect(nonZero      , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
+	connect(transPalWidget , SIGNAL(editGradient())          , this, SLOT(handleGradientEdit()));
 	connect(transPalWidget , SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(handleSpecialGradient(double, double, double, double, double, double, double, double )));
 }
 
@@ -128,7 +128,7 @@ void PropertiesPalette_Group::setMainWindow(ScribusMainWindow *mw)
 {
 	m_ScMW = mw;
 
-	connect(this->transPalWidget, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradMaskGroup()));
+	connect(this->transPalWidget, SIGNAL(gradientChanged()), this, SLOT(handleGradientChanged()));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
 }
 
@@ -364,11 +364,6 @@ void PropertiesPalette_Group::displayTextFlowMode(PageItem::TextFlowMode mode)
 	}
 }
 
-const VGradient PropertiesPalette_Group::getMaskGradientGroup()
-{
-	return transPalWidget->gradEdit->gradient();
-}
-
 void PropertiesPalette_Group::updateColorList()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
@@ -402,6 +397,15 @@ void PropertiesPalette_Group::updateColorSpecialGradient()
 			if (currItem->isGroup())
 				transPalWidget->setSpecialGradient(currItem->GrMaskStartX * ratio, currItem->GrMaskStartY * ratio, currItem->GrMaskEndX * ratio, currItem->GrMaskEndY * ratio, currItem->GrMaskFocalX * ratio, currItem->GrMaskFocalY * ratio, currItem->GrMaskScale, currItem->GrMaskSkew);
 		}
+	}
+}
+
+void PropertiesPalette_Group::handleGradientChanged()
+{
+	if (m_haveDoc)
+	{
+		VGradient vg(transPalWidget->gradEdit->gradient());
+		m_doc->itemSelection_SetMaskGradient(vg);
 	}
 }
 

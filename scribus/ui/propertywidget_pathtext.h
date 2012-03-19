@@ -9,11 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_propertywidget_pathtextbase.h"
 
-#include "scguardedptr.h"
+#include "propertywidgetbase.h"
 
 class ScribusDoc;
+class ScribusMainWindow;
 
-class PropertyWidget_PathText : public QFrame, public Ui::PropertyWidget_PathTextBase
+class PropertyWidget_PathText : public QFrame, public Ui::PropertyWidget_PathTextBase,
+                                public PropertyWidgetBase
 {
 	Q_OBJECT
 
@@ -21,21 +23,37 @@ public:
 	PropertyWidget_PathText(QWidget* parent);
 	~PropertyWidget_PathText() {};
 
-	virtual void changeEvent(QEvent *e);
-
 protected:
+	PageItem *         m_item;
+	ScribusMainWindow* m_ScMW;
 
 	double m_unitRatio;
 	int    m_unitIndex;
 
-	ScGuardedPtr<ScribusDoc> m_doc;
+	void connectSignals();
+	void disconnectSignals();
+
+	void configureWidgets(void);
+	void setCurrentItem(PageItem *item);
+
+	virtual void changeEvent(QEvent *e);
 
 public slots:
-
+	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *d);
+
+	void handleSelectionChanged();
+	void handleUpdateRequest(int);
 
 	void languageChange();
 	void unitChange();
+
+private slots:
+	void handlePathType();
+	void handlePathFlip();
+	void handlePathLine();
+	void handlePathDist();
+	void handlePathOffs();
 };
 
 #endif

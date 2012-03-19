@@ -97,7 +97,7 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 	{
 		m_item = item;
 		disconnectSignals();
-		enableFromSelection();
+		configureWidgets();
 		if (m_item)
 		{
 			PageItem_TextFrame *i2;
@@ -157,7 +157,7 @@ void PropertyWidget_TextColor::disconnectSignals()
 	disconnect(textEffects->StrikeVal->LWidth   , SIGNAL(valueChanged(double)), this, SLOT(handleStrikeThru()));
 }
 
-void PropertyWidget_TextColor::enableFromSelection(void)
+void PropertyWidget_TextColor::configureWidgets(void)
 {
 	bool enabled = false;
 	if (m_item && m_doc)
