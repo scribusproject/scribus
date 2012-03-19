@@ -101,6 +101,7 @@ ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 	header()->hide();
 	header()->setResizeMode(QHeaderView::Stretch);
 	viewport()->setBackgroundRole(QPalette::Window);
+	setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 	m_toolbox_mode = false;
     connect(this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(handleMousePress(QTreeWidgetItem*)));
 }
