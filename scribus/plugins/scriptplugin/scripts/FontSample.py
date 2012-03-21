@@ -1564,7 +1564,7 @@ def main_wrapper(argv):
         # Exit neatly even if the script terminated with an exception,
         # so we leave the progress bar and status bar blank and make sure
         # drawing is enabled.
-        if scribus.haveDoc():
+        if scribus.haveDoc() > 0:
             scribus.setRedraw(True)
         scribus.statusMessage('')
         scribus.progressReset()

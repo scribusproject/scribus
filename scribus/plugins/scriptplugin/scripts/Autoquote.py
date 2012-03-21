@@ -17,7 +17,7 @@ Detected errors shut down the script with an appropriate message.
 """
 import scribus
 
-if scribus.haveDoc():
+if scribus.haveDoc() > 0:
     c = 0
     lang = scribus.valueDialog("Choose by language or country", 'Language: af, be, ch, cs, de, en, es, et, fi, fr,\n hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk\n are current choices','en')
     if (lang == 'en'):

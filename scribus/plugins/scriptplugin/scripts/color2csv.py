@@ -103,7 +103,7 @@ def writeColorCsvFile(filename, colorlist):
 
 def main(argv):
     """Main method - here we check if we have a doc - else we open one. we get all the colors and write them to a csv file."""
-    if scribus.haveDoc():  #DOC OPEN
+    if scribus.haveDoc() > 0:  #DOC OPEN
     #get colors, get filename, write stuff
         cols = getColorsFromDoc()
         filename = scribus.fileDialog("color2csv: Save csv color file", defaultname="colors.csv",  issave=True ,  haspreview=False)
