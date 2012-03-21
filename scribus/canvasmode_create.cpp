@@ -84,6 +84,15 @@ void CreateMode::drawControls(QPainter* p)
 	if (createObjectMode != modeDrawLine)
 	{
 		QRectF bounds = QRectF(topLeft, btRight).normalized();
+		//Lock Height to Width for Control Modifier for region drawing
+		if (modifiers==Qt::ControlModifier)
+		{
+			bounds.setHeight(bounds.width());
+			if (btRight.y()<topLeft.y())
+				bounds.moveBottom(topLeft.y());
+			if (btRight.x()<topLeft.x() && btRight.y()>topLeft.y())
+				bounds.moveTop(topLeft.y());
+		}
 		QRect localRect = m_canvas->canvasToLocal(bounds);
 		if (localRect.width() <= 0 || localRect.height() <= 0)
 			return;
@@ -595,11 +604,26 @@ PageItem* CreateMode::doCreateNewObject(void)
 
 	wSize = canvasCurrCoord.x() - createObjectPos.x();
 	hSize = canvasCurrCoord.y() - createObjectPos.y();
+	//Lock Height to Width for Control Modifier for final item creation
+	if (modifiers == Qt::ControlModifier)
+		hSize=wSize;
 	PageItem *newObject = NULL, *currItem = NULL;
 	// FIXME for modeDrawLine
 	QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
 	if (createObjectMode != modeDrawLine)
+	{
 		createObjectRect = createObjectRect.normalized();
+		if (modifiers==Qt::ControlModifier)
+		{
+			//bottom right and upper left are ok
+			//upper right
+			if (canvasCurrCoord.y() < createObjectPos.y() && createObjectPos.x()<canvasCurrCoord.x())
+				createObjectRect.translate(0.0, -createObjectRect.height());
+			//bottom left
+			if (canvasCurrCoord.x()<createObjectPos.x() && canvasCurrCoord.y()>createObjectPos.y())
+				createObjectRect.translate(0.0, createObjectRect.height());
+		}
+	}
 	double Rxp  = createObjectRect.x();
 	double Ryp  = createObjectRect.y();
 	double Rxpd = createObjectRect.width();
