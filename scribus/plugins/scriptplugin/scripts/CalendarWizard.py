@@ -660,7 +660,7 @@ def main():
         app = TkCalendar(root)
         root.mainloop()
     finally:
-        if haveDoc():
+        if haveDoc() > 0:
             redrawAll()
         statusMessage('Done.')
         progressReset()

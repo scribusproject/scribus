@@ -129,7 +129,7 @@ def getColorsFromDocument():
         return list
 
     #check if we have a document - otherwise display open file dialog
-    if scribus.haveDoc() == 1:
+    if scribus.haveDoc() > 0:
         pass
         list=getColors()
         return list

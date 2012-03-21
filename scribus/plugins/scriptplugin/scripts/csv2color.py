@@ -138,7 +138,7 @@ def importColors(colorlist):
 
 def main(argv):
     """Main method for importing colors."""
-    if not scribus.haveDoc(): #do we have a doc?
+    if not scribus.haveDoc() > 0: #do we have a doc?
         scribus.messageBox("csv2color", "No document to import colors \n Please open one, first.")
         sys.exit()
     else:
