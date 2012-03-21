@@ -1401,6 +1401,9 @@ protected:
 	 * @sa PageItem::isTagged(), PageItem::setTagged()
 	 */
 	bool tagged;
+
+	bool no_fill;
+	bool no_stroke;
 	
 	QColor fillQColor;
 	QColor strokeQColor;

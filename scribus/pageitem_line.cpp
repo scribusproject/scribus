@@ -88,7 +88,10 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 						p->setStrokeMode(ScPainter::Solid);
 					}
 					else
+					{
+						no_stroke = true;
 						p->setStrokeMode(ScPainter::None);
+					}
 				}
 				else
 				{
@@ -106,6 +109,8 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->setStrokeMode(ScPainter::Solid);
 				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 			}
+			else
+				no_stroke = true;
 		}
 		else
 		{

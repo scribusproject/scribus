@@ -126,7 +126,10 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 						p->setStrokeMode(ScPainter::Solid);
 					}
 					else
+					{
+						no_stroke = true;
 						p->setStrokeMode(ScPainter::None);
+					}
 				}
 				else
 				{
@@ -144,6 +147,8 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->setStrokeMode(ScPainter::Solid);
 				p->strokePath();
 			}
+			else
+				no_stroke = true;
 		}
 		else
 		{

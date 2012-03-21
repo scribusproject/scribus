@@ -1430,7 +1430,9 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()), 
 							 QPointF(m_Doc->maxCanvasCoordinate.x(), m_Doc->maxCanvasCoordinate.y())).toAlignedRect();
 	}
-	
+
+	no_fill = false;
+	no_stroke = false;
 	DrawObj_Pre(p);
 	if (m_Doc->layerOutline(LayerID))
 	{
@@ -1481,7 +1483,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 							p->setFillMode(ScPainter::Solid);
 						}
 						else
+						{
+							no_fill = true;
 							p->setFillMode(ScPainter::None);
+						}
 						if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
 						{
 							GrType = 0;
@@ -1520,7 +1525,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 								p->setFillMode(ScPainter::Solid);
 							}
 							else
+							{
+								no_fill = true;
 								p->setFillMode(ScPainter::None);
+							}
 						}
 						else
 						{
@@ -1566,7 +1574,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					p->setFillMode(ScPainter::Solid);
 				}
 				else
+				{
+					no_fill = true;
 					p->setFillMode(ScPainter::None);
+				}
 			}
 			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			{
@@ -1724,7 +1735,10 @@ void PageItem::DrawObj_Post(ScPainter *p)
 									p->setStrokeMode(ScPainter::Solid);
 								}
 								else
+								{
+									no_stroke = true;
 									p->setStrokeMode(ScPainter::None);
+								}
 							}
 							else
 							{
@@ -1745,6 +1759,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 								p->setDash(DashValues, DashOffset);
 							p->strokePath();
 						}
+						else
+							no_stroke = true;
 					}
 					else
 					{
@@ -1873,6 +1889,16 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			double ofx = Width - ofwh/2;
 			double ofy = Height - ofwh*3;
 			p->drawRect(ofx, ofy, ofwh, ofwh);
+		}
+		if (no_fill && no_stroke && m_Doc->guidesPrefs().framesShown)
+		{
+			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			if (m_Locked)
+				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setFillMode(ScPainter::None);
+			p->drawRect(0, 0, Width, Height);
+			no_fill = false;
+			no_stroke = false;
 		}
 		//CB disabled for now
 		//if (m_Doc->m_Selection->findItem(this)!=-1)
