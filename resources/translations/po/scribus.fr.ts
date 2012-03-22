@@ -26887,7 +26887,7 @@ Les niveaux 1 et 2 peuvent créer des fichiers volumineux</translation>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="397"/>
         <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Cette fonction permet de convertir les tons directs en un équivalent quadrichromique. A moins d&apos;effectuer une impression en tons directs chez un professionnel, laissez cette option décochée.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Cette fonction permet de convertir les tons directs en un équivalent quadrichromique. A moins d&apos;effectuer une impression en tons directs chez un professionnel, laissez cette option cochée.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Allows you to embed color profiles in the print stream when color management is enabled&lt;/qt&gt;</source>
