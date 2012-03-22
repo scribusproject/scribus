@@ -1877,7 +1877,6 @@ bool PrefsManager::ReadPref(QString ho)
 	if (!prefs150FileFound)
 		return false;
 	appPrefs.colorPrefs.DColors.clear();
-	appPrefs.extToolPrefs.latexCommands.clear();
 	ColorSetManager csm;
 	csm.initialiseDefaultPrefs(appPrefs);
 	csm.findPaletteLocations();
@@ -2359,7 +2358,7 @@ bool PrefsManager::ReadPref(QString ho)
 			setUniconvExecutable(dc.attribute("Uniconvertor", "uniconv"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 			appPrefs.extToolPrefs.pdfViewerExecutable=dc.attribute("PDFViewer", "");
-			QStringList configs;
+			QStringList configs = appPrefs.extToolPrefs.latexConfigs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
 			QString latexBase = LatexConfigParser::configBase();
 			for (int i=0; i < configNodes.size(); i++)
@@ -2367,16 +2366,21 @@ bool PrefsManager::ReadPref(QString ho)
 				QString confFile = configNodes.at(i).toElement().attribute("file", "");
 				QString command  = configNodes.at(i).toElement().attribute("command", "");
 				bool configExists = !confFile.isEmpty() && (QFile::exists(confFile) || QFile::exists(latexBase+confFile));
-				if (!configs.contains(confFile) && configExists) {
-					configs.append(confFile);
+				if (configExists)
+				{
+					if (!configs.contains(confFile))
+						configs.append(confFile);
 					appPrefs.extToolPrefs.latexCommands[confFile] = command;
 				}
 			}
-			if (!configs.isEmpty()) {
+			if (!configs.isEmpty())
 				setLatexConfigs(configs);
-			} else {
+			else
+			{
 				qWarning() << tr("No valid renderframe config found. Using defaults!");
-				setLatexConfigs(LatexConfigCache::defaultConfigs());
+//				setLatexConfigs(LatexConfigCache::defaultConfigs());
+				appPrefs.extToolPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
+				appPrefs.extToolPrefs.latexCommands = LatexConfigCache::defaultCommands();
 			}
 		}
 		if (dc.tagName()=="Hyphenator")
