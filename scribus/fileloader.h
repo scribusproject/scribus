@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include <QMap>
+#include <QHash>
 #include <QList>
 
 #include "scribusapi.h"
@@ -43,7 +44,7 @@ public:
 	bool readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 	bool readPageCount(int *num1, int *num2, QStringList & masterPageNames);
 	bool readColors(ColorList & colors);
-	bool readLineStyles(QMap<QString,multiLine> *Sty);
+	bool readLineStyles(QHash<QString, multiLine> *Sty);
 	QImage readThumbnail();
 	bool postLoad(ScribusDoc* currDoc);
  	void informReplacementFonts();

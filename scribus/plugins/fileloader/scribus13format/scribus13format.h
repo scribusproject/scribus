@@ -41,7 +41,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		// Special features - .sla page extraction support
 		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
-		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
+		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);

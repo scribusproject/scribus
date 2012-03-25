@@ -62,7 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 
-PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
+PaintManagerDialog::PaintManagerDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -79,7 +79,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 	colorItems->setText(0, tr("Solid Colors"));
 	gradientItems = new QTreeWidgetItem(dataTree);
 	gradientItems->setText(0, tr("Gradients"));
-	for (QMap<QString, VGradient>::Iterator it = docGradients->begin(); it != docGradients->end(); ++it)
+	for (QHash<QString, VGradient>::Iterator it = docGradients->begin(); it != docGradients->end(); ++it)
 	{
 		dialogGradients.insert(it.key(), it.value());
 		origNames.insert(it.key(), it.key());
@@ -88,7 +88,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QMap<QString, VGradient>
 
 	patternItems = new QTreeWidgetItem(dataTree);
 	patternItems->setText(0, tr("Patterns"));
-	for (QMap<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
+	for (QHash<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
 	{
 		dialogPatterns.insert(it.key(), it.value());
 		origNamesPatterns.insert(it.key(), it.key());
@@ -180,13 +180,16 @@ QTreeWidgetItem* PaintManagerDialog::updatePatternList(QString addedName)
 		delete lg[a];
 	}
 	QTreeWidgetItem* ret = 0;
-	for (QMap<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
+	QStringList patK = dialogPatterns.keys();
+	qSort(patK);
+	for (int a = 0; a < patK.count(); a++)
 	{
+		ScPattern sp = dialogPatterns.value(patK[a]);
 		QPixmap pm;
-		if (it.value().getPattern()->width() >= it.value().getPattern()->height())
-			pm = QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		if (sp.getPattern()->width() >= sp.getPattern()->height())
+			pm = QPixmap::fromImage(sp.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm = QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm = QPixmap::fromImage(sp.getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
@@ -194,8 +197,8 @@ QTreeWidgetItem* PaintManagerDialog::updatePatternList(QString addedName)
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
 		p.end();
 		QTreeWidgetItem *item = new QTreeWidgetItem(patternItems);
-		item->setText(0, it.key());
-		if (it.key() == addedName)
+		item->setText(0, patK[a]);
+		if (patK[a] == addedName)
 			ret = item;
 		item->setIcon(0, pm2);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -211,8 +214,11 @@ QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
 		delete lg[a];
 	}
 	QTreeWidgetItem* ret = 0;
-	for (QMap<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
+	QStringList patK = dialogGradients.keys();
+	qSort(patK);
+	for (int a = 0; a < patK.count(); a++)
 	{
+		VGradient gr = dialogGradients.value(patK[a]);
 		QImage pixm(48, 12, QImage::Format_ARGB32);
 		QPainter pb;
 		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
@@ -223,7 +229,7 @@ QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
 		p->setPen(Qt::black);
 		p->setLineWidth(1);
 		p->setFillMode(2);
-		p->fill_gradient = it.value();
+		p->fill_gradient = gr;
 		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6), FPoint(0, 0), 1.0, 0.0);
 		p->drawRect(0, 0, 48, 12);
 		p->end();
@@ -231,8 +237,8 @@ QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
 		QPixmap pm;
 		pm = QPixmap::fromImage(pixm);
 		QTreeWidgetItem *item = new QTreeWidgetItem(gradientItems);
-		item->setText(0, it.key());
-		if (it.key() == addedName)
+		item->setText(0, patK[a]);
+		if (patK[a] == addedName)
 			ret = item;
 		item->setIcon(0, pm);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -797,7 +803,7 @@ void PaintManagerDialog::removeColorItem()
 					if (t == QMessageBox::No)
 						return;
 					replaceMap.clear();
-					for (QMap<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
+					for (QHash<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
 					{
 						replaceMap.insert(it.key(), "");
 					}
@@ -817,7 +823,7 @@ void PaintManagerDialog::removeColorItem()
 					if (t == QMessageBox::No)
 						return;
 					replaceMap.clear();
-					for (QMap<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
+					for (QHash<QString, VGradient>::Iterator it = dialogGradients.begin(); it != dialogGradients.end(); ++it)
 					{
 						replaceMap.insert(it.key(), "");
 					}
@@ -874,7 +880,7 @@ void PaintManagerDialog::removeColorItem()
 					if (t == QMessageBox::No)
 						return;
 					replaceMapPatterns.clear();
-					for (QMap<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
+					for (QHash<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
 					{
 						replaceMapPatterns.insert(it.key(), "");
 					}
@@ -1351,7 +1357,7 @@ void PaintManagerDialog::loadVectors(QString data)
 			dialogPatterns.insert(patNam, pat);
 			origNamesPatterns.insert(patNam, patNam);
 		}
-		for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
+		for (QHash<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
 		{
 			if (!origPatterns.contains(it.key()))
 			{
@@ -1365,7 +1371,7 @@ void PaintManagerDialog::loadVectors(QString data)
 		uint ape = m_doc->docPatterns.count();
 		if (ap != ape)
 		{
-			for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
+			for (QHash<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
 			{
 				if (!origPatterns.contains(it.key()))
 				{
@@ -1384,7 +1390,7 @@ void PaintManagerDialog::loadVectors(QString data)
 ColorList PaintManagerDialog::getGradientColors()
 {
 	ColorList colorList;
-	QMap<QString,VGradient>::Iterator itg;
+	QHash<QString,VGradient>::Iterator itg;
 	for (itg = dialogGradients.begin(); itg != dialogGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();
@@ -1450,7 +1456,7 @@ ColorList PaintManagerDialog::getGradientColors()
 
 void PaintManagerDialog::updateGradientColors(QString newName, QString oldName)
 {
-	QMap<QString,VGradient>::Iterator itg;
+	QHash<QString,VGradient>::Iterator itg;
 	for (itg = dialogGradients.begin(); itg != dialogGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();

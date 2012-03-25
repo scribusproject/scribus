@@ -111,6 +111,6 @@ QString SCRIBUS_API colorSpaceText(int cs);
  * \param EditColors Color list to store the imported colors
  * \return true if any colors have been found
 */
-bool SCRIBUS_API importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,VGradient> *dialogGradients = NULL, bool merge = false);
+bool SCRIBUS_API importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString,VGradient> *dialogGradients = NULL, bool merge = false);
 
 #endif

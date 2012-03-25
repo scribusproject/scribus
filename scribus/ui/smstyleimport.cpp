@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 SMStyleImport::SMStyleImport(QWidget* parent,
 							 StyleSet<ParagraphStyle> *pstyleList,
 							 StyleSet<CharStyle> *cstyleList,
-							 QMap<QString, multiLine> *lstyleList)
+							 QHash<QString, multiLine> *lstyleList)
 	: QDialog( parent, 0 )
 {
 	setupUi(this);

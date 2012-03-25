@@ -1051,7 +1051,7 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 //	for (uint i = 0; i < docLineStyles.count(); ++i)
 //		docLineStyles[i].getNamedResources(lists);
 	
-	QMap<QString,ScPattern>::ConstIterator it;
+	QHash<QString,ScPattern>::ConstIterator it;
 	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		ScPattern pa = *it;
@@ -1060,7 +1060,7 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 			pa.items.at(o)->getNamedResources(lists);
 		}
 	}
-	QMap<QString,VGradient>::ConstIterator itg;
+	QHash<QString,VGradient>::ConstIterator itg;
 	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
 	{
 		QList<VColorStop*> cstops = itg.value().colorStops();
@@ -1273,7 +1273,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 			docCellStyles[i].replaceNamedResources(newNames);
 	}
 
-	QMap<QString,ScPattern>::Iterator it;
+	QHash<QString,ScPattern>::Iterator it;
 	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		if (newNames.patterns().contains(it.key()))
@@ -1288,7 +1288,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		}
 	}
 
-	QMap<QString,VGradient>::Iterator itg;
+	QHash<QString,VGradient>::Iterator itg;
 	for (itg = docGradients.begin(); itg != docGradients.end(); ++itg)
 	{
 		if (newNames.gradients().contains(itg.key()))
@@ -1499,7 +1499,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName)
 {
 	StyleSet<ParagraphStyle> *wrkStyles     = &docParagraphStyles;
 	StyleSet<CharStyle> *wrkCharStyles      = &docCharStyles;
-	QMap<QString, multiLine> *wrkLineStyles = &MLineStyles;
+	QHash<QString, multiLine> *wrkLineStyles = &MLineStyles;
 	
 	int oldStyles = wrkStyles->count();
 	int oldCharStyles = wrkCharStyles->count();
@@ -1536,11 +1536,11 @@ void ScribusDoc::loadStylesFromFile(QString fileName)
 
 void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
                                                       StyleSet<CharStyle> *tempCharStyles,
-                                                      QMap<QString, multiLine> *tempLineStyles)
+													  QHash<QString, multiLine> *tempLineStyles)
 {
 	StyleSet<ParagraphStyle> *wrkStyles     = tempStyles;
 	StyleSet<CharStyle> *wrkCharStyles      = tempCharStyles;
-	QMap<QString, multiLine> *wrkLineStyles = tempLineStyles;
+	QHash<QString, multiLine> *wrkLineStyles = tempLineStyles;
 	
 	if (!fileName.isEmpty())
 	{
@@ -3093,7 +3093,7 @@ void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 {
 	multiLine::iterator its;
 	QMap<QString, QString>::const_iterator it;
-	QMap<QString,multiLine>::iterator  itl;
+	QHash<QString,multiLine>::iterator  itl;
 	for (itl = MLineStyles.begin(); itl != MLineStyles.end(); ++itl)
 	{
 		multiLine& mline = itl.value();
@@ -3160,7 +3160,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 {
 	bool found = false;
-	QMap<QString,multiLine>::const_iterator itm, itmend;
+	QHash<QString,multiLine>::const_iterator itm, itmend;
 	multiLine::const_iterator its, itsend;
 	itmend = MLineStyles.constEnd();
 	for (itm = MLineStyles.constBegin(); itm != itmend && !found; ++itm)
@@ -3179,12 +3179,12 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 	return found;
 }
 
-void ScribusDoc::getUsedGradients(QMap<QString, VGradient> &gradients)
+void ScribusDoc::getUsedGradients(QHash<QString, VGradient> &gradients)
 {
 	ResourceCollection resources;
 	this->getNamedResources(resources);
 	const QMap<QString, QString>& resGradients = resources.gradients();
-	QMap<QString, VGradient>::iterator it;
+	QHash<QString, VGradient>::iterator it;
 	for (it = docGradients.begin(); it != docGradients.end(); ++it)
 	{
 		if (resGradients.contains(it.key()))
@@ -3194,7 +3194,7 @@ void ScribusDoc::getUsedGradients(QMap<QString, VGradient> &gradients)
 
 bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
 {
- 	for (QMap<QString, VGradient>::Iterator it = docGradients.begin(); it != docGradients.end(); ++it)
+	for (QHash<QString, VGradient>::Iterator it = docGradients.begin(); it != docGradients.end(); ++it)
  	{
 		if (it.value() == gradient)
 		{
@@ -3209,7 +3209,7 @@ bool ScribusDoc::addGradient(QString &name, VGradient &gradient)
 	return true;
 }
 
-void ScribusDoc::setGradients(QMap<QString, VGradient> &gradients)
+void ScribusDoc::setGradients(QHash<QString, VGradient> &gradients)
 {
 	docGradients.clear();
 	docGradients = gradients;
@@ -3231,7 +3231,7 @@ bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 	return true;
 }
 
-void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
+void ScribusDoc::setPatterns(QHash<QString, ScPattern> &patterns)
 {
 	docPatterns.clear();
 	docPatterns = patterns;
@@ -3316,7 +3316,7 @@ QStringList ScribusDoc::getUsedPatterns()
 		}
 		allItems.clear();
 	}
-	for (QMap<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	for (QHash<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		for (int c = 0; c < it.value().items.count(); ++c)
 		{
@@ -3531,7 +3531,7 @@ QStringList ScribusDoc::getUsedSymbols()
 		}
 		allItems.clear();
 	}
-	for (QMap<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	for (QHash<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		for (int c = 0; c < it.value().items.count(); ++c)
 		{
@@ -4357,7 +4357,7 @@ void ScribusDoc::recalculateColorItem(PageItem *item)
 void ScribusDoc::recalculateColors()
 {
 	//Adjust Items of the 3 types to the colors
-	QMap<QString, VGradient>::Iterator itGrad;
+	QHash<QString, VGradient>::Iterator itGrad;
 	for (itGrad = docGradients.begin(); itGrad != docGradients.end(); ++itGrad)
 	{
 		QList<VColorStop*> cstops = itGrad.value().colorStops();

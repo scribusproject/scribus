@@ -275,13 +275,13 @@ bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName)
 	return true;
 }
 
-bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QMap<QString,VGradient> &gradients, QMap<QString, ScPattern> &patterns, bool merge)
+bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QHash<QString,VGradient> &gradients, QHash<QString, ScPattern> &patterns, bool merge)
 {
 	if (checkPaletteFormat(paletteFileName))
 	{
 		ColorList colorListBack = doc->PageColors;
-		QMap<QString, VGradient> dialogGradientsBack = doc->docGradients;
-		QMap<QString, ScPattern> dialogPatternsBack = doc->docPatterns;
+		QHash<QString, VGradient> dialogGradientsBack = doc->docGradients;
+		QHash<QString, ScPattern> dialogPatternsBack = doc->docPatterns;
 		if (merge)
 		{
 			doc->PageColors = colors;

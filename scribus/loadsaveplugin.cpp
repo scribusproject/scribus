@@ -404,7 +404,7 @@ bool LoadSavePlugin::readCharStyles(const QString& /*fileName*/, ScribusDoc* /*d
 	return false;
 }
 
-bool LoadSavePlugin::readLineStyles(const QString& /*fileName*/, QMap<QString,multiLine>* /*Sty*/)
+bool LoadSavePlugin::readLineStyles(const QString& /*fileName*/, QHash<QString,multiLine>* /*Sty*/)
 {
 	return false;
 }
@@ -524,7 +524,7 @@ bool FileFormat::readCharStyles(const QString& fileName, ScribusDoc* doc, StyleS
 	return (plug && load) ? plug->readCharStyles(fileName, doc, docCharStyles) : false;
 }
 
-bool FileFormat::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const
+bool FileFormat::readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) const
 {
 	return (plug && load) ? plug->readLineStyles(fileName, Sty) : false;
 }

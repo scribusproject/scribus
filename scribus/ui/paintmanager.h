@@ -39,7 +39,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 	Q_OBJECT
 
 	public:
-		PaintManagerDialog(QWidget* parent, QMap<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
+		PaintManagerDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~PaintManagerDialog() {};
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */
@@ -54,7 +54,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		QString selectedColorName();
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
-		QMap<QString, VGradient> dialogGradients;
+		QHash<QString, VGradient> dialogGradients;
 		QMap<QString,QString> replaceMap;
 		QMap<QString,QString> origNames;
 		QStringList origGradients;
@@ -63,7 +63,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		//! \brief Custom user's color set
 		QStringList customColSet;
 		bool hasImportedColors;
-		QMap<QString, ScPattern> dialogPatterns;
+		QHash<QString, ScPattern> dialogPatterns;
 		QMap<QString,QString> replaceMapPatterns;
 		QMap<QString,QString> origNamesPatterns;
 		QStringList origPatterns;

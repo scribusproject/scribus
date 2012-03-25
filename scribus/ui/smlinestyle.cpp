@@ -77,7 +77,7 @@ QList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 	}
 
 	QList<StyleName> tmp;
-	QMap<QString,multiLine>::Iterator it;
+	QHash<QString,multiLine>::Iterator it;
 
 	for (it = tmpLines.begin(); it != tmpLines.end(); ++it)
 		tmp << StyleName(it.key(), QString::null);
@@ -301,7 +301,7 @@ void SMLineStyle::setDefaultStyle(bool ids)
 QString SMLineStyle::shortcut(const QString &stylename) const
 {
 	QString s;
-	QMap<QString, multiLine>::ConstIterator it = tmpLines.find(stylename);
+	QHash<QString, multiLine>::ConstIterator it = tmpLines.find(stylename);
 	if (it != tmpLines.end())
 		s = it.value().shortcut;
 	return s;
@@ -313,7 +313,7 @@ void SMLineStyle::setShortcut(const QString &shortcut)
 	if (selection_.count() != 1)
 		return;
 
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 		(*it)->shortcut = shortcut;
 
@@ -417,7 +417,7 @@ void SMLineStyle::slotLineStyle(int i)
 	if (currentLine_ < 0)
 		return;
 
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();
@@ -450,7 +450,7 @@ void SMLineStyle::slotSetEnd(int i)
 			break;
 	}
 
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();
@@ -487,7 +487,7 @@ void SMLineStyle::slotSetJoin(int i)
 			break;
 	}
 
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();
@@ -506,7 +506,7 @@ void SMLineStyle::slotSetJoin(int i)
 
 void SMLineStyle::slotColor(const QString &s)
 {
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();
@@ -525,7 +525,7 @@ void SMLineStyle::slotColor(const QString &s)
 
 void SMLineStyle::slotShade(int i)
 {
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();
@@ -544,7 +544,7 @@ void SMLineStyle::slotShade(int i)
 
 void SMLineStyle::slotLineWidth()
 {
-	QMap<QString, multiLine*>::iterator it;
+	QHash<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();

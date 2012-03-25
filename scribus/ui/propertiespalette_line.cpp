@@ -393,7 +393,7 @@ void PropertiesPalette_Line::updateLineStyles(ScribusDoc *dd)
 	lineStyles->clear();
 	if (dd != 0)
 	{
-		QMap<QString,multiLine>::Iterator it;
+		QHash<QString,multiLine>::Iterator it;
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
 			lineStyles->addItem( new LineFormatItem(dd, it.value(), it.key()) );
 		lineStyles->sortItems();

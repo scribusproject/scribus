@@ -594,8 +594,11 @@ void Cpalette::updateGradientList()
 	namedGradientStroke->clear();
 	namedGradientStroke->setIconSize(QSize(48, 12));
 	namedGradientStroke->addItem( tr("Custom"));
-	for (QMap<QString, VGradient>::Iterator it = gradientList->begin(); it != gradientList->end(); ++it)
+	QStringList patK = gradientList->keys();
+	qSort(patK);
+	for (int a = 0; a < patK.count(); a++)
 	{
+		VGradient gr = gradientList->value(patK[a]);
 		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
 		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
@@ -606,21 +609,21 @@ void Cpalette::updateGradientList()
 		p->setPen(Qt::black);
 		p->setLineWidth(1);
 		p->setFillMode(2);
-		p->fill_gradient = it.value();
+		p->fill_gradient = gr;
 		p->setGradient(VGradient::linear, FPoint(0,6), FPoint(48, 6), FPoint(0,0), 1, 0);
 		p->drawRect(0, 0, 48, 12);
 		p->end();
 		delete p;
 		QPixmap pm;
 		pm = QPixmap::fromImage(pixm);
-		namedGradient->addItem(pm, it.key());
-		namedGradientStroke->addItem(pm, it.key());
+		namedGradient->addItem(pm, patK[a]);
+		namedGradientStroke->addItem(pm, patK[a]);
 	}
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 }
 
-void Cpalette::setGradients(QMap<QString, VGradient> *docGradients)
+void Cpalette::setGradients(QHash<QString, VGradient> *docGradients)
 {
 	gradientList = docGradients;
 	updateGradientList();
@@ -708,22 +711,25 @@ void Cpalette::updatePatternList()
 	patternBox->setIconSize(QSize(48, 48));
 	patternBoxStroke->clear();
 	patternBoxStroke->setIconSize(QSize(48, 48));
-	for (QMap<QString, ScPattern>::Iterator it = patternList->begin(); it != patternList->end(); ++it)
+	QStringList patK = patternList->keys();
+	qSort(patK);
+	for (int a = 0; a < patK.count(); a++)
 	{
+		ScPattern sp = patternList->value(patK[a]);
 		QPixmap pm;
-		if (it.value().getPattern()->width() >= it.value().getPattern()->height())
-			pm=QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		if (sp.getPattern()->width() >= sp.getPattern()->height())
+			pm=QPixmap::fromImage(sp.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm=QPixmap::fromImage(sp.getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
 		p.end();
-		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternBox);
+		QListWidgetItem *item = new QListWidgetItem(pm2, patK[a], patternBox);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		QListWidgetItem *itemS = new QListWidgetItem(pm2, it.key(), patternBoxStroke);
+		QListWidgetItem *itemS = new QListWidgetItem(pm2, patK[a], patternBoxStroke);
 		itemS->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
 	patternBox->clearSelection();
@@ -744,7 +750,7 @@ void Cpalette::hideEditedPatterns(QStringList names)
 	}
 }
 
-void Cpalette::setPatterns(QMap<QString, ScPattern> *docPatterns)
+void Cpalette::setPatterns(QHash<QString, ScPattern> *docPatterns)
 {
 	patternList = docPatterns;
 	updatePatternList();

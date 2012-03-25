@@ -42,7 +42,7 @@ class SCRIBUS_API ColorSetManager
 		QString userPaletteFileFromName(const QString& paletteName);
 		bool paletteLocationLocked(const QString& palettePath);
 		bool checkPaletteFormat(const QString& paletteFileName);
-		bool loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QMap<QString,VGradient> &gradients, QMap<QString, ScPattern> &patterns, bool merge);
+		bool loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QHash<QString,VGradient> &gradients, QHash<QString, ScPattern> &patterns, bool merge);
 		
 	protected:
 		QStringList paletteLocations;

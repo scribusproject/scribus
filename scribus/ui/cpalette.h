@@ -66,8 +66,8 @@ public:
 	void updateColorList();
 
 	void setColors(ColorList newColorList);
-	void setGradients(QMap<QString, VGradient> *docGradients);
-	void setPatterns(QMap<QString, ScPattern> *docPatterns);
+	void setGradients(QHash<QString, VGradient> *docGradients);
+	void setPatterns(QHash<QString, ScPattern> *docPatterns);
 
 private:
 
@@ -150,8 +150,8 @@ protected:
 	PageItem* currentItem;
 	QString sFarbe;
 	ColorList colorList;
-	QMap<QString, ScPattern> *patternList;
-	QMap<QString, VGradient> *gradientList;
+	QHash<QString, ScPattern> *patternList;
+	QHash<QString, VGradient> *gradientList;
 	double m_Pattern_scaleX;
 	double m_Pattern_scaleY;
 	double m_Pattern_offsetX;

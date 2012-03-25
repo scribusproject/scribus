@@ -219,21 +219,24 @@ void SymbolPalette::updateSymbolList()
 {
 	SymbolViewWidget->clear();
 	SymbolViewWidget->setWordWrap(true);
-	for (QMap<QString, ScPattern>::Iterator it = currDoc->docPatterns.begin(); it != currDoc->docPatterns.end(); ++it)
+	QStringList patK = currDoc->docPatterns.keys();
+	qSort(patK);
+	for (int a = 0; a < patK.count(); a++)
 	{
+		ScPattern sp = currDoc->docPatterns.value(patK[a]);
 		QPixmap pm;
-		if (it.value().getPattern()->width() >= it.value().getPattern()->height())
-			pm = QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		if (sp.getPattern()->width() >= sp.getPattern()->height())
+			pm = QPixmap::fromImage(sp.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm = QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm = QPixmap::fromImage(sp.getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
 		p.end();
-		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), SymbolViewWidget);
-		if (editItemNames.contains(it.key()))
+		QListWidgetItem *item = new QListWidgetItem(pm2, patK[a], SymbolViewWidget);
+		if (editItemNames.contains(patK[a]))
 			item->setFlags(0);
 		else
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);

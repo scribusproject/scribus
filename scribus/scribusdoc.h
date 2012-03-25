@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QList>
 #include <QMap>
+#include <QHash>
 #include <QObject>
 #include <QPixmap>
 #include <QRectF>
@@ -616,7 +617,7 @@ public:
 	 */
 	void loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
 	                                          StyleSet<CharStyle> *tempCharStyles,
-	                                          QMap<QString, multiLine> *tempLineStyles);
+											  QHash<QString, multiLine> *tempLineStyles);
 
 	const CharStyle& charStyle(QString name) { return docCharStyles.get(name); }
 	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }
@@ -680,17 +681,17 @@ public:
 	/*!
 	* @brief Builds a qmap of the gradients used within the document
 	*/
-	void getUsedGradients(QMap<QString, VGradient> &Gradients);
+	void getUsedGradients(QHash<QString, VGradient> &Gradients);
 	/*!
 	* @brief Set the gradients for a document
 	*/
 	bool addGradient(QString &name, VGradient &gradient);
-	void setGradients(QMap<QString, VGradient> &gradients);
+	void setGradients(QHash<QString, VGradient> &gradients);
 	/*!
 	* @brief Set the patterns for a document
 	*/
 	bool addPattern(QString &name, ScPattern& pattern);
-	void setPatterns(QMap<QString, ScPattern> &patterns);
+	void setPatterns(QHash<QString, ScPattern> &patterns);
 	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
@@ -1275,9 +1276,9 @@ public:
 	bool OldBM;
 	bool hasName;
 	QTimer * const autoSaveTimer;
-	QMap<QString,multiLine> MLineStyles;
-	QMap<QString, ScPattern> docPatterns;
-	QMap<QString, VGradient> docGradients;
+	QHash<QString,multiLine> MLineStyles;
+	QHash<QString, ScPattern> docPatterns;
+	QHash<QString, VGradient> docGradients;
 	QWidget* WinHan;
 	bool DoDrawing;
 	bool drawAsPreview;

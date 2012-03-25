@@ -49,7 +49,7 @@ struct Collection
 	ColorList colors;
 	StyleSet<ParagraphStyle> pstyles;
 	StyleSet<CharStyle> cstyles;
-	QMap<QString,multiLine> lstyles;
+	QHash<QString,multiLine> lstyles;
 	QList<QString> fonts;
 	QList<QString> patterns;
 

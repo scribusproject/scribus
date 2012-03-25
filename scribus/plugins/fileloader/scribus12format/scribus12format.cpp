@@ -1817,7 +1817,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				QMap<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
+				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
 				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
 				{
 					while (m_Doc->MLineStyles.contains(Nam2))
@@ -2266,7 +2266,7 @@ bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 	return true;
 }
 
-bool Scribus12Format::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty)
+bool Scribus12Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty)
 {
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
@@ -2305,7 +2305,7 @@ bool Scribus12Format::readLineStyles(const QString& fileName, QMap<QString,multi
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				QMap<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
+				QHash<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
 				if (mlit != Sty->end() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))

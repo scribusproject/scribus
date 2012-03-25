@@ -110,7 +110,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
-		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
+		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 		virtual QImage readThumbnail(const QString& fileName);
@@ -209,7 +209,7 @@ class SCRIBUS_API FileFormat
 		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const;
-		bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const;
+		bool readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty) const;
 		bool readColors(const QString& fileName, ColorList & colors) const;
 		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const;
 		QImage readThumbnail(const QString& fileName) const;

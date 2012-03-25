@@ -595,7 +595,7 @@ QString colorSpaceText(int cs)
 	return CommonStrings::trUnknownCS;
 }
 
-bool importColorsFromFile(QString fileName, ColorList &EditColors, QMap<QString,VGradient> *dialogGradients, bool merge)
+bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString, VGradient> *dialogGradients, bool merge)
 {
 	int oldCount = EditColors.count();
 	if (!fileName.isEmpty())

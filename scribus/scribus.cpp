@@ -1862,8 +1862,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	csm.findPalettes();
 	csm.findUserPalettes();
 	ColorList colorList;
-	QMap<QString, VGradient> gradientsList;
-	QMap<QString, ScPattern> patternsList;
+	QHash<QString, VGradient> gradientsList;
+	QHash<QString, ScPattern> patternsList;
 	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
 	QFile fc(Cpfad);
 	if (fc.exists())
@@ -9907,8 +9907,8 @@ void ScribusMainWindow::PutToPatterns()
 void ScribusMainWindow::managePaints()
 {
 	ColorList edc;
-	QMap<QString, VGradient> *Gradients;
-	QMap<QString, ScPattern> *docPatterns;
+	QHash<QString, VGradient> *Gradients;
+	QHash<QString, ScPattern> *docPatterns;
 	ScribusDoc* tmpDoc;
 	if (HaveDoc)
 	{

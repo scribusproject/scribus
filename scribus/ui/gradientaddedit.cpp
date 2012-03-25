@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "gradientaddedit.h"
 #include <QMessageBox>
 
-gradientEditDialog::gradientEditDialog(QWidget* parent, QString name, VGradient gradient, ColorList doco, ScribusDoc *doc, QMap<QString, VGradient> *gradients, bool newFlag) : QDialog(parent)
+gradientEditDialog::gradientEditDialog(QWidget* parent, QString name, VGradient gradient, ColorList doco, ScribusDoc *doc, QHash<QString, VGradient> *gradients, bool newFlag) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);

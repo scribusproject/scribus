@@ -449,8 +449,8 @@ struct ApplicationPrefs
 	VerifierPrefs verifierPrefs;
 
 	QList<ArrowDesc> arrowStyles;
-	QMap<QString, VGradient> defaultGradients;
-	QMap<QString, ScPattern> defaultPatterns;
+	QHash<QString, VGradient> defaultGradients;
+	QHash<QString, ScPattern> defaultPatterns;
 	QList<PageSet> pageSets;
 	QStringList activePageSizes;
 

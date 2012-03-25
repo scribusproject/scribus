@@ -450,7 +450,7 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 
 void Scribus150Format::writeLinestyles(ScXmlStreamWriter& docu) 
 {
-	QMap<QString,multiLine>::Iterator itMU;
+	QHash<QString,multiLine>::Iterator itMU;
 	for (itMU = m_Doc->MLineStyles.begin(); itMU != m_Doc->MLineStyles.end(); ++itMU)
 	{
 		docu.writeStartElement("MultiLine");
@@ -551,8 +551,8 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part)
 
 void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
 {
-	QMap<QString, VGradient>::Iterator itGrad;
-	QMap<QString, VGradient> gradMap;
+	QHash<QString, VGradient>::Iterator itGrad;
+	QHash<QString, VGradient> gradMap;
 	if (part)
 		m_Doc->getUsedGradients(gradMap);
 	else

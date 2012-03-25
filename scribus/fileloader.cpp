@@ -293,7 +293,7 @@ bool FileLoader::readPageCount(int *num1, int *num2, QStringList & masterPageNam
 	return false;
 }
 
-bool FileLoader::readLineStyles(QMap<QString,multiLine> *Sty)
+bool FileLoader::readLineStyles(QHash<QString,multiLine> *Sty)
 {
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(m_fileType, it))

@@ -302,7 +302,7 @@ void StyleManager::slotImport()
 
 		StyleSet<ParagraphStyle> tmpParaStyles;
 		StyleSet<CharStyle> tmpCharStyles;
-		QMap<QString, multiLine> tmpLineStyles;
+		QHash<QString, multiLine> tmpLineStyles;
 
 		m_doc->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 
