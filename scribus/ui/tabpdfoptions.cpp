@@ -807,14 +807,22 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	registrationMarks = new QCheckBox( tr( "Registration Marks" ), MarkGroup );
 	MarkGroupLayout->addWidget( registrationMarks, 2, 0 );
 	colorMarks = new QCheckBox( tr( "Color Bars" ), MarkGroup);
-	MarkGroupLayout->addWidget( colorMarks, 0, 1, 1, 2 );
+	MarkGroupLayout->addWidget( colorMarks, 3, 0 );
 	docInfoMarks = new QCheckBox( tr( "Page Information" ), MarkGroup );
-	MarkGroupLayout->addWidget( docInfoMarks, 1, 1, 1, 2 );
+	MarkGroupLayout->addWidget( docInfoMarks, 0, 1, 1, 2 );
 	MarkTxt1 = new QLabel( MarkGroup );
-	MarkTxt1->setText( tr( "Offset:" ) );
+	MarkTxt1->setText( tr( "Length:" ) );
 	MarkGroupLayout->addWidget( MarkTxt1, 2, 1 );
+	markLength = new ScrSpinBox( MarkGroup, unitIndex );
+	MarkGroupLayout->addWidget( markLength, 2, 2 );
+	markLength->setSuffix( unit );
+	markLength->setMinimum(1 * unitRatio);
+	markLength->setMaximum(3000 * unitRatio);
+	MarkTxt2 = new QLabel( MarkGroup );
+	MarkTxt2->setText( tr( "Offset:" ) );
+	MarkGroupLayout->addWidget( MarkTxt2, 3, 1 );
 	markOffset = new ScrSpinBox( MarkGroup, unitIndex );
-	MarkGroupLayout->addWidget( markOffset, 2, 2 );
+	MarkGroupLayout->addWidget( markOffset, 3, 2 );
 	markOffset->setSuffix( unit );
 	markOffset->setMinimum(0);
 	markOffset->setMaximum(3000 * unitRatio);
@@ -996,6 +1004,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	registrationMarks->setToolTip( "<qt>" + tr( "Add registration marks to each separation" ) + "</qt>" );
 	colorMarks->setToolTip( "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
 	docInfoMarks->setToolTip( "<qt>" + tr( "Add document information which includes the document title and page numbers" ) + "</qt>" );
+	markLength->setToolTip( "<qt>" + tr( "Indicate the size of crops'marks" ) + "</qt>" );
 	markOffset->setToolTip( "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
 	BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 	BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
@@ -1380,6 +1389,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		docBleeds->setChecked(Opts.useDocBleeds);
 		doDocBleeds();
 	}
+	markLength->setValue(Opts.markLength*unitRatio);
 	markOffset->setValue(Opts.markOffset*unitRatio);
 	cropMarks->setChecked(Opts.cropMarks);
 	bleedMarks->setChecked(Opts.bleedMarks);
@@ -1463,6 +1473,7 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	pdfOptions.registrationMarks = registrationMarks->isChecked();
 	pdfOptions.colorMarks = colorMarks->isChecked();
 	pdfOptions.docInfoMarks = docInfoMarks->isChecked();
+	pdfOptions.markLength = markLength->value() / unitRatio;
 	pdfOptions.markOffset = markOffset->value() / unitRatio;
 	pdfOptions.useDocBleeds = docBleeds->isChecked();
 	pdfOptions.bleeds.Bottom = BleedBottom->value() / unitRatio;

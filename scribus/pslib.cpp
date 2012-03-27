@@ -420,7 +420,7 @@ bool PSLib::PS_set_file(QString fn)
 	return ret;
 }
 
-bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr)
+bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr)
 {
 	m_Doc = doc;
 	PutStream(Header);
@@ -428,16 +428,16 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream("%%Title: " + Titel + "\n");
 	PutStream("%%Creator: " + Creator + "\n");
 	PutStream("%%Pages: " + IToStr(numpage) + "\n");
-	if(breite < hoehe || !psExport)
+	if(width < height || !psExport)
 	{
-		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(breite)) + " " + IToStr(qRound(hoehe)) + "\n";
-		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(breite) + " " + ToStr(hoehe) + "\n";
+		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(width)) + " " + IToStr(qRound(height)) + "\n";
+		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(width) + " " + ToStr(height) + "\n";
 	}
 	else
 	{
 		
-		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(hoehe)) + " " + IToStr(qRound(breite)) + "\n";
-		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(hoehe) + " " + ToStr(breite) + "\n";
+		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
+		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
 	}
  // 	if (!Art)
 //	{
@@ -593,7 +593,9 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	double bleedLeft = 0.0;
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
-		markOffs = 20.0 + Options.markOffset;
+		markOffs = Options.markLength + Options.markOffset;
+	if ((Options.registrationMarks) || (Options.colorMarks))
+		markOffs = qMax(markOffs, Options.markOffset + 20.0);
 	GetBleeds(pg, bleedLeft, bleedRight);
 	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = pg->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
@@ -650,7 +652,10 @@ void PSLib::PS_end_page()
 	PutStream("%%PageTrailer\nrestore\n");
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
-		markOffs = 20.0 + Options.markOffset;
+		markOffs = Options.markLength + Options.markOffset;
+	if ((Options.registrationMarks) || (Options.colorMarks))
+		markOffs = qMax(markOffs, Options.markOffset + 20.0);
+	double markDelta = markOffs - (Options.markLength + Options.markOffset);
 	double bleedRight, bleedLeft;
 	GetBleeds(ActPage, bleedLeft, bleedRight);
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
@@ -669,32 +674,32 @@ void PSLib::PS_end_page()
 		if (Options.cropMarks)
 		{
 		// Bottom Left
-			PutStream("0 "+ToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutStream(ToStr(20.0)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" m\n");
+			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(markOffs+bleedLeft)+" 0 m\n");
-			PutStream(ToStr(markOffs+bleedLeft)+" 20 li\n");
+			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta)+" m\n");
+			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta+Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Left
-			PutStream("0 "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutStream(ToStr(20.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
+			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY)+" m\n");
-			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta)+" m\n");
+			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta-Options.markLength) +" li\n");
 			PutStream("st\n");
 		// Bottom Right
-			PutStream(ToStr(maxBoxX)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutStream(ToStr(maxBoxX-20.0)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(0.0)+" m\n");
-			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(20.0)+" li\n");
+			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta)+" m\n");
+			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta+Options.markLength) +" li\n");
 			PutStream("st\n");
 		// Top Right
-			PutStream(ToStr(maxBoxX)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-20.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(maxBoxY)+" m\n");
-			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
+ 			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta)+" m\n");
+			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta-Options.markLength) +" li\n");
 			PutStream("st\n");
 		}
 		if (Options.bleedMarks)
@@ -702,61 +707,62 @@ void PSLib::PS_end_page()
 			PutStream("gs\n");
 			PutStream("[3 1 1 1] 0 setdash\n");
 		// Bottom Left
-			PutStream("0 "+ToStr(markOffs)+" m\n");
-			PutStream(ToStr(20.0)+" "+ToStr(markOffs)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(markOffs)+" m\n");
+			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(markOffs)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(markOffs)+" 0 m\n");
-			PutStream(ToStr(markOffs)+" 20 l\n");
+			PutStream(ToStr(markOffs)+" "+ToStr(markDelta)+" m\n");
+			PutStream(ToStr(markOffs)+" "+ToStr(markDelta+Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Left
-			PutStream("0 "+ToStr(maxBoxY-markOffs)+" m\n");
-			PutStream(ToStr(20.0)+" "+ToStr(maxBoxY-markOffs)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-markOffs)+" m\n");
+			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(maxBoxY-markOffs)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY)+" m\n");
-			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY-markDelta)+" m\n");
+			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY-markDelta-Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Bottom Right
-			PutStream(ToStr(maxBoxX)+" "+ToStr(markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-20.0)+" "+ToStr(markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs)+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(markOffs)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(0.0)+" m\n");
-			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(20.0)+" li\n");
+			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(markDelta)+" m\n");
+			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(markDelta+Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Right
-			PutStream(ToStr(maxBoxX)+" "+ToStr(maxBoxY-markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-20.0)+" "+ToStr(maxBoxY-markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-markOffs)+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(maxBoxY-markOffs)+" li\n");
 			PutStream("st\n");
-			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY)+" m\n");
-			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-markDelta)+" m\n");
+			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-markDelta-Options.markLength)+" li\n");
 			PutStream("st\n");
 			PutStream("gr\n");
 		}
 		if (Options.registrationMarks)
 		{
+			double regDelta  = markOffs - Options.markOffset;
 			QString regCross = "0 7 m\n14 7 li\n7 0 m\n7 14 li\n13 7 m\n13 10.31383 10.31383 13 7 13 cu\n3.68629 13 1 10.31383 1 7 cu\n1 3.68629 3.68629 1 7 1 cu\n";
 			regCross += "10.31383 1 13 3.68629 13 7 cu\ncl\n10.5 7 m\n10.5 8.93307 8.93307 10.5 7 10.5 cu\n5.067 10.5 3.5 8.93307 3.5 7 cu\n";
 			regCross += "3.5 5.067 5.067 3.5 7 3.5 cu\n8.93307 3.5 10.5 5.067 10.5 7 cu\ncl\nst\n";
 			PutStream("gs\n");
-			PutStream(ToStr(maxBoxX / 2.0 - 7.0)+" 3 tr\n");
+			PutStream(ToStr(maxBoxX / 2.0 - 7.0)+" "+ToStr(regDelta - 17)+" tr\n");
 			PutStream(regCross);
 			PutStream("gr\n");
 			PutStream("gs\n");
-			PutStream("3 "+ToStr(maxBoxY / 2.0 - 7.0)+" tr\n");
+			PutStream(ToStr(regDelta - 17)+" "+ToStr(maxBoxY / 2.0 - 7.0)+" tr\n");
 			PutStream(regCross);
 			PutStream("gr\n");
 			PutStream("gs\n");
-			PutStream(ToStr(maxBoxX / 2.0 - 7.0)+" "+ToStr(maxBoxY - 17.0)+" tr\n");
+			PutStream(ToStr(maxBoxX / 2.0 - 7.0)+" "+ToStr(maxBoxY - regDelta + 3.0)+" tr\n");
 			PutStream(regCross);
 			PutStream("gr\n");
 			PutStream("gs\n");
-			PutStream(ToStr(maxBoxX - 17.0)+" "+ToStr(maxBoxY / 2.0 - 7.0)+" tr\n");
+			PutStream(ToStr(maxBoxX - regDelta + 3.0)+" "+ToStr(maxBoxY / 2.0 - 7.0)+" tr\n");
 			PutStream(regCross);
 			PutStream("gr\n");
 		}
 		if (Options.colorMarks)
 		{
 			double startX = markOffs+bleedLeft+6.0;
-			double startY = maxBoxY - 18.0;
+			double startY = maxBoxY - markOffs + Options.markOffset + 2.0;
 			PutStream("0 0 0 1 cmyk\n");
 			double col = 1.0;
 			for (int bl = 0; bl < 11; bl++)

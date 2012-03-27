@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>570</width>
-    <height>520</height>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -267,7 +267,7 @@ a range of pages or a single page number.</string>
    <item>
     <widget class="QTabWidget" name="printOptions">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -437,27 +437,7 @@ Note: PDF Forms will not be exported.</string>
        <string>Marks</string>
       </attribute>
       <layout class="QGridLayout">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="cropMarks">
-         <property name="toolTip">
-          <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</string>
-         </property>
-         <property name="text">
-          <string>Crop Marks</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="registrationMarks">
-         <property name="toolTip">
-          <string>Add registration marks which are added to each separation</string>
-         </property>
-         <property name="text">
-          <string>Registration Marks</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
+       <item row="5" column="0">
         <widget class="QCheckBox" name="bleedMarks">
          <property name="toolTip">
           <string>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</string>
@@ -467,7 +447,17 @@ Note: PDF Forms will not be exported.</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="cropMarks">
+         <property name="toolTip">
+          <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</string>
+         </property>
+         <property name="text">
+          <string>Crop Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
         <widget class="QCheckBox" name="colorMarks">
          <property name="toolTip">
           <string>Add color calibration bars</string>
@@ -477,7 +467,41 @@ Note: PDF Forms will not be exported.</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="registrationMarks">
+         <property name="toolTip">
+          <string>Add registration marks which are added to each separation</string>
+         </property>
+         <property name="text">
+          <string>Registration Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="MarkTxt2">
+           <property name="text">
+            <string>Length:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ScrSpinBox" name="markLength">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="value">
+            <number>20</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="1">
         <layout class="QHBoxLayout">
          <item>
           <widget class="QLabel" name="MarkTxt1">
@@ -495,15 +519,15 @@ Note: PDF Forms will not be exported.</string>
          </item>
         </layout>
        </item>
-       <item row="2" column="1">
-        <spacer>
+       <item row="8" column="0">
+        <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>40</width>
-           <height>20</height>
+           <width>20</width>
+           <height>40</height>
           </size>
          </property>
         </spacer>
@@ -704,6 +728,22 @@ Note: PDF Forms will not be exported.</string>
     <hint type="destinationlabel">
      <x>222</x>
      <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cropMarks</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>markLength</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>173</x>
+     <y>358</y>
     </hint>
    </hints>
   </connection>

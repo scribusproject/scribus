@@ -231,6 +231,7 @@ struct PrintOptions
 	bool includePDFMarks;
 	int  copies;
 	PrintEngine prnEngine;
+	double markLength;
 	double markOffset;
 	MarginStruct bleeds;
 	std::vector<int> pageNumbers;
@@ -385,6 +386,4 @@ public:
 };
 
 #endif
-
-
 

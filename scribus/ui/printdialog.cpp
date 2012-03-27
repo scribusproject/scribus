@@ -53,6 +53,9 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	printEngines->addItem( CommonStrings::trPostScript1 );
 	printEngines->addItem( CommonStrings::trPostScript2 );
 	printEngines->addItem( CommonStrings::trPostScript3 );
+	markLength->setNewUnit(unit);
+	markLength->setMinimum(1*unitRatio);
+	markLength->setMaximum(3000*unitRatio);
 	markOffset->setNewUnit(unit);
 	markOffset->setMinimum(0);
 	markOffset->setMaximum(3000*unitRatio);
@@ -408,6 +411,7 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.bleeds.Left   = BleedLeft->value() / m_doc->unitRatio();
 	m_doc->Print_Options.bleeds.Right  = BleedRight->value() / m_doc->unitRatio();
 	m_doc->Print_Options.bleeds.Bottom = BleedBottom->value() / m_doc->unitRatio();
+	m_doc->Print_Options.markLength = markLength->value() / m_doc->unitRatio();
 	m_doc->Print_Options.markOffset = markOffset->value() / m_doc->unitRatio();
 	m_doc->Print_Options.cropMarks  = cropMarks->isChecked();
 	m_doc->Print_Options.bleedMarks = bleedMarks->isChecked();
@@ -464,8 +468,9 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 	options.useSpotColors = prefs->getBool("doSpot", true);
 	options.useICC  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
 	options.useDocBleeds  = true;
-	options.bleeds=*m_doc->bleeds();
-	options.markOffset = prefs->getDouble("markOffset",0.0);
+	options.bleeds = *m_doc->bleeds();
+	options.markLength = prefs->getDouble("markLength", 20.0);
+	options.markOffset = prefs->getDouble("markOffset", 0.0);
 	options.cropMarks  = prefs->getBool("cropMarks", false);
 	options.bleedMarks = prefs->getBool("bleedMarks", false);
 	options.registrationMarks = prefs->getBool("registrationMarks", false);
@@ -545,6 +550,7 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	BleedBottom->setEnabled(!docBleeds->isChecked());
 	BleedRight->setEnabled(!docBleeds->isChecked());
 	BleedLeft->setEnabled(!docBleeds->isChecked());
+	markLength->setValue(m_doc->Print_Options.markLength*unitRatio);
 	markOffset->setValue(m_doc->Print_Options.markOffset*unitRatio);
 	cropMarks->setChecked(m_doc->Print_Options.cropMarks);
 	bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);

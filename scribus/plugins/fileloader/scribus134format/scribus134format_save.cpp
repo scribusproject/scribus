@@ -627,6 +627,7 @@ void Scribus134Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("setDevParam", static_cast<int>(m_Doc->Print_Options.setDevParam));
 	docu.writeAttribute("useDocBleeds", static_cast<int>(m_Doc->Print_Options.useDocBleeds));
 	docu.writeAttribute("cropMarks", static_cast<int>(m_Doc->Print_Options.cropMarks));
+	docu.writeAttribute("cropMarkSize" , m_Doc->Print_Options.cropMarkSize);
 	docu.writeAttribute("bleedMarks", static_cast<int>(m_Doc->Print_Options.bleedMarks));
 	docu.writeAttribute("registrationMarks", static_cast<int>(m_Doc->Print_Options.registrationMarks));
 	docu.writeAttribute("colorMarks", static_cast<int>(m_Doc->Print_Options.colorMarks));
@@ -686,6 +687,7 @@ void Scribus134Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("BBottom", m_Doc->pdfOptions().bleeds.Bottom);
 	docu.writeAttribute("useDocBleeds", static_cast<int>(m_Doc->pdfOptions().useDocBleeds));
 	docu.writeAttribute("cropMarks", static_cast<int>(m_Doc->pdfOptions().cropMarks));
+	docu.writeAttribute("cropMarkSize", m_Doc->pdfOptions().cropMarkSize);
 	docu.writeAttribute("bleedMarks", static_cast<int>(m_Doc->pdfOptions().bleedMarks));
 	docu.writeAttribute("registrationMarks", static_cast<int>(m_Doc->pdfOptions().registrationMarks));
 	docu.writeAttribute("colorMarks", static_cast<int>(m_Doc->pdfOptions().colorMarks));

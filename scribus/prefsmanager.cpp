@@ -459,6 +459,7 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.registrationMarks = false;
 	appPrefs.pdfPrefs.colorMarks = false;
 	appPrefs.pdfPrefs.docInfoMarks = false;
+	appPrefs.pdfPrefs.markLength = 20;
 	appPrefs.pdfPrefs.markOffset = 0;
 	appPrefs.pdfPrefs.EmbeddedI = false;
 	appPrefs.pdfPrefs.Encrypt = false;
@@ -1745,6 +1746,7 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("RegistrationMarks", static_cast<int>(appPrefs.pdfPrefs.registrationMarks));
 	pdf.setAttribute("ColorMarks", static_cast<int>(appPrefs.pdfPrefs.colorMarks));
 	pdf.setAttribute("DocInfoMarks", static_cast<int>(appPrefs.pdfPrefs.docInfoMarks));
+	pdf.setAttribute("MarkLength", appPrefs.pdfPrefs.markLength);
 	pdf.setAttribute("MarkOffset", appPrefs.pdfPrefs.markOffset);
 	pdf.setAttribute("ImagePr", static_cast<int>(appPrefs.pdfPrefs.EmbeddedI));
 	pdf.setAttribute("PassOwner", appPrefs.pdfPrefs.PassOwner);
@@ -2484,6 +2486,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.pdfPrefs.registrationMarks = static_cast<bool>(dc.attribute("RegistrationMarks", "0").toInt());
 			appPrefs.pdfPrefs.colorMarks = static_cast<bool>(dc.attribute("ColorMarks", "0").toInt());
 			appPrefs.pdfPrefs.docInfoMarks = static_cast<bool>(dc.attribute("DocInfoMarks", "0").toInt());
+			appPrefs.pdfPrefs.markLength = ScCLocale::toDoubleC(dc.attribute("MarkLength"), 20.0);
 			appPrefs.pdfPrefs.markOffset = ScCLocale::toDoubleC(dc.attribute("MarkOffset"), 0.0);
 			appPrefs.pdfPrefs.EmbeddedI  = static_cast<bool>(dc.attribute("ImagePr", "0").toInt());
 			appPrefs.pdfPrefs.PassOwner  = dc.attribute("PassOwner", "");

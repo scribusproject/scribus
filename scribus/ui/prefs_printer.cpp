@@ -90,8 +90,9 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 			   prefs->getDouble("BleedRight",0.0)*unitRatio,
 			   prefs->getDouble("BleedLeft",0.0)*unitRatio);
 	bleedsWidget->setup(bleeds, 0, 0, false, false);
-	markOffsetSpinBox->setValue(prefs->getDouble("markOffset",0.0)*unitRatio);
-	bleedMarksCheckBox->setChecked(prefs->getBool("cropMarks", false));
+	markLengthSpinBox->setValue(prefs->getDouble("markLength", 20.0)*unitRatio);
+	markOffsetSpinBox->setValue(prefs->getDouble("markOffset", 0.0)*unitRatio);
+	cropMarksCheckBox->setChecked(prefs->getBool("cropMarks", false));
 	bleedMarksCheckBox->setChecked(prefs->getBool("bleedMarks", false));
 	registrationMarksCheckBox->setChecked(prefs->getBool("registrationMarks", false));
 	colorBarsCheckBox->setChecked(prefs->getBool("colorMarks", false));
@@ -122,10 +123,11 @@ void Prefs_Printer::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefs->set("ICCinUse", applyICCProfilesCheckBox->isChecked());
 	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	MarginStruct bleeds(bleedsWidget->margins());
-		prefs->set("BleedTop", bleeds.Left / unitRatio);
+	prefs->set("BleedTop", bleeds.Left / unitRatio);
 	prefs->set("BleedBottom", bleeds.Bottom / unitRatio);
 	prefs->set("BleedRight", bleeds.Right / unitRatio);
 	prefs->set("BleedLeft", bleeds.Left / unitRatio);
+	prefs->set("markLength", markLengthSpinBox->value() / unitRatio);
 	prefs->set("markOffset", markOffsetSpinBox->value() / unitRatio);
 	prefs->set("cropMarks", cropMarksCheckBox->isChecked());
 	prefs->set("bleedMarks", bleedMarksCheckBox->isChecked());

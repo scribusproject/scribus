@@ -203,6 +203,7 @@ private:
 	QCheckBox* registrationMarks;
 	QCheckBox* colorMarks;
 	QCheckBox* docInfoMarks;
+	ScrSpinBox* markLength;
 	ScrSpinBox* markOffset;
 	QGroupBox* CBox;
 	QGridLayout* CBoxLayout;
@@ -262,6 +263,7 @@ private:
 	QLabel* BleedTxt3;
 	QLabel* BleedTxt4;
 	QLabel* MarkTxt1;
+	QLabel* MarkTxt2;
 	QCheckBox *docBleeds;
 	QGroupBox* RangeGroup;
 	QVBoxLayout* RangeGroupLayout;

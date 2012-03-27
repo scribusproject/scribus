@@ -1006,6 +1006,7 @@ void Scribus150Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("includePDFMarks", static_cast<int>(m_Doc->Print_Options.includePDFMarks));
 	docu.writeAttribute("PSLevel", (m_Doc->Print_Options.prnEngine < WindowsGDI) ? m_Doc->Print_Options.prnEngine : PostScript3);
 	docu.writeAttribute("PDLanguage" , m_Doc->Print_Options.prnEngine);
+	docu.writeAttribute("markLength" , m_Doc->Print_Options.markLength);
 	docu.writeAttribute("markOffset" , m_Doc->Print_Options.markOffset);
 	docu.writeAttribute("BleedTop"   , m_Doc->Print_Options.bleeds.Top);
 	docu.writeAttribute("BleedLeft"  , m_Doc->Print_Options.bleeds.Left);
@@ -1063,6 +1064,7 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("registrationMarks", static_cast<int>(m_Doc->pdfOptions().registrationMarks));
 	docu.writeAttribute("colorMarks", static_cast<int>(m_Doc->pdfOptions().colorMarks));
 	docu.writeAttribute("docInfoMarks", static_cast<int>(m_Doc->pdfOptions().docInfoMarks));
+	docu.writeAttribute("markLength", m_Doc->pdfOptions().markLength);
 	docu.writeAttribute("markOffset", m_Doc->pdfOptions().markOffset);
 	docu.writeAttribute("ImagePr", static_cast<int>(m_Doc->pdfOptions().EmbeddedI));
 	docu.writeAttribute("PassOwner", m_Doc->pdfOptions().PassOwner);

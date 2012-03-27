@@ -89,7 +89,8 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	printRegistrationMarksCheckBox->setToolTip( "<qt>" + tr( "Add registration marks to each separation" ) + "</qt>" );
 	printColorBarsCheckBox->setToolTip( "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
 	printPageInfoCheckBox->setToolTip( "<qt>" + tr( "Add document information which includes the document title and page numbers" ) + "</qt>" );
-	registrationMarkOffsetSpinBox->setToolTip( "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
+	markLengthSpinBox->setToolTip( "<qt>" + tr( "Length of crop marks" ) + "</qt>" );
+	markOffsetSpinBox->setToolTip( "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
 //	BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 //	BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 //	BleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
@@ -108,9 +109,14 @@ Prefs_PDFExport::~Prefs_PDFExport()
 void Prefs_PDFExport::unitChange(int unitIndex)
 {
 	unitRatio = unitGetRatioFromIndex(unitIndex);
-	registrationMarkOffsetSpinBox->setNewUnit(unitIndex);
-	registrationMarkOffsetSpinBox->setMinimum(0);
-	registrationMarkOffsetSpinBox->setMaximum(3000 * unitRatio);
+
+	markLengthSpinBox->setNewUnit(unitIndex);
+	markLengthSpinBox->setMinimum(0);
+	markLengthSpinBox->setMaximum(3000 * unitRatio);
+
+	markOffsetSpinBox->setNewUnit(unitIndex);
+	markOffsetSpinBox->setMinimum(0);
+	markOffsetSpinBox->setMaximum(3000 * unitRatio);
 }
 
 void Prefs_PDFExport::languageChange()
@@ -547,7 +553,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	else
 		useDocumentBleedsCheckBox->hide();
 
-	registrationMarkOffsetSpinBox->setValue(prefsData->pdfPrefs.markOffset*unitRatio);
+	markLengthSpinBox->setValue(prefsData->pdfPrefs.markLength*unitRatio);
+	markOffsetSpinBox->setValue(prefsData->pdfPrefs.markOffset*unitRatio);
 	printCropMarksCheckBox->setChecked(prefsData->pdfPrefs.cropMarks);
 	printBleedMarksCheckBox->setChecked(prefsData->pdfPrefs.bleedMarks);
 	printRegistrationMarksCheckBox->setChecked(prefsData->pdfPrefs.registrationMarks);
@@ -678,9 +685,10 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->pdfPrefs.registrationMarks = printRegistrationMarksCheckBox->isChecked();
 	prefsData->pdfPrefs.colorMarks = printColorBarsCheckBox->isChecked();
 	prefsData->pdfPrefs.docInfoMarks = printPageInfoCheckBox->isChecked();
-	prefsData->pdfPrefs.markOffset = registrationMarkOffsetSpinBox->value() / unitRatio;
+	prefsData->pdfPrefs.markLength   = markLengthSpinBox->value() / unitRatio;
+	prefsData->pdfPrefs.markOffset   = markOffsetSpinBox->value() / unitRatio;
 	prefsData->pdfPrefs.useDocBleeds = useDocumentBleedsCheckBox->isChecked();
-	prefsData->pdfPrefs.bleeds=bleedsWidget->margins();
+	prefsData->pdfPrefs.bleeds = bleedsWidget->margins();
 	prefsData->pdfPrefs.doClip = clipToPrinterMarginsCheckBox->isChecked();
 	if (useEncryptionCheckBox->isChecked())
 	{

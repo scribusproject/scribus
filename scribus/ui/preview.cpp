@@ -602,6 +602,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.bleedMarks = false;
 		options.registrationMarks = false;
 		options.colorMarks = false;
+		options.markLength = 20.0;
 		options.markOffset = 0.0;
 		options.bleeds.Top = 0.0;
 		options.bleeds.Left = 0.0;
@@ -714,6 +715,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		options.bleedMarks = false;
 		options.registrationMarks = false;
 		options.colorMarks = false;
+		options.markLength = 20.0;
 		options.markOffset = 0.0;
 		options.bleeds.Top = 0.0;
 		options.bleeds.Left = 0.0;

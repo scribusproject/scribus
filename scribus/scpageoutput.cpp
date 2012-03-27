@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 MarksOptions::MarksOptions(void)
 {
+	markLength = 20.0;
 	markOffset = 0.0;
 	BleedTop = 0.0;
 	BleedLeft = 0.0;
@@ -52,6 +53,7 @@ MarksOptions::MarksOptions(void)
 
 MarksOptions::MarksOptions(struct PrintOptions& opt)
 {
+	markLength = opt.markLength;
 	markOffset = opt.markOffset;
 	BleedTop = opt.bleeds.Top;
 	BleedLeft = opt.bleeds.Left;
@@ -1907,7 +1909,8 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 
 void ScPageOutput::drawMarks( ScPage* page, ScPainterExBase* painter, const MarksOptions& options )
 {
-	double markOffs  = options.markOffset;
+	double markLength = options.markLength;
+	double markOffs   = options.markOffset;
 	double bleedLeft = 0.0, bleedRight = 0.0;
 	double bleedBottom = options.BleedBottom;
 	double bleedTop = options.BleedTop;
@@ -1943,14 +1946,14 @@ void ScPageOutput::drawMarks( ScPage* page, ScPainterExBase* painter, const Mark
 		FPoint start, end;
 		double left = offsetX, right = offsetX + width;
 		double bottom = offsetY + height, top = offsetY;
-		drawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
+		drawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs, markLength);
 	}
 	if (options.bleedMarks)
 	{
 		FPoint start, end;
 		double left = offsetX - bleedLeft, right = offsetX + width + bleedRight;
 		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;;
-		drawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
+		drawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs, markLength);
 	}
 	if (options.registrationMarks)
 	{
@@ -2032,7 +2035,7 @@ void ScPageOutput::drawMarks( ScPage* page, ScPainterExBase* painter, const Mark
 	painter->restore();
 }
 
-void ScPageOutput::drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset )
+void ScPageOutput::drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset , double markSize)
 {
 	FPoint start, end;
 	double left   = box.left(), right = box.right();
@@ -2041,31 +2044,31 @@ void ScPageOutput::drawBoxMarks( ScPainterExBase* painter, const QRectF& box, co
 	double bleedBottom = bleedBox.bottom(), bleedTop = bleedBox.top();
 	// Top Left
 	start.setXY( bleedLeft - offset, top );
-	end.setXY  ( bleedLeft - offset - 20, top );
+	end.setXY  ( bleedLeft - offset - markSize, top );
 	painter->drawLine(start, end);
 	start.setXY( left, bleedTop - offset );
-	end.setXY  ( left, bleedTop - offset - 20);
+	end.setXY  ( left, bleedTop - offset - markSize);
 	painter->drawLine(start, end);
 	// Top Right
 	start.setXY( bleedRight + offset, top );
-	end.setXY  ( bleedRight + offset + 20, top );
+	end.setXY  ( bleedRight + offset + markSize, top );
 	painter->drawLine(start, end);
 	start.setXY( right, bleedTop - offset );
-	end.setXY  ( right, bleedTop - offset - 20);
+	end.setXY  ( right, bleedTop - offset - markSize);
 	painter->drawLine(start, end);
 	// Bottom Left
 	start.setXY( bleedLeft - offset, bottom );
-	end.setXY  ( bleedLeft - offset - 20, bottom  );
+	end.setXY  ( bleedLeft - offset - markSize, bottom  );
 	painter->drawLine(start, end);
 	start.setXY( left, bleedBottom + offset );
-	end.setXY  ( left, bleedBottom + offset + 20);
+	end.setXY  ( left, bleedBottom + offset + markSize);
 	painter->drawLine(start, end);
 	// Bottom Right
 	start.setXY( bleedRight + offset, bottom );
-	end.setXY  ( bleedRight + offset + 20, bottom  );
+	end.setXY  ( bleedRight + offset + markSize, bottom  );
 	painter->drawLine(start, end);
 	start.setXY( right, bleedBottom + offset );
-	end.setXY  ( right, bleedBottom + offset + 20);
+	end.setXY  ( right, bleedBottom + offset + markSize);
 	painter->drawLine(start, end);
 }
 

@@ -154,6 +154,7 @@ public:
 	bool colorMarks;
 	bool docInfoMarks;
 	bool useDocBleeds;
+	double markLength;
 	double markOffset;
 	QString openAction;
 };

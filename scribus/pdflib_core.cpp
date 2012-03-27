@@ -2733,7 +2733,10 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	uint PgNr =  ActPageP->pageNr();
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
-		markOffs = 20.0 + Options.markOffset;
+		markOffs = Options.markLength + Options.markOffset;
+	if ((Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
+		markOffs = qMax(markOffs, Options.markOffset + 20.0);
+	double markDelta = markOffs - (Options.markLength + Options.markOffset);
 	double bleedRight, bleedLeft;
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight+markOffs*2.0;
@@ -2747,32 +2750,32 @@ void PDFLibCore::PDF_End_Page(int physPage)
 		if (Options.cropMarks)
 		{
 		// Bottom Left
-			PutPage("0 "+FToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutPage(FToStr(20.0)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" l\n");
+			PutPage(FToStr(markDelta)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" m\n");
+			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(markOffs+bleedLeft)+" 0 m\n");
-			PutPage(FToStr(markOffs+bleedLeft)+" 20 l\n");
+			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(markDelta)+" m\n");
+			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(markDelta+Options.markLength)+" l\n");
 			PutPage("S\n");
 		// Top Left
-			PutPage("0 "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutPage(FToStr(20.0)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" l\n");
+			PutPage(FToStr(markDelta)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
+			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(maxBoxY)+" m\n");
-			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(maxBoxY-20.0)+" l\n");
+			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(maxBoxY-markDelta)+" m\n");
+			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(maxBoxY-markDelta-Options.markLength) +" l\n");
 			PutPage("S\n");
 		// Bottom Right
-			PutPage(FToStr(maxBoxX)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutPage(FToStr(maxBoxX-20.0)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" l\n");
+			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" m\n");
+			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(0.0)+" m\n");
-			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(20.0)+" l\n");
+			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(markDelta)+" m\n");
+			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(markDelta+Options.markLength) +" l\n");
 			PutPage("S\n");
 		// Top Right
-			PutPage(FToStr(maxBoxX)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutPage(FToStr(maxBoxX-20.0)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" l\n");
+			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
+			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY)+" m\n");
-			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
+ 			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(maxBoxY-markDelta)+" m\n");
+			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(maxBoxY-markDelta-Options.markLength) +" l\n");
 			PutPage("S\n");
 		}
 		if (Options.bleedMarks)
@@ -2780,61 +2783,62 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			PutPage("q\n");
 			PutPage("[3 1 1 1] 0 d\n");
 		// Bottom Left
-			PutPage("0 "+FToStr(markOffs)+" m\n");
-			PutPage(FToStr(20.0)+" "+FToStr(markOffs)+" l\n");
+			PutPage(FToStr(markDelta)+" "+FToStr(markOffs)+" m\n");
+			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(markOffs)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(markOffs)+" 0 m\n");
-			PutPage(FToStr(markOffs)+" 20 l\n");
+			PutPage(FToStr(markOffs)+" "+FToStr(markDelta)+" m\n");
+			PutPage(FToStr(markOffs)+" "+FToStr(markDelta+Options.markLength)+" l\n");
 			PutPage("S\n");
 		// Top Left
-			PutPage("0 "+FToStr(maxBoxY-markOffs)+" m\n");
-			PutPage(FToStr(20.0)+" "+FToStr(maxBoxY-markOffs)+" l\n");
+			PutPage(FToStr(markDelta)+" "+FToStr(maxBoxY-markOffs)+" m\n");
+			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(maxBoxY-markOffs)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(markOffs)+" "+FToStr(maxBoxY)+" m\n");
-			PutPage(FToStr(markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
+			PutPage(FToStr(markOffs)+" "+FToStr(maxBoxY-markDelta)+" m\n");
+			PutPage(FToStr(markOffs)+" "+FToStr(maxBoxY-markDelta-Options.markLength)+" l\n");
 			PutPage("S\n");
 		// Bottom Right
-			PutPage(FToStr(maxBoxX)+" "+FToStr(markOffs)+" m\n");
-			PutPage(FToStr(maxBoxX-20.0)+" "+FToStr(markOffs)+" l\n");
+			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(markOffs)+" m\n");
+			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(markOffs)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(0.0)+" m\n");
-			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(20.0)+" l\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(markDelta)+" m\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(markDelta+Options.markLength)+" l\n");
 			PutPage("S\n");
 		// Top Right
-			PutPage(FToStr(maxBoxX)+" "+FToStr(maxBoxY-markOffs)+" m\n");
-			PutPage(FToStr(maxBoxX-20.0)+" "+FToStr(maxBoxY-markOffs)+" l\n");
+			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(maxBoxY-markOffs)+" m\n");
+			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(maxBoxY-markOffs)+" l\n");
 			PutPage("S\n");
-			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY)+" m\n");
-			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markDelta)+" m\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markDelta-Options.markLength)+" l\n");
 			PutPage("S\n");
 			PutPage("Q\n");
 		}
 		if (Options.registrationMarks)
 		{
+			double regDelta  = markOffs - Options.markOffset;
 			QString regCross = "0 7 m\n14 7 l\nh\n7 0 m\n7 14 l\nh\n13 7 m\n13 10.31383 10.31383 13 7 13 c\n3.68629 13 1 10.31383 1 7 c\n1 3.68629 3.68629 1 7 1 c\n";
 			regCross += "10.31383 1 13 3.68629 13 7 c\nh\n10.5 7 m\n10.5 8.93307 8.93307 10.5 7 10.5 c\n5.067 10.5 3.5 8.93307 3.5 7 c\n";
 			regCross += "3.5 5.067 5.067 3.5 7 3.5 c\n8.93307 3.5 10.5 5.067 10.5 7 c\nh\nS\n";
 			PutPage("q\n");
-			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 - 7.0)+" 3 cm\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 - 7.0)+" "+FToStr(regDelta - 17)+" cm\n");
 			PutPage(regCross);
 			PutPage("Q\n");
 			PutPage("q\n");
-			PutPage("1 0 0 1 3 "+FToStr(maxBoxY / 2.0 - 7.0)+" cm\n");
+			PutPage("1 0 0 1 "+FToStr(regDelta - 17)+" "+FToStr(maxBoxY / 2.0 - 7.0)+" cm\n");
 			PutPage(regCross);
 			PutPage("Q\n");
 			PutPage("q\n");
-			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 - 7.0)+" "+FToStr(maxBoxY - 17.0)+" cm\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 - 7.0)+" "+FToStr(maxBoxY - regDelta + 3.0)+" cm\n");
 			PutPage(regCross);
 			PutPage("Q\n");
 			PutPage("q\n");
-			PutPage("1 0 0 1 "+FToStr(maxBoxX - 17.0)+" "+FToStr(maxBoxY / 2.0 - 7.0)+" cm\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX - regDelta + 3.0)+" "+FToStr(maxBoxY / 2.0 - 7.0)+" cm\n");
 			PutPage(regCross);
 			PutPage("Q\n");
 		}
 		if (Options.colorMarks)
 		{
 			double startX = markOffs+bleedLeft+6.0;
-			double startY = maxBoxY - 18.0;
+			double startY = maxBoxY - markOffs + Options.markOffset + 2.0;
 			PutPage("0 0 0 1 K\n");
 			double col = 1.0;
 			for (int bl = 0; bl < 11; bl++)
@@ -2887,7 +2891,8 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			FPointArray  textPath;
 			QPainterPath painter1, painter2;
 			QFont   infoFont("Helvetica", 7);
-			double  startX = markOffs+bleedLeft+10.0;
+			double  startX = markOffs + bleedLeft + 10.0;
+			double  startY = markOffs - Options.markOffset - 14;
 			QString docTitle = doc.documentInfo().title();
 			if (docTitle.isEmpty())
 			{
@@ -2898,10 +2903,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			docTitle += "  "+ tr("Page:")+" "+ QString::number(PgNr+1);
 			PutPage("/"+spotMapReg["Register"].ResName+" cs 1 scn\n");
 			PutPage("q\n");
-			PutPage("1 0 0 1 "+FToStr(startX)+" 6 cm\n");
-//			PutPage("BT\n");
-//			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-//			PutPage(EncString(docTitle, ObjCounter) + " Tj\nET\n");
+			PutPage("1 0 0 1 "+FToStr(startX)+" "+FToStr(startY)+" cm\n");
 			painter1.addText( QPointF(0.0,0.0), infoFont, docTitle );
 			textPath.fromQPainterPath(painter1);
 			PutPage(SetClipPathArray(&textPath, true));
@@ -2910,11 +2912,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			QDate d = QDate::currentDate();
 			QString docDate = tr("Date:")+" "+d.toString(Qt::TextDate);
 			PutPage("q\n");
-			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 + 20.0)+" 6 cm\n");
-//			PutPage("BT\n");
-//			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-//			QDate d = QDate::currentDate();
-//			PutPage(EncString( tr("Date:")+" "+d.toString(Qt::TextDate), ObjCounter) + " Tj\nET\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 + 20.0)+" "+FToStr(startY)+" cm\n");
 			painter2.addText( QPointF(0.0,0.0), infoFont, docDate );
 			textPath.fromQPainterPath(painter2);
 			PutPage(SetClipPathArray(&textPath, true));
@@ -3158,7 +3156,9 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 	bleedDisplacementY = 0.0;
 	PutPage("q\n"); // Save
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
-		markOffs = 20.0 + Options.markOffset;
+		markOffs = Options.markLength + Options.markOffset;
+	if ((Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
+		markOffs = qMax(markOffs, Options.markOffset + 20.0);
 	// #8773 - incorrect page position if MPageNam.isEmpty()
 	/*if (!pag->MPageNam.isEmpty())
 	{*/

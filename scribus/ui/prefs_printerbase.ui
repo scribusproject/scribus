@@ -46,9 +46,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-351</y>
-        <width>716</width>
-        <height>1035</height>
+        <y>-334</y>
+        <width>714</width>
+        <height>958</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -451,57 +451,72 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cropMarksCheckBox">
-         <property name="text">
-          <string>Crop Marks</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="bleedMarksCheckBox">
-         <property name="text">
-          <string>Bleed Marks</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="registrationMarksCheckBox">
-         <property name="text">
-          <string>Registration Marks</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="colorBarsCheckBox">
-         <property name="text">
-          <string>Color Bars</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="label_10">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="cropMarksCheckBox">
            <property name="text">
-            <string>Offset:</string>
+            <string>Crop Marks</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="ScrSpinBox" name="markOffsetSpinBox"/>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="bleedMarksCheckBox">
+           <property name="text">
+            <string>Bleed Marks</string>
+           </property>
+          </widget>
          </item>
-         <item>
-          <spacer name="horizontalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="registrationMarksCheckBox">
+           <property name="text">
+            <string>Registration Marks</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="colorBarsCheckBox">
+           <property name="text">
+            <string>Color Bars</string>
            </property>
-          </spacer>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Offset:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="ScrSpinBox" name="markOffsetSpinBox"/>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Length:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="ScrSpinBox" name="markLengthSpinBox">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>20</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -594,5 +609,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cropMarksCheckBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>markLengthSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>55</x>
+     <y>485</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>128</x>
+     <y>485</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

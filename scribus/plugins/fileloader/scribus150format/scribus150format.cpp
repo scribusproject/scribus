@@ -2857,6 +2857,7 @@ bool Scribus150Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().registrationMarks = attrs.valueAsBool("registrationMarks", false);
 	doc->pdfOptions().colorMarks    = attrs.valueAsBool("colorMarks", false);
 	doc->pdfOptions().docInfoMarks  = attrs.valueAsBool("docInfoMarks", false);
+	doc->pdfOptions().markLength    = attrs.valueAsDouble("markLength", 20.0);
 	doc->pdfOptions().markOffset    = attrs.valueAsDouble("markOffset", 0.0);
 	doc->pdfOptions().EmbeddedI     = attrs.valueAsBool("ImagePr", false);
 	doc->pdfOptions().PassOwner     = attrs.valueAsString("PassOwner", "");
@@ -2948,6 +2949,7 @@ bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 		doc->Print_Options.prnEngine = (PrintEngine) attrs.valueAsInt("PrintEngine", 3);
 	else
 		doc->Print_Options.prnEngine = (PrintEngine) attrs.valueAsInt("PSLevel", 3);
+	doc->Print_Options.markLength    = attrs.valueAsDouble("markLength");
 	doc->Print_Options.markOffset    = attrs.valueAsDouble("markOffset");
 	doc->Print_Options.bleeds.Top    = attrs.valueAsDouble("BleedTop");
 	doc->Print_Options.bleeds.Left   = attrs.valueAsDouble("BleedLeft");

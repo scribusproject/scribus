@@ -37,6 +37,7 @@ class SCRIBUS_API MarksOptions
 public:
 	MarksOptions(void);
 	MarksOptions(struct PrintOptions& opt);
+	double markLength;
 	double markOffset;
 	double BleedTop;
 	double BleedLeft;
@@ -88,7 +89,7 @@ protected:
 
 	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex);
 	virtual void drawMarks( ScPage* page, ScPainterExBase* painter, const MarksOptions& options );
-	virtual void drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset );
+	virtual void drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset , double markSize);
 	virtual void drawRegistrationCross( ScPainterExBase* painter );
 
 	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode);
