@@ -211,6 +211,9 @@ QRegion PageItem_TextFrame::availableRegion()
 			for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
 				docItem = m_Doc->MasterItems.at(a);
+				// #10642 : masterpage items interact only with items placed on same masterpage
+				if (docItem->OnMasterPage != OnMasterPage)
+					continue;
 				int did = m_Doc->MasterItems.indexOf(docItem);
 				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
 				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
