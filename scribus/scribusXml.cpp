@@ -2376,7 +2376,8 @@ void ScriXmlDoc::WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& 
 		writer.writeAttribute("CSCALE", style.scaleH() / 10.0);
 	if ( ! style.isInhScaleV())
 		writer.writeAttribute("CSALEV", style.scaleV() / 10.0);
-	writer.writeAttribute("CSTYLE", style.effects() & 2047);
+	if ( ! style.isInhFeatures())
+		writer.writeAttribute("CSTYLE", style.effects() & 2047);
 }
 
 void ScriXmlDoc::WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style)
