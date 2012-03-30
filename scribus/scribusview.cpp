@@ -3622,10 +3622,10 @@ void ScribusView::TextToPath()
 						}
 						if (chstr == SpecialChars::OBJECT)
 						{
-							if (hl->embedded.hasItem())
+							if (hl->hasObject())
 							{
 								Selection tempSelection(this, false);
-								tempSelection.addItem(hl->embedded.getItem(), true);
+								tempSelection.addItem(hl->getItem(), true);
 								ScriXmlDoc *ss = new ScriXmlDoc();
 								QString dataS = ss->WriteElem(Doc, &tempSelection);
 								delete ss;

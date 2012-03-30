@@ -76,8 +76,8 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 				uint chr = currItem->itemText.text(e).unicode();
 				if (chr == 25)
 				{
-					if ((currItem->itemText.item(e)->hasObject()) && (!emF.contains(currItem->itemText.item(e)->embedded.getItem())))
-						emF.append(currItem->itemText.item(e)->embedded.getItem());
+					if ((currItem->itemText.item(e)->hasObject()) && (!emF.contains(currItem->itemText.item(e)->getItem())))
+						emF.append(currItem->itemText.item(e)->getItem());
 				}
 			}
 		}

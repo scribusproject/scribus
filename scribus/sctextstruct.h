@@ -98,25 +98,6 @@ struct SCRIBUS_API TabLayout : public GlyphLayout
 	QChar fillChar;
 };
 
-struct InlineFrameData;
-
-class SCRIBUS_API InlineFrame
-{
-public:
-	InlineFrame(PageItem* item);
-	InlineFrame(const InlineFrame& other);
-	InlineFrame& operator= (const InlineFrame& other);
-	virtual ~InlineFrame();
-	
-	bool hasItem() const;
-	bool isShared() const;
-	PageItem* getItem();
-	QList<PageItem*> getGroupedItems();
-private:
-	InlineFrameData* d;
-};
-
-
 #ifndef NLS_PROTO
 class SCRIBUS_API ScText : public CharStyle
 {
@@ -127,7 +108,7 @@ public:
 	float PtransY;
 	float PRot;
 	float PDx;
-	InlineFrame embedded;
+	PageItem *embedded;
 	QChar ch;
 	ScText() : 
 		CharStyle(),
@@ -154,6 +135,8 @@ public:
 	~ScText();
 
 	bool hasObject() const;
+	QList<PageItem*> getGroupedItems();
+	PageItem* getItem();
 };
 #endif
 

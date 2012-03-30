@@ -509,7 +509,7 @@ void StoryText::insertObject(int pos, PageItem* ob)
 		pos += length()+1;
 
 	insertChars(pos, SpecialChars::OBJECT);
-	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
+	const_cast<StoryText *>(this)->d->at(pos)->embedded = ob;
 	ob->isEmbedded = true;   // this might not be enough...
 	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
@@ -520,7 +520,7 @@ void StoryText::replaceObject(int pos, PageItem* ob)
 		pos += length()+1;
 
 	replaceChar(pos, SpecialChars::OBJECT);
-	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
+	const_cast<StoryText *>(this)->d->at(pos)->embedded = ob;
 	ob->isEmbedded = true;   // this might not be enough...
 	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
@@ -596,7 +596,7 @@ bool StoryText::hasObject(int pos) const
 
 	StoryText* that = const_cast<StoryText *>(this);
 	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
-		return that->d->at(pos)->embedded.hasItem();
+		return that->d->at(pos)->hasObject();
 	return false;
 }
 
@@ -609,7 +609,7 @@ PageItem* StoryText::object(int pos) const
 	assert(pos < length());
 
 	StoryText* that = const_cast<StoryText *>(this);
-	return that->d->at(pos)->embedded.getItem();
+	return that->d->at(pos)->getItem();
 }
 
 const CharStyle & StoryText::charStyle() const

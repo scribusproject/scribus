@@ -718,6 +718,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsSymbols";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="toolsInline";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsToolbarTools";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsToolbarPDF";
@@ -800,6 +802,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsPreflightVerifier"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsAlignDistribute"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsSymbols"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsInline"]->setShortcutContext(Qt::ApplicationShortcut);
 
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
@@ -813,6 +816,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
 	(*scrActions)["toolsAlignDistribute"]->setToggleAction(true);
 	(*scrActions)["toolsSymbols"]->setToggleAction(true);
+	(*scrActions)["toolsInline"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 
@@ -1534,6 +1538,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
 	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("&Align and Distribute"));
 	(*scrActions)["toolsSymbols"]->setTexts( tr("Symbols"));
+	(*scrActions)["toolsInline"]->setTexts( tr("Inline Frames"));
 	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
 	(*scrActions)["toolsToolbarPDF"]->setTexts( tr("P&DF Tools"));
 
@@ -2107,6 +2112,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsPreflightVerifier"
 		<< "toolsAlignDistribute"
 		<< "toolsSymbols"
+		<< "toolsInline"
 		<< "toolsToolbarTools"
 		<< "toolsToolbarPDF";
 	//Help

@@ -73,6 +73,7 @@ class FontCombo;
 class FormatsManager;
 class GuideManager;
 class HelpBrowser;
+class InlinePalette;
 class LayerPalette;
 class Measurements;
 class ScMWMenuManager;
@@ -215,6 +216,7 @@ public:
 	PagePalette *pagePalette;
 	BookPalette *bookmarkPalette;
 	SymbolPalette *symbolPalette;
+	InlinePalette *inlinePalette;
 	Measurements* measurementPalette;
 	CheckDocument * docCheckerPalette;
 	UndoPalette* undoPalette;

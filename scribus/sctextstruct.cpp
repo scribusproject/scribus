@@ -20,90 +20,6 @@ void GlyphLayout::growWithTabLayout()
 	more = new TabLayout();
 }
 
-struct InlineFrameData
-{
-	QPointer<PageItem> item;
-	int refs;
-	
-	void reserve()  
-	{ 
-		++refs; 
-	}
-	
-	bool release()
-	{
-		--refs;
-		if (refs == 0 && item != NULL)
-		{
-		//  Do NOT delete the item here, it might be used by someone else!!!
-		//	item->doc()->FrameItems.removeAll(item);
-		//	delete item;
-			item = NULL;
-		}
-		return refs == 0;
-	}
-};
-
-InlineFrame::InlineFrame(PageItem* item)
-{
-	d = new InlineFrameData;
-	d->item = item;
-	d->refs = 1;
-}
-
-InlineFrame::InlineFrame(const InlineFrame& other)
-{
-	d = other.d;
-	d->reserve();	
-}
-
-InlineFrame& InlineFrame::operator= (const InlineFrame& other)
-{
-	if (this != &other)
-	{
-		if (d->release())
-			delete d;
-		d = other.d;
-		d->reserve();
-	}
-	return *this;
-}
-
-InlineFrame::~InlineFrame()
-{
-	if (d->release())
-		delete d;
-}
-
-bool InlineFrame::hasItem() const
-{
-	return d->item != NULL;
-}
-
-bool InlineFrame::isShared() const
-{
-	return d->refs > 1;
-}
-
-PageItem* InlineFrame::getItem()
-{
-	return d->item;
-}
-
-QList<PageItem*> InlineFrame::getGroupedItems()
-{
-	QList<PageItem*> result;
-//	result.setAutoDelete(false);
-	if (hasItem())
-	{
-		PageItem* dItem = d->item;
-		result.append(d->item);
-		if (dItem->isGroup())
-			result = dItem->getItemList();
-	}
-	return result;
-}
-
 ScText::~ScText() 
 {
 	// delete the linked list if present
@@ -121,6 +37,24 @@ ScText::~ScText()
 bool ScText::hasObject() const
 {
 	if (this->ch == SpecialChars::OBJECT)
-		return this->embedded.hasItem();
+		return this->embedded != NULL;
 	return false;
+}
+
+QList<PageItem*> ScText::getGroupedItems()
+{
+	QList<PageItem*> result;
+	if (this->embedded != NULL)
+	{
+		PageItem* dItem = this->embedded;
+		result.append(dItem);
+		if (dItem->isGroup())
+			result = dItem->getItemList();
+	}
+	return result;
+}
+
+PageItem* ScText::getItem()
+{
+	return embedded;
 }

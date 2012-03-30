@@ -360,6 +360,7 @@ enum UpdateRequests
 	reqStyleComboDocUpdate = 256,
 	reqCmsOptionsUpdate  = 512,
 	reqCustomShapeUpdate = 1024,
+	reqInlinePalUpdate   = 2048,
 	reqUpdateAll = 65535
 };
 

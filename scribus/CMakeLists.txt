@@ -301,6 +301,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/hruler.h
   ui/hyask.h
   ui/imageinfodialog.h
+  ui/inlinepalette.h
   ui/insertTable.h
   ui/insertaframe.h
   ui/inserttablecolumnsdialog.h
@@ -724,6 +725,7 @@ SET(SCRIBUS_SOURCES
   ui/hruler.cpp
   ui/hyask.cpp
   ui/imageinfodialog.cpp
+  ui/inlinepalette.cpp
   ui/insertTable.cpp
   ui/insertaframe.cpp
   ui/inserttablecolumnsdialog.cpp

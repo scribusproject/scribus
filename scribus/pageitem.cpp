@@ -2101,6 +2101,7 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 
 QImage PageItem::DrawObj_toImage(double maxSize)
 {
+	bool isEmbedded_Old = isEmbedded;
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
@@ -2159,11 +2160,13 @@ QImage PageItem::DrawObj_toImage(double maxSize)
 	painter->end();
 	delete painter;
 	m_Doc->guidesPrefs().framesShown = savedFlag;
+	isEmbedded = isEmbedded_Old;
 	return retImg;
 }
 
 QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 {
+	bool isEmbedded_Old = isEmbedded;
 	bool savedFlag = m_Doc->guidesPrefs().framesShown;
 	m_Doc->guidesPrefs().framesShown = false;
 	QImage retImg = QImage(qRound(gWidth * scaling), qRound(gHeight * scaling), QImage::Format_ARGB32_Premultiplied);
@@ -2214,6 +2217,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 	painter->end();
 	delete painter;
 	m_Doc->guidesPrefs().framesShown = savedFlag;
+	isEmbedded = isEmbedded_Old;
 	return retImg;
 }
 

@@ -5099,7 +5099,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 			double CurX = ls.x;
 			for (int d = ls.firstItem; d <= ls.lastItem; ++d)
 			{
-				const ScText * const hl = ite->itemText.item(d);
+				ScText *hl = ite->itemText.item(d);
 				const QChar ch = hl->ch;
 				const CharStyle& chstyle(ite->itemText.charStyle(d));
 				const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
@@ -5212,7 +5212,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 		double CurX = 0;
 		for (int d = 0; d < ite->maxCharsInFrame(); ++d)
 		{
-			const ScText * const hl = ite->asPathText()->itemRenderText.item(d);
+			ScText *hl = ite->asPathText()->itemRenderText.item(d);
 			const QChar ch = hl->ch;
 			const CharStyle& chstyle(ite->asPathText()->itemRenderText.charStyle(d));
 			const ParagraphStyle& pstyle(ite->asPathText()->itemRenderText.paragraphStyle(d));
@@ -5302,7 +5302,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	return tmp;
 }
 
-bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, QString &tmp, QString &tmp2, const ScText *hl, const ParagraphStyle& pstyle, const ScPage* pag)
+bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, QString &tmp, QString &tmp2, ScText *hl, const ParagraphStyle& pstyle, const ScPage* pag)
 {
 #ifndef NLS_PROTO
 	QString output;
@@ -5361,7 +5361,6 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 		}
 	}
 	*/
-	InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
 	if (hl->hasObject())
 	{
 		if (!ite->asPathText())
@@ -5369,15 +5368,15 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 			tmp += "ET\n"+tmp2;
 			tmp2 = "";
 		}
-		QList<PageItem*> emG = embedded.getGroupedItems();
+		QList<PageItem*> emG = hl->getGroupedItems();
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
 			tmp2 += "q\n";
 			if (ite->asPathText())
-				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
 			else
-				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->height() * (style.baselineOffset() / 1000.0))+" cm\n";
 			if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 				return false;
 			tmp2 +=output;

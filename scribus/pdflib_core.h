@@ -125,7 +125,7 @@ private:
 	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem = 0);
 	QString setTextSt(PageItem *ite, uint PNr, const ScPage* pag);
-	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const ScPage* pag);
+	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, ScText *hl, const ParagraphStyle& pstyle, const ScPage* pag);
 	void    getBleeds(const ScPage* page, double &left, double &right);
 	void    getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top);
 

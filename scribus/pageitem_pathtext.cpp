@@ -181,7 +181,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		CharStyle nstyle = itemText.charStyle(a);
 		ParagraphStyle pstyle = itemText.paragraphStyle(a);
 		chstr = hl->ch;
-		if ((itemText.item(a)->ch == SpecialChars::OBJECT) && (itemText.item(a)->embedded.hasItem()))
+		if ((itemText.item(a)->ch == SpecialChars::OBJECT) && (itemText.item(a)->hasObject()))
 		{
 			int pot = itemRenderText.length();
 			itemRenderText.insertObject(pot, itemText.object(a));
@@ -217,7 +217,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		layoutGlyphs(itemRenderText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
 		if (hl->hasObject())
-			totalTextLen += (hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+			totalTextLen += (hl->getItem()->width() + hl->getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
@@ -269,7 +269,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		layoutGlyphs(itemRenderText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();                                                           // HACK
 		if (hl->hasObject())
-			dx = (hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
+			dx = (hl->getItem()->width() + hl->getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
 		else
 			dx = hl->glyph.wide() / 2.0;
 		CurX += dx;
@@ -361,7 +361,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 			p->translate(0.0, BaseOffs);
 			if (hl->ch == SpecialChars::OBJECT)
-				DrawObj_Embedded(p, cullingArea, itemRenderText.charStyle(a), hl->embedded.getItem());
+				DrawObj_Embedded(p, cullingArea, itemRenderText.charStyle(a), hl->getItem());
 			else
 				drawGlyphs(p, itemRenderText.charStyle(a), hl->glyph);
 		}
@@ -370,7 +370,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		MaxChars = a+1;
 		CurX -= dx;
 		if (hl->hasObject())
-			CurX += (hl->embedded.getItem()->width() + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH + extraOffset;
+			CurX += (hl->getItem()->width() + hl->getItem()->lineWidth()) * hl->glyph.scaleH + extraOffset;
 		else if (hl->ch == SpecialChars::BLANK)
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + wordExtra + extraOffset;
 		else

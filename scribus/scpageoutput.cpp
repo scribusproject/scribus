@@ -1278,7 +1278,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		item->layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
 		if (hl->hasObject())
-			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+			totalTextLen += (hl->getItem()->width() + hl->getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
@@ -1386,7 +1386,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		}
 		painter->translate(0.0, item->pathTextBaseOffset());
 		if (hl->ch == SpecialChars::OBJECT)
-			drawItem_Embedded(hl->embedded.getItem(), painter, clip, itemText.charStyle(a), hl->embedded.getItem());
+			drawItem_Embedded(hl->getItem(), painter, clip, itemText.charStyle(a), hl->getItem());
 		else
 			drawGlyphs(item, painter, itemText.charStyle(a), hl->glyph, clip);
 
@@ -1394,7 +1394,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		painter->restore();
 		CurX -= dx;
 		if (hl->hasObject())
-			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+			CurX += (hl->getItem()->width() + hl->getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 	}
@@ -1838,7 +1838,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						painter->save();
 						painter->translate(CurX, ls.y);
 						if (hl->ch == SpecialChars::OBJECT)
-							drawItem_Embedded(item, painter, clip, charStyle, hl->embedded.getItem());
+							drawItem_Embedded(item, painter, clip, charStyle, hl->getItem());
 						else
 							drawGlyphs(item, painter, charStyle, hl->glyph, clip);
 						painter->restore();

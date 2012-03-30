@@ -155,6 +155,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/helpbrowser.h"
 #include "ui/hruler.h"
 #include "ui/imageinfodialog.h"
+#include "ui/inlinepalette.h"
 #include "ui/insertaframe.h"
 #include "ui/inspage.h"
 #include "ui/javadocs.h"
@@ -561,6 +562,15 @@ void ScribusMainWindow::initPalettes()
 	connect(symbolPalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
 	symbolPalette->installEventFilter(this);
 	symbolPalette->hide();
+
+	inlinePalette = new InlinePalette(this);
+	inlinePalette->setMainWindow(this);
+	connect(scrActions["toolsInline"], SIGNAL(toggled(bool)), inlinePalette, SLOT(setPaletteShown(bool)));
+	connect(inlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsInline"], SLOT(setChecked(bool)));
+//	connect(inlinePalette, SIGNAL(startEdit(QString)), this, SLOT(editSymbolStart(QString)));
+//	connect(inlinePalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
+	inlinePalette->installEventFilter(this);
+	inlinePalette->hide();
 	
 
 	undoPalette = new UndoPalette(this, "undoPalette");
@@ -1054,6 +1064,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Windows", true);
 	scrMenuMgr->addMenuItem(scrActions["toolsAlignDistribute"], "Windows", true);
 	scrMenuMgr->addMenuItem(scrActions["toolsSymbols"], "Windows", true);
+	scrMenuMgr->addMenuItem(scrActions["toolsInline"], "Windows", true);
 	scrMenuMgr->addMenuSeparator("Windows");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Windows", true);
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Windows", true);
@@ -1677,6 +1688,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	guidePalette->hide();
 	charPalette->hide();
 	symbolPalette->hide();
+	inlinePalette->hide();
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
@@ -1945,6 +1957,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		alignDistributePalette->setDoc(tempDoc);
 		docCheckerPalette->clearErrorList();
 		symbolPalette->setDoc(tempDoc);
+		inlinePalette->setDoc(tempDoc);
 	}
 	w->setView(tempView);
 	ActWin = w;
@@ -2228,6 +2241,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	tocGenerator->setDoc(doc);
 	styleManager->setDoc(doc);
 	symbolPalette->setDoc(doc);
+	inlinePalette->setDoc(doc);
 	modeToolBar->Angle->setValue(doc->itemToolPrefs().calligrapicPenAngle);
 	modeToolBar->PWidth->setValue(doc->itemToolPrefs().calligrapicPenWidth);
 	// Give plugins a chance to react on changing the current document
@@ -2265,6 +2279,7 @@ void ScribusMainWindow::SwitchWin()
 	charPalette->setDoc(doc);
 	outlinePalette->setDoc(doc);
 	symbolPalette->setDoc(doc);
+	inlinePalette->setDoc(doc);
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
@@ -2463,6 +2478,7 @@ void ScribusMainWindow::HaveNewDoc()
 // 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
 	symbolPalette->setDoc(doc);
+	inlinePalette->setDoc(doc);
 //	propertiesPalette->Cpal->displayGradient(0);
 //	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
@@ -3710,8 +3726,9 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 //		if ((docItemsCount - oldItemsCount) > 1)
 //			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
-		emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate);
+		emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
 		symbolPalette->updateSymbolList();
+//		inlinePalette->updateItemList();
 //		if (!Mpa)
 //		{
 //			scanDocument();
@@ -3857,6 +3874,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				newActWin(ActWinOld->getSubWin());
 			return false;
 		}
+		inlinePalette->setDoc(doc);
 		symbolPalette->setDoc(doc);
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
@@ -4535,6 +4553,7 @@ bool ScribusMainWindow::DoFileClose()
 	//<<Palettes
 //	propertiesPalette->NewSel(-1);
 	propertiesPalette->unsetDoc();
+	inlinePalette->unsetDoc();
 	symbolPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
@@ -4868,6 +4887,7 @@ void ScribusMainWindow::slotFileQuit()
 {
 	propertiesPalette->unsetDoc();
 	symbolPalette->unsetDoc();
+	inlinePalette->unsetDoc();
 	ScCore->pluginManager->savePreferences();
 	fileToolBar->connectPrefsSlot(false);
 	editToolBar->connectPrefsSlot(false);
@@ -5149,6 +5169,8 @@ void ScribusMainWindow::slotEditPaste()
 				currItem->itemText.insertObject(currItem3);
 				undoManager->setUndoEnabled(true);
 				doc->m_Selection->delaySignalsOff();
+				inlinePalette->unsetDoc();
+				inlinePalette->setDoc(doc);
 			}
 			else
 			{
@@ -5187,6 +5209,8 @@ void ScribusMainWindow::slotEditPaste()
 				propertiesPalette->setDoc(doc);
 				symbolPalette->unsetDoc();
 				symbolPalette->setDoc(doc);
+				inlinePalette->unsetDoc();
+				inlinePalette->setDoc(doc);
 
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
@@ -6196,6 +6220,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		pagePalette->setEnabled(false);
 		bookmarkPalette->setEnabled(false);
 		docCheckerPalette->setEnabled(false);
+		inlinePalette->setEnabled(false);
 		symbolPalette->setEnabled(false);
 		styleManager->setEnabled(false);
 		alignDistributePalette->setEnabled(false);
@@ -6284,6 +6309,7 @@ void ScribusMainWindow::NoFrameEdit()
 	styleManager->setEnabled(true);
 	alignDistributePalette->setEnabled(true);
 	symbolPalette->setEnabled(true);
+	inlinePalette->setEnabled(true);
 	view->pageSelector->setEnabled(true);
 	view->layerMenu->setEnabled(true);
 // 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
@@ -7756,6 +7782,7 @@ int ScribusMainWindow::ShowSubs()
 	alignDistributePalette->startup();
 	undoPalette->startup();
 	guidePalette->startup();
+	inlinePalette->startup();
 	charPalette->startup();
 	styleManager->startup();
 	symbolPalette->startup();

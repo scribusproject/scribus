@@ -2278,7 +2278,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						PS_translate(0, -c->BaseOffs);
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
-					QList<PageItem*> emG = hl->embedded.getGroupedItems();
+					QList<PageItem*> emG = hl->getGroupedItems();
 					for (int em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
@@ -3466,7 +3466,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 							PS_translate(0, -ite->BaseOffs);
 						if (style.scaleH() != 1000)
 							PS_scale(style.scaleH() / 1000.0, 1);
-						QList<PageItem*> emG = hl->embedded.getGroupedItems();
+						QList<PageItem*> emG = hl->getGroupedItems();
 						for (int em = 0; em < emG.count(); ++em)
 						{
 							PageItem* embedded = emG.at(em);
@@ -5391,7 +5391,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	*/
 	if (hl->hasObject())
 	{
-		QList<PageItem*> emG = hl->embedded.getGroupedItems();
+		QList<PageItem*> emG = hl->getGroupedItems();
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
