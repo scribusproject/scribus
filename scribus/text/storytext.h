@@ -90,11 +90,12 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	Q_OBJECT
 	
  public:
- 	StoryText(ScribusDoc * doc);
+	StoryText(ScribusDoc *doc);
  	StoryText();
  	StoryText(const StoryText & other);
  	StoryText& operator= (const StoryText & other);
  	virtual ~StoryText();
+	void setDoc(ScribusDoc *docin);
 	
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);

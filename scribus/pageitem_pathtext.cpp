@@ -174,6 +174,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
 	itemRenderText.clear();
+	itemRenderText.setDoc(m_Doc);
 	itemRenderText.setDefaultStyle(itemText.defaultStyle());
 	for (a = firstChar; a < itemText.length(); ++a)
 	{

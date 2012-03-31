@@ -112,6 +112,11 @@ StoryText::~StoryText()
 	}	
 }
 
+void StoryText::setDoc(ScribusDoc *docin)
+{
+	doc = docin;
+}
+
 StoryText StoryText::copy() const
 {
 	StoryText result(doc);
