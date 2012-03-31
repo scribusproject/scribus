@@ -907,6 +907,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\inlinepalette.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\insertaframe.cpp"
 				>
 			</File>
@@ -4077,6 +4081,24 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\imageinfodialog.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\inlinepalette.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9089,6 +9111,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\moc_imageinfodialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_inlinepalette.cpp"
 				>
 			</File>
 			<File
