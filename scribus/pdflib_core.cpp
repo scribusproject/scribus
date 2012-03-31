@@ -941,9 +941,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	for (uint ax = 0; ax < ar; ++ax)
 		ind2PDFabr[ax] = tmpf[ax];
 	QList<PageItem*> allItems;
-	for (int c = 0; c < doc.FrameItems.count(); ++c)
+	for (QHash<int, PageItem*>::iterator itf = doc.FrameItems.begin(); itf != doc.FrameItems.end(); ++itf)
 	{
-		pgit = doc.FrameItems.at(c);
+		pgit = itf.value();
 		if (pgit->isGroup())
 			allItems = pgit->asGroupFrame()->getItemList();
 		else
@@ -5361,14 +5361,14 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 		}
 	}
 	*/
-	if (hl->hasObject())
+	if (hl->hasObject(&doc))
 	{
 		if (!ite->asPathText())
 		{
 			tmp += "ET\n"+tmp2;
 			tmp2 = "";
 		}
-		QList<PageItem*> emG = hl->getGroupedItems();
+		QList<PageItem*> emG = hl->getGroupedItems(&doc);
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);

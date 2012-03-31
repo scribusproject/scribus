@@ -176,7 +176,7 @@ bool CollectForOutput::collectItems()
 	int c=0;
 	QList<PageItem*> allItems;
 	PageItem* ite = NULL;
-	for (uint lc = 0; lc < 3; ++lc)
+	for (uint lc = 0; lc < 2; ++lc)
 	{
 		switch (lc)
 		{
@@ -185,9 +185,6 @@ bool CollectForOutput::collectItems()
 				break;
 			case 1:
 				counter = m_Doc->DocItems.count();
-				break;
-			case 2:
-				counter = m_Doc->FrameItems.count();
 				break;
 		}
 		for (uint b = 0; b < counter; ++b)
@@ -199,9 +196,6 @@ bool CollectForOutput::collectItems()
 					break;
 				case 1:
 					ite = m_Doc->DocItems.at(b);
-					break;
-				case 2:
-					ite = m_Doc->FrameItems.at(b);
 					break;
 			}
 			if (ite->isGroup())
@@ -217,6 +211,22 @@ bool CollectForOutput::collectItems()
 			if (uiCollect)
 				emit itemsCollected(c++);
 		}
+	}
+	for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
+	{
+		PageItem *it = itf.value();
+		if (it->isGroup())
+			allItems = it->asGroupFrame()->getItemList();
+		else
+			allItems.append(it);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			it = allItems.at(ii);
+			processItem(it);
+		}
+		allItems.clear();
+		if (uiCollect)
+			emit itemsCollected(c++);
 	}
 	for (int c = 0; c < patterns.count(); ++c)
 	{

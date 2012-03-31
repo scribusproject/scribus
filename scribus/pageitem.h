@@ -611,6 +611,7 @@ public:
 	bool ChangedMasterItem;
 	QString OnMasterPage;
 	bool isEmbedded;
+	int inlineCharID;
 	
 	//Position
 	double xPos() const { return Xpos; }

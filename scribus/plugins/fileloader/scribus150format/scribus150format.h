@@ -169,6 +169,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		QMap<int, int> itemRemapM;
 		QMap<int, int> itemNextM;
 		QMap<int,PageItem*> LinkID;
+		QList<PageItem*> FrameItems;
 		QMap<PageItem*, QString> itemsWeld;  //item* and master name
 
 		int itemCount;

@@ -1576,16 +1576,16 @@ void PageItem_TextFrame::layout()
 				chs  = (10 * ((DropCapDrop + fontAscent) / realCharAscent));
 				hl->setEffects(hl->effects() | ScStyle_DropCap);
 				hl->glyph.yoffset -= DropCapDrop;
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
 				{
-					chs = qRound((hl->getItem()->height() + hl->getItem()->lineWidth()) * 10);
-					chsd = qRound((hl->getItem()->height() + hl->getItem()->lineWidth()) * 10);
+					chs = qRound((hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * 10);
+					chsd = qRound((hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * 10);
 				}
 			}
 			else // ! dropCapMode
 			{
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
-					chs = qRound((hl->getItem()->height() + hl->getItem()->lineWidth()) * 10);
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+					chs = qRound((hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
 			}
@@ -1603,9 +1603,9 @@ void PageItem_TextFrame::layout()
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width, ascent and descent of char
-			if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
+			if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
 			{
-				wide = hl->getItem()->width() + hl->getItem()->lineWidth();
+				wide = hl->getItem(m_Doc)->width() + hl->getItem(m_Doc)->lineWidth();
 				hl->glyph.xadvance = wide * hl->glyph.scaleH;
 			}
 			else
@@ -1699,13 +1699,13 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// drop caps are wider...
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
 				{
-					double itemHeight = hl->getItem()->height() + hl->getItem()->lineWidth();
+					double itemHeight = hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth();
 					if (itemHeight == 0)
 						itemHeight = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-					wide = hl->getItem()->width() + hl->getItem()->lineWidth();
-					asce = hl->getItem()->height() + hl->getItem()->lineWidth();
+					wide = hl->getItem(m_Doc)->width() + hl->getItem(m_Doc)->lineWidth();
+					asce = hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth();
 					realAsce = calculateLineSpacing (style, this) * DropLines;
 					hl->glyph.scaleH /= hl->glyph.scaleV;
 					hl->glyph.scaleV = (realAsce / itemHeight);
@@ -1737,7 +1737,7 @@ void PageItem_TextFrame::layout()
 					wide *= wordtracking;
 				}
 				// find ascent / descent
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
 					desc = realDesc = 0;
 				else
 				{
@@ -1745,9 +1745,9 @@ void PageItem_TextFrame::layout()
 					realDesc = charStyle.font().realCharDescent(chstr[0], hlcsize10) * scaleV - offset;
 					current.rememberShrinkStretch(hl->ch, wide, style);
 				}
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
 				{
-					asce = hl->getItem()->height() + hl->getItem()->lineWidth();
+					asce = hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth();
 					realAsce = asce * scaleV + offset;
 				}
 				else
@@ -1972,15 +1972,15 @@ void PageItem_TextFrame::layout()
 					diff = realAsce - (current.yPos - lastLineY);
 				else if (style.lineSpacingMode() != ParagraphStyle::FixedLineSpacing)
 				{
-					if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
-						diff = (hl->getItem()->height() + hl->getItem()->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
+					if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+						diff = (hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
 					else
 						diff = charStyle.font().realCharAscent(QChar('l'), hlcsize10) * scaleV + offset - (current.yPos - lastLineY);
 				}
 				else
 				{
-					if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
-						diff = (hl->getItem()->height() + hl->getItem()->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
+					if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+						diff = (hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
 				}
 				if (diff >= 1 || (!DropCmode && diff > 0))
 				{
@@ -2118,7 +2118,7 @@ void PageItem_TextFrame::layout()
 					current.rememberBreak(a, breakPos, style.rightMargin());
 				}
 			}
-			if  ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
+			if  ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
 				current.rememberBreak(a, breakPos, style.rightMargin());
 			// CJK break
 			if(a > current.line.firstItem)
@@ -2983,10 +2983,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 							asce = charStyleS.font().ascent(charStyleS.fontSize() / 10.0);
 							wide = hls->glyph.wide();
 							QRectF scr;
-							if ((hls->ch == SpecialChars::OBJECT)  && (hls->hasObject()))
+							if ((hls->ch == SpecialChars::OBJECT)  && (hls->hasObject(m_Doc)))
 							{
-								double ww = (hls->getItem()->width() + hls->getItem()->lineWidth()) * hls->glyph.scaleH;
-								double hh = (hls->getItem()->height() + hls->getItem()->lineWidth()) * hls->glyph.scaleV;
+								double ww = (hls->getItem(m_Doc)->width() + hls->getItem(m_Doc)->lineWidth()) * hls->glyph.scaleH;
+								double hh = (hls->getItem(m_Doc)->height() + hls->getItem(m_Doc)->lineWidth()) * hls->glyph.scaleV;
 								scr = QRectF(xcoZli, ls.y - hh, ww , hh);
 								previousWasObject = true;
 							}
@@ -3085,8 +3085,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					{
 						p->save();//SA4
 						p->translate(CurX, ls.y);
-						if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject()))
-							DrawObj_Embedded(p, cullingArea, charStyle, hl->getItem());
+						if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+							DrawObj_Embedded(p, cullingArea, charStyle, hl->getItem(m_Doc));
 						else
 							drawGlyphs(p, charStyle, hl->glyph);
 						p->restore();//RE4

@@ -375,6 +375,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	case PageItem::RegularPolygon:
 	case PageItem::Arc:
 	case PageItem::Spiral:
+	case PageItem::Table:
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:
@@ -1286,9 +1287,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
-	for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+	for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 	{
-		PageItem* item = m_Doc->FrameItems.at(i);
+		PageItem *item = itf.value();
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
@@ -2040,9 +2041,9 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if (item->prevInChain() == 0 && item->itemText.length() > 0)
 						item->itemText.fixLegacyFormatting();
 				}
-				for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+				for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 				{
-					PageItem* item = m_Doc->FrameItems.at(i);
+					PageItem *item = itf.value();
 					if (item->prevInChain() == 0 && item->itemText.length() > 0)
 						item->itemText.fixLegacyFormatting();
 				}

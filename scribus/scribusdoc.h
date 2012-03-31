@@ -1132,6 +1132,7 @@ public:
 	// unncessary signals when doing updates on multiple items
 	void beginUpdate();
 	void endUpdate();
+	int addToInlineFrames(PageItem *item);
 
 protected:
 	void addSymbols();
@@ -1158,7 +1159,7 @@ protected:
 	ScGuardedObject<ScribusDoc> m_guardedObject;
 	Serializer *m_serializer;
 	QString currentEditedSymbol;
-	
+
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
 	int NrItems;
@@ -1188,7 +1189,7 @@ public: // Public attributes
 	QList<PageItem*>* Items;
 	QList<PageItem*> MasterItems;
 	QList<PageItem*> DocItems;
-	QList<PageItem*> FrameItems;
+	QHash<int, PageItem*> FrameItems;
 	Selection* const m_Selection;
 	/** \brief Number of Columns */
 	double PageSp;

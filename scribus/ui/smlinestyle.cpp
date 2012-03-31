@@ -256,9 +256,9 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (int d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
+	for (QHash<int, PageItem*>::iterator it = doc_->FrameItems.begin(); it != doc_->FrameItems.end(); ++it)
 	{
-		ite = doc_->FrameItems.at(d1);
+		ite = it.value();
 		if (!ite->NamedLStyle.isEmpty())
 		{
 			if (!doc_->MLineStyles.contains(ite->NamedLStyle))

@@ -245,9 +245,9 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
 		QList<PageItem*> allItems;
-		for (int a = 0; a < m_doc->FrameItems.count(); ++a)
+		for (QHash<int, PageItem*>::iterator it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
 		{
-			PageItem *currItem = m_doc->FrameItems.at(a);
+			PageItem *currItem = it.value();
 			if (currItem->isGroup())
 				allItems = currItem->getItemList();
 			else

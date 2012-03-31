@@ -1049,10 +1049,10 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				sca.translate(Item->xPos(), Item->yPos());
 				finalMat *= sca;
 			}
-			if (hl->hasObject())
+			if (hl->hasObject(m_Doc))
 			{
 				ob.appendChild(processInlineItem(CurX + hl->glyph.xoffset, ls.y + hl->glyph.yoffset, finalMat, hl, false, trans));
-				CurX += (hl->getItem()->width() + hl->getItem()->lineWidth()) * hl->glyph.scaleH;
+				CurX += (hl->getItem(m_Doc)->width() + hl->getItem(m_Doc)->lineWidth()) * hl->glyph.scaleH;
 			}
 			else
 			{
@@ -1278,7 +1278,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 			else
 				trafo *= QTransform( a, 6 * b, 0, -1, hl->PtransX, hl->PtransY );
 		}
-		if (hl->hasObject())
+		if (hl->hasObject(m_Doc))
 		{
 			QTransform finalMat = chma * chma2 * chma3 * chma4 * chma6 * trafo;
 			ob.appendChild(processInlineItem(0, 0, finalMat, hl, true, trans));
@@ -1444,7 +1444,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &finalMat, ScText *hl, bool pathT, QString trans)
 {
 	const CharStyle & charStyle(*hl);
-	QList<PageItem*> emG = hl->getGroupedItems();
+	QList<PageItem*> emG = hl->getGroupedItems(m_Doc);
 	QDomElement layerGroup = docu.createElement("g");
 	if (pathT)
 		layerGroup.setAttribute("transform", MatrixToStr(finalMat));

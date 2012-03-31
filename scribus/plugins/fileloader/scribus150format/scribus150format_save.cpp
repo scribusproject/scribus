@@ -76,8 +76,8 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 				uint chr = currItem->itemText.text(e).unicode();
 				if (chr == 25)
 				{
-					if ((currItem->itemText.item(e)->hasObject()) && (!emF.contains(currItem->itemText.item(e)->getItem())))
-						emF.append(currItem->itemText.item(e)->getItem());
+					if ((currItem->itemText.item(e)->hasObject(m_Doc)) && (!emF.contains(currItem->itemText.item(e)->getItem(m_Doc))))
+						emF.append(currItem->itemText.item(e)->getItem(m_Doc));
 				}
 			}
 		}
@@ -1398,7 +1398,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 				putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);
-			docu.writeAttribute("COBJ", qHash(item->itemText.object(k)));
+			docu.writeAttribute("COBJ", item->itemText.object(k)->inlineCharID);
 		}
 		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
 			putPStyle(docu, item->itemText.paragraphStyle(k), "para");
@@ -1470,6 +1470,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 {
 	uint ObCount = maxC;
 	QList<PageItem*> *items = NULL;
+	QList<PageItem*> itemList;
 	PageItem *item = NULL;
 	uint objects = 0;
 	switch (master)
@@ -1484,7 +1485,10 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			if (some_items != NULL)
 				items = some_items;
 			else
-				items = &doc->FrameItems;
+			{
+				itemList = doc->FrameItems.values();
+				items = &itemList;
+			}
 			break;
 		case ItemSelectionGroup:
 		case ItemSelectionPattern:
@@ -1523,6 +1527,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeStartElement("ITEM");
 				break;
 		}
+		if (master == ItemSelectionFrame)
+			docu.writeAttribute("InID", item->inlineCharID);
 		if (master == ItemSelectionElements)
 		{
 			docu.writeAttribute("XPOS", item->xPos() - doc->currentPage()->xOffset());

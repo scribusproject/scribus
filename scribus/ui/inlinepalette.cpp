@@ -164,9 +164,9 @@ void InlinePalette::updateItemList()
 {
 	InlineViewWidget->clear();
 	InlineViewWidget->setWordWrap(true);
-	for (int a = 0; a < currDoc->FrameItems.count(); a++)
+	for (QHash<int, PageItem*>::iterator it = currDoc->FrameItems.begin(); it != currDoc->FrameItems.end(); ++it)
 	{
-		PageItem* currItem = currDoc->FrameItems.at(a);
+		PageItem *currItem = it.value();
 		QPixmap pm = QPixmap::fromImage(currItem->DrawObj_toImage(48));
 		QPixmap pm2(50, 50);
 		pm2.fill(palette().color(QPalette::Base));

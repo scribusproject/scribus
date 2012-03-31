@@ -289,7 +289,7 @@ bool reportFocusChanges(void *message, long *result)
 int ScribusMainWindow::initScMW(bool primaryMainWindow)
 {
 	int retVal=0;
-
+	qsrand(1234);
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::getApplicationDataDir() + "/stylesheet.css", stylesheet))
 	{
@@ -4066,9 +4066,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 					bookmarkPalette->BView->ChangeItem(ite->BMnr, ite->ItemNr);
 			} */
 		}
-		for (int azz=0; azz<doc->FrameItems.count(); ++azz)
+		for (QHash<int, PageItem*>::iterator itf = doc->FrameItems.begin(); itf != doc->FrameItems.end(); ++itf)
 		{
-			PageItem *ite = doc->FrameItems.at(azz);
+			PageItem *ite = itf.value();
 //			qDebug() << QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			if(ite->nextInChain() == NULL)
 				ite->layout();
@@ -5140,18 +5140,14 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->setGroupRect();
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				PageItem* currItem3 = doc->Items->at(ac);
-				for (int as = ac; as < doc->Items->count(); ++as)
-				{
-					PageItem* currItem2 = doc->Items->at(as);
-					currItem2->isEmbedded = true;
-					currItem2->setIsAnnotation(false);
-					currItem2->isBookmark = false;
-					currItem2->gXpos = currItem2->xPos() - gx;
-					currItem2->gYpos = currItem2->yPos() - gy;
-					currItem2->gWidth = gw;
-					currItem2->gHeight = gh;
-					doc->FrameItems.append(currItem2);
-				}
+				currItem3->isEmbedded = true;
+				currItem3->setIsAnnotation(false);
+				currItem3->isBookmark = false;
+				currItem3->gXpos = currItem3->xPos() - gx;
+				currItem3->gYpos = currItem3->yPos() - gy;
+				currItem3->gWidth = gw;
+				currItem3->gHeight = gh;
+				int fIndex = doc->addToInlineFrames(currItem3);
 				int acc = doc->Items->count();
 				for (int as = ac; as < acc; ++as)
 				{
@@ -5166,7 +5162,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->maxCanvasCoordinate = maxSize;
 				if (outlinePalette->isVisible())
 					outlinePalette->BuildTree();
-				currItem->itemText.insertObject(currItem3);
+				currItem->itemText.insertObject(fIndex);
 				undoManager->setUndoEnabled(true);
 				doc->m_Selection->delaySignalsOff();
 				inlinePalette->unsetDoc();

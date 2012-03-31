@@ -671,7 +671,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
 				}
-				m_Doc->FrameItems.removeOne(cItem);
+				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
 			gItem->groupItemList = gpL;
 		}
@@ -1854,7 +1854,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (tagName == "FRAMEOBJECT")
 	{
-		doc->FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
+		doc->addToInlineFrames(doc->Items->takeAt(doc->Items->indexOf(newItem)));
 	}
 
 	info.item     = newItem;
@@ -2317,10 +2317,15 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		}
 		
 		int pos = obj->itemText.length();
-		if (ch == SpecialChars::OBJECT) {
-			if (iobj >= 0) {
-				if (iobj < doc->FrameItems.count())
-					obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
+		if (ch == SpecialChars::OBJECT)
+		{
+			if (iobj >= 0)
+			{
+				if (iobj < FrameItems.count())
+				{
+					int fIndex = doc->addToInlineFrames(FrameItems.at(iobj));
+					obj->itemText.insertObject(pos, fIndex);
+				}
 				else
 					qDebug() << QString("scribus134format: invalid inline frame used in text object : %1").arg(iobj);
 			}
@@ -2578,6 +2583,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::Arc:
 	case PageItem::Spiral:
 	case PageItem::Multiple:
+	case PageItem::Table:
 		Q_ASSERT(false);
 		break;
 	}
@@ -3277,7 +3283,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				if (tagName == "FRAMEOBJECT")
 				{
-					m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 				}
 			}
 		}

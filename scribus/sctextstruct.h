@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/paragraphstyle.h"
 
 class PageItem;
+class ScribusDoc;
 
 /* Struktur fuer Pageitem Text */
 
@@ -108,12 +109,12 @@ public:
 	float PtransY;
 	float PRot;
 	float PDx;
-	PageItem *embedded;
+	int embedded;
 	QChar ch;
 	ScText() : 
 		CharStyle(),
 		parstyle(NULL), glyph(), 
-		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), PDx(0.0f), embedded(NULL), ch() {}
+		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), PDx(0.0f), embedded(0), ch() {}
 	ScText(const ScText& other) : 
 		CharStyle(other),
 		parstyle(NULL), glyph(other.glyph), 
@@ -134,9 +135,9 @@ public:
 	}
 	~ScText();
 
-	bool hasObject() const;
-	QList<PageItem*> getGroupedItems();
-	PageItem* getItem();
+	bool hasObject(ScribusDoc *doc) const;
+	QList<PageItem*> getGroupedItems(ScribusDoc *doc);
+	PageItem* getItem(ScribusDoc *doc);
 };
 #endif
 

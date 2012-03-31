@@ -2245,7 +2245,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
-				if (hl->hasObject())
+				if (hl->hasObject(Doc))
 				{
 					PS_save();
 					PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -hl->PDx, 0.0) + "\n");
@@ -2278,7 +2278,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 						PS_translate(0, -c->BaseOffs);
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
-					QList<PageItem*> emG = hl->getGroupedItems();
+					QList<PageItem*> emG = hl->getGroupedItems(Doc);
 					for (int em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
@@ -3433,7 +3433,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 						SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
-					if (hl->hasObject())
+					if (hl->hasObject(Doc))
 					{
 						PS_save();
 						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -hl->PDx, 0.0) + "\n");
@@ -3466,7 +3466,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 							PS_translate(0, -ite->BaseOffs);
 						if (style.scaleH() != 1000)
 							PS_scale(style.scaleH() / 1000.0, 1);
-						QList<PageItem*> emG = hl->getGroupedItems();
+						QList<PageItem*> emG = hl->getGroupedItems(Doc);
 						for (int em = 0; em < emG.count(); ++em)
 						{
 							PageItem* embedded = emG.at(em);
@@ -5389,9 +5389,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		}
 	}
 	*/
-	if (hl->hasObject())
+	if (hl->hasObject(Doc))
 	{
-		QList<PageItem*> emG = hl->getGroupedItems();
+		QList<PageItem*> emG = hl->getGroupedItems(Doc);
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);

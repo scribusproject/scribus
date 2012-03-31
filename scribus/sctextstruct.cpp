@@ -34,19 +34,19 @@ ScText::~ScText()
 	parstyle = NULL;
 }
 
-bool ScText::hasObject() const
+bool ScText::hasObject(ScribusDoc *doc) const
 {
 	if (this->ch == SpecialChars::OBJECT)
-		return this->embedded != NULL;
+		return ((embedded > 0) && (doc->FrameItems.contains(embedded)));
 	return false;
 }
 
-QList<PageItem*> ScText::getGroupedItems()
+QList<PageItem*> ScText::getGroupedItems(ScribusDoc *doc)
 {
 	QList<PageItem*> result;
-	if (this->embedded != NULL)
+	if ((embedded > 0) && (doc->FrameItems.contains(embedded)))
 	{
-		PageItem* dItem = this->embedded;
+		PageItem* dItem = doc->FrameItems[embedded];
 		result.append(dItem);
 		if (dItem->isGroup())
 			result = dItem->getItemList();
@@ -54,7 +54,9 @@ QList<PageItem*> ScText::getGroupedItems()
 	return result;
 }
 
-PageItem* ScText::getItem()
+PageItem* ScText::getItem(ScribusDoc *doc)
 {
-	return embedded;
+	if ((embedded > 0) && (doc->FrameItems.contains(embedded)))
+		return doc->FrameItems[embedded];
+	return NULL;
 }

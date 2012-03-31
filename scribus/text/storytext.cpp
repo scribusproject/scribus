@@ -440,12 +440,10 @@ void StoryText::insertCharsWithSoftHyphens(int pos, QString txt, bool applyNeigh
 			item->setContext(cStyleContext);
 			d->insert(index, item);
 			d->len++;
-			if (item->ch == SpecialChars::PARSEP) {
+			if (item->ch == SpecialChars::PARSEP)
 				insertParSep(index);
-			}
-			if (d->cursorPosition >= index) {
+			if (d->cursorPosition >= static_cast<uint>(index))
 				d->cursorPosition += 1;
-			}
 			++inserted;
 		}
 	}
@@ -498,31 +496,31 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 	invalidate(pos, pos + len);
 }
 
-void StoryText::insertObject(PageItem* ob)
+void StoryText::insertObject(int ob)
 {
 	insertObject(d->cursorPosition, ob);
 }
 
-void StoryText::insertObject(int pos, PageItem* ob)
+void StoryText::insertObject(int pos, int ob)
 {
 	if (pos < 0)
 		pos += length()+1;
 
 	insertChars(pos, SpecialChars::OBJECT);
 	const_cast<StoryText *>(this)->d->at(pos)->embedded = ob;
-	ob->isEmbedded = true;   // this might not be enough...
-	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
+	doc->FrameItems[ob]->isEmbedded = true;   // this might not be enough...
+	doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
-void StoryText::replaceObject(int pos, PageItem* ob)
+void StoryText::replaceObject(int pos, int ob)
 {
 	if (pos < 0)
 		pos += length()+1;
 
 	replaceChar(pos, SpecialChars::OBJECT);
 	const_cast<StoryText *>(this)->d->at(pos)->embedded = ob;
-	ob->isEmbedded = true;   // this might not be enough...
-	ob->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
+	doc->FrameItems[ob]->isEmbedded = true;   // this might not be enough...
+	doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
 
@@ -596,7 +594,7 @@ bool StoryText::hasObject(int pos) const
 
 	StoryText* that = const_cast<StoryText *>(this);
 	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
-		return that->d->at(pos)->hasObject();
+		return that->d->at(pos)->hasObject(doc);
 	return false;
 }
 
@@ -609,7 +607,7 @@ PageItem* StoryText::object(int pos) const
 	assert(pos < length());
 
 	StoryText* that = const_cast<StoryText *>(this);
-	return that->d->at(pos)->getItem();
+	return that->d->at(pos)->getItem(doc);
 }
 
 const CharStyle & StoryText::charStyle() const
@@ -722,7 +720,7 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	if (len == 0)
 		return;
 
-	int lastParStart = pos == 0? 0 : -1;
+//	int lastParStart = pos == 0? 0 : -1;
 	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);
@@ -1840,8 +1838,7 @@ public:
 			else
 				items->removeAll(obj);
 		}
-		obj->doc()->FrameItems.append(obj);
-		story->insertObject(-1, obj);
+		story->insertObject(-1, obj->doc()->addToInlineFrames(obj));
 	}
 };
 

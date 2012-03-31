@@ -597,7 +597,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
 				}
-				m_Doc->FrameItems.removeOne(cItem);
+				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
 			gItem->groupItemList = gpL;
 		}
@@ -1076,7 +1076,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
 				}
-				m_Doc->FrameItems.removeOne(cItem);
+				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
 			gItem->groupItemList = gpL;
 		}
@@ -1726,7 +1726,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
 				}
-				m_Doc->FrameItems.removeOne(cItem);
+				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
 			gItem->groupItemList = gpL;
 		}
@@ -3212,7 +3212,10 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (tagName == "FRAMEOBJECT")
 	{
-		doc->FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
+		if (newItem->inlineCharID == -1)
+			FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+		else
+		doc->FrameItems.insert(newItem->inlineCharID, doc->Items->takeAt(doc->Items->indexOf(newItem)));
 	}
 
 	info.item     = newItem;
@@ -3842,16 +3845,20 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		if (ch == SpecialChars::OBJECT)
 		{
 			if (LinkID.contains(iobj))
-				obj->itemText.insertObject(pos, LinkID[iobj]);
+			{
+				if (FrameItems.contains(LinkID[iobj]))
+				{
+					int fIndex = doc->addToInlineFrames(LinkID[iobj]);
+					obj->itemText.insertObject(pos, fIndex);
+				}
+			}
 			else
-				qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
-		//	if (iobj >= 0)
-		//	{
-		//		if (iobj < doc->FrameItems.count())
-		//			obj->itemText.insertObject(pos, LinkID[iobj]);
-		//		else
-		//			qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
-		//	}
+			{
+				if (doc->FrameItems.contains(iobj))
+					obj->itemText.insertObject(pos, iobj);
+				else
+					qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
+			}
 		}
 		else if (ch == SpecialChars::SHYPHEN && pos > 0)
 		{
@@ -4722,6 +4729,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->GrMaskSkew  = attrs.valueAsDouble("GRSKEWM", 0.0);
 	if (!GrNameM.isEmpty())
 		currItem->setGradientMask(GrNameM);
+	if (attrs.hasAttribute("InID"))
+		currItem->inlineCharID = attrs.valueAsInt("InID", -1);
+	else
+		currItem->inlineCharID = -1;
 
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
@@ -5338,7 +5349,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				if (tagName == "FRAMEOBJECT")
 				{
-					m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+					if (newItem->inlineCharID == -1)
+						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+					else
+						m_Doc->FrameItems.insert(newItem->inlineCharID, m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 				}
 				if (groupStack.count() > 0)
 				{
@@ -5569,7 +5583,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 					cItem->setRotation(cItem->rotation() - gItem->rotation());
 				}
-				m_Doc->FrameItems.removeOne(cItem);
+				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
 			gItem->groupItemList = gpL;
 		}

@@ -932,7 +932,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					m_Doc->LastAuto = Neu;
 				if (pg.tagName()=="FRAMEOBJECT")
 				{
-					m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
+					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
 				}
 				if (Neu->isTableItem)
 				{
@@ -944,7 +944,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					else if (pg.tagName()=="FRAMEOBJECT")
 					{
 						TableItemsF.append(Neu);
-						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), m_Doc->FrameItems.indexOf(Neu));
+						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), FrameItems.indexOf(Neu));
 					}
 					else
 					{
@@ -989,19 +989,19 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		{
 			PageItem* ta = TableItemsF.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
+				ta->TopLink = FrameItems.at(TableIDF[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
+				ta->LeftLink = FrameItems.at(TableIDF[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
+				ta->RightLink = FrameItems.at(TableIDF[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
+				ta->BottomLink = FrameItems.at(TableIDF[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -1109,9 +1109,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
-	for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+	for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 	{
-		PageItem* item = m_Doc->FrameItems.at(i);
+		PageItem *item = itf.value();
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
@@ -1269,12 +1269,17 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 			last->ParaStyle = pstylename;
 
 		int pos = obj->itemText.length();
-		if (ch == SpecialChars::OBJECT) {
-			if (iobj >= 0) {
-				if (iobj < doc->FrameItems.count())
-					obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
+		if (ch == SpecialChars::OBJECT)
+		{
+			if (iobj >= 0)
+			{
+				if (iobj < FrameItems.count())
+				{
+					int fIndex = doc->addToInlineFrames(FrameItems.at(iobj));
+					obj->itemText.insertObject(pos, fIndex);
+				}
 				else
-					qDebug() << QString("scribus13format: invalid inline frame used in text object : %1").arg(iobj);
+					qDebug() << QString("scribus134format: invalid inline frame used in text object : %1").arg(iobj);
 			}
 		}
 		else {
@@ -2269,7 +2274,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
+						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
 					}
 				}
 				counter++;
@@ -2371,9 +2376,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}
-	for (int i = 0; i < m_Doc->FrameItems.count(); ++i)
+	for (QHash<int, PageItem*>::iterator itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 	{
-		PageItem* item = m_Doc->FrameItems.at(i);
+		PageItem *item = itf.value();
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
 	}

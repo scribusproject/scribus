@@ -1070,9 +1070,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
 		QList<PageItem*> allItems;
-		for (int a = 0; a < doc->FrameItems.count(); ++a)
+		for (QHash<int, PageItem*>::iterator it = doc->FrameItems.begin(); it != doc->FrameItems.end(); ++it)
 		{
-			PageItem *currItem = doc->FrameItems.at(a);
+			PageItem *currItem = it.value();
 			if (currItem->isGroup())
 				allItems = currItem->getItemList();
 			else

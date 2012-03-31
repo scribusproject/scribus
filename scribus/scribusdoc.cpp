@@ -591,9 +591,9 @@ ScribusDoc::~ScribusDoc()
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < FrameItems.count(); ++a)
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
-		PageItem *currItem = FrameItems.at(a);
+		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -648,11 +648,12 @@ ScribusDoc::~ScribusDoc()
 	{
 		delete DocItems.takeFirst();
 	}
-	while (!FrameItems.isEmpty())
+	QList<PageItem*> tmList = FrameItems.values();
+	while (!tmList.isEmpty())
 	{
-		delete FrameItems.takeFirst();
+		delete tmList.takeFirst();
 	}
-//	FrameItems.clear();
+	FrameItems.clear();
 
 	while (!MasterPages.isEmpty())
 	{
@@ -1035,10 +1036,14 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 		}
 		if (itemlist == &MasterItems)
 			itemlist = &DocItems;
-		else if (itemlist == &DocItems)
-			itemlist = &FrameItems;
 		else
 			itemlist = NULL;
+	}
+	for (QHash<int, PageItem*>::const_iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *currItem = itf.value();
+		if (currItem)
+			currItem->getNamedResources(lists);
 	}
 	for (int i = 0; i < docParagraphStyles.count(); ++i)
 		docParagraphStyles[i].getNamedResources(lists);
@@ -1223,7 +1228,6 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 #ifndef QT_NO_CONCURRENT
 	QtConcurrent::blockingMap(DocItems, ResMapped(newNames));
 	QtConcurrent::blockingMap(MasterItems, ResMapped(newNames));
-	QtConcurrent::blockingMap(FrameItems, ResMapped(newNames));
 #else
 
 	QList<PageItem*> * itemlist = & MasterItems;
@@ -1237,12 +1241,16 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		}
 		if (itemlist == &MasterItems)
 			itemlist = &DocItems;
-		else if (itemlist == &DocItems)
-			itemlist = &FrameItems;
 		else
 			itemlist = NULL;
 	}
 #endif
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *currItem = itf.value();
+		if (currItem)
+			currItem->replaceNamedResources(newNames);
+	}
 	// replace names in styles...
 	for (int i=docParagraphStyles.count()-1; i >= 0; --i)
 	{
@@ -3291,9 +3299,9 @@ QStringList ScribusDoc::getUsedPatterns()
 		}
 		allItems.clear();
 	}
-	for (int c = 0; c < FrameItems.count(); ++c)
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
-		PageItem* currItem = FrameItems.at(c);
+		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -3511,9 +3519,9 @@ QStringList ScribusDoc::getUsedSymbols()
 		}
 		allItems.clear();
 	}
-	for (int c = 0; c < FrameItems.count(); ++c)
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
-		PageItem* currItem = FrameItems.at(c);
+		PageItem *currItem = itf.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -3590,7 +3598,7 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 	//QMap<QString,QFont> DocF;
 	//DocF = UsedFonts;
 	uint counter = 0;
-	for (uint lc = 0; lc < 3; ++lc)
+	for (uint lc = 0; lc < 2; ++lc)
 	{
 		switch (lc)
 		{
@@ -3599,9 +3607,6 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 				break;
 			case 1:
 				counter = DocItems.count();
-				break;
-			case 2:
-				counter = FrameItems.count();
 				break;
 		}
 		PageItem* it = NULL;
@@ -3614,9 +3619,6 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 					break;
 				case 1:
 					it = DocItems.at(d);
-					break;
-				case 2:
-					it = FrameItems.at(d);
 					break;
 			}
 			if (it->isGroup())
@@ -3669,6 +3671,58 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 			allItems.clear();
 		}
 	}
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *it = itf.value();
+		if (it->isGroup())
+			allItems = it->asGroupFrame()->getItemList();
+		else
+			allItems.append(it);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			it = allItems.at(ii);
+			if (it->isTable())
+			{
+				for (int row = 0; row < it->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < it->asTable()->columns(); col ++)
+					{
+						TableCell cell = it->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							QString fontName(textFrame->itemText.defaultStyle().charStyle().font().replacementName());
+							Really.insert(fontName, UsedFonts[fontName]);
+							int start = textFrame->firstInFrame();
+							int stop = textFrame->lastInFrame();
+							for (int e = start; e <= stop; ++e)
+							{
+								QString rep = textFrame->itemText.charStyle(e).font().replacementName();
+								if (Really.contains(rep))
+									continue;
+								Really.insert(rep, UsedFonts[rep]);
+							}
+						}
+					}
+				}
+			}
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			{
+				QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
+				Really.insert(fontName, UsedFonts[fontName]);
+				int start = it->firstInFrame();
+				int stop = it->lastInFrame();
+				for (int e = start; e <= stop; ++e)
+				{
+					QString rep = it->itemText.charStyle(e).font().replacementName();
+					if (Really.contains(rep))
+						continue;
+					Really.insert(rep, UsedFonts[rep]);
+				}
+			}
+		}
+		allItems.clear();
+	}
 	QMap<QString,int>::Iterator itfo, itnext;
 	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
 	{
@@ -3692,7 +3746,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 	QList<PageItem*> allItems;
 	PageItem* it = NULL;
 	uint counter = 0;
-	for (uint lc = 0; lc < 3; ++lc)
+	for (uint lc = 0; lc < 2; ++lc)
 	{
 		switch (lc)
 		{
@@ -3701,9 +3755,6 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 				break;
 			case 1:
 				counter = DocItems.count();
-				break;
-			case 2:
-				counter = FrameItems.count();
 				break;
 		}
 		for (uint d = 0; d < counter; ++d)
@@ -3715,9 +3766,6 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 					break;
 				case 1:
 					it = DocItems.at(d);
-					break;
-				case 2:
-					it = FrameItems.at(d);
 					break;
 			}
 			if (it->isGroup())
@@ -3747,6 +3795,36 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 			}
 			allItems.clear();
 		}
+	}
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *ite = itf.value();
+		if (ite->isGroup())
+			allItems = ite->asGroupFrame()->getItemList();
+		else
+			allItems.append(ite);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			ite = allItems.at(ii);
+			if (ite->isTable())
+			{
+				for (int row = 0; row < ite->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < ite->asTable()->columns(); col ++)
+					{
+						TableCell cell = ite->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							checkItemForFonts(textFrame, Really, 3);
+						}
+					}
+				}
+			}
+			else
+				checkItemForFonts(ite, Really, 3);
+		}
+		allItems.clear();
 	}
 	QStringList patterns = getUsedPatterns();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -3960,22 +4038,18 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 	if( profileNames.indexOf(docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile) < 0 )
 		profileNames.append(docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile);
 	
-	for (uint lc = 0; lc < 3; ++lc)
+	for (uint lc = 0; lc < 2; ++lc)
 	{
 		if (lc == 0)
 			counter = MasterItems.count();
 		else if(lc == 1)
 			counter = DocItems.count();
-		else if(lc == 2)
-			counter = FrameItems.count();
 		for (uint d = 0; d < counter; ++d)
 		{
 			if (lc == 0)
 				it = MasterItems.at(d);
 			else if(lc == 1)
 				it = DocItems.at(d);
-			else if(lc == 2)
-				it = FrameItems.at(d);
 			if (it->isGroup())
 				allItems = it->asGroupFrame()->getItemList();
 			else
@@ -3989,6 +4063,22 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 			}
 			allItems.clear();
 		}
+	}
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *it = itf.value();
+		if (it->isGroup())
+			allItems = it->asGroupFrame()->getItemList();
+		else
+			allItems.append(it);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			it = allItems.at(ii);
+			if (it->IProfile.isEmpty() || profileNames.contains(it->IProfile))
+				continue;
+			profileNames.append(it->IProfile);
+		}
+		allItems.clear();
 	}
 
 	for( QStringList::Iterator pIter = profileNames.begin(); pIter != profileNames.end(); pIter++ )
@@ -4377,13 +4467,57 @@ void ScribusDoc::recalculateColors()
 #ifndef QT_NO_CONCURRENT
 	QtConcurrent::blockingMap(DocItems, &ScribusDoc::recalculateColorItem);
 	QtConcurrent::blockingMap(MasterItems, &ScribusDoc::recalculateColorItem);
-	QtConcurrent::blockingMap(FrameItems, &ScribusDoc::recalculateColorItem);
 #else
 
 	recalculateColorsList(&DocItems);
 	recalculateColorsList(&MasterItems);
-	recalculateColorsList(&FrameItems);
 #endif
+	QList<PageItem*> itemList = FrameItems.values();
+	recalculateColorsList(&itemList);
+	QList<PageItem*> allItems;
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	{
+		PageItem *ite = it.value();
+		if (ite->isGroup())
+			allItems = ite->asGroupFrame()->getItemList();
+		else
+			allItems.append(ite);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			ite = allItems.at(ii);
+			ite->setLineQColor();
+			ite->setFillQColor();
+			ite->set4ColorColors(ite->GrColorP1, ite->GrColorP2, ite->GrColorP3, ite->GrColorP4);
+			for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
+			{
+				for (int gcol = 0; gcol < ite->meshGradientArray[grow].count(); gcol++)
+				{
+					meshPoint mp = ite->meshGradientArray[grow][gcol];
+					ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
+				}
+			}
+			for (int grow = 0; grow < ite->meshGradientPatches.count(); grow++)
+			{
+				meshGradientPatch patch = ite->meshGradientPatches[grow];
+				ite->setMeshPointColor(grow, 1, patch.TL.colorName, patch.TL.shade, patch.TL.transparency, true);
+				ite->setMeshPointColor(grow, 2, patch.TR.colorName, patch.TR.shade, patch.TR.transparency, true);
+				ite->setMeshPointColor(grow, 3, patch.BR.colorName, patch.BR.shade, patch.BR.transparency, true);
+				ite->setMeshPointColor(grow, 4, patch.BL.colorName, patch.BL.shade, patch.BL.transparency, true);
+			}
+			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops = ite->stroke_gradient.colorStops();
+			for (uint cst = 0; cst < ite->stroke_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops = ite->mask_gradient.colorStops();
+			for (uint cst = 0; cst < ite->mask_gradient.Stops(); ++cst)
+				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
+			if (ite->GrType == 13)
+				ite->createConicalMesh();
+		}
+		allItems.clear();
+	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -5286,9 +5420,9 @@ void  ScribusDoc::fixItemPageOwner()
 
 	// #10379: Scribus crash when opening .sla document
 	// OwnPage is not meaningful for inline frame
-	for (int i = 0; i < FrameItems.count(); ++i)
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		currItem = FrameItems.at(i);
+		currItem = it.value();
 		currItem->OwnPage = -1;
  	}
 }
@@ -6397,13 +6531,56 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 {
 	RecalcPictures(&MasterItems, Pr, PrCMYK, dia);
 	RecalcPictures(&DocItems, Pr, PrCMYK, dia);
-	RecalcPictures(&FrameItems, Pr, PrCMYK, dia);
+	QList<PageItem*> itemList = FrameItems.values();
+	RecalcPictures(&itemList, Pr, PrCMYK, dia);
+	QList<PageItem*> allItems;
+	uint docItemCount = FrameItems.count();
+	if ( docItemCount!= 0)
+	{
+		bool usingGUI=ScCore->usingGUI();
+		int counter = 0;
+		if (usingGUI && dia != NULL)
+			counter = dia->value();
+		for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+		{
+			PageItem *it = itf.value();
+			if (it->isGroup())
+				allItems = it->asGroupFrame()->getItemList();
+			else
+				allItems.append(it);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				it = allItems.at(ii);
+				if ((it->itemType() == PageItem::ImageFrame) && (it->PictureIsAvailable))
+				{
+					if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
+					{
+						if (!PrCMYK->contains(it->IProfile))
+							it->IProfile = docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+					}
+					else
+					{
+						if (!Pr->contains(it->IProfile))
+							it->IProfile = docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+					}
+					loadPict(it->Pfile, it, true);
+				}
+			}
+			allItems.clear();
+			if (usingGUI)
+			{
+				++counter;
+				if (dia != NULL)
+					dia->setValue(counter);
+			}
+		}
+	}
 }
 
 void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	QList<PageItem*> allItems;
-	uint docItemCount=items->count();
+	uint docItemCount = items->count();
 	if ( docItemCount!= 0)
 	{
 		bool usingGUI=ScCore->usingGUI();
@@ -8568,9 +8745,9 @@ void ScribusDoc::updatePict(QString name)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a <FrameItems.count(); ++a)
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		PageItem *currItem = FrameItems.at(a);
+		PageItem *currItem = it.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -8707,9 +8884,9 @@ void ScribusDoc::updatePictDir(QString name)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a <FrameItems.count(); ++a)
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		PageItem *currItem = FrameItems.at(a);
+		PageItem *currItem = it.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -8812,7 +8989,6 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		lowRes = docPrefsData.itemToolPrefs.imageLowResType;
 	QtConcurrent::blockingMap(DocItems, PicResMapped(applyNewRes, lowRes));
 	QtConcurrent::blockingMap(MasterItems, PicResMapped(applyNewRes, lowRes));
-	QtConcurrent::blockingMap(FrameItems, PicResMapped(applyNewRes, lowRes));
 #else
 	int cc = 0;
 	for (int a = 0; a < DocItems.count(); ++a)
@@ -8845,9 +9021,9 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < FrameItems.count(); ++a)
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		PageItem *currItem = FrameItems.at(a);
+		PageItem *currItem = it.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -8942,9 +9118,10 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < FrameItems.count(); ++a)
+#endif
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		PageItem *currItem = FrameItems.at(a);
+		PageItem *currItem = it.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -8973,7 +9150,6 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
-#endif
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
@@ -9069,9 +9245,9 @@ void ScribusDoc::removePict(QString name)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < FrameItems.count(); ++a)
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		PageItem *currItem = FrameItems.at(a);
+		PageItem *currItem = it.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -9854,9 +10030,9 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 		}
 		allItems.clear();
 	}
-	for (int c=0; c<FrameItems.count(); ++c)
+	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
-		PageItem *currItem = FrameItems.at(c);
+		PageItem *currItem = it.value();
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -14900,4 +15076,16 @@ void ScribusDoc::itemSelection_Weld()
 void ScribusDoc::itemSelection_EditWeld()
 {
 	m_ScMW->view->requestMode(modeEditWeldPoint);
+}
+
+int ScribusDoc::addToInlineFrames(PageItem *item)
+{
+	int fIndex = qrand();
+	while (FrameItems.contains(fIndex))
+	{
+		fIndex = qrand();
+	}
+	item->inlineCharID = fIndex;
+	FrameItems.insert(fIndex, item);
+	return fIndex;
 }

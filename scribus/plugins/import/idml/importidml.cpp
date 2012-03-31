@@ -2577,8 +2577,8 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 				currItem->gYpos = 0;
 				currItem->gWidth = currItem->width();
 				currItem->gHeight = currItem->height();
-				m_Doc->FrameItems.append(currItem);
-				item->itemText.insertObject(currItem);
+				int fIndex = m_Doc->addToInlineFrames(currItem);
+				item->itemText.insertObject(fIndex);
 				item->itemText.applyStyle(posC, newStyle);
 				data = "";
 				posC = item->itemText.length();
@@ -2658,8 +2658,8 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 			currItem->gWidth = currItem->width();
 			currItem->gHeight = currItem->height();
 			m_Doc->dontResize = false;
-			m_Doc->FrameItems.append(currItem);
-			item->itemText.insertObject(currItem);
+			int fIndex = m_Doc->addToInlineFrames(currItem);
+			item->itemText.insertObject(fIndex);
 			item->itemText.applyStyle(posC, newStyle);
 			data = "";
 			posC = item->itemText.length();
