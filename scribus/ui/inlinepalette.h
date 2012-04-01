@@ -81,6 +81,9 @@ public:
 	virtual void changeEvent(QEvent *e);
 
 public slots:
+	void handleContextMenue(QPoint p);
+	void handlePasteToItem();
+	void handleEditItem();
 	void handleDoubleClick(QListWidgetItem *item);
 	void handleUpdateRequest(int);
 	void languageChange();
@@ -94,6 +97,7 @@ protected:
 	QVBoxLayout* PaletteLayout;
 	ScribusDoc *currDoc;
 	ScribusMainWindow *m_scMW;
+	int actItem;
 };
 
 #endif

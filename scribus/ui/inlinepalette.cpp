@@ -23,8 +23,12 @@ for which a new license (GPL+exception) is in place.
 #include "inlinepalette.h"
 #include <QPainter>
 #include <QByteArray>
+#include "pageitem.h"
+#include "pageitem_table.h"
+#include "pageitem_textframe.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "selection.h"
 
 InlineView::InlineView(QWidget* parent) : QListWidget(parent)
 {
@@ -98,6 +102,59 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline"
 	m_scMW  = NULL;
 	languageChange();
 	connect(InlineViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(InlineViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenue(QPoint)));
+}
+
+void InlinePalette::handleContextMenue(QPoint p)
+{
+	QListWidgetItem *item = InlineViewWidget->itemAt(p);
+	if (item)
+	{
+		actItem = item->data(Qt::UserRole).toInt();
+		bool txFrame = false;
+		if (!currDoc->m_Selection->isEmpty())
+		{
+			PageItem* selItem = currDoc->m_Selection->itemAt(0);
+			if ((selItem->isTextFrame() || selItem->isTable()))
+				txFrame = true;
+		}
+		QMenu *pmenu = new QMenu();
+		if (txFrame)
+		{
+			QAction* pasteAct = pmenu->addAction( tr("Paste to Item"));
+			connect(pasteAct, SIGNAL(triggered()), this, SLOT(handlePasteToItem()));
+		}
+		if ((currDoc->appMode != modeEdit) && (currDoc->appMode != modeEditTable))
+		{
+			QAction* editAct = pmenu->addAction( tr("Edit Item"));
+			connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
+		}
+		pmenu->exec(QCursor::pos());
+		delete pmenu;
+		actItem = -1;
+	}
+}
+
+void InlinePalette::handlePasteToItem()
+{
+	PageItem* selItem = currDoc->m_Selection->itemAt(0);
+	PageItem_TextFrame *currItem;
+	if (selItem->isTable())
+		currItem = selItem->asTable()->activeCell().textFrame();
+	else
+		currItem = selItem->asTextFrame();
+	if (currItem->HasSel)
+		currItem->deleteSelectedTextFromFrame();
+	currItem->itemText.insertObject(actItem);
+	if (selItem->isTable())
+		selItem->asTable()->update();
+	else
+		currItem->update();
+}
+
+void InlinePalette::handleEditItem()
+{
+	emit startEdit(actItem);
 }
 
 void InlinePalette::handleDoubleClick(QListWidgetItem *item)
