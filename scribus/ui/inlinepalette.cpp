@@ -77,7 +77,7 @@ void InlineView::dropEvent(QDropEvent *e)
  {
 	QMimeData *mimeData = new QMimeData;
 	QByteArray data = currentItem()->text().toLocal8Bit();
-	mimeData->setData("text/symbol", data);
+	mimeData->setData("text/inline", data);
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
 	drag->setPixmap(currentItem()->icon().pixmap(48, 48));
@@ -96,7 +96,6 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline"
 
 	unsetDoc();
 	m_scMW  = NULL;
-	editItemNames.clear();
 	languageChange();
 	connect(InlineViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 }
@@ -104,23 +103,21 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline"
 void InlinePalette::handleDoubleClick(QListWidgetItem *item)
 {
 	if (item)
-		emit startEdit(item->text());
+		emit startEdit(item->data(Qt::UserRole).toInt());
 }
 
-void InlinePalette::editingStart(QStringList names)
+void InlinePalette::editingStart()
 {
-	editItemNames = names;
-	for (int a = 0; a < editItemNames.count(); a++)
+	for (int a = 0; a < InlineViewWidget->count(); a++)
 	{
-		QList<QListWidgetItem*> items = InlineViewWidget->findItems(names[a], Qt::MatchExactly);
-		if (items.count() > 0)
-			items[0]->setFlags(0);
+		QListWidgetItem* item = InlineViewWidget->item(a);
+		if (item)
+			item->setFlags(0);
 	}
 }
 
 void InlinePalette::editingFinished()
 {
-	editItemNames.clear();
 	updateItemList();
 }
 
@@ -175,10 +172,8 @@ void InlinePalette::updateItemList()
 		p.drawPixmap(25 - pm.width() / 2, 25 - pm.height() / 2, pm);
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(pm2, currItem->itemName(), InlineViewWidget);
-		if (editItemNames.contains(currItem->itemName()))
-			item->setFlags(0);
-		else
-			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+		item->setData(Qt::UserRole, currItem->inlineCharID);
 	}
 }
 

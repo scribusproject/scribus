@@ -900,6 +900,13 @@ public:
 	
 	/*** get the name of the symbol currently in editing */
 	QString getEditedSymbol() const { return currentEditedSymbol; }
+	/**
+	 * @brief Set the doc into inline edit mode
+	 */
+	void setInlineEditMode(bool mode, int id = -1);
+
+	/*** Is the document in symbol edit mode? */
+	bool inlineEditMode() const { return m_inlineEditMode; }
 
 	/**
 	 * @brief Add a section to the document sections list
@@ -1150,6 +1157,7 @@ protected:
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
 	bool m_symbolEditMode;
+	bool m_inlineEditMode;
 	int  m_storedLayerID;
 	bool m_storedLayerLock;
 	bool m_storedLayerVis;
@@ -1159,6 +1167,7 @@ protected:
 	ScGuardedObject<ScribusDoc> m_guardedObject;
 	Serializer *m_serializer;
 	QString currentEditedSymbol;
+	int currentEditedIFrame;
 
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -1190,6 +1199,7 @@ public: // Public attributes
 	QList<PageItem*> MasterItems;
 	QList<PageItem*> DocItems;
 	QHash<int, PageItem*> FrameItems;
+	QList<PageItem*> EditFrameItems;
 	Selection* const m_Selection;
 	/** \brief Number of Columns */
 	double PageSp;

@@ -567,8 +567,8 @@ void ScribusMainWindow::initPalettes()
 	inlinePalette->setMainWindow(this);
 	connect(scrActions["toolsInline"], SIGNAL(toggled(bool)), inlinePalette, SLOT(setPaletteShown(bool)));
 	connect(inlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsInline"], SLOT(setChecked(bool)));
-//	connect(inlinePalette, SIGNAL(startEdit(QString)), this, SLOT(editSymbolStart(QString)));
-//	connect(inlinePalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
+	connect(inlinePalette, SIGNAL(startEdit(int)), this, SLOT(editInlineStart(int)));
+	connect(inlinePalette, SIGNAL(endEdit()), this, SLOT(editInlineEnd()));
 	inlinePalette->installEventFilter(this);
 	inlinePalette->hide();
 	
@@ -1458,7 +1458,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Qt::Key_PageUp:
-				if (doc->masterPageMode() || doc->symbolEditMode())
+				if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
 					view->scrollBy(0, -prefsManager->mouseWheelJump());
 				else
 				{
@@ -1474,7 +1474,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Qt::Key_PageDown:
-				if (doc->masterPageMode() || doc->symbolEditMode())
+				if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
 					view->scrollBy(0, prefsManager->mouseWheelJump());
 				else
 				{
@@ -2294,7 +2294,7 @@ void ScribusMainWindow::SwitchWin()
 		view->requestMode(submodeEndNodeEdit);
 	} */
 	scrActions["fileClose"]->setEnabled(true);
-	if (doc->masterPageMode() || doc->symbolEditMode())
+	if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
 	{
 		scrActions["pageInsert"]->setEnabled(false);
 		scrActions["pageDelete"]->setEnabled(false);
@@ -2305,7 +2305,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
 		scrActions["fileNewFromTemplate"]->setEnabled(false);
-		if (doc->symbolEditMode())
+		if (doc->symbolEditMode() || doc->inlineEditMode())
 		{
 			scrActions["fileCollect"]->setEnabled(false);
 			scrActions["fileSaveAs"]->setEnabled(false);
@@ -3236,7 +3236,7 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 // 	scrActions["fileSaveAs"]->setEnabled(true);
 	if (!doc->masterPageMode())
 	{
-		if (!doc->symbolEditMode())
+		if (!doc->symbolEditMode() && !doc->inlineEditMode())
 		{
 			if (doc->hasName)
 				scrActions["fileRevert"]->setEnabled(true);
@@ -4504,6 +4504,11 @@ bool ScribusMainWindow::slotFileClose()
 	if (doc->symbolEditMode())
 	{
 		editSymbolEnd();
+		return true;
+	}
+	else if (doc->inlineEditMode())
+	{
+		editInlineEnd();
 		return true;
 	}
 	ScribusWin* tw = ActWin;
@@ -7523,7 +7528,7 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 		view->requestMode(submodeEndNodeEdit);
 	activateWindow();
 	view->Deselect(true);
-	if (!doc->symbolEditMode())
+	if (!doc->symbolEditMode() && !doc->inlineEditMode())
 	{
 		if ((ite->OwnPage != -1) && (ite->OwnPage != static_cast<int>(doc->currentPage()->pageNr())))
 			view->GotoPage(ite->OwnPage);
@@ -8484,6 +8489,111 @@ void ScribusMainWindow::editSymbolEnd()
 	pagePalette->Rebuild();
 	propertiesPalette->updateColorList();
 	symbolPalette->editingFinished();
+	layerPalette->setEnabled(true);
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree(false);
+	updateActiveWindowCaption(doc->DocName);
+}
+
+void ScribusMainWindow::editInlineStart(int id)
+{
+	if (HaveDoc)
+	{
+		view->Deselect(true);
+		storedPageNum = doc->currentPageNumber();
+		storedViewXCoor = view->contentsX();
+		storedViewYCoor = view->contentsY();
+		storedViewScale = view->scale();
+		view->showInlinePage(id);
+		scrActions["pageInsert"]->setEnabled(false);
+		scrActions["pageImport"]->setEnabled(false);
+		scrActions["pageDelete"]->setEnabled(false);
+		scrActions["pageCopy"]->setEnabled(false);
+		scrActions["pageMove"]->setEnabled(false);
+		scrActions["pageApplyMasterPage"]->setEnabled(false);
+		scrActions["pageCopyToMasterPage"]->setEnabled(false);
+		scrActions["editMasterPages"]->setEnabled(false);
+		scrActions["fileNew"]->setEnabled(false);
+		scrActions["fileNewFromTemplate"]->setEnabled(false);
+		scrActions["fileOpen"]->setEnabled(false);
+		scrActions["fileSave"]->setEnabled(false);
+		scrActions["fileClose"]->setToolTip( tr("Click here to leave inline frame edit mode."));
+		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
+		scrActions["fileRevert"]->setEnabled(false);
+		scrActions["fileDocSetup150"]->setEnabled(false);
+		scrActions["filePrint"]->setEnabled(false);
+		scrActions["fileCollect"]->setEnabled(false);
+		scrActions["fileSaveAs"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("FileExport", false);
+		scrActions["fileExportAsEPS"]->setEnabled(false);
+		scrActions["fileExportAsPDF"]->setEnabled(false);
+		scrActions["PrintPreview"]->setEnabled(false);
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
+		pagePalette->enablePalette(false);
+		layerPalette->setEnabled(false);
+		inlinePalette->editingStart();
+		if (outlinePalette->isVisible())
+			outlinePalette->BuildTree(false);
+		updateActiveWindowCaption( tr("Editing Inline Frame"));
+	}
+}
+
+void ScribusMainWindow::editInlineEnd()
+{
+	view->hideInlinePage();
+	slotSelect();
+	scrActions["editMasterPages"]->setEnabled(true);
+	scrActions["fileNew"]->setEnabled(true);
+	scrActions["fileNewFromTemplate"]->setEnabled(true);
+	scrActions["fileOpen"]->setEnabled(true);
+	scrActions["fileClose"]->setEnabled(true);
+	scrActions["fileClose"]->setToolTip( tr("Close"));
+	scrActions["fileSave"]->setEnabled(true);
+	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
+	scrActions["fileRevert"]->setEnabled(true);
+	scrActions["fileDocSetup150"]->setEnabled(true);
+	scrActions["filePrint"]->setEnabled(true);
+	scrActions["fileCollect"]->setEnabled(true);
+	scrActions["fileSaveAs"]->setEnabled(true);
+	scrMenuMgr->setMenuEnabled("FileExport", true);
+	scrActions["fileExportAsEPS"]->setEnabled(true);
+	scrActions["fileExportAsPDF"]->setEnabled(true);
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		scrActions["PrintPreview"]->setEnabled(true);
+	scrActions["pageInsert"]->setEnabled(true);
+	scrActions["pageCopy"]->setEnabled(true);
+	scrActions["pageImport"]->setEnabled(true);
+	scrActions["pageApplyMasterPage"]->setEnabled(true);
+	scrActions["pageCopyToMasterPage"]->setEnabled(true);
+	bool setter = doc->DocPages.count() > 1 ? true : false;
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
+	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFTextField"]->setEnabled(true);
+	scrActions["toolsPDFCheckBox"]->setEnabled(true);
+	scrActions["toolsPDFComboBox"]->setEnabled(true);
+	scrActions["toolsPDFListBox"]->setEnabled(true);
+	scrActions["toolsPDFAnnotText"]->setEnabled(true);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
+	pagePalette->enablePalette(true);
+	pagePalette->rebuildMasters();
+	view->setScale(storedViewScale);
+	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
+	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
+	view->DrawNew();
+	pagePalette->Rebuild();
+	propertiesPalette->updateColorList();
+	inlinePalette->editingFinished();
 	layerPalette->setEnabled(true);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree(false);

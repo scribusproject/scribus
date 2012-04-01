@@ -284,6 +284,8 @@ public slots:
 	void editSelectedSymbolStart();
 	void editSymbolStart(QString temp);
 	void editSymbolEnd();
+	void editInlineStart(int id);
+	void editInlineEnd();
 	void manageMasterPages(QString temp = "");
 	void manageMasterPagesEnd();
 	/** \brief generate a new document in the current view */

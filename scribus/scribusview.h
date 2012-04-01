@@ -183,6 +183,8 @@ public:
 	void hideMasterPage();
 	void showSymbolPage(QString symbolName);
 	void hideSymbolPage();
+	void showInlinePage(int id);
+	void hideInlinePage();
 	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
 	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
 	void RecalcPicturesRes();

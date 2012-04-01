@@ -2649,6 +2649,39 @@ void ScribusView::hideSymbolPage()
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 
+void ScribusView::showInlinePage(int id)
+{
+	Deselect(false);
+	OldScale = m_canvas->scale();
+	if (!Doc->inlineEditMode())
+		this->requestMode(modeNormal);
+	Doc->setInlineEditMode(true, id);
+	Doc->setCurrentPage(Doc->Pages->at(0));
+	pageSelector->setEnabled(false);
+	layerMenu->setEnabled(false);
+	updateOn = false;
+	zoom();
+	oldX = qRound(Doc->currentPage()->xOffset()- 10);
+	oldY = qRound(Doc->currentPage()->yOffset()- 10);
+	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
+	updateOn = true;
+	DrawNew();
+}
+
+void ScribusView::hideInlinePage()
+{
+	updatesOn(false);
+	Deselect(true);
+	if (Doc->inlineEditMode())
+		this->requestMode(modeNormal);
+	Doc->setInlineEditMode(false);
+	updatesOn(true);
+	Doc->setCurrentPage(Doc->Pages->at(0));
+	pageSelector->setEnabled(true);
+	layerMenu->setEnabled(true);
+	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
+}
+
 QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 {
 	QImage pm;

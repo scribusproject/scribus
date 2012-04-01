@@ -999,7 +999,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 	freeObjects = 0;
 	PageItem* pgItem;
 	QString tmp;
-	if (currDoc->symbolEditMode())
+	if (currDoc->symbolEditMode() || currDoc->inlineEditMode())
 	{
 		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
 		page->PageObject = currDoc->Pages->at(0);
@@ -1033,7 +1033,10 @@ void OutlinePalette::BuildTree(bool storeVals)
 				parseSubGroup(object, &pgItem->groupItemList, 3, currDoc->Pages->at(0));
 			}
 		}
-		page->setText(0, currDoc->getEditedSymbol());
+		if (currDoc->symbolEditMode())
+			page->setText(0, currDoc->getEditedSymbol());
+		else
+			page->setText(0, tr("Inline Frame"));
 	}
 	else
 	{

@@ -6076,6 +6076,144 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 	}
 }
 
+void ScribusDoc::setInlineEditMode(bool mode, int id)
+{
+	if (mode == m_inlineEditMode)
+		return;
+	m_inlineEditMode = mode;
+	if (mode)
+	{
+		m_storedLayerID = activeLayer();
+		m_storedLayerLock = layerLocked(0);
+		m_storedLayerVis = layerVisible(0);
+		setActiveLayer(0);
+		setLayerVisible(0, true);
+		setLayerLocked(0, false);
+		PageItem *pa = FrameItems[id];
+		pa->isEmbedded = false;
+		currentEditedIFrame = id;
+		ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pa->visualWidth(), pa->visualHeight());
+		addedPage->setDocument(this);
+		addedPage->Margins.Top = 0;
+		addedPage->Margins.Bottom = 0;
+		addedPage->Margins.Left = 0;
+		addedPage->Margins.Right = 0;
+		addedPage->initialMargins.Top = 0;
+		addedPage->initialMargins.Bottom = 0;
+		addedPage->initialMargins.Left = 0;
+		addedPage->initialMargins.Right = 0;
+		addedPage->setPageNr(0);
+		addedPage->MPageNam = "";
+		addedPage->setPageName("");
+		TempPages.clear();
+		TempPages.append(addedPage);
+		Pages = &TempPages;
+		EditFrameItems.clear();
+		EditFrameItems.append(pa);
+		Items = &EditFrameItems;
+		m_Selection->delaySignalsOn();
+		for (int as = 0; as < Items->count(); ++as)
+		{
+			m_Selection->addItem(Items->at(as));
+		}
+		moveGroup(addedPage->xOffset(), addedPage->yOffset());
+		if (Items->at(0)->isGroup())
+			Items->at(0)->asGroupFrame()->adjustXYPosition();
+		m_Selection->clear();
+		m_Selection->delaySignalsOff();
+		m_ScMW->changeLayer(0);
+		changed();
+	}
+	else
+	{
+		PageItem* currItem = Items->at(0);
+		ScPage* addedPage = TempPages.at(0);
+		if (Items->count() > 1)
+		{
+			if ((!currItem->isGroup()) && (Items->count() > 1))
+			{
+				itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+				PageItem *groupItem = Items->takeLast();
+				groupItem->setLayer(0);
+				Items->insert(0, groupItem);
+				double minx =  std::numeric_limits<double>::max();
+				double miny =  std::numeric_limits<double>::max();
+				double maxx = -std::numeric_limits<double>::max();
+				double maxy = -std::numeric_limits<double>::max();
+				for (int as = 1; as < Items->count(); ++as)
+				{
+					PageItem* currItem = Items->at(as);
+					groupItem->groupItemList.append(currItem);
+					double x1, x2, y1, y2;
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+				}
+				Items->clear();
+				Items->append(groupItem);
+				for (int em = 0; em < groupItem->groupItemList.count(); ++em)
+				{
+					PageItem* currItem = groupItem->groupItemList.at(em);
+					currItem->gXpos = currItem->xPos() - minx;
+					currItem->gYpos = currItem->yPos() - miny;
+					currItem->gWidth = maxx - minx;
+					currItem->gHeight = maxy - miny;
+				}
+				groupItem->setXYPos(minx, miny, true);
+				groupItem->setWidthHeight(maxx - minx, maxy - miny, true);
+				groupItem->groupWidth = maxx - minx;
+				groupItem->groupHeight = maxy - miny;
+				groupItem->gWidth = maxx - minx;
+				groupItem->gHeight = maxy - miny;
+				groupItem->SetRectFrame();
+				groupItem->ClipEdited = true;
+				groupItem->FrameType = 3;
+				groupItem->setTextFlowMode(PageItem::TextFlowDisabled);
+				groupItem->AutoName = false;
+				groupItem->setFillTransparency(0);
+				groupItem->setLineTransparency(0);
+				groupItem->asGroupFrame()->adjustXYPosition();
+				GroupCounter++;
+			}
+		}
+		currItem = Items->at(0);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		currItem->gXpos = currItem->xPos() - minx;
+		currItem->gYpos = currItem->yPos() - miny;
+		currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
+		currItem->isEmbedded = true;
+		currItem->inlineCharID = currentEditedIFrame;
+		FrameItems[currentEditedIFrame] = currItem;
+		if (masterPageMode())
+		{
+			Pages = &MasterPages;
+			Items = &MasterItems;
+		}
+		else
+		{
+			Pages = &DocPages;
+			Items = &DocItems;
+		}
+		delete addedPage;
+		EditFrameItems.clear();
+		setActiveLayer(m_storedLayerID);
+		setLayerVisible(0, m_storedLayerVis);
+		setLayerLocked(0, m_storedLayerLock);
+		m_ScMW->changeLayer(m_storedLayerID);
+	}
+}
+
 void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active, const QChar fillChar, int fieldWidth)
 {
 	struct DocumentSection newSection;
@@ -15086,6 +15224,8 @@ int ScribusDoc::addToInlineFrames(PageItem *item)
 		fIndex = qrand();
 	}
 	item->inlineCharID = fIndex;
+	double lw = item->visualLineWidth() / 2.0;
+	item->setXYPos(lw, lw, true);
 	FrameItems.insert(fIndex, item);
 	return fIndex;
 }

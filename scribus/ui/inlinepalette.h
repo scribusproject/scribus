@@ -74,7 +74,7 @@ public:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	void editingStart(QStringList names);
+	void editingStart();
 	void editingFinished();
 	void updateItemList();
 	
@@ -86,7 +86,7 @@ public slots:
 	void languageChange();
 
 signals:
-	void startEdit(QString);
+	void startEdit(int);
 	void endEdit();
 
 protected:
@@ -94,7 +94,6 @@ protected:
 	QVBoxLayout* PaletteLayout;
 	ScribusDoc *currDoc;
 	ScribusMainWindow *m_scMW;
-	QStringList editItemNames;
 };
 
 #endif
