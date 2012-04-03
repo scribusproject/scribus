@@ -2153,6 +2153,15 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	ScPage* page = Pages->takeAt(pageNumber);
 	QString oldPageName(page->pageName());
 	delete page;
+	// #10658 : renumber masterpages and masterpage objects
+	// in order to avoid crash after masterpage deletion
+	for (int i = 0; i < MasterPages.count(); ++i)
+		MasterPages.at(i)->setPageNr(i);
+	for (int i = 0; i < MasterItems.count(); ++i)
+	{
+		if (MasterItems.at(i)->OwnPage > pageNumber)
+			MasterItems.at(i)->OwnPage--;
+	}
 	// remove the master page from the master page name list
 	//MasterNames.remove(page->PageNam);
 	/*CB TODO moved back to muster.cpp for now as this must happen after reformPages
