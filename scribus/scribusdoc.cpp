@@ -1867,6 +1867,8 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	Page* page = Pages->takeAt(pageNumber);
 	QString oldPageName(page->pageName());
 	delete page;
+	// #10658 : renumber masterpages and masterpage objects
+	// in order to avoid crash after masterpage deletion
 	for (int i = 0; i < MasterPages.count(); ++i)
 		MasterPages.at(i)->setPageNr(i);
 	for (int i = 0; i < MasterItems.count(); ++i)
