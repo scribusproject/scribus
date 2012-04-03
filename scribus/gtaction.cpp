@@ -133,6 +133,10 @@ void gtAction::writeUnstyled(const QString& text)
 		QChar ch = text.at(a);
 		if ((ch == ch10) || (ch == ch5))
 			ch = ch13;
+		else if (ch.unicode() == 0x2028)
+			ch = SpecialChars::LINEBREAK;
+		else if (ch.unicode() == 0x2029)
+			ch = SpecialChars::PARSEP;
 		
 		int pos = it->itemText.length();
 		it->itemText.insertChars(pos, QString(ch));
