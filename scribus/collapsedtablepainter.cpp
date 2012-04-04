@@ -496,6 +496,8 @@ void CollapsedTablePainter::paintBorder(const TableBorder& border, const QPointF
 		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
 		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
 		// Set line color.
+		if (line.color() == CommonStrings::None)
+			continue;
 		table()->SetQColor(&lineColor, line.color(), line.shade());
 		// Draw line.
 		p->setPen(lineColor, line.width(), line.style(), Qt::FlatCap, Qt::MiterJoin);

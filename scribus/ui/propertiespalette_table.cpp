@@ -285,12 +285,14 @@ void PropertiesPalette_Table::updateBorderLineList()
 	borderLineList->clear();
 	foreach (const TableBorderLine& borderLine, m_currentBorder.borderLines())
 	{
-		QPixmap *icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
-		QString text = QString(" %1%2 %3")
-			.arg(borderLine.width())
-			.arg(borderLineWidth->suffix())
-			.arg(CommonStrings::translatePenStyleName(borderLine.style()));
-		borderLineList->addItem(new QListWidgetItem(*icon, text, borderLineList));
+		QString text = QString(" %1%2 %3").arg(borderLine.width()).arg(borderLineWidth->suffix()).arg(CommonStrings::translatePenStyleName(borderLine.style()));
+		if (borderLine.color() != CommonStrings::None)
+		{
+			QPixmap *icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
+			borderLineList->addItem(new QListWidgetItem(*icon, text, borderLineList));
+		}
+		else
+			borderLineList->addItem(new QListWidgetItem(text, borderLineList));
 	}
 	removeBorderLineButton->setEnabled(borderLineList->count() > 1);
 }
@@ -298,16 +300,12 @@ void PropertiesPalette_Table::updateBorderLineList()
 void PropertiesPalette_Table::updateBorderLineListItem()
 {
 	QListWidgetItem* item = borderLineList->currentItem();
-	QString color = borderLineColor->currentColor();
-	if (color == CommonStrings::tr_NoneColor)
-		color = CommonStrings::None;
-	QPixmap *icon = getWidePixmap(getColor(color, borderLineShade->value()));
-	QString text = QString(" %1%2 %3")
-		.arg(borderLineWidth->getValue())
-		.arg(borderLineWidth->suffix())
-		.arg(CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(borderLineStyle->currentIndex() + 1)));
-
-	item->setIcon(*icon);
+	QString text = QString(" %1%2 %3").arg(borderLineWidth->getValue()).arg(borderLineWidth->suffix()).arg(CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(borderLineStyle->currentIndex() + 1)));
+	if (borderLineColor->currentColor() != CommonStrings::None)
+	{
+		QPixmap *icon = getWidePixmap(getColor(borderLineColor->currentColor(), borderLineShade->value()));
+		item->setIcon(*icon);
+	}
 	item->setText(text);
 }
 

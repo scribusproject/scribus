@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "ui/missing.h"
+#include "pageitem_group.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
 #include "scribusdoc.h"
@@ -1114,6 +1115,54 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		PageItem *item = itf.value();
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
+	{
+		QList<PageItem*> allItems;
+		PageItem* item = m_Doc->DocItems.at(i);
+		if (item->isGroup())
+			allItems = item->asGroupFrame()->getItemList();
+		else
+			allItems.append(item);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			PageItem* gItem = allItems[ii];
+			if (gItem->isGroup())
+			{
+				if (gItem->groupItemList[0]->isTableItem)
+				{
+					if (gItem->Parent == NULL)
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
+					else
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+				}
+			}
+		}
+		allItems.clear();
+	}
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
+	{
+		QList<PageItem*> allItems;
+		PageItem* item = m_Doc->MasterItems.at(i);
+		if (item->isGroup())
+			allItems = item->asGroupFrame()->getItemList();
+		else
+			allItems.append(item);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			PageItem* gItem = allItems[ii];
+			if (gItem->isGroup())
+			{
+				if (gItem->groupItemList[0]->isTableItem)
+				{
+					if (gItem->Parent == NULL)
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
+					else
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+				}
+			}
+		}
+		allItems.clear();
 	}
 
 	// start auto save timer if needed
@@ -2381,6 +2430,54 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		PageItem *item = itf.value();
 		if (item->prevInChain() == 0 && item->itemText.length() > 0)
 			item->itemText.fixLegacyFormatting();
+	}
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
+	{
+		QList<PageItem*> allItems;
+		PageItem* item = m_Doc->DocItems.at(i);
+		if (item->isGroup())
+			allItems = item->asGroupFrame()->getItemList();
+		else
+			allItems.append(item);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			PageItem* gItem = allItems[ii];
+			if (gItem->isGroup())
+			{
+				if (gItem->groupItemList[0]->isTableItem)
+				{
+					if (gItem->Parent == NULL)
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
+					else
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+				}
+			}
+		}
+		allItems.clear();
+	}
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
+	{
+		QList<PageItem*> allItems;
+		PageItem* item = m_Doc->MasterItems.at(i);
+		if (item->isGroup())
+			allItems = item->asGroupFrame()->getItemList();
+		else
+			allItems.append(item);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			PageItem* gItem = allItems[ii];
+			if (gItem->isGroup())
+			{
+				if (gItem->groupItemList[0]->isTableItem)
+				{
+					if (gItem->Parent == NULL)
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
+					else
+						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+				}
+			}
+		}
+		allItems.clear();
 	}
 	
 	return true;

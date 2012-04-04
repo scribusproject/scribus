@@ -4643,14 +4643,15 @@ QString PDFLibCore::paintBorder(const TableBorder& border, const QPointF& start,
 	QVector<double> DashValues;
 	foreach (const TableBorderLine& line, border.borderLines())
 	{
+		if (line.color() == CommonStrings::None)
+			continue;
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
 		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());
 		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
 		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
 		tmp += FToStr(lineStart.x())+" "+FToStr(-lineStart.y())+" m\n";
 		tmp += FToStr(lineEnd.x())+" "+FToStr(-lineEnd.y())+" l\n";
-		if (line.color() != CommonStrings::None)
-			tmp += putColor(line.color(), line.shade(), false);
+		tmp += putColor(line.color(), line.shade(), false);
 		tmp += FToStr(fabs(line.width()))+" w\n";
 		getDashArray(line.style(), qMax(line.width(), 1.0), DashValues);
 		if (DashValues.count() != 0)

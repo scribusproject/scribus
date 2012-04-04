@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QPair>
 #include <QPixmap>
+#include <QStack>
 #include <QString>
 #include <QStringList>
 #include <QVector>
@@ -149,5 +150,6 @@ void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<double>
 void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<float> &m_array);
 
 void SCRIBUS_API printBacktrace(int nFrames);
+void SCRIBUS_API convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, QStack< QList<PageItem*> > *groupStackT = NULL, QList<PageItem *> *target = NULL);
 
 #endif

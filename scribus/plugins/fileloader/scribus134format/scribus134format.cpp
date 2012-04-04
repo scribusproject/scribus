@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "hyphenator.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_table.h"
 #include "prefsmanager.h"
 #include "scclocale.h"
 #include "scconfig.h"
@@ -628,11 +629,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	{
 		while (groupStackP.count() > 0)
 		{
+			bool isTableIt = false;
 			QList<PageItem*> gpL = groupStackP.pop();
 			PageItem* gItem = gpL.takeFirst();
 			for (int id = 0; id < gpL.count(); id++)
 			{
 				PageItem* cItem = gpL.at(id);
+				isTableIt = cItem->isTableItem;
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
 				cItem->Parent = gItem;
@@ -647,18 +650,23 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
-			gItem->groupItemList = gpL;
+			if (isTableIt)
+				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			else
+				gItem->groupItemList = gpL;
 		}
 	}
 	if (groupStackF.count() > 0)
 	{
 		while (groupStackF.count() > 0)
 		{
+			bool isTableIt = false;
 			QList<PageItem*> gpL = groupStackF.pop();
 			PageItem* gItem = gpL.takeFirst();
 			for (int id = 0; id < gpL.count(); id++)
 			{
 				PageItem* cItem = gpL.at(id);
+				isTableIt = cItem->isTableItem;
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
 				cItem->Parent = gItem;
@@ -673,18 +681,23 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
-			gItem->groupItemList = gpL;
+			if (isTableIt)
+				convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
+			else
+				gItem->groupItemList = gpL;
 		}
 	}
 	if (groupStackM.count() > 0)
 	{
 		while (groupStackM.count() > 0)
 		{
+			bool isTableIt = false;
 			QList<PageItem*> gpL = groupStackM.pop();
 			PageItem* gItem = gpL.takeFirst();
 			for (int id = 0; id < gpL.count(); id++)
 			{
 				PageItem* cItem = gpL.at(id);
+				isTableIt = cItem->isTableItem;
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
 				cItem->Parent = gItem;
@@ -699,7 +712,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->MasterItems.removeOne(cItem);
 			}
-			gItem->groupItemList = gpL;
+			if (isTableIt)
+				convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+			else
+				gItem->groupItemList = gpL;
 		}
 	}
 	
@@ -2143,11 +2159,13 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	{
 		while (groupStackP.count() > 0)
 		{
+			bool isTableIt = false;
 			QList<PageItem*> gpL = groupStackP.pop();
 			PageItem* gItem = gpL.takeFirst();
 			for (int id = 0; id < gpL.count(); id++)
 			{
 				PageItem* cItem = gpL.at(id);
+				isTableIt = cItem->isTableItem;
 				cItem->gXpos = cItem->xPos() - gItem->xPos();
 				cItem->gYpos = cItem->yPos() - gItem->yPos();
 				cItem->Parent = gItem;
@@ -2162,7 +2180,10 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
-			gItem->groupItemList = gpL;
+			if (isTableIt)
+				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			else
+				gItem->groupItemList = gpL;
 		}
 	}
 

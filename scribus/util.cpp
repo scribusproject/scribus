@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QProcess>
 #include "pageitem.h"
+#include "pageitem_table.h"
 #include "ui/scmessagebox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -1008,3 +1009,118 @@ void printBacktrace ( int nFrames )
 #endif
 }
 
+
+void convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, QStack<QList<PageItem *> > *groupStackT, QList<PageItem *> *target)
+{
+	QList<double> colWidths;
+	QList<double> rowHeights;
+	PageItem *topLeft = NULL;
+	for (int a = 0; a < gpL.count(); a++)
+	{
+		PageItem* it = gpL[a];
+		if ((it->TopLink == NULL) && (it->LeftLink == NULL))	// we got the topleft item
+		{
+			topLeft = it;
+			PageItem *tl = it;
+			while (tl->RightLink != NULL)
+			{
+				colWidths.append(tl->width());
+				tl = tl->RightLink;
+			}
+			colWidths.append(tl->width());
+			while (tl->BottomLink != NULL)
+			{
+				rowHeights.append(tl->height());
+				tl = tl->BottomLink;
+			}
+			rowHeights.append(tl->height());
+			break;
+		}
+	}
+	m_Doc->dontResize = true;
+	int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, gItem->xPos(), gItem->yPos(), gItem->width(), gItem->height(), 0.0, CommonStrings::None, CommonStrings::None, true);
+	PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
+	currItem->insertRows(0, rowHeights.count()-1);
+	m_Doc->dontResize = true;
+	currItem->insertColumns(0, colWidths.count()-1);
+	m_Doc->dontResize = true;
+	for (int i = 0; i < rowHeights.count(); i++)
+	{
+		currItem->resizeRow(i, rowHeights[i]);
+	}
+	m_Doc->dontResize = true;
+	for (int i = 0; i < colWidths.count(); i++)
+	{
+		currItem->resizeColumn(i, colWidths[i]);
+	}
+	TableBorder border(0.0, Qt::SolidLine, CommonStrings::None, 100);
+	currItem->setLeftBorder(border);
+	currItem->setTopBorder(border);
+	currItem->setRightBorder(border);
+	currItem->setBottomBorder(border);
+	m_Doc->dontResize = true;
+	PageItem *tr = topLeft;
+	int rowCount = 0;
+	int colCount = 0;
+	while (rowCount < rowHeights.count())
+	{
+		PageItem *tl = tr;
+		while (colCount < colWidths.count())
+		{
+			currItem->cellAt(rowCount, colCount).textFrame()->itemText = tl->itemText.copy();
+			currItem->cellAt(rowCount, colCount).setFillColor(tl->fillColor());
+			currItem->cellAt(rowCount, colCount).setFillShade(tl->fillShade());
+			currItem->cellAt(rowCount, colCount).setLeftBorder(border);
+			currItem->cellAt(rowCount, colCount).setTopBorder(border);
+			currItem->cellAt(rowCount, colCount).setRightBorder(border);
+			currItem->cellAt(rowCount, colCount).setBottomBorder(border);
+			if ((tl->lineColor() != CommonStrings::None) && (tl->lineWidth() != 0.0))
+			{
+				TableBorder bb(tl->lineWidth(), tl->lineStyle(), tl->lineColor(), tl->lineShade());
+				if (tl->LeftLine)
+					currItem->cellAt(rowCount, colCount).setLeftBorder(bb);
+				if (tl->TopLine)
+					currItem->cellAt(rowCount, colCount).setTopBorder(bb);
+				if (tl->RightLine)
+					currItem->cellAt(rowCount, colCount).setRightBorder(bb);
+				if (tl->BottomLine)
+					currItem->cellAt(rowCount, colCount).setBottomBorder(bb);
+			}
+			if (colCount == colWidths.count()-1)
+				break;
+			colCount++;
+			tl = tl->RightLink;
+		}
+		if (rowCount == rowHeights.count()-1)
+			break;
+		colCount = 0;
+		rowCount++;
+		tr = tr->BottomLink;
+	}
+	m_Doc->dontResize = true;
+	currItem->adjustFrameToTable();
+	if (target != NULL)
+	{
+		int ind = target->indexOf(gItem);
+		target->replace(ind, currItem);
+	}
+	else
+	{
+		int ind = m_Doc->FrameItems.key(gItem);
+		m_Doc->FrameItems.remove(ind);
+		m_Doc->FrameItems.insert(ind, currItem);
+	}
+	if (groupStackT != NULL)
+	{
+		if (groupStackT->count() > 0)
+		{
+			int ii = groupStackT->top().indexOf(gItem);
+			groupStackT->top().replace(ii, currItem);
+		}
+	}
+	while (!gpL.isEmpty())
+	{
+		delete gpL.takeFirst();
+	}
+	delete gItem;
+}

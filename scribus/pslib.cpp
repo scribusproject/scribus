@@ -2868,6 +2868,8 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 	QVector<double> DashValues;
 	foreach (const TableBorderLine& line, border.borderLines())
 	{
+		if (line.color() == CommonStrings::None)
+			continue;
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
 		lineStart.setY(start.y() + line.width() * startOffsetFactors.y());
 		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
@@ -2878,11 +2880,8 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 		getDashArray(line.style(), qMax(line.width(), 1.0), DashValues);
 		PS_setdash(line.style(), 0, DashValues);
 		int h, s, v, k;
-		if (line.color() != CommonStrings::None)
-		{
-			SetColor(line.color(), line.shade(), &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-		}
+		SetColor(line.color(), line.shade(), &h, &s, &v, &k, gcr);
+		PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 		PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 		putColor(line.color(), line.shade(), false);
 	}
