@@ -195,6 +195,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	automaticTextFrames(0),
 	m_masterPageMode(false),
 	m_symbolEditMode(false),
+	m_inlineEditMode(false),
 	m_ScMW(0),
 	m_View(0),
 	m_guardedObject(this),
@@ -287,6 +288,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	automaticTextFrames(pagesSetup.autoTextFrames),
 	m_masterPageMode(false),
 	m_symbolEditMode(false),
+	m_inlineEditMode(false),
 	m_ScMW(0),
 	m_View(0),
 	m_guardedObject(this),
@@ -1828,8 +1830,6 @@ void ScribusDoc::restoreUngrouping(SimpleState *state, bool isUndo)
 		int itemNr = getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
 		if (Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
 		{
-			if (isUndo)
-				Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
 			tmpSelection.addItem(Items->at(itemNr));
 		}
 	}
@@ -6933,8 +6933,6 @@ void ScribusDoc::itemSelection_LowerItem()
 		for (int c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (currItem->isTableItem && currItem->isSingleSel)
-				return;
 			int id = itemList->indexOf(currItem);
 			low = qMin(id, low);
 			high = qMax(id, high);
@@ -7000,8 +6998,6 @@ void ScribusDoc::itemSelection_RaiseItem()
 		for (int c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (currItem->isTableItem && currItem->isSingleSel)
-				return;
 			int id = itemList->indexOf(currItem);
 			low = qMin(id, low);
 			high = qMax(id, high);
@@ -10350,7 +10346,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = itemSelection->itemAt(offs);
-		if ((((currItem->isSingleSel) && (!Items->contains(currItem))) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
+		if (((currItem->isSingleSel) && (!Items->contains(currItem))) || (currItem->locked()))
 		{
 			if (currItem->locked())
 			{
@@ -13506,7 +13502,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		{
 #ifndef NLS_PROTO
 //			bb->setFontSize(qMax(qRound(bb->fontSize()*((scx+scy)/2)), 1));
-			if ((bb->itemText.length() != 0) && (!bb->isTableItem))
+			if (bb->itemText.length() != 0)
 			{
 //				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100));
 				for (aa = 0; aa < bb->itemText.length(); ++aa)
@@ -14290,7 +14286,7 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
 			{
-				if (currItem->asImageFrame() && currItem->PictureIsAvailable && !currItem->isTableItem)
+				if (currItem->asImageFrame() && currItem->PictureIsAvailable)
 				{
 					if (!activeTransaction)
 						activeTransaction = new UndoTransaction(undoManager->beginTransaction(selectedItemCount == 1 ?
@@ -14340,7 +14336,7 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
 			{
-				if (currItem->asImageFrame() && currItem->PictureIsAvailable && !currItem->isTableItem)
+				if (currItem->asImageFrame() && currItem->PictureIsAvailable)
 					currItem->setImageScalingMode(false, true);
 			}
 		}

@@ -255,8 +255,7 @@ void ContextMenu::createMenuItems_Selection()
 		{
 			if (currItem->PictureIsAvailable)
 			{
-				if (!currItem->isTableItem)
-					m_AP->scrActions["itemAdjustFrameToImage"]->setEnabled(true);
+				m_AP->scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 				m_AP->scrActions["itemAdjustImageToFrame"]->setEnabled(true);
 				if (currItem->pixm.imgInfo.valid)
 					m_AP->scrActions["itemExtendedImageProperties"]->setEnabled(true);
@@ -357,17 +356,14 @@ void ContextMenu::createMenuItems_Selection()
 	//<-- Add Level Item
 	if (!currItem->locked())
 	{
-		if ((!currItem->isTableItem) && (!currItem->isSingleSel))
+		menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
+		menuLevel->addAction(m_AP->scrActions["itemRaise"]);
+		menuLevel->addAction(m_AP->scrActions["itemLower"]);
+		menuLevel->addAction(m_AP->scrActions["itemLowerToBottom"]);
+		if (menuLevel->actions().count()>0)
 		{
-			menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
-			menuLevel->addAction(m_AP->scrActions["itemRaise"]);
-			menuLevel->addAction(m_AP->scrActions["itemLower"]);
-			menuLevel->addAction(m_AP->scrActions["itemLowerToBottom"]);
-			if (menuLevel->actions().count()>0)
-			{
-				QAction *act = addMenu(menuLevel);
-				act->setText( ScribusView::tr("Le&vel"));
-			}
+			QAction *act = addMenu(menuLevel);
+			act->setText( ScribusView::tr("Le&vel"));
 		}
 	}
 	//-->

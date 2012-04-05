@@ -1434,62 +1434,6 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 			currItem->BoundingY = OldBY;
 		}
 	}
-	for (uint a = 0; a < pageFromMasterCount; ++a)
-	{
-		currItem = page->FromMaster.at(a);
-		if (currItem->LayerID != layer.ID)
-			continue;
-		if (!currItem->isTableItem)
-			continue;
-		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
-			continue;
-		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
-			continue;
-		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-			continue;
-		double OldX = currItem->xPos();
-		double OldY = currItem->yPos();
-		double OldBX = currItem->BoundingX;
-		double OldBY = currItem->BoundingY;
-		if (!currItem->ChangedMasterItem)
-		{
-			//Hack to not check for undo changes, indicate drawing only
-			currItem->setXYPos(OldX - Mp->xOffset() + page->xOffset(), OldY - Mp->yOffset() + page->yOffset(), true);
-			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-		}
-		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-		{
-			painter->save();
-			painter->translate(currItem->xPos(), currItem->yPos());
-			painter->rotate(currItem->rotation());
-			if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
-			{
-				QColor tmp;
-				currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
-				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-				{
-					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-					if (currItem->TopLine)
-						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-					if (currItem->RightLine)
-						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-					if (currItem->BottomLine)
-						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-					if (currItem->LeftLine)
-						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-				}
-			}
-			painter->restore();
-		}
-		if (!currItem->ChangedMasterItem)
-		{
-			//Hack to not check for undo changes, indicate drawing only
-			currItem->setXYPos(OldX, OldY, true);
-			currItem->BoundingX = OldBX;
-			currItem->BoundingY = OldBY;
-		}
-	}
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->endLayer();
 }
@@ -1581,42 +1525,6 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 			
 				setupEditHRuler(currItem);
 			}
-		}
-	}
-	for (int it = 0; it < m_doc->Items->count(); ++it)
-	{
-		currItem = m_doc->Items->at(it);
-		if (currItem->LayerID != layer.ID)
-			continue;
-		if (!currItem->isTableItem)
-			continue;
-		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))
-			continue;
-		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
-			continue;
-		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-		{
-			painter->save();
-			painter->translate(currItem->xPos(), currItem->yPos());
-			painter->rotate(currItem->rotation());
-			if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
-			{
-				QColor tmp;
-				currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
-				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-				{
-					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-					if (currItem->TopLine)
-						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-					if (currItem->RightLine)
-						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-					if (currItem->BottomLine)
-						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-					if (currItem->LeftLine)
-						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-				}
-			}
-			painter->restore();
 		}
 	}
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))

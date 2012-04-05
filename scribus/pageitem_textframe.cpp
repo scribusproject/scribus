@@ -3121,107 +3121,104 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
-	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
+#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 		if (fillBlendmode() != 0)
 			p->endLayer();
-	#else
+#else
 		if (fillBlendmode() != 0)
 			p->setBlendModeFill(0);
-	#endif
+#endif
 		p->setMaskMode(0);
 		if (!m_Doc->RePos)
 		{
-	#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 			p->setBlendModeStroke(lineBlendmode());
 			p->setPenOpacity(1.0 - lineTransparency());
-	#else
+#else
 			if (lineBlendmode() != 0)
 				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-	#endif
-			if (!isTableItem)
+#endif
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle.isEmpty())
 			{
-				p->setupPolygon(&PoLine);
-				if (NamedLStyle.isEmpty())
+				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
-					if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					if (DashValues.count() != 0)
+						p->setDash(DashValues, DashOffset);
+				}
+				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				{
+					if (patternStrokePath)
 					{
-						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-						if (DashValues.count() != 0)
-							p->setDash(DashValues, DashOffset);
+						QPainterPath guidePath = PoLine.toQPainterPath(false);
+						DrawStrokePattern(p, guidePath);
 					}
-					if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+					else
 					{
-						if (patternStrokePath)
-						{
-							QPainterPath guidePath = PoLine.toQPainterPath(false);
-							DrawStrokePattern(p, guidePath);
-						}
-						else
-						{
-							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
-							p->setStrokeMode(ScPainter::Pattern);
-							p->strokePath();
-						}
-					}
-					else if (GrTypeStroke > 0)
-					{
-						if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-							gradientStrokeVal = "";
-						if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
-							stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
-						if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
-						{
-							if (lineColor() != CommonStrings::None)
-							{
-								p->setBrush(strokeQColor);
-								p->setStrokeMode(ScPainter::Solid);
-							}
-							else
-								p->setStrokeMode(ScPainter::None);
-						}
-						else
-						{
-							p->setStrokeMode(ScPainter::Gradient);
-							p->stroke_gradient = stroke_gradient;
-							if (GrTypeStroke == 6)
-								p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
-							else
-								p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
-						}
-						p->strokePath();
-					}
-					else if (lineColor() != CommonStrings::None)
-					{
-						p->setStrokeMode(ScPainter::Solid);
-						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-						if (DashValues.count() != 0)
-							p->setDash(DashValues, DashOffset);
+						p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+						p->setStrokeMode(ScPainter::Pattern);
 						p->strokePath();
 					}
 				}
-				else
+				else if (GrTypeStroke > 0)
+				{
+					if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+						gradientStrokeVal = "";
+					if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+						stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+					if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+					{
+						if (lineColor() != CommonStrings::None)
+						{
+							p->setBrush(strokeQColor);
+							p->setStrokeMode(ScPainter::Solid);
+						}
+						else
+							p->setStrokeMode(ScPainter::None);
+					}
+					else
+					{
+						p->setStrokeMode(ScPainter::Gradient);
+						p->stroke_gradient = stroke_gradient;
+						if (GrTypeStroke == 6)
+							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
+						else
+							p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
+					}
+					p->strokePath();
+				}
+				else if (lineColor() != CommonStrings::None)
 				{
 					p->setStrokeMode(ScPainter::Solid);
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					QColor tmp;
-					for (int it = ml.size()-1; it > -1; it--)
-					{
-						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-						p->setPen(tmp, ml[it].Width,
-								static_cast<Qt::PenStyle>(ml[it].Dash),
-								static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						p->strokePath();
-					}
+					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					if (DashValues.count() != 0)
+						p->setDash(DashValues, DashOffset);
+					p->strokePath();
 				}
 			}
-	#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
+			else
+			{
+				p->setStrokeMode(ScPainter::Solid);
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<Qt::PenStyle>(ml[it].Dash),
+							  static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+							  static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
 			if (lineBlendmode() != 0)
 				p->endLayer();
-	#else
+#else
 			if (lineBlendmode() != 0)
 				p->setBlendModeStroke(0);
-	#endif
+#endif
 		}
 	}
 	p->setFillMode(ScPainter::Solid);
@@ -4198,17 +4195,12 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 		else
 			actionList << "itemPDFFieldProps";
 	}
-	if (isTableItem)
-		actionList << "itemConvertToImageFrame";
-	else 
+	if ((prevInChain() == 0) && (nextInChain() == 0))
 	{
-		if ((prevInChain() == 0) && (nextInChain() == 0))
-		{
-			actionList << "itemConvertToImageFrame";
-			actionList << "itemConvertToPolygon";
-		}
-		actionList << "itemConvertToOutlines";
+		actionList << "itemConvertToImageFrame";
+		actionList << "itemConvertToPolygon";
 	}
+	actionList << "itemConvertToOutlines";
 	if (itemText.lines() != 0)
 		actionList << "editClearContents";
 }

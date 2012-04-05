@@ -504,53 +504,6 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 			PS_restore();
 			PutStream("} exec\n");
 		}
-		for (int em = 0; em < pa.items.count(); ++em)
-		{
-			int h, s, v, k;
-			PageItem* item = pa.items.at(em);
-			if (!item->isTableItem)
-				continue;
-			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
-				continue;
-			PutStream("{\n");
-			PS_save();
-			PS_translate(item->gXpos, pa.height - item->gYpos);
-			PS_rotate(item->rotation());
-			if (item->lineColor() != CommonStrings::None)
-			{
-				SetColor(item->lineColor(), item->lineShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			}
-			PS_setlinewidth(item->lineWidth());
-			PS_setcapjoin(Qt::SquareCap, item->PLineJoin);
-			PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
-			if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
-			{
-				if (item->TopLine)
-				{
-					PS_moveto(0, 0);
-					PS_lineto(item->width(), 0);
-				}
-				if (item->RightLine)
-				{
-					PS_moveto(item->width(), 0);
-					PS_lineto(item->width(), -item->height());
-				}
-				if (item->BottomLine)
-				{
-					PS_moveto(0, -item->height());
-					PS_lineto(item->width(), -item->height());
-				}
-				if (item->LeftLine)
-				{
-					PS_moveto(0, 0);
-					PS_lineto(0, -item->height());
-				}
-				putColor(item->lineColor(), item->lineShade(), false);
-			}
-			PS_restore();
-			PutStream("} exec\n");
-		}
 		spoolStream.setDevice(spStream);
 		PutStream(buf);
 		PutStream("} def\n");
@@ -1799,7 +1752,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				if (!imageOk) return false;
 			}
 			PS_restore();
-			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()) || (c->GrTypeStroke > 0)) && (!c->isTableItem))
+			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()) || (c->GrTypeStroke > 0)))
 			{
 				if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 				{
@@ -1898,7 +1851,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_scale(1, -1);
 			}
 			setTextSt(Doc, c, gcr, PNr-1, a, sep, farb, ic, master);
-			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()) || (c->GrTypeStroke > 0)) && (!c->isTableItem))
+			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()) || (c->GrTypeStroke > 0)))
 			{
 				PS_setlinewidth(c->lineWidth());
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
@@ -2944,86 +2897,6 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
 			}
 		}
-		for (b = 0; b < PItems.count() && !abortExport; ++b)
-		{
-			c = PItems.at(b);
-			if (usingGUI)
-				ScQApp->processEvents();
-			if (c->LayerID != ll.ID)
-				continue;
-			if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
-				continue;
-			if ((!a->pageName().isEmpty()) && (c->asPathText()))
-				continue;
-			if ((!a->pageName().isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
-				continue;
-			double bLeft, bRight, bBottom, bTop;
-			GetBleeds(a, bLeft, bRight, bBottom, bTop);
-			double x = a->xOffset() - bLeft;
-			double y = a->yOffset() - bTop;
-			double w = a->width() + bLeft + bRight;
-			double h1 = a->height() + bBottom + bTop;
-			double ilw=c->lineWidth();
-			double x2 = c->BoundingX - ilw / 2.0;
-			double y2 = c->BoundingY - ilw / 2.0;
-			double w2 = qMax(c->BoundingW + ilw, 1.0);
-			double h2 = qMax(c->BoundingH + ilw, 1.0);
-			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
-				continue;
-			if (c->ChangedMasterItem)
-				continue;
-			if (!c->isTableItem)
-				continue;
-			if (c->lineColor() == CommonStrings::None) //|| (c->lineWidth() == 0.0))
-				continue;
-			if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
-				continue;
-			if (c->printEnabled())
-			{
-				PS_save();
-				if (c->doOverprint)
-				{
-					PutStream("true setoverprint\n");
-					PutStream("true setoverprintmode\n");
-				}
-				if (c->lineColor() != CommonStrings::None)
-				{
-					SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				}
-				PS_setlinewidth(c->lineWidth());
-				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
-				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-				PS_translate(c->xPos() - a->xOffset(), a->height() - (c->yPos() - a->yOffset()));
-				if (c->rotation() != 0)
-					PS_rotate(-c->rotation());
-				if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))
-				{
-					if (c->TopLine)
-					{
-						PS_moveto(0, 0);
-						PS_lineto(c->width(), 0);
-					}
-					if (c->RightLine)
-					{
-						PS_moveto(c->width(), 0);
-						PS_lineto(c->width(), -c->height());
-					}
-					if (c->BottomLine)
-					{
-						PS_moveto(0, -c->height());
-						PS_lineto(c->width(), -c->height());
-					}
-					if (c->LeftLine)
-					{
-						PS_moveto(0, 0);
-						PS_lineto(0, -c->height());
-					}
-					putColor(c->lineColor(), c->lineShade(), false);
-				}
-				PS_restore();
-			}
-		}
 		Lnr++;
 	}
 }
@@ -3292,7 +3165,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 					PS_scale(1, -1);
 				}
 				setTextSt(Doc, ite, gcr, PNr, mPage, sep, farb, ic, true);
-				if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
+				if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
 				{
 					if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
 					{
@@ -3785,59 +3658,6 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				break;
 		}
 	}
-	for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
-	{
-		PageItem *ite = page->FromMaster.at(am);
-		if (!ite->isTableItem)
-			continue;
-		if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
-			continue;
-		if (ite->printEnabled())
-		{
-			PS_save();
-			if (ite->doOverprint)
-			{
-				PutStream("true setoverprint\n");
-				PutStream("true setoverprintmode\n");
-			}
-			if (ite->lineColor() != CommonStrings::None)
-			{
-				SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			}
-			PS_setlinewidth(ite->lineWidth());
-			PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
-			PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
-			PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
-			if (ite->rotation() != 0)
-				PS_rotate(-ite->rotation());
-			if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
-			{
-				if (ite->TopLine)
-				{
-					PS_moveto(0, 0);
-					PS_lineto(ite->width(), 0);
-				}
-				if (ite->RightLine)
-				{
-					PS_moveto(ite->width(), 0);
-					PS_lineto(ite->width(), -ite->height());
-				}
-				if (ite->BottomLine)
-				{
-					PS_moveto(0, -ite->height());
-					PS_lineto(ite->width(), -ite->height());
-				}
-				if (ite->LeftLine)
-				{
-					PS_moveto(0, 0);
-					PS_lineto(0, -ite->height());
-				}
-				putColor(ite->lineColor(), ite->lineShade(), false);
-			}
-			PS_restore();
-		}
-	}
 	return success;
 }
 
@@ -3888,85 +3708,6 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint
 			if (!success)
 				break;
 		}
-	}
-	if (!success)
-		return false;
-	for (b = 0; b < items.count() && !abortExport; ++b)
-	{
-		PageItem* item = items.at(b);
-		if (usingGUI)
-			ScQApp->processEvents();
-		if (item->LayerID != layer.ID)
-			continue;
-		if ((!page->pageName().isEmpty()) && (item->asTextFrame()))
-			continue;
-		if ((!page->pageName().isEmpty()) && (item->asPathText()))
-			continue;
-		if ((!page->pageName().isEmpty()) && (item->asImageFrame()) && ((sep) || (!farb)))
-			continue;
-		double bLeft, bRight, bBottom, bTop;
-		GetBleeds(page, bLeft, bRight, bBottom, bTop);
-		double x  = page->xOffset() - bLeft;
-		double y  = page->yOffset() - bTop;
-		double w  = page->width() + bLeft + bRight;
-		double h1 = page->height() + bBottom + bTop;
-		double ilw= item->lineWidth();
-		double x2 = item->BoundingX - ilw / 2.0;
-		double y2 = item->BoundingY - ilw / 2.0;
-		double w2 = qMax(item->BoundingW + ilw, 1.0);
-		double h2 = qMax(item->BoundingH + ilw, 1.0);
-		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
-			continue;
-		if (item->ChangedMasterItem)
-			continue;
-		if (!item->isTableItem || !item->printEnabled())
-			continue;
-		if (item->lineColor() == CommonStrings::None) //|| (item->lineWidth() == 0.0))
-			continue;
-		if ((!page->pageName().isEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
-			continue;
-		PS_save();
-		if (item->doOverprint)
-		{
-			PutStream("true setoverprint\n");
-			PutStream("true setoverprintmode\n");
-		}
-		if (item->lineColor() != CommonStrings::None)
-		{
-			SetColor(item->lineColor(), item->lineShade(), &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-		}
-		PS_setlinewidth(item->lineWidth());
-		PS_setcapjoin(item->PLineEnd, item->PLineJoin);
-		PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
-		PS_translate(item->xPos() - page->xOffset(), page->height() - (item->yPos() - page->yOffset()));
-		if (item->rotation() != 0)
-			PS_rotate(-item->rotation());
-		if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
-		{
-			if (item->TopLine)
-			{
-				PS_moveto(0, 0);
-				PS_lineto(item->width(), 0);
-			}
-			if (item->RightLine)
-			{
-				PS_moveto(item->width(), 0);
-				PS_lineto(item->width(), -item->height());
-			}
-			if (item->BottomLine)
-			{
-				PS_moveto(0, -item->height());
-				PS_lineto(item->width(), -item->height());
-			}
-			if (item->LeftLine)
-			{
-				PS_moveto(0, 0);
-				PS_lineto(0, -item->height());
-			}
-			putColor(item->lineColor(), item->lineShade(), false);
-		}
-		PS_restore();
 	}
 	return success;
 }
@@ -5404,56 +5145,6 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				PS_scale(1, cstyle.scaleV() / 1000.0);
 			ProcessItem(Doc, pg, embedded, argh, sep, farb, ic, gcr, master, true);
 			PS_restore();
-		}
-		for (int em = 0; em < emG.count(); ++em)
-		{
-			int h, s, v, k;
-			PageItem* item = emG.at(em);
-			if (!item->isTableItem)
-				continue;
-			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
-				continue;
-			PS_save();
-			PS_translate(x + hl->glyph.xoffset + item->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (item->gHeight * (cstyle.scaleV() / 1000.0)) + item->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
-			if (cstyle.baselineOffset() != 0)
-				PS_translate(0, -item->gHeight * (cstyle.baselineOffset() / 1000.0));
-			PS_scale(cstyle.scaleH() / 1000.0, cstyle.scaleV() / 1000.0);
-			PS_rotate(item->rotation());
-			double pws = item->m_lineWidth;
-			if (item->lineColor() != CommonStrings::None)
-			{
-				SetColor(item->lineColor(), item->lineShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			}
-			PS_setlinewidth(item->lineWidth());
-			PS_setcapjoin(Qt::SquareCap, item->PLineJoin);
-			PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
-			if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
-			{
-				if (item->TopLine)
-				{
-					PS_moveto(0, 0);
-					PS_lineto(item->width(), 0);
-				}
-				if (item->RightLine)
-				{
-					PS_moveto(item->width(), 0);
-					PS_lineto(item->width(), -item->height());
-				}
-				if (item->BottomLine)
-				{
-					PS_moveto(0, -item->height());
-					PS_lineto(item->width(), -item->height());
-				}
-				if (item->LeftLine)
-				{
-					PS_moveto(0, 0);
-					PS_lineto(0, -item->height());
-				}
-				putColor(item->lineColor(), item->lineShade(), false);
-			}
-			PS_restore();
-			item->m_lineWidth = pws;
 		}
 		return;
 	}

@@ -155,58 +155,6 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 			currItem->BoundingY = OldBY;
 		}
 	}
-	for (uint a = 0; a < pageFromMasterCount; ++a)
-	{
-		currItem = page->FromMaster.at(a);
-		if (currItem->LayerID != layer.ID)
-			continue;
-		if (!currItem->isTableItem)
-			continue;
-		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
-			continue;
-		double OldX = currItem->xPos();
-		double OldY = currItem->yPos();
-		double OldBX = currItem->BoundingX;
-		double OldBY = currItem->BoundingY;
-		if (!currItem->ChangedMasterItem)
-		{
-			currItem->setXPos(OldX - Mp->xOffset() + page->xOffset(), true);
-			currItem->setYPos(OldY - Mp->yOffset() + page->yOffset(), true);
-			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-		}
-		QRect oldR(currItem->getRedrawBounding(1.0));
-		if (clip.intersects(oldR))
-		{
-			painter->save();
-			painter->translate(currItem->xPos(), currItem->yPos());
-			painter->rotate(currItem->rotation());
-			if (currItem->lineColor() != CommonStrings::None)
-			{
-				ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade());
-				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-				{
-					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-					if (currItem->TopLine)
-						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-					if (currItem->RightLine)
-						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-					if (currItem->BottomLine)
-						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-					if (currItem->LeftLine)
-						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-				}
-			}
-			painter->restore();
-		}
-		if (!currItem->ChangedMasterItem)
-		{
-			currItem->setXPos(OldX, true);
-			currItem->setYPos(OldY, true);
-			currItem->BoundingX = OldBX;
-			currItem->BoundingY = OldBY;
-		}
-	}
 }
 
 void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip)
@@ -235,38 +183,6 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer
 		if (clip.intersects(oldR))
 		{
 			drawItem( currItem, painter, clip );
-		}
-	}
-	for (int it = 0; it < m_doc->Items->count(); ++it)
-	{
-		currItem = m_doc->Items->at(it);
-		if (currItem->LayerID != layer.ID)
-			continue;
-		if (!currItem->isTableItem)
-			continue;
-		QRect oldR(currItem->getRedrawBounding(1.0));
-		if (clip.intersects(oldR))
-		{
-			painter->save();
-			painter->translate(currItem->xPos(), currItem->yPos());
-			painter->rotate(currItem->rotation());
-			if (currItem->lineColor() != CommonStrings::None)
-			{
-				ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade() );
-				if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
-				{
-					painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
-					if (currItem->TopLine)
-						painter->drawLine(FPoint(0.0, 0.0), FPoint(currItem->width(), 0.0));
-					if (currItem->RightLine)
-						painter->drawLine(FPoint(currItem->width(), 0.0), FPoint(currItem->width(), currItem->height()));
-					if (currItem->BottomLine)
-						painter->drawLine(FPoint(currItem->width(), currItem->height()), FPoint(0.0, currItem->height()));
-					if (currItem->LeftLine)
-						painter->drawLine(FPoint(0.0, currItem->height()), FPoint(0.0, 0.0));
-				}
-			}
-			painter->restore();
 		}
 	}
 }
@@ -493,83 +409,80 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 			}
 			else
 				painter->setLineWidth(0);
-			if (!item->isTableItem)
+			if ((item->itemType() == PageItem::LatexFrame) || (item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::OSGFrame))
+				painter->setupPolygon(&item->PoLine);
+			if (item->NamedLStyle.isEmpty())
 			{
-				if ((item->itemType() == PageItem::LatexFrame) || (item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::OSGFrame))
-					painter->setupPolygon(&item->PoLine);
-				if (item->NamedLStyle.isEmpty())
+				QString patternStrokeVal = item->strokePattern();
+				if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
 				{
-					QString patternStrokeVal = item->strokePattern();
-					if ((!patternStrokeVal.isEmpty()) && (m_doc->docPatterns.contains(patternStrokeVal)))
+					if (item->patternStrokePath)
 					{
-						if (item->patternStrokePath)
-						{
-							QPainterPath guidePath = item->PoLine.toQPainterPath(false);
-							drawStrokePattern(item, painter, guidePath);
-						}
-						else
-						{
-							painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
-							painter->setStrokeMode(ScPainterExBase::Pattern);
-							painter->strokePath();
-						}
+						QPainterPath guidePath = item->PoLine.toQPainterPath(false);
+						drawStrokePattern(item, painter, guidePath);
 					}
-					else if (item->strokeGradientType() > 0)
+					else
 					{
-						QString gradientStrokeVal = item->strokeGradient();
-						if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-							gradientStrokeVal = "";
-						if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
-							painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
-						if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
-						{
-							if (item->lineColor() != CommonStrings::None)
-							{
-								ScColorShade strokeColor(m_doc->PageColors[item->lineColor()], item->lineShade());
-								painter->setBrush(strokeColor);
-								painter->setStrokeMode(ScPainterExBase::Solid);
-							}
-							else
-								painter->setStrokeMode(ScPainterExBase::None);
-						}
-						else
-						{
-							FPoint fpStart(item->GrStrokeStartX, item->GrStrokeStartY);
-							FPoint fpEnd(item->GrStrokeEndX, item->GrStrokeEndY);
-							FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
-							painter->setStrokeMode(ScPainterExBase::Gradient);
-							painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
-							if (item->GrTypeStroke == 6)
-								painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
-							else
-								painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
-						}
-						painter->strokePath();
-					}
-					else if (item->lineColor() != CommonStrings::None)
-					{
-						ScColorShade scColor(m_doc->PageColors[item->lineColor()], item->lineShade());
-						painter->setStrokeMode(ScPainterExBase::Solid);
-						painter->setPen(scColor, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
-						if (item->DashValues.count() != 0)
-							painter->setDash(item->DashValues, item->DashOffset);
+						painter->setPattern(&m_doc->docPatterns[patternStrokeVal], item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+						painter->setStrokeMode(ScPainterExBase::Pattern);
 						painter->strokePath();
 					}
 				}
-				else
+				else if (item->strokeGradientType() > 0)
 				{
-					multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-					for (int it = ml.size()-1; it > -1; it--)
+					QString gradientStrokeVal = item->strokeGradient();
+					if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
+						gradientStrokeVal = "";
+					if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
+						painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
+					if (painter->m_strokeGradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 					{
-						const SingleLine& sl = ml[it];
-						if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+						if (item->lineColor() != CommonStrings::None)
 						{
-							ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
-							painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
-									static_cast<Qt::PenCapStyle>(sl.LineEnd),
-									static_cast<Qt::PenJoinStyle>(sl.LineJoin));
-							painter->strokePath();
+							ScColorShade strokeColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+							painter->setBrush(strokeColor);
+							painter->setStrokeMode(ScPainterExBase::Solid);
 						}
+						else
+							painter->setStrokeMode(ScPainterExBase::None);
+					}
+					else
+					{
+						FPoint fpStart(item->GrStrokeStartX, item->GrStrokeStartY);
+						FPoint fpEnd(item->GrStrokeEndX, item->GrStrokeEndY);
+						FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
+						painter->setStrokeMode(ScPainterExBase::Gradient);
+						painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
+						if (item->GrTypeStroke == 6)
+							painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
+						else
+							painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
+					}
+					painter->strokePath();
+				}
+				else if (item->lineColor() != CommonStrings::None)
+				{
+					ScColorShade scColor(m_doc->PageColors[item->lineColor()], item->lineShade());
+					painter->setStrokeMode(ScPainterExBase::Solid);
+					painter->setPen(scColor, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
+					if (item->DashValues.count() != 0)
+						painter->setDash(item->DashValues, item->DashOffset);
+					painter->strokePath();
+				}
+			}
+			else
+			{
+				multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					const SingleLine& sl = ml[it];
+					if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+					{
+						ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+						painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+										static_cast<Qt::PenCapStyle>(sl.LineEnd),
+										static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+						painter->strokePath();
 					}
 				}
 			}
@@ -787,47 +700,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		p->restore();
 		embedded->m_lineWidth = pws;
 	}
-	for (int em = 0; em < emG.count(); ++em)
-	{
-		PageItem* embedded = emG.at(em);
-		if (!embedded->isTableItem)
-			continue;
-		p->save();
-		double x = embedded->xPos();
-		double y = embedded->yPos();
-		embedded->setXPos(embedded->gXpos, true);
-		embedded->setYPos ((embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos, true);
-		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
-		if (style.baselineOffset() != 0)
-		{
-			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
-			embedded->setYPos(embedded->yPos() - embedded->gHeight * (style.baselineOffset() / 1000.0));
-		}
-		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		p->rotate(embedded->rotation());
-		double pws = embedded->m_lineWidth;
-		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
-		{
-			ScColorShade colorShade(m_doc->PageColors[embedded->lineColor()], embedded->lineShade());
-			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-			{
-				p->setPen(colorShade, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
-				if (embedded->TopLine)
-					p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
-				if (embedded->RightLine)
-					p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
-				if (embedded->BottomLine)
-					p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
-				if (embedded->LeftLine)
-					p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
-			}
-		}
-		embedded->m_lineWidth = pws;
-		embedded->setXPos(x, true);
-		embedded->setYPos(y, true);
-		p->restore();
-	}
 }
 
 void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const QRect& clip)
@@ -997,35 +869,6 @@ void ScPageOutput::drawItem_Group( PageItem_Group* item, ScPainterExBase* painte
 		embedded->isEmbedded = true;
 		embedded->invalidateLayout();
 		drawItem(embedded, painter, QRect());
-		embedded->isEmbedded = false;
-		painter->restore();
-	}
-	for (int em = 0; em < item->groupItemList.count(); ++em)
-	{
-		PageItem* embedded = item->groupItemList.at(em);
-		if (!embedded->isTableItem)
-			continue;
-		painter->save();
-		painter->translate(embedded->gXpos, embedded->gYpos);
-		painter->rotate(embedded->rotation());
-		embedded->isEmbedded = true;
-		embedded->invalidateLayout();
-		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
-		{
-			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-			{
-				ScColorShade colorShade(m_doc->PageColors[embedded->lineColor()], embedded->lineShade());
-				painter->setPen(colorShade, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
-				if (embedded->TopLine)
-					painter->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
-				if (embedded->RightLine)
-					painter->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
-				if (embedded->BottomLine)
-					painter->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
-				if (embedded->LeftLine)
-					painter->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
-			}
-		}
 		embedded->isEmbedded = false;
 		painter->restore();
 	}

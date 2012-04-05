@@ -76,7 +76,6 @@ private slots:
 	void handleLineEnd();
 	void handleLineMode();
 	void handleDashChange();
-	void handleTLines();
 	void handleStartArrow(int id);
 	void handleEndArrow(int id);
 	void handleStartArrowScale(int sc);

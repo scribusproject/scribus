@@ -2451,31 +2451,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("TransBlend", item->fillBlendmode());
 	if (item->lineBlendmode() != 0)
 		docu.writeAttribute("TransBlendS", item->lineBlendmode());
-	if (item->isTableItem)
-	{
-		docu.writeAttribute("isTableItem", 1);
-		docu.writeAttribute("TopLine", static_cast<int>(item->TopLine));
-		docu.writeAttribute("LeftLine", static_cast<int>(item->LeftLine));
-		docu.writeAttribute("RightLine", static_cast<int>(item->RightLine));
-		docu.writeAttribute("BottomLine", static_cast<int>(item->BottomLine));
-		if (item->TopLink != 0)
-			docu.writeAttribute("TopLINK", qHash(item->TopLink));
-		else
-			docu.writeAttribute("TopLINK", -1);
-		if (item->LeftLink != 0)
-			docu.writeAttribute("LeftLINK", qHash(item->LeftLink));
-		else
-			docu.writeAttribute("LeftLINK", -1);
-		if (item->RightLink != 0)
-			docu.writeAttribute("RightLINK", qHash(item->RightLink));
-		else
-			docu.writeAttribute("RightLINK", -1);
-		if (item->BottomLink != 0)
-			docu.writeAttribute("BottomLINK", qHash(item->BottomLink));
-		else
-			docu.writeAttribute("BottomLINK", -1);
-		docu.writeAttribute("OwnLINK", qHash(item));
-	}
 
 	if (item->isTable())
 	{

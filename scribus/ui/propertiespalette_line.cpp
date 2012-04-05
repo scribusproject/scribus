@@ -66,8 +66,6 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	lineStyles->setItemDelegate(new LineFormatItemDelegate);
 	lineStyles->addItem( "No Style" );
 
-	tableLineLayout->setAlignment( Qt::AlignTop );
-
 	languageChange();
 
 	connect(lineWidth     , SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
@@ -76,17 +74,11 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(lineEndStyle , SIGNAL(activated(int))      , this, SLOT(handleLineEnd()));
 	connect(lineMode  , SIGNAL(activated(int))      , this, SLOT(handleLineMode()));
 	connect(dashEditor, SIGNAL(dashChanged())       , this, SLOT(handleDashChange()));
-	connect(topLine   , SIGNAL(clicked())           , this, SLOT(handleTLines()));
-	connect(leftLine  , SIGNAL(clicked())           , this, SLOT(handleTLines()));
-	connect(rightLine , SIGNAL(clicked())           , this, SLOT(handleTLines()));
-	connect(bottomLine, SIGNAL(clicked())           , this, SLOT(handleTLines()));
 	connect(startArrow, SIGNAL(activated(int))      , this, SLOT(handleStartArrow(int )));
 	connect(endArrow  , SIGNAL(activated(int))      , this, SLOT(handleEndArrow(int )));
 	connect(startArrowScale, SIGNAL(valueChanged(int)), this, SLOT(handleStartArrowScale(int )));
 	connect(endArrowScale  , SIGNAL(valueChanged(int)), this, SLOT(handleEndArrowScale(int )));
 	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
-
-	stackedWidget->setCurrentIndex(0);
 }
 
 void PropertiesPalette_Line::changeEvent(QEvent *e)
@@ -330,20 +322,7 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	endArrowScale->blockSignals(false);
 	lineMode->blockSignals(false);
 
-	if ((m_item->isTableItem) && (m_item->isSingleSel))
-	{
-		setter = true;
-		stackedWidget->setCurrentIndex(1);
-		topLine->setChecked(m_item->TopLine);
-		leftLine->setChecked(m_item->LeftLine);
-		rightLine->setChecked(m_item->RightLine);
-		bottomLine->setChecked(m_item->BottomLine);
-	}
-	else
-	{
-		setter = false;
-		stackedWidget->setCurrentIndex(0);
-	}
+	setter = false;
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
@@ -607,18 +586,6 @@ void PropertiesPalette_Line::handleLineMode()
 	emit lineModeChanged(lineMode->currentIndex());
 }
 
-void PropertiesPalette_Line::handleTLines()
-{
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		m_item->TopLine    = topLine->isChecked();
-		m_item->LeftLine   = leftLine->isChecked();
-		m_item->RightLine  = rightLine->isChecked();
-		m_item->BottomLine = bottomLine->isChecked();
-		m_item->update();
-	}
-}
-
 void PropertiesPalette_Line::handleStartArrow(int id)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
@@ -718,12 +685,6 @@ void PropertiesPalette_Line::languageChange()
 	lineEndStyle->addItem(loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
 	lineEndStyle->setCurrentIndex(oldLEndStyle);
 	lineEndLabel->setText( tr("&Endings:"));
-
-	tableLineGroup->setTitle( tr("Cell Lines"));
-	topLine->setText( tr("Line at Top"));
-	leftLine->setText( tr("Line at the Left"));
-	rightLine->setText( tr("Line at the Right "));
-	bottomLine->setText( tr("Line at Bottom"));
 
 	QString pctSuffix = tr(" %");
 	startArrowScale->setSuffix(pctSuffix);

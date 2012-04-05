@@ -322,51 +322,6 @@ void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 			continue;
 		ProcessItemOnPage(Item->xPos()-page->xOffset(), Item->yPos()-page->yOffset(), Item, &layerGroup);
 	}
-	for(int j = 0; j < Items.count(); ++j)
-	{
-		Item = Items.at(j);
-		if (Item->LayerID != layer.ID)
-			continue;
-		if (!Item->printEnabled())
-			continue;
-		double x = page->xOffset();
-		double y = page->yOffset();
-		double w = page->width();
-		double h = page->height();
-		double x2 = Item->BoundingX;
-		double y2 = Item->BoundingY;
-		double w2 = Item->BoundingW;
-		double h2 = Item->BoundingH;
-		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
-			continue;
-		if ((!page->pageName().isEmpty()) && (Item->OwnPage != static_cast<int>(page->pageNr())) && (Item->OwnPage != -1))
-			continue;
-		if (!Item->isTableItem)
-			continue;
-		if ((Item->lineColor() == CommonStrings::None) || (Item->lineWidth() == 0.0))
-			continue;
-		if ((Item->TopLine) || (Item->RightLine) || (Item->BottomLine) || (Item->LeftLine))
-		{
-			QString trans = "translate("+FToStr(Item->xPos()-page->xOffset())+", "+FToStr(Item->yPos()-page->yOffset())+")";
-			if (Item->rotation() != 0)
-				trans += " rotate("+FToStr(Item->rotation())+")";
-			QString stroke = getStrokeStyle(Item);
-			QDomElement ob = docu.createElement("path");
-			ob.setAttribute("transform", trans);
-			ob.setAttribute("style", "fill:none; " + stroke);
-			QString pathAttr = "";
-			if (Item->TopLine)
-				pathAttr += "M 0 0 L "+FToStr(Item->width())+" 0";
-			if (Item->RightLine)
-				pathAttr += " M " + FToStr(Item->width()) + "0 L "+FToStr(Item->width())+" "+FToStr(Item->height());
-			if (Item->BottomLine)
-				pathAttr += " M 0 " + FToStr(Item->height()) + " L "+FToStr(Item->width())+" "+FToStr(Item->height());
-			if (Item->LeftLine)
-				pathAttr += " M 0 0 L 0 "+FToStr(Item->height());
-			ob.setAttribute("d", pathAttr);
-			layerGroup.appendChild(ob);
-		}
-	}
 	docElement.appendChild(layerGroup);
 
 	m_Doc->setCurrentPage(SavedAct);
@@ -380,8 +335,7 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 		trans += " rotate("+FToStr(Item->rotation())+")";
 	QString fill = getFillStyle(Item);
 	QString stroke = "stroke:none";
-	if (!Item->isTableItem)
-		stroke = getStrokeStyle(Item);
+	stroke = getStrokeStyle(Item);
 	switch (Item->itemType())
 	{
 		case PageItem::Arc:
@@ -1454,8 +1408,7 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 		QDomElement obE;
 		QString fill = getFillStyle(embedded);
 		QString stroke = "stroke:none";
-		if (!embedded->isTableItem)
-			stroke = getStrokeStyle(embedded);
+		stroke = getStrokeStyle(embedded);
 		switch (embedded->itemType())
 		{
 			case PageItem::Arc:
@@ -1499,41 +1452,6 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 		mm.rotate(embedded->rotation());
 		obE.setAttribute("transform", MatrixToStr(mm));
 		layerGroup.appendChild(obE);
-	}
-	for (int em = 0; em < emG.count(); ++em)
-	{
-		PageItem* embedded = emG.at(em);
-		if (!embedded->isTableItem)
-			continue;
-		if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-			continue;
-		if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-		{
-			QTransform mm;
-			mm.translate(xpos + embedded->gXpos * (charStyle.scaleH() / 1000.0), (ypos - (embedded->gHeight * (charStyle.scaleV() / 1000.0)) + embedded->gYpos * (charStyle.scaleV() / 1000.0)));
-			if (charStyle.baselineOffset() != 0)
-				mm.translate(0, embedded->gHeight * (charStyle.baselineOffset() / 1000.0));
-			if (charStyle.scaleH() != 1000)
-				mm.scale(charStyle.scaleH() / 1000.0, 1);
-			if (charStyle.scaleV() != 1000)
-				mm.scale(1, charStyle.scaleV() / 1000.0);
-			mm.rotate(embedded->rotation());
-			QString stroke = getStrokeStyle(embedded);
-			QDomElement obL = docu.createElement("path");
-			obL.setAttribute("transform", MatrixToStr(mm));
-			obL.setAttribute("style", "fill:none; " + stroke);
-			QString pathAttr = "";
-			if (embedded->TopLine)
-				pathAttr += "M 0 0 L "+FToStr(embedded->width())+" 0";
-			if (embedded->RightLine)
-				pathAttr += " M " + FToStr(embedded->width()) + "0 L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
-			if (embedded->BottomLine)
-				pathAttr += " M 0 " + FToStr(embedded->height()) + " L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
-			if (embedded->LeftLine)
-				pathAttr += " M 0 0 L 0 "+FToStr(embedded->height());
-			obL.setAttribute("d", pathAttr);
-			layerGroup.appendChild(obL);
-		}
 	}
 	return layerGroup;
 }
@@ -2167,35 +2085,6 @@ void SVGExPlug::writeBasePatterns()
 			PageItem* Item = pa.items.at(em);
 			ProcessItemOnPage(Item->gXpos, Item->gYpos, Item, &patt);
 		}
-		for (int em = 0; em < pa.items.count(); ++em)
-		{
-			PageItem* embedded = pa.items.at(em);
-			QString trans = "translate("+FToStr(embedded->gXpos)+", "+FToStr(embedded->gYpos)+")";
-			if (embedded->rotation() != 0)
-				trans += " rotate("+FToStr(embedded->rotation())+")";
-			if (!embedded->isTableItem)
-				continue;
-			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-				continue;
-			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-			{
-				QString stroke = getStrokeStyle(embedded);
-				QDomElement obL = docu.createElement("path");
-				obL.setAttribute("transform", trans);
-				obL.setAttribute("style", "fill:none; " + stroke);
-				QString pathAttr = "";
-				if (embedded->TopLine)
-					pathAttr += "M 0 0 L "+FToStr(embedded->width())+" 0";
-				if (embedded->RightLine)
-					pathAttr += " M " + FToStr(embedded->width()) + "0 L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
-				if (embedded->BottomLine)
-					pathAttr += " M 0 " + FToStr(embedded->height()) + " L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
-				if (embedded->LeftLine)
-					pathAttr += " M 0 0 L 0 "+FToStr(embedded->height());
-				obL.setAttribute("d", pathAttr);
-				patt.appendChild(obL);
-			}
-		}
 		globalDefs.appendChild(patt);
 	}
 }
@@ -2213,35 +2102,6 @@ void SVGExPlug::writeBaseSymbols()
 		{
 			PageItem* Item = pa.items.at(em);
 			ProcessItemOnPage(Item->gXpos, Item->gYpos, Item, &patt);
-		}
-		for (int em = 0; em < pa.items.count(); ++em)
-		{
-			PageItem* embedded = pa.items.at(em);
-			QString trans = "translate("+FToStr(embedded->gXpos)+", "+FToStr(embedded->gYpos)+")";
-			if (embedded->rotation() != 0)
-				trans += " rotate("+FToStr(embedded->rotation())+")";
-			if (!embedded->isTableItem)
-				continue;
-			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-				continue;
-			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-			{
-				QString stroke = getStrokeStyle(embedded);
-				QDomElement obL = docu.createElement("path");
-				obL.setAttribute("transform", trans);
-				obL.setAttribute("style", "fill:none; " + stroke);
-				QString pathAttr = "";
-				if (embedded->TopLine)
-					pathAttr += "M 0 0 L "+FToStr(embedded->width())+" 0";
-				if (embedded->RightLine)
-					pathAttr += " M " + FToStr(embedded->width()) + "0 L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
-				if (embedded->BottomLine)
-					pathAttr += " M 0 " + FToStr(embedded->height()) + " L "+FToStr(embedded->width())+" "+FToStr(embedded->height());
-				if (embedded->LeftLine)
-					pathAttr += " M 0 0 L 0 "+FToStr(embedded->height());
-				obL.setAttribute("d", pathAttr);
-				patt.appendChild(obL);
-			}
 		}
 		globalDefs.appendChild(patt);
 	}

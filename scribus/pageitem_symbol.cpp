@@ -142,36 +142,6 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		embedded->isEmbedded = false;
 		p->restore();
 	}
-	for (int em = 0; em < pat.items.count(); ++em)
-	{
-		PageItem* embedded = pat.items.at(em);
-		if (!embedded->isTableItem)
-			continue;
-		p->save();
-		p->translate(embedded->gXpos, embedded->gYpos);
-		p->rotate(embedded->rotation());
-		embedded->isEmbedded = true;
-		embedded->invalid = true;
-		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
-		{
-			QColor tmp;
-			embedded->SetQColor(&tmp, embedded->lineColor(), embedded->lineShade());
-			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-			{
-				p->setPen(tmp, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
-				if (embedded->TopLine)
-					p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
-				if (embedded->RightLine)
-					p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
-				if (embedded->BottomLine)
-					p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
-				if (embedded->LeftLine)
-					p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
-			}
-		}
-		embedded->isEmbedded = false;
-		p->restore();
-	}
 	p->endLayer();
 	p->restore();
 	if (m_Doc->layerOutline(LayerID))

@@ -458,46 +458,43 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							dX+=qRound(dragConstrainInitPtX-currItem->xPos());
 							dY+=qRound(dragConstrainInitPtY-currItem->yPos());
 						}
-						if (!(currItem->isTableItem && currItem->isSingleSel))
+						double gx, gy, gh, gw;
+						m_objectDeltaPos.setXY(dX, dY);
+						m_doc->m_Selection->setGroupRect();
+						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						if (m_doc->SnapGuides)
 						{
-							double gx, gy, gh, gw;
-							m_objectDeltaPos.setXY(dX, dY);
+							double nx = gx + m_objectDeltaPos.x();
+							double ny = gy + m_objectDeltaPos.y();
+							double nxo = nx, nyo = ny;
+							m_doc->ApplyGuides(&nx, &ny);
+							m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
+							nx = nxo = gx + gw + m_objectDeltaPos.x();
+							ny = nyo = gy + gh + m_objectDeltaPos.y();
+							m_doc->ApplyGuides(&nx, &ny);
+							m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+						}
+						if (m_doc->useRaster)
+						{
 							m_doc->m_Selection->setGroupRect();
+							double gx, gy, gh, gw, gxo, gyo;
 							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-							if (m_doc->SnapGuides)
-							{
-								double nx = gx + m_objectDeltaPos.x();
-								double ny = gy + m_objectDeltaPos.y();
-								double nxo = nx, nyo = ny;
-								m_doc->ApplyGuides(&nx, &ny);
-								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
-								nx = nxo = gx + gw + m_objectDeltaPos.x();
-								ny = nyo = gy + gh + m_objectDeltaPos.y();
-								m_doc->ApplyGuides(&nx, &ny);
-								m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
-							}
-							if (m_doc->useRaster)
-							{
-								m_doc->m_Selection->setGroupRect();
-								double gx, gy, gh, gw, gxo, gyo;
-								m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-								gx += m_objectDeltaPos.x();
-								gy += m_objectDeltaPos.y();
-								gxo = gx;
-								gyo = gy;
-								FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-								FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-								if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
-									gx = npw.x() - gw;
-								else
-									gx = npx.x();
-								if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
-									gy = npw.y() - gh;
-								else
-									gy = npx.y();
-								if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
-									m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
-							}
+							gx += m_objectDeltaPos.x();
+							gy += m_objectDeltaPos.y();
+							gxo = gx;
+							gyo = gy;
+							FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
+							FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+							if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+								gx = npw.x() - gw;
+							else
+								gx = npx.x();
+							if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+								gy = npw.y() - gh;
+							else
+								gy = npx.y();
+							if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
+								m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 						}
 					}
 				}

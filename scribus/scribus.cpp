@@ -2642,7 +2642,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
 	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PictureIsAvailable || currItem->asLatexFrame()));
-	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && !currItem->isTableItem);
+	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrActions["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->pixm.imgInfo.valid);
 	scrActions["itemToggleInlineImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
@@ -2770,7 +2770,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
+		scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
@@ -2823,8 +2823,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 //		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["itemConvertToOutlines"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
-		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
+		scrActions["itemConvertToOutlines"]->setEnabled(doc->appMode != modeEdit);
+		scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 
 		scrActions["toolsRotate"]->setEnabled(true);
@@ -3148,15 +3148,15 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
 //			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
-			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", !(currItem->isTableItem && currItem->isSingleSel));
-			scrActions["itemSendToPattern"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
+			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
+			scrActions["itemSendToPattern"]->setEnabled(true);
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
 		}
 		else
 		{
-			bool setter=!(currItem->isSingleSel && (currItem->isTableItem  || currItem->isGroup()));
+			bool setter = !currItem->isGroup();
 			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
@@ -4965,7 +4965,7 @@ void ScribusMainWindow::slotEditCut()
 		}
 		else
 		{
-			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
+			if ((currItem->isSingleSel) && (currItem->isGroup()))
 				return;
 			ScriXmlDoc ss;
 			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
@@ -5034,7 +5034,7 @@ void ScribusMainWindow::slotEditCopy()
 		}
 		else
 		{
-			if (((currItem->isSingleSel) && (currItem->isGroup())) || ((currItem->isSingleSel) && (currItem->isTableItem)))
+			if ((currItem->isSingleSel) && (currItem->isGroup()))
 				return;
 			ScriXmlDoc ss;
 			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
@@ -8979,11 +8979,7 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 	{
 		int itemNr = doc->getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
 		if (doc->Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
-		{
-			if (isUndo)
-				doc->Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
 			view->SelectItemNr(itemNr);
-		}
 	}
 	if (isUndo)
 		GroupObj(false);

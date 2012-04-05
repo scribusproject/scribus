@@ -433,8 +433,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 
 	if (PictureIsAvailable)
 	{
-		if (!isTableItem)
-			actionList << "itemAdjustFrameToImage";
+		actionList << "itemAdjustFrameToImage";
 		actionList << "itemAdjustImageToFrame";
 		if (pixm.imgInfo.valid)
 			actionList << "itemExtendedImageProperties";
@@ -450,8 +449,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 			actionList << "editEditWithImageEditor";
 		}
 	}
-	if (!isTableItem)
-		actionList << "itemConvertToPolygon";
+	actionList << "itemConvertToPolygon";
 	if (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame)
 	{
 		actionList << "editPasteContents";

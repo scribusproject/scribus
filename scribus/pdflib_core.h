@@ -150,7 +150,6 @@ private:
 	QByteArray ComputeRC4Key(int ObjNum);
 
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
-	QString PDF_ProcessTableItem(PageItem* ite, const ScPage* pag);
 	QString paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
 	QString HandleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr);
 	QString drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);

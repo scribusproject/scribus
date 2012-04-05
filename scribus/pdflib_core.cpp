@@ -2164,7 +2164,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						PutPage("Q\n");
 						PutPage("Q\n");
-						if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
+						if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
 						{
 							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 								PutPage(PDF_TransparenzStroke(ite));
@@ -2532,18 +2532,6 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								tmpD += output;
 								tmpD += "Q\n";
 							}
-							for (int em = 0; em < pat.items.count(); ++em)
-							{
-								PageItem* embedded = pat.items.at(em);
-								if (!embedded->isTableItem)
-									continue;
-								if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-									continue;
-								tmpD += "q\n";
-								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-								tmpD += PDF_ProcessTableItem(embedded, pag);
-								tmpD += "Q\n";
-							}
 							if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
 								PutPage(Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite));
 							else
@@ -2576,18 +2564,6 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
 									return "";
 								tmpD += output;
-								tmpD += "Q\n";
-							}
-							for (int em = 0; em < ite->groupItemList.count(); ++em)
-							{
-								PageItem* embedded = ite->groupItemList.at(em);
-								if (!embedded->isTableItem)
-									continue;
-								if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-									continue;
-								tmpD += "q\n";
-								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-								tmpD += PDF_ProcessTableItem(embedded, pag);
 								tmpD += "Q\n";
 							}
 							if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
@@ -3248,28 +3224,6 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 				ite->BoundingY = OldBY;
 			}
 		}
-		for (int am = 0; am < pag->FromMaster.count(); ++am)
-		{
-			ite = pag->FromMaster.at(am);
-			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
-				continue;
-			if (ite->ChangedMasterItem)
-				continue;
-			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-				continue;
-			if (!ite->isTableItem)
-				continue;
-			double oldX = ite->xPos();
-			double oldY = ite->yPos();
-			double OldBX = ite->BoundingX;
-			double OldBY = ite->BoundingY;
-			ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
-			ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
-			PutPage(PDF_ProcessTableItem(ite, pag));
-			ite->setXYPos(oldX, oldY, true);
-			ite->BoundingX = OldBX;
-			ite->BoundingY = OldBY;
-		}
 		if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 			PutPage("EMC\n");
 	}
@@ -3305,42 +3259,6 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 				inh += output;
 			else
 				PutPage(output);
-		}
-		for (int a = 0; a < PItems.count() && !abortExport; ++a)
-		{
-			ite = PItems.at(a);
-			if (ite->LayerID != layer.ID)
-				continue;
-			if (usingGUI)
-			{
-				progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-				qApp->processEvents();
-			}
-			if (!ite->isTableItem)
-				continue;
-			double bLeft, bRight, bBottom, bTop;
-			getBleeds(ActPageP, bLeft, bRight, bBottom, bTop);
-			double x  = pag->xOffset() - bLeft;
-			double y  = pag->yOffset() - bTop;
-			double w  = pag->width()  + bLeft + bRight;
-			double h1 = pag->height() + bBottom + bTop;
-			double ilw= ite->lineWidth();
-			double x2 = ite->BoundingX - ilw / 2.0;
-			double y2 = ite->BoundingY - ilw / 2.0;
-			double w2 = qMax(ite->BoundingW + ilw, 1.0);
-			double h2 = qMax(ite->BoundingH + ilw, 1.0);
-			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
-				continue;
-			if (ite->ChangedMasterItem)
-				continue;
-			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-				continue;
-			if (!ite->printEnabled())
-				continue;
-			if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-				inh += PDF_ProcessTableItem(ite, pag);
-			else
-				PutPage(PDF_ProcessTableItem(ite, pag));
 		}
 		if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) ||(Options.Version == PDFOptions::PDFVersion_X4)))
 		{
@@ -3527,101 +3445,6 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	retString += "/"+name+" Do\n";
 	retString += "Q\n";
 	return retString;
-}
-
-QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const ScPage* pag)
-{
-	if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
-		return "";
-	QString tmp("");
-	tmp += "q\n";
-	if ((ite->doOverprint) && (!Options.UseRGB))
-	{
-		QString ShName = ResNam+QString::number(ResCount);
-		ResCount++;
-		Transpar[ShName] = writeGState("/OP true\n"
-									   "/op true\n"
-									   "/OPM 1\n");
-		tmp += "/"+ShName+" gs\n";
-	}
-//	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
-//		tmp += PDF_Transparenz(ite);
-//	if (ite->fillColor() != CommonStrings::None)
-//		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
-	if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-		tmp += PDF_TransparenzStroke(ite);
-	if (ite->lineColor() != CommonStrings::None)
-		tmp += putColor(ite->lineColor(), ite->lineShade(), false);
-	tmp += FToStr(fabs(ite->lineWidth()))+" w\n";
-	if (ite->DashValues.count() != 0)
-	{
-		tmp += "[ ";
-		QVector<double>::iterator it;
-		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
-		{
-			double da = *it;
-			// #8758: Custom dotted lines don't export properly to pdf
-			// Null values have to be exported if line end != flat
-			if ((da != 0) || (ite->lineEnd() != Qt::FlatCap))
-				tmp += QString::number(da)+" ";
-		}
-		tmp += "] "+QString::number(ite->DashOffset)+" d\n";
-	}
-	else
-		tmp += "["+getDashString(ite->PLineArt, ite->lineWidth())+"] 0 d\n";
-	tmp += "2 J\n";
-	switch (ite->PLineJoin)
-	{
-		case Qt::MiterJoin:
-			tmp += "0 j\n";
-			break;
-		case Qt::BevelJoin:
-			tmp += "2 j\n";
-			break;
-		case Qt::RoundJoin:
-			tmp += "1 j\n";
-			break;
-		default:
-			tmp += "0 j\n";
-			break;
-	}
-	tmp += "1 0 0 1 "+FToStr(ite->xPos() - pag->xOffset())+" "+FToStr(pag->height() - (ite->yPos()  - pag->yOffset()))+" cm\n";
-	if (ite->rotation() != 0)
-	{
-		double sr = sin(-ite->rotation()* M_PI / 180.0);
-		double cr = cos(-ite->rotation()* M_PI / 180.0);
-		if ((cr * cr) < 0.000001)
-			cr = 0;
-		if ((sr * sr) < 0.000001)
-			sr = 0;
-		tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n";
-	}
-	if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
-	{
-		if (ite->TopLine)
-		{
-			tmp += "0 0 m\n";
-			tmp += FToStr(ite->width())+" 0 l\n";
-		}
-		if (ite->RightLine)
-		{
-			tmp += FToStr(ite->width())+" 0 m\n";
-			tmp += FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n";
-		}
-		if (ite->BottomLine)
-		{
-			tmp += "0 "+FToStr(-ite->height())+" m\n";
-			tmp += FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n";
-		}
-		if (ite->LeftLine)
-		{
-			tmp += "0 0 m\n";
-			tmp += "0 "+FToStr(-ite->height())+" l\n";
-		}
-		tmp += "S\n";
-	}
-	tmp += "Q\n";
-	return tmp;
 }
 
 bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded, bool pattern)
@@ -3819,7 +3642,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			}
 			tmp += "Q\n";
 			tmp += "Q\n";
-			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
+			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4) ))
 					tmp += PDF_TransparenzStroke(ite);
@@ -3916,7 +3739,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			tmp += setTextSt(ite, PNr, pag);
 			tmp += "Q\n";
 			tmp += "Q\n";
-			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)) && (!ite->isTableItem))
+			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4) ))
 					tmp += PDF_TransparenzStroke(ite);
@@ -4354,18 +4177,6 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					tmpD += output;
 					tmpD += "Q\n";
 				}
-				for (int em = 0; em < pat.items.count(); ++em)
-				{
-					PageItem* embedded = pat.items.at(em);
-					if (!embedded->isTableItem)
-						continue;
-					if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-						continue;
-					tmpD += "q\n";
-					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-					tmpD += PDF_ProcessTableItem(embedded, pag);
-					tmpD += "Q\n";
-				}
 				if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
 					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
 				else
@@ -4401,18 +4212,6 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 						return "";
 					tmpD += output;
-					tmpD += "Q\n";
-				}
-				for (int em = 0; em < ite->groupItemList.count(); ++em)
-				{
-					PageItem* embedded = ite->groupItemList.at(em);
-					if (!embedded->isTableItem)
-						continue;
-					if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-						continue;
-					tmpD += "q\n";
-					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-					tmpD += PDF_ProcessTableItem(embedded, pag);
 					tmpD += "Q\n";
 				}
 				groupStackPos.pop();
@@ -4724,18 +4523,6 @@ QString PDFLibCore::HandleBrushPattern(PageItem* ite, QPainterPath &path, const 
 			if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 				return "";
 			tmp += output;
-			tmp += "Q\n";
-		}
-		for (int em = 0; em < pat.items.count(); ++em)
-		{
-			PageItem* embedded = pat.items.at(em);
-			if (!embedded->isTableItem)
-				continue;
-			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-				continue;
-			tmp += "q\n";
-			tmp +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
-			tmp += PDF_ProcessTableItem(embedded, pag);
 			tmp += "Q\n";
 		}
 		tmp += "Q\n";
@@ -5381,91 +5168,6 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 			if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 				return false;
 			tmp2 +=output;
-			tmp2 += "Q\n";
-		}
-		for (int em = 0; em < emG.count(); ++em)
-		{
-			PageItem* embedded = emG.at(em);
-			if (!embedded->isTableItem)
-				continue;
-			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
-				continue;
-			tmp2 += "q\n";
-			if (ite->asPathText())
-				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
-			else
-				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
-
-			if ((embedded->doOverprint) && (!Options.UseRGB))
-			{
-				QString ShName = ResNam+QString::number(ResCount);
-				ResCount++;
-				Transpar[ShName] = writeGState("/OP true\n"
-											"/op true\n"
-											"/OPM 1\n");
-				tmp2 += "/"+ShName+" gs\n";
-			}
-			if (((embedded->lineTransparency() != 0) || (embedded->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-				tmp2 += PDF_TransparenzStroke(embedded);
-			if (embedded->lineColor() != CommonStrings::None)
-				tmp2 += putColor(embedded->lineColor(), embedded->lineShade(), false);
-			tmp2 += FToStr(fabs(embedded->lineWidth()))+" w\n";
-			if (embedded->DashValues.count() != 0)
-			{
-				tmp2 += "[ ";
-				QVector<double>::iterator it;
-				for ( it = embedded->DashValues.begin(); it != embedded->DashValues.end(); ++it )
-				{
-					double da = *it;
-					// #8758: Custom dotted lines don't export properly to pdf
-					// Null values have to be exported if line end != flat
-					if ((da != 0) || (embedded->lineEnd() != Qt::FlatCap))
-						tmp2 += QString::number(da)+" ";
-				}
-				tmp2 += "] "+QString::number(embedded->DashOffset)+" d\n";
-			}
-			else
-				tmp2 += "["+getDashString(embedded->PLineArt, embedded->lineWidth())+"] 0 d\n";
-			tmp2 += "2 J\n";
-			switch (embedded->PLineJoin)
-			{
-				case Qt::MiterJoin:
-					tmp2 += "0 j\n";
-					break;
-				case Qt::BevelJoin:
-					tmp2 += "2 j\n";
-					break;
-				case Qt::RoundJoin:
-					tmp2 += "1 j\n";
-					break;
-				default:
-					tmp2 += "0 j\n";
-					break;
-			}
-			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
-			{
-				if (embedded->TopLine)
-				{
-					tmp2 += "0 0 m\n";
-					tmp2 += FToStr(embedded->width())+" 0 l\n";
-				}
-				if (embedded->RightLine)
-				{
-					tmp2 += FToStr(embedded->width())+" 0 m\n";
-					tmp2 += FToStr(embedded->width())+" "+FToStr(-embedded->height())+" l\n";
-				}
-				if (embedded->BottomLine)
-				{
-					tmp2 += "0 "+FToStr(-embedded->height())+" m\n";
-					tmp2 += FToStr(embedded->width())+" "+FToStr(-embedded->height())+" l\n";
-				}
-				if (embedded->LeftLine)
-				{
-					tmp2 += "0 0 m\n";
-					tmp2 += "0 "+FToStr(-embedded->height())+" l\n";
-				}
-				tmp2 += "S\n";
-			}
 			tmp2 += "Q\n";
 		}
 		tmp += tmp2+"\n";
@@ -6504,97 +6206,6 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 		tmp2 += tmpOut;
 		item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
 		inPattern--;
-		tmp2 += "Q\n";
-	}
-	for (int em = 0; em < pat->items.count(); ++em)
-	{
-		PageItem* item = pat->items.at(em);
-		if (!item->isTableItem)
-			continue;
-		if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
-			continue;
-		tmp2 += "q\n";
-		if ((item->doOverprint) && (!Options.UseRGB))
-		{
-			QString ShName = ResNam+QString::number(ResCount);
-			ResCount++;
-			Transpar[ShName] = writeGState("/OP true\n"
-										"/op true\n"
-										"/OPM 1\n");
-			tmp2 += "/"+ShName+" gs\n";
-		}
-		if (((item->lineTransparency() != 0) || (item->lineBlendmode() != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
-			tmp2 += PDF_TransparenzStroke(item);
-		if (item->lineColor() != CommonStrings::None)
-			tmp2 += putColor(item->lineColor(), item->lineShade(), false);
-		tmp2 += FToStr(fabs(item->lineWidth()))+" w\n";
-		if (item->DashValues.count() != 0)
-		{
-			tmp2 += "[ ";
-			QVector<double>::iterator it;
-			for ( it = item->DashValues.begin(); it != item->DashValues.end(); ++it )
-			{
-				double da = *it;
-				// #8758: Custom dotted lines don't export properly to pdf
-				// Null values have to be exported if line end != flat
-				if ((da != 0) || (item->lineEnd() != Qt::FlatCap))
-					tmp2 += QString::number(da)+" ";
-			}
-			tmp2 += "] "+QString::number(item->DashOffset)+" d\n";
-		}
-		else
-			tmp2 += "["+getDashString(item->PLineArt, item->lineWidth())+"] 0 d\n";
-		tmp2 += "2 J\n";
-		switch (item->PLineJoin)
-		{
-			case Qt::MiterJoin:
-				tmp2 += "0 j\n";
-				break;
-			case Qt::BevelJoin:
-				tmp2 += "2 j\n";
-				break;
-			case Qt::RoundJoin:
-				tmp2 += "1 j\n";
-				break;
-			default:
-				tmp2 += "0 j\n";
-				break;
-		}
-		tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
-		if (item->rotation() != 0)
-		{
-			double sr = sin(-item->rotation()* M_PI / 180.0);
-			double cr = cos(-item->rotation()* M_PI / 180.0);
-			if ((cr * cr) < 0.000001)
-				cr = 0;
-			if ((sr * sr) < 0.000001)
-				sr = 0;
-			tmp2 += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n";
-		}
-		if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
-		{
-			if (item->TopLine)
-			{
-				tmp2 += "0 0 m\n";
-				tmp2 += FToStr(item->width())+" 0 l\n";
-			}
-			if (item->RightLine)
-			{
-				tmp2 += FToStr(item->width())+" 0 m\n";
-				tmp2 += FToStr(item->width())+" "+FToStr(-item->height())+" l\n";
-			}
-			if (item->BottomLine)
-			{
-				tmp2 += "0 "+FToStr(-item->height())+" m\n";
-				tmp2 += FToStr(item->width())+" "+FToStr(-item->height())+" l\n";
-			}
-			if (item->LeftLine)
-			{
-				tmp2 += "0 0 m\n";
-				tmp2 += "0 "+FToStr(-item->height())+" l\n";
-			}
-			tmp2 += "S\n";
-		}
 		tmp2 += "Q\n";
 	}
 	if (Options.Compress)

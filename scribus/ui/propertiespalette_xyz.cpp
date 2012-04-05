@@ -345,11 +345,6 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	connect(rotationSpin, SIGNAL(valueChanged(double)), this, SLOT(handleRotation()));
 
 	bool setter = false;
-	if ((m_item->isTableItem) && (m_item->isSingleSel))
-	{
-		setter = true;
-		rotationSpin->setEnabled(false);
-	}
 	xposSpin->setEnabled(!setter);
 	yposSpin->setEnabled(!setter);
 	bool haveSameParent = m_doc->m_Selection->objectsHaveSameParent();
@@ -372,7 +367,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 		widthLabel->setText( tr( "&Width" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
-		rotationSpin->setEnabled(!((m_item->isTableItem) && (m_item->isSingleSel)));
+		rotationSpin->setEnabled(true);
 	}
 	m_haveItem = true;
 	if (m_item->asLine())
@@ -884,54 +879,13 @@ void PropertiesPalette_XYZ::handleNewW()
 		}
 		else
 		{
-			if (m_item->isTableItem)
+			if (keepFrameWHRatioButton->isChecked())
 			{
-				int rmo = m_doc->RotMode();
-				m_doc->RotMode ( 0 );
-				double dist = w - m_item->width();
-				PageItem* bb2;
-				PageItem* bb = m_item;
-				while (bb->TopLink != 0)
-				{
-					bb = bb->TopLink;
-				}
-				while (bb->BottomLink != 0)
-				{
-					bb2 = bb;
-					while (bb2->RightLink != 0)
-					{
-						m_doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
-						bb2 = bb2->RightLink;
-					}
-					m_doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb, true);
-					bb = bb->BottomLink;
-				}
-				bb2 = bb;
-				while (bb2->RightLink != 0)
-				{
-					m_doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
-					bb2 = bb2->RightLink;
-				}
-				m_doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb, true);
-				m_doc->RotMode ( rmo );
-				if (keepFrameWHRatioButton->isChecked())
-				{
-					keepFrameWHRatioButton->setChecked(false);
-					displayWH(w, (w / oldW) * m_item->height());
-					handleNewH();
-					keepFrameWHRatioButton->setChecked(true);
-				}
+				displayWH(w, (w / oldW) * m_item->height());
+				m_doc->SizeItem(w, (w / oldW) * m_item->height(), m_item, true, true, false);
 			}
 			else
-			{
-				if (keepFrameWHRatioButton->isChecked())
-				{
-					displayWH(w, (w / oldW) * m_item->height());
-					m_doc->SizeItem(w, (w / oldW) * m_item->height(), m_item, true, true, false);
-				}
-				else
-					m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
-			}
+				m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
 		}
 		if (m_item->isArc())
 		{
@@ -1010,54 +964,13 @@ void PropertiesPalette_XYZ::handleNewH()
 			}
 			else
 			{
-				if (m_item->isTableItem)
+				if (keepFrameWHRatioButton->isChecked())
 				{
-					int rmo = m_doc->RotMode();
-					m_doc->RotMode ( 0 );
-					double dist = h - m_item->height();
-					PageItem* bb2;
-					PageItem* bb = m_item;
-					while (bb->LeftLink != 0)
-					{
-						bb = bb->LeftLink;
-					}
-					while (bb->RightLink != 0)
-					{
-						bb2 = bb;
-						while (bb2->BottomLink != 0)
-						{
-							m_doc->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
-							bb2 = bb2->BottomLink;
-						}
-						m_doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb, true);
-						bb = bb->RightLink;
-					}
-					bb2 = bb;
-					while (bb2->BottomLink != 0)
-					{
-						m_doc->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
-						bb2 = bb2->BottomLink;
-					}
-					m_doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb, true);
-					m_doc->RotMode ( rmo );
-					if (keepFrameWHRatioButton->isChecked())
-					{
-						keepFrameWHRatioButton->setChecked(false);
-						displayWH((h / oldH) * m_item->width(), h);
-						handleNewW();
-						keepFrameWHRatioButton->setChecked(true);
-					}
+					displayWH((h / oldH) * m_item->width(), h);
+					m_doc->SizeItem((h / oldH) * m_item->width(), h, m_item, true, true, false);
 				}
 				else
-				{
-					if (keepFrameWHRatioButton->isChecked())
-					{
-						displayWH((h / oldH) * m_item->width(), h);
-						m_doc->SizeItem((h / oldH) * m_item->width(), h, m_item, true, true, false);
-					}
-					else
-						m_doc->SizeItem(m_item->width(), h, m_item, true, true, false);
-				}
+					m_doc->SizeItem(m_item->width(), h, m_item, true, true, false);
 			}
 			if (m_item->isArc())
 			{

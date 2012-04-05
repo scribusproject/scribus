@@ -3315,7 +3315,7 @@ void ScribusView::TextToPath()
 		{
 			PageItem *currItem = tmpSelection.itemAt(offset);
 			bool cont=false;
-			if ((!((currItem->asTextFrame()) || (currItem->asPathText()))) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.length() == 0)
+			if ((!((currItem->asTextFrame()) || (currItem->asPathText()))) || (currItem->locked()) || currItem->itemText.length() == 0)
 				cont=true;
 			if (currItem==m_ScMW->storyEditor->currentItem() && Doc==m_ScMW->storyEditor->currentDocument())
 			{
