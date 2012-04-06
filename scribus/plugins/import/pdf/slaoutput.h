@@ -74,7 +74,7 @@ class SlaOutputDev : public OutputDev
 public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
-	void startDoc(XRef *xrefA, Catalog *catA);
+	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 
 	GBool isOk() { return gTrue; }
 	virtual GBool upsideDown() { return gTrue; }
@@ -223,6 +223,7 @@ private:
 	int pagecount;
 	int updateGUICounter;
 	XRef *xref;		// xref table for current document
+	PDFDoc *pdfDoc;
 	Catalog *catalog;
 	SplashFontEngine *m_fontEngine;
 	SplashFont *m_font;

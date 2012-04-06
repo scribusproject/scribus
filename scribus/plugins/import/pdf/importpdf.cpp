@@ -315,7 +315,7 @@ bool PdfPlug::convert(QString fn)
 					GBool useMediaBox = gTrue;
 					GBool crop = gFalse;
 					GBool printing = gFalse;
-					dev->startDoc(pdfDoc->getXRef(), pdfDoc->getCatalog());
+					dev->startDoc(pdfDoc, pdfDoc->getXRef(), pdfDoc->getCatalog());
 					int rotate = pdfDoc->getPageRotate(firstPage);
 				/*	PDFRectangle *rect = pdfDoc->getPage(firstPage)->getMediaBox();
 					qDebug() << "Media Box" << rect->x1 << rect->y1 << rect->x2 << rect->y2;
