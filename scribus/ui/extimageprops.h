@@ -17,7 +17,7 @@ class QWidget;
 class QLabel;
 class QComboBox;
 class QCheckBox;
-class QSpinBox;
+class ScrSpinBox;
 class QListWidget;
 class QListWidgetItem;
 class QPushButton;
@@ -41,7 +41,7 @@ public:
 	QLabel* textLabel1;
 	QComboBox* blendMode;
 	QLabel* textLabel2;
-	QSpinBox* opacitySpinBox;
+	ScrSpinBox* opacitySpinBox;
 	QTableWidget* layerTable;
 	QWidget* tab_2;
 	QListWidget* pathList;

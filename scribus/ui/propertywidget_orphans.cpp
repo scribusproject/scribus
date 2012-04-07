@@ -16,22 +16,24 @@ PropertyWidget_Orphans::PropertyWidget_Orphans(QWidget* parent) : QFrame(parent)
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
 	layout()->setAlignment( Qt::AlignTop );
+	keepLinesStart->setDecimals(0);
+	keepLinesEnd->setDecimals(0);
 
 	languageChange();
 }
 
 void PropertyWidget_Orphans::connectSignals()
 {
-	connect(keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
-	connect(keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
+	connect(keepLinesStart, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesStart()));
+	connect(keepLinesEnd, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesEnd()));
 	connect(keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
 	connect(keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 }
 
 void PropertyWidget_Orphans::disconnectSignals()
 {
-	disconnect(keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
-	disconnect(keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
+	disconnect(keepLinesStart, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesStart()));
+	disconnect(keepLinesEnd, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesEnd()));
 	disconnect(keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
 	disconnect(keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 }

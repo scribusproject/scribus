@@ -8,12 +8,12 @@ for which a new license (GPL+exception) is in place.
 #include "movepage.h"
 #include <QPixmap>
 #include <QLabel>
-#include <QSpinBox>
 #include <QComboBox>
 #include <QPushButton>
 
 #include "commonstrings.h"
 #include "util_icon.h"
+#include "ui/scrspinbox.h"
 
 /*
  *  Constructs a MovePages which is a child of 'parent', with the 
@@ -35,7 +35,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->setSpacing( 5 );
 	fromToLayout->setMargin( 5 );
 	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this );
-	fromPageData = new QSpinBox(this);
+	fromPageData = new ScrSpinBox(this);
+	fromPageData->setDecimals(0);
 	fromPageData->setMinimum(1);
 	fromPageData->setMaximum(maxPages);
 	fromPageData->setValue( currentPage );
@@ -46,7 +47,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	if (move)
 	{
 		toLabel = new QLabel( tr("To:"), this );
-		toPageData = new QSpinBox( this );
+		toPageData = new ScrSpinBox( this );
+		toPageData->setDecimals(0);
 		toPageData->setMinimum(1);
 		toPageData->setMaximum(maxPages);
 		toPageData->setValue( currentPage );
@@ -56,7 +58,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	else
 	{
 		numberOfCopiesLabel = new QLabel( tr("Number of Copies:"), this );
-		numberOfCopiesData = new QSpinBox(this );
+		numberOfCopiesData = new ScrSpinBox(this );
+		numberOfCopiesData->setDecimals(0);
 		numberOfCopiesData->setMinimum(1);
 		numberOfCopiesData->setMaximum(999);
 		++currentRow;
@@ -69,8 +72,9 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	mvWhereData->addItem( tr("After Page"));
 	mvWhereData->addItem( tr("At End"));
 	mvWhereData->setCurrentIndex(2);
-	mvWherePageData = new QSpinBox( this );
+	mvWherePageData = new ScrSpinBox( this );
 	mvWherePageData->setMinimum(1);
+	mvWherePageData->setDecimals(0);
 	mvWherePageData->setMaximum(maxPages);
 	mvWherePageData->setValue( currentPage );
 	mvWherePageData->setDisabled( true );
@@ -95,9 +99,9 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 
 	// signals and slots connections
 	if (move)
-		connect( toPageData, SIGNAL( editingFinished() ), this, SLOT( toChanged() ) );
+		connect( toPageData, SIGNAL( valueChanged(double) ), this, SLOT( toChanged() ) );
 	connect( mvWhereData, SIGNAL( activated(int) ), this, SLOT( mvWherePageDataDisable(int) ) );
-	connect( fromPageData, SIGNAL( editingFinished() ), this, SLOT( fromChanged() ) );
+	connect( fromPageData, SIGNAL( valueChanged(double) ), this, SLOT( fromChanged() ) );
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
@@ -106,7 +110,7 @@ void MovePages::fromChanged()
 {
 	if (move)
 	{
-		int pageNumber=fromPageData->value();
+		int pageNumber=static_cast<int>(fromPageData->value());
 		if (pageNumber > toPageData->value())
 			toPageData->setValue(pageNumber);
 		if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
@@ -116,7 +120,7 @@ void MovePages::fromChanged()
 
 void MovePages::toChanged()
 {
-	int pageNumber=toPageData->value();
+	int pageNumber=static_cast<int>(toPageData->value());
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
 	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))
@@ -131,12 +135,12 @@ void MovePages::mvWherePageDataDisable(int index)
 
 const int MovePages::getFromPage()
 {
-	return fromPageData->value();
+	return static_cast<int>(fromPageData->value());
 }
 
 const int MovePages::getToPage()
 {
-	return toPageData->value();
+	return static_cast<int>(toPageData->value());
 }
 
 const int MovePages::getWhere()
@@ -146,10 +150,10 @@ const int MovePages::getWhere()
 
 const int MovePages::getWherePage()
 {
-	return mvWherePageData->value();
+	return static_cast<int>(mvWherePageData->value());
 }
 
 const int MovePages::getCopyCount()
 {
-	return numberOfCopiesData->value();
+	return static_cast<int>(numberOfCopiesData->value());
 }

@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QCheckBox>
 #include <QPushButton>
-#include <QSpinBox>
 #include <QToolTip>
 #include <QPainter>
 #include <QWidget>
@@ -31,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 #include "util.h"
+#include "ui/scrspinbox.h"
 
 ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )
 	: QDialog( parent )
@@ -120,8 +120,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		textLabel2 = new QLabel( tab );
 		textLabel2->setText( tr( "Opacity:" ) );
 		layout1->addWidget( textLabel2 );
-		opacitySpinBox = new QSpinBox( tab );
+		opacitySpinBox = new ScrSpinBox( tab );
 		opacitySpinBox->setMinimum(0);
+		opacitySpinBox->setDecimals(0);
 		opacitySpinBox->setMaximum(100);
 		opacitySpinBox->setSingleStep(10);
 		opacitySpinBox->setSuffix( tr(" %"));
@@ -295,7 +296,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	if (info->layerInfo.count() != 0)
 	{
 		connect(layerTable, SIGNAL(cellClicked(int, int)), this, SLOT(selLayer(int)));
-		connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+		connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changedLayer()));
 		connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	}
 }
@@ -385,7 +386,7 @@ void ExtImageProps::changedLayer()
 		if (currentLayer == layerTable->rowCount() - r - 1)
 		{
 			loadingInfo.blend = blendModesRev[blendMode->currentText()];
-			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
+			loadingInfo.opacity = qRound(static_cast<int>(opacitySpinBox->value()) / 100.0 * 255);
 		}
 		else
 		{
@@ -408,7 +409,7 @@ void ExtImageProps::changedLayer()
 
 void ExtImageProps::selLayer(int layer)
 {
-	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changedLayer()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
 	{
@@ -423,7 +424,7 @@ void ExtImageProps::selLayer(int layer)
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
 	currentLayer = layerTable->rowCount() - layer - 1;
-	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+	connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changedLayer()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 }
 

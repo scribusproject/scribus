@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 class QComboBox;
 class QLabel;
 class QPushButton;
-class QSpinBox;
+class ScrSpinBox;
 
 #include "scribusapi.h"
 
@@ -38,10 +38,10 @@ private:
 	QLabel* moveLabel;
 	QLabel* toLabel;
 	QLabel* numberOfCopiesLabel;
-	QSpinBox* fromPageData;
-	QSpinBox* toPageData;
-	QSpinBox* numberOfCopiesData;
-	QSpinBox* mvWherePageData;
+	ScrSpinBox* fromPageData;
+	ScrSpinBox* toPageData;
+	ScrSpinBox* numberOfCopiesData;
+	ScrSpinBox* mvWherePageData;
 	QComboBox* mvWhereData;
 	QPushButton* okButton;
 	QPushButton* cancelButton;

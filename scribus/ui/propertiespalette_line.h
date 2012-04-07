@@ -78,8 +78,8 @@ private slots:
 	void handleDashChange();
 	void handleStartArrow(int id);
 	void handleEndArrow(int id);
-	void handleStartArrowScale(int sc);
-	void handleEndArrowScale(int sc);
+	void handleStartArrowScale(double sc);
+	void handleEndArrowScale(double sc);
 	void handleLineStyle(QListWidgetItem *c);
 
 signals:

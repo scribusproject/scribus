@@ -33,7 +33,7 @@ class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 		void basicSelectRangeTypeEven();
 		void basicSelectRangeTypeOdd();
 		void basicSelectRangeType(int);
-		void advSpinChange(int);
+		void advSpinChange();
 		
 	protected:
 		int m_PageCount;

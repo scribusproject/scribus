@@ -76,6 +76,17 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	setupUi(this);
 	fillModeCombo->addItem( tr("Solid") );
 	fillModeCombo->addItem( tr("Gradient") );
+	fillShade->setDecimals(0);
+	strokeShade->setDecimals(0);
+	color1Alpha->setDecimals(0);
+	color2Alpha->setDecimals(0);
+	color3Alpha->setDecimals(0);
+	color4Alpha->setDecimals(0);
+	color1Shade->setDecimals(0);
+	color2Shade->setDecimals(0);
+	color3Shade->setDecimals(0);
+	color4Shade->setDecimals(0);
+	shadeMeshPoint->setDecimals(0);
 	strokeModeCombo->addItem( tr("Solid") );
 	strokeModeCombo->addItem( tr("Gradient") );
 
@@ -96,8 +107,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(editFillColorSelector, SIGNAL(clicked()), this, SLOT(editFillColorSelectorButton()));*/
 	connect(tabFillStroke, SIGNAL(currentChanged(int)), this, SLOT(fillStrokeSelector(int)));
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
-	connect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
-	connect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
+	connect(fillShade, SIGNAL(valueChanged(double)), this, SIGNAL(NewBrushShade(double)));
+	connect(strokeShade, SIGNAL(valueChanged(double)), this, SIGNAL(NewPenShade(double)));
 	connect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
 	connect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
@@ -131,17 +142,17 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	connect(colorPoint3, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	connect(colorPoint4, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
-	connect(color1Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color2Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color3Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color4Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color1Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color1Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color2Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color3Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color4Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color1Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color2Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color3Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color4Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	connect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
-	connect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
-	connect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+	connect(shadeMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
+	connect(transparencyMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
 	tabFillStroke->setCurrentIndex(0);
 	updateFromItem();
 	/*editFillColorSelector->setChecked(true);
@@ -164,8 +175,8 @@ void Cpalette::setDocument(ScribusDoc* doc)
 {
 	disconnect(this, SIGNAL(NewPen(QString)), 0, 0);
 	disconnect(this, SIGNAL(NewBrush(QString)), 0, 0);
-	disconnect(this, SIGNAL(NewPenShade(int)), 0, 0);
-	disconnect(this, SIGNAL(NewBrushShade(int)), 0, 0);
+	disconnect(this, SIGNAL(NewPenShade(double)), 0, 0);
+	disconnect(this, SIGNAL(NewBrushShade(double)), 0, 0);
 	disconnect(this, SIGNAL(NewGradient(int)), 0, 0);
 	disconnect(this, SIGNAL(NewGradientS(int)), 0, 0);
 	disconnect(this, SIGNAL(NewPattern(QString)), 0, 0);
@@ -201,8 +212,8 @@ void Cpalette::setDocument(ScribusDoc* doc)
 
 		connect(this, SIGNAL(NewPen(QString))      , doc, SLOT(itemSelection_SetItemPen(QString)));
 		connect(this, SIGNAL(NewBrush(QString))    , doc, SLOT(itemSelection_SetItemBrush(QString)));
-		connect(this, SIGNAL(NewPenShade(int))     , this, SLOT(handleStrokeShade(int)));
-		connect(this, SIGNAL(NewBrushShade(int))   , this, SLOT(handleFillShade(int)));
+		connect(this, SIGNAL(NewPenShade(double))     , this, SLOT(handleStrokeShade(double)));
+		connect(this, SIGNAL(NewBrushShade(double))   , this, SLOT(handleFillShade(double)));
 		connect(this, SIGNAL(NewGradient(int))     , doc, SLOT(itemSelection_SetItemGradFill(int)));
 		connect(this, SIGNAL(NewGradientS(int))    , doc, SLOT(itemSelection_SetItemGradStroke(int)));
 		connect(this, SIGNAL(NewPattern(QString))  , doc, SLOT(itemSelection_SetItemPatternFill(QString)));
@@ -240,17 +251,17 @@ void Cpalette::updateFromItem()
 	disconnect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	disconnect(colorPoint3, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	disconnect(colorPoint4, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
-	disconnect(color1Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color2Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color3Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color4Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color1Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	disconnect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	disconnect(color1Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color2Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color3Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color4Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color1Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color2Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color3Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	disconnect(color4Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	disconnect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
-	disconnect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
-	disconnect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+	disconnect(shadeMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
+	disconnect(transparencyMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
 	updateCList();
 	displayOverprint(currentItem->doOverprint ? 1 : 0);
 	displayColorValues(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
@@ -328,17 +339,17 @@ void Cpalette::updateFromItem()
 	connect(colorPoint2, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	connect(colorPoint3, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
 	connect(colorPoint4, SIGNAL(activated(int)), this, SLOT(setGradientColors()));
-	connect(color1Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color2Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color3Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color4Alpha, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color1Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color2Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color3Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
-	connect(color4Shade, SIGNAL(valueChanged(int)), this, SLOT(setGradientColors()));
+	connect(color1Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color2Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color3Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color4Alpha, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color1Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color2Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color3Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
+	connect(color4Shade, SIGNAL(valueChanged(double)), this, SLOT(setGradientColors()));
 	connect(colorMeshPoint, SIGNAL(activated(int)), this, SLOT(updateMeshPoint()));
-	connect(shadeMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
-	connect(transparencyMeshPoint, SIGNAL(valueChanged(int)), this, SLOT(updateMeshPoint()));
+	connect(shadeMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
+	connect(transparencyMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
 }
 
 PageItem* Cpalette::currentItemFromSelection()
@@ -441,22 +452,22 @@ void Cpalette::displayOverprint(int val)
 	connect(overPrintCombo, SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 }
 
-void Cpalette::handleFillShade(int val)
+void Cpalette::handleFillShade(double val)
 {
 	if (currentDoc)
 	{
 		blockUpdates(true);
-		currentDoc->itemSelection_SetItemBrushShade(val);
+		currentDoc->itemSelection_SetItemBrushShade(static_cast<int>(val));
 		blockUpdates(false);
 	}
 }
 
-void Cpalette::handleStrokeShade(int val)
+void Cpalette::handleStrokeShade(double val)
 {
 	if (currentDoc)
 	{
 		blockUpdates(true);
-		currentDoc->itemSelection_SetItemPenShade(val);
+		currentDoc->itemSelection_SetItemPenShade(static_cast<int>(val));
 		blockUpdates(false);
 	}
 }
@@ -500,8 +511,8 @@ void Cpalette::handleStrokeGradient()
 
 void Cpalette::displayColorValues(QString stroke, QString fill, int sShade, int fShade)
 {
-	disconnect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
-	disconnect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
+	disconnect(fillShade, SIGNAL(valueChanged(double)), this, SIGNAL(NewBrushShade(double)));
+	disconnect(strokeShade, SIGNAL(valueChanged(double)), this, SIGNAL(NewPenShade(double)));
 	disconnect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
 	disconnect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 	strokeShade->setValue(sShade);
@@ -522,8 +533,8 @@ void Cpalette::displayColorValues(QString stroke, QString fill, int sShade, int 
 	}
 	else
 		colorListFill->setCurrentRow(0);
-	connect(fillShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewBrushShade(int)));
-	connect(strokeShade, SIGNAL(valueChanged(int)), this, SIGNAL(NewPenShade(int)));
+	connect(fillShade, SIGNAL(valueChanged(double)), this, SIGNAL(NewBrushShade(double)));
+	connect(strokeShade, SIGNAL(valueChanged(double)), this, SIGNAL(NewPenShade(double)));
 	connect(colorListStroke, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorS(QListWidgetItem*)));
 	connect(colorListFill, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColorF(QListWidgetItem*)));
 }
@@ -647,7 +658,7 @@ void Cpalette::setGradientColors()
 	double t2 = color2Alpha->value() / 100.0;
 	double t3 = color3Alpha->value() / 100.0;
 	double t4 = color4Alpha->value() / 100.0;
-	currentItem->set4ColorShade(color1Shade->value(), color2Shade->value(), color3Shade->value(), color4Shade->value());
+	currentItem->set4ColorShade(static_cast<int>(color1Shade->value()), static_cast<int>(color2Shade->value()), static_cast<int>(color3Shade->value()), static_cast<int>(color4Shade->value()));
 	currentItem->set4ColorTransparency(t1, t2, t3, t4);
 	currentItem->set4ColorColors(color1, color2, color3, color4);
 	currentItem->update();
@@ -1412,7 +1423,7 @@ void Cpalette::updateMeshPoint()
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
 	double t = transparencyMeshPoint->value() / 100.0;
-	currentItem->setMeshPointColor(currentItem->selectedMeshPointX, currentItem->selectedMeshPointY, color, shadeMeshPoint->value(), t, currentDoc->view()->editStrokeGradient == 8);
+	currentItem->setMeshPointColor(currentItem->selectedMeshPointX, currentItem->selectedMeshPointY, color, static_cast<int>(shadeMeshPoint->value()), t, currentDoc->view()->editStrokeGradient == 8);
 	currentItem->update();
 	currentDoc->regionsChanged()->update(QRect());
 }

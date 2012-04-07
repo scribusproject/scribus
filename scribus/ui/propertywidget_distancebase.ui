@@ -34,7 +34,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QSpinBox" name="columns">
+    <widget class="ScrSpinBox" name="columns">
      <property name="minimum">
       <number>1</number>
      </property>

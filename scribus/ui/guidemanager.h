@@ -148,8 +148,8 @@ private slots:
 	void horizontalAutoGapCheck_stateChanged( int );
 	void verticalAutoGapCheck_stateChanged( int );
 	void applyToAllAutoButton_clicked();
-	void horizontalAutoCountSpin_valueChanged( int );
-	void verticalAutoCountSpin_valueChanged( int );
+	void horizontalAutoCountSpin_valueChanged( double );
+	void verticalAutoCountSpin_valueChanged( double );
 	void horizontalAutoGapSpin_valueChanged(double);
 	void verticalAutoGapSpin_valueChanged(double);
 	void horizontalPageAutoButton_toggled(bool);

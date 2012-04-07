@@ -96,17 +96,19 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	useRangeCheckBox->setEnabled( false );	
 	rangeLayout->addWidget( useRangeCheckBox );
 
-	fromPageSpinBox = new QSpinBox( applyToPageButtonGroup );
+	fromPageSpinBox = new ScrSpinBox( applyToPageButtonGroup );
 	fromPageSpinBox->setEnabled( false );
 	fromPageSpinBox->setMinimum( 1 );
+	fromPageSpinBox->setDecimals(0);
 	rangeLayout->addWidget( fromPageSpinBox );
 
 	toPageLabel = new QLabel( applyToPageButtonGroup );
 	rangeLayout->addWidget( toPageLabel );
 
-	toPageSpinBox = new QSpinBox( applyToPageButtonGroup );
+	toPageSpinBox = new ScrSpinBox( applyToPageButtonGroup );
 	toPageSpinBox->setEnabled( false );
 	toPageSpinBox->setMinimum( 1 );
+	toPageSpinBox->setDecimals(0);
 	rangeLayout->addWidget( toPageSpinBox );
 	spacer3 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	rangeLayout->addItem( spacer3 );
@@ -134,8 +136,8 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	connect( evenPagesRadioButton, SIGNAL( clicked() ), this, SLOT( rangeSelectable() ) );
 	connect( oddPagesRadioButton, SIGNAL( clicked() ), this, SLOT( rangeSelectable() ) );
 	connect( allPagesRadioButton, SIGNAL( clicked() ), this, SLOT( rangeSelectable() ) );
-	connect( fromPageSpinBox, SIGNAL( valueChanged(const QString&) ), this, SLOT( checkRangeFrom() ) );
-	connect( toPageSpinBox, SIGNAL( valueChanged(int) ), this, SLOT( checkRangeTo() ) );
+	connect( fromPageSpinBox, SIGNAL( valueChanged(double) ), this, SLOT( checkRangeFrom() ) );
+	connect( toPageSpinBox, SIGNAL( valueChanged(double) ), this, SLOT( checkRangeTo() ) );
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 
@@ -193,22 +195,22 @@ int ApplyMasterPageDialog::getPageSelection()
 
 void ApplyMasterPageDialog::checkRangeFrom()
 {
-	disconnect(fromPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeFrom()));
-	disconnect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
+	disconnect(fromPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeFrom()));
+	disconnect(toPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeTo()));
 	if (fromPageSpinBox->value() > toPageSpinBox->value())
 		toPageSpinBox->setValue(fromPageSpinBox->value());
-	connect(fromPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeFrom()));
-	connect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
+	connect(fromPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeFrom()));
+	connect(toPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeTo()));
 }
 
 void ApplyMasterPageDialog::checkRangeTo()
 {
-	disconnect(fromPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeFrom()));
-	disconnect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
+	disconnect(fromPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeFrom()));
+	disconnect(toPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeTo()));
 	if (toPageSpinBox->value() < fromPageSpinBox->value())
 		fromPageSpinBox->setValue(toPageSpinBox->value());
-	connect(fromPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeFrom()));
-	connect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
+	connect(fromPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeFrom()));
+	connect(toPageSpinBox, SIGNAL(valueChanged(double)), this, SLOT(checkRangeTo()));
 }
 
 void ApplyMasterPageDialog::enableRange( bool enabled )
@@ -240,7 +242,7 @@ bool ApplyMasterPageDialog::usingRange()
 int ApplyMasterPageDialog::getFromPage()
 {
 	if (useRangeCheckBox->isChecked())
-		return fromPageSpinBox->value();
+		return static_cast<int>(fromPageSpinBox->value());
 	return -1;
 }
 
@@ -248,7 +250,7 @@ int ApplyMasterPageDialog::getFromPage()
 int ApplyMasterPageDialog::getToPage()
 {
 	if (useRangeCheckBox->isChecked())
-		return toPageSpinBox->value();
+		return static_cast<int>(toPageSpinBox->value());
 	return -1;
 }
 

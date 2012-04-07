@@ -55,9 +55,11 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 
 	startArrowScale->setMaximum( 300 );
 	startArrowScale->setMinimum( 1 );
+	startArrowScale->setDecimals(0);
 
 	endArrowScale->setMaximum( 300 );
 	endArrowScale->setMinimum( 1 );
+	endArrowScale->setDecimals(0);
 
 	lineWidthLabel->setBuddy(lineWidth);
 	lineJoinLabel->setBuddy(lineJoinStyle);
@@ -76,8 +78,8 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(dashEditor, SIGNAL(dashChanged())       , this, SLOT(handleDashChange()));
 	connect(startArrow, SIGNAL(activated(int))      , this, SLOT(handleStartArrow(int )));
 	connect(endArrow  , SIGNAL(activated(int))      , this, SLOT(handleEndArrow(int )));
-	connect(startArrowScale, SIGNAL(valueChanged(int)), this, SLOT(handleStartArrowScale(int )));
-	connect(endArrowScale  , SIGNAL(valueChanged(int)), this, SLOT(handleEndArrowScale(int )));
+	connect(startArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleStartArrowScale(double )));
+	connect(endArrowScale  , SIGNAL(valueChanged(double)), this, SLOT(handleEndArrowScale(double )));
 	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
 }
 
@@ -600,18 +602,18 @@ void PropertiesPalette_Line::handleEndArrow(int id)
 	m_doc->itemSelection_ApplyArrowHead(-1, id);
 }
 
-void PropertiesPalette_Line::handleStartArrowScale(int sc)
+void PropertiesPalette_Line::handleStartArrowScale(double sc)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_ApplyArrowScale(sc, -1, NULL);
+	m_doc->itemSelection_ApplyArrowScale(static_cast<int>(sc), -1, NULL);
 }
 
-void PropertiesPalette_Line::handleEndArrowScale(int sc)
+void PropertiesPalette_Line::handleEndArrowScale(double sc)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_ApplyArrowScale(-1, sc, NULL);
+	m_doc->itemSelection_ApplyArrowScale(-1, static_cast<int>(sc), NULL);
 }
 
 void PropertiesPalette_Line::handleDashChange()

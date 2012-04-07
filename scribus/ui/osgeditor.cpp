@@ -77,6 +77,7 @@ OSGEditorDialog::OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame) : QD
 	buttonFCcolor->setIcon(pm);
 	buttonFCcolor->setText( QString::null );
 	transpSpin->setValue(qRound(currentView.addedTransparency * 100));
+	transpSpin->setDecimals(0);
 	rootnode = new osg::Group;
 	decorator = new osg::Group;
 	if (currItem->fillColor() != CommonStrings::None)
@@ -116,7 +117,7 @@ OSGEditorDialog::OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame) : QD
 		connect(buttonRemoveView, SIGNAL(clicked()), this, SLOT(removeView()));
 		connect(buttonACcolor, SIGNAL(clicked()), this, SLOT(changeACcolor()));
 		connect(buttonFCcolor, SIGNAL(clicked()), this, SLOT(changeFCcolor()));
-		connect(transpSpin, SIGNAL(valueChanged(int)), this, SLOT(changeTransparency(int)));
+		connect(transpSpin, SIGNAL(valueChanged(double)), this, SLOT(changeTransparency(double)));
 		groupBox_5->setEnabled(true);
 		buttonRemoveView->setEnabled(true);
 		buttonAddView->setEnabled(true);
@@ -192,7 +193,7 @@ void OSGEditorDialog::changeView(QString viewName)
 	disconnect(fovAngle, SIGNAL(valueChanged(double)), this, SLOT(setCameraValues()));
 	disconnect(renderStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRenderMode(int)));
 	disconnect(lightStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLightMode(int)));
-	disconnect(transpSpin, SIGNAL(valueChanged(int)), this, SLOT(changeTransparency(int)));
+	disconnect(transpSpin, SIGNAL(valueChanged(double)), this, SLOT(changeTransparency(double)));
 	viewMap[currentViewName] = currentView;
 	currentView = viewMap[viewName];
 	currentViewName = viewName;
@@ -221,7 +222,7 @@ void OSGEditorDialog::changeView(QString viewName)
 	connect(fovAngle, SIGNAL(valueChanged(double)), this, SLOT(setCameraValues()));
 	connect(renderStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRenderMode(int)));
 	connect(lightStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLightMode(int)));
-	connect(transpSpin, SIGNAL(valueChanged(int)), this, SLOT(changeTransparency(int)));
+	connect(transpSpin, SIGNAL(valueChanged(double)), this, SLOT(changeTransparency(double)));
 }
 
 void OSGEditorDialog::addView()
@@ -536,9 +537,9 @@ void OSGEditorDialog::changeFCcolor()
 	}
 }
 
-void OSGEditorDialog::changeTransparency(int value)
+void OSGEditorDialog::changeTransparency(double value)
 {
-	currentView.addedTransparency = static_cast<double>(value) / 100.0;
+	currentView.addedTransparency = value / 100.0;
 	changeRenderMode(static_cast<int>(currentView.rendermode));
 }
 
@@ -622,7 +623,7 @@ void OSGEditorDialog::openFile()
 		disconnect(buttonRemoveView, SIGNAL(clicked()), this, SLOT(removeView()));
 		disconnect(buttonACcolor, SIGNAL(clicked()), this, SLOT(changeACcolor()));
 		disconnect(buttonFCcolor, SIGNAL(clicked()), this, SLOT(changeFCcolor()));
-		disconnect(transpSpin, SIGNAL(valueChanged(int)), this, SLOT(changeTransparency(int)));
+		disconnect(transpSpin, SIGNAL(valueChanged(double)), this, SLOT(changeTransparency(double)));
 	}
 	if (!fileName.isEmpty())
 	{
@@ -651,7 +652,7 @@ void OSGEditorDialog::openFile()
 			connect(buttonRemoveView, SIGNAL(clicked()), this, SLOT(removeView()));
 			connect(buttonACcolor, SIGNAL(clicked()), this, SLOT(changeACcolor()));
 			connect(buttonFCcolor, SIGNAL(clicked()), this, SLOT(changeFCcolor()));
-			connect(transpSpin, SIGNAL(valueChanged(int)), this, SLOT(changeTransparency(int)));
+			connect(transpSpin, SIGNAL(valueChanged(double)), this, SLOT(changeTransparency(double)));
 		}
 		dirs->set("models", fileName.left(fileName.lastIndexOf("/")));
 	}

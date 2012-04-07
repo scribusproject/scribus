@@ -56,7 +56,7 @@ class SCRIBUS_API OSGEditorDialog : public QDialog, Ui::OSGEditor
 		void changeRenderMode(int mode);
 		void changeACcolor();
 		void changeFCcolor();
-		void changeTransparency(int value);
+		void changeTransparency(double value);
 		void changeLightMode(int mode);
 		void reportCamera();
 		void openFile();

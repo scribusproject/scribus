@@ -84,8 +84,8 @@ public slots:
 	void displayColorValues(QString stroke, QString fille, int sShade, int fShade);
 	void displayGradient(int nr);
 	void displayOverprint(int);
-	void handleFillShade(int);
-	void handleStrokeShade(int);
+	void handleFillShade(double);
+	void handleStrokeShade(double);
 	void handleOverprint(int);
 	void handleFillGradient();
 	void handleStrokeGradient();
@@ -131,8 +131,8 @@ public slots:
 signals:
 	void NewPen(QString);
 	void NewBrush(QString);
-	void NewPenShade(int);
-	void NewBrushShade(int);
+	void NewPenShade(double);
+	void NewBrushShade(double);
 	void NewGradient(int);
 	void NewGradientS(int);
 	void NewPattern(QString);

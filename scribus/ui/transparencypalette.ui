@@ -92,7 +92,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="strokeOpacity">
+          <widget class="ScrSpinBox" name="strokeOpacity">
            <property name="toolTip">
             <string>Set the transparency for the color selected</string>
            </property>
@@ -246,7 +246,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="fillOpacity">
+              <widget class="ScrSpinBox" name="fillOpacity">
                <property name="toolTip">
                 <string>Set the transparency for the color selected</string>
                </property>
@@ -531,6 +531,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
   <customwidget>
    <class>ScComboBox</class>
    <extends>QComboBox</extends>

@@ -26,11 +26,11 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
 
 	protected slots:
-		void setFactorSlider(int a);
-		void setRotationSlider(int a);
-		void setInnerRotationSlider(int a);
-		void setCurvatureSlider(int a);
-		void setOuterCurvatureSlider(int a);
+		void setFactorSlider(double a);
+		void setRotationSlider(double a);
+		void setInnerRotationSlider(double a);
+		void setCurvatureSlider(double a);
+		void setOuterCurvatureSlider(double a);
 		void updatePreview();
 		double GetZeroFactor();
 		double GetMaxFactor();

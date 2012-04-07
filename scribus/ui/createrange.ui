@@ -264,10 +264,10 @@
            </widget>
           </item>
           <item row="1" column="3" >
-           <widget class="QSpinBox" name="basicConsecutiveToSpinBox" />
+           <widget class="ScrSpinBox" name="basicConsecutiveToSpinBox" />
           </item>
           <item row="1" column="1" >
-           <widget class="QSpinBox" name="basicConsecutiveFromSpinBox" />
+           <widget class="ScrSpinBox" name="basicConsecutiveFromSpinBox" />
           </item>
           <item row="1" column="4" >
            <spacer>
@@ -470,7 +470,7 @@
         </spacer>
        </item>
        <item row="0" column="1" colspan="2" >
-        <widget class="QSpinBox" name="advPageGroupSizeSpinBox" />
+        <widget class="ScrSpinBox" name="advPageGroupSizeSpinBox" />
        </item>
        <item row="0" column="0" >
         <widget class="QLabel" name="advPageGroupSizeLabel" >
@@ -544,6 +544,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

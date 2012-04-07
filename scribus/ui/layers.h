@@ -20,12 +20,12 @@ class QHBoxLayout;
 class QHeaderView;
 class QLabel;
 class QPushButton;
-class QSpinBox;
 class QTableWidget;
 class QTableWidgetItem;
 class QToolButton;
 class QVBoxLayout;
 class ScComboBox;
+class ScrSpinBox;
 class ScribusDoc;
 
 class SCRIBUS_API LayerPalette : public ScDockPalette
@@ -78,7 +78,7 @@ protected:
 	QLabel* textLabel1;
 	ScComboBox* blendMode;
 	QLabel* textLabel2;
-	QSpinBox* opacitySpinBox;
+	ScrSpinBox* opacitySpinBox;
 	QHeaderView* Header;
 	QPushButton* newLayerButton;
 	QPushButton* duplicateLayerButton;

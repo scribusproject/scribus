@@ -30,9 +30,10 @@ SpiralVectorDialog::SpiralVectorDialog(QWidget* parent) : ScrPaletteBase( parent
 	startAngle->setValues(0, 36000, 1, 0);
 	sweepAngle->setNewUnit(6);
 	sweepAngle->setValues(0, 36000, 1, 0);
+	arcFactor->setDecimals(0);
 	connect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcFactor,   SIGNAL(valueChanged(int)), this, SLOT(changeVectors()));
+	connect(arcFactor,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(exitButton, SIGNAL(clicked()), this, SIGNAL(endEdit()));
 	languageChange();
 	resize(minimumSizeHint());
@@ -58,7 +59,7 @@ void SpiralVectorDialog::setValues(double start, double sweep, double factor)
 {
 	disconnect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	disconnect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	disconnect(arcFactor,   SIGNAL(valueChanged(int)), this, SLOT(changeVectors()));
+	disconnect(arcFactor,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	startAngle->setValue(start);
 	sweepAngle->setValue(sweep);
 	startAngle->setMaximum(sweep - 1);
@@ -66,7 +67,7 @@ void SpiralVectorDialog::setValues(double start, double sweep, double factor)
 	arcFactor->setValue(qRound(factor * 100) - 100);
 	connect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(arcFactor,   SIGNAL(valueChanged(int)), this, SLOT(changeVectors()));
+	connect(arcFactor,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 }
 
 void SpiralVectorDialog::changeVectors()

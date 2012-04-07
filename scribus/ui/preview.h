@@ -19,7 +19,7 @@ class QScrollArea;
 class QLabel;
 class QPushButton;
 class QComboBox;
-class QSpinBox;
+#include "ui/scrspinbox.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -86,7 +86,7 @@ public:
 	QCheckBox* useGray;
 	QCheckBox* UseICC;
 	QCheckBox* EnableInkCover;
-	QSpinBox* CoverThresholdValue;
+	ScrSpinBox* CoverThresholdValue;
 	QLabel* ThresLabel;
 	QScrollArea* Anzeige;
 	QLabel* Anz;

@@ -215,9 +215,10 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		Layout7->setMargin(0);
 		ThresLabel = new QLabel( tr("Threshold:"), devTitle);
 		Layout7->addWidget(ThresLabel);
-		CoverThresholdValue = new QSpinBox(devTitle);
+		CoverThresholdValue = new ScrSpinBox(devTitle);
 		CoverThresholdValue->setSuffix( tr(" %"));
 		CoverThresholdValue->setMaximum(600);
+		CoverThresholdValue->setDecimals(0);
 		CoverThresholdValue->setMinimum(0);
 		CoverThresholdValue->setSingleStep(10);
 		CoverThresholdValue->setSpecialValueText( tr("None"));
@@ -226,7 +227,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 			CoverThresholdValue->setEnabled(true);
 		else
 			CoverThresholdValue->setEnabled(false);
-		connect(CoverThresholdValue, SIGNAL(valueChanged(int)), this, SLOT(ToggleCMYK_Colour()));
+		connect(CoverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(ToggleCMYK_Colour()));
 		Layout7->addWidget(CoverThresholdValue);
 		Layout2->addLayout(Layout7);
 		connect(Table, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(doSpotTable(int)));
@@ -445,12 +446,13 @@ void PPreview::redisplay()
 
 void PPreview::ToggleCMYK()
 {
-	bool c = EnableCMYK->isChecked() ? true : false;
+	bool c = EnableCMYK->isChecked();
 	if (HaveTiffSep)
 	{
 		Table->setEnabled(c);
 		EnableInkCover->setEnabled(c);
-		CoverThresholdValue->setEnabled(c);
+		if(EnableInkCover->isChecked())
+			CoverThresholdValue->setEnabled(c);
 	}
 	else
 	{

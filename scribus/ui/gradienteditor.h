@@ -54,13 +54,13 @@ public:
 
 public slots:
 	void setPos(double);
-	void changePos(int);
+	void changePos(double);
 	void slotColor(QString name, int shade);
 	void slotDisplayStop(VColorStop* stop);
 	void setGradTrans(double val);
 	void setStopColor(const QString &);
-	void setStopTrans(int val);
-	void setStopShade(int val);
+	void setStopTrans(double val);
+	void setStopShade(double val);
 	void languageChange();
 
 signals:

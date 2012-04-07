@@ -49,6 +49,8 @@ GuideManager::GuideManager(QWidget* parent) :
 	horizontalAutoGapSpin->setMaximum(10000.0);
 	verticalAutoGapSpin->setMinimum(0.0);
 	verticalAutoGapSpin->setMaximum(10000.0);
+	horizontalAutoCountSpin->setDecimals(0);
+	verticalAutoCountSpin->setDecimals(0);
 
 	// MVC
 	horizontalModel = new GuidesModel(this);
@@ -75,10 +77,10 @@ GuideManager::GuideManager(QWidget* parent) :
 
 	connect(applyToAllStdButton, SIGNAL(clicked()),
 			this, SLOT(applyToAllStdButton_clicked()));
-	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(int)),
-			this, SLOT(horizontalAutoCountSpin_valueChanged(int)));
-	connect(verticalAutoCountSpin, SIGNAL(valueChanged(int)),
-			this, SLOT(verticalAutoCountSpin_valueChanged(int)));
+	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(double)),
+			this, SLOT(horizontalAutoCountSpin_valueChanged(double)));
+	connect(verticalAutoCountSpin, SIGNAL(valueChanged(double)),
+			this, SLOT(verticalAutoCountSpin_valueChanged(double)));
 	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
 			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
 	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
@@ -389,7 +391,7 @@ void GuideManager::applyToAllAutoButton_clicked()
 	copyGuidesToAllPages(GuideManagerCore::Auto);
 }
 
-void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
+void GuideManager::horizontalAutoCountSpin_valueChanged(double val)
 {
 	bool enable = (val == 0) ? false : true;
 	horizontalAutoGapCheck->setEnabled(enable);
@@ -420,7 +422,7 @@ void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 	m_Doc->changed();
 }
 
-void GuideManager::verticalAutoCountSpin_valueChanged(int val)
+void GuideManager::verticalAutoCountSpin_valueChanged(double val)
 {
 	bool enable = (val == 0) ? false : true;
 	verticalAutoGapCheck->setEnabled(enable);

@@ -41,11 +41,13 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	editLineSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
 	editFillSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
 	editFillSelector->setChecked(true);
+	strokeOpacity->setDecimals(0);
+	fillOpacity->setDecimals(0);
 	editFillSelectorButton();
 	connect(editLineSelector, SIGNAL(clicked()), this, SLOT(editLineSelectorButton()));
 	connect(editFillSelector, SIGNAL(clicked()), this, SLOT(editFillSelectorButton()));
-	connect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
-	connect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
+	connect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
+	connect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
 	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
@@ -522,12 +524,12 @@ void Tpalette::changePatternProps()
 
 void Tpalette::setActTrans(double val, double val2)
 {
-	disconnect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
-	disconnect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
+	disconnect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
+	disconnect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 	strokeOpacity->setValue(qRound(100 - (val2 * 100)));
 	fillOpacity->setValue(qRound(100 - (val * 100)));
-	connect(strokeOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransS(int)));
-	connect(fillOpacity, SIGNAL(valueChanged(int)), this, SLOT(slotTransF(int)));
+	connect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
+	connect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 }
 
 void Tpalette::setActBlend(int val, int val2)
@@ -540,14 +542,14 @@ void Tpalette::setActBlend(int val, int val2)
 	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 }
 
-void Tpalette::slotTransS(int val)
+void Tpalette::slotTransS(double val)
 {
-	emit NewTransS(static_cast<double>(100 - val) / 100.0);
+	emit NewTransS((100 - val) / 100.0);
 }
 
-void Tpalette::slotTransF(int val)
+void Tpalette::slotTransF(double val)
 {
-	emit NewTrans(static_cast<double>(100 - val) / 100.0);
+	emit NewTrans((100 - val) / 100.0);
 }
 
 void Tpalette::editLineSelectorButton()

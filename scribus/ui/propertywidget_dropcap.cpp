@@ -24,6 +24,7 @@ PropertyWidget_DropCap::PropertyWidget_DropCap(QWidget *parent) : QFrame(parent)
 	layout()->setAlignment( Qt::AlignTop );
 
 	languageChange();
+	dropCapLines->setDecimals(0);
 
 	if (!m_doc) return;
 	dropCapCharStyleCombo->updateFormatList();
@@ -135,7 +136,7 @@ void PropertyWidget_DropCap::updateStyle(const ParagraphStyle& newCurrent)
 void PropertyWidget_DropCap::connectSignals()
 {
 	connect(dropCapBox, SIGNAL(stateChanged(int)), this, SLOT(handleDropCapUse()), Qt::UniqueConnection);
-	connect(dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(handleDropCapLines()), Qt::UniqueConnection);
+	connect(dropCapLines, SIGNAL(valueChanged(double)), this, SLOT(handleDropCapLines()), Qt::UniqueConnection);
 	connect(dropCapOffset, SIGNAL(valueChanged(double)), this, SLOT(handleDropCapOffset()), Qt::UniqueConnection);
 	connect(dropCapCharStyleCombo, SIGNAL(activated(int)), this, SLOT(handleDropCapCharStyle()), Qt::UniqueConnection);
 }
@@ -143,7 +144,7 @@ void PropertyWidget_DropCap::connectSignals()
 void PropertyWidget_DropCap::disconnectSignals()
 {
 	disconnect(dropCapBox, SIGNAL(stateChanged(int)), this, SLOT(handleDropCapUse()));
-	disconnect(dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(handleDropCapLines()));
+	disconnect(dropCapLines, SIGNAL(valueChanged(double)), this, SLOT(handleDropCapLines()));
 	disconnect(dropCapOffset, SIGNAL(valueChanged(double)), this, SLOT(handleDropCapOffset()));
 	disconnect(dropCapCharStyleCombo, SIGNAL(activated(int)), this, SLOT(handleDropCapCharStyle()));
 }
@@ -212,7 +213,7 @@ void PropertyWidget_DropCap::handleDropCapLines()
 	if (!m_doc || !m_item)
 		return;
 	ParagraphStyle newStyle;
-	newStyle.setDropCapLines(dropCapLines->value());
+	newStyle.setDropCapLines(static_cast<int>(dropCapLines->value()));
 	newStyle.setHasDropCap(dropCapBox->isChecked());
 	PageItem *item = m_doc->m_Selection->itemAt(0);
 	if (m_doc->appMode == modeEditTable)

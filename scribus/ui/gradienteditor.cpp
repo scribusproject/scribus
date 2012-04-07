@@ -34,10 +34,13 @@ for which a new license (GPL+exception) is in place.
 GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 {
 	setupUi(this);
-	connect(stopPos    , SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+	stopPos->setDecimals(0);
+	stopOpacity->setDecimals(0);
+	stopShade->setDecimals(0);
+	connect(stopPos    , SIGNAL(valueChanged(double)), this, SLOT(changePos(double)));
 	connect(stopColor  , SIGNAL(activated(const QString &)), this, SLOT(setStopColor(const QString &)));
-	connect(stopOpacity, SIGNAL(valueChanged(int)), this, SLOT(setStopTrans(int)));
-	connect(stopShade  , SIGNAL(valueChanged(int)), this, SLOT(setStopShade(int)));
+	connect(stopOpacity, SIGNAL(valueChanged(double)), this, SLOT(setStopTrans(double)));
+	connect(stopShade  , SIGNAL(valueChanged(double)), this, SLOT(setStopShade(double)));
 	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));
 	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
 	connect(Preview, SIGNAL(currStep(double)), this, SIGNAL(gradientChanged()));
@@ -113,9 +116,9 @@ void GradientEditor::setGradientEditable(bool val)
 	Preview->setGradientEditable(val);
 }
 
-void GradientEditor::changePos(int v)
+void GradientEditor::changePos(double v)
 {
-	Preview->setActStep(static_cast<double>(v) / 100.0);
+	Preview->setActStep(v / 100.0);
 	emit gradientChanged();
 }
 
@@ -144,13 +147,13 @@ void GradientEditor::setStopColor(const QString &Color)
 	emit gradientChanged();
 }
 
-void GradientEditor::setStopTrans(int val)
+void GradientEditor::setStopTrans(double val)
 {
-	Preview->setActTrans(static_cast<double>(val) / 100.0);
+	Preview->setActTrans(val / 100.0);
 	emit gradientChanged();
 }
 
-void GradientEditor::setStopShade(int val)
+void GradientEditor::setStopShade(double val)
 {
 	Preview->setActColor(setColor(stopColor->currentText(), val), stopColor->currentText(), val);
 	emit gradientChanged();

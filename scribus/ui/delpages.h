@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 class QLabel;
 class QPushButton;
-class QSpinBox;
+class ScrSpinBox;
 
 class SCRIBUS_API DelPages : public QDialog
 {
@@ -36,8 +36,8 @@ private:
 	QPushButton* okButton;
 	QLabel* fromLabel;
 	QLabel* toLabel;
-	QSpinBox* toPageData;
-	QSpinBox* fromPageData;
+	ScrSpinBox* toPageData;
+	ScrSpinBox* fromPageData;
 
 private slots:
 	virtual void fromChanged();

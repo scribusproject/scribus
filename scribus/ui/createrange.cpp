@@ -27,10 +27,13 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	pageCountValueLabel->setText(QString("%1").arg(pageCount));
 	basicConsecutiveFromSpinBox->setMinimum(1);
 	basicConsecutiveToSpinBox->setMinimum(1);
+	basicConsecutiveFromSpinBox->setDecimals(0);
+	basicConsecutiveToSpinBox->setDecimals(0);
 	basicConsecutiveFromSpinBox->setMaximum(pageCount);
 	basicConsecutiveToSpinBox->setMaximum(pageCount);
 	basicSelectRangeType(m_BasicRangeType);
 	advPageGroupSizeSpinBox->setMaximum(pageCount);
+	advPageGroupSizeSpinBox->setDecimals(0);
 	if (m_PageCount==1)
 		basicEvenRadioButton->setShown(false);
 	if (currText.length()>0)
@@ -45,7 +48,7 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	connect(basicOddRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeOdd()));
 	connect(basicRangeUpButton, SIGNAL(clicked()), this, SLOT(basicMoveUp()));
 	connect(basicRangeDownButton, SIGNAL(clicked()), this, SLOT(basicMoveDown()));
-	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(advSpinChange(int)));
+	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(advSpinChange()));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	advPageGroupSizeSpinBox->setValue(4);
@@ -85,8 +88,8 @@ void CreateRange::basicAddToRange( )
 	{
 		case 0:
 			{
-				int from=basicConsecutiveFromSpinBox->value();
-				int to=basicConsecutiveToSpinBox->value();
+				int from=static_cast<int>(basicConsecutiveFromSpinBox->value());
+				int to=static_cast<int>(basicConsecutiveToSpinBox->value());
 				if (from==to)
 					newEntry=QString("%1").arg(from);
 				else
@@ -190,7 +193,7 @@ void CreateRange::basicMoveDown()
 }
 
 
-void CreateRange::advSpinChange(int /*v*/)
+void CreateRange::advSpinChange()
 {
 	m_PageString="";
 	int mp1=m_PageCount+1;

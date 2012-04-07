@@ -38,7 +38,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QSpinBox" name="cornersSpinBox">
+        <widget class="ScrSpinBox" name="cornersSpinBox">
          <property name="toolTip">
           <string>Number of corners for polygons</string>
          </property>
@@ -61,7 +61,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QSpinBox" name="rotationSpinBox">
+        <widget class="ScrSpinBox" name="rotationSpinBox">
          <property name="toolTip">
           <string>Degrees of rotation for polygons</string>
          </property>
@@ -100,7 +100,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QSpinBox" name="innerRotationspinBox">
+        <widget class="ScrSpinBox" name="innerRotationspinBox">
          <property name="minimum">
           <number>-180</number>
          </property>
@@ -150,7 +150,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="factorSpinBox">
+         <widget class="ScrSpinBox" name="factorSpinBox">
           <property name="toolTip">
            <string>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</string>
           </property>
@@ -195,7 +195,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSpinBox" name="curvatureSpinBox">
+         <widget class="ScrSpinBox" name="curvatureSpinBox">
           <property name="suffix">
            <string> %</string>
           </property>
@@ -225,7 +225,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QSpinBox" name="OuterCurvatureSpinBox">
+         <widget class="ScrSpinBox" name="OuterCurvatureSpinBox">
           <property name="suffix">
            <string> %</string>
           </property>
@@ -317,6 +317,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

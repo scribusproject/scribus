@@ -161,7 +161,10 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="horizontalAutoCountSpin">
+           <widget class="ScrSpinBox" name="horizontalAutoCountSpin">
+            <property name="suffix">
+             <string> </string>
+            </property>
             <property name="minimum">
              <number>0</number>
             </property>
@@ -248,7 +251,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="verticalAutoCountSpin">
+           <widget class="ScrSpinBox" name="verticalAutoCountSpin">
             <property name="minimum">
              <number>0</number>
             </property>
@@ -384,8 +387,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>ScrPaletteBase</class>

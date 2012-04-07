@@ -25,7 +25,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QSpinBox" name="dropCapLines">
+    <widget class="ScrSpinBox" name="dropCapLines">
      <property name="suffix">
       <string> lines</string>
      </property>

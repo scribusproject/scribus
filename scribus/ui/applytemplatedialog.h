@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "scpage.h"
+#include "ui/scrspinbox.h"
 
 class QCheckBox;
 class QComboBox;
@@ -31,7 +32,6 @@ class QLabel;
 class QPushButton;
 class QRadioButton;
 class QSpacerItem;
-class QSpinBox;
 class QVBoxLayout;
 
 class SCRIBUS_API ApplyMasterPageDialog : public QDialog
@@ -52,9 +52,9 @@ public:
 	QRadioButton* oddPagesRadioButton;
 	QRadioButton* allPagesRadioButton;
 	QCheckBox* useRangeCheckBox;
-	QSpinBox* fromPageSpinBox;
+	ScrSpinBox* fromPageSpinBox;
 	QLabel* toPageLabel;
-	QSpinBox* toPageSpinBox;
+	ScrSpinBox* toPageSpinBox;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 

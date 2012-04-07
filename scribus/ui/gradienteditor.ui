@@ -65,7 +65,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QSpinBox" name="stopPos">
+    <widget class="ScrSpinBox" name="stopPos">
      <property name="suffix">
       <string> %</string>
      </property>
@@ -92,7 +92,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QSpinBox" name="stopOpacity">
+    <widget class="ScrSpinBox" name="stopOpacity">
      <property name="suffix">
       <string> %</string>
      </property>
@@ -115,7 +115,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="QSpinBox" name="stopShade">
+    <widget class="ScrSpinBox" name="stopShade">
      <property name="suffix">
       <string> %</string>
      </property>
@@ -143,6 +143,11 @@
    <extends>QFrame</extends>
    <header>ui/gradientpreview.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

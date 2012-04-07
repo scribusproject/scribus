@@ -78,7 +78,7 @@
     </widget>
    </item>
    <item row="5" column="1">
-    <widget class="QSpinBox" name="startArrowScale">
+    <widget class="ScrSpinBox" name="startArrowScale">
      <property name="minimum">
       <number>1</number>
      </property>
@@ -95,7 +95,7 @@
     </widget>
    </item>
    <item row="5" column="3">
-    <widget class="QSpinBox" name="endArrowScale">
+    <widget class="ScrSpinBox" name="endArrowScale">
      <property name="minimum">
       <number>1</number>
      </property>

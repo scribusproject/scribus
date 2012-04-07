@@ -25,7 +25,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QSpinBox" name="keepLinesStart">
+    <widget class="ScrSpinBox" name="keepLinesStart">
      <property name="suffix">
       <string> lines</string>
      </property>
@@ -42,7 +42,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QSpinBox" name="keepLinesEnd">
+    <widget class="ScrSpinBox" name="keepLinesEnd">
      <property name="suffix">
       <string> lines</string>
      </property>
@@ -67,6 +67,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

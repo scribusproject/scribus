@@ -46,6 +46,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText(tr( "Auto" ));
+	imagePageNumber->setDecimals(0);
 	imagePageNumberLabel->setBuddy(imagePageNumber);
 	installSniffer(imagePageNumber);
 	
@@ -88,7 +89,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 
 	languageChange();
 
-	connect(imagePageNumber    , SIGNAL(valueChanged(int))   , this, SLOT(handleImagePageNumber()));
+	connect(imagePageNumber    , SIGNAL(valueChanged(double))   , this, SLOT(handleImagePageNumber()));
 	connect(imageXScaleSpinBox , SIGNAL(valueChanged(double)), this, SLOT(handleXScale()));
 	connect(imageYScaleSpinBox , SIGNAL(valueChanged(double)), this, SLOT(handleYScale()));
 	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(handleLocalXY()));
@@ -712,7 +713,7 @@ void PropertiesPalette_Image::handleImagePageNumber()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	bool reallynew = (m_item->pixm.imgInfo.actualPageNumber != imagePageNumber->value());
-	m_item->pixm.imgInfo.actualPageNumber = imagePageNumber->value();
+	m_item->pixm.imgInfo.actualPageNumber = static_cast<int>(imagePageNumber->value());
 	if (reallynew)
 		m_item->loadImage(m_item->externalFile(), true);
 	m_item->update();

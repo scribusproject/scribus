@@ -6,11 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QLabel>
 #include <QPushButton>
-#include <QSpinBox>
 
 #include "delpages.h"
 #include "util_icon.h"
 #include "commonstrings.h"
+#include "ui/scrspinbox.h"
 
 DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( parent )
 {
@@ -25,7 +25,8 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	fromToLayout->setMargin( 5 );
 	fromLabel = new QLabel( tr( "Delete From:" ), this );
 	fromToLayout->addWidget( fromLabel );
-	fromPageData = new QSpinBox(this );
+	fromPageData = new ScrSpinBox(this );
+	fromPageData->setDecimals(0);
 	fromPageData->setMinimum(1);
 	fromPageData->setMaximum(maxPage);
 	fromPageData->setValue( currentPage );
@@ -33,7 +34,8 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	toLabel = new QLabel( this );
 	toLabel->setText( tr( "to:" ) );
 	fromToLayout->addWidget( toLabel );
-	toPageData = new QSpinBox( this );
+	toPageData = new ScrSpinBox( this );
+	toPageData->setDecimals(0);
 	toPageData->setMinimum(1);
 	toPageData->setMaximum(maxPage);
 	toPageData->setValue( currentPage );
@@ -57,13 +59,13 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( fromPageData, SIGNAL( editingFinished() ), this, SLOT( fromChanged() ) );
-	connect( toPageData, SIGNAL( editingFinished() ), this, SLOT( toChanged() ) );
+	connect( fromPageData, SIGNAL( valueChanged(double) ), this, SLOT( fromChanged() ) );
+	connect( toPageData, SIGNAL( valueChanged(double) ), this, SLOT( toChanged() ) );
 }
 
 void DelPages::fromChanged()
 {
-	int pageNumber=fromPageData->value();
+	int pageNumber=static_cast<int>(fromPageData->value());
 	if (pageNumber > toPageData->value())
 		toPageData->setValue(pageNumber);
 	if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
@@ -81,7 +83,7 @@ void DelPages::toChanged()
 
 int DelPages::getFromPage() const
 {
-	return fromPageData->value();
+	return static_cast<int>(fromPageData->value());
 }
 
 int DelPages::getToPage() const

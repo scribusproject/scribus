@@ -26,7 +26,7 @@ class QStackedWidget;
 class QGroupBox;
 class QLineEdit;
 class QPushButton;
-class QSpinBox;
+class ScrSpinBox;
 class QCheckBox;
 
 #include "scribusapi.h"
@@ -53,9 +53,9 @@ public:
 	QPushButton* ChFile;
 	QCheckBox* useAbsolute;
 	Navigator* Pg;
-	QSpinBox* SpinBox1;
-	QSpinBox* SpinBox2;
-	QSpinBox* SpinBox3;
+	ScrSpinBox* SpinBox1;
+	ScrSpinBox* SpinBox2;
+	ScrSpinBox* SpinBox3;
 	QFrame* Frame9;
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
@@ -69,7 +69,7 @@ public:
 
 public slots:
 	void SetCoords(double x, double y);
-	void SetPage(int v);
+	void SetPage(double v);
 	void SetCross();
 	void SetValues();
 	void SetTarget(int i);

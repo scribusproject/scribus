@@ -94,8 +94,8 @@ public slots:
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void setActTrans(double, double);
 	void setActBlend(int, int);
-	void slotTransS(int val);
-	void slotTransF(int val);
+	void slotTransS(double val);
+	void slotTransF(double val);
 	void unitChange(double, double, int unitIndex);
 
 signals:

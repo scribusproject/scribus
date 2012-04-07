@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QSpinBox>
 #include <QPixmap>
 #include <QStringList>
 #include <QCheckBox>
@@ -40,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util_icon.h"
 #include "util_formats.h"
+#include "ui/scrspinbox.h"
 
 Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie) : QDialog(parent)
 {
@@ -141,7 +141,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 		useAbsolute->hide();
 	}
 
-	SpinBox1 = new QSpinBox( GroupBox1);
+	SpinBox1 = new ScrSpinBox( GroupBox1);
+	SpinBox1->setDecimals(0);
 	SpinBox1->setMinimum(1);
 	SpinBox1->setMaximum(((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)) ? 1000 : Seite);
 	TextLabel3 = new QLabel( tr("&Page:"), GroupBox1);
@@ -164,7 +165,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
 	GroupBox1Layout->addWidget(Pg, 2, 2, 3, 1);
 
-	SpinBox2 = new QSpinBox( GroupBox1);
+	SpinBox2 = new ScrSpinBox( GroupBox1);
+	SpinBox2->setDecimals(0);
 	SpinBox2->setSuffix( tr( " pt" ) );
 	SpinBox2->setMaximum(Width);
 	SpinBox2->setValue(tl[0].toInt());
@@ -172,7 +174,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	TextLabel4->setBuddy(SpinBox2);
 	GroupBox1Layout->addWidget( TextLabel4, 3, 0 );
 	GroupBox1Layout->addWidget( SpinBox2, 3, 1 );
-	SpinBox3 = new QSpinBox( GroupBox1 );
+	SpinBox3 = new ScrSpinBox( GroupBox1 );
+	SpinBox3->setDecimals(0);
 	SpinBox3->setMaximum(Height);
 	SpinBox3->setSuffix( tr( " pt" ) );
 	SpinBox3->setValue(Height-tl[1].toInt());
@@ -198,10 +201,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetValues()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
-	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
+	connect(SpinBox1, SIGNAL(valueChanged(double)), this, SLOT(SetPage(double)));
 	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
-	connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
-	connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
+	connect(SpinBox2, SIGNAL(valueChanged(double)), this, SLOT(SetCross()));
+	connect(SpinBox3, SIGNAL(valueChanged(double)), this, SLOT(SetCross()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
 	if (view->Doc->masterPageMode())
 		SetTarget(item->annotation().Type() - 1);
@@ -216,15 +219,15 @@ void Annota::SetCoords(double x, double y)
 	SpinBox3->setValue(static_cast<int>(y*Height));
 }
 
-void Annota::SetPage(int v)
+void Annota::SetPage(double v)
 {
-	disconnect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
+	disconnect(SpinBox1, SIGNAL(valueChanged(double)), this, SLOT(SetPage(double)));
 	int link = 2;
 	if (view->Doc->masterPageMode())
 		link = 1;
 	if (ComboBox1->currentIndex() == link)
 	{
-		if (!Pg->SetSeite(v, 100, Destfile->text()))
+		if (!Pg->SetSeite(static_cast<int>(v), 100, Destfile->text()))
 		{
 			SpinBox1->setValue(1);
 			Pg->SetSeite(1, 100, Destfile->text());
@@ -234,22 +237,22 @@ void Annota::SetPage(int v)
 	}
 	else
 	{
-		Pg->SetSeite(qMin(v-1, MaxSeite-1), 100);
-		SpinBox1->setValue(qMin(v, MaxSeite));
+		Pg->SetSeite(qMin(static_cast<int>(v)-1, MaxSeite-1), 100);
+		SpinBox1->setValue(qMin(static_cast<int>(v), MaxSeite));
 		Width = OriWidth;
 		Height = OriHeight;
 	}
 	SpinBox2->setMaximum(Width);
 	SpinBox3->setMaximum(Height);
-	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
+	connect(SpinBox1, SIGNAL(valueChanged(double)), this, SLOT(SetPage(double)));
 }
 
 void Annota::SetCross()
 {
 	int x,y;
 	disconnect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
-	x = static_cast<int>(static_cast<double>(SpinBox2->value())/static_cast<double>(Width)*Pg->pmx.width());
-	y = static_cast<int>(static_cast<double>(SpinBox3->value())/static_cast<double>(Height)*Pg->pmx.height());
+	x = static_cast<int>(SpinBox2->value()/static_cast<double>(Width)*Pg->pmx.width());
+	y = static_cast<int>(SpinBox3->value()/static_cast<double>(Height)*Pg->pmx.height());
 	Pg->drawMark(x, y);
 	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 }
@@ -319,7 +322,7 @@ void Annota::SetTarget(int it)
 		ChFile->hide();
 		useAbsolute->hide();
 		item->annotation().setActionType(2);
-		SetPage(qMin(SpinBox1->value(), MaxSeite));
+		SetPage(qMin(static_cast<int>(SpinBox1->value()), MaxSeite));
 		break;
 	case 2:
 		Fram->setCurrentIndex(1);
@@ -351,7 +354,7 @@ void Annota::SetTarget(int it)
 			else
 				item->annotation().setActionType(7);
 		}
-		SetPage(qMin(SpinBox1->value(), MaxSeite));
+		SetPage(qMin(static_cast<int>(SpinBox1->value()), MaxSeite));
 		break;
 	case 3:
 		Fram->setCurrentIndex(1);
@@ -392,7 +395,7 @@ void Annota::SetTarget(int it)
 			SpinBox3->hide();
 		}
 		if (Pg->isVisible())
-			SetPage(qMin(SpinBox1->value(), MaxSeite));
+			SetPage(qMin(static_cast<int>(SpinBox1->value()), MaxSeite));
 		break;
 	default:
 		Fram->setCurrentIndex(0);

@@ -23,6 +23,7 @@ SpiralWidget::SpiralWidget(QWidget* parent) : QWidget( parent )
 {
 	setupUi(this);
 	startAngle->setNewUnit(6);
+	arcFactor->setDecimals(0);
 	startAngle->setValues(0, 36000, 1, 0);
 	endAngle->setNewUnit(6);
 	endAngle->setValues(0, 36000, 1, 0);
@@ -34,13 +35,13 @@ void SpiralWidget::connectSignals(bool conn)
 	{
 		connect(startAngle, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
 		connect(endAngle, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
-		connect(arcFactor, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(arcFactor, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
 	}
 	else
 	{
 		disconnect(startAngle, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
 		disconnect(endAngle, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
-		disconnect(arcFactor, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		disconnect(arcFactor, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
 	}
 }
 
@@ -59,7 +60,7 @@ void SpiralWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
 {
 	prefsData->spiralStartAngle = startAngle->value();
 	prefsData->spiralEndAngle = endAngle->value();
-	prefsData->spiralFactor = (arcFactor->value() + 100) / 100.0;
+	prefsData->spiralFactor = (static_cast<int>(arcFactor->value()) + 100) / 100.0;
 }
 
 void SpiralWidget::updatePreview()
@@ -72,7 +73,7 @@ void SpiralWidget::updatePreview()
 	p.begin(&pm);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	QPainterPath path = SpiralPath(pm.width() - 6, pm.height() - 6, startAngle->value(), endAngle->value(), (arcFactor->value() + 100) / 100.0);
+	QPainterPath path = SpiralPath(pm.width() - 6, pm.height() - 6, startAngle->value(), endAngle->value(), (static_cast<int>(arcFactor->value()) + 100) / 100.0);
 	path.translate(3, 3);
 	p.strokePath(path, p.pen());
 	p.end();

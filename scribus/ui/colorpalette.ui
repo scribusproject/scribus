@@ -80,7 +80,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="fillShade">
+              <widget class="ScrSpinBox" name="fillShade">
                <property name="suffix">
                 <string>%</string>
                </property>
@@ -221,7 +221,7 @@
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QSpinBox" name="color1Shade">
+                  <widget class="ScrSpinBox" name="color1Shade">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -240,7 +240,7 @@
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QSpinBox" name="color1Alpha">
+                  <widget class="ScrSpinBox" name="color1Alpha">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -266,7 +266,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QSpinBox" name="color2Shade">
+                  <widget class="ScrSpinBox" name="color2Shade">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -285,7 +285,7 @@
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QSpinBox" name="color2Alpha">
+                  <widget class="ScrSpinBox" name="color2Alpha">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -311,7 +311,7 @@
                   </widget>
                  </item>
                  <item row="3" column="1">
-                  <widget class="QSpinBox" name="color3Shade">
+                  <widget class="ScrSpinBox" name="color3Shade">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -330,7 +330,7 @@
                   </widget>
                  </item>
                  <item row="3" column="2">
-                  <widget class="QSpinBox" name="color3Alpha">
+                  <widget class="ScrSpinBox" name="color3Alpha">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -356,7 +356,7 @@
                   </widget>
                  </item>
                  <item row="4" column="1">
-                  <widget class="QSpinBox" name="color4Shade">
+                  <widget class="ScrSpinBox" name="color4Shade">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -375,7 +375,7 @@
                   </widget>
                  </item>
                  <item row="4" column="2">
-                  <widget class="QSpinBox" name="color4Alpha">
+                  <widget class="ScrSpinBox" name="color4Alpha">
                    <property name="suffix">
                     <string> %</string>
                    </property>
@@ -439,7 +439,7 @@
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QSpinBox" name="shadeMeshPoint">
+                  <widget class="ScrSpinBox" name="shadeMeshPoint">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
@@ -468,7 +468,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QSpinBox" name="transparencyMeshPoint">
+                  <widget class="ScrSpinBox" name="transparencyMeshPoint">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
@@ -655,7 +655,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="strokeShade">
+              <widget class="ScrSpinBox" name="strokeShade">
                <property name="suffix">
                 <string>%</string>
                </property>
@@ -841,6 +841,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
   <customwidget>
    <class>ScComboBox</class>
    <extends>QComboBox</extends>
