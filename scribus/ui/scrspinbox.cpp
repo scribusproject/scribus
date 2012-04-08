@@ -51,6 +51,11 @@ ScrSpinBox::~ScrSpinBox()
 {
 }
 
+void ScrSpinBox::setValue(int val)
+{
+	QDoubleSpinBox::setValue(val);
+}
+
 void ScrSpinBox::showValue(double val)
 {
 	this->blockSignals(true);
