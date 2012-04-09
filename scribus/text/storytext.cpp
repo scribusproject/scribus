@@ -1490,12 +1490,18 @@ int StoryText::screenToPosition(FPoint coord) const
 		if (ls.y + ls.descent < coord.y())
 			continue;
 		qreal xpos = ls.x;
-		for (int j = ls.firstItem; j <= ls.lastItem; ++j) {
+		for (int j = ls.firstItem; j <= ls.lastItem; ++j)
+		{
 //				qDebug() << QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide());
 			qreal width = item(j)->glyph.wide();
 			xpos += width;
 			if (xpos >= coord.x())
-				return xpos - width/2 > coord.x() ? j : j+1;
+			{
+				if (hasObject(j))
+					return j;
+				else
+					return xpos - width/2 > coord.x() ? j : j+1;
+			}
 		}
 		if (xpos > maxx)
 			maxx = xpos;
@@ -1541,13 +1547,13 @@ FRect StoryText::boundingBox(int pos, uint len) const
 				for (int j = ls.firstItem; j < pos; ++j)
 				{
 					if (hasObject(j))
-						xpos += (object(j)->gWidth + object(j)->lineWidth()) * item(j)->glyph.scaleH;
+						xpos += (object(j)->width() + object(j)->lineWidth()) * item(j)->glyph.scaleH;
 					else
 						xpos += item(j)->glyph.wide();
 				}
 				qreal finalw = 1;
 				if (hasObject(pos))
-					finalw = (object(pos)->gWidth + object(pos)->lineWidth()) * item(pos)->glyph.scaleH;
+					finalw = (object(pos)->width() + object(pos)->lineWidth()) * item(pos)->glyph.scaleH;
 				else
 					finalw = item(pos)->glyph.wide();
 				const CharStyle& cs(charStyle(pos));
