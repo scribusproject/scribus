@@ -601,6 +601,7 @@ public:
 	static QString LinkTextFrame;
 	static QString UnlinkTextFrame;
 	static QString MovePage;
+	static QString PathOperation;
 	/*@}*/
 
 	/**

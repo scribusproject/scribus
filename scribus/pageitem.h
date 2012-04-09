@@ -1096,6 +1096,7 @@ protected:
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
 	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
 	void restoreReverseText(UndoState *state, bool isUndo);
+	void restorePathOperation(UndoState *state, bool isUndo);
 	/*@}*/
 
 	/**
