@@ -556,7 +556,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
   <customwidget>
    <class>ColorCombo</class>
    <extends>QComboBox</extends>
-   <header>colorcombo.h</header>
+   <header>ui/colorcombo.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
