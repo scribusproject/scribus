@@ -971,6 +971,7 @@ void UndoManager::languageChange()
 	UndoManager::LinkTextFrame		= tr("Link text frame");
 	UndoManager::UnlinkTextFrame	= tr("Unlink text frame");
 	UndoManager::ClearImage         = tr("Clear image frame content");
+	UndoManager::PathOperation		= tr("Path Operation");
 }
 
 void UndoManager::initIcons()
@@ -1183,6 +1184,7 @@ QString UndoManager::ToOutlines         = "";
 QString UndoManager::LinkTextFrame      = "";
 QString UndoManager::UnlinkTextFrame    = "";
 QString UndoManager::ClearImage         = "";
+QString UndoManager::PathOperation      = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

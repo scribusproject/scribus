@@ -4443,6 +4443,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreReverseText(ss, isUndo);
 		else if (ss->contains("CLEAR_IMAGE"))
 			restoreClearImage(ss,isUndo);
+		else if (ss->contains("PATH_OPERATION"))
+			restorePathOperation(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -4843,6 +4845,37 @@ void PageItem::restoreReverseText(UndoState *state, bool /*isUndo*/)
 	if (!isTextFrame())
 		return;
 	Reverse = !Reverse;
+}
+
+void PageItem::restorePathOperation(UndoState *state, bool isUndo)
+{//PATH_OPERATION
+	ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >*is = dynamic_cast<ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >*>(state);
+	if (is)
+	{
+		if (isUndo)
+		{
+			this->ClipEdited=is->getBool("PATH_OP_OLD_CLIPEDITED");
+			this->Frame=is->getBool("PATH_OP_OLD_FRAME");
+			this->FrameType=is->getInt("PATH_OP_OLD_FRAMETYPE");
+			this->OldB2=is->getDouble("PATH_OP_OLD_OLDB2");
+			this->OldH2=is->getDouble("PATH_OP_OLD_OLDH2");
+			QPair<FPointArray, FPointArray> oldLines=is->getItem().first;
+			this->PoLine = oldLines.first;
+			this->ContourLine = oldLines.second;
+		}
+		else
+		{
+			this->ClipEdited=is->getBool("PATH_OP_NEW_CLIPEDITED");
+			this->Frame=is->getBool("PATH_OP_NEW_FRAME");
+			this->FrameType=is->getInt("PATH_OP_NEW_FRAMETYPE");
+			this->OldB2=is->getDouble("PATH_OP_NEW_OLDB2");
+			this->OldH2=is->getDouble("PATH_OP_NEW_OLDH2");
+			QPair<FPointArray, FPointArray> newLines=is->getItem().second;
+			this->PoLine = newLines.first;
+			this->ContourLine = newLines.second;
+		}
+		this->updateClip();
+	}
 }
 
 void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
