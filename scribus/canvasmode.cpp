@@ -378,6 +378,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			}
 			else
 			{
+				w = currItem->visualWidth();
+				h = currItem->visualHeight();
 				if (currItem->rotation() != 0)
 				{
 					psx->setRenderHint(QPainter::Antialiasing);
@@ -392,8 +394,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					x = currItem->asLine() ? 0 : -lineAdjust;
 					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
-				w = currItem->visualWidth();
-				h = currItem->visualHeight();
 				psx->setBrush(Qt::NoBrush);
 				psx->setPen(ba);
 				psx->drawRect(QRectF(x, y, w, h));
