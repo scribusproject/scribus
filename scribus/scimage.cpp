@@ -1565,6 +1565,17 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mas
 
 void ScImage::scaleImage(int nwidth, int nheight)
 {
+	int depth = this->depth();
+	if (depth == 32)
+	{
+		scaleImage32bpp(nwidth, nheight);
+		return;
+	}
+	scaleImageGeneric(nwidth, nheight);
+}
+
+void ScImage::scaleImage32bpp(int nwidth, int nheight)
+{
 	QImage dst(nwidth, nheight, QImage::Format_ARGB32);
 	QRgb* xelrow = 0;
 	QRgb* tempxelrow = 0;
@@ -1581,6 +1592,14 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	long* gs;
 	long* bs;
 	int rowswritten = 0;
+
+	int depth = this->depth();
+	if (depth != 32)
+	{
+		QImage::operator=(QImage::scaled(nwidth, nheight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		return;
+	}
+
 	cols = width();
 	rows = height();
 	newcols = dst.width();
@@ -1767,6 +1786,188 @@ void ScImage::scaleImage(int nwidth, int nheight)
 			s++;
 			d++;
 		}
+	}
+	return;
+}
+
+void ScImage::scaleImageGeneric(int nwidth, int nheight)
+{
+	unsigned char* xelrow = 0;
+	unsigned char* tempxelrow = 0;
+	register unsigned char* xP;
+	register unsigned char* nxP;
+	int rows, cols, rowsread, newrows, newcols;
+	register int row, col, needtoreadrow;
+	const uchar maxval = 255;
+	double xscale, yscale;
+	long sxscale, syscale;
+	register long fracrowtofill, fracrowleft;
+	long* ps;
+	int rowswritten = 0;
+
+	int depth = this->depth();
+	Format imgFormat = this->format();
+	bool execScaled = (depth == 1 || depth == 4 || depth == 16);
+	execScaled |= (imgFormat == QImage::Format_ARGB8565_Premultiplied);
+	execScaled |= (imgFormat == QImage::Format_RGB666);
+	execScaled |= (imgFormat == QImage::Format_ARGB6666_Premultiplied);
+	execScaled |= (imgFormat == QImage::Format_ARGB8555_Premultiplied);
+	if (execScaled)
+	{
+		QImage::operator=(QImage::scaled(nwidth, nheight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		return;
+	}
+
+	QImage dst(nwidth, nheight, this->format());
+	int nChannels = this->depth() / 8;
+
+	cols = width();
+	rows = height();
+	newcols = dst.width();
+	newrows = dst.height();
+	long SCALE;
+	long HALFSCALE;
+	if (cols > 4096)
+	{
+		SCALE = 4096;
+		HALFSCALE = 2048;
+	}
+	else
+	{
+		int fac = 4096;
+		while ((cols * fac) > 4096)
+		{
+			fac /= 2;
+		}
+		SCALE = fac * cols;
+		HALFSCALE = fac * cols / 2;
+	}
+	xscale = (double) newcols / (double) cols;
+	yscale = (double) newrows / (double) rows;
+	sxscale = (long)(xscale * SCALE);
+	syscale = (long)(yscale * SCALE);
+	if ( newrows != rows )	/* shortcut Y scaling if possible */
+		tempxelrow = new unsigned char[cols * nChannels];
+	ps = new long[cols];
+
+	for (int chIndex = 0; chIndex < nChannels; ++chIndex)
+	{
+		xelrow = 0;
+		rowsread = rowswritten = 0;
+		fracrowleft = syscale;
+		needtoreadrow = 1;
+		for (col = 0; col < cols; ++col)
+			ps[col] = HALFSCALE;
+		fracrowtofill = SCALE;
+		for (row = 0; row < newrows; ++row)
+		{
+			if (newrows == rows)
+				tempxelrow = xelrow = scanLine(rowsread++);
+			else
+			{
+				while (fracrowleft < fracrowtofill)
+				{
+					if (needtoreadrow && rowsread < rows)
+						xelrow = scanLine(rowsread++);
+					for (col = 0, xP = xelrow + chIndex; col < cols; ++col, xP += nChannels)
+						ps[col] += fracrowleft * (*xP);
+					fracrowtofill -= fracrowleft;
+					fracrowleft = syscale;
+					needtoreadrow = 1;
+				}
+				if (needtoreadrow && rowsread < rows)
+				{
+					xelrow = scanLine(rowsread++);
+					needtoreadrow = 0;
+				}
+				register long p = 0;
+				xP  = xelrow + chIndex;
+				nxP = tempxelrow + chIndex;
+				for (col = 0; col < cols; ++col, xP += nChannels, nxP += nChannels)
+				{
+					p = ps[col] + fracrowtofill * (*xP);
+					p /= SCALE;
+					if ( p > maxval ) p = maxval;
+					*nxP = (unsigned char) p;
+					ps[col] = HALFSCALE;
+				}
+				fracrowleft -= fracrowtofill;
+				if ( fracrowleft == 0 )
+				{
+					fracrowleft = syscale;
+					needtoreadrow = 1;
+				}
+				fracrowtofill = SCALE;
+			}
+			if (newcols == cols)
+			{
+				memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols * nChannels);
+			}
+			else
+			{
+				register long p;
+				register long fraccoltofill, fraccolleft = 0;
+				register int needcol;
+				nxP = dst.scanLine(rowswritten++) + chIndex;
+				fraccoltofill = SCALE;
+				p = HALFSCALE;
+				needcol = 0;
+				for (col = 0, xP = tempxelrow + chIndex; col < cols; ++col, xP += nChannels)
+				{
+					fraccolleft = sxscale;
+					while ( fraccolleft >= fraccoltofill )
+					{
+						if ( needcol )
+						{
+							nxP += nChannels;
+							p = HALFSCALE;
+						}
+						p += fraccoltofill * ( *xP );
+						p /= SCALE;
+						if ( p > maxval ) p = maxval;
+						*nxP = (unsigned char) p;
+						fraccolleft -= fraccoltofill;
+						fraccoltofill = SCALE;
+						needcol = 1;
+					}
+					if (fraccolleft > 0)
+					{
+						if (needcol)
+						{
+							nxP += nChannels;
+							p = HALFSCALE;
+							needcol = 0;
+						}
+						p += fraccolleft * (*xP);
+						fraccoltofill -= fraccolleft;
+					}
+				}
+				if (fraccoltofill > 0)
+				{
+					xP -= nChannels;
+					p += fraccolleft * (*xP);
+				}
+				if (!needcol)
+				{
+					p /= SCALE;
+					if ( p > maxval ) p = maxval;
+					*nxP = (unsigned char) p;
+				}
+			}
+		}
+	}
+	if (newrows != rows && tempxelrow)// Robust, tempxelrow might be 0 1 day
+		delete [] tempxelrow;
+	if (ps)				// Avoid purify complaint
+		delete [] ps;
+
+	int scanWidth = dst.width() * nChannels;
+	QImage::operator=(QImage(nwidth, nheight, this->format()));
+	for( int yi=0; yi < dst.height(); ++yi )
+	{
+		uchar *s = (dst.scanLine( yi ));
+		uchar *d = (scanLine( yi ));
+		memcpy(d, s, scanWidth);
 	}
 	return;
 }

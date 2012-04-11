@@ -111,6 +111,12 @@ public:
 
 private:
 
+	// Scale image in-place : case of 32bpp image (RGBA, RGB32, CMYK)
+	void scaleImage32bpp(int width, int height);
+
+	// Scale image in-place : generic case
+	void scaleImageGeneric(int width, int height);
+
 	// Image effects
 	void solarize(double factor, bool cmyk);
 	void blur(int radius = 0);
