@@ -9534,16 +9534,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					origHeight = img.height();
 					ax = img.width() / a2;
 					ay = img.height() / a1;
-					if ((Options.UseRGB) || (Options.isGrayscale) || ((Options.UseProfiles2) && !(img.imgInfo.colorspace == ColorSpaceCMYK)) )
-					{
-						ColorSpaceEnum colsp = img.imgInfo.colorspace;
-						bool prog = img.imgInfo.progressive;
-						img = img.scaled(qRound(ax), qRound(ay), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-						img.imgInfo.colorspace = colsp;
-						img.imgInfo.progressive = prog;
-					}
-					else
-						img.scaleImage(qRound(ax), qRound(ay));
+					// #10510 : do not use scaled() here, may cause display problem 
+					// with acrobat reader if image contains some transparency
+					img.scaleImage(qRound(ax), qRound(ay));
 					ImInfo.sxa = sx * a2;
 					ImInfo.sya = sy * a1;
 				}
