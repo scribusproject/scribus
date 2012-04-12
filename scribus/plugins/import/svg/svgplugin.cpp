@@ -1677,7 +1677,7 @@ QFont SVGPlug::getFontFromStyle(SvgStyle& style)
 		font.setOverline(overline);
 		font.setStrikeOut(strikeOut);
 	}
-	font.setPointSize(style.FontSize / 10);
+	font.setPointSizeF(style.FontSize / 10.0);
 	return font;
 }
 
