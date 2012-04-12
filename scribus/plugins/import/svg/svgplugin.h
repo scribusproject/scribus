@@ -153,7 +153,7 @@ public:
 	QString FontStyle;
 	QString FontWeight;
 	QString FontStretch;
-	int FontSize;
+	double  FontSize;
 	QString FillCol;
 	QString fillRule;
 	QString GCol1;
