@@ -1898,7 +1898,7 @@ QFont SVGPlug::getFontFromStyle(SvgStyle& style)
 		font.setOverline(overline);
 		font.setStrikeOut(strikeOut);
 	}
-	font.setPointSizeF(style.FontSize / 10.0);
+	font.setPointSizeF(style.FontSize);
 	return font;
 }
 
@@ -1981,30 +1981,30 @@ double SVGPlug::parseUnit(const QString &unit)
 {
 	bool noUnit = false;
 	QString unitval=unit;
-	if( unit.right( 2 ) == "pt" )
-		unitval.replace( "pt", "" );
-	else if( unit.right( 2 ) == "cm" )
+	if (unit.right( 2 ) == "pt")
+		unitval.replace( "pt", "");
+	else if (unit.right( 2 ) == "cm")
 		unitval.replace( "cm", "" );
-	else if( unit.right( 2 ) == "mm" )
-		unitval.replace( "mm" , "" );
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "mm")
+		unitval.replace( "mm" , "");
+	else if (unit.right( 2 ) == "in")
 		unitval.replace( "in", "" );
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		unitval.replace( "px", "" );
 	if (unitval == unit)
 		noUnit = true;
 	double value = ScCLocale::toDoubleC(unitval);
-	if( unit.right( 2 ) == "pt" )
+	if (unit.right( 2 ) == "pt")
 		value = value;
-	else if( unit.right( 2 ) == "cm" )
+	else if (unit.right( 2 ) == "cm")
 		value = ( value / 2.54 ) * 72;
-	else if( unit.right( 2 ) == "mm" )
+	else if (unit.right( 2 ) == "mm")
 		value = ( value / 25.4 ) * 72;
-	else if( unit.right( 2 ) == "in" )
+	else if (unit.right( 2 ) == "in")
 		value = value * 72;
-	else if( unit.right( 2 ) == "px" )
+	else if (unit.right( 2 ) == "px")
 		value = value * 0.8;
-	else if(noUnit)
+	else if (noUnit)
 		value = value;
 	return value;
 }
@@ -2557,7 +2557,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	else if( command == "font-stretch" )
 		obj->FontStretch = params;
 	else if( command == "font-size" )
-		obj->FontSize = static_cast<int>(parseFontSize(params) * 10.0);
+		obj->FontSize = parseFontSize(params);
 	else if( command == "text-anchor" )
 		obj->textAnchor = params;
 	else if( command == "text-decoration" )
