@@ -605,8 +605,12 @@ PageItem* CreateMode::doCreateNewObject(void)
 	wSize = canvasCurrCoord.x() - createObjectPos.x();
 	hSize = canvasCurrCoord.y() - createObjectPos.y();
 	//Lock Height to Width for Control Modifier for final item creation
-	if (modifiers == Qt::ControlModifier)
-		hSize=wSize;
+	if (createObjectMode != modeDrawLine)
+	{
+		if (modifiers == Qt::ControlModifier)
+			hSize = wSize;
+	}
+
 	PageItem *newObject = NULL, *currItem = NULL;
 	// FIXME for modeDrawLine
 	QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
