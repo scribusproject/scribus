@@ -296,7 +296,10 @@ static QString PDFEncode(const QString & in)
 		if ((cc == '(') || (cc == ')') || (cc == '\\'))
 			tmp += '\\';
 		else if ((cc == '\r') || (cc == '\n'))
-			tmp += "\\n";
+		{
+			tmp += (cc == '\r') ? "\\r" : "\\n";
+			continue;
+		}
 		tmp += cc;
 	}
 	return tmp;
