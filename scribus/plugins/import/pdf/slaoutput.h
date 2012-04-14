@@ -126,6 +126,8 @@ public:
   //----- grouping operators
 	virtual void beginMarkedContent(char *name, Dict *properties);
 	virtual void endMarkedContent(GfxState *state);
+	virtual void markPoint(char *name);
+	virtual void markPoint(char *name, Dict *properties);
 	//----- image drawing
 	virtual void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg);
 	virtual void drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int *maskColors, GBool inlineImg);

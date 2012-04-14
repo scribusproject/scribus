@@ -1404,20 +1404,26 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 	{
 		if (QString(name) == "Layer")		// Handle Adobe Illustrator Layer command
 		{
-			layerNum++;
-			if (!firstLayer)
-				currentLayer = m_doc->addLayer(QString("Layer_%1").arg(layerNum), true);
-			firstLayer = false;
 			Object obj;
+			QString lName = QString("Layer_%1").arg(layerNum + 1);
 			if (properties->lookup((char*)"Title", &obj))
 			{
 				if (obj.isString())
-				{
-					QString lName =  QString(obj.getString()->getCString());
-					m_doc->changeLayerName(currentLayer, lName);
-				}
+					lName =  QString(obj.getString()->getCString());
 				obj.free();
 			}
+			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+			{
+				if (it->Name == lName)
+				{
+					m_doc->setActiveLayer(lName);
+					return;
+				}
+			}
+			layerNum++;
+			if (!firstLayer)
+				currentLayer = m_doc->addLayer(lName, true);
+			firstLayer = false;
 			if (properties->lookup((char*)"Visible", &obj))
 			{
 				if (obj.isBool())
@@ -1461,6 +1467,17 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 void SlaOutputDev::endMarkedContent(GfxState *state)
 {
 //	qDebug() << "End Marked Content";
+}
+
+void SlaOutputDev::markPoint(char *name)
+{
+//	qDebug() << "Begin Marked Point with Name " << QString(name);
+}
+
+void SlaOutputDev::markPoint(char *name, Dict *properties)
+{
+//	qDebug() << "Begin Marked Point with Name " << QString(name) << "and Properties";
+	beginMarkedContent(name, properties);
 }
 
 // POPPLER_VERSION appeared in 0.19.0 first
