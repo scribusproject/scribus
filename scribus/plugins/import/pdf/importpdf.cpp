@@ -308,6 +308,48 @@ bool PdfPlug::convert(QString fn)
 				double vDPI = 72.0;
 				int firstPage = 1;
 				int lastPage = pdfDoc->getNumPages();
+				OCGs* ocg = pdfDoc->getOptContentConfig();
+				if (ocg)
+				{
+					GBool hasOcg = ocg->hasOCGs();
+					if (hasOcg)
+					{
+					//	qDebug() << "File has OCGs";
+						Array *order = ocg->getOrderArray();
+						if (order)
+						{
+							for (int i = 0; i < order->getLength (); ++i)
+							{
+								Object orderItem;
+								order->get(i, &orderItem);
+								if (orderItem.isDict())
+								{
+									Object ref;
+									order->getNF(i, &ref);
+									if (ref.isRef())
+									{
+										OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
+								//		qDebug() << "Name" << UnicodeParsedString(oc->getName()) << "State" << oc->getState() << "View" << oc->getViewState() << "Print" << oc->getPrintState();
+										oc->setState(OptionalContentGroup::On);
+									}
+									ref.free();
+								}
+							}
+						}
+						else
+						{
+							GooList *ocgs;
+							int i;
+							ocgs = ocg->getOCGs ();
+							for (i = 0; i < ocgs->getLength (); ++i)
+							{
+								OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
+							//	qDebug() << "Name" << UnicodeParsedString(oc->getName()) << "State" << oc->getState() << "View" << oc->getViewState() << "Print" << oc->getPrintState();
+								oc->setState(OptionalContentGroup::On);
+							}
+						}
+					}
+				}
 	//			qDebug() << "converting page" << firstPage;
 				SlaOutputDev *dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 				if (dev->isOk())
