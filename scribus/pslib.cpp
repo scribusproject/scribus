@@ -2844,7 +2844,7 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	int b;
-	int h, s, v, k;
+//	int h, s, v, k;
 	QByteArray chstrc;
 	QString chstr, chglyph, tmp;
 	PageItem *c;
@@ -3664,7 +3664,8 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	bool success = true;
-	int b, h, s, v, k;
+	int b;
+//	int h, s, v, k;
 	QList<PageItem*> items;
 	items = (page->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
 	if (layer.isPrintable && !abortExport)
