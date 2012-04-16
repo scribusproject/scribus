@@ -3593,7 +3593,7 @@ Du må velge et annet navn.</translation>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation>Navnet «%1» er ikke unikt.
+        <translation type="obsolete">Navnet «%1» er ikke unikt.
 Velg et annet.</translation>
     </message>
     <message>
@@ -6810,6 +6810,10 @@ eventuelt fulgt av en bindestrek og en ISO-3166 landskode, f.eks nn-NO, nb-NO, f
         <translation>Språket som dokumentet er skrevet på, vanligvis en ISO-638 språkkode 
 eventuelt fulgt av en bindestrek og en ISO-3166 landskode, f.eks nn-NO, nb-NO, fr-CH eller en-GB</translation>
     </message>
+    <message>
+        <source>&amp;Subject:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DocSections</name>
@@ -9140,6 +9144,55 @@ og www.scribus.net for nye versjoner av Scribus.</translation>
     <message>
         <source>Book&amp;marks</source>
         <translation type="obsolete">&amp;Bokmerker</translation>
+    </message>
+</context>
+<context>
+    <name>HunspellDialog</name>
+    <message>
+        <source>Spelling check complete</source>
+        <translation type="unfinished">Stavekontrollen er ferdig</translation>
+    </message>
+</context>
+<context>
+    <name>HunspellDialogBase</name>
+    <message>
+        <source>Check Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not in dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HunspellPlugin</name>
+    <message>
+        <source>Hunspell &amp;Plugin</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14516,6 +14569,10 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
         <source>No Image Loaded</source>
         <translation>Intet bilde ble lastet</translation>
     </message>
+    <message>
+        <source>missing or corrupt</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageItem_LatexFrame</name>
@@ -15210,11 +15267,11 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
     <message>
         <source>Qt Version too old</source>
-        <translation>Qt-versjonen er for gammel</translation>
+        <translation type="obsolete">Qt-versjonen er for gammel</translation>
     </message>
     <message>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Dette programtillegget krever minst  versjon 4.3.3 av Qt-biblioteket</translation>
+        <translation type="obsolete">Dette programtillegget krever minst  versjon 4.3.3 av Qt-biblioteket</translation>
     </message>
 </context>
 <context>
@@ -18877,6 +18934,14 @@ Corners:</source>
         <source>&amp;Group</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PythonConsole</name>
@@ -21756,6 +21821,10 @@ is not exhaustive due to exceptions from called functions.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Hunspell Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -21883,6 +21952,22 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; is not allowed.
+Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; already exists.
+Do you want to replace the current contents?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; is not unique.
+Please choose another.</source>
+        <translation type="unfinished">Navnet «%1» er ikke unikt.
+Velg et annet.</translation>
     </message>
 </context>
 <context>
@@ -31762,6 +31847,14 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Unlink text frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path Operation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
