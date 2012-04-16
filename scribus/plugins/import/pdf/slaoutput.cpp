@@ -32,9 +32,8 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	xref = NULL;
 	m_fontEngine = 0;
 	m_font = 0;
-	firstPage = true;
-	pagecount = 1;
 	updateGUICounter = 0;
+	layersSetByOCG = false;
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -51,8 +50,6 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	xref = xrefA;
 	catalog = catA;
 	pdfDoc = doc;
-	firstPage = true;
-	pagecount = 1;
 	updateGUICounter = 0;
 	m_fontEngine = new SplashFontEngine(
 #if HAVE_T1LIB_H
@@ -66,27 +63,8 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	true);
 }
 
-void SlaOutputDev::startPage(int pageNum, GfxState *state)
+void SlaOutputDev::startPage(int, GfxState *)
 {
-//    qDebug() << "starting page" << pageNum;
-	if (firstPage)
-		firstPage = false;
-	else
-	{
-		if (importerFlags & LoadSavePlugin::lfCreateDoc)
-		{
-			m_doc->addPage(pagecount);
-			m_doc->currentPage()->setInitialHeight(state->getPageHeight());
-			m_doc->currentPage()->setInitialWidth(state->getPageWidth());
-			m_doc->currentPage()->setHeight(state->getPageHeight());
-			m_doc->currentPage()->setWidth(state->getPageWidth());
-			m_doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-			m_doc->currentPage()->m_pageSize = "Custom";
-			m_doc->view()->addPage(pagecount, true);
-			pagecount++;
-		}
-	}
- //   qDebug() << "page size =" << pageSize;
 }
 
 void SlaOutputDev::endPage()
@@ -1404,6 +1382,8 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 	{
 		if (QString(name) == "Layer")		// Handle Adobe Illustrator Layer command
 		{
+			if (layersSetByOCG)
+				return;
 			Object obj;
 			QString lName = QString("Layer_%1").arg(layerNum + 1);
 			if (properties->lookup((char*)"Title", &obj))

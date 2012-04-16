@@ -83,7 +83,7 @@ public:
 	virtual GBool useTilingPatternFill() { return gTrue; }
 	virtual GBool useShadedFills(int type) { return type <= 7; }
 	virtual GBool useFillColorStop() { return gTrue; }
-	virtual void startPage(int pageNum, GfxState *state);
+	virtual void startPage(int, GfxState *);
 	virtual void endPage();
 	// grapics state
 	virtual void saveState(GfxState *state);
@@ -165,6 +165,7 @@ public:
 	virtual void endType3Char(GfxState * /*state*/);
 	virtual void type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/);
 	virtual void type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/);
+	bool layersSetByOCG;
 
 private:
 	void getPenState(GfxState *state);
@@ -174,7 +175,6 @@ private:
 	void applyMask(PageItem *ite);
 	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	bool pathIsClosed;
-	bool firstLayer;
 	QString CurrColorFill;
 	QString CurrColorStroke;
 	Qt::PenCapStyle PLineEnd;
@@ -220,9 +220,8 @@ private:
 	int grStackDepth;
 	int layerNum;
 	int currentLayer;
+	bool firstLayer;
 	int importerFlags;
-	bool firstPage;
-	int pagecount;
 	int updateGUICounter;
 	XRef *xref;		// xref table for current document
 	PDFDoc *pdfDoc;

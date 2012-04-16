@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include "slaoutput.h"
 #include <GlobalParams.h>
+#include <poppler-config.h>
 
 #include "importpdf.h"
 
@@ -277,7 +278,9 @@ PdfPlug::~PdfPlug()
 
 bool PdfPlug::convert(QString fn)
 {
-	QString tmp;
+	bool firstLayer = true;
+	bool firstPg = true;
+	int currentLayer = m_Doc->activeLayer();
 	importedColors.clear();
 	if(progressDialog)
 	{
@@ -298,6 +301,8 @@ bool PdfPlug::convert(QString fn)
 	{
 		GooString *fname = new GooString(QFile::encodeName(fn).data());
 		globalParams->setErrQuiet(gTrue);
+		GBool hasOcg = gFalse;
+		QList<OptionalContentGroup*> ocgGroups;
 //		globalParams->setPrintCommands(gTrue);
 		PDFDoc *pdfDoc = new PDFDoc(fname, 0, 0, 0);
 		if (pdfDoc)
@@ -308,77 +313,94 @@ bool PdfPlug::convert(QString fn)
 				double vDPI = 72.0;
 				int firstPage = 1;
 				int lastPage = pdfDoc->getNumPages();
-				OCGs* ocg = pdfDoc->getOptContentConfig();
-				if (ocg)
-				{
-					GBool hasOcg = ocg->hasOCGs();
-					if (hasOcg)
-					{
-					//	qDebug() << "File has OCGs";
-						Array *order = ocg->getOrderArray();
-						if (order)
-						{
-							for (int i = 0; i < order->getLength (); ++i)
-							{
-								Object orderItem;
-								order->get(i, &orderItem);
-								if (orderItem.isDict())
-								{
-									Object ref;
-									order->getNF(i, &ref);
-									if (ref.isRef())
-									{
-										OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
-								//		qDebug() << "Name" << UnicodeParsedString(oc->getName()) << "State" << oc->getState() << "View" << oc->getViewState() << "Print" << oc->getPrintState();
-										oc->setState(OptionalContentGroup::On);
-									}
-									ref.free();
-								}
-							}
-						}
-						else
-						{
-							GooList *ocgs;
-							int i;
-							ocgs = ocg->getOCGs ();
-							for (i = 0; i < ocgs->getLength (); ++i)
-							{
-								OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-							//	qDebug() << "Name" << UnicodeParsedString(oc->getName()) << "State" << oc->getState() << "View" << oc->getViewState() << "Print" << oc->getPrintState();
-								oc->setState(OptionalContentGroup::On);
-							}
-						}
-					}
-				}
-	//			qDebug() << "converting page" << firstPage;
 				SlaOutputDev *dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 				if (dev->isOk())
 				{
+					OCGs* ocg = pdfDoc->getOptContentConfig();
+					if (ocg)
+					{
+						hasOcg = ocg->hasOCGs();
+						if (hasOcg)
+						{
+							Array *order = ocg->getOrderArray();
+							if (order)
+							{
+								for (int i = 0; i < order->getLength (); ++i)
+								{
+									Object orderItem;
+									order->get(i, &orderItem);
+									if (orderItem.isDict())
+									{
+										Object ref;
+										order->getNF(i, &ref);
+										if (ref.isRef())
+										{
+											OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
+											ocgGroups.prepend(oc);
+										}
+										ref.free();
+									}
+								}
+							}
+							else
+							{
+								GooList *ocgs;
+								int i;
+								ocgs = ocg->getOCGs ();
+								for (i = 0; i < ocgs->getLength (); ++i)
+								{
+									OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
+									ocgGroups.prepend(oc);
+								}
+							}
+						}
+					}
 					GBool useMediaBox = gTrue;
 					GBool crop = gFalse;
 					GBool printing = gFalse;
 					dev->startDoc(pdfDoc, pdfDoc->getXRef(), pdfDoc->getCatalog());
 					int rotate = pdfDoc->getPageRotate(firstPage);
-				/*	PDFRectangle *rect = pdfDoc->getPage(firstPage)->getMediaBox();
-					qDebug() << "Media Box" << rect->x1 << rect->y1 << rect->x2 << rect->y2;
-					rect = pdfDoc->getPage(firstPage)->getCropBox();
-					qDebug() << "Crop Box " << rect->x1 << rect->y1 << rect->x2 << rect->y2;
-					rect = pdfDoc->getPage(firstPage)->getBleedBox();
-					qDebug() << "Bleed Box" << rect->x1 << rect->y1 << rect->x2 << rect->y2;
-					rect = pdfDoc->getPage(firstPage)->getTrimBox();
-					qDebug() << "Trim Box " << rect->x1 << rect->y1 << rect->x2 << rect->y2;
-					rect = pdfDoc->getPage(firstPage)->getArtBox();
-					qDebug() << "Art Box  " << rect->x1 << rect->y1 << rect->x2 << rect->y2; */
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
-						m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(firstPage));
-						m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(firstPage));
-						m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(firstPage));
-						m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(firstPage));
-						m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-						m_Doc->currentPage()->m_pageSize = "Custom";
-						m_Doc->setPageSize("Custom");
-						m_Doc->reformPages(true);
+						if (hasOcg)
+						{
+							for (int a = 0; a < ocgGroups.count(); a++)
+							{
+								OptionalContentGroup *oc = ocgGroups[a];
+								if (firstLayer)
+								{
+									m_Doc->changeLayerName(m_Doc->activeLayer(), UnicodeParsedString(oc->getName()));
+									currentLayer = m_Doc->activeLayer();
+									firstLayer = false;
+								}
+								else
+									currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
+// POPPLER_VERSION appeared in 0.19.0 first
+#ifdef POPPLER_VERSION
+								if ((oc->getViewState() == OptionalContentGroup::ocUsageOn) || (oc->getViewState() == OptionalContentGroup::ocUsageUnset))
+									m_Doc->setLayerVisible(currentLayer, true);
+								else
+									m_Doc->setLayerVisible(currentLayer, false);
+								if ((oc->getPrintState() == OptionalContentGroup::ocUsageOn) || (oc->getPrintState() == OptionalContentGroup::ocUsageUnset))
+									m_Doc->setLayerPrintable(currentLayer, true);
+								else
+									m_Doc->setLayerPrintable(currentLayer, false);
+#else
+								if (oc->getState() == OptionalContentGroup::On)
+								{
+									m_Doc->setLayerVisible(currentLayer, true);
+									m_Doc->setLayerPrintable(currentLayer, true);
+								}
+								else
+								{
+									m_Doc->setLayerVisible(currentLayer, false);
+									m_Doc->setLayerPrintable(currentLayer, false);
+								}
+#endif
+								oc->setState(OptionalContentGroup::Off);
+							}
+							dev->layersSetByOCG = true;
+						}
 						Object info;
 						pdfDoc->getDocInfo(&info);
 						if (info.isDict())
@@ -412,10 +434,47 @@ bool PdfPlug::convert(QString fn)
 							}
 						}
 						info.free();
-						pdfDoc->displayPages(dev, firstPage, lastPage, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+						for (int pp = 0; pp < lastPage; pp++)
+						{
+							if (firstPg)
+								firstPg = false;
+							else
+								m_Doc->addPage(pp);
+							m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp + 1));
+							m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp + 1));
+							m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp + 1));
+							m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp + 1));
+							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+							m_Doc->currentPage()->m_pageSize = "Custom";
+							m_Doc->setPageSize("Custom");
+							m_Doc->reformPages(true);
+							if (hasOcg)
+							{
+								for (int a = 0; a < ocgGroups.count(); a++)
+								{
+									OptionalContentGroup *oc = ocgGroups[a];
+									m_Doc->setActiveLayer(UnicodeParsedString(oc->getName()));
+									currentLayer = m_Doc->activeLayer();
+									oc->setState(OptionalContentGroup::On);
+									pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+									oc->setState(OptionalContentGroup::Off);
+								}
+							}
+							else
+								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+						}
 					}
 					else
+					{
+						if (hasOcg)
+						{
+							for (int a = 0; a < ocgGroups.count(); a++)
+							{
+								ocgGroups[a]->setState(OptionalContentGroup::On);
+							}
+						}
 						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+					}
 				}
 				delete dev;
 			}
