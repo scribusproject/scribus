@@ -11,10 +11,12 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 // PV - commented out - why it was here?
-// #if defined(_XOPEN_SOURCE)
-// #define SCRIBUS_XOPEN_SOURCE
-// #undef _XOPEN_SOURCE
-// #endif
+#if defined(_XOPEN_SOURCE)
+	#undef _XOPEN_SOURCE
+#endif
+#if defined(_POSIX_C_SOURCE)
+	#undef _POSIX_C_SOURCE
+#endif
 
 #if defined(HAVE_BOOST_PYTHON)
 #include <boost/python.hpp>
@@ -29,12 +31,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef Py_RETURN_TRUE
 	#define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True
 #endif
-
-// PV - commented out - why it was here?
-// #if defined(SCRIBUS_XOPEN_SOURCE)
-// #define _XOPEN_SOURCE
-// #undef SCRIBUS_XOPEN_SOURCE
-// #endif
 
 #include <QString>
 
