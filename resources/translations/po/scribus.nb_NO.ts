@@ -1884,7 +1884,7 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Insert Table 2</source>
+        <source>Inline Frames</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4800,6 +4800,13 @@ Høyde: %2</translation>
     </message>
 </context>
 <context>
+    <name>CellStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen stil</translation>
+    </message>
+</context>
+<context>
     <name>CgmPlug</name>
     <message>
         <source>Importing: %1</source>
@@ -6093,6 +6100,14 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
     </message>
     <message>
         <source>Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Table Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Cell Style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9852,6 +9867,21 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
+    <name>IdmlPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
+    </message>
+</context>
+<context>
     <name>ImageInfoDialog</name>
     <message>
         <source>Image Info</source>
@@ -10092,6 +10122,42 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>GPL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
+    <name>ImportIdmlPlugin</name>
+    <message>
+        <source>Import Idml...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adobe Indesign IDML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adobe Indesign IDML (*.idml *.IDML)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports IDML Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most IDML files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adobe Indesign IDMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adobe Indesign IDMS (*.idms *.IDMS)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10455,6 +10521,21 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Imposition on grids, booklets and folds</source>
         <translation type="unfinished">Imposition på rutenett, hefter og brosjyrer</translation>
+    </message>
+</context>
+<context>
+    <name>InlinePalette</name>
+    <message>
+        <source>Paste to Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inline Frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14116,6 +14197,10 @@ ellers måles koordinatene i forhold til objektet.</translation>
         <source>Layer: &quot;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Inline Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OutlineValues</name>
@@ -15853,6 +15938,10 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
         <source>No Image Loaded</source>
         <translation>Intet bilde ble lastet</translation>
     </message>
+    <message>
+        <source>missing or corrupt</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageItem_LatexFrame</name>
@@ -16837,11 +16926,11 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
     <message>
         <source>Qt Version too old</source>
-        <translation>Qt-versjonen er for gammel</translation>
+        <translation type="obsolete">Qt-versjonen er for gammel</translation>
     </message>
     <message>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Dette programtillegget krever minst  versjon 4.3.3 av Qt-biblioteket</translation>
+        <translation type="obsolete">Dette programtillegget krever minst  versjon 4.3.3 av Qt-biblioteket</translation>
     </message>
 </context>
 <context>
@@ -21862,10 +21951,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Registration Mark Offset:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22471,6 +22556,18 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation type="unfinished">Tilpass dokumentsiden(e) så hele siden vises.</translation>
     </message>
+    <message>
+        <source>Mark Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of crop marks</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_PageSizes</name>
@@ -22890,6 +22987,10 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     <message>
         <source>All</source>
         <translation type="unfinished">Alle</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation type="unfinished">Lengde:</translation>
     </message>
 </context>
 <context>
@@ -23907,6 +24008,10 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation type="unfinished">Lengde:</translation>
     </message>
 </context>
 <context>
@@ -25478,23 +25583,23 @@ Corners:</source>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation type="unfinished">Cellelinjer</translation>
+        <translation type="obsolete">Cellelinjer</translation>
     </message>
     <message>
         <source>Line at Top</source>
-        <translation type="unfinished">Linje øverst</translation>
+        <translation type="obsolete">Linje øverst</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation type="unfinished">Linje til venstre</translation>
+        <translation type="obsolete">Linje til venstre</translation>
     </message>
     <message>
         <source>Line at the Right </source>
-        <translation type="unfinished">Linje til høyre </translation>
+        <translation type="obsolete">Linje til høyre </translation>
     </message>
     <message>
         <source>Line at Bottom</source>
-        <translation type="unfinished">Linje nederst</translation>
+        <translation type="obsolete">Linje nederst</translation>
     </message>
     <message>
         <source> %</source>
@@ -25593,23 +25698,11 @@ Corners:</source>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation type="unfinished">Cellelinjer</translation>
+        <translation type="obsolete">Cellelinjer</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation type="unfinished">Linje til venstre</translation>
-    </message>
-    <message>
-        <source>Line at the Right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line at the Bottom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line at the Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Linje til venstre</translation>
     </message>
 </context>
 <context>
@@ -25674,6 +25767,14 @@ Corners:</source>
         <source>Use Image Clip Path</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25741,6 +25842,25 @@ Corners:</source>
     </message>
 </context>
 <context>
+    <name>PropertiesPalette_Table</name>
+    <message>
+        <source>Cell style of currently selected cell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table style of currently selected table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Direct Cell Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Direct Table Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertiesPalette_TableBase</name>
     <message>
         <source>Form</source>
@@ -25774,12 +25894,24 @@ Corners:</source>
         <source>Fill</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cells</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_Text</name>
     <message>
         <source>Color &amp; Effects</source>
-        <translation type="unfinished">Fargeeffekter</translation>
+        <translation type="obsolete">Fargeeffekter</translation>
     </message>
     <message>
         <source>First Line Offset</source>
@@ -25787,7 +25919,7 @@ Corners:</source>
     </message>
     <message>
         <source>Columns &amp; Text Distances</source>
-        <translation type="unfinished">Kolonner og  tekstavstander</translation>
+        <translation type="obsolete">Kolonner og  tekstavstander</translation>
     </message>
     <message>
         <source>Optical Margins</source>
@@ -25811,11 +25943,11 @@ Corners:</source>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation type="unfinished">Kolonneavstand</translation>
+        <translation type="obsolete">Kolonneavstand</translation>
     </message>
     <message>
         <source>Column width</source>
-        <translation type="unfinished">Kolonnebredde</translation>
+        <translation type="obsolete">Kolonnebredde</translation>
     </message>
     <message>
         <source>Paragraph St&amp;yle:</source>
@@ -25876,6 +26008,14 @@ Corners:</source>
     </message>
     <message>
         <source>Drop Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color &amp;&amp; Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Columns &amp;&amp; Text Distances</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26245,6 +26385,10 @@ Corners:</source>
     <message>
         <source>Edit tab settings of text frame...</source>
         <translation type="unfinished">Rediger tabulator-innstillingene til tekstramma …</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation type="unfinished">Kolonnebredde</translation>
     </message>
 </context>
 <context>
@@ -29939,12 +30083,16 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Border lines are specified as (width,style,color) tuples</source>
+        <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Border line width must be &gt; 0.0</source>
+        <source>Idml Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -30706,6 +30854,10 @@ Hvis du bruker motstående sider, kan dette brukes til å få rettinnbindingsmar
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished">%1 (%2)</translation>
     </message>
+    <message>
+        <source>Setting that style as parent would create an infinite loop.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SMCellStyleWidget</name>
@@ -30720,6 +30872,26 @@ Hvis du bruker motstående sider, kan dette brukes til å få rettinnbindingsmar
     <message>
         <source>Fill Color</source>
         <translation type="unfinished">Fyllfarge</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished">Basert på:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>Fill Shade</source>
+        <translation type="unfinished">Fyllskygge</translation>
+    </message>
+    <message>
+        <source>A default style cannot be assigned a parent style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation type="unfinished">Skygge</translation>
     </message>
 </context>
 <context>
@@ -31297,6 +31469,10 @@ Expressed as a percentage of the current white space value.</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished">%1 (%2)</translation>
     </message>
+    <message>
+        <source>Setting that style as parent would create an infinite loop.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SMTableStyleWidget</name>
@@ -31311,6 +31487,26 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <source>Fill Color</source>
         <translation type="unfinished">Fyllfarge</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished">Basert på:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>A default style cannot be assigned a parent style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation type="unfinished">Skygge</translation>
+    </message>
+    <message>
+        <source>Fill Shade</source>
+        <translation type="unfinished">Fyllskygge</translation>
     </message>
 </context>
 <context>
@@ -34702,6 +34898,14 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to leave inline frame edit mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Editing Inline Frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -39210,6 +39414,14 @@ når dokumentet åpnes:</translation>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Length:</source>
+        <translation type="unfinished">Lengde:</translation>
+    </message>
+    <message>
+        <source>Indicate the size of crops&apos;marks</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -40046,6 +40258,13 @@ Nivå 1 eller 2 kan gi store filer</translation>
     </message>
 </context>
 <context>
+    <name>TableStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen stil</translation>
+    </message>
+</context>
+<context>
     <name>Tabruler</name>
     <message>
         <source>Left</source>
@@ -40170,6 +40389,14 @@ Nivå 1 eller 2 kan gi store filer</translation>
         <source>Period</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Delete Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete selected Tabulator</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -41161,6 +41388,18 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Unlink text frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear image frame content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path Operation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
