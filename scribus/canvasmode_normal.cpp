@@ -1022,7 +1022,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
 					continue;
 				QRect  apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
-				if ((localSele.contains(apr2)) && (docItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerID)))
+				if ((localSele.contains(apr2)) && ((docItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(docItem->LayerID))) && (!m_doc->layerLocked(docItem->LayerID)))
 				{
 					bool redrawSelection=false;
 					m_view->SelectItemNr(a, redrawSelection);

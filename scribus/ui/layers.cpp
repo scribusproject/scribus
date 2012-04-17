@@ -66,14 +66,15 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", 0
 	layout1->addWidget( opacitySpinBox );
 	LayerPaletteLayout->addLayout( layout1 );
 
-	Table = new QTableWidget(0, 7, this );
+	Table = new QTableWidget(0, 8, this );
 	Table->setHorizontalHeaderItem(0, new QTableWidgetItem(""));
 	Table->setHorizontalHeaderItem(1, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
 	Table->setHorizontalHeaderItem(2, new QTableWidgetItem(QIcon(loadIcon("16/document-print.png")), ""));
 	Table->setHorizontalHeaderItem(3, new QTableWidgetItem(QIcon(loadIcon("16/lock.png")), ""));
 	Table->setHorizontalHeaderItem(4, new QTableWidgetItem(QIcon(loadIcon("16/layer-flow-around.png")), ""));
 	Table->setHorizontalHeaderItem(5, new QTableWidgetItem(QIcon(loadIcon("layer-outline.png")), ""));
-	Table->setHorizontalHeaderItem(6, new QTableWidgetItem( tr("Name")));
+	Table->setHorizontalHeaderItem(6, new QTableWidgetItem(QIcon(loadIcon("16/pointer.png")), ""));
+	Table->setHorizontalHeaderItem(7, new QTableWidgetItem( tr("Name")));
 
 	QHeaderView *header = Table->horizontalHeader();
 	header->setStretchLastSection(true);
@@ -88,6 +89,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", 0
 	Table->setColumnWidth(3, 24);
 	Table->setColumnWidth(4, 24);
 	Table->setColumnWidth(5, 24);
+	Table->setColumnWidth(6, 24);
 	Table->setSortingEnabled(false);
 	Table->setSelectionBehavior( QAbstractItemView::SelectRows );
 	QHeaderView *Header = Table->verticalHeader();
@@ -250,7 +252,12 @@ void LayerPalette::rebuildList()
 		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
 		Table->setCellWidget(row, 5, cp5);
 		cp5->setChecked(m_Doc->layerOutline(layerID));
-		Table->setItem(row, 6, new QTableWidgetItem(m_Doc->layerName(layerID)));
+		QCheckBox *cp6 = new QCheckBox(this);
+		cp6->setObjectName(tmp);
+		connect(cp6, SIGNAL(clicked()), this, SLOT(selectToggleLayer()));
+		Table->setCellWidget(row, 6, cp6);
+		cp6->setChecked(m_Doc->layerSelectable(layerID));
+		Table->setItem(row, 7, new QTableWidgetItem(m_Doc->layerName(layerID)));
 	}
 	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
@@ -340,7 +347,7 @@ void LayerPalette::downLayer()
 
 void LayerPalette::changeName(int row, int col)
 {
-	if (col == 6)
+	if (col == 7)
 	{
 		int layerLevel = m_Doc->layerCount()-1-row;
 		int layerID=m_Doc->layerIDFromLevel(layerLevel);
@@ -420,6 +427,21 @@ void LayerPalette::outlineToggleLayer()
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerOutline(layerID,((QCheckBox*)(senderBox))->isChecked());
+		emit LayerChanged();
+		setActiveLayer(Table->currentRow(), -1);
+	}
+}
+
+void LayerPalette::selectToggleLayer()
+{
+	int level = QString(sender()->objectName()).toInt();
+	int layerID=m_Doc->layerIDFromLevel(level);
+	if (layerID==-1)
+		return;
+	const QObject* senderBox=sender();
+	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
+	{
+		m_Doc->setLayerSelectable(layerID,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
 		setActiveLayer(Table->currentRow(), -1);
 	}
@@ -529,7 +551,7 @@ void LayerPalette::markActiveLayer(int layerID)
 
 void LayerPalette::setActiveLayer(int row, int col)
 {
-	if (col != 6)
+	if (col != 7)
 	{
 		markActiveLayer(-1);
 		return;
@@ -613,7 +635,8 @@ void LayerPalette::languageChange()
 	Table->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Lock or Unlock Layer - Unchecked is unlocked ") + "</qt>" );
 	Table->horizontalHeaderItem(4)->setToolTip("<qt>" + tr("Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled") + "</qt>" );
 	Table->horizontalHeaderItem(5)->setToolTip("<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
-	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Name of the Layer - Double click on the name of a layer to edit the name") + "</qt>" );
+	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Select Objects on Layer - Check to enable selecting. ") + "</qt>" );
+	Table->horizontalHeaderItem(7)->setToolTip("<qt>" + tr("Name of the Layer - Double click on the name of a layer to edit the name") + "</qt>" );
 }
 
 

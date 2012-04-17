@@ -19,6 +19,7 @@ ScLayer::ScLayer(void)
 	isPrintable  = true;
 	isViewable   = true;
 	isEditable   = true;
+	isSelectable = false;
 	flowControl  = true;
 	outlineMode  = false;
 	transparency = 1.0;
@@ -34,6 +35,7 @@ ScLayer::ScLayer(const QString& name, int level, int id)
 	isPrintable  = true;
 	isViewable   = true;
 	isEditable   = true;
+	isSelectable = false;
 	flowControl  = true;
 	outlineMode  = false;
 	transparency = 1.0;
@@ -131,7 +133,8 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 			layer.isViewable   = ll.isViewable;
 			layer.isPrintable  = ll.isPrintable;
 			layer.isEditable   = ll.isEditable;
-			layer.ID          = ll.ID;
+			layer.isSelectable = ll.isSelectable;
+			layer.ID           = ll.ID;
 			layer.Name         = ll.Name;
 			layer.flowControl  = ll.flowControl;
 			layer.transparency = ll.transparency;
@@ -629,6 +632,25 @@ bool ScLayers::setLayerMarker(const int layerID, QColor color)
 	if (layer)
 	{
 		layer->markerColor = color;
+		return true;
+	}
+	return false;
+}
+
+bool ScLayers::layerSelectable(const int layerID) const
+{
+	const ScLayer* layer = layerByID(layerID);
+	if (layer)
+		return layer->isSelectable;
+	return false;
+}
+
+bool ScLayers::setLayerSelectable(const int layerID, const bool isSelectable)
+{
+	ScLayer* layer = byID(layerID);
+	if (layer)
+	{
+		layer->isSelectable = isSelectable;
 		return true;
 	}
 	return false;

@@ -975,6 +975,7 @@ void Scribus150Format::writeLayers(ScXmlStreamWriter & docu)
 		docu.writeAttribute("SICHTBAR", static_cast<int>(m_Doc->Layers[lay].isViewable));
 		docu.writeAttribute("DRUCKEN", static_cast<int>(m_Doc->Layers[lay].isPrintable));
 		docu.writeAttribute("EDIT", static_cast<int>(m_Doc->Layers[lay].isEditable));
+		docu.writeAttribute("SELECT", static_cast<int>(m_Doc->Layers[lay].isSelectable));
 		docu.writeAttribute("FLOW", static_cast<int>(m_Doc->Layers[lay].flowControl));
 		docu.writeAttribute("TRANS", m_Doc->Layers[lay].transparency);
 		docu.writeAttribute("BLEND", m_Doc->Layers[lay].blendMode);

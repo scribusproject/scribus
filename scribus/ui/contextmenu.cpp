@@ -344,12 +344,13 @@ void ContextMenu::createMenuItems_Selection()
 	//<-- Add Groups Items
 	if (selectedItemCount > 1)
 	{
-		addAction(m_AP->scrActions["itemGroup"]);
+		if (m_Sel.objectsLayer() != -1)
+			addAction(m_AP->scrActions["itemGroup"]);
 	}
 	else
 	{
 		if (currItem->isGroup())
-		addAction(m_AP->scrActions["itemUngroup"]);
+			addAction(m_AP->scrActions["itemUngroup"]);
 	}
 	//-->
 

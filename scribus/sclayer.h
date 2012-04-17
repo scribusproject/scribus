@@ -25,6 +25,7 @@ public:
 	bool    isPrintable;
 	bool    isViewable;
 	bool    isEditable;
+	bool    isSelectable;
 	bool    flowControl;
 	bool    outlineMode;
 	double  transparency;
@@ -322,6 +323,21 @@ public:
 	 * @return Success or failure
 	 */
 	 bool setLayerMarker(const int layerID, QColor color);
+
+	 /**
+	  * @brief are objects on the layer selectable
+	  * @param layerID ID of the layer
+	  * @return Items selectable or not
+	  */
+	 bool layerSelectable(const int layerID) const;
+
+	 /**
+	  * @brief Set objects on the layer selectable via the layer ID
+	  * @param layerID ID of the layer
+	  * @param isSelectable true = layer objects are selectable
+	  * @return bool Success or failure
+	  */
+	 bool setLayerSelectable(const int layerID, const bool isSelectable);
 };
 
 uint qHash(const ScLayer& layer);

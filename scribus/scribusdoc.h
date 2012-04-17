@@ -353,6 +353,19 @@ public:
 	 */
 	bool layerVisible(const int layerID);
 	/**
+	 * @brief are objects on the layer selectable
+	 * @param layerID ID of the layer
+	 * @return Items selectable or not
+	 */
+	bool layerSelectable(const int layerID);
+	/**
+	 * @brief Set objects on the layer selectable via the layer ID
+	 * @param layerID ID of the layer
+	 * @param isSelectable true = layer objects are selectable
+	 * @return bool Success or failure
+	 */
+	bool setLayerSelectable(const int layerID, const bool isSelectable);
+	/**
 	 * @brief Set the layer locked via the layer number
 	 * @param layerID ID of the layer
 	 * @param isLocked true = layer is locked

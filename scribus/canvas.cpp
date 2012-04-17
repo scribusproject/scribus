@@ -432,7 +432,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		{
 			currItem = m_doc->currentPage()->FromMaster.at(currNr);
 			QTransform itemPos;
-			if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
+			if (((currItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->LayerID))) && (!m_doc->layerLocked(currItem->LayerID)))
 			{
 				if (!currItem->ChangedMasterItem)
 				{
@@ -475,7 +475,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			--currNr;
 			continue;
 		}
-		if ((currItem->LayerID == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerID)))
+		if (((currItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->LayerID))) && (!m_doc->layerLocked(currItem->LayerID)))
 		{
 			QTransform itemPos = currItem->getTransform();
 			QPainterPath currPath(itemPos.map(QPointF(0,0)));

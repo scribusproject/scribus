@@ -2590,6 +2590,38 @@ bool ScribusDoc::layerVisible(const int layerID)
 	return false;
 }
 
+bool ScribusDoc::setLayerSelectable(const int layerID, const bool isSelectable)
+{
+	ScLayers::iterator itend=Layers.end();
+	ScLayers::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if (it->ID == layerID)
+		{
+			it->isSelectable = isSelectable;
+			found=true;
+			break;
+		}
+	}
+	if (found)
+		changed();
+	return found;
+}
+
+
+bool ScribusDoc::layerSelectable(const int layerID)
+{
+	ScLayers::iterator itend=Layers.end();
+	ScLayers::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if (it->ID == layerID)
+			return it->isSelectable;
+	}
+	return false;
+}
+
 
 bool ScribusDoc::setLayerLocked(const int layerID, const bool isLocked)
 {

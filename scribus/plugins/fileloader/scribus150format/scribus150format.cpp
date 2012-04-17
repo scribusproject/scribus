@@ -2790,6 +2790,7 @@ void Scribus150Format::readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs)
 	layer.isPrintable  = attrs.valueAsInt("DRUCKEN");
 	layer.isEditable   = attrs.valueAsInt("EDIT", 1);
 	layer.flowControl  = attrs.valueAsInt("FLOW", 1);
+	layer.isSelectable = attrs.valueAsInt("SELECT", 0);
 	layer.transparency = attrs.valueAsDouble("TRANS", 1.0);
 	layer.blendMode    = attrs.valueAsInt("BLEND", 0);
 	layer.outlineMode  = attrs.valueAsInt("OUTL", 0);
