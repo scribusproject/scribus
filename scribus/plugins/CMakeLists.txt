@@ -16,4 +16,4 @@ ADD_SUBDIRECTORY(svgexplugin)
 ADD_SUBDIRECTORY(tools)
 #ADD_SUBDIRECTORY(picbrowser)
 
-# ADD_SUBDIRECTORY(myplugin)
+#ADD_SUBDIRECTORY(myplugin)
