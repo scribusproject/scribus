@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "selection.h"
+#include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "text/specialchars.h"
@@ -62,65 +63,12 @@ bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 
 bool HunspellPluginImpl::findDictionaries()
 {
-	//dictionaryPaths
-	QString macPortsPath("/opt/local/share/hunspell/");
-	QString finkPath("/sw/share/hunspell/");
-	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/share/extensions");
-	QString osxUserLibreOfficePath(QDir::homePath()+"/Applications/LibreOffice.app/Contents/share/extensions");
-	QString linuxLocalPath("/usr/local/share/hunspell/");
-	QString linuxPath("/usr/share/hunspell/");
-	QString windowsLOPath("LibreOffice 3.5/share/extensions");
-	QDir d;
-
-#ifdef Q_OS_MAC
-	d.setPath(macPortsPath);
-	if (d.exists())
-	{
-		dictPath=macPortsPath;
-		return true;
-	}
-	d.setPath(finkPath);
-	if (d.exists())
-	{
-		dictPath=finkPath;
-		return true;
-	}
-	d.setPath(osxLibreOfficePath);
-	if (d.exists())
-	{
-		dictPath=osxLibreOfficePath;
-		return true;
-	}
-	d.setPath(osxUserLibreOfficePath);
-	if (d.exists())
-	{
-		dictPath=osxUserLibreOfficePath;
-		return true;
-	}
-	return false;
-#elif defined(Q_WS_X11)
-	d.setPath(linuxPath);
-	if (d.exists())
-	{
-		dictPath=linuxPath;
-		return true;
-	}
-	d.setPath(linuxLocalPath);
-	if (d.exists())
-	{
-		dictPath=linuxLocalPath;
-		return true;
-	}
-#elif defined(Q_OS_WIN32)
-	QString progFiles = getSpecialDir(CSIDL_PROGRAM_FILES);
-	d.setPath(progFiles+windowsLOPath);
-	if (d.exists())
-	{
-		dictPath=progFiles+windowsLOPath;
-		return true;
-	}
-#endif
-	return false;
+	QStringList dirs(ScPaths::instance().spellDirs());
+	if (dirs.count()==0)
+		return false;
+	//for development, just take the first for now
+	dictPath=dirs.first();
+	return true;
 }
 
 bool HunspellPluginImpl::initHunspell()
@@ -128,13 +76,12 @@ bool HunspellPluginImpl::initHunspell()
 	int errorCount=0;
 	bool dictPathFound=findDictionaries();
 	if (!dictPathFound)
+	{
 		qDebug()<<"No preinstalled dictonary paths found";
+		return false;
+	}
 	else
 		qDebug()<<"Preinstalled dictionary path selected"<<dictPath;
-	//TODO: Find this somehow
-//	QString startPath;
-//	startPath="/Applications/LibreOffice.app/Contents/share/extensions/dict-en/";
-//	dictPath=startPath;
 
 	// Find the dic and aff files in the location
 	QDir dictLocation(dictPath);
@@ -154,7 +101,7 @@ bool HunspellPluginImpl::initHunspell()
 		if (!QFile::exists(dictPath+dictName+".aff"))
 			dictList.removeAll(dictName);
 	}
-	numDicts=dictList.count();
+	numAFFs=numDicts=dictList.count();
 	qDebug()<<"Number of dictionaries/AFFs found:"<<numDicts<<numAFFs;
 	if (numDicts==0)
 		++errorCount;
@@ -188,8 +135,6 @@ bool HunspellPluginImpl::checkWithHunspell()
 
 bool HunspellPluginImpl::parseTextFrame(PageItem *frameToCheck)
 {
-	static QString wordBoundaries(" .,:;\"'!?\n");
-
 	StoryText *iText=&frameToCheck->itemText;
 	int len=iText->length();
 	QString text=iText->text(0,len);

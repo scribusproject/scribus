@@ -44,7 +44,12 @@ void HunspellDialog::goToNextWord(int i)
 	if (i>=0)
 		wfListIndex=i;
 	else
-		++wfListIndex;
+	{
+		do {
+			++wfListIndex;
+		} while (wfListIndex<m_wfList->count() && (m_wfList->at(wfListIndex).changed || m_wfList->at(wfListIndex).ignore));
+		//qDebug()<<"selected word index"<<wfListIndex;
+	}
 	if (wfListIndex>=m_wfList->count())
 	{
 		statusLabel->setText(tr("Spelling check complete"));
@@ -77,14 +82,14 @@ void HunspellDialog::ignoreAllWords()
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
 	for(int i=0;i<m_wfList->count();++i)
 		if(m_wfList->at(i).w==wordToIgnore)
-			m_wfList->value(i).ignore=true;
+			(*m_wfList)[i].ignore=true;
 	goToNextWord();
 }
 
 void HunspellDialog::changeWord()
 {
-	//If we have ignored a word, skip to the next.
-	if(m_wfList->at(wfListIndex).ignore && !m_wfList->at(wfListIndex).changed)
+	//If we have ignored a word or its already changed, skip to the next.
+	if(m_wfList->at(wfListIndex).ignore || m_wfList->at(wfListIndex).changed)
 		goToNextWord();
 	replaceWord(wfListIndex);
 	m_docChanged=true;
@@ -99,9 +104,7 @@ void HunspellDialog::changeAllWords()
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
 	for(int i=0;i<m_wfList->count();++i)
 		if(m_wfList->at(i).w==wordToChange)
-		{
-			m_wfList->value(i).changed=true;
-		}
+			replaceWord(i);
 	m_docChanged=true;
 	goToNextWord();
 }
@@ -110,7 +113,8 @@ void HunspellDialog::replaceWord(int i)
 {
 	StoryText *iText=&fTC->itemText;
 	currWF=m_wfList->at(i);
-	m_wfList->value(i).changed=true;
+	(*m_wfList)[i].changed=true;
+	//qDebug()<<"Replacing word"<<i<<m_wfList->value(i).w<<m_wfList->value(i).changed;
 	QString newText(suggestionsListWidget->currentItem()->text());
 	if (newText.length()==currWF.w.length())
 	{

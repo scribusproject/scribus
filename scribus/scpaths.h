@@ -53,6 +53,8 @@ public:
 	QString translationDir() const;
 	/** @brief Return path to the dicts directory */
 	QString dictDir() const;
+	/** @brief Return path to the spelling dictionary directory */
+	QStringList spellDirs() const;
 
 	/** @brief Return paths to system font directories*/
 	static QStringList getSystemFontDirs(void);
