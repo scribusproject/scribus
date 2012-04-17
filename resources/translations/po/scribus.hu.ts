@@ -959,7 +959,7 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1541"/>
         <source>Inline Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Beágyazott keretek</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1542"/>
@@ -4450,7 +4450,7 @@ Height: %2</source>
         <location filename="../../../scribus/ui/spalette.cpp" line="158"/>
         <location filename="../../../scribus/ui/spalette.cpp" line="169"/>
         <source>No Style</source>
-        <translation type="unfinished">Nincs stílus megadva</translation>
+        <translation>Nincs stílus megadva</translation>
     </message>
 </context>
 <context>
@@ -5352,12 +5352,12 @@ További információkért lásd a dokumentáció Színek szerkesztése fejezet�
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="350"/>
         <source>Default Table Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett táblázatstílus</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="351"/>
         <source>Default Cell Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett cellastílus</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="354"/>
@@ -8887,17 +8887,17 @@ Ignore List</source>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="295"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importálás: %1</translation>
+        <translation>Importálás: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="298"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Fájl elemzése:</translation>
+        <translation>Fájl elemzése:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidml.cpp" line="506"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Elemek generálása</translation>
+        <translation>Elemek generálása</translation>
     </message>
 </context>
 <context>
@@ -9189,45 +9189,45 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="59"/>
         <source>Import Idml...</source>
-        <translation type="unfinished"></translation>
+        <translation>Idml importálása...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="61"/>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="96"/>
         <source>Adobe Indesign IDML</source>
-        <translation type="unfinished">Adobe Indesign IDML</translation>
+        <translation>Adobe Indesign IDML</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="62"/>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="97"/>
         <source>Adobe Indesign IDML (*.idml *.IDML)</source>
-        <translation type="unfinished">Adobe Indesign IDML (*.idml *.IDML)</translation>
+        <translation>Adobe Indesign IDML (*.idml *.IDML)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="80"/>
         <source>Imports IDML Files</source>
-        <translation type="unfinished"></translation>
+        <translation>IDML fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="81"/>
         <source>Imports most IDML files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>A legtöbb IDML fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="111"/>
         <source>Adobe Indesign IDMS</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Indesign IDMS</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="112"/>
         <source>Adobe Indesign IDMS (*.idms *.IDMS)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Indesign IDMS (*.idml *.IDMS)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="146"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Minden támogatott formátum</translation>
+        <translation>Minden támogatott formátum</translation>
     </message>
 </context>
 <context>
@@ -9649,17 +9649,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/inlinepalette.cpp" line="124"/>
         <source>Paste to Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Elembe illesztés</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/inlinepalette.cpp" line="129"/>
         <source>Edit Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Elem szerkesztése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/inlinepalette.cpp" line="249"/>
         <source>Inline Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Beágyazott keretek</translation>
     </message>
 </context>
 <context>
@@ -12588,7 +12588,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../../scribus/ui/outlinepalette.cpp" line="1039"/>
         <source>Inline Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Beágyazott keret</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/outlinepalette.cpp" line="1113"/>
@@ -13357,7 +13357,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="411"/>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="498"/>
         <source>missing or corrupt</source>
-        <translation type="unfinished"></translation>
+        <translation>hiányzik vagy sérült</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="413"/>
@@ -19128,7 +19128,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1047"/>
         <source>Mark Length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jel hosszúsága:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1090"/>
@@ -19162,7 +19162,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1116"/>
         <source>Mark Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jel eltolása:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1152"/>
@@ -19573,7 +19573,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="92"/>
         <source>Length of crop marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Vágójelek hosszúsága</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="93"/>
@@ -20376,7 +20376,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="502"/>
         <source>Length:</source>
-        <translation type="unfinished">Hosszúság:</translation>
+        <translation>Hosszúság:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="548"/>
@@ -21378,7 +21378,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="485"/>
         <source>Length:</source>
-        <translation type="unfinished">Hosszúság:</translation>
+        <translation>Hosszúság:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="509"/>
@@ -23210,12 +23210,12 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_shape.cpp" line="551"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="unfinished"></translation>
+        <translation>E szabály határozza meg egy pont „belső voltát” a rajzvásznon egy sugár rajolásával ettől a ponttól minden irányban a végtelenig és megszámlálva az útvonal szegmensek számát az adott alakzatból, melyet a sugár metsz. Ha ez a szám páratlan, a pont belső, ha páros, a pont külső.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_shape.cpp" line="552"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="unfinished"></translation>
+        <translation>E szabály határozza meg egy pont „belső voltát” a rajzvásznon egy sugár rajolásával ettől a ponttól minden irányban a végtelenig majd ellenőrizve a helyeket, ahol az útvonal szegmensek metszik a sugarat. Nullával kezdve hozzáadunk minden alkalommal egyet, ha az útvonal szegmens a sugarat balról jobbra metszi és minden alkalommal elveszünk egyet, ha az útvonal szegmens a sugarat jobbra balról metszi. Ha az eredmény nulla, a pont kívül van az alakzatban. Egyébként pedig belül.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_shape.cpp" line="554"/>
@@ -23335,22 +23335,22 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_table.cpp" line="564"/>
         <source>Cell style of currently selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Az éppen kijelölt cella cellastílusa</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_table.cpp" line="565"/>
         <source>Table style of currently selected table</source>
-        <translation type="unfinished"></translation>
+        <translation>Az éppen kijelölt táblázat cellastílusa</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_table.cpp" line="566"/>
         <source>Remove Direct Cell Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Közvetlen cellaformázás eltávolítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_table.cpp" line="567"/>
         <source>Remove Direct Table Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Közvetlen táblázatformázás eltávolítása</translation>
     </message>
 </context>
 <context>
@@ -23363,17 +23363,17 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_tablebase.ui" line="20"/>
         <source>Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Stílusok</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
         <source>Table</source>
-        <translation type="unfinished">Táblázat</translation>
+        <translation>Táblázat</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_tablebase.ui" line="56"/>
         <source>Cells</source>
-        <translation type="unfinished"></translation>
+        <translation>Cellák</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
@@ -23481,13 +23481,13 @@ Corners:</source>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="72"/>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="674"/>
         <source>Color &amp;&amp; Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Színek és effektusok</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="84"/>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="677"/>
         <source>Columns &amp;&amp; Text Distances</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasábok és távolságok</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="671"/>
@@ -24011,7 +24011,7 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/ui/propertywidget_distance.cpp" line="343"/>
         <source>Column width</source>
-        <translation type="unfinished">Hasáb szélessége</translation>
+        <translation>Hasáb szélessége</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_distance.cpp" line="438"/>
@@ -28138,7 +28138,7 @@ A kép valószínű nem lesz így helyes</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdutil.cpp" line="265"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A szegélyeket egy hármas (szélesség, stílus, szín, árnyalat) határozza meg</translation>
     </message>
     <message>
         <source>Border lines are specified as (width,style,color) tuples</source>
@@ -28154,7 +28154,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="72"/>
         <source>Idml Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Idml importáló</translation>
     </message>
 </context>
 <context>
@@ -28691,7 +28691,7 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/ui/smcellstyle.cpp" line="503"/>
         <source>Setting that style as parent would create an infinite loop.</source>
-        <translation type="unfinished">Ha az lenne szőlőnek megadva, végtelen ciklus jönne létre.</translation>
+        <translation>Ha az lenne szőlőnek megadva, végtelen ciklus jönne létre.</translation>
     </message>
 </context>
 <context>
@@ -28699,7 +28699,7 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.ui" line="19"/>
         <source>Based On:</source>
-        <translation type="unfinished">Ezen alapul:</translation>
+        <translation>Ezen alapul:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.ui" line="38"/>
@@ -28714,22 +28714,22 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.ui" line="65"/>
         <source>Text</source>
-        <translation type="unfinished">Szöveg</translation>
+        <translation>Szöveg</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.cpp" line="20"/>
         <source>Fill Shade</source>
-        <translation type="unfinished">Kitöltés árnyalata</translation>
+        <translation>Kitöltés árnyalata</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.cpp" line="59"/>
         <source>A default style cannot be assigned a parent style</source>
-        <translation type="unfinished">Az alapértelmezett stílus nem rendelhető hozzá egy szülő stílushoz</translation>
+        <translation>Az alapértelmezett stílus nem rendelhető hozzá egy szülő stílushoz</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.cpp" line="111"/>
         <source>Shade</source>
-        <translation type="unfinished">Árnyalat</translation>
+        <translation>Árnyalat</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcellstylewidget.cpp" line="138"/>
@@ -29448,7 +29448,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../../scribus/ui/smtablestyle.cpp" line="505"/>
         <source>Setting that style as parent would create an infinite loop.</source>
-        <translation type="unfinished">Ha az lenne szőlőnek megadva, végtelen ciklus jönne létre.</translation>
+        <translation>Ha az lenne szőlőnek megadva, végtelen ciklus jönne létre.</translation>
     </message>
 </context>
 <context>
@@ -29456,7 +29456,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.ui" line="19"/>
         <source>Based On:</source>
-        <translation type="unfinished">Ezen alapul:</translation>
+        <translation>Ezen alapul:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.ui" line="38"/>
@@ -29471,17 +29471,17 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.ui" line="65"/>
         <source>Text</source>
-        <translation type="unfinished">Szöveg</translation>
+        <translation>Szöveg</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.cpp" line="57"/>
         <source>A default style cannot be assigned a parent style</source>
-        <translation type="unfinished">Az alapértelmezett stílus nem rendelhető hozzá egy szülő stílushoz</translation>
+        <translation>Az alapértelmezett stílus nem rendelhető hozzá egy szülő stílushoz</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.cpp" line="109"/>
         <source>Shade</source>
-        <translation type="unfinished">Árnyalat</translation>
+        <translation>Árnyalat</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.cpp" line="136"/>
@@ -29491,7 +29491,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../../scribus/ui/smtablestylewidget.cpp" line="137"/>
         <source>Fill Shade</source>
-        <translation type="unfinished">Kitöltés árnyalata</translation>
+        <translation>Kitöltés árnyalata</translation>
     </message>
 </context>
 <context>
@@ -31485,12 +31485,12 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8520"/>
         <source>Click here to leave inline frame edit mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ide kattintva elhagyjuk a beágyazott keret szerkeszését.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8545"/>
         <source>Editing Inline Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Beágyazott keret szerkesztése</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8796"/>
@@ -34926,7 +34926,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="814"/>
         <source>Length:</source>
-        <translation type="unfinished">Hosszúság:</translation>
+        <translation>Hosszúság:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="862"/>
@@ -35051,7 +35051,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1007"/>
         <source>Indicate the size of crops&apos;marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Jelzi a vágójelek méretét</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1014"/>
@@ -36370,7 +36370,7 @@ Wesselényinél mázol Quitóban</translation>
         <location filename="../../../scribus/ui/spalette.cpp" line="213"/>
         <location filename="../../../scribus/ui/spalette.cpp" line="224"/>
         <source>No Style</source>
-        <translation type="unfinished">Nincs stílus megadva</translation>
+        <translation>Nincs stílus megadva</translation>
     </message>
 </context>
 <context>
@@ -36408,7 +36408,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/tabruler.cpp" line="578"/>
         <source>Delete Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Kijelölt törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabruler.cpp" line="631"/>
@@ -36428,7 +36428,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/tabruler.cpp" line="639"/>
         <source>Delete selected Tabulator</source>
-        <translation type="unfinished"></translation>
+        <translation>Kijelölt tabulátor törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabruler.cpp" line="532"/>
@@ -37142,7 +37142,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="969"/>
         <source>Move page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldal mozgatása</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="971"/>
@@ -37157,12 +37157,12 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="973"/>
         <source>Clear image frame content</source>
-        <translation type="unfinished"></translation>
+        <translation>Képkeret tartalmának törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="974"/>
         <source>Path Operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Útvonal művelet</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="863"/>
