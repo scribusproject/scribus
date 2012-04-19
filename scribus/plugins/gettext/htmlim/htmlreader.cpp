@@ -218,7 +218,11 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		{
 			if (attrs.localName(i) == "src")
 			{
-				imgline +=  " src: " + attrs.value(i);
+				QString attrValue = attrs.value(i);
+				if (attrValue.indexOf("data:image") < 0)
+					imgline +=  " src: " + attrValue;
+				else
+					imgline +=  " src: embedded image";
 			}
 			if (attrs.localName(i) == "alt")
 			{
