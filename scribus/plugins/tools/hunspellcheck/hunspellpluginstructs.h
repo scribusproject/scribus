@@ -11,6 +11,7 @@ struct WordsFound {
 	QStringList replacements;
 	bool changed;
 	bool ignore;
+	int changeOffset;
 };
 
 #endif // HUNSPELLPLUGINSTRUCTS_H

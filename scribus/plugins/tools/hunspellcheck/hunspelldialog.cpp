@@ -24,7 +24,6 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *frame
 	m_doc=doc;
 	m_docChanged=false;
 	fTC=frameToCheck;
-	changeOffset=0;
 }
 
 void HunspellDialog::set(QStringList *dictEntries, Hunspell **hspellers, QList<WordsFound> *wfList)
@@ -70,8 +69,8 @@ void HunspellDialog::goToNextWord(int i)
 	sentencePos=qMax(sentencePos, iText->nextWord(sentencePos));
 	int nextSentencePos=qMin(iText->length(), iText->nextSentence(currWF.end));
 	QString sentence=iText->text(sentencePos, nextSentencePos-sentencePos);
-	sentence.insert(currWF.end-sentencePos+changeOffset,"</b></font>");
-	sentence.insert(currWF.start-sentencePos+changeOffset,"<font color=red><b>");
+	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
+	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
 
 }
@@ -118,30 +117,27 @@ void HunspellDialog::replaceWord(int i)
 	QString newText(suggestionsListWidget->currentItem()->text());
 	if (newText.length()==currWF.w.length())
 	{
-		for (int i = 0; i < currWF.w.length(); ++i)
-			iText->replaceChar(currWF.start+i+changeOffset, newText[i]);
+		for (int j = 0; j < currWF.w.length(); ++j)
+			iText->replaceChar(currWF.start+j+currWF.changeOffset, newText[j]);
 	}
 	else
 	{
+		int lengthDiff=newText.length()-currWF.w.length();
 		if (newText.length()>currWF.w.length())
 		{
-			for (int i = 0; i < currWF.w.length(); ++i)
-				iText->replaceChar(currWF.start+i+changeOffset, newText[i]);
-			for (int i = currWF.w.length(); i < newText.length(); ++i)
-				iText->insertChars(currWF.start+i+changeOffset, newText.mid(i,1), true);
-			int lengthDiff=newText.length()-currWF.w.length();
-			changeOffset+=lengthDiff;
-			qDebug()<<"Change Offset is:"<<changeOffset;
+			for (int j = 0; j < currWF.w.length(); ++j)
+				iText->replaceChar(currWF.start+j+currWF.changeOffset, newText[j]);
+			for (int j = currWF.w.length(); j < newText.length(); ++j)
+				iText->insertChars(currWF.start+j+currWF.changeOffset, newText.mid(j,1), true);
 		}
 		else
 		{
-			for (int i = 0; i < newText.length(); ++i)
-				iText->replaceChar(currWF.start+i+changeOffset, newText[i]);
-			int lengthDiff=currWF.w.length() - newText.length();
-			iText->removeChars(currWF.start+changeOffset+newText.length(), lengthDiff);
-			changeOffset-=lengthDiff;
-			qDebug()<<"Change Offset is:"<<changeOffset;
+			for (int j = 0; j < newText.length(); ++j)
+				iText->replaceChar(currWF.start+j+currWF.changeOffset, newText[j]);
+			iText->removeChars(currWF.start+currWF.changeOffset+newText.length(), -lengthDiff);
 		}
+		for (int k=i; k<m_wfList->count();++k)
+			(*m_wfList)[k].changeOffset+=lengthDiff;
 	}
 	m_docChanged=true;
 }

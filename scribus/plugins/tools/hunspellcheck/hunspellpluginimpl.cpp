@@ -177,6 +177,7 @@ bool HunspellPluginImpl::parseTextFrame(PageItem *frameToCheck)
 			wf.replacements=replacements;
 			wf.changed=false;
 			wf.ignore=false;
+			wf.changeOffset=0;
 			wordsToCorrect.append(wf);
 		}
 	}

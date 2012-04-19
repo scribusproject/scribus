@@ -41,7 +41,6 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		WordsFound currWF;
 		int wfListIndex;
 		bool m_docChanged;
-		int changeOffset;
 };
 
 #endif // HUNSPELLDIALOG_H
