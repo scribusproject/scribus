@@ -21,6 +21,9 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#if defined(_MSC_VER)
+#define _USE_MATH_DEFINES
+#endif
 #include <cmath>
 #include <cassert>
 
@@ -153,4 +156,17 @@ void PageItem_Line::applicableActions(QStringList & actionList)
 QString PageItem_Line::infoDescription()
 {
 	return QString();
+}
+
+QPointF PageItem_Line::startPoint()
+{
+	return QPointF(Xpos, Ypos);
+}
+
+QPointF PageItem_Line::endPoint()
+{
+	double rot = this->rotation();
+	double x = Xpos + Width * cos(rot * M_PI / 180.0);
+	double y = Ypos + Width * sin(rot * M_PI / 180.0);
+	return QPointF(x, y);
 }
