@@ -41,6 +41,7 @@
 #include "fpointarray.h"
 #include "hyphenator.h"
 #include "insertTable.h"
+#include "pageitem_line.h"
 #include "pageitem_textframe.h"
 #include "pageselector.h"
 #include "prefscontext.h"
@@ -395,6 +396,18 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							m_objectDeltaPos.setXY(dX, dY);
 							m_doc->m_Selection->setGroupRect();
 							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+							// #10677 : temporary hack : we need to introduce the
+							// concept of item snapping points to handle better
+							// the various types of items
+							if (currItem->isLine())
+							{
+								QPointF startPoint = currItem->asLine()->startPoint();
+								QPointF endPoint   = currItem->asLine()->endPoint();
+								gx = qMin(startPoint.x(), endPoint.x());
+								gy = qMin(startPoint.y(), endPoint.y());
+								gw = fabs(startPoint.x() - endPoint.x());
+								gh = fabs(startPoint.y() - endPoint.y());
+							}
 							if (m_doc->SnapGuides)
 							{
 								double nx = gx + m_objectDeltaPos.x();

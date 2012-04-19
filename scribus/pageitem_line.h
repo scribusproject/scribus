@@ -22,8 +22,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEMLINE_H
 #define PAGEITEMLINE_H
 
-#include <QString>
+#include <QPointF>
 #include <QRectF>
+#include <QString>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -44,6 +45,9 @@ public:
 	
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
+
+	QPointF startPoint();
+	QPointF endPoint();
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
