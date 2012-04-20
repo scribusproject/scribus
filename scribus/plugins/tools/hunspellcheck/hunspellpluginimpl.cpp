@@ -166,7 +166,7 @@ bool HunspellPluginImpl::parseTextFrame(PageItem *frameToCheck)
 			for (int j=0; j < suggCount; ++j)
 			{
 //				qDebug()<<"Suggestion "<<j<<":"<<sugglist[j];
-				replacements<<sugglist[j];
+				replacements << QString::fromUtf8(sugglist[j]);
 			}
 			hspellers[0]->free_list(&sugglist, suggCount);
 
