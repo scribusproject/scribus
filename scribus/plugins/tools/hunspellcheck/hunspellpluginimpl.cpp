@@ -157,12 +157,12 @@ bool HunspellPluginImpl::parseTextFrame(PageItem *frameToCheck)
 		++wordCount;
 		++wordNo;
 		QStringList replacements;
-		if (hspellers[0]->spell(word.toLocal8Bit().constData())==0)
+		if (hspellers[0]->spell(word.toUtf8().constData())==0)
 		{
 //			qDebug()<<word;
 			++errorCount;
 			char **sugglist = NULL;
-			int suggCount=hspellers[0]->suggest(&sugglist, word.toLocal8Bit().constData());
+			int suggCount=hspellers[0]->suggest(&sugglist, word.toUtf8().constData());
 			for (int j=0; j < suggCount; ++j)
 			{
 //				qDebug()<<"Suggestion "<<j<<":"<<sugglist[j];
