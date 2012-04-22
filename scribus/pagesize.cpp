@@ -168,19 +168,21 @@ void PageSize::generateSizeList()
 	width  = floor(1000.0 / sqrt(sqrt(2.0)) + 0.5);
 	height = floor(sqrt(sqrt(2.0))*1000.0 + 0.5);
 	//4A0
-	info.width=mm2pts(width*2.0);
-	info.height=mm2pts(height*2.0);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("4A0");
+	info.width = mm2pts(1682.0);
+	info.height = mm2pts(2378.0);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("4A0");
 	pageSizeList.insert("4A0", info); 
 	//2A0
-	info.width=mm2pts(height);
-	info.height=mm2pts(width*2.0);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("2A0");
+	info.width = mm2pts(1189.0);
+	info.height = mm2pts(1682.0);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("2A0");
 	pageSizeList.insert("2A0", info); 
 	//Continue with rest of A series
-	for (format = 0; format <= 10; format++) {
+	// do not use the formula below, as it is correct in theory,
+	// but due to rounding errors it gives incorrect results.
+/*	for (format = 0; format <= 10; format++) {
 		info.width=mm2pts(width);
 		info.height=mm2pts(height);
 		info.pageUnitIndex=SC_MM;
@@ -190,9 +192,52 @@ void PageSize::generateSizeList()
 		tmp = height;
 		height = width;
 		width = floor(tmp / 2.0);
+	} */
+	// all of the following data is taken from the Ghostscript manual
+	// "Appendix: Paper sizes known to Ghostscript"
+	QList<double> Awidths;
+	QList<double> Aheights;
+	Awidths  <<  841.0 << 594.0 << 420.0 << 297.0 << 210.0 << 148.0 << 105.0 <<  74.0 << 52.0 << 37.0 << 26.0;
+	Aheights << 1189.0 << 841.0 << 594.0 << 420.0 << 297.0 << 210.0 << 148.0 << 105.0 << 74.0 << 52.0 << 37.0;
+	for (format = 0; format < Awidths.count(); format++)
+	{
+		info.width = mm2pts(Awidths[format]);
+		info.height = mm2pts(Aheights[format]);
+		info.pageUnitIndex = SC_MM;
+		name = QString("A%1").arg(format);
+		info.trSizeName = name;
+		pageSizeList.insert(name, info);
 	}
 	
 	/* B series */
+	Awidths.clear();
+	Aheights.clear();
+	Awidths  << 1000.0 <<  707.0 << 500.0 << 353.0 << 250.0 << 176.0 << 125.0 <<  88.0 << 62.0 << 44.0 << 31.0;
+	Aheights << 1414.0 << 1000.0 << 707.0 << 500.0 << 353.0 << 250.0 << 176.0 << 125.0 << 88.0 << 62.0 << 44.0;
+	for (format = 0; format < Awidths.count(); format++)
+	{
+		info.width = mm2pts(Awidths[format]);
+		info.height = mm2pts(Aheights[format]);
+		info.pageUnitIndex=SC_MM;
+		name = QString("B%1").arg(format);
+		info.trSizeName = name;
+		pageSizeList.insert(name, info);
+	}
+	/* C series */
+	Awidths.clear();
+	Aheights.clear();
+	Awidths  <<  917.0 << 648.0 << 458.0 << 324.0 << 229.0 << 162.0 << 114.0 <<  81.0 << 57.0 << 40.0 << 28.0;
+	Aheights << 1297.0 << 917.0 << 648.0 << 458.0 << 324.0 << 229.0 << 162.0 << 114.0 << 81.0 << 57.0 << 40.0;
+	for (format = 0; format < Awidths.count(); format++)
+	{
+		info.width = mm2pts(Awidths[format]);
+		info.height = mm2pts(Aheights[format]);
+		info.pageUnitIndex=SC_MM;
+		name = QString("B%1").arg(format);
+		info.trSizeName = name;
+		pageSizeList.insert(name, info);
+	}
+/*
 	width  = 1000.0;
 	height = floor(sqrt(2.0)*1000.0 + 0.5);
 
@@ -209,7 +254,7 @@ void PageSize::generateSizeList()
 		width = floor(tmp / 2.0);
 	}
 
-	/* C series */
+	// C series
 	width  = floor(1000.0 / sqrt(sqrt(sqrt(2.0)))+0.5);
 	height = floor(sqrt(sqrt(sqrt(8.0)))*1000.0 + 0.5);
 
@@ -225,7 +270,7 @@ void PageSize::generateSizeList()
 		height = width;
 		width = floor(tmp / 2.0);
 	}
-
+*/
 	/* PA series */
 	width  = 840;
 	height = 1120;

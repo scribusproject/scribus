@@ -516,6 +516,8 @@ void NewDoc::setUnit(int newUnitIndex)
 	Distance->setNewUnit(newUnitIndex);
 	m_unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	m_unitIndex = newUnitIndex;
+	widthSpinBox->setValue(m_pageWidth * m_unitRatio);
+	heightSpinBox->setValue(m_pageHeight * m_unitRatio);
 /*	
 double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;

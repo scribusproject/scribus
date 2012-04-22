@@ -171,7 +171,7 @@ void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
 	fromPageSpinBox->setMaximum(docPagesCount);
 	fromPageSpinBox->setValue(view->currentPage()->pageNr()+1);
 	toPageSpinBox->setMaximum(docPagesCount);
-	toPageSpinBox->setValue(docPagesCount);
+	toPageSpinBox->setValue(static_cast<int>(docPagesCount));
 }
 
 
