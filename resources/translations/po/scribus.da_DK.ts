@@ -6850,7 +6850,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1293"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished">Indsæt Billeder fra udklipsholder</translation>
+        <translation>Indsæt Billede fra udklipsholder</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1295"/>
@@ -7148,7 +7148,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1388"/>
         <source>&amp;Frames...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rammer...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1389"/>
@@ -9707,17 +9707,18 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="97"/>
         <source>Spell Checker Plugin Failed to Initialise.
 Configuration invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol-plugin fejlede ved initialisering.
+Konfiguration er ugyldig</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="104"/>
         <source>Spell Checker Plugin Failed to Initialise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol-plugin fejlede ved initialisering.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="106"/>
         <source>No Aspell dictionaries could be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen Aspell-ordbøger kunne findes.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="259"/>
@@ -13764,7 +13765,7 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="53"/>
         <source>&amp;Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Emne:</translation>
     </message>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="60"/>
@@ -16477,7 +16478,7 @@ og www.scribus.net for at hente scribus ect.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="50"/>
         <source>Spelling check complete</source>
-        <translation type="unfinished">Stavekontrol tjek fuldført</translation>
+        <translation>Stavekontrol fuldført</translation>
     </message>
 </context>
 <context>
@@ -16485,42 +16486,42 @@ og www.scribus.net for at hente scribus ect.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="14"/>
         <source>Check Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="22"/>
         <source>Text Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstsprog:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="47"/>
         <source>Not in dictionary</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke i ordbog</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="61"/>
         <source>Ignore Once</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorér en gang</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="68"/>
         <source>Ignore All</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorér alle</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="92"/>
         <source>Suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>Forslag</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="106"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstat</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="113"/>
         <source>Change All</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstat alle</translation>
     </message>
 </context>
 <context>
@@ -16528,7 +16529,7 @@ og www.scribus.net for at hente scribus ect.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="32"/>
         <source>Hunspell &amp;Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell &amp;Plugin</translation>
     </message>
 </context>
 <context>
@@ -16565,7 +16566,7 @@ Undtagelses-liste</translation>
         <source>Add to the
 Ignore List</source>
         <translation>Tilføj til
-Ignorer-liste</translation>
+Ignorér-liste</translation>
     </message>
 </context>
 <context>
@@ -16612,7 +16613,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <location filename="../../../scribus/hysettings.cpp" line="80"/>
         <location filename="../../../scribus/hysettings.cpp" line="92"/>
         <source>Ignore List</source>
-        <translation>Ignorer-liste</translation>
+        <translation>Ignorér-liste</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="80"/>
@@ -17325,7 +17326,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="13"/>
         <source>Insert Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Indsæt rammer</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="379"/>
@@ -20133,7 +20134,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/oneclick.cpp" line="37"/>
         <source>Origin</source>
-        <translation>Oprindelse</translation>
+        <translation>Udgangspunkt</translation>
     </message>
     <message>
         <location filename="../../../scribus/oneclick.cpp" line="54"/>
@@ -21054,7 +21055,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="356"/>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="519"/>
         <source>missing or corrupt</source>
-        <translation type="unfinished"></translation>
+        <translation>mangler eller er beskadiget</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="358"/>
@@ -21599,7 +21600,7 @@ begge endepunkter skal ligge udenfor polygonen</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="14"/>
         <source>Boolean Path Operations</source>
-        <translation>Boolsk sti operationer</translation>
+        <translation>Boolske sti-funktioner</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="111"/>
@@ -21614,7 +21615,7 @@ begge endepunkter skal ligge udenfor polygonen</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="304"/>
         <source>Operation</source>
-        <translation>Operation</translation>
+        <translation>Funktion</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="319"/>
@@ -21690,7 +21691,7 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="61"/>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="172"/>
         <source>Keep a copy of the original item after applying the operation</source>
-        <translation>Behold en kopi af det originale element efter udførelse af operationen</translation>
+        <translation>Behold en kopi af det originale element efter udførelse af funktionen</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="64"/>
@@ -21767,7 +21768,7 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="76"/>
         <source>Path Operations...</source>
-        <translation>Sti operationer...</translation>
+        <translation>Sti-funktioner...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="80"/>
@@ -21777,12 +21778,12 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="105"/>
         <source>Path Operations</source>
-        <translation>Sti operationer</translation>
+        <translation>Sti-funktioner</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="106"/>
         <source>Apply fancy boolean operations to paths.</source>
-        <translation>Anvend dekorative boolske operationer på stier.</translation>
+        <translation>Anvend dekorative boolske funktioner på stier.</translation>
     </message>
     <message>
         <source>Qt Version too old</source>
@@ -24170,12 +24171,12 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5620"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne regel bestemmer &amp;quot;tilhørsforholdet&amp;quot; af et punkt på dokument-området, ved at udsende en stråle fra dette punkt uendeligt i alle retninger, og så tælle antallet af kurvesegmenter i den angivne figur, som strålen passerer. Hvis dette antal er ulige, er punktet indeni, hvis det er lige, er punktet udenfor.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5621"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne regel bestemmer &amp;quot;tilhørsforholdet&amp;quot; af et punkt på dokument-området, ved at udsende en stråle fra dette punkt uendeligt i alle retninger, og så undersøge de steder, hvor et afsnit af figuren krydser strålen. Med startværdien nul, tilføj en, hver gang et kurvesegment krydser strålen fra venstre mod højre, og fratræk en, hver gang et kurvesegment krydser strålen fra højre mod venstre. Hvis resultatet er nul, er punktet uden for figuren. Ellers er det indenfor.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5679"/>
@@ -24200,7 +24201,7 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5683"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>Rediger tabulatorer for tekstramme...</translation>
+        <translation>Redigér tabulatorindstillinger for tekstramme...</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5685"/>
@@ -28333,7 +28334,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="52"/>
         <source>Hunspell Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell Plugin</translation>
     </message>
 </context>
 <context>
@@ -28486,19 +28487,21 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/query.cpp" line="68"/>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Navnet &quot;%1&quot; er ikke tilladt.
+Vælg venligst et andet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/query.cpp" line="80"/>
         <source>Name &quot;%1&quot; already exists.
 Do you want to replace the current contents?</source>
-        <translation type="unfinished"></translation>
+        <translation>Navnet &quot;%1&quot; eksisterer allerede.
+Ønsker du at erstatte det nuværende indhold?</translation>
     </message>
     <message>
         <location filename="../../../scribus/query.cpp" line="90"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished">Navnet &quot;%1&quot; er ikke entydigt.
+        <translation>Navnet &quot;%1&quot; er ikke entydigt.
 Vælg venligst et andet.</translation>
     </message>
 </context>
@@ -28595,42 +28598,42 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="88"/>
         <source>Move on current Page</source>
-        <translation>Flyt på denne side</translation>
+        <translation>Flyt denne side</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="89"/>
         <source>Origin at Top Left</source>
-        <translation>Oprindelse er top-venstre</translation>
+        <translation>Udgangspunkt top-venstre</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="90"/>
         <source>Origin at Top Right</source>
-        <translation>Oprindelse er top-højre</translation>
+        <translation>Udgangspunkt top-højre</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="91"/>
         <source>Origin at Bottom Left</source>
-        <translation>Oprindelse er bund-venstre</translation>
+        <translation>Udgangspunkt bund-venstre</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="92"/>
         <source>Origin at Bottom Right</source>
-        <translation>Oprindelse er bund-højre</translation>
+        <translation>Udgangspunkt bund-højre</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="93"/>
         <source>Origin at Center</source>
-        <translation>Oprindelse er center</translation>
+        <translation>Udgangspunkt center</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="94"/>
         <source>Origin at Top Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Udgangspunkt top-centrum</translation>
     </message>
     <message>
         <location filename="../../../scribus/rulermover.cpp" line="95"/>
         <source>Origin at Bottom Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Udgangspunkt bund-center</translation>
     </message>
 </context>
 <context>
@@ -29850,25 +29853,25 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <location filename="../../../scribus/plugins/short-words/vlnadialog.cpp" line="106"/>
         <source>Apply Unbreakable Space To:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Anvend mellemrum, der ikke kan brydes, på:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/vlnadialog.cpp" line="107"/>
         <source>&amp;Selected Frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Markerede rammer</translation>
+        <translation>&amp;Markerede rammer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/vlnadialog.cpp" line="108"/>
         <source>Active &amp;Page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Aktiv &amp;side</translation>
+        <translation>Aktive &amp;side</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/vlnadialog.cpp" line="109"/>
         <source>&amp;All Items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Alle elementer</translation>
+        <translation>&amp;Alle elementer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/vlnadialog.cpp" line="112"/>
@@ -29921,7 +29924,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend mellemrum, der ikke kan brydes, på:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="26"/>
@@ -29931,7 +29934,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="33"/>
         <source>Active &amp;Page</source>
-        <translation>Aktiv &amp;side</translation>
+        <translation>Aktive &amp;side</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="40"/>
@@ -31927,7 +31930,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/search.cpp" line="68"/>
         <location filename="../../../scribus/search.cpp" line="165"/>
         <source>Style</source>
-        <translation type="unfinished">Stil</translation>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="312"/>
@@ -37522,7 +37525,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="426"/>
         <source>Origin</source>
-        <translation>Oprindelse</translation>
+        <translation>Udgangspunkt</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="447"/>
@@ -38194,7 +38197,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="971"/>
         <source>Move page</source>
-        <translation type="unfinished"></translation>
+        <translation>Flyt side</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="972"/>
@@ -38204,7 +38207,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="980"/>
         <source>Path Operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Sti-funktion</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="970"/>
@@ -38707,7 +38710,7 @@ Fejl:%2 på linje: %3, række: %4</translation>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="218"/>
         <source>Operation canceled</source>
-        <translation>Operation anulleret</translation>
+        <translation>Funktion anulleret</translation>
     </message>
     <message>
         <location filename="../../../scribus/upgradechecker.cpp" line="231"/>
@@ -39087,7 +39090,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="233"/>
         <source>Ignore List</source>
-        <translation>Ignorer-liste</translation>
+        <translation>Ignorér-liste</translation>
     </message>
 </context>
 <context>
