@@ -478,6 +478,42 @@ void StoryText::replaceChar(int pos, QChar ch)
 	invalidate(pos, pos + 1);
 }
 
+int StoryText::replaceWord(int pos, QString newWord)
+{
+	int eoWord=pos;
+	while(eoWord < length())
+	{
+		if (text(eoWord).isLetterOrNumber())
+			++eoWord;
+		else
+			break;
+	}
+	QString word=text(pos,eoWord-pos);
+	int lengthDiff=newWord.length()-word.length();
+	if (lengthDiff==0)
+	{
+		for (int j = 0; j < word.length(); ++j)
+			replaceChar(pos+j, newWord[j]);
+	}
+	else
+	{
+		if (lengthDiff>0)
+		{
+			for (int j = 0; j < word.length(); ++j)
+				replaceChar(pos+j, newWord[j]);
+			for (int j = word.length(); j < newWord.length(); ++j)
+				insertChars(pos+j, newWord.mid(j,1), true);
+		}
+		else
+		{
+			for (int j = 0; j < newWord.length(); ++j)
+				replaceChar(pos+j, newWord[j]);
+			removeChars(pos+newWord.length(), -lengthDiff);
+		}
+	}
+	return lengthDiff;
+}
+
 void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 {
 	assert(pos >= 0);
@@ -552,6 +588,15 @@ QString StoryText::text(int pos, uint len) const
 	}
 
 	return result;
+}
+
+QString StoryText::sentence(int pos, int &posn)
+{
+	int sentencePos=qMax(0, prevSentence(pos));
+	sentencePos=qMax(sentencePos, nextWord(sentencePos));
+	posn=sentencePos;
+	int nextSentencePos=qMin(length(), nextSentence(pos+1));
+	return text(sentencePos, nextSentencePos-sentencePos);
 }
 
 QString StoryText::textWithSmartHyphens(int pos, uint len) const

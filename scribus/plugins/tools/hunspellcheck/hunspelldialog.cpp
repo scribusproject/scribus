@@ -64,11 +64,9 @@ void HunspellDialog::goToNextWord(int i)
 	suggestionsListWidget->clear();
 	suggestionsListWidget->addItems(currWF.replacements);
 	suggestionsListWidget->setCurrentRow(0);
-	StoryText *iText=&fTC->itemText;
-	int sentencePos=qMax(0,iText->prevSentence(currWF.start));
-	sentencePos=qMax(sentencePos, iText->nextWord(sentencePos));
-	int nextSentencePos=qMin(iText->length(), iText->nextSentence(currWF.end));
-	QString sentence=iText->text(sentencePos, nextSentencePos-sentencePos);
+
+	int sentencePos=0;
+	QString sentence(fTC->itemText.sentence(currWF.start, sentencePos));
 	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
 	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
@@ -110,34 +108,14 @@ void HunspellDialog::changeAllWords()
 
 void HunspellDialog::replaceWord(int i)
 {
-	StoryText *iText=&fTC->itemText;
-	currWF=m_wfList->at(i);
-	(*m_wfList)[i].changed=true;
-	//qDebug()<<"Replacing word"<<i<<m_wfList->value(i).w<<m_wfList->value(i).changed;
+	//qDebug()<<"Replacing word"<<i<m_wfList->at(i).w<<m_wfList->at(i).start;
 	QString newText(suggestionsListWidget->currentItem()->text());
-	if (newText.length()==currWF.w.length())
+	int lengthDiff=fTC->itemText.replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
+	if (lengthDiff!=0)
 	{
-		for (int j = 0; j < currWF.w.length(); ++j)
-			iText->replaceChar(currWF.start+j+currWF.changeOffset, newText[j]);
-	}
-	else
-	{
-		int lengthDiff=newText.length()-currWF.w.length();
-		if (newText.length()>currWF.w.length())
-		{
-			for (int j = 0; j < currWF.w.length(); ++j)
-				iText->replaceChar(currWF.start+j+currWF.changeOffset, newText[j]);
-			for (int j = currWF.w.length(); j < newText.length(); ++j)
-				iText->insertChars(currWF.start+j+currWF.changeOffset, newText.mid(j,1), true);
-		}
-		else
-		{
-			for (int j = 0; j < newText.length(); ++j)
-				iText->replaceChar(currWF.start+j+currWF.changeOffset, newText[j]);
-			iText->removeChars(currWF.start+currWF.changeOffset+newText.length(), -lengthDiff);
-		}
 		for (int k=i; k<m_wfList->count();++k)
 			(*m_wfList)[k].changeOffset+=lengthDiff;
 	}
+	(*m_wfList)[i].changed=true;
 	m_docChanged=true;
 }
