@@ -1,0 +1,34 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Ghostscript</title>
+</head>
+<body>
+<h2>Ghostscript</h2>
+<h3>Che cos'&egrave; Ghostscript?</h3>
+
+<p>Per chi non lo sa, <a href="http://www.ghostscript.com/">Ghostscript (<code>gs</code>)</a>, in senso stretto, &egrave; un cosiddetto &ldquo;interprete PostScript,&rdquo; e molti programmi utilizzano <code>gs</code> per operazioni di conversione, importazione ed esportazione di file PostScript. Ghostscript &egrave; diventato uno dei &ldquo;mattoni&rdquo; essenziali del software open source; sarebbe difficile immaginare una moderna distribuzione di software open source che non lo contenga.</p>
+<p>Anche Scribus utilizza Ghostscript, e a volte ne sfrutta le funzioni pi&ugrave; sofisticate che sono disponibili soltanto nelle versioni pi&ugrave; recenti. Scribus si serve di <code>gs</code> per tre funzioni. La prima &egrave; l'importazione di <a href="importhints1.html">file EPS</a> rasterizzati e di certi <a href="psd.html">file DCS</a> nelle <a href="WwImages.html">cornici immagine</a>. La seconda funzione che richiede <code>gs</code> &egrave; l'<a href="print2.html">anteprima di stampa</a>. La terza &egrave; il generatore di codici a barre.</p>
+<p>Se <code>gs</code> non &egrave; installato sul vostro sistema, o se Scribus non trova l'eseguibile <code>gs</code>, le tre operazioni sopra citate non sono possibili, e Scribus mostra un avviso ogni volta che viene lanciato:</p><br>
+<table width="100%"><tr><td align="center"><img src="images/missing-gs.png"/></td></tr></table><br>
+<p>Se <code>gs</code> &egrave; stato installato sul computer, ma Scribus non lo trova, potete inserire il percorso dell'eseguibile <code>gs</code> nelle <a href="settings1.html">preferenze</a> di Scribus.</p>
+
+<p>&Egrave; sempre consigliabile avere Ghostscript nella pi&ugrave; recente versione disponibile per il vostro sistema.</p>
+<h3>Installazione di Ghostscript</h3>
+<h4>Linux/UNIX</h4>
+<p>Come detto prima, Ghostscript &egrave; richiesto da molte applicazioni, tra cui il sottosistema di stampa; quindi &egrave; improbabile che non sia installato sul sistema. Se, per qualche ragione, <code>gs</code> non &egrave; presente sul vostro sistema, o se la versione presente &egrave; troppo vecchia (con Scribus dovreste usare almeno Ghostscript 8.6), potete <a href="http://ghostscript.com/releases/">scaricare</a> l'archivio contenente il codice sorgente dal sito di <code>gs</code>. Fate attenzione a scaricare il vero e proprio Ghostscript, non ghostpdl, il cui codice sorgente si trova nella stessa directory. Poi seguite le istruzioni per la compilazione che trovate nell'archivio e installatelo.</p>
+<h4>Windows</h4>
+<p>Trovate spiegazioni nelle <a href="readme-win32.html">informazioni generali</a> su Scribus in ambiente Windows.</p>
+<h4>Mac OS X</h4>
+<p>Vi sono diversi modi per installare Ghostscript per Mac OS X, ma purtroppo nessuno di essi sembra avere la facilit&agrave; a cui la maggior parte degli utenti di Mac sono abituati:</p>
+<ul>
+<li>potete scaricare un <a href="http://pages.uoregon.edu/koch/Ghostscript-8.71.pkg.zip">archivio ZIP</a> contenente quattro DMG di <code>gs</code> per varie versioni di OS X. Leggete il relativo <a href="http://pages.uoregon.edu/koch/Ghostscript-8.71.pdf">file info</a> per capire qual &egrave; la versione che vi serve;</li>
+<li>potete installare <code>gs</code> per mezzo di <a href="http://pdb.finkproject.org/pdb/package.php/ghostscript">Fink</a>;</li>
+<li>le pi&ugrave; recenti versioni di Ghostscript sono sempre disponibili tramite <a href="http://www.macports.org/ports.php?by=library&substr=ghostscript">MacPorts</a>;</li>
+<li>e infine, potete, naturalmente, scaricare il pi&ugrave; recente <a href="http://ghostscript.com/releases/">codice sorgente</a> e compilarlo direttamente.</li>
+</ul>
+<h4>OS/2 ed eComStation</h4>
+<p> Trovate spiegazioni nelle <a href="readme-os2.html">informazioni generali</a> su Scribus in ambiente OS/2 ed eComStation.</p>
+
+</body>
+</html>

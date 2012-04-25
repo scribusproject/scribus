@@ -1,0 +1,206 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Python: class PDFfile</title>
+</head>
+<body>
+<h2>Python: class PDFfile</h2>
+<p><a name="PDFfile">class <strong>PDFfile</strong></a>(<a href="__builtin__.html#object">object</a>)
+</p>   
+<hr />
+<p>Methods defined here:</p>
+<dl>
+	<dt><a name="PDFfile-Save"><strong>Save</strong></a>(...)</dt>
+	<dd><code>This method is deprecated - use <a href="#PDFfile-save">save</a>() instead.</code></dd>
+
+	<dt><a name="PDFfile-__init__"><strong>__init__</strong></a>(...)</dt><dd><code>x.<a href="#PDFfile-__init__">__init__</a>(...) initializes x; see x.__class__.__doc__ for signature</code></dd>
+
+	<dt><a name="PDFfile-save"><strong>save</strong></a>(...)</dt><dd><code>Save selected pages to pdf file</code></dd>
+</dl>
+
+<hr>
+<p>Data and other attributes defined here:</p>
+<dd>
+	<dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;</dt>
+	<dd><code>T.<a href="#PDFfile-__new__">__new__</a>(S, ...) -&gt; a new object with type S, a subtype of T</code></dd>
+
+	<dt><strong>aanot</strong> = &lt;member 'aanot' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Allow Adding Annotations and Fields. Bool value</code></dd>
+
+	<dt><strong>achange</strong> = &lt;member 'achange' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Allow Changing the Document. Bool value</code></dd>
+
+	<dt><strong>acopy</strong> = &lt;member 'acopy' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Allow Copying Text and Graphics. Bool value</code></dd>
+
+	<dt><strong>aprint</strong> = &lt;member 'aprint' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Allow Printing the Document. Bool value</code></dd>
+
+	<dt><strong>article</strong> = &lt;member 'article' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Save Linked Text Frames as PDF Articles<br> Bool value</code></dd>
+
+	<dt><strong>binding</strong> = &lt;member 'binding' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Choose binding.<br>
+	0 - Left binding<br>
+	1 - Right binding</code></dd>
+
+	<dt><strong>bleedb</strong> = &lt;member 'bleedb' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Bleed Bottom<br>Distance for bleed from the bottom of the physical page</code></dd>
+
+	<dt><strong>bleedl</strong> = &lt;member 'bleedl' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Bleed Left<br>Distance for bleed from the left of the physical page</code></dd>
+
+	<dt><strong>bleedr</strong> = &lt;member 'bleedr' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Bleed Right<br>Distance for bleed from the right of the physical page</code></dd>
+
+	<dt><strong>bleedt</strong> = &lt;member 'bleedt' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Bleed Top<br>Distance for bleed from the top of the physical page</code></dl>
+
+	<dt><strong>bookmarks</strong> = &lt;member 'bookmarks' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Embed the bookmarks you created in your document.<br>These are useful for navigating long PDF documents.<br>Bool value</code></dd>
+
+	<dt><strong>compress</strong> = &lt;member 'compress' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Compression switch. Bool value.</code></dd>
+
+	<dt><strong>compressmtd</strong> = &lt;member 'compressmtd' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Compression method.<br>
+	0 - Automatic<br>
+	1 - JPEG<br>
+	2 - zip<br>
+	3 - None.</code></dd>
+
+	<dt><strong>downsample</strong> = &lt;attribute 'downsample' of 'PDFfile' objects&gt;</dt>
+	<dd><code>Downsample image resolusion to this value. Values from 35 to 4000<br>Set 0 for not to downsample</code></dd>
+
+	<dt><strong>effval</strong> = &lt;attribute 'effval' of 'PDFfile' objects&gt;</dt>
+	<dd><code>List of effection values for each saved page.<br>
+	<pre>
+It is list of list of six integers. Those int have the following meaning:
+        - Length of time the page is shown before the presentation
+        starts on the selected page. (1-3600)
+        - Length of time the effect runs. (1 - 3600)
+                A shorter time will speed up the effect, a longer one will slow it down
+        - Type of the display effect
+                0 - No Effect
+                1 - Blinds
+                2 - Box
+                3 - Dissolve
+                4 - Glitter
+                5 - Split
+                6 - Wipe
+        - Direction of the effect of moving lines for the split and blind effects.
+                0 - Horizontal
+                1 - Vertical
+        - Starting position for the box and split effects.
+                0 - Inside
+                1 - Outside
+        - Direction of the glitter or wipe effects.
+                0 - Left to Right
+                1 - Top to Bottom
+                2 - Bottom to Top
+                3 - Right to Left
+                4 - Top-left to Bottom-Right
+</pre></code>
+</dt>
+
+<dt><strong>encrypt</strong> = &lt;member 'encrypt' of 'PDFfile' objects&gt;</dt>
+<dd><code>Use Encription. Bool value</code></dd>
+
+<dt><strong>file</strong> = &lt;attribute 'file' of 'PDFfile' objects&gt;</dt>
+<dd><code>Name of file to save into</code></dd>
+
+<dt><strong>fonts</strong> = &lt;attribute 'fonts' of 'PDFfile' objects&gt;</dt>
+<dd><code>List of fonts to embed.</code></dd>
+
+<dt><strong>imagepr</strong> = &lt;attribute 'imagepr' of 'PDFfile' objects&gt;</dt>
+<dd><code>Color profile for images</code></dd>
+
+<dt><strong>info</strong> = &lt;attribute 'info' of 'PDFfile' objects&gt;</dt>
+<dd><code>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</code></dd>
+
+<dt><strong>intenti</strong> = &lt;member 'intenti' of 'PDFfile' objects&gt;</dt>
+<dd><code>Rendering intent for images<br>
+0 - Perceptual<br>
+1 - Relative Colorimetric<br>
+2 - Saturation<br>
+3 - Absolute Colorimetric</code></dd>
+
+<dt><strong>intents</strong> = &lt;member 'intents' of 'PDFfile' objects&gt;</dt>
+<dd><code>Rendering intent for solid colors<br>
+0 - Perceptual<br>
+1 - Relative Colorimetric<br>
+2 - Saturation<br>
+3 - Absolute Colorimetric</code></dd>
+
+<dt><strong>lpival</strong> = &lt;attribute 'lpival' of 'PDFfile' objects&gt;</dt>
+<dd><code>Rendering Settings for individual colors.<br>
+<pre>
+This is list of values for each color.
+Color values have structure [siii] which stand for:
+        s - Color name ('Black', 'Cyan', 'Magenta', 'Yellow')
+        i - Frequency (10 to 1000)
+        i - Angle (-180 to 180)
+        i - Spot Function
+                0 - Simple Dot
+                1 - Line
+                2 - Round
+                3 - Ellipse
+</pre>
+Be careful when supplying these values as they are not checked for validity.</code></dd>
+
+<dt><strong>noembicc</strong> = &lt;member 'noembicc' of 'PDFfile' objects&gt;</dt>
+<dd><code>Don't use embedded ICC profiles. Bool value</code></dd>
+
+<dt><strong>outdst</strong> = &lt;member 'outdst' of 'PDFfile' objects&gt;</dt>
+<dd><code>Output destination.<br>
+0 - screen<br>
+1 - printer</code></dd>
+
+<dt><strong>owner</strong> = &lt;attribute 'owner' of 'PDFfile' objects&gt;</dt>
+<dd><code>Owner's password</code></dd>
+
+<dt><strong>pages</strong> = &lt;attribute 'pages' of 'PDFfile' objects&gt;</dt>
+<dd><code>List of pages to print</code></dd>
+
+<dt><strong>presentation</strong> = &lt;member 'presentation' of 'PDFfile' objects&gt;</dt>
+<dd><code>Enable Presentation Effects.Bool value</code></dd>
+
+<dt><strong>printprofc</strong> = &lt;attribute 'printprofc' of 'PDFfile' objects&gt;</dt>
+<dd><code>Output profile for printing. If possible, get some guidance from your printer on profile selection.</code></dd>
+
+<dt><strong>profilei</strong> = &lt;member 'profilei' of 'PDFfile' objects&gt;</dt>
+<dd><code>Embed a color profile for images. Bool value.</code></dd>
+
+<dt><strong>profiles</strong> = &lt;member 'profiles' of 'PDFfile' objects&gt;</dt>
+<dd><code>Embed a color profile for solid colors. Bool value.</code></dd>
+
+<dt><strong>quality</strong> = &lt;member 'quality' of 'PDFfile' objects&gt;</dt>
+<dd><code>Image quality<br>
+0 - Maximum<br>
+1 - High<br>
+2 - Medium<br>
+3 - Low<br>
+4 - Minimum</code></dd>
+
+<dt><strong>resolution</strong> = &lt;attribute 'resolution' of 'PDFfile' objects&gt;</dt>
+<dd><code>Resolution of output file. Values from 35 to 4000.</code></dd>
+
+<dt><strong>solidpr</strong> = &lt;attribute 'solidpr' of 'PDFfile' objects&gt;</dt>
+<dd><code>Color profile for solid colors</code></dd>
+
+<dt><strong>thumbnails</strong> = &lt;member 'thumbnails' of 'PDFfile' objects&gt;<dd><code>Generate thumbnails. Bool value.</code></dl>
+
+<dt><strong>uselpi</strong> = &lt;member 'uselpi' of 'PDFfile' objects&gt;</dt>
+<dd><code>Use Custom Rendering Settings. Bool value</code></dd>
+
+<dt><strong>user</strong> = &lt;attribute 'user' of 'PDFfile' objects&gt;</dt>
+<dd><code>User's password</code></dd>
+
+<dt><strong>version</strong> = &lt;member 'version' of 'PDFfile' objects&gt;</dt>
+<dd><code>Choose PDF version to use:<br>
+12 = PDF/X-3<br>
+13 = PDF 1.3 (Acrobat 4)<br>
+14 = PDF 1.4 (Acrobat 5)</code></dd>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Using Dialogs from Scribus</title>
+</head>
+<body>
+<h2>Using Dialogs from Scribus</h2> 
+
+<dl>
+
+<dt><a name="-fileDialog"><strong>fileDialog</strong></a>(...)</dt>
+<dd><code>fileDialog("caption", ["filter", "defaultname", haspreview, issave, isdir])<br> -&gt; string with filename</code>
+<p>Shows a File Open dialog box with the caption "caption". Files are filtered with the filter string "filter". A default filename or file path can also supplied, leave this string empty when you don't want to use it. A value of True for haspreview enables a small preview widget in the FileSelect box. When the issave parameter is set to True the dialog acts like a "Save As" dialog otherwise it acts like a "File Open Dialog". When the isdir parameter is True the dialog shows and returns only directories. The default for all of the opional parameters is False.<p> 
+<p>The filter, if specified, takes the form 'comment (*.type *.type2 ...)'. For example 'Images (*.png *.xpm *.jpg)'.</p> 
+<p>Refer to the Qt-Documentation for QFileDialog for details on filters.</p>
+<p>Example: <a href="#-fileDialog">fileDialog</a>('Open input', 'CSV files (*.csv)')<br>
+Example: <a href="#-fileDialog">fileDialog</a>('Save report', defaultname='report.txt', issave=True)</p></dd>
+
+<dt><a name="-fileQuit"><strong>fileQuit</strong></a>(...)</dt>
+<dd><code>fileQuit()</code>
+<p>Quit Scribus.</p></dd>
+
+<dt><a name="-getGuiLanguage"><strong>getGuiLanguage</strong></a>(...)</dt>
+<dd><code>getGuiLanguage() -&gt; string</code>
+<p>Returns a string with the -lang value.</p></dd>
+
+<dt><a name="-messagebarText"><strong>messagebarText</strong></a>(...)</dt>
+<dd><code>messagebarText("string")</code>
+<p>Writes the "string" into the Scribus message bar (status line). The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd>
+
+<dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
+<dd><code>messageBox("caption", "message",
+icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer</code>
+<p>Displays a message box with the title "caption", the message "message", and an icon "icon" and up to 3 buttons. By default no icon is used and a single button, OK, is displayed. Only the caption and message arguments are required, though setting an icon and appropriate button(s) is strongly recommended. The message text may contain simple HTML-like markup.</p>
+<p>Returns the number of the button the user pressed. Button numbers start at 1.</p>
+<p>For the icon and the button parameters there are predefined constants available with the same names as in the Qt Documentation. These are the BUTTON_* and ICON_* constants defined in the module. There are also two extra constants that can be binary-ORed with button constants:</p>
+<ul>
+<li>BUTTONOPT_DEFAULT Pressing enter presses this button.</li>
+<li>BUTTONOPT_ESCAPE Pressing escape presses this button.</li>
+</ul>
+<p>Usage examples:</p>
+<pre>
+result = <a href="#-messageBox">messageBox</a>('Script failed',
+                    'This script only works when you have a text frame selected.',
+                    ICON_ERROR)
+result = <a href="#-messageBox">messageBox</a>('Monkeys!', 'Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;',
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+</pre>
+<p>Defined button and icon constants: BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO, BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL, ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</p></dd>
+
+<dt><a name="-newDocDialog"><strong>newDocDialog</strong></a>(...)</dt>
+<dd><code>newDocDialog() -&gt; bool</code>
+<p>Displays the "New Document" dialog box. Creates a new document if the user accepts the settings. Does not create a document if the user presses cancel. Returns true if a new document was created.</p></dd>
+
+<dt><a name="-newStyleDialog"><strong>newStyleDialog</strong>(...)</a></dt>
+<dd><code>newStyleDialog() -&gt; string</code>
+<p>Shows 'Create new paragraph style' dialog. Function returns real style name or None when user cancels the dialog.</p></dd>
+
+<dt><a name="-statusMessage"><strong>statusMessage</strong></a>(...)</dt>
+<dd><code>messagebarText("string")</code>
+<p>Writes the "string" into the Scribus message bar (status line). The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd>
+
+<dt><a name="-progressReset"><strong>progressReset</strong></a>(...)</dt>
+<dd><code>progressReset()</code>
+<p>Cleans up the Scribus progress bar previous settings. It is called before the new progress bar use. See progressSet.</p></dd>
+
+<dt><a name="-progressSet"><strong>progressSet</strong></a>(...)</dt>
+<dd><code>progressSet(nr)</code>
+<p>Set the progress bar position to "nr", a value relative to the previously set progressTotal. The progress bar uses the concept of steps; you give it the total number of steps and the number of steps completed so far and it will display the percentage of steps that have been completed. You can specify the total number of steps with <a href="#-progressTotal">progressTotal</a>(). The current number of steps is set with <a href="#-progressSet">progressSet</a>(). The progress bar can be rewound to the beginning with <a href="#-progressReset">progressReset</a>(). [based on info taken from Trolltech's Qt docs]</p></dd>
+
+<dt><a name="-progressTotal"><strong>progressTotal</strong></a>(...)</dt>
+<dd><code>progressTotal(max)</code>
+<p>Sets the progress bar's maximum steps value to the specified number. See progressSet.</p></dd>
+
+<dt><a name="-valueDialog"><strong>valueDialog</strong></a>(...)</dt>
+<dd><code>valueDialog(caption, message [,defaultvalue]) -&gt; string</code>
+<p>Shows the common 'Ask for string' dialog and returns its value as a string Parameters: window title, text in the window and optional 'default' value.</p>
+<p>Example: <a href="#-valueDialog">valueDialog</a>('title', 'text in the window', 'optional')</p></dd>
+
+</dl>
+
+</body>
+</html>

@@ -1,0 +1,2987 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>File Format Specification for Scribus 1.2</title>
+</head>
+<body>
+	<h2>File Format Specification for Scribus 1.2</h2>
+	<p>This specifcation is based on the current format used by Scribus 1.2.
+	<p>It lists all Tags and Attributes, some of these are optional, depending on type of the Document. Optional Tags and Attributes are marked with a slight blue background, Scribus will insert a default value when one of these are missing.</p>
+	  
+	<table valign="top" border="1">
+		<tr valign="top">
+			<td colspan=5 align="center"><b>Tags</b></td>
+			<td><b>Attributes</b></td>
+			<td><b>Meaning</b></td>
+		</tr>
+		<tr valign="top">
+			<td>SCRIBUSUTF8</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Version</td>
+			<td>Version Number for<br>Debugging</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td>DOCUMENT</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ABSTSPALTEN</td>
+			<td>Distance between Columns in<br>automatic Textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ALAYER</td>
+			<td>Active Layer</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ANZPAGES</td>
+			<td>Number of Pages</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>AUTHOR</td>
+			<td>Author of the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">AUTOCHECK</td>
+			<td>Automatic Hyphenation during typing<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">AUTOMATIC</td>
+			<td>Automatic Hyphenation<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>AUTOSPALTEN</td>
+			<td>Number of Colums in automatic<br>Textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BASEGRID</td>
+			<td>Width of the Baseline Grid</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BASEO</td>
+			<td>Startoffset for the Baseline Grid</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BOOK</td>
+			<td>Document has facing Pages<br>when this Attribute is present</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERBOTTOM</td>
+			<td>Bottom Border of Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERLEFT</td>
+			<td>Left Border of Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERRIGHT</td>
+			<td>Right Border of Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERTOP</td>
+			<td>Top Border of Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>COMMENTS</td>
+			<td>Comments for the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DCOL</td>
+			<td>Number of Colums in Textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DFONT</td>
+			<td>Default Font</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DGAP</td>
+			<td>Default Gap between Columns<br>in Textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DIMo</td>
+			<td>Default Rendering Intent for the Monitor<br>
+			0 = Perceptual<br>1 = Relative Colorimetric<br>
+			2 = Saturation<br>3 = Absolute Colorimetric</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DIMo2</td>
+			<td>Default Rendering Intent for Images<br>
+			0 = Perceptual<br>1 = Relative Colorimetric<br>
+			2 = Saturation<br>3 = Absolute Colorimetric</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DIPr</td>
+			<td>Default Rendering Intent for the Printer<br>
+			0 = Perceptual<br>1 = Relative Colorimetric<br>
+			2 = Saturation<br>3 = Absolute Colorimetric</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCCONTRIB</td>
+			<td>Person or organization making contributions to the document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCCOVER</td>
+			<td>Extent of scope of the document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCDATE</td>
+			<td>Date related to life-cycle of the document, YYYY-MM-DD</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCFORMAT</td>
+			<td>Physical or digital manifestation of the document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCIDENT</td>
+			<td>An unambigious reference to the document, eg ISBN</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCLANGINFO</td>
+			<td>Language of content of document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCRELATION</td>
+			<td>Reference to a related document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCRIGHTS</td>
+			<td>Information about rights held in and over the document, eg copyright</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCSOURCE</td>
+			<td>Reference to a document from which this document is derived</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCTYPE</td>
+			<td>Nature or genre of the content of the document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Dpbla</td>
+			<td>Use Blackpoint Compensation<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Dpgam</td>
+			<td>Mark Colors out of Gamut<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPIn</td>
+			<td>Default ICC-Profile for solid Colors</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPIn2</td>
+			<td>Default ICC-Profile for Images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPMo</td>
+			<td>Default ICC-Profile for the Monitor</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPPr</td>
+			<td>Default ICC-Profile for the Printer</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPSo</td>
+			<td>Simulate the Printer on Screen<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Dpuse</td>
+			<td>Use Colormanagement<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DSIZE</td>
+			<td>Default Fontsize</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">FIRSTLEFT</td>
+			<td>First page is a left page when this<br>attribute is present</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">FIRSTNUM</td>
+			<td>First Pagenumber in the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GROUPC</td>
+			<td>Counter for Groups in the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GUIDELOCK</td>
+			<td>Guides locked<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">HCMS</td>
+			<td>Colormanagement available<br>0 = off, 1 = on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">HYCOUNT</td>
+			<td>Number of Hyphens allowed following each other</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>KEYWORDS</td>
+			<td>Keywords for the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LANGUAGE</td>
+			<td>Language of the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MAJGRID</td>
+			<td>Distance of the major Gridlines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MINGRID</td>
+			<td>Distance of the minor Gridlines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MINWORDLEN</td>
+			<td>Minimum length of a Word to be hyphenated</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ORIENTATION</td>
+			<td>Orientation of the Doc<br>0 = Portrait<br>1 = Landscape</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PAGEHEIGHT</td>
+			<td>Height of the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PAGEWITH</td>
+			<td>Width of the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PUBLISHER</td>
+			<td>
+			Person or organization responsible for making the document available
+		</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TITLE</td>
+			<td>Title of the Doc</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UNITS</td>
+			<td>Measurement unit for the Doc<br>0 = Points<br>1 = Millimeters<br>2 = Inches<br>3 = Picas</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VHOCH</td>
+			<td>Percentage for Superscript</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VHOCHSC</td>
+			<td>Percentage for scaling of the Glyphs in Superscript</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VKAPIT</td>
+			<td>Percentage for scaling of the Glyphs in Small Caps</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VTIEF</td>
+			<td>Percentage for Subscript</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VTIEFSC</td>
+			<td>Percentage for scaling of the Glyphs in Subscript</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MultiLine</td>
+			<td></td>
+			<td></td>
+			<td>Name</td>
+			<td>Name of the Linestyle</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SubLine</td>
+			<td></td>
+			<td>Color</td>
+			<td>Name of the colour of that Line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Dash</td>
+			<td>How the line is dashed<br>1 = Solid Line<br>2 = Dashed Line<br>
+		3 = Dotted Line<br>4 = Dash Dot Line<br>5 = Dash Dot Dot Line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LineEnd</td>
+			<td>Code for the line end rendering<br>0 = FlatCap<br>16 = SquareCap<br>32 = RoundCap</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LineJoin</td>
+			<td>Code for the line join rendering<br>0 = MiterJoin<br>64 = BevelJoin<br>128 = RoundJoin</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Shade</td>
+			<td>Shading of the line colour in percent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Width</td>
+			<td>Linewidth in points</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">JAVA</td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Name of the Script</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SCRIPT</td>
+			<td>The JavaScript itself</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Bookmark</td>
+			<td></td>
+			<td></td>
+			<td>Aktion</td>
+			<td>Action for this Bookmark</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Element</td>
+			<td>Number of the Scribus Object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>First</td>
+			<td>Number of first Bookmark at this Level</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ItemNr</td>
+			<td>Internal Number of this Bookmark</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Last</td>
+			<td>Number of last Bookmark at this Level</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Next</td>
+			<td>Number of next Bookmark at this Level</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Parent</td>
+			<td>Number of this Bookmarks Parent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Prev</td>
+			<td>Number of previous Bookmark at this Level</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Seite</td>
+			<td>Page on which this Bookmark is located</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Text</td>
+			<td>Internal Text of that Bookmark</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Title</td>
+			<td>String which is exported to PDF</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>COLOR</td>
+			<td></td>
+			<td></td>
+			<td>CMYK</td>
+			<td>Value as hexadecimal String</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Name of the Colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>RGB</td>
+			<td>Value as hexadecimal String</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">STYLE</td>
+			<td></td>
+			<td></td>
+			<td>ALIGN</td>
+			<td>Code for the alignment of text.<br>0 = Align Text Left<br>1 = Align Text Centered<br>2 = Align Text Right<br>
+			3 = Align Text Justified<br>4 = Align Text Forced Justified</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BASE</td>
+			<td>Flag for adjusting to the Baseline Grid<br>0 = no adjusting, 1 = adjusting</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DROP</td>
+			<td>Flag for DropCaps<br>1 = DropCaps on</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DROPLIN</td>
+			<td>Number of Lines for the DropCaps</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>EFFECT</td>
+			<td>Character Style for the Text<br>1 = Superscript<br>2 = Subscript<br>4 = Outline Text<br>
+		8 = Underline<br>16 = Strike Out<br>64 = Small Caps</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FCOLOR</td>
+			<td>Name of the fill colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FIRST</td>
+			<td>Indent of the first Line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FONT</td>
+			<td>Name of the Font</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FONTSIZE</td>
+			<td>Fontsize</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FSHADE</td>
+			<td>Shade of the fill colour in percent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>INDENT</td>
+			<td>Indent for all Lines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LINESP</td>
+			<td>Linespacing</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NACH</td>
+			<td>Spacing after the paragraph</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Name of the style</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMTAB</td>
+			<td>Number of Tabs</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SCOLOR</td>
+			<td>Name of the stroke colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SSHADE</td>
+			<td>Shade of the stroke colour in percent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TABS</td>
+			<td>List of defined Tabs, Tabcode and Position<br>Tabcodes:<br>0 = Left<br>1 = Right<br>
+		2 = Full Stop<br>3 = Comma<br>4 = Center</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VOR</td>
+			<td>Spacing before the paragraph</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>LAYERS</td>
+			<td></td>
+			<td></td>
+			<td>DRUCKEN</td>
+			<td>Flag for printing<br>0 = Layer is not printed<br>1 = Layer is printed</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LEVEL</td>
+			<td>Level of the Layer<br>0 = Background</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Name of the layer</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMMER</td>
+			<td>Number of the layer</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SICHTBAR</td>
+			<td>Flag for visibility<br>0 = Layer is not visible<br>1 = Layer is visible</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>PDF</td>
+			<td></td>
+			<td></td>
+			<td>Articles</td>
+			<td>Flag, set to 1 when use PDF-Articles is<br>checked in the PDF-Options Dialog</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BBottom</td>
+			<td>Bottom Distance for the Bleed Box</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Binding</td>
+			<td>Binding for the PDF-Document<br>0 = Left Binding<br>1 = Right Binding</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BLeft</td>
+			<td>Left  Distance for the Bleed Box</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Bookmarks</td>
+			<td>Flag, set to 1 when include Bookmarks is<br>checked in the PDF-Options Dialog</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BRight</td>
+			<td>Right Distance for the Bleed Box</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BTop</td>
+			<td>Top Distance for the Bleed Box</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CMethod</td>
+			<td>Compression Method for Pictures<br>0 = Automatic, Scribus tries to use the best Method<br>1 = JPEG Compression<br>
+		2 = Flate Compression<br>3 = No Compression</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Compress</td>
+			<td>Flag, set to 1 when use Compress Text is<br>checked in the PDF-Options Dialog</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Encrypt</td>
+			<td>Flag, set to 1 when use Encryption is<br>checked in the PDF-Options Dialog</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ImageP</td>
+			<td>ICC-Profile for Images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ImagePr</td>
+			<td>Flag, set to 1 when embedded ICC-Proflies should not be used for images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">InfoString</td>
+			<td>Info String for PDF-X/3 Output</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Intent</td>
+			<td>Rendering Intent for solid colours<br>0 = Perceptual<br>1 = Relative Colorimetric<br>
+		2 = Saturation<br>3 = Absolute Colorimetric</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Intent2</td>
+			<td>Rendering Intent for Images<br>0 = Perceptual<br>1 = Relative Colorimetric<br>
+		2 = Saturation<br>3 = Absolute Colorimetric</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PassOwner</td>
+			<td>Owner Password for encrypted PDF's</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PassUser</td>
+			<td>User Password for encrypted PDF's</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Permissions</td>
+			<td>Value used for Encryption Settings</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PicRes</td>
+			<td>Resolution for downsampling Images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PresentMode</td>
+			<td>Flag, set to 1 when Presentation effects should be used</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PrintP</td>
+			<td>ICC-Profile for the Printer, only used for PDF-X/3 output</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Quality</td>
+			<td>Quality setting for Image Compression<br>0 = Maximum (95%)<br>1 = High (85%)<br>
+		2 = Medium (75%)<br>3 = Low (50%)<br>4 =  Minimum (25%)</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>RecalcPic</td>
+			<td>Flag, set to 1 when Downsample Images is<br>checked in the PDF-Options Dialog</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Resolution</td>
+			<td>Resolution for embedded EPS-Pictures or PDF's</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RGBMode</td>
+			<td>Flag, set to 1 when Output should be in RGB</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">SolidP</td>
+			<td>ICC-Profile for solid colours</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Thumbnails</td>
+			<td>Flag, set to 1 when Generate Thumbnails is<br>checked in the PDF-Options Dialog</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UseLpi</td>
+			<td>Flag, set to 1 when the informations in the LPI tags should be used for Linescreening</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UseProfiles</td>
+			<td>Flag, set to 1 when ICC-Profiles should be used for solid colours</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UseProfiles2</td>
+			<td>Flag, set to 1 when ICC-Profiles should be used for images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Version</td>
+			<td>PDF-Version which should be generated<br>12 = PDF-X/3<br>13 = PDF-1.3<br>14 = PDF-1.4</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Effekte</td>
+			<td></td>
+			<td>AnzeigeLen</td>
+			<td>Time how long the page is shown in Full Screen Mode in seconds</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Di</td>
+			<td>Direction of the Effect for Wipe and Glitter<br>0 = Left to right<br>1 = Top to bottom<br>
+		2 = Bottom to top<br>3 = Right to left<br>4 = Top-left to bottom-right</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Dm</td>
+			<td>Direction of the Effect for Split and Blinds<br>0 = horizontal<br>1 = vertical</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Effekt</td>
+			<td>Type of Effect<br>0 = No Effect<br>1 = Blinds<br>2 = Box<br>3 = Dissolve<br>
+		4 = Glitter<br>5 = Split<br>6 = Wipe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>EffektLen</td>
+			<td>Time how long the effect is shown in Full Screen Mode in seconds</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>M</td>
+			<td>Direction of the motion for Split and Box<br>0 = towards inside<br>1 = towards outside</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LPI</td>
+			<td></td>
+			<td>Angle</td>
+			<td>Linescreening angle</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Color</td>
+			<td>Name of the Colour for which these settings are ment</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Frequency</td>
+			<td>How many lines per Inch are used</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SpotFunction</td>
+			<td>Code for the used Spotfunction:<br>0 = Simple Dot<br>1 = Line<br>
+			2 = Round<br>3 = Ellipse<br></td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Fonts</td>
+			<td></td>
+			<td>Name</td>
+			<td>Name of the Font to be embedded into the PDF</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>PAGE</td>
+			<td></td>
+			<td></td>
+			<td>HorizontalGuides</td>
+			<td>List of horizontal Guidelines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LEFT</td>
+			<td>Is 1 if this page is a left Masterpage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>MNAM</td>
+			<td>Name of the attached Masterpage,<br>empty when this page is a Masterpage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAM</td>
+			<td>Name of the Masterpage, empty<br>when this page is a normal page</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUM</td>
+			<td>Number of the page, counting starts with 0</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NumHGuides</td>
+			<td>Number of horizontal Guidelines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NumVGuides</td>
+			<td>Number of vertical Guidelines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VerticalGuides</td>
+			<td>List of vertical Guidelines</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PAGEOBJECT</td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ALIGN</td>
+			<td>Alignment for text when no paragraph style is set<br>0 = No Style, left aligned<br>1 = Align Text Center<br>
+			2 = Align Text Right<br>3 = Align Text Justified<br>4 = Align Text Forced Justified<br></td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANAA</td>
+			<td>Set to 1 if Annotations Action is a JavaScript Action</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANACTION</td>
+			<td>Action for the PDF-Field, contains either a URL or a JavaScript</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANACTYP</td>
+			<td>Type of the Action for a PDF-Field<br>0 = None<br>1 = Java Script<br>2 = Go To<br>
+		3 = Submit Form<br>4 = Reset Form<br>5 = Import Data</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBCOL</td>
+			<td>Name of the border colour of the PDF-Button</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBLACT</td>
+			<td>JavaScript executed when the PDF-Field looses focus</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBSTY</td>
+			<td>Borderstyle for a PDF-Button<br>0 = Solid<br>1 = Dashed<br>2 = Underline<br>
+		3 = Beveled<br>4 = Inset</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBWID</td>
+			<td>Borderwidth of a PDF-Button<br>0 = None<br>1 = Thin<br>2 = Normal<br>3 = Wide</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANCACT</td>
+			<td>JavaScript executed when the PDF-Page is changed</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANCHK</td>
+			<td>Set to 1 if the PDF-Checkbox is checked by default</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANCHKS</td>
+			<td>Style of the checkmark in a PDF-Checkbox<br>0 = Check<br>1 = Cross<br>2 = Diamond<br>
+		3 = Circle<br>4 = Star<br>5 = Square</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANDACT</td>
+			<td>JavaScript executed when the mouse button is pressed</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANDOWN</td>
+			<td>Text for Button Down of a PDF-Button</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANEACT</td>
+			<td>JavaScript executed when the cursor enters the PDF-Field</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANEXTERN</td>
+			<td>Path or URL for an external PDF-Link</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFACT</td>
+			<td>JavaScript executed before formatting the PFD-Field</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFEED</td>
+			<td>Feedback for PDF-Button press<br>0 = None<br>1 = Invert<br>2 = Outlined<br>
+		3 = Push animation</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFLAG</td>
+			<td>Flags for Annotations, value is the bitwise or of the following constants<br>
+		1 = Field is read-only<br>2 = Field must have a value<br>4 = Value is not exported<br>
+		4096 = Field is a multiline Textfield<br>8192 = Field is a password field<br>
+		262144 = Field is editable<br>4194304 = Don't spell check<br>8388608 = Do not scroll</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFOACT</td>
+			<td>JavaScript executed when the field receives focus</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFONT</td>
+			<td>Font for the PDF-Button or Annotation<br>0 = Courier<br>1 = Courier Bold<br>
+		2 = Courier Italic<br>3 = Courier Bold Italic<br>4 = Helvetica<br>5 = Helvetica Bold<br>
+		6 = Helvetica Italic<br>7 = Helvetica Bold Italic<br>8 = Times<br>9 = Times Bold<br>
+		10 = Times Italic<br>11 = Times Bold Italic<br>12 = Zapf Dingbats<br>13 = Symbols</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFORMAT</td>
+			<td>Format of the Value in a PDF-Field<br>0 = Plain text<br>1 = Number<br>
+		2 = Percentage<br>3 = Date<br>4 = Time<br>5 = Custom format</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANHTML</td>
+			<td>Set to 1 if the PDF-Submit Action should send HTML instead of FDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANICON</td>
+			<td>Set to 1 if the PDF-Button uses icons</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANKACT</td>
+			<td>JavaScript for keypresses</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANMC</td>
+			<td>Maximum number of characters in a PDF-Textfield</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANNAME</td>
+			<td>Field name of the Annotation, also used for the object name</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANNOTATION</td>
+			<td>Set to 1 if the object is a Annotation or a PDF-Field</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANPLACE</td>
+			<td>How to display the Icon of a PDF-Button<br>0 = Caption only<br>1 = Icon only<br>
+		2 = Caption below Icon<br>3 = Caption above Icon<br>4 = Caption right to Icon<br>
+		5 = Caption left to Icon<br>6 = Caption overlays Icon</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANROLL</td>
+			<td>Text for roll over of PDF-Buttons</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANSCALE</td>
+			<td>Scaling of Icons on PDF-Buttons<br>0 = Always<br>1 = When Icon is too small<br>
+		2 = When Icon is too big<br>3 = Never</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANTOOLTIP</td>
+			<td>Tooltip for the PDF-Field</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANTYPE</td>
+			<td>Type of the Annotation or PDF-Field<br>0 = Text annotation<br>1 = Link annotation<br>
+		2 = PDF-Button<br>3 = PDF-Textfield<br>4 = PDF-Checkbox<br>5 = PDF-Combobox<br>
+		6 = PDF-Listbox<br>7 = External Link<br>8 = External Weblink</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANVACT</td>
+			<td>JavaScript to be performed when the fields value has changed</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANVIS</td>
+			<td>The visiblity of the PDF-Field<br>0 = visible<br>1 = hidden<br>2 = don't print<br>3 = don't show, but print</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANXACT</td>
+			<td>JavaScript when the mouse pointer leaves the field</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANZIEL</td>
+			<td>Page number of a PDF-Link</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>AUTOTEXT</td>
+			<td>Set to 1 if object is an automatic textframe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BACKITEM</td>
+			<td>Number of the previous frame of linked textframe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BACKPAGE</td>
+			<td>Number of the page of the previous frame in linked textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BASEOF</td>
+			<td>Offset for the text from its path for text on a path</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BBOXH</td>
+			<td>Height of the bounding box, used only for EPS-Images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BBOXX</td>
+			<td>Bounding box X-Value, used only for EPS-Images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BEXTRA</td>
+			<td>Distance of text from the bottom edge of the frame</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BOOKMARK</td>
+			<td>Set to 1 if object is a PDF-Bookmark</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BookNr</td>
+			<td>Number of the Bookmark</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BottomLine</td>
+			<td>Set to 1 if the table item has a bottom line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BottomLINK</td>
+			<td>Number of the object that is below of this object in tables</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CLIPEDIT</td>
+			<td>Set to 1 if the shape was edited</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>COLGAP</td>
+			<td>Gap between text columns</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>COLUMNS</td>
+			<td>Number of columns in text</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">COCOOR</td>
+			<td>Coordinates of the objects contour line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DASHOFF</td>
+			<td>Offset for the first dash</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DASHS</td>
+			<td>List of dash values, see the PostScript manual for details</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">EMBEDDED</td>
+			<td>Set to 1 if embedded ICC-Profiles should be used</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">EPROF</td>
+			<td>Embedded ICC-Profile for images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>EXTRA</td>
+			<td>Distance of text from the left edge of the frame</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">EXTRAV</td>
+			<td>Kerning value</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FLIPPEDH</td>
+			<td>Set to an uneven number if object is flipped horizontal</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FLIPPEDV</td>
+			<td>Set to an uneven number if object is flipped vertical</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">FRTYPE</td>
+			<td>Type of the shape of an object<br>0 = Rectangle<br>1 = Ellipse<br>2 = Rounded rectangle<br>
+		3 = Free shape</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRENDX</td>
+			<td>X-Value of the end position of the gradient</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRENDY</td>
+			<td>Y-Value of the end position of the gradient</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>GROUPS</td>
+			<td>List of group identifiers</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRSTARTX</td>
+			<td>X-Value of the start position of the gradient</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRSTARTY</td>
+			<td>Y-Value of the start position of the gradient</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRTYP</td>
+			<td>Type of the gradient fill<br>0 = No gradient fill<br>1 = Horizontal gradient<br>
+		2 = Vertical gradient<br>3 = Diagonal gradient<br>4 = Cross diagonal gradient<br>
+		5 = Radial gradient<br>6 = Free linear gradient<br>7 = Free radial gradient</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>HEIGHT</td>
+			<td>Height of the object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>IFONT</td>
+			<td>Name of the font for text</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">INVERS</td>
+			<td>Image is inversed</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">IRENDER</td>
+			<td>Rendering Intent for Images<br>
+			0 = Perceptual<br>1 = Relative Colorimetric<br>
+			2 = Saturation<br>3 = Absolute Colorimetric</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ISIZE</td>
+			<td>Fontsize for text</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">isTableItem</td>
+			<td>Set to 1 if the object belongs to a table</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LANGUAGE</td>
+			<td>Language of the object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LAYER</td>
+			<td>Layer number the object belongs to</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LeftLine</td>
+			<td>Set to 1 if the table item has a left line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LeftLINK</td>
+			<td>Number of the object that is left to this object in tables</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LINESP</td>
+			<td>Linespacing for text</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALSCX</td>
+			<td>Scaling of the image in the X-Direction</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALSCY</td>
+			<td>Scaling of the image in the Y-Direction</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALX</td>
+			<td>X-Position of the image in the image frame</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALY</td>
+			<td>Y-Position of the image in the image frame</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LOCK</td>
+			<td>Set ot 1 if the object is locked</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LOCKR</td>
+			<td>Set to 1 if the object is protected against resizing</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">NAMEDLST</td>
+			<td>Name of the custom line style</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NEXTITEM</td>
+			<td>Number of the next frame for linked textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NEXTPAGE</td>
+			<td>Number of the page of the next frame in linked textframes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">NUMCO</td>
+			<td>Number of coordinates in COCOOR</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMDASH</td>
+			<td>Number of entries in DASH</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMGROUP</td>
+			<td>Number of grops in GROUPS</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMPO</td>
+			<td>Number of coordinates in POCOOR</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMTAB</td>
+			<td>Number of tabstops listed in TABS</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">OwnLINK</td>
+			<td>Number of this object in tables</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PCOLOR</td>
+			<td>Name of the colour for fll</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PCOLOR2</td>
+			<td>Name of the colour for stroke</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PFILE</td>
+			<td>Filename of the image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PFILE2</td>
+			<td>Filename of the pressed icon image for PDF-Buttons</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PFILE3</td>
+			<td>Filename of the rollover icon image for PDF-Buttons</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PICART</td>
+			<td>Set to 1 if image should be shown</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PLINEART</td>
+			<td>How the line is dashed<br>1 = Solid Line<br>2 = Dashed Line<br>
+		3 = Dotted Line<br>4 = Dash Dot Line<br>5 = Dash Dot Dot Line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PLINEEND</td>
+			<td>Code for the line end rendering<br>0 = FlatCap<br>16 = SquareCap<br>32 = RoundCap</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PLINEJOIN</td>
+			<td>Code for the line join rendering<br>0 = MiterJoin<br>64 = BevelJoin<br>128 = RoundJoin</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PLTSHOW</td>
+			<td>Set to 1 if the path of a Text on a path should be shown</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>POCOOR</td>
+			<td>Coordinates of the object shape</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PRFILE</td>
+			<td>ICC-Profile for the image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PRINTABLE</td>
+			<td>Set to 1 if the object should be printed, 0 otherwise</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PTYPE</td>
+			<td>Type of object<br>2 = Image<br>4 = Text<br>5 = Line<br>6 = Polygon<br>7 = Polyline<br>8 = Text on a path</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PWIDTH</td>
+			<td>Line width of the object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RADRECT</td>
+			<td>Corner radius for rounded Rectangles</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RATIO</td>
+			<td>Set to 1 if the image scaling should respect the aspect ratio</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">REVERS</td>
+			<td>Text is rendered reverse, eg Arabic</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">REXTRA</td>
+			<td>Distance of text from the right edge of the frame</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RightLine</td>
+			<td>Set to 1 if the table item has a right line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RightLINK</td>
+			<td>Number of the object that is to the right of this object in tables</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ROT</td>
+			<td>Rotation of the object in degrees</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">SCALETYPE</td>
+			<td>How the image can be scaled<br>0 = Free scaling<br>1 = Scaling bound to image frame dimensions</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SHADE</td>
+			<td>Shading for fill</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SHADE2</td>
+			<td>Shading for stroke</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TABS</td>
+			<td>List of defined Tabs, Tabcode and Position<br>Tabcodes:<br>0 = Left<br>1 = Right<br>
+		2 = Full Stop<br>3 = Comma<br>4 = Center</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TEXTFLOW</td>
+			<td>Set to 1 if text flows around this object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TEXTFLOW2</td>
+			<td>Set to 1 if text flows around the bounding box of this object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TEXTFLOW3</td>
+			<td>Set to 1 if text flows around the contour line of this object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TEXTRA</td>
+			<td>Distance of text from the top edge of the frame</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TopLine</td>
+			<td>Set to 1 if the table item has a top line</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TopLINK</td>
+			<td>Number of the object that is above this object in tables</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TransValue</td>
+			<td>Transparency value for fill</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TransValueS</td>
+			<td>Transparency value for stroke</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTFILL</td>
+			<td>Name of the default text fill colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTFILLSH</td>
+			<td>Default shading for the text fill colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSCALE</td>
+			<td>Default text scaling</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSTROKE</td>
+			<td>Name of the default colour for stroking text</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSTRSH</td>
+			<td>Default shading for stroking text</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSTYLE</td>
+			<td>Default character style, value is the bitwise or of these constants:<br>
+			1 = Superscript<br>2 = Subscript<br>4 = Outlined<br>8 = Underlined<br>
+			16 = Strikeout<br>64 = Small Caps</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>WIDTH</td>
+			<td>Width of the Object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>XPOS</td>
+			<td>X-Positon of the Object</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>YPOS</td>
+			<td>Y-Position of the Object</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSTOP</td>
+			<td>NAME</td>
+			<td>Name of the stop colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>RAMP</td>
+			<td>Position of the colour stop,<br>range from 0.0 till 1.0</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SHADE</td>
+			<td>Shading of the stop colour in Percent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TRANS</td>
+			<td>Transparency of the colour stop,<br>range from 0.0 till 1.0</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ITEXT</td>
+			<td>CAB</td>
+			<td>Paragraph style for the character<br>0 = No Style, left aligned<br>1 = Align Text Center<br>
+			2 = Align Text Right<br>3 = Align Text Justified<br>4 = Align Text Forced Justified<br>
+			higher values indicate a custom paragraph style</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CCOLOR</td>
+			<td>Name of the fill colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CEXTRA</td>
+			<td>Value for Kerning</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CFONT</td>
+			<td>Name of the Font</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CH</td>
+			<td>The character(s) itself</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSCALE</td>
+			<td>Scaling in percent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CSHADE</td>
+			<td>Shading of the fill colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSHADE2</td>
+			<td>Shading of the stroke colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CSIZE</td>
+			<td>Fontsize in points</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSTROKE</td>
+			<td>Name of the stroke colour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CSTYLE</td>
+			<td>The style of the character, value is the bitwise or of these constants:<br>
+			1 = Superscript<br>2 = Subscript<br>4 = Outlined<br>8 = Underlined<br>
+			16 = Strikeout<br>64 = Small Caps<br>128 = Word can be hyphenated here</td>
+		</tr>
+	</table>
+</body>
+</html>

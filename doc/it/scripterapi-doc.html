@@ -1,0 +1,162 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Document related Commands</title>
+</head>
+<body>
+<h2>Document related Commands</h2>
+
+<dl>
+
+<dt><a name="-closeDoc"><strong>closeDoc</strong></a>(...)</dt>
+<dd><code>closeDoc()</code>
+<p>Closes the current document without prompting to save.</p>
+<p>May throw <a href="#NoDocOpenError">NoDocOpenError</a> if there is no document to close</p></dd>
+
+<dt><a name="-docChanged"><strong>docChanged</strong></a>(...)</dt>
+<dd><code>docChanged(bool)</code>
+<p>Enable/disable save icon in the Scribus icon bar and the Save menu item. It's
+useful to call this procedure when you're changing the document, because Scribus
+won't automatically notice when you change the document using a script.</p></dd>
+
+<dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
+<dd><code>getUnit() -&gt; integer (Scribus unit constant)</code>
+<p>Returns the measurement units of the document. The returned value will be one of the UNIT_* constants: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</p></dd>
+
+<dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
+<dd><code>haveDoc() -&gt; bool</code>
+<p>Returns true if there is a document open.</p></dd>
+
+<!--<dt><a name="-importSVG"><strong>importSVG</strong>(...)</a></dt>
+<dd><code>importSVG("string")</code>
+<p>The "string" must be a valid filename for a SVG image. The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd> -->
+
+<dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
+<dd><code>loadStylesFromFile("filename")</code>
+<p>Loads paragraph styles from the Scribus document at "filename" into the current document.</p></dd>
+
+<dt><a name="-masterPageNames"><strong>masterPageNames</strong>(...)</a></dt>
+<dd><code>masterPageNames()</code>
+<p>Returns a list of the names of all master pages in the document.</p></dd>
+
+<dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt>
+<dd><code>newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -&gt; bool</code>
+<p>WARNING: Obsolete procedure! Use <a href="#-newDocument">newDocument</a> instead.</p>
+<p>Creates a new document and returns true if successful. The parameters have the
+following meaning:</p>
+<ul>
+	<li>size = A tuple (width, height) describing the size of the document. You can use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.</li>
+	<li>margins = A tuple (left, right, top, bottom) describing the document margins</li>
+	<li>orientation = the page orientation - constants PORTRAIT, LANDSCAPE</li>
+	<li>firstPageNumber = is the number of the first page in the document used for page numbering. While you'll usually want 1, it's useful to have higher numbers if you're creating a document in several parts.</li>
+	<li>unit: this value sets the measurement units used by the document. Use a predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</li>
+	<li>facingPages = FACINGPAGES, NOFACINGPAGES</li>
+	<li>firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT</li>
+	</ul>
+<p>The values for width, height and the margins are expressed in the given unit for the document. PAPER_* constants are expressed in points. If your document is not in points, make sure to account for this.</p>
+<p>example: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</p></dd>
+
+<dt><a name="-newDocument"><strong>newDocument</strong>(...)</a></dt>
+<dd><code>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder, numPages) -&gt; bool</code>
+<p>Creates a new document and returns true if successful. The parameters have the
+following meaning:
+<ul>
+<li>size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.</li>
+<li>margins = A tuple (left, right, top, bottom) describing the document
+margins</li>
+<li>orientation = the page orientation - constants PORTRAIT, LANDSCAPE</li>
+<li>firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you'll usually want 1, it's useful to have higher
+numbers if you're creating a document in several parts.</li>
+<li>unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.</li>
+<li>pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.</li>
+<li>firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).</li>
+<li>numPage = Number of pages to be created.</li>
+</ul>
+<p>The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.</p>
+<p>example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)</p>
+<p>May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</p>
+</dd>
+
+<dt><a name="-openDoc"><strong>openDoc</strong></a>(...)</dt>
+<dd><code>openDoc("name")</code>
+<p>Opens the document "name".</p>
+<p>May raise ScribusError if the document could not be opened.</p></dd>
+
+<dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeEPS("filename", x, y) Places the EPS "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the EPS
+placed on the page If loading was successful, the selection contains
+the imported EPS</p></dd>
+
+<dt><a name="-placeODG"><strong>placeODG</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeODG("filename", x, y) Places the ODG "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the ODG
+placed on the page If loading was successful, the selection contains
+the imported ODG</p></dd>
+
+<dt><a name="-placeSVG"><strong>placeSVG</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeSVG("filename", x, y) Places the SVG "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the SVG
+placed on the page If loading was successful, the selection contains
+the imported SVG</p></dd>
+
+<dt><a name="-placeSXD"><strong>placeSXD</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeSXD("filename", x, y) Places the SXD "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the SXD
+placed on the page If loading was successful, the selection contains
+the imported SXD</p></dd>
+
+<dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
+<dd><code>saveDoc()</code>
+<p>Saves the current document with its current name, returns true if successful. If the document has not already been saved, this may bring up an interactive save file dialog. If the save fails, there is currently no way to tell.</p></dd>
+
+<dt><a name="-saveDocAs"><strong>saveDocAs</strong></a>(...)</dt>
+<dd><code>saveDocAs("name")</code>
+<p>Saves the current document under the new name "name" (which may be a full or
+relative path).</p>
+<p>May raise ScribusError if the save fails.</p></dd>
+
+<dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
+<dd><code>setInfo("author", "info", "description") -&gt; bool</code>
+<p>Sets the document information. "Author", "Info", "Description" are strings.</p></dd>
+
+<dt><a name="-setMargins"><strong>setMargins</strong></a>(...)</dt>
+<dd><code>setMargins(lr, rr, tr, br)</code>
+<p>Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br) margins are given in the measurement units of the document - see UNIT_&lt;type&gt; constants.</p></dd>
+
+<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
+<dd><code>setDocType(facingPages, firstPageLeft)</code>
+<p>Sets the document type. To get facing pages set the first parameter to FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead. If you want to be the first page a left side set the second parameter to FIRSTPAGELEFT, for a right page use FIRSTPAGERIGHT.</p></dd>
+
+<dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
+<dd><code>setUnit(type)</code>
+<p>Changes the measurement unit of the document. Possible values for "unit" are defined as constants UNIT_&lt;type&gt;.</p>
+<p>May raise ValueError if an invalid unit is passed.</p></dd>
+
+<dt><a name="-scrollDocument"><strong>scrollDocument</strong>(...)</a></dt>
+<dd><code>scrollDocument(x,y)</code>
+<p>Scroll the document in main GUI window by x and y.</p></dd>
+
+<dt><a name="-zoomDocument"><strong>zoomDocument</strong>(...)</a></dt>
+<dd><code>zoomDocument(double)</code>
+<p>Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</p></dd>
+
+</dl>
+</body>
+</html>

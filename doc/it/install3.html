@@ -1,0 +1,59 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Compiling and Installing using autotools</title>
+</head>
+<body>
+<h2>Compiling and Installing using autotools</h2>
+<p><b>These instructions apply to Scribus 1.3.3.x SVN and below</b></p>
+<p>If you have downloaded source from SVN, you will need to start the intial build process:</p>
+
+<pre>
+cd Scribus
+make -f Makefile.svn
+</pre>
+
+<p>In order to compile and install Scribus on your system, type the following
+in the base directory of the Scribus distribution after uncompressing the
+downloaded package:</p>
+
+<pre>
+./configure
+make
+make install
+</pre>
+
+<p>The <code>make install</code> command will have to be done with root access if you have not run the <code>./configure</code> command with a <code>--prefix=[dir]</code> option to specify a different install directory. The following is an example of how to configure and install into your home directory. (For more informaiton than the following line, look at the <a href="/index.php&#063;lang=en&#038;page=parallel-install">Parallel Install</a> section for more on having more than one version of Scribus installed at once)</p>
+
+<pre>
+./configure --prefix=/usr;make;make install prefix=~/scribus/svn
+</pre>
+
+
+<p>If you receive warnings when running <code>./configure</code>, you will need to verify the versions of <code>autoconf</code> and <code>automake</code> by running:</p>
+
+<pre>
+autoconf --version
+automake --version
+</pre>
+
+<p>If they are not at least of the versions mentioned in the <a href=install2.html">Requirements</a> section, you may, depending on your distribution, need to tell it to use a higher version like following:</p>
+
+<pre>
+export WANT_AUTOCONF=&#034;2.5&#034;
+export WANT_AUTOMAKE=&#034;1.7&#034;
+
+</pre>
+
+<p>Having run those two commands, recheck the versions. If they still do not comply to those required, you will need to upgrade those programs, however most distributions contain a high enough version.</p>
+
+<p>Since Scribus uses <code>autoconf</code>, as long as you have the correct developement versions of the libraries, you should have little difficulty compiling it. Should you run into problems please report them to the Scribus mailing list or IRC channel. See <a href="/index.php&#063;lang=en&#038;page=resources">Community Resources</a> section of this manual.</p>
+
+<p>Lastly:</p>
+
+<pre>man scribus</pre>
+
+<p> will list additional info for startup.</p>
+
+</body>
+</html>

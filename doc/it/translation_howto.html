@@ -1,0 +1,86 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>How to create or update a translation of Scribus</title>
+</head>
+<body>
+<h2>How to create or update a translation of Scribus</h2>
+
+<p>Scribus is available in over 20 languages, thanks to the many willing souls out there who have spent the time translating. This is no small task, but at least technically not a very difficult one. This page outlines the requirements and procedures for creating or updating such a translation.</p>
+
+<p>Please note that there are many willing contributors to the Scribus project, and there may already be a translation in progress for the language you wish to help for. It would be worthwhile asking on the mailing list to see if someone has started. This is also a courtesy matter. At this point we don&rsquo;t really have any &ldquo;official&rdquo; translators but perhaps you can work together, or take over an old translation if the previous translator no longer has the time to keep it up-to-date. So, here we go&nbsp;...</p>
+<h3>Part One: Translating the TS files</h3>
+
+<h4>Requirements</h4>
+<ul>
+<li>The Scribus source from SVN. Please see the <a href="install1.html">Installation</a> section for details on how to checkout SVN if you aren&rsquo;t up with that yet. Its not too hard so don&rsquo;t be dismayed. By working with the SVN source, you know you will be working with the latest Scribus source and therefore will get the most up-to-date set of files to translate.</li>
+<li><a href="http://i18n.kde.org/tools/">Lokalize</a> or Qt4 Linguist (do <b>not</b> use Qt3 linguist!). Both of these are available in their respective development packages. The choice of which one to use is more a user preference, the result will be the same. For those who are new to this kind of work, Qt4 Linguist may be the tool of choice, as it offers a very simple, yet efficient user interface. Moreover, it's availabe for all platforms that are supported by Scribus (Linux/UNIX, Mac OS&nbsp;X, Windows 2000+, OS/4 Warp4 and eComStation).</li>
+<li>You will need to make sure you have the <code>lupdate</code> program installed, which is a part of Qt4, or perhaps a part of the Qt4 development package, depending on your distribution.</li>
+</ul>
+
+<h4>Procedure for creating or updating a translation file</h4>
+<ol>
+<li>Check out <a href="install1.html">SVN</a>.</li>
+<li>Move into the <code>~/Scribus</code> directory.</li>
+<li>Run <code>qmake -project</code>.</li>
+<li>Edit the <code>Scribus.pro</code> file to have the language listed at the bottom that you wish to translate for. For example,
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+	<pre>TRANSLATIONS += resources/translations/po/scribus.en_GB.ts</pre>
+</td></tr></table></blockquote>
+Of course, replace the <code>en_GB</code> in this example with the language code you are working with.</li>
+<li>Run <code>lupdate Scribus.pro</code>.</li>
+<li>Start your translation program and load the <code>resources/translations/po/scribus.en_GB.ts</code> file.</li>
+<li>Perform the translations.</li>
+<li>Save the <code>.ts</code> file and copy it into the source directory that contains the translation files (e.g. <code>~/Scribus/resources/translations</code>).</li>
+<li>If you want to test your translation before submitting it to the Scribus developers, delete the file CMakeCache.txt in your build directory (provided you have built Scribus from source before), rerun cmake as you did before, but now add the parameter <code>-DWANT_GUI_LANG="xx_XX</code>, where xx_XX is the language code for your translation, e.g. en_GB (British English) or pt_BR (Brazilian Portuguese).</li>
+<li>If you only specified your translation as a parameter, this will the only UI language available. If you have built Scribus with more than one language, select your translation in <i>File &gt; Preferences</i>.</li>
+</ol>
+<h3>Part Two: Translating other parts of Scribus</h3>
+<p>Unfortunately or fortunately, depending on your point of view, not all parts of the Scribus user interface can be translated via ts files. In two cases you need to edit XML files to translate Scribus, namely for Templates and the Render Frame editor.</p>
+<h4>Translating Templates</h4>
+<p>To translate Template categories, names and decriptions, you need the file <code>template.xml</code> from the directory <code> ~/Scribus/resources/templates</code>. Save this file under a name that helps Scribus identify the language you are translating to, e.g. <code>template.it.xml</code> for Italian.</p>
+<p>The content of the XML file is (hopefully) self-explanatory. There is an entry for each template. A complete entry looks like this:
+<pre>
+&lt;template category=&quot;<span style="color: red;">Newsletters</span>&quot;&gt;
+	&lt;name&gt;<span style="color: red;">TextBased</span>&lt;/name&gt;
+	&lt;file&gt;textbased/textbased.sla.gz&lt;/file&gt;
+	&lt;tnail&gt;textbased/textbasedtn.png&lt;/tnail&gt;
+	&lt;img&gt;textbased/textbased.png&lt;/img&gt;
+	&lt;psize&gt;A4&lt;/psize&gt;
+	&lt;color&gt;<span style="color: red;">color</span>&lt;/color&gt;
+	&lt;descr&gt;<span style="color: red;">A decent newsletter/magazine originaly created for one non-profit organization. Unrealized unfortunately.</span>&lt;/descr&gt;
+	&lt;usage&gt;<span style="color: red;">Right click on text replace what's inside with your own. Or whatever you want to... ;)</span>&lt;/usage&gt;
+	&lt;scribus_version&gt;1.2RC1cvs&lt;/scribus_version&gt;
+	&lt;date&gt;2004-07-10&lt;/date&gt;
+	&lt;author&gt;Petr Van&amp;#283;k&lt;/author&gt;
+	&lt;email&gt;petr@yarpen.cz&lt;/email&gt;
+&lt;/template&gt;
+</pre>
+Fortunately, you need not (actually <b>must</b> not) translate everything in here. What needs a translation is only the strings that are in red in the example above.</p>
+<h4>Translating the Render Frame Editor</h4>
+<p>As described in <a href="renderframes.html">Working with Render Frames</a>, this kind of frame is freely configurable. Not only can you add configuration files for new programs, but you can also add translations to existing ones. In contrast to Templates, you don&rsquo;t have to create new XML files for your translations. Instead, you need to edit the existing ones. The configuration files for Render Frames are located in <code>~Scribus/resources/editorconfig</code>. There is a file for each program, e.g. <code>100_latex.xml</code> for LaTeX, <code>300_lilypond.xml</code> for Lilypond etc.</p>
+<p>To make life easier for translators, the developer of the Render Frame plugin has placed an indicator for translatable text strings in the files, namely <code>i18n</code>, which is an acronym for &ldquo;internationalization&rdquo;:</p>
+<pre>
+&lt;title&gt;&lt;i18n&gt;
+	&lt;en&gt;Ranges&lt;/en&gt;
+	&lt;cs&gt;Rozsahy&lt;/cs&gt;
+	&lt;de&gt;Bereiche&lt;/de&gt;
+	&lt;fr&gt;Rangées&lt;/fr&gt;
+	&lt;pl&gt;Zakresy&lt;/pl&gt;
+	&lt;ru&gt;&amp;#1044;&amp;#1080;&amp;#1072;&amp;#1087;&amp;#1072;&amp;#1079;&amp;#1086;&amp;#1085;&amp;#1099;&lt;/ru&gt;
+	&lt;hu&gt;Tartomány&lt;/hu&gt;
+&lt;/i18n&gt;&lt;/title&gt;
+</pre>
+<p>If you want to add a, say, Dutch translation, simply add a string like this to the list above: <code>&lt;nl&gt;Bereik&lt;/nl&gt;</code>. Of course you should only submit a translated configuration file that&rsquo;s complete to the development team!</p>
+
+<h3>Submitting your translation</h3>
+<ul>
+<li>Once you are happy with the result of your hard work, please open your web browser, head to the <a href="http://bugs.scribus.net">Scribus Bugtracker</a> and submit a new bug with the title of your translation update under the &ldquo;Translation&rdquo; category.</p>
+<li><i><b>Please note that as of Scribus 1.3.9 it is no longer necessary to upload qm files, as these will be generated at build time. Also note that the translation of the Templates and Render Frame files is optional.</b></i></p></li>
+<li>If you want to be credited (and we prefer to give credit where credit is due!), please add your name and your email address to the bug report.</li>
+<li>That&rsquo;s it! When the next SVN release is made, your new translation will be added by the team. Usually, new translations are being added SVN within one or two days.</li>
+</ul>
+<h3>Translating the Online Help</h3>
+<p>Before you start translating the Online Help, you should be aware of the fact that this a huge task, and this doesn&rsquo;t just refer to the skills or the time required to successfully complete the work. The documentation will be updated on a regular basis, which is why you should contact the team before you are wasting your time on translating files that are in the process of being rewritten or replaced. Also note that some basic HTML knowledge will help a lot, since all help files are written in HTML. Again, you are advised to contact the development team to learn about the rather strict HTML coding conventions for Scribus help files.</p>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scripter FAQ</title>
+</head>
+<body>
+<h2>Scripter FAQ</h2>
+<p>Author: Craig Ringer</p>
+
+<dl>
+<h3>How do I use non-ASCII text in the scripter?</h3>
+<p>First, make sure to ensure that your script has a correct coding line. Your script should start with something like:
+<pre>
+    #!/usr/bin/env python
+    # -*- coding: latin-1 -*-
+</pre>
+or
+<pre>
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
+</pre>
+or
+<pre>
+    #!/usr/bin/env python
+    # -*- coding: ascii -*-
+</pre>
+</p>
+<p>Those lines <b>must</b> be the first two lines of your script. The coding <b>must</b> match the actual encoding of the file.</p>
+
+<p>To find out what the text encoding is in vim, type
+<code>    :set fileencoding?<enter></code>
+How to find out the text encoding will vary for other editors, it may match your locale. The <code>file</code> command is <i>not</i> a reliable way to determine the text encoding of a file.</p>
+
+<p>You can convert files between encodings with the 'iconv' utility, but you will rarely need to given that Python can handle almost any text encoding if told what it is in the coding line.</p>
+
+<p>A few scripter functions require strict ASCII text, and cannot accept unicode or latin-1 text. If you call one of those with non-ASCII text, you'll get an error like:
+<code>    UnicodeDecodeError: 'ASCII' codec can't decode byte 0xc3
+    in position 1: ordinal not in range(128)</code>
+which is admittedly less than helpful.</p>
+
+<p>There currently seems to be a bug with the u'' modifier for string literals in the script console. This problem has also been identified in the Python interactive interpreter on the command line. It does not affect script files. Until this is solved, use the unicode("mystring") constructor or just use plain strings (which can contain unicode text) from the script console.</p>
+
+
+<h3>What's a good structure to use for my scripts?</h3>
+<p>Start with 'boilerplate.py' in the samples directory. That script disables redraws (for speed) and has code to make sure they get turned back on, does some checking and reports a useful error if run outside of scribus, etc.</p>
+
+<h3>Why Python?</h3>
+<p>It's well suited to application embedding, but still full-featured and powerful. It's also accessible to new users and well documented. Additionally, it has solid unicode text support.</p>
+
+<p>Python makes a good glue language to connect different programs and components together. For example, you may wish you make it possible to use your in-house story database with Scribus - in which case the Python interface is probably the simplest and quickest way to get you there.</p>
+
+<p>It's also somewhat easier to write tidy Python code that other people can read and understand. If somebody else's script doesn't quite do what you need, with Python you have more of a chance of modifying it so it does.</p>
+
+<p>There are issues with embedding Python in applications, so from the perspective of pure automation scripting a language like Qt Script for Applications or lua might be better suited. If you want to get beyond simple automation, Python seems to be the way to go.</p>
+
+<h3>I want to provide a more complex GUI than is provided by the dialogs built into the scripting interface. How can I do that?</h3>
+
+<p>For most scripting tasks, building a simple GUI in Tkinter is your best choices at present. If you're looking to extend the user interface or provide palettes the user can work with while they continue to work in Scribus, you'll need to look into writing an 'extension script' with PyQt.
+
+<p>In most cases it's recommended to just choose Tkinter. It's the only GUI toolkit that works reliably in normal Scribus scripts due to the way they're executed in sub-interpreters. It's also almost universally packaged in Linux distributions, though not all install it by default. Tkinter is highly portable. Tkinter is also bundled with the Windows installer for Scribus, along with being included with the python on Mac OS X 10.4.x.   Users may not particularly love the appearance of Tkinter, but it works well.</p>
+
+<p>If you're looking to write more advanced GUIs, the best choice is currently PyQt. You can write your own custom dialogs and palettes using PyQt, giving you the ability to extend the Scribus interface to a limited extent. PyQt will not work reliably from a normal script, but works fine from scripts that are run using the &quot;Load Extension Script...&quot; menu item. Please see the advanced section of the scripter manual for more details on this.</p>
+
+<p>Issues with event loop integration and initialization in sub-interpreters mean that PyGtk and wxPython are not currently recommended and probably won't work properly. Given that Tkinter works well for normal scripts, and PyQt for more advanced tasks, this isn't seen as a major problem.</p>
+
+<h3>Should I use 'from scribus import *' or 'import scribus'?</h3>
+<p>In general, 'import scribus' is preferred. 'from ... import' can get confusing in import loops, when reloading modules, when importing packages, and in some other circumstances. More info <a href="http://effbot.org/zone/import-confusion.htm" title="Extern link">http://effbot.org/zone/import-confusion.htm</a>.</p>
+
+<p>While 'import scribus' results in slightly more verbose code, it's generally worth it in improved code readability and explictness.</p>
+
+<h3>What about general programming style?</h3>
+<p>In general, we defer to the Python gurus. Have a look at <a href="http://www.python.org/peps/pep-0008.html" title="Extern link">http://www.python.org/peps/pep-0008.html</a> for a rather in-depth look at the subject.</p>
+
+<p>An exception is made for source code encodings, where either ASCII with escapes, latin-1, or utf-8 are recommended. Almost any encoding you choose should work fine, though.</p>
+
+<p>Please note that none of this is set in stone - you can code however you like. These recommendations are made for a reason though, and are a good idea to follow especially if you plan to share your code with others.</p>
+
+<h3>Are there any quirks specific to the Scribus python interface that I should know about?</h3>
+<p>Yes, there are a few differences you should be aware of:</p>
+
+<ul>
+	<li>Python scripts running in Scribus may not create threads. Qt, the toolkit Scribus is built with, provides its own threading framework that doesn't play well with the Python threading system. A interface to QThread may be provided if sufficient need for it can be shown, and if it can be made to work.</li>
+
+	<li>PyQt does not currently work correctly from Python scripts run from normal Scribus scripts, though it can now be used from the 'extension script' mode. Please enquire on the mailing list if you think you may be able to assist in solving this. Experience with the Python/C API, sub-interpreters, and PyQt would probably be required.</li>
+
+	<li>The Scribus python plug-in changes the Python default string encoding (sysdefaultencoding) to utf-8. Python defaults to ASCII. Because utf-8 is a (large) superset of ASCII, this should not affect scripts that only use ASCII-encoded strings. The Scribus functions have been tested to work correctly with this for unicode text, so there should not be any issues there either.<br>
+	Nonetheless, it is possible that third party C extension modules may have problems with this, if the author failed to consider the encoding of incoming text. Any such problems are almost always bugs that should be reported to the author of the module, and should be few and far between. If you encounter such an issue, please enquire on the mailing list or on IRC.</li>
+
+	<li>Python runs embedded inside Scribus. It is possible that loading certain C extension modules that perform complex initialization tricks may disrupt Scribus or the Python interpreter. If you encounter such a module, please report it on the mailing list or drop in on IRC. Anything that wants to run its own event loop is likely to be problematic, and interfaces to GUI toolkits also seem to be troublesome. Anything that spawns threads is also likely to cause issues.</li>
+</ul>
+
+<h3>Can I use the rest of the Python standard library or add-in modules?</h3>
+<p>Yes, and yes. Scribus imposes no restrictions on access to the rest of Python (except for the technical limitations explained above), and that's one of the things that makes the scripter so powerful. It is possible that some Python functions such as threading may be affected by the way the interpreter has been embedded, but most should be usable as normal.</p>
+
+<h3>I'd like to extend Scribus using Python, not just automate things with it...</h3>
+<p>Currently, that's not really possible. There is work on making it possible to extend Scribus with Python to some extent, especially the GUI. It's now possible to use PyQt to write your own palettes, but you won't be able to use custom Scribus widgets or get into the innards of the application. The Scribus core is unfortunately not well suited to extension from Python. More advanced or tightly integrated extensions are probably better written as C++ plug-ins.</p>
+
+<h3>What about security? Can I trust scripts not to destroy my data or compromise my computer?</h3>
+<p><b>No. Do not run a script if it is not from a trusted source, and preferably not unless you have read it.</b> The downside of the power of the Python scripting interface is that it imposes almost no security restrictions. Anything you can do from the shell without a password, a script can do too.</p>
+
+<p>If Python ever gets support for a restricted execution environment like versions &lt; 2.2 had, support for it may be added, but currently there are essentially no restrictions. It would be interesting to investigate a simple automation-only macro language for embedding in Scribus, but currently there aren't the resources to do this.</p>
+
+<h3>So ... can I embed scripts in documents or templates?</h3>
+<p>No, see above. We can't provide a restricted execution environment, so it's not safe to let scripts travel with documents. Otherwise a malicious script could use a document as a vector to infect other systems. Remember Word macro viruses? Yeah. We do too.</p>
+
+<h3>What about a startup script or event-triggered scripts?</h3>
+
+<p>Startup scripts are supported, and scripts that run when certain events happen may be supported in future. If a script is in a position to "infect" a startup script or your application, it's also able to modify your .bashrc or your X startup script. In other words, if you choose to run untrusted code on your machine, it's too late - having it insert its self into a Scribus startup script would be the least of your problems. This is not unique to Scribus, and is true of bash scripts, normal programs, and most plug-ins as well. <b>Remember, do not run scripts that are not from trusted sources, scripts are programs like any other you might run on your computer.</b>.
+
+<p>It's as safe for Scribus to load a script on startup as it is for the shell (e.g. <code>bash</code>), or your graphical login system. Scribus cannot protect you if you choose to run untrusted programs on your system. What it <i>can</i> prevent is providing any vector for untrusted code to spread. That is why Scribus supports startup scripts (though they are not run by default) and why scripts will not be permitted to be embedded in or run from documents.</p>
+
+<p><b>Do not run a program, script, or plug-in, of any sort, from any source, unless you have verified that the program is not malicious.</b> This is an important rule of basic computer security and applies to any program and operating system.</p>
+
+<h3>What about C++ plugins for Scribus? Are they secure?</h3>
+<p>Not at all. A Scribus C++ plug-in can do almost anything any other program on your computer can do, so do not download and run one you do not absolutely trust the author of. This is true of plug-ins for most programs, as it is very difficult to restrict what a plug-in written in C/C++ can do.</p>
+
+<h3>I can't find a way to do <i>something</i> from Python, but the main Scribus application supports it. What do I do?</h3>
+<p>The scripting interface currently requires each function to be written by hand - no automatic code generation / wrapping mechanism is used. This is partly because there isn't currently any tidy and stable underlying public API to wrap.</p>
+
+<p>In general, if a function is missing it is because nobody has found the time or need to write it yet.  Sometimes the function is more complicated than it seems, and may be quite a lot of work to wrap. Sometimes it's five minutes work. Ask politely on IRC or the mailing list, and if someone has the time and inclination they may write one for you.</p>
+
+<h3>I asked on the mailing list or IRC but nobody offered to write this function I need for the scripter. What can I do?</h3>
+<p>You have a few options:</p>
+<ul>
+	<li>Waiting a while then politely trying again.</li>
+	<li>You may be able to add it yourself - the chances are that somebody who works on the scripter will be able to help give you an idea of how much work that would involve for what you want to do. In general, the scripter isn't very complicated, and many functions are fairly trivial to write, so even if you don't know much C++ you shouldn't assume you can't do it. When I started work on the scripter I knew absolutely no C or C++ at all  ... I just _really_ wanted a few new capabilities.</li>
+      
+	<li>If you do decide to add a function yourself, please remember to consider that not all text is ASCII. Use the 'es' format in PyArg_ParseTuple not the 's' format, and specify "utf-8" encoding. Use the QString::fromUtf8 and QString::utf8() methods when getting data into and out of, respectively, QString objects. Have a look at some of the other scripter code to see how this is done, or feel free to ask on IRC or the mailing list if you have trouble.</li>
+
+	<li>Offering to pay somebody to do it. This is probably only practical for larger amounts of work that would require quite a bit of time and effort (and money), but it's there as an option if you really need something.</li>
+</ul>
+</body>
+</html>

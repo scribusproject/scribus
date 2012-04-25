@@ -1,0 +1,44 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Impostazioni per la gestione del colore</title>
+</head>
+<body>
+<h2>Impostazioni per la gestione del colore</h2>
+<p><strong>Per ottenere buone anteprime con la gestione del colore, questi sono i requisiti minimi:</strong></p>
+<ul>
+<li>&Egrave; davvero utile rinunciare alla grafica ricca ed elaborata dei desktop odierni. Certamente KDE, Gnome o Mac&nbsp;OS&nbsp;X hanno un aspetto che &egrave; una delizia per gli occhi; ma se l'accuratezza del colore &egrave; importante, semplicit&agrave; e pulizia sono la scelta migliore. Per ottenere la pi&ugrave; accurata calibrazione del colore, date al vostro desktop un color grigio neutro o un colore chiaro, senza sfumature o sfondi fantasiosi: questo aiuter&agrave; l'occhio a valutare meglio l'equilibrio dei colori nelle immagini. Questo vale anche per gli altri programmi di grafica. Il nostro obiettivo &egrave; quello di riprodurre <i>nel modo pi&ugrave; preciso possibile</i> l'aspetto della miscela degli inchiostri su carta.</li>
+
+<li>La <i>calibrazione</i> consiste nel regolare il monitor per dargli uno stato noto. La maggior parte dei monitor, per impostazione predefinita, sono impostati a una temperatura di colore di 9300 K (o Kelvin), che di solito &egrave; troppo &ldquo;fredda&rdquo; o &ldquo;bluastra&rdquo; per lavorare in modo accurato con il colore. Su <a href="http://www.color.org/">www.color.org</a> potete trovare un gran numero di specifiche tecniche per il colore. La maggior parte degli standard di colore sono impostati su una temperatura di colore di 5000 K, o &ldquo;illuminante&rdquo;; il valore di 6500 K probabilmente &egrave; un buon punto di partenza per regolare il monitor, perch&eacute; riproduce pi&ugrave; da vicino la luce naturale. Dapprima vi sembrer&agrave; che il monitor abbia una sfumatura &ldquo;giallastra&rdquo;, ma il vostro occhio presto si adatter&agrave;, specialmente se luminosit&agrave; e contrasto sono impostati correttamente.</li>
+
+<li>I profili per le stampanti sono fortemente dipendenti dal supporto di stampa scelto. La carta da giornale e quella non patinata hanno un aspetto pi&ugrave; grigio, quindi i relativi profili hanno un &ldquo;gamut&rdquo;, o gamma di colori, pi&ugrave; ristretto. Non possono creare i colori vivaci e saturi che sono possibili sulla carta patinata o su quella fotografica lucida. Una data stampante pu&ograve; avere una decina di profili o anche di pi&ugrave;, a seconda dei diversi colori e capacit&agrave; di assorbimento dell'inchiostro dei vari tipi di carta.</li>
+</ul>
+
+<h4>Allora, come posso procurarmi i profili giusti per il mio hardware?</h4>
+
+<p>Alcuni profili sono &ldquo;generici&rdquo; e possono essere scaricati dal sito del produttore della periferica; questo tipo di profilo &egrave; generato dalle misurazioni eseguite dal produttore su un certo numero di esemplari. Oggi questi profili sono spesso forniti dal produttore insieme al software del monitor, dello scanner o della stampante. Questi profili &ldquo;preconfezionati&rdquo; di solito non sono perfettamente adatti, ma sono un buon punto di partenza, soprattutto se non potete permettervi un dispositivo di calibrazione, che pu&ograve; essere costoso. Controllate sul sito del produttore se esiste un profilo per la vostra periferica. Per i profili colore dei monitor potete usare anche il database <a href="http://icc.opensuse.org/">Taxi</a>, che &egrave; gestito dal progetto OpenSUSE.</p>
+
+<!--We need to add an overview over FLOSS tools for all platforms in a new version of this file-->
+
+<p>Il modo pi&ugrave; preciso di profilare un monitor consiste nell'usare un apposito apparecchio elettronico, che in sostanza &egrave; uno speciale tipo di macchina fotografica in grado di misurare il colore. Il software invia al monitor dei colori di riferimento noti che vengono misurati dal dispositivo di profilazione, e in base a queste misure viene creato un profilo. Fino a non molto tempo fa non esistevano driver Linux per i normali colorimetri, ma grazie all'entusiasmo degli esperti della gestione del colore open source, oggi molti apparecchi possono essere usati almeno su Linux, Mac&nbsp;OS&nbsp;X e Windows. I driver open source possono anche essere compilati per le piattaforme UNIX, mentre &egrave; poco probabile che siano utilizzabili su OS/2 ed eComStation.</p>
+
+<h4>Impostazioni per la gestione del colore in Scribus</h4>
+<p>Le impostazioni per la gestione del colore si trovano in <a href="settings1.html">Preferenze/Impostazioni documento</a>. Ricordate che sul vostro sistema devono essere installati almeno un profilo RGB e uno CYMK per poter attivare la gestione del colore. Inoltre Scribus &egrave; pi&ugrave; lento quando modificate, salvate o chiudete un file con la gestione del colore attiva, poich&eacute; littleCMS deve leggere ed eseguire le correzioni tra i profili.</p>
+<table width="100%"><tr><td align="center"><img src="images/cmsmodify1.png" align="center" title="Preferenze per la gestione del colore" alt="Preferenze per la gestione del colore"/></td></tr></table>
+
+<p>&ldquo;Profili del sistema:&rdquo; questi sei men&ugrave; a discesa mostrano i profili disponibili sul vostro sistema. I profili per le immagini (ad esempio, immagini bitmap) e per i colori in tinta unita devono essere impostati separatamente. Inoltre dovete impostare separatamente anche i profili per gli spazi colore RGB e CMYK. Per quanto riguarda le stampanti, attualmente Scribus &egrave; in grado di utilizzare soltanto profili per la stampa commerciale. <b>I profili per le comuni stampanti da scrivania non funzionano con Scribus, e non vengono mostrati nei men&ugrave; a discesa.</b></p>
+
+<!--<p>Solid colors can be described within <strong>RGB</strong> (red green blue) or <strong>CMYK</strong> (cyan,magenta,yellow and K for black - these colors represent the four inks used in process printing or in color ink jets). In this case, we are using some basic RGB colors, which will be later "soft proofed" in the CMYK color space of the printer, which will be a commercial process known as US <a  href="./lcms/swop.html">SWOP</a>on coated paper to ensure rich and vibrant colors.</p>
+
+<p>It is handy to give your device profiles some sort of short hand way of naming. For example the D226500mon.icm monitor profile is a custom profile created with <A href="http://lprof.sf.net" id="LProf" onclick="LProf">LProf</A> with 2.2 gamma and 6500k temperature. The D is for daylight. Ambient light also affects your perception of color, sometimes radically with certain types of artificial light. The Sony 17 name comes from the description when the monitor profile was created with Qmonitorprofiler from littlecms.</p>-->
+<p>La seconda parte della finestra di dialogo permette di selezionare gli &ldquo;intenti rendering&rdquo;, che sono spiegati nella <a href="cms3.html">pagina successiva</a>.</p>
+<p>Nella parte inferiore si trova la casella &ldquo;Simulazione di stampa su schermo&rdquo;. Se attiva, Scribus e littleCMS simulano i colori che la stampante &egrave; in grado di riprodurre in base al profilo stampante selezionato.</p>
+<p>La casella &ldquo;Segna colori fuori gamma&rdquo; evidenzia alcune alcune aree del documento in colore verde: i colori in queste aree potrebbero non essere stampati fedelmente, in base al profilo stampante scelto. Di solito i colori indicati come fuori gamma, quando stampati, saranno pi&ugrave; scuri, pi&ugrave; chiari o comunque alterati:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/cms-gamut1.png"/></td><td align="center"><img src="images/cms-gamut2.png"/></td></tr>
+    <tr><td><div align="center"><i>Un disegno visualizzato con l'avviso fuori gamma disattivato (a sinistra) e attivato (a destra)</i></div></td></tr>
+</table>
+<p>L'ultima opzione, &ldquo;Usa compensazione punto nero&rdquo;, &egrave; un aiuto alla visualizzazione delle ombre nelle immagini a colori. &Egrave; necessaria un po' di sperimentazione per stabilire se migliora le vostre immagini.</p>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Scribus su Windows</title>
+</head>
+<body>
+<h3>Scribus su Windows</h3>
+
+<h3>Requisiti hardware/software minimi:</h3>
+<p>
+<ul>
+<li>Scribus pu&ograve; essere installato e utilizzato su Windows 2000 SP4, Windows XP, Vista o 7. <b>Non funziona</b> su Windows 98 e ME.</li>
+<li>&egrave; fortemente consigliato avere almeno 512 MB di RAM; maggiore &egrave; la quantit&agrave; di RAM, meglio &egrave;.</li>
+<li>processore Pentium III o superiore; 750 MHz o superiore.</li>
+<li>Scribus &egrave; disponibile soltanto in versioni a 32 bit per Windows. Su sistemi a 64 bit non risulta che vi siano problemi, e non richiede nessuna speciale preparazione n&eacute; configurazione post-installazione.</li>
+<li><i>&egrave; fortemente consigliato disabilitare eventuali temi personalizzati per il desktop. Se incontrate comportamenti strani (ad esempio, se nessun documento appare a video), usate il tema &ldquo;Windows Classico&ldquo;. Qt ha un problema noto con i temi personalizzati, che pu&ograve; ostacolare il caricamento dei documenti. Questo &egrave; accade specialmente con temi forniti da terzi.</i></li>
+</ul>
+</p>
+<h3>Prima di installare Scribus</h3>
+<p>&Egrave; consigliabile installare <a href="http://ghostscript.com/releases/">Ghostscript</a> 8.7 o successivo, che serve per l'importazione EPS. <br>Nota: dopo l'installazione troverete due file Ghostscript *.exe sul vostro sistema. Quello corretto da utilizzare nelle <a href="settings1.html#15">preferenze di Scribus</a> (in <i>Strumenti esterni</i>) per Ghostscript &egrave; <code>gswin32c.exe</code>, <b>non</b> <code>gswin32.exe</code>. Nella gran maggioranza dei casi, <b>se</b> Ghostscript viene installato correttamente prima di Scribus, Scribus individua automaticamente la sua posizione. Ci&ograve; detto, Ghostscript di solito non &egrave; essenziale per poter utilizzare Scribus. Se non avete installato Ghostscript, Scribus all'avvio vi avverte della mancanza di Ghostscript e vi d&agrave; un link per scaricarlo, ma potete anche decidere di non installare questo strumento esterno.</p>
+<h3>Durante l'installazione</h3>
+<p>Se selezionate l'opzione &ldquo;Extra Fonts&rdquo; nel programma di installazione, saranno installati due pacchetti di caratteri di alta qualit&agrave; liberamente distribuibili. Il primo comprende i caratteri URW da Ghostscript: si tratta di 45 tipi di carattere compatibili con quelli compresi nella maggior parte delle stampanti PostScript. Il secondo comprende la famiglia Bitstream Vera, ampiamente utilizzata in ambiente Linux e da alcuni dei modelli inclusi in Scribus.</p>
+<h3>Dopo l'installazione</h3>
+<p>Il primo avvio di Scribus, o quando un nuovo utente lancia Scribus, pu&ograve; richiedere molto pi&ugrave; tempo del normale. Questo accade perch&eacute; Scribus crea un file di cache dei caratteri presenti sul vostro sistema. I lanci successivi sono molto pi&ugrave; rapidi.</p>
+
+<h3>Modalit&agrave; console per la diagnostica</h3>
+<p>Nel men&ugrave; <i>Start &gt; Programmi</i> c'&egrave; un collegamento aggiuntivo: <strong>Scribus -console</strong>. Questa modalit&agrave; apre semplicemente un prompt dei comandi di Windows, in cui viene mostato riga per riga ciascun carattere e il suo percorso mentre Scribus lo carica. Vengono mostrati anche eventuali tipi di carattere non accettati da Scribus o duplicati, e in alcuni casi anche altre informazioni diagnostiche. I duplicati non vengono importati, anche se hanno nomi diversi.</p>
+</body>
+</html>

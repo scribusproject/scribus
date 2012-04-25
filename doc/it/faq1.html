@@ -1,0 +1,166 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>General Questions</title>
+</head>
+<body>
+<a name="top"></a>
+<h2>General Questions</h2>
+<ul>
+	<li><a href="#1">How do I contact the Scribus Team, find interactive help or hire an experienced Scribus trainer?</a></li>
+	<li><a href="#2">How do I get formatted tables in Scribus?</a></li>
+	<li><a href="#3">Help! My palettes have disappeared!</a></li>
+	<li><a href="#4">Why do Scribus DMGs from SourceForge not work on Mac OS X 10.4.x?</a></li>
+	<li><a href="#5">What is the difference between PDF 1.3, PDF 1.4 and PDF 1.5?</a></li>
+	<li><a href="#6">How do you change paper size once the document has been created?</a></li>
+	<li><a href="#7">How do you get your printer to print on a non-standard size sheet?</a></li>
+	<li><a href="#8">The CUPS options do not show up in print options dialog, what is wrong?</a></li>
+	<li><a href="#9">Scribus crashes when launching and searching for fonts. I have updated my freetype2. I upgraded my freetype2 to enable the bytecode interpreter.</a></li>
+	<li><a href="#10">Scribus seems to hang in an infinite loop when importing EPS or PS files. Why?</a></li>
+	<li><a href="#11">How do I get Arabic text to display correctly with proper glyph shaping and RTL text direction?</a></li>
+	<li><a href="#12">There are many Scribus versions. Which one should I use?</a></li>
+	<li><a href="#13">Why is Scribus built with Qt and not some other toolkit?</a></li>
+	<li><a href="#14">Where does the name &ldquo;Scribus&rdquo; derive from?</a></li>
+	<li><a href="#15">Why are there no import filters for XPress, InDesign or other commercial DTP applications?</a></li>
+	<li><a href="#16">Is there or will there be a Microsoft Publisher importer?</a></li>
+	<li><a href="#17">So, how can I work with those who use other page layout applications?</a></li>
+</ul>
+
+<h3>Answers</h3>
+
+<ul>
+	<li><a name="1"></a>
+		<p class="faqquestion">How do I contact the Scribus Team, find interactive help or hire an experienced Scribus trainer?</p>
+		<p>1. There is an active and friendly <a href="mailing_lists.html">mailing list</a>. </p>
+		<p>2. Find the developers on <a href="irc.html">IRC</a> in the #scribus channel.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="2"></a>
+		<p class="faqquestion">How do I get formatted tables in Scribus?</p>
+		<p>Scribus added basic table support in 1.1.6, but unfortunately, tables are nothing more than combined text frames, and it is a bit hard to work with them. If you need to have more complex tables, here is a reliable workaround:</p>
+	<ol>
+	<li> Create your table in either OpenOffice.org Writer or Calc.</li>
+	<li> Copy the table cells you need in Scribus (i.e: not the whole spreadheet in Calc) to the clipboard, create a new OpenOffice.org Draw document, and use <i>Edit &gt; Paste Special &gt; GDI Metafile</i> to insert the table as a vector file into Draw.</li>
+	<li> Use <i>File &gt; Export</i> to export the graphic as an EPS file. Make sure that <i>Selection</i> is checked in the export dialog, because otherwise the whole page will be exported.</li>
+	<li> Now import the EPS file as a vector drawing in Scribus via <i>File &gt; Import &gt; Import Vector File</i></li>
+	</ol>
+
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="3"></a>
+		<p class="faqquestion">Help! My palettes have disappeared!</p>
+		<p>Close Scribus. Then open <code>~/.scribus/scribus.rc</code>, a hidden file in your home directory in a text editor. Then look down in the file for the section beginning about 10 lines from the top. <code>ex: MEASUREMENTS YPOS=&quot;-264&quot; XPOS=&quot;-692&quot; VISIBLE=&quot;1&quot;</code>.</p>
+		<p>Notice the negative numbers in front of the <code>YPOS</code> and <code>XPOS</code> statements. Remove the minus, set the visible setting to 0 and save. You might find the coordinates too large: (<code>YPOS=&quot;3046&quot; XPOS=&quot;7690&quot;</code>). Either way, these coordinates are screen positions in pixels. They should be within 1024x768 or whatever screen resolution you are running. Restart Scribus, go to the <i>Windows</i> menu and select show for the missing palette. It will reappear like normal.</p>
+		<p><i>This has been corrected in the most recent versions of Scribus and should not be a problem in the future.</i></p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="4"></a>
+	<p class="faqquestion">Why do Scribus DMGs from SourceForge not work on Mac OS X 10.4.x?</p>
+	<p>To run Scribus under OS X 10.4.x, you need to install <a href="http://www.finkproject.org/">Fink</a>, an Open Source packaging system for OS X, and <a href="http://finkcommander.sourceforge.net/">FinkCommader</a>, Fink's graphical user interface. In FinkCommnader, go to <i>Preferences > Fink</i> and check <i>Use Unstable Packages</i>.</p>
+	<p>You can also <a href="install5.html">build Scribus from source.</a></p>
+	<li><a name="5"></a>
+		<p class="faqquestion">Scribus is slow to launch. Why?</p>
+		<p>For those who are new at desktop publishing, unlike most programs, DTP applications care greatly about which fonts are installed and if the font paths are valid. So, when Scribus launches, one of the things it does is to completely and thoroughly scan your font paths and ensure they are valid. This takes time. If you have a large number of fonts installed and slow launch times are a problem, reduce the number of fonts or font paths. </p>
+		<p>The other reason is that your Scrapbook might be filled with complex or large objects. Deleting unneeded items or saving the Scrapbook under a different name and then creating a new blank Scrapbook will also help reduce the startup time.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="5"></a>
+		<p class="faqquestion">What is the difference between PDF 1.3, PDF 1.4 and PDF 1.5?</p>
+		<p>PDF 1.2 = Acrobat 3.0 &ndash; Relatively obsolete now.</p>
+		<p>PDF 1.3 = Acrobat 4.0 &ndash; The first version of PDF which truly had all the needed features to support &ldquo;press-ready&rdquo; PDFs including color managment, ICC profiles etc. It also added JavaScript, interactive and multimedia capabilities. This standard is probably the safest to send if you are unsure of the capabilities of the receiver of your file. PDF/X-3 and a number of commercial print work flows are based on PDF 1.3.</p>
+		<p>PDF 1.4 = Acrobat 5.0 &ndash; actually introduced with Illustrator 9, The main difference to concern Scribus users is that PDF 1.4, has both transparency and alpha transparency capabilites, which make a major difference in where a PDF with these features can be printed. It takes either the latest commerical RIPs or a Level 3 PostScript printer to use these features properly. The latest versions of Ghostscript support the advanced PDF 1.4 features Scribus can create when exporting PDF.</p>
+		<p>PDF 1.5 = Acrobat 6.0 &ndash; Among the most interesting for Scribus users: Many improvements for &ldquo;press-ready&rdquo; PDF, the capability to have true layering within the PDF, PDF-X &ldquo;pre-flight&rdquo; capability, more security and interactive features, like the ability to add comments which are separate from the original document.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="6"></a>
+		<p class="faqquestion">How do you change paper size once a document has been created?</p>
+		<p>In 1.3.x, you can change the size of the current page or a range of pages in the <i>Page</i> menu, under <i>Manage Page Properties</i>.</p>
+		<p>You can change this for the whole document under <i>File > Document Setup</i>.</p>
+		<p>Scribus 1.3.x allows multiple page sizes per document.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="7"></a>
+		<p class="faqquestion">How do you get your printer to print on a non-standard size sheet?</p>
+		<p>It depends:</p>
+		<ol>
+			<li>If you are printing to a local printer which is <b>not</b> a PostScript printer, but using CUPS, you can't. It is a limitation, as far as we can tell of CUPS.</li>
+			<li>If you have a &ldquo;real&rdquo; PostScript printer, Scribus &ndash; with CUPS support &ndash; will support any arbitrary page size, as long as the printer supports it.</li>
+		</ol>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="8"></a>
+		<p class="faqquestion">The CUPS options do not show up in print options dialog, What is wrong?</p>
+		<p>See <a href="http://bugs.scribus.net/bug_view_advanced_page.php?bug_id=0000271">this bug</a> for an explanation of how CUPS can be misconfigured.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="9"></a>
+		<p class="faqquestion">Scribus crashes when launching and searching for fonts and I have updated my freetype2. I upgraded my freetype2 to enable the bytecode interpreter.</p>
+		<p>We do not recommend trying to update freetype2, except rebuilding your existing distro's source RPMs or source packages.</p>
+		<ol>
+			<li>Recent versions of freetype have an autohinter, which works very well.</li>
+			<li><b>Many</b> packages are compiled against freetype2 (Xfree86, Qt, Gtk+ etc..), thus, upgrading freetype2 will require recompiling <b>all</b> of these packages or system instability might be the result.</li>
+		</ol>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="10"></a>
+		<p class="faqquestion">Scribus seems to hang in an infinite loop when importing EPS or PS files. Why?</p>
+		<p>Three possible solutions:</p>
+		<ol>
+			<li>Upgrade to the latest Ghostscript. There are <a href="toolbox7.html">notes</a> in the &ldquo;Toolbox&rdquo; section on parallel installs of GS.</li>
+			<li>Reduce the complexity of your EPS/PS file.</li>
+			<li>You do not have enough memory/swap space when importing complex EPS files.</li>
+		</ol>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+		<li><a name="11"></a>
+		<p class="faqquestion">How do i get Arabic or Hebrew text to display correctly with proper glyph shaping and RTL text direction?</p>
+		<p>The glyph shaping is a very difficult thing to achieve. We plan to add this in one of the 1.5.x development versions.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="12"></a>
+		<p class="faqquestion">There are many Scribus versions. Which one should I use?</p>
+		<p>There are currently three branches of Scribus available: 
+		<ol>	
+		<li>The officially stable branch is 1.3.3.x, and installers for Windows and OS/2 are available from <a href="http://sourceforge.net/projects/scribus/files/scribus/">Sourceforge</a>. This branch is unlikely to see any updates or bugfixes.</li>
+		<li>The next version of Scribus is being developed in the branch called &ldquo;Next Generation&rdquo; (NG), and it will result in Scribus 1.4. This branch is already quite stable and useable. Installers for this branch are regularly updated and <a href="http://sourceforge.net/projects/scribus/files/scribus-svn/">available</a> for Mac OS X 10.5+, OS/2 and Windows. Users of Linux/UNIX can use their distribution&rsquo;s package management or check out <a href="install1.html">svn</a> and <a href="install4.html">build from source</a>.</li> 
+		<li>1.5.x is an experimental branch, in which new features are implemented and tested. If possible, those new features will be backported to the 1.3.x/1.4 branch. There are no installers or packages available, as it's only recommended for users who want to test the latest features. <b>Do not use 1.5+ for serious work, because we cannot even guarantee that the file format won&rsquo;t change!</b> 1.5+ must be compiled from source.</li>
+		</ol>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="13"></a>
+	<p class="faqquestion">Why is Scribus built with Qt and not some other toolkit?</p>
+	<p>When Franz Schmid launched the project, it was originally written in Python, but for performance reasons he decided to port it to C++. The toolkit with the most complete documentation at the time was Qt 2.2. The first Qt 2 release was 0.3 in 2001. Scribus was ported to Qt 3 after the release of version 0.6. Currently, Scribus uses Qt 4.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="14"></a>
+		<p class="faqquestion">Where does the name &ldquo;Scribus&rdquo; derive from?</p>
+	<p>When Franz Schmid launched the project, the first working name was &ldquo;Open Page&rdquo;, but he thought it would be too generic. &ldquo;Scribus&rdquo; is derived from the Latin name of the official writers in Ancient Rome, &ldquo;scriba&rdquo;, from which we get &ldquo;scribe&rdquo; or writer. This translates well in to many languages besides English. The German word is &ldquo;Schreiber&rdquo;, for example.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="15"></a>
+		<p class="faqquestion">Why are there no import filters for Quark, InDesign or other commercial DTP applications?</p>
+		<p>There are several reasons why there are no import filters for commercial DTP applications.</p>
+		<ol>
+	<li>DTP file formats are very complex internally &ndash; they are probably the most complex file formats. Creating import/export filters is a task far more difficult than importing a spreadsheet or simpler word processing document. An engineer familiar with the internal file format of PageMaker compared it to a 2m&nbsp;x&nbsp;3&nbsp;m flow chart diagram in 6 point type. It was not until the arrival of InDesign 2.0 that reliable PageMaker file import was possible in another DTP application, even though Adobe had the file format specs.</li>
+	<li>The file formats are not documented publically.</li>
+	<li>So, is it unethical/illegal to apply hexedit to an InDesign or XPress file to reverse engineer the file format with hexedit or others for the purpose of creating the export/import plugins for Scribus?<br/>Probably not, but given their closed nature, we cannot rule out the possibility of legal bullying by a commercial vendor, as we did from Quark when there was a Quark importer in testing. We do not have the legal resources to challenge large proprietary software companies. A German vendor of DTP software successfully reverse-engineered Quark&rsquo;s file format and created an import filter. It took a long legal battle for them to succeed.</li>
+	<li>Developer constraints. It is the considered judgement of the development team that efforts to improve Scribus is a more valuable use of time.</li>
+	<li>As an exception to the rule, we are open to implement publically available format specifications. For example, the XML version of InDesign's file format (IDML) is very well documented, and the spec is freely (i.e. without any legal restrictions that prevent the implementation of an import filter) available. Thus, a team member took the time and wrote an import filter, which is currently being tested. The same goes for formatted text snippets from QuarkXPress, called XPress Tags.</li>
+		</ol>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="16"></a>
+		<p class="faqquestion">Is there or will there be a Microsoft Publisher importer? </p>
+		<p>There is none and very unlikely to be provided by the Scribus Team. As with InDesign and QuarkXpress, the file format is undocumented. PUB files are difficult and sometimes impossible to reverse engineer.</p>
+		<p>As with InDesign or XPress, we are considering to implement a workaround: Newer versions of Publisher are capable of exporting to Microsoft's XML Paper Specification (XPS), which is freely available and can be implemented without any legal encumbrances. Thus, if time constraints permit, we may create XPS import/export filters. If you urgently need to exchange files with users of Publisher, you should consider to either get your hands dirty by writing the filters yourself or by paying someone to do so for you.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="17"></a>
+		<p class="faqquestion">So, how can I work with those who use other page layout applications?</p>
+		<p>Use EPS, PS, SVG or PDF as an exchange format. Scribus created PDFs can be easily imported into a number of commercial applications. SVG import is excellent for vector artwork. Scribus can import EPS files as long as they are conformant to the specs &ndash; this includes spot colors in DCS 2.0 files. The documentation has detailed notes covering these subjects. </p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+</ul>
+<p>The <a href="http://wiki.scribus.net/index.php/Category:FAQ">Scribus Wiki</a> has an additional FAQ.</p>
+</body>
+</html>

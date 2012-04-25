@@ -1,0 +1,41 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scripter Extensions API</title>
+</head>
+<body>
+<h2>Scripter Extensions API</h2>
+
+<p>See <a href="scripter-extensions.html">Scripter Extensions</a> for the
+theoretical background of these procedures and functions.</p>
+
+<dl>
+
+<dt><a name="-getChild"><strong>getChild</strong>(...)</a></dt>
+<dd><code>getChild(object, childname, ofclass=None, recursive=True)</code>
+<p>Return the first child of `object' named `childname', possibly restricting the search to children of type name `ofclass'. If `recursive' is true, search recursively through children, grandchildren, etc.</p></dd>
+
+<dt><a name="-getChildren"><strong>getChildren</strong>(...)</a></dt>
+<dd><code>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)</code>
+<p>Return a list of children of `object', possibly restricted to children of class named `ofclass' or children named `ofname'. If `recursive' is true, search recursively through children, grandchildren, etc. See QObject::children() in the Qt docs for more information.</p></dd>
+
+ <dt><a name="-getProperty"><strong>getProperty</strong>(...)</a></dt>
+<dd><code>getProperty(object, property)</code>
+<p>Return the value of the property `property' of the passed `object'. The `object' argument may be a string, in which case the named PageItem is searched for. It may also be a PyCObject, which may point to any C++ QObject instance. The `property' argument must be a string, and is the name of the property to look up on `object'. The return value varies depending on the type of the property.</p></dd>
+
+<dt><a name="-getPropertyCType"><strong>getPropertyCType</strong>(...)</a></dt>
+<dd><code>getPropertyCType(object, property, includesuper=True)</code>
+<p>Returns the name of the C type of `property' of `object'. See getProperty() for details of arguments. If `includesuper' is true, search inherited properties too.</p></dd>
+
+<dt><a name="-getPropertyNames"><strong>getPropertyNames</strong>(...)</a></dt>
+<dd><code>getPropertyNames(object, includesuper=True)</code>
+<p>Return a list of property names supported by `object'. If `includesuper' is true, return properties supported by parent classes as well.</p></dd>
+
+<dt><a name="-setProperty"><strong>setProperty</strong>(...)</a></dt>
+<dd><code>setProperty(object, property, value)</code>
+<p>Set `property' of `object' to `value'. If `value' cannot be converted to a type compatible with the type of `property', an exception is raised. An exception may also be raised if the underlying setter fails. See getProperty() for more information.</p></dd>
+
+</dl>
+
+</body>
+</html>

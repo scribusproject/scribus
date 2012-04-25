@@ -1,0 +1,63 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Color related Commands</title>
+</head>
+<body>
+<h2>Color related Commands</h2>
+
+<dl>
+
+<dt><a name="-changeColor"><strong>changeColor</strong></a>(...)</dt>
+<dd><code>changeColor("name", c, m, y, k)</code>
+<p>Changes the color "name" to the specified CMYK value. The color value is defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-defineColor"><strong>defineColor</strong></a>(...)</dt>
+<dd><code>defineColor("name", c, m, y, k)</code>
+<p>Defines a new color "name". The color Value is defined via four components: c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>
+<dd><code>deleteColor("name", "replace")</code>
+<p>Deletes the color "name". Every occurence of that color is replaced by the color "replace". If not specified, "replace" defaults to the color "None" - transparent.</p>
+<p>deleteColor works on the default document colors if there is no document open. In that case, "replace", if specified, has no effect.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if a named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-getColor"><strong>getColor</strong></a>(...)</dt>
+<dd><code>getColor("name") -&gt; tuple</code>
+<p>Returns a tuple (C, M, Y, K) containing the four color components of the color "name" from the current document. If no document is open, returns the value of the named color from the default document colors.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-getColorAsRGB"><strong>getColorAsRGB</strong>(...)</a></dt>
+<dd><code>getColorAsRGB("name") -&gt; tuple</code>
+<p>Returns a tuple (R,G,B) containing the three color components of the color "name" from the current document, converted to the RGB color space. If no document is open, returns the value of the named color from the default document colors.</p>
+<p>May raise NotFoundError if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
+<dd><code>getColorNames() -&gt; list</code>
+<p>Returns a list containing the names of all defined colors in the document. If no document is open, returns a list of the default document colors.</p></dd>
+
+<dt><a name="-isSpotColor"><strong>isSpotColor</strong></a>(...)</dt>
+<dd><code>isSpotColor("name") -&gt; bool</code>
+<p>Returns True if the color "name" is a spot color.</p>
+<p>See also setSpotColor()</p>
+<p>May raise NotFoundError if a named color wasn't found.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
+<dd><code>replaceColor("name", "replace")</code>
+<p>Every occurence of the color "name" is replaced by the color "replace".</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if a named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-setSpotColor"><strong>setSpotColor</strong></a>(...)</dt>
+<dd><code>setSpotColor("name", spot)</code>
+<p>Set the color "name" as a spot color if spot parameter is True.</p>
+<p>See also isSpotColor().</p>
+<p>May raise NotFoundError if a named color wasn't found.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
+</dl>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Predefined Constants</title>
+</head>
+<body>
+<h2>Predefined Constants</h2>
+
+<p>There are some Constants defined to help using the Commands: </p>
+
+<h4>Scribus Version:</h4>
+	<p>The script interface provides two variables containing the current Scribus version in the <code>scribus</code> module. Scripts can use these variables to check that they're running under the version of Scribus they expect, and to report information about incompatibilities to the user. These two variables, <code>scribus_version</code> and <code>scribus_version_info</code>, were added in 1.2.1 and 1.3.0svn and will not be present in earlier versions. If you need to, you can check for their presence with <code>hasattr(scribus, 'scribus_version')</code>.</p>
+	<p><code>scribus_version</code> contains the current Scribus version as a string. It will usually look like <code>'1.2.1svn'</code> or <code>'1.3.0'</code>, for example, but is not guaranteed to always follow that format. This variable is useful when you need to display the version to the user, for example when reporting an incompatibility. Do not parse or compare this variable, that is what <code>scribus_version_info</code> is for.</p>
+	<p><code>scribus_version_info</code> is a tuple similar to the <code>sys.version_info</code> tuple provided by Python. It is a tuple of the form (majorversion, minorversion, patchlevel, extraversion, build) for example, 1.2.1svn will have <code>(1,2,1,'svn',0)</code> and 1.3.2 will have <code>(1,3,2,'',0)<code> . These tuples are ideal for checking for minimum versions, etc, because Python compares tuples element-by-element, left-to-right. For example:</p>
+<pre>
+if scribus.scribus_version_info[:3] &lt; (1,2,2):
+    messageBox("Scribus - Python script",
+        "This script requires Scribus 1.2.2 or newer. "+\
+        "You're running %s." % scribus.scribus_version,
+        ICON_CRITICAL)
+    sys.exit()
+</pre>
+
+<h4>Unit Enumeration Constants: </h4>
+<dl>
+	<dt>UNIT_POINTS</dt>
+	<dd>Measurement Unit Point = 0</dd>
+	<dt>UNIT_MILLIMETERS</dt>
+	<dd>Measurement Unit Millimeter = 1</dd>
+	<dt>UNIT_INCHES</dt>
+	<dd>Measurement Unit Inch = 2</dd>
+	<dt>UNIT_PICAS</dt>
+	<dd>Measurement Unit Pica = 3</dd>
+</dl>
+
+<h4>Unit Conversion Constants</h4>
+
+<p>These conversion factors can be used to convert units to and from points.
+Thus, to convert inches to points, you can simply write 'value/inch', to
+convert points to inches you write 'value*inch', and to convert inches to mm
+you write 'value*mm/inch' .</p>
+
+<dl>
+	<dt>pt</dt>
+	<dd>points in 1 pt</dd>
+	<dt>inch</dt>
+	<dd>inches in 1 pt</dt>
+	<dt>p</dt>
+	<dt>pica in 1 pt</dt>
+	<dt>cm<dt>
+	<dt>centimetres in 1 pt</dt>
+	<dt>mm</dt>
+	<dt>millimetres in 1 pt</dt>
+	<dt>...</dt>
+	<dt>Other constants will be provided if the Scribus core knows about them.</dt>
+</dl>
+
+<h4>Page Orientation Definitions: </h4>
+<dl>
+	<dt>PORTRAIT</dt>
+	<dd>Pageformat Portrait = 0</dd>
+	<dt>LANDSCAPE</dt>
+	<dd>Pageformat Landscape = 1</dd>
+</dl>
+
+<h4>Definitions for Page Formats: </h4>
+<dl>
+	<dt>PAPER_A0</dt>
+	<dd>Paperformat A0 = 2380 x 3368 Points</dd>
+	<dt>PAPER_A1</dt>
+	<dd>Paperformat A1 = 1684 x 2380 Points</dd>
+	<dt>PAPER_A2</dt>
+	<dd>Paperformat A2 = 1190 x 1684 Points</dd>
+	<dt>PAPER_A3</dt>
+	<dd>Paperformat A3 = 842 x 1190 Points</dd>
+	<dt>PAPER_A4</dt>
+	<dd>Paperformat A4 = 595 x 842 Points</dd>
+	<dt>PAPER_A5</dt>
+	<dd>Paperformat A5 = 421 x 595 Points</dd>
+	<dt>PAPER_A6</dt>
+	<dd>Paperformat A6 = 297 x 421 Points</dd>
+	<dt>PAPER_A7</dt>
+	<dd>Paperformat A7 = 210 x 297 Points</dd>
+	<dt>PAPER_A8</dt>
+	<dd>Paperformat A8 = 148 x 210 Points</dd>
+	<dt>PAPER_A9</dt>
+	<dd>Paperformat A9 = 105 x 148 Points</dd>
+	<dt>PAPER_B0</dt>
+	<dd>Paperformat B0 = 2836 x 4008 Points</dd>
+	<dt>PAPER_B1</dt>
+	<dd>Paperformat B1 = 2004 x 2836 Points</dd>
+	<dt>PAPER_B2</dt>
+	<dd>Paperformat B2 = 1418 x 2004 Points</dd>
+	<dt>PAPER_B3</dt>
+	<dd>Paperformat B3 = 1002 x 1418 Points</dd>
+	<dt>PAPER_B4</dt>
+	<dd>Paperformat B4 = 709 x 1002 Points</dd>
+	<dt>PAPER_B5</dt>
+	<dd>Paperformat B5 = 501 x 709 Points</dd>
+	<dt>PAPER_B6</dt>
+	<dd>Paperformat B6 = 355 x 501 Points</dd>
+	<dt>PAPER_B7</dt>
+	<dd>Paperformat B7 = 250 x 355 Points</dd>
+	<dt>PAPER_B8</dt>
+	<dd>Paperformat B8 = 178 x 250 Points</dd>
+	<dt>PAPER_B9</dt>
+	<dd>Paperformat B9 = 125 x 178 Points</dd>
+	<dt>PAPER_B10</dt>
+	<dd>Paperformat B10 = 89 x 125 Points</dd>
+	<dt>PAPER_C5E</dt>
+	<dd>Paperformat C5E = 462 x 649 Points</dd>
+	<dt>PAPER_COMM10E</dt>
+	<dd>Paperformat Comm10E = 298 x 683 Points</dd>
+	<dt>PAPER_DLE</dt>
+	<dd>Paperformat DLE = 312 x 624 Points</dd>
+	<dt>PAPER_EXECUTIVE</dt>
+	<dd>Paperformat Executive = 542 x 720 Points</dd>
+	<dt>PAPER_FOLIO</dt>
+	<dd>Paperformat Folio = 595 x 935 Points</dd>
+	<dt>PAPER_LEDGER</dt>
+	<dd>Paperformat Ledger = 1224 x 792 Points</dd>
+	<dt>PAPER_LEGAL</dt>
+	<dd>Paperformat Legal = 612 x 1008 Points</dd>
+	<dt>PAPER_LETTER</dt>
+	<dd>Paperformat Letter = 612 x 792 Points</dd>
+	<dt>PAPER_TABLOID</dt>
+	<dd>Paperformat Tabloid = 792 x 1224 Points</dd>
+</dl>
+
+<h4>Definitions for Document Layout:</h4>
+<dl>
+	<dt>FACINGPAGES</dt>
+	<dd>Layout with facing Pages.</dd>
+	<dt>NOFACINGPAGES</dt>
+	<dd>Normal Layout of the Document.</dd>
+	<dt>FIRSTPAGELEFT</dt>
+	<dd>The first Page of the Document is a left Page.</dd>
+	<dt>FIRSTPAGERIGHT</dt>
+	<dd>The first Page of the Document is a right Page.</dd>
+</dl>
+
+<h4>Alignment Definitions </h4>
+<dl>
+	<dt>ALIGN_LEFTK</dt>
+	<dd>Text is aligned to the Left.</dd>
+	<dt>ALIGN_CENTERED</dt>
+	<dd>The Text is centered in the Textframe.</dd>
+	<dt>ALIGN_RIGHT</dt>
+	<dd>The Text is aligned to the Right Side of the Textframe</dd>
+	<dt>ALIGN_FORCED</dt>
+	<dd>The Text has forced Alignment</dd>
+  	<dt>ALIGN_BLOCK</dt>
+	<dd>The Text has block Alignment</dd>
+</dl>
+
+<h4>Line related Definitions: </h4>
+<dl>
+    <dt>LINE_DASH</dt>
+    <dt>LINE_DASHDOT</dt>
+    <dt>LINE_DASHDOTDOT</dt>
+    <dt>LINE_DOT</dt>
+    <dt>LINE_SOLID</dt>
+    <dt>JOIN_BEVEL</dt>
+    <dt>JOIN_MITTER</dt>
+    <dt>JOIN_ROUND</dt>
+    <dt>CAP_FLAT</dt>
+    <dt>CAP_ROUND</dt>
+    <dt>CAP_SQUARE</dt>
+</dl>
+
+<h4>Fill related Definitions: </h4>
+<dl>
+	<dt>FILL_NOG</dt>
+    <dd>No gradient, plain color</dd>
+	<dt>FILL_HORIZONTALG</dt>
+	<dt>FILL_VERTICALG</dt>
+	<dt>FILL_DIAGONALG</dt>
+	<dt>FILL_CROSSDIAGONALG</dt>
+	<dt>FILL_RADIALG</dt>
+</dl>
+
+<h4>Dialog Buttons</h4>
+<dl>
+    <dt>BUTTON_ABORT</dt>
+    <dt>BUTTON_CANCEL</dt>
+    <dt>BUTTON_IGNORE</dt>
+    <dt>BUTTON_NO</dt>
+    <dt>BUTTON_NONE</dt>
+    <dt>BUTTON_OK</dt>
+    <dt>BUTTON_RETRY</dt>
+    <dt>BUTTON_YES</dt>
+</dl>
+
+<h4>Dialog Icons</h4>
+<dl>
+    <dt>ICON_CRITICAL</dt>
+    <dt>ICON_INFORMATION</dt>
+    <dt>ICON_NONE</dt>
+    <dt>ICON_WARNING</dt>
+</dl>
+
+</body>
+</html>
